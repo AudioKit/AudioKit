@@ -47,7 +47,7 @@ class AudioEngine {
 //:
 //: In AudioKit playgrounds, failable initializers are just one line:
 let file = try AKAudioFile()
-var player = try AKAudioPlayer(file: file)
+var player = AKPlayer(audioFile: file)
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
