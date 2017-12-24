@@ -113,16 +113,13 @@ class ViewController: UIViewController {
         case .recording :
             // Microphone monitoring is muted
             micBooster.gain = 0
-            do {
-                try player.reloadFile()
-            } catch { print("Errored reloading.") }
+            player.load(audioFile: tape)
 
-            let recordedDuration = player != nil ? player.audioFile.duration  : 0
-            if recordedDuration > 0.0 {
+            if let _ = player.audioFile?.duration {
                 recorder.stop()
-                player.audioFile.exportAsynchronously(name: "TempTestFile.m4a",
-                                                      baseDir: .documents,
-                                                      exportFormat: .m4a) {_, exportError in
+                tape.exportAsynchronously(name: "TempTestFile.m4a",
+                                          baseDir: .documents,
+                                          exportFormat: .m4a) {_, exportError in
                     if let error = exportError {
                         print("Export Failed \(error)")
                     } else {
@@ -163,8 +160,8 @@ class ViewController: UIViewController {
     }
 
     func setupUIForPlaying () {
-        let recordedDuration = player != nil ? player.audioFile.duration  : 0
-        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration)) seconds"
+        let recordedDuration = player != nil ? player.audioFile?.duration  : 0
+        infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration!)) seconds"
         mainButton.setTitle("Play", for: .normal)
         state = .readyToPlay
         resetButton.isHidden = false
