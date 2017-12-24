@@ -14,7 +14,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
 
     static let sharedInstance = SongProcessor()
 
-    var iTunesFilePlayer: AKAudioPlayer?
+    var iTunesFilePlayer: AKPlayer?
     var variableDelay = AKDelay()  //Was AKVariableDelay, but it wasn't offline render friendly!
     var delayMixer = AKDryWetMixer()
     var moogLadder = AKMoogLadder()
@@ -27,7 +27,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     var bitCrushMixer = AKDryWetMixer()
     var playerBooster = AKBooster()
     var offlineRender = AKOfflineRenderNode()
-    var players = [String: AKAudioPlayer]()
+    var players = [String: AKPlayer]()
     var playerMixer = AKMixer()
 
     fileprivate var docController: UIDocumentInteractionController?
@@ -64,7 +64,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         for name in ["bass", "drum", "guitar", "lead"] {
             do {
                 let audioFile = try AKAudioFile(readFileName: name+"loop.wav", baseDir: .resources)
-                players[name] = try AKAudioPlayer(file: audioFile, looping: true)
+                players[name] = AKPlayer(audioFile: audioFile, isLooping: true)
                 players[name]?.connect(to: playerMixer)
             } catch {
                 fatalError(String(describing: error))
@@ -126,7 +126,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     func stopLoops() {
         playersDo { $0.stop() }
     }
-    func playersDo(_ action: @escaping (AKAudioPlayer) -> Void) {
+    func playersDo(_ action: @escaping (AKPlayer) -> Void) {
         for player in players.values { action(player) }
     }
     private class func twoRendersFromNow() -> AVAudioTime {

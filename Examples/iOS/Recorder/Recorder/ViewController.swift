@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
-    var player: AKAudioPlayer!
+    var player: AKPlayer!
     var tape: AKAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
@@ -71,9 +71,9 @@ class ViewController: UIViewController {
         micBooster.gain = 0
         recorder = try? AKNodeRecorder(node: micMixer)
         if let file = recorder.audioFile {
-            player = try? AKAudioPlayer(file: file)
+            player = AKPlayer(audioFile: file)
         }
-        player.looping = true
+        player.isLooping = true
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
