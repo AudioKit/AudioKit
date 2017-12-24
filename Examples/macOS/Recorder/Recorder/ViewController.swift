@@ -38,7 +38,7 @@ class ViewController: NSViewController {
         if let file = recorder.audioFile {
             player = AKPlayer(audioFile: file)
         }
-        player.looping = true
+        player.isLooping = true
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
