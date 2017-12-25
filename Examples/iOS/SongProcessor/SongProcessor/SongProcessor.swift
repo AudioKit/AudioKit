@@ -14,7 +14,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
 
     static let sharedInstance = SongProcessor()
 
-    var iTunesFilePlayer: AKAudioPlayer?
+    var iTunesFilePlayer: AKPlayer?
     var variableDelay = AKDelay()  //Was AKVariableDelay, but it wasn't offline render friendly!
     var delayMixer = AKDryWetMixer()
     var moogLadder = AKMoogLadder()
@@ -27,7 +27,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     var bitCrushMixer = AKDryWetMixer()
     var playerBooster = AKBooster()
     var offlineRender = AKOfflineRenderNode()
-    var players = [String: AKAudioPlayer]()
+    var players = [String: AKPlayer]()
     var playerMixer = AKMixer()
 
     fileprivate var docController: UIDocumentInteractionController?
@@ -64,7 +64,8 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
         for name in ["bass", "drum", "guitar", "lead"] {
             do {
                 let audioFile = try AKAudioFile(readFileName: name+"loop.wav", baseDir: .resources)
-                players[name] = try AKAudioPlayer(file: audioFile, looping: true)
+                players[name] = AKPlayer(audioFile: audioFile)
+                players[name]?.isLooping = true
                 players[name]?.connect(to: playerMixer)
             } catch {
                 fatalError(String(describing: error))
@@ -117,7 +118,8 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     }
 
     func rewindLoops() {
-        playersDo { $0.schedule(from: 0, to: $0.duration, avTime: nil)}
+        playersDo { $0.play(from: 0) }
+//        playersDo { $0.schedule(from: 0, to: $0.duration, avTime: nil)}
     }
     func playLoops(at when: AVAudioTime? = nil) {
         let startTime = when ?? SongProcessor.twoRendersFromNow()
@@ -126,7 +128,7 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
     func stopLoops() {
         playersDo { $0.stop() }
     }
-    func playersDo(_ action: @escaping (AKAudioPlayer) -> Void) {
+    func playersDo(_ action: @escaping (AKPlayer) -> Void) {
         for player in players.values { action(player) }
     }
     private class func twoRendersFromNow() -> AVAudioTime {
@@ -148,7 +150,8 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
             throw NSError(domain: "SongProcessor", code: 1, userInfo: [NSLocalizedDescriptionKey: "Target itunes but no player exists"])
         }
         let duration = player.duration
-        player.schedule(from: 0, to: duration, avTime: nil)
+        player.play(from: 0)
+//        player.schedule(from: 0, to: duration, avTime: nil)
         let timeZero = AVAudioTime(sampleTime: 0, atRate: offlineRender.avAudioNode.inputFormat(forBus: 0).sampleRate)
 
         player.play(at:timeZero)

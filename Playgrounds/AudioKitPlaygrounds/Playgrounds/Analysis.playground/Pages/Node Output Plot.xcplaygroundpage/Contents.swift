@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav")
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var delay = AKDelay(player)
 

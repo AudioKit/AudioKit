@@ -13,7 +13,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
@@ -47,7 +47,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKAudioPlayer,
+    public convenience init(player: AKPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)
@@ -58,15 +58,19 @@ public class AKResourcesAudioFileLoaderView: NSView {
     /// Handle click
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
-        guard let isPlayerPlaying = player?.isPlaying else {
-            return
-        }
+        guard let player = player else { return }
+        let wasPlaying = player.isPlaying
+        player.stop()
+
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if stopOuterPath.contains(touchLocation) {
-            player?.stop()
+            //player?.stop()
+            return
         }
         if playOuterPath.contains(touchLocation) {
-            player?.play()
+            Swift.print("Playing from: \(player.startTime)")
+            player.play(from: player.startTime)
+            return
         }
         if upOuterPath.contains(touchLocation) {
             currentIndex -= 1
@@ -80,16 +84,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if currentIndex >= titles.count { currentIndex = 0 }
 
         if isFileChanged {
-            player?.stop()
+            player.stop()
             let filename = titles[currentIndex]
-            if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                do {
-                    try player?.replace(file: file)
-                } catch {
-                    Swift.print("Could not replace file")
-                }
+            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
+                Swift.print("Unable to load file: \(filename)")
+                return
             }
-            if isPlayerPlaying { player?.play() }
+            player.load(audioFile: file)
+            if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
     }
@@ -294,7 +296,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
             with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
-            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(
             x: nameLabelInset.minX,

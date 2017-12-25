@@ -122,7 +122,7 @@ inline StkFloat BlitSquare ::tick(void) {
   // at the sinc peak, which has a limiting value of 1.0.
   StkFloat denominator = sin(phase_);
   if (fabs(denominator) < std::numeric_limits<StkFloat>::epsilon()) {
-    // Inexact comparison safely distinguishes betwen *close to zero*, and
+    // Inexact comparison safely distinguishes between *close to zero*, and
     // *close to PI*.
     if (phase_ < 0.1f || phase_ > TWO_PI - 0.1f)
       lastBlitOutput_ = a_;

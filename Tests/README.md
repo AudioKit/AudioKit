@@ -4,7 +4,7 @@
 
 We ensure all the included projects build by automatically testing them using Travis Continuous Integration.  We use unit tests to ensure that the nodes and operations in AudioKit work perfectly.  If a change is made to AudioKit to breaks something, we're automatically emailed.
 
-Running the [test suite](https://github.com/AudioKit/AudioKit/tree/develop/AudioKit/Common/Tests) verifies the following test cases:
+Running the tests verifies the following test cases:
 <table>
 <tr>
 <th>Node Tests</th>
@@ -361,7 +361,7 @@ AKTanhDistortionTests
     ✓ testNegativeShapeParameter
     ✓ testParameters
     ✓ testPostgain
-    ✓ testPostiveShapeParameter
+    ✓ testPositiveShapeParameter
     ✓ testPregain
 
 AKThreePoleLowpassFilterTests

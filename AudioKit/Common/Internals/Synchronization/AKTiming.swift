@@ -12,33 +12,93 @@
     /// Starts playback at a specific time.
     /// - Parameter audioTime: A time in the audio render context.
     ///
-    func play(at audioTime: AVAudioTime?)
+    @objc func start(at audioTime: AVAudioTime?)
 
     /// Stops playback immediately.
-    func stop()
+    @objc func stop()
 
-    /// Start playback immediately.
-    func play()
+    var isStarted: Bool { get }
 
-    /// Set time in playback timeline (seconds).
-    func setTime(_ time: Double)
+    /// Set position in playback timeline (seconds).
+    @objc func setPosition(_ position: Double)
 
     /// Timeline time at an audio time
     /// - Parameter audioTime: A time in the audio render context.
-    /// - Return: Time in the timeline context (seconds).
+    /// - Return: Position in the timeline context (seconds).
     ///
-    func time(atAudioTime audioTime: AVAudioTime?) -> Double
+    @objc(positionAtAudioTime:)
+    func position(at audioTime: AVAudioTime?) -> Double
 
     /// Audio time at timeline time
-    /// - Parameter time: Time in the timeline context (seconds).
+    /// - Parameter position: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
-    func audioTime(atTime time: Double) -> AVAudioTime?
+    @objc(audioTimeAtPosition:)
+    func audioTime(at position: Double) -> AVAudioTime?
+
+    /// Prepare for playback.  After prepare has been called, the node should be ready to begine playback immediately.
+    /// Any time consuming operations necessary for playback (eg. disk reads) should be complete once prepare has been called.
+    ///
+    @objc optional func prepare()
+
+}
+
+extension AKTiming {
+    /**
+     Starts an array of AKTimings at a position.
+
+     Nodes are stopped, positions are set, then prepare is called (optional) on each node to allow
+     for time consuming activities like reading from disk or buffering. Then, a future time is
+     calculated using the last render timestamp (or now) + 2 render cycles to ensure synchronous start.
+
+     - Parameter nodes: The nodes that will be synchronously started.
+     - Parameter position: The position of the nodes when started.
+     - Returns: The audioTime (in the future) that the nodes will be started at.
+     */
+    static func syncStart(_ nodes: [AKTiming], at position: Double = 0) -> AVAudioTime {
+        for node in nodes {
+            node.stop()
+            node.setPosition(position)
+            node.prepare?()
+        }
+
+        let bufferDuration = AKSettings.ioBufferDuration
+        let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+        let startTime = referenceTime + bufferDuration
+        for node in nodes {
+            node.start(at: startTime)
+        }
+
+        return startTime
+    }
+
+    /**
+     Starts playback with position syncronized to an already running node.
+     - Parameter other: An already started AKTiming that position will be synchronized with.
+     - Parameter audioTime: Future time in the audio render context that playback should begin.
+     */
+    func synchronizeWith(other: AKTiming, at audioTime: AVAudioTime? = nil) {
+        stop()
+        guard other.isStarted else {
+            return
+        }
+
+        // If audioTime is nil, start playback 2 render cycles in the future.
+        var startTime = audioTime
+        if startTime == nil {
+            let bufferDuration = AKSettings.ioBufferDuration
+            let referenceTime = AudioKit.engine.outputNode.lastRenderTime ?? AVAudioTime.now()
+            startTime = referenceTime + bufferDuration
+        }
+
+        setPosition(other.position(at: startTime))
+        start(at: startTime)
+    }
 
 }
 
 /// An AKTiming implementation that uses a node for it's render time info.
-open class AKNodeTiming: NSObject, AKTiming {
+open class AKNodeTiming: NSObject {
 
     /// An output node used for tming info.
     open weak var node: AKOutput?
@@ -52,54 +112,13 @@ open class AKNodeTiming: NSObject, AKTiming {
 
     /// The current time in the timeline (seconds).
     open var currentTime: Double {
-        get { return time(atAudioTime: nil) }
-        set { setTime(newValue) }
-    }
-
-    /// Sets the current time in the timeline (seconds).
-    open func setTime(_ time: Double) {
-        stop()
-        idleTime = time
-    }
-
-    /// Timeline time at an audio time
-    /// - Parameter audioTime: A time in the audio render context.
-    /// - Return: Time in the timeline context (seconds).
-    ///
-    open func time(atAudioTime audioTime: AVAudioTime?) -> Double {
-        guard let baseTime = baseTime else {
-            return idleTime
-        }
-        let refTime = audioTime ?? AVAudioTime.now()
-        return refTime.timeIntervalSince(otherTime: baseTime) ?? idleTime
-    }
-
-    /// Audio time at timeline time
-    /// - Parameter time: Time in the timeline context (seconds).
-    /// - Return: A time in the audio render context.
-    ///
-    open func audioTime(atTime time: Double) -> AVAudioTime? {
-        return baseTime?.offset(seconds: time)
-    }
-
-    /// Starts playback at a specific time.
-    /// - Parameter audioTime: A time in the audio render context.
-    ///
-    open func play(at audioTime: AVAudioTime?) {
-        guard !isPlaying,
-            let lastRenderTime = node?.outputNode.lastRenderTime else {
-                return
-        }
-        baseTime = audioTime?.offset(seconds: -idleTime).extrapolateTimeShimmed(fromAnchor: lastRenderTime)
-        baseTime = baseTime ?? lastRenderTime.offset(seconds: AKSettings.ioBufferDuration)
-    }
-    open var isPlaying: Bool {
-        return baseTime != nil
+        get { return position(at: nil) }
+        set { setPosition(newValue) }
     }
 
     /// Start playback immediately.
-    open func play() {
-        play(at: nil)
+    open func start() {
+        start(at: nil)
     }
 
     /// Stops playback immediately.
@@ -115,5 +134,35 @@ open class AKNodeTiming: NSObject, AKTiming {
     /// - Parameter node: A node to be used for timing information.
     public init(node: AKOutput) {
         self.node = node
+    }
+
+}
+
+extension AKNodeTiming: AKTiming {
+    public var isStarted: Bool {
+        return baseTime != nil
+    }
+    open func position(at audioTime: AVAudioTime?) -> Double {
+        guard let baseTime = baseTime else {
+            return idleTime
+        }
+        let refTime = audioTime ?? AVAudioTime.now()
+        return refTime.timeIntervalSince(otherTime: baseTime) ?? idleTime
+    }
+
+    open func audioTime(at position: Double) -> AVAudioTime? {
+        return baseTime?.offset(seconds: position)
+    }
+    open func start(at audioTime: AVAudioTime?) {
+        guard !isStarted,
+            let lastRenderTime = node?.outputNode.lastRenderTime else {
+                return
+        }
+        baseTime = audioTime?.offset(seconds: -idleTime).extrapolateTimeShimmed(fromAnchor: lastRenderTime)
+        baseTime = baseTime ?? lastRenderTime.offset(seconds: AKSettings.ioBufferDuration)
+    }
+    open func setPosition(_ position: Double) {
+        stop()
+        idleTime = position
     }
 }

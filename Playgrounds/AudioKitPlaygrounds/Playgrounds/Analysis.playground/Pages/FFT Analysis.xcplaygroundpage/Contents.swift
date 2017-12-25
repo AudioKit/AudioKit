@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "leadloop.wav")
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 AudioKit.output = player
 AudioKit.start()

@@ -13,6 +13,7 @@ import UIKit
 class ViewController: UIViewController, AKKeyboardDelegate {
 
     let oscillator = AKOscillatorBank()
+    var transportView: CAInterAppAudioTransportView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,12 @@ class ViewController: UIViewController, AKKeyboardDelegate {
         keyboardView.delegate = self
 
         stackView.addArrangedSubview(keyboardView)
+
+        let rect = CGRect(x: 0, y: 0, width: 300, height: 20)
+        transportView = CAInterAppAudioTransportView(frame: rect)
+        transportView?.setOutputAudioUnit(AudioKit.engine.outputNode.audioUnit!)
+
+        stackView.addArrangedSubview(transportView!)
 
         view.addSubview(stackView)
 

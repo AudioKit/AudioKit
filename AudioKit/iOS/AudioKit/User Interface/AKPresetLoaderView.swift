@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
-/// Preset view scoller
+/// Preset view scroller
 @IBDesignable open class AKPresetLoaderView: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0

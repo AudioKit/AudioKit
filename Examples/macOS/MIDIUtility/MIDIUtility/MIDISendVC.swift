@@ -10,7 +10,7 @@ import AudioKit
 import Cocoa
 
 class MIDISenderVC: NSViewController {
-    let midiOut = AKMIDI()
+    let midiOut = AudioKit.midi
 
     @IBOutlet var noteNumField: NSTextField!
     @IBOutlet var noteVelField: NSTextField!

@@ -50,7 +50,7 @@ class Conductor: AKMIDIListener {
         AudioKit.start()
         Audiobus.start()
 
-        let midi = AKMIDI()
+        let midi = AudioKit.midi
         midi.createVirtualPorts()
         midi.openInput("Session 1")
         midi.addListener(self)

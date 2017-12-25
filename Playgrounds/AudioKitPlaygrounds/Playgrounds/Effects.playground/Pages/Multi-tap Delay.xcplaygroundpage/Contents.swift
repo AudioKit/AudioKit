@@ -10,8 +10,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: In AudioKit, you can create a multitap easily through creating a function
 //: that mixes together several delays and gains.

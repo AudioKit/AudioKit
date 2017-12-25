@@ -13,7 +13,7 @@
 @interface AKTanhDistortionAudioUnit : AKAudioUnit
 @property (nonatomic) float pregain;
 @property (nonatomic) float postgain;
-@property (nonatomic) float postiveShapeParameter;
+@property (nonatomic) float positiveShapeParameter;
 @property (nonatomic) float negativeShapeParameter;
 @end
 

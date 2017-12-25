@@ -5,8 +5,8 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AVFoundation
+import Cocoa
 
 class AudioUnitParamSlider: NSView {
 
@@ -16,25 +16,26 @@ class AudioUnitParamSlider: NSView {
     private var slider = NSSlider()
     private var valueField: NSTextField?
 
-    convenience init( audioUnit: AVAudioUnit, param: AUParameter ) {
+    convenience init(audioUnit: AVAudioUnit, param: AUParameter) {
         self.init()
 
         self.audioUnit = audioUnit
-        self.key = param.address
+        key = param.address
 
         let titleField = createLabel(string: param.displayName)
         titleField.frame = NSRect(x: 0, y: 0, width: 120, height: 20)
         addSubview(titleField)
 
-        self.slider.action = #selector( self.handleAction(_:) )
-        self.slider.target = self
+        slider.action = #selector(handleAction(_:))
+        slider.target = self
         slider.frame = NSRect(x: 122, y: 2, width: 100, height: 20)
         addSubview(slider)
 
-        valueField = createLabel(string: String(param.value))
-        valueField!.alignment = .left
-        valueField!.frame = NSRect(x: 224, y: 2, width: 28, height: 20)
-        addSubview(valueField!)
+        let field = createLabel(string: String(param.value))
+        field.alignment = .left
+        field.frame = NSRect(x: 224, y: 2, width: 28, height: 20)
+        addSubview(field)
+        valueField = field
 
         if let unitName = param.unitName {
             let unitsField = createLabel(string: unitName)
@@ -44,10 +45,11 @@ class AudioUnitParamSlider: NSView {
         }
         frame = NSRect(x: 0, y: 0, width: 352, height: 20)
 
-        guard key != nil else { return }
+        guard let key = key else { return }
+
         DispatchQueue.main.async {
             // need to refetch the param as it's dispatched later and the reference dies
-            if let p = self.getParam(withAddress: self.key!) {
+            if let p = self.getParam(withAddress: key) {
                 self.slider.floatValue = p.value
                 self.slider.maxValue = Double(p.maxValue)
                 self.slider.minValue = Double(p.minValue)
@@ -62,7 +64,7 @@ class AudioUnitParamSlider: NSView {
         return audioUnit?.auAudioUnit.parameterTree?.parameter(withAddress: theKey)
     }
 
-    private func createLabel( string: String ) -> NSTextField {
+    private func createLabel(string: String) -> NSTextField {
         let tf = NSTextField()
         tf.isSelectable = false
         tf.isBordered = false
@@ -80,10 +82,10 @@ class AudioUnitParamSlider: NSView {
 
     @objc func handleAction(_ sender: NSSlider) {
         guard sender == slider else { return }
-        guard key != nil else { return }
+        guard let key = key else { return }
 
-        if let p = getParam(withAddress: key!) {
-            //Swift.print("p: \(p)")
+        if let p = getParam(withAddress: key) {
+            // Swift.print("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
                 field.stringValue = "\(round2(slider.floatValue, decimalPlaces: 3))"
@@ -92,8 +94,8 @@ class AudioUnitParamSlider: NSView {
     }
 
     func updateValue() {
-        guard key != nil else { return }
-        if let p = getParam(withAddress: key!) {
+        guard let key = key else { return }
+        if let p = getParam(withAddress: key) {
             slider.floatValue = p.value
         }
     }
