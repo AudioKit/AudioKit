@@ -185,6 +185,9 @@ open class AKAudioUnitManager: NSObject {
     public override init() {
         super.init()
 
+        // regardless of how they're organized above, this'll sort them out
+        internalAudioUnits.sort()
+
         // Sign up for a notification when the list of available components changes.
         NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
                                                object: nil,
@@ -268,6 +271,8 @@ open class AKAudioUnitManager: NSObject {
             /// Make a component description matching any AU of the type.
             self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching:
                 AKAudioUnitManager.ComponentDescription)
+
+            self.availableInstruments = self.availableInstruments.sorted { $0.name < $1.name }
 
             // Let the UI know that we have an updated list of units.
             DispatchQueue.main.async {
