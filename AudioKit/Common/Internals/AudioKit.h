@@ -158,3 +158,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "EZAudioPlot.h"
 #import "EZAudioPlotGL.h"
 #endif
+
+// Swift/ObjC/C/C++ Inter-operability
+#import "AKInterop.h"

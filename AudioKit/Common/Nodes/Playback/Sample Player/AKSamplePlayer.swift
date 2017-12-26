@@ -44,13 +44,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.startPoint = Float(safeSample(newValue))
-                }
+                internalAU?.startPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -60,13 +54,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.endPoint = Float(safeSample(newValue))
-                }
+                internalAU?.endPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -75,13 +63,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
             if loopStartPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopStartPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopStartPoint = Float(safeSample(newValue))
-                }
+                internalAU?.loopStartPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -90,13 +72,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        loopEndPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.loopEndPoint = Float(safeSample(newValue))
-                }
+                internalAU?.loopEndPoint = Float(safeSample(newValue))
             }
         }
     }
@@ -168,6 +144,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var avAudiofile: AVAudioFile
     fileprivate var maximumSamples: Int = 0
 
+    open var completionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.completionHandler = newValue
+        }
+    }
+
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
@@ -195,6 +177,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         self.avAudiofile = file
         self.endPoint = Sample(avAudiofile.samplesCount)
         self.maximumSamples = maximumSamples
+        self.completionHandler = completionHandler
 
         _Self.register()
 
@@ -260,22 +243,27 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Play from a certain sample
-    open func play(from: Sample = 0) {
-        startPoint = from
+    open func play() {
+        start()
+    }
+
+    /// Play from a certain sample
+    open func play(from: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample = 0, length: Sample = 0) {
-        startPoint = from
-        endPoint = startPoint + length
+    open func play(from: Sample, length: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample = 0, to: Sample = 0) {
-        startPoint = from
-        endPoint = to
+    open func play(from: Sample, to: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(to))
         start()
     }
 

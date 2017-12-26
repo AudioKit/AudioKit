@@ -14,6 +14,6 @@
 @property (nonatomic) float threshold;
 @property (nonatomic) float attackTime;
 @property (nonatomic) float releaseTime;
-@property (nonatomic) float rageAmount;
+@property (nonatomic) float rage;
 @property (nonatomic) BOOL rageIsOn;
 @end

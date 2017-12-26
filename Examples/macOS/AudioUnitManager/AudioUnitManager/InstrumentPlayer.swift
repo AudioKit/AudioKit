@@ -30,8 +30,8 @@ public class InstrumentPlayer: NSObject {
     }
 
     internal init?(audioUnit: AUAudioUnit?) {
-        guard audioUnit != nil else { return nil }
-        guard let theNoteBlock = audioUnit!.scheduleMIDIEventBlock else { return nil }
+        guard let audioUnit = audioUnit else { return nil }
+        guard let theNoteBlock = audioUnit.scheduleMIDIEventBlock else { return nil }
 
         self.noteBlock = theNoteBlock
         super.init()

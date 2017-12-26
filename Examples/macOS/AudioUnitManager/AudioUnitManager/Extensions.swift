@@ -163,7 +163,7 @@ extension NSLayoutConstraint {
     }
 
     public static func activateConstraintsEqualToSuperview(child: NSView) {
-        if child.superview == nil {
+        guard let superview = child.superview else {
             Swift.print("NSLayoutConstraint.fillSuperview() superview of child is nil")
             return
         }
@@ -171,10 +171,10 @@ extension NSLayoutConstraint {
         child.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            child.leadingAnchor.constraint(equalTo: child.superview!.leadingAnchor),
-            child.trailingAnchor.constraint(equalTo: child.superview!.trailingAnchor),
-            child.topAnchor.constraint(equalTo: child.superview!.topAnchor),
-            child.bottomAnchor.constraint(equalTo: child.superview!.bottomAnchor)
+            child.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+            child.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+            child.topAnchor.constraint(equalTo: superview.topAnchor),
+            child.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
         ])
     }
 
