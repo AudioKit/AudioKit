@@ -10,7 +10,7 @@ AKAudioFile.cleanTempDirectory()
 //: We load the piano piece from resources and play it :
 var piano = try AKAudioFile(readFileName: "poney.mp3")
 let player = try AKAudioPlayer(file: piano)
-player.looping = true
+player.isLooping = true
 
 AudioKit.output = player
 AudioKit.start()

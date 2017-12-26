@@ -97,12 +97,12 @@ class SongViewController: UIViewController {
         do {
             let exportedFile = try AKAudioFile(forReading:url)
             if songProcessor.iTunesFilePlayer == nil {
-                songProcessor.iTunesFilePlayer = try AKAudioPlayer(file:exportedFile)
+                songProcessor.iTunesFilePlayer = AKPlayer(audioFile: exportedFile)
                 songProcessor.iTunesFilePlayer! >>> songProcessor.playerMixer
             }
             guard let iTunesFilePlayer = songProcessor.iTunesFilePlayer else { return }
 
-            try iTunesFilePlayer.replace(file: exportedFile)
+            iTunesFilePlayer.load(audioFile: exportedFile)
         } catch {
             print(error)
         }

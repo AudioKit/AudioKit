@@ -134,7 +134,7 @@ extension AKTuningTable {
             let rangeOfFirstMatch = regex.rangeOfFirstMatch(
                 in: lineStr,
                 options: .anchored,
-                range: NSRange(location: 0, length: lineStr.count)) ?? NSRange(location: 0, length: 0)
+                range: NSRange(location: 0, length: lineStr.count))
 
             if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?

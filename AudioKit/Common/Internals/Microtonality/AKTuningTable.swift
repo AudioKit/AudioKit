@@ -200,7 +200,7 @@
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
                 if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
                     nnAs12ETNN = nnAs12ETNN + 1
-                    etnnpbf = -(100 - etnnpbf)
+                    etnnpbf = etnnpbf - 100
                 }
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)
                 if netnnpbf >= -0.5 && netnnpbf <= 0.5 {

@@ -152,8 +152,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// sets the start time, If it is playing, player will
-    /// restart playing from the start time each time end time is set
+    /// Seconds into the audio file to start playback at
     @objc open dynamic var startTime: Double {
         get {
             return Double(startingFrame) / internalAudioFile.sampleRate
@@ -181,8 +180,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    /// sets the end time, If it is playing, player will
-    /// restart playing from the start time each time end time is set
+    /// Seconds into the audio file to stop playback
     @objc open dynamic var endTime: Double {
         get {
             return Double(endingFrame) / internalAudioFile.sampleRate
@@ -655,7 +653,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
 
-        //Swift.print("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
+        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
 
         // i is the index in the buffer
         for i in 0 ..< Int(length) {

@@ -90,7 +90,7 @@ open class AKFileClip: NSObject, FileClip {
             self.init(audioFile: audioFile)
             return
         } catch {
-            print(error)
+            AKLog(error)
         }
         return nil
     }

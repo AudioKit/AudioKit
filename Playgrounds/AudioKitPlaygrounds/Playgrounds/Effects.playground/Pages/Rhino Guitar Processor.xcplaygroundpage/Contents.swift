@@ -6,16 +6,14 @@ import AudioKit
 var rhino: AKRhinoGuitarProcessor!
 
 do {
-    let mixloop = try AKAudioFile(readFileName: "guitar.wav")
+    let guitarFile = try AKAudioFile(readFileName: "guitar.wav")
 
-    let player = try AKAudioPlayer(file: mixloop) {
-        print("completion callback has been triggered!")
-    }
+    let player = AKPlayer(audioFile: guitarFile)
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
     AudioKit.start()
-    player.looping = true
+    player.isLooping = true
     player.start()
 } catch let error as NSError {
     print(error.localizedDescription)
@@ -36,7 +34,7 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Pre Gain",
                          value: rhino.preGain,
                          range: 0.0 ... 10.0,
-                         format: "%0.2f dB"
+                         format: "%0.2f"
         ) { sliderValue in
             rhino.preGain = sliderValue
         })

@@ -6,19 +6,19 @@
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
-import UIKit
 import AudioKit
 import AudioKitUI
 import DropDown
+import UIKit
 
 /// This example demonstrates how to use two different input sources
 /// (an AKAudioPlayer and an instrument Audio Unit) both sharing a
 /// single signal chain.
 class ViewController: UIViewController {
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var auContainer: UIScrollView!
-    @IBOutlet weak var instrumentButton: UIButton!
-    @IBOutlet weak var keyboardContainer: UIView!
+    @IBOutlet var playButton: UIButton!
+    @IBOutlet var auContainer: UIScrollView!
+    @IBOutlet var instrumentButton: UIButton!
+    @IBOutlet var keyboardContainer: UIView!
 
     var currentAU: AudioUnitGenericView?
 
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
 
     var auManager: AKAudioUnitManager?
     var mixer = AKMixer()
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var auInstrument: AKAudioUnitInstrument?
 
     var keyboard: AKKeyboardView?
@@ -54,16 +54,15 @@ class ViewController: UIViewController {
         initDropDowns()
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
-            player = try? AKAudioPlayer(file: audioFile)
-            if player != nil {
-                player?.looping = true
-                player! >>> mixer
+            let player = AKPlayer(audioFile: audioFile)
+            player.isLooping = true
+            player >>> mixer
 
-                // setup the initial input/output connections
-                auManager?.input = player
-                auManager?.output = mixer
-            }
+            // setup the initial input/output connections
+            auManager?.input = player
+            auManager?.output = mixer
 
+            self.player = player
         }
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
@@ -73,25 +72,26 @@ class ViewController: UIViewController {
         // bounds for the container aren't ready yet here, so async it to the next update
         // to pick up the correct size
         DispatchQueue.main.async {
-            let kframe = CGRect(x:0,
-                                y:0,
+            let kframe = CGRect(x: 0,
+                                y: 0,
                                 width:
-                                self.keyboardContainer.bounds.size.width,
+                                    self.keyboardContainer.bounds.size.width,
                                 height: self.keyboardContainer.bounds.size.height)
-            self.keyboard = AKKeyboardView(frame: kframe)
-            self.keyboard!.delegate = self
-            self.keyboardContainer.addSubview(self.keyboard!)
+            let keyboard = AKKeyboardView(frame: kframe)
+            keyboard.delegate = self
+            self.keyboardContainer.addSubview(keyboard)
+            self.keyboard = keyboard
         }
 
     }
 
     // get a button by the tag set in the storyboard
-    private func getEffectsButton(_ id: Int ) -> UIButton? {
+    private func getEffectsButton(_ tag: Int) -> UIButton? {
         guard view != nil else { return nil }
 
         for sv in view.subviews {
-            if  let b = sv as? UIButton {
-                if b.tag == id {
+            if let b = sv as? UIButton {
+                if b.tag == tag {
                     return b
                 }
             }
@@ -112,18 +112,14 @@ class ViewController: UIViewController {
             effectMenus[i]?.textFont = UIFont.systemFont(ofSize: 10)
 
             effectMenus[i]?.selectionAction = { [weak self] (index: Int, name: String) in
-                print("handleSelectEffect() \(name)")
-
                 guard let strongSelf = self else { return }
-                guard strongSelf.auManager != nil else { return }
+                guard let auManager = strongSelf.auManager else { return }
 
                 if name == "-" {
-                    strongSelf.auManager!.removeEffect(at: i)
-                    if strongSelf.currentAU != nil {
-                        strongSelf.currentAU?.removeFromSuperview()
-                    }
+                    auManager.removeEffect(at: i)
+                    strongSelf.currentAU?.removeFromSuperview()
                 } else {
-                    strongSelf.auManager!.insertAudioUnit(name: name, at: i)
+                    auManager.insertAudioUnit(name: name, at: i)
                 }
 
                 strongSelf.effectButtons[i]?.setTitle(name, for: .normal)
@@ -134,10 +130,8 @@ class ViewController: UIViewController {
         instrumentMenu.anchorView = view
         instrumentMenu.direction = .any
         instrumentMenu.textFont = UIFont.systemFont(ofSize: 10)
-        instrumentMenu.selectionAction = { [weak self] (index: Int, name: String) in
-            print("handleSelectInstrument() \(name)")
+        instrumentMenu.selectionAction = { [weak self] (_: Int, name: String) in
             guard let strongSelf = self else { return }
-
             strongSelf.loadInstrument(name)
         }
 
@@ -158,10 +152,10 @@ class ViewController: UIViewController {
 
         // check to make sure the input is the player
         if auManager?.input != player {
-            auManager?.connectEffects(firstNode: player, lastNode: mixer )
+            auManager?.connectEffects(firstNode: player, lastNode: mixer)
         }
 
-        if player.isStarted {
+        if player.isPlaying {
             player.stop()
             sender.setTitle("▶️", for: .normal)
 
@@ -172,31 +166,25 @@ class ViewController: UIViewController {
     }
 
     /// this is called to fill the drop downs with a list of available audio units
-    fileprivate func updateEffectsUI( audioUnits: [AVAudioUnitComponent] ) {
-        guard auManager != nil else { return }
-
+    fileprivate func updateEffectsUI(audioUnits: [AVAudioUnitComponent]) {
         for i in 0 ..< 3 {
             var effectMenuData = ["-"]
 
-            for component in audioUnits {
-                if component.name != "" {
-                    effectMenuData.append(component.name)
-                }
+            for component in audioUnits where component.name != "" {
+                effectMenuData.append(component.name)
             }
 
             effectMenus[i]?.dataSource = effectMenuData
         }
     }
 
-    fileprivate func updateInstrumentsUI( audioUnits: [AVAudioUnitComponent] ) {
+    fileprivate func updateInstrumentsUI(audioUnits: [AVAudioUnitComponent]) {
         guard auManager != nil else { return }
 
         var effectMenuData = ["-"]
 
-        for component in audioUnits {
-            if component.name != "" {
-                effectMenuData.append(component.name)
-            }
+        for component in audioUnits where component.name != "" {
+            effectMenuData.append(component.name)
         }
 
         instrumentMenu.dataSource = effectMenuData
@@ -208,31 +196,32 @@ class ViewController: UIViewController {
             currentAU?.removeFromSuperview()
         }
 
-        currentAU = AudioUnitGenericView(au: audioUnit)
-        auContainer.addSubview(currentAU!)
-        auContainer.contentSize = currentAU!.frame.size
+        let au = AudioUnitGenericView(au: audioUnit)
+        auContainer.addSubview(au)
+        auContainer.contentSize = au.frame.size
+        self.currentAU = au
 
     }
 
     public func loadInstrument(_ name: String) {
-        guard auManager != nil else { return }
+        guard let auManager = auManager else { return }
 
         instrumentButton.setTitle("🎹: \(name)", for: .normal)
 
         if name == "-" {
             // reassign back to player
-            auManager!.input = player
-            auManager!.output = mixer
+            auManager.input = player
+            auManager.output = mixer
 
         } else {
             showInstrument(name)
         }
     }
 
-    public func showInstrument(_ auname: String ) {
-        guard auManager != nil else { return }
+    public func showInstrument(_ auname: String) {
+        guard let auManager = auManager else { return }
 
-        auManager!.createInstrument(name: auname, completionHandler: { audioUnit in
+        auManager.createInstrument(name: auname, completionHandler: { audioUnit in
             guard let audioUnit = audioUnit else { return }
 
             AKLog("* \(audioUnit.name) : Audio Unit created")
@@ -246,7 +235,7 @@ class ViewController: UIViewController {
             if self.auInstrument == nil {
                 return
             }
-            self.auManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer )
+            self.auManager?.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
             self.showAudioUnit(audioUnit)
 
         })
@@ -259,24 +248,25 @@ extension ViewController: AKAudioUnitManagerDelegate {
     }
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        guard auManager != nil else { return }
+        guard let auManager = auManager else { return }
 
         if type == AKAudioUnitManager.Notification.changed {
-            updateEffectsUI( audioUnits: auManager!.availableEffects )
-            updateInstrumentsUI(audioUnits: auManager!.availableInstruments)
+            updateEffectsUI(audioUnits: auManager.availableEffects)
+            updateInstrumentsUI(audioUnits: auManager.availableInstruments)
         }
     }
 
     /// this is where you can request the UI of the Audio Unit
     func handleEffectAdded(at auIndex: Int) {
-        guard player != nil else { return }
+        guard let player = player else { return }
+        guard let auManager = auManager else { return }
 
-        if player!.isStarted {
-            player!.stop()
-            player!.start()
+        if player.isPlaying {
+            player.stop()
+            player.play()
         }
 
-        if let au = auManager!.effectsChain[auIndex] {
+        if let au = auManager.effectsChain[auIndex] {
             showAudioUnit(au)
         }
     }
@@ -285,19 +275,19 @@ extension ViewController: AKAudioUnitManagerDelegate {
 extension ViewController: AKKeyboardDelegate {
     /// Note off events
     func noteOff(note: MIDINoteNumber) {
-        guard auInstrument != nil else { return }
-        auInstrument!.stop(noteNumber: note, channel: 0)
+        guard let auInstrument = auInstrument else { return }
+        auInstrument.stop(noteNumber: note, channel: 0)
     }
 
     /// Note on events
     func noteOn(note: MIDINoteNumber) {
-        guard auInstrument != nil else { return }
+        guard let auInstrument = auInstrument else { return }
 
         // check to make sure the input is the auInstrument
         if auManager?.input != auInstrument {
-            auManager?.connectEffects(firstNode: auInstrument, lastNode: mixer )
+            auManager?.connectEffects(firstNode: auInstrument, lastNode: mixer)
         }
-        auInstrument!.play(noteNumber: note, channel: 0)
+        auInstrument.play(noteNumber: note, channel: 0)
     }
 }
 
@@ -311,9 +301,9 @@ extension CGFloat {
 
 extension UIColor {
     static func random() -> UIColor {
-        return UIColor(red:   .random(),
+        return UIColor(red: .random(),
                        green: .random(),
-                       blue:  .random(),
+                       blue: .random(),
                        alpha: 1.0)
     }
 }

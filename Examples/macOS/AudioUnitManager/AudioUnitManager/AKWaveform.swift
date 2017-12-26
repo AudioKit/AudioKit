@@ -19,6 +19,14 @@ public class AKWaveform: AKView {
     private var loopStartMarker = LoopMarker(.start)
     private var loopEndMarker = LoopMarker(.end)
 
+    private var basicShadow: NSShadow {
+        let shadow = NSShadow()
+        shadow.shadowBlurRadius = 5
+        shadow.shadowOffset = CGSize(width: 2, height: -2)
+        shadow.shadowColor = NSColor.black.withAlphaComponent(0.7)
+        return shadow
+    }
+
     public var displayTimebar: Bool = true {
         didSet {
             timelineBar.isHidden = !displayTimebar
@@ -88,6 +96,7 @@ public class AKWaveform: AKView {
     }
 
     private func initialize() {
+        wantsLayer = true
         frame = NSRect(x: 0, y: 0, width: 200, height: 20)
 
         guard let file = file else { return }
@@ -112,6 +121,7 @@ public class AKWaveform: AKView {
         addSubview(loopStartMarker)
         addSubview(loopEndMarker)
         addSubview(timelineBar)
+        timelineBar.shadow = basicShadow
         isLooping = false
     }
 
@@ -154,28 +164,29 @@ public class AKWaveform: AKView {
     }
 
     public func fitToFrame() {
-        guard file != nil, file?.duration != 0 else { return }
+        guard let file = file, file.duration != 0 else { return }
         let w = Double(frame.width)
-        let scale = w / file!.duration
+        let scale = w / file.duration
         visualScaleFactor = scale
         loopEndMarker.frame.origin.x = frame.width - loopEndMarker.frame.width - 3
     }
 
     public override func setFrameSize(_ newSize: NSSize) {
-        guard file != nil else { return }
-        super.setFrameSize(newSize)
-        guard plots.count > 0 else { return }
+        guard let file = file else { return }
+        guard !plots.isEmpty else { return }
 
-        let count = CGFloat(file!.fileFormat.mChannelsPerFrame)
+        super.setFrameSize(newSize)
+
+        let channels = CGFloat(file.fileFormat.mChannelsPerFrame)
 
         plots[0]?.frame = NSRect(x: 0,
-                                 y: count == 1 ? 0 : newSize.height / count,
+                                 y: channels == 1 ? 0 : newSize.height / channels,
                                  width: newSize.width,
-                                 height: newSize.height / count)
+                                 height: newSize.height / channels)
         plots[0]?.redraw()
 
-        if count > 1 {
-            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height / count)
+        if channels > 1 {
+            plots[1]?.frame = NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height / channels)
             plots[1]?.redraw()
         }
     }
@@ -199,9 +210,10 @@ public class AKWaveform: AKView {
     }
 
     private func mousePositionToTime(with event: NSEvent) -> Double {
-        guard file != nil else { return 0 }
+        guard let file = file else { return 0 }
+
         let loc = convert(event.locationInWindow, from: nil)
-        let mouseTime = Double(loc.x / frame.width) * file!.duration
+        let mouseTime = Double(loc.x / frame.width) * file.duration
         return mouseTime
     }
 
@@ -251,8 +263,8 @@ class LoopMarker: AKView {
     }
 
     public func fitToFrame() {
-        guard superview != nil else { return }
-        frame = NSRect(x: 0, y: 0, width: 6, height: superview!.frame.height)
+        guard let superview = superview else { return }
+        frame = NSRect(x: 0, y: 0, width: 6, height: superview.frame.height)
         needsDisplay = true
     }
 
@@ -295,10 +307,10 @@ class LoopMarker: AKView {
 
     override func mouseDragged(with event: NSEvent) {
         super.mouseDragged(with: event)
-        guard mouseDownLocation != nil else { return }
+        guard let mouseDownLocation = mouseDownLocation else { return }
 
         let svLocation = convertEventToSuperview(theEvent: event)
-        let pt = CGPoint(x: svLocation.x - mouseDownLocation!.x, y: 0)
+        let pt = CGPoint(x: svLocation.x - mouseDownLocation.x, y: 0)
         setFrameOrigin(pt)
     }
 
@@ -318,16 +330,17 @@ protocol LoopMarkerDelegate: class {
 }
 
 class TimelineBar: AKView {
-    private let red = NSColor(red: 0.6, green: 0.3, blue: 0.3, alpha: 0.5)
+    private let color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     private var rect = NSRect(x: 0, y: 0, width: 2, height: 70)
 
     convenience init() {
         self.init(frame: NSRect(x: 0, y: 0, width: 2, height: 70))
+        wantsLayer = true
     }
 
     public func updateSize(height: CGFloat = 0) {
-        guard superview != nil else { return }
-        let theHeight = height > 0 ? height : superview!.frame.height
+        guard let superview = superview else { return }
+        let theHeight = height > 0 ? height : superview.frame.height
         setFrameSize(NSSize(width: 2, height: theHeight))
         rect = NSRect(x: 0, y: 0, width: 2, height: bounds.height)
         needsDisplay = true
@@ -337,7 +350,7 @@ class TimelineBar: AKView {
         if let context = NSGraphicsContext.current {
             context.shouldAntialias = false
         }
-        red.setFill()
+        color.setFill()
         rect.fill()
     }
 }
