@@ -99,7 +99,7 @@ extension Double {
 
         if taper > 0 {
             // algebraic taper
-            return pow(((self - range.lowerBound ) / (range.upperBound - range.lowerBound)), (1.0 / taper))
+            return pow(((self - range.lowerBound) / (range.upperBound - range.lowerBound)), (1.0 / taper))
         } else {
             // exponential taper
             return range.lowerBound * exp(log(range.upperBound / range.lowerBound) * self)
@@ -115,7 +115,7 @@ extension Double {
     ///
     @available(*, deprecated, renamed: "normalized(from:taper:)")
     public func normalized(minimum: Double, maximum: Double, taper: Double = 1) -> Double {
-        return self.normalized(from: minimum...maximum, taper: taper)
+        return self.normalized(from: minimum ... maximum, taper: taper)
     }
 
     /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
@@ -141,7 +141,7 @@ extension Double {
         assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
 
         // Avoiding division by zero in this trivial case
-        if range.upperBound - range.lowerBound < 0.000_01 {
+        if range.upperBound - range.lowerBound < 0.00001 {
             return range.lowerBound
         }
 
@@ -152,8 +152,8 @@ extension Double {
             // exponential taper
             var adjustedMinimum: Double = 0.0
             var adjustedMaximum: Double = 0.0
-            if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
-            if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
+            if range.lowerBound == 0 { adjustedMinimum = 0.00000000001 }
+            if range.upperBound == 0 { adjustedMaximum = 0.00000000001 }
 
             return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
@@ -245,10 +245,10 @@ extension Double {
 }
 
 extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
-	/// Initialize array with zeros, ~10x faster than append for array of size 4096
-	///
-	/// - parameter count: Number of elements in the array
-	///
+    /// Initialize array with zeros, ~10x faster than append for array of size 4096
+    ///
+    /// - parameter count: Number of elements in the array
+    ///
 
     public init(zeros count: Int) {
         self.init(repeating: 0, count: count)
@@ -288,12 +288,12 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
 
 /// Adding subscript
 extension AVAudioUnit {
-    subscript (param: AudioUnitParameterID) -> Double {
+    subscript(param: AudioUnitParameterID) -> Double {
         get {
-              return AudioUnitGetParameter(audioUnit, param: param)
+            return AudioUnitGetParameter(audioUnit, param: param)
         }
         set {
-              AudioUnitSetParameter(audioUnit, param: param, to: newValue)
+            AudioUnitSetParameter(audioUnit, param: param, to: newValue)
         }
     }
 }
@@ -305,12 +305,12 @@ internal struct AUWrapper {
         self.avAudioUnit = avAudioUnit
     }
 
-    subscript (param: AudioUnitParameterID) -> Double {
+    subscript(param: AudioUnitParameterID) -> Double {
         get {
-            return avAudioUnit[param]
+            return self.avAudioUnit[param]
         }
         set {
-            avAudioUnit[param] = newValue
+            self.avAudioUnit[param] = newValue
         }
     }
 }
@@ -367,20 +367,20 @@ extension Occupiable {
     }
 }
 
-extension String: Occupiable { }
+extension String: Occupiable {}
 
 // I can't think of a way to combine these collection types. Suggestions welcome.
-extension Array: Occupiable { }
-extension Dictionary: Occupiable { }
-extension Set: Occupiable { }
+extension Array: Occupiable {}
+extension Dictionary: Occupiable {}
+extension Set: Occupiable {}
 
 #if !os(macOS)
-extension AVAudioSessionCategoryOptions: Occupiable { }
+extension AVAudioSessionCategoryOptions: Occupiable {}
 #endif
 
 prefix operator ❗️
 
 /// Negative logic can be confusing, so we draw special attention to those cases
-prefix public func ❗️(a: Bool) -> Bool {
+public prefix func ❗️(a: Bool) -> Bool {
     return !a
 }
