@@ -155,7 +155,7 @@ class ViewController: UIViewController {
             auManager?.connectEffects(firstNode: player, lastNode: mixer)
         }
 
-        if player.isStarted {
+        if player.isPlaying {
             player.stop()
             sender.setTitle("▶️", for: .normal)
 
@@ -261,7 +261,7 @@ extension ViewController: AKAudioUnitManagerDelegate {
         guard let player = player else { return }
         guard let auManager = auManager else { return }
 
-        if player.isStarted {
+        if player.isPlaying {
             player.stop()
             player.play()
         }
