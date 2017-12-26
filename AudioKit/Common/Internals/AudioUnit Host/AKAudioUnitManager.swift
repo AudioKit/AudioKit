@@ -350,7 +350,7 @@ open class AKAudioUnitManager: NSObject {
                     // Hmmmm
                 }
 
-                // Swift.print("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
+                // AKLog("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
 
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()
@@ -556,11 +556,11 @@ open class AKAudioUnitManager: NSObject {
     private func initAudioUnitFactoryPreset(_ audioUnit: AVAudioUnit) {
         guard let presets = audioUnit.auAudioUnit.factoryPresets else { return }
         for p in presets {
-            Swift.print("Factory Preset: \(p.name) \(p.number)")
+            AKLog("Factory Preset: \(p.name) \(p.number)")
         }
 
         presets.first.map {
-            Swift.print("Setting Preset: \($0.name) \($0.number)")
+            AKLog("Setting Preset: \($0.name) \($0.number)")
             audioUnit.auAudioUnit.currentPreset = $0
         }
     }

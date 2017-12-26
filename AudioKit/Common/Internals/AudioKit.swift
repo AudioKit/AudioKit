@@ -602,7 +602,7 @@ extension AVAudioEngine {
             case .success:
                 try audioFile.write(from: buffer)
             case .cannotDoInCurrentContext:
-                print("renderToFile cannotDoInCurrentContext")
+                AKLog("renderToFile cannotDoInCurrentContext")
                 continue
             case .error, .insufficientDataFromInputNode:
                 throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])

@@ -191,7 +191,7 @@ open class AKConverter: NSObject {
             format = .wav
             formatKey = kAudioFormatLinearPCM
         default:
-            Swift.print("Unsupported output format: \(outputFormat)")
+            AKLog("Unsupported output format: \(outputFormat)")
             return
         }
 
@@ -255,7 +255,7 @@ open class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            // Swift.print("Failed to start writing. Error: \(writer.error)")
+            AKLog("Failed to start writing. Error: \(writer.error)")
             completionHandler?(writer.error)
             return
         }
@@ -269,7 +269,7 @@ open class AKConverter: NSObject {
             while writerInput.isReadyForMoreMediaData {
 
                 if reader.status == .failed {
-                    Swift.print("Conversion Failed")
+                    AKLog("Conversion Failed")
                     break
                 }
 
@@ -280,7 +280,7 @@ open class AKConverter: NSObject {
                     writerInput.markAsFinished()
                     writer.endSession(atSourceTime: asset.duration)
                     writer.finishWriting {
-                        // Swift.print("DONE: \(self.reader!.asset)")
+                        // AKLog("DONE: \(self.reader!.asset)")
                         DispatchQueue.main.async {
                             completionHandler?(nil)
                         }
@@ -331,7 +331,7 @@ open class AKConverter: NSObject {
 
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
-        Swift.print("convertToPCM() to \(outputURL)")
+        AKLog("convertToPCM() to \(outputURL)")
 
         var format: AudioFileTypeID
         let formatKey: AudioFormatID = kAudioFormatLinearPCM
