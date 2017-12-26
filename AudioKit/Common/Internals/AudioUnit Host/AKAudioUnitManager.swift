@@ -349,7 +349,6 @@ open class AKAudioUnitManager: NSObject {
 
                 if audioUnit.inputFormat(forBus: 0).channelCount == 1 {
                     // AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
-                    // Hmmmm
                 }
 
                 // AKLog("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")

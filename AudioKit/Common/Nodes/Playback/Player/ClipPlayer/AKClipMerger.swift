@@ -184,7 +184,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
                 let clips = try AKClipMerger.validateClips(newValue) as! [AKFileClip]
                 _clips = clips
             } catch {
-                AKLog("\(error)")
+                AKLog(error)
             }
         }
     }
