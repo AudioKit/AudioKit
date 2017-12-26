@@ -106,7 +106,7 @@
                                               0, &frames,
                                               UInt32(MemoryLayout<UInt32>.size))
             if status != 0 {
-                print("error in set ioBufferDuration status \(status)")
+                AKLog("error in set ioBufferDuration status \(status)")
             }
         }
         get {
@@ -122,7 +122,7 @@
                                               &frames,
                                               &propSize)
             if status != 0 {
-                print("error in get ioBufferDuration status \(status)")
+                AKLog("error in get ioBufferDuration status \(status)")
             }
             return Double(frames) / sampleRate
         }
@@ -137,7 +137,7 @@
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
 
             } catch {
-                print(error)
+                AKLog("\(error)")
             }
         }
         get {

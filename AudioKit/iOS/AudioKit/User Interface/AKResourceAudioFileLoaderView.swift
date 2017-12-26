@@ -12,7 +12,7 @@
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var stopOuterPath = UIBezierPath()
     var playOuterPath = UIBezierPath()
     var upOuterPath = UIBezierPath()
@@ -74,11 +74,7 @@
                 player?.stop()
                 let filename = titles[currentIndex]
                 if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                    do {
-                        try player?.replace(file: file)
-                    } catch {
-                        AKLog("Could not replace file")
-                    }
+                    player?.load(audioFile: file)
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()
@@ -87,7 +83,7 @@
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKAudioPlayer,
+    public convenience init(player: AKPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)

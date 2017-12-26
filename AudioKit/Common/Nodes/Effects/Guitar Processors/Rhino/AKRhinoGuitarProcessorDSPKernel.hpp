@@ -24,7 +24,7 @@ enum {
     midGainAddress = 3,
     highGainAddress = 4,
     distTypeAddress = 5,
-    distAmountAddress= 6
+    distortionAddress= 6
 };
 
 class AKRhinoGuitarProcessorDSPKernel : public AKDSPKernel, public AKBuffered {
@@ -74,7 +74,7 @@ public:
         midGainRamper.init();
         highGainRamper.init();
         distTypeRamper.init();
-        distAmountRamper.init();
+        distortionRamper.init();
     }
 
     void start() {
@@ -96,7 +96,7 @@ public:
         midGainRamper.reset();
         highGainRamper.reset();
         distTypeRamper.reset();
-        distAmountRamper.reset();
+        distortionRamper.reset();
     }
 
     void setPreGain(float value) {
@@ -129,9 +129,9 @@ public:
         distTypeRamper.setImmediate(distType);
     }
 
-    void setDistAmount(float value) {
-        distAmount = clamp(value, 1.0f, 20.0f);
-        distAmountRamper.setImmediate(distAmount);
+    void setDistortion(float value) {
+        distortion = clamp(value, 1.0f, 20.0f);
+        distortionRamper.setImmediate(distortion);
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -160,8 +160,8 @@ public:
                 distTypeRamper.setUIValue(clamp(value, 1.0f, 3.0f));
                 break;
 
-            case distAmountAddress:
-                distAmountRamper.setUIValue(clamp(value, 1.0f, 20.0f));
+            case distortionAddress:
+                distortionRamper.setUIValue(clamp(value, 1.0f, 20.0f));
                 break;
         }
     }
@@ -186,8 +186,8 @@ public:
             case distTypeAddress:
                 return distTypeRamper.getUIValue();
 
-            case distAmountAddress:
-                return distAmountRamper.getUIValue();
+            case distortionAddress:
+                return distortionRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -220,8 +220,8 @@ public:
                 distTypeRamper.startRamp(clamp(value, 1.0f, 3.0f), duration);
                 break;
 
-            case distAmountAddress:
-                distAmountRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
+            case distortionAddress:
+                distortionRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
                 break;
         }
     }
@@ -238,7 +238,7 @@ public:
             midGain = midGainRamper.getAndStep();
             highGain = highGainRamper.getAndStep();
             distType = distTypeRamper.getAndStep();
-            distAmount = distAmountRamper.getAndStep();
+            distortion = distortionRamper.getAndStep();
 
             _leftEqLo->calc_filter_coeffs(6, 120.f, sampleRate, 4.5f, (50.f * lowGain), true);
             _rightEqLo->calc_filter_coeffs(6, 120.f, sampleRate, 4.5f, (50.f * lowGain), true);
@@ -256,11 +256,11 @@ public:
                 if (started) {
                     *in = *in * (preGain / 5.0);
                     if (channel == 0) {
-                        const float r_Sig = _leftRageProcessor->doRage(*in, distAmount, distAmount);
+                        const float r_Sig = _leftRageProcessor->doRage(*in, distortion, distortion);
                         const float e_Sig = _leftEqLo->filter(_leftEqMi->filter(_leftEqHi->filter(r_Sig)));
                         *out = e_Sig * postGain;
                     } else {
-                        const float r_Sig = _rightRageProcessor->doRage(*in, distAmount, distAmount);
+                        const float r_Sig = _rightRageProcessor->doRage(*in, distortion, distortion);
                         const float e_Sig = _rightEqLo->filter(_rightEqMi->filter(_rightEqHi->filter(r_Sig)));
                         *out = e_Sig * postGain;
                     }
@@ -296,7 +296,7 @@ private:
     float midGain = 0.0;
     float highGain = 0.0;
     float distType = 1.0;
-    float distAmount = 1.0;
+    float distortion = 1.0;
 
 public:
     bool started = true;
@@ -307,5 +307,5 @@ public:
     ParameterRamper midGainRamper = 0.0;
     ParameterRamper highGainRamper = 0.0;
     ParameterRamper distTypeRamper = 1.0;
-    ParameterRamper distAmountRamper = 1.0;
+    ParameterRamper distortionRamper = 1.0;
 };
