@@ -50,7 +50,7 @@ public func fourCC(_ string: String) -> UInt32 {
 public func AKLog(_ string: String, fullname: String = #function, file: String = #file, line: Int = #line) {
     if AKSettings.enableLogging {
         let fileName = (file as NSString).lastPathComponent
-        AKLog("\(fileName):\(fullname):\(line):\(string)")
+        Swift.print("\(fileName):\(fullname):\(line):\(string)")
     }
 }
 
