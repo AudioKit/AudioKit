@@ -653,7 +653,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (internalAudioFile.processingFormat.sampleRate * outTime))
 
-        //Swift.print("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
+        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
 
         // i is the index in the buffer
         for i in 0 ..< Int(length) {

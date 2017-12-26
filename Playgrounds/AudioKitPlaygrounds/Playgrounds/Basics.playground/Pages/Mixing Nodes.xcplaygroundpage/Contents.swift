@@ -13,15 +13,15 @@ let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
 let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav")
 let leadFile = try AKAudioFile(readFileName: "leadloop.wav")
 
-var drums = try AKAudioPlayer(file: drumFile)
-var bass = try AKAudioPlayer(file: bassFile)
-var guitar = try AKAudioPlayer(file: guitarFile)
-var lead = try AKAudioPlayer(file: leadFile)
+var drums = AKPlayer(audioFile: drumFile)
+var bass = AKPlayer(audioFile: bassFile)
+var guitar = AKPlayer(audioFile: guitarFile)
+var lead = AKPlayer(audioFile: leadFile)
 
-drums.looping = true
-bass.looping = true
-guitar.looping = true
-lead.looping = true
+drums.isLooping = true
+bass.isLooping = true
+guitar.isLooping = true
+lead.isLooping = true
 
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)

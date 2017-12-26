@@ -17,7 +17,7 @@ enum {
     thresholdAddress = 1,
     attackTimeAddress = 2,
     releaseTimeAddress = 3,
-    rageAmountAddress = 4
+    rageAddress = 4
 };
 
 class AKDynaRageCompressorDSPKernel : public AKDSPKernel, public AKBuffered {
@@ -38,7 +38,7 @@ public:
         thresholdRamper.init();
         attackTimeRamper.init();
         releaseTimeRamper.init();
-        rageAmountRamper.init();
+        rageRamper.init();
     }
 
     void start() {
@@ -59,7 +59,7 @@ public:
         thresholdRamper.reset();
         attackTimeRamper.reset();
         releaseTimeRamper.reset();
-        rageAmountRamper.reset();
+        rageRamper.reset();
     }
 
     void setRatio(float value) {
@@ -82,9 +82,9 @@ public:
         releaseTimeRamper.setImmediate(releaseTime);
     }
 
-    void setRageAmount(float value) {
-        rageAmount = clamp(value, 0.1f, 20.0f);
-        rageAmountRamper.setImmediate(rageAmount);
+    void setRage(float value) {
+        rage = clamp(value, 0.1f, 20.0f);
+        rageRamper.setImmediate(rage);
     }
 
     void setRageIsOn(bool value) {
@@ -109,8 +109,8 @@ public:
                 releaseTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
                 break;
 
-            case rageAmountAddress:
-                rageAmountRamper.setUIValue(clamp(value, 0.1f, 20.0f));
+            case rageAddress:
+                rageRamper.setUIValue(clamp(value, 0.1f, 20.0f));
                 break;
 
                 break;
@@ -131,8 +131,8 @@ public:
             case releaseTimeAddress:
                 return releaseTimeRamper.getUIValue();
 
-            case rageAmountAddress:
-                return rageAmountRamper.getUIValue();
+            case rageAddress:
+                return rageRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -156,8 +156,8 @@ public:
                 releaseTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
                 break;
 
-            case rageAmountAddress:
-                rageAmountRamper.startRamp(clamp(value, 0.1f, 20.0f), duration);
+            case rageAddress:
+                rageRamper.startRamp(clamp(value, 0.1f, 20.0f), duration);
                 break;
         }
     }
@@ -172,7 +172,7 @@ public:
             threshold = thresholdRamper.getAndStep();
             attackTime = attackTimeRamper.getAndStep();
             releaseTime = releaseTimeRamper.getAndStep();
-            rageAmount = rageAmountRamper.getAndStep();
+            rage = rageRamper.getAndStep();
 
             left_compressor->setParameters(threshold, ratio, attackTime, releaseTime);
             right_compressor->setParameters(threshold, ratio, attackTime, releaseTime);
@@ -184,11 +184,11 @@ public:
                 if (started) {
                     if (channel == 0) {
 
-                        float rageSignal = left_rageprocessor->doRage(*in, rageAmount, rageAmount);
+                        float rageSignal = left_rageprocessor->doRage(*in, rage, rage);
                         float compSignal = left_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
                         *out = compSignal;
                     } else {
-                        float rageSignal = right_rageprocessor->doRage(*in, rageAmount, rageAmount);
+                        float rageSignal = right_rageprocessor->doRage(*in, rage, rage);
                         float compSignal = right_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
                         *out = compSignal;
                     }
@@ -212,7 +212,7 @@ private:
     float threshold = 0.0;
     float attackTime = 0.1;
     float releaseTime = 0.1;
-    float rageAmount = 0.1;
+    float rage = 0.1;
     BOOL rageIsOn = true;
 
 public:
@@ -222,5 +222,5 @@ public:
     ParameterRamper thresholdRamper = 0.0;
     ParameterRamper attackTimeRamper = 0.1;
     ParameterRamper releaseTimeRamper = 0.1;
-    ParameterRamper rageAmountRamper = 0.1;
+    ParameterRamper rageRamper = 0.1;
 };

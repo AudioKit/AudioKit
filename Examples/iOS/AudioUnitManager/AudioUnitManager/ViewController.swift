@@ -28,7 +28,7 @@ class ViewController: UIViewController {
 
     var auManager: AKAudioUnitManager?
     var mixer = AKMixer()
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var auInstrument: AKAudioUnitInstrument?
 
     var keyboard: AKKeyboardView?
@@ -54,9 +54,9 @@ class ViewController: UIViewController {
         initDropDowns()
 
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
-            player = try? AKAudioPlayer(file: audioFile)
+            player = AKPlayer(audioFile: audioFile)
             if player != nil {
-                player?.looping = true
+                player?.isLooping = true
                 player! >>> mixer
 
                 // setup the initial input/output connections
@@ -273,7 +273,7 @@ extension ViewController: AKAudioUnitManagerDelegate {
 
         if player!.isStarted {
             player!.stop()
-            player!.start()
+            player!.start(at: AVAudioTime.now())
         }
 
         if let au = auManager!.effectsChain[auIndex] {
