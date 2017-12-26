@@ -44,7 +44,7 @@ public func fourCC(_ string: String) -> UInt32 {
 
 /// Wrapper for printing out status messages to the console,
 /// eventually it could be expanded with log levels
-/// - parameter string: Message to print
+/// - items: Zero or more items to print.
 ///
 @inline(__always)
 public func AKLog(_ items: Any..., fullname: String = #function, file: String = #file, line: Int = #line) {
