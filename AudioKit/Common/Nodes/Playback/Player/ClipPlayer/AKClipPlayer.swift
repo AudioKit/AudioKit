@@ -57,7 +57,7 @@ open class AKClipPlayer: AKNode {
             do {
                 try setClips(clips: newValue)
             } catch {
-                AKLog("\(error)")"
+                AKLog("\(error)")
             }
         }
     }
@@ -105,7 +105,7 @@ open class AKClipPlayer: AKNode {
             self.init()
             _clips = validatedClips
         } catch {
-            AKLog("\(error)")"
+            AKLog("\(error)")
             return nil
         }
 

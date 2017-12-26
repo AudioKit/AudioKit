@@ -255,7 +255,8 @@ open class AKConverter: NSObject {
         reader.add(readerOutput)
 
         if !writer.startWriting() {
-            AKLog("Failed to start writing. Error: \(writer.error)")
+            let error = String(describing: writer.error)
+            AKLog("Failed to start writing. Error: \(error)")
             completionHandler?(writer.error)
             return
         }
