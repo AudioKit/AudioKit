@@ -9,7 +9,8 @@
 public extension AKSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
-            fatalError("file not found.")
+            AKLog("File not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
             try samplerUnit.loadSoundBankInstrument(
@@ -32,7 +33,8 @@ public extension AKSampler {
     ///
     @objc public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
         guard let url = Bundle.main.url(forResource: file, withExtension: "sf2") else {
-            fatalError("file not found.")
+            AKLog("File not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
             var bMSB: Int

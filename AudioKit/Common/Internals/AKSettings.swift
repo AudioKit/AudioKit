@@ -316,24 +316,23 @@ extension AKSettings {
         case multiRoute
 
         public var description: String {
-
-            if self == .ambient {
+            switch self {
+            case .ambient:
                 return AVAudioSessionCategoryAmbient
-            } else if self == .soloAmbient {
+            case .soloAmbient:
                 return AVAudioSessionCategorySoloAmbient
-            } else if self == .playback {
+            case .playback:
                 return AVAudioSessionCategoryPlayback
-            } else if self == .record {
+            case .record:
                 return AVAudioSessionCategoryRecord
-            } else if self == .playAndRecord {
+            case .playAndRecord:
                 return AVAudioSessionCategoryPlayAndRecord
-            } else if self == .multiRoute {
+            case .multiRoute:
                 return AVAudioSessionCategoryMultiRoute
+            case .audioProcessing:
+                return AVAudioSessionCategoryAudioProcessing
             }
-
-            fatalError("unrecognized AVAudioSessionCategory \(self)")
-
-      }
+        }
    }
 }
 #endif
