@@ -274,15 +274,15 @@ extension AudioUnitManager: NSWindowDelegate {
                 exit(0)
             }
 
-            if var wid = w.identifier?.rawValue {
+            if let winId = w.identifier?.rawValue {
                 // store the location of this window so can reshow at same location
-                windowPositions[wid] = w.frame.origin
-                AKLog("\(wid) : Plug in window closing")
+                windowPositions[winId] = w.frame.origin
+                AKLog("\(winId) : Plug in window closing")
 
-                wid = wid.replacingOccurrences(of: windowPrefix, with: "")
-                if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
-                    b.state = .off
-                    return
+                if let tag = Int(winId.replacingOccurrences(of: windowPrefix, with: "")) {
+                    if let b = getEffectsButtonFromIdentifier(tag) {
+                        b.state = .off
+                    }
                 }
 
             }
