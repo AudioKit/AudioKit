@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Jeff Cooper and Aurelius Prochazka on 18 Dec 2017.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
