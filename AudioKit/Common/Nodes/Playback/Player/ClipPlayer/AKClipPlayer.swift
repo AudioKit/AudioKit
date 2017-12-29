@@ -2,7 +2,7 @@
 //  AKClipPlayer.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 6/13/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 

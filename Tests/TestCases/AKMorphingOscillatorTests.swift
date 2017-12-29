@@ -2,7 +2,7 @@
 //  AKMorphingOscillatorTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 8/8/16.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  AKAudioFile+ProcessingAsynchronously.swift
 //  AudioKit
 //
-//  Created by Laurent Veliscek and Brandon Barber on 12/07/2016.
+//  Created by Laurent Veliscek and Brandon Barber, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

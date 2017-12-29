@@ -2,7 +2,7 @@
 //  AudioUnit+Helpers.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 25/06/16.
+//  Created by Daniel Clelland, revision history on GitHub.
 //  Updated for AudioKit by Aurelius Prochazka.
 //
 //  Copyright © 2017 Daniel Clelland. All rights reserved.
