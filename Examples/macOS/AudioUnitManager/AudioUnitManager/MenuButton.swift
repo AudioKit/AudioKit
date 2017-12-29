@@ -1,9 +1,8 @@
 //
 //  MenuButton.swift
-//  ADD
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 8/3/17.
-//  Copyright © 2017 Elephant Sound Design. All rights reserved.
 //
 
 import Cocoa
