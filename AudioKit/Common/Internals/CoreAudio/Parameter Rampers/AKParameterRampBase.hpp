@@ -2,7 +2,7 @@
 //  AKParameterRampBase.h
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/18/17.
+//  Created by Andrew Voelkel, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

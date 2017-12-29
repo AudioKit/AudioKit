@@ -2,7 +2,7 @@
 //  AudioUnitBase.m
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 11/19/16.
+//  Created by Andrew Voelkel, revision history on GitHub.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  AKPeriodicFunction.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 4/10/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

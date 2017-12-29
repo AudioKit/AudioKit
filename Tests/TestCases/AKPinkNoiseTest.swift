@@ -2,7 +2,7 @@
 //  AKPinkNoiseTest.swift
 //  AudioKitTestSuite
 //
-//  Created by Nicholas Arner on 8/9/16.
+//  Created by Nicholas Arner, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
