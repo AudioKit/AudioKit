@@ -137,7 +137,7 @@
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
 
             } catch {
-                AKLog("\(error)")
+                AKLog(error)
             }
         }
         get {
@@ -224,8 +224,7 @@ extension AKSettings {
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true")
-            AKLog("AKSettings Error: \(error))")
+            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true", error)
             throw error
         }
     }
