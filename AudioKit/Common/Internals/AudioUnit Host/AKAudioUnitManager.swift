@@ -335,7 +335,10 @@ open class AKAudioUnitManager: NSObject {
 
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
-        guard _effectsChain.indices.contains(index) else { return }
+        guard _effectsChain.indices.contains(index) else {
+            AKLog(index, "index is invalid.")
+            return
+        }
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
@@ -352,7 +355,7 @@ open class AKAudioUnitManager: NSObject {
                     // Hmmmm
                 }
 
-                // AKLog("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
+                AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
 
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()

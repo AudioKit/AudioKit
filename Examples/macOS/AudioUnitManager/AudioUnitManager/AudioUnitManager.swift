@@ -42,6 +42,7 @@ class AudioUnitManager: NSViewController {
     internal var testPlayer: InstrumentPlayer?
     internal var fmTimer: Timer?
     internal var auInstrument: AKAudioUnitInstrument?
+    internal var windowPositions = [String: NSPoint]()
 
     public var isLooping: Bool {
         return loopButton.state == .on
@@ -274,13 +275,19 @@ extension AudioUnitManager: NSWindowDelegate {
             }
 
             if var wid = w.identifier?.rawValue {
+                // store the location of this window so can reshow at same location
+                windowPositions[wid] = w.frame.origin
+                AKLog("\(wid) : Plug in window closing")
+
                 wid = wid.replacingOccurrences(of: windowPrefix, with: "")
                 if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
                     b.state = .off
                     return
                 }
+
             }
 
         }
     }
+
 }
