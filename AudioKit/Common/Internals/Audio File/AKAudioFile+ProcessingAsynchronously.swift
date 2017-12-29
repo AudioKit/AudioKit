@@ -507,8 +507,10 @@ extension AKAudioFile {
                 }
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if let file = processedFile {
-                    AKLog("Completed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
-                        "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                    AKLog("Completed Reversing file",
+                          sourceFile.fileNamePlusExtension, "->",
+                          file.fileNamePlusExtension,
+                          "(process #\(lastCompletedProcess))")
                 } else {
 
                     if let error = processError {

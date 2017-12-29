@@ -157,7 +157,7 @@
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete: \(audioFile?.fileNamePlusExtension ?? "nil") \(error.localizedDescription)")
+            AKLog("Error: Can't delete", audioFile?.fileNamePlusExtension ?? "nil", error.localizedDescription)
         }
 
         // Creates a blank new file
@@ -165,7 +165,7 @@
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
             AKLog("AKNodeRecorder: file has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to: \(internalAudioFile.fileNamePlusExtension)")
+            AKLog("Error: Can't record to", internalAudioFile.fileNamePlusExtension)
             throw error
         }
     }
