@@ -77,8 +77,8 @@ open class AKFileClip: NSObject, FileClip {
     @objc public init(audioFile: AKAudioFile,
                       time: Double = 0,
                       offset: Double = 0,
-                duration: Double = 0,
-                completion: AKCallback? = nil) {
+                      duration: Double = 0,
+                      completion: AKCallback? = nil) {
 
         self.audioFile = audioFile
         self.time = time
