@@ -32,21 +32,21 @@ extension AKTuningTable {
         }
 
         let leadingTrailingWhiteSpacesPattern = "(?:^\\s+)|(?:\\s+$)"
-        var regex: NSRegularExpression?
+        let regex: NSRegularExpression
 
         do {
             try regex = NSRegularExpression(pattern: leadingTrailingWhiteSpacesPattern,
-                                            options: NSRegularExpression.Options.caseInsensitive)
+                                            options: .caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: create regex: \(error)")
             return nil
         }
 
         let stringRange = NSRange(location: 0, length: string.count)
-        let trimmedString = regex?.stringByReplacingMatches(in: string,
-                                                            options: NSRegularExpression.MatchingOptions.reportProgress,
-                                                            range: stringRange,
-                                                            withTemplate: "$1")
+        let trimmedString = regex.stringByReplacingMatches(in: string,
+                                                           options: .reportProgress,
+                                                           range: stringRange,
+                                                           withTemplate: "$1")
 
         return trimmedString
     }
@@ -64,7 +64,7 @@ extension AKTuningTable {
 
         var parsedScala = true
         var parsedFirstCommentLine = false
-        let values = inputStr.components(separatedBy: NSCharacterSet.newlines)
+        let values = inputStr.components(separatedBy: .newlines)
         var parsedFirstNonCommentLine = false
         var parsedAllFrequencies = false
 
@@ -72,10 +72,10 @@ extension AKTuningTable {
         //              (RATIO      |CENTS                                  )
         //              (  a   /  b |-   a   .  b |-   .  b |-   a   .|-   a )
         let regexStr = "(\\d+\\/\\d+|-?\\d+\\.\\d+|-?\\.\\d+|-?\\d+\\.|-?\\d+)"
-        var regex: NSRegularExpression?
+        let regex: NSRegularExpression
         do {
             regex = try NSRegularExpression(pattern: regexStr,
-                                            options: NSRegularExpression.Options.caseInsensitive)
+                                            options: .caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: cannot parse scala file: \(error)")
             return scalaFrequencies
@@ -131,10 +131,10 @@ extension AKTuningTable {
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
 
             // REGEX defined above this loop
-            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(
+            let rangeOfFirstMatch = regex.rangeOfFirstMatch(
                 in: lineStr,
-                options: NSRegularExpression.MatchingOptions.anchored,
-                range: NSRange(location: 0, length: lineStr.count)) ?? NSRange(location: 0, length: 0)
+                options: .anchored,
+                range: NSRange(location: 0, length: lineStr.count))
 
             if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?

@@ -18,7 +18,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     /// Parameters for changing internal operations
@@ -91,7 +91,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to use for processing
     ///   - sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
+    @objc public init(_ input: AKNode?, sporth: String, customUgens: [AKCustomUgen] = []) {
         self.customUgens = customUgens
 
         _Self.register()

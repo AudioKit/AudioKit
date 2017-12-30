@@ -38,11 +38,11 @@ open class AKRollingOutputPlot: EZAudioPlot {
     func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAAConnected"),
+                                               name: .IAAConnected,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAADisconnected"),
+                                               name: .IAADisconnected,
                                                object: nil)
     }
 
@@ -68,7 +68,7 @@ open class AKRollingOutputPlot: EZAudioPlot {
     ///   - frame: CGRect in which to draw the plot
     ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
-    public init(frame: CGRect, bufferSize: Int) {
+    @objc public init(frame: CGRect, bufferSize: Int) {
         super.init(frame: frame)
         self.bufferSize = UInt32(bufferSize)
         setupNode()

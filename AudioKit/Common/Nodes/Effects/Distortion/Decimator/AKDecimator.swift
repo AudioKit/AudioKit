@@ -54,7 +54,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         decimation: Double = 0.5,
         rounding: Double = 0,

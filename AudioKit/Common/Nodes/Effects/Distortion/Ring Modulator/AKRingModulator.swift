@@ -63,7 +63,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency1: Double = 100,
         frequency2: Double = 100,

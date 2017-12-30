@@ -9,6 +9,11 @@
     import AudioKit
 #endif
 
+extension Notification.Name {
+    static let IAAConnected = Notification.Name(rawValue: "IAAConnected")
+    static let IAADisconnected = Notification.Name(rawValue: "IAADisconnected")
+}
+
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @IBDesignable
 open class AKOutputWaveformPlot: EZAudioPlot {
@@ -55,11 +60,11 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAAConnected"),
+                                               name: .IAAConnected,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
-                                               name: NSNotification.Name(rawValue: "IAADisconnected"),
+                                               name: .IAADisconnected,
                                                object: nil)
     }
 
@@ -85,7 +90,7 @@ open class AKOutputWaveformPlot: EZAudioPlot {
     ///   - frame: CGRect in which to draw the plot
     ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
-    public init(frame: CGRect, bufferSize: Int) {
+    @objc public init(frame: CGRect, bufferSize: Int) {
         super.init(frame: frame)
         self.bufferSize = UInt32(bufferSize)
         setupNode()

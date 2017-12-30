@@ -7,8 +7,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0

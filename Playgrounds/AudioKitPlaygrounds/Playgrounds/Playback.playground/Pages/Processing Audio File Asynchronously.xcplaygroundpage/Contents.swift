@@ -10,7 +10,7 @@ AKAudioFile.cleanTempDirectory()
 //: We load the piano piece from resources and play it :
 var piano = try AKAudioFile(readFileName: "poney.mp3")
 let player = try AKAudioPlayer(file: piano)
-player.looping = true
+player.isLooping = true
 
 AudioKit.output = player
 AudioKit.start()
@@ -29,7 +29,7 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
     print("callback -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
     print("callback -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
-    // Now we handle the file (and the error if any occured.)
+    // Now we handle the file (and the error if any occurred.)
     if let successfulFile = processedFile {
         // We print its duration:
         print("callback -> processed: \(successfulFile.duration)")

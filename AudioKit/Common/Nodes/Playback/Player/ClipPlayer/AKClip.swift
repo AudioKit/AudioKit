@@ -74,9 +74,9 @@ open class AKFileClip: NSObject, FileClip {
     ///   - duration: The duration of playback.
     ///   - completion: Callback executed when the end of the clip is reached.
     ///
-    public init(audioFile: AKAudioFile,
-                time: Double = 0,
-                offset: Double = 0,
+    @objc public init(audioFile: AKAudioFile,
+                      time: Double = 0,
+                      offset: Double = 0,
                 duration: Double = 0,
                 completion: AKCallback? = nil) {
 
@@ -97,7 +97,7 @@ open class AKFileClip: NSObject, FileClip {
             self.init(audioFile: audioFile)
             return
         } catch {
-            print(error)
+            AKLog(error)
         }
         return nil
     }

@@ -52,7 +52,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -69,7 +69,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(
+    @objc public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
 

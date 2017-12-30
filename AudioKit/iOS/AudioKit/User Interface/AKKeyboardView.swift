@@ -21,7 +21,7 @@ public protocol AKKeyboardDelegate: class {
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
 
-    /// Lowest octave dispayed
+    /// Lowest octave displayed
     @IBInspectable open var firstOctave: Int = 4
 
     /// Relative measure of the height of the black keys
@@ -78,8 +78,11 @@ public protocol AKKeyboardDelegate: class {
     }
 
     /// Initialize the keyboard
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
-                polyphonic: Bool = false) {
+    @objc public init(width: Int,
+                      height: Int,
+                      firstOctave: Int = 4,
+                      octaveCount: Int = 3,
+                      polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))

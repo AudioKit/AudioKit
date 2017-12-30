@@ -68,7 +68,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,

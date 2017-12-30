@@ -32,7 +32,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var amount: Double = 0 {
         willSet {
             if amount != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         amountParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -45,7 +45,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -56,7 +56,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be limited
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         amount: Double = 1) {
 

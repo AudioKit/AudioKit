@@ -79,7 +79,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Reverb
 #import "AKChowningReverbAudioUnit.h"
-#import "AK4ChowningReverbAudioUnit.h"
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbAudioUnit.h"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
@@ -120,7 +119,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Mixing
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterAudioUnit.h"
-#import "GainAudioUnit.h"
+#import "AKBoosterDSP.hpp"
 #import "AKPannerAudioUnit.h"
 #import "AKStereoFieldLimiterAudioUnit.h"
 
@@ -159,3 +158,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "EZAudioPlot.h"
 #import "EZAudioPlotGL.h"
 #endif
+
+// Swift/ObjC/C/C++ Inter-operability
+#import "AKInterop.h"

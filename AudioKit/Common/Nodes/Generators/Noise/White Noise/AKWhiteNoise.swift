@@ -40,7 +40,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -49,7 +49,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(amplitude: Double = 1) {
+    @objc public init(amplitude: Double = 1) {
 
         self.amplitude = amplitude
 

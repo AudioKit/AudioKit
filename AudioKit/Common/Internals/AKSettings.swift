@@ -106,7 +106,7 @@
                                               0, &frames,
                                               UInt32(MemoryLayout<UInt32>.size))
             if status != 0 {
-                print("error in set ioBufferDuration status \(status)")
+                AKLog("error in set ioBufferDuration status \(status)")
             }
         }
         get {
@@ -122,7 +122,7 @@
                                               &frames,
                                               &propSize)
             if status != 0 {
-                print("error in get ioBufferDuration status \(status)")
+                AKLog("error in get ioBufferDuration status \(status)")
             }
             return Double(frames) / sampleRate
         }
@@ -137,7 +137,7 @@
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
 
             } catch {
-                print(error)
+                AKLog(error)
             }
         }
         get {
@@ -224,8 +224,7 @@ extension AKSettings {
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true")
-            AKLog("AKSettings Error: \(error))")
+            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true", error)
             throw error
         }
     }
@@ -286,11 +285,13 @@ extension AKSettings {
         return options
     }
 
-    /// Checks if headphones are plugged
-    /// Returns true if headPhones are plugged, otherwise return false
+    /// Checks if headphones are connected
+    /// Returns true if headPhones are connected, otherwise return false
     @objc static open var headPhonesPlugged: Bool {
         return session.currentRoute.outputs.contains {
-            $0.portType == AVAudioSessionPortHeadphones
+            [AVAudioSessionPortHeadphones,
+             AVAudioSessionPortBluetoothHFP,
+             AVAudioSessionPortBluetoothA2DP].contains($0.portType)
         }
     }
 

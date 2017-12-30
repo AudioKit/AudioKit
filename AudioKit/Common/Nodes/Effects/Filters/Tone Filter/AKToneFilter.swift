@@ -31,7 +31,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var halfPowerPoint: Double = 1_000.0 {
         willSet {
             if halfPowerPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -44,7 +44,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization

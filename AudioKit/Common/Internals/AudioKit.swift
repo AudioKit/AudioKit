@@ -17,13 +17,6 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
-/// Adding connection between nodes with default format
-extension AVAudioEngine {
-    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
-        connect(node1, to: node2, format: AudioKit.format)
-    }
-}
-
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
@@ -35,7 +28,13 @@ extension AVAudioEngine {
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc open static let engine = AVAudioEngine()
+    @objc open static var engine = AVAudioEngine()
+
+    /// Reference to singleton MIDI
+
+    #if !os(tvOS)
+    open static let midi = AKMIDI()
+    #endif
 
     @objc static var shouldBeRunning = false
 
@@ -384,6 +383,7 @@ extension AVAudioEngine {
                     #endif
 
                     try engine.start()
+                    dump(engine.outputNode.audioUnit)
 
                     // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                     if AKSettings.notificationsEnabled {
@@ -495,19 +495,10 @@ extension AudioKit {
     //
     private static func addDummyOnEmptyMixer(_ node: AVAudioNode) -> AVAudioNode? {
 
-        func mixerHasInputs(_ mixer: AVAudioMixerNode) -> Bool {
-            for i in 0..<mixer.numberOfInputs {
-                if engine.inputConnectionPoint(for: mixer, inputBus: i) != nil {
-                    return true
-                }
-            }
-            return false
-        }
-
         // Only an issue if engine is running, node is a mixer, and mixer has no inputs
         guard let mixer = node as? AVAudioMixerNode,
             engine.isRunning,
-            !mixerHasInputs(mixer) else {
+            !engine.mixerHasInputs(mixer: mixer) else {
             return nil
         }
 
@@ -552,6 +543,82 @@ extension AudioKit {
     @objc open static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             engine.detach(node)
+        }
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
+    @objc open static func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        try engine.renderToFile(audioFile, seconds: seconds, prerender: prerender)
+    }
+
+}
+
+extension AVAudioEngine {
+
+    /// Adding connection between nodes with default format
+    open func connect(_ node1: AVAudioNode, to node2: AVAudioNode) {
+        connect(node1, to: node2, format: AudioKit.format)
+    }
+
+    /// Render output to an AVAudioFile for a duration.
+    ///     - Parameters
+    ///         - audioFile: An file initialized for writing
+    ///         - seconds: Duration to render
+    ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
+    ///
+    @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
+    public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
+        guard seconds >= 0 else {
+            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
+        }
+        // Engine can't be running when switching to offline render mode.
+        if isRunning { stop() }
+        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
+
+        // This resets the sampleTime of offline rendering to 0.
+        reset()
+
+        try start()
+
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
+            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Couldn't creat buffer in renderToFile"])
+        }
+
+        // This is for users to prepare the nodes for playing, i.e player.play()
+        prerender?()
+
+        // Render until file contains >= target samples
+        let targetSamples = AVAudioFramePosition(seconds * manualRenderingFormat.sampleRate)
+        while audioFile.framePosition < targetSamples {
+            let framesToRender = min(buffer.frameCapacity, AVAudioFrameCount( targetSamples - audioFile.framePosition))
+            let status = try renderOffline(framesToRender, to: buffer)
+            switch status {
+            case .success:
+                try audioFile.write(from: buffer)
+            case .cannotDoInCurrentContext:
+                AKLog("renderToFile cannotDoInCurrentContext")
+                continue
+            case .error, .insufficientDataFromInputNode:
+                throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
+            }
+        }
+
+        stop()
+        disableManualRenderingMode()
+
+    }
+}
+
+extension AVAudioEngine {
+    fileprivate func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
+        return (0..<mixer.numberOfInputs).contains {
+            self.inputConnectionPoint(for: mixer, inputBus: $0) != nil
         }
     }
 }

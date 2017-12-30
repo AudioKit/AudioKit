@@ -16,5 +16,5 @@
 @property (nonatomic) float midGain;
 @property (nonatomic) float highGain;
 @property (nonatomic) float distType;
-@property (nonatomic) float distAmount;
+@property (nonatomic) float distortion;
 @end

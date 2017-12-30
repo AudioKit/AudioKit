@@ -11,7 +11,7 @@ import UIKit
 
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: UITextView!
-    var midi = AKMIDI()
+    var midi = AudioKit.midi
     var senderVC: MIDISenderVC?
 
     override func viewDidLoad() {

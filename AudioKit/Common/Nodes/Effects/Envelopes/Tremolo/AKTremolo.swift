@@ -33,7 +33,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = 10 {
         willSet {
             if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var depth: Double = 1 {
         willSet {
             if depth != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         depthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -61,7 +61,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -74,7 +74,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - depth: Depth
     ///   - waveform:  Shape of the tremolo (default to sine)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,

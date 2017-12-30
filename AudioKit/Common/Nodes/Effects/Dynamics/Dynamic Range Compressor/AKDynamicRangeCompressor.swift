@@ -33,7 +33,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var ratio: Double = 1 {
         willSet {
             if ratio != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         ratioParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -48,7 +48,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var threshold: Double = 0.0 {
         willSet {
             if threshold != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         thresholdParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -63,7 +63,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var attackTime: Double = 0.1 {
         willSet {
             if attackTime != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         attackTimeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -78,7 +78,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var releaseTime: Double = 0.1 {
         willSet {
             if releaseTime != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -91,7 +91,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -105,7 +105,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     ///   - attackTime: Attack time
     ///   - releaseTime: Release time
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         ratio: Double = 1,
         threshold: Double = 0.0,

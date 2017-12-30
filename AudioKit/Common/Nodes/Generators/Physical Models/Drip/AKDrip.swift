@@ -113,7 +113,7 @@ open class AKDrip: AKNode, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -134,7 +134,7 @@ open class AKDrip: AKNode, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
-    public init(
+    @objc public init(
         intensity: Double,
         dampingFactor: Double = 0.2,
         energyReturn: Double = 0,

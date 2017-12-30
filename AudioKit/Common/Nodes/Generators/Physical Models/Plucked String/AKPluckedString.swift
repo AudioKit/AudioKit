@@ -53,7 +53,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -72,7 +72,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay.
     ///                      This should be the lowest frequency you plan on using.
     ///
-    public init(
+    @objc public init(
         frequency: Double = 440,
         amplitude: Double = 0.5,
         lowestFrequency: Double = 110) {

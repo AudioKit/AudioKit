@@ -28,21 +28,22 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// Initialize the MIDI node
     ///
     /// - parameter node: A polyphonic node that will be triggered via MIDI
+    /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    public init(node: AKPolyphonicNode) {
+    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
-        enableMIDI()
+      enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the midi client
+    ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
                          name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {

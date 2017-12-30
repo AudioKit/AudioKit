@@ -21,7 +21,7 @@ file_length:
   - 400 # warning
   - 10000 # error
 
-variable_name:
+identifier_name:
   min_length:
     - 1 # warning
 
@@ -61,10 +61,9 @@ opt_in_rules:
   - line_length
   - attributes
   - force_unwrapping
-  - variable_name
+  - identifier_name
   - type_name
   - type_body_length
-  - legacy_constructor
   - function_parameter_count
   - class_delegate_protocol
   - force_try
