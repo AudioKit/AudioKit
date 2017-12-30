@@ -75,7 +75,7 @@ open class AKClipPlayer: AKNode {
                                  time: 0,
                                  offset: clip.offset + diff,
                                  duration: clip.duration - diff,
-                                 completion: nil)
+                                 completion: clip.completion ?? nil)
                 }
 
             } else {
@@ -83,7 +83,7 @@ open class AKClipPlayer: AKNode {
                              time: clip.time - offset,
                              offset: clip.offset,
                              duration: clip.duration,
-                             completion: nil)
+                             completion: clip.completion ?? nil)
             }
         }
         scheduled = true

@@ -41,9 +41,10 @@ extension AKClip {
     }
 }
 
-/// A file based AKClip
+/// A file based AKClip, with a completion handler.
 @objc public protocol FileClip: AKClip {
     var audioFile: AKAudioFile { get }
+    @objc optional var completion: AKCallback? { get }
 }
 
 /// A FileClip implementation, used by AKClipPlayer.
@@ -61,6 +62,9 @@ open class AKFileClip: NSObject, FileClip {
     /// The duration of playback.
     open var duration: Double
 
+    // The callback executed when the end of the clip is reached.
+    open var completion: AKCallback?
+
     /// Create a new file clip.
     ///
     /// - Parameters:
@@ -68,16 +72,19 @@ open class AKFileClip: NSObject, FileClip {
     ///   - time: The time in the timeline that the clip should begin playing.
     ///   - offset: The offset into the clip's audio (where to start playing from within the clip).
     ///   - duration: The duration of playback.
+    ///   - completion: Callback executed when the end of the clip is reached.
     ///
     @objc public init(audioFile: AKAudioFile,
                       time: Double = 0,
                       offset: Double = 0,
-                      duration: Double = 0) {
+                      duration: Double = 0,
+                      completion: AKCallback? = nil) {
 
         self.audioFile = audioFile
         self.time = time
         self.offset = offset
         self.duration = duration == 0 ? audioFile.duration : duration
+        self.completion = completion
     }
 
     /// Init a file clip from a url with time and offset at zero, and duration set to file duration.
