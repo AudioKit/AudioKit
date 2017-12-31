@@ -2,8 +2,8 @@
 //  AKCostelloReverbTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit

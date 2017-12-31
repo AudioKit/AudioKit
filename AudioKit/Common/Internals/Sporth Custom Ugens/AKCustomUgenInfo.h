@@ -2,7 +2,7 @@
 //  AKCustomUgenInfo.h
 //  AudioKit
 //
-//  Created by Joseph Constantakis on 3/15/17.
+//  Created by Joseph Constantakis, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

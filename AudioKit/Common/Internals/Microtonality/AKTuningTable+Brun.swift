@@ -2,7 +2,7 @@
 //  AKTuningTable+Brun.swift
 //  AudioKit
 //
-//  Created by Marcus W. Hobbs on 5/2/17.
+//  Created by Marcus W. Hobbs, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

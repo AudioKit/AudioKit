@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 extension Notification.Name {
@@ -335,7 +335,10 @@ open class AKAudioUnitManager: NSObject {
 
     /// Create the Audio Unit at the specified index of the chain
     public func insertAudioUnit(name: String, at index: Int) {
-        guard _effectsChain.indices.contains(index) else { return }
+        guard _effectsChain.indices.contains(index) else {
+            AKLog(index, "index is invalid.")
+            return
+        }
 
         if let component = (availableEffects.first { $0.name == name }) {
             let acd = component.audioComponentDescription
@@ -351,7 +354,7 @@ open class AKAudioUnitManager: NSObject {
                     // AKLog("\(audioUnit.name) is a Mono effect. Please select a stereo version of it.")
                 }
 
-                // AKLog("* \(audioUnit.name) : Audio Unit created, version: \(audioUnit)")
+                AKLog("* \(audioUnit.name) : Audio Unit created at index \(index), version: \(audioUnit)")
 
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()

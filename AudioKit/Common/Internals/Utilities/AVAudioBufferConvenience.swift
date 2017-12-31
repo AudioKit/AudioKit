@@ -2,7 +2,7 @@
 //  AVAudioBufferConvenience.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 9/7/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 

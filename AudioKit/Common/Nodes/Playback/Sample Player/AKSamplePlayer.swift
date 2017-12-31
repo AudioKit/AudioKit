@@ -2,7 +2,7 @@
 //  AKSamplePlayer.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 5/20/17.
+//  Created by Jeff Cooper, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

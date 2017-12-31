@@ -2,7 +2,7 @@
 //  AKTestTriggers.h
 //  AKTestTriggers
 //
-//  Created by David O'Neill on 12/7/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 David O'Neill. All rights reserved.
 //
 
