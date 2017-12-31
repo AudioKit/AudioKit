@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// Audio from the standard input
@@ -42,6 +42,7 @@ open class AKMicrophone: AKNode, AKToggleable {
             self.avAudioNode = mixer
             AKSettings.audioInputEnabled = true
             AudioKit.engine.attach(mixer)
+            AKLog("Mixer inputs", mixer.numberOfInputs)
             AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: nil)
         #endif
     }

@@ -2,7 +2,7 @@
 //  AKMIDITransformer.swift
 //  AudioKit
 //
-//  Created by Eric George on 7/5/17.
+//  Created by Eric George, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
