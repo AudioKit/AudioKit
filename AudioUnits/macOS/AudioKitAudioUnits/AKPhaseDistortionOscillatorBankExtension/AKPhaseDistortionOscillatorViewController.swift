@@ -30,7 +30,7 @@ public class AKPhaseDistortionOscillatorViewController: AUViewController, AUAudi
         preferredContentSize = NSSize(width: 900, height: 564)
 
         guard audioUnit != nil else { return }
-        view.superview?.window!.styleMask.remove(NSWindowStyleMask.resizable)
+        view.superview?.window!.styleMask.remove(NSWindow.StyleMask.resizable)
         connectViewWithAU()
     }
 
