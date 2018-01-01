@@ -22,12 +22,12 @@ extension AVAudioPCMBuffer {
                                       frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {
 
         let remainingCapacity = frameCapacity - frameLength
-        if (remainingCapacity == 0) {
+        if remainingCapacity == 0 {
             print("AVAudioBuffer copy(from) - no capacity!")
             return 0
         }
 
-        if (format != buffer.format) {
+        if format != buffer.format {
             print("AVAudioBuffer copy(from) - formats must match!")
             return 0
         }
@@ -82,7 +82,7 @@ extension AVAudioPCMBuffer {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
         }
-        let framesCopied = buffer.copy(from: self, readOffset: 0, frames: min(count,frameLength))
+        let framesCopied = buffer.copy(from: self, readOffset: 0, frames: min(count, frameLength))
         return framesCopied > 0 ? buffer : nil
     }
 }
