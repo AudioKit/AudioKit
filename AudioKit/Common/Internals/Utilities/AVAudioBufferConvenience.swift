@@ -38,6 +38,12 @@ extension AVAudioPCMBuffer {
                 buffer.frameLength - readOffset
             )
         )
+
+        if count <= 0 {
+            print("AVAudioBuffer copy(from) - No frames to copy!")
+            return 0
+        }
+
         let frameSize = Int(format.streamDescription.pointee.mBytesPerFrame)
         if let src = buffer.floatChannelData,
             let dst = floatChannelData {
@@ -72,12 +78,11 @@ extension AVAudioPCMBuffer {
     }
 
     /// Returns an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
-    open func copyTo(endSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
-        guard endSample < frameLength,
-            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: endSample) else {
+    open func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
         }
-        let framesCopied = buffer.copy(from: self, readOffset: 0, frames: endSample)
+        let framesCopied = buffer.copy(from: self, readOffset: 0, frames: min(count,frameLength))
         return framesCopied > 0 ? buffer : nil
     }
 }
