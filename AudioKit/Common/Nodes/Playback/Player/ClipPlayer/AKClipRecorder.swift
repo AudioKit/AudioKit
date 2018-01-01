@@ -213,7 +213,7 @@ open class AKClipRecorder {
                 if lastBuffer {
                     let timeLeft = clip.endTime - timeIn
                     let samplesLeft = AVAudioFrameCount(timeLeft * buffer.format.sampleRate)
-                    if let partial = buffer.copyTo(endSample: samplesLeft) {
+                    if let partial = buffer.copyTo(count: samplesLeft) {
                         adjustedBuffer = partial
                     }
                 }
