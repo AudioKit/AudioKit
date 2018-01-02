@@ -134,7 +134,7 @@ extension AKMusicTrack {
         )
     }
 
-    private func iterateThroughEvents(_ processMIDIEvent: (_ eventTime: MusicTimeStamp, _ eventType: MusicEventType, _ eventData: UnsafeRawPointer?) -> ()) {
+    private func iterateThroughEvents(_ processMIDIEvent: (_ eventTime: MusicTimeStamp, _ eventType: MusicEventType, _ eventData: UnsafeRawPointer?) -> Void) {
         guard let track = internalMusicTrack else {
             XCTFail("internalMusicTrack does not exist")
             return
