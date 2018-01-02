@@ -91,17 +91,15 @@ class AKMusicTrackTests: AKTestCase {
 // MARK: - For AKMusicTrack Testing
 extension AKMusicTrack {
     var noteCount: Int {
-        get {
-            var count = 0
+        var count = 0
 
-            iterateThroughEvents { _, eventType, _ in
-                if eventType == kMusicEventType_MIDINoteMessage {
-                    count += 1
-                }
+        iterateThroughEvents { _, eventType, _ in
+            if eventType == kMusicEventType_MIDINoteMessage {
+                count += 1
             }
-
-            return count
         }
+
+        return count
     }
 
     func hasNote(atPosition position: MusicTimeStamp,
