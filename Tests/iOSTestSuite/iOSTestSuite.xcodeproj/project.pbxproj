@@ -337,6 +337,7 @@
 				C44FF8921FD0994F00B2217D /* AKMoogLadderTests.swift */,
 				C44FF8CF1FD0994F00B2217D /* AKMorphingOscillatorBankTests.swift */,
 				C44FF8B41FD0994F00B2217D /* AKMorphingOscillatorTests.swift */,
+				52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */,
 				C44FF8AF1FD0994F00B2217D /* AKOscillatorBankTests.swift */,
 				C44FF8BA1FD0994F00B2217D /* AKOscillatorTests.swift */,
 				C44FF8CA1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift */,
@@ -397,7 +398,6 @@
 				C44FF8841FD0994F00B2217D /* triangleWaveTests.swift */,
 				C44FF8831FD0994F00B2217D /* variableDelayTests.swift */,
 				C44FF8C01FD0994F00B2217D /* whiteNoiseTests.swift */,
-				52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */,
 			);
 			name = TestCases;
 			path = ../../TestCases;
