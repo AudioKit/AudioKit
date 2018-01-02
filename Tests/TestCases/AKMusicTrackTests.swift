@@ -1,6 +1,6 @@
 //
 //  AKMusicTrackTests.swift
-//  iOSTestSuiteTests
+//  AudioKitTestSuite
 //
 //  Created by Derek Lee, revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
