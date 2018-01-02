@@ -351,11 +351,11 @@ open class AKMusicTrack {
         return outBool
     }
 
-    /// Clear some events from the track
+    /// Clear all events from this track within the specified range
     ///
     /// - Parameters:
     ///   - start: Start of the range to clear, in beats (inclusive)
-    ///   - duration: Duration of the range to clear, in beats (exclusive)
+    ///   - duration: Length of time after the start position to clear, in beats (exclusive)
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         guard let track = internalMusicTrack else {
