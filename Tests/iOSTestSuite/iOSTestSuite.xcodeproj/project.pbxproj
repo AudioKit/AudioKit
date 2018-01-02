@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */; };
 		C4289A151D56D20300B941B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4289A141D56D20300B941B5 /* AppDelegate.swift */; };
 		C42D30A61D5A9C5C00F92555 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C42D30A51D5A9C5C00F92555 /* Default-568h@2x.png */; };
 		C44FF7BB1FD098DE00B2217D /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44FF7B91FD098D000B2217D /* AudioKit.framework */; };
@@ -134,6 +135,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		C4289A111D56D20300B941B5 /* iOSTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4289A141D56D20300B941B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4289A201D56D20300B941B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				C44FF8921FD0994F00B2217D /* AKMoogLadderTests.swift */,
 				C44FF8CF1FD0994F00B2217D /* AKMorphingOscillatorBankTests.swift */,
 				C44FF8B41FD0994F00B2217D /* AKMorphingOscillatorTests.swift */,
+				52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */,
 				C44FF8AF1FD0994F00B2217D /* AKOscillatorBankTests.swift */,
 				C44FF8BA1FD0994F00B2217D /* AKOscillatorTests.swift */,
 				C44FF8CA1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift */,
@@ -548,6 +551,7 @@
 				C44FF8F11FD0994F00B2217D /* AKCompressorTests.swift in Sources */,
 				C44FF8DE1FD0994F00B2217D /* AKDCBlockTests.swift in Sources */,
 				C44FF9301FD0994F00B2217D /* AKPWMOscillatorTests.swift in Sources */,
+				52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */,
 				C44FF9331FD0994F00B2217D /* AKLowShelfParametricEqualizerFilterTests.swift in Sources */,
 				C44FF92A1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift in Sources */,
 				C44FF90F1FD0994F00B2217D /* AKOscillatorBankTests.swift in Sources */,
