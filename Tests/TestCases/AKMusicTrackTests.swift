@@ -23,7 +23,6 @@ class AKMusicTrackTests: AKTestCase {
     func testAdd_addsANewNote() {
         musicTrack.addNote(withNumber: 60, atPosition: 0.75)
 
-
         XCTAssertEqual(musicTrack.noteCount, 1)
         XCTAssertTrue(musicTrack.hasNote(atPosition: 0.75, withNoteNumber: 60))
     }
@@ -34,9 +33,7 @@ class AKMusicTrackTests: AKTestCase {
         musicTrack.addNote(withNumber: 61, atPosition: 2.0)
         XCTAssertEqual(musicTrack.noteCount, 2)
 
-
         musicTrack.clear()
-
 
         XCTAssertEqual(musicTrack.noteCount, 0)
     }
@@ -46,12 +43,10 @@ class AKMusicTrackTests: AKTestCase {
         musicTrack.addNote(withNumber: 60, atPosition: 1.99)
         musicTrack.addNote(withNumber: 61, atPosition: 2.0)
 
-
         musicTrack.clearRange(
             start: AKDuration(beats: 2.0),
             duration: AKDuration(beats: 1.0)
         )
-
 
         XCTAssertTrue(musicTrack.hasNote(atPosition: 1.99, withNoteNumber: 60))
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 61))
@@ -60,12 +55,10 @@ class AKMusicTrackTests: AKTestCase {
     func testClearRange_removesNoteInclusiveOfTheStartTime() {
         musicTrack.addNote(withNumber: 60, atPosition: 2.0)
 
-
         musicTrack.clearRange(
             start: AKDuration(beats: 2.0),
             duration: AKDuration(beats: 0.1)
         )
-
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 60))
     }
@@ -73,12 +66,10 @@ class AKMusicTrackTests: AKTestCase {
     func testClearRange_removesNoteAtTheEndOfTheDuration() {
         musicTrack.addNote(withNumber: 60, atPosition: 2.99)
 
-
         musicTrack.clearRange(
             start: AKDuration(beats: 2.0),
             duration: AKDuration(beats: 1.0)
         )
-
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.99, withNoteNumber: 60))
     }
@@ -87,12 +78,10 @@ class AKMusicTrackTests: AKTestCase {
         musicTrack.addNote(withNumber: 60, atPosition: 2.0)
         musicTrack.addNote(withNumber: 61, atPosition: 3.0)
 
-
         musicTrack.clearRange(
             start: AKDuration(beats: 2.0),
             duration: AKDuration(beats: 1.0)
         )
-
 
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 60))
         XCTAssertTrue(musicTrack.hasNote(atPosition: 3.0, withNoteNumber: 61))
