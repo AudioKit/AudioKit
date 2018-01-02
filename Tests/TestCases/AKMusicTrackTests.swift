@@ -109,7 +109,7 @@ extension AKMusicTrack {
         iterateThroughEvents { eventTime, eventType, eventData in
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let midiNoteMessage = eventData?.load(as: MIDINoteMessage.self) {
-                    if (eventTime == position && midiNoteMessage.note == noteNumber) {
+                    if eventTime == position && midiNoteMessage.note == noteNumber {
                         noteFound = true
                     }
                 }
