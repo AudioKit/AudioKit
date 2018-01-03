@@ -763,8 +763,8 @@
 		C4AC0B6C1FC9460500EDA024 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B5F1FC9460400EDA024 /* DSPKernel.hpp */; };
 		C4AC0B6D1FC9460500EDA024 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B601FC9460400EDA024 /* DSPKernel.mm */; };
 		C4AC0B6E1FC9460500EDA024 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B611FC9460400EDA024 /* BufferedAudioBus.hpp */; };
-		C4AC0B6F1FC9460500EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B631FC9460400EDA024 /* AKLinearParameterRamp.hpp */; };
-		C4AC0B701FC9460500EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B641FC9460400EDA024 /* AKParameterRampBase.hpp */; };
+		C4AC0B6F1FC9460500EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B631FC9460400EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AC0B701FC9460500EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B641FC9460400EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B741FC9463B00EDA024 /* AKBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B711FC9463A00EDA024 /* AKBooster.mm */; };
 		C4AC0B751FC9463B00EDA024 /* AKBoosterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B721FC9463B00EDA024 /* AKBoosterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B761FC9463B00EDA024 /* AKBooster2AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B731FC9463B00EDA024 /* AKBooster2AudioUnit.swift */; };
@@ -4606,7 +4606,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -5569,7 +5569,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
