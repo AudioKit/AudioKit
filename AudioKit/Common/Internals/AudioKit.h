@@ -151,13 +151,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Sequencer
 #import "AKSamplerMetronome.h"
 
-#ifdef JAZZY_HACK
-// Hack to get jazzy to see the UI classes, please ignore
-#import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
-#import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"
-#endif
-
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
