@@ -5,9 +5,6 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
-#if !JAZZY_HACK
-    import AudioKit
-#endif
 
 extension Notification.Name {
     static let IAAConnected = Notification.Name(rawValue: "IAAConnected")
