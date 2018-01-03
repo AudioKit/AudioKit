@@ -605,8 +605,8 @@
 		C4AC0B151FC9419900EDA024 /* AKDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B121FC9419900EDA024 /* AKDSPBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B161FC9419900EDA024 /* AKAudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B131FC9419900EDA024 /* AKAudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B171FC9419900EDA024 /* AKAudioUnitBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B141FC9419900EDA024 /* AKAudioUnitBase.mm */; };
-		C4AC0B1B1FC941FC00EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B191FC941FC00EDA024 /* AKLinearParameterRamp.hpp */; };
-		C4AC0B1C1FC941FC00EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B1A1FC941FC00EDA024 /* AKParameterRampBase.hpp */; };
+		C4AC0B1B1FC941FC00EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B191FC941FC00EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4AC0B1C1FC941FC00EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B1A1FC941FC00EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B221FC9423A00EDA024 /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B1E1FC9423900EDA024 /* ParameterRamper.hpp */; };
 		C4AC0B231FC9423A00EDA024 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B1F1FC9423900EDA024 /* DSPKernel.hpp */; };
 		C4AC0B241FC9423A00EDA024 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B201FC9423900EDA024 /* DSPKernel.mm */; };
