@@ -10,6 +10,20 @@ import Cocoa
 
 public typealias AKLabel = NSTextField
 
+
+extension NSView {
+    var backgroundColor: NSColor? {
+        get {
+            guard let color = layer?.backgroundColor else { return nil }
+            return NSColor(cgColor: color)
+        }
+        set {
+            wantsLayer = true
+            layer?.backgroundColor = newValue?.cgColor
+        }
+    }
+}
+
 open class AKLiveViewController: NSViewController {
 
     var stackView: NSStackView!
@@ -20,8 +34,10 @@ open class AKLiveViewController: NSViewController {
         stackView.alignment = .centerX
         stackView.distribution = .fillEqually
         stackView.spacing = 10
+        stackView.backgroundColor = NSColor.black
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.view = stackView
+
     }
 
     public func addTitle(_ text: String) {
@@ -31,7 +47,6 @@ open class AKLiveViewController: NSViewController {
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
         newLabel.alignment = .center
-        newLabel.backgroundColor = NSColor.blue
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         newLabel.setFrameSize(NSSize(width:400, height: 80))
