@@ -78,7 +78,8 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,
-        waveform: AKTable = AKTable(.positiveSine)) {
+        waveform: AKTable = AKTable(.positiveSine)
+    ) {
 
         self.waveform = waveform
         self.frequency = frequency
@@ -87,14 +88,17 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-            self?.internalAU?.setupWaveform(Int32(waveform.count))
+            input?.connect(to: strongSelf)
+            strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
-                self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                strongSelf.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
@@ -120,7 +124,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
 
         depthParameter = tree["depth"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
 
             DispatchQueue.main.async {
                 if address == self?.depthParameter?.address {

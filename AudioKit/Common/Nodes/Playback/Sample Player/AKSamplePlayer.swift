@@ -169,7 +169,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                       rate: Double = 1,
                       volume: Double = 1,
                       maximumSamples: Int = 0,
-                      completionHandler: @escaping AKCCallback = { }) {
+                      completionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
         self.rate = rate
@@ -184,10 +184,13 @@ open class AKSamplePlayer: AKNode, AKComponent {
         super.init()
 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self!.internalAU!.completionHandler = completionHandler
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            strongSelf.internalAU!.completionHandler = completionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -269,7 +272,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     func safeSample(_ point: Sample) -> Sample {
         if point > size { return size }
-        //if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
+        // if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
     }
 
@@ -285,17 +288,17 @@ open class AKSamplePlayer: AKNode, AKComponent {
             internalAU?.setupAudioFileTable(sizeToUse)
         }
         var flattened = Array(file.floatChannelData!.joined())
-        if file.channelCount == 1 { //if mono, convert to stereo
+        if file.channelCount == 1 { // if mono, convert to stereo
             flattened.append(contentsOf: file.floatChannelData![0])
         }
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
         internalAU?.loadAudioData(data, size: UInt32(flattened.count), sampleRate: Float(file.sampleRate))
 
-        self.avAudiofile = file
-        self.startPoint = 0
-        self.endPoint = Sample(file.samplesCount)
-        self.loopStartPoint = 0
-        self.loopEndPoint = Sample(file.samplesCount)
+        avAudiofile = file
+        startPoint = 0
+        endPoint = Sample(file.samplesCount)
+        loopStartPoint = 0
+        loopEndPoint = Sample(file.samplesCount)
     }
     //todo open func loadSound()
 

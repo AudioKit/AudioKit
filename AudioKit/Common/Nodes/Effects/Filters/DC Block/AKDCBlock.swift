@@ -30,16 +30,18 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - parameter input: Input node to process
     ///
-    @objc public init( _ input: AKNode? = nil) {
+    @objc public init(_ input: AKNode? = nil) {
         _Self.register()
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
     }
 

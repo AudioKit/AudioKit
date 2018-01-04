@@ -94,7 +94,8 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,
-        gain: Double = 10.0) {
+        gain: Double = 10.0
+    ) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -104,11 +105,13 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
