@@ -278,11 +278,11 @@ public typealias AKCallback = () -> Void
         engine.stop()
         shouldBeRunning = false
 
+        #if os(iOS)
         notificationObservers.forEach { (observer) in
             NotificationCenter.default.removeObserver(observer)
         }
 
-        #if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setActive(false)
         } catch {
