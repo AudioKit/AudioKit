@@ -40,6 +40,9 @@ public typealias AKCallback = () -> Void
 
     @objc static var finalMixer = AKMixer()
 
+    /// Notification observers
+    fileprivate static var notificationObservers: [Any] = []
+
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {
@@ -227,22 +230,25 @@ public typealias AKCallback = () -> Void
         #if os(iOS)
 
             if AKSettings.enableRouteChangeHandling {
-                NotificationCenter.default.addObserver(forName: .AVAudioSessionRouteChange,
-                                                       object: nil,
-                                                       queue: OperationQueue.main,
-                                                       using: { (notification) in
-                                                        AudioKit.restartEngineAfterRouteChange(notification)
+
+                let routeChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioSessionRouteChange,
+                                                                                 object: nil,
+                                                                                 queue: OperationQueue.main,
+                                                                                 using: { (notification) in
+                                                                                    AudioKit.restartEngineAfterRouteChange(notification)
                 })
+                notificationObservers.append(routeChangeObserver)
 
             }
 
             if AKSettings.enableCategoryChangeHandling {
-                NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
-                                                       object: engine,
-                                                       queue: OperationQueue.main,
-                                                       using: { (notification) in
-                                                        AudioKit.restartEngineAfterConfigurationChange(notification)
+                let configurationChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
+                                                                                         object: engine,
+                                                                                         queue: OperationQueue.main,
+                                                                                         using: { (notification) in
+                                                                                            AudioKit.restartEngineAfterConfigurationChange(notification)
                 })
+                notificationObservers.append(configurationChangeObserver)
             }
             try updateSessionCategoryAndOptions()
             try AVAudioSession.sharedInstance().setActive(true)
@@ -271,6 +277,11 @@ public typealias AKCallback = () -> Void
         // Stop the engine.
         engine.stop()
         shouldBeRunning = false
+
+        notificationObservers.forEach { (observer) in
+            NotificationCenter.default.removeObserver(observer)
+        }
+
         #if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setActive(false)
