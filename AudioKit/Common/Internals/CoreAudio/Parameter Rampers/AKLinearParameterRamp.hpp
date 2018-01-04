@@ -8,7 +8,9 @@
 
 #pragma once
 
-#import "AKParameterRampBase.hpp"
+#import "AKParameterRampBase.hpp" // have to put this here to get it included in umbrella header
+
+#ifdef __cplusplus
 
 struct AKLinearParameterRamp : AKParameterRampBase {
 
@@ -18,4 +20,6 @@ struct AKLinearParameterRamp : AKParameterRampBase {
     }
 
 };
+
+#endif
 
