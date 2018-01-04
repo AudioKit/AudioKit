@@ -92,7 +92,8 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         wah: Double = 0.0,
         mix: Double = 1.0,
-        amplitude: Double = 0.1) {
+        amplitude: Double = 0.1
+    ) {
 
         self.wah = wah
         self.mix = mix
@@ -102,11 +103,13 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {

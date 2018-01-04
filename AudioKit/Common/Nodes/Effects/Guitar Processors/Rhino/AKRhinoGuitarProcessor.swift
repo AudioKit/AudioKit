@@ -176,11 +176,14 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -197,20 +200,23 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         distortionParameter = tree["distortion"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
-
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
             DispatchQueue.main.async {
-                if address == self?.preGainParameter?.address {
-                    self?.preGain = Double(value)
-                } else if address == self?.postGainParameter?.address {
-                    self?.postGain = Double(value)
-                } else if address == self?.lowGainParameter?.address {
-                    self?.lowGain = Double(value)
-                } else if address == self?.midGainParameter?.address {
-                    self?.midGain = Double(value)
-                } else if address == self?.highGainParameter?.address {
-                    self?.highGain = Double(value)
-                } else if address == self?.distortionParameter?.address {
-                    self?.distortion = Double(value)
+                if address == strongSelf.preGainParameter?.address {
+                    strongSelf.preGain = Double(value)
+                } else if address == strongSelf.postGainParameter?.address {
+                    strongSelf.postGain = Double(value)
+                } else if address == strongSelf.lowGainParameter?.address {
+                    strongSelf.lowGain = Double(value)
+                } else if address == strongSelf.midGainParameter?.address {
+                    strongSelf.midGain = Double(value)
+                } else if address == strongSelf.highGainParameter?.address {
+                    strongSelf.highGain = Double(value)
+                } else if address == strongSelf.distortionParameter?.address {
+                    strongSelf.distortion = Double(value)
                 }
             }
         })

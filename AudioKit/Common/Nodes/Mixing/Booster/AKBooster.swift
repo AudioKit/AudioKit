@@ -93,16 +93,16 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amplification Factor in db
     @objc open dynamic var dB: Double {
         set {
-            gain = pow(10.0, Double(newValue / 20))
+            self.gain = pow(10.0, Double(newValue / 20))
         }
         get {
-            return 20.0 * log10(gain)
+            return 20.0 * log10(self.gain)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return self.internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -115,7 +115,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        gain: Double = 1) {
+        gain: Double = 1
+    ) {
 
         self.leftGain = gain
         self.rightGain = gain
@@ -124,11 +125,13 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -136,10 +139,10 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        leftGainParameter = tree["leftGain"]
-        rightGainParameter = tree["rightGain"]
+        self.leftGainParameter = tree["leftGain"]
+        self.rightGainParameter = tree["rightGain"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
+        self.token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
@@ -150,8 +153,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.leftGain = Float(gain)
-        internalAU?.rightGain = Float(gain)
+        self.internalAU?.leftGain = Float(gain)
+        self.internalAU?.rightGain = Float(gain)
 
     }
 
@@ -161,8 +164,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open func start() {
         AKLog("start() \(isStopped)")
         if isStopped {
-            leftGain = lastKnownLeftGain
-            rightGain = lastKnownRightGain
+            self.leftGain = lastKnownLeftGain
+            self.rightGain = self.lastKnownRightGain
         }
     }
 
@@ -171,10 +174,10 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         AKLog("stop() \(isPlaying)")
 
         if isPlaying {
-            lastKnownLeftGain = leftGain
-            lastKnownRightGain = rightGain
-            leftGain = 1
-            rightGain = 1
+            self.lastKnownLeftGain = leftGain
+            self.lastKnownRightGain = rightGain
+            self.leftGain = 1
+            self.rightGain = 1
         }
     }
 }

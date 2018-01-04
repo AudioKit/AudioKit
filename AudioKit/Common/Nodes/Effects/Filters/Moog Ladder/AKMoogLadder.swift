@@ -81,7 +81,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 1_000,
-        resonance: Double = 0.5) {
+        resonance: Double = 0.5
+    ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
@@ -90,11 +91,13 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -108,7 +111,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else {
-                //AKLog("Unable to create strong reference to self")
+                // AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {

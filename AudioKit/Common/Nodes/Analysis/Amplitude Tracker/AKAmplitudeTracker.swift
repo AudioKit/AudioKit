@@ -80,15 +80,17 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-            guard let strongSelf = self else { return }
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            strongSelf.internalAU!.thresholdCallback = thresholdCallback
+            strongSelf.internalAU?.thresholdCallback = thresholdCallback
 
             if let au = strongSelf.internalAU {
                 au.setHalfPowerPoint(Float(halfPowerPoint))
             }
-
             input?.connect(to: strongSelf)
         }
 
