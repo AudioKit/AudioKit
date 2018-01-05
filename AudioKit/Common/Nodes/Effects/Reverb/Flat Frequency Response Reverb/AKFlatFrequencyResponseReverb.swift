@@ -65,7 +65,8 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     @objc public init(
         _ input: AKNode? = nil,
         reverbDuration: Double = 0.5,
-        loopDuration: Double = 0.1) {
+        loopDuration: Double = 0.1
+    ) {
 
         self.reverbDuration = reverbDuration
 
@@ -73,12 +74,15 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-            if let au = self?.internalAU {
+            input?.connect(to: strongSelf)
+            if let au = strongSelf.internalAU {
                 au.setLoopDuration(Float(loopDuration))
             }
         }

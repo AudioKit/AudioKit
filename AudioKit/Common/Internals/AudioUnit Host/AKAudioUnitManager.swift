@@ -465,6 +465,7 @@ open class AKAudioUnitManager: NSObject {
             return nil
         }
 
+        (node as? AKToggleable)?.start()
         return node?.avAudioNode as? AVAudioUnit
     }
 
