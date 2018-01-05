@@ -474,6 +474,11 @@ public class AKPlayer: AKNode {
         }
 
         let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        guard totalFrames > 0 else {
+            AKLog("totalFrames to play is \(totalFrames). Bailing.")
+            return
+        }
+
         frameCount = AVAudioFrameCount(totalFrames)
 
         // AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
@@ -561,6 +566,12 @@ public class AKPlayer: AKNode {
         }
 
         frameCount = AVAudioFrameCount(endFrame - startFrame)
+
+        guard frameCount > 0 else {
+            AKLog("totalFrames to play is \(frameCount). Bailing.")
+            return
+        }
+
         guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
 
         do {
