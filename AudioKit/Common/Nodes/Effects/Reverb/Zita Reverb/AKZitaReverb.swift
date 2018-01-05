@@ -218,7 +218,8 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         equalizerLevel1: Double = 0.0,
         equalizerFrequency2: Double = 1_500.0,
         equalizerLevel2: Double = 0.0,
-        dryWetMix: Double = 1.0) {
+        dryWetMix: Double = 1.0
+    ) {
 
         self.predelay = predelay
         self.crossoverFrequency = crossoverFrequency
@@ -235,11 +236,13 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
