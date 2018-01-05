@@ -9,6 +9,10 @@ By using inline comments, AudioKit is self-documenting, and the help panel withi
 
 Inline comments are also parsed by the "jazzy" documentation generator which provides us [web based documentation](http://audiokit.io/).
 
+* README files
+
+We try to include a README folder in ever directory of AudioKit to describe the contents of the folders and to provide some basic quickstart information as necessary.
+
 * Playgrounds
 
 Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over one hundred playgrounds from the most basic tutorials, to synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis. The playgrounds can be perused on Github, or [on AudioKit.io (many with demonstration videos)](http://audiokit.io/playgrounds/).
