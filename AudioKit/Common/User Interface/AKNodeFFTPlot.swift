@@ -16,17 +16,19 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                              sampleRate: Float(AKSettings.sampleRate),
                              delegate: self)
         }
-        input?.avAudioNode.installTap(onBus: 0,
-                                      bufferSize: bufferSize,
-                                      format: nil) { [weak self] (buffer, _) in
-                                        if let strongSelf = self {
-                                            buffer.frameLength = strongSelf.bufferSize
-                                            let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                                            if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
-                                                existingFFT.computeFFT(withBuffer: &tail[offset],
-                                                                       withBufferSize: strongSelf.bufferSize)
-                                            }
-                                        }
+
+        input?.avAudioNode.installTap(
+            onBus: 0,
+            bufferSize: bufferSize,
+            format: nil) { [weak self] (buffer, _) in
+                if let strongSelf = self {
+                    buffer.frameLength = strongSelf.bufferSize
+                    let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                    if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
+                        existingFFT.computeFFT(withBuffer: &tail[offset],
+                                               withBufferSize: strongSelf.bufferSize)
+                    }
+                }
         }
 
     }
