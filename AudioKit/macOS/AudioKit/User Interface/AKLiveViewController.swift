@@ -49,8 +49,8 @@ open class AKLiveViewController: NSViewController {
         newLabel.alignment = .center
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.boldSystemFont(ofSize: 24)
-        newLabel.setFrameSize(NSSize(width:400, height: 80))
-        newLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        newLabel.setFrameSize(NSSize(width:400, height: 40))
+        newLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         addView(newLabel)
     }
 
@@ -63,7 +63,7 @@ open class AKLiveViewController: NSViewController {
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.systemFont(ofSize: 18)
         newLabel.setFrameSize(NSSize(width:400, height: 40))
-        newLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        newLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         addView(newLabel)
         return newLabel
     }
