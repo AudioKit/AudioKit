@@ -23,4 +23,4 @@ There are many sample projects included in the Examples folder of AudioKit. Ther
 
 ## Archictectural and High-Level Overviews
 
-These are currently being developed.
+These are currently being developed.  The first one is on [Audio Unit Creation](AudioUnitCreation.md).
