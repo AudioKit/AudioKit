@@ -46,11 +46,11 @@ This class inherits from AKAudioUnitBase, and is not strictly necessary, as it i
 
 ## Swift classes
 
-### MySwiftAU
+### `MySwiftAU`
 
 Aspects of AU functionality which are inconvenient to implement in the Objective C layer can be implemented in a Swift AU which inherits from either `MyObjcAU` or `AKAudioUnitBase`. An example of this is setting up the `AUParameterTree`, which is much more convenient to do from Swift. 
 
-### MyNode
+### `MyNode`
 
 TBD
 
