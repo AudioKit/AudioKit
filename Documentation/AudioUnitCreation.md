@@ -10,7 +10,7 @@ Instead, Apple provides a sample project which has a working version of a versio
 
 The diagram below shows a typical implementation of an AudioKit based Audio Unit. 
 
-<a href="http://audiokit.io/images/AudioKit AU class diagram.svg"><img src="http://audiokit.io/images/AudioKit AU class diagram.svg?cache=no" width=50%></a>
+<a href="http://audiokit.io/images/AudioKit AU class diagram.svg"><img src="http://audiokit.io/images/AudioKit AU class diagram.svg?cache=no" width=100%></a>
 
 ## C++ classes
 
