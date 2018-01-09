@@ -1,9 +1,9 @@
 //
 //  AKTestTriggers.h
-//  AKTestTriggers
+//  AudioKit
 //
 //  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 David O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
