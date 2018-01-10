@@ -26,19 +26,22 @@ class AKCostelloReverbTests: AKTestCase {
         AKTestMD5("c8b8fa22214adcfd6ea28ef3d5403c78")
     }
 
+    let commonMD5 = "e0a028d0b2118a3b4e96d04c1bbf08e3"
+
     func testParametersSetAfterInit() {
         let effect = AKCostelloReverb(input)
+        effect.rampTime = 0.0
         effect.cutoffFrequency = 1_234
         effect.feedback = 0.95
         output = effect
-        AKTestMD5("e0a028d0b2118a3b4e96d04c1bbf08e3")
+        AKTestMD5(commonMD5)
     }
 
     func testParametersSetOnInit() {
         output = AKCostelloReverb(input,
                                   feedback: 0.95,
                                   cutoffFrequency: 1_234)
-        AKTestMD5("e0a028d0b2118a3b4e96d04c1bbf08e3")
+        AKTestMD5(commonMD5)
     }
 
 }

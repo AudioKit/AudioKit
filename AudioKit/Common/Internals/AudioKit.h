@@ -82,7 +82,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Effects / Reverb
 #import "AKChowningReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
-#import "AKCostelloReverbAudioUnit.h"
+#import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
 #import "AKZitaReverbAudioUnit.h"
 
