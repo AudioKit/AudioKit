@@ -28,7 +28,7 @@ public:
         sp_jcrev_create(&_jcrev0);
         sp_jcrev_init(_sp, _jcrev0);
         sp_jcrev_create(&_jcrev1);
-        sp_jcrev_init(_sp,  _jcrev1);
+        sp_jcrev_init(_sp, _jcrev1);
     }
 
     void destroy() {
