@@ -18,6 +18,8 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
+#import "AKAudioUnitBase.h"
+
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -78,7 +80,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPitchShifterAudioUnit.h"
 
 // Effects / Reverb
-#import "AKChowningReverbAudioUnit.h"
+#import "AKChowningReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbAudioUnit.h"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
