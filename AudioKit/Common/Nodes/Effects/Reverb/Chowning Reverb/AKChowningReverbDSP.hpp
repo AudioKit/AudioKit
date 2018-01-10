@@ -1,5 +1,5 @@
 //
-//  AKChowningReverbDSPKernel.hpp
+//  AKChowningReverbDSP.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -7,6 +7,12 @@
 //
 
 #pragma once
+
+#ifndef __cplusplus
+
+void* createChowningReverbDSP(int nChannels, double sampleRate);
+
+#else
 
 #import "AKSoundpipeDSPBase.hpp"
 
@@ -40,3 +46,4 @@ public:
     }
 };
 
+#endif
