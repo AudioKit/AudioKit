@@ -24,7 +24,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-            internalAU?.rampTime = Float(newValue)
+            internalAU?.rampTime = newValue
         }
     }
 
@@ -49,8 +49,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
             }
 
             // this means it's direct inline
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(newValue))
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -67,7 +67,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(newValue))
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
         }
     }
 
@@ -84,7 +84,7 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(newValue))
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -152,8 +152,8 @@ open class AKBooster2: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.setParamImmediate(addr: AKBoosterParameter.leftGain, value: Float(gain))
-        self.internalAU?.setParamImmediate(addr: AKBoosterParameter.rightGain, value: Float(gain))
+        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
     }
 
     // MARK: - Control

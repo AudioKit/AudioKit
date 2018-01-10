@@ -10,24 +10,24 @@ import AVFoundation
 
 public class AKBooster2AudioUnit: AKAudioUnitBase {
 
-    func setParam(addr: AKBoosterParameter, value: Float) {
-        setParameterWithAddress(AUParameterAddress(addr.rawValue), value: value)
+    func setParameter(_ addr: AKBoosterParameter, value: Double) {
+        setParameterWithAddress(AUParameterAddress(addr.rawValue), value: Float(value))
     }
 
-    func setParamImmediate(addr: AKBoosterParameter, value: Float) {
-        setParamWithAddressImmediate(AUParameterAddress(addr.rawValue), value: value)
+    func setParameterImmediately(_ addr: AKBoosterParameter, value: Double) {
+        setParameterImmediatelyWithAddress(AUParameterAddress(addr.rawValue), value: Float(value))
     }
 
-    var leftGain: Float = 1.0 {
-        didSet { setParam(addr: AKBoosterParameter.leftGain, value: leftGain) }
+    var leftGain: Double = 1.0 {
+        didSet { setParameter(.leftGain, value: leftGain) }
     }
 
-    var rightGain: Float = 1.0 {
-        didSet { setParam(addr: AKBoosterParameter.rightGain, value: rightGain) }
+    var rightGain: Double = 1.0 {
+        didSet { setParameter(.rightGain, value: rightGain) }
     }
 
-    var rampTime: Float = 0.0 {
-        didSet { setParam(addr: AKBoosterParameter.rampTime, value: rampTime) }
+    var rampTime: Double = 0.0 {
+        didSet { setParameter(.rampTime, value: rampTime) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,

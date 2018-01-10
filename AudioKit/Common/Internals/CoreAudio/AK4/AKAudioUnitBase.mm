@@ -33,7 +33,7 @@
     _kernel->setParameter(address, value);
 }
 
-- (void) setParamWithAddressImmediate:(AUParameterAddress)address value:(AUValue)value {
+- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value {
     _kernel->setParameter(address, value, true);
 }
 
