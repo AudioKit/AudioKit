@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
@@ -43,6 +43,24 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }
+
+        guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
+            return
+        }
+
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
+
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
+            DispatchQueue.main.async {
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
+            }
+        })
+
     }
 
     // MARK: - Control
