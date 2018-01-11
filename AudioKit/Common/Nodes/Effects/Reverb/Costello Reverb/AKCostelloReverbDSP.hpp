@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -27,7 +27,9 @@ void* createCostelloReverbDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
-    sp_revsc* _revsc;
+
+    sp_revsc *_revsc;
+
 
 private:
     AKLinearParameterRamp feedbackRamp;
@@ -76,7 +78,7 @@ public:
         sp_revsc_create(&_revsc);
         sp_revsc_init(_sp, _revsc);
         _revsc->feedback = 0.6;
-        _revsc->lpfreq = 4000;
+        _revsc->lpfreq = 4000.0;
     }
 
     void destroy() {
