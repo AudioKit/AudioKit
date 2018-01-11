@@ -35,7 +35,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKVariableDelayAudioUnit.h"
 
 // Effects / Distortion
-#import "AKBitCrusherAudioUnit.h"
+#import "AKBitCrusherDSP.hpp"
 #import "AKClipperAudioUnit.h"
 #import "AKTanhDistortionAudioUnit.h"
 
