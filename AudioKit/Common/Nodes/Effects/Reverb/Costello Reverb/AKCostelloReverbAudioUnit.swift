@@ -3,19 +3,19 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 
 public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ addr: AKCostelloReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(addr.rawValue), value: Float(value))
+    func setParameter(_ address: AKCostelloReverbParameter, value: Double) {
+        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    func setParameterImmediately(_ addr: AKCostelloReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(addr.rawValue), value: Float(value))
+    func setParameterImmediately(_ address: AKCostelloReverbParameter, value: Double) {
+        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
     var feedback: Double = 0.6 {
@@ -43,7 +43,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
-            name: "Feeback",
+            name: "Feedback",
             address: AUParameterAddress(0),
             min: 0.0,
             max: 1.0,
