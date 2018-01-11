@@ -36,8 +36,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Distortion
 #import "AKBitCrusherDSP.hpp"
-#import "AKClipperAudioUnit.h"
-#import "AKTanhDistortionAudioUnit.h"
+#import "AKClipperDSP.hpp"
+#import "AKTanhDistortionDSP.hpp"
 
 // Effects / Dynamics
 #import "AKDynamicRangeCompressorAudioUnit.h"
