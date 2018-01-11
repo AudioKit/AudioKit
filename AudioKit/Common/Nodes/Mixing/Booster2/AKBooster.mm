@@ -1,5 +1,5 @@
 //
-//  AKBoosterDSP.mm
+//  AKBooster.mm
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.

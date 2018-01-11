@@ -18,6 +18,8 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
+#import "AKAudioUnitBase.h"
+
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -33,7 +35,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKVariableDelayAudioUnit.h"
 
 // Effects / Distortion
-#import "AKBitCrusherAudioUnit.h"
+#import "AKBitCrusherDSP.hpp"
 #import "AKClipperAudioUnit.h"
 #import "AKTanhDistortionAudioUnit.h"
 
@@ -78,11 +80,11 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPitchShifterAudioUnit.h"
 
 // Effects / Reverb
-#import "AKChowningReverbAudioUnit.h"
+#import "AKChowningReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
-#import "AKCostelloReverbAudioUnit.h"
+#import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
-#import "AKZitaReverbAudioUnit.h"
+#import "AKZitaReverbDSP.hpp"
 
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
@@ -150,14 +152,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Sequencer
 #import "AKSamplerMetronome.h"
-
-#ifdef JAZZY_HACK
-// Hack to get jazzy to see the UI classes, please ignore
-#import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
-#import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"
-#endif
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"

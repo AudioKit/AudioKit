@@ -12,9 +12,7 @@
 
 
 @implementation AKRenderTap{
-    AudioUnit _audioUnit;
     AKRenderNotifyBlock _renderNotifyBlock;
-    BOOL _started;
 }
 
 -(instancetype)initWithNode:(AVAudioNode *)node renderNotify:(AKRenderNotifyBlock)block {
@@ -26,14 +24,17 @@
     return [self initWithAudioUnit:avAudioUnit.audioUnit renderNotify:block];
 }
 -(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit renderNotify:(AKRenderNotifyBlock)block {
-    if (!audioUnit || !block) {
-        NSLog(@"AKRenderTap.initWithAudioUnit needs both audioUnit and block");
+    if (!audioUnit) {
+        NSLog(@"AKRenderTap.initWithAudioUnit needs an audio unit");
         return NULL;
     }
     self = [super init];
     if (self) {
-        _renderNotifyBlock = block;
         _audioUnit = audioUnit;
+        _renderNotifyBlock = block ?: [self renderNotifyBlock];
+        if (!_renderNotifyBlock) {
+            NSLog(@"AKRenderTap.initWithAudioUnit - no render notify block!");
+        }
         OSStatus status = AudioUnitAddRenderNotify(_audioUnit, renderNotify, (__bridge void *)_renderNotifyBlock);
         if (status) {
             NSLog(@"AKRenderTap AudioUnitAddRenderNotify error %i", (int)status);

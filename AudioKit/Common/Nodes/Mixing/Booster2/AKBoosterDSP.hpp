@@ -16,6 +16,8 @@ typedef NS_ENUM(int64_t, AKBoosterParameter) {
     AKBoosterParameterRampTime
 };
 
+#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+
 #ifndef __cplusplus
 
 void* createBoosterDSP(int nChannels, double sampleRate);
@@ -25,7 +27,6 @@ void* createBoosterDSP(int nChannels, double sampleRate);
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
-#import "AKLinearParameterRamp.hpp"
 
 /**
  A butt simple DSP kernel. Most of the plumbing is in the base class. All the code at this
