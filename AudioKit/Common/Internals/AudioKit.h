@@ -67,8 +67,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRolandTB303FilterAudioUnit.h"
 #import "AKStringResonatorAudioUnit.h"
 #import "AKThreePoleLowpassFilterAudioUnit.h"
-#import "AKToneComplementFilterAudioUnit.h"
-#import "AKToneFilterAudioUnit.h"
+#import "AKToneComplementFilterDSP.hpp"
+#import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
 #import "AKRhinoGuitarProcessorAudioUnit.h"
