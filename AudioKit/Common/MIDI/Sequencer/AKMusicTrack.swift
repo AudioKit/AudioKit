@@ -40,6 +40,7 @@ open class AKMusicTrack {
         }
         return lengthFromMusicTimeStamp
     }
+
     /// Total duration of the music track
     open var initLength: MusicTimeStamp {
         var size: UInt32 = 0
@@ -151,7 +152,6 @@ open class AKMusicTrack {
         if let musicTrack = internalMusicTrack {
             MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
         }
-
     }
 
     /// Set length
@@ -351,19 +351,20 @@ open class AKMusicTrack {
         return outBool
     }
 
-    /// Clear some events from the track
+    /// Clear all events from this track within the specified range
     ///
     /// - Parameters:
-    ///   - start:    Start of the range to clear, in beats
-    ///   - duration: Duration of the range to clear, in beats
+    ///   - start: Start of the range to clear, in beats (inclusive)
+    ///   - duration: Length of time after the start position to clear, in beats (exclusive)
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
         }
+
         if isNotEmpty {
-            MusicTrackClear(track, start.beats, duration.beats)
+            MusicTrackClear(track, start.beats, start.beats + duration.beats)
         }
     }
 
@@ -395,6 +396,7 @@ open class AKMusicTrack {
 
         MusicTrackNewMIDINoteEvent(track, position.musicTimeStamp, &noteMessage)
     }
+
     /// Add Controller change to sequence
     ///
     /// - Parameters:
@@ -451,7 +453,6 @@ open class AKMusicTrack {
     ///   - channel: MIDI channel to insert pitch bend on
     ///
     open func addPitchBend(_ value: Int = 8_192, position: AKDuration, channel: MIDIChannel = 0) {
-
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -523,6 +524,7 @@ open class AKMusicTrack {
     open func debug() {
         CAShow(trackPointer)
     }
+
     open func debugInitTrack() {
         CAShow(initTrackPointer)
     }

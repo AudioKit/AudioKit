@@ -8,3 +8,4 @@ This project is a handy project for developers of AudioKit because it set up wit
 * A sandbox test file to put new unit tests in
 * The full suite of AudioKit tests so that you can quickly check that you haven't broken something unexpected
 
+![Example Search Paths](ExampleSearchPaths.png)

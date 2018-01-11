@@ -1,3 +1,10 @@
+//
+//  AKAudioUnitBase.mm
+//  AudioKit
+//
+//  Created by Andrew Voelkel, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
+//
 
 #import "AKAudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
@@ -26,7 +33,7 @@
     _kernel->setParameter(address, value);
 }
 
-- (void) setParamWithAddressImmediate:(AUParameterAddress)address value:(AUValue)value {
+- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value {
     _kernel->setParameter(address, value, true);
 }
 
