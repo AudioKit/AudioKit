@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
@@ -30,45 +30,50 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Corner frequency.
-    @objc open dynamic var cornerFrequency: Double = 1_000 {
+    @objc open dynamic var cornerFrequency: Double = 1000 {
         willSet {
-            if cornerFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cornerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cornerFrequency = Float(newValue)
+            if cornerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cornerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cornerFrequency, value: newValue)
         }
     }
+
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     @objc open dynamic var gain: Double = 1.0 {
         willSet {
-            if gain != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        gainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.gain = Float(newValue)
+            if gain == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
+
     /// Q of the filter. sqrt(0.5) is no resonance.
     @objc open dynamic var q: Double = 0.707 {
         willSet {
-            if q != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        qParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.q = Float(newValue)
+            if q == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    qParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.Q, value: newValue)
         }
     }
 
@@ -84,16 +89,14 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cornerFrequency: Corner frequency.
-    ///   - gain: Amount at which the corner frequency value shall be increased or decreased.
-    ///           A value of 1 is a flat response.
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cornerFrequency: Double = 1_000,
+        cornerFrequency: Double = 1000,
         gain: Double = 1.0,
-        q: Double = 0.707
-    ) {
+        q: Double = 0.707) {
 
         self.cornerFrequency = cornerFrequency
         self.gain = gain
@@ -133,9 +136,9 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             }
         })
 
-        internalAU?.cornerFrequency = Float(cornerFrequency)
-        internalAU?.gain = Float(gain)
-        internalAU?.q = Float(q)
+        self.internalAU?.setParameterImmediately(.cornerFrequency, value: cornerFrequency)
+        self.internalAU?.setParameterImmediately(.gain, value: gain)
+        self.internalAU?.setParameterImmediately(.Q, value: q)
     }
 
     // MARK: - Control
@@ -150,3 +153,4 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         internalAU?.stop()
     }
 }
+
