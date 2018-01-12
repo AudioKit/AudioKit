@@ -51,7 +51,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -94,7 +94,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, distortion, resonanceAsymmetry]))
         cutoffFrequency.value = 500

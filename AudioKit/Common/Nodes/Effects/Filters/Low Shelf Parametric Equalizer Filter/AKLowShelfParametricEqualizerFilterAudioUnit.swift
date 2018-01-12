@@ -18,7 +18,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cornerFrequency: Double = 1000 {
+    var cornerFrequency: Double = 1_000 {
         didSet { setParameter(.cornerFrequency, value: cornerFrequency) }
     }
     var gain: Double = 1.0 {
@@ -48,7 +48,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Corner Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -79,10 +79,9 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cornerFrequency, gain, q]))
-        cornerFrequency.value = 1000
+        cornerFrequency.value = 1_000
         gain.value = 1.0
         q.value = 0.707
     }

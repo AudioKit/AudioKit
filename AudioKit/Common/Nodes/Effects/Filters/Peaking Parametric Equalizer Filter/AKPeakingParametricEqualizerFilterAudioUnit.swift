@@ -18,7 +18,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 1000 {
+    var centerFrequency: Double = 1_000 {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
     var gain: Double = 1.0 {
@@ -48,7 +48,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -79,10 +79,9 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
-        centerFrequency.value = 1000
+        centerFrequency.value = 1_000
         gain.value = 1.0
         q.value = 0.707
     }

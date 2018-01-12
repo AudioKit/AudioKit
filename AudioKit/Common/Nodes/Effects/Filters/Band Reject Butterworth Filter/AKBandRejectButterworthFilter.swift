@@ -30,7 +30,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 3000.0 {
+    @objc open dynamic var centerFrequency: Double = 3_000.0 {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -46,7 +46,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     }
 
     /// Bandwidth. (in Hertz)
-    @objc open dynamic var bandwidth: Double = 2000.0 {
+    @objc open dynamic var bandwidth: Double = 2_000.0 {
         willSet {
             if bandwidth == newValue {
                 return
@@ -77,8 +77,8 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 3000.0,
-        bandwidth: Double = 2000.0) {
+        centerFrequency: Double = 3_000.0,
+        bandwidth: Double = 2_000.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -132,4 +132,3 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
         internalAU?.stop()
     }
 }
-

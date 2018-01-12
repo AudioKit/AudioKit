@@ -10,7 +10,6 @@ import Cocoa
 
 public typealias AKLabel = NSTextField
 
-
 extension NSView {
     var backgroundColor: NSColor? {
         get {

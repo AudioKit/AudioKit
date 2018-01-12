@@ -30,7 +30,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
     var midReleaseTime: Double = 2.0 {
         didSet { setParameter(.midReleaseTime, value: midReleaseTime) }
     }
-    var dampingFrequency: Double = 6000.0 {
+    var dampingFrequency: Double = 6_000.0 {
         didSet { setParameter(.dampingFrequency, value: dampingFrequency) }
     }
     var equalizerFrequency1: Double = 315.0 {
@@ -39,7 +39,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
     var equalizerLevel1: Double = 0.0 {
         didSet { setParameter(.equalizerLevel1, value: equalizerLevel1) }
     }
-    var equalizerFrequency2: Double = 1500.0 {
+    var equalizerFrequency2: Double = 1_500.0 {
         didSet { setParameter(.equalizerFrequency2, value: equalizerFrequency2) }
     }
     var equalizerLevel2: Double = 0.0 {
@@ -81,7 +81,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Crossover frequency separating low and middle frequencies (Hz).",
             address: AUParameterAddress(1),
             min: 10.0,
-            max: 1000.0,
+            max: 1_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -117,7 +117,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
             address: AUParameterAddress(4),
             min: 10.0,
-            max: 22050.0,
+            max: 22_050.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -129,7 +129,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
             address: AUParameterAddress(5),
             min: 10.0,
-            max: 1000.0,
+            max: 1_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -153,7 +153,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
             address: AUParameterAddress(7),
             min: 10.0,
-            max: 22050.0,
+            max: 22_050.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -184,17 +184,16 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
         predelay.value = 60.0
         crossoverFrequency.value = 200.0
         lowReleaseTime.value = 3.0
         midReleaseTime.value = 2.0
-        dampingFrequency.value = 6000.0
+        dampingFrequency.value = 6_000.0
         equalizerFrequency1.value = 315.0
         equalizerLevel1.value = 0.0
-        equalizerFrequency2.value = 1500.0
+        equalizerFrequency2.value = 1_500.0
         equalizerLevel2.value = 0.0
         dryWetMix.value = 1.0
     }

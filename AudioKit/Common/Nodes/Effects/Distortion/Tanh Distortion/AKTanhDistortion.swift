@@ -175,4 +175,3 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

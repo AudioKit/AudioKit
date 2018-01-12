@@ -21,7 +21,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
     var shift: Double = 0 {
         didSet { setParameter(.shift, value: shift) }
     }
-    var windowSize: Double = 1024 {
+    var windowSize: Double = 1_024 {
         didSet { setParameter(.windowSize, value: windowSize) }
     }
     var crossfade: Double = 512 {
@@ -60,7 +60,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             name: "Window size (in samples)",
             address: AUParameterAddress(1),
             min: 0.0,
-            max: 10000.0,
+            max: 10_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -72,18 +72,17 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             name: "Crossfade (in samples)",
             address: AUParameterAddress(2),
             min: 0.0,
-            max: 10000.0,
+            max: 10_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
         shift.value = 0
-        windowSize.value = 1024
+        windowSize.value = 1_024
         crossfade.value = 512
     }
 

@@ -110,4 +110,3 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

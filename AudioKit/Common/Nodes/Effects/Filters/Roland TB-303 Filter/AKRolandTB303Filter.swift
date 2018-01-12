@@ -175,4 +175,3 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

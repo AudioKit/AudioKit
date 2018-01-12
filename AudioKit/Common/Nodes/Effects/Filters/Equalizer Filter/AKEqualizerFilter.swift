@@ -33,7 +33,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 1000.0 {
+    @objc open dynamic var centerFrequency: Double = 1_000.0 {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -97,7 +97,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1000.0,
+        centerFrequency: Double = 1_000.0,
         bandwidth: Double = 100.0,
         gain: Double = 10.0) {
 
@@ -156,4 +156,3 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

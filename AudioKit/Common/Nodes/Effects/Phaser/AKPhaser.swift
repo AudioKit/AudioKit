@@ -69,7 +69,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 10 and 5000
-    @objc open dynamic var notchWidth: Double = 1000 {
+    @objc open dynamic var notchWidth: Double = 1_000 {
         willSet {
             if notchWidth == newValue {
                 return
@@ -205,7 +205,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         notchMinimumFrequency: Double = 100,
         notchMaximumFrequency: Double = 800,
-        notchWidth: Double = 1000,
+        notchWidth: Double = 1_000,
         notchFrequency: Double = 1.5,
         vibratoMode: Double = 1,
         depth: Double = 1,
@@ -286,4 +286,3 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

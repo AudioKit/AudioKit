@@ -21,7 +21,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
     var distortion: Double = 0.5 {
         didSet { setParameter(.distortion, value: distortion) }
     }
-    var cutoffFrequency: Double = 1500 {
+    var cutoffFrequency: Double = 1_500 {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
     var resonance: Double = 0.5 {
@@ -60,7 +60,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(1),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -79,11 +79,10 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [distortion, cutoffFrequency, resonance]))
         distortion.value = 0.5
-        cutoffFrequency.value = 1500
+        cutoffFrequency.value = 1_500
         resonance.value = 0.5
     }
 

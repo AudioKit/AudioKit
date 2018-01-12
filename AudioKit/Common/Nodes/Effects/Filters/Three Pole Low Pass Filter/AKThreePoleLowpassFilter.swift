@@ -46,7 +46,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Filter cutoff frequency in Hertz.
-    @objc open dynamic var cutoffFrequency: Double = 1500 {
+    @objc open dynamic var cutoffFrequency: Double = 1_500 {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -95,7 +95,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     @objc public init(
         _ input: AKNode? = nil,
         distortion: Double = 0.5,
-        cutoffFrequency: Double = 1500,
+        cutoffFrequency: Double = 1_500,
         resonance: Double = 0.5) {
 
         self.distortion = distortion
@@ -153,4 +153,3 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
         internalAU?.stop()
     }
 }
-

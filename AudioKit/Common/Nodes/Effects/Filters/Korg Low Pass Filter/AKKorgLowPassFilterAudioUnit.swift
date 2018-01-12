@@ -18,7 +18,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 1000.0 {
+    var cutoffFrequency: Double = 1_000.0 {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
     var resonance: Double = 1.0 {
@@ -48,7 +48,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             name: "Filter cutoff",
             address: AUParameterAddress(0),
             min: 0.0,
-            max: 22050.0,
+            max: 22_050.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -79,10 +79,9 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, saturation]))
-        cutoffFrequency.value = 1000.0
+        cutoffFrequency.value = 1_000.0
         resonance.value = 1.0
         saturation.value = 0.0
     }

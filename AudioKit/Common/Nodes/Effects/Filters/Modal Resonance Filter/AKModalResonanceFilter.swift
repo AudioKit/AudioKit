@@ -133,4 +133,3 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

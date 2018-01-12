@@ -30,7 +30,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 2000.0 {
+    @objc open dynamic var centerFrequency: Double = 2_000.0 {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -77,7 +77,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 2000.0,
+        centerFrequency: Double = 2_000.0,
         bandwidth: Double = 100.0) {
 
         self.centerFrequency = centerFrequency
@@ -132,4 +132,3 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
         internalAU?.stop()
     }
 }
-

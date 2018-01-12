@@ -30,7 +30,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter cutoff
-    @objc open dynamic var cutoffFrequency: Double = 1000.0 {
+    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -94,7 +94,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1000.0,
+        cutoffFrequency: Double = 1_000.0,
         resonance: Double = 1.0,
         saturation: Double = 0.0) {
 
@@ -153,4 +153,3 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

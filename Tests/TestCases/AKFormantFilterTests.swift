@@ -31,4 +31,3 @@ class AKFormantFilterTests: AKTestCase {
         AKTestMD5("108af8dc8247857aa4bbcb76881d9a70")
     }
 }
-
