@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 
     // Define components
     var oscillator = AKOscillator()
-    var booster = AKBooster2()
+    var booster = AKBooster()
 
     override func viewDidLoad() {
         super.viewDidLoad()
