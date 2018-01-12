@@ -48,7 +48,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKTremoloAudioUnit.h"
 
 // Efffects / Filters
-#import "AKAutoWahAudioUnit.h"
+#import "AKAutoWahDSP.hpp"
 #import "AKBandPassButterworthFilterDSP.hpp"
 #import "AKBandRejectButterworthFilterDSP.hpp"
 #import "AKCombFilterReverbAudioUnit.h"
