@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AKStringResonator passes the input through a network composed of comb,
@@ -36,30 +36,32 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     /// Fundamental frequency of string.
     @objc open dynamic var fundamentalFrequency: Double = 100 {
         willSet {
-            if fundamentalFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.fundamentalFrequency = Float(newValue)
+            if fundamentalFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.fundamentalFrequency, value: newValue)
         }
     }
-    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
-    /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+
+    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     @objc open dynamic var feedback: Double = 0.95 {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            if feedback == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
@@ -75,9 +77,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - fundamentalFrequency: Fundamental frequency of string.
-    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more
-    ///               pronounced resonance. Small values may leave the input signal unaffected. Depending on the
-    ///               filter frequency, typical values are > .9.
+    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     @objc public init(
         _ input: AKNode? = nil,
@@ -120,8 +120,8 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.fundamentalFrequency = Float(fundamentalFrequency)
-        internalAU?.feedback = Float(feedback)
+        self.internalAU?.setParameterImmediately(.fundamentalFrequency, value: fundamentalFrequency)
+        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
     }
 
     // MARK: - Control
@@ -136,3 +136,4 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
+
