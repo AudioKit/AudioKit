@@ -63,7 +63,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKModalResonanceFilterDSP.hpp"
 #import "AKMoogLadderDSP.hpp"
 #import "AKPeakingParametricEqualizerFilterDSP.hpp"
-#import "AKResonantFilterAudioUnit.h"
+#import "AKResonantFilterDSP.hpp"
 #import "AKRolandTB303FilterAudioUnit.h"
 #import "AKStringResonatorAudioUnit.h"
 #import "AKThreePoleLowpassFilterAudioUnit.h"
