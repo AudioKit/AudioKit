@@ -24,8 +24,6 @@ class AKDCBlockDSP : public AKSoundpipeDSPBase {
 
     sp_dcblock *_dcblock0;
     sp_dcblock *_dcblock1;
-    sp_revsc* _revsc;
-
 public:
     AKDCBlockDSP() {}
 
@@ -43,7 +41,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

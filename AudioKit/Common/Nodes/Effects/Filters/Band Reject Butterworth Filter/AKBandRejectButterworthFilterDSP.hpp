@@ -30,8 +30,6 @@ class AKBandRejectButterworthFilterDSP : public AKSoundpipeDSPBase {
 
     sp_butbr *_butbr0;
     sp_butbr *_butbr1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp centerFrequencyRamp;
@@ -93,7 +91,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
