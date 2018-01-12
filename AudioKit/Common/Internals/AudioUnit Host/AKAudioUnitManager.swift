@@ -59,7 +59,6 @@ open class AKAudioUnitManager: NSObject {
                                                   "AKFlatFrequencyResponseReverb",
                                                   "AKZitaReverb",
                                                   "AKBooster",
-                                                  "AKBooster2",
                                                   "AKTanhDistortion"]
 
     /// Callback definitions
@@ -457,8 +456,6 @@ open class AKAudioUnitManager: NSObject {
             node = AKZitaReverb()
         case "AKBooster":
             node = AKBooster()
-        case "AKBooster2":
-            node = AKBooster2()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         default:
