@@ -127,7 +127,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
-        return Double(internalAU!.position())
+        guard let internalAU = internalAU else { return 0 }
+        return Double(internalAU.position())
     }
 
     /// Position in the audio in samples, but represented as a double since
