@@ -1,5 +1,5 @@
 //
-//  AKBooster2AudioUnit.swift
+//  AKBoosterAudioUnit.swift
 //  AudioKit
 //
 //  Created by Andrew Voelkel on 9/23/17.
@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-public class AKBooster2AudioUnit: AKAudioUnitBase {
+public class AKBoosterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBoosterParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))

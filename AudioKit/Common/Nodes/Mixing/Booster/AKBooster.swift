@@ -49,8 +49,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             }
 
             // this means it's direct inline
-            internalAU?.leftGain = Float(newValue)
-            internalAU?.rightGain = Float(newValue)
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -67,8 +67,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-
-            internalAU?.leftGain = Float(newValue)
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
         }
     }
 
@@ -85,8 +84,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-
-            internalAU?.rightGain = Float(newValue)
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -131,6 +129,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+
             input?.connect(to: strongSelf)
         }
 
@@ -153,9 +152,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.leftGain = Float(gain)
-        self.internalAU?.rightGain = Float(gain)
-
+        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
     }
 
     // MARK: - Control
