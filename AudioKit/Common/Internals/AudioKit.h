@@ -77,7 +77,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
-#import "AKPitchShifterAudioUnit.h"
+#import "AKPitchShifterDSP.hpp"
 
 // Effects / Reverb
 #import "AKChowningReverbDSP.hpp"
