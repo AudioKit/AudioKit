@@ -40,7 +40,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKTanhDistortionDSP.hpp"
 
 // Effects / Dynamics
-#import "AKDynamicRangeCompressorAudioUnit.h"
+#import "AKDynamicRangeCompressorDSP.hpp"
 #import "AKDynaRageCompressorAudioUnit.h"
 
 // Effects / Envelopes

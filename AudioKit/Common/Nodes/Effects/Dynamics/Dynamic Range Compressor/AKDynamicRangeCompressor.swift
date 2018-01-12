@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Dynamic range compressor from Faust
@@ -14,6 +14,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
     // MARK: - Properties
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -25,67 +26,71 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampTime = newValue
         }
     }
 
     /// Ratio to compress with, a value > 1 will compress
     @objc open dynamic var ratio: Double = 1 {
         willSet {
-            if ratio != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        ratioParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.ratio = Float(newValue)
+            if ratio == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    ratioParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.ratio, value: newValue)
         }
     }
 
     /// Threshold (in dB) 0 = max
     @objc open dynamic var threshold: Double = 0.0 {
         willSet {
-            if threshold != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        thresholdParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.threshold = Float(newValue)
+            if threshold == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    thresholdParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.threshold, value: newValue)
         }
     }
 
     /// Attack time
     @objc open dynamic var attackTime: Double = 0.1 {
         willSet {
-            if attackTime != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        attackTimeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.attackTime = Float(newValue)
+            if attackTime == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackTimeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.attackTime, value: newValue)
         }
     }
 
     /// Release time
     @objc open dynamic var releaseTime: Double = 0.1 {
         willSet {
-            if releaseTime != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.releaseTime = Float(newValue)
+            if releaseTime == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.releaseTime, value: newValue)
         }
     }
 
@@ -152,10 +157,10 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
             }
         })
 
-        internalAU?.ratio = Float(ratio)
-        internalAU?.threshold = Float(threshold)
-        internalAU?.attackTime = Float(attackTime)
-        internalAU?.releaseTime = Float(releaseTime)
+        self.internalAU?.setParameterImmediately(.ratio, value: ratio)
+        self.internalAU?.setParameterImmediately(.threshold, value: threshold)
+        self.internalAU?.setParameterImmediately(.attackTime, value: attackTime)
+        self.internalAU?.setParameterImmediately(.releaseTime, value: releaseTime)
     }
 
     // MARK: - Control
@@ -170,3 +175,4 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         internalAU?.stop()
     }
 }
+
