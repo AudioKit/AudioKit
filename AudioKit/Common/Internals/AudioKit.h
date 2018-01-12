@@ -74,7 +74,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRhinoGuitarProcessorAudioUnit.h"
 
 // Effects / Phaser
-#import "AKPhaserAudioUnit.h"
+#import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
 #import "AKPitchShifterAudioUnit.h"
