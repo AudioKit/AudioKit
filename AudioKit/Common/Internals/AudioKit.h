@@ -56,7 +56,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKEqualizerFilterDSP.hpp"
 #import "AKHighPassButterworthFilterDSP.hpp"
 #import "AKHighShelfParametricEqualizerFilterDSP.hpp"
-#import "AKKorgLowPassFilterAudioUnit.h"
+#import "AKKorgLowPassFilterDSP.hpp"
 #import "AKLowPassButterworthFilterDSP.hpp"
 #import "AKLowShelfParametricEqualizerFilterDSP.hpp"
 #import "AKModalResonanceFilterAudioUnit.h"
