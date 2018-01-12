@@ -40,6 +40,9 @@
 
 - (void)start;
 - (void)stop;
+- (void)clear;
+- (void)initializeConstant:(AUValue)value;
+
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
