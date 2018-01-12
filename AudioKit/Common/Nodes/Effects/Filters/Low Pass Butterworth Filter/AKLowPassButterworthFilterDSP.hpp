@@ -29,8 +29,6 @@ class AKLowPassButterworthFilterDSP : public AKSoundpipeDSPBase {
 
     sp_butlp *_butlp0;
     sp_butlp *_butlp1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp cutoffFrequencyRamp;
@@ -80,7 +78,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

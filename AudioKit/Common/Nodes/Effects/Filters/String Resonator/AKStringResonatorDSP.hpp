@@ -30,8 +30,6 @@ class AKStringResonatorDSP : public AKSoundpipeDSPBase {
 
     sp_streson *_streson0;
     sp_streson *_streson1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp fundamentalFrequencyRamp;
@@ -93,7 +91,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

@@ -29,8 +29,6 @@ class AKToneFilterDSP : public AKSoundpipeDSPBase {
 
     sp_tone *_tone0;
     sp_tone *_tone1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp halfPowerPointRamp;
@@ -80,7 +78,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

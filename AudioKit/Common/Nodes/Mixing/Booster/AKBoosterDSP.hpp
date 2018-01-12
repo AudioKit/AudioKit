@@ -83,7 +83,7 @@ public:
     // Largely lifted from the example code, though this is simpler since the Apple code
     // implements a time varying filter
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {

@@ -32,8 +32,6 @@ class AKTanhDistortionDSP : public AKSoundpipeDSPBase {
 
     sp_dist *_dist0;
     sp_dist *_dist1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp pregainRamp;
@@ -119,7 +117,7 @@ public:
         AKSoundpipeDSPBase::destroy();
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
