@@ -68,7 +68,6 @@ public:
                 return bandwidthRamp.getTarget();
             case AKResonantFilterParameterRampTime:
                 return frequencyRamp.getRampTime(_sampleRate);
-                return bandwidthRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

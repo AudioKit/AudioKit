@@ -75,7 +75,6 @@ public:
                 return rightGainRamp.getTarget();
             case AKBoosterParameterRampTime:
                 return leftGainRamp.getRampTime(_sampleRate);
-                return rightGainRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

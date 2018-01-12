@@ -88,9 +88,6 @@ public:
                 return negativeShapeParameterRamp.getTarget();
             case AKTanhDistortionParameterRampTime:
                 return pregainRamp.getRampTime(_sampleRate);
-                return postgainRamp.getRampTime(_sampleRate);
-                return positiveShapeParameterRamp.getRampTime(_sampleRate);
-                return negativeShapeParameterRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

@@ -88,9 +88,6 @@ public:
                 return resonanceAsymmetryRamp.getTarget();
             case AKRolandTB303FilterParameterRampTime:
                 return cutoffFrequencyRamp.getRampTime(_sampleRate);
-                return resonanceRamp.getRampTime(_sampleRate);
-                return distortionRamp.getRampTime(_sampleRate);
-                return resonanceAsymmetryRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

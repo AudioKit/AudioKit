@@ -78,8 +78,6 @@ public:
                 return crossfadeRamp.getTarget();
             case AKPitchShifterParameterRampTime:
                 return shiftRamp.getRampTime(_sampleRate);
-                return windowSizeRamp.getRampTime(_sampleRate);
-                return crossfadeRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

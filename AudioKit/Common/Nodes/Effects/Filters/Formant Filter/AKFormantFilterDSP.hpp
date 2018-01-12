@@ -78,8 +78,6 @@ public:
                 return decayDurationRamp.getTarget();
             case AKFormantFilterParameterRampTime:
                 return centerFrequencyRamp.getRampTime(_sampleRate);
-                return attackDurationRamp.getRampTime(_sampleRate);
-                return decayDurationRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

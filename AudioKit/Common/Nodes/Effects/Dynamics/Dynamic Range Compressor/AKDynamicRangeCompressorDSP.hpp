@@ -88,9 +88,6 @@ public:
                 return releaseTimeRamp.getTarget();
             case AKDynamicRangeCompressorParameterRampTime:
                 return ratioRamp.getRampTime(_sampleRate);
-                return thresholdRamp.getRampTime(_sampleRate);
-                return attackTimeRamp.getRampTime(_sampleRate);
-                return releaseTimeRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

@@ -138,14 +138,6 @@ public:
                 return lfoBPMRamp.getTarget();
             case AKPhaserParameterRampTime:
                 return notchMinimumFrequencyRamp.getRampTime(_sampleRate);
-                return notchMaximumFrequencyRamp.getRampTime(_sampleRate);
-                return notchWidthRamp.getRampTime(_sampleRate);
-                return notchFrequencyRamp.getRampTime(_sampleRate);
-                return vibratoModeRamp.getRampTime(_sampleRate);
-                return depthRamp.getRampTime(_sampleRate);
-                return feedbackRamp.getRampTime(_sampleRate);
-                return invertedRamp.getRampTime(_sampleRate);
-                return lfoBPMRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

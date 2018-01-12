@@ -78,8 +78,6 @@ public:
                 return resonanceRamp.getTarget();
             case AKThreePoleLowpassFilterParameterRampTime:
                 return distortionRamp.getRampTime(_sampleRate);
-                return cutoffFrequencyRamp.getRampTime(_sampleRate);
-                return resonanceRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

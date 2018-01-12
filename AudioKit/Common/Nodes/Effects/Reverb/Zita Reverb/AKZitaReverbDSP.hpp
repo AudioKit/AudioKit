@@ -148,15 +148,6 @@ public:
                 return dryWetMixRamp.getTarget();
             case AKZitaReverbParameterRampTime:
                 return predelayRamp.getRampTime(_sampleRate);
-                return crossoverFrequencyRamp.getRampTime(_sampleRate);
-                return lowReleaseTimeRamp.getRampTime(_sampleRate);
-                return midReleaseTimeRamp.getRampTime(_sampleRate);
-                return dampingFrequencyRamp.getRampTime(_sampleRate);
-                return equalizerFrequency1Ramp.getRampTime(_sampleRate);
-                return equalizerLevel1Ramp.getRampTime(_sampleRate);
-                return equalizerFrequency2Ramp.getRampTime(_sampleRate);
-                return equalizerLevel2Ramp.getRampTime(_sampleRate);
-                return dryWetMixRamp.getRampTime(_sampleRate);
         }
         return 0;
     }
