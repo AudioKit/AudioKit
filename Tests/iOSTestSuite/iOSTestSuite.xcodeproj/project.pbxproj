@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */; };
 		C4289A151D56D20300B941B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4289A141D56D20300B941B5 /* AppDelegate.swift */; };
 		C42D30A61D5A9C5C00F92555 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C42D30A51D5A9C5C00F92555 /* Default-568h@2x.png */; };
 		C44FF7BB1FD098DE00B2217D /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44FF7B91FD098D000B2217D /* AudioKit.framework */; };
@@ -23,7 +24,6 @@
 		C44FF8E71FD0994F00B2217D /* highPassButterworthFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8871FD0994F00B2217D /* highPassButterworthFilterTests.swift */; };
 		C44FF8E81FD0994F00B2217D /* bitcrushTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8881FD0994F00B2217D /* bitcrushTests.swift */; };
 		C44FF8E91FD0994F00B2217D /* AKPWMOscillatorBankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8891FD0994F00B2217D /* AKPWMOscillatorBankTests.swift */; };
-		C44FF8EA1FD0994F00B2217D /* AKBooster2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */; };
 		C44FF8EB1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88B1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift */; };
 		C44FF8EC1FD0994F00B2217D /* reverberateWithChowningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88C1FD0994F00B2217D /* reverberateWithChowningTests.swift */; };
 		C44FF8ED1FD0994F00B2217D /* phasorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88D1FD0994F00B2217D /* phasorTests.swift */; };
@@ -134,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMusicTrackTests.swift; sourceTree = "<group>"; };
 		C4289A111D56D20300B941B5 /* iOSTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4289A141D56D20300B941B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4289A201D56D20300B941B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,7 +154,6 @@
 		C44FF8871FD0994F00B2217D /* highPassButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = highPassButterworthFilterTests.swift; sourceTree = "<group>"; };
 		C44FF8881FD0994F00B2217D /* bitcrushTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrushTests.swift; sourceTree = "<group>"; };
 		C44FF8891FD0994F00B2217D /* AKPWMOscillatorBankTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillatorBankTests.swift; sourceTree = "<group>"; };
-		C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster2Tests.swift; sourceTree = "<group>"; };
 		C44FF88B1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicRangeCompressorTests.swift; sourceTree = "<group>"; };
 		C44FF88C1FD0994F00B2217D /* reverberateWithChowningTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithChowningTests.swift; sourceTree = "<group>"; };
 		C44FF88D1FD0994F00B2217D /* phasorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = phasorTests.swift; sourceTree = "<group>"; };
@@ -304,7 +304,6 @@
 				C44FF8801FD0994F00B2217D /* AKBandPassButterworthFilterTests.swift */,
 				C44FF89A1FD0994F00B2217D /* AKBandRejectButterworthFilterTests.swift */,
 				C44FF8D71FD0994F00B2217D /* AKBitCrusherTests.swift */,
-				C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */,
 				C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */,
 				C44FF8811FD0994F00B2217D /* AKChowningReverbTests.swift */,
 				C44FF8CB1FD0994F00B2217D /* AKClipperTests.swift */,
@@ -335,6 +334,7 @@
 				C44FF8921FD0994F00B2217D /* AKMoogLadderTests.swift */,
 				C44FF8CF1FD0994F00B2217D /* AKMorphingOscillatorBankTests.swift */,
 				C44FF8B41FD0994F00B2217D /* AKMorphingOscillatorTests.swift */,
+				52D4534A1FFB3B0000555360 /* AKMusicTrackTests.swift */,
 				C44FF8AF1FD0994F00B2217D /* AKOscillatorBankTests.swift */,
 				C44FF8BA1FD0994F00B2217D /* AKOscillatorTests.swift */,
 				C44FF8CA1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift */,
@@ -548,6 +548,7 @@
 				C44FF8F11FD0994F00B2217D /* AKCompressorTests.swift in Sources */,
 				C44FF8DE1FD0994F00B2217D /* AKDCBlockTests.swift in Sources */,
 				C44FF9301FD0994F00B2217D /* AKPWMOscillatorTests.swift in Sources */,
+				52D4534B1FFB3B0000555360 /* AKMusicTrackTests.swift in Sources */,
 				C44FF9331FD0994F00B2217D /* AKLowShelfParametricEqualizerFilterTests.swift in Sources */,
 				C44FF92A1FD0994F00B2217D /* AKPeakingParametricEqualizerFilterTests.swift in Sources */,
 				C44FF90F1FD0994F00B2217D /* AKOscillatorBankTests.swift in Sources */,
@@ -604,7 +605,6 @@
 				C44FF9181FD0994F00B2217D /* AKTremoloTests.swift in Sources */,
 				C44FF9061FD0994F00B2217D /* AKTableTests.swift in Sources */,
 				C44FF93A1FD0994F00B2217D /* sawtoothTests.swift in Sources */,
-				C44FF8EA1FD0994F00B2217D /* AKBooster2Tests.swift in Sources */,
 				C44FF8E21FD0994F00B2217D /* morphingOscillatorTests.swift in Sources */,
 				C44FF93C1FD0994F00B2217D /* AKResonantFilterTests.swift in Sources */,
 			);

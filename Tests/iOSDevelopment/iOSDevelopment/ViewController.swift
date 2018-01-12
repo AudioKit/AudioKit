@@ -3,7 +3,7 @@
 //  iOSDevelopment
 //
 //  Created by Aurelius Prochazka on 12/3/17.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 
     // Define components
     var oscillator = AKOscillator()
-    var booster = AKBooster2()
+    var booster = AKBooster()
 
     override func viewDidLoad() {
         super.viewDidLoad()

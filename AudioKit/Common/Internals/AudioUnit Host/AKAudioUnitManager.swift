@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 Ryan Francesconi. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 extension Notification.Name {
@@ -59,7 +59,6 @@ open class AKAudioUnitManager: NSObject {
                                                   "AKFlatFrequencyResponseReverb",
                                                   "AKZitaReverb",
                                                   "AKBooster",
-                                                  "AKBooster2",
                                                   "AKTanhDistortion"]
 
     /// Callback definitions
@@ -457,8 +456,6 @@ open class AKAudioUnitManager: NSObject {
             node = AKZitaReverb()
         case "AKBooster":
             node = AKBooster()
-        case "AKBooster2":
-            node = AKBooster2()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         default:

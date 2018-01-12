@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Eiríkur Orri Ólafsson, revision history on GitHub
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's VariSpeed Audio Unit

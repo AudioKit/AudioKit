@@ -2,7 +2,7 @@
 //  AKClipRecorder.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 5/8/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
@@ -208,7 +208,7 @@ open class AKClipRecorder {
                 if lastBuffer {
                     let timeLeft = clip.endTime - timeIn
                     let samplesLeft = AVAudioFrameCount(timeLeft * buffer.format.sampleRate)
-                    if let partial = buffer.copyTo(endSample: samplesLeft) {
+                    if let partial = buffer.copyTo(count: samplesLeft) {
                         adjustedBuffer = partial
                     }
                 }

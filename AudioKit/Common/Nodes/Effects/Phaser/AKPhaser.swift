@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A stereo phaser This is a stereo phaser, generated from Faust code taken
@@ -15,6 +15,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     // MARK: - Properties
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -31,142 +32,151 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampTime = newValue
         }
     }
 
     /// Notch Minimum Frequency
     @objc open dynamic var notchMinimumFrequency: Double = 100 {
         willSet {
-            if notchMinimumFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        notchMinimumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.notchMinimumFrequency = Float(newValue)
+            if notchMinimumFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    notchMinimumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.notchMinimumFrequency, value: newValue)
         }
     }
 
     /// Notch Maximum Frequency
     @objc open dynamic var notchMaximumFrequency: Double = 800 {
         willSet {
-            if notchMaximumFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        notchMaximumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.notchMaximumFrequency = Float(newValue)
+            if notchMaximumFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    notchMaximumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.notchMaximumFrequency, value: newValue)
         }
     }
 
     /// Between 10 and 5000
     @objc open dynamic var notchWidth: Double = 1_000 {
         willSet {
-            if notchWidth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        notchWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.notchWidth = Float(newValue)
+            if notchWidth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    notchWidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.notchWidth, value: newValue)
         }
     }
 
     /// Between 1.1 and 4
     @objc open dynamic var notchFrequency: Double = 1.5 {
         willSet {
-            if notchFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        notchFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.notchFrequency = Float(newValue)
+            if notchFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    notchFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.notchFrequency, value: newValue)
         }
     }
 
-    /// 1 or 0
+    /// Direct or Vibrato (default)
     @objc open dynamic var vibratoMode: Double = 1 {
         willSet {
-            if vibratoMode != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        vibratoModeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.vibratoMode = Float(newValue)
+            if vibratoMode == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    vibratoModeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.vibratoMode, value: newValue)
         }
     }
 
     /// Between 0 and 1
     @objc open dynamic var depth: Double = 1 {
         willSet {
-            if depth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        depthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.depth = Float(newValue)
+            if depth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    depthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
 
     /// Between 0 and 1
     @objc open dynamic var feedback: Double = 0 {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            if feedback == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
     /// 1 or 0
     @objc open dynamic var inverted: Double = 0 {
         willSet {
-            if inverted != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        invertedParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.inverted = Float(newValue)
+            if inverted == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    invertedParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.inverted, value: newValue)
         }
     }
 
     /// Between 24 and 360
     @objc open dynamic var lfoBPM: Double = 30 {
         willSet {
-            if lfoBPM != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        lfoBPMParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.lfoBPM = Float(newValue)
+            if lfoBPM == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    lfoBPMParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.lfoBPM, value: newValue)
         }
     }
 
@@ -185,7 +195,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - notchMaximumFrequency: Notch Maximum Frequency
     ///   - notchWidth: Between 10 and 5000
     ///   - notchFrequency: Between 1.1 and 4
-    ///   - vibratoMode: 1 or 0
+    ///   - vibratoMode: Direct or Vibrato (default)
     ///   - depth: Between 0 and 1
     ///   - feedback: Between 0 and 1
     ///   - inverted: 1 or 0
@@ -201,8 +211,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         depth: Double = 1,
         feedback: Double = 0,
         inverted: Double = 0,
-        lfoBPM: Double = 30
-    ) {
+        lfoBPM: Double = 30) {
 
         self.notchMinimumFrequency = notchMinimumFrequency
         self.notchMaximumFrequency = notchMaximumFrequency
@@ -224,7 +233,6 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -255,15 +263,15 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.notchMinimumFrequency = Float(notchMinimumFrequency)
-        internalAU?.notchMaximumFrequency = Float(notchMaximumFrequency)
-        internalAU?.notchWidth = Float(notchWidth)
-        internalAU?.notchFrequency = Float(notchFrequency)
-        internalAU?.vibratoMode = Float(vibratoMode)
-        internalAU?.depth = Float(depth)
-        internalAU?.feedback = Float(feedback)
-        internalAU?.inverted = Float(inverted)
-        internalAU?.lfoBPM = Float(lfoBPM)
+        self.internalAU?.setParameterImmediately(.notchMinimumFrequency, value: notchMinimumFrequency)
+        self.internalAU?.setParameterImmediately(.notchMaximumFrequency, value: notchMaximumFrequency)
+        self.internalAU?.setParameterImmediately(.notchWidth, value: notchWidth)
+        self.internalAU?.setParameterImmediately(.notchFrequency, value: notchFrequency)
+        self.internalAU?.setParameterImmediately(.vibratoMode, value: vibratoMode)
+        self.internalAU?.setParameterImmediately(.depth, value: depth)
+        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
+        self.internalAU?.setParameterImmediately(.inverted, value: inverted)
+        self.internalAU?.setParameterImmediately(.lfoBPM, value: lfoBPM)
     }
 
     // MARK: - Control
