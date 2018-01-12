@@ -117,8 +117,8 @@ public:
                 resonanceRamp.advanceTo(_now + frameOffset);
                 saturationRamp.advanceTo(_now + frameOffset);
             }
-            _wpkorg350->cutoff = cutoffFrequencyRamp.getValue();
-            _wpkorg351->cutoff = cutoffFrequencyRamp.getValue();            
+            _wpkorg350->cutoff = cutoffFrequencyRamp.getValue() - 0.0001;
+            _wpkorg351->cutoff = cutoffFrequencyRamp.getValue() - 0.0001;            
             _wpkorg350->res = resonanceRamp.getValue();
             _wpkorg351->res = resonanceRamp.getValue();            
             _wpkorg350->saturation = saturationRamp.getValue();
