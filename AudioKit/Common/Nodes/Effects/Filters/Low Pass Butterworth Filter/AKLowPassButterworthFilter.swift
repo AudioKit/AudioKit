@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// These filters are Butterworth second-order IIR filters. They offer an almost
@@ -29,17 +29,18 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     }
 
     /// Cutoff frequency. (in Hertz)
-    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
+    @objc open dynamic var cutoffFrequency: Double = 1000.0 {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
 
@@ -58,8 +59,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1_000.0
-    ) {
+        cutoffFrequency: Double = 1000.0) {
 
         self.cutoffFrequency = cutoffFrequency
 
@@ -73,7 +73,6 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -96,7 +95,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
             }
         })
 
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control
@@ -111,3 +110,4 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         internalAU?.stop()
     }
 }
+
