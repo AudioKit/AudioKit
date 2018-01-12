@@ -46,7 +46,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Window size (in samples)
-    @objc open dynamic var windowSize: Double = 1024 {
+    @objc open dynamic var windowSize: Double = 1_024 {
         willSet {
             if windowSize == newValue {
                 return
@@ -95,7 +95,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         shift: Double = 0,
-        windowSize: Double = 1024,
+        windowSize: Double = 1_024,
         crossfade: Double = 512) {
 
         self.shift = shift
@@ -153,4 +153,3 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

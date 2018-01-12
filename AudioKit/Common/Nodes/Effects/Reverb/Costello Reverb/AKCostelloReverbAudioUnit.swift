@@ -40,7 +40,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-        
+
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback",

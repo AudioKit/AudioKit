@@ -110,4 +110,3 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
         internalAU?.stop()
     }
 }
-

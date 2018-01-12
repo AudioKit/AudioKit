@@ -30,7 +30,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Center frequency.
-    @objc open dynamic var centerFrequency: Double = 1000 {
+    @objc open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -94,7 +94,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1000,
+        centerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -153,4 +153,3 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         internalAU?.stop()
     }
 }
-

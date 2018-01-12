@@ -24,7 +24,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
     var notchMaximumFrequency: Double = 800 {
         didSet { setParameter(.notchMaximumFrequency, value: notchMaximumFrequency) }
     }
-    var notchWidth: Double = 1000 {
+    var notchWidth: Double = 1_000 {
         didSet { setParameter(.notchWidth, value: notchWidth) }
     }
     var notchFrequency: Double = 1.5 {
@@ -66,7 +66,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             name: "Notch Minimum Frequency",
             address: AUParameterAddress(0),
             min: 20,
-            max: 5000,
+            max: 5_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -78,7 +78,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             name: "Notch Maximum Frequency",
             address: AUParameterAddress(1),
             min: 20,
-            max: 10000,
+            max: 10_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -90,7 +90,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             name: "Between 10 and 5000",
             address: AUParameterAddress(2),
             min: 10,
-            max: 5000,
+            max: 5_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -169,12 +169,11 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM]))
         notchMinimumFrequency.value = 100
         notchMaximumFrequency.value = 800
-        notchWidth.value = 1000
+        notchWidth.value = 1_000
         notchFrequency.value = 1.5
         vibratoMode.value = 1
         depth.value = 1

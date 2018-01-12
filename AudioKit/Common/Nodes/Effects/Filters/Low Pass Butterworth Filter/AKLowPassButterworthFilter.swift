@@ -29,7 +29,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     }
 
     /// Cutoff frequency. (in Hertz)
-    @objc open dynamic var cutoffFrequency: Double = 1000.0 {
+    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -59,7 +59,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1000.0) {
+        cutoffFrequency: Double = 1_000.0) {
 
         self.cutoffFrequency = cutoffFrequency
 
@@ -110,4 +110,3 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         internalAU?.stop()
     }
 }
-

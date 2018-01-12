@@ -138,4 +138,3 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

@@ -153,4 +153,3 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

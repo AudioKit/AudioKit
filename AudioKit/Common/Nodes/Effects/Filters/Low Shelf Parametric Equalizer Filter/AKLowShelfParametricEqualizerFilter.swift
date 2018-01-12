@@ -30,7 +30,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Corner frequency.
-    @objc open dynamic var cornerFrequency: Double = 1000 {
+    @objc open dynamic var cornerFrequency: Double = 1_000 {
         willSet {
             if cornerFrequency == newValue {
                 return
@@ -94,7 +94,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cornerFrequency: Double = 1000,
+        cornerFrequency: Double = 1_000,
         gain: Double = 1.0,
         q: Double = 0.707) {
 
@@ -153,4 +153,3 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
         internalAU?.stop()
     }
 }
-

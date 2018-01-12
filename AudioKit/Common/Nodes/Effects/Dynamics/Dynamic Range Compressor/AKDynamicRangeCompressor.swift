@@ -175,4 +175,3 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         internalAU?.stop()
     }
 }
-

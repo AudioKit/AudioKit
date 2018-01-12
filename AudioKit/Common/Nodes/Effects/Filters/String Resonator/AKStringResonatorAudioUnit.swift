@@ -45,7 +45,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             name: "Fundamental Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 10000.0,
+            max: 10_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -64,7 +64,6 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [fundamentalFrequency, feedback]))
         fundamentalFrequency.value = 100

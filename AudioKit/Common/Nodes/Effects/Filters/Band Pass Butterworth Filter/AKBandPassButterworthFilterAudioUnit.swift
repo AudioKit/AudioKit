@@ -18,7 +18,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 2000.0 {
+    var centerFrequency: Double = 2_000.0 {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
     var bandwidth: Double = 100.0 {
@@ -45,7 +45,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -57,17 +57,16 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             name: "Bandwidth (Hz)",
             address: AUParameterAddress(1),
             min: 0.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
-        centerFrequency.value = 2000.0
+        centerFrequency.value = 2_000.0
         bandwidth.value = 100.0
     }
 

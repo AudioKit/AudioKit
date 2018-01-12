@@ -67,7 +67,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
                                                name: .IAADisconnected,
                                                object: nil)
     }
-    
+
     internal var bufferSize: UInt32 = 1_024
 
     /// The node whose output to graph

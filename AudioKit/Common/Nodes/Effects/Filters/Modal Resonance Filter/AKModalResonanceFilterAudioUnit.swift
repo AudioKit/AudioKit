@@ -45,7 +45,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             name: "Resonant Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -64,7 +64,6 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, qualityFactor]))
         frequency.value = 500.0

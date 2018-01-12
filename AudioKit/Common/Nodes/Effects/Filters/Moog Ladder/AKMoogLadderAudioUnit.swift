@@ -18,7 +18,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 1000 {
+    var cutoffFrequency: Double = 1_000 {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
     var resonance: Double = 0.5 {
@@ -45,7 +45,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -64,10 +64,9 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance]))
-        cutoffFrequency.value = 1000
+        cutoffFrequency.value = 1_000
         resonance.value = 0.5
     }
 

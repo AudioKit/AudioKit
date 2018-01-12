@@ -94,7 +94,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackTime, releaseTime]))
         ratio.value = 1

@@ -32,7 +32,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency.
-    @objc open dynamic var centerFrequency: Double = 1000 {
+    @objc open dynamic var centerFrequency: Double = 1_000 {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -96,7 +96,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1000,
+        centerFrequency: Double = 1_000,
         attackDuration: Double = 0.007,
         decayDuration: Double = 0.04) {
 
@@ -155,4 +155,3 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

@@ -49,7 +49,6 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
         limit.value = 1.0

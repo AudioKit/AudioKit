@@ -18,7 +18,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 1000.0 {
+    var centerFrequency: Double = 1_000.0 {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
     var bandwidth: Double = 100.0 {
@@ -48,7 +48,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 12.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -60,7 +60,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Bandwidth (Hz)",
             address: AUParameterAddress(1),
             min: 0.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -79,10 +79,9 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth, gain]))
-        centerFrequency.value = 1000.0
+        centerFrequency.value = 1_000.0
         bandwidth.value = 100.0
         gain.value = 10.0
     }

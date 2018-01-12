@@ -131,4 +131,3 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

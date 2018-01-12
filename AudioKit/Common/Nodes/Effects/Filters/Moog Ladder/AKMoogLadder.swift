@@ -33,7 +33,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter cutoff frequency.
-    @objc open dynamic var cutoffFrequency: Double = 1000 {
+    @objc open dynamic var cutoffFrequency: Double = 1_000 {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -80,7 +80,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1000,
+        cutoffFrequency: Double = 1_000,
         resonance: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -135,4 +135,3 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-
