@@ -198,7 +198,7 @@ public class AKPlayer: AKNode {
     public var endTime: Double {
         get {
             return endTimeQueue.sync {
-                 self.isLooping ? self.loop.end : self._endTime
+                self.isLooping ? self.loop.end : self._endTime
             }
         }
 
@@ -556,7 +556,7 @@ public class AKPlayer: AKNode {
         // since the edit points would be reversed as well, we swap them here:
         if isReversed {
             let revEndTime = duration - startTime
-            let revStartTime = endTime > 0 ? duration - endTime: duration
+            let revStartTime = endTime > 0 ? duration - endTime : duration
 
             startFrame = AVAudioFramePosition(revStartTime * fileFormat.sampleRate)
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
@@ -615,7 +615,6 @@ public class AKPlayer: AKNode {
         startingFrame = startFrame
         endingFrame = endFrame
 
-        AKLog("buffer updated.")
     }
 
     // Apply sample level fades to the internal buffer.
@@ -632,7 +631,7 @@ public class AKPlayer: AKNode {
             let audioFile = self.audioFile,
             let floatChannelData = buffer.floatChannelData,
             let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-                return
+            return
         }
         let length: AVAudioFrameCount = buffer.frameLength
 
