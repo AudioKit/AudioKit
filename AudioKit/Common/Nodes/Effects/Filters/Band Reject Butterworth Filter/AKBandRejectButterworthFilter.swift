@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// These filters are Butterworth second-order IIR filters. They offer an almost
@@ -15,6 +15,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
     // MARK: - Properties
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -24,37 +25,39 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-
             internalAU?.rampTime = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 3_000.0 {
+    @objc open dynamic var centerFrequency: Double = 3000.0 {
         willSet {
-            if centerFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.centerFrequency = Float(newValue)
+            if centerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
+
     /// Bandwidth. (in Hertz)
-    @objc open dynamic var bandwidth: Double = 2_000.0 {
+    @objc open dynamic var bandwidth: Double = 2000.0 {
         willSet {
-            if bandwidth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bandwidth = Float(newValue)
+            if bandwidth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
 
@@ -74,8 +77,8 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 3_000.0,
-        bandwidth: Double = 2_000.0) {
+        centerFrequency: Double = 3000.0,
+        bandwidth: Double = 2000.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -113,8 +116,8 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
             }
         })
 
-        internalAU?.centerFrequency = Float(centerFrequency)
-        internalAU?.bandwidth = Float(bandwidth)
+        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        self.internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control
@@ -129,3 +132,4 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
         internalAU?.stop()
     }
 }
+
