@@ -8,7 +8,7 @@
 
 /// Not so simple audio playback class
 
-//AURE: ? @available(*, deprecated, renamed: "AKPlayer")
+// AURE: ? @available(*, deprecated, renamed: "AKPlayer")
 open class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Private variables
@@ -53,7 +53,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback (Default false)
     @objc open dynamic var looping: Bool {
         set {
-            guard  newValue != _looping else {
+            guard newValue != _looping else {
                 return
             }
             _looping = newValue
@@ -107,7 +107,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Whether or not the audio player is currently started
     @objc open dynamic var isStarted: Bool {
-        return  internalPlayer.isPlaying
+        return internalPlayer.isPlaying
     }
 
     /// Current playback time (in seconds)
@@ -131,7 +131,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         if endTime > startTime {
 
             if looping {
-                return  startTime + currentTime.truncatingRemainder(dividingBy: (endTime - startTime))
+                return startTime + currentTime.truncatingRemainder(dividingBy: (endTime - startTime))
             } else {
                 if currentTime > endTime {
                     return (startTime + currentTime).truncatingRemainder(dividingBy: (endTime - startTime))
@@ -147,7 +147,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Pan (Default Center = 0)
     @objc open dynamic var pan: Double = 0.0 {
         didSet {
-            pan = (-1...1).clamp(pan)
+            pan = (-1 ... 1).clamp(pan)
             internalPlayer.pan = Float(pan)
         }
     }
@@ -190,7 +190,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             // since setting startTime will fill the buffer again, we only want to do this if the
             // data really needs to be updated
             if newValue == internalEndTime {
-                //AKLog("endTime is the same, so returning: \(newValue)")
+                // AKLog("endTime is the same, so returning: \(newValue)")
                 return
 
             } else if newValue == 0 {
@@ -290,7 +290,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Start playback
     @objc open func start() {
-        play(at:nil)
+        play(at: nil)
     }
 
     open func play(at when: AVAudioTime?) {
@@ -350,7 +350,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     /// Restart playback from current position
     open func resume() {
         if paused {
-            self.play()
+            play()
         }
     }
 
@@ -399,7 +399,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Default play that will use the previously set startTime and endTime properties or the full file if both are 0
     open func play() {
-        play(from: self.startTime, to: self.endTime, avTime: nil)
+        play(from: startTime, to: endTime, avTime: nil)
     }
 
     /// Play from startTime to endTime
@@ -433,7 +433,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///              mach_absolute_time(). When you have a group of players which you want to sync together it's
     ///              important that this value be the same for all of them as a reference point.
     ///
-    open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    open func play(from startTime: Double, to endTime: Double, avTime: AVAudioTime?) {
         schedule(from: startTime, to: endTime, avTime: avTime)
         if endingFrame > startingFrame {
             start()
@@ -443,7 +443,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-    open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime? ) {
+    open func schedule(from startTime: Double, to endTime: Double, avTime: AVAudioTime?) {
         stop()
 
         if endTime > 0 {
@@ -551,11 +551,11 @@ open class AKAudioPlayer: AKNode, AKToggleable {
             internalAudioFile.framePosition = Int64(theStartFrame)
             framesToPlayCount = theEndFrame - theStartFrame
 
-            //AKLog("framesToPlayCount: \(framesToPlayCount) frameCapacity \(totalFrameCount)")
+            // AKLog("framesToPlayCount: \(framesToPlayCount) frameCapacity \(totalFrameCount)")
 
             audioFileBuffer = AVAudioPCMBuffer(
                 pcmFormat: internalAudioFile.processingFormat,
-                frameCapacity: AVAudioFrameCount(totalFrameCount) )
+                frameCapacity: AVAudioFrameCount(totalFrameCount))
 
             do {
                 // read the requested frame count from the file
@@ -597,7 +597,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         var j: Int = 0
         let length = buffer.frameLength
-        //AKLog("reverse() preparing \(length) frames")
+        // AKLog("reverse() preparing \(length) frames")
 
         // i represents the normal buffer read in reverse
         for i in (0 ..< Int(length)).reversed() {
@@ -632,7 +632,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
 
         let fadeBuffer = AVAudioPCMBuffer(
             pcmFormat: internalAudioFile.processingFormat,
-            frameCapacity: audioFileBuffer!.frameCapacity )
+            frameCapacity: audioFileBuffer!.frameCapacity)
 
         let length: UInt32 = audioFileBuffer!.frameLength
         AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
@@ -668,7 +668,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
                     gain = 1.0
                 }
 
-                //sanity check
+                // sanity check
                 if gain > 1 {
                     gain = 1
                 }
@@ -694,8 +694,8 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     // Disconnect the node
-    override open func disconnect() {
+    open override func disconnect() {
         AudioKit.detach(nodes: [self.avAudioNode])
-        AudioKit.engine.detach(self.internalPlayer)
+        AudioKit.engine.detach(internalPlayer)
     }
 }
