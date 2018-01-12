@@ -2,8 +2,8 @@
 //  AKAudioFile+Peripherals.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka and Laurent Veliscek on 7/4/16.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka and Laurent Veliscek, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 extension AKAudioFile {

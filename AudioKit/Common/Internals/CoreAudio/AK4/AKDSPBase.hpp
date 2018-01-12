@@ -2,7 +2,7 @@
 //  AKDSPBase.hpp
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/9/17.
+//  Created by Andrew Voelkel, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -36,7 +36,7 @@ protected:
 public:
 
     /** The Render function. */
-    virtual void process(uint32_t frameCount, uint32_t bufferOffset) = 0;
+    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
     /** Uses the ParameterAddress as a key */
     virtual void setParameter(uint64_t address, float value, bool immediate = false) {}

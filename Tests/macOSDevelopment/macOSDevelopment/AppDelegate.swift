@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  macOSDevelopment
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import Cocoa

@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -54,6 +54,9 @@ public enum AKRotaryKnobStyle {
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
+
+    // Bubble text color
+    @IBInspectable open var bubbleTextColor: UIColor?
 
     /// Slider style. Curvature is a value between -1.0 and 1.0, where 0.0 indicates no curves
     open var knobStyle: AKRotaryKnobStyle = AKRotaryKnobStyle.polygon(numberOfSides: 9, curvature: 0.0)
@@ -310,7 +313,7 @@ public enum AKRotaryKnobStyle {
             valueLabelStyle.alignment = .center
 
             let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSAttributedStringKey.foregroundColor: textColor,
+                                            NSAttributedStringKey.foregroundColor: bubbleTextColor ?? textColor,
                                             NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)

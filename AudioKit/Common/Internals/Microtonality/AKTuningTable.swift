@@ -2,7 +2,7 @@
 //  AKTuningTable.swift
 //  AudioKit
 //
-//  Created by Marcus W. Hobbs on 3/17/17.
+//  Created by Marcus W. Hobbs, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

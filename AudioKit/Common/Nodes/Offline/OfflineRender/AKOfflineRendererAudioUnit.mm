@@ -2,7 +2,7 @@
 //  AKOfflineRenderAudioUnit.m
 //  AudioKit
 //
-//  Created by David O'Neill on 8/7/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

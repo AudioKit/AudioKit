@@ -3,7 +3,7 @@
 //  AudioKit For iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import CoreAudioKit
@@ -49,9 +49,9 @@ public class AKBluetoothMIDIButton: UIButton {
 
         popC?.permittedArrowDirections = centerPopup ? [] : .any
         popC?.sourceRect = centerPopup ? CGRect(x: displayView!.bounds.midX,
-                                                 y: displayView!.bounds.midY,
-                                                 width: 0,
-                                                 height: 0) : self.frame
+                                                y: displayView!.bounds.midY,
+                                                width: 0,
+                                                height: 0) : self.frame
 
         let controller = displayView!.next as? UIViewController
         controller?.present(navController, animated: true, completion: nil)

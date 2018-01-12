@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// An automatic wah effect, ported from Guitarix via Faust.
@@ -14,6 +14,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -24,52 +25,55 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampTime = newValue
         }
     }
 
     /// Wah Amount
     @objc open dynamic var wah: Double = 0.0 {
         willSet {
-            if wah != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        wahParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.wah = Float(newValue)
+            if wah == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    wahParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.wah, value: newValue)
         }
     }
 
     /// Dry/Wet Mix
     @objc open dynamic var mix: Double = 1.0 {
         willSet {
-            if mix != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        mixParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.mix = Float(newValue)
+            if mix == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    mixParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.mix, value: newValue)
         }
     }
 
     /// Overall level
     @objc open dynamic var amplitude: Double = 0.1 {
         willSet {
-            if amplitude != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.amplitude = Float(newValue)
+            if amplitude == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
@@ -84,16 +88,15 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - wah: Wah Amount (Default 0.0)
-    ///   - mix: Dry/Wet Mix (Default 1.0)
-    ///   - amplitude: Overall level (Default 0.1)
+    ///   - wah: Wah Amount
+    ///   - mix: Dry/Wet Mix
+    ///   - amplitude: Overall level
     ///
     @objc public init(
         _ input: AKNode? = nil,
         wah: Double = 0.0,
         mix: Double = 1.0,
-        amplitude: Double = 0.1
-    ) {
+        amplitude: Double = 0.1) {
 
         self.wah = wah
         self.mix = mix
@@ -121,22 +124,21 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         mixParameter = tree["mix"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.wahParameter?.address {
-                    self?.wah = Double(value)
-                } else if address == self?.mixParameter?.address {
-                    self?.mix = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
-        internalAU?.wah = Float(wah)
-        internalAU?.mix = Float(mix)
-        internalAU?.amplitude = Float(amplitude)
+        self.internalAU?.setParameterImmediately(.wah, value: wah)
+        self.internalAU?.setParameterImmediately(.mix, value: mix)
+        self.internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
     // MARK: - Control

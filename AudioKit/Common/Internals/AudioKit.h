@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,6 +17,8 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
+
+#import "AKAudioUnitBase.h"
 
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
@@ -33,12 +35,12 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKVariableDelayAudioUnit.h"
 
 // Effects / Distortion
-#import "AKBitCrusherAudioUnit.h"
-#import "AKClipperAudioUnit.h"
-#import "AKTanhDistortionAudioUnit.h"
+#import "AKBitCrusherDSP.hpp"
+#import "AKClipperDSP.hpp"
+#import "AKTanhDistortionDSP.hpp"
 
 // Effects / Dynamics
-#import "AKDynamicRangeCompressorAudioUnit.h"
+#import "AKDynamicRangeCompressorDSP.hpp"
 #import "AKDynaRageCompressorAudioUnit.h"
 
 // Effects / Envelopes
@@ -46,43 +48,43 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKTremoloAudioUnit.h"
 
 // Efffects / Filters
-#import "AKAutoWahAudioUnit.h"
-#import "AKBandPassButterworthFilterAudioUnit.h"
-#import "AKBandRejectButterworthFilterAudioUnit.h"
+#import "AKAutoWahDSP.hpp"
+#import "AKBandPassButterworthFilterDSP.hpp"
+#import "AKBandRejectButterworthFilterDSP.hpp"
 #import "AKCombFilterReverbAudioUnit.h"
-#import "AKDCBlockAudioUnit.h"
-#import "AKEqualizerFilterAudioUnit.h"
-#import "AKHighPassButterworthFilterAudioUnit.h"
-#import "AKHighShelfParametricEqualizerFilterAudioUnit.h"
-#import "AKKorgLowPassFilterAudioUnit.h"
-#import "AKLowPassButterworthFilterAudioUnit.h"
-#import "AKLowShelfParametricEqualizerFilterAudioUnit.h"
-#import "AKModalResonanceFilterAudioUnit.h"
-#import "AKMoogLadderAudioUnit.h"
-#import "AKPeakingParametricEqualizerFilterAudioUnit.h"
-#import "AKFormantFilterAudioUnit.h"
-#import "AKResonantFilterAudioUnit.h"
-#import "AKRolandTB303FilterAudioUnit.h"
-#import "AKStringResonatorAudioUnit.h"
-#import "AKThreePoleLowpassFilterAudioUnit.h"
-#import "AKToneComplementFilterAudioUnit.h"
-#import "AKToneFilterAudioUnit.h"
+#import "AKDCBlockDSP.hpp"
+#import "AKEqualizerFilterDSP.hpp"
+#import "AKFormantFilterDSP.hpp"
+#import "AKHighPassButterworthFilterDSP.hpp"
+#import "AKHighShelfParametricEqualizerFilterDSP.hpp"
+#import "AKKorgLowPassFilterDSP.hpp"
+#import "AKLowPassButterworthFilterDSP.hpp"
+#import "AKLowShelfParametricEqualizerFilterDSP.hpp"
+#import "AKModalResonanceFilterDSP.hpp"
+#import "AKMoogLadderDSP.hpp"
+#import "AKPeakingParametricEqualizerFilterDSP.hpp"
+#import "AKResonantFilterDSP.hpp"
+#import "AKRolandTB303FilterDSP.hpp"
+#import "AKStringResonatorDSP.hpp"
+#import "AKThreePoleLowpassFilterDSP.hpp"
+#import "AKToneComplementFilterDSP.hpp"
+#import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
 #import "AKRhinoGuitarProcessorAudioUnit.h"
 
 // Effects / Phaser
-#import "AKPhaserAudioUnit.h"
+#import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
-#import "AKPitchShifterAudioUnit.h"
+#import "AKPitchShifterDSP.hpp"
 
 // Effects / Reverb
-#import "AKChowningReverbAudioUnit.h"
+#import "AKChowningReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
-#import "AKCostelloReverbAudioUnit.h"
+#import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
-#import "AKZitaReverbAudioUnit.h"
+#import "AKZitaReverbDSP.hpp"
 
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
@@ -118,7 +120,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
-#import "AKBoosterAudioUnit.h"
 #import "AKBoosterDSP.hpp"
 #import "AKPannerAudioUnit.h"
 #import "AKStereoFieldLimiterAudioUnit.h"
@@ -150,14 +151,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Sequencer
 #import "AKSamplerMetronome.h"
-
-#ifdef JAZZY_HACK
-// Hack to get jazzy to see the UI classes, please ignore
-#import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
-#import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"
-#endif
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"

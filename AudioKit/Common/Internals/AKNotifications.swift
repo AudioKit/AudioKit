@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by John Groenhof, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// Object to handle notifications for events that can affect the audio

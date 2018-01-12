@@ -2,14 +2,16 @@
 //  AKParameterRampBase.h
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/18/17.
+//  Created by Andrew Voelkel, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
-#import "AKDSPBase.hpp"
+#import "AKDSPBase.hpp"  // have to put this here to get it included in umbrella header
+
+#ifdef __cplusplus
 
 class AKParameterRampBase {
 
@@ -69,4 +71,6 @@ public:
     }
 
 };
+
+#endif
 

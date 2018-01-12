@@ -2,7 +2,7 @@
 //  AKMetronome.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/4/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

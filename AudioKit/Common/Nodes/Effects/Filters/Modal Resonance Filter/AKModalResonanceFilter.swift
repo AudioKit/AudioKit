@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds
@@ -33,29 +33,32 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Resonant frequency of the filter.
     @objc open dynamic var frequency: Double = 500.0 {
         willSet {
-            if frequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.frequency = Float(newValue)
+            if frequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
+
     /// Quality factor of the filter. Roughly equal to Q/frequency.
     @objc open dynamic var qualityFactor: Double = 50.0 {
         willSet {
-            if qualityFactor != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        qualityFactorParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.qualityFactor = Float(newValue)
+            if qualityFactor == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    qualityFactorParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.qualityFactor, value: newValue)
         }
     }
 
@@ -76,8 +79,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = 500.0,
-        qualityFactor: Double = 50.0
-    ) {
+        qualityFactor: Double = 50.0) {
 
         self.frequency = frequency
         self.qualityFactor = qualityFactor
@@ -92,7 +94,6 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -116,8 +117,8 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.frequency = Float(frequency)
-        internalAU?.qualityFactor = Float(qualityFactor)
+        self.internalAU?.setParameterImmediately(.frequency, value: frequency)
+        self.internalAU?.setParameterImmediately(.qualityFactor, value: qualityFactor)
     }
 
     // MARK: - Control

@@ -2,7 +2,7 @@
 //  AKOscillatorBankTests.swift
 //  AudioKitTestSuiteTests
 //
-//  Created by Aurelius Prochazka on 7/21/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

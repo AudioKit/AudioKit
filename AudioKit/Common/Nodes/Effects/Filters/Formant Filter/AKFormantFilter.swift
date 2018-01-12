@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// When fed with a pulse train, it will generate a series of overlapping
@@ -20,8 +20,9 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var xParameter: AUParameter?
-    fileprivate var yParameter: AUParameter?
+    fileprivate var centerFrequencyParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,32 +31,51 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// x
-    @objc open dynamic var x: Double = 0 {
+    /// Center frequency.
+    @objc open dynamic var centerFrequency: Double = 1_000 {
         willSet {
-            if x != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        xParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.x = Float(newValue)
+            if centerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
-    /// y
-    @objc open dynamic var y: Double = 0 {
+
+    /// Impulse response attack time (in seconds).
+    @objc open dynamic var attackDuration: Double = 0.007 {
         willSet {
-            if y != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        yParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.y = Float(newValue)
+            if attackDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
+        }
+    }
+
+    /// Impulse reponse decay time (in seconds)
+    @objc open dynamic var decayDuration: Double = 0.04 {
+        willSet {
+            if decayDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
+                }
+            }
+            internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
 
@@ -70,16 +90,19 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - x: X Value
-    ///   - y: Y Value
+    ///   - centerFrequency: Center frequency.
+    ///   - attackDuration: Impulse response attack time (in seconds).
+    ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        x: Double = 0,
-        y: Double = 0) {
+        centerFrequency: Double = 1_000,
+        attackDuration: Double = 0.007,
+        decayDuration: Double = 0.04) {
 
-        self.x = x
-        self.y = y
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
 
         _Self.register()
 
@@ -99,8 +122,9 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        xParameter = tree["x"]
-        yParameter = tree["y"]
+        centerFrequencyParameter = tree["centerFrequency"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -114,8 +138,9 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.x = Float(x)
-        internalAU?.y = Float(y)
+        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        self.internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        self.internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
     }
 
     // MARK: - Control

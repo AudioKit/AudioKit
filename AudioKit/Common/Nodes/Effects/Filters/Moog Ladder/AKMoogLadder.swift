@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Moog Ladder is an new digital implementation of the Moog ladder filter based
@@ -35,30 +35,32 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     /// Filter cutoff frequency.
     @objc open dynamic var cutoffFrequency: Double = 1_000 {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing,
-    /// analogue synths generally allow resonances to be above 1.
+
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @objc open dynamic var resonance: Double = 0.5 {
         willSet {
-            if resonance != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.resonance = Float(newValue)
+            if resonance == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
 
@@ -74,15 +76,12 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Filter cutoff frequency.
-    ///   - resonance: Resonance, generally < 1, but not limited to it.
-    ///                Higher than 1 resonance values might cause aliasing,
-    ///                analogue synths generally allow resonances to be above 1.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 1_000,
-        resonance: Double = 0.5
-    ) {
+        resonance: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
@@ -111,7 +110,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else {
-                // AKLog("Unable to create strong reference to self")
+                AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
@@ -120,8 +119,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
-        internalAU?.resonance = Float(resonance)
+        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        self.internalAU?.setParameterImmediately(.resonance, value: resonance)
     }
 
     // MARK: - Control
