@@ -78,8 +78,6 @@ public:
                 return saturationRamp.getTarget();
             case AKKorgLowPassFilterParameterRampTime:
                 return cutoffFrequencyRamp.getRampTime(_sampleRate);
-                return resonanceRamp.getRampTime(_sampleRate);
-                return saturationRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

@@ -68,7 +68,6 @@ public:
                 return resonanceRamp.getTarget();
             case AKMoogLadderParameterRampTime:
                 return cutoffFrequencyRamp.getRampTime(_sampleRate);
-                return resonanceRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

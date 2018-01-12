@@ -68,7 +68,6 @@ public:
                 return bandwidthRamp.getTarget();
             case AKBandPassButterworthFilterParameterRampTime:
                 return centerFrequencyRamp.getRampTime(_sampleRate);
-                return bandwidthRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

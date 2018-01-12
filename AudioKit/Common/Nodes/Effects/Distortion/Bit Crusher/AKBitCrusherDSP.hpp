@@ -68,7 +68,6 @@ public:
                 return sampleRateRamp.getTarget();
             case AKBitCrusherParameterRampTime:
                 return bitDepthRamp.getRampTime(_sampleRate);
-                return sampleRateRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

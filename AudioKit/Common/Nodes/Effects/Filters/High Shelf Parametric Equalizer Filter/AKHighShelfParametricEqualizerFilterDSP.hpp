@@ -78,8 +78,6 @@ public:
                 return qRamp.getTarget();
             case AKHighShelfParametricEqualizerFilterParameterRampTime:
                 return centerFrequencyRamp.getRampTime(_sampleRate);
-                return gainRamp.getRampTime(_sampleRate);
-                return qRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

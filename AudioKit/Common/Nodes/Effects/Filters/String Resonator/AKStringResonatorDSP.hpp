@@ -68,7 +68,6 @@ public:
                 return feedbackRamp.getTarget();
             case AKStringResonatorParameterRampTime:
                 return fundamentalFrequencyRamp.getRampTime(_sampleRate);
-                return feedbackRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

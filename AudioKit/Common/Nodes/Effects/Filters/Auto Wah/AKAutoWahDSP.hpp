@@ -78,8 +78,6 @@ public:
                 return amplitudeRamp.getTarget();
             case AKAutoWahParameterRampTime:
                 return wahRamp.getRampTime(_sampleRate);
-                return mixRamp.getRampTime(_sampleRate);
-                return amplitudeRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

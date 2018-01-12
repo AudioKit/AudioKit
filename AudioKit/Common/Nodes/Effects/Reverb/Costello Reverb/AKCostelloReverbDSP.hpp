@@ -68,7 +68,6 @@ public:
                 return cutoffFrequencyRamp.getTarget();
             case AKCostelloReverbParameterRampTime:
                 return feedbackRamp.getRampTime(_sampleRate);
-                return cutoffFrequencyRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

@@ -78,8 +78,6 @@ public:
                 return gainRamp.getTarget();
             case AKEqualizerFilterParameterRampTime:
                 return centerFrequencyRamp.getRampTime(_sampleRate);
-                return bandwidthRamp.getRampTime(_sampleRate);
-                return gainRamp.getRampTime(_sampleRate);
         }
         return 0;
     }

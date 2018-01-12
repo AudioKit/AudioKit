@@ -68,7 +68,6 @@ public:
                 return qualityFactorRamp.getTarget();
             case AKModalResonanceFilterParameterRampTime:
                 return frequencyRamp.getRampTime(_sampleRate);
-                return qualityFactorRamp.getRampTime(_sampleRate);
         }
         return 0;
     }
