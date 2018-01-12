@@ -9,9 +9,6 @@
 #import "AKAudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
 
-
-#define kGain 0
-
 @interface AKAudioUnitBase ()
 
 @property AKDSPBase* kernel;
@@ -39,6 +36,8 @@
 
 - (void)start { _kernel->start(); }
 - (void)stop { _kernel->stop(); }
+- (void)clear { _kernel->clear(); };
+- (void)initializeConstant:(AUValue)value { _kernel->initializeConstant(value); }
 - (BOOL)isPlaying { return _kernel->isPlaying(); }
 - (BOOL)isSetUp { return _kernel->isSetup(); }
 
