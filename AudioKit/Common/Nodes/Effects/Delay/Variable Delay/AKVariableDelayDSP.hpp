@@ -17,14 +17,14 @@ typedef NS_ENUM(int64_t, AKVariableDelayParameter) {
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import "AKSoundpipeDSPBase.hpp"     // have to put this here to get it included in umbrella header
+
 
 #ifndef __cplusplus
 
 void* createVariableDelayDSP(int nChannels, double sampleRate);
 
 #else
-
-#import "AKSoundpipeDSPBase.hpp"
 
 class AKVariableDelayDSP : public AKSoundpipeDSPBase {
 

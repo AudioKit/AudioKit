@@ -100,7 +100,7 @@
                                                                                   channels:2];
 
     _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
-                             channelCount:defaultFormat.channelCount];
+                                         channelCount:defaultFormat.channelCount];
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);
@@ -224,7 +224,7 @@
     return NO;   // OK THIS IS DIFFERENT FROM APPLE EXAMPLE CODE
 }
 
-// ----- BEGIN UNMODIFIED COPY FROM APPLE CODE -----
+// ----- END UNMODIFIED COPY FROM APPLE CODE -----
 
 
 
