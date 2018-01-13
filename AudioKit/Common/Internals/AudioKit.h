@@ -96,7 +96,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKWhiteNoiseAudioUnit.h"
 
 // Generators / Oscillators
-#import "AKFMOscillatorAudioUnit.h"
+#import "AKFMOscillatorDSP.hpp"
 #import "AKFMOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorAudioUnit.h"
 #import "AKMorphingOscillatorBankAudioUnit.h"
