@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This filter reiterates the input with an echo density determined by loop
@@ -34,15 +34,16 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     @objc open dynamic var reverbDuration: Double = 0.5 {
         willSet {
-            if reverbDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.reverbDuration = Float(newValue)
+            if reverbDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }
 
@@ -82,9 +83,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: strongSelf)
-            if let au = strongSelf.internalAU {
-                au.setLoopDuration(Float(loopDuration))
-            }
+            strongSelf.internalAU?.initializeConstant(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -106,7 +105,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
             }
         })
 
-        internalAU?.reverbDuration = Float(reverbDuration)
+        self.internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }
 
     // MARK: - Control
@@ -121,3 +120,4 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
         internalAU?.stop()
     }
 }
+
