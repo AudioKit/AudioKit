@@ -83,7 +83,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKCombFilterReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbDSP.hpp"
-#import "AKFlatFrequencyResponseReverbAudioUnit.h"
+#import "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKZitaReverbDSP.hpp"
 
 // Generators
