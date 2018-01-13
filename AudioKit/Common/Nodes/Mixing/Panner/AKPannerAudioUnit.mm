@@ -41,12 +41,10 @@ standardKernelPassthroughs()
     panAUParameter.value = 0;
 
 
-    _kernel.setParameter(panAddress,   panAUParameter.value);
+    _kernel.setParameter(panAddress, panAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
-                                             panAUParameter
-                                             ]];
+    _parameterTree = [AUParameterTree tree:@[panAUParameter]];
 
     parameterTreeBlock(Panner)
 }

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A first-order recursive low-pass filter with variable frequency response.
@@ -30,15 +30,16 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     @objc open dynamic var halfPowerPoint: Double = 1_000.0 {
         willSet {
-            if halfPowerPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.halfPowerPoint = Float(newValue)
+            if halfPowerPoint == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.halfPowerPoint, value: newValue)
         }
     }
 
@@ -53,7 +54,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - halfPowerPoint: The response curve's half-power point, in Hz. Half power is defined as peak power / root 2.
+    ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     @objc public init(
         _ input: AKNode? = nil,
@@ -65,10 +66,13 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -90,7 +94,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.halfPowerPoint = Float(halfPowerPoint)
+        self.internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
     }
 
     // MARK: - Control

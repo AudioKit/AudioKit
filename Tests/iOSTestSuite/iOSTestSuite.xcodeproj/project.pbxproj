@@ -24,7 +24,6 @@
 		C44FF8E71FD0994F00B2217D /* highPassButterworthFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8871FD0994F00B2217D /* highPassButterworthFilterTests.swift */; };
 		C44FF8E81FD0994F00B2217D /* bitcrushTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8881FD0994F00B2217D /* bitcrushTests.swift */; };
 		C44FF8E91FD0994F00B2217D /* AKPWMOscillatorBankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8891FD0994F00B2217D /* AKPWMOscillatorBankTests.swift */; };
-		C44FF8EA1FD0994F00B2217D /* AKBooster2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */; };
 		C44FF8EB1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88B1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift */; };
 		C44FF8EC1FD0994F00B2217D /* reverberateWithChowningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88C1FD0994F00B2217D /* reverberateWithChowningTests.swift */; };
 		C44FF8ED1FD0994F00B2217D /* phasorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF88D1FD0994F00B2217D /* phasorTests.swift */; };
@@ -155,7 +154,6 @@
 		C44FF8871FD0994F00B2217D /* highPassButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = highPassButterworthFilterTests.swift; sourceTree = "<group>"; };
 		C44FF8881FD0994F00B2217D /* bitcrushTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrushTests.swift; sourceTree = "<group>"; };
 		C44FF8891FD0994F00B2217D /* AKPWMOscillatorBankTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillatorBankTests.swift; sourceTree = "<group>"; };
-		C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster2Tests.swift; sourceTree = "<group>"; };
 		C44FF88B1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicRangeCompressorTests.swift; sourceTree = "<group>"; };
 		C44FF88C1FD0994F00B2217D /* reverberateWithChowningTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithChowningTests.swift; sourceTree = "<group>"; };
 		C44FF88D1FD0994F00B2217D /* phasorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = phasorTests.swift; sourceTree = "<group>"; };
@@ -306,7 +304,6 @@
 				C44FF8801FD0994F00B2217D /* AKBandPassButterworthFilterTests.swift */,
 				C44FF89A1FD0994F00B2217D /* AKBandRejectButterworthFilterTests.swift */,
 				C44FF8D71FD0994F00B2217D /* AKBitCrusherTests.swift */,
-				C44FF88A1FD0994F00B2217D /* AKBooster2Tests.swift */,
 				C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */,
 				C44FF8811FD0994F00B2217D /* AKChowningReverbTests.swift */,
 				C44FF8CB1FD0994F00B2217D /* AKClipperTests.swift */,
@@ -608,7 +605,6 @@
 				C44FF9181FD0994F00B2217D /* AKTremoloTests.swift in Sources */,
 				C44FF9061FD0994F00B2217D /* AKTableTests.swift in Sources */,
 				C44FF93A1FD0994F00B2217D /* sawtoothTests.swift in Sources */,
-				C44FF8EA1FD0994F00B2217D /* AKBooster2Tests.swift in Sources */,
 				C44FF8E21FD0994F00B2217D /* morphingOscillatorTests.swift in Sources */,
 				C44FF93C1FD0994F00B2217D /* AKResonantFilterTests.swift in Sources */,
 			);

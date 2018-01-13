@@ -28,8 +28,9 @@ class AKVariableDelayTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKVariableDelay(input)
+        effect.rampTime = 0.0
         effect.time = 0.123_4
-        effect.feedback = 0.95  
+        effect.feedback = 0.95
         output = effect
         AKTestMD5("5024a7ef59a303c6f7a6fbebf0486d5e")
     }
