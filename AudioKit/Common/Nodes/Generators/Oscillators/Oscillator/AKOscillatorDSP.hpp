@@ -2,7 +2,7 @@
 //  AKOscillatorDSP.hpp
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/12/18.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -95,7 +95,7 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
-
+        
         sp_osc_create(&_osc);
         sp_osc_init(_sp, _osc, _ftbl, 0);
         _osc->freq = 440;
@@ -132,7 +132,6 @@ public:
             float amplitude = amplitudeRamp.getValue();
             float detuningOffset = detuningOffsetRamp.getValue();
             float detuningMultiplier = detuningMultiplierRamp.getValue();
-
             _osc->freq = frequency * detuningMultiplier + detuningOffset;
             _osc->amp = amplitude;
 
@@ -146,14 +145,11 @@ public:
                     }
                     *out = temp;
                 } else {
-                    printf("not playing");
                     *out = 0.0;
                 }
             }
-
         }
     }
 };
 
 #endif
-
