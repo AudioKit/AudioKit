@@ -6,7 +6,8 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-/// Stereo Field Limiter
+/// Stereo StereoFieldLimiter
+///
 open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKStereoFieldLimiterAudioUnit
     /// Four letter unique description of the node
@@ -26,40 +27,37 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    fileprivate var lastKnownamount: Double = 1.0
-
     /// Limiting Factor
-    @objc open dynamic var amount: Double = 0 {
+    @objc open dynamic var amount: Double = 1 {
         willSet {
-            if amount != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        amountParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.amount = Float(newValue)
+            if amount == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp ?? false {
+                if token != nil && amountParameter != nil {
+                    amountParameter?.setValue(Float(newValue), originator: token!)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amount, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying ?? false
+        return self.internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
 
-    /// Initialize this stereo field limiter node
+    /// Initialize this booster node
     ///
     /// - Parameters:
-    ///   - input: AKNode whose output will be limited
+    ///   - input: AKNode whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    @objc public init(
-        _ input: AKNode? = nil,
-        amount: Double = 1
-    ) {
+    @objc public init(_ input: AKNode? = nil, amount: Double = 1) {
 
         self.amount = amount
 
@@ -82,9 +80,9 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        amountParameter = tree["amount"]
+        self.amountParameter = tree["amount"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
+        self.token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
@@ -95,23 +93,18 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.amount = Float(amount)
+        self.internalAU?.setParameterImmediately(.amount, value: amount)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
-        if isStopped {
-            amount = lastKnownamount
-        }
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        if isPlaying {
-            lastKnownamount = amount
-            amount = 1
-        }
+        internalAU?.stop()
     }
 }
