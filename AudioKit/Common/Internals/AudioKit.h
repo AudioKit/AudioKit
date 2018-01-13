@@ -51,7 +51,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKAutoWahDSP.hpp"
 #import "AKBandPassButterworthFilterDSP.hpp"
 #import "AKBandRejectButterworthFilterDSP.hpp"
-#import "AKCombFilterReverbAudioUnit.h"
 #import "AKDCBlockDSP.hpp"
 #import "AKEqualizerFilterDSP.hpp"
 #import "AKFormantFilterDSP.hpp"
@@ -81,6 +80,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Reverb
 #import "AKChowningReverbDSP.hpp"
+#import "AKCombFilterReverbDSP.hpp"
 #import "AKConvolutionAudioUnit.h"
 #import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbAudioUnit.h"
