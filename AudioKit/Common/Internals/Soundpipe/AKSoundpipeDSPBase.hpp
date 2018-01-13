@@ -10,6 +10,12 @@
 
 #import "AKDSPBase.hpp"
 
+#ifndef __cplusplus
+
+#include "soundpipe.h"
+
+#else
+
 extern "C" {
 #include "soundpipe.h"
 }
@@ -62,5 +68,6 @@ public:
         }
     }
 
-
 };
+
+#endif
