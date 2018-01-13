@@ -58,8 +58,17 @@ public class AKPlayer: AKNode {
     }
 
     public struct Loop {
-        public var start: Double = 0
-        public var end: Double = 0
+        public var start: Double = 0 {
+            willSet {
+                if newValue != start { needsUpdate = true }
+            }
+        }
+        public var end: Double = 0 {
+            willSet {
+                if newValue != end { needsUpdate = true }
+            }
+        }
+        var needsUpdate: Bool = false
     }
 
     public struct Fade {
@@ -189,7 +198,7 @@ public class AKPlayer: AKNode {
     public var endTime: Double {
         get {
             return endTimeQueue.sync {
-                 self.isLooping ? self.loop.end : self._endTime
+                self.isLooping ? self.loop.end : self._endTime
             }
         }
 
@@ -547,14 +556,15 @@ public class AKPlayer: AKNode {
         // since the edit points would be reversed as well, we swap them here:
         if isReversed {
             let revEndTime = duration - startTime
-            let revStartTime = endTime > 0 ? duration - endTime: duration
+            let revStartTime = endTime > 0 ? duration - endTime : duration
 
             startFrame = AVAudioFramePosition(revStartTime * fileFormat.sampleRate)
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
         }
 
         let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate)
+            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate || loop.needsUpdate)
+
         if !updateNeeded {
             return
         }
@@ -597,9 +607,14 @@ public class AKPlayer: AKNode {
             fade.needsUpdate = false
         }
 
+        if isLooping {
+            loop.needsUpdate = false
+        }
+
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
+
     }
 
     // Apply sample level fades to the internal buffer.
@@ -616,7 +631,7 @@ public class AKPlayer: AKNode {
             let audioFile = self.audioFile,
             let floatChannelData = buffer.floatChannelData,
             let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-                return
+            return
         }
         let length: AVAudioFrameCount = buffer.frameLength
 
