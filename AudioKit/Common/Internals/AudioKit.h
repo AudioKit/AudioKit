@@ -19,6 +19,7 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 #import "AKAudioUnitBase.h"
+#import "AKGeneratorAudioUnitBase.h"
 
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"

@@ -53,8 +53,17 @@ public:
     /// Many effects have a single value that is a constant for the lifetime of the effect
     virtual void initializeConstant(AUValue value) {}
 
+    /// Common for oscillators
+    virtual void setupWaveform(uint32_t size) {}
+    virtual void setWaveformValue(uint32_t index, float value) {}
+
+
     virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
         _inBufferListPtr = inBufs;
+        _outBufferListPtr = outBufs;
+    }
+
+    virtual void setBuffer(AudioBufferList* outBufs) {
         _outBufferListPtr = outBufs;
     }
 
