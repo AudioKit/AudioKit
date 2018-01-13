@@ -11,6 +11,13 @@ import XCTest
 
 class AKFMOscillatorTests: AKTestCase {
 
+    var preset = AKFMOscillator()
+
+    override func setUp() {
+        preset.rampTime = 0.0
+        super.setUp()
+    }
+
     func testDefault() {
         output = AKFMOscillator()
         AKTestMD5("3fee66d7da663b3e68142de923962819")
@@ -18,6 +25,7 @@ class AKFMOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKFMOscillator(waveform: AKTable(.square))
+        oscillator.rampTime = 0.0
         oscillator.baseFrequency = 1_234
         oscillator.carrierMultiplier = 1.234
         oscillator.modulatingMultiplier = 1.234
@@ -38,35 +46,30 @@ class AKFMOscillatorTests: AKTestCase {
     }
 
     func testPresetBuzzer() {
-        let preset = AKFMOscillator()
         preset.presetBuzzer()
         output = preset
         AKTestMD5("03e2f9736e2511fe99997c65df486bbc")
     }
 
     func testPresetFogHorn() {
-        let preset = AKFMOscillator()
         preset.presetFogHorn()
         output = preset
         AKTestMD5("e4e9fad0f2fc0c91b886583ae1e0faf4")
     }
 
     func testPresetSpiral() {
-        let preset = AKFMOscillator()
         preset.presetSpiral()
         output = preset
         AKTestMD5("4cbeac11faec88c9816be8d872028657")
     }
 
     func testPresetStunRay() {
-        let preset = AKFMOscillator()
         preset.presetStunRay()
         output = preset
         AKTestMD5("3434fc08a63bc6b0a8e52fbcc41e3866")
     }
 
     func testPresetWobble() {
-        let preset = AKFMOscillator()
         preset.presetWobble()
         output = preset
         AKTestMD5("4450350ff43f5f1b258158f1ec7dbccc")
