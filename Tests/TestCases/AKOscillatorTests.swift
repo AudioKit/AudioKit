@@ -30,6 +30,7 @@ class AKOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         input = AKOscillator(waveform: AKTable(.square))
+        input.rampTime = 0.0
         input.frequency = 400
         input.amplitude = 0.5
         output = input
