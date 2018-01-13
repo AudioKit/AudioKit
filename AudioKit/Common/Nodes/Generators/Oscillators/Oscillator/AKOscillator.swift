@@ -112,7 +112,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:  The waveform of oscillation
+    ///   - waveform: The waveform of oscillation
     ///   - frequency: Frequency in cycles per second
     ///   - amplitude: Output Amplitude.
     ///   - detuningOffset: Frequency offset in Hz.
@@ -184,4 +184,3 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         internalAU?.stop()
     }
 }
-

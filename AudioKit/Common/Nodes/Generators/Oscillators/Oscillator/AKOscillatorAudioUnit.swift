@@ -94,8 +94,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier]))
         frequency.value = 440
         amplitude.value = 1
@@ -106,4 +105,3 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     public override var canProcessInPlace: Bool { get { return true; }}
 
 }
-

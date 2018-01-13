@@ -2,7 +2,7 @@
 //  AKOscillator.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/12/18.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -15,4 +15,3 @@ extern "C" void* createOscillatorDSP(int nChannels, double sampleRate) {
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
-
