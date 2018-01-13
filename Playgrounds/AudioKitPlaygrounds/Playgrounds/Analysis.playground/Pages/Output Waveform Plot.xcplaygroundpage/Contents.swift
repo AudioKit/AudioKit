@@ -52,7 +52,8 @@ class LiveView: AKLiveViewController {
             oscillator.amplitude = amplitude
         })
 
-        addView(AKOutputWaveformPlot.createView())
+        let plot = AKOutputWaveformPlot()
+        addView(plot)
     }
 }
 

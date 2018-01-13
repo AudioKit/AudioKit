@@ -35,17 +35,23 @@ protected:
 
 public:
 
-    /** The Render function. */
-    virtual void process(uint32_t frameCount, uint32_t bufferOffset) = 0;
+    /// The Render function.
+    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     virtual void setParameter(uint64_t address, float value, bool immediate = false) {}
 
-    /** Uses the ParameterAddress as a key */
+    /// Uses the ParameterAddress as a key
     virtual float getParameter(uint64_t address) { return 0.0; }
 
-    /** Get the DSP into initialized state */
+    /// Get the DSP into initialized state
     virtual void reset() {}
+
+    /// Don't necessarily reset, but clear out the buffers if applicable
+    virtual void clear() {}
+
+    /// Many effects have a single value that is a constant for the lifetime of the effect
+    virtual void initializeConstant(AUValue value) {}
 
     virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
         _inBufferListPtr = inBufs;
