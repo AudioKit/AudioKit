@@ -574,7 +574,7 @@
 		C48C6CBC1D3C15F1008EA51B /* waveset.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC31D3C15F1008EA51B /* waveset.c */; };
 		C48C6CBD1D3C15F1008EA51B /* wpkorg35.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC41D3C15F1008EA51B /* wpkorg35.c */; };
 		C48C6CBE1D3C15F1008EA51B /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC51D3C15F1008EA51B /* zitarev.c */; };
-		C48C6CBF1D3C15F1008EA51B /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC61D3C15F1008EA51B /* soundpipe.h */; };
+		C48C6CBF1D3C15F1008EA51B /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC61D3C15F1008EA51B /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48C6CC01D3C15F1008EA51B /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC81D3C15F1008EA51B /* md5.c */; };
 		C48C6CC11D3C15F1008EA51B /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC91D3C15F1008EA51B /* md5.h */; };
 		C48C6CC21D3C15F1008EA51B /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BCA1D3C15F1008EA51B /* test.c */; };
@@ -701,7 +701,7 @@
 		C4AC0B4B1FC944F500EDA024 /* AKBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B481FC944F400EDA024 /* AKBankAudioUnit.mm */; };
 		C4AC0B4F1FC944FE00EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4D1FC944FE00EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B501FC944FE00EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4E1FC944FE00EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4AC0B521FC9457800EDA024 /* AKSoundpipeDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B511FC9457700EDA024 /* AKSoundpipeDSPBase.hpp */; };
+		C4AC0B521FC9457800EDA024 /* AKSoundpipeDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B511FC9457700EDA024 /* AKSoundpipeDSPBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCD1C4E2960009EA58E /* AKCompressor.swift */; };
 		C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCF1C4E2960009EA58E /* AKExpander.swift */; };
 		C4B192D01C3B637900C0F330 /* AKAmplitudeEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B192CC1C3B637900C0F330 /* AKAmplitudeEnvelope.swift */; };
