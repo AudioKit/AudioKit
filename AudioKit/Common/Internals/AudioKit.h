@@ -121,7 +121,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Mixing
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterDSP.hpp"
-#import "AKPannerAudioUnit.h"
+#import "AKPannerDSP.hpp"
 #import "AKStereoFieldLimiterAudioUnit.h"
 
 // Playback
