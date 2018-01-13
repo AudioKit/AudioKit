@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
@@ -33,63 +33,67 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         }
     }
 
-    /// In cycles per second, or Hz.
+    /// Frequency in cycles per second
     @objc open dynamic var frequency: Double = 440 {
         willSet {
-            if frequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.frequency = Float(newValue)
+            if frequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
     /// Output Amplitude.
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
-            if amplitude != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.amplitude = Float(newValue)
+            if amplitude == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
     /// Frequency offset in Hz.
     @objc open dynamic var detuningOffset: Double = 0 {
         willSet {
-            if detuningOffset != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detuningOffset = Float(newValue)
+            if detuningOffset == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
 
     /// Frequency detuning multiplier
     @objc open dynamic var detuningMultiplier: Double = 1 {
         willSet {
-            if detuningMultiplier != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detuningMultiplier = Float(newValue)
+            if detuningMultiplier == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }
 
@@ -131,13 +135,15 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            self?.internalAU?.setupWaveform(Int32(waveform.count))
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
-                self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                strongSelf.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
@@ -162,11 +168,10 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
-        internalAU?.detuningOffset = Float(detuningOffset)
-        internalAU?.detuningMultiplier = Float(detuningMultiplier)
-
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
+        internalAU?.setParameterImmediately(.detuningOffset, value: detuningOffset)
+        internalAU?.setParameterImmediately(.detuningMultiplier, value: detuningMultiplier)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -179,3 +184,4 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         internalAU?.stop()
     }
 }
+
