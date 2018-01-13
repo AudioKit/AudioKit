@@ -80,7 +80,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
-            self?.internalAU?.initializeConstant(Float(loopDuration))
+            strongSelf.internalAU?.initializeConstant(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else {

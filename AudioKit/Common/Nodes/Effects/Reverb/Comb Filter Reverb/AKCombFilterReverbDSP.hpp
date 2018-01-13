@@ -34,7 +34,8 @@ class AKCombFilterReverbDSP : public AKSoundpipeDSPBase {
 
 private:
     AKLinearParameterRamp reverbDurationRamp;
-    float internalLoopDuration = 0.1;
+    float _loopDuration = 0.1;
+
 public:
     AKCombFilterReverbDSP() {
         reverbDurationRamp.setTarget(1.0, true);
@@ -42,7 +43,7 @@ public:
     }
 
     void initializeConstant(float duration) override {
-        internalLoopDuration = duration;
+        _loopDuration = duration;
     }
 
     /** Uses the ParameterAddress as a key */
@@ -72,8 +73,8 @@ public:
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
         sp_comb_create(&_comb0);
         sp_comb_create(&_comb1);
-        sp_comb_init(_sp, _comb0, internalLoopDuration);
-        sp_comb_init(_sp, _comb1, internalLoopDuration);
+        sp_comb_init(_sp, _comb0, _loopDuration);
+        sp_comb_init(_sp, _comb1, _loopDuration);
         _comb0->revtime = 1.0;
         _comb1->revtime = 1.0;
     }
