@@ -107,7 +107,7 @@ public:
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
 
         sp_fosc_create(&_fosc);
-        sp_fosc_init(_sp, _fosc);
+        sp_fosc_init(_sp, _fosc, _ftbl);
         _fosc->freq = 440;
         _fosc->car = 1.0;
         _fosc->mod = 1;
@@ -147,8 +147,11 @@ public:
             float modulatingMultiplier = modulatingMultiplierRamp.getValue();
             float modulationIndex = modulationIndexRamp.getValue();
             float amplitude = amplitudeRamp.getValue();
-            _osc->freq = frequency * detuningMultiplier + detuningOffset;
-            _osc->amp = amplitude;
+            _fosc->freq = baseFrequency;
+            _fosc->amp = amplitude;
+            _fosc->car = carrierMultiplier;
+            _fosc->mod = modulatingMultiplier;
+            _fosc->indx = modulationIndex;
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
@@ -156,7 +159,7 @@ public:
 
                 if (_playing) {
                     if (channel == 0) {
-                        sp_osc_compute(_sp, _osc, nil, &temp);
+                        sp_fosc_compute(_sp, _fosc, nil, &temp);
                     }
                     *out = temp;
                 } else {
