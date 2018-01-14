@@ -148,10 +148,10 @@ public:
             float modulationIndex = modulationIndexRamp.getValue();
             float amplitude = amplitudeRamp.getValue();
             _fosc->freq = baseFrequency;
-            _fosc->amp = amplitude;
             _fosc->car = carrierMultiplier;
             _fosc->mod = modulatingMultiplier;
             _fosc->indx = modulationIndex;
+            _fosc->amp = amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
