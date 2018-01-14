@@ -104,7 +104,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOscillatorBankAudioUnit.h"
 #import "AKPhaseDistortionOscillatorDSP.hpp"
 #import "AKPhaseDistortionOscillatorBankAudioUnit.h"
-#import "AKPWMOscillatorAudioUnit.h"
+#import "AKPWMOscillatorDSP.hpp"
 #import "AKPWMOscillatorBankAudioUnit.h"
 
 // Generators / Physical Models
