@@ -102,7 +102,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMorphingOscillatorBankAudioUnit.h"
 #import "AKOscillatorDSP.hpp"
 #import "AKOscillatorBankAudioUnit.h"
-#import "AKPhaseDistortionOscillatorAudioUnit.h"
+#import "AKPhaseDistortionOscillatorDSP.hpp"
 #import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorAudioUnit.h"
 #import "AKPWMOscillatorBankAudioUnit.h"
