@@ -110,7 +110,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"
 #import "AKDripAudioUnit.h"
-#import "AKFluteAudioUnit.h"
+#import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarAudioUnit.h"
 #import "AKPluckedStringAudioUnit.h"
