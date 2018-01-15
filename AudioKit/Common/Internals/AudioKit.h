@@ -108,7 +108,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorBankAudioUnit.h"
 
 // Generators / Physical Models
-#import "AKClarinetAudioUnit.h"
+#import "AKClarinetDSP.hpp"
 #import "AKDripAudioUnit.h"
 #import "AKFluteAudioUnit.h"
 #import "AKMandolinAudioUnit.h"
