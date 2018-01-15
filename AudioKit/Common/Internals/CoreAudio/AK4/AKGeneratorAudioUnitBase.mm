@@ -46,6 +46,12 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
     _kernel->setWaveformValue(index, value);
 }
+- (void)trigger {
+    _kernel->trigger();
+}
+- (void)triggerFrequency:(float)frequency amplitude:(float)amplitude {
+    _kernel->triggerFrequencyAmplitude(frequency, amplitude);
+}
 /**
  This should be overridden. All the base class does is make sure that the pointer to the
  DSP is invalid.

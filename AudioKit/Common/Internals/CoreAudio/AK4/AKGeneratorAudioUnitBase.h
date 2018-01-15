@@ -47,6 +47,10 @@
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 
+// STK Methods
+- (void)trigger;
+- (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
+
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 

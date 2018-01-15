@@ -57,6 +57,9 @@ public:
     virtual void setupWaveform(uint32_t size) {}
     virtual void setWaveformValue(uint32_t index, float value) {}
 
+    /// STK Triggers
+    virtual void trigger() {}
+    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
 
     virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
         _inBufferListPtr = inBufs;
