@@ -9,6 +9,8 @@
 #import "AKAudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 @interface AKAudioUnitBase ()
 
 @property AKDSPBase* kernel;
@@ -96,8 +98,8 @@
     if (self == nil) { return nil; }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.0
-                                                                                  channels:2];
+    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                                  channels:AKSettings.numberOfChannels];
 
     _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
                                          channelCount:defaultFormat.channelCount];
