@@ -83,11 +83,15 @@ public:
         flute = new stk::Flute(100);
     }
 
+    void trigger() override {
+        internalTrigger = 1;
+    }
+
     void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override {
         bool immediate = true;
         frequencyRamp.setTarget(freq, immediate);
         amplitudeRamp.setTarget(amp, immediate);
-        internalTrigger = 1;
+        trigger();
     }
 
     void destroy() {
