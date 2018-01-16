@@ -106,6 +106,7 @@
 				555CCCCB1F587D5D00614D5F /* Frameworks */,
 				555CCCCC1F587D5D00614D5F /* Resources */,
 				5585D47F1F58C3D00071A702 /* Embed Frameworks */,
+				EA76CFEC200D8D0B0082E945 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -165,6 +166,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EA76CFEC200D8D0B0082E945 /* Run AudioKit framework Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run AudioKit framework Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		555CCCCA1F587D5D00614D5F /* Sources */ = {

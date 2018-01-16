@@ -141,6 +141,7 @@
 				F083F1A98EBA596A8767F9EC /* [CP] Embed Pods Frameworks */,
 				CDE4F30D5FAB5F17FC37A0AC /* [CP] Copy Pods Resources */,
 				C4F3ADE51DD43073009AF0BE /* Embed Frameworks */,
+				EA76CFE9200D8C080082E945 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -241,6 +242,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SenderSynth/Pods-SenderSynth-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		EA76CFE9200D8C080082E945 /* Run AudioKit framework Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run AudioKit framework Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
 		};
 		F083F1A98EBA596A8767F9EC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

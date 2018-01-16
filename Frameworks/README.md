@@ -12,9 +12,9 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The de
 * If you didn't copy the frameworks to your project, go to the **Build Settings** tab and make sure that the **Framework Search Paths** options contains the path where the framework is located.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
 
-### Handling Bitcode on iOS and tvOS
+### Handling App Store submissions on iOS and tvOS
 
-If your project has Bitcode enabled (which is mandatory on tvOS and iOS), then you need to add a new *Run Script* build phase to your target with the following script:
+If your project has Bitcode enabled (which is now mandatory on tvOS and iOS), then you need to add a new *Run Script* build phase to your target with the following script:
 
 `"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh"`
 
@@ -23,9 +23,9 @@ Make sure this script is run **after** the existing *Embed Frameworks* build pha
 Calling this script is required for your App Store submissions to pass validation when using Bitcode. While optional for non-Bitcode submissions, you may still add this script as it will somewhat reduce the size of the framework embedded in your app.
 
 
-## Alternative: compile the frameworks from source
+## Alternative: include the AudioKit library from source
 
-This may be the preferred method if you need to debug code using AudioKit, as Xcode 7 is still notoriously bad at handling precompiled Swift frameworks in other projects.
+This may be the preferred method if you need to debug code using AudioKit (or you are developing code inside of AudioKit), as Xcode 7 is still notoriously bad at handling precompiled Swift frameworks in other projects.
 
 You may obtain the source code archive directly from [GitHub](https://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 
@@ -39,7 +39,7 @@ If you are tinkering with AudioKit itself, you may also want to build a set of u
 
 Go to the `Frameworks` directory and run the `./build_frameworks.sh` script. You will need to have the Xcode command line tools installed. Optionally, install the `xcpretty` Ruby gem to prettify the ouput.
 
-The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directory, where platform is one of iOS, tvOS or macOS.
+The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directory, where platform is one of iOS, tvOS or macOS. Note that when building from source, all included examples assume that the frameworks have been previously built in this location.
 
 Optionally, you may restrict which platforms to build the frameworks for by setting the `PLATFORMS` environment variable prior to calling the script. The following example only builds for iOS and tvOS, skipping macOS:
 
