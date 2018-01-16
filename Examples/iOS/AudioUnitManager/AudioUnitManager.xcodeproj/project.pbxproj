@@ -140,7 +140,7 @@
 				B1756EA41F411D5A00792670 /* Frameworks */,
 				B1756EA51F411D5A00792670 /* Resources */,
 				B1756EC81F411E1400792670 /* Embed Frameworks */,
-				B1F4D72C1FF2AE86008DBAB1 /* ShellScript */,
+				B1F4D72C1FF2AE86008DBAB1 /* Run AudioKit framework script */,
 			);
 			buildRules = (
 			);
@@ -224,18 +224,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B1F4D72C1FF2AE86008DBAB1 /* ShellScript */ = {
+		B1F4D72C1FF2AE86008DBAB1 /* Run AudioKit framework script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run AudioKit framework script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#if which swiftlint >/dev/null; then\n#swiftlint\n#fi\n";
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
