@@ -328,7 +328,7 @@
 				C4E8ED011C4357040041965F /* CopyFiles */,
 				6552E47DD63DC400F3DFEFB6 /* [CP] Embed Pods Frameworks */,
 				AD6E69E3684A2E442EFC96C1 /* [CP] Copy Pods Resources */,
-				C4F3ADBF1DD1C0C2009AF0BE /* ShellScript */,
+				C4F3ADBF1DD1C0C2009AF0BE /* Run AudioKit framework script */,
 			);
 			buildRules = (
 			);
@@ -443,13 +443,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C4F3ADBF1DD1C0C2009AF0BE /* ShellScript */ = {
+		C4F3ADBF1DD1C0C2009AF0BE /* Run AudioKit framework script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run AudioKit framework script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

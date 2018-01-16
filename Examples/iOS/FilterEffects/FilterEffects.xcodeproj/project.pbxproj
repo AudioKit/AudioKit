@@ -141,6 +141,7 @@
 				C4EDA11F1DA96EE7008C1827 /* Embed Frameworks */,
 				080F14368BE3BAC8BF43F1E7 /* [CP] Embed Pods Frameworks */,
 				3A76C61C0B9600F15ECB4681 /* [CP] Copy Pods Resources */,
+				EA76CFE8200D8BD10082E945 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -256,6 +257,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		EA76CFE8200D8BD10082E945 /* Run AudioKit framework Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run AudioKit framework Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
