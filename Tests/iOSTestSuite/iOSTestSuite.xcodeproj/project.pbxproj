@@ -109,6 +109,7 @@
 		C44FF93B1FD0994F00B2217D /* AKPinkNoiseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DB1FD0994F00B2217D /* AKPinkNoiseTest.swift */; };
 		C44FF93C1FD0994F00B2217D /* AKResonantFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DC1FD0994F00B2217D /* AKResonantFilterTests.swift */; };
 		C44FF93D1FD0994F00B2217D /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */; };
+		C464077120105CB600299119 /* AKBrownianNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077020105CB600299119 /* AKBrownianNoiseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,6 +242,7 @@
 		C44FF8DB1FD0994F00B2217D /* AKPinkNoiseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoiseTest.swift; sourceTree = "<group>"; };
 		C44FF8DC1FD0994F00B2217D /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
+		C464077020105CB600299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +311,7 @@
 				C44FF89A1FD0994F00B2217D /* AKBandRejectButterworthFilterTests.swift */,
 				C44FF8D71FD0994F00B2217D /* AKBitCrusherTests.swift */,
 				C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */,
+				C464077020105CB600299119 /* AKBrownianNoiseTests.swift */,
 				C44FF8811FD0994F00B2217D /* AKChowningReverbTests.swift */,
 				C44FF8CB1FD0994F00B2217D /* AKClipperTests.swift */,
 				C44FF8911FD0994F00B2217D /* AKCompressorTests.swift */,
@@ -575,6 +578,7 @@
 				C44FF8EE1FD0994F00B2217D /* sineWaveTests.swift in Sources */,
 				C44FF9311FD0994F00B2217D /* delayTests.swift in Sources */,
 				C44FF8F21FD0994F00B2217D /* AKMoogLadderTests.swift in Sources */,
+				C464077120105CB600299119 /* AKBrownianNoiseTests.swift in Sources */,
 				C44FF9191FD0994F00B2217D /* triangleTests.swift in Sources */,
 				C44FF8FF1FD0994F00B2217D /* AKFMOscillatorBankTests.swift in Sources */,
 				C44FF8FA1FD0994F00B2217D /* AKBandRejectButterworthFilterTests.swift in Sources */,
