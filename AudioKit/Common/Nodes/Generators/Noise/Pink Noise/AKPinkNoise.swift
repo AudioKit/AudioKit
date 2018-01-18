@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Faust-based pink noise generator
@@ -17,7 +17,8 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    private var amplitudeParameter: AUParameter?
+
+    fileprivate var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -29,11 +30,16 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
     /// Amplitude. (Value between 0-1).
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
-            if amplitude != newValue {
+            if amplitude == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
@@ -56,9 +62,12 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -79,7 +88,7 @@ open class AKPinkNoise: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
