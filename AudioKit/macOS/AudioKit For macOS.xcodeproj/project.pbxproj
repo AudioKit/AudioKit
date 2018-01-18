@@ -385,7 +385,7 @@
 		C45667441D448D7E00D26565 /* waveset.c in Sources */ = {isa = PBXBuildFile; fileRef = C456636B1D448D7E00D26565 /* waveset.c */; };
 		C45667451D448D7E00D26565 /* wpkorg35.c in Sources */ = {isa = PBXBuildFile; fileRef = C456636C1D448D7E00D26565 /* wpkorg35.c */; };
 		C45667461D448D7E00D26565 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C456636D1D448D7E00D26565 /* zitarev.c */; };
-		C45667471D448D7E00D26565 /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C456636E1D448D7E00D26565 /* soundpipe.h */; };
+		C45667471D448D7E00D26565 /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C456636E1D448D7E00D26565 /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45667481D448D7E00D26565 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C45663701D448D7E00D26565 /* md5.c */; };
 		C45667491D448D7E00D26565 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C45663711D448D7E00D26565 /* md5.h */; };
 		C456674A1D448D7E00D26565 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C45663721D448D7E00D26565 /* test.c */; };
@@ -753,7 +753,7 @@
 		C4AC0B6E1FC9460500EDA024 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B611FC9460400EDA024 /* BufferedAudioBus.hpp */; };
 		C4AC0B6F1FC9460500EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B631FC9460400EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B701FC9460500EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B641FC9460400EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4AC0B781FC9473F00EDA024 /* AKSoundpipeDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B771FC9473F00EDA024 /* AKSoundpipeDSPBase.hpp */; };
+		C4AC0B781FC9473F00EDA024 /* AKSoundpipeDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B771FC9473F00EDA024 /* AKSoundpipeDSPBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC4ECE200AEB480095694F /* AKPhaseDistortionOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC4ECB200AEB470095694F /* AKPhaseDistortionOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC4ECF200AEB480095694F /* AKPhaseDistortionOscillator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC4ECC200AEB470095694F /* AKPhaseDistortionOscillator.mm */; };
 		C4AC4ED0200AEB480095694F /* AKPhaseDistortionOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC4ECD200AEB480095694F /* AKPhaseDistortionOscillatorAudioUnit.swift */; };
