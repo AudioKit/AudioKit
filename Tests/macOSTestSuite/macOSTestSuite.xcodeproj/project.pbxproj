@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C41910222009A7E10067B5E0 /* AKPannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910212009A7E00067B5E0 /* AKPannerTests.swift */; };
 		C41910242009A7E90067B5E0 /* AKStereoFieldLimiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */; };
+		C464077420105CE400299119 /* AKBrownianNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077320105CE300299119 /* AKBrownianNoiseTests.swift */; };
 		C464E84E1FB0302A0025629C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464E84D1FB0302A0025629C /* AppDelegate.swift */; };
 		C4AA7A011FD09BA300040720 /* AKDCBlockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA79A11FD09BA300040720 /* AKDCBlockTests.swift */; };
 		C4AA7A021FD09BA300040720 /* smoothDelayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AA79A21FD09BA300040720 /* smoothDelayTests.swift */; };
@@ -136,6 +137,7 @@
 /* Begin PBXFileReference section */
 		C41910212009A7E00067B5E0 /* AKPannerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerTests.swift; sourceTree = "<group>"; };
 		C41910232009A7E80067B5E0 /* AKStereoFieldLimiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterTests.swift; sourceTree = "<group>"; };
+		C464077320105CE300299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
 		C464E84A1FB0302A0025629C /* macOSTestSuite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macOSTestSuite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C464E84D1FB0302A0025629C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C464E8541FB0302A0025629C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				C4AA79BD1FD09BA300040720 /* AKBandRejectButterworthFilterTests.swift */,
 				C4AA79FA1FD09BA300040720 /* AKBitCrusherTests.swift */,
 				C4AA7A001FD09BA300040720 /* AKBoosterTests.swift */,
+				C464077320105CE300299119 /* AKBrownianNoiseTests.swift */,
 				C4AA79A41FD09BA300040720 /* AKChowningReverbTests.swift */,
 				C4AA79EE1FD09BA300040720 /* AKClipperTests.swift */,
 				C4AA79B41FD09BA300040720 /* AKCompressorTests.swift */,
@@ -527,6 +530,7 @@
 				C4AA7A441FD09BA300040720 /* AKHighPassButterworthFilterTests.swift in Sources */,
 				C4AA7A3E1FD09BA300040720 /* reverberateWithCombFilterTests.swift in Sources */,
 				C4AA7A041FD09BA300040720 /* AKChowningReverbTests.swift in Sources */,
+				C464077420105CE400299119 /* AKBrownianNoiseTests.swift in Sources */,
 				C4AA7A431FD09BA300040720 /* whiteNoiseTests.swift in Sources */,
 				C41910222009A7E10067B5E0 /* AKPannerTests.swift in Sources */,
 				C4AA7A391FD09BA300040720 /* AKDelayTests.swift in Sources */,
