@@ -91,7 +91,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOperationGeneratorAudioUnit.h"
 
 // Generators / Noise
-#import "AKBrownianNoiseAudioUnit.h"
+#import "AKBrownianNoiseDSP.hpp"
 #import "AKPinkNoiseDSP.hpp"
 #import "AKWhiteNoiseDSP.hpp"
 
