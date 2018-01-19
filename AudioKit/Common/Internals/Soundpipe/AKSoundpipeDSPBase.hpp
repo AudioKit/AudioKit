@@ -13,11 +13,13 @@
 #ifndef __cplusplus
 
 #include "soundpipe.h"
+#include "vocwrapper.h"
 
 #else
 
 extern "C" {
 #include "soundpipe.h"
+#include "vocwrapper.h"
 }
 
 class AKSoundpipeDSPBase: public AKDSPBase {
