@@ -32,7 +32,7 @@
 /// The volume of the beat sound. 0->1
 @property float beatVolume;
 
-/// The volume of the beat sound. 0->1
+/// The volume of the downBeat sound. 0->1
 @property float downBeatVolume;
 
 
