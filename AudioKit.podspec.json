@@ -20,6 +20,7 @@
         "ios": "9.0",
         "tvos": "9.0"
     },
+    "swift_version": "4.0",
     "frameworks": [
 	"AVFoundation"
     ],
@@ -34,12 +35,22 @@
     "ios": {
         "source_files": "iOS/AudioKit.framework/Headers/*.h",
         "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
-        "vendored_frameworks": "iOS/AudioKit.framework"
+        "vendored_frameworks": "iOS/AudioKit.framework",
+        "script_phases": {
+            "name": "AudioKit iOS Framework Cleanup",
+            "execution_position": "after_compile",
+            "script": "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\""
+        }
     },
     "tvos": {
         "source_files": "tvOS/AudioKit.framework/Headers/*.h",
         "public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
-        "vendored_frameworks": "tvOS/AudioKit.framework"
+        "vendored_frameworks": "tvOS/AudioKit.framework",
+        "script_phases": {
+            "name": "AudioKit tvOS Framework Cleanup",
+            "execution_position": "after_compile",
+            "script": "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\""
+        }
     },
     "subspecs" : [
       {
