@@ -94,6 +94,34 @@ class ViewController: UIViewController {
 
         }))
 
+        addView(AKSlider(property: "Down Beat Volume",
+                         value: metronome1.tempo,
+                         range: 0...1,
+                         taper: 1,
+                         format: "%0.3f",
+                         color: .blue,
+                         frame: CGRect(),
+                         callback: { [weak self] volume in
+
+                            self?.metronome1.downBeatVolume = Float(volume);
+                            self?.metronome2.downBeatVolume = Float(volume);
+
+        }))
+
+        addView(AKSlider(property: "Beat Volume",
+                         value: metronome1.tempo,
+                         range: 0...1,
+                         taper: 1,
+                         format: "%0.3f",
+                         color: .blue,
+                         frame: CGRect(),
+                         callback: { [weak self] volume in
+
+                            self?.metronome1.beatVolume = Float(volume);
+                            self?.metronome2.beatVolume = Float(volume);
+
+        }))
+
         let beatsSelector = UISegmentedControl(items: Array(1...8).map {String($0)})
         beatsSelector.addTarget(self, action: #selector(beatsSelected(segmentedControl:)), for: .valueChanged)
         beatsSelector.selectedSegmentIndex = 3

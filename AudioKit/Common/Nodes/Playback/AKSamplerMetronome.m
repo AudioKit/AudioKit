@@ -24,6 +24,8 @@
     BOOL _hasDownBeatSound;
     NSURL *_soundURL;
     NSURL *_downBeatSoundURL;
+    UInt8 _beatVolume;
+    UInt8 _downBeatVolume;
 }
 
 -(instancetype)init {
@@ -48,6 +50,8 @@
         tap = [[AKTimelineTap alloc]initWithNode:self timelineBlock:[self timlineBlock]];
         tap.preRender = true;
         _beatCount = 4;
+        _beatVolume = UINT8_MAX;
+        _downBeatVolume = UINT8_MAX;
         [self setTempo:120];
     }
     return self;
@@ -62,6 +66,8 @@
     double *triggers = _triggers;
     int *triggerCount = &_beatCount;
     BOOL *hasSound = &_hasSound;
+    UInt8 *beatVolume = &_beatVolume;
+    UInt8 *downBeatVolume = &_downBeatVolume;
 
     return ^(AKTimeline         *timeline,
              AudioTimeStamp     *timeStamp,
@@ -78,7 +84,7 @@
         for (int i = 0; i < *triggerCount; i++) {
             double trigger = triggers[i];
             if(startSample <= trigger && trigger < endSample) {
-                MusicDeviceMIDIEvent(sampler,NOTEON, i == 0, 127, trigger - startSample + offset);
+                MusicDeviceMIDIEvent(sampler,NOTEON, i == 0, i == 0 ? *downBeatVolume : *beatVolume, trigger - startSample + offset);
             }
         }
     };
@@ -208,7 +214,18 @@
 -(NSURL *)downBeatSound {
     return _downBeatSoundURL;
 }
-
+-(void)setBeatVolume:(float)beatVolume {
+    _beatVolume = UINT8_MAX * beatVolume;
+}
+-(float)beatVolume {
+    return _beatVolume / UINT8_MAX;
+}
+-(void)setDownBeatVolume:(float)beatVolume {
+    _downBeatVolume = UINT8_MAX * beatVolume;
+}
+-(float)downBeatVolume {
+    return _downBeatVolume / UINT8_MAX;
+}
 // Will use the valid sound for both sounds if one is invalid.
 -(BOOL)setPresetWithSound:(NSURL *)soundURL andDownBeatSound:(NSURL *)downBeatSoundURL {
     BOOL soundValid = soundURL && [NSFileManager.defaultManager fileExistsAtPath:soundURL.path];
