@@ -42,6 +42,12 @@
 - (void)initializeConstant:(AUValue)value { _kernel->initializeConstant(value); }
 - (BOOL)isPlaying { return _kernel->isPlaying(); }
 - (BOOL)isSetUp { return _kernel->isSetup(); }
+- (void)setupWaveform:(int)size {
+    _kernel->setupWaveform((uint32_t)size);
+}
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
+    _kernel->setWaveformValue(index, value);
+}
 
 /**
  This should be overridden. All the base class does is make sure that the pointer to the
