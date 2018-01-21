@@ -29,8 +29,6 @@ class AKFlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
 
     sp_allpass *_allpass0;
     sp_allpass *_allpass1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp reverbDurationRamp;

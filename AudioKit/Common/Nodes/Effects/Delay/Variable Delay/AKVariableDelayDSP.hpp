@@ -30,8 +30,6 @@ class AKVariableDelayDSP : public AKSoundpipeDSPBase {
 
     sp_vdelay *_vdelay0;
     sp_vdelay *_vdelay1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp timeRamp;

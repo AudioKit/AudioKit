@@ -29,8 +29,6 @@ class AKCombFilterReverbDSP : public AKSoundpipeDSPBase {
 
     sp_comb *_comb0;
     sp_comb *_comb1;
-    sp_revsc* _revsc;
-
 
 private:
     AKLinearParameterRamp reverbDurationRamp;
