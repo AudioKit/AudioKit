@@ -1,0 +1,128 @@
+//
+//  AKTremoloDSP.hpp
+//  AudioKit
+//
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
+//
+
+#pragma once
+
+#import <Foundation/Foundation.h>
+
+typedef NS_ENUM(int64_t, AKTremoloParameter) {
+    AKTremoloParameterFrequency,
+    AKTremoloParameterDepth,
+    AKTremoloParameterRampTime
+};
+
+#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+
+#ifndef __cplusplus
+
+void* createTremoloDSP(int nChannels, double sampleRate);
+
+#else
+
+#import "AKSoundpipeDSPBase.hpp"
+
+class AKTremoloDSP : public AKSoundpipeDSPBase {
+
+    sp_osc *_trem;
+    sp_ftbl *_tbl;
+    UInt32 _tbl_size = 4096;
+
+private:
+    AKLinearParameterRamp frequencyRamp;
+    AKLinearParameterRamp depthRamp;
+   
+public:
+    AKTremoloDSP() {
+        frequencyRamp.setTarget(10.0, true);
+        frequencyRamp.setDurationInSamples(10000);
+        depthRamp.setTarget(1.0, true);
+        depthRamp.setDurationInSamples(10000);
+    }
+
+    /** Uses the ParameterAddress as a key */
+    void setParameter(uint64_t address, float value, bool immediate) override {
+        switch (address) {
+            case AKTremoloParameterFrequency:
+                frequencyRamp.setTarget(value, immediate);
+                break;
+            case AKTremoloParameterDepth:
+                depthRamp.setTarget(value, immediate);
+                break;
+            case AKTremoloParameterRampTime:
+                frequencyRamp.setRampTime(value, _sampleRate);
+                depthRamp.setRampTime(value, _sampleRate);
+                break;
+        }
+    }
+
+    /** Uses the ParameterAddress as a key */
+    float getParameter(uint64_t address) override {
+        switch (address) {
+            case AKTremoloParameterFrequency:
+                return frequencyRamp.getTarget();
+            case AKTremoloParameterDepth:
+                return depthRamp.getTarget();
+            case AKTremoloParameterRampTime:
+                return frequencyRamp.getRampTime(_sampleRate);
+                return depthRamp.getRampTime(_sampleRate);
+        }
+        return 0;
+    }
+
+    void init(int _channels, double _sampleRate) override {
+        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+        sp_osc_create(&_trem);
+        sp_osc_init(_sp, _trem, _tbl, 0);
+        _trem->freq = 10.0;
+        _trem->amp = 1.0;
+    }
+
+    void setupWaveform(uint32_t size) override {
+        _tbl_size = size;
+        sp_ftbl_create(_sp, &_tbl, _tbl_size);
+    }
+
+    void setWaveformValue(uint32_t index, float value) override {
+        _tbl->tbl[index] = value;
+    }
+
+    void destroy() {
+        sp_osc_destroy(&_trem);
+        AKSoundpipeDSPBase::destroy();
+    }
+
+    void process(uint32_t frameCount, uint32_t bufferOffset) override {
+
+        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+            int frameOffset = int(frameIndex + bufferOffset);
+
+            // do gain ramping every 8 samples
+            if ((frameOffset & 0x7) == 0) {
+                frequencyRamp.advanceTo(_now + frameOffset);
+                depthRamp.advanceTo(_now + frameOffset);
+            }
+            _trem->freq = frequencyRamp.getValue()  * 0.5; //Divide by two for stereo
+            _trem->amp = depthRamp.getValue();
+
+            float temp = 0;
+            for (int channel = 0; channel < _nChannels; ++channel) {
+                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
+                if (_playing) {
+                    sp_osc_compute(_sp, _trem, NULL, &temp);
+                    *out = *in * (1.0 - temp);
+                } else {
+                    *out = *in;
+                }
+            }
+        }
+    }
+};
+
+#endif
