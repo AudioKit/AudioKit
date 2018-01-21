@@ -117,8 +117,8 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.frequency, value: frequency)
-        self.internalAU?.setParameterImmediately(.qualityFactor, value: qualityFactor)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.qualityFactor, value: qualityFactor)
     }
 
     // MARK: - Control

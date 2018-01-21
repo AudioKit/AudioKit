@@ -95,7 +95,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.limit, value: limit)
+        internalAU?.setParameterImmediately(.limit, value: limit)
     }
 
     // MARK: - Control

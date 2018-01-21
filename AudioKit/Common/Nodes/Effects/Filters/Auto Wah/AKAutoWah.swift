@@ -136,9 +136,9 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.wah, value: wah)
-        self.internalAU?.setParameterImmediately(.mix, value: mix)
-        self.internalAU?.setParameterImmediately(.amplitude, value: amplitude)
+        internalAU?.setParameterImmediately(.wah, value: wah)
+        internalAU?.setParameterImmediately(.mix, value: mix)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
     // MARK: - Control

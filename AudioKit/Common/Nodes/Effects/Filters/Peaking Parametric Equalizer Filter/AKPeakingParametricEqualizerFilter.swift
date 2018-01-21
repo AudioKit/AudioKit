@@ -136,9 +136,9 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             }
         })
 
-        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
-        self.internalAU?.setParameterImmediately(.gain, value: gain)
-        self.internalAU?.setParameterImmediately(.Q, value: q)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.gain, value: gain)
+        internalAU?.setParameterImmediately(.Q, value: q)
     }
 
     // MARK: - Control

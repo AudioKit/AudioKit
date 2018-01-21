@@ -138,9 +138,9 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
-        self.internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
-        self.internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
     }
 
     // MARK: - Control

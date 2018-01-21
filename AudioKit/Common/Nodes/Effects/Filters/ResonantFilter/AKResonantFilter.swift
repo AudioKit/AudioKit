@@ -116,8 +116,8 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.frequency, value: frequency)
-        self.internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control

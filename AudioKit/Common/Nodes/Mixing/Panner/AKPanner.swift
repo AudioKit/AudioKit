@@ -94,7 +94,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.pan, value: pan)
+        internalAU?.setParameterImmediately(.pan, value: pan)
     }
 
     // MARK: - Control

@@ -94,7 +94,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
+        internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
     }
 
     // MARK: - Control

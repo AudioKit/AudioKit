@@ -93,7 +93,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.setParameterImmediately(.amount, value: amount)
+        internalAU?.setParameterImmediately(.amount, value: amount)
     }
 
     // MARK: - Control

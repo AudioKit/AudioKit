@@ -115,8 +115,8 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.bitDepth, value: bitDepth)
-        self.internalAU?.setParameterImmediately(.sampleRate, value: sampleRate)
+        internalAU?.setParameterImmediately(.bitDepth, value: bitDepth)
+        internalAU?.setParameterImmediately(.sampleRate, value: sampleRate)
     }
 
     // MARK: - Control

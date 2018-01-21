@@ -136,9 +136,9 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
-        self.internalAU?.setParameterImmediately(.resonance, value: resonance)
-        self.internalAU?.setParameterImmediately(.saturation, value: saturation)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
+        internalAU?.setParameterImmediately(.saturation, value: saturation)
     }
 
     // MARK: - Control

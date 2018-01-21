@@ -139,9 +139,9 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
-        self.internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
-        self.internalAU?.setParameterImmediately(.gain, value: gain)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
+        internalAU?.setParameterImmediately(.gain, value: gain)
     }
 
     // MARK: - Control

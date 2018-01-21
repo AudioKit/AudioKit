@@ -157,10 +157,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
-        self.internalAU?.setParameterImmediately(.resonance, value: resonance)
-        self.internalAU?.setParameterImmediately(.distortion, value: distortion)
-        self.internalAU?.setParameterImmediately(.resonanceAsymmetry, value: resonanceAsymmetry)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
+        internalAU?.setParameterImmediately(.distortion, value: distortion)
+        internalAU?.setParameterImmediately(.resonanceAsymmetry, value: resonanceAsymmetry)
     }
 
     // MARK: - Control

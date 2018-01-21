@@ -120,8 +120,8 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.fundamentalFrequency, value: fundamentalFrequency)
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.fundamentalFrequency, value: fundamentalFrequency)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
     }
 
     // MARK: - Control

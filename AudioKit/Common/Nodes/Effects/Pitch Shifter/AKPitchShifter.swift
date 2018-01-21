@@ -136,9 +136,9 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.shift, value: shift)
-        self.internalAU?.setParameterImmediately(.windowSize, value: windowSize)
-        self.internalAU?.setParameterImmediately(.crossfade, value: crossfade)
+        internalAU?.setParameterImmediately(.shift, value: shift)
+        internalAU?.setParameterImmediately(.windowSize, value: windowSize)
+        internalAU?.setParameterImmediately(.crossfade, value: crossfade)
     }
 
     // MARK: - Control

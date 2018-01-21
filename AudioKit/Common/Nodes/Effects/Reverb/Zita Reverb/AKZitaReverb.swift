@@ -283,16 +283,16 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.predelay, value: predelay)
-        self.internalAU?.setParameterImmediately(.crossoverFrequency, value: crossoverFrequency)
-        self.internalAU?.setParameterImmediately(.lowReleaseTime, value: lowReleaseTime)
-        self.internalAU?.setParameterImmediately(.midReleaseTime, value: midReleaseTime)
-        self.internalAU?.setParameterImmediately(.dampingFrequency, value: dampingFrequency)
-        self.internalAU?.setParameterImmediately(.equalizerFrequency1, value: equalizerFrequency1)
-        self.internalAU?.setParameterImmediately(.equalizerLevel1, value: equalizerLevel1)
-        self.internalAU?.setParameterImmediately(.equalizerFrequency2, value: equalizerFrequency2)
-        self.internalAU?.setParameterImmediately(.equalizerLevel2, value: equalizerLevel2)
-        self.internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
+        internalAU?.setParameterImmediately(.predelay, value: predelay)
+        internalAU?.setParameterImmediately(.crossoverFrequency, value: crossoverFrequency)
+        internalAU?.setParameterImmediately(.lowReleaseTime, value: lowReleaseTime)
+        internalAU?.setParameterImmediately(.midReleaseTime, value: midReleaseTime)
+        internalAU?.setParameterImmediately(.dampingFrequency, value: dampingFrequency)
+        internalAU?.setParameterImmediately(.equalizerFrequency1, value: equalizerFrequency1)
+        internalAU?.setParameterImmediately(.equalizerLevel1, value: equalizerLevel1)
+        internalAU?.setParameterImmediately(.equalizerFrequency2, value: equalizerFrequency2)
+        internalAU?.setParameterImmediately(.equalizerLevel2, value: equalizerLevel2)
+        internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
     }
 
     // MARK: - Control

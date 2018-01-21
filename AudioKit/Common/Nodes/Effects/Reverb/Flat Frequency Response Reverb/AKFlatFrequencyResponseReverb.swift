@@ -105,7 +105,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
             }
         })
 
-        self.internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
+        internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }
 
     // MARK: - Control

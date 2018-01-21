@@ -136,9 +136,9 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
             }
         })
 
-        self.internalAU?.setParameterImmediately(.cornerFrequency, value: cornerFrequency)
-        self.internalAU?.setParameterImmediately(.gain, value: gain)
-        self.internalAU?.setParameterImmediately(.Q, value: q)
+        internalAU?.setParameterImmediately(.cornerFrequency, value: cornerFrequency)
+        internalAU?.setParameterImmediately(.gain, value: gain)
+        internalAU?.setParameterImmediately(.Q, value: q)
     }
 
     // MARK: - Control
