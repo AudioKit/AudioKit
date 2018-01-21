@@ -157,10 +157,10 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
             }
         })
 
-        self.internalAU?.setParameterImmediately(.ratio, value: ratio)
-        self.internalAU?.setParameterImmediately(.threshold, value: threshold)
-        self.internalAU?.setParameterImmediately(.attackTime, value: attackTime)
-        self.internalAU?.setParameterImmediately(.releaseTime, value: releaseTime)
+        internalAU?.setParameterImmediately(.ratio, value: ratio)
+        internalAU?.setParameterImmediately(.threshold, value: threshold)
+        internalAU?.setParameterImmediately(.attackTime, value: attackTime)
+        internalAU?.setParameterImmediately(.releaseTime, value: releaseTime)
     }
 
     // MARK: - Control

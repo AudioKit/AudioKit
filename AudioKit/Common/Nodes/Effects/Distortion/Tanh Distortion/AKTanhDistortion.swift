@@ -157,10 +157,10 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.pregain, value: pregain)
-        self.internalAU?.setParameterImmediately(.postgain, value: postgain)
-        self.internalAU?.setParameterImmediately(.positiveShapeParameter, value: positiveShapeParameter)
-        self.internalAU?.setParameterImmediately(.negativeShapeParameter, value: negativeShapeParameter)
+        internalAU?.setParameterImmediately(.pregain, value: pregain)
+        internalAU?.setParameterImmediately(.postgain, value: postgain)
+        internalAU?.setParameterImmediately(.positiveShapeParameter, value: positiveShapeParameter)
+        internalAU?.setParameterImmediately(.negativeShapeParameter, value: negativeShapeParameter)
     }
 
     // MARK: - Control

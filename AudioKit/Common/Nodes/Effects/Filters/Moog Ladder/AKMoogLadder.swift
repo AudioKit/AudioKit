@@ -119,8 +119,8 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
-        self.internalAU?.setParameterImmediately(.resonance, value: resonance)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
     }
 
     // MARK: - Control

@@ -263,15 +263,15 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.notchMinimumFrequency, value: notchMinimumFrequency)
-        self.internalAU?.setParameterImmediately(.notchMaximumFrequency, value: notchMaximumFrequency)
-        self.internalAU?.setParameterImmediately(.notchWidth, value: notchWidth)
-        self.internalAU?.setParameterImmediately(.notchFrequency, value: notchFrequency)
-        self.internalAU?.setParameterImmediately(.vibratoMode, value: vibratoMode)
-        self.internalAU?.setParameterImmediately(.depth, value: depth)
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
-        self.internalAU?.setParameterImmediately(.inverted, value: inverted)
-        self.internalAU?.setParameterImmediately(.lfoBPM, value: lfoBPM)
+        internalAU?.setParameterImmediately(.notchMinimumFrequency, value: notchMinimumFrequency)
+        internalAU?.setParameterImmediately(.notchMaximumFrequency, value: notchMaximumFrequency)
+        internalAU?.setParameterImmediately(.notchWidth, value: notchWidth)
+        internalAU?.setParameterImmediately(.notchFrequency, value: notchFrequency)
+        internalAU?.setParameterImmediately(.vibratoMode, value: vibratoMode)
+        internalAU?.setParameterImmediately(.depth, value: depth)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.inverted, value: inverted)
+        internalAU?.setParameterImmediately(.lfoBPM, value: lfoBPM)
     }
 
     // MARK: - Control

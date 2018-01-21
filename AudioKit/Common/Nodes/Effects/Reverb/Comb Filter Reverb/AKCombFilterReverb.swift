@@ -102,7 +102,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
+        internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }
 
     // MARK: - Control

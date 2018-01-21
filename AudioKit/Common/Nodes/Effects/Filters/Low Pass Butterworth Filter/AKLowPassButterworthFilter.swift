@@ -95,7 +95,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
             }
         })
 
-        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control

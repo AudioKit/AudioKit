@@ -118,8 +118,8 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.time, value: time)
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.time, value: time)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
     }
 
     // MARK: - Control

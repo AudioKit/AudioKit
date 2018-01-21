@@ -116,8 +116,8 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
             }
         })
 
-        self.internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
-        self.internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control

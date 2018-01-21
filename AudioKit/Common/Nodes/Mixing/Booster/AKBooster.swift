@@ -152,8 +152,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
-        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        internalAU?.setParameterImmediately(.leftGain, value: gain)
+        internalAU?.setParameterImmediately(.rightGain, value: gain)
     }
 
     // MARK: - Control
