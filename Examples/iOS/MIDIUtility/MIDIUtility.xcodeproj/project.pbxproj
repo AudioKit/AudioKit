@@ -13,7 +13,6 @@
 		C40F9D3D1C5C908E00B50BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3C1C5C908E00B50BFB /* Assets.xcassets */; };
 		C40F9D401C5C908E00B50BFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3E1C5C908E00B50BFB /* LaunchScreen.storyboard */; };
 		FE0349841F69E4FC009BB8AC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; };
-		FE0349851F69E4FC009BB8AC /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEE5633D1F674D7A006E4087 /* MIDISenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FE0349851F69E4FC009BB8AC /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,7 +103,6 @@
 				C40F9D2F1C5C908E00B50BFB /* Frameworks */,
 				C40F9D301C5C908E00B50BFB /* Resources */,
 				FEE789C21F67418100688A2A /* Embed Frameworks */,
-				EA8F6ECA200D8DA600B68497 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -163,23 +160,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EA8F6ECA200D8DA600B68497 /* Run AudioKit framework Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run AudioKit framework Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C40F9D2E1C5C908E00B50BFB /* Sources */ = {
@@ -329,6 +309,7 @@
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -346,6 +327,7 @@
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

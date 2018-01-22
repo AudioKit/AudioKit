@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C41226FC1F4FDAE70004296C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41226FB1F4FDAA90004296C /* AudioKit.framework */; };
-		C41226FD1F4FDAE70004296C /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C41226FB1F4FDAA90004296C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4571A3B1F4FDC0C00A18299 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C4571A3A1F4FDBBB00A18299 /* Samples */; };
 		C4CBE2711F40AF4D0079091A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2701F40AF4D0079091A /* AppDelegate.swift */; };
 		C4CBE2731F40AF4D0079091A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2721F40AF4D0079091A /* ViewController.swift */; };
@@ -17,7 +16,6 @@
 		C4CBE27B1F40AF4D0079091A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CBE2791F40AF4D0079091A /* LaunchScreen.storyboard */; };
 		C4CBE2831F40AF760079091A /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2821F40AF760079091A /* Conductor.swift */; };
 		EAC9C59E1F5014CA00B01FF7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C59C1F5014C300B01FF7 /* AudioKitUI.framework */; };
-		EAC9C59F1F5014CA00B01FF7 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C59C1F5014C300B01FF7 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,8 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EAC9C59F1F5014CA00B01FF7 /* AudioKitUI.framework in Embed Frameworks */,
-				C41226FD1F4FDAE70004296C /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,7 +110,6 @@
 				C4CBE26A1F40AF4D0079091A /* Frameworks */,
 				C4CBE26B1F40AF4D0079091A /* Resources */,
 				C4CBE2881F40AFE60079091A /* Embed Frameworks */,
-				EA76CFEB200D8C670082E945 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -173,23 +168,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EA76CFEB200D8C670082E945 /* Run AudioKit framework Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run AudioKit framework Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C4CBE2691F40AF4D0079091A /* Sources */ = {
@@ -341,6 +319,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Drums/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Drums;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -355,6 +334,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Drums/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Drums;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
