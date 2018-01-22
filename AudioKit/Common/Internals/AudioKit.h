@@ -46,7 +46,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKDynaRageCompressorAudioUnit.h"
 
 // Effects / Envelopes
-#import "AKAmplitudeEnvelopeAudioUnit.h"
+#import "AKAmplitudeEnvelopeDSP.hpp"
 #import "AKTremoloDSP.hpp"
 
 // Efffects / Filters
