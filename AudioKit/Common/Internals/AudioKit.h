@@ -33,6 +33,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOperationEffectAudioUnit.h"
 #import "AKSporthStack.h"
 
+// Effects / Chorus and Flanger
+#import "AKChorusAudioUnit.h"
+#import "AKFlangerAudioUnit.h"
+
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
 
