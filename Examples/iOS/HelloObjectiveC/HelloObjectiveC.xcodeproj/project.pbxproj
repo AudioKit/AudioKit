@@ -44,7 +44,6 @@
 		C40A79FB1C59616900CD8CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4338E781C59A4DA00296845 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C49523181F64FCB700C77E02 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		EA2FBC7C2015E616008D223C /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		EA2FBC7E2015ED4F008D223C /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,8 +63,6 @@
 		C40A79DE1C59616900CD8CB0 = {
 			isa = PBXGroup;
 			children = (
-				C4338E781C59A4DA00296845 /* AudioKit.framework */,
-				C49523181F64FCB700C77E02 /* AudioKitUI.framework */,
 				C40A79E91C59616900CD8CB0 /* HelloObjectiveC */,
 				C40A79E81C59616900CD8CB0 /* Products */,
 				EA2FBC7B2015E615008D223C /* Frameworks */,
@@ -108,7 +105,8 @@
 		EA2FBC7B2015E615008D223C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA2FBC7C2015E616008D223C /* Metal.framework */,
+				C4338E781C59A4DA00296845 /* AudioKit.framework */,
+				C49523181F64FCB700C77E02 /* AudioKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
