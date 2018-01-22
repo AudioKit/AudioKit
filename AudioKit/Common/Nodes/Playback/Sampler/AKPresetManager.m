@@ -475,7 +475,7 @@ NSMutableDictionary *mutableSkeleton() {
                                                              options:NSPropertyListImmutable
                                                               format:nil
                                                                error:&error];
-        NSAssert(error == nil, @"Failed to parse skeleton with error: %@", error);
+        NSCAssert(error == nil, @"Failed to parse skeleton with error: %@", error);
     }
 
     NSMutableDictionary *_preset = skeleton.mutableCopy;
