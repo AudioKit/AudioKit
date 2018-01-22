@@ -27,7 +27,6 @@
 		555857DE1F62180C00C73F59 /* AKClipRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857DA1F6217FF00C73F59 /* AKClipRecorder.swift */; };
 		555857E11F62184600C73F59 /* AKTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857E01F62184100C73F59 /* AKTiming.swift */; };
 		55B95B331FEDC34F00C76AF5 /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B321FEDC34700C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55E4F4FD1F5778450088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F4FA1F5778450088018A /* Skeleton.aupreset */; };
 		55E4F5161F578C230088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5141F578C230088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5171F578C230088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5151F578C230088018A /* AKPresetManager.m */; };
 		55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1077,7 +1076,7 @@
 		C4077BA1200894F000E5923C /* AKBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterAudioUnit.swift; sourceTree = "<group>"; };
 		C4077BA2200894F000E5923C /* AKBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBooster.mm; sourceTree = "<group>"; };
 		C4077BA3200894F000E5923C /* AKBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSP.hpp; sourceTree = "<group>"; };
-		C4077BA4200894F000E5923C /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster.swift; sourceTree = "<group>"; };
+		C4077BA4200894F000E5923C /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C4077BCB2009573E00E5923C /* AKVariableDelayDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKVariableDelayDSP.hpp; sourceTree = "<group>"; };
 		C4077BCC2009573E00E5923C /* AKVariableDelay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVariableDelay.mm; sourceTree = "<group>"; };
 		C4077BCD2009573F00E5923C /* AKVariableDelayAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelayAudioUnit.swift; sourceTree = "<group>"; };
@@ -1437,7 +1436,7 @@
 		C45665011D448D7E00D26565 /* AKDelayPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelayPresets.swift; sourceTree = "<group>"; };
 		C45665031D448D7E00D26565 /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKVariableDelay.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665091D448D7E00D26565 /* AKBitCrusher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKBitCrusher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C456650E1D448D7E00D26565 /* AKClipper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKClipper.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C456650E1D448D7E00D26565 /* AKClipper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKClipper.swift; sourceTree = "<group>"; };
 		C45665131D448D7E00D26565 /* AKDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKDistortion.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665141D448D7E00D26565 /* AKDistortionPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDistortionPresets.swift; sourceTree = "<group>"; };
 		C45665161D448D7E00D26565 /* AKDecimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKDecimator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1472,7 +1471,7 @@
 		C456657D1D448D7E00D26565 /* AKPeakingParametricEqualizerFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKPeakingParametricEqualizerFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665821D448D7E00D26565 /* AKResonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKResonantFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665871D448D7E00D26565 /* AKRolandTB303Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKRolandTB303Filter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C456658C1D448D7E00D26565 /* AKStringResonator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKStringResonator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C456658C1D448D7E00D26565 /* AKStringResonator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKStringResonator.swift; sourceTree = "<group>"; };
 		C45665911D448D7E00D26565 /* AKThreePoleLowpassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKThreePoleLowpassFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665961D448D7E00D26565 /* AKToneComplementFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKToneComplementFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C456659B1D448D7E00D26565 /* AKToneFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKToneFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -4581,7 +4580,6 @@
 				C45668731D448D7E00D26565 /* mand11.raw in Resources */,
 				C45668761D448D7E00D26565 /* mand3.raw in Resources */,
 				C45668771D448D7E00D26565 /* mand4.raw in Resources */,
-				55E4F4FD1F5778450088018A /* Skeleton.aupreset in Resources */,
 				C452CC3F1F44173500F02AB1 /* sinewave.raw in Resources */,
 				C456687C1D448D7E00D26565 /* mand9.raw in Resources */,
 			);
