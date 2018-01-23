@@ -521,7 +521,6 @@
 		C4E13D401C42703C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E13D341C42703C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp */; };
 		C4E13D411C42703C008F0A3C /* AKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D361C42703C008F0A3C /* AKAudioPlayer.swift */; };
 		C4E13D441C42703C008F0A3C /* AKTimePitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D3C1C42703C008F0A3C /* AKTimePitch.swift */; };
-		C4E1B3BE1F441AE600A5803D /* sinewave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047E51E78FCC000D9906F /* sinewave.raw */; };
 		C4E375A11D13575C00FDB70D /* AKMandolin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3759D1D13575C00FDB70D /* AKMandolin.swift */; };
 		C4E375A21D13575C00FDB70D /* AKMandolinAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E3759E1D13575C00FDB70D /* AKMandolinAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E375A31D13575C00FDB70D /* AKMandolinAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E3759F1D13575C00FDB70D /* AKMandolinAudioUnit.mm */; };
@@ -539,19 +538,6 @@
 		C4E3771C1D1357D900FDB70D /* Noise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E3763D1D1357D900FDB70D /* Noise.cpp */; };
 		C4E3771E1D1357D900FDB70D /* OnePole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E3763F1D1357D900FDB70D /* OnePole.cpp */; };
 		C4E377241D1357D900FDB70D /* PoleZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E376451D1357D900FDB70D /* PoleZero.cpp */; };
-		C4E377331D1357D900FDB70D /* mand1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376551D1357D900FDB70D /* mand1.raw */; };
-		C4E377341D1357D900FDB70D /* mand10.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376561D1357D900FDB70D /* mand10.raw */; };
-		C4E377351D1357D900FDB70D /* mand11.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376571D1357D900FDB70D /* mand11.raw */; };
-		C4E377361D1357D900FDB70D /* mand12.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376581D1357D900FDB70D /* mand12.raw */; };
-		C4E377371D1357D900FDB70D /* mand2.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376591D1357D900FDB70D /* mand2.raw */; };
-		C4E377381D1357D900FDB70D /* mand3.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765A1D1357D900FDB70D /* mand3.raw */; };
-		C4E377391D1357D900FDB70D /* mand4.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765B1D1357D900FDB70D /* mand4.raw */; };
-		C4E3773A1D1357D900FDB70D /* mand5.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765C1D1357D900FDB70D /* mand5.raw */; };
-		C4E3773B1D1357D900FDB70D /* mand6.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765D1D1357D900FDB70D /* mand6.raw */; };
-		C4E3773C1D1357D900FDB70D /* mand7.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765E1D1357D900FDB70D /* mand7.raw */; };
-		C4E3773D1D1357D900FDB70D /* mand8.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E3765F1D1357D900FDB70D /* mand8.raw */; };
-		C4E3773E1D1357D900FDB70D /* mand9.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376601D1357D900FDB70D /* mand9.raw */; };
-		C4E3773F1D1357D900FDB70D /* mandpluk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C4E376611D1357D900FDB70D /* mandpluk.raw */; };
 		C4E377551D1357D900FDB70D /* SineWave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E376771D1357D900FDB70D /* SineWave.cpp */; };
 		C4E3775B1D1357D900FDB70D /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E3767D1D1357D900FDB70D /* Stk.cpp */; };
 		C4E3775D1D1357D900FDB70D /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4E3767F1D1357D900FDB70D /* Twang.cpp */; };
@@ -591,7 +577,6 @@
 		C4E8ED1D1C43A5ED0041965F /* AKConvolutionAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E8ED1E1C43A5ED0041965F /* AKConvolutionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */; };
 		C4E8ED1F1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */; };
-		C4F5F2651F443CCB00BF7572 /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C47047E41E78FCB800D9906F /* fwavblnk.raw */; };
 		C4F8C81E1DCA89DD001F38F2 /* incr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81D1DCA89DD001F38F2 /* incr.c */; };
 		C4F8C8201DCA89EC001F38F2 /* scrambler.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C81F1DCA89EC001F38F2 /* scrambler.c */; };
 		C4F8C8221DCA89F4001F38F2 /* slice.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8C8211DCA89F4001F38F2 /* slice.c */; };
@@ -870,6 +855,9 @@
 		EA2FBD9B2015F971008D223C /* AKStereoFieldLimiterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBD982015F971008D223C /* AKStereoFieldLimiterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA2FBD9C2015F971008D223C /* AKStereoFieldLimiter.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA2FBD992015F971008D223C /* AKStereoFieldLimiter.mm */; };
 		EA2FBD9D2015F971008D223C /* AKStereoFieldLimiterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2FBD9A2015F971008D223C /* AKStereoFieldLimiterAudioUnit.swift */; };
+		EA2FBDA92016CF4E008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDA62016CF4E008D223C /* sinewave_raw.h */; };
+		EA2FBDAA2016CF4E008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDA72016CF4E008D223C /* fwavblnk_raw.h */; };
+		EA2FBDAB2016CF4E008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDA82016CF4E008D223C /* mand_raw.h */; };
 		EA6949E91C5A2F610035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E81C5A2F610035B5DF /* AKSettings.swift */; };
 		EA6949EF1C5AE1EA0035B5DF /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */; };
 		EAF0067C1C4C7A5200ECD392 /* AKMorphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */; };
@@ -1793,6 +1781,9 @@
 		EA2FBD982015F971008D223C /* AKStereoFieldLimiterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKStereoFieldLimiterDSP.hpp; sourceTree = "<group>"; };
 		EA2FBD992015F971008D223C /* AKStereoFieldLimiter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKStereoFieldLimiter.mm; sourceTree = "<group>"; };
 		EA2FBD9A2015F971008D223C /* AKStereoFieldLimiterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterAudioUnit.swift; sourceTree = "<group>"; };
+		EA2FBDA62016CF4E008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
+		EA2FBDA72016CF4E008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
+		EA2FBDA82016CF4E008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
 		EA6949E81C5A2F610035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		EA8BA9851C5E253900BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
@@ -3869,6 +3860,9 @@
 		C4E376471D1357D900FDB70D /* rawwaves */ = {
 			isa = PBXGroup;
 			children = (
+				EA2FBDA72016CF4E008D223C /* fwavblnk_raw.h */,
+				EA2FBDA82016CF4E008D223C /* mand_raw.h */,
+				EA2FBDA62016CF4E008D223C /* sinewave_raw.h */,
 				C47047E41E78FCB800D9906F /* fwavblnk.raw */,
 				C4E376551D1357D900FDB70D /* mand1.raw */,
 				C4E376561D1357D900FDB70D /* mand10.raw */,
@@ -4094,12 +4088,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4AC0B151FC9419900EDA024 /* AKDSPBase.hpp in Headers */,
+				EA2FBDA92016CF4E008D223C /* sinewave_raw.h in Headers */,
 				55E4F5321F57DB2D0088018A /* AKSamplerMetronome.h in Headers */,
 				55E4F5121F578BF30088018A /* AKPresetManager.h in Headers */,
 				C45210711E7D0884007C38FE /* AKSporthStack+Internal.h in Headers */,
 				B1F47ABF1DC54E0F00706A2F /* EZAudioFileMarker.h in Headers */,
+				EA2FBDAA2016CF4E008D223C /* fwavblnk_raw.h in Headers */,
 				C4E13D3E1C42703C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h in Headers */,
 				C48C6A5C1D3C1574008EA51B /* kiss_fftr.h in Headers */,
+				EA2FBDAB2016CF4E008D223C /* mand_raw.h in Headers */,
 				C470480E1E78FDFA00D9906F /* AKTubularBellsAudioUnit.h in Headers */,
 				EA2FBD362015F7C7008D223C /* AKPhaserDSP.hpp in Headers */,
 				C45F3F811ED157AB00A75143 /* AKSamplePlayerDSPKernel.hpp in Headers */,
@@ -4193,14 +4190,12 @@
 				C47047ED1E78FCEF00D9906F /* TwoZero.h in Headers */,
 				EA2FBD292015F785008D223C /* AKToneComplementFilterDSP.hpp in Headers */,
 				C487B6181DD923A400C56B59 /* Clarinet.h in Headers */,
-				C487B6041DD922D000C56B59 /* AKClarinetAudioUnit.h in Headers */,
 				C4E375A41D13575C00FDB70D /* AKMandolinDSPKernel.hpp in Headers */,
 				EA2FBD6C2015F8AE008D223C /* AKFMOscillatorDSP.hpp in Headers */,
 				EA2FBD542015F84B008D223C /* AKBrownianNoiseDSP.hpp in Headers */,
 				C49DCD4D1D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */,
 				C4146DE31F3E4829001AAE11 /* Equalisator.h in Headers */,
 				EA2FBCF32015F6C9008D223C /* AKLowPassButterworthFilterDSP.hpp in Headers */,
-				C49F29371D1626B9000A2D2F /* AKFluteDSPKernel.hpp in Headers */,
 				344B499F20169C3400F302E1 /* SDModulatedDelayStuff.hpp in Headers */,
 				C487B6161DD9239D00C56B59 /* Envelope.h in Headers */,
 				C4AC0B161FC9419900EDA024 /* AKAudioUnitBase.h in Headers */,
@@ -4214,9 +4209,6 @@
 				C4E376DB1D1357D900FDB70D /* Mandolin.h in Headers */,
 				C40C12951F08B0B500F4C7F1 /* AKSoundpipeKernel.hpp in Headers */,
 				C45381891C3A5CBD00A51738 /* AKFrequencyTrackerAudioUnit.h in Headers */,
-				C45381CE1C3A5CBD00A51738 /* AKLowPassButterworthFilterAudioUnit.h in Headers */,
-				C47AC6221D5D53EA0005E485 /* AKBoosterAudioUnit.h in Headers */,
-				C46809821CEED72800ADFC05 /* AKPitchShifterAudioUnit.h in Headers */,
 				344B499E20169C3400F302E1 /* SDModulatedDelayDSPKernel.hpp in Headers */,
 				C4146DFC1F3E4829001AAE11 /* RageProcessor.h in Headers */,
 				C4146DD81F3E4829001AAE11 /* CombFilter.h in Headers */,
@@ -4275,10 +4267,7 @@
 				C40C42221C40E5C2009D870B /* EZAudioFloatConverter.h in Headers */,
 				C4146D561F3E47C4001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp in Headers */,
 				EA2FBD062015F723008D223C /* AKMoogLadderDSP.hpp in Headers */,
-				C45381941C3A5CBD00A51738 /* AKVariableDelayDSPKernel.hpp in Headers */,
 				344B499820169C3400F302E1 /* AKChorusAudioUnit.h in Headers */,
-				C46809841CEED72800ADFC05 /* AKPitchShifterDSPKernel.hpp in Headers */,
-				C4A107501E6967A40018848C /* AKBrownianNoiseDSPKernel.hpp in Headers */,
 				C4AC0B2A1FC9427200EDA024 /* AKBankAudioUnit.h in Headers */,
 				C4146DE91F3E4829001AAE11 /* FFTRealPassDirect.h in Headers */,
 				C4146DF01F3E4829001AAE11 /* FFTRealUseTrigo.hpp in Headers */,
@@ -4408,21 +4397,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4E3773C1D1357D900FDB70D /* mand7.raw in Resources */,
-				C4E3773D1D1357D900FDB70D /* mand8.raw in Resources */,
-				C4E377331D1357D900FDB70D /* mand1.raw in Resources */,
-				C4E377371D1357D900FDB70D /* mand2.raw in Resources */,
-				C4E377341D1357D900FDB70D /* mand10.raw in Resources */,
-				C4E3773A1D1357D900FDB70D /* mand5.raw in Resources */,
-				C4F5F2651F443CCB00BF7572 /* fwavblnk.raw in Resources */,
-				C4E377361D1357D900FDB70D /* mand12.raw in Resources */,
-				C4E3773F1D1357D900FDB70D /* mandpluk.raw in Resources */,
-				C4E377351D1357D900FDB70D /* mand11.raw in Resources */,
-				C4E3773B1D1357D900FDB70D /* mand6.raw in Resources */,
-				C4E3773E1D1357D900FDB70D /* mand9.raw in Resources */,
-				C4E377391D1357D900FDB70D /* mand4.raw in Resources */,
-				C4E1B3BE1F441AE600A5803D /* sinewave.raw in Resources */,
-				C4E377381D1357D900FDB70D /* mand3.raw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5009,7 +4983,6 @@
 				C4A916971C25083A006C1A15 /* periodicTrigger.swift in Sources */,
 				C4F8CAF31DCA928B001F38F2 /* gen_padsynth.c in Sources */,
 				EA6949EF1C5AE1EA0035B5DF /* AudioKit.swift in Sources */,
-				C45381931C3A5CBD00A51738 /* AKVariableDelayAudioUnit.mm in Sources */,
 				344B499920169C3400F302E1 /* AKChorusAudioUnit.mm in Sources */,
 				C45381831C3A5CBD00A51738 /* AKAmplitudeTracker.swift in Sources */,
 				C4F8CB241DCA928B001F38F2 /* reverse.c in Sources */,
