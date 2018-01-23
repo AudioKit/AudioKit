@@ -24,7 +24,6 @@
 		555857EE1F6218A400C73F59 /* AKClipRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857EA1F62189700C73F59 /* AKClipRecorder.swift */; };
 		555857F11F6218C000C73F59 /* AKTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555857F01F6218BB00C73F59 /* AKTiming.swift */; };
 		55B95B351FEDC37600C76AF5 /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B341FEDC37100C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		55E4F5041F5778B60088018A /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = 55E4F5011F5778B60088018A /* Skeleton.aupreset */; };
 		55E4F5121F578BF30088018A /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5101F578BF30088018A /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5131F578BF30088018A /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5111F578BF30088018A /* AKPresetManager.m */; };
 		55E4F5321F57DB2D0088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5301F57DB2D0088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -4381,7 +4380,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55E4F5041F5778B60088018A /* Skeleton.aupreset in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
