@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Triggerable classic ADSR envelope
@@ -33,57 +33,64 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Attack time
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
-            if attackDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.attackDuration = Float(newValue)
+            if attackDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
+
     /// Decay time
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
-            if decayDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.decayDuration = Float(newValue)
+            if decayDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
+
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
-            if sustainLevel != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.sustainLevel = Float(newValue)
+            if sustainLevel == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.sustainLevel, value: newValue)
         }
     }
+
     /// Release time
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
-            if releaseDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.releaseDuration = Float(newValue)
+            if releaseDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
         }
     }
 
@@ -152,10 +159,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.attackDuration = Float(attackDuration)
-        internalAU?.decayDuration = Float(decayDuration)
-        internalAU?.sustainLevel = Float(sustainLevel)
-        internalAU?.releaseDuration = Float(releaseDuration)
+       internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
+        internalAU?.setParameterImmediately(.sustainLevel, value: sustainLevel)
+        internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
     }
 
     // MARK: - Control

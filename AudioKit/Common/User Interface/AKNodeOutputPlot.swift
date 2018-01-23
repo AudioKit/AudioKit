@@ -45,9 +45,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     }
 
     @objc open func pause() {
-        AKLog("is Cnonect", isConnected)
         if isConnected {
-            AKLog("REMOVING TAP")
             node?.avAudioNode.removeTap(onBus: 0)
             isConnected = false
         }
@@ -102,7 +100,6 @@ open class AKNodeOutputPlot: EZAudioPlot {
     ///   - height: Height of the view
     ///
     @objc public init(_ input: AKNode? = AudioKit.output, frame: CGRect, bufferSize: Int = 1_024) {
-        Swift.print("Got in here")
         super.init(frame: frame)
         self.plotType = .buffer
         self.backgroundColor = AKColor.white
