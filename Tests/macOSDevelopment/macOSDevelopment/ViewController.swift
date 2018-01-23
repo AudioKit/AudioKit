@@ -117,7 +117,7 @@ class ViewController: NSViewController {
         }
         initPlayer()
 
-        Swift.print("Opened \(url.lastPathComponent)")
+        AKLog("Opened \(url.lastPathComponent)")
     }
 
     @IBAction func handlePlay(_ sender: NSButton) {
