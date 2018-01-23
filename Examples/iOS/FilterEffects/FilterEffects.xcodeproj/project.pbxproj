@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */; };
 		C4EDA1021DA969CF008C1827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1011DA969CF008C1827 /* AppDelegate.swift */; };
 		C4EDA1041DA969CF008C1827 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1031DA969CF008C1827 /* ViewController.swift */; };
 		C4EDA1071DA969CF008C1827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA1051DA969CF008C1827 /* Main.storyboard */; };
@@ -17,9 +16,7 @@
 		C4EDA1291DA9A1C2008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1281DA9A1C2008C1827 /* Audiobus.swift */; };
 		C4EDA12B1DA9A3D7008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */; };
 		C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; };
-		C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; };
-		EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
-				C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,7 +49,6 @@
 		C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		CC61B7F5557A1A87795829BE /* Pods-FilterEffects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.release.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.release.xcconfig"; sourceTree = "<group>"; };
 		EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +59,6 @@
 				EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */,
-				68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +115,6 @@
 				EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */,
 				C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */,
-				FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,7 +133,6 @@
 				C4EDA11F1DA96EE7008C1827 /* Embed Frameworks */,
 				080F14368BE3BAC8BF43F1E7 /* [CP] Embed Pods Frameworks */,
 				3A76C61C0B9600F15ECB4681 /* [CP] Copy Pods Resources */,
-				EA76CFE8200D8BD10082E945 /* Run AudioKit framework Script */,
 			);
 			buildRules = (
 			);
@@ -257,20 +248,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		EA76CFE8200D8BD10082E945 /* Run AudioKit framework Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run AudioKit framework Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -431,6 +408,10 @@
 				INFOPLIST_FILE = FilterEffects/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/FilterEffects/FilterEffects-BridgingHeader.h";
@@ -452,6 +433,10 @@
 				INFOPLIST_FILE = FilterEffects/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/FilterEffects/FilterEffects-BridgingHeader.h";
