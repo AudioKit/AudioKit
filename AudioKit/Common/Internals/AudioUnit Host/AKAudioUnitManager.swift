@@ -24,6 +24,8 @@ open class AKAudioUnitManager: NSObject {
 
     /// Internal audio units not including the Apple ones, only the custom ones
     public private(set) var internalAudioUnits = ["AKVariableDelay",
+                                                  "AKChorus",
+                                                  "AKFlanger",
                                                   "AKBitCrusher",
                                                   "AKClipper",
                                                   "AKDynamicRangeCompressor",
@@ -384,6 +386,10 @@ open class AKAudioUnitManager: NSObject {
         switch name {
         case "AKVariableDelay":
             node = AKVariableDelay()
+        case "AKChorus":
+            node = AKChorus()
+        case "AKFlanger":
+            node = AKFlanger()
         case "AKBitCrusher":
             node = AKBitCrusher()
         case "AKClipper":
