@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A1A9549E1538EC24A8D9831 /* Pods_AnalogSynthX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B75886810A4646AB1B3DCF3E /* Pods_AnalogSynthX.framework */; };
 		940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */; };
 		940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */; };
 		941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941771111C4C908000855BDA /* CGFloat+Extensions.swift */; };
@@ -36,11 +37,8 @@
 		C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED281C43ADA10041965F /* FilterSection.swift */; };
 		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
 		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
-		D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */; };
 		EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; };
-		EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; };
-		EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAF0A5B61C4F943E00F37994 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,8 +57,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA10E1601F4F9833003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
-				EAF0A5B81C4F943E00F37994 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +64,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalogSynthX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		894A16D4E1FB8A3B4DDBEDAF /* Pods-AnalogSynthX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalogSynthX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX.release.xcconfig"; sourceTree = "<group>"; };
 		940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+UIHelpers.swift"; sourceTree = "<group>"; };
 		940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformSegmentedView.swift; sourceTree = "<group>"; };
@@ -89,6 +84,7 @@
 		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
 		AF75A6912F14504847F31345 /* Pods-AnalogSynthX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalogSynthX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX.debug.xcconfig"; sourceTree = "<group>"; };
+		B75886810A4646AB1B3DCF3E /* Pods_AnalogSynthX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnalogSynthX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalogSynthX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,8 +111,8 @@
 			files = (
 				EAF0A5B71C4F943E00F37994 /* AudioKit.framework in Frameworks */,
 				EA10E15F1F4F9833003F0CA9 /* AudioKitUI.framework in Frameworks */,
-				D2A6182F1E2C00FF7F5D2205 /* Pods_AnalogSynthX.framework in Frameworks */,
 				C44760681DCD65ED00628666 /* AudioToolbox.framework in Frameworks */,
+				7A1A9549E1538EC24A8D9831 /* Pods_AnalogSynthX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +303,7 @@
 				EA10E15D1F4F982D003F0CA9 /* AudioKitUI.framework */,
 				C44760671DCD65ED00628666 /* AudioToolbox.framework */,
 				EAF0A5B61C4F943E00F37994 /* AudioKit.framework */,
-				11AE381ED5D37D3D63F182CD /* Pods_AnalogSynthX.framework */,
+				B75886810A4646AB1B3DCF3E /* Pods_AnalogSynthX.framework */,
 			);
 			name = Frameworks;
 			path = AnalogSynthX;
@@ -328,7 +324,6 @@
 				C4E8ED011C4357040041965F /* CopyFiles */,
 				6552E47DD63DC400F3DFEFB6 /* [CP] Embed Pods Frameworks */,
 				AD6E69E3684A2E442EFC96C1 /* [CP] Copy Pods Resources */,
-				C4F3ADBF1DD1C0C2009AF0BE /* Run AudioKit framework script */,
 			);
 			buildRules = (
 			);
@@ -442,20 +437,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnalogSynthX/Pods-AnalogSynthX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C4F3ADBF1DD1C0C2009AF0BE /* Run AudioKit framework script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run AudioKit framework script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -625,6 +606,10 @@
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
 				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";
@@ -648,6 +633,10 @@
 				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = AnalogSynthX;
 				SWIFT_OBJC_BRIDGING_HEADER = "AnalogSynthX/AnalogSynthX-Bridging-Header.h";

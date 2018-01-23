@@ -111,9 +111,9 @@
 		C4A009AD1FD4DF1F004A91F4 /* AKResonantFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0094D1FD4DF1F004A91F4 /* AKResonantFilterTests.swift */; };
 		C4A009AE1FD4DF1F004A91F4 /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A0094E1FD4DF1F004A91F4 /* AKBoosterTests.swift */; };
 		C4A009B91FD4DF4E004A91F4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B61FD4DF44004A91F4 /* AudioKit.framework */; };
-		C4A009BA1FD4DF4E004A91F4 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B61FD4DF44004A91F4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4A009BD1FD4DF4E004A91F4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */; };
-		C4A009BE1FD4DF4E004A91F4 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FBDBF20175560008D223C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B61FD4DF44004A91F4 /* AudioKit.framework */; };
+		EA2FBDC020175560008D223C /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */; };
 		FE19A1761FE8731C003B5418 /* AKSamplePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE19A1741FE87311003B5418 /* AKSamplePlayerTests.swift */; };
 		FE19A1781FE8742A003B5418 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE19A1771FE8742A003B5418 /* sinechirp.wav */; };
 		FE19A1791FE8742A003B5418 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FE19A1771FE8742A003B5418 /* sinechirp.wav */; };
@@ -164,8 +164,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C4A009BE1FD4DF4E004A91F4 /* AudioKitUI.framework in Embed Frameworks */,
-				C4A009BA1FD4DF4E004A91F4 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,6 +299,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA2FBDBF20175560008D223C /* AudioKit.framework in Frameworks */,
+				EA2FBDC020175560008D223C /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +314,7 @@
 				C4A008CB1FD4DEBF004A91F4 /* iOSDevelopment */,
 				C4A008E01FD4DEC0004A91F4 /* iOSDevelopmentTests */,
 				C4A008CA1FD4DEBF004A91F4 /* Products */,
+				EA2FBDBE20175560008D223C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -465,6 +466,13 @@
 				C4A009B81FD4DF44004A91F4 /* AudioKitUI.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EA2FBDBE20175560008D223C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -866,6 +874,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iOSDevelopment/iOSDevelopment-Bridging-Header.h";
@@ -884,6 +893,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "iOSDevelopment/iOSDevelopment-Bridging-Header.h";
@@ -900,6 +910,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopmentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopmentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -916,6 +927,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = iOSDevelopmentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.iOSDevelopmentTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
