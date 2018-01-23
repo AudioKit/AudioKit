@@ -168,15 +168,15 @@ public class AKPlayer: AKNode {
     public var loop = Loop()
 
     /// Volume 0.0 -> 1.0, default 1.0
-    public var volume: Float {
-        get { return playerNode.volume }
-        set { playerNode.volume = newValue }
+    public var volume: Double {
+        get { return Double(playerNode.volume) }
+        set { playerNode.volume = Float(newValue) }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    public var pan: Float {
-        get { return playerNode.pan }
-        set { playerNode.pan = newValue }
+    public var pan: Double {
+        get { return Double(playerNode.pan) }
+        set { playerNode.pan = Float(newValue) }
     }
 
     /// Get or set the start time of the player.
