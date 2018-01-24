@@ -14,7 +14,7 @@ let sawtooth = AKTable(.sawtooth, count: 256)
 //: This will change the shape of the oscillator's waveform.
 var oscillator = AKOscillator(waveform: square)
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.2

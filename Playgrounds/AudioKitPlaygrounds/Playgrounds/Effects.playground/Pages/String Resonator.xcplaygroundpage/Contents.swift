@@ -14,7 +14,7 @@ stringResonator.fundamentalFrequency = 1_000
 stringResonator.rampTime = 0.1
 
 AudioKit.output = stringResonator
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

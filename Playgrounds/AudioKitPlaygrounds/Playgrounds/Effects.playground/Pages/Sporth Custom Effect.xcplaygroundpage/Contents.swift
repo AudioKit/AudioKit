@@ -25,7 +25,7 @@ let sporth = "(\(input) ((0 p) 40 (_throttle f)) 1000 100 pshift) dup"
 let effect = AKOperationEffect(player, sporth: sporth, customUgens: [throttleUgen])
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

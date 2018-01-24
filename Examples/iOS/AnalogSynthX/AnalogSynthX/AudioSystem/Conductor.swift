@@ -47,7 +47,11 @@ class Conductor: AKMIDIListener {
         // AKSettings.playbackWhileMuted = true
 
         AudioKit.output = reverbMixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         Audiobus.start()
 
         let midi = AudioKit.midi

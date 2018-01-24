@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C3C42DE180EAFABF3AD3D9D3 /* Pods_FilterEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */; };
 		C4EDA1021DA969CF008C1827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1011DA969CF008C1827 /* AppDelegate.swift */; };
 		C4EDA1041DA969CF008C1827 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1031DA969CF008C1827 /* ViewController.swift */; };
 		C4EDA1071DA969CF008C1827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA1051DA969CF008C1827 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		94C8BA53CBA643F31FDEC3F7 /* Pods-FilterEffects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.debug.xcconfig"; sourceTree = "<group>"; };
+		C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EDA0FE1DA969CF008C1827 /* FilterEffects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterEffects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EDA1011DA969CF008C1827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EDA1031DA969CF008C1827 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */,
+				C3C42DE180EAFABF3AD3D9D3 /* Pods_FilterEffects.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +118,7 @@
 				EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */,
 				C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */,
+				C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

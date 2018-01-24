@@ -1,6 +1,6 @@
 //
 //  SDModulatedDelayStuff.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
 //  Created by Shane Dunne on 2018-01-20.
 //  Copyright © 2018 AudioKit. All rights reserved.

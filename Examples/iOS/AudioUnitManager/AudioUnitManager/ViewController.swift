@@ -67,8 +67,11 @@ class ViewController: UIViewController {
 
         // assign AudioKit's output to the mixer so it's easy to switch sources
         AudioKit.output = mixer
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         // bounds for the container aren't ready yet here, so async it to the next update
         // to pick up the correct size
         DispatchQueue.main.async {

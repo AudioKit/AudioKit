@@ -15,8 +15,11 @@ class Conductor {
     init() {
 
         AudioKit.output = drums
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         do {
             let bassDrumFile = try AKAudioFile(readFileName: "Samples/Drums/bass_drum_C1.wav")
             let clapFile = try AKAudioFile(readFileName: "Samples/Drums/clap_D#1.wav")

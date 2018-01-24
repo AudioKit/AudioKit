@@ -14,7 +14,7 @@ filter.resonance = 0.6
 filter.rampTime = 0.1
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

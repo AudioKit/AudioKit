@@ -20,7 +20,7 @@ var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 
 //: This is a loop to send a random note to the sampler
 AKPlaygroundLoop(every: pulse) {

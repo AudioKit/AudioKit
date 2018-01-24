@@ -31,7 +31,7 @@ let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.cathedral)
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

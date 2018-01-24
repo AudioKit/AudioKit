@@ -13,7 +13,7 @@ var clipper = AKClipper(player)
 clipper.limit = 0.1
 
 AudioKit.output = clipper
-AudioKit.start()
+try try AudioKit.start()
 
 player.play()
 

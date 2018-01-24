@@ -87,7 +87,11 @@ class AudioUnitManager: NSViewController {
     internal func startEngine(completionHandler: AKCallback? = nil) {
         // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
-            AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 completionHandler?()
                 AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
@@ -270,7 +274,11 @@ extension AudioUnitManager: NSWindowDelegate {
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 internalManager?.reset()
-                AudioKit.stop()
+                do {
+                    try AudioKit.stop()
+                } catch {
+                    AKLog("AudioKit did not stop!")
+                }
                 exit(0)
             }
 

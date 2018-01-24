@@ -24,7 +24,11 @@ class ViewController: NSViewController {
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
     }
 

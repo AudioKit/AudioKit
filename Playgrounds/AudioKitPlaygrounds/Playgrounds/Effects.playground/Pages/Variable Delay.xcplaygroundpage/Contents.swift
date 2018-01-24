@@ -11,7 +11,7 @@ var delay = AKVariableDelay(player)
 delay.rampTime = 0.2
 AudioKit.output = AKMixer(player, delay)
 
-AudioKit.start()
+try AudioKit.start()
 
 import AudioKitUI
 

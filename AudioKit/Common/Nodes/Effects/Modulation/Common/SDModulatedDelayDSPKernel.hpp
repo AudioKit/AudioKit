@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Shane Dunne
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -19,17 +19,17 @@
 #define FLANGER_MAX_DELAY_MS 10.0f
 #define FLANGER_MIN_FEEDBACK -0.95f
 #define FLANGER_MAX_FEEDBACK 0.95f
-#define FLANGER_DEFAULT_WETFRACTION 0.0f
+#define FLANGER_DEFAULT_DRYWETMIX 0.0f
 
 #define CHORUS_MIN_DELAY_MS 4.0f
 #define CHORUS_MAX_DELAY_MS 24.0f
 #define CHORUS_MIN_FEEDBACK 0.0f
 #define CHORUS_MAX_FEEDBACK 0.25f
-#define CHORUS_DEFAULT_WETFRACTION 0.0f
+#define CHORUS_DEFAULT_DRYWETMIX 0.0f
 
-#define MIN_MODFREQ_HZ 0.1f
-#define DEFAULT_MODFREQ_HZ 1.0f
-#define MAX_MODFREQ_HZ 10.0f
+#define MIN_FREQUENCY_HZ 0.1f
+#define DEFAULT_FREQUENCY_HZ 1.0f
+#define MAX_FREQUENCY_HZ 10.0f
 #define MIN_FRACTION 0.0f
 #define MAX_FRACTION 1.0f
 
@@ -39,9 +39,9 @@ typedef enum {
 } SDMDEffectType;
 
 enum {
-    modFreqAddress = 0,
-    modDepthAddress = 1,
-    wetFractionAddress = 2,
+    frequencyAddress = 0,
+    depthAddress = 1,
+    dryWetMixAddress = 2,
     feedbackAddress = 3
 };
 
@@ -51,38 +51,38 @@ public:
 
     SDModulatedDelayDSPKernel(SDMDEffectType type)
         : effectType(type)
-        , modFreq(DEFAULT_MODFREQ_HZ)
-        , modDepth(MIN_FRACTION)
+        , frequency(DEFAULT_FREQUENCY_HZ)
+        , depth(MIN_FRACTION)
         , feedback(MIN_FRACTION)
-        , wetFraction(CHORUS_DEFAULT_WETFRACTION)
-        , modFreqRamper(DEFAULT_MODFREQ_HZ)
-        , modDepthRamper(MIN_FRACTION)
+        , dryWetMix(CHORUS_DEFAULT_DRYWETMIX)
+        , frequencyRamper(DEFAULT_FREQUENCY_HZ)
+        , depthRamper(MIN_FRACTION)
         , feedbackRamper(MIN_FRACTION)
-        , wetFractionRamper(CHORUS_DEFAULT_WETFRACTION)
+        , dryWetMixRamper(CHORUS_DEFAULT_DRYWETMIX)
     {
         switch (type) {
             case kFlanger:
-                modFreq = DEFAULT_MODFREQ_HZ;
-                modDepth = MIN_FRACTION;
+                frequency = DEFAULT_FREQUENCY_HZ;
+                depth = MIN_FRACTION;
                 feedback = MIN_FRACTION;
-                wetFraction = FLANGER_DEFAULT_WETFRACTION;
+                dryWetMix = FLANGER_DEFAULT_DRYWETMIX;
                 break;
                 
             case kChorus:
             default:
                 break;
         }
-        modFreqRamper.setImmediate(modFreq);
-        modDepthRamper.setImmediate(modDepth);
-        wetFractionRamper.setImmediate(wetFraction);
+        frequencyRamper.setImmediate(frequency);
+        depthRamper.setImmediate(depth);
+        dryWetMixRamper.setImmediate(dryWetMix);
         feedbackRamper.setImmediate(feedback);
     }
 
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
-        modFreqRamper.init();
-        modDepthRamper.init();
-        wetFractionRamper.init();
+        frequencyRamper.init();
+        depthRamper.init();
+        dryWetMixRamper.init();
         feedbackRamper.init();
         
         minDelayMs = CHORUS_MIN_DELAY_MS;
@@ -91,11 +91,11 @@ public:
             case kFlanger:
                 minDelayMs = FLANGER_MIN_DELAY_MS;
                 maxDelayMs = FLANGER_MAX_DELAY_MS;
-                modOscillator.initTriangle(_sampleRate, DEFAULT_MODFREQ_HZ);
+                modOscillator.initTriangle(_sampleRate, DEFAULT_FREQUENCY_HZ);
                 break;
             case kChorus:
             default:
-                modOscillator.initSinusoid(_sampleRate, DEFAULT_MODFREQ_HZ);
+                modOscillator.initSinusoid(_sampleRate, DEFAULT_FREQUENCY_HZ);
                 break;
         }
         delayRangeMs = 0.5f * (maxDelayMs - minDelayMs);
@@ -119,26 +119,26 @@ public:
 
     void reset() {
         resetted = true;
-        modFreqRamper.reset();
-        modDepthRamper.reset();
-        wetFractionRamper.reset();
+        frequencyRamper.reset();
+        depthRamper.reset();
+        dryWetMixRamper.reset();
         feedbackRamper.reset();
     }
 
-    void setModFreq(float value) {
-        modFreq = clamp(value, MIN_MODFREQ_HZ, MAX_MODFREQ_HZ);
-        modFreqRamper.setImmediate(modFreq);
-        modOscillator.setFrequency(modFreq);
+    void setFrequency(float value) {
+        frequency = clamp(value, MIN_FREQUENCY_HZ, MAX_FREQUENCY_HZ);
+        frequencyRamper.setImmediate(frequency);
+        modOscillator.setFrequency(frequency);
     }
     
-    void setModDepth(float value) {
-        modDepth = clamp(value, MIN_FRACTION, MAX_FRACTION);
-        modDepthRamper.setImmediate(modDepth);
+    void setDepth(float value) {
+        depth = clamp(value, MIN_FRACTION, MAX_FRACTION);
+        depthRamper.setImmediate(depth);
     }
     
-    void setWetFraction(float value) {
-        wetFraction = clamp(value, MIN_FRACTION, MAX_FRACTION);
-        wetFractionRamper.setImmediate(wetFraction);
+    void setDryWetMix(float value) {
+        dryWetMix = clamp(value, MIN_FRACTION, MAX_FRACTION);
+        dryWetMixRamper.setImmediate(dryWetMix);
     }
     
     void setFeedback(float value) {
@@ -174,14 +174,14 @@ public:
                 break;
         }
         switch (address) {
-            case modFreqAddress:
-                modFreqRamper.setUIValue(clamp(value, MIN_MODFREQ_HZ, MAX_MODFREQ_HZ));
+            case frequencyAddress:
+                frequencyRamper.setUIValue(clamp(value, MIN_FREQUENCY_HZ, MAX_FREQUENCY_HZ));
                 break;
-            case modDepthAddress:
-                modDepthRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
+            case depthAddress:
+                depthRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
                 break;
-            case wetFractionAddress:
-                wetFractionRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
+            case dryWetMixAddress:
+                dryWetMixRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
                 break;
             case feedbackAddress:
                 feedbackRamper.setUIValue(clamp(value, minFeedback, maxFeedback));
@@ -191,12 +191,12 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case modFreqAddress:
-                return modFreqRamper.getUIValue();
-            case modDepthAddress:
-                return modDepthRamper.getUIValue();
-            case wetFractionAddress:
-                return wetFractionRamper.getUIValue();
+            case frequencyAddress:
+                return frequencyRamper.getUIValue();
+            case depthAddress:
+                return depthRamper.getUIValue();
+            case dryWetMixAddress:
+                return dryWetMixRamper.getUIValue();
             case feedbackAddress:
                 return feedbackRamper.getUIValue();
 
@@ -218,14 +218,14 @@ public:
                 break;
         }
         switch (address) {
-            case modFreqAddress:
-                modFreqRamper.startRamp(clamp(value, MIN_MODFREQ_HZ, MAX_MODFREQ_HZ), duration);
+            case frequencyAddress:
+                frequencyRamper.startRamp(clamp(value, MIN_FREQUENCY_HZ, MAX_FREQUENCY_HZ), duration);
                 break;
-            case modDepthAddress:
-                modDepthRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
+            case depthAddress:
+                depthRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
                 break;
-            case wetFractionAddress:
-                wetFractionRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
+            case dryWetMixAddress:
+                dryWetMixRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
                 break;
             case feedbackAddress:
                 feedbackRamper.startRamp(clamp(value, minFeedback, maxFeedback), duration);
@@ -239,10 +239,10 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            modFreq = modFreqRamper.getAndStep();
-            modOscillator.setFrequency(modFreq);
-            modDepth = modDepthRamper.getAndStep();
-            wetFraction = wetFractionRamper.getAndStep();
+            frequency = frequencyRamper.getAndStep();
+            modOscillator.setFrequency(frequency);
+            depth = depthRamper.getAndStep();
+            dryWetMix = dryWetMixRamper.getAndStep();
             feedback = feedbackRamper.getAndStep();
             leftDelayLine.setFeedback(feedback);
             rightDelayLine.setFeedback(feedback);
@@ -261,12 +261,12 @@ public:
             float modLeft, modRight;
             modOscillator.getSamples(&modLeft, &modRight);
 
-            float leftDelayMs = midDelayMs + delayRangeMs * modDepth * modLeft;
-            float rightDelayMs = midDelayMs + delayRangeMs * modDepth * modRight;
+            float leftDelayMs = midDelayMs + delayRangeMs * depth * modLeft;
+            float rightDelayMs = midDelayMs + delayRangeMs * depth * modRight;
             switch (effectType) {
                 case kFlanger:
-                    leftDelayMs = minDelayMs + delayRangeMs * modDepth * (1.0f + modLeft);
-                    rightDelayMs = minDelayMs + delayRangeMs * modDepth * (1.0f + modRight);
+                    leftDelayMs = minDelayMs + delayRangeMs * depth * (1.0f + modLeft);
+                    rightDelayMs = minDelayMs + delayRangeMs * depth * (1.0f + modRight);
                     break;
                     
                 case kChorus:
@@ -276,9 +276,9 @@ public:
             leftDelayLine.setDelayMs(leftDelayMs);
             rightDelayLine.setDelayMs(rightDelayMs);
 
-            float dryFraction = 1.0f - wetFraction;
-            *outLeft = dryFraction * (*inLeft) + wetFraction * leftDelayLine.push(*inLeft);
-            *outRight = dryFraction * (*inRight) + wetFraction * rightDelayLine.push(*inRight);
+            float dryFraction = 1.0f - dryWetMix;
+            *outLeft = dryFraction * (*inLeft) + dryWetMix * leftDelayLine.push(*inLeft);
+            *outRight = dryFraction * (*inRight) + dryWetMix * rightDelayLine.push(*inRight);
         }
     }
 
@@ -290,18 +290,18 @@ private:
     SDDelayLine leftDelayLine;
     SDDelayLine rightDelayLine;
     SDTwoPhaseOscillator modOscillator;
-    float modFreq;
-    float modDepth;
+    float frequency;
+    float depth;
     float feedback;
-    float wetFraction;
+    float dryWetMix;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper modFreqRamper;
-    ParameterRamper modDepthRamper;
+    ParameterRamper frequencyRamper;
+    ParameterRamper depthRamper;
     ParameterRamper feedbackRamper;
-    ParameterRamper wetFractionRamper;
+    ParameterRamper dryWetMixRamper;
 };
 
 class AKChorusDSPKernel : public SDModulatedDelayDSPKernel {

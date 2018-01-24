@@ -13,7 +13,7 @@ tremolo.depth = 0.5
 tremolo.frequency = 8
 
 AudioKit.output = tremolo
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 
