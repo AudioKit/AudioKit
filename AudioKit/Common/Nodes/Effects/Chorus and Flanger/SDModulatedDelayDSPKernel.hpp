@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Shane Dunne
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
