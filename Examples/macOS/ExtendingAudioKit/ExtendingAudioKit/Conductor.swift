@@ -19,14 +19,14 @@ class Conductor {
     
     let midi = AKMIDI()
     var oscillator:AKOscillatorBank
-    var flanger: AKFlanger
-    var chorus: AKChorus
+    var sustainer:SDSustainer
+    var oscillatorGain:SDBooster    // Your own extension AKNode!
     
     var pitchBendUpSemitones = 2
     var pitchBendDownSemitones = 2
-    
-    var semitoneOffset = -12  // offset notes by this many semitones from MIDI note numbers
 
+    var synthSemitoneOffset = 0
+    
     static let tableLength = 1024
     let waveforms = [
         AKTable(.sine, count: tableLength),
@@ -34,7 +34,7 @@ class Conductor {
         AKTable(.square, count: tableLength),
         AKTable(.sawtooth, count: tableLength)
     ]
-    var waveformIndex = 3
+    var waveformIndex = 2
     
     init() {
         
@@ -50,15 +50,15 @@ class Conductor {
         
         // Signal Chain
         oscillator = AKOscillatorBank(waveform: waveforms[waveformIndex])
-        flanger = AKFlanger(oscillator)
-        chorus = AKChorus(flanger)
-
+        sustainer = SDSustainer(oscillator)
+        oscillatorGain = SDBooster(oscillator)
+        
         // Set Output & Start AudioKit
-        AudioKit.output = chorus
+        AudioKit.output = oscillatorGain
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
-            AKLog("AudioKit did not start!")
+            AKLog("AudioKit did not start")
         }
         
         // Initial parameters setup: synth
@@ -69,17 +69,8 @@ class Conductor {
         oscillator.vibratoDepth = 0.0
         oscillator.vibratoRate = 5
         
-        // Initial parameters setup: flanger
-        flanger.frequency = 0.7
-        flanger.depth = 0.4
-        flanger.dryWetMix = 0.5
-        flanger.feedback = -0.9
-
-        // Initial parameters setup: chorus
-        chorus.frequency = 0.7
-        chorus.depth = 0.4
-        chorus.dryWetMix = 0.25
-        chorus.feedback = 0.0
+        // Initial parameters setup: levels
+        oscillatorGain.gain = 1.0
     }
     
     func addMIDIListener(_ listener:AKMIDIListener) {
@@ -100,17 +91,33 @@ class Conductor {
         midi.openInput(midi.inputNames[byIndex])
     }
     
+    func getWaveformName() -> String {
+        let names = [ "Sine", "Triangle", "Square", "Sawtooth" ]
+        return names[waveformIndex]
+    }
+    
+    func setWaveformIndex(_ i:Int) {
+        guard i >= 0 && i <= 3 else { return }
+        if (i != waveformIndex) {
+            waveformIndex = i
+            print("Change waveform to \(getWaveformName())")
+            oscillator.waveform = waveforms[i]
+        }
+    }
+    
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        oscillator.play(noteNumber: OffsetNote(note, semitones:semitoneOffset), velocity: velocity);
+        // key-up, key-down and pedal operations are mediated by SDSustainer
+        sustainer.play(noteNumber: OffsetNote(note, semitones:synthSemitoneOffset), velocity: velocity);
     }
     
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        oscillator.stop(noteNumber: OffsetNote(note, semitones:semitoneOffset))
+        // key-up, key-down and pedal operations are mediated by SDSustainer
+        sustainer.stop(noteNumber: OffsetNote(note, semitones:synthSemitoneOffset))
     }
     
     func allNotesOff() {
         for note in 0 ... 127 {
-            oscillator.stop(noteNumber: MIDINoteNumber(note))
+            sustainer.stop(noteNumber: MIDINoteNumber(note + synthSemitoneOffset))
         }
     }
     
@@ -121,6 +128,9 @@ class Conductor {
         switch controller {
         case AKMIDIControl.modulationWheel.rawValue:
             oscillator.vibratoDepth = 0.5 * Double(value) / 128.0
+        case AKMIDIControl.damperOnOff.rawValue:
+            // key-up, key-down and pedal operations are mediated by SDSustainer
+            sustainer.sustain(down: value != 0)
         default:
             break
         }
