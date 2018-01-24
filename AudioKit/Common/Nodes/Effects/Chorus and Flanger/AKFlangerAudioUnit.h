@@ -10,9 +10,9 @@
 #import "AKAudioUnit.h"
 
 @interface AKFlangerAudioUnit : AKAudioUnit
-@property (nonatomic) float modFreq;
-@property (nonatomic) float modDepth;
-@property (nonatomic) float wetFraction;
+@property (nonatomic) float frequency;
+@property (nonatomic) float depth;
+@property (nonatomic) float dryWetMix;
 @property (nonatomic) float feedback;
 @end
 

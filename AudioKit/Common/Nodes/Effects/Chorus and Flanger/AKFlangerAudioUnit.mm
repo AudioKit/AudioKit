@@ -20,14 +20,14 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setModFreq:(float)modFreq {
-    _kernel.setModFreq(modFreq);
+- (void)setFrequency:(float)frequency {
+    _kernel.setFrequency(frequency);
 }
-- (void)setModDepth:(float)modDepth {
-    _kernel.setModDepth(modDepth);
+- (void)setDepth:(float)depth {
+    _kernel.setDepth(depth);
 }
-- (void)setWetFraction:(float)wetFraction {
-    _kernel.setWetFraction(wetFraction);
+- (void)setDryWetMix:(float)dryWetMix {
+    _kernel.setDryWetMix(dryWetMix);
 }
 - (void)setFeedback:(float)feedback {
     _kernel.setFeedback(feedback);
@@ -41,23 +41,23 @@ standardKernelPassthroughs()
     standardSetup(Flanger)
 
     // Create parameter objects
-    AUParameter *modFreqAUParameter = [AUParameter parameter:@"modFreq"
+    AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
                                                          name:@"Mod Frequency in Hz."
-                                                      address:modFreqAddress
-                                                          min:MIN_MODFREQ_HZ
-                                                          max:MAX_MODFREQ_HZ
+                                                      address:frequencyAddress
+                                                          min:MIN_FREQUENCY_HZ
+                                                          max:MAX_FREQUENCY_HZ
                                                          unit:kAudioUnitParameterUnit_Generic];
 
-    AUParameter *modDepthAUParameter = [AUParameter parameter:@"modDepth"
+    AUParameter *depthAUParameter = [AUParameter parameter:@"depth"
                                                         name:@"Mod depth fraction."
-                                                     address:modDepthAddress
+                                                     address:depthAddress
                                                          min:MIN_FRACTION
                                                          max:MAX_FRACTION
                                                         unit:kAudioUnitParameterUnit_Generic];
     
-    AUParameter *wetFractionAUParameter = [AUParameter parameter:@"wetFraction"
-                                                         name:@"Wet fraction."
-                                                      address:wetFractionAddress
+    AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
+                                                         name:@"Dry Wet Mix."
+                                                      address:dryWetMixAddress
                                                           min:MIN_FRACTION
                                                           max:MAX_FRACTION
                                                          unit:kAudioUnitParameterUnit_Generic];
@@ -70,21 +70,21 @@ standardKernelPassthroughs()
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
-    modFreqAUParameter.value = DEFAULT_MODFREQ_HZ;
-    modDepthAUParameter.value = MIN_FRACTION;
-    wetFractionAUParameter.value = FLANGER_DEFAULT_WETFRACTION;
+    frequencyAUParameter.value = DEFAULT_FREQUENCY_HZ;
+    depthAUParameter.value = MIN_FRACTION;
+    dryWetMixAUParameter.value = FLANGER_DEFAULT_DRYWETMIX;
     feedbackAUParameter.value = MIN_FRACTION;
 
-    _kernel.setParameter(modFreqAddress, modFreqAUParameter.value);
-    _kernel.setParameter(modDepthAddress, modDepthAUParameter.value);
-    _kernel.setParameter(wetFractionAddress, wetFractionAUParameter.value);
+    _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
+    _kernel.setParameter(depthAddress, depthAUParameter.value);
+    _kernel.setParameter(dryWetMixAddress, dryWetMixAUParameter.value);
     _kernel.setParameter(feedbackAddress, feedbackAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-                                             modFreqAUParameter,
-                                             modDepthAUParameter,
-                                             wetFractionAUParameter,
+                                             frequencyAUParameter,
+                                             depthAUParameter,
+                                             dryWetMixAUParameter,
                                              feedbackAUParameter
                                              ]];
 

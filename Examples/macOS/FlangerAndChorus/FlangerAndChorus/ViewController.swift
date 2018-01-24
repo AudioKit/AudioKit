@@ -92,17 +92,17 @@ class ViewController: NSViewController {
     }
     
     @IBAction func on_flModFreqSlider(_ sender: Any) {
-        conductor.flanger.modFreq = fl_modFreqSlider.doubleValue
+        conductor.flanger.frequency = fl_modFreqSlider.doubleValue
         fl_modFreqReadout.doubleValue = fl_modFreqSlider.doubleValue
     }
     
     @IBAction func on_flModDepthSlider(_ sender: Any) {
-        conductor.flanger.modDepth = fl_modDepthSlider.doubleValue
+        conductor.flanger.depth = fl_modDepthSlider.doubleValue
         fl_modDepthReadout.doubleValue = fl_modDepthSlider.doubleValue
     }
     
     @IBAction func on_flWetFractionSlider(_ sender: Any) {
-        conductor.flanger.wetFraction = fl_wetFractionSlider.doubleValue
+        conductor.flanger.dryWetMix = fl_wetFractionSlider.doubleValue
         fl_wetFractionReadout.doubleValue = fl_wetFractionSlider.doubleValue
     }
 
@@ -112,17 +112,17 @@ class ViewController: NSViewController {
     }
     
     @IBAction func on_chModFreqSlider(_ sender: Any) {
-        conductor.chorus.modFreq = ch_modFreqSlider.doubleValue
+        conductor.chorus.frequency = ch_modFreqSlider.doubleValue
         ch_modFreqReadout.doubleValue = ch_modFreqSlider.doubleValue
     }
     
     @IBAction func on_chModDepthSlider(_ sender: Any) {
-        conductor.chorus.modDepth = ch_modDepthSlider.doubleValue
+        conductor.chorus.depth = ch_modDepthSlider.doubleValue
         ch_modDepthReadout.doubleValue = ch_modDepthSlider.doubleValue
     }
     
     @IBAction func on_chWetFractionSlider(_ sender: Any) {
-        conductor.chorus.wetFraction = ch_wetFractionSlider.doubleValue
+        conductor.chorus.dryWetMix = ch_wetFractionSlider.doubleValue
         ch_wetFractionReadout.doubleValue = ch_wetFractionSlider.doubleValue
     }
     
