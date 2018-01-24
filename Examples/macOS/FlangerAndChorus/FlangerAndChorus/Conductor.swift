@@ -48,7 +48,11 @@ class Conductor {
 
         // Set Output & Start AudioKit
         AudioKit.output = chorus
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         
         // Initial parameters setup: sampler
         // Comment out to use default sine waves -- useful for testing Chorus

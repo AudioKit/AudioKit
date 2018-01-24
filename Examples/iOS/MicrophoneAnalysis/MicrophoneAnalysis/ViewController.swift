@@ -48,7 +48,11 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
 
         AudioKit.output = silence
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setupPlot()
         Timer.scheduledTimer(timeInterval: 0.1,
                              target: self,

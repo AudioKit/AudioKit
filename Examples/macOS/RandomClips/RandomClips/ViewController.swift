@@ -77,7 +77,11 @@ class ViewController: NSViewController {
         ambientGuitar.volume = 0.3
 
         AudioKit.output = mixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         playButton.title = "Play"
         playButton.frame = view.bounds

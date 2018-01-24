@@ -81,7 +81,11 @@ class ViewController: UIViewController {
         mainMixer = AKMixer(moogLadder, micBooster)
 
         AudioKit.output = mainMixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         setupUIForRecording()
     }
