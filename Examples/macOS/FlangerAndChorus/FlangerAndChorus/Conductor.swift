@@ -60,15 +60,15 @@ class Conductor {
         //samplerGain.gain = 5.0
 
         // Initial parameters setup: flanger
-        flanger.modFreq = 0.7
-        flanger.modDepth = 0.4
-        flanger.wetFraction = 0.5
+        flanger.frequency = 0.7
+        flanger.depth = 0.4
+        flanger.dryWetMix = 0.5
         flanger.feedback = -0.9
 
         // Initial parameters setup: chorus
-        chorus.modFreq = 0.7
-        chorus.modDepth = 0.4
-        chorus.wetFraction = 0.25
+        chorus.frequency = 0.7
+        chorus.depth = 0.4
+        chorus.dryWetMix = 0.25
         chorus.feedback = 0.0
     }
     
@@ -93,7 +93,7 @@ class Conductor {
     // Example of loading e.g. an .exs or .aupreset. Set base path as you wish.
     func useSamplerPreset(_ presetName: String) {
         let presetPath = "/Users/shane/Desktop/Sounds/Sampler Instruments/\(presetName)"
-        sampler.loadPath(presetPath)
+        try! sampler.loadPath(presetPath)
     }
     
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
