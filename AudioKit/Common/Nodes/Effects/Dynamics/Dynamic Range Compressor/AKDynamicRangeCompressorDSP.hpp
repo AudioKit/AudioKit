@@ -52,7 +52,7 @@ public:
     }
 
     /** Uses the ParameterAddress as a key */
-    void setParameter(uint64_t address, float value, bool immediate) override {
+    void setParameter(AUParameterAddress address, float value, bool immediate) override {
         switch (address) {
             case AKDynamicRangeCompressorParameterRatio:
                 ratioRamp.setTarget(value, immediate);
@@ -76,7 +76,7 @@ public:
     }
 
     /** Uses the ParameterAddress as a key */
-    float getParameter(uint64_t address) override {
+    float getParameter(AUParameterAddress address) override {
         switch (address) {
             case AKDynamicRangeCompressorParameterRatio:
                 return ratioRamp.getTarget();
