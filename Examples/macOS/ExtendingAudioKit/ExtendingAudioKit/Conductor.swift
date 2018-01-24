@@ -55,7 +55,11 @@ class Conductor {
         
         // Set Output & Start AudioKit
         AudioKit.output = oscillatorGain
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start")
+        }
         
         // Initial parameters setup: synth
         oscillator.attackDuration = 0.01
