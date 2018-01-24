@@ -8,8 +8,14 @@ These are both stereo effects (stereo-in, stereo-out). The modulator LFO signals
 
 These effects all take up to four parameters as follows:
 
-| Name | Meaning/units | Range for Chorus | Range for Flange |
-| modFreq | Modulation frequency, Hz | 0.1 - 2.0 Hz | same |
-| modDepth | Modulation depth | 0.0 - 1.0 | same |
-| wetFraction | Amount of wet signal | 0.1 - 1.0 | 0.5 typical |
-| feedback | Feedback coefficient | 0.0 - 0.25 | -0.95 - 0.95 |
+## modFreq ##
+Frequency of the modulating LFO, Hz. Acceptable range 0.1 to 10.0 Hz. For chorus and flange, you will usually use rates less than 2 Hz. For vibrato, 5 Hz sounds good.
+
+## modDepth ##
+Depth of modulation, expressed as a fraction 0.0 - 1.0. The higher the number, the more pronounced the effect.
+
+## wetFraction ##
+The effects' output is a mix of the input ("dry") signal and the delayed ("wet") signal. The *wetFraction* value is the scale factor (always a fraction 0.0 - 1.0) for the wet signal. The scale factor for the dry signal is computed internally as 1.0 - *wetFraction*, so they always sum to unity. The higher the *wetFraction* value, the more pronounced the effect.
+
+## feedback ##
+Another fractional scale factor which is the amount of delayed signal which is "fed back" into the input of the delay block. For flanger (which requires at least some feedback), the acceptable range is -0.95 - +0.95; negative values mean the feedback signal is inverted. For chorus (where feedback is usually not used), the acceptable range is 0.0 - 0.25. In both cases, numbers further from zero yield more pronounced effect.
