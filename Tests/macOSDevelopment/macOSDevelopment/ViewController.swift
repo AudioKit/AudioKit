@@ -49,7 +49,11 @@ class ViewController: NSViewController {
     @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
         AudioKit.output = booster
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         initOscillator()
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)

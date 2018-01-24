@@ -19,7 +19,11 @@ class ViewController: UIViewController, AKKeyboardDelegate {
         super.viewDidLoad()
 
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         Audiobus.start()
 
         setupUI()

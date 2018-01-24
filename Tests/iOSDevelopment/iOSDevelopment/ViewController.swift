@@ -37,7 +37,11 @@ class ViewController: UIViewController {
         booster.gain = 0
 
         AudioKit.output = booster
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         sender.isEnabled = false
 
     }
