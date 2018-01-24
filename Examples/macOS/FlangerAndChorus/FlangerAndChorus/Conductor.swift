@@ -8,7 +8,7 @@
 
 import AudioKit
 
-func Offset(_ note: MIDINoteNumber, semitones: Int) -> MIDINoteNumber {
+func OffsetNote(_ note: MIDINoteNumber, semitones: Int) -> MIDINoteNumber {
     let nn = Int(note)
     return (MIDINoteNumber)(semitones + nn)
 }
@@ -18,8 +18,7 @@ class Conductor {
     static let shared = Conductor()
     
     let midi = AKMIDI()
-    var sampler:AKMIDISampler
-    var samplerGain:AKBooster
+    var oscillator:AKOscillatorBank
     var flanger: AKFlanger
     var chorus: AKChorus
     
@@ -28,6 +27,15 @@ class Conductor {
     
     var semitoneOffset = -12  // offset notes by this many semitones from MIDI note numbers
 
+    static let tableLength = 1024
+    let waveforms = [
+        AKTable(.sine, count: tableLength),
+        AKTable(.positiveTriangle, count: tableLength),
+        AKTable(.square, count: tableLength),
+        AKTable(.sawtooth, count: tableLength)
+    ]
+    var waveformIndex = 3
+    
     init() {
         
         // MIDI Configure
@@ -41,9 +49,8 @@ class Conductor {
         AKSettings.enableLogging = false
         
         // Signal Chain
-        sampler = AKMIDISampler()
-        samplerGain = AKBooster(sampler)
-        flanger = AKFlanger(samplerGain)
+        oscillator = AKOscillatorBank(waveform: waveforms[waveformIndex])
+        flanger = AKFlanger(oscillator)
         chorus = AKChorus(flanger)
 
         // Set Output & Start AudioKit
@@ -54,11 +61,14 @@ class Conductor {
             AKLog("AudioKit did not start!")
         }
         
-        // Initial parameters setup: sampler
-        // Comment out to use default sine waves -- useful for testing Chorus
-        //useSamplerPreset("X50 Archi Prime File.aupreset")
-        //samplerGain.gain = 5.0
-
+        // Initial parameters setup: synth
+        oscillator.attackDuration = 0.01
+        oscillator.decayDuration = 0.01
+        oscillator.sustainLevel = 0.8
+        oscillator.releaseDuration = 0.25
+        oscillator.vibratoDepth = 0.0
+        oscillator.vibratoRate = 5
+        
         // Initial parameters setup: flanger
         flanger.frequency = 0.7
         flanger.depth = 0.4
@@ -90,23 +100,17 @@ class Conductor {
         midi.openInput(midi.inputNames[byIndex])
     }
     
-    // Example of loading e.g. an .exs or .aupreset. Set base path as you wish.
-    func useSamplerPreset(_ presetName: String) {
-        let presetPath = "/Users/shane/Desktop/Sounds/Sampler Instruments/\(presetName)"
-        try! sampler.loadPath(presetPath)
-    }
-    
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        sampler.play(noteNumber: Offset(note, semitones:semitoneOffset), velocity: velocity, channel: channel)
+        oscillator.play(noteNumber: OffsetNote(note, semitones:semitoneOffset), velocity: velocity);
     }
     
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        sampler.stop(noteNumber: Offset(note, semitones:semitoneOffset), channel: channel)
+        oscillator.stop(noteNumber: OffsetNote(note, semitones:semitoneOffset))
     }
     
     func allNotesOff() {
         for note in 0 ... 127 {
-            sampler.stop(noteNumber: MIDINoteNumber(note), channel: 0)
+            oscillator.stop(noteNumber: MIDINoteNumber(note))
         }
     }
     
@@ -114,16 +118,21 @@ class Conductor {
     }
     
     func controller(_ controller: MIDIByte, value: MIDIByte) {
-        sampler.midiCC(controller, value: value, channel: 0)
+        switch controller {
+        case AKMIDIControl.modulationWheel.rawValue:
+            oscillator.vibratoDepth = 0.5 * Double(value) / 128.0
+        default:
+            break
+        }
     }
 
     func pitchBend(_ pitchWheelValue: MIDIWord) {
         let pwValue = Double(pitchWheelValue)
         let scale = (pwValue - 8192.0) / 8192.0
         if scale >= 0.0 {
-            sampler.tuning = scale * self.pitchBendUpSemitones
+            oscillator.pitchBend = scale * self.pitchBendUpSemitones
         } else {
-            sampler.tuning = scale * self.pitchBendDownSemitones
+            oscillator.pitchBend = scale * self.pitchBendDownSemitones
         }
     }
 
