@@ -11,6 +11,7 @@ player.isLooping = true
 var flanger = AKFlanger(player)
 
 AudioKit.output = flanger
+
 try AudioKit.start()
 
 player.play()
@@ -25,15 +26,15 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Feedback",
                          value: flanger.feedback,
                          range: -0.95 ... 0.95) { sliderValue in
-            flanger.feedback
+            flanger.feedback = sliderValue
         })
 
         addView(AKSlider(property: "Depth", value: flanger.depth) { sliderValue in
-            flanger.depth
+            flanger.depth = sliderValue
         })
 
         addView(AKSlider(property: "Dry Wet Mix", value: flanger.dryWetMix) { sliderValue in
-            flanger.dryWetMix
+            flanger.dryWetMix = sliderValue
         })
 
         addView(AKSlider(property: "Frequency",
