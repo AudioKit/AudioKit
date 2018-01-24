@@ -21,7 +21,7 @@ let silence = AKBooster(tracker, gain: 0)
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
 AudioKit.output = silence
-AudioKit.start()
+try AudioKit.start()
 
 //: User Interface
 import AudioKitUI

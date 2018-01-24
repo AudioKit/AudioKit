@@ -27,7 +27,7 @@ lead.isLooping = true
 let mixer = AKMixer(drums, bass, guitar, lead)
 
 AudioKit.output = mixer
-AudioKit.start()
+try try AudioKit.start()
 
 drums.play()
 bass.play()

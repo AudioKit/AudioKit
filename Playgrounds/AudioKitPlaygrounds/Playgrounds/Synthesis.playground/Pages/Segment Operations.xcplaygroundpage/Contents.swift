@@ -32,7 +32,7 @@ var reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.largeHall)
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 generator.parameters = [2.0]
 generator.start()

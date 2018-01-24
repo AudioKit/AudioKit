@@ -29,7 +29,7 @@ func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixe
 }
 
 AudioKit.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0, 0.5])
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

@@ -68,7 +68,7 @@ let sequencePlayer = try AKAudioPlayer(file: sequence)
 sequencePlayer.looping = true
 
 AudioKit.output = sequencePlayer
-AudioKit.start()
+try AudioKit.start()
 sequencePlayer.play()
 
 import PlaygroundSupport

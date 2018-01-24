@@ -15,7 +15,7 @@ distortion.positiveShapeParameter = 1.0
 distortion.negativeShapeParameter = 1.0
 
 AudioKit.output = distortion
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

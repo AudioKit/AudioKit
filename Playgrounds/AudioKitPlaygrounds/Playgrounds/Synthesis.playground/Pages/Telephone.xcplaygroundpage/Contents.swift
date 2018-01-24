@@ -72,7 +72,7 @@ let keypad = AKOperationGenerator { parameters in
 }
 
 AudioKit.output = AKMixer(dialTone, ringing, busy, keypad)
-AudioKit.start()
+try AudioKit.start()
 dialTone.start()
 
 keypad.start()
