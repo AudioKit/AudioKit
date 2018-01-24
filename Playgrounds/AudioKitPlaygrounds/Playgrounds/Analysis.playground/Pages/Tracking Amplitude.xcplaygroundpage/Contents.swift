@@ -19,7 +19,7 @@ let oscillatorNode = AKOperationGenerator { _ in
 
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 AudioKit.output = trackedAmplitude
-AudioKit.start()
+try AudioKit.start()
 oscillatorNode.start()
 
 //: User Interface

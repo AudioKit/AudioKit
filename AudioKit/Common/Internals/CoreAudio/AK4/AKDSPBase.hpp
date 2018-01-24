@@ -39,10 +39,10 @@ public:
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
     /// Uses the ParameterAddress as a key
-    virtual void setParameter(uint64_t address, float value, bool immediate = false) {}
+    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false) {}
 
     /// Uses the ParameterAddress as a key
-    virtual float getParameter(uint64_t address) { return 0.0; }
+    virtual float getParameter(AUParameterAddress address) { return 0.0; }
 
     /// Get the DSP into initialized state
     virtual void reset() {}

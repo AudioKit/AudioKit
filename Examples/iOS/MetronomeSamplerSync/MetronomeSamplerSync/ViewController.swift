@@ -30,8 +30,11 @@ class ViewController: UIViewController {
         metronome1 >>> mixer
         metronome2 >>> mixer
         AudioKit.output = mixer
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setUpUI()
     }
 

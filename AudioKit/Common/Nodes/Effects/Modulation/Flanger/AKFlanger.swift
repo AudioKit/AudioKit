@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Shane Dunne
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Stereo Flanger
@@ -21,16 +21,16 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     // These must accord with #defines in SDModulatedDelayDSPKernel.hpp
     public static let MIN_FRACTION = 0.0
     public static let MAX_FRACTION = 1.0
-    public static let MIN_MODFREQ_HZ = 0.1
-    public static let MAX_MODFREQ_HZ = 10.0
-    public static let DEFAULT_MODFREQ_HZ = 1.0
+    public static let MIN_FREQUENCY_HZ = 0.1
+    public static let MAX_FREQUENCY_HZ = 10.0
+    public static let DEFAULT_FREQUENCY_HZ = 1.0
     public static let MIN_FEEDBACK = -0.95
     public static let MAX_FEEDBACK = 0.95
-    public static let DEFAULT_WETFRACTION = 0.5
+    public static let DEFAULT_DRYWETMIX = 0.5
 
-    fileprivate var modFreqParameter: AUParameter?
-    fileprivate var modDepthParameter: AUParameter?
-    fileprivate var wetFractionParameter: AUParameter?
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var depthParameter: AUParameter?
+    fileprivate var dryWetMixParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -40,57 +40,57 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Mod Frequency (Hz)
-    @objc open dynamic var modFreq: Double = MIN_MODFREQ_HZ {
+    /// Modulation Frequency (Hz)
+    @objc open dynamic var frequency: Double = MIN_FREQUENCY_HZ {
         willSet {
-            if modFreq == newValue {
+            if frequency == newValue {
                 return
             }
 
             if internalAU?.isSetUp ?? false {
-                if token != nil && modFreqParameter != nil {
-                    modFreqParameter?.setValue(Float(newValue), originator: token!)
+                if token != nil && frequencyParameter != nil {
+                    frequencyParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
 
-            internalAU?.modFreq = Float(newValue)
+            internalAU?.frequency = Float(newValue)
         }
     }
 
-    /// Mod Depth (fraction)
-    @objc open dynamic var modDepth: Double = MIN_FRACTION {
+    /// Modulation Depth (fraction)
+    @objc open dynamic var depth: Double = MIN_FRACTION {
         willSet {
-            if modDepth == newValue {
+            if depth == newValue {
                 return
             }
             
             if internalAU?.isSetUp ?? false {
-                if token != nil && modDepthParameter != nil {
-                    modDepthParameter?.setValue(Float(newValue), originator: token!)
+                if token != nil && depthParameter != nil {
+                    depthParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
             
-            internalAU?.modDepth = Float(newValue)
+            internalAU?.depth = Float(newValue)
         }
     }
     
-    /// Wet (fraction)
-    @objc open dynamic var wetFraction: Double = DEFAULT_WETFRACTION {
+    /// Dry Wet Mix (fraction)
+    @objc open dynamic var dryWetMix: Double = DEFAULT_DRYWETMIX {
         willSet {
-            if wetFraction == newValue {
+            if dryWetMix == newValue {
                 return
             }
             
             if internalAU?.isSetUp ?? false {
-                if token != nil && wetFractionParameter != nil {
-                    wetFractionParameter?.setValue(Float(newValue), originator: token!)
+                if token != nil && dryWetMixParameter != nil {
+                    dryWetMixParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
             
-            internalAU?.wetFraction = Float(newValue)
+            internalAU?.dryWetMix = Float(newValue)
         }
     }
     
@@ -123,21 +123,21 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: AKNode whose output will be processed
-    ///   - modFreq: modulation frequency Hz
-    ///   - modDepth: depth of modulation (fraction)
-    ///   - wetFraction: fraction of wet signal in mix
+    ///   - frequency: modulation frequency Hz
+    ///   - depth: depth of modulation (fraction)
+    ///   - dryWetMix: fraction of wet signal in mix
     ///   - feedback: feedback fraction
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        modFreq: Double = DEFAULT_MODFREQ_HZ,
-        modDepth: Double = MIN_FRACTION,
-        wetFraction: Double = DEFAULT_WETFRACTION,
+        frequency: Double = DEFAULT_FREQUENCY_HZ,
+        depth: Double = MIN_FRACTION,
+        dryWetMix: Double = DEFAULT_DRYWETMIX,
         feedback: Double = MIN_FRACTION) {
 
-        self.modFreq = modFreq
-        self.modDepth = modDepth
-        self.wetFraction = wetFraction
+        self.frequency = frequency
+        self.depth = depth
+        self.dryWetMix = dryWetMix
         self.feedback = feedback
 
         _Self.register()
@@ -156,9 +156,9 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        modFreqParameter = tree["modFreq"]
-        modDepthParameter = tree["modDepth"]
-        wetFractionParameter = tree["wetFraction"]
+        frequencyParameter = tree["frequency"]
+        depthParameter = tree["depth"]
+        dryWetMixParameter = tree["dryWetMix"]
         feedbackParameter = tree["feedback"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
@@ -172,9 +172,9 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.modFreq = Float(modFreq)
-        internalAU?.modDepth = Float(modDepth)
-        internalAU?.wetFraction = Float(wetFraction)
+        internalAU?.frequency = Float(frequency)
+        internalAU?.depth = Float(depth)
+        internalAU?.dryWetMix = Float(dryWetMix)
         internalAU?.feedback = Float(feedback)
     }
 

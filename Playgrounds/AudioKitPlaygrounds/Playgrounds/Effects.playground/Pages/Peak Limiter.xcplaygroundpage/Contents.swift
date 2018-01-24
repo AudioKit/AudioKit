@@ -16,7 +16,7 @@ peakLimiter.decayTime = 0.01 // Secs
 peakLimiter.preGain = 10 // dB
 
 AudioKit.output = peakLimiter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

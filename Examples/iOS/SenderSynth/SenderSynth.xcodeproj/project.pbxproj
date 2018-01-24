@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071CAF41B49BFAA9F991F5F6 /* Pods_SenderSynth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF045D6CF445585F921382DD /* Pods_SenderSynth.framework */; };
 		C4C5F7F71DA8759500C1017F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5F7F61DA8759500C1017F /* AppDelegate.swift */; };
 		C4C5F7F91DA8759500C1017F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5F7F81DA8759500C1017F /* ViewController.swift */; };
 		C4C5F7FC1DA8759500C1017F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C5F7FA1DA8759500C1017F /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 		C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
 		C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		EF045D6CF445585F921382DD /* Pods_SenderSynth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenderSynth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */,
 				EA10E16B1F4FA078003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */,
+				071CAF41B49BFAA9F991F5F6 /* Pods_SenderSynth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +74,7 @@
 				EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */,
 				C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */,
+				EF045D6CF445585F921382DD /* Pods_SenderSynth.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

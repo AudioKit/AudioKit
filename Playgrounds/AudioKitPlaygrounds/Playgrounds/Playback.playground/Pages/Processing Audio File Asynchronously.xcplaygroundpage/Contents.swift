@@ -13,7 +13,7 @@ let player = try AKAudioPlayer(file: piano)
 player.isLooping = true
 
 AudioKit.output = player
-AudioKit.start()
+try AudioKit.start()
 player.start()
 
 //: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory

@@ -49,7 +49,11 @@ class AudioEngine {
         reverb.loadFactoryPreset(.cathedral)
 
         AudioKit.output = reverb
-        AudioKit.start()
+        do {
+            try try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 }
 

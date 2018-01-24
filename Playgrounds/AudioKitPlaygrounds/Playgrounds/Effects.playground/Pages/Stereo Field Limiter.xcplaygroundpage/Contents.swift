@@ -10,7 +10,7 @@ player.isLooping = true
 var limitedOutput = AKStereoFieldLimiter(player)
 
 AudioKit.output = limitedOutput
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

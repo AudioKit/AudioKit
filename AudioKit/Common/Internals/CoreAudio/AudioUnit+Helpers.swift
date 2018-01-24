@@ -18,23 +18,24 @@ public extension AudioUnit {
     //swiftlint:disable force_try
 
     /// Get value for a property
-    func getValue<T>(forProperty property: AudioUnitPropertyID) -> T {
-        let (dataSize, _) = try! getPropertyInfo(propertyID: property)
-        return try! getProperty(propertyID: property, dataSize: dataSize)
+    func getValue<T>(forProperty property: AudioUnitPropertyID) throws -> T {
+        let (dataSize, _) = try getPropertyInfo(propertyID: property)
+        return try getProperty(propertyID: property, dataSize: dataSize)
     }
 
     /// Set value for a property
-    func setValue<T>(value: T, forProperty property: AudioUnitPropertyID) {
-        let (dataSize, _) = try! getPropertyInfo(propertyID: property)
-        return try! setProperty(propertyID: property, dataSize: dataSize, data: value)
+    func setValue<T>(value: T, forProperty property: AudioUnitPropertyID) throws {
+        let (dataSize, _) = try getPropertyInfo(propertyID: property)
+        return try setProperty(propertyID: property, dataSize: dataSize, data: value)
     }
 
     /// Add a listener to a property
-    func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) {
+    func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) throws {
         do {
             try addPropertyListener(listener: listener, toProperty: property)
         } catch {
             AKLog("Error Adding Property Listener")
+            throw error
         }
     }
 

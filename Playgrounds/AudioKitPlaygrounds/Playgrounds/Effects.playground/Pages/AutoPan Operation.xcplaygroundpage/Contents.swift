@@ -32,7 +32,7 @@ let effect = AKOperationEffect(player) { input, parameters in
 
 effect.parameters = [10, 1]
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import AudioKitUI
