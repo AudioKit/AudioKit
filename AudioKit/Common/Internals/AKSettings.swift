@@ -308,10 +308,8 @@ extension AKSettings {
         /// Audio is not silenced by silent switch and screen lock - audio is non mixable.
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
-        #if !os(tvOS)
-        /// Disables playback and recording
+        /// Disables playback and recording; deprecated in iOS 10
         case audioProcessing
-        #endif
         /// Use to multi-route audio. May be used on input, output, or both.
         case multiRoute
 
@@ -330,7 +328,11 @@ extension AKSettings {
             case .multiRoute:
                 return AVAudioSessionCategoryMultiRoute
             case .audioProcessing:
-                return AVAudioSessionCategoryAudioProcessing
+                #if !os(tvOS)
+                    return AVAudioSessionCategoryAudioProcessing
+                #else
+                    return "AVAudioSessionCategoryAudioProcessing"
+                #endif
             }
         }
    }
