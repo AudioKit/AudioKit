@@ -11,7 +11,7 @@ player.isLooping = true
 let tracker = AKFrequencyTracker(player)
 
 AudioKit.output = tracker
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface

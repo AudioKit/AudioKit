@@ -11,7 +11,7 @@ let samplePlayer = AKSamplePlayer(file: file) {
 }
 
 AudioKit.output = samplePlayer
-AudioKit.start()
+try AudioKit.start()
 
 import AudioKitUI
 

@@ -6,7 +6,7 @@ import AudioKit
 let drums = AKSampler()
 
 AudioKit.output = drums
-AudioKit.start()
+try AudioKit.start()
 
 let bassDrumFile = try AKAudioFile(readFileName: "Samples/Drums/bass_drum_C1.wav")
 let clapFile = try AKAudioFile(readFileName: "Samples/Drums/clap_D#1.wav")

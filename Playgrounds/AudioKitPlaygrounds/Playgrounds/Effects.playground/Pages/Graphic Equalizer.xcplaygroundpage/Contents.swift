@@ -16,7 +16,7 @@ let filterBand6 = AKEqualizerFilter(filterBand5, centerFrequency: 500, bandwidth
 let filterBand7 = AKEqualizerFilter(filterBand6, centerFrequency: 1_000, bandwidth: 1_112, gain: 1.0)
 
 AudioKit.output = filterBand7
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
