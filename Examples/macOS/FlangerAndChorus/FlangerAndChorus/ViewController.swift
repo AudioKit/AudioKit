@@ -38,8 +38,8 @@ class ViewController: NSViewController {
 
         conductor.midi.addListener(self)
 
-        fl_modFreqSlider.minValue = AKFlanger.MIN_MODFREQ_HZ
-        fl_modFreqSlider.maxValue = AKFlanger.MAX_MODFREQ_HZ
+        fl_modFreqSlider.minValue = AKFlanger.MIN_FREQUENCY_HZ
+        fl_modFreqSlider.maxValue = AKFlanger.MAX_FREQUENCY_HZ
         fl_modDepthSlider.minValue = AKFlanger.MIN_FRACTION
         fl_modDepthSlider.maxValue = AKFlanger.MAX_FRACTION
         fl_wetFractionSlider.minValue = AKFlanger.MIN_FRACTION
@@ -47,18 +47,18 @@ class ViewController: NSViewController {
         fl_feedbackSlider.minValue = AKFlanger.MIN_FEEDBACK
         fl_feedbackSlider.maxValue = AKFlanger.MAX_FEEDBACK
 
-        fl_modFreqSlider.doubleValue = conductor.flanger.modFreq
-        fl_modDepthSlider.doubleValue = conductor.flanger.modDepth
-        fl_wetFractionSlider.doubleValue = conductor.flanger.wetFraction
+        fl_modFreqSlider.doubleValue = conductor.flanger.frequency
+        fl_modDepthSlider.doubleValue = conductor.flanger.depth
+        fl_wetFractionSlider.doubleValue = conductor.flanger.dryWetMix
         fl_feedbackSlider.doubleValue = conductor.flanger.feedback
         
-        fl_modFreqReadout.doubleValue = conductor.flanger.modFreq
-        fl_modDepthReadout.doubleValue = conductor.flanger.modDepth
-        fl_wetFractionReadout.doubleValue = conductor.flanger.wetFraction
+        fl_modFreqReadout.doubleValue = conductor.flanger.frequency
+        fl_modDepthReadout.doubleValue = conductor.flanger.depth
+        fl_wetFractionReadout.doubleValue = conductor.flanger.dryWetMix
         fl_feedbackReadout.doubleValue = conductor.flanger.feedback
 
-        ch_modFreqSlider.minValue = AKChorus.MIN_MODFREQ_HZ
-        ch_modFreqSlider.maxValue = AKChorus.MAX_MODFREQ_HZ
+        ch_modFreqSlider.minValue = AKChorus.MIN_FREQUENCY_HZ
+        ch_modFreqSlider.maxValue = AKChorus.MAX_FREQUENCY_HZ
         ch_modDepthSlider.minValue = AKChorus.MIN_FRACTION
         ch_modDepthSlider.maxValue = AKChorus.MAX_FRACTION
         ch_wetFractionSlider.minValue = AKChorus.MIN_FRACTION
@@ -66,14 +66,14 @@ class ViewController: NSViewController {
         ch_feedbackSlider.minValue = AKChorus.MIN_FEEDBACK
         ch_feedbackSlider.maxValue = AKChorus.MAX_FEEDBACK
         
-        ch_modFreqSlider.doubleValue = conductor.chorus.modFreq
-        ch_modDepthSlider.doubleValue = conductor.chorus.modDepth
-        ch_wetFractionSlider.doubleValue = conductor.chorus.wetFraction
+        ch_modFreqSlider.doubleValue = conductor.chorus.frequency
+        ch_modDepthSlider.doubleValue = conductor.chorus.depth
+        ch_wetFractionSlider.doubleValue = conductor.chorus.dryWetMix
         ch_feedbackSlider.doubleValue = conductor.chorus.feedback
         
-        ch_modFreqReadout.doubleValue = conductor.chorus.modFreq
-        ch_modDepthReadout.doubleValue = conductor.chorus.modDepth
-        ch_wetFractionReadout.doubleValue = conductor.chorus.wetFraction
+        ch_modFreqReadout.doubleValue = conductor.chorus.frequency
+        ch_modDepthReadout.doubleValue = conductor.chorus.depth
+        ch_wetFractionReadout.doubleValue = conductor.chorus.dryWetMix
         ch_feedbackReadout.doubleValue = conductor.chorus.feedback
     }
     
