@@ -25,15 +25,15 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Feedback",
                          value: chorus.feedback,
                          range: -0.95 ... 0.95) { sliderValue in
-                            chorus.feedback
+                            chorus.feedback = sliderValue
         })
 
         addView(AKSlider(property: "Depth", value: chorus.depth) { sliderValue in
-            chorus.depth
+            chorus.depth = sliderValue
         })
 
         addView(AKSlider(property: "Dry Wet Mix", value: chorus.dryWetMix) { sliderValue in
-            chorus.dryWetMix
+            chorus.dryWetMix = sliderValue
         })
 
         addView(AKSlider(property: "Frequency",
