@@ -49,7 +49,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
         amplitude.value = 1
     }

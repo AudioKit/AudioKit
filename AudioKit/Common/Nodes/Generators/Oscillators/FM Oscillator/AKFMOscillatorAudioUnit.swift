@@ -54,7 +54,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Base Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 0.0,
-            max: 20000.0,
+            max: 20_000.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -66,7 +66,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Carrier Multiplier",
             address: AUParameterAddress(1),
             min: 0.0,
-            max: 1000.0,
+            max: 1_000.0,
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -78,7 +78,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Modulating Multiplier",
             address: AUParameterAddress(2),
             min: 0.0,
-            max: 1000.0,
+            max: 1_000.0,
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -90,7 +90,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Modulation Index",
             address: AUParameterAddress(3),
             min: 0.0,
-            max: 1000.0,
+            max: 1_000.0,
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -109,7 +109,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
         baseFrequency.value = 440
         carrierMultiplier.value = 1.0

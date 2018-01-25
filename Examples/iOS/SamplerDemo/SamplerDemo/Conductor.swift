@@ -45,7 +45,7 @@ class Conductor {
             print("A file was not found.")
         }
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

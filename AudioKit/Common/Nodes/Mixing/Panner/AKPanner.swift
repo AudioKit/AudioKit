@@ -109,4 +109,3 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

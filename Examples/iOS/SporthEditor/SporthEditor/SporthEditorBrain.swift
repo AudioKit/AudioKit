@@ -30,7 +30,7 @@ class SporthEditorBrain {
         generator = AKOperationGenerator { _ in return AKOperation(code) }
         AudioKit.output = generator
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -28,35 +28,35 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: AKMIDIListener {
-    
+
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         DispatchQueue.main.async {
             self.conductor.playNote(note: noteNumber, velocity: velocity, channel: channel)
         }
     }
-    
+
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         DispatchQueue.main.async {
             self.conductor.stopNote(note: noteNumber, channel: channel)
         }
     }
-    
+
     // MIDI Controller input
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         //print("Channel: \(channel+1) controller: \(controller) value: \(value)")
         conductor.controller(controller, value: value)
     }
-    
+
     // MIDI Pitch Wheel
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
         conductor.pitchBend(pitchWheelValue)
     }
-    
+
     // After touch
     func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
         conductor.afterTouch(pressure)
     }
-    
+
     // MIDI Setup Change
     func receivedMIDISetupChange() {
         print("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
@@ -65,5 +65,5 @@ extension ViewController: AKMIDIListener {
             conductor.midi.openInput(inputName)
         }
     }
-    
+
 }

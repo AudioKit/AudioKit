@@ -49,7 +49,6 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
         reverbDuration.value = 1.0

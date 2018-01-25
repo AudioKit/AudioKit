@@ -49,7 +49,6 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
 
         setParameterTree(AUParameterTree.createTree(withChildren: [pan]))
         pan.value = 0

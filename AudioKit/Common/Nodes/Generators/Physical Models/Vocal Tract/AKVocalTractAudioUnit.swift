@@ -54,7 +54,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             name: "Glottal frequency.",
             address: AUParameterAddress(0),
             min: 0.0,
-            max: 22050.0,
+            max: 22_050.0,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -109,7 +109,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, tonguePosition, tongueDiameter, tenseness, nasality]))
         frequency.value = 160.0
         tonguePosition.value = 0.5

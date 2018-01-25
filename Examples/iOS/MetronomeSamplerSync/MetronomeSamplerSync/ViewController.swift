@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         metronome2 >>> mixer
         AudioKit.output = mixer
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
@@ -106,8 +106,8 @@ class ViewController: UIViewController {
                          frame: CGRect(),
                          callback: { [weak self] volume in
 
-                            self?.metronome1.downBeatVolume = Float(volume);
-                            self?.metronome2.downBeatVolume = Float(volume);
+                            self?.metronome1.downBeatVolume = Float(volume)
+                            self?.metronome2.downBeatVolume = Float(volume)
 
         }))
 
@@ -120,8 +120,8 @@ class ViewController: UIViewController {
                          frame: CGRect(),
                          callback: { [weak self] volume in
 
-                            self?.metronome1.beatVolume = Float(volume);
-                            self?.metronome2.beatVolume = Float(volume);
+                            self?.metronome1.beatVolume = Float(volume)
+                            self?.metronome2.beatVolume = Float(volume)
 
         }))
 

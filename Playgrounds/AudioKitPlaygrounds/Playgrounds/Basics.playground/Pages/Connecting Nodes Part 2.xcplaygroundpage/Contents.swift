@@ -50,7 +50,7 @@ class AudioEngine {
 
         AudioKit.output = reverb
         do {
-            try try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

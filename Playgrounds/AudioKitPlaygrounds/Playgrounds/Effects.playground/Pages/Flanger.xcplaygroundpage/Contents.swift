@@ -50,5 +50,3 @@ class LiveView: AKLiveViewController {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = LiveView()
-
-

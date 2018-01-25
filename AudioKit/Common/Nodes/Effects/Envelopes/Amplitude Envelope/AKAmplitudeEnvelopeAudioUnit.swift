@@ -94,7 +94,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
         attackDuration.value = 0.1
         decayDuration.value = 0.1

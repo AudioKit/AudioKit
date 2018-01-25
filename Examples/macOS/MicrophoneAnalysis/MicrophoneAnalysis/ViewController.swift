@@ -48,7 +48,7 @@ class ViewController: NSViewController {
         super.viewDidAppear()
         AudioKit.output = silence
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

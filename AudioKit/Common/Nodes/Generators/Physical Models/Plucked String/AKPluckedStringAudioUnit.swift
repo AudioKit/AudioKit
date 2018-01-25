@@ -45,7 +45,7 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
             name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
             address: AUParameterAddress(0),
             min: 0,
-            max: 22000,
+            max: 22_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -64,7 +64,7 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
         frequency.value = 110
         amplitude.value = 0.5

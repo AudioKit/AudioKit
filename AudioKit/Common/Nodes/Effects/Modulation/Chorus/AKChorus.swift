@@ -17,7 +17,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     // These must accord with #defines in SDModulatedDelayDSPKernel.hpp
     public static let MIN_FRACTION = 0.0
     public static let MAX_FRACTION = 1.0
@@ -64,36 +64,36 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
             if depth == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && depthParameter != nil {
                     depthParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.depth = Float(newValue)
         }
     }
-    
+
     /// Dry Wet Mix (fraction)
     @objc open dynamic var dryWetMix: Double = DEFAULT_DRYWETMIX {
         willSet {
             if dryWetMix == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && dryWetMixParameter != nil {
                     dryWetMixParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.dryWetMix = Float(newValue)
         }
     }
-    
+
     /// Feedback (fraction)
     @objc open dynamic var feedback: Double = MIN_FRACTION {
         willSet {

@@ -20,7 +20,7 @@ class ViewController: UIViewController, AKKeyboardDelegate {
 
         AudioKit.output = oscillator
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

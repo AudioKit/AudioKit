@@ -88,7 +88,7 @@ class AudioUnitManager: NSViewController {
         // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
