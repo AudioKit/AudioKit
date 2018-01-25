@@ -140,4 +140,3 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

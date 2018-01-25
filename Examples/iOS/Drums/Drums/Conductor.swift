@@ -16,7 +16,7 @@ class Conductor {
 
         AudioKit.output = drums
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -18,7 +18,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
@@ -67,7 +66,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this pluck node
     ///
@@ -136,7 +134,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         internalAU?.start()
         internalAU?.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
     }
-
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {

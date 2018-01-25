@@ -26,4 +26,3 @@ class AKPannerTests: AKTestCase {
         AKTestMD5("6b75baedc4700e335f665785e8648c14")
     }
 }
-

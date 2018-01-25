@@ -121,7 +121,6 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-
     /// Initialize this vocal tract node
     ///
     /// - Parameters:

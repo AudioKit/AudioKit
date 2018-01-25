@@ -51,7 +51,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 0,
-            max: 20000,
+            max: 20_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -74,8 +74,8 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AUParameterAddress(2),
-            min: -1000,
-            max: 1000,
+            min: -1_000,
+            max: 1_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -94,7 +94,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier]))
         frequency.value = 440
         amplitude.value = 1

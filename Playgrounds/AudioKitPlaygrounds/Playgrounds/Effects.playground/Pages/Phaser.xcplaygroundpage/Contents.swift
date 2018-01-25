@@ -22,11 +22,11 @@ class LiveView: AKLiveViewController {
 
         addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addView(AKSlider(property: "Feedback", value: phaser.feedback) { sliderValue in
+        addView(AKSlider(property: "Feedback", value: phaser.feedback) { _ in
                             phaser.feedback
         })
 
-        addView(AKSlider(property: "Depth", value: phaser.depth) { sliderValue in
+        addView(AKSlider(property: "Depth", value: phaser.depth) { _ in
             phaser.depth
         })
 
@@ -70,12 +70,9 @@ class LiveView: AKLiveViewController {
             phaser.lfoBPM = sliderValue
         })
 
-
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = LiveView()
-
-

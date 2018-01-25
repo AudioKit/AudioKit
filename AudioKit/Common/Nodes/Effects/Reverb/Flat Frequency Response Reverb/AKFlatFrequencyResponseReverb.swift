@@ -120,4 +120,3 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
         internalAU?.stop()
     }
 }
-

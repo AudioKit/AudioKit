@@ -21,4 +21,3 @@ class AKBrownianNoiseTests: AKTestCase {
         AKTestMD5("87fc12e85351b242d0086396e36f0fab")
     }
 }
-

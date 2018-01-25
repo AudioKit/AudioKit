@@ -64,7 +64,7 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
         frequency.value = 10.0
         depth.value = 1.0

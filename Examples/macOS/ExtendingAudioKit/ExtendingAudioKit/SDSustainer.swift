@@ -13,14 +13,14 @@ import Foundation
 import AudioKit
 
 class SDSustainer {
-    
+
     var instrument: AKPolyphonicNode
     var keyDown: [Bool]
     var isPlaying: [Bool]
     var pedalIsDown: Bool
-    
+
     required init(_ node: AKPolyphonicNode) {
-        instrument = node;
+        instrument = node
         keyDown = [Bool]()
         isPlaying = [Bool]()
         for _ in 0 ... 127 {
@@ -29,35 +29,32 @@ class SDSustainer {
         }
         pedalIsDown = false
     }
-    
+
     /// Key down
     open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         if pedalIsDown && keyDown[Int(noteNumber)] {
             instrument.stop(noteNumber: noteNumber)
-        }
-        else {
-            keyDown[Int(noteNumber)] = true;
+        } else {
+            keyDown[Int(noteNumber)] = true
         }
         instrument.play(noteNumber: noteNumber, velocity: velocity)
         isPlaying[Int(noteNumber)] = true
     }
-    
+
     /// Key up
     open func stop(noteNumber: MIDINoteNumber) {
         if !pedalIsDown {
             instrument.stop(noteNumber: noteNumber)
             isPlaying[Int(noteNumber)] = false
         }
-        keyDown[Int(noteNumber)] = false;
+        keyDown[Int(noteNumber)] = false
     }
-    
+
     // Sustain pedal
-    open func sustain(down: Bool)
-    {
+    open func sustain(down: Bool) {
         if down {
             pedalIsDown = true
-        }
-        else {
+        } else {
             for i in 0 ... 127 {
                 if isPlaying[i] && !keyDown[i] {
                     instrument.stop(noteNumber: MIDINoteNumber(i))

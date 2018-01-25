@@ -78,7 +78,7 @@ class ViewController: NSViewController {
 
         AudioKit.output = mixer
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

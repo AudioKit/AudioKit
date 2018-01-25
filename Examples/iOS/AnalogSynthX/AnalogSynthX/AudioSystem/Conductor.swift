@@ -48,7 +48,7 @@ class Conductor: AKMIDIListener {
 
         AudioKit.output = reverbMixer
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

@@ -45,7 +45,7 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency (Hz)",
             address: AUParameterAddress(0),
             min: 0,
-            max: 20000,
+            max: 20_000,
             unit: .hertz,
             unitName: nil,
             flags: flags,

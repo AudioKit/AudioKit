@@ -50,7 +50,7 @@ class ViewController: NSViewController {
         booster.gain = slider1.doubleValue
         AudioKit.output = booster
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
