@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  AKTest2
+//  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-01-23.
 //  Copyright © 2018 AudioKit. All rights reserved.
