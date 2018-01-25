@@ -107,12 +107,12 @@ class Conductor {
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.play(noteNumber: offsetNote(note, semitones:synthSemitoneOffset), velocity: velocity)
+        sustainer.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
         // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.stop(noteNumber: offsetNote(note, semitones:synthSemitoneOffset))
+        sustainer.stop(noteNumber: offsetNote(note, semitones: synthSemitoneOffset))
     }
 
     func allNotesOff() {

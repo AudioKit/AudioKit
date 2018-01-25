@@ -145,7 +145,7 @@ open class SDBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
         self.token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else {
+            guard self != nil else {
                 AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
