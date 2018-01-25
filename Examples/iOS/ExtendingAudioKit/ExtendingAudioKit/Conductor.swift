@@ -96,23 +96,23 @@ class Conductor {
         return names[waveformIndex]
     }
 
-    func setWaveformIndex(_ i: Int) {
-        guard i >= 0 && i <= 3 else { return }
-        if (i != waveformIndex) {
-            waveformIndex = i
+    func setWaveformIndex(_ index: Int) {
+        guard index >= 0 && index <= 3 else { return }
+        if index != waveformIndex {
+            waveformIndex = index
             print("Change waveform to \(getWaveformName())")
-            oscillator.waveform = waveforms[i]
+            oscillator.waveform = waveforms[index]
         }
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.play(noteNumber: offsetNote(note, semitones:synthSemitoneOffset), velocity: velocity)
+        sustainer.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
         // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.stop(noteNumber: offsetNote(note, semitones:synthSemitoneOffset))
+        sustainer.stop(noteNumber: offsetNote(note, semitones: synthSemitoneOffset))
     }
 
     func allNotesOff() {

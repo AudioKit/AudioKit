@@ -20,11 +20,11 @@ class ViewController: NSViewController, NSWindowDelegate {
 
         conductor.midi.addListener(self)
     }
-    
+
     override func viewDidAppear() {
         self.view.window?.delegate = self
     }
-    
+
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         NSApplication.shared.terminate(self)
         return true
