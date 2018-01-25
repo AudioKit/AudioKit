@@ -1,28 +1,44 @@
 //
 //  ViewController.swift
-//  AKTest2
+//  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-01-23.
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
 import AudioKit
 import AudioKitUI
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSWindowDelegate {
 
     let conductor = Conductor.shared
+    var isPlaying = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         conductor.midi.addListener(self)
     }
+    
+    override func viewDidAppear() {
+        self.view.window?.delegate = self
+    }
+    
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        NSApplication.shared.terminate(self)
+        return true
+    }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+    @IBAction func toggleSound(_ sender: NSButton) {
+        if isPlaying {
+            conductor.stopNote(note: 64, channel: 0)
+            isPlaying = false
+            sender.title = "Play"
+        } else {
+            conductor.playNote(note: 64, velocity: 100, channel: 0)
+            isPlaying = true
+            sender.title = "Stop"
         }
     }
 }
