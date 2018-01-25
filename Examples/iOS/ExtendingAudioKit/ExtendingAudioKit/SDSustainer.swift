@@ -1,9 +1,9 @@
 //
 //  Sustainer.swift
-//  AKTest3
+//  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-01-23.
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 //  Wraps a reference to any AKPolyphonicNode and interprets play()/stop() as key up/down
 //  together with state of a sustain pedal, to add pedal-sustain capability to nodes
