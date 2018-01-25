@@ -3,7 +3,7 @@ The **ExtendingAudioKit** example project illustrates how you can write your own
 
 The example also illustrates a few useful techniques for using MIDI to control a simple music synthesizer based on **AKOscillatorBank**, including a utility class to add pedal-sustain capability to **AKPolyphonicNode**-based instruments (like **AKOscillatorBank**) which don't already have it.
 
-**This example is for macOS.** Equivalents for iOS and tvOS will be added soon.
+**This example is for macOS.** An iOS version is available under *AudioKit/Examples/iOS*
 
 ## The basic approach: AudioKit as a sub-project
 Developing new AU extensions directly in the main **AudioKit** Xcode project means you can only test your code inside the *Developer Playground*. If you want to create a more realistic client application, you have to do a full rebuild of the **AudioKit** framework(s), which takes quite a long time.

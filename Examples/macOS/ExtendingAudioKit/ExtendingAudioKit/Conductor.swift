@@ -1,9 +1,9 @@
 //
 //  Conductor.swift
-//  AKTest1
+//  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-01-19.
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit

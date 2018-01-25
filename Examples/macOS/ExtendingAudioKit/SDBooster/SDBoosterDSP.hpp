@@ -1,9 +1,9 @@
 //
 //  SDBoosterDSP.hpp
-//  AudioKit
+//  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 1/23/2018
-//  Copyright © 2018 Shane Dunne. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
