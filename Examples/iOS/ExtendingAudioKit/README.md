@@ -59,5 +59,10 @@ Edit your Bridging Header file, and add an #include line for the …DSP.hpp file
 Now you should be able to build and run your project on the iOS simulator.
 
 ## Using MIDI
-To play sound polyphonically using an external MIDI keyboard, you have to run on an actual iPhone or iPad, not the iOS simulator. This requires that you have a :
-1.
+To play sound polyphonically using an external MIDI keyboard, you have to run on an actual iPhone or iPad, not the iOS simulator. This requires that you have a Developer account with Apple, in order to be able to sign your app. You must also make three changes to your app:
+1. In the Xcode project page, Capabilities tab, turn on Background Modes, and check the box for "Audio, AirPlay, and Picture in Picture". This is necessary to allow MIDI to work.
+2. In General tab, under "Signing", check "Automatically manage signing" and select your Team from the pop-up. It's a good idea to also set the "Deployment Target" to 10.0, as Xcode will default that setting to the very latest iOS version.
+3. Choose your iOS device as the product Destination, build and run.
+
+You'll need an iOS USB adapter such as the [Apple Lightning to USB Camera Adapter](https://www.apple.com/shop/product/MD821AM/A/lightning-to-usb-camera-adapter) to connect a "class-compliant" MIDI controller. (Most recent USB MIDI keyboards are class-compliant, meaning they work with standard drivers embedded in iOS and other operating systems.)
+
