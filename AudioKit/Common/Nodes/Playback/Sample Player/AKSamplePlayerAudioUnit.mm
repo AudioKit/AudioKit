@@ -60,7 +60,8 @@
     return _kernel.ftbl_size;
 }
 - (double)position {
-    return _kernel.position;
+    float normalized = (_kernel.position - _kernel.startPointViaRate()) / (_kernel.endPointViaRate() - _kernel.startPointViaRate());
+    return _kernel.rate > 0 ? normalized : 1 - normalized;
 }
 standardKernelPassthroughs()
 
