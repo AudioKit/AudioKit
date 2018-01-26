@@ -60,6 +60,6 @@ public class SDBoosterAudioUnit: AKAudioUnitBase {
         rightGain.value = 1.0
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true; }
 
 }

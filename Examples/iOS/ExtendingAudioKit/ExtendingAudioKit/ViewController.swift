@@ -6,11 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 import AudioKit
 import AudioKitUI
 
-class ViewController: NSViewController, NSWindowDelegate {
+class ViewController: UIViewController {
 
     let conductor = Conductor.shared
     var isPlaying = false
@@ -21,24 +21,15 @@ class ViewController: NSViewController, NSWindowDelegate {
         conductor.midi.addListener(self)
     }
 
-    override func viewDidAppear() {
-        self.view.window?.delegate = self
-    }
-
-    func windowShouldClose(_ sender: NSWindow) -> Bool {
-        NSApplication.shared.terminate(self)
-        return true
-    }
-
-    @IBAction func toggleSound(_ sender: NSButton) {
+    @IBAction func toggleSound(_ sender: UIButton) {
         if isPlaying {
             conductor.stopNote(note: 64, channel: 0)
             isPlaying = false
-            sender.title = "Play"
+            sender.setTitle("Play", for: .normal)
         } else {
             conductor.playNote(note: 64, velocity: 100, channel: 0)
             isPlaying = true
-            sender.title = "Stop"
+            sender.setTitle("Stop", for: .normal)
         }
     }
 }
