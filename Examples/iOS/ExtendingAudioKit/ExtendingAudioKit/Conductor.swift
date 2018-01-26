@@ -34,7 +34,7 @@ class Conductor {
         AKTable(.square, count: tableLength),
         AKTable(.sawtooth, count: tableLength)
     ]
-    var waveformIndex = 2
+    var waveformIndex = 3
 
     init() {
 
@@ -96,12 +96,12 @@ class Conductor {
         return names[waveformIndex]
     }
 
-    func setWaveformIndex(_ i: Int) {
-        guard i >= 0 && i <= 3 else { return }
-        if (i != waveformIndex) {
-            waveformIndex = i
+    func setWaveformIndex(_ index: Int) {
+        guard index >= 0 && index <= 3 else { return }
+        if index != waveformIndex {
+            waveformIndex = index
             print("Change waveform to \(getWaveformName())")
-            oscillator.waveform = waveforms[i]
+            oscillator.waveform = waveforms[index]
         }
     }
 
