@@ -179,7 +179,8 @@ public class AKPlayer: AKNode {
 
     /// The duration of the loaded audio file
     public var duration: Double {
-        return audioFile?.duration ?? 0
+        guard let audioFile = audioFile else { return 0 }
+        return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
     /// Holds characteristics about the fade options. Using fades will set the player to buffering
@@ -234,7 +235,9 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// - Returns: The total frame count that is being playing
+    /// - Returns: The total frame count that is being playing.
+    /// Differs from the audioFile.length as this will be updated with the edited amount
+    /// of frames based on startTime and endTime
     public private(set) var frameCount: AVAudioFrameCount = 0
 
     /// - Returns: The current frame while playing
@@ -323,8 +326,8 @@ public class AKPlayer: AKNode {
 
         playerNode.disconnectOutput()
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.sampleRate,
-                                   channels: audioFile.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
+                                   channels: audioFile.fileFormat.channelCount)
 
         AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
@@ -591,14 +594,14 @@ public class AKPlayer: AKNode {
     private func scheduleSegment(at audioTime: AVAudioTime?) {
         guard let audioFile = audioFile else { return }
 
-        let startFrame = AVAudioFramePosition(startTime * audioFile.sampleRate)
-        var endFrame = AVAudioFramePosition(endTime * audioFile.sampleRate)
+        let startFrame = AVAudioFramePosition(startTime * audioFile.fileFormat.sampleRate)
+        var endFrame = AVAudioFramePosition(endTime * audioFile.fileFormat.sampleRate)
 
         if endFrame == 0 {
-            endFrame = audioFile.samplesCount
+            endFrame = audioFile.length
         }
 
-        let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
             AKLog("totalFrames to play is \(totalFrames). Bailing.")
             return
@@ -687,9 +690,9 @@ public class AKPlayer: AKNode {
             return
         }
 
-        guard audioFile.samplesCount > 0 else {
+        guard audioFile.length > 0 else {
             AKLog("ERROR updateBuffer: Could not set PCM buffer -> " +
-                "\(audioFile.fileNamePlusExtension) samplesCount = 0.")
+                "\(audioFile.fileNamePlusExtension) length = 0.")
             return
         }
 

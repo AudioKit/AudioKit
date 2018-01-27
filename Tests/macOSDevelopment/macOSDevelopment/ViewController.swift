@@ -64,6 +64,7 @@ class ViewController: NSViewController {
         booster.disconnectInput()
         oscillator >>> booster
         node = oscillator
+        oscillator.stop()
     }
 
     private func initPlayer() {
