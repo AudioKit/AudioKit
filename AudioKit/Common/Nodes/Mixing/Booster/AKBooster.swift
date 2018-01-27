@@ -118,7 +118,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         gain: Double = 1
-        ) {
+    ) {
 
         self.leftGain = gain
         self.rightGain = gain
@@ -156,8 +156,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.setParameterImmediately(.leftGain, value: gain)
-        internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
     }
 
     // MARK: - Control
@@ -183,4 +183,3 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 }
-
