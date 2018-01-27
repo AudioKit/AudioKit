@@ -16,7 +16,7 @@ typedef NS_ENUM(int64_t, AKBoosterParameter) {
     AKBoosterParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import "AKExponentialParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
@@ -38,8 +38,8 @@ void* createBoosterDSP(int nChannels, double sampleRate);
 struct AKBoosterDSP : AKDSPBase {
 
 private:
-    AKLinearParameterRamp leftGainRamp;
-    AKLinearParameterRamp rightGainRamp;
+    AKExponentialParameterRamp leftGainRamp;
+    AKExponentialParameterRamp rightGainRamp;
 
 public:
 
