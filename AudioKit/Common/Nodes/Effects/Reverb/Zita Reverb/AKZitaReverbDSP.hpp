@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKZitaReverbParameter) {
+typedef NS_ENUM(AUParameterAddress, AKZitaReverbParameter) {
     AKZitaReverbParameterPredelay,
     AKZitaReverbParameterCrossoverFrequency,
     AKZitaReverbParameterLowReleaseTime,
