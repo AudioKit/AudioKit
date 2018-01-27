@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKRolandTB303FilterParameter) {
+typedef NS_ENUM(AUParameterAddress, AKRolandTB303FilterParameter) {
     AKRolandTB303FilterParameterCutoffFrequency,
     AKRolandTB303FilterParameterResonance,
     AKRolandTB303FilterParameterDistortion,

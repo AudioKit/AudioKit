@@ -11,47 +11,14 @@
 		345BB9472018FF9A00324D55 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB9462018FF9A00324D55 /* ViewController.swift */; };
 		345BB9492018FF9A00324D55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 345BB9482018FF9A00324D55 /* Assets.xcassets */; };
 		345BB94C2018FF9A00324D55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 345BB94A2018FF9A00324D55 /* Main.storyboard */; };
-		345BB95D2018FFE800324D55 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345BB95A2018FFCF00324D55 /* AudioKit.framework */; };
-		345BB95E2018FFE800324D55 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 345BB95A2018FFCF00324D55 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		345BB9612018FFE800324D55 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 345BB95C2018FFCF00324D55 /* AudioKitUI.framework */; };
-		345BB9622018FFE800324D55 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 345BB95C2018FFCF00324D55 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		345BB96C201900FA00324D55 /* SDBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = 345BB968201900FA00324D55 /* SDBooster.mm */; };
 		345BB96D201900FA00324D55 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB969201900FA00324D55 /* SDBooster.swift */; };
 		345BB96E201900FA00324D55 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB96A201900FA00324D55 /* SDBoosterAudioUnit.swift */; };
 		345BB9702019014100324D55 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB96F2019014100324D55 /* Conductor.swift */; };
 		345BB972201902AD00324D55 /* SDSustainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345BB971201902AD00324D55 /* SDSustainer.swift */; };
+		EA03BFC5201C609D00E8BE2C /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */; };
+		EA03BFC6201C609D00E8BE2C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA03BFC4201C609D00E8BE2C /* AudioKit.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		345BB9592018FFCF00324D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		345BB95B2018FFCF00324D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-		345BB95F2018FFE800324D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F36CB1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		345BB9632018FFE800324D55 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EAFECEBC1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		345BB9652018FFE800324D55 /* Embed Frameworks */ = {
@@ -60,8 +27,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				345BB9622018FFE800324D55 /* AudioKitUI.framework in Embed Frameworks */,
-				345BB95E2018FFE800324D55 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +41,6 @@
 		345BB94B2018FF9A00324D55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		345BB94D2018FF9A00324D55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		345BB94E2018FF9A00324D55 /* ExtendingAudioKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExtendingAudioKit.entitlements; sourceTree = "<group>"; };
-		345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 		345BB9662019002900324D55 /* ExtendingAudioKit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExtendingAudioKit-Bridging-Header.h"; sourceTree = "<group>"; };
 		345BB968201900FA00324D55 /* SDBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBooster.mm; sourceTree = "<group>"; };
 		345BB969201900FA00324D55 /* SDBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBooster.swift; sourceTree = "<group>"; };
@@ -84,6 +48,8 @@
 		345BB96B201900FA00324D55 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
 		345BB96F2019014100324D55 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		345BB971201902AD00324D55 /* SDSustainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDSustainer.swift; sourceTree = "<group>"; };
+		EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		EA03BFC4201C609D00E8BE2C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				345BB9612018FFE800324D55 /* AudioKitUI.framework in Frameworks */,
-				345BB95D2018FFE800324D55 /* AudioKit.framework in Frameworks */,
+				EA03BFC6201C609D00E8BE2C /* AudioKit.framework in Frameworks */,
+				EA03BFC5201C609D00E8BE2C /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,11 +68,12 @@
 		345BB9382018FF9A00324D55 = {
 			isa = PBXGroup;
 			children = (
-				345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */,
 				345BB9662019002900324D55 /* ExtendingAudioKit-Bridging-Header.h */,
 				345BB967201900FA00324D55 /* SDBooster */,
 				345BB9432018FF9A00324D55 /* ExtendingAudioKit */,
 				345BB9422018FF9A00324D55 /* Products */,
+				EA03BFC4201C609D00E8BE2C /* AudioKit.framework */,
+				EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,15 +98,6 @@
 				345BB94E2018FF9A00324D55 /* ExtendingAudioKit.entitlements */,
 			);
 			path = ExtendingAudioKit;
-			sourceTree = "<group>";
-		};
-		345BB9552018FFCE00324D55 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				345BB95A2018FFCF00324D55 /* AudioKit.framework */,
-				345BB95C2018FFCF00324D55 /* AudioKitUI.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		345BB967201900FA00324D55 /* SDBooster */ = {
@@ -168,8 +126,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				345BB9602018FFE800324D55 /* PBXTargetDependency */,
-				345BB9642018FFE800324D55 /* PBXTargetDependency */,
 			);
 			name = ExtendingAudioKit;
 			productName = ExtendingAudioKit;
@@ -208,35 +164,12 @@
 			mainGroup = 345BB9382018FF9A00324D55;
 			productRefGroup = 345BB9422018FF9A00324D55 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 345BB9552018FFCE00324D55 /* Products */;
-					ProjectRef = 345BB9542018FFCE00324D55 /* AudioKit For macOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				345BB9402018FF9A00324D55 /* ExtendingAudioKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		345BB95A2018FFCF00324D55 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = 345BB9592018FFCF00324D55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		345BB95C2018FFCF00324D55 /* AudioKitUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKitUI.framework;
-			remoteRef = 345BB95B2018FFCF00324D55 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		345BB93F2018FF9A00324D55 /* Resources */ = {
@@ -267,19 +200,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		345BB9602018FFE800324D55 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = 345BB95F2018FFE800324D55 /* PBXContainerItemProxy */;
-		};
-		345BB9642018FFE800324D55 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKitUI;
-			targetProxy = 345BB9632018FFE800324D55 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		345BB94A2018FF9A00324D55 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -295,7 +215,7 @@
 		345BB94F2018FF9A00324D55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -326,6 +246,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-macOS/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -352,7 +273,7 @@
 		345BB9502018FF9A00324D55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -383,6 +304,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Frameworks/AudioKit-macOS/\"";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
