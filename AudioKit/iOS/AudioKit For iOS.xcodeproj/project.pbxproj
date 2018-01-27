@@ -3932,8 +3932,8 @@
 			isa = PBXGroup;
 			children = (
 				C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */,
-				C44A8165200AF6B200D1CCC2 /* AKPWMOscillator.mm */,
 				C44A8166200AF6B300D1CCC2 /* AKPWMOscillatorAudioUnit.swift */,
+				C44A8165200AF6B200D1CCC2 /* AKPWMOscillator.mm */,
 				C44A8167200AF6B300D1CCC2 /* AKPWMOscillatorDSP.hpp */,
 			);
 			path = "PWM Oscillator";
