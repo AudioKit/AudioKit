@@ -14,7 +14,7 @@ filter.qualityFactor = 20
 
 let balancedOutput = AKBalancer(filter, comparator: player)
 AudioKit.output = balancedOutput
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

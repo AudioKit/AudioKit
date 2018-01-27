@@ -22,7 +22,7 @@ let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
 
 AudioKit.output = rebalancedWithSource
-AudioKit.start()
+try try AudioKit.start()
 source.play()
 
 //: User Interface Set up

@@ -8,7 +8,7 @@ var pink = AKPinkNoise(amplitude: 0.2)
 var white = AKWhiteNoise(amplitude: 0.1)
 
 AudioKit.output = AKMixer(brownian, pink, white)
-AudioKit.start()
+try AudioKit.start()
 
 brownian.start()
 pink.start()

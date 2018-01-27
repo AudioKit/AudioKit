@@ -6,7 +6,7 @@ import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
 AudioKit.output = generator
-AudioKit.start()
+try AudioKit.start()
 //: User Interface Set up
 import AudioKitUI
 

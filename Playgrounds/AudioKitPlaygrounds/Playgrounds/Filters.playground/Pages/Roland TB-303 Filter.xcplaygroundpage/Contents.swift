@@ -13,7 +13,7 @@ filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 var time = 0.0

@@ -31,7 +31,7 @@ mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
 dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
-AudioKit.start()
+try AudioKit.start()
 
 stairwellConvolution.start()
 dishConvolution.start()

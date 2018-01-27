@@ -14,7 +14,7 @@ player.isLooping = true
 var filter = AKKorgLowPassFilter(player)
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

@@ -12,7 +12,7 @@ player.isLooping = true
 var expander = AKExpander(player)
 
 AudioKit.output = expander
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

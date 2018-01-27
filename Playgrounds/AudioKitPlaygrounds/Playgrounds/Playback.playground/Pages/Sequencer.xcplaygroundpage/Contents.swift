@@ -26,7 +26,7 @@ sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
 sequencer.setGlobalMIDIOutput(piano.midiIn)
 
-AudioKit.start()
+try AudioKit.start()
 sequencer.play()
 
 //: Set up a basic UI for setting outputs of tracks

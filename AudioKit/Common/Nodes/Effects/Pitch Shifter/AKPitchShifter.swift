@@ -3,10 +3,10 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Faust-based pitch shifter
+/// Faust-based pitch shfiter
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
@@ -32,43 +32,48 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Pitch shift (in semitones)
     @objc open dynamic var shift: Double = 0 {
         willSet {
-            if shift != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        shiftParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.shift = Float(newValue)
+            if shift == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    shiftParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.shift, value: newValue)
         }
     }
+
     /// Window size (in samples)
     @objc open dynamic var windowSize: Double = 1_024 {
         willSet {
-            if windowSize != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.windowSize = Float(newValue)
+            if windowSize == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.windowSize, value: newValue)
         }
     }
+
     /// Crossfade (in samples)
     @objc open dynamic var crossfade: Double = 512 {
         willSet {
-            if crossfade != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.crossfade = Float(newValue)
+            if crossfade == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.crossfade, value: newValue)
         }
     }
 
@@ -101,11 +106,13 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -129,9 +136,9 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.shift = Float(shift)
-        internalAU?.windowSize = Float(windowSize)
-        internalAU?.crossfade = Float(crossfade)
+        internalAU?.setParameterImmediately(.shift, value: shift)
+        internalAU?.setParameterImmediately(.windowSize, value: windowSize)
+        internalAU?.setParameterImmediately(.crossfade, value: crossfade)
     }
 
     // MARK: - Control

@@ -6,7 +6,7 @@ import AudioKitUI
 let bank = AKPWMOscillatorBank(pulseWidth: 0.5)
 
 AudioKit.output = bank
-AudioKit.start()
+try AudioKit.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 

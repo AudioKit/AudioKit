@@ -18,7 +18,7 @@ filter.centerFrequency = 5_000 // Hz
 filter.bandwidth = 600 // Cents
 filter.rampTime = 1.0
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

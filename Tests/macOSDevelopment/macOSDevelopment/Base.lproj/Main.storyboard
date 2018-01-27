@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14087.3"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -770,7 +770,7 @@ IA
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ECb-sw-G5e">
                                             <rect key="frame" x="14" y="62" width="98" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="aCC-4q-nkf"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="2" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="aCC-4q-nkf"/>
                                             <connections>
                                                 <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="dYM-ZH-jYI"/>
                                             </connections>
@@ -787,7 +787,7 @@ IA
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3-xE-87P">
                                             <rect key="frame" x="14" y="16" width="98" height="13"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="1" doubleValue="0.10000000000000001" tickMarkPosition="above" sliderType="linear" id="uyG-yf-Faf"/>
+                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" maxValue="10" doubleValue="0.10000000000000001" tickMarkPosition="above" sliderType="linear" id="uyG-yf-Faf"/>
                                             <connections>
                                                 <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="C8x-cL-Kba"/>
                                             </connections>

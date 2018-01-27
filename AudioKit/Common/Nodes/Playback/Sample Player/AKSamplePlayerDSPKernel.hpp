@@ -212,14 +212,18 @@ public:
     float startPointViaRate(){
         if (rate == 0) {return 0;}
         if (useTempStartPoint){
-            return tempStartPoint;
+            float currentEndPoint = endPoint;
+            if (useTempEndPoint) {
+                currentEndPoint = tempEndPoint;
+            }
+            return (rate > 0 ? tempStartPoint : currentEndPoint);
         }
         return (rate > 0 ? startPoint : endPoint);
     }
     float endPointViaRate(){
         if (rate == 0) {return 0;}
         if (useTempEndPoint){
-            return tempEndPoint;
+            return (rate > 0 ? tempEndPoint : tempStartPoint);
         }
         return (rate > 0 ? endPoint : startPoint);
     }

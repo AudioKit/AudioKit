@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Stereo Panner
@@ -30,15 +30,16 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     @objc open dynamic var pan: Double = 0 {
         willSet {
-            if pan != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        panParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.pan = Float(newValue)
+            if pan == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    panParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.pan, value: newValue)
         }
     }
 
@@ -65,11 +66,13 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -90,7 +93,8 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.pan = Float(pan)
+
+        internalAU?.setParameterImmediately(.pan, value: pan)
     }
 
     // MARK: - Control

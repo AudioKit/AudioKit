@@ -20,7 +20,7 @@ let fatten = AKOperationEffect(player) { input, parameters in
 }
 
 AudioKit.output = fatten
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

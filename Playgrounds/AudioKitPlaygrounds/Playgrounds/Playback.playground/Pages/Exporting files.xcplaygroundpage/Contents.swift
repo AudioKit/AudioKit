@@ -10,7 +10,7 @@ let mixloop = try AKAudioFile(readFileName: "mixloop.wav")
 
 let player = AKPlayer(audioFile: mixloop)
 AudioKit.output = player
-AudioKit.start()
+try AudioKit.start()
 player.isLooping = false
 player.play()
 
