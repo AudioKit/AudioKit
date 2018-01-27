@@ -1,4 +1,4 @@
-# Chorus and Flanger effects
+# Modulation effects
 
 As described by Will Pirkle in his excellent book "Designing Audio Effect Plug-Ins in C++", chorus and flanger are modulated-delay effects. A short delay line is used (up to 10 ms for flanger, or 24 ms for chorus), and the delay time is modulated using a low-frequency oscillator (LFO). Feedback is always used for flanging, typically not for chorus. There is also a wet/dry mix setting, which will normally be 50/50 for flanging. Setting the mix to 100% wet (for either effect) produces vibrato.
 

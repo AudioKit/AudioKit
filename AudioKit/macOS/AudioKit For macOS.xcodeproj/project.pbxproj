@@ -221,7 +221,6 @@
 		C44A8161200AF1CD00D1CCC2 /* AKPWMOscillator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C44A815E200AF1CC00D1CCC2 /* AKPWMOscillator.mm */; };
 		C44A8162200AF1CD00D1CCC2 /* AKPWMOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A815F200AF1CC00D1CCC2 /* AKPWMOscillatorAudioUnit.swift */; };
 		C44A8163200AF1CD00D1CCC2 /* AKPWMOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A8160200AF1CC00D1CCC2 /* AKPWMOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C44EA23020186DBF0072399F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C44EA21F20186DBF0072399F /* README.md */; };
 		C44EA23120186DBF0072399F /* SDModulatedDelayStuff.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44EA22120186DBF0072399F /* SDModulatedDelayStuff.hpp */; };
 		C44EA23220186DBF0072399F /* SDModulatedDelayDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44EA22220186DBF0072399F /* SDModulatedDelayDSPKernel.hpp */; };
 		C44EA23320186DBF0072399F /* AKFlanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44EA22420186DBF0072399F /* AKFlanger.swift */; };
@@ -4642,7 +4641,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C44EA23020186DBF0072399F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

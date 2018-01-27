@@ -28,7 +28,7 @@ let toggling = AKPeriodicFunction(frequency: 2.66) {
 }
 
 AudioKit.output = filter
-AudioKit.start(withPeriodicFunctions: toggling)
+try AudioKit.start(withPeriodicFunctions: toggling)
 
 noise.start()
 toggling.start()
