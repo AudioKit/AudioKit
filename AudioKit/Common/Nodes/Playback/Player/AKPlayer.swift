@@ -72,7 +72,7 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
-        public static var minimumGain: Double = 0.0002
+        public static var minimumGain: Double = 0.000_2
         public static var maximumGain: Double = 1
 
         var needsUpdate: Bool = false
