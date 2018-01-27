@@ -14,7 +14,7 @@ var reverb = AKReverb(mix)
 //: Generate a cheap electro beat
 var counter = 0
 let beats = AKPeriodicFunction(frequency: 5) {
-    let randomVelocity = MIDIVelocity(random(0.0, 127.0))
+    let randomVelocity = MIDIVelocity(random(in: 0...127))
     let onFirstBeat = counter % 4 == 0
     let everyOtherBeat = counter % 4 == 2
     let randomHit = Array(0...3).randomElement() == 0
@@ -33,7 +33,7 @@ let beats = AKPeriodicFunction(frequency: 5) {
 }
 
 AudioKit.output = reverb
-AudioKit.start(withPeriodicFunctions: beats)
+try AudioKit.start(withPeriodicFunctions: beats)
 reverb.loadFactoryPreset(.mediumRoom)
 beats.start()
 
