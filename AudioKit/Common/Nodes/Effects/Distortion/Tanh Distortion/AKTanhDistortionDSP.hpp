@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKTanhDistortionParameter) {
+typedef NS_ENUM(AUParameterAddress, AKTanhDistortionParameter) {
     AKTanhDistortionParameterPregain,
     AKTanhDistortionParameterPostgain,
     AKTanhDistortionParameterPositiveShapeParameter,

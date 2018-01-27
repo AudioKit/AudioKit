@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKKorgLowPassFilterParameter) {
+typedef NS_ENUM(AUParameterAddress, AKKorgLowPassFilterParameter) {
     AKKorgLowPassFilterParameterCutoffFrequency,
     AKKorgLowPassFilterParameterResonance,
     AKKorgLowPassFilterParameterSaturation,
