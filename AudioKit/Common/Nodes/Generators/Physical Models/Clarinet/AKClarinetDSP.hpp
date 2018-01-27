@@ -24,11 +24,10 @@ void* createClarinetDSP(int nChannels, double sampleRate);
 
 #else
 
-struct _AKClarinetDSPInternal;
-
 class AKClarinetDSP : public AKDSPBase {
 private:
-    struct _AKClarinetDSPInternal *_private;
+    struct _AKClarinetDSPInternal;
+    std::unique_ptr<_AKClarinetDSPInternal> _private;
 
 public:
 
