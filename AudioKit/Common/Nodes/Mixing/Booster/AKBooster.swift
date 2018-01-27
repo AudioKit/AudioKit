@@ -37,20 +37,22 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if gain == newValue {
                 return
             }
+            // prevent division by zero in parameter ramper
+            let value = (0.0002...2).clamp(newValue)
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp ?? false {
-                if token != nil && leftGainParameter != nil && rightGainParameter != nil {
-                    leftGainParameter?.setValue(Float(newValue), originator: token!)
-                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                if let token = token {
+                    leftGainParameter?.setValue(Float(value), originator: token)
+                    rightGainParameter?.setValue(Float(value), originator: token)
                     return
                 }
             }
 
             // this means it's direct inline
-            internalAU?.setParameterImmediately(.leftGain, value: newValue)
-            internalAU?.setParameterImmediately(.rightGain, value: newValue)
+            internalAU?.setParameterImmediately(.leftGain, value: value)
+            internalAU?.setParameterImmediately(.rightGain, value: value)
         }
     }
 
@@ -60,14 +62,15 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if leftGain == newValue {
                 return
             }
+            let value = (0.0002...2).clamp(newValue)
 
             if internalAU?.isSetUp ?? false {
-                if token != nil && leftGainParameter != nil {
-                    leftGainParameter?.setValue(Float(newValue), originator: token!)
+                if let token = token {
+                    leftGainParameter?.setValue(Float(value), originator: token)
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.leftGain, value: newValue)
+            internalAU?.setParameterImmediately(.leftGain, value: value)
         }
     }
 
@@ -77,14 +80,15 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if rightGain == newValue {
                 return
             }
+            let value = (0.0002...2).clamp(newValue)
 
             if internalAU?.isSetUp ?? false {
-                if token != nil && rightGainParameter != nil {
-                    rightGainParameter?.setValue(Float(newValue), originator: token!)
+                if let token = token {
+                    rightGainParameter?.setValue(Float(value), originator: token)
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.rightGain, value: newValue)
+            internalAU?.setParameterImmediately(.rightGain, value: value)
         }
     }
 
@@ -152,8 +156,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.setParameterImmediately(.leftGain, value: gain)
-        internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.leftGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rightGain, value: gain)
     }
 
     // MARK: - Control
