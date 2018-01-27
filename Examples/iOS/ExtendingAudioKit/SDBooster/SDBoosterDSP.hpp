@@ -11,12 +11,10 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(int64_t, SDBoosterParameter) {
-    SDBoosterParameterLeftGain,
-    SDBoosterParameterRightGain,
-    SDBoosterParameterRampTime
+    leftGain, rightGain, rampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+#import "AKLinearParameterRamp.hpp"
 
 #ifndef __cplusplus
 
@@ -53,13 +51,13 @@ public:
     /** Uses the ParameterAddress as a key */
     void setParameter(uint64_t address, float value, bool immediate) override {
         switch (address) {
-            case SDBoosterParameterLeftGain:
+            case leftGain:
                 leftGainRamp.setTarget(value, immediate);
                 break;
-            case SDBoosterParameterRightGain:
+            case rightGain:
                 rightGainRamp.setTarget(value, immediate);
                 break;
-            case SDBoosterParameterRampTime:
+            case rampTime:
                 leftGainRamp.setRampTime(value, _sampleRate);
                 rightGainRamp.setRampTime(value, _sampleRate);
                 break;
@@ -69,11 +67,11 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(uint64_t address) override {
         switch (address) {
-            case SDBoosterParameterLeftGain:
+            case leftGain:
                 return leftGainRamp.getTarget();
-            case SDBoosterParameterRightGain:
+            case rightGain:
                 return rightGainRamp.getTarget();
-            case SDBoosterParameterRampTime:
+            case rampTime:
                 return leftGainRamp.getRampTime(_sampleRate);
         }
         return 0;
