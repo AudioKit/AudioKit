@@ -713,7 +713,7 @@
 		C4D1FCFD1CE5BCC80043209E /* AKTremolo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1FCF91CE5BCC80043209E /* AKTremolo.swift */; };
 		C4D3714E1EEFA78600B3DCA6 /* vocalTract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D3714D1EEFA78600B3DCA6 /* vocalTract.swift */; };
 		C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DBDA221C21FCF50033494B /* squareWave.swift */; };
-		C4DE858A200CB8870075C82B /* AKFlute.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8587200CB8860075C82B /* AKFlute.mm */; };
+		C4DE858A200CB8870075C82B /* AKFluteDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8587200CB8860075C82B /* AKFluteDSP.mm */; };
 		C4DE858B200CB8870075C82B /* AKFluteAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */; };
 		C4DE858C200CB8870075C82B /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E13D2C1C42360C008F0A3C /* AKPhaseLockedVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D281C42360C008F0A3C /* AKPhaseLockedVocoder.swift */; };
@@ -1711,7 +1711,7 @@
 		C4D3714D1EEFA78600B3DCA6 /* vocalTract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vocalTract.swift; sourceTree = "<group>"; };
 		C4DABC431D4E858100A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
-		C4DE8587200CB8860075C82B /* AKFlute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlute.mm; sourceTree = "<group>"; };
+		C4DE8587200CB8860075C82B /* AKFluteDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteDSP.mm; sourceTree = "<group>"; };
 		C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFluteAudioUnit.swift; sourceTree = "<group>"; };
 		C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFluteDSP.hpp; sourceTree = "<group>"; };
 		C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
@@ -4001,8 +4001,8 @@
 			children = (
 				C49F291E1D162448000A2D2F /* AKFlute.swift */,
 				C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */,
-				C4DE8587200CB8860075C82B /* AKFlute.mm */,
 				C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */,
+				C4DE8587200CB8860075C82B /* AKFluteDSP.mm */,
 			);
 			path = Flute;
 			sourceTree = "<group>";
@@ -5059,7 +5059,7 @@
 				C4077B6320087C8900E5923C /* AKRolandTB303FilterAudioUnit.swift in Sources */,
 				C48C6C821D3C15F1008EA51B /* maygate.c in Sources */,
 				C42899B41D55ACBF00B941B5 /* peaklim.c in Sources */,
-				C4DE858A200CB8870075C82B /* AKFlute.mm in Sources */,
+				C4DE858A200CB8870075C82B /* AKFluteDSP.mm in Sources */,
 				C48C6CB61D3C15F1008EA51B /* trand.c in Sources */,
 				C48C6C981D3C15F1008EA51B /* prop.c in Sources */,
 				C48C6C991D3C15F1008EA51B /* pshift.c in Sources */,
