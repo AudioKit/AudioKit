@@ -24,6 +24,8 @@ open class AKAudioUnitManager: NSObject {
 
     /// Internal audio units not including the Apple ones, only the custom ones
     public private(set) var internalAudioUnits = ["AKVariableDelay",
+                                                  "AKChorus",
+                                                  "AKFlanger",
                                                   "AKBitCrusher",
                                                   "AKClipper",
                                                   "AKDynamicRangeCompressor",
@@ -59,7 +61,6 @@ open class AKAudioUnitManager: NSObject {
                                                   "AKFlatFrequencyResponseReverb",
                                                   "AKZitaReverb",
                                                   "AKBooster",
-                                                  "AKBooster2",
                                                   "AKTanhDistortion"]
 
     /// Callback definitions
@@ -385,6 +386,10 @@ open class AKAudioUnitManager: NSObject {
         switch name {
         case "AKVariableDelay":
             node = AKVariableDelay()
+        case "AKChorus":
+            node = AKChorus()
+        case "AKFlanger":
+            node = AKFlanger()
         case "AKBitCrusher":
             node = AKBitCrusher()
         case "AKClipper":
@@ -457,14 +462,13 @@ open class AKAudioUnitManager: NSObject {
             node = AKZitaReverb()
         case "AKBooster":
             node = AKBooster()
-        case "AKBooster2":
-            node = AKBooster2()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         default:
             return nil
         }
 
+        (node as? AKToggleable)?.start()
         return node?.avAudioNode as? AVAudioUnit
     }
 

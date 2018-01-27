@@ -12,7 +12,7 @@ delay.time = 0.1
 let reverb = AKCostelloReverb(delay)
 let mix = AKDryWetMixer(delay, reverb, balance: 0.5)
 AudioKit.output = mix
-AudioKit.start()
+try AudioKit.start()
 
 class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())

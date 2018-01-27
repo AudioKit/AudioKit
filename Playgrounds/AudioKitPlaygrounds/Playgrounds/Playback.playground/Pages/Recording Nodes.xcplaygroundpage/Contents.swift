@@ -28,7 +28,7 @@ let player = try AKAudioPlayer(file: tape)
 let mixer = AKMixer(player, reverb)
 AudioKit.output = mixer
 
-AudioKit.start()
+try AudioKit.start()
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...

@@ -6,7 +6,7 @@ import AudioKitUI
 let bank = AKMorphingOscillatorBank()
 
 AudioKit.output = bank
-AudioKit.start()
+try AudioKit.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 

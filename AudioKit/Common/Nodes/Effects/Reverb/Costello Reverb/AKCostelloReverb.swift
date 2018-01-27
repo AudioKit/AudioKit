@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
@@ -16,7 +16,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -34,29 +33,34 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @objc open dynamic var feedback: Double = 0.6 {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            if feedback == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            // this means it's direct inline
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
+
     /// Low-pass cutoff frequency.
     @objc open dynamic var cutoffFrequency: Double = 4_000 {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            // this means it's direct inline
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
 
@@ -79,7 +83,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         feedback: Double = 0.6,
-        cutoffFrequency: Double = 4_000) {
+        cutoffFrequency: Double = 4_000
+        ) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
@@ -88,11 +93,13 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -115,8 +122,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.feedback = Float(feedback)
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control

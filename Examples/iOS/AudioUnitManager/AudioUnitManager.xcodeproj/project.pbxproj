@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE91F5D428E00FA09A4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4067FE81F5D428E00FA09A4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B1698AE51F684755008F397D /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4704C2E1F5D2B3C004C087E /* Organ.wav */; };
 		B1756EAB1F411D5A00792670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAA1F411D5A00792670 /* AppDelegate.swift */; };
 		B1756EAD1F411D5A00792670 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1756EAC1F411D5A00792670 /* ViewController.swift */; };
@@ -47,8 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B1698AE41F684258008F397D /* AudioKit.framework in Embed Frameworks */,
-				B1698AE21F684252008F397D /* AudioKitUI.framework in Embed Frameworks */,
 				C4067FE51F5D415C00FA09A4 /* DropDown.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -140,7 +136,6 @@
 				B1756EA41F411D5A00792670 /* Frameworks */,
 				B1756EA51F411D5A00792670 /* Resources */,
 				B1756EC81F411E1400792670 /* Embed Frameworks */,
-				B1F4D72C1FF2AE86008DBAB1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -222,22 +217,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		B1F4D72C1FF2AE86008DBAB1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#if which swiftlint >/dev/null; then\n#swiftlint\n#fi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B1756EA31F411D5A00792670 /* Sources */ = {
@@ -404,6 +383,7 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -423,6 +403,7 @@
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.AudioKit.AudioUnitManagerExample-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -9,7 +9,9 @@
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
-#import "AKDSPBase.hpp"
+#import "AKDSPBase.hpp"  // have to put this here to get it included in umbrella header
+
+#ifdef __cplusplus
 
 class AKParameterRampBase {
 
@@ -69,4 +71,6 @@ public:
     }
 
 };
+
+#endif
 

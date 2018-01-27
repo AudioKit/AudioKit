@@ -12,7 +12,7 @@ var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 reverb.reverbDuration = 1
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

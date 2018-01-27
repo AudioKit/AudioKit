@@ -106,14 +106,19 @@
             onBus: 0,
             bufferSize: recordingBufferLength,
             format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
+                guard let strongSelf = self else {
+                    AKLog("Error: self is nil")
+                    return
+                }
+
                 do {
-                    self!.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self!.internalAudioFile.write(from: buffer)
-                    //AKLog("AKNodeRecorder writing (file duration: \(self!.internalAudioFile.duration) seconds)")
+                    strongSelf.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+                    try strongSelf.internalAudioFile.write(from: buffer)
+                    //AKLog("AKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)")
 
                     // allow an optional timed stop
-                    if self!.durationToRecord != 0 && self!.internalAudioFile.duration >= self!.durationToRecord {
-                        self!.stop()
+                    if strongSelf.durationToRecord != 0 && strongSelf.internalAudioFile.duration >= strongSelf.durationToRecord {
+                        strongSelf.stop()
                     }
 
                 } catch let error as NSError {

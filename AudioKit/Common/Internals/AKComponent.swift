@@ -7,16 +7,16 @@
 //
 
 /// Helpful in reducing repetitive code in AudioKit
-@objc public protocol Aliased {
+public protocol Aliased {
     associatedtype _Self = Self
 }
 
 /// Helpful in reducing repetitive code in AudioKit
-@objc public protocol AUComponent: class, Aliased {
+public protocol AUComponent: class, Aliased {
     static var ComponentDescription: AudioComponentDescription { get }
 }
 
-@objc protocol AUEffect: AUComponent { }
+protocol AUEffect: AUComponent { }
 
 extension AUEffect {
     static var effect: AVAudioUnitEffect {

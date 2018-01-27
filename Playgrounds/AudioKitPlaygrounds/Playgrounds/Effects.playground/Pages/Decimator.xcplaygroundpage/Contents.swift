@@ -17,7 +17,7 @@ decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
 
 AudioKit.output = decimator
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

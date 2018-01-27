@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  macOSDevelopment
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -49,7 +49,11 @@ class ViewController: NSViewController {
     @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
         AudioKit.output = booster
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         initOscillator()
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
@@ -60,6 +64,7 @@ class ViewController: NSViewController {
         booster.disconnectInput()
         oscillator >>> booster
         node = oscillator
+        oscillator.stop()
     }
 
     private func initPlayer() {
@@ -117,7 +122,7 @@ class ViewController: NSViewController {
         }
         initPlayer()
 
-        Swift.print("Opened \(url.lastPathComponent)")
+        AKLog("Opened \(url.lastPathComponent)")
     }
 
     @IBAction func handlePlay(_ sender: NSButton) {

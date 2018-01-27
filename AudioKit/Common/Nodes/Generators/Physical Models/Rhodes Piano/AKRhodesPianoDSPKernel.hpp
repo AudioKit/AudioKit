@@ -15,6 +15,9 @@
 
 #include "Rhodey.h"
 
+#include "sinewave_raw.h"
+#include "fwavblnk_raw.h"
+
 enum {
     frequencyAddress = 0,
     amplitudeAddress = 1
@@ -29,9 +32,22 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
 
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
+        NSError *error = nil;
+        NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
+                                                      stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]]
+                                         isDirectory:YES];
+        NSFileManager *manager = [NSFileManager defaultManager];
+        if ([manager createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&error] == YES) {
+            NSURL *sineURL = [directoryURL URLByAppendingPathComponent:@"sinewave.raw"];
+            if ([manager fileExistsAtPath:sineURL.path] == NO) { // Create files once
+                [[NSData dataWithBytesNoCopy:sinewave length:sinewave_len] writeToURL:sineURL atomically:YES];
+                [[NSData dataWithBytesNoCopy:fwavblnk length:fwavblnk_len] writeToURL:[directoryURL URLByAppendingPathComponent:@"fwavblnk.raw"] atomically:YES];
+            }
+        } else {
+            NSLog(@"Failed to create temporary directory at path %@ with error %@", directoryURL, error);
+        }
+        
+        stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
 
         stk::Stk::setSampleRate(sampleRate);
         rhodesPiano = new stk::Rhodey();

@@ -12,7 +12,7 @@ player.isLooping = true
 var pitchshifter = AKPitchShifter(player)
 
 AudioKit.output = pitchshifter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
