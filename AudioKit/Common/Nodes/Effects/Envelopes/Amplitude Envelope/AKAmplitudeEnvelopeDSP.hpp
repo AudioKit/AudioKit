@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKAmplitudeEnvelopeParameter) {
+typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
     AKAmplitudeEnvelopeParameterAttackDuration,
     AKAmplitudeEnvelopeParameterDecayDuration,
     AKAmplitudeEnvelopeParameterSustainLevel,

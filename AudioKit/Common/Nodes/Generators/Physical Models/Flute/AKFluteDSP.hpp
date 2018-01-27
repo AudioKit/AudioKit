@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKFluteParameter) {
+typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterFrequency,
     AKFluteParameterAmplitude,
     AKFluteParameterRampTime

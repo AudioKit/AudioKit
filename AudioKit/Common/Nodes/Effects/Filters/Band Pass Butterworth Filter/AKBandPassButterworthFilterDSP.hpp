@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKBandPassButterworthFilterParameter) {
+typedef NS_ENUM(AUParameterAddress, AKBandPassButterworthFilterParameter) {
     AKBandPassButterworthFilterParameterCenterFrequency,
     AKBandPassButterworthFilterParameterBandwidth,
     AKBandPassButterworthFilterParameterRampTime
