@@ -37,8 +37,7 @@ class ViewController: NSViewController {
     var player: AKPlayer?
     var node: AKNode? {
         didSet {
-            chooseAudioButton.isEnabled = node == player
-            inputSourceInfo.stringValue = node == player ? "🔊 \(audioTitle)" : "🔊 ⏦ \(oscillator.frequency) hz"
+            updateInfo()
         }
     }
 
@@ -59,6 +58,10 @@ class ViewController: NSViewController {
         handleUpdateParam(slider2)
     }
 
+    private func updateInfo() {
+        chooseAudioButton.isEnabled = node == player
+        inputSourceInfo.stringValue = node == player ? "🔊 \(audioTitle)" : "🔊 ⏦ \(oscillator.frequency) hz"
+    }
     private func initOscillator() {
         guard node != oscillator else { return }
         booster.disconnectInput()
@@ -72,6 +75,7 @@ class ViewController: NSViewController {
             chooseAudio(chooseAudioButton)
             return
         }
+        updateInfo()
         guard node != player else { return }
         guard let player = player else { return }
 
