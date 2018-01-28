@@ -119,6 +119,7 @@ class ViewController: NSViewController {
         if player == nil {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
+            player?.isLooping = true
         } else {
             do {
                 try player?.load(url: url)
