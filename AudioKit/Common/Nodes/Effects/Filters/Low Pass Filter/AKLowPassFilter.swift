@@ -32,16 +32,16 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Dry/Wet Mix (Default 100)
-    @objc open dynamic var dryWetMix: Double = 100 {
+    /// Dry/Wet Mix (Default 1)
+    @objc open dynamic var dryWetMix: Double = 1 {
         didSet {
-            dryWetMix = (0...100).clamp(dryWetMix)
-            inputGain?.volume = 1 - dryWetMix / 100
-            effectGain?.volume = dryWetMix / 100
+            dryWetMix = (0...1).clamp(dryWetMix)
+            inputGain?.volume = 1 - dryWetMix
+            effectGain?.volume = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 100
+    private var lastKnownMix: Double = 1
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     private var inputMixer = AKMixer()
