@@ -15,11 +15,6 @@ static inline double pow2(double x) {
     return x * x;
 }
 
-static inline double noteToHz(int noteNumber)
-{
-    return 440. * exp2((noteNumber - 69)/12.);
-}
-
 #import "AKDSPKernel.hpp"
 
 class AKBankDSPKernel: public AKSoundpipeKernel {
