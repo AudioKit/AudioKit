@@ -117,10 +117,10 @@ void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
                 if (_private->internalTrigger == 1) {
                     _private->flute->noteOn(frequency, amplitude);
                 }
+                *out = _private->flute->tick();
             } else {
                 *out = 0.0;
             }
-            *out = _private->flute->tick();
         }
     }
     if (_private->internalTrigger == 1) {

@@ -113,10 +113,10 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
                 if (_private->internalTrigger == 1) {
                     _private->clarinet->noteOn(frequency, amplitude);
                 }
+                *out = _private->clarinet->tick();
             } else {
                 *out = 0.0;
             }
-            *out = _private->clarinet->tick();
         }
     }
     if (_private->internalTrigger == 1) {
