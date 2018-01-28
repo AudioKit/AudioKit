@@ -24,11 +24,10 @@ void* createFluteDSP(int nChannels, double sampleRate);
 
 #else
 
-struct _AKFluteDSPInternal;
-
 class AKFluteDSP : public AKDSPBase {
 private:
-    struct _AKFluteDSPInternal *_private;
+    struct _AKFluteDSPInternal;
+    std::unique_ptr<_AKFluteDSPInternal> _private;
 
 public:
 
