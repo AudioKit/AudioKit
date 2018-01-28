@@ -890,6 +890,7 @@
 		E4630B501D2BC7F800437E75 /* AKMoogLadderPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630B4F1D2BC7F800437E75 /* AKMoogLadderPresets.swift */; };
 		EA03BFC8201DD29000E8BE2C /* AKDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFC7201DD29000E8BE2C /* AKDSPBase.mm */; };
 		EA03BFCE201DD54800E8BE2C /* AKMandolinDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFCD201DD54800E8BE2C /* AKMandolinDSPKernel.mm */; };
+		EA03BFD6201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFD5201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm */; };
 		EA2FBDA1201607F3008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBD9E201607F3008D223C /* sinewave_raw.h */; };
 		EA2FBDA2201607F3008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBD9F201607F3008D223C /* fwavblnk_raw.h */; };
 		EA2FBDA3201607F3008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDA0201607F3008D223C /* mand_raw.h */; };
@@ -1894,6 +1895,7 @@
 		E4630B4F1D2BC7F800437E75 /* AKMoogLadderPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMoogLadderPresets.swift; sourceTree = "<group>"; };
 		EA03BFC7201DD29000E8BE2C /* AKDSPBase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPBase.mm; sourceTree = "<group>"; };
 		EA03BFCD201DD54800E8BE2C /* AKMandolinDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMandolinDSPKernel.mm; sourceTree = "<group>"; };
+		EA03BFD5201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhodesPianoDSPKernel.mm; sourceTree = "<group>"; };
 		EA2FBD9E201607F3008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
 		EA2FBD9F201607F3008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
 		EA2FBDA0201607F3008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
@@ -3398,6 +3400,7 @@
 				C470479B1E76A24A00D9906F /* AKRhodesPianoAudioUnit.h */,
 				C470479C1E76A24A00D9906F /* AKRhodesPianoAudioUnit.mm */,
 				C470479D1E76A24A00D9906F /* AKRhodesPianoDSPKernel.hpp */,
+				EA03BFD5201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm */,
 			);
 			path = "Rhodes Piano";
 			sourceTree = "<group>";
@@ -4908,6 +4911,7 @@
 				C4F8C9111DCA8CE4001F38F2 /* rms.c in Sources */,
 				C4F8C8CB1DCA8CE4001F38F2 /* drip.c in Sources */,
 				52145B5F1F3C5B1A0069C88B /* Filter.cpp in Sources */,
+				EA03BFD6201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */,
 				C4537FA81C3A438D00A51738 /* AKAutoWah.swift in Sources */,
 				C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */,
 				E4630B501D2BC7F800437E75 /* AKMoogLadderPresets.swift in Sources */,
