@@ -20,7 +20,7 @@ extern "C" void* createFluteDSP(int nChannels, double sampleRate) {
 
 // AKFluteDSP method implementations
 
-struct _AKFluteDSPInternal
+struct AKFluteDSP::_Internal
 {
     float internalTrigger = 0;
     stk::Flute *flute;
@@ -31,20 +31,15 @@ struct _AKFluteDSPInternal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKFluteDSP::AKFluteDSP()
+AKFluteDSP::AKFluteDSP() : _private(new _Internal)
 {
-    _private = new _AKFluteDSPInternal();
     _private->frequencyRamp.setTarget(440, true);
     _private->frequencyRamp.setDurationInSamples(10000);
     _private->amplitudeRamp.setTarget(1, true);
     _private->amplitudeRamp.setDurationInSamples(10000);
 }
 
-AKFluteDSP::~AKFluteDSP()
-{
-    delete _private;
-}
-
+AKFluteDSP::~AKFluteDSP() = default;
 
 /** Uses the ParameterAddress as a key */
 void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
