@@ -175,6 +175,7 @@
 		55D8972E1FDB857C00754292 /* AKTestTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKTestTriggers.h; path = ../../Common/AKTestTriggers.h; sourceTree = "<group>"; };
 		55D8972F1FDB857C00754292 /* AKTestTriggers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKTestTriggers.m; path = ../../Common/AKTestTriggers.m; sourceTree = "<group>"; };
 		C464076E20105C9D00299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
+		C489A681201D9FA700E9C1E2 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C497FA711FDCB91700BB63C5 /* Sandbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sandbox.swift; path = ../../Common/Sandbox.swift; sourceTree = "<group>"; };
 		C4A008C91FD4DEBF004A91F4 /* iOSDevelopment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSDevelopment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4A008CC1FD4DEBF004A91F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -310,6 +311,7 @@
 		C4A008C01FD4DEBF004A91F4 = {
 			isa = PBXGroup;
 			children = (
+				C489A681201D9FA700E9C1E2 /* README.md */,
 				C4A009B01FD4DF43004A91F4 /* AudioKit For iOS.xcodeproj */,
 				C4A008CB1FD4DEBF004A91F4 /* iOSDevelopment */,
 				C4A008E01FD4DEC0004A91F4 /* iOSDevelopmentTests */,
