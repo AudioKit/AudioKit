@@ -852,6 +852,7 @@
 		C4F8CB4B1DCA928B001F38F2 /* zeros.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8CAC61DCA928A001F38F2 /* zeros.c */; };
 		C4F8CB4C1DCA928B001F38F2 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F8CAC71DCA928A001F38F2 /* zitarev.c */; };
 		C4FE01651CED2DD40062B3A3 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */; };
+		EA03BFCA201DD3AA00E8BE2C /* AKDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFC9201DD3A900E8BE2C /* AKDSPBase.mm */; };
 		EA2FBDB6201752A4008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB3201752A3008D223C /* sinewave_raw.h */; };
 		EA2FBDB7201752A4008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */; };
 		EA2FBDB8201752A4008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB5201752A4008D223C /* mand_raw.h */; };
@@ -1775,6 +1776,7 @@
 		C4F8CAC61DCA928A001F38F2 /* zeros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zeros.c; sourceTree = "<group>"; };
 		C4F8CAC71DCA928A001F38F2 /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
 		C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeRecorder.swift; sourceTree = "<group>"; };
+		EA03BFC9201DD3A900E8BE2C /* AKDSPBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPBase.mm; sourceTree = "<group>"; };
 		EA2FBDB3201752A3008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
 		EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
 		EA2FBDB5201752A4008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
@@ -3557,6 +3559,7 @@
 		C4AC0B111FC9419900EDA024 /* AK4 */ = {
 			isa = PBXGroup;
 			children = (
+				EA03BFC9201DD3A900E8BE2C /* AKDSPBase.mm */,
 				C4AC0B121FC9419900EDA024 /* AKDSPBase.hpp */,
 				C4AC0B131FC9419900EDA024 /* AKAudioUnitBase.h */,
 				C4AC0B141FC9419900EDA024 /* AKAudioUnitBase.mm */,
@@ -4445,6 +4448,7 @@
 				C4F8CB331DCA928B001F38F2 /* t.c in Sources */,
 				C4146DE21F3E4829001AAE11 /* Equalisator.cpp in Sources */,
 				C4146D591F3E47CF001AAE11 /* AKDynaRageCompressorAudioUnit.mm in Sources */,
+				EA03BFCA201DD3AA00E8BE2C /* AKDSPBase.mm in Sources */,
 				C40C42211C40E5C2009D870B /* EZAudioFile.m in Sources */,
 				C4D4C4F81EB7176600134B39 /* AKTuningTable+Scala.swift in Sources */,
 				C47048271E7A6B9400D9906F /* rspline.c in Sources */,
