@@ -80,5 +80,9 @@ public:
 
 };
 
+static inline double noteToHz(int noteNumber)
+{
+    return 440. * exp2((noteNumber - 69)/12.);
+}
 
 
