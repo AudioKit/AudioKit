@@ -32,5 +32,5 @@ The built frameworks are dropped in the `Frameworks/AudioKit-{platform}` directo
 
 Optionally, you may restrict which platforms to build the frameworks for by setting the `PLATFORMS` environment variable prior to calling the script. The following example only builds for iOS and tvOS, skipping macOS:
 
-`PLATFORMS="iOS tvOS" ./build_framework.sh`
+`PLATFORMS="iOS tvOS" ./build_frameworks.sh`
 
