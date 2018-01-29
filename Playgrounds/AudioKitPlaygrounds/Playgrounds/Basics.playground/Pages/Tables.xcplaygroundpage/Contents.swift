@@ -17,7 +17,7 @@ let fileTable = AKTable(file: file)
 
 var custom = AKTable(.sine, count: 256)
 for i in custom.indices {
-    custom[i] += Float(random(-0.3, 0.3) + Double(i) / 2_048.0)
+    custom[i] += Float(random(in: -0.3...0.3) + Double(i) / 2_048.0)
 }
 
 import AudioKitUI
