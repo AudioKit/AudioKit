@@ -857,6 +857,7 @@
 		EA03BFD4201DD89C00E8BE2C /* AKMandolinDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFD2201DD89B00E8BE2C /* AKMandolinDSPKernel.mm */; };
 		EA03BFD8201DE7EF00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFD7201DE7EE00E8BE2C /* AKRhodesPianoDSPKernel.mm */; };
 		EA03BFE0201DEB1400E8BE2C /* AKTubularBellsDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFDF201DEB1300E8BE2C /* AKTubularBellsDSPKernel.mm */; };
+		EA03BFE4201F333200E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */; };
 		EA2FBDB6201752A4008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB3201752A3008D223C /* sinewave_raw.h */; };
 		EA2FBDB7201752A4008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */; };
 		EA2FBDB8201752A4008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB5201752A4008D223C /* mand_raw.h */; };
@@ -1785,6 +1786,7 @@
 		EA03BFD2201DD89B00E8BE2C /* AKMandolinDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMandolinDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFD7201DE7EE00E8BE2C /* AKRhodesPianoDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhodesPianoDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFDF201DEB1300E8BE2C /* AKTubularBellsDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTubularBellsDSPKernel.mm; sourceTree = "<group>"; };
+		EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
 		EA2FBDB3201752A3008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
 		EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
 		EA2FBDB5201752A4008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
@@ -2937,6 +2939,7 @@
 				C47047FD1E78FDFA00D9906F /* AKShakerAudioUnit.h */,
 				C47047FE1E78FDFA00D9906F /* AKShakerAudioUnit.mm */,
 				C47047FF1E78FDFA00D9906F /* AKShakerDSPKernel.hpp */,
+				EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */,
 			);
 			path = Shaker;
 			sourceTree = "<group>";
@@ -4986,6 +4989,7 @@
 				C40C42271C40E5C2009D870B /* EZAudioPlayer.m in Sources */,
 				C49DCD431D2100AB00BF018A /* AKFMOscillatorBankAudioUnit.mm in Sources */,
 				C4F8CB2B1DCA928B001F38F2 /* scrambler.c in Sources */,
+				EA03BFE4201F333200E8BE2C /* AKShakerDSPKernel.mm in Sources */,
 				C48C6A741D3C1574008EA51B /* crossfade.c in Sources */,
 				C4F8CB2C1DCA928B001F38F2 /* sdelay.c in Sources */,
 				C49DCD5D1D2100BF00BF018A /* AKOscillatorBank.swift in Sources */,
