@@ -49,7 +49,7 @@ standardKernelPassthroughs()
     AUParameter *ratioAUParameter =
     [AUParameter parameter:@"ratio"
                       name:@"Ratio to compress with, a value > 1 will compress"
-                   address:ratioAddress
+                   address:AKDynaRageCompressorDSPKernel::ratioAddress
                        min:1.0
                        max:20.0
                       unit:kAudioUnitParameterUnit_Hertz];
@@ -57,7 +57,7 @@ standardKernelPassthroughs()
     AUParameter *thresholdAUParameter =
     [AUParameter parameter:@"threshold"
                       name:@"Threshold (in dB) 0 = max"
-                   address:thresholdAddress
+                   address:AKDynaRageCompressorDSPKernel::thresholdAddress
                        min:-100.0
                        max:0.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -65,7 +65,7 @@ standardKernelPassthroughs()
     AUParameter *attackTimeAUParameter =
     [AUParameter parameter:@"attackTime"
                       name:@"Attack time"
-                   address:attackTimeAddress
+                   address:AKDynaRageCompressorDSPKernel::attackTimeAddress
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
@@ -73,7 +73,7 @@ standardKernelPassthroughs()
     AUParameter *releaseTimeAUParameter =
     [AUParameter parameter:@"releaseTime"
                       name:@"Release time"
-                   address:releaseTimeAddress
+                   address:AKDynaRageCompressorDSPKernel::releaseTimeAddress
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
@@ -82,7 +82,7 @@ standardKernelPassthroughs()
     AUParameter *rageAUParameter =
     [AUParameter parameter:@"rage"
                       name:@"Rage Amount"
-                   address:rageAddress
+                   address:AKDynaRageCompressorDSPKernel::rageAddress
                        min:0.1
                        max:20.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -95,11 +95,11 @@ standardKernelPassthroughs()
     releaseTimeAUParameter.value = 0.1;
     rageAUParameter.value = 0.1;
 
-    _kernel.setParameter(ratioAddress,       ratioAUParameter.value);
-    _kernel.setParameter(thresholdAddress,   thresholdAUParameter.value);
-    _kernel.setParameter(attackTimeAddress,  attackTimeAUParameter.value);
-    _kernel.setParameter(releaseTimeAddress, releaseTimeAUParameter.value);
-    _kernel.setParameter(rageAddress,  rageAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::ratioAddress,       ratioAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::thresholdAddress,   thresholdAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::attackTimeAddress,  attackTimeAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::releaseTimeAddress, releaseTimeAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::rageAddress,  rageAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
