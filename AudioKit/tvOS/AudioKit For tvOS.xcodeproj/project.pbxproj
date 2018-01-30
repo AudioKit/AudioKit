@@ -80,7 +80,7 @@
 		C4146D531F3E47B8001AAE11 /* AKRhinoGuitarProcessorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4146D501F3E47AA001AAE11 /* AKRhinoGuitarProcessorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4146D541F3E47BF001AAE11 /* AKRhinoGuitarProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4146D4F1F3E47AA001AAE11 /* AKRhinoGuitarProcessor.swift */; };
 		C4146D551F3E47C2001AAE11 /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4146D511F3E47AA001AAE11 /* AKRhinoGuitarProcessorAudioUnit.mm */; };
-		C4146D561F3E47C4001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4146D521F3E47AA001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp */; };
+		C4146D561F3E47C4001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4146D521F3E47AA001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4146D571F3E47C8001AAE11 /* AKDynaRageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4146D491F3E4795001AAE11 /* AKDynaRageCompressor.swift */; };
 		C4146D581F3E47CB001AAE11 /* AKDynaRageCompressorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4146D4A1F3E4795001AAE11 /* AKDynaRageCompressorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4146D591F3E47CF001AAE11 /* AKDynaRageCompressorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4146D4B1F3E4795001AAE11 /* AKDynaRageCompressorAudioUnit.mm */; };
@@ -858,6 +858,7 @@
 		EA03BFD8201DE7EF00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFD7201DE7EE00E8BE2C /* AKRhodesPianoDSPKernel.mm */; };
 		EA03BFE0201DEB1400E8BE2C /* AKTubularBellsDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFDF201DEB1300E8BE2C /* AKTubularBellsDSPKernel.mm */; };
 		EA03BFE4201F333200E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */; };
+		EA03BFEC202070F400E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFEB202070F300E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA2FBDB6201752A4008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB3201752A3008D223C /* sinewave_raw.h */; };
 		EA2FBDB7201752A4008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */; };
 		EA2FBDB8201752A4008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDB5201752A4008D223C /* mand_raw.h */; };
@@ -1787,6 +1788,7 @@
 		EA03BFD7201DE7EE00E8BE2C /* AKRhodesPianoDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhodesPianoDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFDF201DEB1300E8BE2C /* AKTubularBellsDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTubularBellsDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
+		EA03BFEB202070F300E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA2FBDB3201752A3008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
 		EA2FBDB4201752A4008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
 		EA2FBDB5201752A4008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
@@ -2034,6 +2036,7 @@
 				C4146D501F3E47AA001AAE11 /* AKRhinoGuitarProcessorAudioUnit.h */,
 				C4146D511F3E47AA001AAE11 /* AKRhinoGuitarProcessorAudioUnit.mm */,
 				C4146D521F3E47AA001AAE11 /* AKRhinoGuitarProcessorDSPKernel.hpp */,
+				EA03BFEB202070F300E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */,
 			);
 			path = Rhino;
 			sourceTree = "<group>";
@@ -4736,6 +4739,7 @@
 				C470CFC5201748D0003D1AFA /* AKHighShelfParametricEqualizerFilter.mm in Sources */,
 				C48C6A891D3C1574008EA51B /* jcrev.c in Sources */,
 				A8E996F61EB921D100116ADA /* AKTuningTable+Brun.swift in Sources */,
+				EA03BFEC202070F400E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */,
 				C4A107601E696F490018848C /* brownianNoise.swift in Sources */,
 				C45382021C3A5CBD00A51738 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C45381FE1C3A5CBD00A51738 /* AKCostelloReverb.swift in Sources */,
