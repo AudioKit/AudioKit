@@ -38,15 +38,16 @@ typedef enum {
     kFlanger
 } SDMDEffectType;
 
-enum {
-    frequencyAddress = 0,
-    depthAddress = 1,
-    dryWetMixAddress = 2,
-    feedbackAddress = 3
-};
-
 class SDModulatedDelayDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
+    
+    enum {
+        frequencyAddress = 0,
+        depthAddress = 1,
+        dryWetMixAddress = 2,
+        feedbackAddress = 3
+    };
+    
     // MARK: Member Functions
 
     SDModulatedDelayDSPKernel(SDMDEffectType type)
