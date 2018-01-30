@@ -43,28 +43,28 @@ standardKernelPassthroughs()
     // Create parameter objects
     AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
                                                          name:@"Mod Frequency in Hz."
-                                                      address:frequencyAddress
+                                                      address:AKChorusDSPKernel::frequencyAddress
                                                           min:MIN_FREQUENCY_HZ
                                                           max:MAX_FREQUENCY_HZ
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     AUParameter *depthAUParameter = [AUParameter parameter:@"depth"
                                                         name:@"Mod depth fraction."
-                                                     address:depthAddress
+                                                     address:AKChorusDSPKernel::depthAddress
                                                          min:MIN_FRACTION
                                                          max:MAX_FRACTION
                                                         unit:kAudioUnitParameterUnit_Generic];
     
     AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
                                                          name:@"Dry Wet Mix."
-                                                      address:dryWetMixAddress
+                                                      address:AKChorusDSPKernel::dryWetMixAddress
                                                           min:MIN_FRACTION
                                                           max:MAX_FRACTION
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback fraction."
-                                                      address:feedbackAddress
+                                                      address:AKChorusDSPKernel::feedbackAddress
                                                           min:FLANGER_MIN_FEEDBACK
                                                           max:FLANGER_MAX_FEEDBACK
                                                          unit:kAudioUnitParameterUnit_Generic];
@@ -75,10 +75,10 @@ standardKernelPassthroughs()
     dryWetMixAUParameter.value = FLANGER_DEFAULT_DRYWETMIX;
     feedbackAUParameter.value = MIN_FRACTION;
 
-    _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
-    _kernel.setParameter(depthAddress, depthAUParameter.value);
-    _kernel.setParameter(dryWetMixAddress, dryWetMixAUParameter.value);
-    _kernel.setParameter(feedbackAddress, feedbackAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::frequencyAddress, frequencyAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::depthAddress, depthAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::dryWetMixAddress, dryWetMixAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::feedbackAddress, feedbackAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
