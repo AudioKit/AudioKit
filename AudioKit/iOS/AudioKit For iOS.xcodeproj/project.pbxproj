@@ -15,7 +15,7 @@
 		52145B161F3C58F20069C88B /* AKRhinoGuitarProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52145B121F3C58F20069C88B /* AKRhinoGuitarProcessor.swift */; };
 		52145B171F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 52145B131F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52145B181F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52145B141F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm */; };
-		52145B191F3C58F20069C88B /* AKRhinoGuitarProcessorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 52145B151F3C58F20069C88B /* AKRhinoGuitarProcessorDSPKernel.hpp */; };
+		52145B191F3C58F20069C88B /* AKRhinoGuitarProcessorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 52145B151F3C58F20069C88B /* AKRhinoGuitarProcessorDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		52145B431F3C5B1A0069C88B /* Array.h in Headers */ = {isa = PBXBuildFile; fileRef = 52145B1B1F3C5B1A0069C88B /* Array.h */; };
 		52145B441F3C5B1A0069C88B /* Array.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 52145B1C1F3C5B1A0069C88B /* Array.hpp */; };
 		52145B451F3C5B1A0069C88B /* CombFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52145B1D1F3C5B1A0069C88B /* CombFilter.cpp */; };
@@ -893,6 +893,7 @@
 		EA03BFD6201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFD5201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm */; };
 		EA03BFDC201DE91600E8BE2C /* AKTubularBellsDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFDB201DE91600E8BE2C /* AKTubularBellsDSPKernel.mm */; };
 		EA03BFE2201F315C00E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE1201F315C00E8BE2C /* AKShakerDSPKernel.mm */; };
+		EA03BFE820206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE720206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA2FBDA1201607F3008D223C /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBD9E201607F3008D223C /* sinewave_raw.h */; };
 		EA2FBDA2201607F3008D223C /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBD9F201607F3008D223C /* fwavblnk_raw.h */; };
 		EA2FBDA3201607F3008D223C /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = EA2FBDA0201607F3008D223C /* mand_raw.h */; };
@@ -1900,6 +1901,7 @@
 		EA03BFD5201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhodesPianoDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFDB201DE91600E8BE2C /* AKTubularBellsDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTubularBellsDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFE1201F315C00E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
+		EA03BFE720206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA2FBD9E201607F3008D223C /* sinewave_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sinewave_raw.h; sourceTree = "<group>"; };
 		EA2FBD9F201607F3008D223C /* fwavblnk_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fwavblnk_raw.h; sourceTree = "<group>"; };
 		EA2FBDA0201607F3008D223C /* mand_raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mand_raw.h; sourceTree = "<group>"; };
@@ -1981,6 +1983,7 @@
 				52145B131F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h */,
 				52145B141F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm */,
 				52145B151F3C58F20069C88B /* AKRhinoGuitarProcessorDSPKernel.hpp */,
+				EA03BFE720206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */,
 			);
 			path = Rhino;
 			sourceTree = "<group>";
@@ -5064,6 +5067,7 @@
 				C4F8C9191DCA8CE4001F38F2 /* slist.c in Sources */,
 				C48C6CA71D3C15F1008EA51B /* streson.c in Sources */,
 				C48C6CAB1D3C15F1008EA51B /* tblrec.c in Sources */,
+				EA03BFE820206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */,
 				C48C6C861D3C15F1008EA51B /* moogladder.c in Sources */,
 				C470481B1E7A61BE00D9906F /* rspline.c in Sources */,
 				C47B3F4E1FBFAD600097EC15 /* talkbox.c in Sources */,
