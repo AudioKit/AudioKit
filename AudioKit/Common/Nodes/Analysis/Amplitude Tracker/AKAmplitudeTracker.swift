@@ -84,7 +84,8 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             self!.internalAU!.thresholdCallback = thresholdCallback
-
+            self!.threshold = threshold
+                                                                    
             if let au = self?.internalAU {
                 au.setHalfPowerPoint(Float(halfPowerPoint))
             }
