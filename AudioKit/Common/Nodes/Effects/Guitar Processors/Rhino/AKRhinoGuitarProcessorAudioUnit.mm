@@ -52,7 +52,7 @@ standardKernelPassthroughs()
     AUParameter *preGainAUParameter =
     [AUParameter parameter:@"preGain"
                       name:@"Pregain"
-                   address:preGainAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::preGainAddress
                        min:0.0
                        max:10.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -60,7 +60,7 @@ standardKernelPassthroughs()
     AUParameter *postGainAUParameter =
     [AUParameter parameter:@"postGain"
                       name:@"Postgain"
-                   address:postGainAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::postGainAddress
                        min:0.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -68,7 +68,7 @@ standardKernelPassthroughs()
     AUParameter *lowGainAUParameter =
     [AUParameter parameter:@"lowGain"
                       name:@"Low frequencies."
-                   address:lowGainAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::lowGainAddress
                        min:-1.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -76,7 +76,7 @@ standardKernelPassthroughs()
     AUParameter *midGainAUParameter =
     [AUParameter parameter:@"midGain"
                       name:@"Low frequencies."
-                   address:midGainAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::midGainAddress
                        min:-1.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -84,7 +84,7 @@ standardKernelPassthroughs()
     AUParameter *highGainAUParameter =
     [AUParameter parameter:@"highGain"
                       name:@"Low frequencies."
-                   address:highGainAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::highGainAddress
                        min:-1.0
                        max:1.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -92,7 +92,7 @@ standardKernelPassthroughs()
     AUParameter *distTypeAUParameter =
     [AUParameter parameter:@"distType"
                       name:@"Distortion Type"
-                   address:distTypeAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::distTypeAddress
                        min:1.0
                        max:3.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -100,7 +100,7 @@ standardKernelPassthroughs()
     AUParameter *distortionAUParameter =
     [AUParameter parameter:@"distortion"
                       name:@"Distortion Amount"
-                   address:distortionAddress
+                   address:AKRhinoGuitarProcessorDSPKernel::distortionAddress
                        min:1.0
                        max:20.0
                       unit:kAudioUnitParameterUnit_Generic];
@@ -115,13 +115,13 @@ standardKernelPassthroughs()
     distTypeAUParameter.value = 1.0;
     distortionAUParameter.value = 1.0;
 
-    _kernel.setParameter(preGainAddress,  preGainAUParameter.value);
-    _kernel.setParameter(postGainAddress, postGainAUParameter.value);
-    _kernel.setParameter(lowGainAddress,  lowGainAUParameter.value);
-    _kernel.setParameter(midGainAddress,  midGainAUParameter.value);
-    _kernel.setParameter(highGainAddress, highGainAUParameter.value);
-    _kernel.setParameter(distTypeAddress, distTypeAUParameter.value);
-    _kernel.setParameter(distortionAddress, distortionAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::preGainAddress,  preGainAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::postGainAddress, postGainAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::lowGainAddress,  lowGainAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::midGainAddress,  midGainAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::highGainAddress, highGainAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distTypeAddress, distTypeAUParameter.value);
+    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distortionAddress, distortionAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
