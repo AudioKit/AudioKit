@@ -48,6 +48,7 @@
 		345BB96B201900FA00324D55 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
 		345BB96F2019014100324D55 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		345BB971201902AD00324D55 /* SDSustainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDSustainer.swift; sourceTree = "<group>"; };
+		C4DD02BB2023061400AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA03BFC3201C609D00E8BE2C /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		EA03BFC4201C609D00E8BE2C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +69,7 @@
 		345BB9382018FF9A00324D55 = {
 			isa = PBXGroup;
 			children = (
+				C4DD02BB2023061400AC39DD /* README.md */,
 				345BB9662019002900324D55 /* ExtendingAudioKit-Bridging-Header.h */,
 				345BB967201900FA00324D55 /* SDBooster */,
 				345BB9432018FF9A00324D55 /* ExtendingAudioKit */,

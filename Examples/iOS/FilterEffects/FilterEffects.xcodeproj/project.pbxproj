@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		94C8BA53CBA643F31FDEC3F7 /* Pods-FilterEffects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.debug.xcconfig"; sourceTree = "<group>"; };
 		C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C468A6F22023054F004B759B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4EDA0FE1DA969CF008C1827 /* FilterEffects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterEffects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EDA1011DA969CF008C1827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EDA1031DA969CF008C1827 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		C4EDA0F51DA969CF008C1827 = {
 			isa = PBXGroup;
 			children = (
+				C468A6F22023054F004B759B /* README.md */,
 				C4EDA1001DA969CF008C1827 /* FilterEffects */,
 				C4EDA0FF1DA969CF008C1827 /* Products */,
 				C4EDA1211DA96F26008C1827 /* Frameworks */,
