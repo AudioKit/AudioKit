@@ -44,10 +44,23 @@ public struct AKMIDIEvent {
     // MARK: - Properties
 
     /// Internal data
-    public var internalData = [MIDIByte](zeros: 128)
+    public var internalData = [MIDIByte](zeros: 256)
+    
+    /// Internal MIDIByte-sized packets
+    public var internalPackets:[[MIDIByte]] {
+        var splitData = [[MIDIByte]]()
+        let byteLimit = Int(internalData.count / 256)
+        for i in 0...byteLimit {
+            let arrayStart = i * 256
+            let arrayEnd:Int = min(Int(arrayStart + 256), Int(internalData.count))
+            let tempData = Array(internalData[arrayStart..<arrayEnd])
+            splitData.append(tempData)
+        }
+        return splitData
+    }
 
     /// The length in bytes for this MIDI message (1 to 3 bytes)
-    var length: MIDIByte?
+    var length: Int = 0
 
     /// Status
     public var status: AKMIDIStatus? {
@@ -137,7 +150,7 @@ public struct AKMIDIEvent {
 
             if packet.isSysex {
                 internalData = [] //reset internalData
-                var computedLength = MIDIByte(0)
+                var computedLength = 0
                 //voodoo
                 let mirrorData = Mirror(reflecting: packet.data)
                 for (_, value) in mirrorData.children {
@@ -163,7 +176,7 @@ public struct AKMIDIEvent {
                 }
             }
         }
-        internalData = Array(internalData.prefix(Int(length!)))
+        internalData = Array(internalData.prefix(length))
     }
 
     /// Generate array of MIDI events from Bluetooth data
@@ -229,7 +242,7 @@ public struct AKMIDIEvent {
                 for byte in data {
                     internalData.append(byte)
                 }
-                length = MIDIByte(internalData.count)
+                length = internalData.count
             } else {
                 fillData(command: command, byte1: data[1], byte2: data[2])
             }
@@ -297,8 +310,8 @@ public struct AKMIDIEvent {
         default:
             setLength(1)
         }
-        if let existingLength = length {
-            internalData = Array(internalData.prefix(Int(existingLength)))
+        if length > 0 {
+            internalData = Array(internalData.prefix(length))
         }
     }
 
@@ -397,10 +410,7 @@ public struct AKMIDIEvent {
     }
 
     private mutating func setLength(_ newLength: Int) {
-        setLength(MIDIByte(newLength))
-    }
-    private mutating func setLength(_ newLength: MIDIByte) {
         length = newLength
-        internalData = Array(internalData[0..<Int(length!)])
+        internalData = Array(internalData[0..<length])
     }
 }
