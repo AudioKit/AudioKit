@@ -7,7 +7,7 @@
 //
 
 #import "AKTimelineTap.h"
-#import <AudioKit/AudioKit.h>
+#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKTimelineTap {
     AKRenderTap *renderTap;

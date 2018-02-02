@@ -5,14 +5,12 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKMorphingOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorBankDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
 
 @implementation AKMorphingOscillatorBankAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
@@ -42,12 +40,12 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(MorphingOscillatorBank)
-    standardBankParameters()
+    standardBankParameters(AKMorphingOscillatorBankDSPKernel)
 
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameter:@"index"
                                                       name:@"Index"
-                                                   address:indexAddress
+                                                   address:AKMorphingOscillatorBankDSPKernel::indexAddress
                                                        min:0.0
                                                        max:1.0
                                                       unit:kAudioUnitParameterUnit_Generic];
@@ -55,7 +53,7 @@ standardBankFunctions()
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
 
-    _kernel.setParameter(indexAddress, indexAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
