@@ -7,13 +7,10 @@
 //
 
 #pragma once
+#import "SDModulatedDelayStuff.hpp"
 
 #import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-#import "SDModulatedDelayStuff.hpp"
 
 #define FLANGER_MIN_DELAY_MS 0.01f
 #define FLANGER_MAX_DELAY_MS 10.0f
@@ -38,15 +35,16 @@ typedef enum {
     kFlanger
 } SDMDEffectType;
 
-enum {
-    frequencyAddress = 0,
-    depthAddress = 1,
-    dryWetMixAddress = 2,
-    feedbackAddress = 3
-};
-
 class SDModulatedDelayDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
+    
+    enum {
+        frequencyAddress = 0,
+        depthAddress = 1,
+        dryWetMixAddress = 2,
+        feedbackAddress = 3
+    };
+    
     // MARK: Member Functions
 
     SDModulatedDelayDSPKernel(SDMDEffectType type)

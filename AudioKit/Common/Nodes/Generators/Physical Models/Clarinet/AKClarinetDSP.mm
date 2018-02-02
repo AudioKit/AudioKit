@@ -20,7 +20,7 @@ extern "C" void* createClarinetDSP(int nChannels, double sampleRate) {
 
 // AKClarinetDSP method implementations
 
-struct AKClarinetDSP::_AKClarinetDSPInternal
+struct AKClarinetDSP::_Internal
 {
     float internalTrigger = 0;
     stk::Clarinet *clarinet;
@@ -31,7 +31,7 @@ struct AKClarinetDSP::_AKClarinetDSPInternal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKClarinetDSP::AKClarinetDSP() : _private(new _AKClarinetDSPInternal)
+AKClarinetDSP::AKClarinetDSP() : _private(new _Internal)
 {
     _private->frequencyRamp.setTarget(440, true);
     _private->frequencyRamp.setDurationInSamples(10000);
@@ -113,10 +113,10 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
                 if (_private->internalTrigger == 1) {
                     _private->clarinet->noteOn(frequency, amplitude);
                 }
+                *out = _private->clarinet->tick();
             } else {
                 *out = 0.0;
             }
-            *out = _private->clarinet->tick();
         }
     }
     if (_private->internalTrigger == 1) {

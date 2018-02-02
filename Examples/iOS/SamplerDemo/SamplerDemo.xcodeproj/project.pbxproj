@@ -43,6 +43,7 @@
 		78524B8A1D2C3D3500804C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78524B901D2C3D6100804C0B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		78524B921D2C3D7B00804C0B /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		C4DD02B8202305BF00AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA3A4C541F4EE39C003D9C16 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		FEE35C3A1F0EAA7400EE1A85 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +85,7 @@
 		78524B721D2C3D3500804C0B = {
 			isa = PBXGroup;
 			children = (
+				C4DD02B8202305BF00AC39DD /* README.md */,
 				7816C88E1D2CD0180030374D /* Frameworks */,
 				78524B7D1D2C3D3500804C0B /* SamplerDemo */,
 				7816C88F1D2CD0FB0030374D /* Supporting files */,

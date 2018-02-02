@@ -6,12 +6,12 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#import <AudioKit/AudioKit-Swift.h>
+
 #import "AKRhodesPianoAudioUnit.h"
 #import "AKRhodesPianoDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKRhodesPianoAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
@@ -43,11 +43,11 @@ standardKernelPassthroughs()
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
-                                                       address:frequencyAddress];
+                                                       address:AKRhodesPianoDSPKernel::frequencyAddress];
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
-                                                       address:amplitudeAddress
+                                                       address:AKRhodesPianoDSPKernel::amplitudeAddress
                                                            min:0
                                                            max:1
                                                           unit:kAudioUnitParameterUnit_Generic];
@@ -56,8 +56,8 @@ standardKernelPassthroughs()
     frequencyAUParameter.value = 110;
     amplitudeAUParameter.value = 0.5;
 
-    _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
+    _kernel.setParameter(AKRhodesPianoDSPKernel::frequencyAddress,       frequencyAUParameter.value);
+    _kernel.setParameter(AKRhodesPianoDSPKernel::amplitudeAddress,       amplitudeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[

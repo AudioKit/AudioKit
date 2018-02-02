@@ -6,20 +6,21 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
-#import "AKSoundpipeKernel.hpp"
-
-enum {
-    frequencyAddress = 0,
-    amplitudeAddress = 1,
-    indexAddress = 2,
-    detuningOffsetAddress = 3,
-    detuningMultiplierAddress = 4
-};
+#import "AKSoundPipeKernel.hpp"
 
 class AKMorphingOscillatorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
+    enum {
+        frequencyAddress = 0,
+        amplitudeAddress = 1,
+        indexAddress = 2,
+        detuningOffsetAddress = 3,
+        detuningMultiplierAddress = 4
+    };
+
     // MARK: Member Functions
 
     AKMorphingOscillatorDSPKernel() {}
@@ -224,4 +225,4 @@ public:
     ParameterRamper detuningMultiplierRamper = 1.0;
 };
 
-
+#endif

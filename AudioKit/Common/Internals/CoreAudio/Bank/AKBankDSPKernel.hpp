@@ -6,18 +6,14 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
-#import "AKSoundpipeKernel.hpp"
+#import "AKSoundPipeKernel.hpp"
 #import <vector>
 
 static inline double pow2(double x) {
     return x * x;
-}
-
-static inline double noteToHz(int noteNumber)
-{
-    return 440. * exp2((noteNumber - 69)/12.);
 }
 
 #import "AKDSPKernel.hpp"
@@ -221,4 +217,6 @@ public:
     pitchBend = double(pitchBendRamper.getAndStep()); \
     vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
     vibratoRate = double(vibratoRateRamper.getAndStep());
+
+#endif
 

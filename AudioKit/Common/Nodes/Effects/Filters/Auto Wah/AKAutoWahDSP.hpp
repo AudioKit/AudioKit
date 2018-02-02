@@ -11,7 +11,10 @@
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
-    wah, mix, amplitude, rampTime
+    AKAutoWahParameterWah,
+    AKAutoWahParameterMix,
+    AKAutoWahParameterAmplitude,
+    AKAutoWahParameterRampTime
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -47,16 +50,16 @@ public:
     /** Uses the ParameterAddress as a key */
     void setParameter(AUParameterAddress address, float value, bool immediate) override {
         switch (address) {
-            case wah:
+            case AKAutoWahParameterWah:
                 wahRamp.setTarget(value, immediate);
                 break;
-            case mix:
+            case AKAutoWahParameterMix:
                 mixRamp.setTarget(value, immediate);
                 break;
-            case amplitude:
+            case AKAutoWahParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case rampTime:
+            case AKAutoWahParameterRampTime:
                 wahRamp.setRampTime(value, _sampleRate);
                 mixRamp.setRampTime(value, _sampleRate);
                 amplitudeRamp.setRampTime(value, _sampleRate);
@@ -67,13 +70,13 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(AUParameterAddress address) override {
         switch (address) {
-            case wah:
+            case AKAutoWahParameterWah:
                 return wahRamp.getTarget();
-            case mix:
+            case AKAutoWahParameterMix:
                 return mixRamp.getTarget();
-            case amplitude:
+            case AKAutoWahParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case rampTime:
+            case AKAutoWahParameterRampTime:
                 return wahRamp.getRampTime(_sampleRate);
         }
         return 0;

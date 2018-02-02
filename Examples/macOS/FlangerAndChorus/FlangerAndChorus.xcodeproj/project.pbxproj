@@ -38,6 +38,7 @@
 		C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4BDE7F31C12FAE600207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE7F51C12FAE600207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4DD02BC2023062800AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EAC9C5A71F50278E00B01FF7 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,6 +58,7 @@
 		C4BDE7E01C12FAE600207DA9 = {
 			isa = PBXGroup;
 			children = (
+				C4DD02BC2023062800AC39DD /* README.md */,
 				C4BDE7EB1C12FAE600207DA9 /* FlangerAndChorus */,
 				EA127F541C42123600289567 /* Frameworks */,
 				C4BDE7EA1C12FAE600207DA9 /* Products */,
