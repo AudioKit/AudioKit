@@ -37,7 +37,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         return createAutoWahDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 

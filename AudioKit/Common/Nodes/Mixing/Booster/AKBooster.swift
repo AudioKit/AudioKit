@@ -38,7 +38,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 return
             }
             // prevent division by zero in parameter ramper
-            let value = (0.0002...2).clamp(newValue)
+            let value = (0.000_2...2).clamp(newValue)
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
@@ -62,7 +62,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if leftGain == newValue {
                 return
             }
-            let value = (0.0002...2).clamp(newValue)
+            let value = (0.000_2...2).clamp(newValue)
 
             if internalAU?.isSetUp ?? false {
                 if let token = token {
@@ -80,7 +80,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if rightGain == newValue {
                 return
             }
-            let value = (0.0002...2).clamp(newValue)
+            let value = (0.000_2...2).clamp(newValue)
 
             if internalAU?.isSetUp ?? false {
                 if let token = token {

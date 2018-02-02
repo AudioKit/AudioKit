@@ -117,6 +117,7 @@ class ViewController: UIViewController {
         case .recording :
             // Microphone monitoring is muted
             micBooster.gain = 0
+            tape = recorder.audioFile!
             player.load(audioFile: tape)
 
             if let _ = player.audioFile?.duration {
