@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
+#pragma once
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
@@ -22,8 +23,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKGeneratorAudioUnitBase.h"
 #import "AKSoundpipeDSPBase.hpp"
 #import "DSPKernel.hpp"
-#import "AKSoundPipeKernel.hpp"
 #import "AKDSPKernel.hpp"
+#import "AKSoundPipeKernel.hpp"
+#import "AKBankDSPKernel.hpp"
 
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
@@ -110,12 +112,15 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKFMOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorAudioUnit.h"
 #import "AKMorphingOscillatorBankAudioUnit.h"
+#import "AKMorphingOscillatorBankDSPKernel.hpp"
 #import "AKOscillatorDSP.hpp"
 #import "AKOscillatorBankAudioUnit.h"
 #import "AKPhaseDistortionOscillatorDSP.hpp"
 #import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorDSP.hpp"
 #import "AKPWMOscillatorBankAudioUnit.h"
+#import "AKPWMOscillatorBankDSPKernel.hpp"
+#import "AKMorphingOscillatorDSPKernel.hpp"
 
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"

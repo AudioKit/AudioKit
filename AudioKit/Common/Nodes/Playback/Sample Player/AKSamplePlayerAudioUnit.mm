@@ -5,13 +5,12 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKSamplePlayerAudioUnit.h"
 #import "AKSamplePlayerDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKSamplePlayerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.

@@ -61,12 +61,12 @@
     _kernel.startNote(note, velocity, frequency); \
 }
 
-#define standardBankParameters() \
+#define standardBankParameters(__type) \
 AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;\
 AUParameter *attackDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"attackDuration" \
                                           name:@"Attack" \
-                                       address:attackDurationAddress \
+                                       address: __type::attackDurationAddress \
                                            min:0 \
                                            max:1 \
                                           unit:kAudioUnitParameterUnit_Seconds \
@@ -77,7 +77,7 @@ AUParameter *attackDurationAUParameter = \
 AUParameter *decayDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"decayDuration" \
                                           name:@"Decay" \
-                                       address:decayDurationAddress \
+                                       address: __type::decayDurationAddress \
                                            min:0 \
                                            max:1 \
                                           unit:kAudioUnitParameterUnit_Seconds \
@@ -88,7 +88,7 @@ AUParameter *decayDurationAUParameter = \
 AUParameter *sustainLevelAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"sustainLevel" \
                                           name:@"Sustain Level" \
-                                       address:sustainLevelAddress \
+                                       address: __type::sustainLevelAddress \
                                            min:0 \
                                            max:1 \
                                           unit:kAudioUnitParameterUnit_Generic \
@@ -99,7 +99,7 @@ AUParameter *sustainLevelAUParameter = \
 AUParameter *releaseDurationAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"releaseDuration" \
                                           name:@"Release" \
-                                       address:releaseDurationAddress \
+                                       address: __type::releaseDurationAddress \
                                            min:0 \
                                            max:1 \
                                           unit:kAudioUnitParameterUnit_Seconds \
@@ -110,7 +110,7 @@ AUParameter *releaseDurationAUParameter = \
 AUParameter *pitchBendAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"pitchBend" \
                                           name:@"Pitch Bend" \
-                                       address:pitchBendAddress \
+                                       address: __type::pitchBendAddress \
                                            min:-48 \
                                            max:48 \
                                           unit:kAudioUnitParameterUnit_RelativeSemiTones \
@@ -121,7 +121,7 @@ AUParameter *pitchBendAUParameter = \
 AUParameter *vibratoDepthAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"vibratoDepth" \
                                           name:@"Vibrato Depth" \
-                                       address:vibratoDepthAddress \
+                                       address: __type::vibratoDepthAddress \
                                            min:0 \
                                            max:24 \
                                           unit:kAudioUnitParameterUnit_RelativeSemiTones \
@@ -132,7 +132,7 @@ AUParameter *vibratoDepthAUParameter = \
 AUParameter *vibratoRateAUParameter = \
 [AUParameterTree createParameterWithIdentifier:@"vibratoRate" \
                                           name:@"Vibrato Rate" \
-                                       address:vibratoRateAddress \
+                                       address: __type::vibratoRateAddress \
                                            min:0 \
                                            max:600 \
                                           unit:kAudioUnitParameterUnit_Hertz \
@@ -147,10 +147,10 @@ releaseDurationAUParameter.value = 0.1; \
 pitchBendAUParameter.value = 0; \
 vibratoDepthAUParameter.value = 0; \
 vibratoRateAUParameter.value = 0; \
-_kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value); \
-_kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value); \
-_kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value); \
-_kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value); \
-_kernel.setParameter(pitchBendAddress,       pitchBendAUParameter.value); \
-_kernel.setParameter(vibratoDepthAddress,    vibratoDepthAUParameter.value);\
-_kernel.setParameter(vibratoRateAddress,     vibratoRateAUParameter.value);
+_kernel.setParameter(__type::attackDurationAddress,  attackDurationAUParameter.value); \
+_kernel.setParameter(__type::decayDurationAddress,   decayDurationAUParameter.value); \
+_kernel.setParameter(__type::sustainLevelAddress,    sustainLevelAUParameter.value); \
+_kernel.setParameter(__type::releaseDurationAddress, releaseDurationAUParameter.value); \
+_kernel.setParameter(__type::pitchBendAddress,       pitchBendAUParameter.value); \
+_kernel.setParameter(__type::vibratoDepthAddress,    vibratoDepthAUParameter.value);\
+_kernel.setParameter(__type::vibratoRateAddress,     vibratoRateAUParameter.value);

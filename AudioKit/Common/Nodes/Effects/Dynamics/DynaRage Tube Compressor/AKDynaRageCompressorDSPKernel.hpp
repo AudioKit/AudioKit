@@ -6,9 +6,11 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #import "AKDSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 class AKDynaRageCompressorDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
@@ -74,3 +76,6 @@ public:
     ParameterRamper releaseTimeRamper = 0.1;
     ParameterRamper rageRamper = 0.1;
 };
+
+#endif
+

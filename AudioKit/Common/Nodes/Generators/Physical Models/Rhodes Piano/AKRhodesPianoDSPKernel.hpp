@@ -7,12 +7,10 @@
 //
 
 #pragma once
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
 
 class AKRhodesPianoDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:

@@ -6,6 +6,9 @@
 	</samplecode>
  */
 
+#ifdef __cplusplus
+#pragma once
+
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
@@ -121,3 +124,6 @@ struct BufferedInputBus : BufferedAudioBus {
         }
     }
 };
+
+#endif
+
