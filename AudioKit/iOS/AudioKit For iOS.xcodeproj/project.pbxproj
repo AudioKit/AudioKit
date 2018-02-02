@@ -929,6 +929,8 @@
 		EA7D07261F4E655200707706 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41331C40E3A5009D870B /* EZAudioDisplayLink.m */; };
 		EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
+		EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF71D8B20249A880018946B /* AKAudioEffect.h */; };
+		EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D8C20249A880018946B /* AKAudioEffect.mm */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		EAFECEC51F4EBD3900A2B046 /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F02767261E79114A0099CA47 /* AKCustomUgen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02767251E79114A0099CA47 /* AKCustomUgen.swift */; };
@@ -1920,6 +1922,8 @@
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
+		EAF71D8B20249A880018946B /* AKAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioEffect.h; sourceTree = "<group>"; };
+		EAF71D8C20249A880018946B /* AKAudioEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioEffect.mm; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "Sporth Custom Ugens/AKCustomUgen.swift"; sourceTree = "<group>"; };
 		F027672D1E791A8C0099CA47 /* AKSporthStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSporthStack.h; path = "Sporth Custom Ugens/AKSporthStack.h"; sourceTree = "<group>"; };
@@ -2163,6 +2167,8 @@
 		C40C41221C40E344009D870B /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
+				EAF71D8B20249A880018946B /* AKAudioEffect.h */,
+				EAF71D8C20249A880018946B /* AKAudioEffect.mm */,
 				C4AC0B351FC944E300EDA024 /* AK4 */,
 				C4AC0B3C1FC944EA00EDA024 /* Apple Code */,
 				C4AC0B451FC944F400EDA024 /* Bank */,
@@ -4603,6 +4609,7 @@
 				52145B541F3C5B1A0069C88B /* FFTRealFixLen.h in Headers */,
 				C4077B02200875B000E5923C /* AKFormantFilterDSP.hpp in Headers */,
 				C464078B20105D5500299119 /* AKPluckedStringDSP.hpp in Headers */,
+				EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */,
 				C47047AA1E76A25200D9906F /* AKTubularBellsDSPKernel.hpp in Headers */,
 				EA2FBDA2201607F3008D223C /* fwavblnk_raw.h in Headers */,
 				C487B60C1DD9236900C56B59 /* OneZero.h in Headers */,
@@ -5197,6 +5204,7 @@
 				C48C6C971D3C15F1008EA51B /* progress.c in Sources */,
 				C48C6C801D3C15F1008EA51B /* line.c in Sources */,
 				C48C6C9E1D3C15F1008EA51B /* random.c in Sources */,
+				EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */,
 				55E4F50F1F578BAC0088018A /* AKPresetManager.m in Sources */,
 				C47047A71E76A25200D9906F /* AKTubularBells.swift in Sources */,
 				C48C6C851D3C15F1008EA51B /* mode.c in Sources */,

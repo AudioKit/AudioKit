@@ -5,6 +5,7 @@
 //  Created by Andrew Voelkel on 8/28/17.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKAudioEffect.h"
 #import "AKAudioUnit.h"
