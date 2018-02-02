@@ -7,13 +7,10 @@
 //
 
 #pragma once
+#import "SDModulatedDelayStuff.hpp"
 
 #import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-#import "SDModulatedDelayStuff.hpp"
 
 #define FLANGER_MIN_DELAY_MS 0.01f
 #define FLANGER_MAX_DELAY_MS 10.0f
