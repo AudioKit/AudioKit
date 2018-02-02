@@ -21,6 +21,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKAudioUnitBase.h"
 #import "AKGeneratorAudioUnitBase.h"
 #import "AKSoundpipeDSPBase.hpp"
+#import "DSPKernel.hpp"
+#import "AKSoundPipeKernel.hpp"
+#import "AKDSPKernel.hpp"
 
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
@@ -48,12 +51,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Effects / Dynamics
 #import "AKDynamicRangeCompressorDSP.hpp"
 #import "AKDynaRageCompressorAudioUnit.h"
+#import "AKDynaRageCompressorDSPKernel.hpp"
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeDSP.hpp"
 #import "AKTremoloDSP.hpp"
 
-// Efffects / Filters
+// Effects / Filters
 #import "AKAutoWahDSP.hpp"
 #import "AKBandPassButterworthFilterDSP.hpp"
 #import "AKBandRejectButterworthFilterDSP.hpp"
@@ -77,6 +81,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Guitar Processors
 #import "AKRhinoGuitarProcessorAudioUnit.h"
+#import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
 // Effects / Phaser
 #import "AKPhaserDSP.hpp"
@@ -153,6 +158,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "TPCircularBuffer.h"
 #import "TPCircularBuffer+Unit.h"
 #import "TPCircularBuffer+AudioBufferList.h"
+#import "ParameterRamper.hpp"
+#import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
 
 // Sequencer
