@@ -5,13 +5,12 @@
 //  Created by Shane Dunne
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKFlangerAudioUnit.h"
 #import "SDModulatedDelayDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKFlangerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
