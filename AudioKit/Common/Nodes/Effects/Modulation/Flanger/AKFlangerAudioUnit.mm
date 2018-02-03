@@ -25,13 +25,12 @@
 - (void)setDepth:(float)depth {
     _kernel.setDepth(depth);
 }
-- (void)setDryWetMix:(float)dryWetMix {
-    _kernel.setDryWetMix(dryWetMix);
-}
 - (void)setFeedback:(float)feedback {
     _kernel.setFeedback(feedback);
 }
-
+- (void)setDryWetMix:(float)dryWetMix {
+    _kernel.setDryWetMix(dryWetMix);
+}
 
 standardKernelPassthroughs()
 
@@ -53,13 +52,6 @@ standardKernelPassthroughs()
                                                          min:MIN_FRACTION
                                                          max:MAX_FRACTION
                                                         unit:kAudioUnitParameterUnit_Generic];
-    
-    AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
-                                                         name:@"Dry Wet Mix."
-                                                      address:AKChorusDSPKernel::dryWetMixAddress
-                                                          min:MIN_FRACTION
-                                                          max:MAX_FRACTION
-                                                         unit:kAudioUnitParameterUnit_Generic];
 
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback fraction."
@@ -68,23 +60,30 @@ standardKernelPassthroughs()
                                                           max:FLANGER_MAX_FEEDBACK
                                                          unit:kAudioUnitParameterUnit_Generic];
 
+    AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
+                                                          name:@"Dry Wet Mix."
+                                                       address:AKChorusDSPKernel::dryWetMixAddress
+                                                           min:MIN_FRACTION
+                                                           max:MAX_FRACTION
+                                                          unit:kAudioUnitParameterUnit_Generic];
+
     // Initialize the parameter values.
     frequencyAUParameter.value = DEFAULT_FREQUENCY_HZ;
     depthAUParameter.value = MIN_FRACTION;
-    dryWetMixAUParameter.value = FLANGER_DEFAULT_DRYWETMIX;
     feedbackAUParameter.value = MIN_FRACTION;
+    dryWetMixAUParameter.value = FLANGER_DEFAULT_DRYWETMIX;
 
     _kernel.setParameter(AKChorusDSPKernel::frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(AKChorusDSPKernel::depthAddress, depthAUParameter.value);
-    _kernel.setParameter(AKChorusDSPKernel::dryWetMixAddress, dryWetMixAUParameter.value);
     _kernel.setParameter(AKChorusDSPKernel::feedbackAddress, feedbackAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::dryWetMixAddress, dryWetMixAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
                                              depthAUParameter,
-                                             dryWetMixAUParameter,
-                                             feedbackAUParameter
+                                             feedbackAUParameter,
+                                             dryWetMixAUParameter
                                              ]];
 
     parameterTreeBlock(Flanger)

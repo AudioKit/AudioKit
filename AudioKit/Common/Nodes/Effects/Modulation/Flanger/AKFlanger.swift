@@ -19,19 +19,21 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     private var token: AUParameterObserverToken?
 
     // These must accord with #defines in SDModulatedDelayDSPKernel.hpp
-    public static let MIN_FRACTION = 0.0
-    public static let MAX_FRACTION = 1.0
-    public static let MIN_FREQUENCY_HZ = 0.1
-    public static let MAX_FREQUENCY_HZ = 10.0
-    public static let DEFAULT_FREQUENCY_HZ = 1.0
-    public static let MIN_FEEDBACK = -0.95
-    public static let MAX_FEEDBACK = 0.95
-    public static let DEFAULT_DRYWETMIX = 0.5
+    public static let frequencyRange = 0.1 ... 10.0
+    public static let depthRange = 0.0 ... 1.0
+    public static let feedbackRange = -0.95 ... 0.95
+    public static let dryWetMixRange = 0.0 ... 1.0
+
+    public static let defaultFrequency = 1.0
+    public static let defaultDepth = 0.0
+    public static let defaultFeedback = 0.0
+    public static let defaultDryWetMix = 0.0
+
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
-    fileprivate var dryWetMixParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
+    fileprivate var dryWetMixParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -41,7 +43,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Frequency (Hz)
-    @objc open dynamic var frequency: Double = MIN_FREQUENCY_HZ {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -59,7 +61,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Depth (fraction)
-    @objc open dynamic var depth: Double = MIN_FRACTION {
+    @objc open dynamic var depth: Double = defaultDepth {
         willSet {
             if depth == newValue {
                 return
@@ -76,26 +78,8 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Dry Wet Mix (fraction)
-    @objc open dynamic var dryWetMix: Double = DEFAULT_DRYWETMIX {
-        willSet {
-            if dryWetMix == newValue {
-                return
-            }
-
-            if internalAU?.isSetUp ?? false {
-                if token != nil && dryWetMixParameter != nil {
-                    dryWetMixParameter?.setValue(Float(newValue), originator: token!)
-                    return
-                }
-            }
-
-            internalAU?.dryWetMix = Float(newValue)
-        }
-    }
-
     /// Feedback (fraction)
-    @objc open dynamic var feedback: Double = MIN_FRACTION {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -112,6 +96,24 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
+    /// Dry Wet Mix (fraction)
+    @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
+        willSet {
+            if dryWetMix == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp ?? false {
+                if token != nil && dryWetMixParameter != nil {
+                    dryWetMixParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+
+            internalAU?.dryWetMix = Float(newValue)
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying ?? false
@@ -125,20 +127,20 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be processed
     ///   - frequency: modulation frequency Hz
     ///   - depth: depth of modulation (fraction)
-    ///   - dryWetMix: fraction of wet signal in mix
     ///   - feedback: feedback fraction
+    ///   - dryWetMix: fraction of wet signal in mix
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = DEFAULT_FREQUENCY_HZ,
-        depth: Double = MIN_FRACTION,
-        dryWetMix: Double = DEFAULT_DRYWETMIX,
-        feedback: Double = MIN_FRACTION) {
+        frequency: Double = defaultFrequency,
+        depth: Double = defaultDepth,
+        feedback: Double = defaultFeedback,
+        dryWetMix: Double = defaultDryWetMix) {
 
         self.frequency = frequency
         self.depth = depth
-        self.dryWetMix = dryWetMix
         self.feedback = feedback
+        self.dryWetMix = dryWetMix
 
         _Self.register()
 
@@ -158,8 +160,8 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
 
         frequencyParameter = tree["frequency"]
         depthParameter = tree["depth"]
-        dryWetMixParameter = tree["dryWetMix"]
         feedbackParameter = tree["feedback"]
+        dryWetMixParameter = tree["dryWetMix"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -174,8 +176,8 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
         })
         internalAU?.frequency = Float(frequency)
         internalAU?.depth = Float(depth)
-        internalAU?.dryWetMix = Float(dryWetMix)
         internalAU?.feedback = Float(feedback)
+        internalAU?.dryWetMix = Float(dryWetMix)
     }
 
     // MARK: - Control
