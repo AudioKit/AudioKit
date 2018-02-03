@@ -41,8 +41,8 @@ public:
     enum {
         frequencyAddress = 0,
         depthAddress = 1,
-        dryWetMixAddress = 2,
-        feedbackAddress = 3
+        feedbackAddress = 2,
+        dryWetMixAddress = 3
     };
     
     // MARK: Member Functions
@@ -72,17 +72,17 @@ public:
         }
         frequencyRamper.setImmediate(frequency);
         depthRamper.setImmediate(depth);
-        dryWetMixRamper.setImmediate(dryWetMix);
         feedbackRamper.setImmediate(feedback);
+        dryWetMixRamper.setImmediate(dryWetMix);
     }
 
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
         frequencyRamper.init();
         depthRamper.init();
-        dryWetMixRamper.init();
         feedbackRamper.init();
-        
+        dryWetMixRamper.init();
+
         minDelayMs = CHORUS_MIN_DELAY_MS;
         maxDelayMs = CHORUS_MAX_DELAY_MS;
         switch (effectType) {
@@ -119,8 +119,8 @@ public:
         resetted = true;
         frequencyRamper.reset();
         depthRamper.reset();
-        dryWetMixRamper.reset();
         feedbackRamper.reset();
+        dryWetMixRamper.reset();
     }
 
     void setFrequency(float value) {
@@ -178,11 +178,11 @@ public:
             case depthAddress:
                 depthRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
                 break;
-            case dryWetMixAddress:
-                dryWetMixRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
-                break;
             case feedbackAddress:
                 feedbackRamper.setUIValue(clamp(value, minFeedback, maxFeedback));
+                break;
+            case dryWetMixAddress:
+                dryWetMixRamper.setUIValue(clamp(value, MIN_FRACTION, MAX_FRACTION));
                 break;
         }
     }
@@ -193,10 +193,10 @@ public:
                 return frequencyRamper.getUIValue();
             case depthAddress:
                 return depthRamper.getUIValue();
-            case dryWetMixAddress:
-                return dryWetMixRamper.getUIValue();
             case feedbackAddress:
                 return feedbackRamper.getUIValue();
+            case dryWetMixAddress:
+                return dryWetMixRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -222,11 +222,11 @@ public:
             case depthAddress:
                 depthRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
                 break;
-            case dryWetMixAddress:
-                dryWetMixRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
-                break;
             case feedbackAddress:
                 feedbackRamper.startRamp(clamp(value, minFeedback, maxFeedback), duration);
+                break;
+            case dryWetMixAddress:
+                dryWetMixRamper.startRamp(clamp(value, MIN_FRACTION, MAX_FRACTION), duration);
                 break;
         }
     }
@@ -240,8 +240,8 @@ public:
             frequency = frequencyRamper.getAndStep();
             modOscillator.setFrequency(frequency);
             depth = depthRamper.getAndStep();
-            dryWetMix = dryWetMixRamper.getAndStep();
             feedback = feedbackRamper.getAndStep();
+            dryWetMix = dryWetMixRamper.getAndStep();
             leftDelayLine.setFeedback(feedback);
             rightDelayLine.setFeedback(feedback);
 

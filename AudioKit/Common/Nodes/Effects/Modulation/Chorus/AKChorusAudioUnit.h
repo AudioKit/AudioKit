@@ -12,8 +12,8 @@
 @interface AKChorusAudioUnit : AKAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float depth;
-@property (nonatomic) float dryWetMix;
 @property (nonatomic) float feedback;
+@property (nonatomic) float dryWetMix;
 @end
 
 

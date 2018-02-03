@@ -26,11 +26,11 @@
 - (void)setDepth:(float)depth {
     _kernel.setDepth(depth);
 }
-- (void)setDryWetMix:(float)dryWetMix {
-    _kernel.setDryWetMix(dryWetMix);
-}
 - (void)setFeedback:(float)feedback {
     _kernel.setFeedback(feedback);
+}
+- (void)setDryWetMix:(float)dryWetMix {
+    _kernel.setDryWetMix(dryWetMix);
 }
 
 
@@ -42,25 +42,18 @@ standardKernelPassthroughs()
 
     // Create parameter objects
     AUParameter *frequencyAUParameter = [AUParameter parameter:@"frequency"
-                                                        name:@"Mod Frequency in Hz."
+                                                          name:@"Mod Frequency in Hz."
                                                        address:AKChorusDSPKernel::frequencyAddress
-                                                         min:MIN_FREQUENCY_HZ
-                                                         max:MAX_FREQUENCY_HZ
-                                                        unit:kAudioUnitParameterUnit_Generic];
+                                                           min:MIN_FREQUENCY_HZ
+                                                           max:MAX_FREQUENCY_HZ
+                                                          unit:kAudioUnitParameterUnit_Generic];
     
     AUParameter *depthAUParameter = [AUParameter parameter:@"depth"
-                                                         name:@"Mod depth fraction."
-                                                      address:AKChorusDSPKernel::depthAddress
-                                                          min:MIN_FRACTION
-                                                          max:MAX_FRACTION
-                                                         unit:kAudioUnitParameterUnit_Generic];
-    
-    AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
-                                                            name:@"Dry Wet Mix."
-                                                         address:AKChorusDSPKernel::dryWetMixAddress
-                                                             min:MIN_FRACTION
-                                                             max:MAX_FRACTION
-                                                            unit:kAudioUnitParameterUnit_Generic];
+                                                      name:@"Mod depth fraction."
+                                                   address:AKChorusDSPKernel::depthAddress
+                                                       min:MIN_FRACTION
+                                                       max:MAX_FRACTION
+                                                      unit:kAudioUnitParameterUnit_Generic];
     
     AUParameter *feedbackAUParameter = [AUParameter parameter:@"feedback"
                                                          name:@"Feedback fraction."
@@ -69,23 +62,31 @@ standardKernelPassthroughs()
                                                           max:CHORUS_MAX_FEEDBACK
                                                          unit:kAudioUnitParameterUnit_Generic];
 
+    AUParameter *dryWetMixAUParameter = [AUParameter parameter:@"dryWetMix"
+                                                          name:@"Dry Wet Mix."
+                                                       address:AKChorusDSPKernel::dryWetMixAddress
+                                                           min:MIN_FRACTION
+                                                           max:MAX_FRACTION
+                                                          unit:kAudioUnitParameterUnit_Generic];
+
+
     // Initialize the parameter values.
     frequencyAUParameter.value = DEFAULT_FREQUENCY_HZ;
     depthAUParameter.value = MIN_FRACTION;
-    dryWetMixAUParameter.value = CHORUS_DEFAULT_DRYWETMIX;
     feedbackAUParameter.value = MIN_FRACTION;
+    dryWetMixAUParameter.value = CHORUS_DEFAULT_DRYWETMIX;
 
     _kernel.setParameter(AKChorusDSPKernel::frequencyAddress, frequencyAUParameter.value);
     _kernel.setParameter(AKChorusDSPKernel::depthAddress, depthAUParameter.value);
-    _kernel.setParameter(AKChorusDSPKernel::dryWetMixAddress, dryWetMixAUParameter.value);
     _kernel.setParameter(AKChorusDSPKernel::feedbackAddress, feedbackAUParameter.value);
+    _kernel.setParameter(AKChorusDSPKernel::dryWetMixAddress, dryWetMixAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
                                              frequencyAUParameter,
                                              depthAUParameter,
-                                             dryWetMixAUParameter,
-                                             feedbackAUParameter
+                                             feedbackAUParameter,
+                                             dryWetMixAUParameter
                                              ]];
 
     parameterTreeBlock(Chorus)
