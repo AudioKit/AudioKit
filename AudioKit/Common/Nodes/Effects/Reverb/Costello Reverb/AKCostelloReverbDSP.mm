@@ -23,9 +23,9 @@ struct AKCostelloReverbDSP::_Internal {
 
 AKCostelloReverbDSP::AKCostelloReverbDSP() : _private(new _Internal) {
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(10000);
+    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(10000);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
 }
 
 AKCostelloReverbDSP::~AKCostelloReverbDSP() = default;
