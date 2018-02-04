@@ -32,7 +32,15 @@ private:
 public:
     AKCostelloReverbDSP();
     ~AKCostelloReverbDSP();
-    
+
+    float feedbackLowerBound = 0.0f;
+    float feedbackUpperBound = 1.0f;
+    float cutoffFrequencyLowerBound = 12.0f;
+    float cutoffFrequencyUpperBound = 20000.0f;
+
+    float defaultFeedback = 0.6;
+    float defaultCutoffFrequency = 4000.0f;
+
     /** Uses the ParameterAddress as a key */
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 

@@ -1,13 +1,19 @@
 //
-//  AKCostelloReverbDSP.cpp
+//  AKCostelloReverbDSP.mm
 //  AudioKit
 //
-//  Created by Stéphane Peter on 2/3/18.
+//  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #include "AKCostelloReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
+
+extern "C" void* createCostelloReverbDSP(int nChannels, double sampleRate) {
+    AKCostelloReverbDSP* dsp = new AKCostelloReverbDSP();
+    dsp->init(nChannels, sampleRate);
+    return dsp;
+}
 
 struct AKCostelloReverbDSP::_Internal {
     sp_revsc *_revsc;
@@ -16,9 +22,9 @@ struct AKCostelloReverbDSP::_Internal {
 };
 
 AKCostelloReverbDSP::AKCostelloReverbDSP() : _private(new _Internal) {
-    _private->feedbackRamp.setTarget(0.6, true);
+    _private->feedbackRamp.setTarget(defaultFeedback, true);
     _private->feedbackRamp.setDurationInSamples(10000);
-    _private->cutoffFrequencyRamp.setTarget(4000.0, true);
+    _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
     _private->cutoffFrequencyRamp.setDurationInSamples(10000);
 }
 
@@ -28,10 +34,10 @@ AKCostelloReverbDSP::~AKCostelloReverbDSP() = default;
 void AKCostelloReverbDSP::setParameter(AUParameterAddress address, float value, bool immediate) {
     switch (address) {
         case AKCostelloReverbParameterFeedback:
-            _private->feedbackRamp.setTarget(value, immediate);
+            _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKCostelloReverbParameterCutoffFrequency:
-            _private->cutoffFrequencyRamp.setTarget(value, immediate);
+            _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKCostelloReverbParameterRampTime:
             _private->feedbackRamp.setRampTime(value, _sampleRate);
@@ -57,8 +63,8 @@ void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_revsc_create(&_private->_revsc);
     sp_revsc_init(_sp, _private->_revsc);
-    _private->_revsc->feedback = 0.6;
-    _private->_revsc->lpfreq = 4000.0;
+    _private->_revsc->feedback = defaultFeedback;
+    _private->_revsc->lpfreq = defaultCutoffFrequency;
 }
 
 void AKCostelloReverbDSP::destroy() {

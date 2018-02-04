@@ -660,7 +660,6 @@
 		C4A4328C200618250005BFE4 /* AKChowningReverb.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A4328B200618240005BFE4 /* AKChowningReverb.mm */; };
 		C4A43290200618410005BFE4 /* AKCostelloReverbAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A4328D200618400005BFE4 /* AKCostelloReverbAudioUnit.swift */; };
 		C4A43291200618410005BFE4 /* AKCostelloReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4A43292200618410005BFE4 /* AKCostelloReverb.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A4328F200618410005BFE4 /* AKCostelloReverb.mm */; };
 		C4A43294200618650005BFE4 /* AKChowningReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A43293200618650005BFE4 /* AKChowningReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4A8A4C21EE3FFF400FDBE68 /* AKMetronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */; };
 		C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916111C24ED23006C1A15 /* pluckedString.swift */; };
@@ -1657,7 +1656,6 @@
 		C4A4328B200618240005BFE4 /* AKChowningReverb.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKChowningReverb.mm; sourceTree = "<group>"; };
 		C4A4328D200618400005BFE4 /* AKCostelloReverbAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverbAudioUnit.swift; sourceTree = "<group>"; };
 		C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCostelloReverbDSP.hpp; sourceTree = "<group>"; };
-		C4A4328F200618410005BFE4 /* AKCostelloReverb.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverb.mm; sourceTree = "<group>"; };
 		C4A43293200618650005BFE4 /* AKChowningReverbDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKChowningReverbDSP.hpp; sourceTree = "<group>"; };
 		C4A8A4C11EE3FFF400FDBE68 /* AKMetronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMetronome.swift; path = Metronome/AKMetronome.swift; sourceTree = "<group>"; };
 		C4A916111C24ED23006C1A15 /* pluckedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pluckedString.swift; sourceTree = "<group>"; };
@@ -3078,7 +3076,6 @@
 			children = (
 				C45380031C3A4CCE00A51738 /* AKCostelloReverb.swift */,
 				C4A4328D200618400005BFE4 /* AKCostelloReverbAudioUnit.swift */,
-				C4A4328F200618410005BFE4 /* AKCostelloReverb.mm */,
 				C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */,
 				EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */,
 				E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */,
@@ -4186,10 +4183,10 @@
 		C4AC0B351FC944E300EDA024 /* AK4 */ = {
 			isa = PBXGroup;
 			children = (
-				C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */,
-				EA03BFC7201DD29000E8BE2C /* AKDSPBase.mm */,
 				C4AC0B371FC944E300EDA024 /* AKAudioUnitBase.h */,
 				C4AC0B381FC944E300EDA024 /* AKAudioUnitBase.mm */,
+				C4AC0B361FC944E300EDA024 /* AKDSPBase.hpp */,
+				EA03BFC7201DD29000E8BE2C /* AKDSPBase.mm */,
 				C466DED7200A15F80032D0A5 /* AKGeneratorAudioUnitBase.h */,
 				C466DED6200A15F70032D0A5 /* AKGeneratorAudioUnitBase.mm */,
 			);
@@ -5263,7 +5260,6 @@
 				C4077BC42008A87A00E5923C /* AKDynamicRangeCompressorAudioUnit.swift in Sources */,
 				C4F8C9141DCA8CE4001F38F2 /* say.c in Sources */,
 				C48C6CA51D3C15F1008EA51B /* scale.c in Sources */,
-				C4A43292200618410005BFE4 /* AKCostelloReverb.mm in Sources */,
 				C48C6CA21D3C15F1008EA51B /* rms.c in Sources */,
 				C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */,
 				C48DB7E81CD5797100D1EC13 /* MIDIPacket+SequenceType.swift in Sources */,
