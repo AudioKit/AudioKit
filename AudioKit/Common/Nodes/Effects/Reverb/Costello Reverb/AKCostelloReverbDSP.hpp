@@ -16,8 +16,6 @@ typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
     AKCostelloReverbParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
-
 #ifndef __cplusplus
 
 void* createCostelloReverbDSP(int nChannels, double sampleRate);
@@ -27,16 +25,14 @@ void* createCostelloReverbDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
-
-    sp_revsc *_revsc;
-
 private:
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp cutoffFrequencyRamp;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
     AKCostelloReverbDSP();
-
+    ~AKCostelloReverbDSP();
+    
     /** Uses the ParameterAddress as a key */
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
