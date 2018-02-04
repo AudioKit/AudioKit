@@ -9,7 +9,7 @@
 #ifdef __cplusplus
 #pragma once
 
-#import "AKSoundPipeKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 
 class AKMorphingOscillatorDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:

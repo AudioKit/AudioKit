@@ -24,7 +24,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSoundpipeDSPBase.hpp"
 #import "DSPKernel.hpp"
 #import "AKDSPKernel.hpp"
-#import "AKSoundPipeKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import "AKBankDSPKernel.hpp"
 
 // Analysis
