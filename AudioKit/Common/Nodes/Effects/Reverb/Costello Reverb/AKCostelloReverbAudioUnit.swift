@@ -18,11 +18,11 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var feedback: Double = 0.6 {
+    var feedback: Double = AKCostelloReverb.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
 
-    var cutoffFrequency: Double = 4_000.0 {
+    var cutoffFrequency: Double = AKCostelloReverb.defaultCutoffFrequency {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
 
@@ -45,8 +45,8 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Feedback",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKCostelloReverb.feedbackRange.lowerBound),
+            max: Float(AKCostelloReverb.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -57,8 +57,8 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency",
             address: AUParameterAddress(1),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKCostelloReverb.cutoffFrequencyRange.lowerBound),
+            max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -66,8 +66,8 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             dependentParameters: nil
         )
         setParameterTree(AUParameterTree.createTree(withChildren: [feedback, cutoffFrequency]))
-        feedback.value = 0.6
-        cutoffFrequency.value = 4_000.0
+        feedback.value = Float(AKCostelloReverb.defaultFeedback)
+        cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
