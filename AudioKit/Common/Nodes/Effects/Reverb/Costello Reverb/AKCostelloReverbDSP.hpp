@@ -41,6 +41,8 @@ public:
     float defaultFeedback = 0.6;
     float defaultCutoffFrequency = 4000.0f;
 
+    int defaultRampTimeSamples = 10000;
+
     /** Uses the ParameterAddress as a key */
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
