@@ -928,6 +928,7 @@
 		EA7D07251F4E641A00707706 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41411C40E3A5009D870B /* EZAudioPlotGL.m */; };
 		EA7D07261F4E655200707706 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41331C40E3A5009D870B /* EZAudioDisplayLink.m */; };
 		EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
 		EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF71D8B20249A880018946B /* AKAudioEffect.h */; };
 		EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D8C20249A880018946B /* AKAudioEffect.mm */; };
@@ -1919,6 +1920,7 @@
 		EA7D07041F4E63C200707706 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA8BA9811C5E24AE00BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		EA8F6ED32014B17000B68497 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
@@ -3078,6 +3080,7 @@
 				C4A4328D200618400005BFE4 /* AKCostelloReverbAudioUnit.swift */,
 				C4A4328F200618410005BFE4 /* AKCostelloReverb.mm */,
 				C4A4328E200618400005BFE4 /* AKCostelloReverbDSP.hpp */,
+				EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */,
 				E4630B491D2BC78600437E75 /* AKCostelloReverbPresets.swift */,
 			);
 			path = "Costello Reverb";
@@ -5151,6 +5154,7 @@
 				C4F8C8BC1DCA8CE4001F38F2 /* butbp.c in Sources */,
 				C48C6C771D3C15F1008EA51B /* fold.c in Sources */,
 				C4F8C8D71DCA8CE4001F38F2 /* gbuzz.c in Sources */,
+				EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */,
 				C4AA7BFE1FD2A7C000040720 /* AKFFTTap.swift in Sources */,
 				C4198D5A1DCD9BB700D7C13F /* save.swift in Sources */,
 				C48C6C941D3C15F1008EA51B /* pluck.c in Sources */,
