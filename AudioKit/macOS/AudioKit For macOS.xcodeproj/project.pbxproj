@@ -723,7 +723,6 @@
 		C4A43286200616560005BFE4 /* AKCostelloReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A43282200616550005BFE4 /* AKCostelloReverb.swift */; };
 		C4A43287200616560005BFE4 /* AKCostelloReverbDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A43283200616560005BFE4 /* AKCostelloReverbDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4A43288200616560005BFE4 /* AKCostelloReverbAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A43284200616560005BFE4 /* AKCostelloReverbAudioUnit.swift */; };
-		C4A43289200616560005BFE4 /* AKCostelloReverb.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A43285200616560005BFE4 /* AKCostelloReverb.mm */; };
 		C4A579BA1EC1B7580072D48A /* AKMicrophoneTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A579B91EC1B7580072D48A /* AKMicrophoneTracker.swift */; };
 		C4A579BC1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A579BB1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m */; };
 		C4A579BE1EC1B87F0072D48A /* AKMicrophoneTrackerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = C4A579BD1EC1B7C30072D48A /* AKMicrophoneTrackerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1721,7 +1720,6 @@
 		C4A43282200616550005BFE4 /* AKCostelloReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverb.swift; sourceTree = "<group>"; };
 		C4A43283200616560005BFE4 /* AKCostelloReverbDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCostelloReverbDSP.hpp; sourceTree = "<group>"; };
 		C4A43284200616560005BFE4 /* AKCostelloReverbAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverbAudioUnit.swift; sourceTree = "<group>"; };
-		C4A43285200616560005BFE4 /* AKCostelloReverb.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverb.mm; sourceTree = "<group>"; };
 		C4A579B91EC1B7580072D48A /* AKMicrophoneTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMicrophoneTracker.swift; path = "Microphone Tracker/AKMicrophoneTracker.swift"; sourceTree = "<group>"; };
 		C4A579BB1EC1B7B10072D48A /* AKMicrophoneTrackerEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKMicrophoneTrackerEngine.m; path = "Microphone Tracker/AKMicrophoneTrackerEngine.m"; sourceTree = "<group>"; };
 		C4A579BD1EC1B7C30072D48A /* AKMicrophoneTrackerEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKMicrophoneTrackerEngine.h; path = "Microphone Tracker/AKMicrophoneTrackerEngine.h"; sourceTree = "<group>"; };
@@ -3477,7 +3475,6 @@
 			children = (
 				C4A43282200616550005BFE4 /* AKCostelloReverb.swift */,
 				C4A43284200616560005BFE4 /* AKCostelloReverbAudioUnit.swift */,
-				C4A43285200616560005BFE4 /* AKCostelloReverb.mm */,
 				C4A43283200616560005BFE4 /* AKCostelloReverbDSP.hpp */,
 				EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */,
 				C45665BC1D448D7E00D26565 /* AKCostelloReverbPresets.swift */,
@@ -4654,7 +4651,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -5045,7 +5042,6 @@
 				C456690F1D448D7E00D26565 /* AKLowShelfFilter.swift in Sources */,
 				C4F8C9F61DCA9256001F38F2 /* loadfile.c in Sources */,
 				C4B8A2FE1E6583D9006432FA /* AKSampler+getAUPresetXML.swift in Sources */,
-				C4A43289200616560005BFE4 /* AKCostelloReverb.mm in Sources */,
 				EAB4E0532026A0A400171A16 /* AKCostelloReverbDSP.mm in Sources */,
 				C45667351D448D7E00D26565 /* tdiv.c in Sources */,
 				C45669321D448D7E00D26565 /* AKToneComplementFilter.swift in Sources */,
@@ -5661,7 +5657,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
