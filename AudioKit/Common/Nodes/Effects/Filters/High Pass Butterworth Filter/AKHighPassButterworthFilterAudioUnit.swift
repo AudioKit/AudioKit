@@ -18,7 +18,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 500.0 {
+    var cutoffFrequency: Double = AKHighPassButterworthFilter.defaultCutoffFrequency {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
 
@@ -41,17 +41,17 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.lowerBound),
+            max: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
-        cutoffFrequency.value = 500.0
+        cutoffFrequency.value = Float(AKHighPassButterworthFilter.defaultCutoffFrequency)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
