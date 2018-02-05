@@ -28,25 +28,25 @@ class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
-
+ 
 public:
     AKCostelloReverbDSP();
     ~AKCostelloReverbDSP();
 
-    float feedbackLowerBound = 0.0f;
-    float feedbackUpperBound = 1.0f;
-    float cutoffFrequencyLowerBound = 12.0f;
-    float cutoffFrequencyUpperBound = 20000.0f;
+    float feedbackLowerBound = 0.0;
+    float feedbackUpperBound = 1.0;
+    float cutoffFrequencyLowerBound = 12.0;
+    float cutoffFrequencyUpperBound = 20000.0;
 
     float defaultFeedback = 0.6;
-    float defaultCutoffFrequency = 4000.0f;
+    float defaultCutoffFrequency = 4000.0;
 
     int defaultRampTimeSamples = 10000;
 
-    /** Uses the ParameterAddress as a key */
+    // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    /** Uses the ParameterAddress as a key */
+    // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
     void init(int _channels, double _sampleRate) override;
@@ -54,7 +54,6 @@ public:
     void destroy();
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-    
 };
 
 #endif
