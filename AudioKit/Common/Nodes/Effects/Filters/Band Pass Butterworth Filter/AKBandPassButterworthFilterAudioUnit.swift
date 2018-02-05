@@ -18,10 +18,11 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 2_000.0 {
+    var centerFrequency: Double = AKBandPassButterworthFilter.defaultCenterFrequency {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
-    var bandwidth: Double = 100.0 {
+
+    var bandwidth: Double = AKBandPassButterworthFilter.defaultBandwidth {
         didSet { setParameter(.bandwidth, value: bandwidth) }
     }
 
@@ -44,8 +45,8 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKBandPassButterworthFilter.centerFrequencyRange.lowerBound),
+            max: Float(AKBandPassButterworthFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,18 +57,18 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 20_000.0,
+            min: Float(AKBandPassButterworthFilter.bandwidthRange.lowerBound),
+            max: Float(AKBandPassButterworthFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
-        centerFrequency.value = 2_000.0
-        bandwidth.value = 100.0
+        centerFrequency.value = Float(AKBandPassButterworthFilter.defaultCenterFrequency)
+        bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
