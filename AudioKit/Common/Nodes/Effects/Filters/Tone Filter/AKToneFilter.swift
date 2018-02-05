@@ -14,11 +14,16 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
+
+    /// Lower and upper bounds for Half Power Point
+    public static let halfPowerPointRange = 12.0 ... 20000.0
+
+    /// Initial value for Half Power Point
+    public static let defaultHalfPowerPoint = 1000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -28,7 +33,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    @objc open dynamic var halfPowerPoint: Double = 1_000.0 {
+    @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
             if halfPowerPoint == newValue {
                 return
@@ -58,7 +63,8 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        halfPowerPoint: Double = 1_000.0) {
+        halfPowerPoint: Double = defaultHalfPowerPoint
+        ) {
 
         self.halfPowerPoint = halfPowerPoint
 
