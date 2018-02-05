@@ -18,10 +18,11 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var bitDepth: Double = 8 {
+    var bitDepth: Double = AKBitCrusher.defaultBitDepth {
         didSet { setParameter(.bitDepth, value: bitDepth) }
     }
-    var sampleRate: Double = 10_000 {
+
+    var sampleRate: Double = AKBitCrusher.defaultSampleRate {
         didSet { setParameter(.sampleRate, value: sampleRate) }
     }
 
@@ -44,8 +45,8 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             withIdentifier: "bitDepth",
             name: "Bit Depth",
             address: AUParameterAddress(0),
-            min: 1,
-            max: 24,
+            min: Float(AKBitCrusher.bitDepthRange.lowerBound),
+            max: Float(AKBitCrusher.bitDepthRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -56,18 +57,18 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             withIdentifier: "sampleRate",
             name: "Sample Rate (Hz)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 20_000.0,
+            min: Float(AKBitCrusher.sampleRateRange.lowerBound),
+            max: Float(AKBitCrusher.sampleRateRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
-        bitDepth.value = 8
-        sampleRate.value = 10_000
+        bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
+        sampleRate.value = Float(AKBitCrusher.defaultSampleRate)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
