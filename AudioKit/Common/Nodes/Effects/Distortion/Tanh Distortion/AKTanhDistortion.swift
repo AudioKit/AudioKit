@@ -14,7 +14,6 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -22,6 +21,30 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var postgainParameter: AUParameter?
     fileprivate var positiveShapeParameterParameter: AUParameter?
     fileprivate var negativeShapeParameterParameter: AUParameter?
+
+    /// Lower and upper bounds for Pregain
+    public static let pregainRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Postgain
+    public static let postgainRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Positive Shape Parameter
+    public static let positiveShapeParameterRange = -10.0 ... 10.0
+
+    /// Lower and upper bounds for Negative Shape Parameter
+    public static let negativeShapeParameterRange = -10.0 ... 10.0
+
+    /// Initial value for Pregain
+    public static let defaultPregain = 2.0
+
+    /// Initial value for Postgain
+    public static let defaultPostgain = 0.5
+
+    /// Initial value for Positive Shape Parameter
+    public static let defaultPositiveShapeParameter = 0.0
+
+    /// Initial value for Negative Shape Parameter
+    public static let defaultNegativeShapeParameter = 0.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -31,7 +54,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @objc open dynamic var pregain: Double = 2.0 {
+    @objc open dynamic var pregain: Double = defaultPregain {
         willSet {
             if pregain == newValue {
                 return
@@ -47,7 +70,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Gain applied after waveshaping
-    @objc open dynamic var postgain: Double = 0.5 {
+    @objc open dynamic var postgain: Double = defaultPostgain {
         willSet {
             if postgain == newValue {
                 return
@@ -63,7 +86,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @objc open dynamic var positiveShapeParameter: Double = 0.0 {
+    @objc open dynamic var positiveShapeParameter: Double = defaultPositiveShapeParameter {
         willSet {
             if positiveShapeParameter == newValue {
                 return
@@ -79,7 +102,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Like the positive shape parameter, only for the negative part.
-    @objc open dynamic var negativeShapeParameter: Double = 0.0 {
+    @objc open dynamic var negativeShapeParameter: Double = defaultNegativeShapeParameter {
         willSet {
             if negativeShapeParameter == newValue {
                 return
@@ -112,10 +135,11 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        pregain: Double = 2.0,
-        postgain: Double = 0.5,
-        positiveShapeParameter: Double = 0.0,
-        negativeShapeParameter: Double = 0.0) {
+        pregain: Double = defaultPregain,
+        postgain: Double = defaultPostgain,
+        positiveShapeParameter: Double = defaultPositiveShapeParameter,
+        negativeShapeParameter: Double = defaultNegativeShapeParameter
+        ) {
 
         self.pregain = pregain
         self.postgain = postgain
