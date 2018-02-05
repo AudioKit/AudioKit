@@ -54,7 +54,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            // this means it's direct inline
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -71,7 +70,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            // this means it's direct inline
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }

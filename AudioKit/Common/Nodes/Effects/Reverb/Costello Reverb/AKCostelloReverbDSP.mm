@@ -2,7 +2,7 @@
 //  AKCostelloReverbDSP.mm
 //  AudioKit
 //
-//  Created by Stéphane Peter, revision history on Github.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -28,10 +28,8 @@ AKCostelloReverbDSP::AKCostelloReverbDSP() : _private(new _Internal) {
     _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
 }
 
-AKCostelloReverbDSP::~AKCostelloReverbDSP() = default;
-
-/** Uses the ParameterAddress as a key */
-void AKCostelloReverbDSP::setParameter(AUParameterAddress address, float value, bool immediate) {
+// Uses the ParameterAddress as a key
+void AKCostelloReverbDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKCostelloReverbParameterFeedback:
             _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
@@ -46,8 +44,8 @@ void AKCostelloReverbDSP::setParameter(AUParameterAddress address, float value, 
     }
 }
 
-/** Uses the ParameterAddress as a key */
-float AKCostelloReverbDSP::getParameter(AUParameterAddress address) {
+// Uses the ParameterAddress as a key
+float AKCostelloReverbDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKCostelloReverbParameterFeedback:
             return _private->feedbackRamp.getTarget();
@@ -73,10 +71,10 @@ void AKCostelloReverbDSP::destroy() {
 }
 
 void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    
+
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-        
+
         // do gain ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
             _private->feedbackRamp.advanceTo(_now + frameOffset);
@@ -85,7 +83,7 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         _private->_revsc->feedback = _private->feedbackRamp.getValue();
         _private->_revsc->lpfreq = _private->cutoffFrequencyRamp.getValue();
-        
+
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
