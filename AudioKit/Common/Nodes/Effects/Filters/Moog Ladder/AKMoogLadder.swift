@@ -18,12 +18,23 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 1000.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 0.5
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -33,7 +44,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter cutoff frequency.
-    @objc open dynamic var cutoffFrequency: Double = 1_000 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -49,7 +60,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @objc open dynamic var resonance: Double = 0.5 {
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
             if resonance == newValue {
                 return
@@ -80,8 +91,9 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1_000,
-        resonance: Double = 0.5) {
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
