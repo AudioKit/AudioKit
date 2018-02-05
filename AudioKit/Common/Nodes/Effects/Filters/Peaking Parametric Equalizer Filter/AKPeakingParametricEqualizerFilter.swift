@@ -14,13 +14,30 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
     fileprivate var qParameter: AUParameter?
+
+    /// Lower and upper bounds for Center Frequency
+    public static let centerFrequencyRange = 12.0 ... 20000.0
+
+    /// Lower and upper bounds for Gain
+    public static let gainRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Q
+    public static let qRange = 0.0 ... 2.0
+
+    /// Initial value for Center Frequency
+    public static let defaultCenterFrequency = 1000.0
+
+    /// Initial value for Gain
+    public static let defaultGain = 1.0
+
+    /// Initial value for Q
+    public static let defaultQ = 0.707
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +47,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Center frequency.
-    @objc open dynamic var centerFrequency: Double = 1_000 {
+    @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -46,7 +63,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-    @objc open dynamic var gain: Double = 1.0 {
+    @objc open dynamic var gain: Double = defaultGain {
         willSet {
             if gain == newValue {
                 return
@@ -62,7 +79,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @objc open dynamic var q: Double = 0.707 {
+    @objc open dynamic var q: Double = defaultQ {
         willSet {
             if q == newValue {
                 return
@@ -94,9 +111,10 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1_000,
-        gain: Double = 1.0,
-        q: Double = 0.707) {
+        centerFrequency: Double = defaultCenterFrequency,
+        gain: Double = defaultGain,
+        q: Double = defaultQ
+        ) {
 
         self.centerFrequency = centerFrequency
         self.gain = gain
