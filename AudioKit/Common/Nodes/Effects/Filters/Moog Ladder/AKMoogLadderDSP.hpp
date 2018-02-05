@@ -16,8 +16,6 @@ typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
     AKMoogLadderParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
-
 #ifndef __cplusplus
 
 void* createMoogLadderDSP(int nChannels, double sampleRate);
@@ -27,107 +25,35 @@ void* createMoogLadderDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKMoogLadderDSP : public AKSoundpipeDSPBase {
-
-    sp_moogladder *_moogladder0;
-    sp_moogladder *_moogladder1;
-
 private:
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
-   
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKMoogLadderDSP() {
-        cutoffFrequencyRamp.setTarget(1000, true);
-        cutoffFrequencyRamp.setDurationInSamples(10000);
-        resonanceRamp.setTarget(0.5, true);
-        resonanceRamp.setDurationInSamples(10000);
-    }
+    AKMoogLadderDSP();
+    ~AKMoogLadderDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKMoogLadderParameterCutoffFrequency:
-                cutoffFrequencyRamp.setTarget(value, immediate);
-                break;
-            case AKMoogLadderParameterResonance:
-                resonanceRamp.setTarget(value, immediate);
-                break;
-            case AKMoogLadderParameterRampTime:
-                cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-                resonanceRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float cutoffFrequencyLowerBound = 12.0;
+    float cutoffFrequencyUpperBound = 20000.0;
+    float resonanceLowerBound = 0.0;
+    float resonanceUpperBound = 2.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKMoogLadderParameterCutoffFrequency:
-                return cutoffFrequencyRamp.getTarget();
-            case AKMoogLadderParameterResonance:
-                return resonanceRamp.getTarget();
-            case AKMoogLadderParameterRampTime:
-                return cutoffFrequencyRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultCutoffFrequency = 1000;
+    float defaultResonance = 0.5;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_moogladder_create(&_moogladder0);
-        sp_moogladder_create(&_moogladder1);
-        sp_moogladder_init(_sp, _moogladder0);
-        sp_moogladder_init(_sp, _moogladder1);
-        _moogladder0->freq = 1000;
-        _moogladder1->freq = 1000;
-        _moogladder0->res = 0.5;
-        _moogladder1->res = 0.5;
-    }
+    int defaultRampTimeSamples = 10000;
 
-    void destroy() {
-        sp_moogladder_destroy(&_moogladder0);
-        sp_moogladder_destroy(&_moogladder1);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void destroy();
 
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-                resonanceRamp.advanceTo(_now + frameOffset);
-            }
-            _moogladder0->freq = cutoffFrequencyRamp.getValue();
-            _moogladder1->freq = cutoffFrequencyRamp.getValue();            
-            _moogladder0->res = resonanceRamp.getValue();
-            _moogladder1->res = resonanceRamp.getValue();            
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-                if (channel == 0) {
-                    sp_moogladder_compute(_sp, _moogladder0, in, out);
-                } else {
-                    sp_moogladder_compute(_sp, _moogladder1, in, out);
-                }
-            }
-            if (_playing) {
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

@@ -32,7 +32,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public static let feedbackRange = 0.0 ... 1.0
 
     /// Initial value for Fundamental Frequency
-    public static let defaultFundamentalFrequency = 100
+    public static let defaultFundamentalFrequency = 100.0
 
     /// Initial value for Feedback
     public static let defaultFeedback = 0.95
