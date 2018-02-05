@@ -14,13 +14,30 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "awah")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var wahParameter: AUParameter?
     fileprivate var mixParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
+
+    /// Lower and upper bounds for Wah
+    public static let wahRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Mix
+    public static let mixRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 1.0
+
+    /// Initial value for Wah
+    public static let defaultWah = 0.0
+
+    /// Initial value for Mix
+    public static let defaultMix = 1.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 0.1
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +47,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Wah Amount
-    @objc open dynamic var wah: Double = 0.0 {
+    @objc open dynamic var wah: Double = defaultWah {
         willSet {
             if wah == newValue {
                 return
@@ -46,7 +63,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry/Wet Mix
-    @objc open dynamic var mix: Double = 1.0 {
+    @objc open dynamic var mix: Double = defaultMix {
         willSet {
             if mix == newValue {
                 return
@@ -62,7 +79,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Overall level
-    @objc open dynamic var amplitude: Double = 0.1 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             if amplitude == newValue {
                 return
@@ -94,9 +111,10 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        wah: Double = 0.0,
-        mix: Double = 1.0,
-        amplitude: Double = 0.1) {
+        wah: Double = defaultWah,
+        mix: Double = defaultMix,
+        amplitude: Double = defaultAmplitude
+        ) {
 
         self.wah = wah
         self.mix = mix
