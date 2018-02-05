@@ -15,12 +15,23 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 100.0 ... 20000.0
+
+    /// Lower and upper bounds for Bandwidth
+    public static let bandwidthRange = 0.0 ... 10000.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 4000.0
+
+    /// Initial value for Bandwidth
+    public static let defaultBandwidth = 1000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +41,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    @objc open dynamic var frequency: Double = 4_000.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -46,7 +57,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Bandwidth of the filter.
-    @objc open dynamic var bandwidth: Double = 1_000.0 {
+    @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
             if bandwidth == newValue {
                 return
@@ -77,8 +88,9 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = 4_000.0,
-        bandwidth: Double = 1_000.0) {
+        frequency: Double = defaultFrequency,
+        bandwidth: Double = defaultBandwidth
+        ) {
 
         self.frequency = frequency
         self.bandwidth = bandwidth

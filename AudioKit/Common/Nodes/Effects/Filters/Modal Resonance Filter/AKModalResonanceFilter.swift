@@ -16,12 +16,23 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "modf")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var qualityFactorParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 12.0 ... 20000.0
+
+    /// Lower and upper bounds for Quality Factor
+    public static let qualityFactorRange = 0.0 ... 100.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 500.0
+
+    /// Initial value for Quality Factor
+    public static let defaultQualityFactor = 50.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -31,7 +42,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Resonant frequency of the filter.
-    @objc open dynamic var frequency: Double = 500.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -47,7 +58,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    @objc open dynamic var qualityFactor: Double = 50.0 {
+    @objc open dynamic var qualityFactor: Double = defaultQualityFactor {
         willSet {
             if qualityFactor == newValue {
                 return
@@ -78,8 +89,9 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = 500.0,
-        qualityFactor: Double = 50.0) {
+        frequency: Double = defaultFrequency,
+        qualityFactor: Double = defaultQualityFactor
+        ) {
 
         self.frequency = frequency
         self.qualityFactor = qualityFactor
