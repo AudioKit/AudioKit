@@ -19,12 +19,23 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var fundamentalFrequencyParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
+
+    /// Lower and upper bounds for Fundamental Frequency
+    public static let fundamentalFrequencyRange = 12.0 ... 10000.0
+
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Initial value for Fundamental Frequency
+    public static let defaultFundamentalFrequency = 100
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.95
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -34,7 +45,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Fundamental frequency of string.
-    @objc open dynamic var fundamentalFrequency: Double = 100 {
+    @objc open dynamic var fundamentalFrequency: Double = defaultFundamentalFrequency {
         willSet {
             if fundamentalFrequency == newValue {
                 return
@@ -50,7 +61,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    @objc open dynamic var feedback: Double = 0.95 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -81,8 +92,9 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        fundamentalFrequency: Double = 100,
-        feedback: Double = 0.95) {
+        fundamentalFrequency: Double = defaultFundamentalFrequency,
+        feedback: Double = defaultFeedback
+        ) {
 
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
