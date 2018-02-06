@@ -12,6 +12,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet private var plot: AKNodeOutputPlot!
+
     var oscillator = AKOscillator()
 
     required init?(coder aDecoder: NSCoder) {

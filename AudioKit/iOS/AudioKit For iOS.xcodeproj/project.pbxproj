@@ -587,7 +587,6 @@
 		C48C6CC81D3C15F1008EA51B /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BD21D3C15F1008EA51B /* hash.c */; };
 		C48C6CC91D3C15F1008EA51B /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BD31D3C15F1008EA51B /* parse.c */; };
 		C48C6CCA1D3C15F1008EA51B /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BD41D3C15F1008EA51B /* plumber.c */; };
-		C48C6CCB1D3C15F1008EA51B /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BD51D3C15F1008EA51B /* sporth.c */; };
 		C48C6CCC1D3C15F1008EA51B /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BD61D3C15F1008EA51B /* stack.c */; };
 		C48DB7931CD5373000D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7921CD5373000D1EC13 /* CheckError.swift */; };
 		C48DB7AB1CD554A000D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7A91CD554A000D1EC13 /* AKMIDI+ReceivingMIDI.swift */; };
@@ -5061,7 +5060,6 @@
 				C4F8C8101DCA8864001F38F2 /* incr.c in Sources */,
 				C48C6CCC1D3C15F1008EA51B /* stack.c in Sources */,
 				C48C6C6B1D3C15F1008EA51B /* delay.c in Sources */,
-				C48C6CCB1D3C15F1008EA51B /* sporth.c in Sources */,
 				C48C6C641D3C15F1008EA51B /* clip.c in Sources */,
 				C48C6C681D3C15F1008EA51B /* count.c in Sources */,
 				C41910312009A8540067B5E0 /* AKStereoFieldLimiterAudioUnit.swift in Sources */,
