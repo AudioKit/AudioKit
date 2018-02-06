@@ -18,10 +18,11 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var time: Double = 0 {
+    var time: Double = AKVariableDelay.defaultTime {
         didSet { setParameter(.time, value: time) }
     }
-    var feedback: Double = 0 {
+
+    var feedback: Double = AKVariableDelay.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
 
@@ -44,8 +45,8 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             withIdentifier: "time",
             name: "Delay time (Seconds)",
             address: AUParameterAddress(0),
-            min: 0,
-            max: 10,
+            min: Float(AKVariableDelay.timeRange.lowerBound),
+            max: Float(AKVariableDelay.timeRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -56,18 +57,18 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Feedback (%)",
             address: AUParameterAddress(1),
-            min: 0,
-            max: 1,
+            min: Float(AKVariableDelay.feedbackRange.lowerBound),
+            max: Float(AKVariableDelay.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback]))
-        time.value = 0
-        feedback.value = 0
+        time.value = Float(AKVariableDelay.defaultTime)
+        feedback.value = Float(AKVariableDelay.defaultFeedback)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

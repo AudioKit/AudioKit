@@ -18,13 +18,15 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var shift: Double = 0 {
+    var shift: Double = AKPitchShifter.defaultShift {
         didSet { setParameter(.shift, value: shift) }
     }
-    var windowSize: Double = 1_024 {
+
+    var windowSize: Double = AKPitchShifter.defaultWindowSize {
         didSet { setParameter(.windowSize, value: windowSize) }
     }
-    var crossfade: Double = 512 {
+
+    var crossfade: Double = AKPitchShifter.defaultCrossfade {
         didSet { setParameter(.crossfade, value: crossfade) }
     }
 
@@ -47,8 +49,8 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             withIdentifier: "shift",
             name: "Pitch shift (in semitones)",
             address: AUParameterAddress(0),
-            min: -24.0,
-            max: 24.0,
+            min: Float(AKPitchShifter.shiftRange.lowerBound),
+            max: Float(AKPitchShifter.shiftRange.upperBound),
             unit: .relativeSemiTones,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             withIdentifier: "windowSize",
             name: "Window size (in samples)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 10_000.0,
+            min: Float(AKPitchShifter.windowSizeRange.lowerBound),
+            max: Float(AKPitchShifter.windowSizeRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -71,19 +73,19 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             withIdentifier: "crossfade",
             name: "Crossfade (in samples)",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 10_000.0,
+            min: Float(AKPitchShifter.crossfadeRange.lowerBound),
+            max: Float(AKPitchShifter.crossfadeRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
-        shift.value = 0
-        windowSize.value = 1_024
-        crossfade.value = 512
+        shift.value = Float(AKPitchShifter.defaultShift)
+        windowSize.value = Float(AKPitchShifter.defaultWindowSize)
+        crossfade.value = Float(AKPitchShifter.defaultCrossfade)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

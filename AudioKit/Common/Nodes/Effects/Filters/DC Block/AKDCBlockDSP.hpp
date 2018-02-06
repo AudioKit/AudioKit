@@ -8,9 +8,11 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
+typedef NS_ENUM(AUParameterAddress, AKDCBlockParameter) {
+    AKDCBlockParameterRampTime
+};
 
 #ifndef __cplusplus
 
@@ -21,54 +23,21 @@ void* createDCBlockDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKDCBlockDSP : public AKSoundpipeDSPBase {
-
-    sp_dcblock *_dcblock0;
-    sp_dcblock *_dcblock1;
+private:
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKDCBlockDSP() {}
+    AKDCBlockDSP();
+    ~AKDCBlockDSP();
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_dcblock_create(&_dcblock0);
-        sp_dcblock_create(&_dcblock1);
-        sp_dcblock_init(_sp, _dcblock0);
-        sp_dcblock_init(_sp, _dcblock1);
-    }
+    int defaultRampTimeSamples = 10000;
+    
+    void init(int _channels, double _sampleRate) override;
 
-    void destroy() {
-        sp_dcblock_destroy(&_dcblock0);
-        sp_dcblock_destroy(&_dcblock1);
-        AKSoundpipeDSPBase::destroy();
-    }
+    void destroy();
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-                if (channel == 0) {
-                    sp_dcblock_compute(_sp, _dcblock0, in, out);
-                } else {
-                    sp_dcblock_compute(_sp, _dcblock1, in, out);
-                }
-            }
-            if (_playing) {
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

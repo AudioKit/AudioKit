@@ -14,13 +14,26 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var timeParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
-    fileprivate var maximumDelayTimeParameter: AUParameter?
+
+    /// Lower and upper bounds for Time
+    public static let timeRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Initial value for Time
+    public static let defaultTime = 0.0
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.0
+
+    /// Initial value for Maximum Delay Time
+    public static let defaultMaximumDelayTime = 5.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +43,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @objc open dynamic var time: Double = 0 {
+    @objc open dynamic var time: Double = defaultTime {
         willSet {
             if time == newValue {
                 return
@@ -46,7 +59,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback amount. Should be a value between 0-1.
-    @objc open dynamic var feedback: Double = 0 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -78,9 +91,10 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        time: Double = 0,
-        feedback: Double = 0,
-        maximumDelayTime: Double = 5) {
+        time: Double = defaultTime,
+        feedback: Double = defaultFeedback,
+        maximumDelayTime: Double = defaultMaximumDelayTime
+        ) {
 
         self.time = time
         self.feedback = feedback
@@ -132,10 +146,5 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
-    }
-
-    /// Clear out the delay memory buffer
-    @objc open func clear() {
-        internalAU?.clear()
     }
 }
