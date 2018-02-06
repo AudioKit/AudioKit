@@ -377,7 +377,6 @@
 		C45667501D448D7E00D26565 /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = C456637A1D448D7E00D26565 /* hash.c */; };
 		C45667511D448D7E00D26565 /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = C456637B1D448D7E00D26565 /* parse.c */; };
 		C45667521D448D7E00D26565 /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C456637C1D448D7E00D26565 /* plumber.c */; };
-		C45667531D448D7E00D26565 /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C456637D1D448D7E00D26565 /* sporth.c */; };
 		C45667541D448D7E00D26565 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C456637E1D448D7E00D26565 /* stack.c */; };
 		C45667C41D448D7E00D26565 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C45663F01D448D7E00D26565 /* ADSR.cpp */; };
 		C45667D31D448D7E00D26565 /* DelayA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C45663FF1D448D7E00D26565 /* DelayA.cpp */; };
@@ -4651,7 +4650,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4809,7 +4808,6 @@
 				C47047D01E78FB4C00D9906F /* TubeBell.cpp in Sources */,
 				C45668B21D448D7E00D26565 /* MIDIPacket+SequenceType.swift in Sources */,
 				C456671B1D448D7E00D26565 /* pitchamdf.c in Sources */,
-				C45667531D448D7E00D26565 /* sporth.c in Sources */,
 				C45669261D448D7E00D26565 /* AKRolandTB303Filter.swift in Sources */,
 				C4077BDB2009859500E5923C /* AKFlatFrequencyResponseReverbAudioUnit.swift in Sources */,
 				C4B65F81200C518B0074FB93 /* AKClarinetDSP.mm in Sources */,
@@ -5657,7 +5655,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,

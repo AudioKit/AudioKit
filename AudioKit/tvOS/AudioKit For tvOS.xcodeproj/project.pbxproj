@@ -570,7 +570,6 @@
 		C48C6AD31D3C1574008EA51B /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69DD1D3C1574008EA51B /* hash.c */; };
 		C48C6AD41D3C1574008EA51B /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69DE1D3C1574008EA51B /* parse.c */; };
 		C48C6AD51D3C1574008EA51B /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69DF1D3C1574008EA51B /* plumber.c */; };
-		C48C6AD61D3C1574008EA51B /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69E01D3C1574008EA51B /* sporth.c */; };
 		C48C6AD71D3C1574008EA51B /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69E11D3C1574008EA51B /* stack.c */; };
 		C493908E1E088F2F009FEAA1 /* AKStereoFieldLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C493908A1E088F2F009FEAA1 /* AKStereoFieldLimiter.swift */; };
 		C49A09E81D5099D9007D8ADB /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E71D5099D9007D8ADB /* smoothdelay.c */; };
@@ -4497,7 +4496,6 @@
 				C48C6A901D3C1574008EA51B /* mode.c in Sources */,
 				C48C6A6F1D3C1574008EA51B /* clip.c in Sources */,
 				C4E3775D1D1357D900FDB70D /* Twang.cpp in Sources */,
-				C48C6AD61D3C1574008EA51B /* sporth.c in Sources */,
 				C4E752521C23888700688A1B /* min.swift in Sources */,
 				C4812B272028579000D4AFB1 /* AKResonantFilterDSP.mm in Sources */,
 				C48C6A961D3C1574008EA51B /* pan2.c in Sources */,
