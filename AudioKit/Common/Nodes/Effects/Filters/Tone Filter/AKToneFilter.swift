@@ -20,10 +20,10 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var halfPowerPointParameter: AUParameter?
 
     /// Lower and upper bounds for Half Power Point
-    public static let halfPowerPointRange = 12.0 ... 20000.0
+    public static let halfPowerPointRange = 12.0 ... 20_000.0
 
     /// Initial value for Half Power Point
-    public static let defaultHalfPowerPoint = 1000.0
+    public static let defaultHalfPowerPoint = 1_000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {

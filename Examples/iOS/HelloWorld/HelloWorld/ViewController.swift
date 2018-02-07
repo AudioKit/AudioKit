@@ -13,7 +13,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var plot: AKNodeOutputPlot?
-    
+
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()

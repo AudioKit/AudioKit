@@ -26,7 +26,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
 
     /// Lower and upper bounds for Fundamental Frequency
-    public static let fundamentalFrequencyRange = 12.0 ... 10000.0
+    public static let fundamentalFrequencyRange = 12.0 ... 10_000.0
 
     /// Lower and upper bounds for Feedback
     public static let feedbackRange = 0.0 ... 1.0

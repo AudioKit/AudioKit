@@ -22,13 +22,13 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange = 12.0 ... 20000.0
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange = 0.0 ... 20000.0
+    public static let bandwidthRange = 0.0 ... 20_000.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency = 2000.0
+    public static let defaultCenterFrequency = 2_000.0
 
     /// Initial value for Bandwidth
     public static let defaultBandwidth = 100.0

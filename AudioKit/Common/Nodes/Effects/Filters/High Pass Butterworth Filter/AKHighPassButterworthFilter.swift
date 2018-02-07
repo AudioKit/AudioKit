@@ -21,7 +21,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
 
     /// Initial value for Cutoff Frequency
     public static let defaultCutoffFrequency = 500.0

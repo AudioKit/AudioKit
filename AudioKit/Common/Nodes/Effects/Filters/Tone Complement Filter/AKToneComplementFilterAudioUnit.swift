@@ -49,7 +49,7 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneComplementFilter.defaultHalfPowerPoint)
     }

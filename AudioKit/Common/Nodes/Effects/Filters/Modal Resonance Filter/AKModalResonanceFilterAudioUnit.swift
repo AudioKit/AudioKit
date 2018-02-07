@@ -65,7 +65,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, qualityFactor]))
         frequency.value = Float(AKModalResonanceFilter.defaultFrequency)
         qualityFactor.value = Float(AKModalResonanceFilter.defaultQualityFactor)

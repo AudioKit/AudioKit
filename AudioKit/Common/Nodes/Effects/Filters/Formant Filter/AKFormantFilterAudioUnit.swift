@@ -81,7 +81,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration]))
         centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
         attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)
