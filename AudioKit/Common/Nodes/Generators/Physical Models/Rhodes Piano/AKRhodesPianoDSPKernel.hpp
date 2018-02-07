@@ -7,140 +7,51 @@
 //
 
 #pragma once
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
-#import <AudioKit/AudioKit-Swift.h>
-
-#include "Rhodey.h"
-
-enum {
-    frequencyAddress = 0,
-    amplitudeAddress = 1
-};
-
 class AKRhodesPianoDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
+    enum {
+        frequencyAddress = 0,
+        amplitudeAddress = 1
+    };
+    
+    AKRhodesPianoDSPKernel();
+    
+    ~AKRhodesPianoDSPKernel();
 
-    AKRhodesPianoDSPKernel() {}
+    void init(int _channels, double _sampleRate) override;
 
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
+    void start();
+    void stop();
 
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
+    void destroy();
 
-        stk::Stk::setSampleRate(sampleRate);
-        rhodesPiano = new stk::Rhodey();
-    }
+    void reset();
 
-    void start() {
-        started = true;
-    }
+    void setFrequency(float freq);
 
-    void stop() {
-        started = false;
-    }
+    void setAmplitude(float amp);
 
-    void destroy() {
-        delete rhodesPiano;
-    }
+    void trigger();
 
-    void reset() {
-        resetted = true;
-    }
+    void setParameter(AUParameterAddress address, AUValue value);
 
-    void setFrequency(float freq) {
-        frequency = freq;
-        frequencyRamper.setImmediate(freq);
-    }
+    AUValue getParameter(AUParameterAddress address);
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
-    }
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 
-    void trigger() {
-        internalTrigger = 1;
-    }
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-            case frequencyAddress:
-                frequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
-                break;
-
-            case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
-                break;
-
-        }
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case frequencyAddress:
-                return frequencyRamper.getUIValue();
-
-            case amplitudeAddress:
-                return amplitudeRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case frequencyAddress:
-                frequencyRamper.startRamp(clamp(value, (float)0, (float)22000), duration);
-                break;
-
-            case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
-                break;
-
-        }
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            frequency = frequencyRamper.getAndStep();
-            amplitude = amplitudeRamper.getAndStep();
-
-            for (int channel = 0; channel < channels; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (started) {
-                    if (internalTrigger == 1) {
-                        rhodesPiano->noteOn(frequency, amplitude);
-                    }
-                } else {
-                    *out = 0.0;
-                }
-                *out = rhodesPiano->tick();
-            }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables
 
 private:
-
-    float internalTrigger = 0;
-
-    stk::Rhodey *rhodesPiano;
-
-    float frequency = 110;
-    float amplitude = 0.5;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
     bool started = false;

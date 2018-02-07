@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A complement to the AKLowPassFilter.
@@ -14,11 +14,16 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
+
+    /// Lower and upper bounds for Half Power Point
+    public static let halfPowerPointRange = 12.0 ... 20000.0
+
+    /// Initial value for Half Power Point
+    public static let defaultHalfPowerPoint = 1000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -28,17 +33,18 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    @objc open dynamic var halfPowerPoint: Double = 1_000.0 {
+    @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
-            if halfPowerPoint != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.halfPowerPoint = Float(newValue)
+            if halfPowerPoint == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.halfPowerPoint, value: newValue)
         }
     }
 
@@ -57,7 +63,8 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        halfPowerPoint: Double = 1_000.0) {
+        halfPowerPoint: Double = defaultHalfPowerPoint
+        ) {
 
         self.halfPowerPoint = halfPowerPoint
 
@@ -93,7 +100,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.halfPowerPoint = Float(halfPowerPoint)
+        internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
     }
 
     // MARK: - Control

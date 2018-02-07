@@ -26,17 +26,17 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 let performance = AKPeriodicFunction(frequency: playRate) {
     var note = scale.randomElement()
     let octave = [0, 1, 2, 3].randomElement() * 12
-    if random(0, 10) < 1.0 { note += 1 }
+    if random(in: 0...10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
 
-    if random(0, 6) > 1.0 {
+    if random(in: 0...6) > 1.0 {
         pluckNode.parameters[1] = Double(note + octave)
         pluckNode.trigger()
     }
 }
 
 AudioKit.output = reverb
-AudioKit.start(withPeriodicFunctions: performance)
+try AudioKit.start(withPeriodicFunctions: performance)
 pluckNode.start()
 performance.start()
 

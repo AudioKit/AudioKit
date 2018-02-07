@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var state = State.readyToRecord
 
     @IBOutlet private var inputPlot: AKNodeOutputPlot!
+    @IBOutlet private var outputPlot: AKOutputWaveformPlot!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var resetButton: UIButton!
     @IBOutlet private weak var mainButton: UIButton!
@@ -81,7 +82,11 @@ class ViewController: UIViewController {
         mainMixer = AKMixer(moogLadder, micBooster)
 
         AudioKit.output = mainMixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         setupUIForRecording()
     }
@@ -113,6 +118,7 @@ class ViewController: UIViewController {
         case .recording :
             // Microphone monitoring is muted
             micBooster.gain = 0
+            tape = recorder.audioFile!
             player.load(audioFile: tape)
 
             if let _ = player.audioFile?.duration {

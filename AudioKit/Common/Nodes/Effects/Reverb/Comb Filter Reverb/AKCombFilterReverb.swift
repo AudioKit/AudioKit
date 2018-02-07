@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This filter reiterates input with an echo density determined by
@@ -34,15 +34,16 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     @objc open dynamic var reverbDuration: Double = 1.0 {
         willSet {
-            if reverbDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.reverbDuration = Float(newValue)
+            if reverbDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }
 
@@ -79,7 +80,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
-            self?.internalAU?.setLoopDuration(Float(loopDuration))
+            strongSelf.internalAU?.initializeConstant(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -101,7 +102,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.reverbDuration = Float(reverbDuration)
+        internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }
 
     // MARK: - Control

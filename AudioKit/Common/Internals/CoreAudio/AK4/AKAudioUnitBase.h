@@ -40,6 +40,13 @@
 
 - (void)start;
 - (void)stop;
+- (void)clear;
+- (void)initializeConstant:(AUValue)value;
+
+// Common for oscillating effects
+- (void)setupWaveform:(int)size;
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index;
+
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 

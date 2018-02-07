@@ -13,7 +13,7 @@ reverb.cutoffFrequency = 9_900 // Hz
 reverb.feedback = 0.92
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

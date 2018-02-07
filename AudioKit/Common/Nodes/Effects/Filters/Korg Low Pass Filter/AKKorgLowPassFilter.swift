@@ -3,10 +3,10 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Analog model of the Korg 35 Lowpass Filter
+/// Analogue model of the Korg 35 Lowpass Filter
 ///
 open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKKorgLowPassFilterAudioUnit
@@ -14,13 +14,30 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
     fileprivate var saturationParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 0.0 ... 22050.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Saturation
+    public static let saturationRange = 0.0 ... 10.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 1000.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 1.0
+
+    /// Initial value for Saturation
+    public static let defaultSaturation = 0.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,45 +47,50 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter cutoff
-    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
+
     /// Filter resonance (should be between 0-2)
-    @objc open dynamic var resonance: Double = 1.0 {
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.resonance = Float(newValue)
+            if resonance == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
+
     /// Filter saturation.
-    @objc open dynamic var saturation: Double = 0.0 {
+    @objc open dynamic var saturation: Double = defaultSaturation {
         willSet {
-            if saturation != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        saturationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.saturation = Float(newValue)
+            if saturation == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    saturationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.saturation, value: newValue)
         }
     }
 
@@ -81,16 +103,18 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Filter cutoff
-    /// - parameter resonance: Filter resonance (should be between 0-2)
-    /// - parameter saturation: Filter saturation.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - cutoffFrequency: Filter cutoff
+    ///   - resonance: Filter resonance (should be between 0-2)
+    ///   - saturation: Filter saturation.
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1_000.0,
-        resonance: Double = 1.0,
-        saturation: Double = 0.0) {
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance,
+        saturation: Double = defaultSaturation
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
@@ -130,9 +154,9 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
-        internalAU?.resonance = Float(resonance)
-        internalAU?.saturation = Float(saturation)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
+        internalAU?.setParameterImmediately(.saturation, value: saturation)
     }
 
     // MARK: - Control

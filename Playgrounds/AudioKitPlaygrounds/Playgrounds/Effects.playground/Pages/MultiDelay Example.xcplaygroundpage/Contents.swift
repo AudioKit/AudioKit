@@ -41,7 +41,7 @@ let delayPannedRight = AKPanner(rightDelay, pan: 1)
 let mix = AKMixer(delayPannedLeft, delayPannedRight)
 
 AudioKit.output = mix
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

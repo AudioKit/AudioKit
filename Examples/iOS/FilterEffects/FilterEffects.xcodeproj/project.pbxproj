@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */; };
+		C3C42DE180EAFABF3AD3D9D3 /* Pods_FilterEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */; };
 		C4EDA1021DA969CF008C1827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1011DA969CF008C1827 /* AppDelegate.swift */; };
 		C4EDA1041DA969CF008C1827 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1031DA969CF008C1827 /* ViewController.swift */; };
 		C4EDA1071DA969CF008C1827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA1051DA969CF008C1827 /* Main.storyboard */; };
@@ -17,9 +17,7 @@
 		C4EDA1291DA9A1C2008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA1281DA9A1C2008C1827 /* Audiobus.swift */; };
 		C4EDA12B1DA9A3D7008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA12A1DA9A3D7008C1827 /* Audiobus.txt */; };
 		C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; };
-		C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; };
-		EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +27,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA10E1641F4F9992003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
-				C4F3ADC71DD3B448009AF0BE /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		94C8BA53CBA643F31FDEC3F7 /* Pods-FilterEffects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.debug.xcconfig"; sourceTree = "<group>"; };
+		C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C468A6F22023054F004B759B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4EDA0FE1DA969CF008C1827 /* FilterEffects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterEffects.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4EDA1011DA969CF008C1827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4EDA1031DA969CF008C1827 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +52,6 @@
 		C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		CC61B7F5557A1A87795829BE /* Pods-FilterEffects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterEffects.release.xcconfig"; path = "Pods/Target Support Files/Pods-FilterEffects/Pods-FilterEffects.release.xcconfig"; sourceTree = "<group>"; };
 		EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +62,7 @@
 				EA10E1621F4F998A003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4F3ADC61DD3B448009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA1231DA96F26008C1827 /* AudioToolbox.framework in Frameworks */,
-				68BB9CD8D8D7356D0B2C19DB /* Pods_FilterEffects.framework in Frameworks */,
+				C3C42DE180EAFABF3AD3D9D3 /* Pods_FilterEffects.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +81,7 @@
 		C4EDA0F51DA969CF008C1827 = {
 			isa = PBXGroup;
 			children = (
+				C468A6F22023054F004B759B /* README.md */,
 				C4EDA1001DA969CF008C1827 /* FilterEffects */,
 				C4EDA0FF1DA969CF008C1827 /* Products */,
 				C4EDA1211DA96F26008C1827 /* Frameworks */,
@@ -122,7 +120,7 @@
 				EA10E1611F4F998A003F0CA9 /* AudioKitUI.framework */,
 				C4F3ADC11DD3B320009AF0BE /* AudioKit.framework */,
 				C4EDA1221DA96F26008C1827 /* AudioToolbox.framework */,
-				FBA0B27F37311D270340EC8D /* Pods_FilterEffects.framework */,
+				C1667F489EC7D87FB7EA12BE /* Pods_FilterEffects.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -416,6 +414,10 @@
 				INFOPLIST_FILE = FilterEffects/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/FilterEffects/FilterEffects-BridgingHeader.h";
@@ -437,6 +439,10 @@
 				INFOPLIST_FILE = FilterEffects/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FilterEffects;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/FilterEffects/FilterEffects-BridgingHeader.h";

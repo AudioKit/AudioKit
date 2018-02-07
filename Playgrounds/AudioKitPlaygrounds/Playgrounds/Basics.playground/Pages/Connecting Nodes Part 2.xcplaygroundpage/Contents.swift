@@ -23,11 +23,12 @@ class AudioEngine {
     var player: AKPlayer!
     var delay: AKDelay!
     var reverb: AKReverb!
+    var file: AKAudioFile!
 
     init() {
         // Set up a player to the loop the file's playback
         do {
-            let file = try AKAudioFile(readFileName: "drumloop.wav")
+            file = try AKAudioFile(readFileName: "drumloop.wav")
         } catch {
             AKLog("File Not Found")
             return
@@ -48,7 +49,11 @@ class AudioEngine {
         reverb.loadFactoryPreset(.cathedral)
 
         AudioKit.output = reverb
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 }
 

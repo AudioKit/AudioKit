@@ -99,7 +99,11 @@ class SongProcessor: NSObject, UIDocumentInteractionControllerDelegate {
 
         AudioKit.output = offlineRender
         initParameters()
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
     }
     func initParameters() {

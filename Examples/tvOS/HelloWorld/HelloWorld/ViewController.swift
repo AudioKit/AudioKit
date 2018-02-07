@@ -12,13 +12,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet private var plot: AKNodeOutputPlot!
+
     var oscillator = AKOscillator()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {

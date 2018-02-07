@@ -6,13 +6,14 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
-
-#import "AKDSPKernel.hpp"
 
 extern "C" {
 #include "soundpipe.h"
 }
+
+#import "AKDSPKernel.hpp"
 
 class AKSoundpipeKernel: public AKDSPKernel {
 protected:
@@ -43,3 +44,6 @@ public:
         //printf("AKSoundpipeKernel.destroy(), &sp is %p\n", (void *)sp);
     }
 };
+
+#endif
+

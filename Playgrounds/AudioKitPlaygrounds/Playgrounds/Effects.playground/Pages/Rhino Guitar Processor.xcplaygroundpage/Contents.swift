@@ -12,7 +12,7 @@ do {
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
-    AudioKit.start()
+    try try AudioKit.start()
     player.isLooping = true
     player.start()
 } catch let error as NSError {

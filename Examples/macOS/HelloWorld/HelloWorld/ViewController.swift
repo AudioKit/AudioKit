@@ -12,6 +12,8 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet private var plot: AKOutputWaveformPlot!
+
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()
@@ -24,7 +26,11 @@ class ViewController: NSViewController {
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
     }
 

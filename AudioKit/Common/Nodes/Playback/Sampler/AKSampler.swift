@@ -49,13 +49,24 @@ open class AKSampler: AKNode {
         //you still need to connect the output, and you must do this before starting the processing graph
     }
 
+    /// Utility method to find a file either in the main bundle or at an absolute path
+    internal func findFileURL(_ path: String, withExtension ext: String) -> URL? {
+        if path.hasPrefix("/") && FileManager.default.fileExists(atPath: path + "." + ext) {
+            return URL(fileURLWithPath: path + "." + ext)
+        } else if let url = Bundle.main.url(forResource: path, withExtension: ext) {
+            return url
+        }
+        return nil
+    }
+    
     /// Load a wav file
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
     @objc open func loadWav(_ file: String) throws {
-        guard let url = Bundle.main.url(forResource: file, withExtension: "wav") else {
-            fatalError("file not found.")
+        guard let url = findFileURL(file, withExtension: "wav") else {
+            AKLog("WAV file not found.")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
             try samplerUnit.loadAudioFiles(at: [url])
@@ -107,18 +118,20 @@ open class AKSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    @objc open func loadPath(_ filePath: String) {
+    @objc open func loadPath(_ filePath: String) throws {
         do {
             try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         } catch {
             AKLog("Error loading audio file at \(filePath)")
+            throw error
         }
     }
 
     internal func loadInstrument(_ file: String, type: String) throws {
         //AKLog("filename is \(file)")
-        guard let url = Bundle.main.url(forResource: file, withExtension: type) else {
-            fatalError("file not found.")
+        guard let url = findFileURL(file, withExtension: type) else {
+            AKLog("File not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
             try samplerUnit.loadInstrument(at: url)

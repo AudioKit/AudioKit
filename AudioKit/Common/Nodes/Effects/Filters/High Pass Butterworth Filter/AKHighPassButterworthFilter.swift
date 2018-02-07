@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// These filters are Butterworth second-order IIR filters. They offer an almost
@@ -15,11 +15,16 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 500.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -29,17 +34,18 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     }
 
     /// Cutoff frequency. (in Hertz)
-    @objc open dynamic var cutoffFrequency: Double = 500.0 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
 
@@ -58,8 +64,8 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 500.0
-    ) {
+        cutoffFrequency: Double = defaultCutoffFrequency
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
 
@@ -73,7 +79,6 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -96,7 +101,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
             }
         })
 
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control

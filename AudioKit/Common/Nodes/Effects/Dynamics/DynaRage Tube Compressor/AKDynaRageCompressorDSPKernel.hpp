@@ -6,40 +6,28 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #import "AKDSPKernel.hpp"
-#import "Compressor.h"
-#import "RageProcessor.h"
-
-enum {
-    ratioAddress = 0,
-    thresholdAddress = 1,
-    attackTimeAddress = 2,
-    releaseTimeAddress = 3,
-    rageAddress = 4
-};
+#import "ParameterRamper.hpp"
 
 class AKDynaRageCompressorDSPKernel : public AKDSPKernel, public AKBuffered {
 public:
+    enum {
+        ratioAddress = 0,
+        thresholdAddress = 1,
+        attackTimeAddress = 2,
+        releaseTimeAddress = 3,
+        rageAddress = 4
+    };
+
     // MARK: Member Functions
 
-    AKDynaRageCompressorDSPKernel() {}
-
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
-        left_compressor = new Compressor(threshold, ratio, attackTime, releaseTime, (int)_sampleRate);
-        right_compressor = new Compressor(threshold, ratio, attackTime, releaseTime, (int)_sampleRate);
-
-        left_rageprocessor = new RageProcessor((int)_sampleRate);
-        right_rageprocessor = new RageProcessor((int)_sampleRate);
-
-        ratioRamper.init();
-        thresholdRamper.init();
-        attackTimeRamper.init();
-        releaseTimeRamper.init();
-        rageRamper.init();
-    }
+    AKDynaRageCompressorDSPKernel();
+    ~AKDynaRageCompressorDSPKernel();
+    
+    void init(int _channels, double _sampleRate) override;
 
     void start() {
         started = true;
@@ -49,171 +37,35 @@ public:
         started = false;
     }
 
-    void destroy() {
-        //        AKSoundpipeKernel::destroy();
-    }
+    void destroy() { }
 
-    void reset() {
-        resetted = true;
-        ratioRamper.reset();
-        thresholdRamper.reset();
-        attackTimeRamper.reset();
-        releaseTimeRamper.reset();
-        rageRamper.reset();
-    }
+    void reset();
 
-    void setRatio(float value) {
-        ratio = clamp(value, 1.0f, 20.0f);
-        ratioRamper.setImmediate(ratio);
-    }
+    void setRatio(float value);
 
-    void setThreshold(float value) {
-        threshold = clamp(value, -100.0f, 0.0f);
-        thresholdRamper.setImmediate(threshold);
-    }
+    void setThreshold(float value);
 
-    void setAttackTime(float value) {
-        attackTime = clamp(value, 20.0f, 500.0f);
-        attackTimeRamper.setImmediate(attackTime);
-    }
+    void setAttackTime(float value);
 
-    void setReleaseTime(float value) {
-        releaseTime = clamp(value, 20.0f, 500.0f);
-        releaseTimeRamper.setImmediate(releaseTime);
-    }
+    void setReleaseTime(float value);
 
-    void setRage(float value) {
-        rage = clamp(value, 0.1f, 20.0f);
-        rageRamper.setImmediate(rage);
-    }
+    void setRage(float value) ;
 
-    void setRageIsOn(bool value) {
-        rageIsOn = value;
-    }
+    void setRageIsOn(bool value);
 
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-            case ratioAddress:
-                ratioRamper.setUIValue(clamp(value, 1.0f, 20.0f));
-                break;
+    void setParameter(AUParameterAddress address, AUValue value);
 
-            case thresholdAddress:
-                thresholdRamper.setUIValue(clamp(value, -100.0f, 0.0f));
-                break;
+    AUValue getParameter(AUParameterAddress address);
+    
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 
-            case attackTimeAddress:
-                attackTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
-                break;
-
-            case releaseTimeAddress:
-                releaseTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
-                break;
-
-            case rageAddress:
-                rageRamper.setUIValue(clamp(value, 0.1f, 20.0f));
-                break;
-
-                break;
-        }
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case ratioAddress:
-                return ratioRamper.getUIValue();
-
-            case thresholdAddress:
-                return thresholdRamper.getUIValue();
-
-            case attackTimeAddress:
-                return attackTimeRamper.getUIValue();
-
-            case releaseTimeAddress:
-                return releaseTimeRamper.getUIValue();
-
-            case rageAddress:
-                return rageRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case ratioAddress:
-                ratioRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
-                break;
-
-            case thresholdAddress:
-                thresholdRamper.startRamp(clamp(value, -100.0f, 0.0f), duration);
-                break;
-
-            case attackTimeAddress:
-                attackTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
-                break;
-
-            case releaseTimeAddress:
-                releaseTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
-                break;
-
-            case rageAddress:
-                rageRamper.startRamp(clamp(value, 0.1f, 20.0f), duration);
-                break;
-        }
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            ratio = ratioRamper.getAndStep();
-            threshold = thresholdRamper.getAndStep();
-            attackTime = attackTimeRamper.getAndStep();
-            releaseTime = releaseTimeRamper.getAndStep();
-            rage = rageRamper.getAndStep();
-
-            left_compressor->setParameters(threshold, ratio, attackTime, releaseTime);
-            right_compressor->setParameters(threshold, ratio, attackTime, releaseTime);
-
-            for (int channel = 0; channel < channels; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (started) {
-                    if (channel == 0) {
-
-                        float rageSignal = left_rageprocessor->doRage(*in, rage, rage);
-                        float compSignal = left_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
-                        *out = compSignal;
-                    } else {
-                        float rageSignal = right_rageprocessor->doRage(*in, rage, rage);
-                        float compSignal = right_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
-                        *out = compSignal;
-                    }
-                } else {
-                    *out = *in;
-                }
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables
 
 private:
-    Compressor *left_compressor;
-    Compressor *right_compressor;
-
-    RageProcessor *left_rageprocessor;
-    RageProcessor *right_rageprocessor;
-
-    float ratio = 1.0;
-    float threshold = 0.0;
-    float attackTime = 0.1;
-    float releaseTime = 0.1;
-    float rage = 0.1;
-    BOOL rageIsOn = true;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
     bool started = true;
@@ -224,3 +76,6 @@ public:
     ParameterRamper releaseTimeRamper = 0.1;
     ParameterRamper rageRamper = 0.1;
 };
+
+#endif
+

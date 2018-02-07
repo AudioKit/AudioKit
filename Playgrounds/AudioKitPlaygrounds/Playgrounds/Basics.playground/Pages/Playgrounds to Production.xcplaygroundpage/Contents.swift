@@ -20,14 +20,14 @@ import AudioKit
 //: just write:
 let oscillator = AKOscillator()
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 //: But if you did the same type of thing in a project:
 class BadAudioEngine {
     init() {
         let oscillator = AKOscillator()
         AudioKit.output = oscillator
-        AudioKit.start()
+        try try AudioKit.start()
     }
 }
 
@@ -39,7 +39,7 @@ class AudioEngine {
     init() {
         oscillator = AKOscillator()
         AudioKit.output = oscillator
-        AudioKit.start()
+        try try AudioKit.start()
     }
 }
 

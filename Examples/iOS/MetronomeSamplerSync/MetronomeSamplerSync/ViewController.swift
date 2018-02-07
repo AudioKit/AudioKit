@@ -30,8 +30,11 @@ class ViewController: UIViewController {
         metronome1 >>> mixer
         metronome2 >>> mixer
         AudioKit.output = mixer
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setUpUI()
     }
 
@@ -91,6 +94,34 @@ class ViewController: UIViewController {
                             let now = AVAudioTime(hostTime: mach_absolute_time())
                             self?.metronome1.setTempo(tempo, at: now)
                             self?.metronome2.setTempo(tempo, at: now)
+
+        }))
+
+        addView(AKSlider(property: "Down Beat Volume",
+                         value: metronome1.tempo,
+                         range: 0...1,
+                         taper: 1,
+                         format: "%0.3f",
+                         color: .blue,
+                         frame: CGRect(),
+                         callback: { [weak self] volume in
+
+                            self?.metronome1.downBeatVolume = Float(volume)
+                            self?.metronome2.downBeatVolume = Float(volume)
+
+        }))
+
+        addView(AKSlider(property: "Beat Volume",
+                         value: metronome1.tempo,
+                         range: 0...1,
+                         taper: 1,
+                         format: "%0.3f",
+                         color: .blue,
+                         frame: CGRect(),
+                         callback: { [weak self] volume in
+
+                            self?.metronome1.beatVolume = Float(volume)
+                            self?.metronome2.beatVolume = Float(volume)
 
         }))
 

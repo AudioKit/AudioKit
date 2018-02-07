@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
@@ -14,13 +14,30 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     public static let ComponentDescription = AudioComponentDescription(effect: "peq0")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
     fileprivate var qParameter: AUParameter?
+
+    /// Lower and upper bounds for Center Frequency
+    public static let centerFrequencyRange = 12.0 ... 20000.0
+
+    /// Lower and upper bounds for Gain
+    public static let gainRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Q
+    public static let qRange = 0.0 ... 2.0
+
+    /// Initial value for Center Frequency
+    public static let defaultCenterFrequency = 1000.0
+
+    /// Initial value for Gain
+    public static let defaultGain = 1.0
+
+    /// Initial value for Q
+    public static let defaultQ = 0.707
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,45 +47,50 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     }
 
     /// Center frequency.
-    @objc open dynamic var centerFrequency: Double = 1_000 {
+    @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.centerFrequency = Float(newValue)
+            if centerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
+
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
-    @objc open dynamic var gain: Double = 1.0 {
+    @objc open dynamic var gain: Double = defaultGain {
         willSet {
-            if gain != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        gainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.gain = Float(newValue)
+            if gain == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
+
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @objc open dynamic var q: Double = 0.707 {
+    @objc open dynamic var q: Double = defaultQ {
         willSet {
-            if q != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        qParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.q = Float(newValue)
+            if q == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    qParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.Q, value: newValue)
         }
     }
 
@@ -84,15 +106,15 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     /// - Parameters:
     ///   - input: Input node to process
     ///   - centerFrequency: Center frequency.
-    ///   - gain: Amount the center frequency value shall be increased or decreased. A value of 1 is a flat response.
+    ///   - gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1_000,
-        gain: Double = 1.0,
-        q: Double = 0.707
-    ) {
+        centerFrequency: Double = defaultCenterFrequency,
+        gain: Double = defaultGain,
+        q: Double = defaultQ
+        ) {
 
         self.centerFrequency = centerFrequency
         self.gain = gain
@@ -132,9 +154,9 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
             }
         })
 
-        internalAU?.centerFrequency = Float(centerFrequency)
-        internalAU?.gain = Float(gain)
-        internalAU?.q = Float(q)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.gain, value: gain)
+        internalAU?.setParameterImmediately(.Q, value: q)
     }
 
     // MARK: - Control

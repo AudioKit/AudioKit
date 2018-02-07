@@ -26,7 +26,7 @@ let timer = AKPeriodicFunction(every: timeStep) {
 }
 
 AudioKit.output = panner
-AudioKit.start(withPeriodicFunctions: timer)
+try AudioKit.start(withPeriodicFunctions: timer)
 
 player.play()
 timer.start()

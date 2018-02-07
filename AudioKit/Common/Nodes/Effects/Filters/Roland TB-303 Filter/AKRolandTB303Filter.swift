@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Emulation of the Roland TB-303 filter
@@ -14,7 +14,6 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -22,6 +21,30 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var resonanceParameter: AUParameter?
     fileprivate var distortionParameter: AUParameter?
     fileprivate var resonanceAsymmetryParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Distortion
+    public static let distortionRange = 0.0 ... 4.0
+
+    /// Lower and upper bounds for Resonance Asymmetry
+    public static let resonanceAsymmetryRange = 0.0 ... 1.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 500.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 0.5
+
+    /// Initial value for Distortion
+    public static let defaultDistortion = 2.0
+
+    /// Initial value for Resonance Asymmetry
+    public static let defaultResonanceAsymmetry = 0.5
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -31,60 +54,66 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Cutoff frequency. (in Hertz)
-    @objc open dynamic var cutoffFrequency: Double = 500 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
-    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing,
-    /// analogue synths generally allow resonances to be above 1.
-    @objc open dynamic var resonance: Double = 0.5 {
+
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.resonance = Float(newValue)
+            if resonance == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
-    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
-    @objc open dynamic var distortion: Double = 2.0 {
+
+    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
-            if distortion != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        distortionParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.distortion = Float(newValue)
+            if distortion == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.distortion, value: newValue)
         }
     }
+
     /// Asymmetry of resonance. Value is between 0-1
-    @objc open dynamic var resonanceAsymmetry: Double = 0.5 {
+    @objc open dynamic var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
         willSet {
-            if resonanceAsymmetry != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.resonanceAsymmetry = Float(newValue)
+            if resonanceAsymmetry == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.resonanceAsymmetry, value: newValue)
         }
     }
 
@@ -100,18 +129,17 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
-    ///   - resonance: Resonance, generally < 1, but not limited to it.
-    ///                Higher than 1 resonance values might cause aliasing,
-    ///                analogue synths generally allow resonances to be above 1.
-    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 500,
-        resonance: Double = 0.5,
-        distortion: Double = 2.0,
-        resonanceAsymmetry: Double = 0.5) {
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance,
+        distortion: Double = defaultDistortion,
+        resonanceAsymmetry: Double = defaultResonanceAsymmetry
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
@@ -153,10 +181,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
-        internalAU?.resonance = Float(resonance)
-        internalAU?.distortion = Float(distortion)
-        internalAU?.resonanceAsymmetry = Float(resonanceAsymmetry)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
+        internalAU?.setParameterImmediately(.distortion, value: distortion)
+        internalAU?.setParameterImmediately(.resonanceAsymmetry, value: resonanceAsymmetry)
     }
 
     // MARK: - Control
