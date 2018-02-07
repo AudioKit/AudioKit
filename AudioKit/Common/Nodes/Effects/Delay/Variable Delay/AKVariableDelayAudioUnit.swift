@@ -65,7 +65,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback]))
         time.value = Float(AKVariableDelay.defaultTime)
         feedback.value = Float(AKVariableDelay.defaultFeedback)

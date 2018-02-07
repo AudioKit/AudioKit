@@ -24,13 +24,13 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     public static let bitDepthRange = 1.0 ... 24.0
 
     /// Lower and upper bounds for Sample Rate
-    public static let sampleRateRange = 0.0 ... 20000.0
+    public static let sampleRateRange = 0.0 ... 20_000.0
 
     /// Initial value for Bit Depth
     public static let defaultBitDepth = 8.0
 
     /// Initial value for Sample Rate
-    public static let defaultSampleRate = 10000.0
+    public static let defaultSampleRate = 10_000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {

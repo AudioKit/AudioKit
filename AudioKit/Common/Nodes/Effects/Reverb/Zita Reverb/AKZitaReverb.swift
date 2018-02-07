@@ -32,7 +32,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let predelayRange = 0.0 ... 200.0
 
     /// Lower and upper bounds for Crossover Frequency
-    public static let crossoverFrequencyRange = 10.0 ... 1000.0
+    public static let crossoverFrequencyRange = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Low Release Time
     public static let lowReleaseTimeRange = 0.0 ... 10.0
@@ -41,16 +41,16 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let midReleaseTimeRange = 0.0 ... 10.0
 
     /// Lower and upper bounds for Damping Frequency
-    public static let dampingFrequencyRange = 10.0 ... 22050.0
+    public static let dampingFrequencyRange = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Frequency1
-    public static let equalizerFrequency1Range = 10.0 ... 1000.0
+    public static let equalizerFrequency1Range = 10.0 ... 1_000.0
 
     /// Lower and upper bounds for Equalizer Level1
     public static let equalizerLevel1Range = -100.0 ... 10.0
 
     /// Lower and upper bounds for Equalizer Frequency2
-    public static let equalizerFrequency2Range = 10.0 ... 22050.0
+    public static let equalizerFrequency2Range = 10.0 ... 22_050.0
 
     /// Lower and upper bounds for Equalizer Level2
     public static let equalizerLevel2Range = -100.0 ... 10.0
@@ -71,7 +71,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultMidReleaseTime = 2.0
 
     /// Initial value for Damping Frequency
-    public static let defaultDampingFrequency = 6000.0
+    public static let defaultDampingFrequency = 6_000.0
 
     /// Initial value for Equalizer Frequency1
     public static let defaultEqualizerFrequency1 = 315.0
@@ -80,7 +80,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultEqualizerLevel1 = 0.0
 
     /// Initial value for Equalizer Frequency2
-    public static let defaultEqualizerFrequency2 = 1500.0
+    public static let defaultEqualizerFrequency2 = 1_500.0
 
     /// Initial value for Equalizer Level2
     public static let defaultEqualizerLevel2 = 0.0

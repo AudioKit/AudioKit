@@ -81,7 +81,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
         centerFrequency.value = Float(AKPeakingParametricEqualizerFilter.defaultCenterFrequency)
         gain.value = Float(AKPeakingParametricEqualizerFilter.defaultGain)

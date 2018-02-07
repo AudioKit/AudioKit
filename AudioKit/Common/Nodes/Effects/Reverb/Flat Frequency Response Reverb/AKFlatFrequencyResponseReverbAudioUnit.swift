@@ -49,7 +49,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
         reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }

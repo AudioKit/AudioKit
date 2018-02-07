@@ -25,7 +25,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     public static let distortionRange = 0.0 ... 2.0
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Resonance
     public static let resonanceRange = 0.0 ... 2.0
@@ -34,7 +34,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     public static let defaultDistortion = 0.5
 
     /// Initial value for Cutoff Frequency
-    public static let defaultCutoffFrequency = 1500.0
+    public static let defaultCutoffFrequency = 1_500.0
 
     /// Initial value for Resonance
     public static let defaultResonance = 0.5

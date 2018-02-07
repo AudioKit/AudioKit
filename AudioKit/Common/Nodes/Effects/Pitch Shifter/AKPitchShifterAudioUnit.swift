@@ -81,7 +81,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
         shift.value = Float(AKPitchShifter.defaultShift)
         windowSize.value = Float(AKPitchShifter.defaultWindowSize)
