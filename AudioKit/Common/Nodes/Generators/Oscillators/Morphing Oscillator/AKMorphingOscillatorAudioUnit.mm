@@ -53,25 +53,25 @@ standardKernelPassthroughs()
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Frequency (in Hz)"
-                                                       address:frequencyAddress];
+                                                       address:AKMorphingOscillatorDSPKernel::frequencyAddress];
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude (typically a value between 0 and 1)."
-                                                       address:amplitudeAddress
+                                                       address:AKMorphingOscillatorDSPKernel::amplitudeAddress
                                                            min:0.0
                                                            max:1.0
                                                           unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameter:@"index"
                                                       name:@"Index of the wavetable to use (fractional are okay)."
-                                                   address:indexAddress
+                                                   address:AKMorphingOscillatorDSPKernel::indexAddress
                                                        min:0.0
                                                        max:1000.0
                                                       unit:kAudioUnitParameterUnit_Hertz];
     // Create a parameter object for the detuningOffset.
     AUParameter *detuningOffsetAUParameter = [AUParameter parameter:@"detuningOffset"
                                                                name:@"Frequency offset (Hz)"
-                                                            address:detuningOffsetAddress
+                                                            address:AKMorphingOscillatorDSPKernel::detuningOffsetAddress
                                                                 min:-1000.0
                                                                 max:1000.0
                                                                unit:kAudioUnitParameterUnit_Hertz];
@@ -79,7 +79,7 @@ standardKernelPassthroughs()
     // Create a parameter object for the detuningMultiplier.
     AUParameter *detuningMultiplierAUParameter = [AUParameter parameter:@"detuningMultiplier"
                                                                    name:@"Frequency detuning multiplier"
-                                                                address:detuningMultiplierAddress
+                                                                address:AKMorphingOscillatorDSPKernel::detuningMultiplierAddress
                                                                     min:0.0
                                                                     max:FLT_MAX
                                                                    unit:kAudioUnitParameterUnit_Generic];
@@ -92,11 +92,11 @@ standardKernelPassthroughs()
     detuningMultiplierAUParameter.value = 1;
 
 
-    _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
-    _kernel.setParameter(indexAddress,              indexAUParameter.value);
-    _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
-    _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorDSPKernel::frequencyAddress,          frequencyAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorDSPKernel::amplitudeAddress,          amplitudeAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorDSPKernel::indexAddress,              indexAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorDSPKernel::detuningOffsetAddress,     detuningOffsetAUParameter.value);
+    _kernel.setParameter(AKMorphingOscillatorDSPKernel::detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[

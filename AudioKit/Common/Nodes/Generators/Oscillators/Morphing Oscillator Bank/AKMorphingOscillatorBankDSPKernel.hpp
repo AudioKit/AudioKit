@@ -6,19 +6,19 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements(),
-    indexAddress = numberOfBankEnumElements
-};
-
-
 class AKMorphingOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Types
+    enum {
+        standardBankEnumElements(),
+        indexAddress = numberOfBankEnumElements
+    };
+    
     struct NoteState {
         NoteState* next;
         NoteState* prev;
@@ -226,4 +226,5 @@ public:
     ParameterRamper indexRamper = 0.0;
 };
 
+#endif
 

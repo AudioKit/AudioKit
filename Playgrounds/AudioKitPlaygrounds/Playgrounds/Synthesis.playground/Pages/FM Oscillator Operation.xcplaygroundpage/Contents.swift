@@ -30,7 +30,7 @@ let delay2 = AKDelay(delay1, time: 0.1, feedback: 0.1, lowPassCutoff: 0, dryWetM
 let reverb = AKReverb(delay2, dryWetMix: 0.5)
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 generator.start()
 

@@ -15,7 +15,7 @@ var currentAmplitude = 0.1
 var currentRampTime = 0.0
 
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 let playgroundWidth = 500
 

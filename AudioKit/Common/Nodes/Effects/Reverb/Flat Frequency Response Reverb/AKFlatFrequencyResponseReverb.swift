@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This filter reiterates the input with an echo density determined by loop
@@ -18,11 +18,19 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var reverbDurationParameter: AUParameter?
+
+    /// Lower and upper bounds for Reverb Duration
+    public static let reverbDurationRange = 0 ... 10
+
+    /// Initial value for Reverb Duration
+    public static let defaultReverbDuration = 0.5
+
+    /// Initial value for Loop Duration
+    public static let defaultLoopDuration = 0.1
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -32,17 +40,18 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     }
 
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    @objc open dynamic var reverbDuration: Double = 0.5 {
+    @objc open dynamic var reverbDuration: Double = defaultReverbDuration {
         willSet {
-            if reverbDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.reverbDuration = Float(newValue)
+            if reverbDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }
 
@@ -64,9 +73,9 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        reverbDuration: Double = 0.5,
-        loopDuration: Double = 0.1
-    ) {
+        reverbDuration: Double = defaultReverbDuration,
+        loopDuration: Double = defaultLoopDuration
+        ) {
 
         self.reverbDuration = reverbDuration
 
@@ -82,9 +91,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: strongSelf)
-            if let au = strongSelf.internalAU {
-                au.setLoopDuration(Float(loopDuration))
-            }
+            strongSelf.internalAU?.initializeConstant(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -106,7 +113,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
             }
         })
 
-        internalAU?.reverbDuration = Float(reverbDuration)
+        internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }
 
     // MARK: - Control

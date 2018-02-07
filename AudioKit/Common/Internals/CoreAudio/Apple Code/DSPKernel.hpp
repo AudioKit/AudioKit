@@ -6,17 +6,11 @@
 	</samplecode>
  */
 
+#ifdef __cplusplus
 #pragma once
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
-#import <AudioKit/AudioKit-Swift.h>
-#import "ParameterRamper.hpp"
-
-extern "C" {
-#include "soundpipe.h"
-}
-
 
 template <typename T>
 T clamp(T input, T low, T high) {
@@ -40,5 +34,6 @@ private:
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);
 };
 
+#endif
 
 

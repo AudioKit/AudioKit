@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
@@ -15,11 +15,16 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var limitParameter: AUParameter?
+
+    /// Lower and upper bounds for Limit
+    public static let limitRange = 0.0 ... 1.0
+
+    /// Initial value for Limit
+    public static let defaultLimit = 1.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -29,17 +34,18 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Threshold / limiting value.
-    @objc open dynamic var limit: Double = 1.0 {
+    @objc open dynamic var limit: Double = defaultLimit {
         willSet {
-            if limit != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        limitParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.limit = Float(newValue)
+            if limit == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    limitParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.limit, value: newValue)
         }
     }
 
@@ -58,20 +64,21 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        limit: Double = 1.0) {
+        limit: Double = defaultLimit
+        ) {
 
         self.limit = limit
 
         _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")
                 return
             }
-            strongSelf.avAudioNode = $0
-            strongSelf.internalAU = $0.auAudioUnit as? AKAudioUnitType
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }
 
@@ -94,7 +101,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.limit = Float(limit)
+        internalAU?.setParameterImmediately(.limit, value: limit)
     }
 
     // MARK: - Control

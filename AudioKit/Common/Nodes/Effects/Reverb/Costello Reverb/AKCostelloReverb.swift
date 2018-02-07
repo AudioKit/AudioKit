@@ -22,6 +22,18 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.6
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 4_000.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -31,7 +43,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    @objc open dynamic var feedback: Double = 0.6 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -42,13 +54,12 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            // this means it's direct inline
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
     /// Low-pass cutoff frequency.
-    @objc open dynamic var cutoffFrequency: Double = 4_000 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -59,7 +70,6 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                     return
                 }
             }
-            // this means it's direct inline
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -82,8 +92,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        feedback: Double = 0.6,
-        cutoffFrequency: Double = 4_000
+        feedback: Double = defaultFeedback,
+        cutoffFrequency: Double = defaultCutoffFrequency
         ) {
 
         self.feedback = feedback
@@ -122,8 +132,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
-        self.internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control
@@ -138,4 +148,3 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 }
-

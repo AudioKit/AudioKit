@@ -17,7 +17,7 @@ let drips = AKPeriodicFunction(frequency: playRate) {
 }
 
 AudioKit.output = AKBooster(reverb, gain: 0.4)
-AudioKit.start(withPeriodicFunctions: drips)
+try AudioKit.start(withPeriodicFunctions: drips)
 drips.start()
 
 class LiveView: AKLiveViewController {

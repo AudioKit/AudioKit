@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// The output for reson appears to be very hot, so take caution when using this
@@ -15,12 +15,23 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 100.0 ... 20000.0
+
+    /// Lower and upper bounds for Bandwidth
+    public static let bandwidthRange = 0.0 ... 10000.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 4000.0
+
+    /// Initial value for Bandwidth
+    public static let defaultBandwidth = 1000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,31 +41,34 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    @objc open dynamic var frequency: Double = 4_000.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.frequency = Float(newValue)
+            if frequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
+
     /// Bandwidth of the filter.
-    @objc open dynamic var bandwidth: Double = 1_000.0 {
+    @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bandwidth = Float(newValue)
+            if bandwidth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
 
@@ -67,15 +81,16 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter frequency: Center frequency of the filter, or frequency position of the peak response.
-    /// - parameter bandwidth: Bandwidth of the filter.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - frequency: Center frequency of the filter, or frequency position of the peak response.
+    ///   - bandwidth: Bandwidth of the filter.
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = 4_000.0,
-        bandwidth: Double = 1_000.0
-    ) {
+        frequency: Double = defaultFrequency,
+        bandwidth: Double = defaultBandwidth
+        ) {
 
         self.frequency = frequency
         self.bandwidth = bandwidth
@@ -90,7 +105,6 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -114,8 +128,8 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.frequency = Float(frequency)
-        internalAU?.bandwidth = Float(bandwidth)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control

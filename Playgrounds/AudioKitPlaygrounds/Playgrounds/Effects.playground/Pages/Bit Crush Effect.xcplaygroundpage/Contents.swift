@@ -21,7 +21,7 @@ bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3_333
 
 AudioKit.output = bitcrusher
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

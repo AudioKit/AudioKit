@@ -3,10 +3,10 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Faust-based pitch shifter
+/// Faust-based pitch shfiter
 ///
 open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKPitchShifterAudioUnit
@@ -14,13 +14,30 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var shiftParameter: AUParameter?
     fileprivate var windowSizeParameter: AUParameter?
     fileprivate var crossfadeParameter: AUParameter?
+
+    /// Lower and upper bounds for Shift
+    public static let shiftRange = -24.0 ... 24.0
+
+    /// Lower and upper bounds for Window Size
+    public static let windowSizeRange = 0.0 ... 10000.0
+
+    /// Lower and upper bounds for Crossfade
+    public static let crossfadeRange = 0.0 ... 10000.0
+
+    /// Initial value for Shift
+    public static let defaultShift = 0.0
+
+    /// Initial value for Window Size
+    public static let defaultWindowSize = 1024.0
+
+    /// Initial value for Crossfade
+    public static let defaultCrossfade = 512.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,45 +47,50 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Pitch shift (in semitones)
-    @objc open dynamic var shift: Double = 0 {
+    @objc open dynamic var shift: Double = defaultShift {
         willSet {
-            if shift != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        shiftParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.shift = Float(newValue)
+            if shift == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    shiftParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.shift, value: newValue)
         }
     }
+
     /// Window size (in samples)
-    @objc open dynamic var windowSize: Double = 1_024 {
+    @objc open dynamic var windowSize: Double = defaultWindowSize {
         willSet {
-            if windowSize != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.windowSize = Float(newValue)
+            if windowSize == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.windowSize, value: newValue)
         }
     }
+
     /// Crossfade (in samples)
-    @objc open dynamic var crossfade: Double = 512 {
+    @objc open dynamic var crossfade: Double = defaultCrossfade {
         willSet {
-            if crossfade != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.crossfade = Float(newValue)
+            if crossfade == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.crossfade, value: newValue)
         }
     }
 
@@ -89,9 +111,10 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        shift: Double = 0,
-        windowSize: Double = 1_024,
-        crossfade: Double = 512) {
+        shift: Double = defaultShift,
+        windowSize: Double = defaultWindowSize,
+        crossfade: Double = defaultCrossfade
+        ) {
 
         self.shift = shift
         self.windowSize = windowSize
@@ -131,9 +154,9 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.shift = Float(shift)
-        internalAU?.windowSize = Float(windowSize)
-        internalAU?.crossfade = Float(crossfade)
+        internalAU?.setParameterImmediately(.shift, value: shift)
+        internalAU?.setParameterImmediately(.windowSize, value: windowSize)
+        internalAU?.setParameterImmediately(.crossfade, value: crossfade)
     }
 
     // MARK: - Control

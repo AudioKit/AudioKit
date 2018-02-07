@@ -15,7 +15,7 @@ extension Notification.Name {
 
 /// Audio Unit Manager
 open class AKAudioUnitManager: NSObject {
-    static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
+    //static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
 
     /// The notifications this class may generate
     public enum Notification {
@@ -24,6 +24,8 @@ open class AKAudioUnitManager: NSObject {
 
     /// Internal audio units not including the Apple ones, only the custom ones
     public private(set) var internalAudioUnits = ["AKVariableDelay",
+                                                  "AKChorus",
+                                                  "AKFlanger",
                                                   "AKBitCrusher",
                                                   "AKClipper",
                                                   "AKDynamicRangeCompressor",
@@ -59,7 +61,6 @@ open class AKAudioUnitManager: NSObject {
                                                   "AKFlatFrequencyResponseReverb",
                                                   "AKZitaReverb",
                                                   "AKBooster",
-                                                  "AKBooster2",
                                                   "AKTanhDistortion"]
 
     /// Callback definitions
@@ -267,9 +268,8 @@ open class AKAudioUnitManager: NSObject {
 
             /// Locating components can be a little slow, especially the first time.
             /// Do this work on a separate dispatch thread.
-            /// Make a component description matching any AU of the type.
-            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching:
-                AKAudioUnitManager.ComponentDescription)
+            let predicate = NSPredicate(format: "typeName == '\(AVAudioUnitTypeMusicDevice)'", argumentArray: [])
+            self.availableInstruments = AVAudioUnitComponentManager.shared().components(matching: predicate)
 
             self.availableInstruments = self.availableInstruments.sorted { $0.name < $1.name }
 
@@ -385,6 +385,10 @@ open class AKAudioUnitManager: NSObject {
         switch name {
         case "AKVariableDelay":
             node = AKVariableDelay()
+        case "AKChorus":
+            node = AKChorus()
+        case "AKFlanger":
+            node = AKFlanger()
         case "AKBitCrusher":
             node = AKBitCrusher()
         case "AKClipper":
@@ -457,8 +461,6 @@ open class AKAudioUnitManager: NSObject {
             node = AKZitaReverb()
         case "AKBooster":
             node = AKBooster()
-        case "AKBooster2":
-            node = AKBooster2()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
         default:

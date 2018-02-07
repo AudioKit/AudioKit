@@ -9,8 +9,7 @@
 #import "AKAudioUnitBase.h"
 #import "BufferedAudioBus.hpp"
 
-
-#define kGain 0
+#import <AudioKit/AudioKit-Swift.h>
 
 @interface AKAudioUnitBase ()
 
@@ -39,8 +38,16 @@
 
 - (void)start { _kernel->start(); }
 - (void)stop { _kernel->stop(); }
+- (void)clear { _kernel->clear(); };
+- (void)initializeConstant:(AUValue)value { _kernel->initializeConstant(value); }
 - (BOOL)isPlaying { return _kernel->isPlaying(); }
 - (BOOL)isSetUp { return _kernel->isSetup(); }
+- (void)setupWaveform:(int)size {
+    _kernel->setupWaveform((uint32_t)size);
+}
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
+    _kernel->setWaveformValue(index, value);
+}
 
 /**
  This should be overridden. All the base class does is make sure that the pointer to the
@@ -97,11 +104,11 @@
     if (self == nil) { return nil; }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.0
-                                                                                  channels:2];
+    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                                  channels:AKSettings.numberOfChannels];
 
     _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
-                             channelCount:defaultFormat.channelCount];
+                                         channelCount:defaultFormat.channelCount];
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);
@@ -225,7 +232,7 @@
     return NO;   // OK THIS IS DIFFERENT FROM APPLE EXAMPLE CODE
 }
 
-// ----- BEGIN UNMODIFIED COPY FROM APPLE CODE -----
+// ----- END UNMODIFIED COPY FROM APPLE CODE -----
 
 
 

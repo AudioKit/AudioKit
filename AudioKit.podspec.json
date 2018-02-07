@@ -20,8 +20,12 @@
         "ios": "9.0",
         "tvos": "9.0"
     },
+    "swift_version": "4.0",
     "frameworks": [
 	"AVFoundation"
+    ],
+    "libraries": [
+        "stdc++"
     ],
     "pod_target_xcconfig": {
 	"ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES"

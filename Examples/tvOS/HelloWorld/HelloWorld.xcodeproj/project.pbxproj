@@ -12,9 +12,7 @@
 		C4BDE81C1C12FF3D00207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE81A1C12FF3D00207DA9 /* Main.storyboard */; };
 		C4BDE81E1C12FF3D00207DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE81D1C12FF3D00207DA9 /* Assets.xcassets */; };
 		EA127F4B1C420CAD00289567 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F4A1C420CAD00289567 /* AudioKit.framework */; };
-		EA127F4C1C420CAD00289567 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F4A1C420CAD00289567 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAC9C5A41F50234200B01FF7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5A31F50234200B01FF7 /* AudioKitUI.framework */; };
-		EAC9C5A61F50234600B01FF7 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5A31F50234200B01FF7 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,8 +22,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EAC9C5A61F50234600B01FF7 /* AudioKitUI.framework in Embed Frameworks */,
-				EA127F4C1C420CAD00289567 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,6 +289,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -308,6 +305,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -28,12 +28,20 @@ class SporthEditorBrain {
 
     func run(_ code: String) {
         generator?.stop()
-        AudioKit.stop()
+        do {
+            try AudioKit.stop()
+        } catch {
+            AKLog("AudioKit did not stop!")
+        }
         generator = AKOperationGenerator { _ in
             return AKOperation(code)
         }
         AudioKit.output = generator
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         generator?.start()
     }
 

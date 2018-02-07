@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is was built using the JC reverb implentation found in FAUST. According
@@ -23,6 +23,14 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+        willSet {
+            internalAU?.rampTime = newValue
+        }
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying ?? false
@@ -32,9 +40,12 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Initialize this reverb node
     ///
-    /// - parameter input: Input node to process
+    /// - Parameters:
+    ///   - input: Input node to process
     ///
     @objc public init(_ input: AKNode? = nil) {
+
+
         _Self.register()
 
         super.init()
@@ -47,6 +58,25 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }
+
+        guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
+            return
+        }
+
+
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
+
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
+            DispatchQueue.main.async {
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
+            }
+        })
+
     }
 
     // MARK: - Control

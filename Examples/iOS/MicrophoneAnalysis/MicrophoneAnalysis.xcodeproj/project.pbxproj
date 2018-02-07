@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7881F8301D0C01F0007E62A3 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7881F82F1D0C01F0007E62A3 /* AudioKit.framework */; };
-		7881F8311D0C01F0007E62A3 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7881F82F1D0C01F0007E62A3 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		789CA9B61D0A01F500D6EFF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */; };
 		789CA9B81D0A01F500D6EFF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B71D0A01F500D6EFF1 /* ViewController.swift */; };
 		789CA9BB1D0A01F500D6EFF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9B91D0A01F500D6EFF1 /* Main.storyboard */; };
 		789CA9BD1D0A01F500D6EFF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */; };
 		789CA9C01D0A01F500D6EFF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BE1D0A01F500D6EFF1 /* LaunchScreen.storyboard */; };
 		EA10E1521F4F93AB003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */; };
-		EA10E1541F4F93B2003F0CA9 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,8 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA10E1541F4F93B2003F0CA9 /* AudioKitUI.framework in Embed Frameworks */,
-				7881F8311D0C01F0007E62A3 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +308,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -327,6 +324,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -44,7 +44,11 @@ class Conductor {
         } catch {
             print("A file was not found.")
         }
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         sequencer = AKSequencer(filename: "seqDemo")
         sequencer.enableLooping()

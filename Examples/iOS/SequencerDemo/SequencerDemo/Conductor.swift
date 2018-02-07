@@ -61,7 +61,11 @@ class Conductor {
         [verb, bassDrum, snareDrum, snareGhost, snareVerb] >>> mixer
 
         AudioKit.output = pumper
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     func setupTracks() {

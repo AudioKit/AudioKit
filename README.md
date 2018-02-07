@@ -38,14 +38,14 @@ There are three Hello World projects, one for each of the Apple platforms: iOS, 
 
 For Hello World you only need to understand a few lines of code:
 
-| Code                                     | Description                  |
-|------------------------------------------|------------------------------|
-| `var oscillator = AKOscillator()`        | Create the sound generator   |
-| `AudioKit.output = oscillator`           | Tell AudioKit what to output |
-| `AudioKit.start()`                       | Start up AudioKit            |
-| `oscillator.start()`                     | Start the oscillator         |
-| `oscillator.frequency = random(220,880)` | Set oscillator parameters    |
-| `oscillator.stop()`                      | Stop the oscillator          |
+| Code                                           | Description                  |
+|------------------------------------------------|------------------------------|
+| `var oscillator = AKOscillator()`              | Create the sound generator   |
+| `AudioKit.output = oscillator`                 | Tell AudioKit what to output |
+| `AudioKit.start()`                             | Start up AudioKit            |
+| `oscillator.start()`                           | Start the oscillator         |
+| `oscillator.frequency = random(in: 220...880)` | Set oscillator parameters    |
+| `oscillator.stop()`                            | Stop the oscillator          |
 
 ## Playgrounds
 
