@@ -65,7 +65,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)

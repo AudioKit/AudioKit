@@ -22,16 +22,16 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange = 12.0 ... 20000.0
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange = 0.0 ... 20000.0
+    public static let bandwidthRange = 0.0 ... 20_000.0
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency = 3000.0
+    public static let defaultCenterFrequency = 3_000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth = 2000.0
+    public static let defaultBandwidth = 2_000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {

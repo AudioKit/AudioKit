@@ -29,13 +29,13 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var lfoBPMParameter: AUParameter?
 
     /// Lower and upper bounds for Notch Minimum Frequency
-    public static let notchMinimumFrequencyRange = 20.0 ... 5000.0
+    public static let notchMinimumFrequencyRange = 20.0 ... 5_000.0
 
     /// Lower and upper bounds for Notch Maximum Frequency
-    public static let notchMaximumFrequencyRange = 20.0 ... 10000.0
+    public static let notchMaximumFrequencyRange = 20.0 ... 10_000.0
 
     /// Lower and upper bounds for Notch Width
-    public static let notchWidthRange = 10.0 ... 5000.0
+    public static let notchWidthRange = 10.0 ... 5_000.0
 
     /// Lower and upper bounds for Notch Frequency
     public static let notchFrequencyRange = 1.1 ... 4.0
@@ -62,7 +62,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultNotchMaximumFrequency = 800.0
 
     /// Initial value for Notch Width
-    public static let defaultNotchWidth = 1000.0
+    public static let defaultNotchWidth = 1_000.0
 
     /// Initial value for Notch Frequency
     public static let defaultNotchFrequency = 1.5

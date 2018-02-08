@@ -65,7 +65,7 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandRejectButterworthFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKBandRejectButterworthFilter.defaultBandwidth)

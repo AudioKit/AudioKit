@@ -58,7 +58,7 @@ open class AKSampler: AKNode {
         }
         return nil
     }
-    
+
     /// Load a wav file
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)

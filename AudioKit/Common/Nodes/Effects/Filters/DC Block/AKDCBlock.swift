@@ -18,7 +18,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -57,7 +56,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
             AKLog("Parameter Tree Failed")
             return
         }
-
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
