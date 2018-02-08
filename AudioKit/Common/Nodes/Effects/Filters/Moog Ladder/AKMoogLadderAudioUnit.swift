@@ -65,7 +65,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance]))
         cutoffFrequency.value = Float(AKMoogLadder.defaultCutoffFrequency)
         resonance.value = Float(AKMoogLadder.defaultResonance)

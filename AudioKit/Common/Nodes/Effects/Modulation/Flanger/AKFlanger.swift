@@ -29,7 +29,6 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultFeedback = 0.0
     public static let defaultDryWetMix = 0.0
 
-
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?

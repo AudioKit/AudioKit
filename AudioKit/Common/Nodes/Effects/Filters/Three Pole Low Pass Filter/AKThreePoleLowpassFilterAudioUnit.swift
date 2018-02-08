@@ -81,7 +81,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [distortion, cutoffFrequency, resonance]))
         distortion.value = Float(AKThreePoleLowpassFilter.defaultDistortion)
         cutoffFrequency.value = Float(AKThreePoleLowpassFilter.defaultCutoffFrequency)

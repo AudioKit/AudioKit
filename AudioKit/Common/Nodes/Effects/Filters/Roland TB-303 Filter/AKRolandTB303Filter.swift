@@ -23,7 +23,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var resonanceAsymmetryParameter: AUParameter?
 
     /// Lower and upper bounds for Cutoff Frequency
-    public static let cutoffFrequencyRange = 12.0 ... 20000.0
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Resonance
     public static let resonanceRange = 0.0 ... 2.0

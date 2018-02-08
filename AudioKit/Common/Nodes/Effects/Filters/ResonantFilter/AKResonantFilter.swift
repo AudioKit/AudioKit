@@ -22,16 +22,16 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var bandwidthParameter: AUParameter?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 100.0 ... 20000.0
+    public static let frequencyRange = 100.0 ... 20_000.0
 
     /// Lower and upper bounds for Bandwidth
-    public static let bandwidthRange = 0.0 ... 10000.0
+    public static let bandwidthRange = 0.0 ... 10_000.0
 
     /// Initial value for Frequency
-    public static let defaultFrequency = 4000.0
+    public static let defaultFrequency = 4_000.0
 
     /// Initial value for Bandwidth
-    public static let defaultBandwidth = 1000.0
+    public static let defaultBandwidth = 1_000.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {

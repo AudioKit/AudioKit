@@ -24,7 +24,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var decayDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Center Frequency
-    public static let centerFrequencyRange = 12.0 ... 20000.0
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
 
     /// Lower and upper bounds for Attack Duration
     public static let attackDurationRange = 0.0 ... 0.1
@@ -33,7 +33,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let decayDurationRange = 0.0 ... 0.1
 
     /// Initial value for Center Frequency
-    public static let defaultCenterFrequency = 1000.0
+    public static let defaultCenterFrequency = 1_000.0
 
     /// Initial value for Attack Duration
     public static let defaultAttackDuration = 0.007

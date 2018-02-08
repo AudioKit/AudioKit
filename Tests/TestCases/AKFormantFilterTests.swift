@@ -12,7 +12,7 @@ import XCTest
 class AKFormantFilterTests: AKTestCase {
 
     func testAttack() {
-        output = AKFormantFilter(input, attackDuration: 0.0234)
+        output = AKFormantFilter(input, attackDuration: 0.023_4)
         AKTestMD5("5f72212ff42b9803edf31a316147db2b")
     }
 
@@ -22,7 +22,7 @@ class AKFormantFilterTests: AKTestCase {
     }
 
     func testDecay() {
-        output = AKFormantFilter(input, decayDuration: 0.0234)
+        output = AKFormantFilter(input, decayDuration: 0.023_4)
         AKTestMD5("1da8ef2b30a19d88239d308603d19d93")
     }
 

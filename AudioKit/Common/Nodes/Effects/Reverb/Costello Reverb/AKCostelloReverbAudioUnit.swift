@@ -65,7 +65,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [feedback, cutoffFrequency]))
         feedback.value = Float(AKCostelloReverb.defaultFeedback)
         cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)
