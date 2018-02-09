@@ -79,7 +79,6 @@ public class AKPlayer: AKNode {
 
         public var inTime: Double = 0 {
             willSet {
-                AKLog(inTime)
                 if newValue != inTime { needsUpdate = true }
             }
         }
@@ -476,7 +475,7 @@ public class AKPlayer: AKNode {
         // set target gain and begin ramping
         faderNode.gain = Fade.maximumGain
 
-        AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
+        //AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
 
         faderTimer?.invalidate()
 
