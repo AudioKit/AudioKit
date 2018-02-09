@@ -8,37 +8,32 @@
 
 import Foundation
 
-extension NSException : Error
+extension NSException: Error
 {
-    public var _domain: String { return "io.audiokit.SwiftExceptionCatcher" }
-    public var _code: Int { return 0 }
+    public var domain: String { return "io.audiokit.SwiftExceptionCatcher" }
+    public var code: Int { return 0 }
 }
 
-public func AKTry(_ operation: @escaping (() throws -> ()),
-                  finally: (() -> ())? = nil) throws
+public func AKTry(_ operation: @escaping (() throws -> Void),
+                  finally: (() -> Void)? = nil) throws
 {
     var error: NSException?
     
-    let theTry: () -> () =
-    {
-        do
-        {
+    let theTry = {
+        do {
             try operation()
-        }
-        catch let ex
-        {
+        } catch let ex {
             error = ex as? NSException
         }
     }
     
-    let theCatch: (NSException?) -> () = { ex in
+    let theCatch: (NSException?) -> Void = { ex in
         error = ex
     }
     
     AKTryOperation(theTry, theCatch, finally)
     
-    if let ex = error // Caught an exception
-    {
+    if let ex = error { // Caught an exception
         throw ex as Error
     }
 }
