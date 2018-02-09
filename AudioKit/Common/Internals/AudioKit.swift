@@ -225,7 +225,11 @@ public typealias AKCallback = () -> Void
             AKLog("No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
-        engine.prepare()
+        do {
+            try AKTry({
+                engine.prepare()
+            })
+        }
 
         #if os(iOS)
 
@@ -254,7 +258,9 @@ public typealias AKCallback = () -> Void
             try AVAudioSession.sharedInstance().setActive(true)
         #endif
 
-        try engine.start()
+        try AKTry({
+            try engine.start()
+        })
         shouldBeRunning = true
     }
 
