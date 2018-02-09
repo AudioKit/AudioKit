@@ -15,7 +15,7 @@ extension NSException : Error
 }
 
 public func AKTry(_ operation: @escaping (() throws -> ()),
-                     finally: (() -> ())? = nil) throws
+                  finally: (() -> ())? = nil) throws
 {
     var error: NSException?
     
@@ -29,7 +29,6 @@ public func AKTry(_ operation: @escaping (() throws -> ()),
         {
             error = ex as? NSException
         }
-        return
     }
     
     let theCatch: (NSException?) -> () = { ex in
