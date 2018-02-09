@@ -14,13 +14,30 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cornerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
     fileprivate var qParameter: AUParameter?
+
+    /// Lower and upper bounds for Corner Frequency
+    public static let cornerFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Gain
+    public static let gainRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Q
+    public static let qRange = 0.0 ... 2.0
+
+    /// Initial value for Corner Frequency
+    public static let defaultCornerFrequency = 1_000.0
+
+    /// Initial value for Gain
+    public static let defaultGain = 1.0
+
+    /// Initial value for Q
+    public static let defaultQ = 0.707
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +47,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Corner frequency.
-    @objc open dynamic var cornerFrequency: Double = 1_000 {
+    @objc open dynamic var cornerFrequency: Double = defaultCornerFrequency {
         willSet {
             if cornerFrequency == newValue {
                 return
@@ -46,7 +63,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    @objc open dynamic var gain: Double = 1.0 {
+    @objc open dynamic var gain: Double = defaultGain {
         willSet {
             if gain == newValue {
                 return
@@ -62,7 +79,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     }
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @objc open dynamic var q: Double = 0.707 {
+    @objc open dynamic var q: Double = defaultQ {
         willSet {
             if q == newValue {
                 return
@@ -94,9 +111,10 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cornerFrequency: Double = 1_000,
-        gain: Double = 1.0,
-        q: Double = 0.707) {
+        cornerFrequency: Double = defaultCornerFrequency,
+        gain: Double = defaultGain,
+        q: Double = defaultQ
+        ) {
 
         self.cornerFrequency = cornerFrequency
         self.gain = gain

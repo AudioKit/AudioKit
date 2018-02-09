@@ -8,7 +8,6 @@
 
 #import "AKDSPBase.hpp"
 
-
 void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
 {

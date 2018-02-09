@@ -77,7 +77,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
         thresholdCallback: @escaping AKThresholdCallback = { _ in }) {
 
         self.threshold = threshold
-        
+
         _Self.register()
 
         super.init()

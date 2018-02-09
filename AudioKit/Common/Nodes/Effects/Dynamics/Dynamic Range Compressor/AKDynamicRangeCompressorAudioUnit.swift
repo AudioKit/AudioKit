@@ -18,16 +18,19 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var ratio: Double = 1 {
+    var ratio: Double = AKDynamicRangeCompressor.defaultRatio {
         didSet { setParameter(.ratio, value: ratio) }
     }
-    var threshold: Double = 0.0 {
+
+    var threshold: Double = AKDynamicRangeCompressor.defaultThreshold {
         didSet { setParameter(.threshold, value: threshold) }
     }
-    var attackTime: Double = 0.1 {
+
+    var attackTime: Double = AKDynamicRangeCompressor.defaultAttackTime {
         didSet { setParameter(.attackTime, value: attackTime) }
     }
-    var releaseTime: Double = 0.1 {
+
+    var releaseTime: Double = AKDynamicRangeCompressor.defaultReleaseTime {
         didSet { setParameter(.releaseTime, value: releaseTime) }
     }
 
@@ -50,8 +53,8 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             withIdentifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",
             address: AUParameterAddress(0),
-            min: 0.01,
-            max: 100.0,
+            min: Float(AKDynamicRangeCompressor.ratioRange.lowerBound),
+            max: Float(AKDynamicRangeCompressor.ratioRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -62,8 +65,8 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             withIdentifier: "threshold",
             name: "Threshold (in dB) 0 = max",
             address: AUParameterAddress(1),
-            min: -100.0,
-            max: 0.0,
+            min: Float(AKDynamicRangeCompressor.thresholdRange.lowerBound),
+            max: Float(AKDynamicRangeCompressor.thresholdRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -74,8 +77,8 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             withIdentifier: "attackTime",
             name: "Attack time",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKDynamicRangeCompressor.attackTimeRange.lowerBound),
+            max: Float(AKDynamicRangeCompressor.attackTimeRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -86,8 +89,8 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             withIdentifier: "releaseTime",
             name: "Release time",
             address: AUParameterAddress(3),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKDynamicRangeCompressor.releaseTimeRange.lowerBound),
+            max: Float(AKDynamicRangeCompressor.releaseTimeRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -96,10 +99,10 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackTime, releaseTime]))
-        ratio.value = 1
-        threshold.value = 0.0
-        attackTime.value = 0.1
-        releaseTime.value = 0.1
+        ratio.value = Float(AKDynamicRangeCompressor.defaultRatio)
+        threshold.value = Float(AKDynamicRangeCompressor.defaultThreshold)
+        attackTime.value = Float(AKDynamicRangeCompressor.defaultAttackTime)
+        releaseTime.value = Float(AKDynamicRangeCompressor.defaultReleaseTime)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

@@ -14,13 +14,30 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
     fileprivate var saturationParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 0.0 ... 22_050.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Saturation
+    public static let saturationRange = 0.0 ... 10.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 1_000.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 1.0
+
+    /// Initial value for Saturation
+    public static let defaultSaturation = 0.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +47,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter cutoff
-    @objc open dynamic var cutoffFrequency: Double = 1_000.0 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -46,7 +63,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter resonance (should be between 0-2)
-    @objc open dynamic var resonance: Double = 1.0 {
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
             if resonance == newValue {
                 return
@@ -62,7 +79,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Filter saturation.
-    @objc open dynamic var saturation: Double = 0.0 {
+    @objc open dynamic var saturation: Double = defaultSaturation {
         willSet {
             if saturation == newValue {
                 return
@@ -94,9 +111,10 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 1_000.0,
-        resonance: Double = 1.0,
-        saturation: Double = 0.0) {
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance,
+        saturation: Double = defaultSaturation
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

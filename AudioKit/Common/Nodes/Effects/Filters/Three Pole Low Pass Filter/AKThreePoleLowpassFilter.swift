@@ -14,13 +14,30 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var distortionParameter: AUParameter?
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
+
+    /// Lower and upper bounds for Distortion
+    public static let distortionRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Initial value for Distortion
+    public static let defaultDistortion = 0.5
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 1_500.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 0.5
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -30,7 +47,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    @objc open dynamic var distortion: Double = 0.5 {
+    @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
             if distortion == newValue {
                 return
@@ -46,7 +63,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Filter cutoff frequency in Hertz.
-    @objc open dynamic var cutoffFrequency: Double = 1_500 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -62,7 +79,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    @objc open dynamic var resonance: Double = 0.5 {
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
             if resonance == newValue {
                 return
@@ -94,9 +111,10 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        distortion: Double = 0.5,
-        cutoffFrequency: Double = 1_500,
-        resonance: Double = 0.5) {
+        distortion: Double = defaultDistortion,
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance
+        ) {
 
         self.distortion = distortion
         self.cutoffFrequency = cutoffFrequency

@@ -9,7 +9,7 @@
 #ifdef __cplusplus
 #pragma once
 
-#import "AKSoundPipeKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import <vector>
 
 static inline double pow2(double x) {

@@ -15,7 +15,6 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -29,6 +28,60 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var invertedParameter: AUParameter?
     fileprivate var lfoBPMParameter: AUParameter?
 
+    /// Lower and upper bounds for Notch Minimum Frequency
+    public static let notchMinimumFrequencyRange = 20.0 ... 5_000.0
+
+    /// Lower and upper bounds for Notch Maximum Frequency
+    public static let notchMaximumFrequencyRange = 20.0 ... 10_000.0
+
+    /// Lower and upper bounds for Notch Width
+    public static let notchWidthRange = 10.0 ... 5_000.0
+
+    /// Lower and upper bounds for Notch Frequency
+    public static let notchFrequencyRange = 1.1 ... 4.0
+
+    /// Lower and upper bounds for Vibrato Mode
+    public static let vibratoModeRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Depth
+    public static let depthRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Inverted
+    public static let invertedRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Lfo Bpm
+    public static let lfoBPMRange = 24.0 ... 360.0
+
+    /// Initial value for Notch Minimum Frequency
+    public static let defaultNotchMinimumFrequency = 100.0
+
+    /// Initial value for Notch Maximum Frequency
+    public static let defaultNotchMaximumFrequency = 800.0
+
+    /// Initial value for Notch Width
+    public static let defaultNotchWidth = 1_000.0
+
+    /// Initial value for Notch Frequency
+    public static let defaultNotchFrequency = 1.5
+
+    /// Initial value for Vibrato Mode
+    public static let defaultVibratoMode = 1.0
+
+    /// Initial value for Depth
+    public static let defaultDepth = 1.0
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.0
+
+    /// Initial value for Inverted
+    public static let defaultInverted = 0.0
+
+    /// Initial value for Lfo Bpm
+    public static let defaultLfoBPM = 30.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -37,7 +90,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Notch Minimum Frequency
-    @objc open dynamic var notchMinimumFrequency: Double = 100 {
+    @objc open dynamic var notchMinimumFrequency: Double = defaultNotchMinimumFrequency {
         willSet {
             if notchMinimumFrequency == newValue {
                 return
@@ -53,7 +106,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Notch Maximum Frequency
-    @objc open dynamic var notchMaximumFrequency: Double = 800 {
+    @objc open dynamic var notchMaximumFrequency: Double = defaultNotchMaximumFrequency {
         willSet {
             if notchMaximumFrequency == newValue {
                 return
@@ -69,7 +122,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 10 and 5000
-    @objc open dynamic var notchWidth: Double = 1_000 {
+    @objc open dynamic var notchWidth: Double = defaultNotchWidth {
         willSet {
             if notchWidth == newValue {
                 return
@@ -85,7 +138,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 1.1 and 4
-    @objc open dynamic var notchFrequency: Double = 1.5 {
+    @objc open dynamic var notchFrequency: Double = defaultNotchFrequency {
         willSet {
             if notchFrequency == newValue {
                 return
@@ -101,7 +154,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Direct or Vibrato (default)
-    @objc open dynamic var vibratoMode: Double = 1 {
+    @objc open dynamic var vibratoMode: Double = defaultVibratoMode {
         willSet {
             if vibratoMode == newValue {
                 return
@@ -117,7 +170,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 0 and 1
-    @objc open dynamic var depth: Double = 1 {
+    @objc open dynamic var depth: Double = defaultDepth {
         willSet {
             if depth == newValue {
                 return
@@ -133,7 +186,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 0 and 1
-    @objc open dynamic var feedback: Double = 0 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -149,7 +202,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// 1 or 0
-    @objc open dynamic var inverted: Double = 0 {
+    @objc open dynamic var inverted: Double = defaultInverted {
         willSet {
             if inverted == newValue {
                 return
@@ -165,7 +218,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Between 24 and 360
-    @objc open dynamic var lfoBPM: Double = 30 {
+    @objc open dynamic var lfoBPM: Double = defaultLfoBPM {
         willSet {
             if lfoBPM == newValue {
                 return
@@ -203,15 +256,16 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        notchMinimumFrequency: Double = 100,
-        notchMaximumFrequency: Double = 800,
-        notchWidth: Double = 1_000,
-        notchFrequency: Double = 1.5,
-        vibratoMode: Double = 1,
-        depth: Double = 1,
-        feedback: Double = 0,
-        inverted: Double = 0,
-        lfoBPM: Double = 30) {
+        notchMinimumFrequency: Double = defaultNotchMinimumFrequency,
+        notchMaximumFrequency: Double = defaultNotchMaximumFrequency,
+        notchWidth: Double = defaultNotchWidth,
+        notchFrequency: Double = defaultNotchFrequency,
+        vibratoMode: Double = defaultVibratoMode,
+        depth: Double = defaultDepth,
+        feedback: Double = defaultFeedback,
+        inverted: Double = defaultInverted,
+        lfoBPM: Double = defaultLfoBPM
+        ) {
 
         self.notchMinimumFrequency = notchMinimumFrequency
         self.notchMaximumFrequency = notchMaximumFrequency

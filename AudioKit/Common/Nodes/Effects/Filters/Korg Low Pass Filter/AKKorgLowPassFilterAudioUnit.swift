@@ -18,13 +18,15 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 1_000.0 {
+    var cutoffFrequency: Double = AKKorgLowPassFilter.defaultCutoffFrequency {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
-    var resonance: Double = 1.0 {
+
+    var resonance: Double = AKKorgLowPassFilter.defaultResonance {
         didSet { setParameter(.resonance, value: resonance) }
     }
-    var saturation: Double = 0.0 {
+
+    var saturation: Double = AKKorgLowPassFilter.defaultSaturation {
         didSet { setParameter(.saturation, value: saturation) }
     }
 
@@ -47,8 +49,8 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "cutoffFrequency",
             name: "Filter cutoff",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 22_050.0,
+            min: Float(AKKorgLowPassFilter.cutoffFrequencyRange.lowerBound),
+            max: Float(AKKorgLowPassFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "resonance",
             name: "Filter resonance (should be between 0-2)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 2.0,
+            min: Float(AKKorgLowPassFilter.resonanceRange.lowerBound),
+            max: Float(AKKorgLowPassFilter.resonanceRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -71,8 +73,8 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "saturation",
             name: "Filter saturation.",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKKorgLowPassFilter.saturationRange.lowerBound),
+            max: Float(AKKorgLowPassFilter.saturationRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -81,9 +83,9 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, saturation]))
-        cutoffFrequency.value = 1_000.0
-        resonance.value = 1.0
-        saturation.value = 0.0
+        cutoffFrequency.value = Float(AKKorgLowPassFilter.defaultCutoffFrequency)
+        resonance.value = Float(AKKorgLowPassFilter.defaultResonance)
+        saturation.value = Float(AKKorgLowPassFilter.defaultSaturation)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
