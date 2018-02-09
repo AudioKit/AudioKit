@@ -27,13 +27,13 @@ public func AKTry(_ operation: @escaping (() throws -> Void),
         }
     }
     
-    let theCatch: (NSException?) -> Void = { ex in
-        error = ex
+    let theCatch: (NSException?) -> Void = { except in
+        error = except
     }
     
     AKTryOperation(theTry, theCatch, finally)
     
-    if let ex = error { // Caught an exception
-        throw ex as Error
+    if let except = error { // Caught an exception
+        throw except as Error
     }
 }
