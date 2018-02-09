@@ -164,7 +164,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
-        AKLog("start() \(isStopped)")
+        // AKLog("start() \(isStopped)")
         if isStopped {
             self.leftGain = lastKnownLeftGain
             self.rightGain = self.lastKnownRightGain
@@ -173,7 +173,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        AKLog("stop() \(isPlaying)")
+        // AKLog("stop() \(isPlaying)")
 
         if isPlaying {
             self.lastKnownLeftGain = leftGain
