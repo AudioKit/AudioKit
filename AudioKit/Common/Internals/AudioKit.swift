@@ -219,7 +219,9 @@ public typealias AKCallback = () -> Void
         }
         // Start the engine.
         do {
-            engine.prepare()
+            try AKTry({
+                engine.prepare()
+            })
 
             #if os(iOS)
 
@@ -242,7 +244,9 @@ public typealias AKCallback = () -> Void
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
 
-            try engine.start()
+            try AKTry({
+               try engine.start()
+            })
             shouldBeRunning = true
 
         } catch {
