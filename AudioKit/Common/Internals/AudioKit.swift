@@ -584,7 +584,8 @@ extension AVAudioEngine {
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
     public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
         guard seconds >= 0 else {
-            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
         try AKTry({
             // Engine can't be running when switching to offline render mode.
@@ -597,7 +598,8 @@ extension AVAudioEngine {
         })
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
-            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Couldn't create buffer in renderToFile"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "Couldn't create buffer in renderToFile"])
         }
 
         // This is for users to prepare the nodes for playing, i.e player.play()
@@ -615,7 +617,8 @@ extension AVAudioEngine {
                 AKLog("renderToFile cannotDoInCurrentContext")
                 continue
             case .error, .insufficientDataFromInputNode:
-                throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
+                throw NSError(domain: "AVAudioEngine ext", code: 1,
+                              userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
             }
         }
 
