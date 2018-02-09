@@ -17,8 +17,6 @@ typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
     AKPitchShifterParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
-
 #ifndef __cplusplus
 
 void* createPitchShifterDSP(int nChannels, double sampleRate);
@@ -28,121 +26,38 @@ void* createPitchShifterDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKPitchShifterDSP : public AKSoundpipeDSPBase {
-
-    sp_pshift *_pshift0;
-    sp_pshift *_pshift1;
-
 private:
-    AKLinearParameterRamp shiftRamp;
-    AKLinearParameterRamp windowSizeRamp;
-    AKLinearParameterRamp crossfadeRamp;
-   
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKPitchShifterDSP() {
-        shiftRamp.setTarget(0, true);
-        shiftRamp.setDurationInSamples(10000);
-        windowSizeRamp.setTarget(1024, true);
-        windowSizeRamp.setDurationInSamples(10000);
-        crossfadeRamp.setTarget(512, true);
-        crossfadeRamp.setDurationInSamples(10000);
-    }
+    AKPitchShifterDSP();
+    ~AKPitchShifterDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKPitchShifterParameterShift:
-                shiftRamp.setTarget(value, immediate);
-                break;
-            case AKPitchShifterParameterWindowSize:
-                windowSizeRamp.setTarget(value, immediate);
-                break;
-            case AKPitchShifterParameterCrossfade:
-                crossfadeRamp.setTarget(value, immediate);
-                break;
-            case AKPitchShifterParameterRampTime:
-                shiftRamp.setRampTime(value, _sampleRate);
-                windowSizeRamp.setRampTime(value, _sampleRate);
-                crossfadeRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float shiftLowerBound = -24.0;
+    float shiftUpperBound = 24.0;
+    float windowSizeLowerBound = 0.0;
+    float windowSizeUpperBound = 10000.0;
+    float crossfadeLowerBound = 0.0;
+    float crossfadeUpperBound = 10000.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKPitchShifterParameterShift:
-                return shiftRamp.getTarget();
-            case AKPitchShifterParameterWindowSize:
-                return windowSizeRamp.getTarget();
-            case AKPitchShifterParameterCrossfade:
-                return crossfadeRamp.getTarget();
-            case AKPitchShifterParameterRampTime:
-                return shiftRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultShift = 0;
+    float defaultWindowSize = 1024;
+    float defaultCrossfade = 512;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_pshift_create(&_pshift0);
-        sp_pshift_create(&_pshift1);
-        sp_pshift_init(_sp, _pshift0);
-        sp_pshift_init(_sp, _pshift1);
-        *_pshift0->shift = 0;
-        *_pshift1->shift = 0;
-        *_pshift0->window = 1024;
-        *_pshift1->window = 1024;
-        *_pshift0->xfade = 512;
-        *_pshift1->xfade = 512;
-    }
+    int defaultRampTimeSamples = 10000;
 
-    void destroy() {
-        sp_pshift_destroy(&_pshift0);
-        sp_pshift_destroy(&_pshift1);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void destroy();
 
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                shiftRamp.advanceTo(_now + frameOffset);
-                windowSizeRamp.advanceTo(_now + frameOffset);
-                crossfadeRamp.advanceTo(_now + frameOffset);
-            }
-            *_pshift0->shift = shiftRamp.getValue();
-            *_pshift1->shift = shiftRamp.getValue();
-            *_pshift0->window = windowSizeRamp.getValue();
-            *_pshift1->window = windowSizeRamp.getValue();
-            *_pshift0->xfade = crossfadeRamp.getValue();
-            *_pshift1->xfade = crossfadeRamp.getValue();            
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-                if (channel == 0) {
-                    sp_pshift_compute(_sp, _pshift0, in, out);
-                } else {
-                    sp_pshift_compute(_sp, _pshift1, in, out);
-                }
-            }
-            if (_playing) {
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

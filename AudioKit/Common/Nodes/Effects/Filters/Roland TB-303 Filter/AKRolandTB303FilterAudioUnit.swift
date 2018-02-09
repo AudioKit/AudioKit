@@ -18,16 +18,19 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 500 {
+    var cutoffFrequency: Double = AKRolandTB303Filter.defaultCutoffFrequency {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
-    var resonance: Double = 0.5 {
+
+    var resonance: Double = AKRolandTB303Filter.defaultResonance {
         didSet { setParameter(.resonance, value: resonance) }
     }
-    var distortion: Double = 2.0 {
+
+    var distortion: Double = AKRolandTB303Filter.defaultDistortion {
         didSet { setParameter(.distortion, value: distortion) }
     }
-    var resonanceAsymmetry: Double = 0.5 {
+
+    var resonanceAsymmetry: Double = AKRolandTB303Filter.defaultResonanceAsymmetry {
         didSet { setParameter(.resonanceAsymmetry, value: resonanceAsymmetry) }
     }
 
@@ -50,8 +53,8 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKRolandTB303Filter.cutoffFrequencyRange.lowerBound),
+            max: Float(AKRolandTB303Filter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -62,8 +65,8 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "resonance",
             name: "Resonance",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 2.0,
+            min: Float(AKRolandTB303Filter.resonanceRange.lowerBound),
+            max: Float(AKRolandTB303Filter.resonanceRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -74,8 +77,8 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "distortion",
             name: "Distortion",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 4.0,
+            min: Float(AKRolandTB303Filter.distortionRange.lowerBound),
+            max: Float(AKRolandTB303Filter.distortionRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -86,8 +89,8 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "resonanceAsymmetry",
             name: "Resonance Asymmetry",
             address: AUParameterAddress(3),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKRolandTB303Filter.resonanceAsymmetryRange.lowerBound),
+            max: Float(AKRolandTB303Filter.resonanceAsymmetryRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -96,10 +99,10 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, distortion, resonanceAsymmetry]))
-        cutoffFrequency.value = 500
-        resonance.value = 0.5
-        distortion.value = 2.0
-        resonanceAsymmetry.value = 0.5
+        cutoffFrequency.value = Float(AKRolandTB303Filter.defaultCutoffFrequency)
+        resonance.value = Float(AKRolandTB303Filter.defaultResonance)
+        distortion.value = Float(AKRolandTB303Filter.defaultDistortion)
+        resonanceAsymmetry.value = Float(AKRolandTB303Filter.defaultResonanceAsymmetry)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

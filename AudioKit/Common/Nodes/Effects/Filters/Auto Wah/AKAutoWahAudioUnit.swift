@@ -18,13 +18,15 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var wah: Double = 0.0 {
+    var wah: Double = AKAutoWah.defaultWah {
         didSet { setParameter(.wah, value: wah) }
     }
-    var mix: Double = 1.0 {
+
+    var mix: Double = AKAutoWah.defaultMix {
         didSet { setParameter(.mix, value: mix) }
     }
-    var amplitude: Double = 0.1 {
+
+    var amplitude: Double = AKAutoWah.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -47,8 +49,8 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             withIdentifier: "wah",
             name: "Wah Amount",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKAutoWah.wahRange.lowerBound),
+            max: Float(AKAutoWah.wahRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             withIdentifier: "mix",
             name: "Dry/Wet Mix",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKAutoWah.mixRange.lowerBound),
+            max: Float(AKAutoWah.mixRange.upperBound),
             unit: .percent,
             unitName: nil,
             flags: flags,
@@ -71,8 +73,8 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Overall level",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKAutoWah.amplitudeRange.lowerBound),
+            max: Float(AKAutoWah.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -81,9 +83,9 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [wah, mix, amplitude]))
-        wah.value = 0.0
-        mix.value = 1.0
-        amplitude.value = 0.1
+        wah.value = Float(AKAutoWah.defaultWah)
+        mix.value = Float(AKAutoWah.defaultMix)
+        amplitude.value = Float(AKAutoWah.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

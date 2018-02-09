@@ -9,7 +9,7 @@
 #pragma once
 
 #import "AKDSPBase.hpp"
-
+#import "DSPKernel.hpp" // for the clamp
 #ifndef __cplusplus
 
 #include "soundpipe.h"

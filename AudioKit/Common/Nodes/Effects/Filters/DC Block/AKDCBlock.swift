@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
+/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
 /// Based on work by Perry Cook.
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
@@ -15,9 +15,15 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
+
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+        willSet {
+            internalAU?.rampTime = newValue
+        }
+    }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
@@ -28,9 +34,11 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
+    /// - Parameters:
+    ///   - input: Input node to process
     ///
     @objc public init(_ input: AKNode? = nil) {
+
         _Self.register()
 
         super.init()

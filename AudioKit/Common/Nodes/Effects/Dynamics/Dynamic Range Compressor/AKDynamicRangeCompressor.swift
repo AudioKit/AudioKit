@@ -14,7 +14,6 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -22,6 +21,30 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     fileprivate var thresholdParameter: AUParameter?
     fileprivate var attackTimeParameter: AUParameter?
     fileprivate var releaseTimeParameter: AUParameter?
+
+    /// Lower and upper bounds for Ratio
+    public static let ratioRange = 0.01 ... 100.0
+
+    /// Lower and upper bounds for Threshold
+    public static let thresholdRange = -100.0 ... 0.0
+
+    /// Lower and upper bounds for Attack Time
+    public static let attackTimeRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Release Time
+    public static let releaseTimeRange = 0.0 ... 1.0
+
+    /// Initial value for Ratio
+    public static let defaultRatio = 1.0
+
+    /// Initial value for Threshold
+    public static let defaultThreshold = 0.0
+
+    /// Initial value for Attack Time
+    public static let defaultAttackTime = 0.1
+
+    /// Initial value for Release Time
+    public static let defaultReleaseTime = 0.1
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -31,7 +54,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Ratio to compress with, a value > 1 will compress
-    @objc open dynamic var ratio: Double = 1 {
+    @objc open dynamic var ratio: Double = defaultRatio {
         willSet {
             if ratio == newValue {
                 return
@@ -47,7 +70,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Threshold (in dB) 0 = max
-    @objc open dynamic var threshold: Double = 0.0 {
+    @objc open dynamic var threshold: Double = defaultThreshold {
         willSet {
             if threshold == newValue {
                 return
@@ -63,7 +86,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Attack time
-    @objc open dynamic var attackTime: Double = 0.1 {
+    @objc open dynamic var attackTime: Double = defaultAttackTime {
         willSet {
             if attackTime == newValue {
                 return
@@ -79,7 +102,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     }
 
     /// Release time
-    @objc open dynamic var releaseTime: Double = 0.1 {
+    @objc open dynamic var releaseTime: Double = defaultReleaseTime {
         willSet {
             if releaseTime == newValue {
                 return
@@ -112,10 +135,11 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        ratio: Double = 1,
-        threshold: Double = 0.0,
-        attackTime: Double = 0.1,
-        releaseTime: Double = 0.1) {
+        ratio: Double = defaultRatio,
+        threshold: Double = defaultThreshold,
+        attackTime: Double = defaultAttackTime,
+        releaseTime: Double = defaultReleaseTime
+        ) {
 
         self.ratio = ratio
         self.threshold = threshold

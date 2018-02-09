@@ -18,10 +18,11 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 3_000.0 {
+    var centerFrequency: Double = AKBandRejectButterworthFilter.defaultCenterFrequency {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
-    var bandwidth: Double = 2_000.0 {
+
+    var bandwidth: Double = AKBandRejectButterworthFilter.defaultBandwidth {
         didSet { setParameter(.bandwidth, value: bandwidth) }
     }
 
@@ -44,8 +45,8 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKBandRejectButterworthFilter.centerFrequencyRange.lowerBound),
+            max: Float(AKBandRejectButterworthFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,8 +57,8 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 20_000.0,
+            min: Float(AKBandRejectButterworthFilter.bandwidthRange.lowerBound),
+            max: Float(AKBandRejectButterworthFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -66,8 +67,8 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
-        centerFrequency.value = 3_000.0
-        bandwidth.value = 2_000.0
+        centerFrequency.value = Float(AKBandRejectButterworthFilter.defaultCenterFrequency)
+        bandwidth.value = Float(AKBandRejectButterworthFilter.defaultBandwidth)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
