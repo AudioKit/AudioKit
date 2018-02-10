@@ -203,7 +203,9 @@ extension AKSettings {
 
         if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
             do {
-                try session.setCategory("\(category)", with: options)
+                try AKTry {
+                    try session.setCategory("\(category)", with: options)
+                }
             } catch let error as NSError {
                 AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
                     throw error
@@ -212,7 +214,9 @@ extension AKSettings {
 
         // Preferred IO Buffer Duration
         do {
-            try session.setPreferredIOBufferDuration(bufferLength.duration)
+            try AKTry {
+                try session.setPreferredIOBufferDuration(bufferLength.duration)
+            }
         } catch let error as NSError {
             AKLog("AKSettings Error: Cannot set Preferred IOBufferDuration to " +
                 "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
@@ -222,7 +226,9 @@ extension AKSettings {
 
         // Activate session
         do {
-            try session.setActive(true)
+            try AKTry {
+                try session.setActive(true)
+            }
         } catch let error as NSError {
             AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true", error)
             throw error
