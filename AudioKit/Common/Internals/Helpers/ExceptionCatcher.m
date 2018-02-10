@@ -9,8 +9,7 @@
 #import "ExceptionCatcher.h"
 
 void AKTryOperation(void (^ _Nonnull tryBlock)(void),
-                    void (^ _Nullable catchBlock)(NSException * _Nonnull),
-                    void (^ _Nullable finallyBlock)(void))
+                    void (^ _Nullable catchBlock)(NSException * _Nonnull))
 {
     @try {
         tryBlock();
@@ -18,10 +17,6 @@ void AKTryOperation(void (^ _Nonnull tryBlock)(void),
     @catch (NSException *exception) {
         if (catchBlock)
             catchBlock(exception);
-    }
-    @finally {
-        if (finallyBlock)
-            finallyBlock();
     }
 }
 

@@ -13,7 +13,6 @@
 #import <Foundation/Foundation.h>
 
 void AKTryOperation(void (^ _Nonnull tryBlock)(void),
-                    void (^ _Nullable catchBlock)(NSException * _Nonnull),
-                    void (^ _Nullable finallyBlock)(void));
+                    void (^ _Nullable catchBlock)(NSException * _Nonnull));
 
 #endif /* ExceptionCatcher_h */

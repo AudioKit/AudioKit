@@ -146,7 +146,7 @@ public typealias AKCallback = () -> Void
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     @objc open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
-            try AKTry({
+            try AKTry {
                 var address = AudioObjectPropertyAddress(
                     mSelector: kAudioHardwarePropertyDefaultInputDevice,
                     mScope: kAudioObjectPropertyScopeGlobal,
@@ -155,7 +155,7 @@ public typealias AKCallback = () -> Void
                 AudioObjectSetPropertyData(
                     AudioObjectID(kAudioObjectSystemObject),
                     &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
-            })
+            }
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
@@ -198,7 +198,7 @@ public typealias AKCallback = () -> Void
     /// Change the preferred output device, giving it one of the names from the list of available output.
     @objc open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
-            try AKTry({
+            try AKTry {
                 var id = output.deviceID
                 if let audioUnit = AudioKit.engine.outputNode.audioUnit {
                     AudioUnitSetProperty(audioUnit,
@@ -207,7 +207,7 @@ public typealias AKCallback = () -> Void
                                          &id,
                                          UInt32(MemoryLayout<DeviceID>.size))
                 }
-            })
+            }
         #else
             //not available on ios
         #endif
@@ -229,9 +229,9 @@ public typealias AKCallback = () -> Void
             AKLog("No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
-        try AKTry({
+        try AKTry {
             engine.prepare()
-        })
+        }
 
         #if os(iOS)
 
@@ -260,9 +260,9 @@ public typealias AKCallback = () -> Void
             try AVAudioSession.sharedInstance().setActive(true)
         #endif
 
-        try AKTry({
+        try AKTry {
             try engine.start()
-        })
+        }
         shouldBeRunning = true
     }
 
@@ -283,9 +283,9 @@ public typealias AKCallback = () -> Void
     /// Stop the audio engine
     @objc open static func stop() throws {
         // Stop the engine.
-        try AKTry({
+        try AKTry {
             engine.stop()
-        })
+        }
         shouldBeRunning = false
 
         #if os(iOS)
@@ -323,11 +323,11 @@ public typealias AKCallback = () -> Void
 
                 // maximum number of frames the engine will be asked to render in any single render call
                 let maxNumberOfFrames: AVAudioFrameCount = 4_096
-                try AKTry({
+                try AKTry {
                     engine.reset()
                     try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
                     try engine.start()
-                })
+                }
 
                 afterStart()
                 tester?.play()
@@ -587,7 +587,7 @@ extension AVAudioEngine {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
-        try AKTry({
+        try AKTry {
             // Engine can't be running when switching to offline render mode.
             if self.isRunning { self.stop() }
             try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
@@ -595,7 +595,7 @@ extension AVAudioEngine {
             // This resets the sampleTime of offline rendering to 0.
             self.reset()
             try self.start()
-        })
+        }
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
@@ -622,10 +622,10 @@ extension AVAudioEngine {
             }
         }
 
-        try AKTry({
+        try AKTry {
             self.stop()
             self.disableManualRenderingMode()
-        })
+        }
     }
 }
 

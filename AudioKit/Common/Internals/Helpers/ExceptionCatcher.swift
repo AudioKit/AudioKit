@@ -14,8 +14,7 @@ extension NSException: Error
     public var code: Int { return 0 }
 }
 
-public func AKTry(_ operation: @escaping (() throws -> Void),
-                  finally: (() -> Void)? = nil) throws
+public func AKTry(_ operation: @escaping (() throws -> Void)) throws
 {
     var error: NSException?
     
