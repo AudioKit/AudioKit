@@ -37,7 +37,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     ///
     //swiftlint:disable force_unwrapping
     public convenience init(_ inputs: AKNode?...) {
-        self.init(inputs.compactMap { $0 })
+        self.init(inputs.flatMap { $0 })
     }
     //swiftlint:enable force_unwrapping
 
