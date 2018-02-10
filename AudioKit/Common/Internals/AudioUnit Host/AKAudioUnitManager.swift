@@ -135,7 +135,7 @@ open class AKAudioUnitManager: NSObject {
 
     // just get a non nil list of Audio Units
     private var linkedEffects: [AVAudioUnit] {
-        return _effectsChain.compactMap { $0 }
+        return _effectsChain.flatMap { $0 }
     }
 
     /// How many effects are active
