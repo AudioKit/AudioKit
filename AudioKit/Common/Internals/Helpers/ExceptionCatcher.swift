@@ -21,9 +21,14 @@ public func AKTry(_ operation: @escaping (() throws -> Void)) throws
     }
     
     let theCatch: (NSException) -> Void = { except in
+        var userInfo = [String: Any]()
+        userInfo[NSLocalizedDescriptionKey] = except.description
+        userInfo[NSLocalizedFailureReasonErrorKey] = except.reason
+        userInfo["exception"] = except
+
         error = NSError(domain: "io.audiokit.AudioKit",
                         code: 0,
-                        userInfo: ["Exception": except.userInfo ?? except.name])
+                        userInfo: userInfo)
     }
     
     AKTryOperation(theTry, theCatch)
