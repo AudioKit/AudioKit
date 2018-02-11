@@ -49,7 +49,7 @@ public:
 
     float defaultBaseFrequency = 440.0;
     float defaultCarrierMultiplier = 1.0;
-    float defaultModulatingMultiplier = 1;
+    float defaultModulatingMultiplier = 1.0;
     float defaultModulationIndex = 1.0;
     float defaultAmplitude = 1.0;
 
