@@ -35,19 +35,19 @@ public:
     AKOscillatorDSP();
     ~AKOscillatorDSP();
 
-    float frequencyLowerBound = 0;
-    float frequencyUpperBound = 20000;
-    float amplitudeLowerBound = 0;
-    float amplitudeUpperBound = 10;
-    float detuningOffsetLowerBound = -1000;
-    float detuningOffsetUpperBound = 1000;
+    float frequencyLowerBound = 0.0;
+    float frequencyUpperBound = 20000.0;
+    float amplitudeLowerBound = 0.0;
+    float amplitudeUpperBound = 10.0;
+    float detuningOffsetLowerBound = -1000.0;
+    float detuningOffsetUpperBound = 1000.0;
     float detuningMultiplierLowerBound = 0.9;
     float detuningMultiplierUpperBound = 1.11;
 
-    float defaultFrequency = 440;
-    float defaultAmplitude = 1;
-    float defaultDetuningOffset = 0;
-    float defaultDetuningMultiplier = 1;
+    float defaultFrequency = 440.0;
+    float defaultAmplitude = 1.0;
+    float defaultDetuningOffset = 0.0;
+    float defaultDetuningMultiplier = 1.0;
 
     int defaultRampTimeSamples = 10000;
 

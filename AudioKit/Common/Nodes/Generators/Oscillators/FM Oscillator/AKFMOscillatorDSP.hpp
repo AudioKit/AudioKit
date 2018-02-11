@@ -47,11 +47,11 @@ public:
     float amplitudeLowerBound = 0.0;
     float amplitudeUpperBound = 10.0;
 
-    float defaultBaseFrequency = 440;
+    float defaultBaseFrequency = 440.0;
     float defaultCarrierMultiplier = 1.0;
     float defaultModulatingMultiplier = 1;
-    float defaultModulationIndex = 1;
-    float defaultAmplitude = 1;
+    float defaultModulationIndex = 1.0;
+    float defaultAmplitude = 1.0;
 
     int defaultRampTimeSamples = 10000;
 

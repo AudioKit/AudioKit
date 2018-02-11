@@ -58,7 +58,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency in cycles per second
-    @objc open dynamic var frequency: Double = 440 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -74,7 +74,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    @objc open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             if amplitude == newValue {
                 return
@@ -90,7 +90,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency offset in Hz.
-    @objc open dynamic var detuningOffset: Double = 0 {
+    @objc open dynamic var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             if detuningOffset == newValue {
                 return
@@ -106,7 +106,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency detuning multiplier
-    @objc open dynamic var detuningMultiplier: Double = 1 {
+    @objc open dynamic var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             if detuningMultiplier == newValue {
                 return
@@ -144,10 +144,10 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     ///
     @objc public init(
         waveform: AKTable,
-        frequency: Double = 440,
-        amplitude: Double = 1,
-        detuningOffset: Double = 0,
-        detuningMultiplier: Double = 1) {
+        frequency: Double = defaultFrequency,
+        amplitude: Double = defaultAmplitude,
+        detuningOffset: Double = defaultDetuningOffset,
+        detuningMultiplier: Double = defaultDetuningMultiplier) {
 
         self.waveform = waveform
         self.frequency = frequency
