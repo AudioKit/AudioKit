@@ -143,6 +143,5 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
                 *out = 0.0;
             }
         }
-
     }
 }
