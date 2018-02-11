@@ -18,16 +18,19 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 440 {
+    var frequency: Double = AKOscillator.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var amplitude: Double = 1 {
+
+    var amplitude: Double = AKOscillator.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
-    var detuningOffset: Double = 0 {
+
+    var detuningOffset: Double = AKOscillator.defaultDetuningOffset {
         didSet { setParameter(.detuningOffset, value: detuningOffset) }
     }
-    var detuningMultiplier: Double = 1 {
+
+    var detuningMultiplier: Double = AKOscillator.defaultDetuningMultiplier {
         didSet { setParameter(.detuningMultiplier, value: detuningMultiplier) }
     }
 
@@ -50,8 +53,8 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 0,
-            max: 20_000,
+            min: Float(AKOscillator.frequencyRange.lowerBound),
+            max: Float(AKOscillator.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -62,8 +65,8 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Amplitude",
             address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            min: Float(AKOscillator.amplitudeRange.lowerBound),
+            max: Float(AKOscillator.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -74,8 +77,8 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AUParameterAddress(2),
-            min: -1_000,
-            max: 1_000,
+            min: Float(AKOscillator.detuningOffsetRange.lowerBound),
+            max: Float(AKOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -86,20 +89,20 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AUParameterAddress(3),
-            min: 0.9,
-            max: 1.11,
+            min: Float(AKOscillator.detuningMultiplierRange.lowerBound),
+            max: Float(AKOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier]))
-        frequency.value = 440
-        amplitude.value = 1
-        detuningOffset.value = 0
-        detuningMultiplier.value = 1
+        frequency.value = Float(AKOscillator.defaultFrequency)
+        amplitude.value = Float(AKOscillator.defaultAmplitude)
+        detuningOffset.value = Float(AKOscillator.defaultDetuningOffset)
+        detuningMultiplier.value = Float(AKOscillator.defaultDetuningMultiplier)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

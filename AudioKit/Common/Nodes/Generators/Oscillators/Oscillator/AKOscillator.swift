@@ -26,6 +26,30 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0.0 ... 20000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Detuning Offset
+    public static let detuningOffsetRange = -1000.0 ... 1000.0
+
+    /// Lower and upper bounds for Detuning Multiplier
+    public static let detuningMultiplierRange = 0.9 ... 1.11
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 440.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 1.0
+
+    /// Initial value for Detuning Offset
+    public static let defaultDetuningOffset = 0.0
+
+    /// Initial value for Detuning Multiplier
+    public static let defaultDetuningMultiplier = 1.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
