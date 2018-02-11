@@ -92,7 +92,7 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do gain ramping every 8 samples
+        // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
             _private->wahRamp.advanceTo(_now + frameOffset);
             _private->mixRamp.advanceTo(_now + frameOffset);
