@@ -26,6 +26,36 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var modulationIndexParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
+    /// Lower and upper bounds for Base Frequency
+    public static let baseFrequencyRange = 0.0 ... 20000.0
+
+    /// Lower and upper bounds for Carrier Multiplier
+    public static let carrierMultiplierRange = 0.0 ... 1000.0
+
+    /// Lower and upper bounds for Modulating Multiplier
+    public static let modulatingMultiplierRange = 0.0 ... 1000.0
+
+    /// Lower and upper bounds for Modulation Index
+    public static let modulationIndexRange = 0.0 ... 1000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 10.0
+
+    /// Initial value for Base Frequency
+    public static let defaultBaseFrequency = 440.0
+
+    /// Initial value for Carrier Multiplier
+    public static let defaultCarrierMultiplier = 1.0
+
+    /// Initial value for Modulating Multiplier
+    public static let defaultModulatingMultiplier = 1.0
+
+    /// Initial value for Modulation Index
+    public static let defaultModulationIndex = 1.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 1.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
