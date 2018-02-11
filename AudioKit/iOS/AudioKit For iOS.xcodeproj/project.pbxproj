@@ -342,6 +342,7 @@
 		C45380731C3A5BDA00A51738 /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C453805C1C3A5BDA00A51738 /* AKOscillator.swift */; };
 		C453808D1C3A5C0C00A51738 /* AKPinkNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45380841C3A5C0C00A51738 /* AKPinkNoise.swift */; };
 		C45380911C3A5C0C00A51738 /* AKWhiteNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45380891C3A5C0C00A51738 /* AKWhiteNoise.swift */; };
+		C458BFF3202FEEBA006428C9 /* AKBrownianNoiseDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C458BFF2202FEEB9006428C9 /* AKBrownianNoiseDSP.mm */; };
 		C46302801C20E7A7009B44D9 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302661C20E7A7009B44D9 /* delay.swift */; };
 		C46302811C20E7A7009B44D9 /* bitcrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302681C20E7A7009B44D9 /* bitcrush.swift */; };
 		C46302821C20E7A7009B44D9 /* clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302691C20E7A7009B44D9 /* clip.swift */; };
@@ -363,7 +364,6 @@
 		C46303D11C212682009B44D9 /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303C71C212682009B44D9 /* AKMicrophone.swift */; };
 		C464077820105D0A00299119 /* AKBrownianNoiseDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C464077520105D0900299119 /* AKBrownianNoiseDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C464077920105D0A00299119 /* AKBrownianNoiseAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077620105D0900299119 /* AKBrownianNoiseAudioUnit.swift */; };
-		C464077A20105D0A00299119 /* AKBrownianNoise.mm in Sources */ = {isa = PBXBuildFile; fileRef = C464077720105D0A00299119 /* AKBrownianNoise.mm */; };
 		C464077E20105D1900299119 /* AKPinkNoiseAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077B20105D1900299119 /* AKPinkNoiseAudioUnit.swift */; };
 		C464077F20105D1900299119 /* AKPinkNoise.mm in Sources */ = {isa = PBXBuildFile; fileRef = C464077C20105D1900299119 /* AKPinkNoise.mm */; };
 		C464078020105D1900299119 /* AKPinkNoiseDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C464077D20105D1900299119 /* AKPinkNoiseDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1326,6 +1326,7 @@
 		C453805C1C3A5BDA00A51738 /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45380841C3A5C0C00A51738 /* AKPinkNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoise.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45380891C3A5C0C00A51738 /* AKWhiteNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWhiteNoise.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C458BFF2202FEEB9006428C9 /* AKBrownianNoiseDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBrownianNoiseDSP.mm; sourceTree = "<group>"; };
 		C46302661C20E7A7009B44D9 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		C46302681C20E7A7009B44D9 /* bitcrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrush.swift; sourceTree = "<group>"; };
 		C46302691C20E7A7009B44D9 /* clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clip.swift; sourceTree = "<group>"; };
@@ -1347,7 +1348,6 @@
 		C46303C71C212682009B44D9 /* AKMicrophone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophone.swift; sourceTree = "<group>"; };
 		C464077520105D0900299119 /* AKBrownianNoiseDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBrownianNoiseDSP.hpp; sourceTree = "<group>"; };
 		C464077620105D0900299119 /* AKBrownianNoiseAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseAudioUnit.swift; sourceTree = "<group>"; };
-		C464077720105D0A00299119 /* AKBrownianNoise.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBrownianNoise.mm; sourceTree = "<group>"; };
 		C464077B20105D1900299119 /* AKPinkNoiseAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoiseAudioUnit.swift; sourceTree = "<group>"; };
 		C464077C20105D1900299119 /* AKPinkNoise.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPinkNoise.mm; sourceTree = "<group>"; };
 		C464077D20105D1900299119 /* AKPinkNoiseDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPinkNoiseDSP.hpp; sourceTree = "<group>"; };
@@ -4051,8 +4051,8 @@
 			children = (
 				C4A107371E6963C10018848C /* AKBrownianNoise.swift */,
 				C464077620105D0900299119 /* AKBrownianNoiseAudioUnit.swift */,
-				C464077720105D0A00299119 /* AKBrownianNoise.mm */,
 				C464077520105D0900299119 /* AKBrownianNoiseDSP.hpp */,
+				C458BFF2202FEEB9006428C9 /* AKBrownianNoiseDSP.mm */,
 			);
 			path = "Brownian Noise";
 			sourceTree = "<group>";
@@ -5078,7 +5078,6 @@
 				C44EA25B2018704D0072399F /* AKChorusAudioUnit.mm in Sources */,
 				C44A816C200C447A00D1CCC2 /* AKClarinetAudioUnit.swift in Sources */,
 				C48C6C961D3C15F1008EA51B /* posc3.c in Sources */,
-				C464077A20105D0A00299119 /* AKBrownianNoise.mm in Sources */,
 				C4F8C90D1DCA8CE4001F38F2 /* render.c in Sources */,
 				C4F8C9351DCA8CE4001F38F2 /* wpkorg35.c in Sources */,
 				C4198D581DCD98F900D7C13F /* increment.swift in Sources */,
@@ -5219,6 +5218,7 @@
 				C4F8C9271DCA8CE4001F38F2 /* thresh.c in Sources */,
 				C466DED8200A15F80032D0A5 /* AKGeneratorAudioUnitBase.mm in Sources */,
 				C42899B01D55AC9000B941B5 /* tgate.c in Sources */,
+				C458BFF3202FEEBA006428C9 /* AKBrownianNoiseDSP.mm in Sources */,
 				C48C6C921D3C15F1008EA51B /* pinknoise.c in Sources */,
 				C4077B08200875D700E5923C /* AKHighPassButterworthFilterAudioUnit.swift in Sources */,
 				C4F8C9261DCA8CE4001F38F2 /* tgate.c in Sources */,
