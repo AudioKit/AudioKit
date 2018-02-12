@@ -57,6 +57,10 @@ public:
     virtual void setupWaveform(uint32_t size) {}
     virtual void setWaveformValue(uint32_t index, float value) {}
 
+    /// Multiple waveform oscillators
+    virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size) {}
+    virtual void setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {}
+
     /// STK Triggers
     virtual void trigger() {}
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
