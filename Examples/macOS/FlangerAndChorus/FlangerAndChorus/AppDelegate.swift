@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,6 +18,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        do {
+            try AudioKit.stop()
+        } catch {
+            print("Problem in AudioKit.stop()")
+        }
     }
 
 }
