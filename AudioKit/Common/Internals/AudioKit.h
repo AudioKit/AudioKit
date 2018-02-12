@@ -39,9 +39,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOperationEffectAudioUnit.h"
 #import "AKSporthStack.h"
 
-// Effects / Chorus and Flanger
-#import "AKModulatedDelayDSP.hpp"
-
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
 
@@ -52,8 +49,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Dynamics
 #import "AKDynamicRangeCompressorDSP.hpp"
-#import "AKDynaRageCompressorAudioUnit.h"
-#import "AKDynaRageCompressorDSPKernel.hpp"
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeDSP.hpp"
@@ -82,10 +77,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
+#import "AKDynaRageCompressorAudioUnit.h"
+#import "AKDynaRageCompressorDSPKernel.hpp"
 #import "AKRhinoGuitarProcessorAudioUnit.h"
 #import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
-// Effects / Phaser
+// Effects / Modulation
+#import "AKModulatedDelayDSP.hpp"
 #import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
