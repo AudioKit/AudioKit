@@ -14,13 +14,30 @@
 		3429F98D201A25AB00300166 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3429F98B201A25AB00300166 /* LaunchScreen.storyboard */; };
 		3429F9A8201A2D3600300166 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429F9A6201A2D3600300166 /* Conductor.swift */; };
 		3429F9A9201A2D3600300166 /* SDSustainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429F9A7201A2D3600300166 /* SDSustainer.swift */; };
-		3429F9AF201A2EC700300166 /* SDBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3429F9AB201A2EC700300166 /* SDBooster.mm */; };
-		3429F9B0201A2EC700300166 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429F9AC201A2EC700300166 /* SDBooster.swift */; };
-		3429F9B1201A2EC700300166 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3429F9AD201A2EC700300166 /* SDBoosterAudioUnit.swift */; };
 		34920F7B201A3474008826CC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34920F7A201A3474008826CC /* README.md */; };
-		C47FDEF0201C5BF700A31D48 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; };
-		C47FDEF1201C5BF700A31D48 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEF201C5BF700A31D48 /* AudioKit.framework */; };
+		C4E249F92031946800A020D7 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E249F52031945E00A020D7 /* AudioKit.framework */; };
+		C4E249FA2031946800A020D7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E249F72031945E00A020D7 /* AudioKitUI.framework */; };
+		C4E24A032031952200A020D7 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E249FF2031952200A020D7 /* SDBooster.swift */; };
+		C4E24A042031952200A020D7 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A002031952200A020D7 /* SDBoosterAudioUnit.swift */; };
+		C4E24A052031952200A020D7 /* SDBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A022031952200A020D7 /* SDBooster.mm */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C4E249F42031945E00A020D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4E249EF2031945E00A020D7 /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+		C4E249F62031945E00A020D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4E249EF2031945E00A020D7 /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA7D07011F4E63C200707706;
+			remoteInfo = AudioKitUI;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3429F9A5201A275F00300166 /* Embed Frameworks */ = {
@@ -45,13 +62,12 @@
 		3429F98E201A25AB00300166 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3429F9A6201A2D3600300166 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		3429F9A7201A2D3600300166 /* SDSustainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDSustainer.swift; sourceTree = "<group>"; };
-		3429F9AB201A2EC700300166 /* SDBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBooster.mm; sourceTree = "<group>"; };
-		3429F9AC201A2EC700300166 /* SDBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBooster.swift; sourceTree = "<group>"; };
-		3429F9AD201A2EC700300166 /* SDBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBoosterAudioUnit.swift; sourceTree = "<group>"; };
-		3429F9AE201A2EC700300166 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
 		34920F7A201A3474008826CC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		C47FDEEF201C5BF700A31D48 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4E249EF2031945E00A020D7 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		C4E249FF2031952200A020D7 /* SDBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBooster.swift; sourceTree = "<group>"; };
+		C4E24A002031952200A020D7 /* SDBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBoosterAudioUnit.swift; sourceTree = "<group>"; };
+		C4E24A012031952200A020D7 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
+		C4E24A022031952200A020D7 /* SDBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBooster.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C47FDEF1201C5BF700A31D48 /* AudioKit.framework in Frameworks */,
-				C47FDEF0201C5BF700A31D48 /* AudioKitUI.framework in Frameworks */,
+				C4E249F92031946800A020D7 /* AudioKit.framework in Frameworks */,
+				C4E249FA2031946800A020D7 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +86,9 @@
 		3429F976201A25AB00300166 = {
 			isa = PBXGroup;
 			children = (
+				C4E249EF2031945E00A020D7 /* AudioKit For iOS.xcodeproj */,
 				34920F7A201A3474008826CC /* README.md */,
-				C47FDEEF201C5BF700A31D48 /* AudioKit.framework */,
-				C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */,
-				3429F9AA201A2EC700300166 /* SDBooster */,
+				C4E249FE2031952200A020D7 /* SDBooster */,
 				3429F981201A25AB00300166 /* ExtendingAudioKit */,
 				3429F980201A25AB00300166 /* Products */,
 			);
@@ -102,15 +117,25 @@
 			path = ExtendingAudioKit;
 			sourceTree = "<group>";
 		};
-		3429F9AA201A2EC700300166 /* SDBooster */ = {
+		C4E249F02031945E00A020D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3429F9AB201A2EC700300166 /* SDBooster.mm */,
-				3429F9AC201A2EC700300166 /* SDBooster.swift */,
-				3429F9AD201A2EC700300166 /* SDBoosterAudioUnit.swift */,
-				3429F9AE201A2EC700300166 /* SDBoosterDSP.hpp */,
+				C4E249F52031945E00A020D7 /* AudioKit.framework */,
+				C4E249F72031945E00A020D7 /* AudioKitUI.framework */,
 			);
-			path = SDBooster;
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4E249FE2031952200A020D7 /* SDBooster */ = {
+			isa = PBXGroup;
+			children = (
+				C4E249FF2031952200A020D7 /* SDBooster.swift */,
+				C4E24A002031952200A020D7 /* SDBoosterAudioUnit.swift */,
+				C4E24A012031952200A020D7 /* SDBoosterDSP.hpp */,
+				C4E24A022031952200A020D7 /* SDBooster.mm */,
+			);
+			name = SDBooster;
+			path = ../../Common/SDBooster;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,7 +180,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3429F97A201A25AB00300166 /* Build configuration list for PBXProject "ExtendingAudioKit" */;
+			buildConfigurationList = 3429F97A201A25AB00300166 /* Build configuration list for PBXProject "ExtendingAudioKitFromSource" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -166,12 +191,35 @@
 			mainGroup = 3429F976201A25AB00300166;
 			productRefGroup = 3429F980201A25AB00300166 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C4E249F02031945E00A020D7 /* Products */;
+					ProjectRef = C4E249EF2031945E00A020D7 /* AudioKit For iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3429F97E201A25AB00300166 /* ExtendingAudioKit */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C4E249F52031945E00A020D7 /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = C4E249F42031945E00A020D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4E249F72031945E00A020D7 /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = C4E249F62031945E00A020D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3429F97D201A25AB00300166 /* Resources */ = {
@@ -192,12 +240,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3429F9B1201A2EC700300166 /* SDBoosterAudioUnit.swift in Sources */,
 				3429F985201A25AB00300166 /* ViewController.swift in Sources */,
-				3429F9B0201A2EC700300166 /* SDBooster.swift in Sources */,
-				3429F9AF201A2EC700300166 /* SDBooster.mm in Sources */,
+				C4E24A032031952200A020D7 /* SDBooster.swift in Sources */,
 				3429F9A9201A2D3600300166 /* SDSustainer.swift in Sources */,
 				3429F9A8201A2D3600300166 /* Conductor.swift in Sources */,
+				C4E24A052031952200A020D7 /* SDBooster.mm in Sources */,
+				C4E24A042031952200A020D7 /* SDBoosterAudioUnit.swift in Sources */,
 				3429F983201A25AB00300166 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,7 +428,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3429F97A201A25AB00300166 /* Build configuration list for PBXProject "ExtendingAudioKit" */ = {
+		3429F97A201A25AB00300166 /* Build configuration list for PBXProject "ExtendingAudioKitFromSource" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3429F98F201A25AB00300166 /* Debug */,
