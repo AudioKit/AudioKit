@@ -6,6 +6,14 @@ The complete source code is available now as MIT open source. Meaning, you can u
 
 <img width="50%" align="right" src="http://audiokit.io/examples/AnalogSynthX/analgsynthx.jpg">
 
+## Compiling from source:
+
+This project makes use of CocoaPods, so make sure you have that installed and then run
+
+```
+cd Examples/iOS/AnalogSynthX; pod install;
+```
+
 ## Synth Features   
 
 * 5-Voice Virtual Analog Synthesizer
