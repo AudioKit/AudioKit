@@ -1,5 +1,5 @@
 //
-//  AKDynaRageCompressorDSPKernel.cpp
+//  AKDynaRageCompressorDSPKernel.mm
 //  AudioKit
 //
 //  Created by Stéphane Peter on 1/30/18.
