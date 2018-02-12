@@ -9,13 +9,15 @@ Reasons you might want to use these projects include:
 * Fixing a bug in AudioKit
 * Extending some AudioKit functionality 
 
-## Extending AudioKit
+## iOSDevelopment and macOSDevelopment
 
-An example of creating a node outside of AudioKit.
-
-### For both iOS and macOS
+This project provides a small sample app to test code in as well as providing access to a development playground.
 
 Use the iOS project if you need to target iOS either on a real device or a simulated one. Or use the macOS project if you need to target macOS or just prefer the speed of working directly with your OS.
+
+## Extending AudioKit (For both iOS and macOS)
+
+An example of creating a node outside of AudioKit.
 
 ### Using the AudioKit Framework or Using AudioKit Source code directly
 
