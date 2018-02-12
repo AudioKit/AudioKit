@@ -110,7 +110,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators / Oscillators
 #import "AKFMOscillatorDSP.hpp"
 #import "AKFMOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorAudioUnit.h"
+#import "AKMorphingOscillatorDSP.hpp"
 #import "AKMorphingOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorBankDSPKernel.hpp"
 #import "AKOscillatorDSP.hpp"
@@ -120,7 +120,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorDSP.hpp"
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorBankDSPKernel.hpp"
-#import "AKMorphingOscillatorDSPKernel.hpp"
 
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"

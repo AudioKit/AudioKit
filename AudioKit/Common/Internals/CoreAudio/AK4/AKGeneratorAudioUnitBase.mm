@@ -46,6 +46,13 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
     _kernel->setWaveformValue(index, value);
 }
+- (void)setupIndividualWaveform:(UInt32)waveform size:(int)size {
+    _kernel->setupIndividualWaveform(waveform, (uint32_t)size);
+}
+
+- (void)setIndividualWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index {
+    _kernel->setIndividualWaveformValue(waveform, index, value);
+}
 - (void)trigger {
     _kernel->trigger();
 }

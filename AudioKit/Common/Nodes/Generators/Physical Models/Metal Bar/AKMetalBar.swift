@@ -281,6 +281,15 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         internalAU?.setParameterImmediately(.strikeWidth, value: strikeWidth)
     }
 
+    // MARK: - Control
+
+    /// Trigger the sound with an optional set of parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
+
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
         internalAU?.start()
