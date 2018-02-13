@@ -6,6 +6,7 @@ set -o pipefail
 
 VERSION=$(cat ../VERSION)
 PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
+SKIP_JAZZY=1 # Broken for now
 
 if ! which gsed > /dev/null 2>&1;
 then
