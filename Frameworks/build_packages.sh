@@ -85,6 +85,6 @@ create_playgrounds
 echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
 rm -f AudioKit.framework.zip
 cd Carthage
-cp ../../LICENSE .
+cp ../../LICENSE ../../README.md .
 zip -9yr ../AudioKit.framework.zip $PLATFORMS LICENSE
 
