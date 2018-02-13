@@ -690,7 +690,7 @@
                                     <action selector="toggleSound:" target="XfG-lQ-9wD" id="5pt-GP-6o5"/>
                                 </connections>
                             </button>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KyK-oq-Xcd" customClass="AK">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KyK-oq-Xcd" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
                                 <rect key="frame" x="20" y="361" width="440" height="290"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="290" id="Vfm-qK-KVk"/>
@@ -1022,22 +1022,23 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="chorusFeedbackReadout" destination="eJ6-VT-7ft" id="RaR-7X-BkH"/>
-                        <outlet property="chorusFeedbackSlider" destination="Rdp-du-ydS" id="x7F-aE-UEj"/>
                         <outlet property="chorusDepthReadout" destination="hcv-1J-pn8" id="ZHV-qM-9rU"/>
                         <outlet property="chorusDepthSlider" destination="oCZ-1S-41m" id="Des-Gy-Zn5"/>
-                        <outlet property="chorusFrequencyReadout" destination="wCv-wj-2Kn" id="Tca-YE-DNq"/>
-                        <outlet property="chorusFrequencySlider" destination="n5S-dE-rwV" id="xrP-fT-JKJ"/>
                         <outlet property="chorusDryWetMixReadout" destination="BIm-8j-UeP" id="DNI-gv-c0n"/>
                         <outlet property="chorusDryWetMixSlider" destination="wsO-z4-VUm" id="e4P-bc-lWh"/>
-                        <outlet property="flangerFeedbackReadout" destination="fL7-Fk-hzC" id="vcJ-3s-w09"/>
-                        <outlet property="flangerFeedbackSlider" destination="sAI-2d-rFk" id="MoL-0a-QgF"/>
+                        <outlet property="chorusFeedbackReadout" destination="eJ6-VT-7ft" id="RaR-7X-BkH"/>
+                        <outlet property="chorusFeedbackSlider" destination="Rdp-du-ydS" id="x7F-aE-UEj"/>
+                        <outlet property="chorusFrequencyReadout" destination="wCv-wj-2Kn" id="Tca-YE-DNq"/>
+                        <outlet property="chorusFrequencySlider" destination="n5S-dE-rwV" id="xrP-fT-JKJ"/>
                         <outlet property="flangerDepthReadout" destination="4el-v0-e2h" id="452-fH-Zld"/>
                         <outlet property="flangerDepthSlider" destination="bSq-s4-nB4" id="lmG-0K-zMI"/>
-                        <outlet property="flangerFrequencyReadout" destination="K2R-Po-jce" id="Gbh-25-kdw"/>
-                        <outlet property="flangerFrequencySlider" destination="Awf-aK-1az" id="cb4-7S-xyr"/>
                         <outlet property="flangerDryWetMixReadout" destination="tKR-ZT-2tU" id="0cE-i4-8jv"/>
                         <outlet property="flangerDryWetMixSlider" destination="YpW-1c-6Sh" id="KFb-Bd-V0r"/>
+                        <outlet property="flangerFeedbackReadout" destination="fL7-Fk-hzC" id="vcJ-3s-w09"/>
+                        <outlet property="flangerFeedbackSlider" destination="sAI-2d-rFk" id="MoL-0a-QgF"/>
+                        <outlet property="flangerFrequencyReadout" destination="K2R-Po-jce" id="Gbh-25-kdw"/>
+                        <outlet property="flangerFrequencySlider" destination="Awf-aK-1az" id="cb4-7S-xyr"/>
+                        <outlet property="plot" destination="KyK-oq-Xcd" id="oqK-Pq-QSi"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
