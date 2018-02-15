@@ -70,7 +70,7 @@ class Conductor {
         oscillator.vibratoRate = 5
 
         // Initial parameters setup: flanger
-        flanger.frequency = 0.7
+        flanger.frequency = 2.0
         flanger.depth = 0.4
         flanger.dryWetMix = 0.5
         flanger.feedback = -0.9

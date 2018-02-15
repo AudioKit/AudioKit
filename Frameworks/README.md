@@ -7,7 +7,7 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The de
 ## Using the compiled frameworks in your projects
 
 * Select the target in your Xcode project that will link with AudioKit.
-* Drag and drop the `AudioKit.framework` bundle in the **Embedded Binaries** section of the **General** tab.
+* Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform.
 * Make sure to add `-lstdc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.

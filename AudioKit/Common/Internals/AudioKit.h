@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKDSPKernel.hpp"
 #import "AKSoundpipeKernel.hpp"
 #import "AKBankDSPKernel.hpp"
+#import "ExceptionCatcher.h"
 
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
@@ -38,10 +39,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKOperationEffectAudioUnit.h"
 #import "AKSporthStack.h"
 
-// Effects / Chorus and Flanger
-#import "AKChorusAudioUnit.h"
-#import "AKFlangerAudioUnit.h"
-
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
 
@@ -52,8 +49,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Dynamics
 #import "AKDynamicRangeCompressorDSP.hpp"
-#import "AKDynaRageCompressorAudioUnit.h"
-#import "AKDynaRageCompressorDSPKernel.hpp"
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeDSP.hpp"
@@ -82,10 +77,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
+#import "AKDynaRageCompressorAudioUnit.h"
+#import "AKDynaRageCompressorDSPKernel.hpp"
 #import "AKRhinoGuitarProcessorAudioUnit.h"
 #import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
-// Effects / Phaser
+// Effects / Modulation
+#import "AKModulatedDelayDSP.hpp"
 #import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
@@ -110,7 +108,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators / Oscillators
 #import "AKFMOscillatorDSP.hpp"
 #import "AKFMOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorAudioUnit.h"
+#import "AKMorphingOscillatorDSP.hpp"
 #import "AKMorphingOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorBankDSPKernel.hpp"
 #import "AKOscillatorDSP.hpp"
@@ -120,14 +118,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPWMOscillatorDSP.hpp"
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorBankDSPKernel.hpp"
-#import "AKMorphingOscillatorDSPKernel.hpp"
 
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"
-#import "AKDripAudioUnit.h"
+#import "AKDripDSP.hpp"
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
-#import "AKMetalBarAudioUnit.h"
+#import "AKMetalBarDSP.hpp"
 #import "AKRhodesPianoAudioUnit.h"
 #import "AKPluckedStringDSP.hpp"
 #import "AKShakerAudioUnit.h"

@@ -25,7 +25,7 @@ let effect = AKOperationEffect(player) { input, parameters in
 effect.parameters = [22_050, 0, 16, 0, 1]
 
 AudioKit.output = effect
-try try AudioKit.start()
+try AudioKit.start()
 player.play()
 
 class LiveView: AKLiveViewController {

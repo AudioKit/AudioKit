@@ -14,7 +14,7 @@ class ViewController: NSViewController {
 
     let conductor = Conductor.shared
     var playing = false
-
+    @IBOutlet var plot: AKNodeOutputPlot?
     @IBOutlet weak var flangerFrequencySlider: NSSlider!
     @IBOutlet weak var flangerDepthSlider: NSSliderCell!
     @IBOutlet weak var flangerDryWetMixSlider: NSSlider!

@@ -18,7 +18,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var amplitude: Double = 1 {
+    var amplitude: Double = AKBrownianNoise.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -41,17 +41,17 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Amplitude",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKBrownianNoise.amplitudeRange.lowerBound),
+            max: Float(AKBrownianNoise.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
-        amplitude.value = 1
+        amplitude.value = Float(AKBrownianNoise.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
