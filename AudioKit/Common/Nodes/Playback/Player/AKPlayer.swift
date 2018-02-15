@@ -72,57 +72,29 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
-        public static var minimumGain: Double = 0.000_2
-        public static var maximumGain: Double = 1
+        /// a constant
+        public static var minimumGain: Double = 0.0002
 
-        var needsUpdate: Bool = false
+        /// the value that the booster should fade to, settable
+        public var maximumGain: Double = 1
 
-        public var inTime: Double = 0 {
-            willSet {
-                AKLog(inTime)
-                if newValue != inTime { needsUpdate = true }
-            }
-        }
+        public var inTime: Double = 0
 
         // if you want to start midway into a fade
-        public var inTimeOffset: Double = 0 {
-            willSet {
-                if newValue != inTimeOffset { needsUpdate = true }
-            }
-        }
+        public var inTimeOffset: Double = 0
 
         // Currently Unused
-        public var inStartGain: Double = minimumGain {
-            willSet {
-                if newValue != inStartGain { needsUpdate = true }
-            }
-        }
+        public var inStartGain: Double = minimumGain
 
-        public var outTime: Double = 0 {
-            willSet {
-                if newValue != outTime { needsUpdate = true }
-            }
-        }
+        public var outTime: Double = 0
 
-        public var outTimeOffset: Double = 0 {
-            willSet {
-                if newValue != outTimeOffset { needsUpdate = true }
-            }
-        }
+        public var outTimeOffset: Double = 0
 
         // Currently Unused
-        public var outStartGain: Double = 1 {
-            willSet {
-                if newValue != outStartGain { needsUpdate = true }
-            }
-        }
+        public var outStartGain: Double = 1
 
-        // TODO: this would tell Booster what ramper to use
-        public var type: AKPlayer.FadeType = .exponential {
-            willSet {
-                if newValue != type { needsUpdate = true }
-            }
-        }
+        // TODO: this would tell Booster what ramper to use when multiple curves are available
+        public var type: AKPlayer.FadeType = .exponential
     }
 
     // MARK: - Private Parts
@@ -193,6 +165,17 @@ public class AKPlayer: AKNode {
     public var volume: Double {
         get { return Double(playerNode.volume) }
         set { playerNode.volume = Float(newValue) }
+    }
+
+    /// Amplification Factor, in the range of 0.0002 to 2
+    public var gain: Double = 1 {
+        didSet {
+            if faderNode.rampTime != AKSettings.rampTime {
+                faderNode.rampTime = AKSettings.rampTime
+            }
+            fade.maximumGain = gain
+            faderNode.gain = gain
+        }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
@@ -461,7 +444,7 @@ public class AKPlayer: AKNode {
         }
 
         faderNode.rampTime = AKSettings.rampTime
-        faderNode.gain = state ? Fade.maximumGain : Fade.minimumGain
+        faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
 
     @objc private func startFade() {
@@ -474,9 +457,9 @@ public class AKPlayer: AKNode {
             faderNode.rampTime = inTime
         }
         // set target gain and begin ramping
-        faderNode.gain = Fade.maximumGain
+        faderNode.gain = fade.maximumGain
 
-        AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
+        // AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
 
         faderTimer?.invalidate()
 
@@ -684,7 +667,7 @@ public class AKPlayer: AKNode {
         }
 
         let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate || loop.needsUpdate)
+            startFrame != startingFrame || endFrame != endingFrame || loop.needsUpdate)
 
         if !updateNeeded {
             return

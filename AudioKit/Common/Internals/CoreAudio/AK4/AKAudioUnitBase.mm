@@ -164,6 +164,7 @@
 
 - (void)deallocateRenderResources {
     _inputBus.deallocateRenderResources();
+    _kernel->deinit();
     [super deallocateRenderResources];
 }
 
