@@ -69,7 +69,9 @@ open class AKSampler: AKNode {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
-            try samplerUnit.loadAudioFiles(at: [url])
+            try AKTry {
+                try self.samplerUnit.loadAudioFiles(at: [url])
+            }
         } catch let error as NSError {
             AKLog("Error loading wav file at \(url)")
             throw error
@@ -90,7 +92,9 @@ open class AKSampler: AKNode {
     ///
     @objc open func loadAudioFile(_ file: AKAudioFile) throws {
         do {
-            try samplerUnit.loadAudioFiles(at: [file.url])
+            try AKTry {
+                try self.samplerUnit.loadAudioFiles(at: [file.url])
+            }
         } catch let error as NSError {
             AKLog("Error loading audio file \"\(file.fileNamePlusExtension)\"")
             throw error
@@ -107,7 +111,9 @@ open class AKSampler: AKNode {
     @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
         let urls = files.map { $0.url }
         do {
-            try samplerUnit.loadAudioFiles(at: urls)
+            try AKTry {
+                try self.samplerUnit.loadAudioFiles(at: urls)
+            }
         } catch let error as NSError {
             AKLog("Error loading audio files \(urls)")
             throw error
@@ -120,7 +126,9 @@ open class AKSampler: AKNode {
     ///
     @objc open func loadPath(_ filePath: String) throws {
         do {
-            try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+            try AKTry {
+                try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+            }
         } catch {
             AKLog("Error loading audio file at \(filePath)")
             throw error
@@ -134,7 +142,9 @@ open class AKSampler: AKNode {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
-            try samplerUnit.loadInstrument(at: url)
+            try AKTry {
+                try self.samplerUnit.loadInstrument(at: url)
+            }
         } catch let error as NSError {
             AKLog("Error loading instrument resource \(file)")
             throw error
@@ -174,8 +184,10 @@ open class AKSampler: AKNode {
     ///
     @objc open func play(noteNumber: MIDINoteNumber = 60,
                          velocity: MIDIVelocity = 127,
-                         channel: MIDIChannel = 0) {
-        samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+                         channel: MIDIChannel = 0) throws {
+        try AKTry {
+            self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+        }
     }
 
     /// Stop a MIDI Note
@@ -184,8 +196,10 @@ open class AKSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
-        samplerUnit.stopNote(noteNumber, onChannel: channel)
+    @objc open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
+        try AKTry {
+            self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+        }
     }
 
 }
