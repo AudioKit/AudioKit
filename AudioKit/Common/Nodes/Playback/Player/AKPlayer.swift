@@ -155,7 +155,7 @@ public class AKPlayer: AKNode {
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    /// Holds characteristics about the fade options. Using fades will set the player to buffering
+    /// Holds characteristics about the fade options.
     public var fade = Fade()
 
     /// Looping params
