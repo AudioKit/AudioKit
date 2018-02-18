@@ -315,7 +315,7 @@ public class AKPlayer: AKNode {
         AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
-        faderNode.gain = Fade.minimumGain
+        faderNode.gain = 1 // Fade.minimumGain
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -430,11 +430,14 @@ public class AKPlayer: AKNode {
             return
         }
 
-        faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
-                                          target: self,
-                                          selector: #selector(startFade),
-                                          userInfo: nil,
-                                          repeats: false)
+        DispatchQueue.main.async {
+            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
+                                                   target: self,
+                                                   selector: #selector(self.startFade),
+                                                   userInfo: nil,
+                                                   repeats: false)
+        }
+
     }
 
     private func resetFader(_ state: Bool) {
@@ -475,11 +478,19 @@ public class AKPlayer: AKNode {
         } else {
             let when = (duration - startTime) - (duration - endTime) - fade.outTime
 
-            faderTimer = Timer.scheduledTimer(timeInterval: when,
-                                              target: self,
-                                              selector: #selector(fadeOut),
-                                              userInfo: nil,
-                                              repeats: false)
+            DispatchQueue.main.async {
+                self.faderTimer = Timer.scheduledTimer(timeInterval: when,
+                                                       target: self,
+                                                       selector: #selector(self.fadeOut),
+                                                       userInfo: nil,
+                                                       repeats: false)
+            }
+        }
+    }
+
+    @objc private func fadeOut() {
+        if fade.outTime > 0 {
+            fadeOutWithTime(fade.outTime)
         }
     }
 
@@ -487,12 +498,6 @@ public class AKPlayer: AKNode {
         if time > 0 {
             faderNode.rampTime = time
             faderNode.gain = Fade.minimumGain
-        }
-    }
-
-    @objc private func fadeOut() {
-        if fade.outTime > 0 {
-            fadeOutWithTime(fade.outTime)
         }
     }
 
@@ -504,11 +509,13 @@ public class AKPlayer: AKNode {
 
     // if the file is scheduled, start a timer to determine when to start the completion timer
     private func startPrerollTimer(_ prerollTime: Double) {
-        prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
-                                            target: self,
-                                            selector: #selector(AKPlayer.startCompletionTimer),
-                                            userInfo: nil,
-                                            repeats: false)
+        DispatchQueue.main.async {
+            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
+                                                     target: self,
+                                                     selector: #selector(self.startCompletionTimer),
+                                                     userInfo: nil,
+                                                     repeats: false)
+        }
     }
 
     // keep this timer separate in the cases of sounds that aren't scheduled
@@ -517,11 +524,13 @@ public class AKPlayer: AKNode {
         if isLooping && loop.end > 0 {
             segmentDuration = loop.end - startTime
         }
-        completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
-                                               target: self,
-                                               selector: #selector(handleComplete),
-                                               userInfo: nil,
-                                               repeats: false)
+        DispatchQueue.main.async {
+            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
+                                                        target: self,
+                                                        selector: #selector(self.handleComplete),
+                                                        userInfo: nil,
+                                                        repeats: false)
+        }
     }
 
     private func schedule(at audioTime: AVAudioTime?, hostTime: UInt64?) {
