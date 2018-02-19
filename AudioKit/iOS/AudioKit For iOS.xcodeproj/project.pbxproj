@@ -1412,6 +1412,7 @@
 		C487B60D1DD9236E00C56B59 /* Envelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Envelope.h; sourceTree = "<group>"; };
 		C487B60F1DD9237600C56B59 /* OneZero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneZero.cpp; sourceTree = "<group>"; };
 		C487B6111DD9237C00C56B59 /* Envelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Envelope.cpp; sourceTree = "<group>"; };
+		C4894016203A3D6C008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
 		C48C6B4A1D3C15F1008EA51B /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C48C6B4C1D3C15F1008EA51B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
@@ -1975,6 +1976,7 @@
 		52145B101F3C58F20069C88B /* Guitar Processors */ = {
 			isa = PBXGroup;
 			children = (
+				C4894016203A3D6C008B4F48 /* README.md */,
 				C4BC74A5203023DA00062B11 /* Common */,
 				C477583A202FD65000159BA7 /* DynaRage Tube Compressor */,
 				52145B111F3C58F20069C88B /* Rhino */,
