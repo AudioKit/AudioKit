@@ -406,6 +406,7 @@
 		C487B61A1DD923BA00C56B59 /* Clarinet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B6191DD923BA00C56B59 /* Clarinet.cpp */; };
 		C487B61C1DD923C000C56B59 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B61B1DD923C000C56B59 /* OneZero.cpp */; };
 		C487B61E1DD923C600C56B59 /* Envelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B61D1DD923C600C56B59 /* Envelope.cpp */; };
+		C4894019203A77A6008B4F48 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C4894018203A77A6008B4F48 /* README.md */; };
 		C48C6A521D3C1574008EA51B /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C69551D3C1573008EA51B /* CUI.h */; };
 		C48C6A531D3C1574008EA51B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69571D3C1573008EA51B /* fft.c */; };
 		C48C6A541D3C1574008EA51B /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69591D3C1573008EA51B /* ini.c */; };
@@ -1326,6 +1327,10 @@
 		C487B6191DD923BA00C56B59 /* Clarinet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clarinet.cpp; sourceTree = "<group>"; };
 		C487B61B1DD923C000C56B59 /* OneZero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneZero.cpp; sourceTree = "<group>"; };
 		C487B61D1DD923C600C56B59 /* Envelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Envelope.cpp; sourceTree = "<group>"; };
+		C4894018203A77A6008B4F48 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../Common/README.md; sourceTree = "<group>"; };
+		C489401A203A77BE008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C489401B203A77E5008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C489401C203A77FB008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C48C69551D3C1573008EA51B /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C48C69571D3C1573008EA51B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C48C69591D3C1573008EA51B /* ini.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
@@ -2245,6 +2250,7 @@
 		C45380A21C3A5CBD00A51738 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				C489401C203A77FB008B4F48 /* README.md */,
 				C45380A31C3A5CBD00A51738 /* AudioKit Operation-Based Effect */,
 				C45380A81C3A5CBD00A51738 /* Delay */,
 				C45380B01C3A5CBD00A51738 /* Distortion */,
@@ -3697,6 +3703,7 @@
 		C4BDE82F1C12FFBC00207DA9 = {
 			isa = PBXGroup;
 			children = (
+				C489401A203A77BE008B4F48 /* README.md */,
 				C4BDE83B1C12FFBC00207DA9 /* AudioKit */,
 				EAFECEEB1F4EC31400A2B046 /* AudioKitUI */,
 				C4BDE83A1C12FFBC00207DA9 /* Products */,
@@ -3716,6 +3723,7 @@
 		C4BDE83B1C12FFBC00207DA9 /* AudioKit */ = {
 			isa = PBXGroup;
 			children = (
+				C4894018203A77A6008B4F48 /* README.md */,
 				C4BDE8471C13004A00207DA9 /* Internals */,
 				C4BDE9081C13004A00207DA9 /* Nodes */,
 				C4BDE9E61C13004A00207DA9 /* Operations */,
@@ -3761,6 +3769,7 @@
 		C4BDE9081C13004A00207DA9 /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
+				C489401B203A77E5008B4F48 /* README.md */,
 				55E4F52F1F57DB110088018A /* Metronome */,
 				C4BDE90B1C13004A00207DA9 /* AKNode.swift */,
 				EAFECF131F4EC74400A2B046 /* AKConnection.swift */,
@@ -4470,6 +4479,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4894019203A77A6008B4F48 /* README.md in Resources */,
 				C44EA26F201870EC0072399F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
