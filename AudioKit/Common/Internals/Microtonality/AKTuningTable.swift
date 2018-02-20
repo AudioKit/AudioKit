@@ -16,71 +16,67 @@
     }
 }
 
-/// Tuning table stores frequencies at which to play MIDI notes
-@objc open class AKTuningTable: NSObject {
+/// helper object to simulate a Swift tuple for ObjC interoperability
+@objc open class AKTuningTableDelta12ET: NSObject {
+    @objc public var nn: MIDINoteNumber = 60
+    @objc public var cents: Double = 0
+    @objc public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
+        self.nn = nn
+        self.cents = cents
+    }
+}
 
-    // Some definitions:
-    // f = Frequency
-    // p = Pitch = log2(frequency) for tunings where octave powers of 2
-    // c = Cents = 1200 * Pitch
-    // nn = midi note number of any tuning.  maps to frequency in this tuning table.
+///AKTuningTable provides high-level methods to create musically useful tuning tables
 
-    // Regarding MIDI/Pitchbend ("etNNPitchBend") scheme:
-    // etnn or 12ETNN = midi note number of 12ET.  1 12ETNN = 1 semitone = 100 cents
-    // The greater your tolerance for numerical precision the less voice-stealing will happen with midi/pitchbend schemes
+// Definitions:
+// masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
 
-    /// For clarity, typealias Frequency as a Double
-    public typealias Frequency = Double
+@objc open class AKTuningTable: AKTuningTableBase {
 
-    /// For clarify, typealias Cents as a Double.
-    /// Cents = 1200 * log2(Frequency)
-    public typealias Cents = Double
-
-    /// Standard Nyquist frequency
-    private static let NYQUIST: Frequency = AKSettings.sampleRate / 2
-
-    /// Total number of MIDI Notes available to play
-    @objc public static let midiNoteCount = 128
+    @objc internal var masterSet = [Frequency]()
 
     /// Note number for standard reference note
     @objc public var middleCNoteNumber: MIDINoteNumber = 60 {
         didSet {
-            updateTuningTable()
+            updateTuningTableFromMasterSet()
         }
     }
-
+    
     /// Frequency of standard reference note
     /// equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
     @objc public var middleCFrequency: Frequency = 261.625_565_300_6 {
         didSet {
-            updateTuningTable()
+            updateTuningTableFromMasterSet()
         }
     }
-
+    
     /// Octave number for standard reference note.  Can be negative
     /// ..., -2, -1, 0, 1, 2, ...
     @objc public var middleCOctave: Int = 0 {
         didSet {
-            updateTuningTable()
+            updateTuningTableFromMasterSet()
         }
     }
-
+    
     /// Range of downwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend DOWN range
     @objc public var etNNPitchBendRangeDown: Cents = -50 {
         didSet {
-            updateTuningTable()
+            updateTuningTableFromMasterSet()
         }
     }
-    private let pitchBendLow: Double = 0
-
+    
+    internal let pitchBendLow: Double = 0
+    
     /// Range of upwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend UP range
     @objc public var etNNPitchBendRangeUp: Cents = 50 {
         didSet {
-            updateTuningTable()
+            updateTuningTableFromMasterSet()
         }
     }
-
-    private let pitchBendHigh: Double = 16_383
+    
+    internal let pitchBendHigh: Double = 16_383
+    
+    internal var etNNDictionary = Dictionary<MIDINoteNumber, AKTuningTableETNN>()
 
     /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
@@ -88,17 +84,20 @@
     @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
         return etNNDictionary[nn]
     }
+    
+    internal var delta12ETDictionary = Dictionary<MIDINoteNumber, AKTuningTableDelta12ET>()
 
-    private var etNNDictionary = Dictionary<MIDINoteNumber, AKTuningTableETNN>()
+    /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
+    /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
+    /// - parameter nn: The tuning table's Note Number
+    @objc public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
+        return delta12ETDictionary[nn]
+    }
 
-    private var content = [Frequency](repeating: 1.0, count: midiNoteCount)
-
-    private var frequencies = [Frequency]()
-
-    /// Notes Per Octave: The count of the frequency array
-    @objc public var npo: Int {
+    /// Notes Per Octave: The count of the masterSet array
+    @objc override public var npo: Int {
         get {
-            return frequencies.count
+            return masterSet.count
         }
     }
     /// Initialization for standard default 12 tone equal temperament
@@ -107,36 +106,25 @@
         _ = defaultTuning()
     }
 
-    /// Return the Frequency for the given MIDINoteNumber
-    @objc public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
-        return content[Int(noteNumber)]
-    }
-
-    /// Set frequency of a given note number
-    @objc public func setFrequency(_ frequency: Frequency, at noteNumber: MIDINoteNumber) {
-        content[Int(noteNumber)] = frequency
-    }
-
-    /// Create the tuning using the input frequencies
+    /// Create the tuning using the input masterSet
     ///
-    /// - parameter inputFrequencies: An array of frequencies
+    /// - parameter inputFrequencies: An array of frequencies, i.e., the "masterSet"
     ///
-    @objc @discardableResult public func tuningTable(fromFrequencies inputFrequencies: [Frequency]) -> Int {
-        if inputFrequencies.isEmpty {
+    @objc @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
+        if inputMasterSet.isEmpty {
             AKLog("No input frequencies")
             return 0
         }
 
         // octave reduce
         var frequenciesAreValid = true
-        let frequenciesOctaveReduce = inputFrequencies.map({(frequency: Frequency) -> Frequency in
+        let frequenciesOctaveReduce = inputMasterSet.map({(frequency: Frequency) -> Frequency in
             if frequency == 0 {
                 frequenciesAreValid = false
                 return Frequency(1)
             }
 
             var l2 = abs(frequency)
-
             while l2 < 1 {
                 l2 *= 2.0
             }
@@ -154,25 +142,23 @@
 
         // sort
         let frequenciesOctaveReducedSorted = frequenciesOctaveReduce.sorted { $0 < $1 }
-        frequencies = frequenciesOctaveReducedSorted
-
-        // provide an optional uniquify.
-        // Choose epsilon for frequency equality comparison
+        masterSet = frequenciesOctaveReducedSorted
 
         // update
-        updateTuningTable()
+        updateTuningTableFromMasterSet()
 
-        return frequencies.count
+        return masterSet.count
     }
 
-    // Assume frequencies are set and valid:  Process and update tuning table.
-    @objc private func updateTuningTable() {
-        //AKLog("Frequencies: \(frequencies)")
-
+    // Assume masterSet is set and valid:  Process and update tuning table.
+    @objc internal func updateTuningTableFromMasterSet() {
+        //AKLog("masterSet: \(masterSet)")
+        
         etNNDictionary.removeAll(keepingCapacity: true)
-
+        delta12ETDictionary.removeAll(keepingCapacity: true)
+        
         for i in 0 ..< AKTuningTable.midiNoteCount {
-            let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(frequencies.count)
+            let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(masterSet.count)
             var ttOctaveFactor = Frequency(trunc(ff))
             if ff < 0 {
                 ttOctaveFactor -= 1
@@ -182,30 +168,33 @@
                 frac = 0
                 ttOctaveFactor += 1
             }
-            let frequencyIndex = Int(round(frac * Frequency(frequencies.count)))
-            let tone = Frequency(frequencies[frequencyIndex])
+            let frequencyIndex = Int(round(frac * Frequency(masterSet.count)))
+            let tone = Frequency(masterSet[frequencyIndex])
             let lp2 = pow(2, ttOctaveFactor)
 
             var f = tone * lp2 * middleCFrequency
             f = (0...AKTuningTable.NYQUIST).clamp(f)
-            content[i] = Frequency(f)
+            tableData[i] = Frequency(f)
 
             // UPDATE etNNPitchBend
-            if f <= 0 { continue } // DEFENSIVE: in case clamp above is removed
+            if f <= 0 { continue } // defensive, in case clamp above is removed
             let freqAs12ETNN = Double(middleCNoteNumber) + 12 * log2(f / middleCFrequency)
             if freqAs12ETNN >= 0 && freqAs12ETNN < Double(AKTuningTable.midiNoteCount) {
                 let etnnt = modf(freqAs12ETNN)
                 var nnAs12ETNN = MIDINoteNumber(etnnt.0) // integer part "12ET note number"
                 var etnnpbf = 100 * etnnt.1  // convert fractional part to Cents
+                
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
                 if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
                     nnAs12ETNN = nnAs12ETNN + 1
                     etnnpbf = -(100 - etnnpbf)
                 }
+                let delta12ETpbf = etnnpbf // defensive, in case you further modify etnnpbf
                 let netnnpbf = etnnpbf / (etNNPitchBendRangeUp - etNNPitchBendRangeDown)
                 if netnnpbf >= -0.5 && netnnpbf <= 0.5 {
                     let netnnpb = Int( (netnnpbf + 0.5) * (pitchBendHigh - pitchBendLow) + pitchBendLow )
                     etNNDictionary[MIDINoteNumber(i)] = AKTuningTableETNN(nnAs12ETNN, netnnpb)
+                    delta12ETDictionary[MIDINoteNumber(i)] = AKTuningTableDelta12ET(nnAs12ETNN, delta12ETpbf)
                 } else {
                     //AKLog("this tuning's note number:\(i) is in range of 12ET note numbers:\(freqAs12ETNN) but pitch bend is not:\(etnnpbf)")
                 }
