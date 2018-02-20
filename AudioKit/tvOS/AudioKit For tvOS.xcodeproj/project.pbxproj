@@ -347,7 +347,6 @@
 		C470D07420174B40003D1AFA /* AKGeneratorAudioUnitBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C470D07220174B40003D1AFA /* AKGeneratorAudioUnitBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C470D07820174B84003D1AFA /* AKBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470D07520174B84003D1AFA /* AKBoosterAudioUnit.swift */; };
 		C470D07920174B84003D1AFA /* AKBoosterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C470D07620174B84003D1AFA /* AKBoosterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C470D07A20174B84003D1AFA /* AKBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = C470D07720174B84003D1AFA /* AKBooster.mm */; };
 		C470D07E20174B99003D1AFA /* AKPanner.mm in Sources */ = {isa = PBXBuildFile; fileRef = C470D07B20174B99003D1AFA /* AKPanner.mm */; };
 		C470D07F20174B99003D1AFA /* AKPannerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C470D07C20174B99003D1AFA /* AKPannerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C470D08020174B99003D1AFA /* AKPannerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470D07D20174B99003D1AFA /* AKPannerAudioUnit.swift */; };
@@ -407,6 +406,7 @@
 		C487B61C1DD923C000C56B59 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B61B1DD923C000C56B59 /* OneZero.cpp */; };
 		C487B61E1DD923C600C56B59 /* Envelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B61D1DD923C600C56B59 /* Envelope.cpp */; };
 		C4894019203A77A6008B4F48 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C4894018203A77A6008B4F48 /* README.md */; };
+		C489401E203BC5FF008B4F48 /* AKBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C489401D203BC5FF008B4F48 /* AKBoosterDSP.mm */; };
 		C48C6A521D3C1574008EA51B /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C69551D3C1573008EA51B /* CUI.h */; };
 		C48C6A531D3C1574008EA51B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69571D3C1573008EA51B /* fft.c */; };
 		C48C6A541D3C1574008EA51B /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69591D3C1573008EA51B /* ini.c */; };
@@ -1268,7 +1268,6 @@
 		C470D07220174B40003D1AFA /* AKGeneratorAudioUnitBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGeneratorAudioUnitBase.h; sourceTree = "<group>"; };
 		C470D07520174B84003D1AFA /* AKBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterAudioUnit.swift; sourceTree = "<group>"; };
 		C470D07620174B84003D1AFA /* AKBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSP.hpp; sourceTree = "<group>"; };
-		C470D07720174B84003D1AFA /* AKBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBooster.mm; sourceTree = "<group>"; };
 		C470D07B20174B99003D1AFA /* AKPanner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPanner.mm; sourceTree = "<group>"; };
 		C470D07C20174B99003D1AFA /* AKPannerDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPannerDSP.hpp; sourceTree = "<group>"; };
 		C470D07D20174B99003D1AFA /* AKPannerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPannerAudioUnit.swift; sourceTree = "<group>"; };
@@ -1331,6 +1330,7 @@
 		C489401A203A77BE008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C489401B203A77E5008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C489401C203A77FB008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C489401D203BC5FF008B4F48 /* AKBoosterDSP.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterDSP.mm; sourceTree = "<group>"; };
 		C48C69551D3C1573008EA51B /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C48C69571D3C1573008EA51B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C48C69591D3C1573008EA51B /* ini.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
@@ -2096,8 +2096,8 @@
 			children = (
 				C42FFBC01C3D039C00823BD4 /* AKBooster.swift */,
 				C470D07520174B84003D1AFA /* AKBoosterAudioUnit.swift */,
-				C470D07720174B84003D1AFA /* AKBooster.mm */,
 				C470D07620174B84003D1AFA /* AKBoosterDSP.hpp */,
+				C489401D203BC5FF008B4F48 /* AKBoosterDSP.mm */,
 			);
 			path = Booster;
 			sourceTree = "<group>";
@@ -4842,7 +4842,6 @@
 				C49E9E191D2B4BE600E5E8BF /* AKAudioFile+Processing.swift in Sources */,
 				C48C6AB61D3C1574008EA51B /* tblrec.c in Sources */,
 				C4FE01651CED2DD40062B3A3 /* AKNodeRecorder.swift in Sources */,
-				C470D07A20174B84003D1AFA /* AKBooster.mm in Sources */,
 				C44EA277201870EC0072399F /* AKPhaserAudioUnit.swift in Sources */,
 				C4F8CB161DCA928B001F38F2 /* pinknoise.c in Sources */,
 				C43ABDF81E5BCD3A00165053 /* clock.c in Sources */,
@@ -4852,6 +4851,7 @@
 				C48C6A601D3C1574008EA51B /* atone.c in Sources */,
 				C4E7524E1C23888700688A1B /* add.swift in Sources */,
 				C45F3F801ED157AB00A75143 /* AKSamplePlayerAudioUnit.mm in Sources */,
+				C489401E203BC5FF008B4F48 /* AKBoosterDSP.mm in Sources */,
 				C4E729981D382C0800E0647E /* AKResonantFilter.swift in Sources */,
 				C48C6A831D3C1574008EA51B /* foo.c in Sources */,
 				C470CF89201747C0003D1AFA /* AKDynamicRangeCompressorAudioUnit.swift in Sources */,
