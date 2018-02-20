@@ -700,8 +700,6 @@
 		C4AC0B491FC944F500EDA024 /* AKBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B461FC944F400EDA024 /* AKBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4AC0B4A1FC944F500EDA024 /* AKBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B471FC944F400EDA024 /* AKBankDSPKernel.hpp */; };
 		C4AC0B4B1FC944F500EDA024 /* AKBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4AC0B481FC944F400EDA024 /* AKBankAudioUnit.mm */; };
-		C4AC0B4F1FC944FE00EDA024 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4D1FC944FE00EDA024 /* AKLinearParameterRamp.hpp */; };
-		C4AC0B501FC944FE00EDA024 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4E1FC944FE00EDA024 /* AKParameterRampBase.hpp */; };
 		C4AC0B521FC9457800EDA024 /* AKSoundpipeDSPBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B511FC9457700EDA024 /* AKSoundpipeDSPBase.hpp */; };
 		C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCD1C4E2960009EA58E /* AKCompressor.swift */; };
 		C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCF1C4E2960009EA58E /* AKExpander.swift */; };
@@ -932,6 +930,9 @@
 		F02767321E79C7690099CA47 /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		F02767341E79D1D20099CA47 /* AKCustomUgenInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */; };
 		F02767371E79D43B0099CA47 /* AKCustomUgenFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */; };
+		F4318C8D1FE892860022E418 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4E1FC944FE00EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4318C8E1FE892890022E418 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4D1FC944FE00EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4318C901FE89E7B0022E418 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4318C8F1FE89E7B0022E418 /* AKTuningTableBase.swift */; };
 		F4B7AEB11EB8DA6000594E86 /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */; };
 		F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */; };
 		F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */; };
@@ -1893,6 +1894,7 @@
 		F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AKSporthStack+Internal.h"; path = "Sporth Custom Ugens/AKSporthStack+Internal.h"; sourceTree = "<group>"; };
 		F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenInfo.h; path = "Sporth Custom Ugens/AKCustomUgenInfo.h"; sourceTree = "<group>"; };
 		F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AKCustomUgenFunction.h; path = "Sporth Custom Ugens/AKCustomUgenFunction.h"; sourceTree = "<group>"; };
+		F4318C8F1FE89E7B0022E418 /* AKTuningTableBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTuningTableBase.swift; sourceTree = "<group>"; };
 		F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+CombinationProductSet.swift"; sourceTree = "<group>"; };
 		F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+EqualTemperament.swift"; sourceTree = "<group>"; };
@@ -4284,6 +4286,7 @@
 		F4CA85771EB666250066BE5C /* Microtonality */ = {
 			isa = PBXGroup;
 			children = (
+				F4318C8F1FE89E7B0022E418 /* AKTuningTableBase.swift */,
 				F4CA857E1EB666260066BE5C /* AKTuningTable.swift */,
 				F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */,
 				F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */,
@@ -4317,7 +4320,9 @@
 				C47DDCC11F7CE2F4002520B9 /* AKBoosterDSP.hpp in Headers */,
 				55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */,
 				55E4F50E1F578BAC0088018A /* AKPresetManager.h in Headers */,
+				F4318C8E1FE892890022E418 /* AKLinearParameterRamp.hpp in Headers */,
 				C433230B1FE05F0200330AEC /* TPCircularBuffer+AudioBufferList.h in Headers */,
+				F4318C8D1FE892860022E418 /* AKParameterRampBase.hpp in Headers */,
 				52145B621F3C5B1A0069C88B /* LPFCombFilter.h in Headers */,
 				B1F47ABB1DC54DCA00706A2F /* EZAudioFileMarker.h in Headers */,
 				F02767371E79D43B0099CA47 /* AKCustomUgenFunction.h in Headers */,
@@ -4491,9 +4496,7 @@
 				C453804C1C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp in Headers */,
 				C45380431C3A599F00A51738 /* AKFrequencyTrackerDSPKernel.hpp in Headers */,
 				C47047791E76884C00D9906F /* AKShakerAudioUnit.h in Headers */,
-				C4AC0B4F1FC944FE00EDA024 /* AKLinearParameterRamp.hpp in Headers */,
 				F027672F1E791A8D0099CA47 /* AKSporthStack.h in Headers */,
-				C4AC0B501FC944FE00EDA024 /* AKParameterRampBase.hpp in Headers */,
 				C43323041FE05F0200330AEC /* AKTimeline.h in Headers */,
 				C4537FE01C3A438D00A51738 /* AKMoogLadderDSPKernel.hpp in Headers */,
 				C4E8ED0D1C4391C70041965F /* AKConvolutionDSPKernel.hpp in Headers */,
@@ -5283,6 +5286,7 @@
 				C4F8C9011DCA8CE4001F38F2 /* pluck.c in Sources */,
 				C4F8C8FB1DCA8CE4001F38F2 /* pdhalf.c in Sources */,
 				C4F8C8B41DCA8CE4001F38F2 /* basic.c in Sources */,
+				F4318C901FE89E7B0022E418 /* AKTuningTableBase.swift in Sources */,
 				C4F8C8BE1DCA8CE4001F38F2 /* buthp.c in Sources */,
 				C4CDDD081D04F25E003EA1BD /* AK3DPanner.swift in Sources */,
 				C4537FE61C3A438D00A51738 /* AKRolandTB303Filter.swift in Sources */,
