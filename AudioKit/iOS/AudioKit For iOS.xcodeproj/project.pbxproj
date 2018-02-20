@@ -119,7 +119,6 @@
 		C4077B872008810E00E5923C /* AKTanhDistortionAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4077B842008810D00E5923C /* AKTanhDistortionAudioUnit.swift */; };
 		C4077BAC200896B000E5923C /* AKBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4077BA9200896AF00E5923C /* AKBoosterAudioUnit.swift */; };
 		C4077BAD200896B000E5923C /* AKBoosterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077BAA200896B000E5923C /* AKBoosterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4077BAE200896B000E5923C /* AKBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4077BAB200896B000E5923C /* AKBooster.mm */; };
 		C4077BB2200896C900E5923C /* AKPitchShifterDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077BAF200896C700E5923C /* AKPitchShifterDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4077BB4200896C900E5923C /* AKPitchShifterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4077BB1200896C800E5923C /* AKPitchShifterAudioUnit.swift */; };
 		C4077BC02008A80500E5923C /* AKDynamicRangeCompressorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4077BBD2008A80500E5923C /* AKDynamicRangeCompressorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -419,6 +418,7 @@
 		C487B60E1DD9236E00C56B59 /* Envelope.h in Headers */ = {isa = PBXBuildFile; fileRef = C487B60D1DD9236E00C56B59 /* Envelope.h */; };
 		C487B6101DD9237600C56B59 /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B60F1DD9237600C56B59 /* OneZero.cpp */; };
 		C487B6121DD9237C00C56B59 /* Envelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C487B6111DD9237C00C56B59 /* Envelope.cpp */; };
+		C4894021203BCAAB008B4F48 /* AKBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */; };
 		C48C6C471D3C15F1008EA51B /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6B4A1D3C15F1008EA51B /* CUI.h */; };
 		C48C6C481D3C15F1008EA51B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B4C1D3C15F1008EA51B /* fft.c */; };
 		C48C6C491D3C15F1008EA51B /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B4E1D3C15F1008EA51B /* ini.c */; };
@@ -1082,7 +1082,6 @@
 		C4077B842008810D00E5923C /* AKTanhDistortionAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTanhDistortionAudioUnit.swift; sourceTree = "<group>"; };
 		C4077BA9200896AF00E5923C /* AKBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterAudioUnit.swift; sourceTree = "<group>"; };
 		C4077BAA200896B000E5923C /* AKBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSP.hpp; sourceTree = "<group>"; };
-		C4077BAB200896B000E5923C /* AKBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBooster.mm; sourceTree = "<group>"; };
 		C4077BAF200896C700E5923C /* AKPitchShifterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPitchShifterDSP.hpp; sourceTree = "<group>"; };
 		C4077BB1200896C800E5923C /* AKPitchShifterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPitchShifterAudioUnit.swift; sourceTree = "<group>"; };
 		C4077BBD2008A80500E5923C /* AKDynamicRangeCompressorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKDynamicRangeCompressorDSP.hpp; path = "../Dynamic Range Compressor/AKDynamicRangeCompressorDSP.hpp"; sourceTree = "<group>"; };
@@ -1413,6 +1412,7 @@
 		C487B60F1DD9237600C56B59 /* OneZero.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneZero.cpp; sourceTree = "<group>"; };
 		C487B6111DD9237C00C56B59 /* Envelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Envelope.cpp; sourceTree = "<group>"; };
 		C4894016203A3D6C008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterDSP.mm; sourceTree = "<group>"; };
 		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
 		C48C6B4A1D3C15F1008EA51B /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C48C6B4C1D3C15F1008EA51B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
@@ -3892,8 +3892,8 @@
 			children = (
 				C42FFBE31C3D195000823BD4 /* AKBooster.swift */,
 				C4077BA9200896AF00E5923C /* AKBoosterAudioUnit.swift */,
-				C4077BAB200896B000E5923C /* AKBooster.mm */,
 				C4077BAA200896B000E5923C /* AKBoosterDSP.hpp */,
+				C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */,
 			);
 			path = Booster;
 			sourceTree = "<group>";
@@ -5119,6 +5119,7 @@
 				C48C6CB61D3C15F1008EA51B /* trand.c in Sources */,
 				C48C6C981D3C15F1008EA51B /* prop.c in Sources */,
 				C48C6C991D3C15F1008EA51B /* pshift.c in Sources */,
+				C4894021203BCAAB008B4F48 /* AKBoosterDSP.mm in Sources */,
 				C48C6CB81D3C15F1008EA51B /* tseg.c in Sources */,
 				C48C6C711D3C15F1008EA51B /* eqfil.c in Sources */,
 				C48C6CB91D3C15F1008EA51B /* tseq.c in Sources */,
@@ -5139,7 +5140,6 @@
 				C48C6C8A1D3C15F1008EA51B /* padsynth.c in Sources */,
 				C4775841202FD65100159BA7 /* AKDynaRageCompressor.swift in Sources */,
 				B1DAFDDE1FCE0D7300511A43 /* AKConverter.swift in Sources */,
-				C4077BAE200896B000E5923C /* AKBooster.mm in Sources */,
 				C43323081FE05F0200330AEC /* TPCircularBuffer+AudioBufferList.c in Sources */,
 				C48C6C9F1D3C15F1008EA51B /* reson.c in Sources */,
 				C4F8C8D31DCA8CE4001F38F2 /* fof.c in Sources */,
