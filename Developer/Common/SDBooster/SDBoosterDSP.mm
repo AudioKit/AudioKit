@@ -1,26 +1,26 @@
 //
-//  AKBoosterDSP.mm
-//  AudioKit
+//  SDBooster.mm
+//  ExtendingAudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Shane Dunne on 1/23/2018
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#include "AKBoosterDSP.hpp"
+#include "SDBoosterDSP.hpp"
 #import "AKExponentialParameterRamp.hpp"
 
-extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
-    AKBoosterDSP* dsp = new AKBoosterDSP();
+extern "C" void* createSDBoosterDSP(int nChannels, double sampleRate) {
+    SDBoosterDSP* dsp = new SDBoosterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
 
-struct AKBoosterDSP::_Internal {
+struct SDBoosterDSP::_Internal {
     AKExponentialParameterRamp leftGainRamp;
     AKExponentialParameterRamp rightGainRamp;
 };
 
-AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
+SDBoosterDSP::SDBoosterDSP() : _private(new _Internal) {
     _private->leftGainRamp.setTarget(1.0, true);
     _private->leftGainRamp.setDurationInSamples(10000);
     _private->rightGainRamp.setTarget(1.0, true);
@@ -28,15 +28,15 @@ AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
 }
 
 // Uses the ParameterAddress as a key
-void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
+void SDBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
-        case AKBoosterParameterLeftGain:
+        case SDBoosterParameterLeftGain:
             _private->leftGainRamp.setTarget(value, immediate);
             break;
-        case AKBoosterParameterRightGain:
+        case SDBoosterParameterRightGain:
             _private->rightGainRamp.setTarget(value, immediate);
             break;
-        case AKBoosterParameterRampTime:
+        case SDBoosterParameterRampTime:
             _private->leftGainRamp.setRampTime(value, _sampleRate);
             _private->rightGainRamp.setRampTime(value, _sampleRate);
             break;
@@ -44,19 +44,19 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 }
 
 // Uses the ParameterAddress as a key
-float AKBoosterDSP::getParameter(AUParameterAddress address) {
+float SDBoosterDSP::getParameter(AUParameterAddress address) {
     switch (address) {
-        case AKBoosterParameterLeftGain:
+        case SDBoosterParameterLeftGain:
             return _private->leftGainRamp.getTarget();
-        case AKBoosterParameterRightGain:
+        case SDBoosterParameterRightGain:
             return _private->rightGainRamp.getTarget();
-        case AKBoosterParameterRampTime:
+        case SDBoosterParameterRampTime:
             return _private->leftGainRamp.getRampTime(_sampleRate);
     }
     return 0;
 }
 
-void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void SDBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);

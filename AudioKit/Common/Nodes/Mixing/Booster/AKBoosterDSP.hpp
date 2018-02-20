@@ -47,7 +47,3 @@ public:
 };
 
 #endif
-
-
-
-
