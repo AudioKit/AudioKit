@@ -18,7 +18,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var limit: Double = 1.0 {
+    var limit: Double = AKClipper.defaultLimit {
         didSet { setParameter(.limit, value: limit) }
     }
 
@@ -41,8 +41,8 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             withIdentifier: "limit",
             name: "Threshold",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKClipper.limitRange.lowerBound),
+            max: Float(AKClipper.limitRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -51,7 +51,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
-        limit.value = 1.0
+        limit.value = Float(AKClipper.defaultLimit)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

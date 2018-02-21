@@ -146,14 +146,16 @@ public typealias AKCallback = () -> Void
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     @objc open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
-            var address = AudioObjectPropertyAddress(
-                mSelector: kAudioHardwarePropertyDefaultInputDevice,
-                mScope: kAudioObjectPropertyScopeGlobal,
-                mElement: kAudioObjectPropertyElementMaster)
-            var devid = input.deviceID
-            AudioObjectSetPropertyData(
-                AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
+            try AKTry {
+                var address = AudioObjectPropertyAddress(
+                    mSelector: kAudioHardwarePropertyDefaultInputDevice,
+                    mScope: kAudioObjectPropertyScopeGlobal,
+                    mElement: kAudioObjectPropertyElementMaster)
+                var devid = input.deviceID
+                AudioObjectSetPropertyData(
+                    AudioObjectID(kAudioObjectSystemObject),
+                    &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
+            }
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
@@ -196,13 +198,15 @@ public typealias AKCallback = () -> Void
     /// Change the preferred output device, giving it one of the names from the list of available output.
     @objc open static func setOutputDevice(_ output: AKDevice) throws {
         #if os(macOS)
-            var id = output.deviceID
-            if let audioUnit = AudioKit.engine.outputNode.audioUnit {
-                AudioUnitSetProperty(audioUnit,
-                                     kAudioOutputUnitProperty_CurrentDevice,
-                                     kAudioUnitScope_Global, 0,
-                                     &id,
-                                     UInt32(MemoryLayout<DeviceID>.size))
+            try AKTry {
+                var id = output.deviceID
+                if let audioUnit = AudioKit.engine.outputNode.audioUnit {
+                    AudioUnitSetProperty(audioUnit,
+                                         kAudioOutputUnitProperty_CurrentDevice,
+                                         kAudioUnitScope_Global, 0,
+                                         &id,
+                                         UInt32(MemoryLayout<DeviceID>.size))
+                }
             }
         #else
             //not available on ios
@@ -225,7 +229,9 @@ public typealias AKCallback = () -> Void
             AKLog("No output node has been set yet, no processing will happen.")
         }
         // Start the engine.
-        engine.prepare()
+        try AKTry {
+            engine.prepare()
+        }
 
         #if os(iOS)
 
@@ -254,7 +260,9 @@ public typealias AKCallback = () -> Void
             try AVAudioSession.sharedInstance().setActive(true)
         #endif
 
-        try engine.start()
+        try AKTry {
+            try engine.start()
+        }
         shouldBeRunning = true
     }
 
@@ -275,7 +283,9 @@ public typealias AKCallback = () -> Void
     /// Stop the audio engine
     @objc open static func stop() throws {
         // Stop the engine.
-        engine.stop()
+        try AKTry {
+            engine.stop()
+        }
         shouldBeRunning = false
 
         #if os(iOS)
@@ -313,9 +323,11 @@ public typealias AKCallback = () -> Void
 
                 // maximum number of frames the engine will be asked to render in any single render call
                 let maxNumberOfFrames: AVAudioFrameCount = 4_096
-                engine.reset()
-                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
-                try engine.start()
+                try AKTry {
+                    engine.reset()
+                    try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
+                    try engine.start()
+                }
 
                 afterStart()
                 tester?.play()
@@ -572,19 +584,22 @@ extension AVAudioEngine {
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
     public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
         guard seconds >= 0 else {
-            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
-        // Engine can't be running when switching to offline render mode.
-        if isRunning { stop() }
-        try enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
-
-        // This resets the sampleTime of offline rendering to 0.
-        reset()
-
-        try start()
+        try AKTry {
+            // Engine can't be running when switching to offline render mode.
+            if self.isRunning { self.stop() }
+            try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
+            
+            // This resets the sampleTime of offline rendering to 0.
+            self.reset()
+            try self.start()
+        }
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat, frameCapacity: manualRenderingMaximumFrameCount) else {
-            throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "Couldn't creat buffer in renderToFile"])
+            throw NSError(domain: "AVAudioEngine ext", code: 1,
+                          userInfo: [NSLocalizedDescriptionKey: "Couldn't create buffer in renderToFile"])
         }
 
         // This is for users to prepare the nodes for playing, i.e player.play()
@@ -602,13 +617,15 @@ extension AVAudioEngine {
                 AKLog("renderToFile cannotDoInCurrentContext")
                 continue
             case .error, .insufficientDataFromInputNode:
-                throw NSError(domain: "AVAudioEngine ext", code: 1, userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
+                throw NSError(domain: "AVAudioEngine ext", code: 1,
+                              userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
             }
         }
 
-        stop()
-        disableManualRenderingMode()
-
+        try AKTry {
+            self.stop()
+            self.disableManualRenderingMode()
+        }
     }
 }
 

@@ -15,8 +15,6 @@ typedef NS_ENUM(AUParameterAddress, AKToneFilterParameter) {
     AKToneFilterParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
-
 #ifndef __cplusplus
 
 void* createToneFilterDSP(int nChannels, double sampleRate);
@@ -26,93 +24,32 @@ void* createToneFilterDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKToneFilterDSP : public AKSoundpipeDSPBase {
-
-    sp_tone *_tone0;
-    sp_tone *_tone1;
-
 private:
-    AKLinearParameterRamp halfPowerPointRamp;
-   
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKToneFilterDSP() {
-        halfPowerPointRamp.setTarget(1000.0, true);
-        halfPowerPointRamp.setDurationInSamples(10000);
-    }
+    AKToneFilterDSP();
+    ~AKToneFilterDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKToneFilterParameterHalfPowerPoint:
-                halfPowerPointRamp.setTarget(value, immediate);
-                break;
-            case AKToneFilterParameterRampTime:
-                halfPowerPointRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float halfPowerPointLowerBound = 12.0;
+    float halfPowerPointUpperBound = 20000.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKToneFilterParameterHalfPowerPoint:
-                return halfPowerPointRamp.getTarget();
-            case AKToneFilterParameterRampTime:
-                return halfPowerPointRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultHalfPowerPoint = 1000.0;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_tone_create(&_tone0);
-        sp_tone_create(&_tone1);
-        sp_tone_init(_sp, _tone0);
-        sp_tone_init(_sp, _tone1);
-        _tone0->hp = 1000.0;
-        _tone1->hp = 1000.0;
-    }
+    int defaultRampTimeSamples = 10000;
 
-    void destroy() {
-        sp_tone_destroy(&_tone0);
-        sp_tone_destroy(&_tone1);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void destroy();
 
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                halfPowerPointRamp.advanceTo(_now + frameOffset);
-            }
-            _tone0->hp = halfPowerPointRamp.getValue();
-            _tone1->hp = halfPowerPointRamp.getValue();            
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-                if (channel == 0) {
-                    sp_tone_compute(_sp, _tone0, in, out);
-                } else {
-                    sp_tone_compute(_sp, _tone1, in, out);
-                }
-            }
-            if (_playing) {
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

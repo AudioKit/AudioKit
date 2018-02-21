@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #import "AKDSPKernel.hpp"
@@ -76,3 +77,6 @@ public:
     ParameterRamper distTypeRamper = 1.0;
     ParameterRamper distortionRamper = 1.0;
 };
+
+#endif
+

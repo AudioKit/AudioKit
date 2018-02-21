@@ -13,7 +13,7 @@ if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
     player.isLooping = true
 
     AudioKit.output = player
-    try try AudioKit.start()
+    try AudioKit.start()
 }
 
 //: Don't forget to show the "debug area" to see what messages are printed by the player

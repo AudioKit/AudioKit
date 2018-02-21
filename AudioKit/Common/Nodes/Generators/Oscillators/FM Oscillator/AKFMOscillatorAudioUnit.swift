@@ -18,19 +18,23 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var baseFrequency: Double = 440 {
+    var baseFrequency: Double = AKFMOscillator.defaultBaseFrequency {
         didSet { setParameter(.baseFrequency, value: baseFrequency) }
     }
-    var carrierMultiplier: Double = 1.0 {
+
+    var carrierMultiplier: Double = AKFMOscillator.defaultCarrierMultiplier {
         didSet { setParameter(.carrierMultiplier, value: carrierMultiplier) }
     }
-    var modulatingMultiplier: Double = 1 {
+
+    var modulatingMultiplier: Double = AKFMOscillator.defaultModulatingMultiplier {
         didSet { setParameter(.modulatingMultiplier, value: modulatingMultiplier) }
     }
-    var modulationIndex: Double = 1 {
+
+    var modulationIndex: Double = AKFMOscillator.defaultModulationIndex {
         didSet { setParameter(.modulationIndex, value: modulationIndex) }
     }
-    var amplitude: Double = 1 {
+
+    var amplitude: Double = AKFMOscillator.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -53,8 +57,8 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "baseFrequency",
             name: "Base Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 20_000.0,
+            min: Float(AKFMOscillator.baseFrequencyRange.lowerBound),
+            max: Float(AKFMOscillator.baseFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -65,8 +69,8 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "carrierMultiplier",
             name: "Carrier Multiplier",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1_000.0,
+            min: Float(AKFMOscillator.carrierMultiplierRange.lowerBound),
+            max: Float(AKFMOscillator.carrierMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -77,8 +81,8 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "modulatingMultiplier",
             name: "Modulating Multiplier",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 1_000.0,
+            min: Float(AKFMOscillator.modulatingMultiplierRange.lowerBound),
+            max: Float(AKFMOscillator.modulatingMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -89,8 +93,8 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "modulationIndex",
             name: "Modulation Index",
             address: AUParameterAddress(3),
-            min: 0.0,
-            max: 1_000.0,
+            min: Float(AKFMOscillator.modulationIndexRange.lowerBound),
+            max: Float(AKFMOscillator.modulationIndexRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -101,21 +105,21 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Amplitude",
             address: AUParameterAddress(4),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKFMOscillator.amplitudeRange.lowerBound),
+            max: Float(AKFMOscillator.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
-        baseFrequency.value = 440
-        carrierMultiplier.value = 1.0
-        modulatingMultiplier.value = 1
-        modulationIndex.value = 1
-        amplitude.value = 1
+        baseFrequency.value = Float(AKFMOscillator.defaultBaseFrequency)
+        carrierMultiplier.value = Float(AKFMOscillator.defaultCarrierMultiplier)
+        modulatingMultiplier.value = Float(AKFMOscillator.defaultModulatingMultiplier)
+        modulationIndex.value = Float(AKFMOscillator.defaultModulationIndex)
+        amplitude.value = Float(AKFMOscillator.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

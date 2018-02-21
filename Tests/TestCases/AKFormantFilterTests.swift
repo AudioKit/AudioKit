@@ -12,8 +12,8 @@ import XCTest
 class AKFormantFilterTests: AKTestCase {
 
     func testAttack() {
-        output = AKFormantFilter(input, attackDuration: 0.234)
-        AKTestMD5("3f80dc3e76e8265aef6348798bc7b3a1")
+        output = AKFormantFilter(input, attackDuration: 0.023_4)
+        AKTestMD5("5f72212ff42b9803edf31a316147db2b")
     }
 
     func testCenterFrequency() {
@@ -22,8 +22,8 @@ class AKFormantFilterTests: AKTestCase {
     }
 
     func testDecay() {
-        output = AKFormantFilter(input, decayDuration: 0.234)
-        AKTestMD5("ff36210f7711bb8554a6431e2568460f")
+        output = AKFormantFilter(input, decayDuration: 0.023_4)
+        AKTestMD5("1da8ef2b30a19d88239d308603d19d93")
     }
 
     func testDefault() {

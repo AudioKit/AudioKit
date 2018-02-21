@@ -7,7 +7,6 @@
 //
 
 #import "AKSamplerMetronome.h"
-#import <AudioKit/AudioKit.h>
 #import <AudioKit/AudioKit-Swift.h>
 #import "AKTimelineTap.h"
 #import <mach/mach_time.h>
@@ -31,6 +30,7 @@
 -(instancetype)init {
     return [self initWithSound:nil downBeatSound:nil];
 }
+
 -(instancetype)initWithSound:(NSURL *)soundURL downBeatSound:(NSURL *)downBeatSoundURL {
     self = [super init];
     if (self) {

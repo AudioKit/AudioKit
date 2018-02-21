@@ -18,10 +18,11 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 4_000.0 {
+    var frequency: Double = AKResonantFilter.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var bandwidth: Double = 1_000.0 {
+
+    var bandwidth: Double = AKResonantFilter.defaultBandwidth {
         didSet { setParameter(.bandwidth, value: bandwidth) }
     }
 
@@ -44,8 +45,8 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
             address: AUParameterAddress(0),
-            min: 100.0,
-            max: 20_000.0,
+            min: Float(AKResonantFilter.frequencyRange.lowerBound),
+            max: Float(AKResonantFilter.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,8 +57,8 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "bandwidth",
             name: "Bandwidth of the filter.",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 10_000.0,
+            min: Float(AKResonantFilter.bandwidthRange.lowerBound),
+            max: Float(AKResonantFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -66,8 +67,8 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
-        frequency.value = 4_000.0
-        bandwidth.value = 1_000.0
+        frequency.value = Float(AKResonantFilter.defaultFrequency)
+        bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

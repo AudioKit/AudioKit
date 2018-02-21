@@ -18,13 +18,15 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 1_000 {
+    var centerFrequency: Double = AKPeakingParametricEqualizerFilter.defaultCenterFrequency {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
-    var gain: Double = 1.0 {
+
+    var gain: Double = AKPeakingParametricEqualizerFilter.defaultGain {
         didSet { setParameter(.gain, value: gain) }
     }
-    var q: Double = 0.707 {
+
+    var q: Double = AKPeakingParametricEqualizerFilter.defaultQ {
         didSet { setParameter(.Q, value: q) }
     }
 
@@ -47,8 +49,8 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.lowerBound),
+            max: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "gain",
             name: "Gain",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKPeakingParametricEqualizerFilter.gainRange.lowerBound),
+            max: Float(AKPeakingParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -71,8 +73,8 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "q",
             name: "Q",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 2.0,
+            min: Float(AKPeakingParametricEqualizerFilter.qRange.lowerBound),
+            max: Float(AKPeakingParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -81,9 +83,9 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
-        centerFrequency.value = 1_000
-        gain.value = 1.0
-        q.value = 0.707
+        centerFrequency.value = Float(AKPeakingParametricEqualizerFilter.defaultCenterFrequency)
+        gain.value = Float(AKPeakingParametricEqualizerFilter.defaultGain)
+        q.value = Float(AKPeakingParametricEqualizerFilter.defaultQ)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

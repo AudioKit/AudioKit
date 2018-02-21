@@ -16,8 +16,6 @@ typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
     AKCostelloReverbParameterRampTime
 };
 
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
-
 #ifndef __cplusplus
 
 void* createCostelloReverbDSP(int nChannels, double sampleRate);
@@ -27,98 +25,35 @@ void* createCostelloReverbDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
-
-    sp_revsc *_revsc;
-
-
 private:
-    AKLinearParameterRamp feedbackRamp;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKCostelloReverbDSP() {
-        feedbackRamp.setTarget(0.6, true);
-        feedbackRamp.setDurationInSamples(10000);
-        cutoffFrequencyRamp.setTarget(4000.0, true);
-        cutoffFrequencyRamp.setDurationInSamples(10000);
-    }
+    AKCostelloReverbDSP();
+    ~AKCostelloReverbDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKCostelloReverbParameterFeedback:
-                feedbackRamp.setTarget(value, immediate);
-                break;
-            case AKCostelloReverbParameterCutoffFrequency:
-                cutoffFrequencyRamp.setTarget(value, immediate);
-                break;
-            case AKCostelloReverbParameterRampTime:
-                feedbackRamp.setRampTime(value, _sampleRate);
-                cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float feedbackLowerBound = 0.0;
+    float feedbackUpperBound = 1.0;
+    float cutoffFrequencyLowerBound = 12.0;
+    float cutoffFrequencyUpperBound = 20000.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKCostelloReverbParameterFeedback:
-                return feedbackRamp.getTarget();
-            case AKCostelloReverbParameterCutoffFrequency:
-                return cutoffFrequencyRamp.getTarget();
-            case AKCostelloReverbParameterRampTime:
-                return feedbackRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultFeedback = 0.6;
+    float defaultCutoffFrequency = 4000.0;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_revsc_create(&_revsc);
-        sp_revsc_init(_sp, _revsc);
-        _revsc->feedback = 0.6;
-        _revsc->lpfreq = 4000.0;
-    }
+    int defaultRampTimeSamples = 10000;
 
-    void destroy() {
-        sp_revsc_destroy(&_revsc);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void destroy();
 
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                feedbackRamp.advanceTo(_now + frameOffset);
-                cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            }
-
-
-            _revsc->feedback = feedbackRamp.getValue();
-            _revsc->lpfreq = cutoffFrequencyRamp.getValue();
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-            }
-            if (_playing) {
-                sp_revsc_compute(_sp, _revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

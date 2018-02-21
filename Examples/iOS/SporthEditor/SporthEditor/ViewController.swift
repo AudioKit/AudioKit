@@ -13,6 +13,7 @@ import AudioKit
 class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate {
     @IBOutlet private var codeEditorTextView: UITextView!
     @IBOutlet private weak var keyboard: AKKeyboardView!
+    @IBOutlet private weak var plot: AKOutputWaveformPlot!
     @IBOutlet private weak var status: UILabel!
     @IBOutlet private weak var runButton: RoundedButton!
 

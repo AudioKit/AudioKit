@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var state = State.readyToRecord
 
     @IBOutlet private var inputPlot: AKNodeOutputPlot!
+    @IBOutlet private var outputPlot: AKOutputWaveformPlot!
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var resetButton: UIButton!
     @IBOutlet private weak var mainButton: UIButton!
