@@ -12,6 +12,8 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @IBOutlet private var plot: AKOutputWaveformPlot!
+
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()

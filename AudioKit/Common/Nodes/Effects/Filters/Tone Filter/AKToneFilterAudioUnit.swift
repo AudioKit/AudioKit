@@ -18,7 +18,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var halfPowerPoint: Double = 1_000.0 {
+    var halfPowerPoint: Double = AKToneFilter.defaultHalfPowerPoint {
         didSet { setParameter(.halfPowerPoint, value: halfPowerPoint) }
     }
 
@@ -41,8 +41,8 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKToneFilter.halfPowerPointRange.lowerBound),
+            max: Float(AKToneFilter.halfPowerPointRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -51,7 +51,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
-        halfPowerPoint.value = 1_000.0
+        halfPowerPoint.value = Float(AKToneFilter.defaultHalfPowerPoint)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

@@ -6,6 +6,7 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #import "AKSoundpipeKernel.hpp"
@@ -216,4 +217,6 @@ public:
     pitchBend = double(pitchBendRamper.getAndStep()); \
     vibratoDepth = double(vibratoDepthRamper.getAndStep()); \
     vibratoRate = double(vibratoRateRamper.getAndStep());
+
+#endif
 

@@ -72,57 +72,29 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
-        public static var minimumGain: Double = 0.000_2
-        public static var maximumGain: Double = 1
+        /// a constant
+        public static var minimumGain: Double = 0.0002
 
-        var needsUpdate: Bool = false
+        /// the value that the booster should fade to, settable
+        public var maximumGain: Double = 1
 
-        public var inTime: Double = 0 {
-            willSet {
-                AKLog(inTime)
-                if newValue != inTime { needsUpdate = true }
-            }
-        }
+        public var inTime: Double = 0
 
         // if you want to start midway into a fade
-        public var inTimeOffset: Double = 0 {
-            willSet {
-                if newValue != inTimeOffset { needsUpdate = true }
-            }
-        }
+        public var inTimeOffset: Double = 0
 
         // Currently Unused
-        public var inStartGain: Double = minimumGain {
-            willSet {
-                if newValue != inStartGain { needsUpdate = true }
-            }
-        }
+        public var inStartGain: Double = minimumGain
 
-        public var outTime: Double = 0 {
-            willSet {
-                if newValue != outTime { needsUpdate = true }
-            }
-        }
+        public var outTime: Double = 0
 
-        public var outTimeOffset: Double = 0 {
-            willSet {
-                if newValue != outTimeOffset { needsUpdate = true }
-            }
-        }
+        public var outTimeOffset: Double = 0
 
         // Currently Unused
-        public var outStartGain: Double = 1 {
-            willSet {
-                if newValue != outStartGain { needsUpdate = true }
-            }
-        }
+        public var outStartGain: Double = 1
 
-        // TODO: this would tell Booster what ramper to use
-        public var type: AKPlayer.FadeType = .exponential {
-            willSet {
-                if newValue != type { needsUpdate = true }
-            }
-        }
+        // TODO: this would tell Booster what ramper to use when multiple curves are available
+        public var type: AKPlayer.FadeType = .exponential
     }
 
     // MARK: - Private Parts
@@ -183,7 +155,7 @@ public class AKPlayer: AKNode {
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    /// Holds characteristics about the fade options. Using fades will set the player to buffering
+    /// Holds characteristics about the fade options.
     public var fade = Fade()
 
     /// Looping params
@@ -193,6 +165,17 @@ public class AKPlayer: AKNode {
     public var volume: Double {
         get { return Double(playerNode.volume) }
         set { playerNode.volume = Float(newValue) }
+    }
+
+    /// Amplification Factor, in the range of 0.0002 to 2
+    public var gain: Double = 1 {
+        didSet {
+            if faderNode.rampTime != AKSettings.rampTime {
+                faderNode.rampTime = AKSettings.rampTime
+            }
+            fade.maximumGain = gain
+            faderNode.gain = gain
+        }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
@@ -332,7 +315,7 @@ public class AKPlayer: AKNode {
         AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
-        faderNode.gain = Fade.minimumGain
+        faderNode.gain = 1 // Fade.minimumGain
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -447,11 +430,14 @@ public class AKPlayer: AKNode {
             return
         }
 
-        faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
-                                          target: self,
-                                          selector: #selector(startFade),
-                                          userInfo: nil,
-                                          repeats: false)
+        DispatchQueue.main.async {
+            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
+                                                   target: self,
+                                                   selector: #selector(self.startFade),
+                                                   userInfo: nil,
+                                                   repeats: false)
+        }
+
     }
 
     private func resetFader(_ state: Bool) {
@@ -461,7 +447,7 @@ public class AKPlayer: AKNode {
         }
 
         faderNode.rampTime = AKSettings.rampTime
-        faderNode.gain = state ? Fade.maximumGain : Fade.minimumGain
+        faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
 
     @objc private func startFade() {
@@ -474,9 +460,9 @@ public class AKPlayer: AKNode {
             faderNode.rampTime = inTime
         }
         // set target gain and begin ramping
-        faderNode.gain = Fade.maximumGain
+        faderNode.gain = fade.maximumGain
 
-        AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
+        // AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
 
         faderTimer?.invalidate()
 
@@ -492,11 +478,19 @@ public class AKPlayer: AKNode {
         } else {
             let when = (duration - startTime) - (duration - endTime) - fade.outTime
 
-            faderTimer = Timer.scheduledTimer(timeInterval: when,
-                                              target: self,
-                                              selector: #selector(fadeOut),
-                                              userInfo: nil,
-                                              repeats: false)
+            DispatchQueue.main.async {
+                self.faderTimer = Timer.scheduledTimer(timeInterval: when,
+                                                       target: self,
+                                                       selector: #selector(self.fadeOut),
+                                                       userInfo: nil,
+                                                       repeats: false)
+            }
+        }
+    }
+
+    @objc private func fadeOut() {
+        if fade.outTime > 0 {
+            fadeOutWithTime(fade.outTime)
         }
     }
 
@@ -504,12 +498,6 @@ public class AKPlayer: AKNode {
         if time > 0 {
             faderNode.rampTime = time
             faderNode.gain = Fade.minimumGain
-        }
-    }
-
-    @objc private func fadeOut() {
-        if fade.outTime > 0 {
-            fadeOutWithTime(fade.outTime)
         }
     }
 
@@ -521,11 +509,13 @@ public class AKPlayer: AKNode {
 
     // if the file is scheduled, start a timer to determine when to start the completion timer
     private func startPrerollTimer(_ prerollTime: Double) {
-        prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
-                                            target: self,
-                                            selector: #selector(AKPlayer.startCompletionTimer),
-                                            userInfo: nil,
-                                            repeats: false)
+        DispatchQueue.main.async {
+            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
+                                                     target: self,
+                                                     selector: #selector(self.startCompletionTimer),
+                                                     userInfo: nil,
+                                                     repeats: false)
+        }
     }
 
     // keep this timer separate in the cases of sounds that aren't scheduled
@@ -534,11 +524,13 @@ public class AKPlayer: AKNode {
         if isLooping && loop.end > 0 {
             segmentDuration = loop.end - startTime
         }
-        completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
-                                               target: self,
-                                               selector: #selector(handleComplete),
-                                               userInfo: nil,
-                                               repeats: false)
+        DispatchQueue.main.async {
+            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
+                                                        target: self,
+                                                        selector: #selector(self.handleComplete),
+                                                        userInfo: nil,
+                                                        repeats: false)
+        }
     }
 
     private func schedule(at audioTime: AVAudioTime?, hostTime: UInt64?) {
@@ -684,7 +676,7 @@ public class AKPlayer: AKNode {
         }
 
         let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate || loop.needsUpdate)
+            startFrame != startingFrame || endFrame != endingFrame || loop.needsUpdate)
 
         if !updateNeeded {
             return
