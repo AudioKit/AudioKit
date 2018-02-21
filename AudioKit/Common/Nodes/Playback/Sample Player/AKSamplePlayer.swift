@@ -304,13 +304,12 @@ open class AKSamplePlayer: AKNode, AKComponent {
             maximumSamples = Int(file.samplesCount)
             internalAU?.setupAudioFileTable(sizeToUse)
         }
-        var flattened = Array(file.floatChannelData!.joined())
-        if file.channelCount == 1 { // if mono, convert to stereo
-            flattened.append(contentsOf: file.floatChannelData![0])
-        }
-        let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadAudioData(data, size: UInt32(flattened.count), sampleRate: Float(file.sampleRate))
-
+        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
+        try! file.read(into: buf!)
+        let data = buf!.floatChannelData
+        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
+        
         avAudiofile = file
         startPoint = 0
         endPoint = Sample(file.samplesCount)

@@ -55,8 +55,8 @@
 - (void)setupAudioFileTable:(UInt32)size {
     _kernel.setUpTable(size);
 }
-- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate {
-    _kernel.loadAudioData(data, size, sampleRate);
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels {
+    _kernel.loadAudioData(data, size, sampleRate, numChannels);
 }
 - (int)size {
     return _kernel.ftbl_size;
