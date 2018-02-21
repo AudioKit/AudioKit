@@ -148,6 +148,11 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var avAudiofile: AVAudioFile?
     fileprivate var maximumSamples: Int = 0
 
+    open var loadCompletionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.loadCompletionHandler = newValue
+        }
+    }
     open var completionHandler: AKCallback = {} {
         willSet {
             internalAU?.completionHandler = newValue
@@ -173,7 +178,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
                       rate: Double = 1,
                       volume: Double = 1,
                       maximumSamples: Int = 0,
-                      completionHandler: @escaping AKCCallback = {}) {
+                      completionHandler: @escaping AKCCallback = {},
+                      loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
         self.rate = rate
@@ -185,6 +191,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
         self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
+        self.loadCompletionHandler = loadCompletionHandler
 
         _Self.register()
 
@@ -198,6 +205,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU!.completionHandler = completionHandler
+            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {

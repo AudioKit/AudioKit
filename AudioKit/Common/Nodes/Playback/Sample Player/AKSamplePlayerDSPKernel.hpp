@@ -72,6 +72,7 @@ public:
         for (int i = 0; i < current_size; i++) {
             ftbl2->tbl[i] = table[i + current_size];
         }
+        loadCompletionHandler();
     }
 
     void destroy() {
@@ -330,6 +331,7 @@ public:
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
+    AKCCallback loadCompletionHandler = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;
