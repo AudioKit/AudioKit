@@ -113,7 +113,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
         baseFrequency.value = Float(AKFMOscillator.defaultBaseFrequency)
         carrierMultiplier.value = Float(AKFMOscillator.defaultCarrierMultiplier)

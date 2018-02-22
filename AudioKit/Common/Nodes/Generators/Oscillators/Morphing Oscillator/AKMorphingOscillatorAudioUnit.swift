@@ -113,7 +113,7 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKMorphingOscillator.defaultFrequency)
         amplitude.value = Float(AKMorphingOscillator.defaultAmplitude)

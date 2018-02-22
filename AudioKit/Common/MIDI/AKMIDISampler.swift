@@ -66,13 +66,13 @@ open class AKMIDISampler: AKSampler {
         let channel = data1 & 0xF
 
         if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0 {
-            
+
             try play(noteNumber: MIDINoteNumber(data2),
                      velocity: MIDIVelocity(data3),
                      channel: MIDIChannel(channel))
-            
+
         } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
-            
+
             try stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
 
         } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
