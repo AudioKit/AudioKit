@@ -1,4 +1,4 @@
-# Is AudioUnit Extension different from the AuV3 plugin which I use in Logic ?
+# Is AudioUnit Extension different from the AuV3 plugin which I use in Logic?
 
 No, the two notions are basically the same, but the terminology can be confusing.
 
