@@ -23,4 +23,5 @@ There are many sample projects included in the Examples folder of AudioKit. Ther
 
 ## Archictectural and High-Level Overviews
 
-These are currently being developed.  The first one is on [Audio Unit Creation](AudioUnitCreation.md).
+* [Audio Unit Creation](AudioUnitCreation.md)
+* [Is AudioUnit Extension different from the AuV3 plugin which I use in Logic?](PluginsVsExtensions.md)
