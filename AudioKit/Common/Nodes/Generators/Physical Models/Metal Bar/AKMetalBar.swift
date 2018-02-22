@@ -18,7 +18,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var leftBoundaryConditionParameter: AUParameter?
     fileprivate var rightBoundaryConditionParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -45,7 +44,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     public static let positionRange = 0.0 ... 1.0
 
     /// Lower and upper bounds for Strike Velocity
-    public static let strikeVelocityRange = 0.0 ... 1000.0
+    public static let strikeVelocityRange = 0.0 ... 1_000.0
 
     /// Lower and upper bounds for Strike Width
     public static let strikeWidthRange = 0.0 ... 1.0
@@ -202,7 +201,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this Bar node
     ///

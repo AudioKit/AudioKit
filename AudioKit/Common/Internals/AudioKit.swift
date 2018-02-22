@@ -591,7 +591,7 @@ extension AVAudioEngine {
             // Engine can't be running when switching to offline render mode.
             if self.isRunning { self.stop() }
             try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
-            
+
             // This resets the sampleTime of offline rendering to 0.
             self.reset()
             try self.start()

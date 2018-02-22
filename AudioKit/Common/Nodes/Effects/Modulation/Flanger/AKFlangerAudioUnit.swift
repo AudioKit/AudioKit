@@ -9,46 +9,46 @@
 import AVFoundation
 
 public class AKFlangerAudioUnit: AKAudioUnitBase {
-    
+
     func setParameter(_ address: AKModulatedDelayParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     func setParameterImmediately(_ address: AKModulatedDelayParameter, value: Double) {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     var frequency: Double = AKFlanger.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    
+
     var depth: Double = AKFlanger.defaultDepth {
         didSet { setParameter(.depth, value: depth) }
     }
-    
+
     var feedback: Double = AKFlanger.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
-    
+
     var dryWetMix: Double = AKFlanger.defaultDryWetMix {
         didSet { setParameter(.dryWetMix, value: dryWetMix) }
     }
-    
+
     var rampTime: Double = 0.0 {
         didSet { setParameter(.rampTime, value: rampTime) }
     }
-    
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
         return createFlangerDSP(Int32(count), sampleRate)
     }
-    
+
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-        
+
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
@@ -97,14 +97,14 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKFlanger.defaultFrequency)
         depth.value = Float(AKFlanger.defaultDepth)
         feedback.value = Float(AKFlanger.defaultFeedback)
         dryWetMix.value = Float(AKFlanger.defaultDryWetMix)
     }
-    
+
     public override var canProcessInPlace: Bool { get { return true; }}
-    
+
 }
