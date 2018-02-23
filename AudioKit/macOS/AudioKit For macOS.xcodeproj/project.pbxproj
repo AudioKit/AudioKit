@@ -1781,6 +1781,7 @@
 		C4DF6ADD2029575300984C87 /* AKKorgLowPassFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKKorgLowPassFilterDSP.mm; sourceTree = "<group>"; };
 		C4DF6ADF202959D400984C87 /* AKVariableDelayDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVariableDelayDSP.mm; sourceTree = "<group>"; };
 		C4DF915A20391E660030737C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C4E7A01F203FCC910061C33C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4EDFAA61F5B81370029A371 /* AKLiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKLiveViewController.swift; sourceTree = "<group>"; };
 		C4F17CB12005F71500AFDE31 /* AKChowningReverbAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChowningReverbAudioUnit.swift; sourceTree = "<group>"; };
 		C4F8C8171DCA8959001F38F2 /* scrambler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scrambler.c; sourceTree = "<group>"; };
@@ -3780,6 +3781,7 @@
 		C45666401D448D7E00D26565 /* Phase-Locked Vocoder */ = {
 			isa = PBXGroup;
 			children = (
+				C4E7A01F203FCC910061C33C /* README.md */,
 				C45666411D448D7E00D26565 /* AKPhaseLockedVocoder.swift */,
 				C45666421D448D7E00D26565 /* AKPhaseLockedVocoderAudioUnit.h */,
 				C45666431D448D7E00D26565 /* AKPhaseLockedVocoderAudioUnit.mm */,
