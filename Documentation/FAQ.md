@@ -5,7 +5,7 @@
 No, but we've built projects with AudioKit, integrating it with other libraries. Here are some resources:
 
 * [Essentia - Open-source library and tools for audio and music analysis, description and synthesis](http://essentia.upf.edu/documentation/)
-* [Gist - An Audio Analysis Library}(https://github.com/adamstark/Gist)
+* [Gist - An Audio Analysis Library](https://github.com/adamstark/Gist)
 * [GistSwift - A Swift wrapper for Gist](https://github.com/dylan/GistSwift)
 
 ## Does AudioKit do chord or polyphonic pitch detection? 
