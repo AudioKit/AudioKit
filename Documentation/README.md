@@ -13,6 +13,8 @@ Inline comments are also parsed by the "jazzy" documentation generator which pro
 
 We try to include a README folder in ever directory of AudioKit to describe the contents of the folders and to provide some basic quickstart information as necessary.
 
+README files often contain *TODO* sections which contain things that could or should improve the material in that folder.
+
 ## Playgrounds
 
 Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over one hundred playgrounds from the most basic tutorials, to synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis. The playgrounds can be perused on Github, or [on AudioKit.io (many with demonstration videos)](http://audiokit.io/playgrounds/).
