@@ -1417,6 +1417,9 @@
 		C487B6111DD9237C00C56B59 /* Envelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Envelope.cpp; sourceTree = "<group>"; };
 		C4894016203A3D6C008B4F48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4894020203BCAAB008B4F48 /* AKBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterDSP.mm; sourceTree = "<group>"; };
+		C48A30422045428500334C35 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C48A30432045429600334C35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C48A3045204542AB00334C35 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C48B8EEE1EB7048300B1BC0E /* Dev.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Dev.playground; path = AudioKit/Dev.playground; sourceTree = "<group>"; };
 		C48C6B4A1D3C15F1008EA51B /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C48C6B4C1D3C15F1008EA51B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
@@ -2371,6 +2374,7 @@
 		C42F350D1C057F4C000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C48A30422045428500334C35 /* README.md */,
 				C42F35051C057E03000E937C /* Info.plist */,
 				C42F35031C057E03000E937C /* AudioKit.h */,
 				EA7D07031F4E63C200707706 /* AudioKitUI.h */,
@@ -3470,6 +3474,7 @@
 		C48C6B471D3C15F1008EA51B /* Soundpipe */ = {
 			isa = PBXGroup;
 			children = (
+				C48A30432045429600334C35 /* README.md */,
 				C40C12921F08B00800F4C7F1 /* AKSoundpipeKernel.hpp */,
 				C4AC0B511FC9457700EDA024 /* AKSoundpipeDSPBase.hpp */,
 				C466152D1EEA65060044A5FC /* external */,
@@ -3673,6 +3678,7 @@
 		C48C6BCC1D3C15F1008EA51B /* Sporth */ = {
 			isa = PBXGroup;
 			children = (
+				C48A3045204542AB00334C35 /* README.md */,
 				C43ABDCD1E5BC9B600165053 /* ftmap.c */,
 				C48C6BCD1D3C15F1008EA51B /* func.c */,
 				C48C6BCE1D3C15F1008EA51B /* h */,
