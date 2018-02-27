@@ -8,10 +8,9 @@
 
 import Foundation
 
-public func AKTry(_ operation: @escaping (() throws -> Void)) throws
-{
+public func AKTry(_ operation: @escaping (() throws -> Void)) throws {
     var error: Error?
-    
+
     let theTry = {
         do {
             try operation()
@@ -19,7 +18,7 @@ public func AKTry(_ operation: @escaping (() throws -> Void)) throws
             error = ex
         }
     }
-    
+
     let theCatch: (NSException) -> Void = { except in
         var userInfo = [String: Any]()
         userInfo[NSLocalizedDescriptionKey] = except.description
@@ -30,9 +29,9 @@ public func AKTry(_ operation: @escaping (() throws -> Void)) throws
                         code: 0,
                         userInfo: userInfo)
     }
-    
+
     AKTryOperation(theTry, theCatch)
-    
+
     if let error = error { // Caught an exception
         throw error
     }
