@@ -19,7 +19,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var intensityParameter: AUParameter?
     fileprivate var dampingFactorParameter: AUParameter?
     fileprivate var energyReturnParameter: AUParameter?
@@ -38,13 +37,13 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     public static let energyReturnRange = 0.0 ... 100.0
 
     /// Lower and upper bounds for Main Resonant Frequency
-    public static let mainResonantFrequencyRange = 0.0 ... 22000.0
+    public static let mainResonantFrequencyRange = 0.0 ... 22_000.0
 
     /// Lower and upper bounds for First Resonant Frequency
-    public static let firstResonantFrequencyRange = 0.0 ... 22000.0
+    public static let firstResonantFrequencyRange = 0.0 ... 22_000.0
 
     /// Lower and upper bounds for Second Resonant Frequency
-    public static let secondResonantFrequencyRange = 0.0 ... 22000.0
+    public static let secondResonantFrequencyRange = 0.0 ... 22_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange = 0.0 ... 1.0

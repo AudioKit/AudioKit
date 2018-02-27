@@ -2,7 +2,7 @@
 //  AKBoosterAudioUnit.swift
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/23/17.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

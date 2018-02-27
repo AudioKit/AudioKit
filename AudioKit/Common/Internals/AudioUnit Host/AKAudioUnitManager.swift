@@ -55,6 +55,8 @@ open class AKAudioUnitManager: NSObject {
                                                   "AKRhinoGuitarProcessor",
                                                   "AKPhaser",
                                                   "AKPitchShifter",
+                                                  "AKTimePitch",
+                                                  "AKVariSpeed",
                                                   "AKChowningReverb",
                                                   "AKCombFilterReverb",
                                                   "AKCostelloReverb",
@@ -463,6 +465,10 @@ open class AKAudioUnitManager: NSObject {
             node = AKBooster()
         case "AKTanhDistortion":
             node = AKTanhDistortion()
+        case "AKTimePitch":
+            node = AKTimePitch()
+        case "AKVariSpeed":
+            node = AKVariSpeed()
         default:
             return nil
         }

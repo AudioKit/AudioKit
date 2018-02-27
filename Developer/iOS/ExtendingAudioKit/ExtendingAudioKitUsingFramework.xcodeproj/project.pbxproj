@@ -19,7 +19,7 @@
 		C4A7668E2031998100583F47 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7668C2031998100583F47 /* Conductor.swift */; };
 		C4E24A0B2031953600A020D7 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A072031953600A020D7 /* SDBooster.swift */; };
 		C4E24A0C2031953600A020D7 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A082031953600A020D7 /* SDBoosterAudioUnit.swift */; };
-		C4E24A0D2031953600A020D7 /* SDBooster.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A0A2031953600A020D7 /* SDBooster.mm */; };
+		C4E24A0D2031953600A020D7 /* SDBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A0A2031953600A020D7 /* SDBoosterDSP.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,7 +51,7 @@
 		C4E24A072031953600A020D7 /* SDBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBooster.swift; sourceTree = "<group>"; };
 		C4E24A082031953600A020D7 /* SDBoosterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDBoosterAudioUnit.swift; sourceTree = "<group>"; };
 		C4E24A092031953600A020D7 /* SDBoosterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SDBoosterDSP.hpp; sourceTree = "<group>"; };
-		C4E24A0A2031953600A020D7 /* SDBooster.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBooster.mm; sourceTree = "<group>"; };
+		C4E24A0A2031953600A020D7 /* SDBoosterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SDBoosterDSP.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 				C4E24A072031953600A020D7 /* SDBooster.swift */,
 				C4E24A082031953600A020D7 /* SDBoosterAudioUnit.swift */,
 				C4E24A092031953600A020D7 /* SDBoosterDSP.hpp */,
-				C4E24A0A2031953600A020D7 /* SDBooster.mm */,
+				C4E24A0A2031953600A020D7 /* SDBoosterDSP.mm */,
 			);
 			name = SDBooster;
 			path = ../../Common/SDBooster;
@@ -196,7 +196,7 @@
 				3429F985201A25AB00300166 /* ViewController.swift in Sources */,
 				C4A7668D2031998100583F47 /* SDSustainer.swift in Sources */,
 				C4E24A0B2031953600A020D7 /* SDBooster.swift in Sources */,
-				C4E24A0D2031953600A020D7 /* SDBooster.mm in Sources */,
+				C4E24A0D2031953600A020D7 /* SDBoosterDSP.mm in Sources */,
 				C4E24A0C2031953600A020D7 /* SDBoosterAudioUnit.swift in Sources */,
 				3429F983201A25AB00300166 /* AppDelegate.swift in Sources */,
 				C4A7668E2031998100583F47 /* Conductor.swift in Sources */,
