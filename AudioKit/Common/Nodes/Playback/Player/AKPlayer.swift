@@ -315,7 +315,7 @@ public class AKPlayer: AKNode {
         AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
-        faderNode.gain = 1 // Fade.minimumGain
+        faderNode.gain = Fade.minimumGain
         loop.start = 0
         loop.end = duration
         buffer = nil
