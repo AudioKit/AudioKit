@@ -91,6 +91,7 @@
 		C42899C01D55B3AA00B941B5 /* nsmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899BF1D55B3AA00B941B5 /* nsmp.c */; };
 		C42899C21D55B3B800B941B5 /* tgate.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899C11D55B3B800B941B5 /* tgate.c */; };
 		C42BF6CE1CE80E9800155BE7 /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BF6CD1CE80E9800155BE7 /* Numeric.swift */; };
+		C42F9CC62048B1F90024A928 /* panst.c in Sources */ = {isa = PBXBuildFile; fileRef = C42F9CC52048B1F80024A928 /* panst.c */; };
 		C42FFBCE1C3D039C00823BD4 /* AKBalancer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBBB1C3D039C00823BD4 /* AKBalancer.swift */; };
 		C42FFBCF1C3D039C00823BD4 /* AKBalancerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBBC1C3D039C00823BD4 /* AKBalancerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42FFBD01C3D039C00823BD4 /* AKBalancerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBBD1C3D039C00823BD4 /* AKBalancerAudioUnit.mm */; };
@@ -1008,6 +1009,7 @@
 		C42AE0051C2DF681000CEED2 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
 		C42AE0061C2DF681000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42BF6CD1CE80E9800155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
+		C42F9CC52048B1F80024A928 /* panst.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = panst.c; sourceTree = "<group>"; };
 		C42FFBBB1C3D039C00823BD4 /* AKBalancer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBalancer.swift; sourceTree = "<group>"; };
 		C42FFBBC1C3D039C00823BD4 /* AKBalancerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBalancerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFBBD1C3D039C00823BD4 /* AKBalancerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerAudioUnit.mm; sourceTree = "<group>"; };
@@ -3317,6 +3319,7 @@
 				C4F8CA881DCA928A001F38F2 /* oscmorph.c */,
 				C4F8CA891DCA928A001F38F2 /* p.c */,
 				C4F8CA8A1DCA928A001F38F2 /* pan.c */,
+				C42F9CC52048B1F80024A928 /* panst.c */,
 				C4F8CA8B1DCA928A001F38F2 /* pareq.c */,
 				C4F8CA8C1DCA928A001F38F2 /* paulstretch.c */,
 				C4F8CA8D1DCA928A001F38F2 /* pdhalf.c */,
@@ -5032,6 +5035,7 @@
 				C470D07320174B40003D1AFA /* AKGeneratorAudioUnitBase.mm in Sources */,
 				C470D07E20174B99003D1AFA /* AKPanner.mm in Sources */,
 				C4F8CB031DCA928B001F38F2 /* mark.c in Sources */,
+				C42F9CC62048B1F90024A928 /* panst.c in Sources */,
 				C4F8CB3E1DCA928B001F38F2 /* timer.c in Sources */,
 				C4F8CACC1DCA928A001F38F2 /* autowah.c in Sources */,
 				C4F8CB3F1DCA928B001F38F2 /* tin.c in Sources */,
