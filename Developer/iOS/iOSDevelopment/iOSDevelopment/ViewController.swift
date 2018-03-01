@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  iOSDevelopment
 //
-//  Created by Aurelius Prochazka on 12/3/17.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
