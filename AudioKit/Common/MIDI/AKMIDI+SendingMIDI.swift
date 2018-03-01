@@ -106,6 +106,14 @@ extension AKMIDI {
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
         let bufferSize = data.count + sizeOfMIDICombinedHeaders
+        
+        // the discussion section of MIDIPacketListAdd states that "The maximum
+        // size of a packet list is 65536 bytes." Checking for that limit here.
+        if bufferSize > 65536 {
+            AKLog("error sending midi : data array is too large, requires a buffer larger than 65536")
+            return
+        }
+
         var buffer = Data(count: bufferSize)
         
         // Use Data (a.k.a NSData) to create a block where we have access to a
