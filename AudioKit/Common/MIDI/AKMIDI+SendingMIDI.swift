@@ -135,4 +135,17 @@ extension AKMIDI {
         self.sendMessage(message)
     }
 
+    /// Send a pitch bend message.
+    ///
+    /// - Parameters:
+    ///   - value: Value of pitch shifting between 0 and 16383. Send 8192 for no pitch bending.
+    ///   - channel: Channel you want to send pitch bend message. Defaults 0.
+    public func sendPitchBendMessage(value: UInt16, channel: MIDIChannel = 0) {
+        let pitchCommand = MIDIByte(0xE0) + channel
+        let mask: UInt16 = 0x007F
+        let byte1 = MIDIByte(value & mask) // MSB, bit shift right 7
+        let byte2 = MIDIByte((value & (mask << 7)) >> 7) // LSB, mask of 127
+        let message: [MIDIByte] = [pitchCommand, byte1, byte2]
+        self.sendMessage(message)
+    }
 }
