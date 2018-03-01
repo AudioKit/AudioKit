@@ -26,7 +26,6 @@ private let sizeOfMIDIPacketListHeader = sizeOfMIDIPacketList - sizeOfMIDIPacket
 private let sizeOfMIDIPacketHeader = MemoryLayout<MIDITimeStamp>.size + MemoryLayout<UInt16>.size
 private let sizeOfMIDICombinedHeaders = sizeOfMIDIPacketListHeader + sizeOfMIDIPacketHeader
 
-
 internal extension Collection where Index == Int {
     var startIndex: Index {
         return 0
@@ -102,11 +101,11 @@ extension AKMIDI {
     }
     /// Send Message with data
     public func sendMessage(_ data: [MIDIByte]) {
-        
+
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
         let bufferSize = data.count + sizeOfMIDICombinedHeaders
-        
+
         // the discussion section of MIDIPacketListAdd states that "The maximum
         // size of a packet list is 65536 bytes." Checking for that limit here.
         if bufferSize > 65536 {
@@ -115,13 +114,14 @@ extension AKMIDI {
         }
 
         var buffer = Data(count: bufferSize)
-        
+
         // Use Data (a.k.a NSData) to create a block where we have access to a
         // pointer where we can create the packetlist and send it. No need for
         // explicit alloc and dealloc.
-        buffer.withUnsafeMutableBytes { (packetListPointer:UnsafeMutablePointer<MIDIPacketList>) -> Void in
+        buffer.withUnsafeMutableBytes { (packetListPointer: UnsafeMutablePointer<MIDIPacketList>) -> Void in
             let packet = MIDIPacketListInit(packetListPointer)
-            let nextPacket:UnsafeMutablePointer<MIDIPacket>? = MIDIPacketListAdd(packetListPointer, bufferSize, packet, 0, data.count, data)
+            let nextPacket: UnsafeMutablePointer<MIDIPacket>? =
+                MIDIPacketListAdd(packetListPointer, bufferSize, packet, 0, data.count, data)
 
             // I would prefer stronger error handling here, perhaps throwing
             // to force the app developer to handle the error.
@@ -129,14 +129,14 @@ extension AKMIDI {
                 AKLog("error sending midi : Failed to add packet to packet list.")
                 return
             }
-            
+
             for endpoint in endpoints.values {
                 let result = MIDISend(outputPort, endpoint, packetListPointer)
                 if result != noErr {
                     AKLog("error sending midi : \(result)")
                 }
             }
-            
+
             if virtualOutput != 0 {
                 MIDIReceived(virtualOutput, packetListPointer)
             }
