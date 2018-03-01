@@ -9,46 +9,46 @@
 import AVFoundation
 
 public class AKChorusAudioUnit: AKAudioUnitBase {
-    
+
     func setParameter(_ address: AKModulatedDelayParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     func setParameterImmediately(_ address: AKModulatedDelayParameter, value: Double) {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     var frequency: Double = AKChorus.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    
+
     var depth: Double = AKChorus.defaultDepth {
         didSet { setParameter(.depth, value: depth) }
     }
-    
+
     var feedback: Double = AKChorus.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
-    
+
     var dryWetMix: Double = AKChorus.defaultDryWetMix {
         didSet { setParameter(.dryWetMix, value: dryWetMix) }
     }
-    
+
     var rampTime: Double = 0.0 {
         didSet { setParameter(.rampTime, value: rampTime) }
     }
-    
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
         return createChorusDSP(Int32(count), sampleRate)
     }
-    
+
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-        
+
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
@@ -97,14 +97,14 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKChorus.defaultFrequency)
         depth.value = Float(AKChorus.defaultDepth)
         feedback.value = Float(AKChorus.defaultFeedback)
         dryWetMix.value = Float(AKChorus.defaultDryWetMix)
     }
-    
+
     public override var canProcessInPlace: Bool { get { return true; }}
-    
+
 }

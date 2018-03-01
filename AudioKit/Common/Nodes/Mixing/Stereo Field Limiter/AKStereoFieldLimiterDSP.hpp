@@ -2,7 +2,7 @@
 //  AKStereoFieldLimiterDSP.hpp
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/23/17.
+//  Created by Andrew Voelkel, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -26,13 +26,6 @@ void* createStereoFieldLimiterDSP(int nChannels, double sampleRate);
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
-
-/**
- A butt simple DSP kernel. Most of the plumbing is in the base class. All the code at this
- level has to do is supply the core of the rendering code. A less trivial example would probably
- need to coordinate the updating of DSP parameters, which would probably involve thread locks,
- etc.
- */
 
 struct AKStereoFieldLimiterDSP : AKDSPBase {
 
