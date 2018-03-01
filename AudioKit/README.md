@@ -12,7 +12,7 @@ This directory contains the "AudioKit for iOS.xcodeproj" which contains all iOS-
 
 ## macOS/
 
-This directory contains the "AudioKit for macOS.xcodeproj" which contains all macOS-compatible components from `Common/` as well as Cocoa user interface elements that are only accessible to macOS. `macOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them to the main AudioKit Playgrounds project.
+This directory contains the "AudioKit for macOS.xcodeproj" which contains all macOS-compatible components from `Common/` as well as Cocoa user interface elements that are only accessible to macOS. `macOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
 
 ## tvOS/
 
