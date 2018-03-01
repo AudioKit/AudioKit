@@ -135,6 +135,7 @@
 		C42899A21D55496A00B941B5 /* nsmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899A11D55496A00B941B5 /* nsmp.c */; };
 		C42899A41D55498500B941B5 /* peaklim.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899A31D55498500B941B5 /* peaklim.c */; };
 		C429F6B81F24053500601D47 /* AKMIDIPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C429F6B71F24053500601D47 /* AKMIDIPlayer.swift */; };
+		C42F9CC12048AC6F0024A928 /* panst.c in Sources */ = {isa = PBXBuildFile; fileRef = C42F9CBF2048AC6F0024A928 /* panst.c */; };
 		C43323171FE05F8700330AEC /* AKTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = C433230E1FE05F8600330AEC /* AKTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C43323181FE05F8700330AEC /* AKTimeline.c in Sources */ = {isa = PBXBuildFile; fileRef = C433230F1FE05F8600330AEC /* AKTimeline.c */; };
 		C43323191FE05F8700330AEC /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = C43323111FE05F8600330AEC /* TPCircularBuffer+Unit.c */; };
@@ -1094,6 +1095,7 @@
 		C42899A31D55498500B941B5 /* peaklim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = peaklim.c; sourceTree = "<group>"; };
 		C429F6B71F24053500601D47 /* AKMIDIPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIPlayer.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42F9CBF2048AC6F0024A928 /* panst.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = panst.c; sourceTree = "<group>"; };
 		C433230E1FE05F8600330AEC /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
 		C433230F1FE05F8600330AEC /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
 		C43323111FE05F8600330AEC /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
@@ -2624,6 +2626,7 @@
 				C4F8C97E1DCA9255001F38F2 /* oscmorph.c */,
 				C4F8C97F1DCA9255001F38F2 /* p.c */,
 				C4F8C9801DCA9255001F38F2 /* pan.c */,
+				C42F9CBF2048AC6F0024A928 /* panst.c */,
 				C4F8C9811DCA9255001F38F2 /* pareq.c */,
 				C4F8C9821DCA9255001F38F2 /* paulstretch.c */,
 				C4F8C9831DCA9255001F38F2 /* pdhalf.c */,
@@ -5098,6 +5101,7 @@
 				C4F8C9F81DCA9256001F38F2 /* lpf18.c in Sources */,
 				C4F8C9CF1DCA9255001F38F2 /* butlp.c in Sources */,
 				C45667421D448D7E00D26565 /* vdelay.c in Sources */,
+				C42F9CC12048AC6F0024A928 /* panst.c in Sources */,
 				C49E9CF5201474DE006599B4 /* AKTremoloAudioUnit.swift in Sources */,
 				C4077A902007847500E5923C /* AKToneComplementFilterAudioUnit.swift in Sources */,
 				C45667071D448D7E00D26565 /* jitter.c in Sources */,
