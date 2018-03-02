@@ -30,7 +30,7 @@ int sp_bitcrush_compute(sp_data *sp, sp_bitcrush *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT bits = pow(2, floor(p->bitdepth));
     SPFLOAT foldamt = sp->sr / p->srate;
     SPFLOAT sig;
-    *out = *in * 65556.0;
+    *out = *in * 65536.0;
     *out += 32768;
     *out *= (bits / 65536.0);
     *out = floor(*out);
