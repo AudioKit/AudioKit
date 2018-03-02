@@ -6,9 +6,9 @@
 	<array>
 		<dict>
 			<key>description</key>
-			<string>AKSampler AudioUnit</string>
+			<string>AKSampler AUv2</string>
 			<key>factoryFunction</key>
-			<string>AKSamplerAUFactory</string>
+			<string>AKSampler_PluginFactory</string>
 			<key>manufacturer</key>
 			<string>AKit</string>
 			<key>name</key>

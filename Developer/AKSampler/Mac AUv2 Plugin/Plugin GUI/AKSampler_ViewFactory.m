@@ -22,7 +22,7 @@
 // N.B.: this class is simply a view-factory,
 // returning a new autoreleased view each time it's called.
 - (NSView *)uiViewForAudioUnit:(AudioUnit)inAU withSize:(NSSize)inPreferredSize {
-    if (! [NSBundle loadNibNamed: @"CocoaView" owner:self]) {
+    if (! [NSBundle loadNibNamed: @"AKSampler_UIView" owner:self]) {
         NSLog (@"Unable to load nib for view.");
         return nil;
     }

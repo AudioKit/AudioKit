@@ -418,7 +418,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W5AEHZN66V;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/Frameworks/AudioKit-macOS/**";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/AudioKit/Common/Internals/CoreAudio/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
@@ -439,7 +439,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W5AEHZN66V;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/Frameworks/AudioKit-macOS/**";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/AudioKit/Common/Internals/CoreAudio/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";

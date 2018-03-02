@@ -652,6 +652,9 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					8D01CCC60486CAD60068D4B7 = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = A919E32C088DC18A008B8742 /* Build configuration list for PBXProject "AKSampler AUv2 Plugin" */;
@@ -841,7 +844,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = "";
 				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Plugin DSP/AKSampler_Plugin.exp";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -849,12 +855,14 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Plugin DSP/AKSampler_Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "CA_USE_AUDIO_PLUGIN_ONLY=1";
 				INFOPLIST_FILE = "$(SRCROOT)/Plugin DSP/AKSampler_Plugin.plist";
+				LD_RUNPATH_SEARCH_PATHS = "";
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DDEBUG",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AKSampler;
 				PRODUCT_NAME = AKSampler;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -883,6 +891,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;

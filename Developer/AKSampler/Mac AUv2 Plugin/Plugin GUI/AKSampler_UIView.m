@@ -17,7 +17,7 @@
     
     //[[NSNotificationCenter defaultCenter] removeObserver: self];
     
-    //[super dealloc];  // "ARC forbids explicit message send of 'dealloc'
+    [super dealloc];  // "ARC forbids explicit message send of 'dealloc'
 }
 
 
