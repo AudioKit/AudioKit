@@ -1,5 +1,5 @@
 //
-//  AKSampler2.swift
+//  AKSampler.swift
 //  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-02-19.
@@ -10,7 +10,7 @@ import AudioKit
 
 /// Stereo Chorus
 ///
-open class AKSampler2: AKPolyphonicNode, AKComponent, AKInput {
+open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKSampler2AudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "AKss")
