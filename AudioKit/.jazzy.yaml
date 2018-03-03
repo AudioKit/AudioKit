@@ -180,11 +180,11 @@ custom_categories:
 
   - name: Playback Nodes
     children:
+    - AKAppleSampler
     - AKAudioPlayer
     - AKMetronome
     - AKPhaseLockedVocoder
     - AKSamplePlayer
-    - AKSampler
     - AKTimePitch
     - AKVariSpeed
 

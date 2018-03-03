@@ -22,7 +22,7 @@ Hello World for audio is simply playing an oscillator based sound and displaying
 * Hello Objective-C - Hello World in the Objective-C language (as opposed to Swift)
 * Metronome Sampler Sync - highly accurate, sample triggering metronome
 * Particles -Metal based audio visualizer (works on devices only, not the simulator)
-* Sampler Demo - example of AudioKit's AKSampler
+* Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
 * Sequencer Demo - examjple of AudioKit's AKSequencer
 * Song Processor - adding effects to songs from the device's iTunes Library 
