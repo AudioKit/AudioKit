@@ -17,7 +17,7 @@ void AKSamplerVoice::start(unsigned noteNum, float freqHz, float volume, AKSampl
     oscillator.bLooping = pBuf->bLoop;
     noteVol = volume;
     ampEG.start();
-    filterEG.start();
+    filterEG.start(true);
     noteHz = freqHz;
     noteNumber = noteNum;
 }
@@ -28,7 +28,7 @@ void AKSamplerVoice::restart(float volume)
     oscillator.bLooping = pSampleBuffer->bLoop;
     noteVol = volume;
     ampEG.start();
-    filterEG.start();
+    filterEG.start(true);
 }
 
 void AKSamplerVoice::release()

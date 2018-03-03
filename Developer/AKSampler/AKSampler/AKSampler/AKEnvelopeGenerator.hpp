@@ -41,9 +41,9 @@ struct AKEnvelopeGenerator
     
     void init();
 
-    void start();               // called for note-on
-    void release();             // called for note-off
-    void reset();               // reset to idle state
+    void start(bool reset=false);   // called for note-on
+    void release();                 // called for note-off
+    void reset();                   // reset to idle state
     bool isIdle() { return segment == kIdle; }
 
     inline float getSample()
