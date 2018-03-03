@@ -1,12 +1,12 @@
 //
-//  AKSampler+SoundFont.swift
+//  AKAppleSampler+SoundFont.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-public extension AKSampler {
+public extension AKAppleSampler {
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
         guard let url = findFileURL(file, withExtension: "sf2") else {
             AKLog("Soundfont file not found: \(file)")

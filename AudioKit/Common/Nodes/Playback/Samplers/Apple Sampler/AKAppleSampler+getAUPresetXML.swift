@@ -1,12 +1,12 @@
 //
-//  AKSampler+getAUPresetXML.swift
+//  AKAppleSampler+getAUPresetXML.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
-extension AKSampler {
+extension AKAppleSampler {
     static func getAUPresetXML() -> String {
         var templateStr: String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
