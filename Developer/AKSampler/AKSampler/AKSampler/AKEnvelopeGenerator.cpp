@@ -46,9 +46,9 @@ void AKEnvelopeGenerator::init()
     ramper.init(0.0f);
 }
 
-void AKEnvelopeGenerator::start()
+void AKEnvelopeGenerator::start(bool reset)
 {
-    if (segment == kIdle)
+    if (reset || (segment == kIdle))
     {
         // start new attack segment from zero
         ramper.init(0.0f, 1.0f, pParams->attackSamples);

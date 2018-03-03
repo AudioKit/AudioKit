@@ -211,7 +211,8 @@ void AKSampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
     if (pVoice)
     {
         // re-start the note
-        pVoice->restart(velocity / 127.0f);
+        AKMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+        pVoice->start(noteNumber, noteHz, velocity / 127.0f, pBuf);
         //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
         return;
     }
