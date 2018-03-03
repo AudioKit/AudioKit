@@ -1,5 +1,5 @@
 //
-//  AKSampler.swift
+//  AKAppleSampler.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -11,12 +11,12 @@ import CoreAudio
 
 /// Sampler audio generation.
 ///
-/// 1) init the audio unit like this: var sampler = AKSampler()
+/// 1) init the audio unit like this: var sampler = AKAppleSampler()
 /// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
 /// 3) connect to the engine: AudioKit.output = sampler
 /// 4) start the engine AudioKit.start()
 ///
-open class AKSampler: AKNode {
+open class AKAppleSampler: AKNode {
 
     // MARK: - Properties
 
