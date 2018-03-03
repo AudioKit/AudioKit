@@ -24,9 +24,9 @@ class Conductor {
     var pitchBendUpSemitones = 2
     var pitchBendDownSemitones = 2
 
-    var synthSemitoneOffset = -12
+    var synthSemitoneOffset = 0
     
-    //let baseURL = URL(fileURLWithPath: "/Users/shane/Desktop/OLD Sounds/Sampler Instruments")
+    // Point this to wherever you keep your samples folder
     let baseURL = URL(fileURLWithPath: "/Users/shane/Desktop/Compressed Sounds")
 
     init() {
@@ -45,88 +45,8 @@ class Conductor {
         sampler = AKSampler2()
         sustainer = AKSustainer(sampler)
         
-        let info = ProcessInfo.processInfo
-        let begin = info.systemUptime
-        
-        let folder = "/Users/shane/Documents/GitHub/SuperFM/FMPlayer/Sounds/Sampler Instruments/samples/"
-        loadSample(36, folder + "E Piano 7_ms6_036_c1.aif", 0, 39, 0, 39)
-        loadSample(36, folder + "E Piano 7_ms5_036_c1.aif", 0, 39, 40, 71)
-        loadSample(36, folder + "E Piano 7_ms4_036_c1.aif", 0, 39, 72, 89)
-        loadSample(36, folder + "E Piano 7_ms3_036_c1.aif", 0, 39, 90, 103)
-        loadSample(36, folder + "E Piano 7_ms2_036_c1.aif", 0, 39, 104, 110)
-        loadSample(36, folder + "E Piano 7_ms1_036_c1.aif", 0, 39, 111, 119)
-        loadSample(36, folder + "E Piano 7_ms0_036_c1.aif", 0, 39, 120, 127)
-
-        loadSample(42, folder + "E Piano 7_ms6_042_f#1.aif", 40, 45, 0, 39)
-        loadSample(42, folder + "E Piano 7_ms5_042_f#1.aif", 40, 45, 40, 71)
-        loadSample(42, folder + "E Piano 7_ms4_042_f#1.aif", 40, 45, 72, 89)
-        loadSample(42, folder + "E Piano 7_ms3_042_f#1.aif", 40, 45, 90, 103)
-        loadSample(42, folder + "E Piano 7_ms2_042_f#1.aif", 40, 45, 104, 110)
-        loadSample(42, folder + "E Piano 7_ms1_042_f#1.aif", 40, 45, 111, 119)
-        loadSample(42, folder + "E Piano 7_ms0_042_f#1.aif", 40, 45, 120, 127)
-
-        loadSample(48, folder + "E Piano 7_ms6_048_c2.aif", 46, 51, 0, 39)
-        loadSample(48, folder + "E Piano 7_ms5_048_c2.aif", 46, 51, 40, 71)
-        loadSample(48, folder + "E Piano 7_ms4_048_c2.aif", 46, 51, 72, 89)
-        loadSample(48, folder + "E Piano 7_ms3_048_c2.aif", 46, 51, 90, 103)
-        loadSample(48, folder + "E Piano 7_ms2_048_c2.aif", 46, 51, 104, 110)
-        loadSample(48, folder + "E Piano 7_ms1_048_c2.aif", 46, 51, 111, 119)
-        loadSample(48, folder + "E Piano 7_ms0_048_c2.aif", 46, 51, 120, 127)
-
-        loadSample(54, folder + "E Piano 7_ms6_054_f#2.aif", 52, 57, 0, 39)
-        loadSample(54, folder + "E Piano 7_ms5_054_f#2.aif", 52, 57, 40, 71)
-        loadSample(54, folder + "E Piano 7_ms4_054_f#2.aif", 52, 57, 72, 89)
-        loadSample(54, folder + "E Piano 7_ms3_054_f#2.aif", 52, 57, 90, 103)
-        loadSample(54, folder + "E Piano 7_ms2_054_f#2.aif", 52, 57, 104, 110)
-        loadSample(54, folder + "E Piano 7_ms1_054_f#2.aif", 52, 57, 111, 119)
-        loadSample(54, folder + "E Piano 7_ms0_054_f#2.aif", 52, 57, 120, 127)
-
-        loadSample(60, folder + "E Piano 7_ms6_060_c3.aif", 58, 63, 0, 39)
-        loadSample(60, folder + "E Piano 7_ms5_060_c3.aif", 58, 63, 40, 71)
-        loadSample(60, folder + "E Piano 7_ms4_060_c3.aif", 58, 63, 72, 89)
-        loadSample(60, folder + "E Piano 7_ms3_060_c3.aif", 58, 63, 90, 103)
-        loadSample(60, folder + "E Piano 7_ms2_060_c3.aif", 58, 63, 104, 110)
-        loadSample(60, folder + "E Piano 7_ms1_060_c3.aif", 58, 63, 111, 119)
-        loadSample(60, folder + "E Piano 7_ms0_060_c3.aif", 58, 63, 120, 127)
-
-        loadSample(66, folder + "E Piano 7_ms6_066_f#3.aif", 64, 69, 0, 39)
-        loadSample(66, folder + "E Piano 7_ms5_066_f#3.aif", 64, 69, 40, 71)
-        loadSample(66, folder + "E Piano 7_ms4_066_f#3.aif", 64, 69, 72, 89)
-        loadSample(66, folder + "E Piano 7_ms3_066_f#3.aif", 64, 69, 90, 103)
-        loadSample(66, folder + "E Piano 7_ms2_066_f#3.aif", 64, 69, 104, 110)
-        loadSample(66, folder + "E Piano 7_ms1_066_f#3.aif", 64, 69, 111, 119)
-        loadSample(66, folder + "E Piano 7_ms0_066_f#3.aif", 64, 69, 120, 127)
-
-        loadSample(72, folder + "E Piano 7_ms6_072_c4.aif", 70, 75, 0, 39)
-        loadSample(72, folder + "E Piano 7_ms5_072_c4.aif", 70, 75, 40, 71)
-        loadSample(72, folder + "E Piano 7_ms4_072_c4.aif", 70, 75, 72, 89)
-        loadSample(72, folder + "E Piano 7_ms3_072_c4.aif", 70, 75, 90, 103)
-        loadSample(72, folder + "E Piano 7_ms2_072_c4.aif", 70, 75, 104, 110)
-        loadSample(72, folder + "E Piano 7_ms1_072_c4.aif", 70, 75, 111, 119)
-        loadSample(72, folder + "E Piano 7_ms0_072_c4.aif", 70, 75, 120, 127)
-
-        loadSample(78, folder + "E Piano 7_ms6_078_f#4.aif", 76, 81, 0, 39)
-        loadSample(78, folder + "E Piano 7_ms5_078_f#4.aif", 76, 81, 40, 71)
-        loadSample(78, folder + "E Piano 7_ms4_078_f#4.aif", 76, 81, 72, 89)
-        loadSample(78, folder + "E Piano 7_ms3_078_f#4.aif", 76, 81, 90, 103)
-        loadSample(78, folder + "E Piano 7_ms2_078_f#4.aif", 76, 81, 104, 110)
-        loadSample(78, folder + "E Piano 7_ms1_078_f#4.aif", 76, 81, 111, 119)
-        loadSample(78, folder + "E Piano 7_ms0_078_f#4.aif", 76, 81, 120, 127)
-
-        loadSample(84, folder + "E Piano 7_ms6_084_c5.aif", 82, 127, 0, 39)
-        loadSample(84, folder + "E Piano 7_ms5_084_c5.aif", 82, 127, 40, 71)
-        loadSample(84, folder + "E Piano 7_ms4_084_c5.aif", 82, 127, 72, 89)
-        loadSample(84, folder + "E Piano 7_ms3_084_c5.aif", 82, 127, 90, 103)
-        loadSample(84, folder + "E Piano 7_ms2_084_c5.aif", 82, 127, 104, 110)
-        loadSample(84, folder + "E Piano 7_ms1_084_c5.aif", 82, 127, 111, 119)
-        loadSample(84, folder + "E Piano 7_ms0_084_c5.aif", 82, 127, 120, 127)
-        
-        sampler.buildKeyMap()
-
-        sampler.ampReleaseTime = 0.4
-        
-        let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
+        // Set up the AKSampler
+        setupSampler()
         
         // Set Output & Start AudioKit
         AudioKit.output = sampler
@@ -135,6 +55,61 @@ class Conductor {
         } catch {
             AKLog("AudioKit did not start")
         }
+    }
+    
+    private func setupSampler()
+    {
+        let info = ProcessInfo.processInfo
+        let begin = info.systemUptime
+        
+        // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // Uncompress and put folder inside wherever baseURL (see above) points
+        let folderName = "TX LoTine81z"
+        
+        loadCompressed(48, folderName, "_ms2_048_c2.wv", 0, 51, 0, 43)
+        loadCompressed(48, folderName, "_ms1_048_c2.wv", 0, 51, 44, 86)
+        loadCompressed(48, folderName, "_ms0_048_c2.wv", 0, 51, 87, 127)
+        
+        loadCompressed(54, folderName, "_ms2_054_f#2.wv", 52, 57, 0, 43)
+        loadCompressed(54, folderName, "_ms1_054_f#2.wv", 52, 57, 44, 86)
+        loadCompressed(54, folderName, "_ms0_054_f#2.wv", 52, 57, 87, 127)
+        
+        loadCompressed(60, folderName, "_ms2_060_c3.wv", 58, 63, 0, 43)
+        loadCompressed(60, folderName, "_ms1_060_c3.wv", 58, 63, 44, 86)
+        loadCompressed(60, folderName, "_ms0_060_c3.wv", 58, 63, 87, 127)
+        
+        loadCompressed(66, folderName, "_ms2_066_f#3.wv", 64, 69, 0, 43)
+        loadCompressed(66, folderName, "_ms1_066_f#3.wv", 64, 69, 44, 86)
+        loadCompressed(66, folderName, "_ms0_066_f#3.wv", 64, 69, 87, 127)
+        
+        loadCompressed(72, folderName, "_ms2_072_c4.wv", 70, 75, 0, 43)
+        loadCompressed(72, folderName, "_ms1_072_c4.wv", 70, 75, 44, 86)
+        loadCompressed(72, folderName, "_ms0_072_c4.wv", 70, 75, 87, 127)
+        
+        loadCompressed(78, folderName, "_ms2_078_f#4.wv", 76, 81, 0, 43)
+        loadCompressed(78, folderName, "_ms1_078_f#4.wv", 76, 81, 44, 86)
+        loadCompressed(78, folderName, "_ms0_078_f#4.wv", 76, 81, 87, 127)
+        
+        loadCompressed(84, folderName, "_ms2_084_c5.wv", 82, 127, 0, 43)
+        loadCompressed(84, folderName, "_ms1_084_c5.wv", 82, 127, 44, 86)
+        loadCompressed(84, folderName, "_ms0_084_c5.wv", 82, 127, 87, 127)
+        
+        sampler.buildKeyMap()
+ 
+        let elapsedTime = info.systemUptime - begin
+        print("Time to load samples \(elapsedTime) seconds")
+
+        sampler.ampAttackTime = 0.01
+        sampler.ampDecayTime = 0.1
+        sampler.ampSustainLevel = 0.8
+        sampler.ampReleaseTime = 0.5
+        
+        // per-voice filter is still experimental and buggy
+        //        sampler.filterEnable = true
+        //        sampler.filterAttackTime = 1.0
+        //        sampler.filterDecayTime = 1.0
+        //        sampler.filterSustainLevel = 0.5
+        //        sampler.filterReleaseTime = 10.0
     }
     
     private func loadCompressed(noteNumber: MIDINoteNumber, wvPath: String,

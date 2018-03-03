@@ -24,7 +24,7 @@ class Conductor {
     var pitchBendUpSemitones = 2
     var pitchBendDownSemitones = 2
 
-    var synthSemitoneOffset = -12
+    var synthSemitoneOffset = 0
     
     init() {
 
@@ -42,52 +42,8 @@ class Conductor {
         sampler = AKSampler2()
         sustainer = AKSustainer(sampler)
         
-        let info = ProcessInfo.processInfo
-        let begin = info.systemUptime
-
-        let folderName = "X50 Golden Strings"
-        var noteNumber: MIDINoteNumber = 12
-        loadCompressed(noteNumber, folderName, "-C0.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C1.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C2.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C3.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C4.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C5.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-C6.wv"); noteNumber += 12
-        noteNumber = 18
-        loadCompressed(noteNumber, folderName, "-F#0.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#1.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#2.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#3.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#4.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#5.wv"); noteNumber += 12
-        loadCompressed(noteNumber, folderName, "-F#6.wv")
-        
-        sampler.buildSimpleKeyMap()
-
-        // MM single sample
-//        sampler.ampAttackTime = 0.01
-//        sampler.ampDecayTime = 0.1
-//        sampler.ampSustainLevel = 0.8
-//        sampler.ampReleaseTime = 0.5
-//        sampler.filterAttackTime = 0.01
-//        sampler.filterDecayTime = 0.0
-//        sampler.filterSustainLevel = 1.0
-//        sampler.filterReleaseTime = 10.0
-        
-        // Golden Strings etc.
-        sampler.ampAttackTime = 0.3
-        sampler.ampDecayTime = 0.1
-        sampler.ampSustainLevel = 0.8
-        sampler.ampReleaseTime = 0.5
-//        sampler.filterEnable = true
-//        sampler.filterAttackTime = 3.0
-//        sampler.filterDecayTime = 3.0
-//        sampler.filterSustainLevel = 0.2
-//        sampler.filterReleaseTime = 10.0
-
-        let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
+        // Set up the AKSampler
+        setupSampler()
 
         // Set Output & Start AudioKit
         AudioKit.output = sampler
@@ -97,8 +53,67 @@ class Conductor {
             AKLog("AudioKit did not start")
         }
     }
+    
+    private func setupSampler()
+    {
+        let info = ProcessInfo.processInfo
+        let begin = info.systemUptime
+        
+        // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // Put folder in your app's Documents folder:
+        //   On a physical iOS device, use iTunes File Sharing and simply drag it in
+        //   On simulator, look at the debug output to see the full path where the program is
+        //      looking, and put the "TX LoTine81z" folder in there.
+        let folderName = "TX LoTine81z"
 
-    private func loadCompressed(noteNumber: MIDINoteNumber, wvurl: URL)
+        loadCompressed(48, folderName, "_ms2_048_c2.wv", 0, 51, 0, 43)
+        loadCompressed(48, folderName, "_ms1_048_c2.wv", 0, 51, 44, 86)
+        loadCompressed(48, folderName, "_ms0_048_c2.wv", 0, 51, 87, 127)
+        
+        loadCompressed(54, folderName, "_ms2_054_f#2.wv", 52, 57, 0, 43)
+        loadCompressed(54, folderName, "_ms1_054_f#2.wv", 52, 57, 44, 86)
+        loadCompressed(54, folderName, "_ms0_054_f#2.wv", 52, 57, 87, 127)
+
+        loadCompressed(60, folderName, "_ms2_060_c3.wv", 58, 63, 0, 43)
+        loadCompressed(60, folderName, "_ms1_060_c3.wv", 58, 63, 44, 86)
+        loadCompressed(60, folderName, "_ms0_060_c3.wv", 58, 63, 87, 127)
+        
+        loadCompressed(66, folderName, "_ms2_066_f#3.wv", 64, 69, 0, 43)
+        loadCompressed(66, folderName, "_ms1_066_f#3.wv", 64, 69, 44, 86)
+        loadCompressed(66, folderName, "_ms0_066_f#3.wv", 64, 69, 87, 127)
+
+        loadCompressed(72, folderName, "_ms2_072_c4.wv", 70, 75, 0, 43)
+        loadCompressed(72, folderName, "_ms1_072_c4.wv", 70, 75, 44, 86)
+        loadCompressed(72, folderName, "_ms0_072_c4.wv", 70, 75, 87, 127)
+        
+        loadCompressed(78, folderName, "_ms2_078_f#4.wv", 76, 81, 0, 43)
+        loadCompressed(78, folderName, "_ms1_078_f#4.wv", 76, 81, 44, 86)
+        loadCompressed(78, folderName, "_ms0_078_f#4.wv", 76, 81, 87, 127)
+        
+        loadCompressed(84, folderName, "_ms2_084_c5.wv", 82, 127, 0, 43)
+        loadCompressed(84, folderName, "_ms1_084_c5.wv", 82, 127, 44, 86)
+        loadCompressed(84, folderName, "_ms0_084_c5.wv", 82, 127, 87, 127)
+
+        sampler.buildKeyMap()
+        
+        let elapsedTime = info.systemUptime - begin
+        print("Time to load samples \(elapsedTime) seconds")
+
+        sampler.ampAttackTime = 0.01
+        sampler.ampDecayTime = 0.1
+        sampler.ampSustainLevel = 0.8
+        sampler.ampReleaseTime = 0.5
+        
+        // per-voice filter is still experimental and buggy
+//        sampler.filterEnable = true
+//        sampler.filterAttackTime = 1.0
+//        sampler.filterDecayTime = 1.0
+//        sampler.filterSustainLevel = 0.5
+//        sampler.filterReleaseTime = 10.0
+    }
+
+    private func loadCompressed(noteNumber: MIDINoteNumber, wvurl: URL,
+                                _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
     {
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: wvurl.path) {
@@ -129,23 +144,26 @@ class Conductor {
             }
             sampler.loadRawSampleData(noteNumber: noteNumber,
                                       noteHz: Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)),
-                                      data: sampleBuffer, channelCount: UInt32(numChannels), sampleCount: UInt32(numSamples))
+                                      data: sampleBuffer, channelCount: UInt32(numChannels), sampleCount: UInt32(numSamples),
+                                      bInterleaved: true, min_note: min_note, max_note: max_note, min_vel: min_vel, max_vel: max_vel)
         } catch let error as NSError {
             print("\(error.localizedDescription)")
         }
     }
     
-    private func loadCompressed(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String)
+    private func loadCompressed(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String,
+                                _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
     {
         let fileUtils = FileManagerUtils.shared
         
         let folderURL = fileUtils.getDocsUrl(folderName)
         let fileName = folderName + fileEnding
         let fileURL = folderURL.appendingPathComponent(fileName)
-        loadCompressed(noteNumber: noteNumber, wvurl: fileURL)
+        loadCompressed(noteNumber: noteNumber, wvurl: fileURL, min_note, max_note, min_vel, max_vel)
     }
 
-    private func loadSample(_ noteNumber: MIDINoteNumber, _ fullPath: String)
+    private func loadSample(_ noteNumber: MIDINoteNumber, _ fullPath: String,
+                            _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
     {
         let fileManager = FileManager.default
         let fileUtils = FileManagerUtils.shared
@@ -154,7 +172,9 @@ class Conductor {
             if fileManager.fileExists(atPath: fileURL.path) {
                 let sampleFile = try AKAudioFile(forReading: fileURL)
                 let noteHz = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
-                sampler.loadAKAudioFile(noteNumber: noteNumber, noteHz: noteHz, file: sampleFile)//, bLoop: false)
+                sampler.loadAKAudioFile(noteNumber: noteNumber, noteHz: noteHz, file: sampleFile,
+                                        min_note: min_note, max_note: max_note,
+                                        min_vel: min_vel, max_vel: max_vel)
             }
             else {
                 print("No such file \(fullPath)")
@@ -164,7 +184,8 @@ class Conductor {
         }
     }
     
-    private func loadSample(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String)
+    private func loadSample(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String,
+                            _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
     {
         let fileManager = FileManager.default
         let fileUtils = FileManagerUtils.shared
@@ -175,7 +196,9 @@ class Conductor {
             if fileManager.fileExists(atPath: fileURL.path) {
                 let sampleFile = try AKAudioFile(forReading: fileURL)
                 let noteHz = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
-                sampler.loadAKAudioFile(noteNumber: noteNumber, noteHz: noteHz, file: sampleFile)//, bLoop: false)
+                sampler.loadAKAudioFile(noteNumber: noteNumber, noteHz: noteHz, file: sampleFile,
+                                        min_note: min_note, max_note: max_note,
+                                        min_vel: min_vel, max_vel: max_vel)
             }
             else {
                 print("No such file \(fileName)")
