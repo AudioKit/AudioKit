@@ -18,7 +18,7 @@ class Conductor {
     static let shared = Conductor()
 
     let midi = AKMIDI()
-    var sampler: AKSampler2
+    var sampler: AKSampler
     var sustainer: AKSustainer
 
     var pitchBendUpSemitones = 2
@@ -39,7 +39,7 @@ class Conductor {
         AKSettings.enableLogging = true
 
         // Signal Chain
-        sampler = AKSampler2()
+        sampler = AKSampler()
         sustainer = AKSustainer(sampler)
         
         // Set up the AKSampler
@@ -64,6 +64,7 @@ class Conductor {
         //   On a physical iOS device, use iTunes File Sharing and simply drag it in
         //   On simulator, look at the debug output to see the full path where the program is
         //      looking, and put the "TX LoTine81z" folder in there.
+        // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
         let folderName = "TX LoTine81z"
 
         loadCompressed(48, folderName, "_ms2_048_c2.wv", 0, 51, 0, 43)

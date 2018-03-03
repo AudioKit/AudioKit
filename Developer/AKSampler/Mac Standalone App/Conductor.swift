@@ -18,7 +18,7 @@ class Conductor {
     static let shared = Conductor()
 
     let midi = AKMIDI()
-    var sampler: AKSampler2
+    var sampler: AKSampler
     var sustainer: AKSustainer
 
     var pitchBendUpSemitones = 2
@@ -42,7 +42,7 @@ class Conductor {
         AKSettings.enableLogging = true
 
         // Signal Chain
-        sampler = AKSampler2()
+        sampler = AKSampler()
         sustainer = AKSustainer(sampler)
         
         // Set up the AKSampler
@@ -63,6 +63,7 @@ class Conductor {
         let begin = info.systemUptime
         
         // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
         // Uncompress and put folder inside wherever baseURL (see above) points
         let folderName = "TX LoTine81z"
         

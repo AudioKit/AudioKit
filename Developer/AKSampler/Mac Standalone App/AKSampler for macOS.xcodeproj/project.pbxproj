@@ -20,11 +20,11 @@
 		343BEB7E20448089001DFE69 /* wvfilter.c in Sources */ = {isa = PBXBuildFile; fileRef = 343BEB7720448089001DFE69 /* wvfilter.c */; };
 		343BEB7F20448089001DFE69 /* metadata.c in Sources */ = {isa = PBXBuildFile; fileRef = 343BEB7820448089001DFE69 /* metadata.c */; };
 		343BEC172044AF17001DFE69 /* AKSamplerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 343BEC132044AF16001DFE69 /* AKSamplerDSP.mm */; };
-		343BEC182044AF17001DFE69 /* AKSampler2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEC142044AF17001DFE69 /* AKSampler2.swift */; };
-		343BEC192044AF17001DFE69 /* AKSampler2AudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEC162044AF17001DFE69 /* AKSampler2AudioUnit.swift */; };
 		34403A5D2046006100CD89E1 /* AKSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34403A5B2046006100CD89E1 /* AKSampler.cpp */; };
 		346331FE2049EC6600042438 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346331FC2049EC6600042438 /* AudioKit.framework */; };
 		346331FF2049EC6600042438 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346331FD2049EC6600042438 /* AudioKitUI.framework */; };
+		34CB8008204B3F3300AD16B8 /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB8006204B3F3200AD16B8 /* AKSampler.swift */; };
+		34CB8009204B3F3300AD16B8 /* AKSamplerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CB8007204B3F3300AD16B8 /* AKSamplerAudioUnit.swift */; };
 		34E34F712044D787007FF4D1 /* AKFunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F682044D787007FF4D1 /* AKFunctionTable.cpp */; };
 		34E34F722044D787007FF4D1 /* AKSamplerVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F692044D787007FF4D1 /* AKSamplerVoice.cpp */; };
 		34E34F732044D787007FF4D1 /* AKResonantLowPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F6C2044D787007FF4D1 /* AKResonantLowPassFilter.cpp */; };
@@ -51,9 +51,7 @@
 		343BEB7720448089001DFE69 /* wvfilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wvfilter.c; sourceTree = "<group>"; };
 		343BEB7820448089001DFE69 /* metadata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = metadata.c; sourceTree = "<group>"; };
 		343BEC132044AF16001DFE69 /* AKSamplerDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKSamplerDSP.mm; path = "../Standalone Common/AKSamplerDSP.mm"; sourceTree = "<group>"; };
-		343BEC142044AF17001DFE69 /* AKSampler2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSampler2.swift; path = "../Standalone Common/AKSampler2.swift"; sourceTree = "<group>"; };
 		343BEC152044AF17001DFE69 /* AKSamplerDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKSamplerDSP.hpp; path = "../Standalone Common/AKSamplerDSP.hpp"; sourceTree = "<group>"; };
-		343BEC162044AF17001DFE69 /* AKSampler2AudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSampler2AudioUnit.swift; path = "../Standalone Common/AKSampler2AudioUnit.swift"; sourceTree = "<group>"; };
 		343E5E942049A7A90007B2DF /* wavpack_public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wavpack_public.h; sourceTree = "<group>"; };
 		34403A5B2046006100CD89E1 /* AKSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSampler.cpp; sourceTree = "<group>"; };
 		34403A5C2046006100CD89E1 /* AKSampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler.h; sourceTree = "<group>"; };
@@ -61,6 +59,8 @@
 		3455F8AF20447CD600A6BC71 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../AudioKit/Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		346331FC2049EC6600042438 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		346331FD2049EC6600042438 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		34CB8006204B3F3200AD16B8 /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSampler.swift; path = "../Standalone Common/AKSampler.swift"; sourceTree = "<group>"; };
+		34CB8007204B3F3300AD16B8 /* AKSamplerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSamplerAudioUnit.swift; path = "../Standalone Common/AKSamplerAudioUnit.swift"; sourceTree = "<group>"; };
 		34E34F652044D787007FF4D1 /* AKSampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampleBuffer.hpp; sourceTree = "<group>"; };
 		34E34F662044D787007FF4D1 /* AKEnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKEnvelopeGenerator.hpp; sourceTree = "<group>"; };
 		34E34F672044D787007FF4D1 /* AKResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantLowPassFilter.hpp; sourceTree = "<group>"; };
@@ -94,6 +94,9 @@
 				343BEBC120449AB6001DFE69 /* Source: Mac App */,
 				343BEBC020449A76001DFE69 /* Source: Audio Unit */,
 				34E34F642044D787007FF4D1 /* AKSampler */,
+				343BEB6720447FF4001DFE69 /* Assets.xcassets */,
+				343BEB6420447FF4001DFE69 /* Base.lproj */,
+				343BEB6020447FF3001DFE69 /* Info.plist */,
 				343BEB7020448089001DFE69 /* Wavpack */,
 				340868942035F70D00ADEB55 /* Frameworks */,
 				340868782035F69E00ADEB55 /* Products */,
@@ -147,13 +150,10 @@
 		343BEBC020449A76001DFE69 /* Source: Audio Unit */ = {
 			isa = PBXGroup;
 			children = (
-				343BEC142044AF17001DFE69 /* AKSampler2.swift */,
-				343BEC162044AF17001DFE69 /* AKSampler2AudioUnit.swift */,
+				34CB8006204B3F3200AD16B8 /* AKSampler.swift */,
+				34CB8007204B3F3300AD16B8 /* AKSamplerAudioUnit.swift */,
 				343BEC152044AF17001DFE69 /* AKSamplerDSP.hpp */,
 				343BEC132044AF16001DFE69 /* AKSamplerDSP.mm */,
-				343BEB6720447FF4001DFE69 /* Assets.xcassets */,
-				343BEB6020447FF3001DFE69 /* Info.plist */,
-				343BEB6420447FF4001DFE69 /* Base.lproj */,
 			);
 			name = "Source: Audio Unit";
 			sourceTree = "<group>";
@@ -272,12 +272,12 @@
 				343BEB6F20447FF4001DFE69 /* Conductor.swift in Sources */,
 				34E34F742044D787007FF4D1 /* AKSampleBuffer.cpp in Sources */,
 				343BEB7B20448089001DFE69 /* unpack.c in Sources */,
+				34CB8009204B3F3300AD16B8 /* AKSamplerAudioUnit.swift in Sources */,
 				343BEB7C20448089001DFE69 /* bits.c in Sources */,
-				343BEC182044AF17001DFE69 /* AKSampler2.swift in Sources */,
 				343BEB6B20447FF4001DFE69 /* ViewController.swift in Sources */,
 				34E34F752044D787007FF4D1 /* AKEnvelopeGenerator.cpp in Sources */,
-				343BEC192044AF17001DFE69 /* AKSampler2AudioUnit.swift in Sources */,
 				34E34F722044D787007FF4D1 /* AKSamplerVoice.cpp in Sources */,
+				34CB8008204B3F3300AD16B8 /* AKSampler.swift in Sources */,
 				343BEB7E20448089001DFE69 /* wvfilter.c in Sources */,
 				34403A5D2046006100CD89E1 /* AKSampler.cpp in Sources */,
 				34E34F922044DB41007FF4D1 /* AKSustainer.swift in Sources */,
@@ -418,7 +418,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = W5AEHZN66V;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/Frameworks/AudioKit-macOS/**";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/AudioKit/Common/Internals/CoreAudio/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
@@ -439,7 +439,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = W5AEHZN66V;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/Frameworks/AudioKit-macOS/**";
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../../AudioKit/AudioKit/Common/Internals/CoreAudio/**";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
