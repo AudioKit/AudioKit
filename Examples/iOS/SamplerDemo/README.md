@@ -14,7 +14,7 @@ And then we jump right into Conductor.swift file where we can find the same decl
     var sequence: AKSequencer?
     var mixer = AKMixer()
     var filter: AKMoogLadder?
-    var arpeggioSynthesizer = AKSampler()
+    var arpeggioSynthesizer = AKAppleSampler()
     var arpeggioVolume: AKBooster?
 ```
 
