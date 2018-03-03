@@ -1,6 +1,6 @@
 # AudioKit Core
 
-This directory is stores the platform-independent code of AudioKit. 
+This directory stores the platform-independent code of AudioKit. 
 
 ## Devoloop
 

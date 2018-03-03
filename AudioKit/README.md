@@ -1,6 +1,6 @@
-# AudioKit Core
+# AudioKit
 
-This directory is stores the core code of AudioKit. 
+This directory stores the Apple-centric code of AudioKit (currently most of it)
 
 ## Common
 
