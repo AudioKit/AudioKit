@@ -31,35 +31,51 @@ OSStatus AKSampler_Plugin::Initialize()
 	AUInstrumentBase::Initialize();
     AKSampler::init();
     
-    unsigned nn = 12;
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C0.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C1.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C2.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C3.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C4.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C5.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-C6.wv");
-    nn = 18;
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#0.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#1.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#2.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#3.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#4.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#5.wv");
-    loadCompressedSampleFile(nn += 12, "/Users/shane/Desktop/Compressed Sounds/X50 Golden Strings/X50 Golden Strings-F#6.wv");
+    // Download http://getdunne.com/download/TX_LoTine81z.zip
+    // Put folder wherever you wish (e.g. inside a "Compressed Sounds" folder on your Mac desktop
+    // and edit paths below accordingly
+
+    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_048_c2.wv", 0, 51, 0, 43);
+    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_048_c2.wv", 0, 51, 44, 86);
+    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_048_c2.wv", 0, 51, 87, 127);
     
-    buildSimpleKeyMap();
+    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_054_f#2.wv", 52, 57, 0, 43);
+    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_054_f#2.wv", 52, 57, 44, 86);
+    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_054_f#2.wv", 52, 57, 87, 127);
     
-    ampAttackTime = 0.1f;
-    ampDecayTime = 0.2f;
+    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_060_c3.wv", 58, 63, 0, 43);
+    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_060_c3.wv", 58, 63, 44, 86);
+    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_060_c3.wv", 58, 63, 87, 127);
+    
+    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_066_f#3.wv", 64, 69, 0, 43);
+    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_066_f#3.wv", 64, 69, 44, 86);
+    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_066_f#3.wv", 64, 69, 87, 127);
+    
+    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_072_c4.wv", 70, 75, 0, 43);
+    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_072_c4.wv", 70, 75, 44, 86);
+    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_072_c4.wv", 70, 75, 87, 127);
+    
+    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_078_f#4.wv", 76, 81, 0, 43);
+    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_078_f#4.wv", 76, 81, 44, 86);
+    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_078_f#4.wv", 76, 81, 87, 127);
+    
+    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_084_c5.wv", 82, 127, 0, 43);
+    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_084_c5.wv", 82, 127, 44, 86);
+    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_084_c5.wv", 82, 127, 87, 127);
+
+    buildKeyMap();
+    
+    ampAttackTime = 0.01f;
+    ampDecayTime = 0.1f;
     ampSustainLevel = 0.8f;
     ampReleaseTime = 0.5f;
     updateAmpADSR();
     
+    // per-voice filter is still experimental and buggy
     //    filterEnable = true;
-    //    filterAttackTime = 3.0f;
-    //    filterDecayTime = 3.0f;
-    //    filterSustainLevel = 1.0f;
+    //    filterAttackTime = 1.0f;
+    //    filterDecayTime = 1.0f;
+    //    filterSustainLevel = 0.5f;
     //    filterReleaseTime = 10.0f;
     //    updateFilterADSR();
     
