@@ -1,11 +1,14 @@
 #include "AUInstrumentBase.h"
 #include "AKSampler.h"
+#include "AKSustainLogic.hpp"
 
 #define kAKSamplerVersion   0x00010000
 #define kAKSamplerSubtype   'aksp'
 
 class AKSampler_Plugin : public AUInstrumentBase, public AKSampler
 {
+    AKSustainLogic sustainLogic;
+    
 public:
 	AKSampler_Plugin(AudioUnit inComponentInstance);
 	virtual	~AKSampler_Plugin();
@@ -40,6 +43,16 @@ public:
     
     virtual OSStatus HandleNoteOff(     UInt8 inChannel, UInt8 inNoteNumber,
                                         UInt8 inVelocity, UInt32 inStartFrame);
+
+    virtual OSStatus HandleControlChange(   UInt8 inChannel,
+                                            UInt8 inController,
+                                            UInt8 inValue,
+                                            UInt32 inStartFrame);
+    
+    virtual OSStatus HandlePitchWheel(  UInt8 inChannel,
+                                        UInt8 inPitch1,
+                                        UInt8 inPitch2,
+                                        UInt32 inStartFrame);
 
     virtual OSStatus Render(            AudioUnitRenderActionFlags& ioActionFlags,
                                         const AudioTimeStamp&       inTimeStamp,

@@ -1,5 +1,6 @@
 #include "AKSampler_Plugin.h"
 #include "AKSampler_Params.h"
+#include "AUMidiDefs.h"
 
 AUDIOCOMPONENT_ENTRY(AUMusicDeviceFactory, AKSampler_Plugin)
 
@@ -391,6 +392,8 @@ OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, con
 OSStatus AKSampler_Plugin::HandleNoteOn(UInt8 inChannel, UInt8 inNoteNumber, UInt8 inVelocity, UInt32 inStartFrame)
 {
     //printf("note on: ch%d nn%d vel%d\n", inChannel, inNoteNumber, inVelocity);
+    if (sustainLogic.keyDownAction(inNoteNumber) == AKSustainLogic::kStopNoteThenPlay)
+        stopNote(inNoteNumber, false);
     playNote(inNoteNumber, inVelocity, 440.0f * pow(2.0f, (inNoteNumber - 69.0f)/12.0f));
     return noErr;
 }
@@ -398,6 +401,38 @@ OSStatus AKSampler_Plugin::HandleNoteOn(UInt8 inChannel, UInt8 inNoteNumber, UIn
 OSStatus AKSampler_Plugin::HandleNoteOff(UInt8 inChannel, UInt8 inNoteNumber, UInt8 inVelocity, UInt32 inStartFrame)
 {
     //printf("note off: ch%d nn%d vel%d\n", inChannel, inNoteNumber, inVelocity);
-    stopNote(inNoteNumber, false);
+    if (sustainLogic.keyUpAction(inNoteNumber) == AKSustainLogic::kStopNote)
+        stopNote(inNoteNumber, false);
+    return noErr;
+}
+
+OSStatus AKSampler_Plugin::HandleControlChange(UInt8 inChannel, UInt8 inController, UInt8 inValue, UInt32 inStartFrame)
+{
+    if (inController == kMidiController_Sustain)
+    {
+        bool pedalDown = inValue != 0;
+        if (pedalDown) sustainLogic.pedalDown();
+        else {
+            for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
+            {
+                if (sustainLogic.isNoteSustaining(nn))
+                    stopNote(nn, false);
+            }
+            sustainLogic.pedalUp();
+        }
+    }
+    else if (inController == kMidiController_ModWheel)
+    {
+        float value = inValue / 127.0f;
+        // TODO: apply vibrato
+    }
+    return noErr;
+}
+
+OSStatus AKSampler_Plugin::HandlePitchWheel(UInt8 inChannel, UInt8 inPitch1, UInt8 inPitch2, UInt32 inStartFrame)
+{
+    int intValue = ((inPitch2 << 7) | inPitch1) - (64 << 7);
+    float floatValue = intValue / 8192.0f;
+    pitchOffset = 2.0f * floatValue;
     return noErr;
 }
