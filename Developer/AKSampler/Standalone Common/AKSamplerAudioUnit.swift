@@ -211,12 +211,12 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerBuildKeyMap(pDSP)
     }
     
-    public func playNote(_ noteNumber: UInt8, _ velocity: UInt8, _ noteHz: Float) {
+    public func playNote(noteNumber: UInt8, velocity: UInt8, noteHz: Float) {
         //print("playNote \(noteNumber)")
         doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteHz)
     }
     
-    public func stopNote(_ noteNumber: UInt8, _ immediate: Bool) {
+    public func stopNote(noteNumber: UInt8, immediate: Bool) {
         //print("stopNote \(noteNumber)")
         doAKSamplerStopNote(pDSP, noteNumber, immediate)
     }

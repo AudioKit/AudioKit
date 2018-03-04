@@ -67,33 +67,33 @@ class Conductor {
         // Uncompress and put folder inside wherever baseURL (see above) points
         let folderName = "TX LoTine81z"
         
-        loadCompressed(48, folderName, "_ms2_048_c2.wv", 0, 51, 0, 43)
-        loadCompressed(48, folderName, "_ms1_048_c2.wv", 0, 51, 44, 86)
-        loadCompressed(48, folderName, "_ms0_048_c2.wv", 0, 51, 87, 127)
+        loadCompressed(noteNumber: 48, folderName: folderName, fileEnding: "_ms2_048_c2.wv", min_note: 0, max_note: 51, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 48, folderName: folderName, fileEnding: "_ms1_048_c2.wv", min_note: 0, max_note: 51, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 48, folderName: folderName, fileEnding: "_ms0_048_c2.wv", min_note: 0, max_note: 51, min_vel: 87, max_vel: 127)
         
-        loadCompressed(54, folderName, "_ms2_054_f#2.wv", 52, 57, 0, 43)
-        loadCompressed(54, folderName, "_ms1_054_f#2.wv", 52, 57, 44, 86)
-        loadCompressed(54, folderName, "_ms0_054_f#2.wv", 52, 57, 87, 127)
+        loadCompressed(noteNumber: 54, folderName: folderName, fileEnding: "_ms2_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 54, folderName: folderName, fileEnding: "_ms1_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 54, folderName: folderName, fileEnding: "_ms0_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 87, max_vel: 127)
         
-        loadCompressed(60, folderName, "_ms2_060_c3.wv", 58, 63, 0, 43)
-        loadCompressed(60, folderName, "_ms1_060_c3.wv", 58, 63, 44, 86)
-        loadCompressed(60, folderName, "_ms0_060_c3.wv", 58, 63, 87, 127)
+        loadCompressed(noteNumber: 60, folderName: folderName, fileEnding: "_ms2_060_c3.wv", min_note: 58, max_note: 63, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 60, folderName: folderName, fileEnding: "_ms1_060_c3.wv", min_note: 58, max_note: 63, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 60, folderName: folderName, fileEnding: "_ms0_060_c3.wv", min_note: 58, max_note: 63, min_vel: 87, max_vel: 127)
         
-        loadCompressed(66, folderName, "_ms2_066_f#3.wv", 64, 69, 0, 43)
-        loadCompressed(66, folderName, "_ms1_066_f#3.wv", 64, 69, 44, 86)
-        loadCompressed(66, folderName, "_ms0_066_f#3.wv", 64, 69, 87, 127)
+        loadCompressed(noteNumber: 66, folderName: folderName, fileEnding: "_ms2_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 66, folderName: folderName, fileEnding: "_ms1_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 66, folderName: folderName, fileEnding: "_ms0_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 87, max_vel: 127)
         
-        loadCompressed(72, folderName, "_ms2_072_c4.wv", 70, 75, 0, 43)
-        loadCompressed(72, folderName, "_ms1_072_c4.wv", 70, 75, 44, 86)
-        loadCompressed(72, folderName, "_ms0_072_c4.wv", 70, 75, 87, 127)
+        loadCompressed(noteNumber: 72, folderName: folderName, fileEnding: "_ms2_072_c4.wv", min_note: 70, max_note: 75, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 72, folderName: folderName, fileEnding: "_ms1_072_c4.wv", min_note: 70, max_note: 75, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 72, folderName: folderName, fileEnding: "_ms0_072_c4.wv", min_note: 70, max_note: 75, min_vel: 87, max_vel: 127)
         
-        loadCompressed(78, folderName, "_ms2_078_f#4.wv", 76, 81, 0, 43)
-        loadCompressed(78, folderName, "_ms1_078_f#4.wv", 76, 81, 44, 86)
-        loadCompressed(78, folderName, "_ms0_078_f#4.wv", 76, 81, 87, 127)
+        loadCompressed(noteNumber: 78, folderName: folderName, fileEnding: "_ms2_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 78, folderName: folderName, fileEnding: "_ms1_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 78, folderName: folderName, fileEnding: "_ms0_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 87, max_vel: 127)
         
-        loadCompressed(84, folderName, "_ms2_084_c5.wv", 82, 127, 0, 43)
-        loadCompressed(84, folderName, "_ms1_084_c5.wv", 82, 127, 44, 86)
-        loadCompressed(84, folderName, "_ms0_084_c5.wv", 82, 127, 87, 127)
+        loadCompressed(noteNumber: 84, folderName: folderName, fileEnding: "_ms2_084_c5.wv", min_note: 82, max_note: 127, min_vel: 0, max_vel: 43)
+        loadCompressed(noteNumber: 84, folderName: folderName, fileEnding: "_ms1_084_c5.wv", min_note: 82, max_note: 127, min_vel: 44, max_vel: 86)
+        loadCompressed(noteNumber: 84, folderName: folderName, fileEnding: "_ms0_084_c5.wv", min_note: 82, max_note: 127, min_vel: 87, max_vel: 127)
         
         sampler.buildKeyMap()
  
@@ -113,8 +113,8 @@ class Conductor {
         //        sampler.filterReleaseTime = 10.0
     }
     
-    private func loadCompressed(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String,
-                                _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
+    private func loadCompressed(noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
+                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1)
     {
         let folderURL = baseURL.appendingPathComponent(folderName)
         let fileName = folderName + fileEnding

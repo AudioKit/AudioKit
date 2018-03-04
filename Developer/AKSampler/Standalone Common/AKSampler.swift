@@ -272,15 +272,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
     
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
-        internalAU?.playNote(noteNumber, velocity, Float(frequency))
+        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteHz: Float(frequency))
     }
     
     open override func stop(noteNumber: MIDINoteNumber) {
-        internalAU?.stopNote(noteNumber, false)
+        internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
     
     open func silence(noteNumber: MIDINoteNumber) {
-        internalAU?.stopNote(noteNumber, true)
+        internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 }
 
