@@ -1,10 +1,25 @@
 #include "AKSampler_Plugin.h"
+#include "AKSampler_Params.h"
 
 AUDIOCOMPONENT_ENTRY(AUMusicDeviceFactory, AKSampler_Plugin)
 
-#define kGlobalVolumeParam  0
+static const CFStringRef paramName[] =
+{
+    CFSTR("Master Volume"),
+    CFSTR("Pitch Offset"),
+    CFSTR("Filter Enable"),
+    CFSTR("Filter Cutoff"),
+    
+    CFSTR("Amp EG Attack"),
+    CFSTR("Amp EG Decay"),
+    CFSTR("Amp EG Sustain"),
+    CFSTR("Amp EG Release"),
 
-static const CFStringRef kGlobalVolumeName = CFSTR("global volume");
+    CFSTR("Flt EG Attack"),
+    CFSTR("Flt EG Decay"),
+    CFSTR("Flt EG Sustain"),
+    CFSTR("Flt EG Release"),
+};
 
 // OSErr definitions taken from deprecated CarbonCore/MacErrors.h
 // Somewhere there's a newer header file I should be using
@@ -18,8 +33,22 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
     , AKSampler()
 {
 	CreateElements();
-	Globals()->UseIndexedParameters(1); // we're only defining one param
-	Globals()->SetParameter (kGlobalVolumeParam, 1.0);
+	Globals()->UseIndexedParameters(kNumberOfParams);
+    
+    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
+    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
+    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
+    Globals()->SetParameter(kFilterEnable, 0.0f);
+    
+    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.01f);
+    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.1f);
+    Globals()->SetParameter(kAmpEgSustainFraction, 0.8f);
+    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.5f);
+    
+    Globals()->SetParameter(kFilterEgAttackTimeSeconds, 0.0f);
+    Globals()->SetParameter(kFilterEgDecayTimeSeconds, 0.0f);
+    Globals()->SetParameter(kFilterEgSustainFraction, 1.0f);
+    Globals()->SetParameter(kFilterEgReleaseTimeSeconds, 0.0f);
 }
 
 AKSampler_Plugin::~AKSampler_Plugin()
@@ -66,19 +95,15 @@ OSStatus AKSampler_Plugin::Initialize()
 
     buildKeyMap();
     
-    ampAttackTime = 0.01f;
-    ampDecayTime = 0.1f;
-    ampSustainLevel = 0.8f;
-    ampReleaseTime = 0.5f;
-    updateAmpADSR();
+    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
+    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
+    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
+    Globals()->SetParameter(kFilterEnable, 0.0f);
     
-    // per-voice filter is still experimental and buggy
-    //    filterEnable = true;
-    //    filterAttackTime = 1.0f;
-    //    filterDecayTime = 1.0f;
-    //    filterSustainLevel = 0.5f;
-    //    filterReleaseTime = 10.0f;
-    //    updateFilterADSR();
+    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.01f);
+    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.1f);
+    Globals()->SetParameter(kAmpEgSustainFraction, 0.8f);
+    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.5f);
     
     return noErr;
 }
@@ -88,7 +113,7 @@ void AKSampler_Plugin::Cleanup()
     AKSampler::deinit();
 }
 
-OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inID,
+OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inPropertyID,
                                             AudioUnitScope              inScope,
                                             AudioUnitElement            inElement,
                                             UInt32&                     outDataSize,
@@ -96,7 +121,7 @@ OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inID,
 {
     if (inScope == kAudioUnitScope_Global)
     {
-        switch (inID)
+        switch (inPropertyID)
         {
             case kAudioUnitProperty_CocoaUI:
                 outWritable = false;
@@ -105,16 +130,16 @@ OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inID,
         }
     }
     
-    return AUInstrumentBase::GetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
+    return AUInstrumentBase::GetPropertyInfo (inPropertyID, inScope, inElement, outDataSize, outWritable);
 }
 
-OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inID,
+OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         void*                       outData)
 {
     if (inScope == kAudioUnitScope_Global) {
-        switch (inID) {
+        switch (inPropertyID) {
             case kAudioUnitProperty_CocoaUI:
             {
                 // Look for a resource in the main bundle by name and type.
@@ -143,8 +168,8 @@ OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inID,
             }
         }
     }
-    
-    return AUInstrumentBase::GetProperty (inID, inScope, inElement, outData);
+
+    return AUInstrumentBase::GetProperty (inPropertyID, inScope, inElement, outData);
 }
 
 
@@ -152,28 +177,186 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
                                                 AudioUnitParameterID    inParameterID,
                                                 AudioUnitParameterInfo& outParameterInfo)
 {
-	if (inParameterID != kGlobalVolumeParam) return kAudioUnitErr_InvalidParameter;
 	if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
 
-	outParameterInfo.flags = SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplaySquareRoot);
-    outParameterInfo.flags += kAudioUnitParameterFlag_IsWritable;
-	outParameterInfo.flags += kAudioUnitParameterFlag_IsReadable;
+    outParameterInfo.flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable;
 
-	AUBase::FillInParameterName (outParameterInfo, kGlobalVolumeName, false);
-	outParameterInfo.unit = kAudioUnitParameterUnit_LinearGain;
-	outParameterInfo.minValue = 0;
-	outParameterInfo.maxValue = 1.0;
-	outParameterInfo.defaultValue = 1.0;
+    switch (inParameterID) {
+        case kMasterVolumeFraction:
+            outParameterInfo.flags += SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplaySquareRoot);
+            AUBase::FillInParameterName (outParameterInfo, paramName[kMasterVolumeFraction], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_LinearGain;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 1.0;
+            outParameterInfo.defaultValue = 1.0;
+            break;
+            
+        case kPitchOffsetSemitones:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kPitchOffsetSemitones], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_RelativeSemiTones;
+            outParameterInfo.minValue = -24.0;
+            outParameterInfo.maxValue = 24.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+    
+        case kFilterEnable:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEnable], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Boolean;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 1.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+            
+        case kFilterCutoffHarmonic:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterCutoffHarmonic], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Generic;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 1000.0;
+            outParameterInfo.defaultValue = 1000.0;
+            break;
+    
+        case kAmpEgAttackTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgAttackTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+    
+        case kAmpEgDecayTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgDecayTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+            
+        case kAmpEgSustainFraction:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgSustainFraction], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_LinearGain;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 1.0;
+            outParameterInfo.defaultValue = 1.0;
+            break;
+    
+        case kAmpEgReleaseTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgReleaseTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+    
+        case kFilterEgAttackTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgAttackTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+    
+        case kFilterEgDecayTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgDecayTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+    
+        case kFilterEgSustainFraction:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgSustainFraction], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_LinearGain;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 1.0;
+            outParameterInfo.defaultValue = 1.0;
+            break;
+            
+        case kFilterEgReleaseTimeSeconds:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgReleaseTimeSeconds], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
+            outParameterInfo.minValue = 0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+            
+        default:
+            return kAudioUnitErr_InvalidParameter;
+    }
+    
 	return noErr;
 }
 
-OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inID,
+OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParameterID,
                                             AudioUnitScope              inScope,
                                             AudioUnitElement            inElement,
                                             AudioUnitParameterValue     inValue,
                                             UInt32                      inBufferOffsetInFrames)
 {
-    return noErr;
+    if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
+    
+    switch (inParameterID)
+    {
+        case kMasterVolumeFraction:
+            masterVolume = inValue;
+            break;
+            
+        case kPitchOffsetSemitones:
+            pitchOffset = inValue;
+            break;
+            
+        case kFilterEnable:
+            filterEnable = (inValue > 0.5f);
+            break;
+            
+        case kFilterCutoffHarmonic:
+            cutoffMultiple = inValue;
+            break;
+            
+        case kAmpEgAttackTimeSeconds:
+            ampAttackTime = inValue;
+            updateAmpADSR();
+            break;
+            
+        case kAmpEgDecayTimeSeconds:
+            ampDecayTime = inValue;
+            updateAmpADSR();
+           break;
+            
+        case kAmpEgSustainFraction:
+            ampSustainLevel = inValue;
+            updateAmpADSR();
+            break;
+            
+        case kAmpEgReleaseTimeSeconds:
+            ampReleaseTime = inValue;
+            updateAmpADSR();
+            break;
+            
+        case kFilterEgAttackTimeSeconds:
+            filterAttackTime = inValue;
+            updateFilterADSR();
+            break;
+            
+        case kFilterEgDecayTimeSeconds:
+            filterDecayTime = inValue;
+            updateFilterADSR();
+            break;
+            
+        case kFilterEgSustainFraction:
+            filterSustainLevel = inValue;
+            updateFilterADSR();
+            break;
+            
+        case kFilterEgReleaseTimeSeconds:
+            filterReleaseTime = inValue;
+            updateFilterADSR();
+            break;
+            
+        default:
+            return kAudioUnitErr_InvalidParameter;
+    }
+    
+    return AUInstrumentBase::SetParameter(inParameterID, inScope, inElement, inValue, inBufferOffsetInFrames);
 }
 
 OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, const AudioTimeStamp &inTimeStamp, UInt32 nFrames)
@@ -193,7 +376,7 @@ OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, con
         int chunkSize = nFrames - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
         
-        masterVolume = Globals()->GetParameter(kGlobalVolumeParam);
+        // Any ramping parameters would be updated here...
         
         unsigned channelCount = outputBufList.mNumberBuffers;
         AKSampler::Render(channelCount, chunkSize, outBuffers);
