@@ -8,7 +8,15 @@
 #include <math.h>
 
 AKSampler::AKSampler()
-: filterEnable(false)
+: ampAttackTime(0.0f)
+, ampDecayTime(0.0f)
+, ampSustainLevel(1.0f)
+, ampReleaseTime(0.0f)
+, filterAttackTime(0.0f)
+, filterDecayTime(0.0f)
+, filterSustainLevel(1.0f)
+, filterReleaseTime(0.0f)
+, filterEnable(false)
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
 , vibratoDepth(0.0f)
