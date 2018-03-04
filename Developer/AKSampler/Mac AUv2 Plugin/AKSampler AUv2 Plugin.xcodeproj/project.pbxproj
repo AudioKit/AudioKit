@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3427DF2F2049DCA600B9DC53 /* AKSampler_ViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3427DF2E2049DCA600B9DC53 /* AKSampler_ViewFactory.m */; };
+		342CE9A8204B9A53005C0832 /* AKSustainLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342CE9A6204B9A53005C0832 /* AKSustainLogic.cpp */; };
+		342CE9A9204B9A53005C0832 /* AKSustainLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 342CE9A7204B9A53005C0832 /* AKSustainLogic.hpp */; };
 		343E5E982049AC5A0007B2DF /* wavpack_public.h in Headers */ = {isa = PBXBuildFile; fileRef = 343E5E972049AC5A0007B2DF /* wavpack_public.h */; };
 		343E5EA42049C9EA0007B2DF /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E5EA32049C9EA0007B2DF /* Cocoa.framework */; };
 		343E5EA62049C9F00007B2DF /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E5EA52049C9F00007B2DF /* AudioUnit.framework */; };
@@ -156,6 +158,8 @@
 		3427DF2D2049DCA600B9DC53 /* AKSampler_ViewFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_ViewFactory.h; sourceTree = "<group>"; };
 		3427DF2E2049DCA600B9DC53 /* AKSampler_ViewFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSampler_ViewFactory.m; sourceTree = "<group>"; };
 		342CE9A5204B823A005C0832 /* AKSampler_Params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_Params.h; sourceTree = "<group>"; };
+		342CE9A6204B9A53005C0832 /* AKSustainLogic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AKSustainLogic.cpp; sourceTree = "<group>"; };
+		342CE9A7204B9A53005C0832 /* AKSustainLogic.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKSustainLogic.hpp; sourceTree = "<group>"; };
 		343E5E972049AC5A0007B2DF /* wavpack_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavpack_public.h; sourceTree = "<group>"; };
 		343E5E9D2049C9B20007B2DF /* AKSamplerUI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKSamplerUI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		343E5E9F2049C9B20007B2DF /* AKSampler_UIView.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AKSampler_UIView.plist; sourceTree = "<group>"; };
@@ -372,6 +376,8 @@
 				A9223CD308A032F100341607 /* AKSampler_Plugin.exp */,
 				A9223CDA08A032FD00341607 /* AKSampler_Prefix.pch */,
 				8D01CCD10486CAD60068D4B7 /* AKSampler_Plugin.plist */,
+				342CE9A6204B9A53005C0832 /* AKSustainLogic.cpp */,
+				342CE9A7204B9A53005C0832 /* AKSustainLogic.hpp */,
 			);
 			path = "Plugin DSP";
 			sourceTree = "<group>";
@@ -564,6 +570,7 @@
 				3455F87F2044743300A6BC71 /* AUBaseHelper.h in Headers */,
 				34403A612046025500CD89E1 /* AKSampler.h in Headers */,
 				3455F8402044743300A6BC71 /* CAMutex.h in Headers */,
+				342CE9A9204B9A53005C0832 /* AKSustainLogic.hpp in Headers */,
 				3455F85E2044743300A6BC71 /* SynthNote.h in Headers */,
 				3455F8692044743300A6BC71 /* AUBase.h in Headers */,
 				3455F8522044743300A6BC71 /* CAByteOrder.h in Headers */,
@@ -747,6 +754,7 @@
 				3455F87A2044743300A6BC71 /* AUBaseHelper.cpp in Sources */,
 				3455F8602044743300A6BC71 /* SynthNote.cpp in Sources */,
 				34E34F632044D6B2007FF4D1 /* AKEnvelopeGenerator.cpp in Sources */,
+				342CE9A8204B9A53005C0832 /* AKSustainLogic.cpp in Sources */,
 				3455F83A2044743300A6BC71 /* CAAudioChannelLayoutObject.cpp in Sources */,
 				3455F89D2044744F00A6BC71 /* wvfilter.c in Sources */,
 				34E34F5C2044D6B2007FF4D1 /* AKSamplerVoice.cpp in Sources */,
