@@ -13,7 +13,7 @@
 typedef NS_ENUM(int64_t, AKSamplerParameter)
 {
     // ramped parameters
-    pitchBendParam, vibratoDepthParam,
+    masterVolumeParam, pitchBendParam, vibratoDepthParam,
     // simple parameters
     ampAttackTimeParam, ampDecayTimeParam, ampSustainLevelParam, ampReleaseTimeParam,
     filterAttackTimeParam, filterDecayTimeParam, filterSustainLevelParam, filterReleaseTimeParam,
@@ -34,6 +34,7 @@ void doAKSamplerBuildSimpleKeyMap(void* pDSP);
 void doAKSamplerBuildKeyMap(void* pDSP);
 void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
 void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
+void doAKSamplerSustainPedal(void* pDSP, bool pedalDown);
 
 #else
 
@@ -44,6 +45,7 @@ void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
 struct AKSamplerDSP : AKDSPBase, AKSampler
 {
     // ramped parameters
+    AKLinearParameterRamp masterVolumeRamp;
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
     

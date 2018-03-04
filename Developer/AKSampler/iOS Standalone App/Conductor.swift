@@ -19,7 +19,6 @@ class Conductor {
 
     let midi = AKMIDI()
     var sampler: AKSampler
-    var sustainer: AKSustainer
 
     var pitchBendUpSemitones = 2
     var pitchBendDownSemitones = 2
@@ -40,7 +39,6 @@ class Conductor {
 
         // Signal Chain
         sampler = AKSampler()
-        sustainer = AKSustainer(sampler)
         
         // Set up the AKSampler
         setupSampler()
@@ -142,18 +140,15 @@ class Conductor {
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
+        sampler.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        // key-up, key-down and pedal operations are mediated by SDSustainer
-        sustainer.stop(noteNumber: offsetNote(note, semitones: synthSemitoneOffset))
+        sampler.stop(noteNumber: offsetNote(note, semitones: synthSemitoneOffset))
     }
 
     func allNotesOff() {
         for note in 0 ... 127 {
-            sustainer.stop(noteNumber: MIDINoteNumber(note))
             sampler.silence(noteNumber: MIDINoteNumber(note))
         }
     }
@@ -167,8 +162,7 @@ class Conductor {
             sampler.vibratoDepth = 0.5 * Double(value) / 128.0
             
         case AKMIDIControl.damperOnOff.rawValue:
-            // key-up, key-down and pedal operations are mediated by SDSustainer
-            sustainer.sustain(down: value != 0)
+            sampler.sustainPedal(pedalDown: value != 0)
 
         default:
             break

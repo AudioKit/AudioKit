@@ -1,19 +1,19 @@
 //
-//  AKSustainLogic.cpp
+//  AKSustainPedalLogic.cpp
 //  AKSampler
 //
 //  Created by Shane Dunne on 2018-03-03.
 //
 
-#include "AKSustainLogic.hpp"
+#include "AKSustainPedalLogic.hpp"
 
-AKSustainLogic::AKSustainLogic()
+AKSustainPedalLogic::AKSustainPedalLogic()
 {
     for (int i=0; i < MIDI_NOTENUMBERS; i++) keyDown[i] = isPlaying[i] = false;
     pedalIsDown = false;
 }
 
-AKSustainLogic::Action AKSustainLogic::keyDownAction(unsigned noteNumber)
+AKSustainPedalLogic::Action AKSustainPedalLogic::keyDownAction(unsigned noteNumber)
 {
     Action action = kPlayNote;
     
@@ -26,7 +26,7 @@ AKSustainLogic::Action AKSustainLogic::keyDownAction(unsigned noteNumber)
     return action;
 }
 
-AKSustainLogic::Action AKSustainLogic::keyUpAction(unsigned noteNumber)
+AKSustainPedalLogic::Action AKSustainPedalLogic::keyUpAction(unsigned noteNumber)
 {
     Action action = kDoNothing;
     
@@ -39,11 +39,11 @@ AKSustainLogic::Action AKSustainLogic::keyUpAction(unsigned noteNumber)
     return action;
 }
 
-void AKSustainLogic::pedalDown() { pedalIsDown = true; }
+void AKSustainPedalLogic::pedalDown() { pedalIsDown = true; }
 
-void AKSustainLogic::pedalUp() { pedalIsDown = false; }
+void AKSustainPedalLogic::pedalUp() { pedalIsDown = false; }
 
-bool AKSustainLogic::isNoteSustaining(unsigned noteNumber)
+bool AKSustainPedalLogic::isNoteSustaining(unsigned noteNumber)
 {
     return isPlaying[noteNumber] && !keyDown[noteNumber];
 }

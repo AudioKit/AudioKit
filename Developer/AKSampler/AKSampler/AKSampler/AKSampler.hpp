@@ -1,6 +1,7 @@
 #include "AKSampler_Typedefs.h"
 #include "AKSamplerVoice.hpp"
 #include "AKFunctionTable.hpp"
+#include "AKSustainPedalLogic.hpp"
 
 #include <list>
 
@@ -27,6 +28,7 @@ public:
 
     void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
     void stopNote(unsigned noteNumber, bool immediate);
+    void sustainPedal(bool down);
     
     void Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[]);
 
@@ -40,6 +42,8 @@ protected:
     AKSamplerVoice voice[MAX_POLYPHONY];                // table of voice resources
     
     AKFunctionTableOscillator vibratoLFO;               // one vibrato LFO shared by all voices
+    
+    AKSustainPedalLogic pedalLogic;
     
     // simple parameters
     float ampAttackTime, ampDecayTime, ampSustainLevel, ampReleaseTime;
@@ -56,4 +60,6 @@ protected:
     void updateFilterADSR();
     AKSamplerVoice* voicePlayingNote(unsigned noteNumber);
     AKMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
+    void play(unsigned noteNumber, unsigned velocity, float noteHz);
+    void stop(unsigned noteNumber, bool immediate);
 };

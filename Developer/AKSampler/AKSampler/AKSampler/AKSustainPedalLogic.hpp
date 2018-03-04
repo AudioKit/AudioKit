@@ -1,5 +1,5 @@
 //
-//  AKSustainLogic.hpp
+//  AKSustainPedalLogic.hpp
 //  AKSampler
 //
 //  Created by Shane Dunne on 2018-03-03.
@@ -9,14 +9,14 @@
 
 #define MIDI_NOTENUMBERS 128    // MIDI offers 128 distinct note numbers
 
-class AKSustainLogic
+class AKSustainPedalLogic
 {
     bool keyDown[MIDI_NOTENUMBERS];
     bool isPlaying[MIDI_NOTENUMBERS];
     bool pedalIsDown;
     
 public:
-    AKSustainLogic();
+    AKSustainPedalLogic();
     
     enum Action { kDoNothing, kPlayNote, kStopNote, kStopNoteThenPlay };
     

@@ -200,6 +200,32 @@ AKSamplerVoice* AKSampler::voicePlayingNote(unsigned int noteNumber)
 
 void AKSampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
 {
+    if (pedalLogic.keyDownAction(noteNumber) == AKSustainPedalLogic::kStopNoteThenPlay)
+        stop(noteNumber, false);
+    play(noteNumber, velocity, noteHz);
+}
+
+void AKSampler::stopNote(unsigned noteNumber, bool immediate)
+{
+    if (immediate || pedalLogic.keyUpAction(noteNumber) == AKSustainPedalLogic::kStopNote)
+        stop(noteNumber, immediate);
+}
+
+void AKSampler::sustainPedal(bool down)
+{
+    if (down) pedalLogic.pedalDown();
+    else {
+        for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
+        {
+            if (pedalLogic.isNoteSustaining(nn))
+                stop(nn, false);
+        }
+        pedalLogic.pedalUp();
+    }
+}
+
+void AKSampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
+{
     //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
     // sanity check: ensure we are initialized with at least one buffer
     if (sampleBufferList.size() == 0) return;
@@ -233,7 +259,7 @@ void AKSampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
     // all oscillators in use; do nothing
 }
 
-void AKSampler::stopNote(unsigned noteNumber, bool immediate)
+void AKSampler::stop(unsigned noteNumber, bool immediate)
 {
     //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
     AKSamplerVoice* pVoice = voicePlayingNote(noteNumber);

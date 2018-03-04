@@ -19,12 +19,11 @@ class Conductor {
 
     let midi = AKMIDI()
     var sampler: AKSampler
-    var sustainer: AKSustainer
 
     var pitchBendUpSemitones = 2
     var pitchBendDownSemitones = 2
 
-    var synthSemitoneOffset = 0
+    var semitoneOffset = 0
     
     // Point this to wherever you keep your samples folder
     let baseURL = URL(fileURLWithPath: "/Users/shane/Desktop/Compressed Sounds")
@@ -43,7 +42,6 @@ class Conductor {
 
         // Signal Chain
         sampler = AKSampler()
-        sustainer = AKSustainer(sampler)
         
         // Set up the AKSampler
         setupSampler()
@@ -142,19 +140,16 @@ class Conductor {
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        // key-up, key-down and pedal operations are mediated by AKSustainer
-        sustainer.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
+        sampler.play(noteNumber: offsetNote(note, semitones: semitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        // key-up, key-down and pedal operations are mediated by AKSustainer
-        sustainer.stop(noteNumber: offsetNote(note, semitones: synthSemitoneOffset))
+        sampler.stop(noteNumber: offsetNote(note, semitones: semitoneOffset))
     }
 
     func allNotesOff() {
         for note in 0 ... 127 {
             sampler.silence(noteNumber: MIDINoteNumber(note))
-            sustainer.stop(noteNumber: MIDINoteNumber(note))
         }
     }
 
@@ -166,8 +161,7 @@ class Conductor {
         case AKMIDIControl.modulationWheel.rawValue:
             sampler.vibratoDepth = 0.5 * Double(value) / 128.0
         case AKMIDIControl.damperOnOff.rawValue:
-            // key-up, key-down and pedal operations are mediated by AKSustainer
-            sustainer.sustain(down: value != 0)
+            sampler.sustainPedal(pedalDown: value != 0)
         default:
             break
         }
