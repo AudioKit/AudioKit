@@ -1,5 +1,5 @@
 //
-//  AKSamplerAudioUnit2.swift
+//  AKSamplerAudioUnit.swift
 //  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-02-19.
@@ -9,7 +9,7 @@
 import AVFoundation
 import AudioKit
 
-public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
+public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     
     var pDSP: UnsafeMutableRawPointer?
     
@@ -19,6 +19,10 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
     
     func setParameterImmediately(_ address: AKSamplerParameter, value: Double) {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+    }
+    
+    var masterVolume: Double = 0.0 {
+        didSet { setParameter(.masterVolumeParam, value: masterVolume) }
     }
     
     var pitchBend: Double = 0.0 {
@@ -83,6 +87,14 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
         
         var paramAddress = 0
+        let masterVolumeParam = AUParameterTree.createParameter(withIdentifier: "masterVolume",
+                                                                name: "Master Volume",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .generic, unitName: nil,
+                                                                flags: rampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
         let pitchBendParam = AUParameterTree.createParameter(withIdentifier: "pitchBend",
                                                        name: "Pitch Offset (semitones)",
                                                        address: AUParameterAddress(paramAddress),
@@ -172,12 +184,13 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
                                                                      flags: nonRampFlags,
                                                                      valueStrings: nil, dependentParameters: nil)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [pitchBendParam, vibratoDepthParam,
+        setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
                                                                    ampAttackTimeParam, ampDecayTimeParam,
                                                                    ampSustainLevelParam, ampReleaseTimeParam,
                                                                    filterAttackTimeParam, filterDecayTimeParam,
                                                                    filterSustainLevelParam, filterReleaseTimeParam,
                                                                    filterEnableParam ]))
+        masterVolumeParam.value = 1.0
         pitchBendParam.value = 0.0
         vibratoDepthParam.value = 0.0
         ampAttackTimeParam.value = 0.0
@@ -219,6 +232,10 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
         //print("stopNote \(noteNumber)")
         doAKSamplerStopNote(pDSP, noteNumber, immediate)
+    }
+    
+    public func sustainPedal(down: Bool) {
+        doAKSamplerSustainPedal(pDSP, down);
     }
 
 }

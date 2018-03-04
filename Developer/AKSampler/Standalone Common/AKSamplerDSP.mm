@@ -39,8 +39,15 @@ extern "C" void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
+extern "C" void doAKSamplerSustainPedal(void* pDSP, bool pedalDown)
+{
+    ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);
+}
+
+
 AKSamplerDSP::AKSamplerDSP() : AKSampler()
 {
+    masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
 }
@@ -60,10 +67,14 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
         case rampTimeParam:
+            masterVolumeRamp.setRampTime(value, _sampleRate);
             pitchBendRamp.setRampTime(value, _sampleRate);
             vibratoDepthRamp.setRampTime(value, _sampleRate);
             break;
 
+        case masterVolumeParam:
+            masterVolumeRamp.setTarget(value, immediate);
+            break;
         case pitchBendParam:
             pitchBendRamp.setTarget(value, immediate);
             break;
@@ -116,6 +127,8 @@ float AKSamplerDSP::getParameter(uint64_t address)
         case rampTimeParam:
             return pitchBendRamp.getRampTime(_sampleRate);
 
+        case masterVolumeParam:
+            return masterVolumeRamp.getTarget();
         case pitchBendParam:
             return pitchBendRamp.getTarget();
         case vibratoDepthParam:
@@ -153,6 +166,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
         
         // ramp parameters
+        masterVolumeRamp.advanceTo(_now + frameOffset);
+        masterVolume = (float)masterVolumeRamp.getValue();
         pitchBendRamp.advanceTo(_now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
         vibratoDepthRamp.advanceTo(_now + frameOffset);

@@ -11,7 +11,7 @@ import AudioKit
 /// Stereo Chorus
 ///
 open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
-    public typealias AKAudioUnitType = AKSampler2AudioUnit
+    public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "AKss")
     
@@ -20,6 +20,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
     
+    fileprivate var masterVolumeParameter: AUParameter?
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var ampAttackTimeParameter: AUParameter?
@@ -36,6 +37,24 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
             internalAU?.rampTime = newValue
+        }
+    }
+    
+    /// Master volume (fraction)
+    @objc open dynamic var masterVolume: Double = 1.0 {
+        willSet {
+            if masterVolume == newValue {
+                return
+            }
+            
+            if internalAU?.isSetUp ?? false {
+                if token != nil && masterVolumeParameter != nil {
+                    masterVolumeParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+            
+            internalAU?.masterVolume = newValue
         }
     }
     
@@ -167,6 +186,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
+        masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         ampAttackTime: Double = 0.0,
@@ -179,6 +199,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         filterSustainLevel: Double = 1.0,
         filterReleaseTime: Double = 0.0) {
         
+        self.masterVolume = masterVolume
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.ampAttackTime = ampAttackTime
@@ -210,6 +231,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             return
         }
         
+        self.masterVolumeParameter = tree["masterVolume"]
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
         self.ampAttackTimeParameter = tree["ampAttackTime"]
@@ -233,6 +255,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+
+        self.internalAU?.setParameterImmediately(.masterVolumeParam, value: masterVolume)
         self.internalAU?.setParameterImmediately(.pitchBendParam, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepthParam, value: vibratoDepth)
         self.internalAU?.setParameterImmediately(.ampAttackTimeParam, value: ampAttackTime)
@@ -243,8 +267,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterDecayTimeParam, value: filterDecayTime)
         self.internalAU?.setParameterImmediately(.filterSustainLevelParam, value: filterSustainLevel)
         self.internalAU?.setParameterImmediately(.filterReleaseTimeParam, value: filterReleaseTime)
-        self.internalAU?.setParameterImmediately(.filterEnableParam,
-                                                 value: filterEnable ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.filterEnableParam, value: filterEnable ? 1.0 : 0.0)
     }
     
     open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
@@ -281,6 +304,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     
     open func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
+    }
+    
+    open func sustainPedal(pedalDown: Bool) {
+        internalAU?.sustainPedal(down: pedalDown)
     }
 }
 

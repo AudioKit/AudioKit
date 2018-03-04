@@ -14,6 +14,7 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     let conductor = Conductor.shared
     var isPlaying = false
+    var lowGain = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     }
 
     @IBAction func changeGain(_ sender: NSButton) {
-        //conductor.oscillatorGain.gain = 0.25
+        lowGain = !lowGain
+        conductor.sampler.masterVolume = lowGain ? 0.25 : 1.0
     }
     
     @IBAction func toggleSound(_ sender: NSButton) {

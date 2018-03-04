@@ -1,14 +1,11 @@
 #include "AUInstrumentBase.h"
 #include "AKSampler.hpp"
-#include "AKSustainLogic.hpp"
 
 #define kAKSamplerVersion   0x00010000
 #define kAKSamplerSubtype   'aksp'
 
 class AKSampler_Plugin : public AUInstrumentBase, public AKSampler
 {
-    AKSustainLogic sustainLogic;
-    
 public:
 	AKSampler_Plugin(AudioUnit inComponentInstance);
 	virtual	~AKSampler_Plugin();

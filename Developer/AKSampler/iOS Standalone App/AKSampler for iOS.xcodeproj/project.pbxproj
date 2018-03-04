@@ -22,12 +22,12 @@
 		343BEBFB2044A286001DFE69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEBF22044A285001DFE69 /* AppDelegate.swift */; };
 		343BEBFC2044A286001DFE69 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEBF32044A285001DFE69 /* Conductor.swift */; };
 		34403A562045EC8700CD89E1 /* AKSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34403A542045EC8600CD89E1 /* AKSampler.cpp */; };
+		34563891204CA31700A1C36C /* AKSustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3456388F204CA31600A1C36C /* AKSustainPedalLogic.cpp */; };
 		346332022049ED3A00042438 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346332002049ED3A00042438 /* AudioKit.framework */; };
 		346332032049ED3A00042438 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 346332012049ED3A00042438 /* AudioKitUI.framework */; };
 		34E34F7A2044DA49007FF4D1 /* AKSamplerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F762044DA48007FF4D1 /* AKSamplerAudioUnit.swift */; };
 		34E34F7B2044DA49007FF4D1 /* AKSamplerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F772044DA48007FF4D1 /* AKSamplerDSP.mm */; };
 		34E34F7C2044DA49007FF4D1 /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F792044DA48007FF4D1 /* AKSampler.swift */; };
-		34E34F7E2044DA97007FF4D1 /* AKSustainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F7D2044DA97007FF4D1 /* AKSustainer.swift */; };
 		34E34F8C2044DAF4007FF4D1 /* AKFunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F832044DAF4007FF4D1 /* AKFunctionTable.cpp */; };
 		34E34F8D2044DAF4007FF4D1 /* AKSamplerVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F842044DAF4007FF4D1 /* AKSamplerVoice.cpp */; };
 		34E34F8E2044DAF4007FF4D1 /* AKResonantLowPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F872044DAF4007FF4D1 /* AKResonantLowPassFilter.cpp */; };
@@ -71,13 +71,14 @@
 		34403A542045EC8600CD89E1 /* AKSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSampler.cpp; sourceTree = "<group>"; };
 		34563886204C9CD000A1C36C /* AKSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampler.hpp; sourceTree = "<group>"; };
 		34563887204C9CDA00A1C36C /* AKSampler_Typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler_Typedefs.h; sourceTree = "<group>"; };
+		3456388F204CA31600A1C36C /* AKSustainPedalLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSustainPedalLogic.cpp; sourceTree = "<group>"; };
+		34563890204CA31700A1C36C /* AKSustainPedalLogic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSustainPedalLogic.hpp; sourceTree = "<group>"; };
 		346332002049ED3A00042438 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		346332012049ED3A00042438 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		34E34F762044DA48007FF4D1 /* AKSamplerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSamplerAudioUnit.swift; path = "../Standalone Common/AKSamplerAudioUnit.swift"; sourceTree = "<group>"; };
 		34E34F772044DA48007FF4D1 /* AKSamplerDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKSamplerDSP.mm; path = "../Standalone Common/AKSamplerDSP.mm"; sourceTree = "<group>"; };
 		34E34F782044DA48007FF4D1 /* AKSamplerDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKSamplerDSP.hpp; path = "../Standalone Common/AKSamplerDSP.hpp"; sourceTree = "<group>"; };
 		34E34F792044DA48007FF4D1 /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSampler.swift; path = "../Standalone Common/AKSampler.swift"; sourceTree = "<group>"; };
-		34E34F7D2044DA97007FF4D1 /* AKSustainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSustainer.swift; path = "../Standalone Common/AKSustainer.swift"; sourceTree = "<group>"; };
 		34E34F802044DAF4007FF4D1 /* AKSampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampleBuffer.hpp; sourceTree = "<group>"; };
 		34E34F812044DAF4007FF4D1 /* AKEnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKEnvelopeGenerator.hpp; sourceTree = "<group>"; };
 		34E34F822044DAF4007FF4D1 /* AKResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantLowPassFilter.hpp; sourceTree = "<group>"; };
@@ -169,7 +170,6 @@
 				343BEBEA2044A284001DFE69 /* FileManagerUtils.swift */,
 				343BEBF02044A285001DFE69 /* ViewController.swift */,
 				343BEBF32044A285001DFE69 /* Conductor.swift */,
-				34E34F7D2044DA97007FF4D1 /* AKSustainer.swift */,
 				343BEBF12044A285001DFE69 /* AKSampler-Bridging-Header.h */,
 			);
 			name = "Source: iOS App";
@@ -203,6 +203,8 @@
 				34E34F892044DAF4007FF4D1 /* AKSamplerVoice.hpp */,
 				34E34F8A2044DAF4007FF4D1 /* AKSampleBuffer.cpp */,
 				34E34F8B2044DAF4007FF4D1 /* AKEnvelopeGenerator.cpp */,
+				34563890204CA31700A1C36C /* AKSustainPedalLogic.hpp */,
+				3456388F204CA31600A1C36C /* AKSustainPedalLogic.cpp */,
 			);
 			name = AKSampler;
 			path = ../AKSampler/AKSampler;
@@ -289,10 +291,10 @@
 				34403A562045EC8700CD89E1 /* AKSampler.cpp in Sources */,
 				343BEBE22044A17E001DFE69 /* wputils.c in Sources */,
 				34E34F8E2044DAF4007FF4D1 /* AKResonantLowPassFilter.cpp in Sources */,
-				34E34F7E2044DA97007FF4D1 /* AKSustainer.swift in Sources */,
 				343BEBE32044A17E001DFE69 /* words.c in Sources */,
 				34E34F8F2044DAF4007FF4D1 /* AKSampleBuffer.cpp in Sources */,
 				343BEBFB2044A286001DFE69 /* AppDelegate.swift in Sources */,
+				34563891204CA31700A1C36C /* AKSustainPedalLogic.cpp in Sources */,
 				34E34F7B2044DA49007FF4D1 /* AKSamplerDSP.mm in Sources */,
 				343BEBFA2044A286001DFE69 /* ViewController.swift in Sources */,
 				343BEBE42044A17E001DFE69 /* unpack.c in Sources */,
