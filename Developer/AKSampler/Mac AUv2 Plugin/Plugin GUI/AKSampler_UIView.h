@@ -12,16 +12,19 @@
 @interface AKSampler_UIView : NSView
 {
     // IBOutlets
+    IBOutlet NSSlider *volumeSlider;
+    IBOutlet NSTextField *volumeText;
     
     // Other Members
     AudioUnit                 mAU;
-    AUEventListenerRef        mAUEventListener;
+    AUEventListenerRef        mParameterListener;
 }
 
 #pragma mark ____ PUBLIC FUNCTIONS ____
 - (void)setAU:(AudioUnit)inAU;
 
 #pragma mark ____ INTERFACE ACTIONS ____
+- (IBAction)onVolumeSlider:(id)sender;
 
 #pragma mark ____ PRIVATE FUNCTIONS
 - (void)priv_synchronizeUIWithParameterValues;
@@ -29,6 +32,6 @@
 - (void)priv_removeListeners;
 
 #pragma mark ____ LISTENER CALLBACK DISPATCHEE ____
-- (void)priv_eventListener:(void *) inObject event:(const AudioUnitEvent *)inEvent value:(Float32)inValue;
+- (void)priv_parameterListener:(void *)inObject parameter:(const AudioUnitParameter *)inParameter value:(Float32)inValue;
 
 @end

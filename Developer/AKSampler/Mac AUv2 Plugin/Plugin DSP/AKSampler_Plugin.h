@@ -14,13 +14,13 @@ public:
 	virtual void Cleanup();
 	virtual OSStatus Version() { return kAKSamplerVersion; }
 
-    virtual OSStatus GetPropertyInfo(   AudioUnitPropertyID         inID,
+    virtual OSStatus GetPropertyInfo(   AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         UInt32&                     outDataSize,
                                         Boolean&                    outWritable );
     
-    virtual OSStatus GetProperty(       AudioUnitPropertyID         inID,
+    virtual OSStatus GetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         void*                       outData);
@@ -29,7 +29,7 @@ public:
                                         AudioUnitParameterID        inParameterID,
                                         AudioUnitParameterInfo&     outParameterInfo);
 
-    virtual OSStatus SetParameter(      AudioUnitParameterID        inID,
+    virtual OSStatus SetParameter(      AudioUnitParameterID        inParameterID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue     inValue,

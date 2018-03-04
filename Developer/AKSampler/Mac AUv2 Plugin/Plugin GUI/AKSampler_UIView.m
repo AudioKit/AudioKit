@@ -6,6 +6,32 @@
 //
 
 #import "AKSampler_UIView.h"
+#include "AKSampler_Params.h"
+
+#pragma mark ____ LISTENER CALLBACK DISPATCHER ____
+
+AudioUnitParameter parameter[] = {
+    { 0, kMasterVolumeFraction, kAudioUnitScope_Global, 0 },
+    { 0, kPitchOffsetSemitones, kAudioUnitScope_Global, 0 },
+    { 0, kFilterEnable, kAudioUnitScope_Global, 0 },
+    { 0, kFilterCutoffHarmonic, kAudioUnitScope_Global, 0 },
+    { 0, kAmpEgAttackTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kAmpEgDecayTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kAmpEgSustainFraction, kAudioUnitScope_Global, 0 },
+    { 0, kAmpEgReleaseTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kFilterEgAttackTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kFilterEgDecayTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kFilterEgSustainFraction, kAudioUnitScope_Global, 0 },
+    { 0, kFilterEgReleaseTimeSeconds, kAudioUnitScope_Global, 0 },
+};
+
+
+void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitParameter *inParameter, Float32 inValue) {
+    AKSampler_UIView *SELF = (AKSampler_UIView *)inRefCon;
+    
+    [SELF priv_parameterListener:inObject parameter:inParameter value:inValue];
+}
+
 
 @implementation AKSampler_UIView
 
@@ -14,25 +40,7 @@
 
 - (void)dealloc {
     [self priv_removeListeners];
-    
-    //[[NSNotificationCenter defaultCenter] removeObserver: self];
-    
-    [super dealloc];  // "ARC forbids explicit message send of 'dealloc'
-}
-
-
-#pragma mark ____ EXTRA STUFF not in .h file for some reason ____
-
-- (BOOL) acceptsFirstResponder {
-    return YES;
-}
-
-- (BOOL) becomeFirstResponder {
-    return YES;
-}
-
-- (BOOL) isOpaque {
-    return YES;
+    [super dealloc];
 }
 
 
@@ -42,13 +50,6 @@
     // remove previous listeners
     if (mAU)
         [self priv_removeListeners];
-    
-    // register for resize notification and data changes for the graph view
-//    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphDataChanged:) name: kGraphViewDataChangedNotification object: graphView];
-//    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(handleGraphSizeChanged:) name: NSViewFrameDidChangeNotification  object: graphView];
-//
-//    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(beginGesture:) name: kGraphViewBeginGestureNotification object: graphView];
-//    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(endGesture:) name: kGraphViewEndGestureNotification object: graphView];
     
     mAU = inAU;
     
@@ -62,78 +63,70 @@
 
 #pragma mark ____ INTERFACE ACTIONS ____
 
+- (IBAction)onVolumeSlider:(id)sender {
+    float floatValue = [volumeSlider floatValue] / 100.0f;
+    [volumeText setIntValue: 100 * floatValue];
+
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kMasterVolumeFraction], (Float32)floatValue, 0) == noErr,
+             @"[AKSampler_UIView onVolumeSlider:] AUParameterSet()");
+}
 
 #pragma mark ____ PRIVATE FUNCTIONS ____
 
 - (void)priv_addListeners
 {
-//    if (mAU) {
-//        AUEventListenerCreate(EventListenerDispatcher, self,
-//                              CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 0.05, 0.05,
-//                              &mAUEventListener));
-//
-//        AudioUnitEvent auEvent;
-//        AudioUnitParameter parameter = {mAU, kFilterParam_CutoffFrequency, kAudioUnitScope_Global, 0 };
-//        auEvent.mArgument.mParameter = parameter;
-//
-//        addParamListener (mAUEventListener, self, &auEvent);
-//
-//        auEvent.mArgument.mParameter.mParameterID = kFilterParam_Resonance;
-//        addParamListener (mAUEventListener, self, &auEvent);
-//
-//        /* Add a listener for the changes in our custom property */
-//        /* The Audio unit will send a property change when the unit is intialized */
-//        auEvent.mEventType = kAudioUnitEvent_PropertyChange;
-//        auEvent.mArgument.mProperty.mAudioUnit = mAU;
-//        auEvent.mArgument.mProperty.mPropertyID = kAudioUnitCustomProperty_FilterFrequencyResponse;
-//        auEvent.mArgument.mProperty.mScope = kAudioUnitScope_Global;
-//        auEvent.mArgument.mProperty.mElement = 0;
-//        AUEventListenerAddEventType (mAUEventListener, self, &auEvent);
-//    }
+    NSAssert (AUListenerCreate(ParameterListenerDispatcher, self,
+                               CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 0.100, // 100 ms
+                               &mParameterListener ) == noErr,
+              @"[CocoaView _addListeners] AUListenerCreate()");
+    
+    for (int i = 0; i < kNumberOfParams; ++i) {
+        parameter[i].mAudioUnit = mAU;
+        NSAssert (AUListenerAddParameter (mParameterListener, NULL, &parameter[i]) == noErr,
+                  @"[CocoaView _addListeners] AUListenerAddParameter()");
+    }
 }
 
 - (void)priv_removeListeners
 {
-    //if (mAUEventListener) AUListenerDispose(mAUEventListener);
-    mAUEventListener = NULL;
+    for (int i = 0; i < kNumberOfParams; ++i) {
+        NSAssert (AUListenerRemoveParameter(mParameterListener, NULL, &parameter[i]) == noErr,
+                  @"[CocoaView _removeListeners] AUListenerRemoveParameter()");
+    }
+    
+    NSAssert (AUListenerDispose(mParameterListener) == noErr,
+              @"[CocoaView _removeListeners] AUListenerDispose()");
+
+    mParameterListener = NULL;
     mAU = NULL;
 }
 
 - (void)priv_synchronizeUIWithParameterValues
 {
+    Float32 value;
+    for (int i = 0; i < kNumberOfParams; ++i) {
+        NSAssert (AudioUnitGetParameter(mAU, parameter[i].mParameterID, kAudioUnitScope_Global, 0, &value) == noErr,
+                  @"[CocoaView synchronizeUIWithParameterValues] (x.1)");
+        NSAssert (AUParameterSet (mParameterListener, self, &parameter[i], value, 0) == noErr,
+                  @"[CocoaView synchronizeUIWithParameterValues] (x.2)");
+        NSAssert (AUParameterListenerNotify (mParameterListener, self, &parameter[i]) == noErr,
+                  @"[CocoaView synchronizeUIWithParameterValues] (x.3)");
+    }
 }
 
 
 #pragma mark ____ LISTENER CALLBACK DISPATCHEE ____
 
-- (void)priv_eventListener:(void *) inObject event:(const AudioUnitEvent *)inEvent value:(Float32)inValue
-{
-//    switch (inEvent->mEventType) {
-//        case kAudioUnitEvent_ParameterValueChange:                    // Parameter Changes
-//            switch (inEvent->mArgument.mParameter.mParameterID) {
-//                case kFilterParam_CutoffFrequency:                    // handle cutoff frequency parameter
-//                    [cutoffFrequencyField setFloatValue: inValue];    // update the frequency text field
-//                    [graphView setFreq: inValue];                    // update the graph's frequency visual state
-//                    break;
-//                case kFilterParam_Resonance:                        // handle resonance parameter
-//                    [resonanceField setFloatValue: inValue];        // update the resonance text field
-//                    [graphView setRes: inValue];                    // update the graph's gain visual state
-//                    break;
-//            }
-//            // get the curve data from the audio unit
-//            [self updateCurve];
-//            break;
-//        case kAudioUnitEvent_BeginParameterChangeGesture:            // Begin gesture
-//            [graphView handleBeginGesture];                            // notify graph view to update visual state
-//            break;
-//        case kAudioUnitEvent_EndParameterChangeGesture:                // End gesture
-//            [graphView handleEndGesture];                            // notify graph view to update visual state
-//            break;
-//        case kAudioUnitEvent_PropertyChange:                        // custom property changed
-//            if (inEvent->mArgument.mProperty.mPropertyID == kAudioUnitCustomProperty_FilterFrequencyResponse)
-//                [self updateCurve];
-//            break;
-//    }
+- (void)priv_parameterListener:(void *)inObject parameter:(const AudioUnitParameter *)inParameter value:(Float32)inValue {
+    //inObject ignored in this case.
+    
+    switch (inParameter->mParameterID) {
+        case kMasterVolumeFraction:
+            [volumeSlider setFloatValue: 100 * inValue];
+            [volumeText setIntValue: 100 * inValue];
+            break;
+            
+    }
 }
 
 @end

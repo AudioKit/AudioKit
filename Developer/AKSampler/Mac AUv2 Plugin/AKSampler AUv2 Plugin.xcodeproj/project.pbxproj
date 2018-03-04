@@ -155,6 +155,7 @@
 /* Begin PBXFileReference section */
 		3427DF2D2049DCA600B9DC53 /* AKSampler_ViewFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_ViewFactory.h; sourceTree = "<group>"; };
 		3427DF2E2049DCA600B9DC53 /* AKSampler_ViewFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKSampler_ViewFactory.m; sourceTree = "<group>"; };
+		342CE9A5204B823A005C0832 /* AKSampler_Params.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_Params.h; sourceTree = "<group>"; };
 		343E5E972049AC5A0007B2DF /* wavpack_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavpack_public.h; sourceTree = "<group>"; };
 		343E5E9D2049C9B20007B2DF /* AKSamplerUI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKSamplerUI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		343E5E9F2049C9B20007B2DF /* AKSampler_UIView.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AKSampler_UIView.plist; sourceTree = "<group>"; };
@@ -365,6 +366,7 @@
 		343E5EAF2049CCB00007B2DF /* Plugin DSP */ = {
 			isa = PBXGroup;
 			children = (
+				342CE9A5204B823A005C0832 /* AKSampler_Params.h */,
 				4CC305490BD6DDC3008E97BD /* AKSampler_Plugin.h */,
 				A9223CD208A032F100341607 /* AKSampler_Plugin.cpp */,
 				A9223CD308A032F100341607 /* AKSampler_Plugin.exp */,
