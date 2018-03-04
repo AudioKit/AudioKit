@@ -12,14 +12,13 @@ extern "C" void* createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(void* pDSP, UInt8 noteNumber, float noteHz, bool bInterleaved,
-                                    unsigned nChannelCount, unsigned nSampleCount, float *pData,
-                                    int min_note, int max_note, int min_vel, int max_vel,
-                                    bool bLoop, float fLoopStart, float fLoopEnd, float fStart, float fEnd) {
-    ((AKSamplerDSP*)pDSP)->loadSampleData(noteNumber, noteHz, bInterleaved,
-                                          nChannelCount, nSampleCount, pData,
-                                          min_note, max_note, min_vel, max_vel,
-                                          bLoop, fLoopStart, fLoopEnd, fStart, fEnd);
+extern "C" void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD) {
+    ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
+}
+
+extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD)
+{
+    ((AKSamplerDSP*)pDSP)->loadCompressedSampleFile(*pSFD);
 }
 
 extern "C" void doAKSamplerBuildSimpleKeyMap(void* pDSP) {

@@ -1,5 +1,5 @@
 #include "AUInstrumentBase.h"
-#include "AKSampler.h"
+#include "AKSampler.hpp"
 #include "AKSustainLogic.hpp"
 
 #define kAKSamplerVersion   0x00010000

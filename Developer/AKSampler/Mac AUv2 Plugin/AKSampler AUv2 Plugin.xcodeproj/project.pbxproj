@@ -19,7 +19,7 @@
 		343E5EB42049D03F0007B2DF /* AKSamplerUI.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 343E5E9D2049C9B20007B2DF /* AKSamplerUI.bundle */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		343E5EB72049D2220007B2DF /* AKSampler.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* AKSampler.component */; };
 		34403A602046025500CD89E1 /* AKSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34403A5E2046025400CD89E1 /* AKSampler.cpp */; };
-		34403A612046025500CD89E1 /* AKSampler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34403A5F2046025500CD89E1 /* AKSampler.h */; };
+		34403A612046025500CD89E1 /* AKSampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34403A5F2046025500CD89E1 /* AKSampler.hpp */; };
 		3455F8342044743300A6BC71 /* CADebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3455F7E32044743300A6BC71 /* CADebugger.h */; };
 		3455F8352044743300A6BC71 /* CAGuard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3455F7E42044743300A6BC71 /* CAGuard.h */; };
 		3455F8362044743300A6BC71 /* CAAtomic.h in Headers */ = {isa = PBXBuildFile; fileRef = 3455F7E52044743300A6BC71 /* CAAtomic.h */; };
@@ -170,7 +170,7 @@
 		343E5EAC2049CB1A0007B2DF /* AKSampler_UIView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_UIView.h; sourceTree = "<group>"; };
 		343E5EAD2049CB960007B2DF /* AKSampler_UIView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AKSampler_UIView.xib; sourceTree = "<group>"; };
 		34403A5E2046025400CD89E1 /* AKSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSampler.cpp; sourceTree = "<group>"; };
-		34403A5F2046025500CD89E1 /* AKSampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler.h; sourceTree = "<group>"; };
+		34403A5F2046025500CD89E1 /* AKSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampler.hpp; sourceTree = "<group>"; };
 		3455F7E32044743300A6BC71 /* CADebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugger.h; sourceTree = "<group>"; };
 		3455F7E42044743300A6BC71 /* CAGuard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAGuard.h; sourceTree = "<group>"; };
 		3455F7E52044743300A6BC71 /* CAAtomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAAtomic.h; sourceTree = "<group>"; };
@@ -253,6 +253,7 @@
 		3455F8862044744F00A6BC71 /* float.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = float.c; sourceTree = "<group>"; };
 		3455F8872044744F00A6BC71 /* wvfilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wvfilter.c; sourceTree = "<group>"; };
 		3455F8882044744F00A6BC71 /* metadata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = metadata.c; sourceTree = "<group>"; };
+		34563883204C69F000A1C36C /* AKSampler_Typedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_Typedefs.h; sourceTree = "<group>"; };
 		34E34F4C2044D6B2007FF4D1 /* AKSampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampleBuffer.hpp; sourceTree = "<group>"; };
 		34E34F4D2044D6B2007FF4D1 /* AKEnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKEnvelopeGenerator.hpp; sourceTree = "<group>"; };
 		34E34F4E2044D6B2007FF4D1 /* AKResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantLowPassFilter.hpp; sourceTree = "<group>"; };
@@ -522,8 +523,9 @@
 		34E34F4B2044D6B2007FF4D1 /* AKSampler */ = {
 			isa = PBXGroup;
 			children = (
+				34563883204C69F000A1C36C /* AKSampler_Typedefs.h */,
 				34403A5E2046025400CD89E1 /* AKSampler.cpp */,
-				34403A5F2046025500CD89E1 /* AKSampler.h */,
+				34403A5F2046025500CD89E1 /* AKSampler.hpp */,
 				34E34F4C2044D6B2007FF4D1 /* AKSampleBuffer.hpp */,
 				34E34F4D2044D6B2007FF4D1 /* AKEnvelopeGenerator.hpp */,
 				34E34F4E2044D6B2007FF4D1 /* AKResonantLowPassFilter.hpp */,
@@ -568,7 +570,7 @@
 				3455F8732044743300A6BC71 /* AUMIDIEffectBase.h in Headers */,
 				3455F8392044743300A6BC71 /* CAVectorUnitTypes.h in Headers */,
 				3455F87F2044743300A6BC71 /* AUBaseHelper.h in Headers */,
-				34403A612046025500CD89E1 /* AKSampler.h in Headers */,
+				34403A612046025500CD89E1 /* AKSampler.hpp in Headers */,
 				3455F8402044743300A6BC71 /* CAMutex.h in Headers */,
 				342CE9A9204B9A53005C0832 /* AKSustainLogic.hpp in Headers */,
 				3455F85E2044743300A6BC71 /* SynthNote.h in Headers */,
@@ -662,6 +664,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					8D01CCC60486CAD60068D4B7 = {
+						DevelopmentTeam = W5AEHZN66V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -857,7 +860,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = W5AEHZN66V;
 				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Plugin DSP/AKSampler_Plugin.exp";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;

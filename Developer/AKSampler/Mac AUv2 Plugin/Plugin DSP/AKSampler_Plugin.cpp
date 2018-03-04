@@ -28,6 +28,8 @@ enum {
     fnfErr                        = -43,  /*File not found*/
 };
 
+#define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
+
 
 AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 	: AUInstrumentBase(inComponentInstance, 0, 1)    // 0 inputs, 1 output
@@ -65,35 +67,107 @@ OSStatus AKSampler_Plugin::Initialize()
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
     // Put folder wherever you wish (e.g. inside a "Compressed Sounds" folder on your Mac desktop
     // and edit paths below accordingly
+    
+    char pathBuffer[200];
+    const char* baseDir = "/Users/shane/Desktop/Compressed Sounds/";
+    const char* samplePrefix = "TX LoTine81z/TX LoTine81z_ms";
+    AKSampleFileDescriptor sfd;
+    sfd.path = pathBuffer;
+    sfd.sd.bLoop = true;
+    sfd.sd.fStart = sfd.sd.fLoopStart = 0.0f;
+    sfd.sd.fEnd = sfd.sd.fLoopEnd = 0.0f;
+    
+    sfd.sd.noteNumber = 48;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 0; sfd.sd.max_note = 51;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c2");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c2");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c2");
+    loadCompressedSampleFile(sfd);
 
-    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_048_c2.wv", 0, 51, 0, 43);
-    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_048_c2.wv", 0, 51, 44, 86);
-    loadCompressedSampleFile(48, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_048_c2.wv", 0, 51, 87, 127);
-    
-    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_054_f#2.wv", 52, 57, 0, 43);
-    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_054_f#2.wv", 52, 57, 44, 86);
-    loadCompressedSampleFile(54, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_054_f#2.wv", 52, 57, 87, 127);
-    
-    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_060_c3.wv", 58, 63, 0, 43);
-    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_060_c3.wv", 58, 63, 44, 86);
-    loadCompressedSampleFile(60, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_060_c3.wv", 58, 63, 87, 127);
-    
-    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_066_f#3.wv", 64, 69, 0, 43);
-    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_066_f#3.wv", 64, 69, 44, 86);
-    loadCompressedSampleFile(66, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_066_f#3.wv", 64, 69, 87, 127);
-    
-    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_072_c4.wv", 70, 75, 0, 43);
-    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_072_c4.wv", 70, 75, 44, 86);
-    loadCompressedSampleFile(72, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_072_c4.wv", 70, 75, 87, 127);
-    
-    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_078_f#4.wv", 76, 81, 0, 43);
-    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_078_f#4.wv", 76, 81, 44, 86);
-    loadCompressedSampleFile(78, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_078_f#4.wv", 76, 81, 87, 127);
-    
-    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms2_084_c5.wv", 82, 127, 0, 43);
-    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms1_084_c5.wv", 82, 127, 44, 86);
-    loadCompressedSampleFile(84, "/Users/shane/Desktop/Compressed Sounds/TX LoTine81z/TX LoTine81z_ms0_084_c5.wv", 82, 127, 87, 127);
+    sfd.sd.noteNumber = 54;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 52; sfd.sd.max_note = 57;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#2");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#2");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#2");
+    loadCompressedSampleFile(sfd);
 
+    sfd.sd.noteNumber = 60;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 58; sfd.sd.max_note = 63;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c3");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c3");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c3");
+    loadCompressedSampleFile(sfd);
+    
+    sfd.sd.noteNumber = 66;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 64; sfd.sd.max_note = 69;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#3");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#3");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#3");
+    loadCompressedSampleFile(sfd);
+    
+    sfd.sd.noteNumber = 72;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 70; sfd.sd.max_note = 75;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+    
+    sfd.sd.noteNumber = 78;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 76; sfd.sd.max_note = 81;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+    
+    sfd.sd.noteNumber = 84;
+    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+    sfd.sd.min_note = 82; sfd.sd.max_note = 127;
+    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c5");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c5");
+    loadCompressedSampleFile(sfd);
+    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
+    sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c5");
+    loadCompressedSampleFile(sfd);
+    
     buildKeyMap();
     
     Globals()->SetParameter(kMasterVolumeFraction, 1.0f);

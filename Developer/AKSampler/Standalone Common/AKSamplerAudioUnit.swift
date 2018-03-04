@@ -193,15 +193,14 @@ public class AKSampler2AudioUnit: AKGeneratorAudioUnitBase {
     
     public override var canProcessInPlace: Bool { return true; }
     
-    public func loadSampleData(_ noteNumber: MIDINoteNumber, _ noteHz: Float, _  bInterleaved: Bool,
-                               _ channelCount: UInt32, _ sampleCount: UInt32, _ data: UnsafeMutablePointer<Float>,
-                               _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1,
-                               _ bLoop: Bool = true, _ fLoopStart: Float = 0, _ fLoopEnd: Float = 0,
-                               _ fStart: Float = 0, _ fEnd: Float = 0) {
-        doAKSamplerLoadData(pDSP, noteNumber, noteHz, bInterleaved,
-                            channelCount, sampleCount, data,
-                            min_note, max_note, min_vel, max_vel,
-                            bLoop, fLoopStart, fLoopEnd, fStart, fEnd)
+    public func loadSampleData(sdd: AKSampleDataDescriptor) {
+        var sdd_copy = sdd
+        doAKSamplerLoadData(pDSP, &sdd_copy)
+    }
+    
+    public func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
+        var sfd_copy = sfd
+        doAKSamplerLoadCompressedFile(pDSP, &sfd_copy)
     }
     
     public func buildSimpleKeyMap() {

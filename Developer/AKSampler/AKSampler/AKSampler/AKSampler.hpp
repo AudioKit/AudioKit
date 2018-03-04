@@ -1,4 +1,4 @@
-//#include "AKSamplerDefs.h"
+#include "AKSampler_Typedefs.h"
 #include "AKSamplerVoice.hpp"
 #include "AKFunctionTable.hpp"
 
@@ -18,13 +18,8 @@ public:
 	void deinit();
 
     // call these to load samples
-    void loadSampleData(unsigned noteNumber, float noteHz, bool bInterleaved,
-                        unsigned nChannelCount, unsigned nSampleCount, float *pData,
-                        int min_note=-1, int max_note=-1, int min_vel=-1, int max_vel=-1,
-                        bool bLoop=true, float fLoopStart=0.0f, float fLoopEnd=0.0f, float fStart=0.0f, float fEnd=0.0f);
-    void loadCompressedSampleFile(unsigned noteNumber, const char* path,
-                                  int min_note=-1, int max_note=-1, int min_vel=-1, int max_vel=-1,
-                                  bool bLoop=true, float fLoopStart=0.0f, float fLoopEnd=0.0f, float fStart=0.0f, float fEnd=0.0f);
+    void loadSampleData(AKSampleDataDescriptor& sdd);
+    void loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
     
     // after loading samples, call one of these to build the key map
     void buildKeyMap(void);         // use this when you have full key mapping data (min/max note, vel)

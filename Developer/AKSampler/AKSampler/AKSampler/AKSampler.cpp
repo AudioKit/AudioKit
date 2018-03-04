@@ -1,4 +1,4 @@
-#include "AKSampler.h"
+#include "AKSampler.hpp"
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
@@ -50,77 +50,74 @@ void AKSampler::deinit()
 extern "C" int getWvData (int ifd, int* pNumChannels, int* pNumSamples);
 extern "C" int getWvSamples (int ifd, float* pSampleBuffer);
 
-void AKSampler::loadCompressedSampleFile(unsigned noteNumber, const char* path,
-                                         int min_note, int max_note, int min_vel, int max_vel,
-                                         bool bLoop, float fLoopStart, float fLoopEnd, float fStart, float fEnd)
+void AKSampler::loadSampleData(AKSampleDataDescriptor& sdd)
 {
-    //printf("loadCompressedSampleFile: %d %s\n", noteNumber, path);
+    AKMappedSampleBuffer* pBuf = new AKMappedSampleBuffer();
+    pBuf->min_note = sdd.sd.min_note;
+    pBuf->max_note = sdd.sd.max_note;
+    pBuf->min_vel = sdd.sd.min_vel;
+    pBuf->max_vel = sdd.sd.max_vel;
+    sampleBufferList.push_back(pBuf);
+
+    pBuf->init(sdd.nChannels, sdd.nSamples);
+    float* pData = sdd.pData;
+    if (sdd.bInterleaved) for (unsigned i=0; i < sdd.nSamples; i++)
+    {
+        pBuf->setData(i, *pData++);
+        if (sdd.nChannels > 1) pBuf->setData(sdd.nSamples + i, *pData++);
+    }
+    else for (unsigned i=0; i < sdd.nChannels * sdd.nSamples; i++)
+    {
+        pBuf->setData(i, *pData++);
+    }
+    pBuf->noteNumber = sdd.sd.noteNumber;
+    pBuf->noteHz = sdd.sd.noteHz;
     
-    int ifd = open(path, O_RDONLY);
+    if (sdd.sd.fStart > 0.0f) pBuf->fStart = sdd.sd.fStart;
+    if (sdd.sd.fEnd > 0.0f)   pBuf->fEnd = sdd.sd.fEnd;
+    
+    pBuf->bLoop = sdd.sd.bLoop;
+    if (sdd.sd.fLoopStart > 0.0f)
+        pBuf->fLoopStart = sdd.sd.fLoopStart;
+    else if (sdd.sd.bLoop)
+        pBuf->fLoopStart = pBuf->fEnd * 0.25;   // testing
+    if (sdd.sd.fLoopEnd > 0.0f)
+        pBuf->fLoopEnd = sdd.sd.fLoopEnd;
+    else if (sdd.sd.bLoop)
+        pBuf->fLoopEnd = pBuf->fEnd * 0.75;     // testing
+}
+
+void AKSampler::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
+{
+    //printf("loadCompressedSampleFile: %d %.1f Hz %s\n", sfd.sd.noteNumber, sfd.sd.noteHz, sfd.path);
+    
+    int ifd = open(sfd.path, O_RDONLY);
     if (ifd < 0)
     {
-        printf("Error %d opening %s\n", errno, path);
+        printf("Error %d opening %s\n", errno, sfd.path);
         return;
     }
     
-    int numChannels, numSamples;
-    int check = getWvData(ifd, &numChannels, &numSamples);
+    AKSampleDataDescriptor sdd;
+    sdd.sd = sfd.sd;
+    
+    int check = getWvData(ifd, &sdd.nChannels, &sdd.nSamples);
     close(ifd);
     if (check != 0)
     {
-        printf("getWvData returns %d for %s\n", check, path);
+        printf("getWvData returns %d for %s\n", check, sfd.path);
         return;
     }
+    sdd.bInterleaved = (sdd.nChannels > 1);
     
-    ifd = open(path, O_RDONLY);
-    float* pSampleBuffer = new float[numChannels * numSamples];
-    check = getWvSamples(ifd, pSampleBuffer);
+    ifd = open(sfd.path, O_RDONLY);
+    sdd.pData = new float[sdd.nChannels * sdd.nSamples];
+    check = getWvSamples(ifd, sdd.pData);
     close(ifd);
-
-    float noteHz = 440.0f * pow(2.0f, (noteNumber - 69.0f)/12.0f);
-    loadSampleData(noteNumber, noteHz, true, numChannels, numSamples, pSampleBuffer,
-                   min_note, max_note, min_vel, max_vel,
-                   bLoop, fLoopStart, fLoopEnd, fStart, fEnd);
-    delete[] pSampleBuffer;
-}
-
-void AKSampler::loadSampleData(unsigned noteNumber, float noteHz, bool bInterleaved,
-                               unsigned nChannelCount, unsigned nSampleCount, float *pData,
-                               int min_note, int max_note, int min_vel, int max_vel,
-                               bool bLoop, float fLoopStart, float fLoopEnd, float fStart, float fEnd)
-{
-    AKMappedSampleBuffer* pBuf = new AKMappedSampleBuffer();
-    pBuf->min_note = min_note;
-    pBuf->max_note = max_note;
-    pBuf->min_vel = min_vel;
-    pBuf->max_vel = max_vel;
-    sampleBufferList.push_back(pBuf);
-
-    pBuf->init(nChannelCount, nSampleCount);
-    if (bInterleaved) for (unsigned i=0; i < nSampleCount; i++)
-    {
-        pBuf->setData(i, *pData++);
-        if (nChannelCount > 1) pBuf->setData(nSampleCount + i, *pData++);
-    }
-    else for (unsigned i=0; i < nChannelCount * nSampleCount; i++)
-    {
-        pBuf->setData(i, *pData++);
-    }
-    pBuf->noteNumber = noteNumber;
-    pBuf->noteHz = noteHz;
     
-    if (fStart > 0.0f) pBuf->fStart = fStart;
-    if (fEnd > 0.0f)   pBuf->fEnd = fEnd;
+    loadSampleData(sdd);
     
-    pBuf->bLoop = bLoop;
-    if (fLoopStart > 0.0f)
-        pBuf->fLoopStart = fLoopStart;
-    else if (bLoop)
-        pBuf->fLoopStart = pBuf->fEnd * 0.25;   // testing
-    if (fLoopEnd > 0.0f)
-        pBuf->fLoopEnd = fLoopEnd;
-    else if (bLoop)
-        pBuf->fLoopEnd = pBuf->fEnd * 0.75;     // testing
+    delete[] sdd.pData;
 }
 
 AKMappedSampleBuffer* AKSampler::lookupSample(unsigned noteNumber, unsigned velocity)
