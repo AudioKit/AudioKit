@@ -113,92 +113,16 @@ class Conductor {
         //        sampler.filterReleaseTime = 10.0
     }
     
-    private func loadCompressed(noteNumber: MIDINoteNumber, wvPath: String,
-                                _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
-    {
-        let wvurl = URL(fileURLWithPath: wvPath);
-        let fileManager = FileManager.default
-        if !fileManager.fileExists(atPath: wvurl.path) {
-            print("No such file \(wvPath)")
-            return;
-        }
-        
-        var numChannels: Int32 = 0
-        var numSamples: Int32 = 0
-        do {
-            let wv = try FileHandle(forReadingFrom: wvurl)
-            let status = getWvData(wv.fileDescriptor, &numChannels, &numSamples)
-            if status != 0 {
-                print("getWvData returns \(status)")
-                return
-            }
-        } catch let error as NSError {
-            print("\(error.localizedDescription)")
-        }
-        
-        do {
-            let sampleBuffer = UnsafeMutablePointer<Float32>.allocate(capacity: Int(numChannels * numSamples))
-            let wv = try FileHandle(forReadingFrom: wvurl)
-            let status = getWvSamples(wv.fileDescriptor, sampleBuffer)
-            if status != 0 {
-                print("getWvSamples returns \(status)")
-                return
-            }
-            sampler.loadRawSampleData(noteNumber: noteNumber,
-                                      noteHz: Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)),
-                                      data: sampleBuffer, channelCount: UInt32(numChannels), sampleCount: UInt32(numSamples),
-                                      bInterleaved: true, min_note: min_note, max_note: max_note, min_vel: min_vel, max_vel: max_vel)
-        } catch let error as NSError {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
     private func loadCompressed(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String,
                                 _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
     {
         let folderURL = baseURL.appendingPathComponent(folderName)
         let fileName = folderName + fileEnding
         let fileURL = folderURL.appendingPathComponent(fileName)
-        loadCompressed(noteNumber: noteNumber, wvPath: fileURL.path, min_note, max_note, min_vel, max_vel)
+        let sd = AKSampleDescriptor(noteNumber: Int32(noteNumber), noteHz: Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)), min_note: min_note, max_note: max_note, min_vel: min_vel, max_vel: max_vel, bLoop: true, fLoopStart: 0.0, fLoopEnd: 0.0, fStart: 0.0, fEnd: 0.0)
+        sampler.loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: fileURL.path))
     }
 
-    private func loadCompressed(_ noteNumber: MIDINoteNumber, _ fileName: String,
-                                _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
-    {
-        let fileURL = baseURL.appendingPathComponent(fileName)
-        loadCompressed(noteNumber: noteNumber, wvPath: fileURL.path, min_note, max_note, min_vel, max_vel)
-    }
-    
-    private func loadSample(_ noteNumber: MIDINoteNumber, _ fullPath: String,
-                            _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
-    {
-        let fileManager = FileManager.default
-        do {
-            let fileURL = URL(fileURLWithPath: fullPath)
-            if fileManager.fileExists(atPath: fileURL.path) {
-                let sampleFile = try AKAudioFile(forReading: fileURL)
-                let noteHz = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
-                sampler.loadAKAudioFile(noteNumber: noteNumber, noteHz: noteHz, file: sampleFile,
-                                        min_note: min_note, max_note: max_note,
-                                        min_vel: min_vel, max_vel: max_vel)
-            }
-            else {
-                print("No such file \(fullPath)")
-            }
-        } catch let error as NSError {
-            print("\(error.localizedDescription) loading audio file \(fullPath)")
-        }
-    }
-    
-    private func loadSample(_ noteNumber: MIDINoteNumber, _ folderName: String, _ fileEnding: String,
-                            _ min_note: Int32 = -1, _ max_note: Int32 = -1, _ min_vel: Int32 = -1, _ max_vel: Int32 = -1)
-    {
-        let folderURL = baseURL.appendingPathComponent(folderName)
-        let fileName = folderName + fileEnding
-        let fileURL = folderURL.appendingPathComponent(fileName)
-        loadSample(noteNumber, fileURL.path, min_note, max_note, min_vel, max_vel)
-    }
-    
     func addMIDIListener(_ listener: AKMIDIListener) {
         midi.addListener(listener)
     }

@@ -247,27 +247,20 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
                                                  value: filterEnable ? 1.0 : 0.0)
     }
     
-    open func loadAKAudioFile(noteNumber: MIDINoteNumber, noteHz: Float, file: AKAudioFile,
-                              min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1,
-                              bLoop: Bool = true, fLoopStart: Float = 0, fLoopEnd: Float = 0,
-                              fStart: Float = 0, fEnd: Float = 0) {
-        let sampleCount = UInt32(file.samplesCount)
-        let channelCount = file.channelCount;
+    open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
+        let sampleCount = Int32(file.samplesCount)
+        let channelCount = Int32(file.channelCount);
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData(noteNumber, noteHz, false, channelCount, sampleCount, data,
-                                   min_note, max_note, min_vel, max_vel,
-                                   bLoop, fLoopStart, fLoopEnd, fStart, fEnd)
+        internalAU?.loadSampleData(sdd: AKSampleDataDescriptor(sd: sd, bInterleaved: false, nChannels: channelCount, nSamples: sampleCount, pData: data))
     }
     
-    open func loadRawSampleData(noteNumber: MIDINoteNumber, noteHz: Float, data: UnsafeMutablePointer<Float>,
-                                channelCount: UInt32, sampleCount: UInt32, bInterleaved: Bool = true,
-                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1,
-                                bLoop: Bool = true, fLoopStart: Float = 0, fLoopEnd: Float = 0,
-                                fStart: Float = 0, fEnd: Float = 0) {
-        internalAU?.loadSampleData(noteNumber, noteHz, bInterleaved, channelCount, sampleCount, data,
-                                   min_note, max_note, min_vel, max_vel,
-                                   bLoop, fLoopStart, fLoopEnd, fStart, fEnd)
+    open func loadRawSampleData(sdd: AKSampleDataDescriptor) {
+        internalAU?.loadSampleData(sdd: sdd)
+    }
+    
+    open func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
+        internalAU?.loadCompressedSampleFile(sfd: sfd)
     }
     
     open func buildSimpleKeyMap() {
