@@ -49,7 +49,7 @@ protected:
     AKEnvelopeGeneratorParams filterEGParams;
     
     // performance parameters
-    float masterVolume, pitchOffset, cutoffMultiple;
+    float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple;
     
     // helper functions
     void updateAmpADSR();

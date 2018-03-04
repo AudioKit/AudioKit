@@ -156,7 +156,7 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         pitchBendRamp.advanceTo(_now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
         vibratoDepthRamp.advanceTo(_now + frameOffset);
-        pitchOffset += (float)vibratoDepthRamp.getValue() * vibratoLFO.getSample();
+        vibratoDepth = (float)vibratoDepthRamp.getValue();
         
         // get data
         float *outBuffers[2];

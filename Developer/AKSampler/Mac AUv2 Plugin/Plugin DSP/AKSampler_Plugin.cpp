@@ -8,6 +8,7 @@ static const CFStringRef paramName[] =
 {
     CFSTR("Master Volume"),
     CFSTR("Pitch Offset"),
+    CFSTR("Vibrato Depth"),
     CFSTR("Filter Enable"),
     CFSTR("Filter Cutoff"),
     
@@ -40,6 +41,7 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
     
     Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
     Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
+    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
     Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
     Globals()->SetParameter(kFilterEnable, 0.0f);
     
@@ -172,6 +174,7 @@ OSStatus AKSampler_Plugin::Initialize()
     
     Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
     Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
+    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
     Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
     Globals()->SetParameter(kFilterEnable, 0.0f);
     
@@ -274,6 +277,14 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.defaultValue = 0.0;
             break;
     
+        case kVibratoDepthSemitones:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kVibratoDepthSemitones], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_RelativeSemiTones;
+            outParameterInfo.minValue = -24.0;
+            outParameterInfo.maxValue = 24.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+            
         case kFilterEnable:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEnable], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Boolean;
@@ -377,6 +388,10 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             
         case kPitchOffsetSemitones:
             pitchOffset = inValue;
+            break;
+            
+        case kVibratoDepthSemitones:
+            vibratoDepth = inValue;
             break;
             
         case kFilterEnable:
@@ -497,8 +512,7 @@ OSStatus AKSampler_Plugin::HandleControlChange(UInt8 inChannel, UInt8 inControll
     }
     else if (inController == kMidiController_ModWheel)
     {
-        float value = inValue / 127.0f;
-        // TODO: apply vibrato
+        vibratoDepth = 0.6f * inValue / 127.0f;
     }
     return noErr;
 }
