@@ -664,7 +664,6 @@
 						ProvisioningStyle = Automatic;
 					};
 					8D01CCC60486CAD60068D4B7 = {
-						DevelopmentTeam = W5AEHZN66V;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -860,7 +859,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = W5AEHZN66V;
+				DEVELOPMENT_TEAM = "";
 				EXPORTED_SYMBOLS_FILE = "$(SRCROOT)/Plugin DSP/AKSampler_Plugin.exp";
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;

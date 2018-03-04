@@ -13,6 +13,7 @@
 enum {
     kMasterVolumeFraction = 0,
     kPitchOffsetSemitones,
+    kVibratoDepthSemitones,
     kFilterEnable,
     kFilterCutoffHarmonic,
     

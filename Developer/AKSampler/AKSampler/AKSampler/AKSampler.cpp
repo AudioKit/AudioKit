@@ -11,6 +11,7 @@ AKSampler::AKSampler()
 : filterEnable(false)
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
+, vibratoDepth(0.0f)
 , cutoffMultiple(30.0f)
 {
     for (int i=0; i < MAX_POLYPHONY; i++)
@@ -266,6 +267,7 @@ void AKSampler::Render(unsigned channelCount, unsigned sampleCount, float *outBu
     float* pOutLeft = outBuffers[0];
     float* pOutRight = outBuffers[1];
     
+    float pitchDev = this->pitchOffset + vibratoDepth * vibratoLFO.getSample();
     float cutoffMul = filterEnable ? cutoffMultiple : -1.0;
     
     AKSamplerVoice* pVoice = &voice[0];
@@ -274,7 +276,7 @@ void AKSampler::Render(unsigned channelCount, unsigned sampleCount, float *outBu
         int nn = pVoice->noteNumber;
         if (nn >= 0)
         {
-            if (pVoice->prepToGetSamples(masterVolume, pitchOffset, cutoffMul) ||
+            if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul) ||
                 pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
             {
                 stopNote(nn, true);
