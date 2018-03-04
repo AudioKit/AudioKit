@@ -69,7 +69,8 @@
 		343BEBF42044A285001DFE69 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		343E5E962049AC3C0007B2DF /* wavpack_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavpack_public.h; sourceTree = "<group>"; };
 		34403A542045EC8600CD89E1 /* AKSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSampler.cpp; sourceTree = "<group>"; };
-		34403A552045EC8700CD89E1 /* AKSampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler.h; sourceTree = "<group>"; };
+		34563886204C9CD000A1C36C /* AKSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampler.hpp; sourceTree = "<group>"; };
+		34563887204C9CDA00A1C36C /* AKSampler_Typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler_Typedefs.h; sourceTree = "<group>"; };
 		346332002049ED3A00042438 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		346332012049ED3A00042438 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		34E34F762044DA48007FF4D1 /* AKSamplerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSamplerAudioUnit.swift; path = "../Standalone Common/AKSamplerAudioUnit.swift"; sourceTree = "<group>"; };
@@ -188,8 +189,9 @@
 		34E34F7F2044DAF4007FF4D1 /* AKSampler */ = {
 			isa = PBXGroup;
 			children = (
+				34563887204C9CDA00A1C36C /* AKSampler_Typedefs.h */,
+				34563886204C9CD000A1C36C /* AKSampler.hpp */,
 				34403A542045EC8600CD89E1 /* AKSampler.cpp */,
-				34403A552045EC8700CD89E1 /* AKSampler.h */,
 				34E34F802044DAF4007FF4D1 /* AKSampleBuffer.hpp */,
 				34E34F812044DAF4007FF4D1 /* AKEnvelopeGenerator.hpp */,
 				34E34F822044DAF4007FF4D1 /* AKResonantLowPassFilter.hpp */,
