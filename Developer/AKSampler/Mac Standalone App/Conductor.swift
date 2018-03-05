@@ -103,12 +103,12 @@ class Conductor {
         sampler.ampSustainLevel = 0.8
         sampler.ampReleaseTime = 0.5
         
-        // per-voice filter is still experimental and buggy
-        //        sampler.filterEnable = true
-        //        sampler.filterAttackTime = 1.0
-        //        sampler.filterDecayTime = 1.0
-        //        sampler.filterSustainLevel = 0.5
-        //        sampler.filterReleaseTime = 10.0
+//        sampler.filterEnable = true
+//        sampler.filterCutoff = 20.0
+//        sampler.filterAttackTime = 1.0
+//        sampler.filterDecayTime = 1.0
+//        sampler.filterSustainLevel = 0.5
+//        sampler.filterReleaseTime = 10.0
     }
     
     private func loadCompressed(noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
@@ -159,7 +159,11 @@ class Conductor {
     func controller(_ controller: MIDIByte, value: MIDIByte) {
         switch controller {
         case AKMIDIControl.modulationWheel.rawValue:
-            sampler.vibratoDepth = 0.5 * Double(value) / 128.0
+            if sampler.filterEnable {
+                sampler.filterCutoff = 1 + 19 * Double(value) / 127.0
+            } else {
+                sampler.vibratoDepth = 0.5 * Double(value) / 127.0
+            }
         case AKMIDIControl.damperOnOff.rawValue:
             sampler.sustainPedal(pedalDown: value != 0)
         default:

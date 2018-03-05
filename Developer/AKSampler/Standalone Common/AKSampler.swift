@@ -23,14 +23,18 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var masterVolumeParameter: AUParameter?
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
+    fileprivate var filterCutoffParameter: AUParameter?
+
     fileprivate var ampAttackTimeParameter: AUParameter?
     fileprivate var ampDecayTimeParameter: AUParameter?
     fileprivate var ampSustainLevelParameter: AUParameter?
     fileprivate var ampReleaseTimeParameter: AUParameter?
+
     fileprivate var filterAttackTimeParameter: AUParameter?
     fileprivate var filterDecayTimeParameter: AUParameter?
     fileprivate var filterSustainLevelParameter: AUParameter?
     fileprivate var filterReleaseTimeParameter: AUParameter?
+
     fileprivate var filterEnableParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -91,6 +95,24 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
             
             internalAU?.vibratoDepth = newValue
+        }
+    }
+    
+    /// Filter cutoff (harmonic ratio)
+    @objc open dynamic var filterCutoff: Double = 1000.0 {
+        willSet {
+            if filterCutoff == newValue {
+                return
+            }
+            
+            if internalAU?.isSetUp ?? false {
+                if token != nil && filterCutoffParameter != nil {
+                    filterCutoffParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+            
+            internalAU?.filterCutoff = newValue
         }
     }
     
@@ -187,8 +209,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         masterVolume: Double = 1.0,
-        pitchBend: Double = 0.0,
+        pitchBend: Double = 1.0,
         vibratoDepth: Double = 0.0,
+        filterCutoff: Double = 1000.0,
         ampAttackTime: Double = 0.0,
         ampDecayTime: Double = 0.0,
         ampSustainLevel: Double = 1.0,
@@ -202,6 +225,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
+        self.filterCutoff = filterCutoff
         self.ampAttackTime = ampAttackTime
         self.ampDecayTime = ampDecayTime
         self.ampSustainLevel = ampSustainLevel
@@ -234,6 +258,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.masterVolumeParameter = tree["masterVolume"]
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
+        self.filterCutoffParameter = tree["filterCutoff"]
         self.ampAttackTimeParameter = tree["ampAttackTime"]
         self.ampDecayTimeParameter = tree["ampDecayTime"]
         self.ampSustainLevelParameter = tree["ampSustainLevel"]
@@ -259,6 +284,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.masterVolumeParam, value: masterVolume)
         self.internalAU?.setParameterImmediately(.pitchBendParam, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepthParam, value: vibratoDepth)
+        self.internalAU?.setParameterImmediately(.filterCutoffParam, value: filterCutoff)
         self.internalAU?.setParameterImmediately(.ampAttackTimeParam, value: ampAttackTime)
         self.internalAU?.setParameterImmediately(.ampDecayTimeParam, value: ampDecayTime)
         self.internalAU?.setParameterImmediately(.ampSustainLevelParam, value: ampSustainLevel)
