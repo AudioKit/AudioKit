@@ -26,6 +26,7 @@ typedef struct
 {
     AKSampleDescriptor sd;
     
+    float sampleRateHz;
     bool bInterleaved;
     int nChannels;
     int nSamples;

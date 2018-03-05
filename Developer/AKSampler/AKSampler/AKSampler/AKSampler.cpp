@@ -6,9 +6,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include "wavpack_public.h"
 
 AKSampler::AKSampler()
-: ampAttackTime(0.0f)
+: sampleRateHz(44100.0f)    // sensible guess
+, ampAttackTime(0.0f)
 , ampDecayTime(0.0f)
 , ampSustainLevel(1.0f)
 , ampReleaseTime(0.0f)
@@ -33,10 +35,9 @@ AKSampler::~AKSampler()
 {
 }
 
-int AKSampler::init()
-{	
-    double sampleRate = 44100.0;	// preliminary guess
-    
+int AKSampler::init(double sampleRate)
+{
+    sampleRateHz = (float)sampleRate;
     ampEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
     filterEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
     vibratoLFO.waveTable.sinusoid();
@@ -55,10 +56,6 @@ void AKSampler::deinit()
     for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
 }
 
-// Wavpack interface
-extern "C" int getWvData (int ifd, int* pNumChannels, int* pNumSamples);
-extern "C" int getWvSamples (int ifd, float* pSampleBuffer);
-
 void AKSampler::loadSampleData(AKSampleDataDescriptor& sdd)
 {
     AKMappedSampleBuffer* pBuf = new AKMappedSampleBuffer();
@@ -68,7 +65,7 @@ void AKSampler::loadSampleData(AKSampleDataDescriptor& sdd)
     pBuf->max_vel = sdd.sd.max_vel;
     sampleBufferList.push_back(pBuf);
 
-    pBuf->init(sdd.nChannels, sdd.nSamples);
+    pBuf->init(sdd.sampleRateHz, sdd.nChannels, sdd.nSamples);
     float* pData = sdd.pData;
     if (sdd.bInterleaved) for (unsigned i=0; i < sdd.nSamples; i++)
     {
@@ -110,7 +107,7 @@ void AKSampler::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
     AKSampleDataDescriptor sdd;
     sdd.sd = sfd.sd;
     
-    int check = getWvData(ifd, &sdd.nChannels, &sdd.nSamples);
+    int check = getWvData(ifd, &sdd.sampleRateHz, &sdd.nChannels, &sdd.nSamples);
     close(ifd);
     if (check != 0)
     {
@@ -244,7 +241,7 @@ void AKSampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
     {
         // re-start the note
         AKMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
-        pVoice->start(noteNumber, noteHz, velocity / 127.0f, pBuf);
+        pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
         //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
         return;
     }
@@ -257,7 +254,7 @@ void AKSampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
         {
             // found a free voice: assign it to play this note
             AKMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
-            pVoice->start(noteNumber, noteHz, velocity / 127.0f, pBuf);
+            pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
             //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, pBuf %p)\n",
             //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, pBuf);
             return;

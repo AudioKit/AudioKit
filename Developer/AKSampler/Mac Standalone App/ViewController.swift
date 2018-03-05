@@ -38,11 +38,11 @@ class ViewController: NSViewController, NSWindowDelegate {
     
     @IBAction func toggleSound(_ sender: NSButton) {
         if isPlaying {
-            conductor.stopNote(note: 64, channel: 0)
+            conductor.stopNote(note: 72, channel: 0)
             isPlaying = false
             sender.title = "Play"
         } else {
-            conductor.playNote(note: 64, velocity: 100, channel: 0)
+            conductor.playNote(note: 72, velocity: 100, channel: 0)
             isPlaying = true
             sender.title = "Stop"
         }

@@ -54,12 +54,14 @@ AKSamplerDSP::AKSamplerDSP() : AKSampler()
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
 {
+    printf("AKSamplerDSP::init %d %f\n", nChannels, sampleRate);
     AKDSPBase::init(nChannels, sampleRate);
-    AKSampler::init();
+    AKSampler::init(sampleRate);
 }
 
 void AKSamplerDSP::deinit()
 {
+    printf("AKSamplerDSP::deinit\n");
     AKSampler::deinit();
 }
 
