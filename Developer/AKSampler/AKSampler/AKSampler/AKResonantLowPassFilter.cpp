@@ -1,5 +1,5 @@
 //
-//  AKResonantLowPassFilter.mm
+//  AKResonantLowPassFilter.cpp
 //  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-02-23.
@@ -18,7 +18,7 @@ static const float kMaxResonance = 20.0;
 
 AKResonantLowPassFilter::AKResonantLowPassFilter()
 {
-    init(44100.0);
+    init(44100.0);  // sensible guess
 }
 
 void AKResonantLowPassFilter::init(double sampleRateHz)
