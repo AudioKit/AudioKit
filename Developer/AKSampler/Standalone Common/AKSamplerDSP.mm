@@ -50,18 +50,19 @@ AKSamplerDSP::AKSamplerDSP() : AKSampler()
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
+    filterCutoffRamp.setTarget(1000.0, true);
 }
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
 {
-    printf("AKSamplerDSP::init %d %f\n", nChannels, sampleRate);
+    //printf("AKSamplerDSP::init %d %f\n", nChannels, sampleRate);
     AKDSPBase::init(nChannels, sampleRate);
     AKSampler::init(sampleRate);
 }
 
 void AKSamplerDSP::deinit()
 {
-    printf("AKSamplerDSP::deinit\n");
+    //printf("AKSamplerDSP::deinit\n");
     AKSampler::deinit();
 }
 
@@ -72,6 +73,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             masterVolumeRamp.setRampTime(value, _sampleRate);
             pitchBendRamp.setRampTime(value, _sampleRate);
             vibratoDepthRamp.setRampTime(value, _sampleRate);
+            filterCutoffRamp.setRampTime(value, _sampleRate);
             break;
 
         case masterVolumeParam:
@@ -82,6 +84,9 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             break;
         case vibratoDepthParam:
             vibratoDepthRamp.setTarget(value, immediate);
+            break;
+        case filterCutoffParam:
+            filterCutoffRamp.setTarget(value, immediate);
             break;
 
         case ampAttackTimeParam:
@@ -127,6 +132,8 @@ float AKSamplerDSP::getParameter(uint64_t address)
             return pitchBendRamp.getTarget();
         case vibratoDepthParam:
             return vibratoDepthRamp.getTarget();
+        case filterCutoffParam:
+            return filterCutoffRamp.getTarget();
 
         case ampAttackTimeParam:
             return ampEGParams.getAttackTimeSeconds();
@@ -166,6 +173,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         pitchOffset = (float)pitchBendRamp.getValue();
         vibratoDepthRamp.advanceTo(_now + frameOffset);
         vibratoDepth = (float)vibratoDepthRamp.getValue();
+        filterCutoffRamp.advanceTo(_now + frameOffset);
+        cutoffMultiple = (float)filterCutoffRamp.getValue();
         
         // get data
         float *outBuffers[2];

@@ -297,7 +297,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
         case kVibratoDepthSemitones:
             AUBase::FillInParameterName (outParameterInfo, paramName[kVibratoDepthSemitones], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_RelativeSemiTones;
-            outParameterInfo.minValue = -24.0;
+            outParameterInfo.minValue = 0.0;
             outParameterInfo.maxValue = 24.0;
             outParameterInfo.defaultValue = 0.0;
             break;
