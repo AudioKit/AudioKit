@@ -7,7 +7,6 @@
 //
 
 #include "AKBoosterDSP.hpp"
-#import "AKExponentialParameterRamp.hpp"
 
 extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
     AKBoosterDSP* dsp = new AKBoosterDSP();
