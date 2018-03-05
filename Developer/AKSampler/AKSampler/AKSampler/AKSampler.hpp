@@ -15,7 +15,7 @@ public:
 	AKSampler();
 	~AKSampler();
 				
-	int init();		// returns system error code, nonzero only if a problem occurs
+	int init(double sampleRate);		// returns system error code, nonzero only if a problem occurs
 	void deinit();
 
     // call these to load samples
@@ -33,6 +33,9 @@ public:
     void Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[]);
 
 protected:
+    // current sampling rate, samples/sec
+    float sampleRateHz;
+    
     // list of (pointers to) all loaded samples
     std::list<AKMappedSampleBuffer*> sampleBufferList;
     

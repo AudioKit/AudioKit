@@ -160,7 +160,7 @@ done:
     return retval;
 }
 
-int getWvData (int ifd, int* pNumChannels, int* pNumSamples)
+int getWvData (int ifd, float* pSampleRateHz, int* pNumChannels, int* pNumSamples)
 {
     WavpackContext *wpc;
     char error [80];
@@ -174,6 +174,7 @@ int getWvData (int ifd, int* pNumChannels, int* pNumSamples)
         return -1;
     }
     
+    *pSampleRateHz = WavpackGetSampleRate (wpc);
     *pNumChannels = WavpackGetReducedChannels (wpc);
     *pNumSamples = WavpackGetNumSamples (wpc);
     fclose(infile);

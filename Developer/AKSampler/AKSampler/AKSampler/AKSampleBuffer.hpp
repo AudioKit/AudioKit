@@ -14,6 +14,7 @@
 struct AKSampleBuffer
 {
     float *pSamples;
+    float sampleRateHz;
     int nChannelCount;
     int nSampleCount;
     float fStart, fEnd;
@@ -24,7 +25,7 @@ struct AKSampleBuffer
     AKSampleBuffer();
     ~AKSampleBuffer();
     
-    void init(int nChannelCount, int sampleCount);
+    void init(float sampleRate, int nChannelCount, int sampleCount);
     void deinit();
     
     void setData(unsigned nIndex, float data);

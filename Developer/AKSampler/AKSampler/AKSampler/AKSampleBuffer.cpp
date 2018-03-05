@@ -25,8 +25,9 @@ AKSampleBuffer::~AKSampleBuffer()
     deinit();
 }
 
-void AKSampleBuffer::init(int nChannelCount, int nSampleCount)
+void AKSampleBuffer::init(float sampleRate, int nChannelCount, int nSampleCount)
 {
+    this->sampleRateHz = sampleRate;
     this->nSampleCount = nSampleCount;
     this->nChannelCount = nChannelCount;
     if (pSamples) delete[] pSamples;

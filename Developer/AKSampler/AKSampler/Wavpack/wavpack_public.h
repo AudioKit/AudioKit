@@ -15,7 +15,7 @@ extern "C" {
 #endif
 
 int wvunpack (int ifd, int ofd);
-int getWvData (int ifd, int* pNumChannels, int* pNumSamples);
+int getWvData (int ifd, float* pSampleRateHz, int* pNumChannels, int* pNumSamples);
 int getWvSamples (int ifd, float* pSampleBuffer);
 
 #ifdef __cplusplus

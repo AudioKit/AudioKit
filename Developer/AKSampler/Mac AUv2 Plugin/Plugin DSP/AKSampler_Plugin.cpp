@@ -2,6 +2,12 @@
 #include "AKSampler_Params.h"
 #include "AUMidiDefs.h"
 
+// OSErr definitions taken from deprecated CarbonCore/MacErrors.h
+// Somewhere there's a newer header file I should be using
+enum {
+    fnfErr                        = -43,  /*File not found*/
+};
+
 AUDIOCOMPONENT_ENTRY(AUMusicDeviceFactory, AKSampler_Plugin)
 
 static const CFStringRef paramName[] =
@@ -23,11 +29,6 @@ static const CFStringRef paramName[] =
     CFSTR("Flt EG Release"),
 };
 
-// OSErr definitions taken from deprecated CarbonCore/MacErrors.h
-// Somewhere there's a newer header file I should be using
-enum {
-    fnfErr                        = -43,  /*File not found*/
-};
 
 #define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
 
@@ -63,7 +64,8 @@ AKSampler_Plugin::~AKSampler_Plugin()
 OSStatus AKSampler_Plugin::Initialize()
 {
 	AUInstrumentBase::Initialize();
-    AKSampler::init();
+    AKSampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
+    printf("AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
     
     // Download http://getdunne.com/download/TX_LoTine81z.zip
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
@@ -191,6 +193,7 @@ OSStatus AKSampler_Plugin::Initialize()
 void AKSampler_Plugin::Cleanup()
 {
     AKSampler::deinit();
+    printf("AKSampler_Plugin::Cleanup\n");
 }
 
 OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inPropertyID,

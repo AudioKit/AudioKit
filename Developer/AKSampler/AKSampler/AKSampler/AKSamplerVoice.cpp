@@ -8,11 +8,11 @@
 #include "AKSamplerVoice.hpp"
 #include <stdio.h>
 
-void AKSamplerVoice::start(unsigned noteNum, float freqHz, float volume, AKSampleBuffer* pBuf)
+void AKSamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, AKSampleBuffer* pBuf)
 {
     pSampleBuffer = pBuf;
     oscillator.fIndex = pBuf->fStart;
-    oscillator.fIncrement = freqHz / pBuf->noteHz;
+    oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteHz);
     oscillator.fIncMul = 1.0;
     oscillator.bLooping = pBuf->bLoop;
     noteVol = volume;

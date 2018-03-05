@@ -271,11 +271,12 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
     
     open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
-        let sampleCount = Int32(file.samplesCount)
+        let sampleRate = Float(file.sampleRate);
+        let sampleCount = Int32(file.samplesCount);
         let channelCount = Int32(file.channelCount);
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData(sdd: AKSampleDataDescriptor(sd: sd, bInterleaved: false, nChannels: channelCount, nSamples: sampleCount, pData: data))
+        internalAU?.loadSampleData(sdd: AKSampleDataDescriptor(sd: sd, sampleRateHz: sampleRate, bInterleaved: false, nChannels: channelCount, nSamples: sampleCount, pData: data))
     }
     
     open func loadRawSampleData(sdd: AKSampleDataDescriptor) {

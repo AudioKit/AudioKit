@@ -77,7 +77,7 @@ struct AKSamplerVoice
     
     AKSamplerVoice() : noteNumber(-1) {}
     
-    void start(unsigned noteNum, float freqHz, float volume, AKSampleBuffer* pSampleBuf);
+    void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, AKSampleBuffer* pSampleBuf);
     void restart(float volume);
     void release();
     void stop();
