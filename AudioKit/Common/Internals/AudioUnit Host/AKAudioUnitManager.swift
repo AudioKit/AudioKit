@@ -214,7 +214,7 @@ open class AKAudioUnitManager: NSObject {
                                                queue: nil) { [weak self] notification in
 
             guard let strongSelf = self else {
-                AKLog("Unable to create strong ref to self")
+                AKLog("Unable to create strong reference to self")
                 return
             }
 
