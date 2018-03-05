@@ -27,6 +27,7 @@ struct AKResonantLowPassFilter
     AKResonantLowPassFilter();
 
     void init(double sampleRateHz);
+    void updateSampleRate(double sampleRateHz) { this->sampleRateHz = sampleRateHz; }
     
     void setParams(double newCutoffHz, double newResonanceDb);
     void setCutoff(double newCutoffHz) { setParams(newCutoffHz, mLastResonanceDb); }
