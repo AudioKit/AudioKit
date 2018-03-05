@@ -1,6 +1,5 @@
-
 //
-//  AKEnvelopeGenerator.hpp
+//  AKADSREnvelopeGenerator.hpp
 //  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-02-20.
@@ -11,22 +10,29 @@
 #include "AKLinearRamper.hpp"
 #include "AKFunctionTable.hpp"
 
-// many AKEnvelopeGenerators can share a common set of parameters
-struct AKEnvelopeGeneratorParams
+// many AKADSREnvelopeGenerators can share a common set of parameters
+struct AKADSREnvelopeGeneratorParams
 {
     float sampleRateHz;
     float attackSamples, decaySamples, releaseSamples;
     float sustainFraction;    // [0.0, 1.0]
 
-    AKEnvelopeGeneratorParams();
+    AKADSREnvelopeGeneratorParams();
     void init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
     void init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
     void updateSampleRate(float newSampleRateHz);
+    
+    void setAttackTimeSeconds(float attackSeconds) { attackSamples = attackSeconds * sampleRateHz; }
+    float getAttackTimeSeconds() { return attackSamples / sampleRateHz; }
+    void setDecayTimeSeconds(float decaySeconds) { decaySamples = decaySeconds * sampleRateHz; }
+    float getDecayTimeSeconds() { return decaySamples / sampleRateHz; }
+    void setReleaseTimeSeconds(float releaseSeconds) { releaseSamples = releaseSeconds * sampleRateHz; }
+    float getReleaseTimeSeconds() { return releaseSamples / sampleRateHz; }
 };
 
-struct AKEnvelopeGenerator
+struct AKADSREnvelopeGenerator
 {
-    AKEnvelopeGeneratorParams* pParams; // many AKEnvelopeGenerators can share a common set of parameters
+    AKADSREnvelopeGeneratorParams* pParams; // many AKADSREnvelopeGenerators can share a common set of parameters
 
     AKLinearRamper ramper;
     
@@ -89,7 +95,7 @@ struct AKUnityMappingWaveTable: public AKFunctionTable
     void deinit() { pWaveTable = 0; }
 };
 
-struct AKShapedEnvelopeGenerator: public AKEnvelopeGenerator
+struct AKShapedEnvelopeGenerator: public AKADSREnvelopeGenerator
 {
     // Pointers to shape tables
     AKFunctionTable *pAttTbl, *pDecTbl, *pRelTbl;
@@ -110,7 +116,7 @@ struct AKShapedEnvelopeGenerator: public AKEnvelopeGenerator
     
     inline float getSample()
     {
-        float x = AKEnvelopeGenerator::getSample();
+        float x = AKADSREnvelopeGenerator::getSample();
         switch (segment) {
             case kAttack:
                 return pAttTbl->interp_bounded(x);

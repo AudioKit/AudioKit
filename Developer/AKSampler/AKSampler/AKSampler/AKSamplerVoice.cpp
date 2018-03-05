@@ -15,15 +15,15 @@ void AKSamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, f
     oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteHz);
     oscillator.fIncMul = 1.0;
     oscillator.bLooping = pBuf->bLoop;
+    
     noteVol = volume;
     ampEG.start();
-    if (filterEnable)
-    {
-        double sr = (double)sampleRateHz;
-        filterL.updateSampleRate(sr);
-        filterR.updateSampleRate(sr);
-        filterEG.start(true);
-    }
+    
+    double sr = (double)sampleRateHz;
+    filterL.updateSampleRate(sr);
+    filterR.updateSampleRate(sr);
+    filterEG.start(true);
+    
     noteHz = freqHz;
     noteNumber = noteNum;
 }

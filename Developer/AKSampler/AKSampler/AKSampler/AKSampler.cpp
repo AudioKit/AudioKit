@@ -10,14 +10,6 @@
 
 AKSampler::AKSampler()
 : sampleRateHz(44100.0f)    // sensible guess
-, ampAttackTime(0.0f)
-, ampDecayTime(0.0f)
-, ampSustainLevel(1.0f)
-, ampReleaseTime(0.0f)
-, filterAttackTime(0.0f)
-, filterDecayTime(0.0f)
-, filterSustainLevel(1.0f)
-, filterReleaseTime(0.0f)
 , filterEnable(false)
 , masterVolume(1.0f)
 , pitchOffset(0.0f)
@@ -281,16 +273,6 @@ void AKSampler::stop(unsigned noteNumber, bool immediate)
         pVoice->release();
         //printf("Stop note %d release\n", noteNumber);
     }
-}
-
-void AKSampler::updateAmpADSR()
-{
-    ampEGParams.init(ampAttackTime, ampDecayTime, ampSustainLevel, ampReleaseTime);
-}
-
-void AKSampler::updateFilterADSR()
-{
-    filterEGParams.init(filterAttackTime, filterDecayTime, filterSustainLevel, filterReleaseTime);
 }
 
 void AKSampler::Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])

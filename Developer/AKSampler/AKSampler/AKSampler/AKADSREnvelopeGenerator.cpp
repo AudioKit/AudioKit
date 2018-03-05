@@ -1,22 +1,22 @@
 //
-//  AKEnvelopeGenerator.mm
+//  AKADSREnvelopeGenerator.mm
 //  ExtendingAudioKit
 //
 //  Created by Shane Dunne on 2018-02-20.
 //  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
 //
 
-#include "AKEnvelopeGenerator.hpp"
+#include "AKADSREnvelopeGenerator.hpp"
 #include <stdio.h>
 
 
-AKEnvelopeGeneratorParams::AKEnvelopeGeneratorParams()
+AKADSREnvelopeGeneratorParams::AKADSREnvelopeGeneratorParams()
 : sampleRateHz(44100.0f) // a guess, will be overridden later by a call to init(,,,,)
 {
     init(0.0f, 0.0f, 1.0f, 0.0f);
 }
 
-void AKEnvelopeGeneratorParams::init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
+void AKADSREnvelopeGeneratorParams::init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
 {
     attackSamples = attackSeconds * sampleRateHz;
     decaySamples = decaySeconds * sampleRateHz;
@@ -24,13 +24,13 @@ void AKEnvelopeGeneratorParams::init(float attackSeconds, float decaySeconds, fl
     releaseSamples = releaseSeconds * sampleRateHz;
 }
 
-void AKEnvelopeGeneratorParams::init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
+void AKADSREnvelopeGeneratorParams::init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
 {
     sampleRateHz = newSampleRateHz;
     init(attackSeconds, decaySeconds, susFraction, releaseSeconds);
 }
 
-void AKEnvelopeGeneratorParams::updateSampleRate(float newSampleRateHz)
+void AKADSREnvelopeGeneratorParams::updateSampleRate(float newSampleRateHz)
 {
     float scaleFactor = newSampleRateHz / sampleRateHz;
     sampleRateHz = newSampleRateHz;
@@ -40,13 +40,13 @@ void AKEnvelopeGeneratorParams::updateSampleRate(float newSampleRateHz)
 }
 
 
-void AKEnvelopeGenerator::init()
+void AKADSREnvelopeGenerator::init()
 {
     segment = kIdle;
     ramper.init(0.0f);
 }
 
-void AKEnvelopeGenerator::start(bool reset)
+void AKADSREnvelopeGenerator::start(bool reset)
 {
     if (reset || (segment == kIdle))
     {
@@ -62,13 +62,13 @@ void AKEnvelopeGenerator::start(bool reset)
     segment = kAttack;
 }
 
-void AKEnvelopeGenerator::release()
+void AKADSREnvelopeGenerator::release()
 {
     segment = kRelease;
     ramper.reinit(0.0f, pParams->releaseSamples);
 }
 
-void AKEnvelopeGenerator::reset()
+void AKADSREnvelopeGenerator::reset()
 {
     ramper.init(0.0f);
     segment = kIdle;

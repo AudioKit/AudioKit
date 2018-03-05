@@ -30,7 +30,7 @@
 		34E34F722044D787007FF4D1 /* AKSamplerVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F692044D787007FF4D1 /* AKSamplerVoice.cpp */; };
 		34E34F732044D787007FF4D1 /* AKResonantLowPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F6C2044D787007FF4D1 /* AKResonantLowPassFilter.cpp */; };
 		34E34F742044D787007FF4D1 /* AKSampleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F6F2044D787007FF4D1 /* AKSampleBuffer.cpp */; };
-		34E34F752044D787007FF4D1 /* AKEnvelopeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F702044D787007FF4D1 /* AKEnvelopeGenerator.cpp */; };
+		34E34F752044D787007FF4D1 /* AKADSREnvelopeGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34E34F702044D787007FF4D1 /* AKADSREnvelopeGenerator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +65,7 @@
 		34CB8006204B3F3200AD16B8 /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSampler.swift; path = "../Standalone Common/AKSampler.swift"; sourceTree = "<group>"; };
 		34CB8007204B3F3300AD16B8 /* AKSamplerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSamplerAudioUnit.swift; path = "../Standalone Common/AKSamplerAudioUnit.swift"; sourceTree = "<group>"; };
 		34E34F652044D787007FF4D1 /* AKSampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSampleBuffer.hpp; sourceTree = "<group>"; };
-		34E34F662044D787007FF4D1 /* AKEnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKEnvelopeGenerator.hpp; sourceTree = "<group>"; };
+		34E34F662044D787007FF4D1 /* AKADSREnvelopeGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKADSREnvelopeGenerator.hpp; sourceTree = "<group>"; };
 		34E34F672044D787007FF4D1 /* AKResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantLowPassFilter.hpp; sourceTree = "<group>"; };
 		34E34F682044D787007FF4D1 /* AKFunctionTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKFunctionTable.cpp; sourceTree = "<group>"; };
 		34E34F692044D787007FF4D1 /* AKSamplerVoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSamplerVoice.cpp; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		34E34F6D2044D787007FF4D1 /* AKFunctionTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFunctionTable.hpp; sourceTree = "<group>"; };
 		34E34F6E2044D787007FF4D1 /* AKSamplerVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSamplerVoice.hpp; sourceTree = "<group>"; };
 		34E34F6F2044D787007FF4D1 /* AKSampleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSampleBuffer.cpp; sourceTree = "<group>"; };
-		34E34F702044D787007FF4D1 /* AKEnvelopeGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKEnvelopeGenerator.cpp; sourceTree = "<group>"; };
+		34E34F702044D787007FF4D1 /* AKADSREnvelopeGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKADSREnvelopeGenerator.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,19 +177,19 @@
 				34563885204C81B400A1C36C /* AKSampler_Typedefs.h */,
 				34563884204C81A800A1C36C /* AKSampler.hpp */,
 				34403A5B2046006100CD89E1 /* AKSampler.cpp */,
-				34E34F652044D787007FF4D1 /* AKSampleBuffer.hpp */,
-				34E34F6F2044D787007FF4D1 /* AKSampleBuffer.cpp */,
-				34E34F692044D787007FF4D1 /* AKSamplerVoice.cpp */,
-				34E34F6E2044D787007FF4D1 /* AKSamplerVoice.hpp */,
-				34E34F6B2044D787007FF4D1 /* AKLinearRamper.hpp */,
-				34E34F662044D787007FF4D1 /* AKEnvelopeGenerator.hpp */,
-				34E34F702044D787007FF4D1 /* AKEnvelopeGenerator.cpp */,
-				34E34F6D2044D787007FF4D1 /* AKFunctionTable.hpp */,
-				34E34F682044D787007FF4D1 /* AKFunctionTable.cpp */,
-				34E34F672044D787007FF4D1 /* AKResonantLowPassFilter.hpp */,
-				34E34F6C2044D787007FF4D1 /* AKResonantLowPassFilter.cpp */,
 				3456388D204CA2F500A1C36C /* AKSustainPedalLogic.hpp */,
 				3456388C204CA2F500A1C36C /* AKSustainPedalLogic.cpp */,
+				34E34F692044D787007FF4D1 /* AKSamplerVoice.cpp */,
+				34E34F6E2044D787007FF4D1 /* AKSamplerVoice.hpp */,
+				34E34F652044D787007FF4D1 /* AKSampleBuffer.hpp */,
+				34E34F6F2044D787007FF4D1 /* AKSampleBuffer.cpp */,
+				34E34F6D2044D787007FF4D1 /* AKFunctionTable.hpp */,
+				34E34F682044D787007FF4D1 /* AKFunctionTable.cpp */,
+				34E34F6B2044D787007FF4D1 /* AKLinearRamper.hpp */,
+				34E34F662044D787007FF4D1 /* AKADSREnvelopeGenerator.hpp */,
+				34E34F702044D787007FF4D1 /* AKADSREnvelopeGenerator.cpp */,
+				34E34F672044D787007FF4D1 /* AKResonantLowPassFilter.hpp */,
+				34E34F6C2044D787007FF4D1 /* AKResonantLowPassFilter.cpp */,
 			);
 			name = AKSampler;
 			path = ../AKSampler/AKSampler;
@@ -280,7 +280,7 @@
 				34CB8009204B3F3300AD16B8 /* AKSamplerAudioUnit.swift in Sources */,
 				343BEB7C20448089001DFE69 /* bits.c in Sources */,
 				343BEB6B20447FF4001DFE69 /* ViewController.swift in Sources */,
-				34E34F752044D787007FF4D1 /* AKEnvelopeGenerator.cpp in Sources */,
+				34E34F752044D787007FF4D1 /* AKADSREnvelopeGenerator.cpp in Sources */,
 				34E34F722044D787007FF4D1 /* AKSamplerVoice.cpp in Sources */,
 				34CB8008204B3F3300AD16B8 /* AKSampler.swift in Sources */,
 				343BEB7E20448089001DFE69 /* wvfilter.c in Sources */,
