@@ -85,37 +85,29 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             break;
 
         case ampAttackTimeParam:
-            ampAttackTime = value;
-            updateAmpADSR();
+            ampEGParams.setAttackTimeSeconds(value);
             break;
         case ampDecayTimeParam:
-            ampDecayTime = value;
-            updateAmpADSR();
+            ampEGParams.setDecayTimeSeconds(value);
             break;
         case ampSustainLevelParam:
-            ampSustainLevel = value;
-            updateAmpADSR();
+            ampEGParams.sustainFraction = value;
             break;
         case ampReleaseTimeParam:
-            ampReleaseTime = value;
-            updateAmpADSR();
+            ampEGParams.setReleaseTimeSeconds(value);
             break;
 
         case filterAttackTimeParam:
-            filterAttackTime = value;
-            updateFilterADSR();
+            filterEGParams.setAttackTimeSeconds(value);
             break;
         case filterDecayTimeParam:
-            filterDecayTime = value;
-            updateFilterADSR();
+            filterEGParams.setDecayTimeSeconds(value);
             break;
         case filterSustainLevelParam:
-            filterSustainLevel = value;
-            updateFilterADSR();
+            filterEGParams.sustainFraction = value;
             break;
         case filterReleaseTimeParam:
-            filterReleaseTime = value;
-            updateFilterADSR();
+            filterEGParams.setReleaseTimeSeconds(value);
             break;
         case filterEnableParam:
             filterEnable = value > 0.5f;
@@ -137,22 +129,22 @@ float AKSamplerDSP::getParameter(uint64_t address)
             return vibratoDepthRamp.getTarget();
 
         case ampAttackTimeParam:
-            return ampAttackTime;
+            return ampEGParams.getAttackTimeSeconds();
         case ampDecayTimeParam:
-            return ampDecayTime;
+            return ampEGParams.getDecayTimeSeconds();
         case ampSustainLevelParam:
-            return ampSustainLevel;
+            return ampEGParams.sustainFraction;
         case ampReleaseTimeParam:
-            return ampReleaseTime;
+            return ampEGParams.getReleaseTimeSeconds();
 
         case filterAttackTimeParam:
-            return filterAttackTime;
+            return filterEGParams.getAttackTimeSeconds();
         case filterDecayTimeParam:
-            return filterDecayTime;
+            return filterEGParams.getDecayTimeSeconds();
         case filterSustainLevelParam:
-            return filterSustainLevel;
+            return filterEGParams.sustainFraction;
         case filterReleaseTimeParam:
-            return filterReleaseTime;
+            return filterEGParams.getReleaseTimeSeconds();
         case filterEnableParam:
             return filterEnable ? 1.0f : 0.0f;
     }

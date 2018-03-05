@@ -49,18 +49,16 @@ protected:
     AKSustainPedalLogic pedalLogic;
     
     // simple parameters
-    float ampAttackTime, ampDecayTime, ampSustainLevel, ampReleaseTime;
-    float filterAttackTime, filterDecayTime, filterSustainLevel, filterReleaseTime;
+    //float ampAttackTime, ampDecayTime, ampSustainLevel, ampReleaseTime;
+    //float filterAttackTime, filterDecayTime, filterSustainLevel, filterReleaseTime;
     bool filterEnable;
-    AKEnvelopeGeneratorParams ampEGParams;
-    AKEnvelopeGeneratorParams filterEGParams;
+    AKADSREnvelopeGeneratorParams ampEGParams;
+    AKADSREnvelopeGeneratorParams filterEGParams;
     
     // performance parameters
     float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple;
     
     // helper functions
-    void updateAmpADSR();
-    void updateFilterADSR();
     AKSamplerVoice* voicePlayingNote(unsigned noteNumber);
     AKMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
     void play(unsigned noteNumber, unsigned velocity, float noteHz);

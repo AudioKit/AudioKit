@@ -9,7 +9,7 @@
 #include <math.h>
 
 #include "AKSampleBuffer.hpp"
-#include "AKEnvelopeGenerator.hpp"
+#include "AKADSREnvelopeGenerator.hpp"
 
 struct AKSampleOscillator
 {
@@ -64,7 +64,7 @@ struct AKSamplerVoice
 #ifdef USE_EXPONENTIAL_ENVELOPES
     AKShapedEnvelopeGenerator ampEG, filterEG;    // and two envelope generators
 #else
-    AKEnvelopeGenerator ampEG, filterEG;
+    AKADSREnvelopeGenerator ampEG, filterEG;
 #endif
     
     int noteNumber;     // MIDI note number, or -1 if not playing any note
