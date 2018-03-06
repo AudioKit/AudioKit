@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
 
-We ensure all the included projects build by automatically testing them using Travis Continuous Integration.  We use unit tests to ensure that the nodes and operations in AudioKit work perfectly.  If a change is made to AudioKit to breaks something, we're automatically emailed.
+We use Travis Continuous Integration to ensure that all included projects build.  We use unit tests to ensure that the nodes and operations in AudioKit work perfectly.  If a change to AudioKit breaks something, we're automatically emailed.
 
 Running the tests verifies the following test cases:
 <table>
