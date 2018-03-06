@@ -209,7 +209,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     @objc public init(
         _ input: AKNode? = nil,
         masterVolume: Double = 1.0,
-        pitchBend: Double = 1.0,
+        pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         filterCutoff: Double = 1000.0,
         ampAttackTime: Double = 0.0,
