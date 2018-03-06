@@ -70,8 +70,6 @@ extension ViewController: AKMIDIListener {
     
     // MIDI Setup Change
     func receivedMIDISetupChange() {
-        @IBAction func onFilterEnableCheckChange(_ sender: NSButton) {
-        }
         print("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
         let inputNames = conductor.midi.inputNames
         inputNames.forEach { inputName in
