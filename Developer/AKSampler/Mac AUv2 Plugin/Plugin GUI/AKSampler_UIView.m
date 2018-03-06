@@ -13,6 +13,7 @@
 AudioUnitParameter parameter[] = {
     { 0, kMasterVolumeFraction, kAudioUnitScope_Global, 0 },
     { 0, kPitchOffsetSemitones, kAudioUnitScope_Global, 0 },
+    { 0, kVibratoDepthSemitones, kAudioUnitScope_Global, 0 },
     { 0, kFilterEnable, kAudioUnitScope_Global, 0 },
     { 0, kFilterCutoffHarmonic, kAudioUnitScope_Global, 0 },
     { 0, kAmpEgAttackTimeSeconds, kAudioUnitScope_Global, 0 },

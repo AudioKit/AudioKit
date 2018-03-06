@@ -25,9 +25,6 @@ class Conductor {
 
     var semitoneOffset = 0
     
-    // Point this to wherever you keep your samples folder
-    let baseURL = URL(fileURLWithPath: "/Users/shane/Desktop/Compressed Sounds")
-
     init() {
 
         // MIDI Configure
