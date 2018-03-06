@@ -39,22 +39,6 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 {
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
-    
-//    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
-//    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
-//    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
-//    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
-//    Globals()->SetParameter(kFilterEnable, 0.0f);
-//
-//    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.01f);
-//    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.1f);
-//    Globals()->SetParameter(kAmpEgSustainFraction, 0.8f);
-//    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.5f);
-//
-//    Globals()->SetParameter(kFilterEgAttackTimeSeconds, 0.0f);
-//    Globals()->SetParameter(kFilterEgDecayTimeSeconds, 0.0f);
-//    Globals()->SetParameter(kFilterEgSustainFraction, 1.0f);
-//    Globals()->SetParameter(kFilterEgReleaseTimeSeconds, 0.0f);
 }
 
 AKSampler_Plugin::~AKSampler_Plugin()
@@ -77,9 +61,11 @@ OSStatus AKSampler_Plugin::Initialize()
     const char* samplePrefix = "TX LoTine81z/TX LoTine81z_ms";
     AKSampleFileDescriptor sfd;
     sfd.path = pathBuffer;
-    sfd.sd.bLoop = true;
-    sfd.sd.fStart = sfd.sd.fLoopStart = 0.0f;
-    sfd.sd.fEnd = sfd.sd.fLoopEnd = 0.0f;
+    sfd.sd.bLoop = false;    // set true to test looping with fractional endpoints
+    sfd.sd.fStart = 0.0;
+    sfd.sd.fLoopStart = 0.2f;
+    sfd.sd.fLoopEnd = 0.3f;
+    sfd.sd.fEnd = 0.0f;
     
     sfd.sd.noteNumber = 48;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
@@ -185,19 +171,6 @@ OSStatus AKSampler_Plugin::Initialize()
     ampEGParams.setDecayTimeSeconds(0.1f);
     ampEGParams.sustainFraction = 0.8f;
     ampEGParams.setReleaseTimeSeconds(0.5f);
-    
-//    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
-//    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
-//    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
-//
-//    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
-//    Globals()->SetParameter(kFilterEnable, 0.0f);
-//
-//    Globals()->SetParameter(kAmpEgAttackTimeSeconds, ampAttackTime = 0.01f);
-//    Globals()->SetParameter(kAmpEgDecayTimeSeconds, ampDecayTime = 0.1f);
-//    Globals()->SetParameter(kAmpEgSustainFraction, ampSustainLevel = 0.8f);
-//    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, ampReleaseTime = 0.5f);
-//    updateAmpADSR();
     
     return noErr;
 }
