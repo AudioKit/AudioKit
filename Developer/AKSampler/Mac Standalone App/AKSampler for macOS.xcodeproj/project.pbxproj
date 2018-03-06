@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3404A733204DFA9D00A2C9E4 /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A732204DFA9D00A2C9E4 /* AKSampler+SFZ.swift */; };
+		3404A735204EDECE00A2C9E4 /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A734204EDECD00A2C9E4 /* AKSampler+SFZ.swift */; };
 		343BEB6B20447FF4001DFE69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEB6220447FF4001DFE69 /* ViewController.swift */; };
 		343BEB6C20447FF4001DFE69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343BEB6320447FF4001DFE69 /* AppDelegate.swift */; };
 		343BEB6D20447FF4001DFE69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 343BEB6520447FF4001DFE69 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3404A732204DFA9D00A2C9E4 /* AKSampler+SFZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SFZ.swift"; sourceTree = "<group>"; };
+		3404A734204EDECD00A2C9E4 /* AKSampler+SFZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AKSampler+SFZ.swift"; path = "../Standalone Common/AKSampler+SFZ.swift"; sourceTree = "<group>"; };
 		340868772035F69E00ADEB55 /* AKSampler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKSampler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		340868E1203B3EB800ADEB55 /* AKSampler-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AKSampler-Bridging-Header.h"; sourceTree = "<group>"; };
 		343BEB6020447FF3001DFE69 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -154,6 +154,7 @@
 		343BEBC020449A76001DFE69 /* Source: Audio Unit */ = {
 			isa = PBXGroup;
 			children = (
+				3404A734204EDECD00A2C9E4 /* AKSampler+SFZ.swift */,
 				34CB8006204B3F3200AD16B8 /* AKSampler.swift */,
 				34CB8007204B3F3300AD16B8 /* AKSamplerAudioUnit.swift */,
 				343BEC152044AF17001DFE69 /* AKSamplerDSP.hpp */,
@@ -165,7 +166,6 @@
 		343BEBC120449AB6001DFE69 /* Source: Mac App */ = {
 			isa = PBXGroup;
 			children = (
-				3404A732204DFA9D00A2C9E4 /* AKSampler+SFZ.swift */,
 				343BEB6320447FF4001DFE69 /* AppDelegate.swift */,
 				343BEB6220447FF4001DFE69 /* ViewController.swift */,
 				343BEB6820447FF4001DFE69 /* Conductor.swift */,
@@ -288,7 +288,7 @@
 				34CB8008204B3F3300AD16B8 /* AKSampler.swift in Sources */,
 				343BEB7E20448089001DFE69 /* wvfilter.c in Sources */,
 				34403A5D2046006100CD89E1 /* AKSampler.cpp in Sources */,
-				3404A733204DFA9D00A2C9E4 /* AKSampler+SFZ.swift in Sources */,
+				3404A735204EDECE00A2C9E4 /* AKSampler+SFZ.swift in Sources */,
 				343BEB7920448089001DFE69 /* wputils.c in Sources */,
 				343BEC172044AF17001DFE69 /* AKSamplerDSP.mm in Sources */,
 				343BEB7D20448089001DFE69 /* float.c in Sources */,

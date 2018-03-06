@@ -72,14 +72,15 @@ void AKSampler::loadSampleData(AKSampleDataDescriptor& sdd)
     if (sdd.sd.fEnd > 0.0f)   pBuf->fEnd = sdd.sd.fEnd;
     
     pBuf->bLoop = sdd.sd.bLoop;
-    if (sdd.sd.fLoopStart > 0.0f)
-        pBuf->fLoopStart = sdd.sd.fLoopStart;
-    else if (sdd.sd.bLoop)
-        pBuf->fLoopStart = pBuf->fEnd * 0.25;   // testing
-    if (sdd.sd.fLoopEnd > 0.0f)
-        pBuf->fLoopEnd = sdd.sd.fLoopEnd;
-    else if (sdd.sd.bLoop)
-        pBuf->fLoopEnd = pBuf->fEnd * 0.75;     // testing
+    if (pBuf->bLoop)
+    {
+        // fLoopStart, fLoopEnd are usually sample indices, but values 0.0-1.0
+        // are interpreted as fractions of the total sample length.
+        if (sdd.sd.fLoopStart > 1.0f) pBuf->fLoopStart = sdd.sd.fLoopStart;
+        else pBuf->fLoopStart = pBuf->fEnd * sdd.sd.fLoopStart;
+        if (sdd.sd.fLoopEnd > 1.0f) pBuf->fLoopEnd = sdd.sd.fLoopEnd;
+        else pBuf->fLoopEnd = pBuf->fEnd * sdd.sd.fLoopEnd;
+    }
 }
 
 void AKSampler::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)

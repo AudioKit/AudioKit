@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3404A737204EDEE300A2C9E4 /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A736204EDEE200A2C9E4 /* AKSampler+SFZ.swift */; };
 		343BEBE22044A17E001DFE69 /* wputils.c in Sources */ = {isa = PBXBuildFile; fileRef = 343BEBDA2044A17E001DFE69 /* wputils.c */; };
 		343BEBE32044A17E001DFE69 /* words.c in Sources */ = {isa = PBXBuildFile; fileRef = 343BEBDC2044A17E001DFE69 /* words.c */; };
 		343BEBE42044A17E001DFE69 /* unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 343BEBDD2044A17E001DFE69 /* unpack.c */; };
@@ -49,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3404A736204EDEE200A2C9E4 /* AKSampler+SFZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AKSampler+SFZ.swift"; path = "../Standalone Common/AKSampler+SFZ.swift"; sourceTree = "<group>"; };
 		3429F97F201A25AB00300166 /* AKSampler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKSampler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		343BEBDA2044A17E001DFE69 /* wputils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wputils.c; sourceTree = "<group>"; };
 		343BEBDB2044A17E001DFE69 /* wavpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wavpack.h; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		343BEC002044A2E3001DFE69 /* Source: Audio Unit */ = {
 			isa = PBXGroup;
 			children = (
+				3404A736204EDEE200A2C9E4 /* AKSampler+SFZ.swift */,
 				34E34F792044DA48007FF4D1 /* AKSampler.swift */,
 				34E34F762044DA48007FF4D1 /* AKSamplerAudioUnit.swift */,
 				34E34F782044DA48007FF4D1 /* AKSamplerDSP.hpp */,
@@ -292,6 +295,7 @@
 				343BEBE22044A17E001DFE69 /* wputils.c in Sources */,
 				34E34F8E2044DAF4007FF4D1 /* AKResonantLowPassFilter.cpp in Sources */,
 				343BEBE32044A17E001DFE69 /* words.c in Sources */,
+				3404A737204EDEE300A2C9E4 /* AKSampler+SFZ.swift in Sources */,
 				34E34F8F2044DAF4007FF4D1 /* AKSampleBuffer.cpp in Sources */,
 				343BEBFB2044A286001DFE69 /* AppDelegate.swift in Sources */,
 				34563891204CA31700A1C36C /* AKSustainPedalLogic.cpp in Sources */,

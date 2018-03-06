@@ -57,9 +57,13 @@ class Conductor {
     
     private func setupSampler()
     {
-        // uncomment only one of the following two lines
-        //sampler.loadCompressedFiles()
-        sampler.loadSFZ()
+        // Example (below) of loading compressed sample files without a SFZ file
+        //loadAndMapCompressedSampleFiles()
+        
+        // Preferred method: use SFZ file
+        // You can download a small set of ready-to-use SFZ files and samples from
+        // http://getdunne.net/download/ROMPlayer_Instruments.zip
+        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX LoTine81z.sfz")
 
         sampler.ampAttackTime = 0.01
         sampler.ampDecayTime = 0.1
@@ -74,16 +78,6 @@ class Conductor {
 //        sampler.filterReleaseTime = 10.0
     }
     
-    private func loadCompressed(noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
-                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1)
-    {
-        let folderURL = baseURL.appendingPathComponent(folderName)
-        let fileName = folderName + fileEnding
-        let fileURL = folderURL.appendingPathComponent(fileName)
-        let sd = AKSampleDescriptor(noteNumber: Int32(noteNumber), noteHz: Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)), min_note: min_note, max_note: max_note, min_vel: min_vel, max_vel: max_vel, bLoop: true, fLoopStart: 0.0, fLoopEnd: 0.0, fStart: 0.0, fEnd: 0.0)
-        sampler.loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: fileURL.path))
-    }
-
     func addMIDIListener(_ listener: AKMIDIListener) {
         midi.addListener(listener)
     }
@@ -144,4 +138,67 @@ class Conductor {
         }
     }
 
+}
+
+extension Conductor
+{
+    private func loadCompressed(baseURL: URL, noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
+                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1)
+    {
+        let folderURL = baseURL.appendingPathComponent(folderName)
+        let fileName = folderName + fileEnding
+        let fileURL = folderURL.appendingPathComponent(fileName)
+        let sd = AKSampleDescriptor(noteNumber: Int32(noteNumber),
+                                    noteHz: Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)),
+                                    min_note: min_note, max_note: max_note, min_vel: min_vel, max_vel: max_vel,
+                                    // test looping based on fractional start/end values
+                                    bLoop: true, fLoopStart: 0.2, fLoopEnd: 0.3, fStart: 0.0, fEnd: 0.0)
+        sampler.loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: fileURL.path))
+    }
+    
+    func loadAndMapCompressedSampleFiles()
+    {
+        let info = ProcessInfo.processInfo
+        let begin = info.systemUptime
+        
+        // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
+        // Uncompress and put folder inside wherever baseURL (see above) points
+        
+        let baseURL = URL(fileURLWithPath: "/Users/shane/Desktop/Compressed Sounds")
+        let folderName = "TX LoTine81z"
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 48, folderName: folderName, fileEnding: "_ms2_048_c2.wv", min_note: 0, max_note: 51, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 48, folderName: folderName, fileEnding: "_ms1_048_c2.wv", min_note: 0, max_note: 51, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 48, folderName: folderName, fileEnding: "_ms0_048_c2.wv", min_note: 0, max_note: 51, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 54, folderName: folderName, fileEnding: "_ms2_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 54, folderName: folderName, fileEnding: "_ms1_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 54, folderName: folderName, fileEnding: "_ms0_054_f#2.wv", min_note: 52, max_note: 57, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 60, folderName: folderName, fileEnding: "_ms2_060_c3.wv", min_note: 58, max_note: 63, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 60, folderName: folderName, fileEnding: "_ms1_060_c3.wv", min_note: 58, max_note: 63, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 60, folderName: folderName, fileEnding: "_ms0_060_c3.wv", min_note: 58, max_note: 63, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 66, folderName: folderName, fileEnding: "_ms2_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 66, folderName: folderName, fileEnding: "_ms1_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 66, folderName: folderName, fileEnding: "_ms0_066_f#3.wv", min_note: 64, max_note: 69, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 72, folderName: folderName, fileEnding: "_ms2_072_c4.wv", min_note: 70, max_note: 75, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 72, folderName: folderName, fileEnding: "_ms1_072_c4.wv", min_note: 70, max_note: 75, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 72, folderName: folderName, fileEnding: "_ms0_072_c4.wv", min_note: 70, max_note: 75, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 78, folderName: folderName, fileEnding: "_ms2_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 78, folderName: folderName, fileEnding: "_ms1_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 78, folderName: folderName, fileEnding: "_ms0_078_f#4.wv", min_note: 76, max_note: 81, min_vel: 87, max_vel: 127)
+        
+        loadCompressed(baseURL: baseURL, noteNumber: 84, folderName: folderName, fileEnding: "_ms2_084_c5.wv", min_note: 82, max_note: 127, min_vel: 0, max_vel: 43)
+        loadCompressed(baseURL: baseURL, noteNumber: 84, folderName: folderName, fileEnding: "_ms1_084_c5.wv", min_note: 82, max_note: 127, min_vel: 44, max_vel: 86)
+        loadCompressed(baseURL: baseURL, noteNumber: 84, folderName: folderName, fileEnding: "_ms0_084_c5.wv", min_note: 82, max_note: 127, min_vel: 87, max_vel: 127)
+        
+        sampler.buildKeyMap()
+        
+        let elapsedTime = info.systemUptime - begin
+        print("Time to load samples \(elapsedTime) seconds")
+    }
 }
