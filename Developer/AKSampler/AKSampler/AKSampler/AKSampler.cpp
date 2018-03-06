@@ -40,10 +40,7 @@ int AKSampler::init(double sampleRate)
 
 void AKSampler::deinit()
 {
-    for (std::list<AKMappedSampleBuffer*>::iterator it=sampleBufferList.begin();
-         it != sampleBufferList.end();
-         ++it)
-        delete *it;
+    for (AKMappedSampleBuffer* pBuf : sampleBufferList) delete pBuf;
     sampleBufferList.clear();
     for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
 }
