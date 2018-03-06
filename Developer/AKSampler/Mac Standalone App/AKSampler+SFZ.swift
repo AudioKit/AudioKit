@@ -71,9 +71,10 @@ extension AKSampler
     func loadSFZ()
     {
         // set these according to your own data
-        let folderPath = "/Users/shane/Documents/GitHub/ROMPlayer/RomPlayer/Sounds/Sampler Instruments"
-        let sfzFileName = "LoTineComp.sfz"
-        
+        //let folderPath = "/Users/shane/Documents/GitHub/ROMPlayer/RomPlayer/Sounds/Sampler Instruments"
+        let folderPath = "/Users/shane/Documents/GitHub/SuperFM/FMPlayer/Sounds/Sampler Instruments"
+        let sfzFileName = "DX E Piano 1.sfz"
+
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
 
@@ -83,6 +84,9 @@ extension AKSampler
         var lovel: Int32 = 0
         var hivel: Int32 = 127
         var sample: String = ""
+        var loopmode: String = ""
+        var loopstart: Float32 = 0
+        var loopend: Float32 = 0
         
         let baseURL = URL(fileURLWithPath: folderPath)
         let sfzURL = baseURL.appendingPathComponent(sfzFileName)
@@ -97,9 +101,10 @@ extension AKSampler
                 }
                 if trimmed.hasPrefix("<group>") {
                     // parse a <group> line
-                    let start = trimmed.index(trimmed.startIndex, offsetBy: 7)
-                    let parts = trimmed[start...].components(separatedBy: .whitespaces)
-                    for part in parts {
+                    lokey = 0
+                    hikey = 127
+                    pitch = 60
+                    for part in trimmed.dropFirst(7).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("lokey") {
                             lokey = Int32(part.components(separatedBy: "=")[1])!
                         }
@@ -113,14 +118,27 @@ extension AKSampler
                 }
                 if trimmed.hasPrefix("<region>") {
                     // parse a <region> line
-                    let start = trimmed.index(trimmed.startIndex, offsetBy: 8)
-                    let parts = trimmed[start...].components(separatedBy: .whitespaces)
-                    for part in parts {
+                    lovel = 0
+                    hivel = 127
+                    sample = ""
+                    loopmode = ""
+                    loopstart = 0
+                    loopend = 0
+                    for part in trimmed.dropFirst(8).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("lovel") {
                             lovel = Int32(part.components(separatedBy: "=")[1])!
                         }
                         else if part.hasPrefix("hivel") {
                             hivel = Int32(part.components(separatedBy: "=")[1])!
+                        }
+                        else if part.hasPrefix("loop_mode") {
+                            loopmode = part.components(separatedBy: "=")[1]
+                        }
+                        else if part.hasPrefix("loop_start") {
+                            loopstart = Float32(part.components(separatedBy: "=")[1])!
+                        }
+                        else if part.hasPrefix("loop_end") {
+                            loopend = Float32(part.components(separatedBy: "=")[1])!
                         }
                         else if part.hasPrefix("sample") {
                             sample = trimmed.components(separatedBy: "sample=")[1]
@@ -130,14 +148,32 @@ extension AKSampler
                     let noteFreq = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(pitch)))
                     print("load \(pitch) \(noteFreq) Hz range \(lokey)-\(hikey) vel \(lovel)-\(hivel) \(sample)")
                     
-                    let sd = AKSampleDescriptor(noteNumber: pitch, noteHz: noteFreq, min_note: lokey, max_note: hikey, min_vel: lovel, max_vel: hivel, bLoop: true, fLoopStart: 0.0, fLoopEnd: 0.0, fStart: 0.0, fEnd: 0.0)
+                    let sd = AKSampleDescriptor(noteNumber: pitch,
+                                                noteHz: noteFreq,
+                                                min_note: lokey,
+                                                max_note: hikey,
+                                                min_vel: lovel,
+                                                max_vel: hivel,
+                                                bLoop: loopmode != "",
+                                                fLoopStart: loopstart,
+                                                fLoopEnd: loopend,
+                                                fStart: 0.0,
+                                                fEnd: 0.0)
                     let sampleFileURL = baseURL.appendingPathComponent(sample)
-                    if sample.hasSuffix(".wv")
-                    {
+                    if sample.hasSuffix(".wv") {
                         loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: sampleFileURL.path))
                     } else {
-                        let sampleFile = try AKAudioFile(forReading: sampleFileURL)
-                        loadAKAudioFile(sd: sd, file: sampleFile)
+                        if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
+                            let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
+                            let fileMgr = FileManager.default
+                            if fileMgr.fileExists(atPath: compressedFileURL.path) {
+                                loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: compressedFileURL.path))
+                            }
+                            else {
+                                let sampleFile = try AKAudioFile(forReading: sampleFileURL)
+                                loadAKAudioFile(sd: sd, file: sampleFile)
+                            }
+                        }
                     }
                 }
             }
