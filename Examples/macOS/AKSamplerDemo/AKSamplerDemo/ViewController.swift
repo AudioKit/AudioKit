@@ -15,6 +15,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     let conductor = Conductor.shared
     let sampler = Conductor.shared.sampler
     
+    @IBOutlet weak var sampleSetPopup: NSPopUpButton!
+    
     @IBOutlet weak var masterVolumeSlider: NSSlider!
     @IBOutlet weak var masterVolumeReadout: NSTextField!
     @IBOutlet weak var pitchOffsetSlider: NSSlider!
@@ -49,6 +51,12 @@ class ViewController: NSViewController, NSWindowDelegate {
         
         conductor.midi.addListener(self)
         
+        sampleSetPopup.removeAllItems()
+        sampleSetPopup.addItem(withTitle: "Brass")
+        sampleSetPopup.addItem(withTitle: "LoTine")
+        sampleSetPopup.addItem(withTitle: "Metalimba")
+        sampleSetPopup.addItem(withTitle: "Pluck Brass")
+
         sampler.filterCutoff = 100.0
         
         masterVolumeSlider.intValue = Int32(100 * sampler.masterVolume)
@@ -87,6 +95,10 @@ class ViewController: NSViewController, NSWindowDelegate {
     func windowShouldClose(_ sender: NSWindow) -> Bool {
         NSApplication.shared.terminate(self)
         return true
+    }
+    
+    @IBAction func onSampleSetSelect(_ sender: NSPopUpButton) {
+        conductor.loadSamples(byIndex: sender.indexOfSelectedItem)
     }
     
     @IBAction func onVolumeSliderChange(_ sender: NSSlider) {

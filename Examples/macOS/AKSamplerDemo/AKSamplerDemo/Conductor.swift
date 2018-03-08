@@ -60,7 +60,7 @@ class Conductor {
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
         // http://getdunne.net/download/ROMPlayer_Instruments.zip
-        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX LoTine81z.sfz")
+        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX Brass.sfz")
         
         sampler.ampAttackTime = 0.01
         sampler.ampDecayTime = 0.1
@@ -91,6 +91,20 @@ class Conductor {
     func openMIDIInput(byIndex: Int) {
         midi.closeAllInputs()
         midi.openInput(midi.inputNames[byIndex])
+    }
+    
+    func loadSamples(byIndex: Int) {
+        if byIndex < 0 || byIndex > 3 { return }
+        
+        let info = ProcessInfo.processInfo
+        let begin = info.systemUptime
+        
+        let sfzFiles = [ "TX Brass.sfz" , "TX LoTine81z.sfz", "TX Metalimba.sfz", "TX Pluck Bass.sfz" ]
+        sampler.unloadAllSamples()
+        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: sfzFiles[byIndex])
+
+        let elapsedTime = info.systemUptime - begin
+        print("Time to load samples \(elapsedTime) seconds")
     }
     
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
