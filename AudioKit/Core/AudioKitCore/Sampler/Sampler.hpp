@@ -26,8 +26,8 @@ namespace AudioKitCore
         Sampler();
         ~Sampler();
         
-        int init(double sampleRate);        // returns system error code, nonzero only if a problem occurs
-        void deinit();
+        int init(double sampleRate);    // returns system error code, nonzero only if a problem occurs
+        void deinit();                  // call this to un-load all samples and clear the keymap
         
         // call these to load samples
         void loadSampleData(AKSampleDataDescriptor& sdd);
@@ -67,7 +67,7 @@ namespace AudioKitCore
         ADSREnvelopeParams filterEGParams;
         
         // performance parameters
-        float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple;
+        float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple, resonanceDb;
         
         // helper functions
         SamplerVoice* voicePlayingNote(unsigned noteNumber);

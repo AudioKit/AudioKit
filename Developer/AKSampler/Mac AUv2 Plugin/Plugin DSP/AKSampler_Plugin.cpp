@@ -17,6 +17,7 @@ static const CFStringRef paramName[] =
     CFSTR("Vibrato Depth"),
     CFSTR("Filter Enable"),
     CFSTR("Filter Cutoff"),
+    CFSTR("Filter Resonance"),
     
     CFSTR("Amp EG Attack"),
     CFSTR("Amp EG Decay"),
@@ -45,7 +46,8 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
     Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
     Globals()->SetParameter(kFilterEnable, 0.0f);
     Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
-    
+    Globals()->SetParameter(kFilterResonanceDb, 0.0f);
+
     Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.0f);
     Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.0f);
     Globals()->SetParameter(kAmpEgSustainFraction, 1.0f);
@@ -317,6 +319,14 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.defaultValue = 1000.0;
             break;
     
+        case kFilterResonanceDb:
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterResonanceDb], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Decibels;
+            outParameterInfo.minValue = 0.0;
+            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.defaultValue = 0.0;
+            break;
+            
         case kAmpEgAttackTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgAttackTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -417,6 +427,10 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             
         case kFilterCutoffHarmonic:
             cutoffMultiple = inValue;
+            break;
+            
+        case kFilterResonanceDb:
+            resonanceDb = inValue;
             break;
             
         case kAmpEgAttackTimeSeconds:
