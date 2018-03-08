@@ -1,6 +1,9 @@
 # AudioKit Core
 
-This directory is stores the platform-independent code of AudioKit. 
+This directory stores the platform-independent code of AudioKit. 
+
+## AudioKitCore
+C++ building-block classes developed by the AudioKit core group. All C++ code here lives in the *AudioKitCore* namespace.
 
 ## Devoloop
 
@@ -17,3 +20,7 @@ Paul Batchelor's stack based DSP programming language, used as the basis for Aud
 ## STK
 
 Stanford's Synthesis Toolkit library, mostly used for physical models.
+
+## WavPack
+
+A subset of David Bryant's [WavPack](http://www.wavpack.com/) audio-compression library, specifically the "tiny decoder" for un-compressing files previously compressed using the main WavPack command-line utility. Primarily used by **AKSampler**.
