@@ -1,10 +1,10 @@
 #include "AUInstrumentBase.h"
-#include "AKSampler.hpp"
+#include "Sampler.hpp"
 
 #define kAKSamplerVersion   0x00010000
 #define kAKSamplerSubtype   'aksp'
 
-class AKSampler_Plugin : public AUInstrumentBase, public AKSampler
+class AKSampler_Plugin : public AUInstrumentBase, public AudioKitCore::Sampler
 {
 public:
 	AKSampler_Plugin(AudioUnit inComponentInstance);

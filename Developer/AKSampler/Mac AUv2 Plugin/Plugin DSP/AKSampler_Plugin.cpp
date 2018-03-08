@@ -35,10 +35,26 @@ static const CFStringRef paramName[] =
 
 AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 	: AUInstrumentBase(inComponentInstance, 0, 1)    // 0 inputs, 1 output
-    , AKSampler()
+    , AudioKitCore::Sampler()
 {
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
+    
+    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
+    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
+    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
+    Globals()->SetParameter(kFilterEnable, 0.0f);
+    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
+    
+    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.0f);
+    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.0f);
+    Globals()->SetParameter(kAmpEgSustainFraction, 1.0f);
+    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.0f);
+    
+    Globals()->SetParameter(kFilterEgAttackTimeSeconds, 0.0f);
+    Globals()->SetParameter(kFilterEgDecayTimeSeconds, 0.0f);
+    Globals()->SetParameter(kFilterEgSustainFraction, 1.0f);
+    Globals()->SetParameter(kFilterEgReleaseTimeSeconds, 0.0f);
 }
 
 AKSampler_Plugin::~AKSampler_Plugin()
@@ -48,8 +64,8 @@ AKSampler_Plugin::~AKSampler_Plugin()
 OSStatus AKSampler_Plugin::Initialize()
 {
 	AUInstrumentBase::Initialize();
-    AKSampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
-    printf("AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
+    AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
+    printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
     
     // Download http://getdunne.com/download/TX_LoTine81z.zip
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
@@ -161,24 +177,33 @@ OSStatus AKSampler_Plugin::Initialize()
     buildKeyMap();
     
     masterVolume = 1.0f;
+    Globals()->SetParameter(kMasterVolumeFraction, masterVolume);
     pitchOffset = 0.0f;
+    Globals()->SetParameter(kPitchOffsetSemitones, pitchOffset);
     vibratoDepth = 0.0f;
+    Globals()->SetParameter(kVibratoDepthSemitones, vibratoDepth);
     
     cutoffMultiple = 1000.0f;
+    Globals()->SetParameter(kFilterCutoffHarmonic, cutoffMultiple);
     filterEnable = false;
+    Globals()->SetParameter(kFilterEnable, 0.0f);
     
     ampEGParams.setAttackTimeSeconds(0.01f);
+    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.01f);
     ampEGParams.setDecayTimeSeconds(0.1f);
+    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.1f);
     ampEGParams.sustainFraction = 0.8f;
+    Globals()->SetParameter(kAmpEgSustainFraction, 0.8f);
     ampEGParams.setReleaseTimeSeconds(0.5f);
-    
+    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.5f);
+
     return noErr;
 }
 
 void AKSampler_Plugin::Cleanup()
 {
-    AKSampler::deinit();
-    printf("AKSampler_Plugin::Cleanup\n");
+    AudioKitCore::Sampler::deinit();
+    printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
 }
 
 OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inPropertyID,
@@ -453,7 +478,7 @@ OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, con
         // Any ramping parameters would be updated here...
         
         unsigned channelCount = outputBufList.mNumberBuffers;
-        AKSampler::Render(channelCount, chunkSize, outBuffers);
+        AudioKitCore::Sampler::Render(channelCount, chunkSize, outBuffers);
         
         outBuffers[0] += CHUNKSIZE;
         outBuffers[1] += CHUNKSIZE;
