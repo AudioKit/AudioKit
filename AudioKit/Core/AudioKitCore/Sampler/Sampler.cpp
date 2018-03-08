@@ -25,6 +25,7 @@ namespace AudioKitCore {
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
     , cutoffMultiple(30.0f)
+    , resonanceDb(0.0f)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
@@ -297,7 +298,7 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul) ||
+                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, resonanceDb) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

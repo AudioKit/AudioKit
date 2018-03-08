@@ -36,6 +36,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterCutoffParam, value: filterCutoff) }
     }
     
+    var filterResonance: Double = 0.0 {
+        didSet { setParameter(.filterResonanceParam, value: filterResonance) }
+    }
+    
     var rampTime: Double = 0.0 {
         didSet { setParameter(.rampTimeParam, value: rampTime) }
     }
@@ -121,6 +125,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 unit: .ratio, unitName: nil,
                                                                 flags: rampFlags,
                                                                 valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterResonanceParam = AUParameterTree.createParameter(withIdentifier: "filterResonance",
+                                                                name: "Filter resonance (dB))",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 1.0, max: 10.0,
+                                                                unit: .decibels, unitName: nil,
+                                                                flags: rampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
 
         paramAddress += 1
         let ampAttackTimeParam = AUParameterTree.createParameter(withIdentifier: "ampAttackTime",
@@ -195,8 +207,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                      flags: nonRampFlags,
                                                                      valueStrings: nil, dependentParameters: nil)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam,
-                                                                   vibratoDepthParam, filterCutoffParam,
+        setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
+                                                                   filterCutoffParam, filterResonanceParam,
                                                                    ampAttackTimeParam, ampDecayTimeParam,
                                                                    ampSustainLevelParam, ampReleaseTimeParam,
                                                                    filterAttackTimeParam, filterDecayTimeParam,
@@ -206,6 +218,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         pitchBendParam.value = 0.0
         vibratoDepthParam.value = 0.0
         filterCutoffParam.value = 1000.0
+        filterResonanceParam.value = 0.0
         ampAttackTimeParam.value = 0.0
         ampDecayTimeParam.value = 0.0
         ampSustainLevelParam.value = 1.0
@@ -229,6 +242,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerLoadCompressedFile(pDSP, &sfd_copy)
     }
     
+    public func unloadAllSamples() {
+        doAKSamplerUnloadAllSamples(pDSP);
+    }
+    
     public func buildSimpleKeyMap() {
         doAKSamplerBuildSimpleKeyMap(pDSP)
     }
@@ -238,12 +255,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
     
     public func playNote(noteNumber: UInt8, velocity: UInt8, noteHz: Float) {
-        //print("playNote \(noteNumber)")
         doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteHz)
     }
     
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
-        //print("stopNote \(noteNumber)")
         doAKSamplerStopNote(pDSP, noteNumber, immediate)
     }
     

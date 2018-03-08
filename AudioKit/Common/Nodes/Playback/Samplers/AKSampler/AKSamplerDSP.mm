@@ -21,6 +21,11 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
     ((AKSamplerDSP*)pDSP)->loadCompressedSampleFile(*pSFD);
 }
 
+extern "C" void doAKSamplerUnloadAllSamples(void* pDSP)
+{
+    ((AKSamplerDSP*)pDSP)->deinit();
+}
+
 extern "C" void doAKSamplerBuildSimpleKeyMap(void* pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
@@ -51,18 +56,17 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
     filterCutoffRamp.setTarget(1000.0, true);
+    filterResonanceRamp.setTarget(0.0, true);
 }
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
 {
-    //printf("AKSamplerDSP::init %d %f\n", nChannels, sampleRate);
     AKDSPBase::init(nChannels, sampleRate);
     AudioKitCore::Sampler::init(sampleRate);
 }
 
 void AKSamplerDSP::deinit()
 {
-    //printf("AKSamplerDSP::deinit\n");
     AudioKitCore::Sampler::deinit();
 }
 
@@ -74,6 +78,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             pitchBendRamp.setRampTime(value, _sampleRate);
             vibratoDepthRamp.setRampTime(value, _sampleRate);
             filterCutoffRamp.setRampTime(value, _sampleRate);
+            filterResonanceRamp.setRampTime(value, _sampleRate);
             break;
 
         case masterVolumeParam:
@@ -87,6 +92,9 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             break;
         case filterCutoffParam:
             filterCutoffRamp.setTarget(value, immediate);
+            break;
+        case filterResonanceParam:
+            filterResonanceRamp.setTarget(value, immediate);
             break;
 
         case ampAttackTimeParam:
@@ -134,6 +142,8 @@ float AKSamplerDSP::getParameter(uint64_t address)
             return vibratoDepthRamp.getTarget();
         case filterCutoffParam:
             return filterCutoffRamp.getTarget();
+        case filterResonanceParam:
+            return filterResonanceRamp.getTarget();
 
         case ampAttackTimeParam:
             return ampEGParams.getAttackTimeSeconds();
@@ -175,6 +185,7 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
+        resonanceDb = (float)filterResonanceRamp.getValue();
         
         // get data
         float *outBuffers[2];
