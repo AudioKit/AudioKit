@@ -31,6 +31,18 @@ class ViewController: UIViewController {
             sender.setTitle("Stop", for: .normal)
         }
     }
+    @IBAction func preset1(_ sender: Any) {
+        conductor.loadSamples(byIndex: 0)
+    }
+    @IBAction func preset2(_ sender: Any) {
+        conductor.loadSamples(byIndex: 1)
+    }
+    @IBAction func preset3(_ sender: Any) {
+        conductor.loadSamples(byIndex: 2)
+    }
+    @IBAction func preset4(_ sender: Any) {
+        conductor.loadSamples(byIndex: 3)
+    }
 }
 
 extension ViewController: AKMIDIListener {
