@@ -54,22 +54,14 @@ class Conductor {
     
     private func setupSampler()
     {
-        let info = ProcessInfo.processInfo
-        let begin = info.systemUptime
-        
         // Example (below) of loading compressed sample files without a SFZ file
         //loadAndMapCompressedSampleFiles()
 
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
         // http://getdunne.net/download/ROMPlayer_Instruments.zip
+        // see loadSamples(byIndex:) below
         
-        let folderURL = FileManagerUtils.shared.getDocsUrl("ROMPlayer Instruments")
-        sampler.loadUsingSfzFile(folderPath: folderURL.path, sfzFileName: "TX LoTine81z.sfz")
-        
-        let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
-
         sampler.ampAttackTime = 0.01
         sampler.ampDecayTime = 0.1
         sampler.ampSustainLevel = 0.8
@@ -101,6 +93,21 @@ class Conductor {
         midi.openInput(midi.inputNames[byIndex])
     }
 
+    func loadSamples(byIndex: Int) {
+        if byIndex < 0 || byIndex > 3 { return }
+        
+        let info = ProcessInfo.processInfo
+        let begin = info.systemUptime
+        
+        let folderURL = FileManagerUtils.shared.getDocsUrl("ROMPlayer Instruments")
+        let sfzFiles = [ "TX Brass.sfz" , "TX LoTine81z.sfz", "TX Metalimba.sfz", "TX Pluck Bass.sfz" ]
+        sampler.unloadAllSamples()
+        sampler.loadUsingSfzFile(folderPath: folderURL.path, sfzFileName: sfzFiles[byIndex])
+        
+        let elapsedTime = info.systemUptime - begin
+        print("Time to load samples \(elapsedTime) seconds")
+    }
+    
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         sampler.play(noteNumber: offsetNote(note, semitones: synthSemitoneOffset), velocity: velocity)
     }
