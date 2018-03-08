@@ -26,14 +26,17 @@ custom_categories:
   - name: MIDI
     children:
     - AKMIDI
-    - AKMIDIEvent
+    - AKMIDICallback
     - AKMIDIControl
+    - AKMIDIEvent
     - AKMIDIInstrument
     - AKMIDIListener
     - AKMIDINode
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
+    - AKMIDITransformer
+    - AKRawMIDIPakcet
     - MIDIPacket
     - MIDIPacketList
     - AKBluetoothMIDIButton
@@ -158,6 +161,7 @@ custom_categories:
     - AKPluckedString
     - AKRhodesPiano
     - AKShaker
+    - AKShakerType
     - AKSynthKick
     - AKSynthSnare
     - AKTubularBells
