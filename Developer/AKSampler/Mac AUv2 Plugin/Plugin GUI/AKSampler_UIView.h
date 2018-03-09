@@ -14,6 +14,7 @@
     // IBOutlets
     IBOutlet NSSlider *volumeSlider;
     IBOutlet NSTextField *volumeText;
+    IBOutlet NSPopUpButton *presetPopup;
     
     // Other Members
     AudioUnit                 mAU;
@@ -25,8 +26,10 @@
 
 #pragma mark ____ INTERFACE ACTIONS ____
 - (IBAction)onVolumeSlider:(id)sender;
+- (IBAction)onPresetSelect:(NSPopUpButton *)sender;
 
 #pragma mark ____ PRIVATE FUNCTIONS
+- (void)priv_populatePresetPopup;
 - (void)priv_synchronizeUIWithParameterValues;
 - (void)priv_addListeners;
 - (void)priv_removeListeners;
