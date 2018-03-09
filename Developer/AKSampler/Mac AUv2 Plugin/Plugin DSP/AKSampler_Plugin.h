@@ -17,18 +17,23 @@ public:
     virtual OSStatus GetPropertyInfo(   AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
-                                        UInt32&                     outDataSize,
-                                        Boolean&                    outWritable );
+                                        UInt32 &                    outDataSize,
+                                        Boolean &                   outWritable );
     
     virtual OSStatus GetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
-                                        void*                       outData);
+                                        void *                      outData);
     
 	virtual OSStatus GetParameterInfo(  AudioUnitScope              inScope,
                                         AudioUnitParameterID        inParameterID,
-                                        AudioUnitParameterInfo&     outParameterInfo);
+                                        AudioUnitParameterInfo &    outParameterInfo);
 
+    virtual OSStatus GetParameter(      AudioUnitParameterID        inParameterID,
+                                        AudioUnitScope              inScope,
+                                        AudioUnitElement            inElement,
+                                        AudioUnitParameterValue &   outValue);
+    
     virtual OSStatus SetParameter(      AudioUnitParameterID        inParameterID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,

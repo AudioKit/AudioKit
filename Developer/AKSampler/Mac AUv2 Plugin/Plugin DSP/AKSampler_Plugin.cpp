@@ -40,23 +40,6 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 {
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
-    
-    Globals()->SetParameter(kMasterVolumeFraction, 1.0f);
-    Globals()->SetParameter(kPitchOffsetSemitones, 0.0f);
-    Globals()->SetParameter(kVibratoDepthSemitones, 0.0f);
-    Globals()->SetParameter(kFilterEnable, 0.0f);
-    Globals()->SetParameter(kFilterCutoffHarmonic, 1000.0f);
-    Globals()->SetParameter(kFilterResonanceDb, 0.0f);
-
-    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.0f);
-    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.0f);
-    Globals()->SetParameter(kAmpEgSustainFraction, 1.0f);
-    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.0f);
-    
-    Globals()->SetParameter(kFilterEgAttackTimeSeconds, 0.0f);
-    Globals()->SetParameter(kFilterEgDecayTimeSeconds, 0.0f);
-    Globals()->SetParameter(kFilterEgSustainFraction, 1.0f);
-    Globals()->SetParameter(kFilterEgReleaseTimeSeconds, 0.0f);
 }
 
 AKSampler_Plugin::~AKSampler_Plugin()
@@ -179,25 +162,16 @@ OSStatus AKSampler_Plugin::Initialize()
     buildKeyMap();
     
     masterVolume = 1.0f;
-    Globals()->SetParameter(kMasterVolumeFraction, masterVolume);
     pitchOffset = 0.0f;
-    Globals()->SetParameter(kPitchOffsetSemitones, pitchOffset);
     vibratoDepth = 0.0f;
-    Globals()->SetParameter(kVibratoDepthSemitones, vibratoDepth);
     
     cutoffMultiple = 1000.0f;
-    Globals()->SetParameter(kFilterCutoffHarmonic, cutoffMultiple);
     filterEnable = false;
-    Globals()->SetParameter(kFilterEnable, 0.0f);
     
     ampEGParams.setAttackTimeSeconds(0.01f);
-    Globals()->SetParameter(kAmpEgAttackTimeSeconds, 0.01f);
     ampEGParams.setDecayTimeSeconds(0.1f);
-    Globals()->SetParameter(kAmpEgDecayTimeSeconds, 0.1f);
     ampEGParams.sustainFraction = 0.8f;
-    Globals()->SetParameter(kAmpEgSustainFraction, 0.8f);
     ampEGParams.setReleaseTimeSeconds(0.5f);
-    Globals()->SetParameter(kAmpEgReleaseTimeSeconds, 0.5f);
 
     return noErr;
 }
@@ -399,6 +373,78 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
 	return noErr;
 }
 
+OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParameterID,
+                                            AudioUnitScope              inScope,
+                                            AudioUnitElement            inElement,
+                                            AudioUnitParameterValue &   outValue)
+{
+    if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
+    
+    switch (inParameterID)
+    {
+        case kMasterVolumeFraction:
+            outValue = masterVolume;
+            break;
+            
+        case kPitchOffsetSemitones:
+            outValue = pitchOffset;
+            break;
+            
+        case kVibratoDepthSemitones:
+            outValue = vibratoDepth;
+            break;
+            
+        case kFilterEnable:
+            outValue = filterEnable ? 1.0f : 0.0f;
+            break;
+            
+        case kFilterCutoffHarmonic:
+            outValue = cutoffMultiple;
+            break;
+            
+        case kFilterResonanceDb:
+            outValue = resonanceDb;
+            break;
+            
+        case kAmpEgAttackTimeSeconds:
+            outValue = ampEGParams.getAttackTimeSeconds();
+            break;
+            
+        case kAmpEgDecayTimeSeconds:
+            outValue = ampEGParams.getDecayTimeSeconds();
+            break;
+            
+        case kAmpEgSustainFraction:
+            outValue = ampEGParams.sustainFraction;
+            break;
+            
+        case kAmpEgReleaseTimeSeconds:
+            outValue = ampEGParams.getReleaseTimeSeconds();
+            break;
+            
+        case kFilterEgAttackTimeSeconds:
+            outValue = filterEGParams.getAttackTimeSeconds();
+            break;
+            
+        case kFilterEgDecayTimeSeconds:
+            outValue = filterEGParams.getDecayTimeSeconds();
+            break;
+            
+        case kFilterEgSustainFraction:
+            outValue = filterEGParams.sustainFraction;
+            break;
+            
+        case kFilterEgReleaseTimeSeconds:
+            outValue = filterEGParams.getReleaseTimeSeconds();
+            break;
+            
+        default:
+            return kAudioUnitErr_InvalidParameter;
+    }
+    
+    return noErr;
+}
+
 OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParameterID,
                                             AudioUnitScope              inScope,
                                             AudioUnitElement            inElement,
@@ -469,7 +515,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             return kAudioUnitErr_InvalidParameter;
     }
     
-    return AUInstrumentBase::SetParameter(inParameterID, inScope, inElement, inValue, inBufferOffsetInFrames);
+    return noErr;
 }
 
 OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, const AudioTimeStamp &inTimeStamp, UInt32 nFrames)
