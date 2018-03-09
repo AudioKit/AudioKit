@@ -25,6 +25,12 @@ public:
                                         AudioUnitElement            inElement,
                                         void *                      outData);
     
+    virtual OSStatus SetProperty(       AudioUnitPropertyID         inPropertyID,
+                                        AudioUnitScope              inScope,
+                                        AudioUnitElement            inElement,
+                                        const void *                inData,
+                                        UInt32                      inDataSize);
+    
 	virtual OSStatus GetParameterInfo(  AudioUnitScope              inScope,
                                         AudioUnitParameterID        inParameterID,
                                         AudioUnitParameterInfo &    outParameterInfo);
@@ -59,4 +65,9 @@ public:
     virtual OSStatus Render(            AudioUnitRenderActionFlags& ioActionFlags,
                                         const AudioTimeStamp&       inTimeStamp,
                                         UInt32 nFrames);
+    
+private:
+    CFStringRef presetPath;
+    void loadDemoSamples();
+    OSStatus loadPreset();
 };

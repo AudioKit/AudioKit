@@ -1,6 +1,8 @@
 #include "AKSampler_Plugin.h"
 #include "AKSampler_Params.h"
 #include "AUMidiDefs.h"
+#include <cstring>
+#include <ctype.h>
 
 // OSErr definitions taken from deprecated CarbonCore/MacErrors.h
 // Somewhere there's a newer header file I should be using
@@ -38,6 +40,7 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 	: AUInstrumentBase(inComponentInstance, 0, 1)    // 0 inputs, 1 output
     , AudioKitCore::Sampler()
 {
+    presetPath = nil;
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
 }
@@ -51,6 +54,33 @@ OSStatus AKSampler_Plugin::Initialize()
 	AUInstrumentBase::Initialize();
     AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
     printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
+    
+    masterVolume = 1.0f;
+    pitchOffset = 0.0f;
+    vibratoDepth = 0.0f;
+    
+    cutoffMultiple = 1000.0f;
+    filterEnable = false;
+    
+    ampEGParams.setAttackTimeSeconds(0.01f);
+    ampEGParams.setDecayTimeSeconds(0.1f);
+    ampEGParams.sustainFraction = 0.8f;
+    ampEGParams.setReleaseTimeSeconds(0.5f);
+    
+    //loadDemoSamples();
+
+    return noErr;
+}
+
+void AKSampler_Plugin::Cleanup()
+{
+    AudioKitCore::Sampler::deinit();
+    printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
+}
+
+void AKSampler_Plugin::loadDemoSamples()
+{
+    // Example showing how to load a group of samples when you don't have a .sfz metadata file.
     
     // Download http://getdunne.com/download/TX_LoTine81z.zip
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
@@ -80,7 +110,7 @@ OSStatus AKSampler_Plugin::Initialize()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c2");
     loadCompressedSampleFile(sfd);
-
+    
     sfd.sd.noteNumber = 54;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 52; sfd.sd.max_note = 57;
@@ -93,7 +123,7 @@ OSStatus AKSampler_Plugin::Initialize()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#2");
     loadCompressedSampleFile(sfd);
-
+    
     sfd.sd.noteNumber = 60;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 58; sfd.sd.max_note = 63;
@@ -160,26 +190,155 @@ OSStatus AKSampler_Plugin::Initialize()
     loadCompressedSampleFile(sfd);
     
     buildKeyMap();
-    
-    masterVolume = 1.0f;
-    pitchOffset = 0.0f;
-    vibratoDepth = 0.0f;
-    
-    cutoffMultiple = 1000.0f;
-    filterEnable = false;
-    
-    ampEGParams.setAttackTimeSeconds(0.01f);
-    ampEGParams.setDecayTimeSeconds(0.1f);
-    ampEGParams.sustainFraction = 0.8f;
-    ampEGParams.setReleaseTimeSeconds(0.5f);
-
-    return noErr;
 }
 
-void AKSampler_Plugin::Cleanup()
+static bool hasPrefix(char* string, const char* prefix)
 {
-    AudioKitCore::Sampler::deinit();
-    printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
+    return strncmp(string, prefix, strlen(prefix)) == 0;
+}
+
+OSStatus AKSampler_Plugin::loadPreset()
+{
+    // Nicer way to load presets using .sfz metadata files. See bottom of AKSampler_Params.h
+    // for instructions to download and set up these presets.
+    const char *presetName = CFStringGetCStringPtr(presetPath, kCFStringEncodingMacRoman);
+    printf("loadPreset: %s...", presetName);
+    
+    this->deinit();     // unload any samples already present
+    
+    char buf[1000];
+    sprintf(buf, "%s/%s.sfz", PRESETS_DIR_PATH, presetName);
+    
+    FILE* pfile = fopen(buf, "r");
+    if (!pfile) return fnfErr;
+    
+    int lokey, hikey, pitch, lovel, hivel;
+    bool bLoop;
+    float fLoopStart, fLoopEnd;
+    char sampleFileName[100];
+    char *p, *pp;
+
+    while (fgets(buf, sizeof(buf), pfile))
+    {
+        p = buf;
+        while (*p != 0 && isspace(*p)) p++;
+        
+        pp = strrchr(p, '\n');
+        if (pp) *pp = 0;
+        
+        if (hasPrefix(p, "<group>"))
+        {
+            p += 7;
+            lokey = 0;
+            hikey = 127;
+            pitch = 60;
+            
+            pp = strstr(p, "lokey");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) lokey = atoi(pp);
+            }
+            
+            pp= strstr(p, "hikey");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) hikey = atoi(pp);
+            }
+            
+            pp= strstr(p, "pitch_keycenter");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) pitch = atoi(pp);
+            }
+        }
+        else if (hasPrefix(p, "<region>"))
+        {
+            p += 8;
+            lovel = 0;
+            hivel = 127;
+            sampleFileName[0] = 0;
+            bLoop = false;
+            fLoopStart = 0.0f;
+            fLoopEnd = 0.0f;
+            
+            pp = strstr(p, "lovel");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) lovel = atoi(pp);
+            }
+            
+            pp = strstr(p, "hivel");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) hivel = atoi(pp);
+            }
+            
+            pp = strstr(p, "loop_mode");
+            if (pp)
+            {
+                bLoop = true;
+            }
+
+            pp = strstr(p, "loop_start");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fLoopStart = atof(pp);
+            }
+            
+            pp = strstr(p, "loop_end");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fLoopEnd = atof(pp);
+            }
+            
+            pp = strstr(p, "sample");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                while (*pp != 0 && isspace(*pp)) pp++;
+                char* pq = sampleFileName;
+                while (*pp != '.') *pq++ = *pp++;
+                strcpy(pq, ".wv");
+            }
+            
+            sprintf(buf, "%s/%s", PRESETS_DIR_PATH, sampleFileName);
+
+            AKSampleFileDescriptor sfd;
+            sfd.path = buf;
+            sfd.sd.bLoop = bLoop;
+            sfd.sd.fStart = 0.0;
+            sfd.sd.fLoopStart = fLoopStart;
+            sfd.sd.fLoopEnd = fLoopEnd;
+            sfd.sd.fEnd = 0.0f;
+            sfd.sd.noteNumber = pitch;
+            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+            sfd.sd.min_note = lokey;
+            sfd.sd.max_note = hikey;
+            sfd.sd.min_vel = lovel;
+            sfd.sd.max_vel = hivel;
+            loadCompressedSampleFile(sfd);
+        }
+    }
+    fclose(pfile);
+    
+    buildKeyMap();
+    printf("done\n");
+    return noErr;
 }
 
 OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inPropertyID,
@@ -195,6 +354,11 @@ OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inProper
             case kAudioUnitProperty_CocoaUI:
                 outWritable = false;
                 outDataSize = sizeof (AudioUnitCocoaViewInfo);
+                return noErr;
+
+            case kPresetNameProperty:
+                outWritable = true;
+                outDataSize = sizeof(CFStringRef);
                 return noErr;
         }
     }
@@ -235,10 +399,30 @@ OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inPropertyID
                 
                 return noErr;
             }
+
+            case kPresetNameProperty:
+                outData = (void*)presetPath;
+                return noErr;
         }
     }
 
     return AUInstrumentBase::GetProperty (inPropertyID, inScope, inElement, outData);
+}
+
+OSStatus AKSampler_Plugin::SetProperty(         AudioUnitPropertyID         inPropertyID,
+                                                AudioUnitScope              inScope,
+                                                AudioUnitElement            inElement,
+                                                const void *                inData,
+                                                UInt32                      inDataSize)
+{
+    if (inScope == kAudioUnitScope_Global && inPropertyID == kPresetNameProperty)
+    {
+        presetPath = (CFStringRef)inData;
+        return loadPreset();
+    }
+    
+    // Default implementation for all non-custom properties
+    return AUInstrumentBase::SetProperty(inPropertyID, inScope, inElement, inData, inDataSize);
 }
 
 

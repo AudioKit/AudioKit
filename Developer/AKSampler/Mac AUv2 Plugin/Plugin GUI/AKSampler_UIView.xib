@@ -21,11 +21,11 @@
                     <rect key="frame" x="-3" y="-4" width="486" height="278"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <view key="contentView" ambiguous="YES" id="gX5-u4-UvB">
-                        <rect key="frame" x="1" y="1" width="478" height="270"/>
+                        <rect key="frame" x="1" y="1" width="484" height="276"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kew-Ge-XfN">
-                                <rect key="frame" x="18" y="181" width="260" height="19"/>
+                                <rect key="frame" x="18" y="187" width="260" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="xpB-2x-vjz">
                                     <connections>
@@ -34,7 +34,7 @@
                                 </sliderCell>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Nl-ixH">
-                                <rect key="frame" x="291" y="183" width="169" height="17"/>
+                                <rect key="frame" x="291" y="189" width="169" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume: 100%" id="zca-QO-ih0">
                                     <font key="font" metaFont="system"/>
@@ -42,7 +42,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oQZ-5b-UBa">
-                                <rect key="frame" x="18" y="233" width="442" height="17"/>
+                                <rect key="frame" x="18" y="239" width="442" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This GUI is experimental and incomplete. Use Generic View." id="GMX-e5-RsB">
                                     <font key="font" metaFont="system"/>
@@ -50,6 +50,33 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B2o-Rf-chf">
+                                <rect key="frame" x="18" y="131" width="129" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Load Preset:" id="5MB-bF-Dkb">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlj-Gi-WwS">
+                                <rect key="frame" x="151" y="125" width="272" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NvV-GA-DDW" id="inI-O1-2HN">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="cIj-2K-fXC">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="NvV-GA-DDW"/>
+                                            <menuItem title="Item 2" id="FPx-al-9SZ"/>
+                                            <menuItem title="Item 3" id="e1r-lo-yaE"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="onPresetSelect:" target="c22-O7-iKe" id="pGH-t5-f29"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                     </view>
                     <color key="borderColor" red="1" green="0.26521911069999998" blue="0.31012866309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,6 +84,7 @@
                 </box>
             </subviews>
             <connections>
+                <outlet property="presetPopup" destination="mlj-Gi-WwS" id="IMa-jl-beI"/>
                 <outlet property="volumeSlider" destination="Kew-Ge-XfN" id="X0M-f5-6lN"/>
                 <outlet property="volumeText" destination="vrX-Nl-ixH" id="aHE-oV-KD0"/>
             </connections>

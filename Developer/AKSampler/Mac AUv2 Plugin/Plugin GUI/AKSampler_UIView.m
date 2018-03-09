@@ -58,6 +58,9 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     // add new listeners
     [self priv_addListeners];
     
+    // populate preset popup
+    [self priv_populatePresetPopup];
+    
     // initial setup
     [self priv_synchronizeUIWithParameterValues];
 }
@@ -73,7 +76,37 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
              @"[AKSampler_UIView onVolumeSlider:] AUParameterSet()");
 }
 
+- (IBAction)onPresetSelect:(NSPopUpButton *)sender {
+    CFStringRef cfstr = (__bridge CFStringRef)[presetPopup titleOfSelectedItem];
+    
+    UInt32 dataSize = sizeof(CFStringRef);
+    ComponentResult result = AudioUnitSetProperty(mAU,
+                                                  kPresetNameProperty,
+                                                  kAudioUnitScope_Global,
+                                                  0,
+                                                  (void*)cfstr,
+                                                  dataSize);
+    if (result != noErr)
+        printf("Error %d trying to set preset name property", result);
+}
+
+
 #pragma mark ____ PRIVATE FUNCTIONS ____
+
+- (void)priv_populatePresetPopup
+{
+    [presetPopup removeAllItems];
+
+    NSArray<NSString *> *allFiles = [[NSFileManager defaultManager]
+                                     contentsOfDirectoryAtPath:@PRESETS_DIR_PATH
+                                     error:nil];
+    for (int i=0; i < [allFiles count]; i++)
+    {
+        NSString *fileName = [allFiles objectAtIndex:i];
+        if ([fileName hasSuffix:@".sfz"])
+            [presetPopup addItemWithTitle: [fileName stringByReplacingOccurrencesOfString:@".sfz" withString:@""]];
+    }
+}
 
 - (void)priv_addListeners
 {
