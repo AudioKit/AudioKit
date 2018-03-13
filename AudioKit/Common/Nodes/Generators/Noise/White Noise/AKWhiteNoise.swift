@@ -18,7 +18,6 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Lower and upper bounds for Amplitude
@@ -56,7 +55,6 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     }
 
     // MARK: - Initialization
-
 
     /// Initialize this noise node
     ///

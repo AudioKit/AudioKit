@@ -20,11 +20,11 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 | Nodes | Operations | Taps |
 |-------|------------|------|
-| Nodes are interconnectable signal processing components.  Each node has an output and usually some parameters.  If the nodes processes another signal, the node will also have an `input`. | Operations are similar to nodes, except that they are signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes. This allows a tap to be moved from node to node more freely and can be added after the audio signal path has started.
+| Nodes are interconnectable signal processing components.  Each node has an output and usually some parameters.  If the nodes processes another signal, the nodes will also have an `input`. | Operations are similar to nodes, except that they are signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex results. | Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes. This allows a tap to be moved from node to node more freely and to be added after the audio signal path has started.
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framework. More details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
+Installation details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
 
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage Package managers:
 
@@ -34,9 +34,9 @@ AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) 
 | [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 4.0'`   |
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display the waveform. The examples rely on the frameworks being built so you can either download the precompiled frameworks or [build them on your own](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
+There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
 
-For Hello World you only need to understand a few lines of code:
+For Hello World, you only need to understand a few lines of code:
 
 | Code                                           | Description                  |
 |------------------------------------------------|------------------------------|
@@ -52,11 +52,11 @@ For Hello World you only need to understand a few lines of code:
 <table>
 <tr>
 <td>
-Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over one hundred playgrounds from the most basic tutorials, to synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
+Playgrounds contain bite-size examples of AudioKit and serve as tutorials for many of AudioKit's core concepts and capabilities.  There are over 100 playgrounds which cover basic tutorials, synthesis, physical modeling, file playback, MIDI, effects, filters, and analysis.
 
-We provide all playgrounds as a macOS project ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn the API in a fun way!
+We provide all playgrounds as a macOS project that is ready to run in Xcode. Just download the `AudioKitPlaygrounds.zip` file from our [releases page](https://github.com/audiokit/AudioKit/releases), open and build the project, and go to the playground pages to learn AudioKit's API in a fun way!
 
-We have made videos of most of the playgrounds in action, so you don't even need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
+We have videos of most of the playgrounds in action, so you don't need to run Xcode to check them out, just go to [AudioKit Playground Videos](http://audiokit.io/playgrounds/).
 </td>
 <td width=320 align=right>
 
@@ -73,7 +73,7 @@ Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywend
 
 ## Getting help
 
-There are three methods for getting support, roughly listed in order of what you should try first:
+Here are three methods for getting support which are roughly listed in order of what you should try first:
 
 1. Post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the #AudioKit hashtag.
 
