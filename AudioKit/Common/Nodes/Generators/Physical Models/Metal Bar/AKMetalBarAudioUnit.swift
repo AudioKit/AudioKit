@@ -145,7 +145,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth]))
         leftBoundaryCondition.value = Float(AKMetalBar.defaultLeftBoundaryCondition)
         rightBoundaryCondition.value = Float(AKMetalBar.defaultRightBoundaryCondition)
