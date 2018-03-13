@@ -1,9 +1,9 @@
 //
 //  AKSampler.swift
-//  ExtendingAudioKit
+//  AudioKit
 //
 //  Created by Shane Dunne on 2018-02-19.
-//  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Stereo Chorus
@@ -12,12 +12,12 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "AKss")
-    
+
     // MARK: - Properties
-    
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-    
+
     fileprivate var masterVolumeParameter: AUParameter?
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
@@ -42,97 +42,97 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             internalAU?.rampTime = newValue
         }
     }
-    
+
     /// Master volume (fraction)
     @objc open dynamic var masterVolume: Double = 1.0 {
         willSet {
             if masterVolume == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && masterVolumeParameter != nil {
                     masterVolumeParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.masterVolume = newValue
         }
     }
-    
+
     /// Pitch offset (semitones)
     @objc open dynamic var pitchBend: Double = 0.0 {
         willSet {
             if pitchBend == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && pitchBendParameter != nil {
                     pitchBendParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.pitchBend = newValue
         }
     }
-    
+
     /// Vibrato amount (semitones)
     @objc open dynamic var vibratoDepth: Double = 1.0 {
         willSet {
             if vibratoDepth == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && vibratoDepthParameter != nil {
                     vibratoDepthParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.vibratoDepth = newValue
         }
     }
-    
+
     /// Filter cutoff (harmonic ratio)
     @objc open dynamic var filterCutoff: Double = 1000.0 {
         willSet {
             if filterCutoff == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterCutoffParameter != nil {
                     filterCutoffParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.filterCutoff = newValue
         }
     }
-    
+
     /// Filter resonance (dB)
     @objc open dynamic var filterResonance: Double = 0.0 {
         willSet {
             if filterResonance == newValue {
                 return
             }
-            
+
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterResonanceParameter != nil {
                     filterResonanceParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
-            
+
             internalAU?.filterResonance = newValue
         }
     }
-    
+
     /// Amp attack time (seconds)
     @objc open dynamic var ampAttackTime: Double = 0.0 {
         willSet {
@@ -150,7 +150,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Amp sustain level (fraction)
     @objc open dynamic var ampSustainLevel: Double = 1.0 {
         willSet {
@@ -159,7 +159,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Amp Release time (seconds)
     @objc open dynamic var ampReleaseTime: Double = 0.0 {
         willSet {
@@ -168,7 +168,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Filter attack time (seconds)
     @objc open dynamic var filterAttackTime: Double = 0.0 {
         willSet {
@@ -177,7 +177,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Filter Decay time (seconds)
     @objc open dynamic var filterDecayTime: Double = 0.0 {
         willSet {
@@ -186,7 +186,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Filter sustain level (fraction)
     @objc open dynamic var filterSustainLevel: Double = 1.0 {
         willSet {
@@ -195,7 +195,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Filter Release time (seconds)
     @objc open dynamic var filterReleaseTime: Double = 0.0 {
         willSet {
@@ -204,7 +204,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
         }
     }
-    
+
     /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var filterEnable: Bool = false {
         willSet {
@@ -215,7 +215,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize this sampler node
     ///
     /// - Parameters:
@@ -251,7 +251,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         filterDecayTime: Double = 0.0,
         filterSustainLevel: Double = 1.0,
         filterReleaseTime: Double = 0.0) {
-        
+
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
@@ -266,9 +266,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterDecayTime = filterDecayTime
         self.filterSustainLevel = filterSustainLevel
         self.filterReleaseTime = filterReleaseTime
- 
+
         _Self.register()
-        
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
@@ -277,15 +277,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            
+
             input?.connect(to: self!)
         }
-        
+
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-        
+
         self.masterVolumeParameter = tree["masterVolume"]
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
@@ -302,7 +302,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterEnableParameter = tree["filterEnable"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-            
+
             guard let _ = self else {
                 AKLog("Unable to create strong reference to self")
                 return
@@ -328,50 +328,54 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterReleaseTimeParam, value: filterReleaseTime)
         self.internalAU?.setParameterImmediately(.filterEnableParam, value: filterEnable ? 1.0 : 0.0)
     }
-    
+
     open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
         let sampleRate = Float(file.sampleRate);
         let sampleCount = Int32(file.samplesCount);
         let channelCount = Int32(file.channelCount);
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData(sdd: AKSampleDataDescriptor(sd: sd, sampleRateHz: sampleRate, bInterleaved: false, nChannels: channelCount, nSamples: sampleCount, pData: data))
+        internalAU?.loadSampleData( sdd: AKSampleDataDescriptor( sd: sd,
+                                                                 sampleRateHz: sampleRate,
+                                                                 bInterleaved: false,
+                                                                 nChannels: channelCount,
+                                                                 nSamples: sampleCount,
+                                                                 pData: data) )
     }
-    
+
     open func loadRawSampleData(sdd: AKSampleDataDescriptor) {
         internalAU?.loadSampleData(sdd: sdd)
     }
-    
+
     open func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(sfd: sfd)
     }
-    
+
     open func unloadAllSamples() {
         internalAU?.unloadAllSamples();
     }
-    
+
     open func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
-    
+
     open func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
-    
+
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteHz: Float(frequency))
     }
-    
+
     open override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
-    
+
     open func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
-    
+
     open func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }
-

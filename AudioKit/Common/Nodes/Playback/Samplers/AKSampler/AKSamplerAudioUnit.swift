@@ -243,7 +243,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public func unloadAllSamples() {
-        doAKSamplerUnloadAllSamples(pDSP);
+        doAKSamplerUnloadAllSamples(pDSP)
     }
 
     public func buildSimpleKeyMap() {
@@ -263,7 +263,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public func sustainPedal(down: Bool) {
-        doAKSamplerSustainPedal(pDSP, down);
+        doAKSamplerSustainPedal(pDSP, down)
     }
 
 }
