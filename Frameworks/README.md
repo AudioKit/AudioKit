@@ -1,8 +1,8 @@
 # AudioKit Frameworks
 
-AudioKit is distributed as a couple of universal static frameworks with minimal dependencies on all supported platforms. This makes it easy to integrate within your own projects.
+AudioKit is distributed as a couple of universal static frameworks with minimal dependencies on all supported platforms. This makes AudioKit easy to integrate within your own projects.
 
-AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The deployment target for your target needs to be set to at least one of these versions to link with AudioKit.
+AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your deployment target needs to be set to at least one of these versions to link with AudioKit.
 
 ## Using the compiled frameworks in your projects
 
@@ -11,10 +11,11 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. The de
 * Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform.
 * Make sure to add `-lstdc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
+* For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
 
 ## Alternative: include the AudioKit library from source
 
-This may be the preferred method if you need to debug code using AudioKit (or you are developing code inside of AudioKit), as Xcode is still notoriously bad at handling precompiled Swift frameworks in other projects.
+This may be the preferred method if you need to debug or develop code in AudioKit, as Xcode is still notoriously bad at handling precompiled Swift frameworks in other projects.
 
 You may obtain the source code archive directly from [GitHub](https://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 
