@@ -9,53 +9,53 @@
 import AVFoundation
 
 public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
-    
+
     var pDSP: UnsafeMutableRawPointer?
-    
+
     func setParameter(_ address: AKSamplerParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     func setParameterImmediately(_ address: AKSamplerParameter, value: Double) {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
-    
+
     var masterVolume: Double = 0.0 {
         didSet { setParameter(.masterVolumeParam, value: masterVolume) }
     }
-    
+
     var pitchBend: Double = 0.0 {
         didSet { setParameter(.pitchBendParam, value: pitchBend) }
     }
-    
+
     var vibratoDepth: Double = 1.0 {
         didSet { setParameter(.vibratoDepthParam, value: vibratoDepth) }
     }
-    
+
     var filterCutoff: Double = 1000.0 {
         didSet { setParameter(.filterCutoffParam, value: filterCutoff) }
     }
-    
+
     var filterResonance: Double = 0.0 {
         didSet { setParameter(.filterResonanceParam, value: filterResonance) }
     }
-    
+
     var rampTime: Double = 0.0 {
         didSet { setParameter(.rampTimeParam, value: rampTime) }
     }
-    
+
     var ampAttackTime: Double = 0.0 {
         didSet { setParameter(.ampAttackTimeParam, value: ampAttackTime) }
     }
-    
+
     var ampDecayTime: Double = 0.0 {
         didSet { setParameter(.ampDecayTimeParam, value: ampDecayTime) }
     }
-    
+
     var ampSustainLevel: Double = 0.0 {
         didSet { setParameter(.ampSustainLevelParam, value: ampSustainLevel) }
     }
-    
+
     var ampReleaseTime: Double = 0.0 {
         didSet { setParameter(.ampReleaseTimeParam, value: ampReleaseTime) }
     }
@@ -63,36 +63,36 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var filterAttackTime: Double = 0.0 {
         didSet { setParameter(.filterAttackTimeParam, value: filterAttackTime) }
     }
-    
+
     var filterDecayTime: Double = 0.0 {
         didSet { setParameter(.filterDecayTimeParam, value: filterDecayTime) }
     }
-    
+
     var filterSustainLevel: Double = 0.0 {
         didSet { setParameter(.filterSustainLevelParam, value: filterSustainLevel) }
     }
-    
+
     var filterReleaseTime: Double = 0.0 {
         didSet { setParameter(.filterReleaseTimeParam, value: filterReleaseTime) }
     }
-    
+
     var filterEnable: Double = 0.0 {
         didSet { setParameter(.filterEnableParam, value: filterEnable) }
     }
-    
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
         pDSP = createAKSamplerDSP(Int32(count), sampleRate)
         return pDSP
     }
-    
+
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let rampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
-        
+
         var paramAddress = 0
         let masterVolumeParam = AUParameterTree.createParameter(withIdentifier: "masterVolume",
                                                                 name: "Master Volume",
@@ -229,39 +229,39 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterReleaseTimeParam.value = 0.0
         filterEnableParam.value = 0.0
     }
-    
+
     public override var canProcessInPlace: Bool { return true; }
-    
+
     public func loadSampleData(sdd: AKSampleDataDescriptor) {
         var sdd_copy = sdd
         doAKSamplerLoadData(pDSP, &sdd_copy)
     }
-    
+
     public func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
         var sfd_copy = sfd
         doAKSamplerLoadCompressedFile(pDSP, &sfd_copy)
     }
-    
+
     public func unloadAllSamples() {
         doAKSamplerUnloadAllSamples(pDSP);
     }
-    
+
     public func buildSimpleKeyMap() {
         doAKSamplerBuildSimpleKeyMap(pDSP)
     }
-    
+
     public func buildKeyMap() {
         doAKSamplerBuildKeyMap(pDSP)
     }
-    
+
     public func playNote(noteNumber: UInt8, velocity: UInt8, noteHz: Float) {
         doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteHz)
     }
-    
+
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
         doAKSamplerStopNote(pDSP, noteNumber, immediate)
     }
-    
+
     public func sustainPedal(down: Bool) {
         doAKSamplerSustainPedal(pDSP, down);
     }
