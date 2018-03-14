@@ -13,7 +13,7 @@ import CoreAudio
 ///
 /// Be sure to enableMIDI if you want to receive messages
 ///
-open class AKMIDISampler: AKSampler {
+open class AKMIDISampler: AKAppleSampler {
     // MARK: - Properties
 
     /// MIDI Input
