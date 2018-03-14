@@ -4,7 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let sampler = AKSampler()
+let sampler = AKAppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
 let reverb = AKReverb(sampler)

@@ -255,6 +255,8 @@ custom_categories:
 
   - name: Playback Nodes
     children:
+
+    - AKAppleSampler
     - AKClip
     - AKClipMerger
     - AKClipPlayer
