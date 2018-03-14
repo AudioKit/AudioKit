@@ -147,7 +147,7 @@
 		343E5EB62049D2100007B2DF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "/Users/shane/Library/Audio/Plug-Ins/Components";
+			dstPath = "~/Library/Audio/Plug-Ins/Components";
 			dstSubfolderSpec = 0;
 			files = (
 				343E5EB72049D2220007B2DF /* AKSampler.component in CopyFiles */,
