@@ -5,7 +5,7 @@ import AudioKit
 
 let pulse = 0.23 // seconds
 
-let sampler = AKSampler()
+let sampler = AKAppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
 var delay = AKDelay(sampler)
