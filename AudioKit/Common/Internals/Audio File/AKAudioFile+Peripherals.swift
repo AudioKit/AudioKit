@@ -8,9 +8,9 @@
 
 extension AKAudioFile {
 
-    /// Create an AKSampler loaded with the current AKAudioFile
-    public var sampler: AKSampler? {
-        let fileSampler = AKSampler()
+    /// Create an AKAppleSampler loaded with the current AKAudioFile
+    public var sampler: AKAppleSampler? {
+        let fileSampler = AKAppleSampler()
         do {
             try fileSampler.loadAudioFile(self)
         } catch let error as NSError {
