@@ -10,7 +10,7 @@ import AudioKit
 
 class Conductor {
     static let sharedInstance = Conductor()
-    let drums = AKSampler()
+    let drums = AKAppleSampler()
 
     init() {
 

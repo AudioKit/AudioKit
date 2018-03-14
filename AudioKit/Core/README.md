@@ -2,6 +2,9 @@
 
 This directory stores the platform-independent code of AudioKit. 
 
+## AudioKitCore
+C++ building-block classes developed by the AudioKit core group. All C++ code here lives in the *AudioKitCore* namespace.
+
 ## Devoloop
 
 This is software developed by or used by Mike Gazarrusso on his contributions to AudioKit including the Rhino Guitar Processor and DynaRage Tube Compressor.
@@ -17,3 +20,7 @@ Paul Batchelor's stack based DSP programming language, used as the basis for Aud
 ## STK
 
 Stanford's Synthesis Toolkit library, mostly used for physical models.
+
+## WavPack
+
+A subset of David Bryant's [WavPack](http://www.wavpack.com/) audio-compression library, specifically the "tiny decoder" for un-compressing files previously compressed using the main WavPack command-line utility. Primarily used by **AKSampler**.
