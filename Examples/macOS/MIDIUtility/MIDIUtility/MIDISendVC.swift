@@ -89,7 +89,7 @@ class MIDISenderVC: NSViewController {
                 Swift.print("parsed sysex: \(sysexToSend!)")
                 return
             }
-            Swift.print("sending sysex \(sysexToSend!)")
+            Swift.print("sending \(midiBytes.count) bytes of sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         } else {
