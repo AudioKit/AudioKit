@@ -6,6 +6,7 @@ Hello World plays an oscillator based sound and displays the sound's waveform. T
 
 ## Examples for iOS and macOS
 
+* AKSampler Demo - try the new AKSampler instrument with MIDI
 * Audio Unit Manager - host audio units inside your application
 * File Converter - convert various file types
 * Microphone Analysis - frequency and amplitude information from the incoming audio stream
@@ -22,7 +23,7 @@ Hello World plays an oscillator based sound and displays the sound's waveform. T
 * Hello Objective-C - Hello World in the Objective-C language (as opposed to Swift)
 * Metronome Sampler Sync - highly accurate, sample triggering metronome
 * Particles - Metal based audio visualizer (works on devices only, not the simulator)
-* Sampler Demo - example of AudioKit's AKSampler
+* Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
 * Sequencer Demo - examjple of AudioKit's AKSequencer
 * Song Processor - adding effects to songs from the device's iTunes Library 
