@@ -43,7 +43,7 @@
 		34BB66C6205ABBC0000E5450 /* unpack_dsd.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66A7205ABBB8000E5450 /* unpack_dsd.c */; };
 		34BB66C7205ABBC0000E5450 /* tag_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66A8205ABBB8000E5450 /* tag_utils.c */; };
 		34BB66C8205ABBC0000E5450 /* unpack3_seek.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66A9205ABBB9000E5450 /* unpack3_seek.c */; };
-		34BB66C9205ABBC0000E5450 /* wavpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB66AA205ABBB9000E5450 /* wavpack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34BB66C9205ABBC0000E5450 /* wavpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB66AA205ABBB9000E5450 /* wavpack.h */; };
 		34BB66CA205ABBC0000E5450 /* open_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66AB205ABBB9000E5450 /* open_utils.c */; };
 		34BB66CB205ABBC0000E5450 /* pack_dns.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66AC205ABBB9000E5450 /* pack_dns.c */; };
 		34BB66CC205ABBC0000E5450 /* pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB66AD205ABBBA000E5450 /* pack.c */; };

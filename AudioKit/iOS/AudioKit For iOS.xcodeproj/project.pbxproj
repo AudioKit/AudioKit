@@ -39,7 +39,7 @@
 		34BB6743205AC238000E5450 /* unpack_dsd.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6724205AC22F000E5450 /* unpack_dsd.c */; };
 		34BB6744205AC238000E5450 /* tag_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6725205AC230000E5450 /* tag_utils.c */; };
 		34BB6745205AC238000E5450 /* unpack3_seek.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6726205AC230000E5450 /* unpack3_seek.c */; };
-		34BB6746205AC238000E5450 /* wavpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB6727205AC230000E5450 /* wavpack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34BB6746205AC238000E5450 /* wavpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB6727205AC230000E5450 /* wavpack.h */; };
 		34BB6747205AC238000E5450 /* open_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6728205AC230000E5450 /* open_utils.c */; };
 		34BB6748205AC238000E5450 /* pack_dns.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6729205AC231000E5450 /* pack_dns.c */; };
 		34BB6749205AC238000E5450 /* pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB672A205AC231000E5450 /* pack.c */; };
