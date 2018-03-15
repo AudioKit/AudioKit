@@ -7,6 +7,7 @@
 //
 
 #import "AKSamplerDSP.hpp"
+#include "wavpack.h"
 
 extern "C" void* createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
@@ -18,7 +19,37 @@ extern "C" void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD) {
 
 extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD)
 {
-    ((AKSamplerDSP*)pDSP)->loadCompressedSampleFile(*pSFD);
+    char errMsg[100];
+    WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
+    if (wpc == 0)
+    {
+        printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
+        return;
+    }
+    
+    AKSampleDataDescriptor sdd;
+    sdd.sd = pSFD->sd;
+    sdd.sampleRateHz = (float)WavpackGetSampleRate(wpc);
+    sdd.nChannels = WavpackGetReducedChannels(wpc);
+    sdd.nSamples = WavpackGetNumSamples(wpc);
+    sdd.bInterleaved = sdd.nChannels > 1;
+    sdd.pData = new float[sdd.nChannels * sdd.nSamples];
+    
+    int mode = WavpackGetMode(wpc);
+    WavpackUnpackSamples(wpc, (int32_t*)sdd.pData, sdd.nSamples);
+    if ((mode & MODE_FLOAT) == 0)
+    {
+        // convert samples to floating-point
+        int bps = WavpackGetBitsPerSample(wpc);
+        float scale = 1.0f / (1 << (bps - 1));
+        float* pf = sdd.pData;
+        int32_t* pi = (int32_t*)pf;
+        for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
+            *pf++ = scale * *pi++;
+    }
+    
+    ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
+    delete[] sdd.pData;
 }
 
 extern "C" void doAKSamplerUnloadAllSamples(void* pDSP)
