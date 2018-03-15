@@ -48,19 +48,20 @@ namespace AudioKitCore
         ramper.init(0.0f);
     }
     
-    void ADSREnvelope::start(bool reset)
+    void ADSREnvelope::start()
     {
-        if (reset || (segment == kIdle))
-        {
-            // start new attack segment from zero
-            ramper.init(0.0f, 1.0f, pParams->attackSamples);
-        }
-        else
-        {
-            // envelope has been retriggered; start new attack from where we are
-            ramper.reinit(1.0f, pParams->attackSamples);
-        }
+//        if (segment == kIdle)
+//        {
+//            // start new attack segment from zero
+//            ramper.init(0.0f, 1.0f, pParams->attackSamples);
+//        }
+//        else
+//        {
+//            // envelope has been retriggered; start new attack from where we are
+//            ramper.reinit(1.0f, pParams->attackSamples);
+//        }
         
+        ramper.init(0.0f, 1.0f, pParams->attackSamples);
         segment = kAttack;
     }
     

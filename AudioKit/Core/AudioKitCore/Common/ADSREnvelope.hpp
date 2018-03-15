@@ -51,16 +51,16 @@ namespace AudioKitCore
         
         void init();
         
-        void start(bool reset=false);   // called for note-on
-        void restart();                 // quickly dampen note then start again
-        void release();                 // called for note-off
-        void reset();                   // reset to idle state
+        void start();       // called for note-on
+        void restart();     // quickly dampen note then start again
+        void release();     // called for note-off
+        void reset();       // reset to idle state
         bool isIdle() { return segment == kIdle; }
         bool isPreStarting() { return segment == kSilence; }
         
         inline float getSample()
         {
-            if (segment == kIdle) return 0.0f;
+            if (segment == kIdle) { return 0.0f; }
             
             if (segment == kSustain) return pParams->sustainFraction;
             
@@ -70,13 +70,14 @@ namespace AudioKitCore
             {
                 segment = kAttack;
                 ramper.init(0.0f, 1.0, pParams->attackSamples);
+                return 0.0f;
             }
             
             if (segment == kAttack)      // end of attack segment
             {
                 segment = kDecay;
                 ramper.init(1.0f, pParams->sustainFraction, pParams->decaySamples);
-                return 1.0;
+                return 1.0f;
             }
             
             if (segment == kDecay)  // end of decay segment
