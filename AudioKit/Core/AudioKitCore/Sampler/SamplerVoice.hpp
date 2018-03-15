@@ -29,13 +29,15 @@ namespace AudioKitCore
         float noteVol;      // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables
+        float tempNoteVol;  // holds previous note volume while damping note before restarting
+        SampleBuffer* pNewSampleBuffer; // holds next sample buffer to use at restart
         float tempGain;     // product of global volume, note volume, and amp EG
         bool filterEnable;  // true if filter should be used
         
         SamplerVoice() : noteNumber(-1) {}
         
         void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pSampleBuf);
-        void restart(float volume);
+        void restart(float volume, SampleBuffer* pSampleBuf);
         void release();
         void stop();
         

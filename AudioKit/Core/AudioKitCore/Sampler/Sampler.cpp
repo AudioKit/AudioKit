@@ -8,13 +8,19 @@
 
 #include "Sampler.hpp"
 #include <fcntl.h>
+#ifdef WIN32
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-#include "wavpack_public.h"
+#ifndef WIN32
+#include "wavpack_public.h"     // Temporary, will go away once I fix Wavpack itself
+#endif
 
 namespace AudioKitCore {
     
@@ -67,12 +73,12 @@ namespace AudioKitCore {
         
         pBuf->init(sdd.sampleRateHz, sdd.nChannels, sdd.nSamples);
         float* pData = sdd.pData;
-        if (sdd.bInterleaved) for (unsigned i=0; i < sdd.nSamples; i++)
+        if (sdd.bInterleaved) for (int i=0; i < sdd.nSamples; i++)
         {
             pBuf->setData(i, *pData++);
             if (sdd.nChannels > 1) pBuf->setData(sdd.nSamples + i, *pData++);
         }
-        else for (unsigned i=0; i < sdd.nChannels * sdd.nSamples; i++)
+        else for (int i=0; i < sdd.nChannels * sdd.nSamples; i++)
         {
             pBuf->setData(i, *pData++);
         }
@@ -94,6 +100,7 @@ namespace AudioKitCore {
         }
     }
     
+#ifndef WIN32   // temporary
     void Sampler::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
     {
         //printf("loadCompressedSampleFile: %d %.1f Hz %s\n", sfd.sd.noteNumber, sfd.sd.noteHz, sfd.path);
@@ -126,6 +133,7 @@ namespace AudioKitCore {
         
         delete[] sdd.pData;
     }
+#endif
     
     KeyMappedSampleBuffer* Sampler::lookupSample(unsigned noteNumber, unsigned velocity)
     {
@@ -139,7 +147,7 @@ namespace AudioKitCore {
             if (pBuf->min_vel < 0 || pBuf->max_vel < 0) return pBuf;
             
             // otherwise (common case), accept based on velocity
-            if (velocity >= pBuf->min_vel && velocity <= pBuf->max_vel) return pBuf;
+            if ((int)velocity >= pBuf->min_vel && (int)velocity <= pBuf->max_vel) return pBuf;
         }
         
         // return nil if no samples mapped to note (or sample velocities are invalid)
@@ -203,11 +211,12 @@ namespace AudioKitCore {
         }
         return 0;
     }
-    
+
     void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
     {
-        if (pedalLogic.keyDownAction(noteNumber))
-            stop(noteNumber, false);
+        pedalLogic.keyDownAction(noteNumber);
+        //if (pedalLogic.keyDownAction(noteNumber))
+        //    stop(noteNumber, false);
         play(noteNumber, velocity, noteHz);
     }
     
@@ -241,8 +250,9 @@ namespace AudioKitCore {
         if (pVoice)
         {
             // re-start the note
-            KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
-            pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
+            //KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+            //pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
+            pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
             //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
             return;
         }
@@ -263,6 +273,7 @@ namespace AudioKitCore {
         }
         
         // all oscillators in use; do nothing
+        //printf("All oscillators in use!\n");
     }
     
     void Sampler::stop(unsigned noteNumber, bool immediate)
@@ -290,7 +301,7 @@ namespace AudioKitCore {
         float* pOutRight = outBuffers[1];
         
         float pitchDev = this->pitchOffset + vibratoDepth * vibratoLFO.getSample();
-        float cutoffMul = filterEnable ? cutoffMultiple : -1.0;
+        float cutoffMul = filterEnable ? cutoffMultiple : -1.0f;
         
         SamplerVoice* pVoice = &voice[0];
         for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
