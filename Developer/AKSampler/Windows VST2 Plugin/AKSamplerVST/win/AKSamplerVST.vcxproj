@@ -81,7 +81,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\vstsdk2.4;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST2_SDK;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;NETSYNTH_EXPORTS;_CRT_SECURE_NO_DEPRECATE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -107,7 +107,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\vstsdk2.4;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST2_SDK;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;AKSAMPLERVST_EXPORTS;VST_64BIT_PLATFORM=1;_CRT_SECURE_NO_DEPRECATE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\vstsdk2.4;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST2_SDK;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;AKSAMPLERVST_EXPORTS;_CRT_SECURE_NO_DEPRECATE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -152,7 +152,7 @@
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\vstsdk2.4;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\VST2_SDK;..\..\libsndfile\include;..\..\WavpackDLL;..\..\..\..\..\AudioKit\Core\AudioKitCore\Common;..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;AKSAMPLERVST_EXPORTS;VST_64BIT_PLATFORM=1;_CRT_SECURE_NO_DEPRECATE=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -182,12 +182,11 @@
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleOscillator.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.hpp" />
-    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\aeffect.h" />
-    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\aeffectx.h" />
-    <ClInclude Include="..\..\vstsdk2.4\pluginterfaces\vst2.x\vstfxstore.h" />
-    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\aeffeditor.h" />
-    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.h" />
-    <ClInclude Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffectx.h" />
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffect.h" />
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffectx.h" />
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\aeffeditor.h" />
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.h" />
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.h" />
     <ClInclude Include="..\source\AKSamplerDSP.h" />
     <ClInclude Include="..\source\AKSamplerGUI.h" />
     <ClInclude Include="..\source\AKSamplerParams.h" />
@@ -202,9 +201,9 @@
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.cpp" />
-    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffect.cpp" />
-    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\audioeffectx.cpp" />
-    <ClCompile Include="..\..\vstsdk2.4\public.sdk\source\vst2.x\vstplugmain.cpp" />
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.cpp" />
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.cpp" />
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\vstplugmain.cpp" />
     <ClCompile Include="..\source\AKSamplerDSP.cpp" />
     <ClCompile Include="..\source\AKSamplerGUI.cpp" />
   </ItemGroup>
