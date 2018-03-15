@@ -65,6 +65,10 @@ extern "C" void doAKSamplerBuildKeyMap(void* pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
+extern "C" void doAKSamplerSetLoopThruRelease(void* pDSP, bool value) {
+    ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
+}
+
 extern "C" void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
 {
     ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
