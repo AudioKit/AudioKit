@@ -7,6 +7,9 @@
 //
 
 #include "FunctionTable.hpp"
+#ifndef _USE_MATH_DEFINES
+  #define _USE_MATH_DEFINES
+#endif
 #include <math.h>
 
 namespace AudioKitCore
@@ -39,7 +42,7 @@ namespace AudioKitCore
         else    // you would normally only do this if you plan to low-pass filter the result
         {
             for (int i=0; i < nTableSize; i++)
-                pWaveTable[i] = 2.0f * (0.5f - fabs((float(i)/nTableSize) - 0.5f)) - 1.0f;
+                pWaveTable[i] = 2.0f * (0.5f - fabsf((float(i)/nTableSize) - 0.5f)) - 1.0f;
         }
     }
     
@@ -70,14 +73,14 @@ namespace AudioKitCore
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
         
-        float bottom = -exp(-left);
-        float top = -exp(-right);
+        float bottom = -expf(-left);
+        float top = -expf(-right);
         float vscale = 1.0f / (top - bottom);
         
         float x = left;
         float dx = (right - left) / (nTableSize - 1);
         for (int i=0; i < nTableSize; i++, x += dx)
-            pWaveTable[i] = vscale * (-exp(-x) - bottom);
+            pWaveTable[i] = vscale * (-expf(-x) - bottom);
     }
     
     // Initialize a FunctionTable to an exponential-fall shape, scaled to fit in the unit square.
@@ -89,21 +92,21 @@ namespace AudioKitCore
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
         
-        float bottom = exp(-left);
-        float top = exp(-right);
+        float bottom = expf(-left);
+        float top = expf(-right);
         float vscale = 1.0f / (top - bottom);
         
         float x = left;
         float dx = (right - left) / (nTableSize - 1);
         for (int i=0; i < nTableSize; i++, x += dx)
-            pWaveTable[i] = vscale * (exp(-x) - bottom);
+            pWaveTable[i] = vscale * (expf(-x) - bottom);
     }
     
     void FunctionTableOscillator::init(double sampleRate, float frequency)
     {
         sampleRateHz = sampleRate;
         phase = 0.0f;
-        phaseDelta = frequency / sampleRate;
+        phaseDelta = (float)(frequency / sampleRate);
     }
     
     void FunctionTableOscillator::deinit()
@@ -113,7 +116,7 @@ namespace AudioKitCore
     
     void FunctionTableOscillator::setFrequency(float frequency)
     {
-        phaseDelta = frequency / sampleRateHz;
+        phaseDelta = (float)(frequency / sampleRateHz);
     }
 
 }

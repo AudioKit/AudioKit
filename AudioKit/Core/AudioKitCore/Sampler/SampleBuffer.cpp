@@ -36,7 +36,7 @@ namespace AudioKitCore
         if (pSamples) delete[] pSamples;
         pSamples = new float[nChannelCount * nSampleCount];
         fLoopStart = fStart = 0.0f;
-        fLoopEnd = fEnd = nSampleCount;
+        fLoopEnd = fEnd = (float)nSampleCount;
     }
     
     void SampleBuffer::deinit()
@@ -47,7 +47,7 @@ namespace AudioKitCore
     
     void SampleBuffer::setData(unsigned nIndex, float data)
     {
-        if (nIndex < nChannelCount * nSampleCount)
+        if ((int)nIndex < nChannelCount * nSampleCount)
         {
             pSamples[nIndex] = data;
         }
