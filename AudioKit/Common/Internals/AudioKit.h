@@ -28,11 +28,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKBankDSPKernel.hpp"
 #import "ExceptionCatcher.h"
 
-// Core
-#if !TARGET_OS_TV
-#import "wavpack.h"
-#endif
-
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKFrequencyTrackerAudioUnit.h"
