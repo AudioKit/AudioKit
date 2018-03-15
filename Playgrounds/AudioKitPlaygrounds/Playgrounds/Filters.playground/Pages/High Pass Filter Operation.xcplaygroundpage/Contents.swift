@@ -13,8 +13,8 @@ let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
 
 //: Music Example
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 let filteredPlayer = AKOperationEffect(player) { player, _ in
     let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return player.highPassFilter(halfPowerPoint: halfPower)
@@ -23,7 +23,7 @@ let filteredPlayer = AKOperationEffect(player) { player, _ in
 //: Mixdown and playback
 let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 
 whiteNoise.start()
 player.play()

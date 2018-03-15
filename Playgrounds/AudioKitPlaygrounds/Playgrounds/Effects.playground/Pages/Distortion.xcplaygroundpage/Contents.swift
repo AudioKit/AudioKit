@@ -6,8 +6,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var distortion = AKDistortion(player)
 distortion.delay = 0.1
@@ -21,7 +21,7 @@ distortion.softClipGain = -6
 distortion.finalMix = 0.5
 
 AudioKit.output = AKBooster(distortion, gain: 0.1)
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

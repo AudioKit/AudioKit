@@ -7,8 +7,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var peakLimiter = AKPeakLimiter(player)
 peakLimiter.attackTime = 0.001 // Secs
@@ -16,7 +16,7 @@ peakLimiter.decayTime = 0.01 // Secs
 peakLimiter.preGain = 10 // dB
 
 AudioKit.output = peakLimiter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

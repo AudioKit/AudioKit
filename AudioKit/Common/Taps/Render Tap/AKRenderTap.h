@@ -2,7 +2,7 @@
 //  AKRenderTap.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/16/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © AudioKit. All rights reserved.
 //
 
@@ -29,7 +29,12 @@ typedef void(^AKRenderNotifyBlock)(AudioUnitRenderActionFlags * _Nonnull ioActio
  */
 @property (readonly) AKRenderNotifyBlock _Nullable renderNotifyBlock NS_SWIFT_UNAVAILABLE("No render code in Swift");
 
-/*!
+/**
+ * Internal audio unit;
+ */
+@property (readonly) AudioUnit _Nonnull audioUnit;
+
+/**
  * Initializes a renderTap, holds reference to audioUnit.
  *
  * @param audioUnit The audioUnit that will the tap notify on.
@@ -38,7 +43,7 @@ typedef void(^AKRenderNotifyBlock)(AudioUnitRenderActionFlags * _Nonnull ioActio
  */
 -(instancetype _Nullable )initWithAudioUnit:(AudioUnit _Nonnull)audioUnit renderNotify:(AKRenderNotifyBlock _Nullable )block NS_DESIGNATED_INITIALIZER NS_SWIFT_UNAVAILABLE("No render code in Swift");
 
-/*!
+/**
  * Initializes a renderTap, holds reference to underlying audioUnit.
  * underlying audioUnit.
  *

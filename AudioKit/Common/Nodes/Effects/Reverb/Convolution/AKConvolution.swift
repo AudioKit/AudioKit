@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// This module will perform partitioned convolution on an input signal using an
@@ -35,10 +35,9 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency,
     ///                      at the cost of requiring more CPU power.
     ///
-    @objc public init(
-        _ input: AKNode? = nil,
-        impulseResponseFileURL: URL,
-        partitionLength: Int = 2_048) {
+    @objc public init(_ input: AKNode? = nil,
+                      impulseResponseFileURL: URL,
+                      partitionLength: Int = 2_048) {
 
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
@@ -47,12 +46,14 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-            self?.internalAU?.setPartitionLength(Int32(partitionLength))
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
+            strongSelf.internalAU?.setPartitionLength(Int32(partitionLength))
         }
     }
 
@@ -69,7 +70,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             var theData: UnsafeMutablePointer<CChar>?
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
-            err = ExtAudioFileOpenURL(self.impulseResponseFileURL, &extRef)
+            err = ExtAudioFileOpenURL(impulseResponseFileURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
 
             guard let externalAudioFileRef = extRef else {
@@ -94,7 +95,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8
-            theOutputFormat.mChannelsPerFrame = 1; // Mono
+            theOutputFormat.mChannelsPerFrame = 1 // Mono
             theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
@@ -135,9 +136,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
                 if err == noErr {
                     // success
-                    let data = UnsafeMutablePointer<Float>(
-                        bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
-                    )
+                    let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU?.start()
                 } else {

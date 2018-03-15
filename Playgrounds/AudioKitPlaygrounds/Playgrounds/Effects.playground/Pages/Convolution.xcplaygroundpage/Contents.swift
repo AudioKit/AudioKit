@@ -7,8 +7,8 @@ import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let bundle = Bundle.main
 
@@ -31,7 +31,7 @@ mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
 dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
-AudioKit.start()
+try AudioKit.start()
 
 stairwellConvolution.start()
 dishConvolution.start()

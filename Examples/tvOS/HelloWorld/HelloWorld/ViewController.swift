@@ -18,7 +18,11 @@ class ViewController: UIViewController {
         super.init(coder: aDecoder)
 
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {

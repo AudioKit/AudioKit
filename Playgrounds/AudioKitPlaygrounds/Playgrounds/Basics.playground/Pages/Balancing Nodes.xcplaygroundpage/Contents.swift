@@ -12,8 +12,8 @@ import AudioKitUI
 
 //: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav")
-var source = try AKAudioPlayer(file: file)
-source.looping = true
+var source = AKPlayer(audioFile: file)
+source.isLooping = true
 
 let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
 let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
@@ -22,7 +22,7 @@ let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
 
 AudioKit.output = rebalancedWithSource
-AudioKit.start()
+try try AudioKit.start()
 source.play()
 
 //: User Interface Set up

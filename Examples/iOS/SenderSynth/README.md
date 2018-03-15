@@ -37,7 +37,11 @@ and then use oscillator as AudioKit's output and start things up:
         super.viewDidLoad()
 
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 ```
 
@@ -53,7 +57,11 @@ Next, build the views:
         super.viewDidLoad()
 
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         setupUI()
     }
@@ -186,7 +194,11 @@ Back in your ViewController.swift file:
 
 ```
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         Audiobus.start()
 ```
 

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -107,18 +107,20 @@ open class AKSampler: AKNode {
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
-    @objc open func loadPath(_ filePath: String) {
+    @objc open func loadPath(_ filePath: String) throws {
         do {
             try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         } catch {
             AKLog("Error loading audio file at \(filePath)")
+            throw error
         }
     }
 
     internal func loadInstrument(_ file: String, type: String) throws {
         //AKLog("filename is \(file)")
         guard let url = Bundle.main.url(forResource: file, withExtension: type) else {
-            fatalError("file not found.")
+            AKLog("File not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
             try samplerUnit.loadInstrument(at: url)

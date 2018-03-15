@@ -675,9 +675,30 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="macOSDevelopment" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="335" height="233"/>
+                        <rect key="frame" x="0.0" y="0.0" width="335" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <box fixedFrame="YES" title="AudioKit Management" translatesAutoresizingMaskIntoConstraints="NO" id="pn6-nj-ML2">
+                                <rect key="frame" x="17" y="231" width="301" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="f3c-NC-0E5">
+                                    <rect key="frame" x="2" y="2" width="297" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kAA-2y-mnk">
+                                            <rect key="frame" x="8" y="15" width="92" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="push" title="Start AudioKit" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eab-8t-V7s">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="start:" target="XfG-lQ-9wD" id="yoT-fG-OxX"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </box>
                             <box fixedFrame="YES" title="Input Source" translatesAutoresizingMaskIntoConstraints="NO" id="4aZ-eO-Hao">
                                 <rect key="frame" x="17" y="138" width="301" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -818,7 +839,7 @@ IA
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2.5" y="636.5"/>
+            <point key="canvasLocation" x="2.5" y="677"/>
         </scene>
     </scenes>
 </document>

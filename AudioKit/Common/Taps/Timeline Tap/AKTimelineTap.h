@@ -2,7 +2,7 @@
 //  AKTimelineTap.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/28/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -47,7 +47,7 @@ typedef void(^AKTimelineBlock)( AKTimeline      * _Nonnull  timeline,
  Dictates if the timeline callback will be called pre-render or post-render, defaults to false (post-render).
 
  Pre-render is better for triggering MIDI as the sample offset is taken into consideration. Post-render
- is neccessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
+ is necessary for ioData buffer manipulation as buffers' mData is NULL during pre-render.
  */
 @property BOOL preRender;
 

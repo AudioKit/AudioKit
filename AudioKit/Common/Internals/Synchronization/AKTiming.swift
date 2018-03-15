@@ -2,7 +2,7 @@
 //  AKTiming.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 5/8/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
@@ -30,14 +30,14 @@
     func position(at audioTime: AVAudioTime?) -> Double
 
     /// Audio time at timeline time
-    /// - Parameter time: Time in the timeline context (seconds).
+    /// - Parameter position: Time in the timeline context (seconds).
     /// - Return: A time in the audio render context.
     ///
     @objc(audioTimeAtPosition:)
     func audioTime(at position: Double) -> AVAudioTime?
 
-    /// Prepare for playback.  After prepare has been called, the node should be ready to begine playback imediately.
-    /// Any time consuming operations neccessary for playback (eg. disk reads) should be complete once prepare has been called.
+    /// Prepare for playback.  After prepare has been called, the node should be ready to begine playback immediately.
+    /// Any time consuming operations necessary for playback (eg. disk reads) should be complete once prepare has been called.
     ///
     @objc optional func prepare()
 

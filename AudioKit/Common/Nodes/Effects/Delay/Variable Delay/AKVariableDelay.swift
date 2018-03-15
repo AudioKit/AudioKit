@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A delay line with cubic interpolation.
@@ -20,6 +20,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
 
     fileprivate var timeParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
+    fileprivate var maximumDelayTimeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -28,32 +29,35 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Delay time (in seconds) that can be changed at any point. This value must not exceed the maximum delay time.
+    /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @objc open dynamic var time: Double = 0 {
         willSet {
-            if time != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        timeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.time = Float(newValue)
+            if time == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    timeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.time, value: newValue)
         }
     }
+
     /// Feedback amount. Should be a value between 0-1.
     @objc open dynamic var feedback: Double = 0 {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            if feedback == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
@@ -68,7 +72,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - time: Delay time (in seconds). This value must not exceed the maximum delay time.
+    ///   - time: Delay time (in seconds) This value must not exceed the maximum delay time.
     ///   - feedback: Feedback amount. Should be a value between 0-1.
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
@@ -82,13 +86,16 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         self.feedback = feedback
 
         _Self.register()
+
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -110,8 +117,9 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.time = Float(time)
-        internalAU?.feedback = Float(feedback)
+
+        internalAU?.setParameterImmediately(.time, value: time)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
     }
 
     // MARK: - Control

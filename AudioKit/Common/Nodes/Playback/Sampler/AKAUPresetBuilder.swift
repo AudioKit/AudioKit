@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// Builds presets for Apple sampler to read from
@@ -228,7 +228,7 @@ open class AKAUPresetBuilder {
             try str.write(toFile: path, atomically: false, encoding: String.Encoding.utf8)
         } catch let error as NSError {
             AKLog("Could not write to \(path)")
-            AKLog("\(error)")
+            AKLog(error)
         }
     }
 

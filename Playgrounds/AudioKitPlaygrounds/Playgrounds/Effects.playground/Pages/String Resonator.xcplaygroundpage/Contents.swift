@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var stringResonator = AKStringResonator(player)
 stringResonator.feedback = 0.9
@@ -14,7 +14,7 @@ stringResonator.fundamentalFrequency = 1_000
 stringResonator.rampTime = 0.1
 
 AudioKit.output = stringResonator
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

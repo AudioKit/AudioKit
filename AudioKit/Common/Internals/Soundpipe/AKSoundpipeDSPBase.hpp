@@ -2,7 +2,7 @@
 //  AKSoundpipeDSPBase.hpp
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/1/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -10,8 +10,16 @@
 
 #import "AKDSPBase.hpp"
 
+#ifndef __cplusplus
+
+#include "soundpipe.h"
+#include "vocwrapper.h"
+
+#else
+
 extern "C" {
 #include "soundpipe.h"
+#include "vocwrapper.h"
 }
 
 class AKSoundpipeDSPBase: public AKDSPBase {
@@ -62,5 +70,6 @@ public:
         }
     }
 
-
 };
+
+#endif

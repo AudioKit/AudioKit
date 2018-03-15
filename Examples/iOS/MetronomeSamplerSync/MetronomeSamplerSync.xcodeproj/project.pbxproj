@@ -13,9 +13,7 @@
 		555CCCD91F587D5D00614D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCD81F587D5D00614D5F /* Assets.xcassets */; };
 		555CCCDC1F587D5D00614D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCDA1F587D5D00614D5F /* LaunchScreen.storyboard */; };
 		5585D4891F58DC9A0071A702 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D4881F58DC9A0071A702 /* AudioKit.framework */; };
-		5585D48A1F58DC9A0071A702 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D4881F58DC9A0071A702 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5585D48C1F58DCA20071A702 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D48B1F58DCA20071A702 /* AudioKitUI.framework */; };
-		5585D48D1F58DCA20071A702 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D48B1F58DCA20071A702 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5585D48F1F58DE930071A702 /* closed_hi_hat_F#1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */; };
 		5585D4911F58DED20071A702 /* cheeb-ch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5585D4901F58DED20071A702 /* cheeb-ch.wav */; };
 /* End PBXBuildFile section */
@@ -27,8 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5585D48D1F58DCA20071A702 /* AudioKitUI.framework in Embed Frameworks */,
-				5585D48A1F58DC9A0071A702 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +311,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MetronomeSamplerSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MetronomeSamplerSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -329,6 +326,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MetronomeSamplerSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MetronomeSamplerSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

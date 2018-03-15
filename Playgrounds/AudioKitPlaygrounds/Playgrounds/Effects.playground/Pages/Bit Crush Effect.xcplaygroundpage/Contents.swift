@@ -13,15 +13,15 @@ import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3_333
 
 AudioKit.output = bitcrusher
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

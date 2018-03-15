@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 import UIKit
 
@@ -21,7 +21,7 @@ public protocol AKKeyboardDelegate: class {
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
 
-    /// Lowest octave dispayed
+    /// Lowest octave displayed
     @IBInspectable open var firstOctave: Int = 4
 
     /// Relative measure of the height of the black keys

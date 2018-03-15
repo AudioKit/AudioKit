@@ -2,7 +2,7 @@
 //  AKLazyTap.m
 //  AudioKit
 //
-//  Created by David O'Neill on 8/16/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © AudioKit. All rights reserved.
 //
 

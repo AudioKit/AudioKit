@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -35,7 +35,7 @@ open class AKMIDISampler: AKSampler {
     /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the MIDI client
+    ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,

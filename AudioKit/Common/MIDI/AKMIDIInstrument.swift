@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -33,7 +33,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the midi client
+    ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,

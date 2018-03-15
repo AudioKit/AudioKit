@@ -6,8 +6,8 @@ import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { input, parameters in
     let baseSampleRate = parameters[0]
@@ -25,7 +25,7 @@ let effect = AKOperationEffect(player) { input, parameters in
 effect.parameters = [22_050, 0, 16, 0, 1]
 
 AudioKit.output = effect
-AudioKit.start()
+try try AudioKit.start()
 player.play()
 
 class LiveView: AKLiveViewController {

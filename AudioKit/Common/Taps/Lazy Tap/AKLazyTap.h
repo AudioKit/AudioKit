@@ -2,7 +2,7 @@
 //  AKLazyTap.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/16/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © AudioKit. All rights reserved.
 //
 
@@ -20,7 +20,7 @@
  * The render notify will be removed on dealloc.
  *
  * @param node The AVAudioNode that will the tap will pull buffers from.
- * @return An AKLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if successful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithNode:(AVAudioNode * _Nonnull)node;
 
@@ -30,7 +30,7 @@
  * The render notify will be removed on dealloc.
  *
  * @param audioUnit The audioUnit that the tap will pull buffers from.
- * @return An AKLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if successful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit;
 
@@ -42,7 +42,7 @@
  *
  * @param node The AVAudioNode that will the tap will pull buffers from.
  * @param seconds Minumum seconds of audio that the tap will hold.
- * @return An AKLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if successful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithNode:(AVAudioNode * _Nonnull)node queueTime:(double)seconds;
 
@@ -53,7 +53,7 @@
  *
  * @param audioUnit The audioUnit that the tap will pull buffers from.
  * @param seconds Minumum seconds of audio that the tap will hold.
- * @return An AKLazyTap if sucessful in adding the renderNotify.
+ * @return An AKLazyTap if successful in adding the renderNotify.
  */
 -(instancetype _Nullable)initWithAudioUnit:(AudioUnit _Nonnull)audioUnit queueTime:(double)seconds NS_DESIGNATED_INITIALIZER;
 -(instancetype _Nonnull )init NS_UNAVAILABLE;

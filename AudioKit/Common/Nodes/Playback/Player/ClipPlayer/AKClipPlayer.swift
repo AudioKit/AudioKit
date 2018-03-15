@@ -2,7 +2,7 @@
 //  AKClipPlayer.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 6/13/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
@@ -57,7 +57,7 @@ open class AKClipPlayer: AKNode {
             do {
                 try setClips(clips: newValue)
             } catch {
-                print(error)
+                AKLog(error)
             }
         }
     }
@@ -105,7 +105,7 @@ open class AKClipPlayer: AKNode {
             self.init()
             _clips = validatedClips
         } catch {
-            print(error)
+            AKLog(error)
             return nil
         }
 

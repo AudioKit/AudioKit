@@ -2,8 +2,8 @@
 //  AKPWMOscillatorTests.swift
 //  AudioKit for iOS
 //
-//  Created by Aurelius Prochazka on 8/6/16.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -52,6 +52,7 @@ class AKPWMOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKPWMOscillator()
+        oscillator.rampTime = 0.0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.pulseWidth = 0.75

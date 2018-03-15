@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Stéphane Peter, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// Global settings for AudioKit
@@ -106,7 +106,7 @@
                                               0, &frames,
                                               UInt32(MemoryLayout<UInt32>.size))
             if status != 0 {
-                print("error in set ioBufferDuration status \(status)")
+                AKLog("error in set ioBufferDuration status \(status)")
             }
         }
         get {
@@ -122,7 +122,7 @@
                                               &frames,
                                               &propSize)
             if status != 0 {
-                print("error in get ioBufferDuration status \(status)")
+                AKLog("error in get ioBufferDuration status \(status)")
             }
             return Double(frames) / sampleRate
         }
@@ -137,7 +137,7 @@
                 try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
 
             } catch {
-                print(error)
+                AKLog(error)
             }
         }
         get {
@@ -224,8 +224,7 @@ extension AKSettings {
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true")
-            AKLog("AKSettings Error: \(error))")
+            AKLog("AKSettings Error: Cannot set AVAudioSession.setActive to true", error)
             throw error
         }
     }
@@ -309,32 +308,33 @@ extension AKSettings {
         /// Audio is not silenced by silent switch and screen lock - audio is non mixable.
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
-        #if !os(tvOS)
-        /// Disables playback and recording
+        /// Disables playback and recording; deprecated in iOS 10
         case audioProcessing
-        #endif
         /// Use to multi-route audio. May be used on input, output, or both.
         case multiRoute
 
         public var description: String {
-
-            if self == .ambient {
+            switch self {
+            case .ambient:
                 return AVAudioSessionCategoryAmbient
-            } else if self == .soloAmbient {
+            case .soloAmbient:
                 return AVAudioSessionCategorySoloAmbient
-            } else if self == .playback {
+            case .playback:
                 return AVAudioSessionCategoryPlayback
-            } else if self == .record {
+            case .record:
                 return AVAudioSessionCategoryRecord
-            } else if self == .playAndRecord {
+            case .playAndRecord:
                 return AVAudioSessionCategoryPlayAndRecord
-            } else if self == .multiRoute {
+            case .multiRoute:
                 return AVAudioSessionCategoryMultiRoute
+            case .audioProcessing:
+                #if !os(tvOS)
+                    return AVAudioSessionCategoryAudioProcessing
+                #else
+                    return "AVAudioSessionCategoryAudioProcessing"
+                #endif
             }
-
-            fatalError("unrecognized AVAudioSessionCategory \(self)")
-
-      }
+        }
    }
 }
 #endif

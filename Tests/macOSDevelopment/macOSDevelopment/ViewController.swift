@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  macOSDevelopment
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -13,16 +13,16 @@ import Cocoa
 class ViewController: NSViewController {
 
     // Default controls
-    @IBOutlet weak var playButton: NSButton!
-    @IBOutlet weak var sliderLabel1: NSTextField!
-    @IBOutlet weak var slider1: NSSlider!
-    @IBOutlet weak var sliderLabel2: NSTextField!
-    @IBOutlet weak var slider2: NSSlider!
-    @IBOutlet weak var slider1Value: NSTextField!
-    @IBOutlet weak var slider2Value: NSTextField!
-    @IBOutlet weak var inputSource: NSPopUpButton!
-    @IBOutlet weak var chooseAudioButton: NSButton!
-    @IBOutlet weak var inputSourceInfo: NSTextField!
+    @IBOutlet var playButton: NSButton!
+    @IBOutlet var sliderLabel1: NSTextField!
+    @IBOutlet var slider1: NSSlider!
+    @IBOutlet var sliderLabel2: NSTextField!
+    @IBOutlet var slider2: NSSlider!
+    @IBOutlet var slider1Value: NSTextField!
+    @IBOutlet var slider2Value: NSTextField!
+    @IBOutlet var inputSource: NSPopUpButton!
+    @IBOutlet var chooseAudioButton: NSButton!
+    @IBOutlet var inputSourceInfo: NSTextField!
 
     var openPanel: NSOpenPanel?
 
@@ -44,9 +44,16 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
         AudioKit.output = booster
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         initOscillator()
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
@@ -93,7 +100,7 @@ class ViewController: NSViewController {
             openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
         }
         guard let openPanel = openPanel else { return }
-        openPanel.beginSheetModal( for: window, completionHandler: { response in
+        openPanel.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
                 if let url = openPanel.url {
                     self.open(url: url)
@@ -114,7 +121,7 @@ class ViewController: NSViewController {
         }
         initPlayer()
 
-        Swift.print("Opened \(url.lastPathComponent)")
+        AKLog("Opened \(url.lastPathComponent)")
     }
 
     @IBAction func handlePlay(_ sender: NSButton) {

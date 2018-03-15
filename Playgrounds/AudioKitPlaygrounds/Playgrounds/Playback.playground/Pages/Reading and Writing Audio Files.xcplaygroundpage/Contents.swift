@@ -56,7 +56,7 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
             print(successfulFile.fileNamePlusExtension)
             let player = try? AKAudioPlayer(file: successfulFile)
             AudioKit.output = player
-            AudioKit.start()
+            try try AudioKit.start()
             player?.play()
         }
 

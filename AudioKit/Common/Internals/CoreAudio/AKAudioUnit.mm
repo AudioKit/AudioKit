@@ -3,11 +3,13 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import "AKAudioUnit.h"
 #import <AVFoundation/AVFoundation.h>
+
+#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKAudioUnit {
     AUAudioUnitBusArray *_outputBusArray;
@@ -46,8 +48,8 @@
     }
 
     // Initialize a default format for the busses.
-    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100
-                                                                        channels:2];
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                        channels:AKSettings.numberOfChannels];
 
     [self createParameters];
 

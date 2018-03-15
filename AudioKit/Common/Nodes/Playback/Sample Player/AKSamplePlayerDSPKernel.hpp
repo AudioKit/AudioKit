@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -29,9 +29,7 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-
-        startPointRamper.init();
-        endPointRamper.init();
+        
         rateRamper.init();
         volumeRamper.init();
     }
@@ -47,13 +45,13 @@ public:
         lastPosition = 0.0;
         inLoopPhase = false;
         position = startPointViaRate();
-        printf("starting From %0.3f\n", position);
-        printf("rate %0.3f\n", rate);
         mainPlayComplete = false;
     }
 
     void stop() {
         started = false;
+        useTempStartPoint = false;
+        useTempEndPoint = false;
     }
 
     void setUpTable(UInt32 size) {
@@ -86,28 +84,30 @@ public:
 
     void reset() {
         resetted = true;
-        startPointRamper.reset();
-        endPointRamper.reset();
         rateRamper.reset();
         volumeRamper.reset();
     }
 
     void setStartPoint(float value) {
         startPoint = value;
-        startPointRamper.setImmediate(startPoint);
     }
 
     void setEndPoint(float value) {
         endPoint = value;
-        endPointRamper.setImmediate(endPoint);
     }
     void setLoopStartPoint(float value) {
         loopStartPoint = value;
-        loopStartPointRamper.setImmediate(loopStartPoint);
     }
     void setLoopEndPoint(float value) {
         loopEndPoint = value;
-        loopEndPointRamper.setImmediate(loopEndPoint);
+    }
+    void setTempStartPoint(float value) {
+        useTempStartPoint = true;
+        tempStartPoint = value;
+    }
+    void setTempEndPoint(float value) {
+        useTempEndPoint = true;
+        tempEndPoint = value;
     }
     void setLoop(bool value) {
         loop = value;
@@ -125,22 +125,6 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case startPointAddress:
-                startPointRamper.setUIValue(value);
-                break;
-
-            case endPointAddress:
-                endPointRamper.setUIValue(value);
-                break;
-
-            case loopStartPointAddress:
-                loopStartPointRamper.setUIValue(value);
-                break;
-
-            case loopEndPointAddress:
-                loopEndPointRamper.setUIValue(value);
-                break;
-
             case rateAddress:
                 rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
@@ -153,18 +137,6 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case startPointAddress:
-                return startPointRamper.getUIValue();
-
-            case endPointAddress:
-                return endPointRamper.getUIValue();
-
-            case loopStartPointAddress:
-                return loopStartPointRamper.getUIValue();
-
-            case loopEndPointAddress:
-                return loopEndPointRamper.getUIValue();
-
             case rateAddress:
                 return rateRamper.getUIValue();
 
@@ -177,22 +149,6 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case startPointAddress:
-                startPointRamper.startRamp(value, duration);
-                break;
-
-            case endPointAddress:
-                endPointRamper.startRamp(value, duration);
-                break;
-
-            case loopStartPointAddress:
-                loopStartPointRamper.startRamp(value, duration);
-                break;
-
-            case loopEndPointAddress:
-                loopEndPointRamper.startRamp(value, duration);
-                break;
-
             case rateAddress:
                 rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
@@ -208,11 +164,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-
-            startPoint = double(startPointRamper.getAndStep());
-            endPoint = double(endPointRamper.getAndStep());
-            loopStartPoint = double(loopStartPointRamper.getAndStep());
-            loopEndPoint = double(loopEndPointRamper.getAndStep());
+            
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
@@ -221,7 +173,6 @@ public:
             double nextPosition = position + sampleRateRatio() * rate;
 
             if (started){
-                //printf("nextPosition %0.3f\n",nextPosition);
                 calculateMainPlayComplete(nextPosition);
                 if (loop){
                     calculateLoopPhase(nextPosition);
@@ -231,11 +182,9 @@ public:
                         calculateShouldLoop(nextPosition);
                     }
                 }
-
                 if (!loop && calculateHasEnded(nextPosition)) {
-                    started = false;
+                    stop();
                     completionHandler();
-                    printf("ended\n");
                 } else {
                     lastPosition = position;
                 }
@@ -262,10 +211,20 @@ public:
     
     float startPointViaRate(){
         if (rate == 0) {return 0;}
+        if (useTempStartPoint){
+            float currentEndPoint = endPoint;
+            if (useTempEndPoint) {
+                currentEndPoint = tempEndPoint;
+            }
+            return (rate > 0 ? tempStartPoint : currentEndPoint);
+        }
         return (rate > 0 ? startPoint : endPoint);
     }
     float endPointViaRate(){
         if (rate == 0) {return 0;}
+        if (useTempEndPoint){
+            return (rate > 0 ? tempEndPoint : tempStartPoint);
+        }
         return (rate > 0 ? endPoint : startPoint);
     }
     float loopStartPointViaRate(){
@@ -309,9 +268,6 @@ public:
     bool startEndReversed(){
         return (endPointViaRate() < startPointViaRate() ? true : false);
     }
-//    bool playbackReversed(){
-//        return false;
-//    }
     
     void calculateMainPlayComplete(double nextPosition){
         if (nextPosition > endPointViaRate() && !startEndReversed()){
@@ -355,6 +311,10 @@ private:
 
     float startPoint = 0;
     float endPoint = 1;
+    float tempStartPoint = 0;
+    float tempEndPoint = 1;
+    bool useTempStartPoint = false;
+    bool useTempEndPoint = false;
     float loopStartPoint = 0;
     float loopEndPoint = 1;
     float volume = 1;
@@ -367,10 +327,6 @@ private:
 public:
     bool started = false;
     bool resetted = false;
-    ParameterRamper startPointRamper = 0;
-    ParameterRamper endPointRamper = 1;
-    ParameterRamper loopStartPointRamper = 0;
-    ParameterRamper loopEndPointRamper = 1;
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;

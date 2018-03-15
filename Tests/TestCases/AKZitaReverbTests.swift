@@ -2,7 +2,7 @@
 //  AKZitaReverbTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 7/14/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -23,6 +23,7 @@ class AKZitaReverbTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKZitaReverb(input)
+        effect.rampTime = 0
         effect.predelay = 10
         effect.crossoverFrequency = 200
         effect.lowReleaseTime = 1.5

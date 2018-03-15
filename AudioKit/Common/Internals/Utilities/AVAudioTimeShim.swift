@@ -2,7 +2,7 @@
 //  AVAudioTimeShim.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 5/8/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
@@ -64,7 +64,7 @@ extension AVAudioTime {
         return self
     }
 
-    /// The time in seconds between reciever and otherTime.
+    /// The time in seconds between receiver and otherTime.
     open func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
         if isSampleTimeValid && otherTime.isSampleTimeValid {
             return Double(sampleTime - otherTime.sampleTime) / sampleRate

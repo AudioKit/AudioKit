@@ -2,8 +2,8 @@
 //  AKTanhDistortionTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 8/9/16.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -22,12 +22,12 @@ class AKTanhDistortionTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKTanhDistortion(input, pregain: 4, postgain: 1, postiveShapeParameter: 1, negativeShapeParameter: 1)
+        output = AKTanhDistortion(input, pregain: 4, postgain: 1, positiveShapeParameter: 1, negativeShapeParameter: 1)
         AKTestMD5("42171b8371cf4b3a616967da9bc23190")
     }
 
     func testPositiveShapeParameter() {
-        output = AKTanhDistortion(input, postiveShapeParameter: 1)
+        output = AKTanhDistortion(input, positiveShapeParameter: 1)
         AKTestMD5("440ea7836049aaa8385a6289c13f52a9")
     }
 

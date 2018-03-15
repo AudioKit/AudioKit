@@ -43,7 +43,11 @@ class ViewController: UIViewController {
 
         }
 
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 }
 ```

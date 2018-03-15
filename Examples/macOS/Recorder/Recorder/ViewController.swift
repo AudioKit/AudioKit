@@ -14,7 +14,7 @@ class ViewController: NSViewController {
 
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
-    var player: AKAudioPlayer!
+    var player: AKPlayer!
     var tape: AKAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
@@ -36,9 +36,9 @@ class ViewController: NSViewController {
         micBooster.gain = 0
         recorder = try? AKNodeRecorder(node: micMixer)
         if let file = recorder.audioFile {
-            player = try? AKAudioPlayer(file: file)
+            player = AKPlayer(audioFile: file)
         }
-        player.looping = true
+        player.isLooping = true
         player.completionHandler = playingEnded
 
         moogLadder = AKMoogLadder(player)
@@ -46,8 +46,11 @@ class ViewController: NSViewController {
         mainMixer = AKMixer(moogLadder, micBooster)
 
         AudioKit.output = mainMixer
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     func playingEnded() {
@@ -67,21 +70,18 @@ class ViewController: NSViewController {
     @IBAction func stop(_ sender: Any) {
         player.stop()
         micBooster.gain = 0
-        do {
-            try player.reloadFile()
-        } catch { print("Errored reloading.") }
+        player.load(audioFile: tape)
 
-        let recordedDuration = player != nil ? player.audioFile.duration  : 0
-        if recordedDuration > 0.0 {
+        if let _ = player.audioFile?.duration {
             recorder.stop()
-            player.audioFile.exportAsynchronously(name: "TempTestFile.m4a",
-                                                  baseDir: .documents,
-                                                  exportFormat: .m4a) {_, exportError in
-                                                    if let error = exportError {
-                                                        print("Export Failed \(error)")
-                                                    } else {
-                                                        print("Export succeeded")
-                                                    }
+            tape.exportAsynchronously(name: "TempTestFile.m4a",
+                                      baseDir: .documents,
+                                      exportFormat: .m4a) {_, exportError in
+                                        if let error = exportError {
+                                            print("Export Failed \(error)")
+                                        } else {
+                                            print("Export succeeded")
+                                        }
             }
         }
     }

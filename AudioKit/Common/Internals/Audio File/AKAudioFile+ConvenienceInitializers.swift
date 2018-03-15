@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 extension NSError {
@@ -84,8 +84,7 @@ extension AKAudioFile {
             do {
                 try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
-                AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
-                AKLog("Error: \(error)")
+                AKLog("ERROR: Couldn't create an AKAudioFile", error)
                 throw NSError.fileCreateError
             }
     }
@@ -137,7 +136,7 @@ extension AKAudioFile {
         do {
             try self.write(from: buffer!)
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
             throw error
         }
 
