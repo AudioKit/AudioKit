@@ -19,6 +19,7 @@ namespace AudioKitCore {
     , vibratoDepth(0.0f)
     , cutoffMultiple(30.0f)
     , resonanceDb(0.0f)
+    , loopThruRelease(false)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
@@ -202,8 +203,6 @@ namespace AudioKitCore {
         if (pVoice)
         {
             // re-start the note
-            //KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
-            //pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
             pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
             //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
             return;
@@ -217,6 +216,7 @@ namespace AudioKitCore {
             {
                 // found a free voice: assign it to play this note
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
                 //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, pBuf %p)\n",
                 //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, pBuf);
@@ -242,7 +242,7 @@ namespace AudioKitCore {
         }
         else
         {
-            pVoice->release();
+            pVoice->release(loopThruRelease);
             //printf("Stop note %d release\n", noteNumber);
         }
     }

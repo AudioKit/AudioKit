@@ -29,12 +29,15 @@ namespace AudioKitCore
         int init(double sampleRate);    // returns system error code, nonzero only if a problem occurs
         void deinit();                  // call this to un-load all samples and clear the keymap
         
-        // call these to load samples
+        // call to load samples
         void loadSampleData(AKSampleDataDescriptor& sdd);
         
         // after loading samples, call one of these to build the key map
         void buildKeyMap(void);         // use this when you have full key mapping data (min/max note, vel)
         void buildSimpleKeyMap(void);   // or this when you don't
+        
+        // optionally call this to make samples continue looping after note-release
+        void setLoopThruRelease(bool value) { loopThruRelease = value; }
         
         void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
         void stopNote(unsigned noteNumber, bool immediate);
@@ -59,14 +62,15 @@ namespace AudioKitCore
         SustainPedalLogic pedalLogic;
         
         // simple parameters
-        //float ampAttackTime, ampDecayTime, ampSustainLevel, ampReleaseTime;
-        //float filterAttackTime, filterDecayTime, filterSustainLevel, filterReleaseTime;
         bool filterEnable;
         ADSREnvelopeParams ampEGParams;
         ADSREnvelopeParams filterEGParams;
         
         // performance parameters
         float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple, resonanceDb;
+        
+        // sample-related parameters
+        bool loopThruRelease;   // if true, sample continue looping thru note release phase
         
         // helper functions
         SamplerVoice* voicePlayingNote(unsigned noteNumber);

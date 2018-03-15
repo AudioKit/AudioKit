@@ -40,9 +40,9 @@ namespace AudioKitCore
         filterEG.start(true);
     }
     
-    void SamplerVoice::release()
+    void SamplerVoice::release(bool loopThruRelease)
     {
-        oscillator.bLooping = false;
+        if (!loopThruRelease) oscillator.bLooping = false;
         ampEG.release();
         filterEG.release();
     }

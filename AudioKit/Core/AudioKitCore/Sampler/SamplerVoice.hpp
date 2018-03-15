@@ -38,7 +38,7 @@ namespace AudioKitCore
         
         void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pSampleBuf);
         void restart(float volume, SampleBuffer* pSampleBuf);
-        void release();
+        void release(bool loopThruRelease);
         void stop();
         
         // return true if amp envelope is finished
