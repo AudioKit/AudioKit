@@ -30,7 +30,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Core
 #if !TARGET_OS_TV
-#import "wavpack_public.h"
+#import "wavpack.h"
 #endif
 
 // Analysis

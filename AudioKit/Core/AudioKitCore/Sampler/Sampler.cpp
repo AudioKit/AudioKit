@@ -7,20 +7,7 @@
 //
 
 #include "Sampler.hpp"
-#include <fcntl.h>
-#ifdef WIN32
-#include <io.h>
-#else
-#include <unistd.h>
-#endif
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include <math.h>
-#ifndef WIN32
-#include "wavpack_public.h"     // Temporary, will go away once I fix Wavpack itself
-#endif
 
 namespace AudioKitCore {
     
@@ -99,41 +86,6 @@ namespace AudioKitCore {
             else pBuf->fLoopEnd = pBuf->fEnd * sdd.sd.fLoopEnd;
         }
     }
-    
-#ifndef WIN32   // temporary
-    void Sampler::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
-    {
-        //printf("loadCompressedSampleFile: %d %.1f Hz %s\n", sfd.sd.noteNumber, sfd.sd.noteHz, sfd.path);
-        
-        int ifd = open(sfd.path, O_RDONLY);
-        if (ifd < 0)
-        {
-            printf("Error %d opening %s\n", errno, sfd.path);
-            return;
-        }
-        
-        AKSampleDataDescriptor sdd;
-        sdd.sd = sfd.sd;
-        
-        int check = getWvData(ifd, &sdd.sampleRateHz, &sdd.nChannels, &sdd.nSamples);
-        close(ifd);
-        if (check != 0)
-        {
-            printf("getWvData returns %d for %s\n", check, sfd.path);
-            return;
-        }
-        sdd.bInterleaved = (sdd.nChannels > 1);
-        
-        ifd = open(sfd.path, O_RDONLY);
-        sdd.pData = new float[sdd.nChannels * sdd.nSamples];
-        check = getWvSamples(ifd, sdd.pData);
-        close(ifd);
-        
-        loadSampleData(sdd);
-        
-        delete[] sdd.pData;
-    }
-#endif
     
     KeyMappedSampleBuffer* Sampler::lookupSample(unsigned noteNumber, unsigned velocity)
     {
