@@ -25,7 +25,7 @@ namespace AudioKitCore
         double sr = (double)sampleRateHz;
         filterL.updateSampleRate(sr);
         filterR.updateSampleRate(sr);
-        filterEG.start(true);
+        filterEG.start();
         
         noteHz = freqHz;
         noteNumber = noteNum;
@@ -37,7 +37,7 @@ namespace AudioKitCore
         pNewSampleBuffer = pSampleBuf;
         ampEG.restart();
         noteVol = volume;
-        filterEG.start(true);
+        filterEG.start();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
