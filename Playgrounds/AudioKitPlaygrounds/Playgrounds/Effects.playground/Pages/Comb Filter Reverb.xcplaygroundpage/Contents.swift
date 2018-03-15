@@ -5,14 +5,14 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 filter.reverbDuration = 1
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

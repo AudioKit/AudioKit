@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A 2nd order tunable equalization filter that provides a peak/notch filter
@@ -35,43 +35,48 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Center frequency. (in Hertz)
     @objc open dynamic var centerFrequency: Double = 1_000.0 {
         willSet {
-            if centerFrequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.centerFrequency = Float(newValue)
+            if centerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
+
     /// The peak/notch bandwidth in Hertz
     @objc open dynamic var bandwidth: Double = 100.0 {
         willSet {
-            if bandwidth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bandwidth = Float(newValue)
+            if bandwidth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
+
     /// The peak/notch gain
     @objc open dynamic var gain: Double = 10.0 {
         willSet {
-            if gain != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        gainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.gain = Float(newValue)
+            if gain == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    gainParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
 
@@ -86,7 +91,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency in Hertz
+    ///   - centerFrequency: Center frequency. (in Hertz)
     ///   - bandwidth: The peak/notch bandwidth in Hertz
     ///   - gain: The peak/notch gain
     ///
@@ -104,11 +109,13 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -132,9 +139,9 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.centerFrequency = Float(centerFrequency)
-        internalAU?.bandwidth = Float(bandwidth)
-        internalAU?.gain = Float(gain)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
+        internalAU?.setParameterImmediately(.gain, value: gain)
     }
 
     // MARK: - Control

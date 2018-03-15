@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let filterBand2 = AKEqualizerFilter(player, centerFrequency: 32, bandwidth: 44.7, gain: 1.0)
 let filterBand3 = AKEqualizerFilter(filterBand2, centerFrequency: 64, bandwidth: 70.8, gain: 1.0)
@@ -16,7 +16,7 @@ let filterBand6 = AKEqualizerFilter(filterBand5, centerFrequency: 500, bandwidth
 let filterBand7 = AKEqualizerFilter(filterBand6, centerFrequency: 1_000, bandwidth: 1_112, gain: 1.0)
 
 AudioKit.output = filterBand7
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

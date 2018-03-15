@@ -58,8 +58,17 @@ public class AKPlayer: AKNode {
     }
 
     public struct Loop {
-        public var start: Double = 0
-        public var end: Double = 0
+        public var start: Double = 0 {
+            willSet {
+                if newValue != start { needsUpdate = true }
+            }
+        }
+        public var end: Double = 0 {
+            willSet {
+                if newValue != end { needsUpdate = true }
+            }
+        }
+        var needsUpdate: Bool = false
     }
 
     public struct Fade {
@@ -159,15 +168,15 @@ public class AKPlayer: AKNode {
     public var loop = Loop()
 
     /// Volume 0.0 -> 1.0, default 1.0
-    public var volume: Float {
-        get { return playerNode.volume }
-        set { playerNode.volume = newValue }
+    public var volume: Double {
+        get { return Double(playerNode.volume) }
+        set { playerNode.volume = Float(newValue) }
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    public var pan: Float {
-        get { return playerNode.pan }
-        set { playerNode.pan = newValue }
+    public var pan: Double {
+        get { return Double(playerNode.pan) }
+        set { playerNode.pan = Float(newValue) }
     }
 
     /// Get or set the start time of the player.
@@ -189,7 +198,7 @@ public class AKPlayer: AKNode {
     public var endTime: Double {
         get {
             return endTimeQueue.sync {
-                 self.isLooping ? self.loop.end : self._endTime
+                self.isLooping ? self.loop.end : self._endTime
             }
         }
 
@@ -474,6 +483,11 @@ public class AKPlayer: AKNode {
         }
 
         let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        guard totalFrames > 0 else {
+            AKLog("totalFrames to play is \(totalFrames). Bailing.")
+            return
+        }
+
         frameCount = AVAudioFrameCount(totalFrames)
 
         // AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
@@ -542,14 +556,15 @@ public class AKPlayer: AKNode {
         // since the edit points would be reversed as well, we swap them here:
         if isReversed {
             let revEndTime = duration - startTime
-            let revStartTime = endTime > 0 ? duration - endTime: duration
+            let revStartTime = endTime > 0 ? duration - endTime : duration
 
             startFrame = AVAudioFramePosition(revStartTime * fileFormat.sampleRate)
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
         }
 
         let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate)
+            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate || loop.needsUpdate)
+
         if !updateNeeded {
             return
         }
@@ -561,6 +576,12 @@ public class AKPlayer: AKNode {
         }
 
         frameCount = AVAudioFrameCount(endFrame - startFrame)
+
+        guard frameCount > 0 else {
+            AKLog("totalFrames to play is \(frameCount). Bailing.")
+            return
+        }
+
         guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
 
         do {
@@ -586,9 +607,14 @@ public class AKPlayer: AKNode {
             fade.needsUpdate = false
         }
 
+        if isLooping {
+            loop.needsUpdate = false
+        }
+
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
+
     }
 
     // Apply sample level fades to the internal buffer.
@@ -605,7 +631,7 @@ public class AKPlayer: AKNode {
             let audioFile = self.audioFile,
             let floatChannelData = buffer.floatChannelData,
             let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-                return
+            return
         }
         let length: AVAudioFrameCount = buffer.frameLength
 

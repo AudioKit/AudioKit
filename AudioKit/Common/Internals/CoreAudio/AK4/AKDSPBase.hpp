@@ -2,7 +2,7 @@
 //  AKDSPBase.hpp
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/9/17.
+//  Created by Andrew Voelkel, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -35,20 +35,38 @@ protected:
 
 public:
 
-    /** The Render function. */
-    virtual void process(uint32_t frameCount, uint32_t bufferOffset) = 0;
+    /// The Render function.
+    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
-    /** Uses the ParameterAddress as a key */
-    virtual void setParameter(uint64_t address, float value, bool immediate = false) {}
+    /// Uses the ParameterAddress as a key
+    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false) {}
 
-    /** Uses the ParameterAddress as a key */
-    virtual float getParameter(uint64_t address) { return 0.0; }
+    /// Uses the ParameterAddress as a key
+    virtual float getParameter(AUParameterAddress address) { return 0.0; }
 
-    /** Get the DSP into initialized state */
+    /// Get the DSP into initialized state
     virtual void reset() {}
+
+    /// Don't necessarily reset, but clear out the buffers if applicable
+    virtual void clear() {}
+
+    /// Many effects have a single value that is a constant for the lifetime of the effect
+    virtual void initializeConstant(AUValue value) {}
+
+    /// Common for oscillators
+    virtual void setupWaveform(uint32_t size) {}
+    virtual void setWaveformValue(uint32_t index, float value) {}
+
+    /// STK Triggers
+    virtual void trigger() {}
+    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
 
     virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
         _inBufferListPtr = inBufs;
+        _outBufferListPtr = outBufs;
+    }
+
+    virtual void setBuffer(AudioBufferList* outBufs) {
         _outBufferListPtr = outBufs;
     }
 

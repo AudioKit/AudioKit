@@ -42,6 +42,7 @@ class AudioUnitManager: NSViewController {
     internal var testPlayer: InstrumentPlayer?
     internal var fmTimer: Timer?
     internal var auInstrument: AKAudioUnitInstrument?
+    internal var windowPositions = [String: NSPoint]()
 
     public var isLooping: Bool {
         return loopButton.state == .on
@@ -60,6 +61,7 @@ class AudioUnitManager: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
+
     }
 
     @objc func handleApplicationInit() {
@@ -85,7 +87,11 @@ class AudioUnitManager: NSViewController {
     internal func startEngine(completionHandler: AKCallback? = nil) {
         // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
-            AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 completionHandler?()
                 AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
@@ -268,18 +274,28 @@ extension AudioUnitManager: NSWindowDelegate {
         if let w = notification.object as? NSWindow {
             if w == view.window {
                 internalManager?.reset()
-                AudioKit.stop()
+                do {
+                    try AudioKit.stop()
+                } catch {
+                    AKLog("AudioKit did not stop!")
+                }
                 exit(0)
             }
 
-            if var wid = w.identifier?.rawValue {
-                wid = wid.replacingOccurrences(of: windowPrefix, with: "")
-                if let b = getEffectsButtonFromIdentifier(wid.toInt()) {
-                    b.state = .off
-                    return
+            if let winId = w.identifier?.rawValue {
+                // store the location of this window so can reshow at same location
+                windowPositions[winId] = w.frame.origin
+                AKLog("\(winId) : Plug in window closing")
+
+                if let tag = Int(winId.replacingOccurrences(of: windowPrefix, with: "")) {
+                    if let b = getEffectsButtonFromIdentifier(tag) {
+                        b.state = .off
+                    }
                 }
+
             }
 
         }
     }
+
 }

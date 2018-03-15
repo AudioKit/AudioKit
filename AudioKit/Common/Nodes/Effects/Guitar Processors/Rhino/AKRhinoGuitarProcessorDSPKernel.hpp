@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Mike Gazzaruso, revision history on Github.
-//  Copyright © 2017 Mike Gazzaruso, Devoloop Srls. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -24,7 +24,7 @@ enum {
     midGainAddress = 3,
     highGainAddress = 4,
     distTypeAddress = 5,
-    distAmountAddress= 6
+    distortionAddress= 6
 };
 
 class AKRhinoGuitarProcessorDSPKernel : public AKDSPKernel, public AKBuffered {
@@ -52,14 +52,14 @@ public:
         _leftRageProcessor = new RageProcessor((int)_sampleRate);
         _rightRageProcessor = new RageProcessor((int)_sampleRate);
 
-        _leftEqLo->calc_filter_coeffs(6, 120.f, (float)_sampleRate, 4.5f, 0.0f, true);
-        _rightEqLo->calc_filter_coeffs(6, 120.f, (float)_sampleRate, 4.5f, 0.0f, true);
+        _leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+        _rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
 
-        _leftEqMi->calc_filter_coeffs(6, 2900.f, (float)_sampleRate, 4.f,0.0f, true);
-        _rightEqMi->calc_filter_coeffs(6, 2900.f, (float)_sampleRate, 4.f, 0.0f, true);
+        _leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
+        _rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
 
-        _leftEqHi->calc_filter_coeffs(6, 10000.f, (float)_sampleRate, 5.f, 0.0f, true);
-        _rightEqHi->calc_filter_coeffs(6, 10000.f, (float)_sampleRate, 5.f, 0.0f, true);
+        _leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
+        _rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
 
         _mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
         _mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
@@ -74,7 +74,7 @@ public:
         midGainRamper.init();
         highGainRamper.init();
         distTypeRamper.init();
-        distAmountRamper.init();
+        distortionRamper.init();
     }
 
     void start() {
@@ -96,7 +96,7 @@ public:
         midGainRamper.reset();
         highGainRamper.reset();
         distTypeRamper.reset();
-        distAmountRamper.reset();
+        distortionRamper.reset();
     }
 
     void setPreGain(float value) {
@@ -129,9 +129,9 @@ public:
         distTypeRamper.setImmediate(distType);
     }
 
-    void setDistAmount(float value) {
-        distAmount = clamp(value, 1.0f, 20.0f);
-        distAmountRamper.setImmediate(distAmount);
+    void setDistortion(float value) {
+        distortion = clamp(value, 1.0f, 20.0f);
+        distortionRamper.setImmediate(distortion);
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -160,8 +160,8 @@ public:
                 distTypeRamper.setUIValue(clamp(value, 1.0f, 3.0f));
                 break;
 
-            case distAmountAddress:
-                distAmountRamper.setUIValue(clamp(value, 1.0f, 20.0f));
+            case distortionAddress:
+                distortionRamper.setUIValue(clamp(value, 1.0f, 20.0f));
                 break;
         }
     }
@@ -186,8 +186,8 @@ public:
             case distTypeAddress:
                 return distTypeRamper.getUIValue();
 
-            case distAmountAddress:
-                return distAmountRamper.getUIValue();
+            case distortionAddress:
+                return distortionRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -220,8 +220,8 @@ public:
                 distTypeRamper.startRamp(clamp(value, 1.0f, 3.0f), duration);
                 break;
 
-            case distAmountAddress:
-                distAmountRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
+            case distortionAddress:
+                distortionRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
                 break;
         }
     }
@@ -238,37 +238,33 @@ public:
             midGain = midGainRamper.getAndStep();
             highGain = highGainRamper.getAndStep();
             distType = distTypeRamper.getAndStep();
-            distAmount = distAmountRamper.getAndStep();
+            distortion = distortionRamper.getAndStep();
 
-            _leftEqLo->calc_filter_coeffs(6, 120.f, sampleRate, 4.5f, (50.f * lowGain), true);
-            _rightEqLo->calc_filter_coeffs(6, 120.f, sampleRate, 4.5f, (50.f * lowGain), true);
+            _leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -lowGain, false);
+            _rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -lowGain, false);
 
-            _leftEqMi->calc_filter_coeffs(6, 2900.f, sampleRate, 4.f, 15.0f * midGain, true);
-            _rightEqMi->calc_filter_coeffs(6, 2900.f, sampleRate, 4.f, 15.0f * midGain, true);
+            _leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * midGain, true);
+            _rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * midGain, true);
 
-            _leftEqHi->calc_filter_coeffs(6, 10000.f, sampleRate, 5.f, (90.f * highGain), true);
-            _rightEqHi->calc_filter_coeffs(6, 10000.f, sampleRate, 5.f, (90.f * highGain), true);
+            _leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -highGain, false);
+            _rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -highGain, false);
 
-            for (int channel = 0; channel < channels; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inBufferListPtr->mBuffers[0].mData  + frameOffset;
+                float *outL = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
+                float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
 
                 if (started) {
-                    *in = *in * (preGain / 5.0);
-                    if (channel == 0) {
-                        const float r_Sig = _leftRageProcessor->doRage(*in, distAmount, distAmount);
-                        const float e_Sig = _leftEqLo->filter(_leftEqMi->filter(_leftEqHi->filter(r_Sig)));
-                        *out = e_Sig * postGain;
-                    } else {
-                        const float r_Sig = _rightRageProcessor->doRage(*in, distAmount, distAmount);
-                        const float e_Sig = _rightEqLo->filter(_rightEqMi->filter(_rightEqHi->filter(r_Sig)));
-                        *out = e_Sig * postGain;
-                    }
+                    *in = *in * (preGain);
+                    const float r_Sig = _leftRageProcessor->doRage(*in, distortion * 2, distortion * 2);
+                    const float e_Sig = _leftEqLo->filter(_leftEqMi->filter(_leftEqHi->filter(r_Sig))) * (1 / (distortion*0.8));
+                    *outL = e_Sig * postGain;
+                    *outR = e_Sig * postGain;
                 } else {
-                    *out = *in;
+                    *outL = *in;
+                    *outR = *in;
                 }
             }
-        }
+
     }
 
     // MARK: Member Variables
@@ -296,7 +292,7 @@ private:
     float midGain = 0.0;
     float highGain = 0.0;
     float distType = 1.0;
-    float distAmount = 1.0;
+    float distortion = 1.0;
 
 public:
     bool started = true;
@@ -307,5 +303,5 @@ public:
     ParameterRamper midGainRamper = 0.0;
     ParameterRamper highGainRamper = 0.0;
     ParameterRamper distTypeRamper = 1.0;
-    ParameterRamper distAmountRamper = 1.0;
+    ParameterRamper distortionRamper = 1.0;
 };

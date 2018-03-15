@@ -41,7 +41,7 @@ let performance = AKPeriodicFunction(frequency: playRate) {
 }
 
 AudioKit.output = reverb
-AudioKit.start(withPeriodicFunctions: performance)
+try AudioKit.start(withPeriodicFunctions: performance)
 performance.start()
 
 import AudioKitUI

@@ -2,7 +2,7 @@
 //  AKClipMerger.swift
 //  AudioKit
 //
-//  Created by David O'Neill on 7/6/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
@@ -63,7 +63,7 @@ open class AKClipMerger: NSObject {
     @objc open func merge(clip: AKClip, clips: [AKClip]) -> [AKClip] {
 
         guard clip.isValid else {
-            print("AudioSequence.add - clip invalid")
+            AKLog("AudioSequence.add - clip invalid")
             return clips
         }
         var merged = [clip]
@@ -94,10 +94,10 @@ open class AKClipMerger: NSObject {
                             editedClip.duration == duration {
                             merged.append(editedClip)
                         } else {
-                            print("mergeDelegate not setting correct values, existing clip was removed")
+                            AKLog("mergeDelegate not setting correct values, existing clip was removed")
                         }
                     } else {
-                        print(mergeDelegate == nil ? "No mergeDelegate" : " No clip returned from mergeDelegate")
+                        AKLog(mergeDelegate == nil ? "No mergeDelegate" : " No clip returned from mergeDelegate")
                     }
                 }
                 if overlapsEnd || overlapsMiddle {
@@ -116,10 +116,10 @@ open class AKClipMerger: NSObject {
                             editedClip.duration == duration {
                             merged.append(editedClip)
                         } else {
-                            print("mergeDelegate not setting correct values, existing clip was removed")
+                            AKLog("mergeDelegate not setting correct values, existing clip was removed")
                         }
                     } else {
-                        print(mergeDelegate == nil ? "No mergeDelegate" : " No clip returned from mergeDelegate")
+                        AKLog(mergeDelegate == nil ? "No mergeDelegate" : " No clip returned from mergeDelegate")
                     }
                 }
             } else {
@@ -184,7 +184,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
                 let clips = try AKClipMerger.validateClips(newValue) as! [AKFileClip]
                 _clips = clips
             } catch {
-                print(error)
+                AKLog(error)
             }
         }
     }

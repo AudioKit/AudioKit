@@ -67,7 +67,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Occurs when the audio file's internal seek position has been updated by the EZAudioFile functions `readFrames:audioBufferList:bufferSize:eof:` or `audioFile:updatedPosition:`. As of 0.8.0 this is the preferred method of listening for position updates on the audio file since a user may want the pull the currentTime, formattedCurrentTime, or the frame index from the EZAudioFile instance provided.
- @param audioFile The instance of the EZAudio in which the change occured.
+ @param audioFile The instance of the EZAudio in which the change occurred.
  */
 - (void)audioFileUpdatedPosition:(EZAudioFile *)audioFile;
 
@@ -75,7 +75,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Occurs when the audio file's internal seek position has been updated by the EZAudioFile functions `readFrames:audioBufferList:bufferSize:eof:` or `audioFile:updatedPosition:`.
- @param audioFile     The instance of the EZAudio in which the change occured
+ @param audioFile     The instance of the EZAudio in which the change occurred
  @param framePosition The new frame index as a 64-bit signed integer
  @deprecated This property is deprecated starting in version 0.8.0.
  @note Please use `audioFileUpdatedPosition:` property instead.
@@ -290,7 +290,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the seek positon) within the audio file as SInt64. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the seek position) within the audio file as SInt64. This can be helpful when seeking through the audio file.
  @return The current frame index within the audio file as a SInt64.
  */
 @property (readonly) SInt64 frameIndex;

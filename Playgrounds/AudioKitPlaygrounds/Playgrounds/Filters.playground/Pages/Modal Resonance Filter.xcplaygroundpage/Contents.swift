@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var filter = AKModalResonanceFilter(player)
 filter.frequency = 300 // Hz
@@ -14,7 +14,7 @@ filter.qualityFactor = 20
 
 let balancedOutput = AKBalancer(filter, comparator: player)
 AudioKit.output = balancedOutput
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { player, parameters in
     let sinusoid = AKOperation.sineWave(frequency: parameters[2])
@@ -16,7 +16,7 @@ let effect = AKOperationEffect(player) { player, parameters in
 effect.parameters = [0, 7, 3]
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import AudioKitUI

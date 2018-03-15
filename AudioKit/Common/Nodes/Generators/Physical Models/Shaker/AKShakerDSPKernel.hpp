@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -27,10 +27,6 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
-        // iOS Hack
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
 
         stk::Stk::setSampleRate(sampleRate);
         shaker = new stk::Shakers(0);

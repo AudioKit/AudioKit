@@ -7,8 +7,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var timePitch = AKTimePitch(player)
 timePitch.rate = 2.0
@@ -16,7 +16,7 @@ timePitch.pitch = -400.0
 timePitch.overlap = 8.0
 
 AudioKit.output = timePitch
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

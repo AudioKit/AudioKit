@@ -37,7 +37,7 @@ namespace stk {
     and/or joining with a thread, though it is not possible for this
     class to know the running status of a thread once it is started.
 
-    For cross-platform compatability, thread functions should be
+    For cross-platform compatibility, thread functions should be
     declared as follows:
 
     THREAD_RETURN THREAD_TYPE thread_function(void *ptr)

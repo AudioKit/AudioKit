@@ -13,15 +13,15 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6
 
 AudioKit.output = moogLadder
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

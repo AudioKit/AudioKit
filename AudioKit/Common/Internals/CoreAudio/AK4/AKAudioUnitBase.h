@@ -1,9 +1,9 @@
 //
-//  AudioUnitBase.m
+//  AKAudioUnitBase.h
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 11/19/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Andrew Voelkel, revision history on GitHub.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -34,12 +34,19 @@
 
 - (float) getParameterWithAddress:(AUParameterAddress)address;
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-- (void) setParamWithAddressImmediate:(AUParameterAddress)address value:(AUValue)value;
+- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
 
 // Add for compatibility with AKAudioUnit
 
 - (void)start;
 - (void)stop;
+- (void)clear;
+- (void)initializeConstant:(AUValue)value;
+
+// Common for oscillating effects
+- (void)setupWaveform:(int)size;
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index;
+
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 

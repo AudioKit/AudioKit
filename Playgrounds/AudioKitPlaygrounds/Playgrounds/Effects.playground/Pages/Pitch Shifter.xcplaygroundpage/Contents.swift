@@ -6,13 +6,13 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var pitchshifter = AKPitchShifter(player)
 
 AudioKit.output = pitchshifter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

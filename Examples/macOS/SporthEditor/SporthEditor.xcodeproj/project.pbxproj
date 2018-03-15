@@ -17,7 +17,6 @@
 		78BC40281D37B049001A71C4 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40241D37B049001A71C4 /* Error.swift */; };
 		78EA71F91D3806D70064F891 /* ControlsViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EA71F81D3806D70064F891 /* ControlsViewContoller.swift */; };
 		C446B4131D4557D2000AEFCA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B4111D4557C5000AEFCA /* AudioKit.framework */; };
-		C446B4141D4557D2000AEFCA /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C446B4111D4557C5000AEFCA /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,7 +26,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C446B4141D4557D2000AEFCA /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,6 +317,7 @@
 				);
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -336,6 +335,7 @@
 				);
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

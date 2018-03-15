@@ -2,7 +2,7 @@
 //  AKBankAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 8/15/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

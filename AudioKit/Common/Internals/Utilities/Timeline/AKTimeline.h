@@ -2,7 +2,7 @@
 //  AKTimeline.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/28/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -110,7 +110,7 @@ void AKTimelineRender(AKTimeline            *timeline,
                       AudioBufferList       *ioData);
 
 /**
- @brief Starts playback (almost) imediately, (one render cycle after last render time).
+ @brief Starts playback (almost) immediately, (one render cycle after last render time).
 
  @discussion Will block until after first call to AKTimelineRender.
 
@@ -213,7 +213,7 @@ void AKTimelineSetState(AKTimeline      *timeline,
  @brief Set timeline values in one atomic transaction, from render thread.
 
  @discussion Same as AKTimelineIsStarted except meant to be called from render thread.  Changes
- take place imediately.
+ take place immediately.
 
  @param timeline The timeline.
  @param sampleTime The time in the timeline.

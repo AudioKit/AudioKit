@@ -5,15 +5,15 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var reverb = AKCostelloReverb(player)
 reverb.cutoffFrequency = 9_900 // Hz
 reverb.feedback = 0.92
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

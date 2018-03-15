@@ -8,8 +8,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var effect = AKDynamicsProcessor(player)
 effect.threshold
@@ -21,7 +21,7 @@ effect.releaseTime
 effect.masterGain
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

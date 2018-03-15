@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Table-lookup tremolo with linear interpolation
@@ -30,32 +30,34 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Frequency (Hz)
-    @objc open dynamic var frequency: Double = 10 {
+    @objc open dynamic var frequency: Double = 10.0 {
         willSet {
-            if frequency != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.frequency = Float(newValue)
+            if frequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
     /// Depth
-    @objc open dynamic var depth: Double = 1 {
+    @objc open dynamic var depth: Double = 1.0 {
         willSet {
-            if depth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        depthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.depth = Float(newValue)
+            if depth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    depthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
 
@@ -78,23 +80,27 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,
-        waveform: AKTable = AKTable(.positiveSine)) {
+        waveform: AKTable = AKTable(.positiveSine)
+    ) {
 
         self.waveform = waveform
         self.frequency = frequency
+        self.depth = depth
 
         _Self.register()
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-            self?.internalAU?.setupWaveform(Int32(waveform.count))
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
+            strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {
-                self?.internalAU?.setWaveformValue(sample, at: UInt32(i))
+                strongSelf.internalAU?.setWaveformValue(sample, at: UInt32(i))
             }
         }
 
@@ -104,6 +110,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         }
 
         frequencyParameter = tree["frequency"]
+        depthParameter = tree["depth"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -116,25 +123,15 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
 
-        depthParameter = tree["depth"]
-
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
-
-            DispatchQueue.main.async {
-                if address == self?.depthParameter?.address {
-                    self?.depth = Double(value)
-                }
-            }
-        })
-        internalAU?.depth = Float(depth)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.depth, value: depth)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open dynamic func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 

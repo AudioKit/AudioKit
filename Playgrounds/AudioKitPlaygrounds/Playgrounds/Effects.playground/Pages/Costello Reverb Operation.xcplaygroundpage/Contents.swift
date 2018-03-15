@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { player, _ in
     return player.reverberateWithCostello(
@@ -15,7 +15,7 @@ let effect = AKOperationEffect(player) { player, _ in
 }
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface

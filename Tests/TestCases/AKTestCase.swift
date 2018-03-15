@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -26,13 +26,13 @@ class AKTestCase: XCTestCase {
 
     func auditionTest() {
         if let existingOutput = output {
-            AudioKit.auditionTest(node: existingOutput, duration: duration)
+            try! AudioKit.auditionTest(node: existingOutput, duration: duration)
         }
     }
 
     func AKTestMD5(_ md5: String, alternate: String = "") {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            try! AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertTrue([md5, alternate].contains(localMD5) && localMD5 != sineOscillatorMD5 && localMD5 != "", localMD5)
@@ -40,7 +40,7 @@ class AKTestCase: XCTestCase {
 
     func AKTestMD5Not(_ md5: String) {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            try! AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertFalse(md5 == localMD5, localMD5)
@@ -48,7 +48,7 @@ class AKTestCase: XCTestCase {
 
     func AKTestNoEffect() {
         if let existingOutput = output {
-            AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
+            try! AudioKit.test(node: existingOutput, duration: duration, afterStart: afterStart)
         }
         let  localMD5 = MD5
         XCTAssertTrue(localMD5 == sineOscillatorMD5, localMD5)
@@ -63,7 +63,7 @@ class AKTestCase: XCTestCase {
     override func tearDown() {
         // This method is called after the invocation of each test method in the class.
         AudioKit.disconnectAllInputs()
-        AudioKit.stop()
+        try! AudioKit.stop()
         super.tearDown()
     }
 

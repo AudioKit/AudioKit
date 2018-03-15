@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Mike Gazzaruso, revision history on Github.
-//  Copyright © 2017 Mike Gazzaruso, Devoloop Srls. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -14,6 +14,6 @@
 @property (nonatomic) float threshold;
 @property (nonatomic) float attackTime;
 @property (nonatomic) float releaseTime;
-@property (nonatomic) float rageAmount;
+@property (nonatomic) float rage;
 @property (nonatomic) BOOL rageIsOn;
 @end

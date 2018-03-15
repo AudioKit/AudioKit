@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// This node outputs a version of the audio source, amplitude-modified so
@@ -34,17 +34,18 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    @objc public init( _ input: AKNode? = nil, comparator: AKNode) {
+    @objc public init(_ input: AKNode? = nil, comparator: AKNode) {
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-
-            comparator.connectionPoints.append(AVAudioConnectionPoint(node: self!.avAudioNode, bus: 1))
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
+            comparator.connectionPoints.append(AVAudioConnectionPoint(node: strongSelf.avAudioNode, bus: 1))
         }
     }
 

@@ -1,9 +1,8 @@
 //
 //  MenuButton.swift
-//  ADD
+//  AudioUnitManager
 //
 //  Created by Ryan Francesconi on 8/3/17.
-//  Copyright © 2017 Elephant Sound Design. All rights reserved.
 //
 
 import Cocoa
@@ -13,6 +12,7 @@ class MenuButton: NSButton {
     @IBInspectable var bgColor: NSColor?
     @IBInspectable var textColor: NSColor?
     override func awakeFromNib() {
+        super.awakeFromNib()
         if let textColor = textColor, let font = font {
             let style = NSMutableParagraphStyle()
             style.alignment = .center
@@ -58,8 +58,8 @@ class MenuButton: NSButton {
 
     override func mouseDown(with event: NSEvent) {
         guard isEnabled else { return }
-        guard menu != nil else { return }
-        guard superview != nil else { return }
+        guard let menu = menu else { return }
+
         var adjustedLocation = convert(NSPoint(), to: nil)
         adjustedLocation.y -= (frame.size.height + 5)
         if let newEvent = NSEvent.mouseEvent(with: event.type,
@@ -71,8 +71,8 @@ class MenuButton: NSButton {
                                              eventNumber: event.eventNumber + 1,
                                              clickCount: 1,
                                              pressure: 0) {
-            menu!.autoenablesItems = false
-            NSMenu.popUpContextMenu(menu!, with: newEvent, for: self)
+            menu.autoenablesItems = false
+            NSMenu.popUpContextMenu(menu, with: newEvent, for: self)
         }
     }
     override func mouseUp(with event: NSEvent) {

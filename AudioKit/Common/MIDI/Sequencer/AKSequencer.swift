@@ -2,7 +2,7 @@
 //  AKMusicSequencer.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/4/17.
+//  Created by Aurelius Prochazka, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -164,7 +164,6 @@ open class AKSequencer {
 
     /// Set the tempo of the sequencer
     open func setTempo(_ bpm: Double) {
-
         let constrainedTempo = (10...280).clamp(bpm)
 
         var tempoTrack: MusicTrack?
@@ -196,7 +195,6 @@ open class AKSequencer {
     ///   - position: Point in time in beats
     ///
     open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
-
         let constrainedTempo = (10...280).clamp(bpm)
 
         var tempoTrack: MusicTrack?
@@ -207,7 +205,6 @@ open class AKSequencer {
         if let existingTempoTrack = tempoTrack {
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, position.beats, constrainedTempo)
         }
-
     }
 
     /// Tempo retrieved from the sequencer
@@ -353,6 +350,7 @@ open class AKSequencer {
         let duration = AKDuration(beats: currentTime)
         return duration
     }
+
     /// Current Time relative to sequencer length
     open var currentRelativePosition: AKDuration {
         return currentPosition % length //can switch to modTime func when/if % is removed
@@ -437,11 +435,11 @@ open class AKSequencer {
         return tracks.last
     }
 
-    /// Clear some events from the track
+    /// Clear all events from all tracks within the specified range
     //
     /// - Parameters:
-    ///   - start:    Starting position of clearing
-    ///   - duration: Length of time after the start position to clear
+    ///   - start: Start of the range to clear, in beats (inclusive)
+    ///   - duration: Length of time after the start position to clear, in beats (exclusive)
     ///
     open func clearRange(start: AKDuration, duration: AKDuration) {
         for track in tracks {

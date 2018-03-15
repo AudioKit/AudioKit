@@ -39,7 +39,11 @@ class ViewController: UIViewController {
         noAudioOutput.volume = 0
 
         AudioKit.output = noAudioOutput
-        AudioKit.start()
+        do {
+            try AudioKit.start()         
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
 
         let _ = Loop(every: 1 / 60) {
             let fftData = self.fft.fftData

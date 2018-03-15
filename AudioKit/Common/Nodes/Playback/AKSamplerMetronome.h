@@ -2,13 +2,13 @@
 //  AKSamplerMetronome.h
 //  AudioKit
 //
-//  Created by David O'Neill on 8/24/17.
+//  Created by David O'Neill, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 #import <AVFoundation/AVFoundation.h>
 
-/// A Simple Metronome that can be syncronized precicesly.
+/// A Simple Metronome that can be syncronized precisely.
 @interface AKSamplerMetronome : AVAudioUnitSampler
 
 /// Tempo in Beats Per Minute
@@ -28,6 +28,13 @@
 
 ///The down beat sound url.
 @property NSURL * _Nullable downBeatSound;
+
+/// The volume of the beat sound. 0->1
+@property float beatVolume;
+
+/// The volume of the downBeat sound. 0->1
+@property float downBeatVolume;
+
 
 /**
  Initialize with metronome sound and downbeat sound.

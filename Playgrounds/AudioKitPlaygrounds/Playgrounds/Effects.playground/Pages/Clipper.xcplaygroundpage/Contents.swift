@@ -6,14 +6,14 @@ import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var clipper = AKClipper(player)
 clipper.limit = 0.1
 
 AudioKit.output = clipper
-AudioKit.start()
+try try AudioKit.start()
 
 player.play()
 

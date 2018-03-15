@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 /// Adding description property
@@ -154,11 +154,11 @@ extension AVAudioCommonFormat: CustomStringConvertible {
                 }
             }
 
-            AKLog("\(deletedFilesCount) files deleted")
+            AKLog(deletedFilesCount, "files deleted")
 
         } catch let error as NSError {
             AKLog("Couldn't access Temp Directory")
-            AKLog("Error: \(error)")
+            AKLog("Error:", error)
         }
     }
 

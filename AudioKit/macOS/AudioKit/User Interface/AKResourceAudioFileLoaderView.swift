@@ -68,7 +68,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
             return
         }
         if playOuterPath.contains(touchLocation) {
-            Swift.print("Playing from: \(player.startTime)")
+            AKLog("Playing from: \(player.startTime)")
             player.play(from: player.startTime)
             return
         }
@@ -87,7 +87,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
             player.stop()
             let filename = titles[currentIndex]
             guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
-                Swift.print("Unable to load file: \(filename)")
+                AKLog("Unable to load file: \(filename)")
                 return
             }
             player.load(audioFile: file)

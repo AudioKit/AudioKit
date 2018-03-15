@@ -2,7 +2,7 @@
 //  AudioKitUI.h
 //  AudioKitUI
 //
-//  Created by Stéphane Peter on 8/23/17.
+//  Created by Stéphane Peter, revision history on GitHub.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 

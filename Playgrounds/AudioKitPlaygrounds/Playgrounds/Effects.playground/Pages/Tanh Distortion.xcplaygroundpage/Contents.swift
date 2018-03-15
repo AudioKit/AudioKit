@@ -5,17 +5,17 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var distortion = AKTanhDistortion(player)
 distortion.pregain = 1.0
 distortion.postgain = 1.0
-distortion.postiveShapeParameter = 1.0
+distortion.positiveShapeParameter = 1.0
 distortion.negativeShapeParameter = 1.0
 
 AudioKit.output = distortion
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
@@ -42,11 +42,11 @@ class LiveView: AKLiveViewController {
             distortion.postgain = sliderValue
         })
 
-        addView(AKSlider(property: "Postive Shape Parameter",
-                         value: distortion.postiveShapeParameter,
+        addView(AKSlider(property: "positive Shape Parameter",
+                         value: distortion.positiveShapeParameter,
                          range: -10 ... 10
         ) { sliderValue in
-            distortion.postiveShapeParameter = sliderValue
+            distortion.positiveShapeParameter = sliderValue
         })
 
         addView(AKSlider(property: "Negative Shape Parameter",
