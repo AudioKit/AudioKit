@@ -105,7 +105,7 @@ namespace AudioKitCore {
     {
         //printf("loadCompressedSampleFile: %d %.1f Hz %s\n", sfd.sd.noteNumber, sfd.sd.noteHz, sfd.path);
         
-        int ifd = _open(sfd.path, O_RDONLY);
+        int ifd = open(sfd.path, O_RDONLY);
         if (ifd < 0)
         {
             printf("Error %d opening %s\n", errno, sfd.path);
@@ -116,7 +116,7 @@ namespace AudioKitCore {
         sdd.sd = sfd.sd;
         
         int check = getWvData(ifd, &sdd.sampleRateHz, &sdd.nChannels, &sdd.nSamples);
-        _close(ifd);
+        close(ifd);
         if (check != 0)
         {
             printf("getWvData returns %d for %s\n", check, sfd.path);
@@ -124,10 +124,10 @@ namespace AudioKitCore {
         }
         sdd.bInterleaved = (sdd.nChannels > 1);
         
-        ifd = _open(sfd.path, O_RDONLY);
+        ifd = open(sfd.path, O_RDONLY);
         sdd.pData = new float[sdd.nChannels * sdd.nSamples];
         check = getWvSamples(ifd, sdd.pData);
-        _close(ifd);
+        close(ifd);
         
         loadSampleData(sdd);
         
