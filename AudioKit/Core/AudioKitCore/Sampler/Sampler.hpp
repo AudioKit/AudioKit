@@ -31,7 +31,9 @@ namespace AudioKitCore
         
         // call these to load samples
         void loadSampleData(AKSampleDataDescriptor& sdd);
+#ifndef WIN32
         void loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
+#endif
         
         // after loading samples, call one of these to build the key map
         void buildKeyMap(void);         // use this when you have full key mapping data (min/max note, vel)

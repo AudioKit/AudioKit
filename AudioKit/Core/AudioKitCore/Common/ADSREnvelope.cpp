@@ -69,7 +69,13 @@ namespace AudioKitCore
         segment = kRelease;
         ramper.reinit(0.0f, pParams->releaseSamples);
     }
-    
+
+    void ADSREnvelope::restart()
+    {
+        segment = kSilence;
+        ramper.reinit(0.0f, 0.01f * pParams->sampleRateHz); // always silence in 10 ms
+    }
+
     void ADSREnvelope::reset()
     {
         ramper.init(0.0f);

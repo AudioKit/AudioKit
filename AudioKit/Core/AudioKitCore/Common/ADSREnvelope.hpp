@@ -42,6 +42,7 @@ namespace AudioKitCore
         enum EG_Segment
         {
             kIdle,
+            kSilence,
             kAttack,
             kDecay,
             kSustain,
@@ -51,9 +52,11 @@ namespace AudioKitCore
         void init();
         
         void start(bool reset=false);   // called for note-on
+        void restart();                 // quickly dampen note then start again
         void release();                 // called for note-off
         void reset();                   // reset to idle state
         bool isIdle() { return segment == kIdle; }
+        bool isPreStarting() { return segment == kSilence; }
         
         inline float getSample()
         {
@@ -62,11 +65,17 @@ namespace AudioKitCore
             if (segment == kSustain) return pParams->sustainFraction;
             
             if (ramper.isRamping()) return float(ramper.getNextValue());
+
+            if (segment == kSilence)    // end of quick-damp prior to restart
+            {
+                segment = kAttack;
+                ramper.init(0.0f, 1.0, pParams->attackSamples);
+            }
             
             if (segment == kAttack)      // end of attack segment
             {
                 segment = kDecay;
-                ramper.init(1.0f,pParams->sustainFraction, pParams->decaySamples);
+                ramper.init(1.0f, pParams->sustainFraction, pParams->decaySamples);
                 return 1.0;
             }
             
@@ -77,7 +86,7 @@ namespace AudioKitCore
                 return pParams->sustainFraction;
             }
             
-            // end of release
+            // end of release or silence segment
             segment = kIdle;
             ramper.init(0.0f);
             return 0.0f;

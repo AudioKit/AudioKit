@@ -53,7 +53,7 @@ namespace AudioKitCore
             
             float si = pWaveTable[ri];
             float sj = pWaveTable[rj];
-            return (1.0 - f) * si + f * sj;
+            return (float)((1.0 - f) * si + f * sj);
         }
         
         // functions for use by class AKWaveShaper (see comments in .mm file)
@@ -72,7 +72,7 @@ namespace AudioKitCore
             
             float si = pWaveTable[ri];
             float sj = pWaveTable[rj];
-            return (1.0 - f) * si + f * sj;
+            return (float)((1.0 - f) * si + f * sj);
         }
     };
     
