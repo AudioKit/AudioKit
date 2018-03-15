@@ -1092,7 +1092,6 @@
                         <outlet property="filterSustainSlider" destination="c4n-il-ceo" id="bNV-de-lHj"/>
                         <outlet property="masterVolumeReadout" destination="gqz-l1-fut" id="wji-bN-Sdm"/>
                         <outlet property="masterVolumeSlider" destination="oNY-Qg-YnV" id="I5O-78-Y9h"/>
-                        <outlet property="onSampleSetSelect" destination="LjV-Ck-u8H" id="eDD-Rz-BvG"/>
                         <outlet property="pitchOffsetReadout" destination="c2I-G8-OGI" id="qOw-X8-aYO"/>
                         <outlet property="pitchOffsetSlider" destination="App-cu-50V" id="BBR-fP-Bn0"/>
                         <outlet property="sampleSetPopup" destination="LjV-Ck-u8H" id="uBm-CI-OlO"/>
