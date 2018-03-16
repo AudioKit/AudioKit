@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKCombFilterReverbParameter) {
+typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
     AKCombFilterReverbParameterReverbDuration,
     AKCombFilterReverbParameterRampTime
 };
@@ -88,7 +88,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            // do gain ramping every 8 samples
+            // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
                 reverbDurationRamp.advanceTo(_now + frameOffset);
             }

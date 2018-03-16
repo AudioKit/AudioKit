@@ -14,7 +14,6 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -22,6 +21,30 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var resonanceParameter: AUParameter?
     fileprivate var distortionParameter: AUParameter?
     fileprivate var resonanceAsymmetryParameter: AUParameter?
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Distortion
+    public static let distortionRange = 0.0 ... 4.0
+
+    /// Lower and upper bounds for Resonance Asymmetry
+    public static let resonanceAsymmetryRange = 0.0 ... 1.0
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 500.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 0.5
+
+    /// Initial value for Distortion
+    public static let defaultDistortion = 2.0
+
+    /// Initial value for Resonance Asymmetry
+    public static let defaultResonanceAsymmetry = 0.5
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -31,7 +54,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Cutoff frequency. (in Hertz)
-    @objc open dynamic var cutoffFrequency: Double = 500 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             if cutoffFrequency == newValue {
                 return
@@ -47,7 +70,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @objc open dynamic var resonance: Double = 0.5 {
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
             if resonance == newValue {
                 return
@@ -63,7 +86,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    @objc open dynamic var distortion: Double = 2.0 {
+    @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
             if distortion == newValue {
                 return
@@ -79,7 +102,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Asymmetry of resonance. Value is between 0-1
-    @objc open dynamic var resonanceAsymmetry: Double = 0.5 {
+    @objc open dynamic var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
         willSet {
             if resonanceAsymmetry == newValue {
                 return
@@ -112,10 +135,11 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        cutoffFrequency: Double = 500,
-        resonance: Double = 0.5,
-        distortion: Double = 2.0,
-        resonanceAsymmetry: Double = 0.5) {
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance,
+        distortion: Double = defaultDistortion,
+        resonanceAsymmetry: Double = defaultResonanceAsymmetry
+        ) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

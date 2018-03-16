@@ -6,6 +6,7 @@ set -o pipefail
 
 VERSION=$(cat ../VERSION)
 PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
+SKIP_JAZZY=1 # Broken for now
 
 if ! which gsed > /dev/null 2>&1;
 then
@@ -58,15 +59,19 @@ create_package()
 create_playgrounds()
 {
 	echo "Packaging AudioKit Playgrounds version $VERSION ..."
+	rm -rf AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 	cp -a ../Playgrounds AudioKitPlaygrounds
 	cd AudioKitPlaygrounds
 	cp -a ../AudioKit-macOS/AudioKit.framework ../AudioKit-macOS/AudioKitUI.framework AudioKitPlaygrounds/
 	gsed -i "s/\.\.\/Frameworks\/AudioKit-macOS/AudioKitPlaygrounds/g" AudioKitPlaygrounds.xcodeproj/project.pbxproj
 	cp ../../README.md ../../LICENSE .
-	find . -name .DS_Store -or -name build -or -name xcuserdata -exec rm -rf {} \;
+	find . -name .DS_Store -exec rm -rf {} \;
+	find . -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
         zip -9yr AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 }
+
+rm -rf Carthage
 
 for os in $PLATFORMS;
 do
@@ -80,6 +85,6 @@ create_playgrounds
 echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
 rm -f AudioKit.framework.zip
 cd Carthage
-cp ../../LICENSE .
-zip -9yr ../AudioKit.framework.zip $PLATFORMS LICENSE
+cp ../../LICENSE ../../README.md .
+zip -9yr ../AudioKit.framework.zip $PLATFORMS LICENSE README.md
 

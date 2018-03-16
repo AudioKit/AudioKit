@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let drums = AKSampler()
+let drums = AKAppleSampler()
 
 AudioKit.output = drums
 try AudioKit.start()

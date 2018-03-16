@@ -5,13 +5,12 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
+#import <AudioKit/AudioKit-Swift.h>
 
 #import "AKSamplePlayerAudioUnit.h"
 #import "AKSamplePlayerDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKSamplePlayerAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
@@ -41,6 +40,9 @@
 -(void)setCompletionHandler:(AKCCallback)handler {
     _kernel.completionHandler = handler;
 }
+-(void)setLoadCompletionHandler:(AKCCallback)handler {
+    _kernel.loadCompletionHandler = handler;
+}
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
@@ -53,8 +55,8 @@
 - (void)setupAudioFileTable:(UInt32)size {
     _kernel.setUpTable(size);
 }
-- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate {
-    _kernel.loadAudioData(data, size, sampleRate);
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels {
+    _kernel.loadAudioData(data, size, sampleRate, numChannels);
 }
 - (int)size {
     return _kernel.ftbl_size;

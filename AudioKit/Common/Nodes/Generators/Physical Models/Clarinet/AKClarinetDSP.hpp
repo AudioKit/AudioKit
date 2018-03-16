@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKClarinetParameter) {
+typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
     AKClarinetParameterFrequency,
     AKClarinetParameterAmplitude,
     AKClarinetParameterRampTime
@@ -24,110 +24,32 @@ void* createClarinetDSP(int nChannels, double sampleRate);
 
 #else
 
-#import <AudioKit/AudioKit-Swift.h>
-
-#include "Clarinet.h"
-
 class AKClarinetDSP : public AKDSPBase {
-
 private:
-    float internalTrigger = 0;
-    stk::Clarinet *clarinet;
-
-    AKLinearParameterRamp frequencyRamp;
-    AKLinearParameterRamp amplitudeRamp;
-    AKLinearParameterRamp detuningOffsetRamp;
-    AKLinearParameterRamp detuningMultiplierRamp;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
-    AKClarinetDSP() {
-        frequencyRamp.setTarget(440, true);
-        frequencyRamp.setDurationInSamples(10000);
-        amplitudeRamp.setTarget(1, true);
-        amplitudeRamp.setDurationInSamples(10000);
-    }
+
+    AKClarinetDSP();
+    
+    ~AKClarinetDSP();
 
     /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKClarinetParameterFrequency:
-                frequencyRamp.setTarget(value, immediate);
-                break;
-            case AKClarinetParameterAmplitude:
-                amplitudeRamp.setTarget(value, immediate);
-                break;
-            case AKClarinetParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                amplitudeRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
     /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKClarinetParameterFrequency:
-                return frequencyRamp.getTarget();
-            case AKClarinetParameterAmplitude:
-                return amplitudeRamp.getTarget();
-            case AKClarinetParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float getParameter(AUParameterAddress address) override;
 
-    void init(int _channels, double _sampleRate) override {
-        AKDSPBase::init(_channels, _sampleRate);
+    void init(int _channels, double _sampleRate) override;
 
-        stk::Stk::setSampleRate(_sampleRate);
-        clarinet = new stk::Clarinet(100);
-    }
+    void trigger() override;
 
-    void trigger() override {
-        internalTrigger = 1;
-    }
+    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override;
 
-    void triggerFrequencyAmplitude(AUValue freq, AUValue amp) override {
-        bool immediate = true;
-        frequencyRamp.setTarget(freq, immediate);
-        amplitudeRamp.setTarget(amp, immediate);
-        trigger();
-    }
+    void destroy();
 
-    void destroy() {
-        delete clarinet;
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(_now + frameOffset);
-                amplitudeRamp.advanceTo(_now + frameOffset);
-            }
-            float frequency = frequencyRamp.getValue();
-            float amplitude = amplitudeRamp.getValue();
-
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (_playing) {
-                    if (internalTrigger == 1) {
-                        clarinet->noteOn(frequency, amplitude);
-                    }
-                } else {
-                    *out = 0.0;
-                }
-                *out = clarinet->tick();
-            }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

@@ -26,6 +26,36 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var modulationIndexParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
+    /// Lower and upper bounds for Base Frequency
+    public static let baseFrequencyRange = 0.0 ... 20_000.0
+
+    /// Lower and upper bounds for Carrier Multiplier
+    public static let carrierMultiplierRange = 0.0 ... 1_000.0
+
+    /// Lower and upper bounds for Modulating Multiplier
+    public static let modulatingMultiplierRange = 0.0 ... 1_000.0
+
+    /// Lower and upper bounds for Modulation Index
+    public static let modulationIndexRange = 0.0 ... 1_000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 10.0
+
+    /// Initial value for Base Frequency
+    public static let defaultBaseFrequency = 440.0
+
+    /// Initial value for Carrier Multiplier
+    public static let defaultCarrierMultiplier = 1.0
+
+    /// Initial value for Modulating Multiplier
+    public static let defaultModulatingMultiplier = 1.0
+
+    /// Initial value for Modulation Index
+    public static let defaultModulationIndex = 1.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 1.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -34,7 +64,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    @objc open dynamic var baseFrequency: Double = 440 {
+    @objc open dynamic var baseFrequency: Double = defaultBaseFrequency {
         willSet {
             if baseFrequency == newValue {
                 return
@@ -50,7 +80,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    @objc open dynamic var carrierMultiplier: Double = 1.0 {
+    @objc open dynamic var carrierMultiplier: Double = defaultCarrierMultiplier {
         willSet {
             if carrierMultiplier == newValue {
                 return
@@ -66,7 +96,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    @objc open dynamic var modulatingMultiplier: Double = 1 {
+    @objc open dynamic var modulatingMultiplier: Double = defaultModulatingMultiplier {
         willSet {
             if modulatingMultiplier == newValue {
                 return
@@ -82,7 +112,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    @objc open dynamic var modulationIndex: Double = 1 {
+    @objc open dynamic var modulationIndex: Double = defaultModulationIndex {
         willSet {
             if modulationIndex == newValue {
                 return
@@ -98,7 +128,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Output Amplitude.
-    @objc open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             if amplitude == newValue {
                 return
@@ -137,11 +167,11 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///
     @objc public init(
         waveform: AKTable,
-        baseFrequency: Double = 440,
-        carrierMultiplier: Double = 1.0,
-        modulatingMultiplier: Double = 1,
-        modulationIndex: Double = 1,
-        amplitude: Double = 1) {
+        baseFrequency: Double = defaultBaseFrequency,
+        carrierMultiplier: Double = defaultCarrierMultiplier,
+        modulatingMultiplier: Double = defaultModulatingMultiplier,
+        modulationIndex: Double = defaultModulationIndex,
+        amplitude: Double = defaultAmplitude) {
 
         self.waveform = waveform
         self.baseFrequency = baseFrequency

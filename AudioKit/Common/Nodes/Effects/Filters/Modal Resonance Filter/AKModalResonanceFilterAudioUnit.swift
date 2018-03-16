@@ -18,10 +18,11 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 500.0 {
+    var frequency: Double = AKModalResonanceFilter.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var qualityFactor: Double = 50.0 {
+
+    var qualityFactor: Double = AKModalResonanceFilter.defaultQualityFactor {
         didSet { setParameter(.qualityFactor, value: qualityFactor) }
     }
 
@@ -34,7 +35,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         return createModalResonanceFilterDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -44,8 +45,8 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "frequency",
             name: "Resonant Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKModalResonanceFilter.frequencyRange.lowerBound),
+            max: Float(AKModalResonanceFilter.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,8 +57,8 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "qualityFactor",
             name: "Quality Factor",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 100.0,
+            min: Float(AKModalResonanceFilter.qualityFactorRange.lowerBound),
+            max: Float(AKModalResonanceFilter.qualityFactorRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -66,8 +67,8 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, qualityFactor]))
-        frequency.value = 500.0
-        qualityFactor.value = 50.0
+        frequency.value = Float(AKModalResonanceFilter.defaultFrequency)
+        qualityFactor.value = Float(AKModalResonanceFilter.defaultQualityFactor)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

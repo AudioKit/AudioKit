@@ -20,6 +20,12 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
 
     fileprivate var amplitudeParameter: AUParameter?
 
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 1.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 1.0
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -28,7 +34,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude. (Value between 0-1).
-    @objc open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             if amplitude == newValue {
                 return
@@ -56,7 +62,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
     @objc public init(
-        amplitude: Double = 1) {
+        amplitude: Double = defaultAmplitude) {
 
         self.amplitude = amplitude
 

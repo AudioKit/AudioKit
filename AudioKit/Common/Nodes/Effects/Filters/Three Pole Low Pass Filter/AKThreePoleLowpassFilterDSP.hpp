@@ -8,16 +8,14 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKThreePoleLowpassFilterParameter) {
+typedef NS_ENUM(AUParameterAddress, AKThreePoleLowpassFilterParameter) {
     AKThreePoleLowpassFilterParameterDistortion,
     AKThreePoleLowpassFilterParameterCutoffFrequency,
     AKThreePoleLowpassFilterParameterResonance,
     AKThreePoleLowpassFilterParameterRampTime
 };
-
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
@@ -28,121 +26,38 @@ void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
-
-    sp_lpf18 *_lpf180;
-    sp_lpf18 *_lpf181;
-
 private:
-    AKLinearParameterRamp distortionRamp;
-    AKLinearParameterRamp cutoffFrequencyRamp;
-    AKLinearParameterRamp resonanceRamp;
-   
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKThreePoleLowpassFilterDSP() {
-        distortionRamp.setTarget(0.5, true);
-        distortionRamp.setDurationInSamples(10000);
-        cutoffFrequencyRamp.setTarget(1500, true);
-        cutoffFrequencyRamp.setDurationInSamples(10000);
-        resonanceRamp.setTarget(0.5, true);
-        resonanceRamp.setDurationInSamples(10000);
-    }
+    AKThreePoleLowpassFilterDSP();
+    ~AKThreePoleLowpassFilterDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKThreePoleLowpassFilterParameterDistortion:
-                distortionRamp.setTarget(value, immediate);
-                break;
-            case AKThreePoleLowpassFilterParameterCutoffFrequency:
-                cutoffFrequencyRamp.setTarget(value, immediate);
-                break;
-            case AKThreePoleLowpassFilterParameterResonance:
-                resonanceRamp.setTarget(value, immediate);
-                break;
-            case AKThreePoleLowpassFilterParameterRampTime:
-                distortionRamp.setRampTime(value, _sampleRate);
-                cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-                resonanceRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float distortionLowerBound = 0.0;
+    float distortionUpperBound = 2.0;
+    float cutoffFrequencyLowerBound = 12.0;
+    float cutoffFrequencyUpperBound = 20000.0;
+    float resonanceLowerBound = 0.0;
+    float resonanceUpperBound = 2.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKThreePoleLowpassFilterParameterDistortion:
-                return distortionRamp.getTarget();
-            case AKThreePoleLowpassFilterParameterCutoffFrequency:
-                return cutoffFrequencyRamp.getTarget();
-            case AKThreePoleLowpassFilterParameterResonance:
-                return resonanceRamp.getTarget();
-            case AKThreePoleLowpassFilterParameterRampTime:
-                return distortionRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultDistortion = 0.5;
+    float defaultCutoffFrequency = 1500;
+    float defaultResonance = 0.5;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_lpf18_create(&_lpf180);
-        sp_lpf18_create(&_lpf181);
-        sp_lpf18_init(_sp, _lpf180);
-        sp_lpf18_init(_sp, _lpf181);
-        _lpf180->dist = 0.5;
-        _lpf181->dist = 0.5;
-        _lpf180->cutoff = 1500;
-        _lpf181->cutoff = 1500;
-        _lpf180->res = 0.5;
-        _lpf181->res = 0.5;
-    }
+    int defaultRampTimeSamples = 10000;
 
-    void destroy() {
-        sp_lpf18_destroy(&_lpf180);
-        sp_lpf18_destroy(&_lpf181);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void destroy();
 
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                distortionRamp.advanceTo(_now + frameOffset);
-                cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-                resonanceRamp.advanceTo(_now + frameOffset);
-            }
-            _lpf180->dist = distortionRamp.getValue();
-            _lpf181->dist = distortionRamp.getValue();            
-            _lpf180->cutoff = cutoffFrequencyRamp.getValue();
-            _lpf181->cutoff = cutoffFrequencyRamp.getValue();            
-            _lpf180->res = resonanceRamp.getValue();
-            _lpf181->res = resonanceRamp.getValue();            
-
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!_playing) {
-                    *out = *in;
-                }
-                if (channel == 0) {
-                    sp_lpf18_compute(_sp, _lpf180, in, out);
-                } else {
-                    sp_lpf18_compute(_sp, _lpf181, in, out);
-                }
-            }
-            if (_playing) {
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

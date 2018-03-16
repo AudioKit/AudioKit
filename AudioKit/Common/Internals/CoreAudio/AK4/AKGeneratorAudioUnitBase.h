@@ -30,11 +30,11 @@
  the .m file. There may be a better way to do what is needed here.
  */
 
-- (void) setParameterTree: (AUParameterTree*) tree;
+- (void)setParameterTree: (AUParameterTree*) tree;
 
-- (float) getParameterWithAddress:(AUParameterAddress)address;
-- (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (float)getParameterWithAddress:(AUParameterAddress)address;
+- (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (void)setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
 
 // Add for compatibility with AKAudioUnit
 
@@ -46,6 +46,10 @@
 // Common for oscillators
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
+
+// Multiple waveform effects
+- (void)setupIndividualWaveform:(UInt32)waveform size:(int)size;
+- (void)setIndividualWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index;
 
 // STK Methods
 - (void)trigger;

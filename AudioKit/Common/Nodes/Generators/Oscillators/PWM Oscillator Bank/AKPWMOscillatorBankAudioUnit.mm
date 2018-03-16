@@ -6,12 +6,12 @@
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
+#import <AudioKit/AudioKit-Swift.h>
+
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorBankDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
 
 @implementation AKPWMOscillatorBankAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
@@ -28,12 +28,12 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(PWMOscillatorBank)
-    standardBankParameters()
+    standardBankParameters(AKPWMOscillatorBankDSPKernel)
 
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"
                                                            name:@"Pulse Width"
-                                                        address:pulseWidthAddress
+                                                        address:AKPWMOscillatorBankDSPKernel::pulseWidthAddress
                                                             min:0.0
                                                             max:1.0
                                                            unit:kAudioUnitParameterUnit_Generic];
@@ -41,7 +41,7 @@ standardBankFunctions()
     // Initialize the parameter values.
     pulseWidthAUParameter.value = 0.5;
 
-    _kernel.setParameter(pulseWidthAddress, pulseWidthAUParameter.value);
+    _kernel.setParameter(AKPWMOscillatorBankDSPKernel::pulseWidthAddress, pulseWidthAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[

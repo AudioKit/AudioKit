@@ -2,7 +2,7 @@
 //  AKStereoFieldLimiterAudioUnit.swift
 //  AudioKit
 //
-//  Created by Andrew Voelkel on 9/23/17.
+//  Created by Andrew Voelkel, revision history on Github.
 //  Copyright © 2017 AudioKit. All rights reserved.
 //
 
@@ -31,7 +31,7 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
         return createStereoFieldLimiterDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 

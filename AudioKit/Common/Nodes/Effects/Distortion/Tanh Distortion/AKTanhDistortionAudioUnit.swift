@@ -18,16 +18,19 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var pregain: Double = 2.0 {
+    var pregain: Double = AKTanhDistortion.defaultPregain {
         didSet { setParameter(.pregain, value: pregain) }
     }
-    var postgain: Double = 0.5 {
+
+    var postgain: Double = AKTanhDistortion.defaultPostgain {
         didSet { setParameter(.postgain, value: postgain) }
     }
-    var positiveShapeParameter: Double = 0.0 {
+
+    var positiveShapeParameter: Double = AKTanhDistortion.defaultPositiveShapeParameter {
         didSet { setParameter(.positiveShapeParameter, value: positiveShapeParameter) }
     }
-    var negativeShapeParameter: Double = 0.0 {
+
+    var negativeShapeParameter: Double = AKTanhDistortion.defaultNegativeShapeParameter {
         didSet { setParameter(.negativeShapeParameter, value: negativeShapeParameter) }
     }
 
@@ -40,7 +43,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         return createTanhDistortionDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -50,8 +53,8 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             withIdentifier: "pregain",
             name: "Pregain",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKTanhDistortion.pregainRange.lowerBound),
+            max: Float(AKTanhDistortion.pregainRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -62,8 +65,8 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             withIdentifier: "postgain",
             name: "Postgain",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKTanhDistortion.postgainRange.lowerBound),
+            max: Float(AKTanhDistortion.postgainRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -74,8 +77,8 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             withIdentifier: "positiveShapeParameter",
             name: "Positive Shape Parameter",
             address: AUParameterAddress(2),
-            min: -10.0,
-            max: 10.0,
+            min: Float(AKTanhDistortion.positiveShapeParameterRange.lowerBound),
+            max: Float(AKTanhDistortion.positiveShapeParameterRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -86,8 +89,8 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             withIdentifier: "negativeShapeParameter",
             name: "Negative Shape Parameter",
             address: AUParameterAddress(3),
-            min: -10.0,
-            max: 10.0,
+            min: Float(AKTanhDistortion.negativeShapeParameterRange.lowerBound),
+            max: Float(AKTanhDistortion.negativeShapeParameterRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -96,10 +99,10 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [pregain, postgain, positiveShapeParameter, negativeShapeParameter]))
-        pregain.value = 2.0
-        postgain.value = 0.5
-        positiveShapeParameter.value = 0.0
-        negativeShapeParameter.value = 0.0
+        pregain.value = Float(AKTanhDistortion.defaultPregain)
+        postgain.value = Float(AKTanhDistortion.defaultPostgain)
+        positiveShapeParameter.value = Float(AKTanhDistortion.defaultPositiveShapeParameter)
+        negativeShapeParameter.value = Float(AKTanhDistortion.defaultNegativeShapeParameter)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
