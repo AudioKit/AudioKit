@@ -20,13 +20,14 @@ class AKMorphingOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKMorphingOscillator(waveformArray: waveforms)
+        oscillator.rampTime = 0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.index = 1.234
-        oscillator.detuningOffset = 1.234
-        oscillator.detuningMultiplier = 1.234
+        oscillator.detuningOffset = 11
+        oscillator.detuningMultiplier = 1.1
         output = oscillator
-        AKTestMD5("82c70357f013bc512ee48ea720187d3e")
+        AKTestMD5("382e738d40fdda8c38e4b9ad1fbde591")
     }
 
     func testParametersSetOnInit() {
@@ -34,9 +35,9 @@ class AKMorphingOscillatorTests: AKTestCase {
                                       frequency: 1_234,
                                       amplitude: 0.5,
                                       index: 1.234,
-                                      detuningOffset: 1.234,
-                                      detuningMultiplier: 1.234)
+                                      detuningOffset: 11,
+                                      detuningMultiplier: 1.1)
 
-        AKTestMD5("82c70357f013bc512ee48ea720187d3e")
+        AKTestMD5("382e738d40fdda8c38e4b9ad1fbde591")
     }
 }

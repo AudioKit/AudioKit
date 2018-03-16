@@ -18,13 +18,15 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cornerFrequency: Double = 1_000 {
+    var cornerFrequency: Double = AKLowShelfParametricEqualizerFilter.defaultCornerFrequency {
         didSet { setParameter(.cornerFrequency, value: cornerFrequency) }
     }
-    var gain: Double = 1.0 {
+
+    var gain: Double = AKLowShelfParametricEqualizerFilter.defaultGain {
         didSet { setParameter(.gain, value: gain) }
     }
-    var q: Double = 0.707 {
+
+    var q: Double = AKLowShelfParametricEqualizerFilter.defaultQ {
         didSet { setParameter(.Q, value: q) }
     }
 
@@ -37,7 +39,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         return createLowShelfParametricEqualizerFilterDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -47,8 +49,8 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "cornerFrequency",
             name: "Corner Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.lowerBound),
+            max: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "gain",
             name: "Gain",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 10.0,
+            min: Float(AKLowShelfParametricEqualizerFilter.gainRange.lowerBound),
+            max: Float(AKLowShelfParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -71,8 +73,8 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "q",
             name: "Q",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 2.0,
+            min: Float(AKLowShelfParametricEqualizerFilter.qRange.lowerBound),
+            max: Float(AKLowShelfParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -81,9 +83,9 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cornerFrequency, gain, q]))
-        cornerFrequency.value = 1_000
-        gain.value = 1.0
-        q.value = 0.707
+        cornerFrequency.value = Float(AKLowShelfParametricEqualizerFilter.defaultCornerFrequency)
+        gain.value = Float(AKLowShelfParametricEqualizerFilter.defaultGain)
+        q.value = Float(AKLowShelfParametricEqualizerFilter.defaultQ)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

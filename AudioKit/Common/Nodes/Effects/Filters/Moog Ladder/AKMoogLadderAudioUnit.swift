@@ -18,10 +18,11 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var cutoffFrequency: Double = 1_000 {
+    var cutoffFrequency: Double = AKMoogLadder.defaultCutoffFrequency {
         didSet { setParameter(.cutoffFrequency, value: cutoffFrequency) }
     }
-    var resonance: Double = 0.5 {
+
+    var resonance: Double = AKMoogLadder.defaultResonance {
         didSet { setParameter(.resonance, value: resonance) }
     }
 
@@ -34,7 +35,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         return createMoogLadderDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -44,8 +45,8 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKMoogLadder.cutoffFrequencyRange.lowerBound),
+            max: Float(AKMoogLadder.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,8 +57,8 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             withIdentifier: "resonance",
             name: "Resonance (%)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 2.0,
+            min: Float(AKMoogLadder.resonanceRange.lowerBound),
+            max: Float(AKMoogLadder.resonanceRange.upperBound),
             unit: .percent,
             unitName: nil,
             flags: flags,
@@ -66,8 +67,8 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance]))
-        cutoffFrequency.value = 1_000
-        resonance.value = 0.5
+        cutoffFrequency.value = Float(AKMoogLadder.defaultCutoffFrequency)
+        resonance.value = Float(AKMoogLadder.defaultResonance)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

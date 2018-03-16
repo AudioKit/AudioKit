@@ -20,10 +20,10 @@ import AVFoundation
  A locked video function would resemble:
  ```
  func videoPlay(at time: TimeInterval = 0, hostTime: UInt64 = 0 ) {
-     let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
-     let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
-     let futureTime = CMTimeAdd(cmHostTime, cmVTime)
-     videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
+ let cmHostTime = CMClockMakeHostTimeFromSystemUnits(hostTime)
+ let cmVTime = CMTimeMakeWithSeconds(time, 1000000)
+ let futureTime = CMTimeAdd(cmHostTime, cmVTime)
+ videoPlayer.setRate(1, time: kCMTimeInvalid, atHostTime: futureTime)
  }
  ```
 
@@ -52,9 +52,9 @@ public class AKPlayer: AKNode {
         case dynamic, always
     }
 
-    // TODO: allow for different exponential curve slopes, implement other types
+    // TODO: allow for different curve slopes in parameter ramper, implement other types
     public enum FadeType {
-        case exponential // , linear, logarithmic
+        case exponential // linear, logarithmic
     }
 
     public struct Loop {
@@ -72,47 +72,37 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
-        public static var defaultStartGain: Double = 0.001
+        /// a constant
+        public static var minimumGain: Double = 0.000_2
 
-        var needsUpdate: Bool = false
+        /// the value that the booster should fade to, settable
+        public var maximumGain: Double = 1
 
-        public var inTime: Double = 0 {
-            willSet {
-                if newValue != inTime { needsUpdate = true }
-            }
-        }
+        public var inTime: Double = 0
 
-        public var inStartGain: Double = defaultStartGain {
-            willSet {
-                if newValue != inStartGain { needsUpdate = true }
-            }
-        }
+        // if you want to start midway into a fade
+        public var inTimeOffset: Double = 0
 
-        public var outTime: Double = 0 {
-            willSet {
-                if newValue != outTime { needsUpdate = true }
-            }
-        }
+        // Currently Unused
+        public var inStartGain: Double = minimumGain
 
-        public var outStartGain: Double = 1 {
-            willSet {
-                if newValue != outStartGain { needsUpdate = true }
-            }
-        }
+        public var outTime: Double = 0
 
-        public var type: AKPlayer.FadeType = .exponential {
-            willSet {
-                if newValue != type { needsUpdate = true }
-            }
-        }
+        public var outTimeOffset: Double = 0
+
+        // Currently Unused
+        public var outStartGain: Double = 1
+
+        // TODO: this would tell Booster what ramper to use when multiple curves are available
+        public var type: AKPlayer.FadeType = .exponential
     }
 
     // MARK: - Private Parts
 
     // The underlying player node
     private let playerNode = AVAudioPlayerNode()
+    private let faderNode = AKBooster()
     private var mixer = AVAudioMixerNode()
-    private var buffer: AVAudioPCMBuffer?
     private var startingFrame: AVAudioFramePosition?
     private var endingFrame: AVAudioFramePosition?
 
@@ -121,6 +111,7 @@ public class AKPlayer: AKNode {
     // Pre 10.13 the completion handlers are inaccurate to the point of unusable.
     private var prerollTimer: Timer?
     private var completionTimer: Timer?
+    private var faderTimer: Timer?
 
     // startTime and endTime may be accessed from multiple thread contexts
     private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
@@ -143,6 +134,8 @@ public class AKPlayer: AKNode {
     /// stop() is called while playing or when looping.
     public var completionHandler: AKCallback?
 
+    public var buffer: AVAudioPCMBuffer?
+
     /// Sets if the player should buffer dynamically, always or never
     /// Not buffering means playing from disk, buffering is playing from RAM
     public var buffering: BufferingType = .dynamic {
@@ -158,10 +151,11 @@ public class AKPlayer: AKNode {
 
     /// The duration of the loaded audio file
     public var duration: Double {
-        return audioFile?.duration ?? 0
+        guard let audioFile = audioFile else { return 0 }
+        return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    /// Holds characteristics about the fade options. Using fades will set the player to buffering
+    /// Holds characteristics about the fade options.
     public var fade = Fade()
 
     /// Looping params
@@ -173,6 +167,17 @@ public class AKPlayer: AKNode {
         set { playerNode.volume = Float(newValue) }
     }
 
+    /// Amplification Factor, in the range of 0.0002 to 2
+    public var gain: Double = 1 {
+        didSet {
+            if faderNode.rampTime != AKSettings.rampTime {
+                faderNode.rampTime = AKSettings.rampTime
+            }
+            fade.maximumGain = gain
+            faderNode.gain = gain
+        }
+    }
+
     /// Left/Right balance -1.0 -> 1.0, default 0.0
     public var pan: Double {
         get { return Double(playerNode.pan) }
@@ -182,9 +187,9 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            return startTimeQueue.sync {
-                max(0, self.isLooping ? self.loop.start : self._startTime)
-            }
+            // return startTimeQueue.sync {
+            return max(0, isLooping ? loop.start : _startTime)
+            // }
         }
 
         set {
@@ -197,9 +202,9 @@ public class AKPlayer: AKNode {
     /// Get or set the end time of the player.
     public var endTime: Double {
         get {
-            return endTimeQueue.sync {
-                self.isLooping ? self.loop.end : self._endTime
-            }
+            // return endTimeQueue.sync {
+            return isLooping ? loop.end : _endTime
+            // }
         }
 
         set {
@@ -213,7 +218,9 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// - Returns: The total frame count that is being playing
+    /// - Returns: The total frame count that is being playing.
+    /// Differs from the audioFile.length as this will be updated with the edited amount
+    /// of frames based on startTime and endTime
     public private(set) var frameCount: AVAudioFrameCount = 0
 
     /// - Returns: The current frame while playing
@@ -240,7 +247,7 @@ public class AKPlayer: AKNode {
 
     /// true if the player is buffering audio rather than playing from disk
     public var isBuffered: Bool {
-        return isLooping || isReversed || isFaded || buffering == .always
+        return isLooping || isReversed || buffering == .always
     }
 
     public var isLooping: Bool = false
@@ -296,14 +303,19 @@ public class AKPlayer: AKNode {
         if mixer.engine == nil {
             AudioKit.engine.attach(mixer)
         }
+        if faderNode.avAudioNode.engine == nil {
+            AudioKit.engine.attach(faderNode.avAudioNode)
+        }
 
         playerNode.disconnectOutput()
 
-        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.sampleRate,
-                                   channels: audioFile.channelCount)
+        let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
+                                   channels: audioFile.fileFormat.channelCount)
 
-        AudioKit.connect(playerNode, to: mixer, format: format)
+        AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
+        AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
+        faderNode.gain = 1 // Fade.minimumGain
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -334,6 +346,8 @@ public class AKPlayer: AKNode {
         }
         startTime = from
         endTime = to
+
+        resetFader(false)
 
         guard isBuffered else { return }
         updateBuffer()
@@ -385,13 +399,106 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
+
+        initFader(at: audioTime, hostTime: hostTime)
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
+        resetFader(false)
         playerNode.stop()
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
+        faderTimer?.invalidate()
+    }
+
+    // MARK: - Fade Handlers
+
+    private func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
+        // AKLog(fade, faderNode.rampTime, faderNode.gain, audioTime, hostTime)
+
+        if faderTimer?.isValid ?? false {
+            faderTimer?.invalidate()
+        }
+
+        guard fade.inTime != 0 || fade.outTime != 0 else {
+            return
+        }
+
+        guard let hostTime = hostTime, let triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
+            startFade()
+            return
+        }
+
+        DispatchQueue.main.async {
+            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
+                                                   target: self,
+                                                   selector: #selector(self.startFade),
+                                                   userInfo: nil,
+                                                   repeats: false)
+        }
+
+    }
+
+    private func resetFader(_ state: Bool) {
+        var state = state
+        if fade.inTime == 0 {
+            state = true
+        }
+
+        faderNode.rampTime = AKSettings.rampTime
+        faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
+    }
+
+    @objc private func startFade() {
+        let inTime = fade.inTime - fade.inTimeOffset
+
+        faderNode.rampTime = AKSettings.rampTime
+
+        if inTime > 0 {
+            faderNode.gain = Fade.minimumGain
+            faderNode.rampTime = inTime
+        }
+        // set target gain and begin ramping
+        faderNode.gain = fade.maximumGain
+
+        // AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
+
+        faderTimer?.invalidate()
+
+        guard fade.outTime > 0 else { return }
+
+        if fade.outTimeOffset > 0 {
+            // just fade now the remainder of the segment
+            var midFadeDuration = duration - startTime
+            if endTime < duration {
+                midFadeDuration -= (duration - endTime)
+            }
+            fadeOutWithTime(midFadeDuration)
+        } else {
+            let when = (duration - startTime) - (duration - endTime) - fade.outTime
+
+            DispatchQueue.main.async {
+                self.faderTimer = Timer.scheduledTimer(timeInterval: when,
+                                                       target: self,
+                                                       selector: #selector(self.fadeOut),
+                                                       userInfo: nil,
+                                                       repeats: false)
+            }
+        }
+    }
+
+    @objc private func fadeOut() {
+        if fade.outTime > 0 {
+            fadeOutWithTime(fade.outTime)
+        }
+    }
+
+    private func fadeOutWithTime(_ time: Double) {
+        if time > 0 {
+            faderNode.rampTime = time
+            faderNode.gain = Fade.minimumGain
+        }
     }
 
     // MARK: - Scheduling
@@ -402,11 +509,13 @@ public class AKPlayer: AKNode {
 
     // if the file is scheduled, start a timer to determine when to start the completion timer
     private func startPrerollTimer(_ prerollTime: Double) {
-        prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
-                                            target: self,
-                                            selector: #selector(AKPlayer.startCompletionTimer),
-                                            userInfo: nil,
-                                            repeats: false)
+        DispatchQueue.main.async {
+            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
+                                                     target: self,
+                                                     selector: #selector(self.startCompletionTimer),
+                                                     userInfo: nil,
+                                                     repeats: false)
+        }
     }
 
     // keep this timer separate in the cases of sounds that aren't scheduled
@@ -415,11 +524,13 @@ public class AKPlayer: AKNode {
         if isLooping && loop.end > 0 {
             segmentDuration = loop.end - startTime
         }
-        completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
-                                               target: self,
-                                               selector: #selector(handleComplete),
-                                               userInfo: nil,
-                                               repeats: false)
+        DispatchQueue.main.async {
+            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
+                                                        target: self,
+                                                        selector: #selector(self.handleComplete),
+                                                        userInfo: nil,
+                                                        repeats: false)
+        }
     }
 
     private func schedule(at audioTime: AVAudioTime?, hostTime: UInt64?) {
@@ -475,14 +586,14 @@ public class AKPlayer: AKNode {
     private func scheduleSegment(at audioTime: AVAudioTime?) {
         guard let audioFile = audioFile else { return }
 
-        let startFrame = AVAudioFramePosition(startTime * audioFile.sampleRate)
-        var endFrame = AVAudioFramePosition(endTime * audioFile.sampleRate)
+        let startFrame = AVAudioFramePosition(startTime * audioFile.fileFormat.sampleRate)
+        var endFrame = AVAudioFramePosition(endTime * audioFile.fileFormat.sampleRate)
 
         if endFrame == 0 {
-            endFrame = audioFile.samplesCount
+            endFrame = audioFile.length
         }
 
-        let totalFrames = (audioFile.samplesCount - startFrame) - (audioFile.samplesCount - endFrame)
+        let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
             AKLog("totalFrames to play is \(totalFrames). Bailing.")
             return
@@ -519,6 +630,8 @@ public class AKPlayer: AKNode {
         // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
+
+        faderTimer?.invalidate()
 
         if currentFrame >= frameCount {
             DispatchQueue.main.async {
@@ -563,15 +676,15 @@ public class AKPlayer: AKNode {
         }
 
         let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || fade.needsUpdate || loop.needsUpdate)
+            startFrame != startingFrame || endFrame != endingFrame || loop.needsUpdate)
 
         if !updateNeeded {
             return
         }
 
-        guard audioFile.samplesCount > 0 else {
+        guard audioFile.length > 0 else {
             AKLog("ERROR updateBuffer: Could not set PCM buffer -> " +
-                "\(audioFile.fileNamePlusExtension) samplesCount = 0.")
+                "\(audioFile.fileNamePlusExtension) length = 0.")
             return
         }
 
@@ -601,12 +714,6 @@ public class AKPlayer: AKNode {
             reverseBuffer()
         }
 
-        // Same idea with fades
-        if isFaded {
-            fadeBuffer()
-            fade.needsUpdate = false
-        }
-
         if isLooping {
             loop.needsUpdate = false
         }
@@ -615,73 +722,6 @@ public class AKPlayer: AKNode {
         startingFrame = startFrame
         endingFrame = endFrame
 
-    }
-
-    // Apply sample level fades to the internal buffer.
-    // TODO: add other fade curves or ditch this method in favor of Audio Unit based fading.
-    // That is appealing as it will work with file playback as well
-    private func fadeBuffer() {
-        if fade.inTime == 0 && fade.outTime == 0 {
-            return
-        }
-        // AKLog("fadeBuffer() inTime: \(fade.inTime) outTime: \(fade.outTime)")
-
-        guard isBuffered,
-            let buffer = self.buffer,
-            let audioFile = self.audioFile,
-            let floatChannelData = buffer.floatChannelData,
-            let fadedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: buffer.frameCapacity) else {
-            return
-        }
-        let length: AVAudioFrameCount = buffer.frameLength
-
-        // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
-        var gain: Double = fade.inTime > 0 ? fade.inStartGain : 1.0
-
-        let sampleTime: Double = 1.0 / audioFile.sampleRate
-
-        // exponential fade type
-
-        // from -20db?
-        let fadeInPower: Double = exp(log(10) * sampleTime / fade.inTime)
-
-        // for decay to x% amplitude (-dB) over the given decay time
-        let fadeOutPower: Double = exp(-log(25) * sampleTime / fade.outTime)
-
-        // where in the buffer to end the fade in
-        let fadeInSamples = Int(audioFile.sampleRate * fade.inTime)
-        // where in the buffer to start the fade out
-        let fadeOutSamples = Int(Double(length) - (audioFile.sampleRate * fade.outTime))
-
-        // i is the index in the buffer
-        for i in 0 ..< Int(length) {
-            // n is the channel
-            for n in 0 ..< Int(buffer.format.channelCount) {
-
-                if i <= fadeInSamples && fade.inTime > 0 {
-                    gain *= fadeInPower
-                } else if i >= fadeOutSamples && fade.outTime > 0 {
-                    if i == fadeOutSamples {
-                        gain = fade.outStartGain
-                    }
-                    gain *= fadeOutPower
-                } else {
-                    gain = 1.0
-                }
-
-                // sanity check
-                if gain > 1 {
-                    gain = 1
-                }
-                let sample = floatChannelData[n][i] * Float(gain)
-                fadedBuffer.floatChannelData?[n][i] = sample
-            }
-        }
-
-        // set the buffer now to be the faded one
-        self.buffer = fadedBuffer
-        // update this
-        self.buffer?.frameLength = length
     }
 
     // Read the buffer in backwards

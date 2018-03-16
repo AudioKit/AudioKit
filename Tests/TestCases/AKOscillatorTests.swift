@@ -22,6 +22,18 @@ class AKOscillatorTests: AKTestCase {
         AKTestNoEffect()
     }
 
+    func testDetuningMultiplier() {
+        input = AKOscillator(waveform: AKTable(.square), detuningMultiplier: 0.9)
+        output = input
+        AKTestMD5("591d314b30df8d6af0b2e9df86528af1")
+    }
+
+    func testDetuningOffset() {
+        input = AKOscillator(waveform: AKTable(.square), detuningOffset: 11)
+        output = input
+        AKTestMD5("c0d0d9e1cb39611efaf0b7b8b8d7c137")
+    }
+
     func testFrequency() {
         input = AKOscillator(waveform: AKTable(.square), frequency: 400)
         output = input

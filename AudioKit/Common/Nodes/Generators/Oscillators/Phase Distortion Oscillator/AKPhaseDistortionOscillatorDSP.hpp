@@ -8,9 +8,9 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKPhaseDistortionOscillatorParameter) {
+typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
     AKPhaseDistortionOscillatorParameterFrequency,
     AKPhaseDistortionOscillatorParameterAmplitude,
     AKPhaseDistortionOscillatorParameterPhaseDistortion,
@@ -140,7 +140,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            // do gain ramping every 8 samples
+            // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
                 frequencyRamp.advanceTo(_now + frameOffset);
                 amplitudeRamp.advanceTo(_now + frameOffset);

@@ -44,7 +44,7 @@ standardKernelPassthroughs()
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
-                                                       address:amplitudeAddress
+                                                       address:AKShakerDSPKernel::amplitudeAddress
                                                            min:0
                                                            max:1
                                                           unit:kAudioUnitParameterUnit_Generic];
@@ -52,7 +52,7 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     amplitudeAUParameter.value = 0.5;
 
-    _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
+    _kernel.setParameter(AKShakerDSPKernel::amplitudeAddress,       amplitudeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[amplitudeAUParameter]];

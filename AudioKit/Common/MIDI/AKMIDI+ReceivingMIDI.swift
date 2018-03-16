@@ -73,7 +73,8 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a CoreMIDI packet may contain multiple MIDI events -
                         // treat it like an array of events that can be transformed
-                        let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
+                        let events = [AKMIDIEvent](packet) //uses makeiterator
+                        let transformedMIDIEventList = self.transformMIDIEventList(events)
                         for transformedEvent in transformedMIDIEventList {
                             self.handleMIDIMessage(transformedEvent)
                         }

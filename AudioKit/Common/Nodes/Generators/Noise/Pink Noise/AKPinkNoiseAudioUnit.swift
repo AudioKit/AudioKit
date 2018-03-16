@@ -18,7 +18,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var amplitude: Double = 1 {
+    var amplitude: Double = AKPinkNoise.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -31,7 +31,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         return createPinkNoiseDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -41,8 +41,8 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Amplitude",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKPinkNoise.amplitudeRange.lowerBound),
+            max: Float(AKPinkNoise.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -51,7 +51,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
-        amplitude.value = 1
+        amplitude.value = Float(AKPinkNoise.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

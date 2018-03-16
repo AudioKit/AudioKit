@@ -18,7 +18,7 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var amplitude: Double = 1 {
+    var amplitude: Double = AKWhiteNoise.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -31,7 +31,7 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
         return createWhiteNoiseDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -41,8 +41,8 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
             withIdentifier: "amplitude",
             name: "Amplitude",
             address: AUParameterAddress(0),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKWhiteNoise.amplitudeRange.lowerBound),
+            max: Float(AKWhiteNoise.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -51,7 +51,7 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
-        amplitude.value = 1
+        amplitude.value = Float(AKWhiteNoise.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

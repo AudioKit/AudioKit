@@ -17,13 +17,30 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
+
+    /// Lower and upper bounds for Center Frequency
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Bandwidth
+    public static let bandwidthRange = 0.0 ... 20_000.0
+
+    /// Lower and upper bounds for Gain
+    public static let gainRange = -100.0 ... 100.0
+
+    /// Initial value for Center Frequency
+    public static let defaultCenterFrequency = 1_000.0
+
+    /// Initial value for Bandwidth
+    public static let defaultBandwidth = 100.0
+
+    /// Initial value for Gain
+    public static let defaultGain = 10.0
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -33,7 +50,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 1_000.0 {
+    @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             if centerFrequency == newValue {
                 return
@@ -49,7 +66,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The peak/notch bandwidth in Hertz
-    @objc open dynamic var bandwidth: Double = 100.0 {
+    @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
             if bandwidth == newValue {
                 return
@@ -65,7 +82,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// The peak/notch gain
-    @objc open dynamic var gain: Double = 10.0 {
+    @objc open dynamic var gain: Double = defaultGain {
         willSet {
             if gain == newValue {
                 return
@@ -97,9 +114,10 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 1_000.0,
-        bandwidth: Double = 100.0,
-        gain: Double = 10.0) {
+        centerFrequency: Double = defaultCenterFrequency,
+        bandwidth: Double = defaultBandwidth,
+        gain: Double = defaultGain
+        ) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth

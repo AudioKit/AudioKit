@@ -8,14 +8,12 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKWhiteNoiseParameter) {
+typedef NS_ENUM(AUParameterAddress, AKWhiteNoiseParameter) {
     AKWhiteNoiseParameterAmplitude,
     AKWhiteNoiseParameterRampTime
 };
-
-#import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
@@ -26,82 +24,32 @@ void* createWhiteNoiseDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKWhiteNoiseDSP : public AKSoundpipeDSPBase {
-
-    sp_noise *_noise;
-
 private:
-    AKLinearParameterRamp amplitudeRamp;
-
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
+ 
 public:
-    AKWhiteNoiseDSP() {
-        amplitudeRamp.setTarget(1, true);
-        amplitudeRamp.setDurationInSamples(10000);
-    }
+    AKWhiteNoiseDSP();
+    ~AKWhiteNoiseDSP();
 
-    /** Uses the ParameterAddress as a key */
-    void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        switch (address) {
-            case AKWhiteNoiseParameterAmplitude:
-                amplitudeRamp.setTarget(value, immediate);
-                break;
-            case AKWhiteNoiseParameterRampTime:
-                amplitudeRamp.setRampTime(value, _sampleRate);
-                break;
-        }
-    }
+    float amplitudeLowerBound = 0.0;
+    float amplitudeUpperBound = 1.0;
 
-    /** Uses the ParameterAddress as a key */
-    float getParameter(AUParameterAddress address) override {
-        switch (address) {
-            case AKWhiteNoiseParameterAmplitude:
-                return amplitudeRamp.getTarget();
-            case AKWhiteNoiseParameterRampTime:
-                return amplitudeRamp.getRampTime(_sampleRate);
-        }
-        return 0;
-    }
+    float defaultAmplitude = 1;
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    int defaultRampTimeSamples = 10000;
 
-        sp_noise_create(&_noise);
-        sp_noise_init(_sp, _noise);
-        _noise->amp = 1;
-    }
+    // Uses the ParameterAddress as a key
+    void setParameter(AUParameterAddress address, float value, bool immediate) override;
 
-    void destroy() {
-        sp_noise_destroy(&_noise);
-        AKSoundpipeDSPBase::destroy();
-    }
+    // Uses the ParameterAddress as a key
+    float getParameter(AUParameterAddress address) override;
+    
+    void init(int _channels, double _sampleRate) override;
 
+    void destroy();
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            // do gain ramping every 8 samples
-            if ((frameOffset & 0x7) == 0) {
-                amplitudeRamp.advanceTo(_now + frameOffset);
-            }
-            float amplitude = amplitudeRamp.getValue();
-            _noise->amp = amplitude;
-
-            float temp = 0;
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                if (_playing) {
-                    if (channel == 0) {
-                        sp_noise_compute(_sp, _noise, nil, &temp);
-                    }
-                    *out = temp;
-                } else {
-                    *out = 0.0;
-                }
-            }
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
 #endif

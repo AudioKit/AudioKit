@@ -18,10 +18,11 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var fundamentalFrequency: Double = 100 {
+    var fundamentalFrequency: Double = AKStringResonator.defaultFundamentalFrequency {
         didSet { setParameter(.fundamentalFrequency, value: fundamentalFrequency) }
     }
-    var feedback: Double = 0.95 {
+
+    var feedback: Double = AKStringResonator.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
 
@@ -34,7 +35,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         return createStringResonatorDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -44,8 +45,8 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             withIdentifier: "fundamentalFrequency",
             name: "Fundamental Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 10_000.0,
+            min: Float(AKStringResonator.fundamentalFrequencyRange.lowerBound),
+            max: Float(AKStringResonator.fundamentalFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -56,8 +57,8 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Feedback (%)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1.0,
+            min: Float(AKStringResonator.feedbackRange.lowerBound),
+            max: Float(AKStringResonator.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -66,8 +67,8 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [fundamentalFrequency, feedback]))
-        fundamentalFrequency.value = 100
-        feedback.value = 0.95
+        fundamentalFrequency.value = Float(AKStringResonator.defaultFundamentalFrequency)
+        feedback.value = Float(AKStringResonator.defaultFeedback)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

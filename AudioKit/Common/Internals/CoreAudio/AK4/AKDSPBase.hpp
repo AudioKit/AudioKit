@@ -19,7 +19,7 @@
  does not know the type of the subclass at compile time.
  */
 
-struct AKDSPBase {
+class AKDSPBase {
 
 protected:
 
@@ -57,6 +57,10 @@ public:
     virtual void setupWaveform(uint32_t size) {}
     virtual void setWaveformValue(uint32_t index, float value) {}
 
+    /// Multiple waveform oscillators
+    virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size) {}
+    virtual void setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {}
+
     /// STK Triggers
     virtual void trigger() {}
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
@@ -71,7 +75,12 @@ public:
     }
 
     virtual void init(int nChannels, double sampleRate) {
-        this->_nChannels = nChannels; this->_sampleRate = sampleRate;
+        this->_nChannels = nChannels;
+        this->_sampleRate = sampleRate;
+    }
+    
+    /// override this if your DSP kernel allocates memory; free it here
+    virtual void deinit() {
     }
 
     // Add for compatibility with AKAudioUnit
@@ -86,67 +95,12 @@ public:
      From Apple Example code
      */
     void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                           AURenderEvent const *events) {
-
-        _now = timestamp->mSampleTime;
-        AUAudioFrameCount framesRemaining = frameCount;
-        AURenderEvent const *event = events;
-
-        while (framesRemaining > 0) {
-            // If there are no more events, we can process the entire remaining segment and exit.
-            if (event == nullptr) {
-                AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
-                process(framesRemaining, bufferOffset);
-                return;
-            }
-
-            // **** start late events late.
-            auto timeZero = AUEventSampleTime(0);
-            auto headEventTime = event->head.eventSampleTime;
-            AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - _now));
-
-            // Compute everything before the next event.
-            if (framesThisSegment > 0) {
-                AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
-                process(framesThisSegment, bufferOffset);
-
-                // Advance frames.
-                framesRemaining -= framesThisSegment;
-                // Advance time.
-                _now += framesThisSegment;
-            }
-            performAllSimultaneousEvents(_now, event);
-        }
-    }
+                           AURenderEvent const *events);
 
 private:
 
-    /** From Apple Example code */
-    void handleOneEvent(AURenderEvent const *event) {
-        switch (event->head.eventType) {
-            case AURenderEventParameter:
-            case AURenderEventParameterRamp: {
-                // AUParameterEvent const& paramEvent = event->parameter;
-                // startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
-                break;
-            }
-            case AURenderEventMIDI:
-                // handleMIDIEvent(event->MIDI);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /** From Apple Example code */
-    void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event) {
-        do {
-            handleOneEvent(event);
-            event = event->head.next;
-            // While event is not null and is simultaneous (or late).
-        } while (event && event->head.eventSampleTime <= now);
-    }
-
+    void handleOneEvent(AURenderEvent const *event);
+    void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event);
 };
 
 #endif

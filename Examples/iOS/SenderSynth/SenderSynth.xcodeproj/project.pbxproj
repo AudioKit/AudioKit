@@ -43,6 +43,7 @@
 		C4C5F7FD1DA8759500C1017F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4C5F8001DA8759500C1017F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4C5F8021DA8759500C1017F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4DD02B9202305DA00AC39DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4EDA0E81DA88F2E008C1827 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C4EDA0EA1DA88F2E008C1827 /* SenderSynth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SenderSynth.entitlements; sourceTree = "<group>"; };
 		C4EDA0EB1DA8C101008C1827 /* SenderSynth-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SenderSynth-BridgingHeader.h"; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		C4C5F7EA1DA8759500C1017F = {
 			isa = PBXGroup;
 			children = (
+				C4DD02B9202305DA00AC39DD /* README.md */,
 				C4C5F7F51DA8759500C1017F /* SenderSynth */,
 				C4C5F7F41DA8759500C1017F /* Products */,
 				E7D71CF886AB12D0E054CD74 /* Pods */,

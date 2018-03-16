@@ -18,13 +18,15 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var centerFrequency: Double = 1_000 {
+    var centerFrequency: Double = AKFormantFilter.defaultCenterFrequency {
         didSet { setParameter(.centerFrequency, value: centerFrequency) }
     }
-    var attackDuration: Double = 0.007 {
+
+    var attackDuration: Double = AKFormantFilter.defaultAttackDuration {
         didSet { setParameter(.attackDuration, value: attackDuration) }
     }
-    var decayDuration: Double = 0.04 {
+
+    var decayDuration: Double = AKFormantFilter.defaultDecayDuration {
         didSet { setParameter(.decayDuration, value: decayDuration) }
     }
 
@@ -37,7 +39,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         return createFormantFilterDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -47,8 +49,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: 12.0,
-            max: 20_000.0,
+            min: Float(AKFormantFilter.centerFrequencyRange.lowerBound),
+            max: Float(AKFormantFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -59,8 +61,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "attackDuration",
             name: "Impulse response attack time (Seconds)",
             address: AUParameterAddress(1),
-            min: 0.0,
-            max: 0.1,
+            min: Float(AKFormantFilter.attackDurationRange.lowerBound),
+            max: Float(AKFormantFilter.attackDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -71,8 +73,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             withIdentifier: "decayDuration",
             name: "Impulse reponse decay time (Seconds)",
             address: AUParameterAddress(2),
-            min: 0.0,
-            max: 0.1,
+            min: Float(AKFormantFilter.decayDurationRange.lowerBound),
+            max: Float(AKFormantFilter.decayDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -81,9 +83,9 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration]))
-        centerFrequency.value = 1_000
-        attackDuration.value = 0.007
-        decayDuration.value = 0.04
+        centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
+        attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)
+        decayDuration.value = Float(AKFormantFilter.defaultDecayDuration)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

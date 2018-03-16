@@ -18,31 +18,39 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var notchMinimumFrequency: Double = 100 {
+    var notchMinimumFrequency: Double = AKPhaser.defaultNotchMinimumFrequency {
         didSet { setParameter(.notchMinimumFrequency, value: notchMinimumFrequency) }
     }
-    var notchMaximumFrequency: Double = 800 {
+
+    var notchMaximumFrequency: Double = AKPhaser.defaultNotchMaximumFrequency {
         didSet { setParameter(.notchMaximumFrequency, value: notchMaximumFrequency) }
     }
-    var notchWidth: Double = 1_000 {
+
+    var notchWidth: Double = AKPhaser.defaultNotchWidth {
         didSet { setParameter(.notchWidth, value: notchWidth) }
     }
-    var notchFrequency: Double = 1.5 {
+
+    var notchFrequency: Double = AKPhaser.defaultNotchFrequency {
         didSet { setParameter(.notchFrequency, value: notchFrequency) }
     }
-    var vibratoMode: Double = 1 {
+
+    var vibratoMode: Double = AKPhaser.defaultVibratoMode {
         didSet { setParameter(.vibratoMode, value: vibratoMode) }
     }
-    var depth: Double = 1 {
+
+    var depth: Double = AKPhaser.defaultDepth {
         didSet { setParameter(.depth, value: depth) }
     }
-    var feedback: Double = 0 {
+
+    var feedback: Double = AKPhaser.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
-    var inverted: Double = 0 {
+
+    var inverted: Double = AKPhaser.defaultInverted {
         didSet { setParameter(.inverted, value: inverted) }
     }
-    var lfoBPM: Double = 30 {
+
+    var lfoBPM: Double = AKPhaser.defaultLfoBPM {
         didSet { setParameter(.lfoBPM, value: lfoBPM) }
     }
 
@@ -55,7 +63,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         return createPhaserDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -65,8 +73,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "notchMinimumFrequency",
             name: "Notch Minimum Frequency",
             address: AUParameterAddress(0),
-            min: 20,
-            max: 5_000,
+            min: Float(AKPhaser.notchMinimumFrequencyRange.lowerBound),
+            max: Float(AKPhaser.notchMinimumFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -77,8 +85,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "notchMaximumFrequency",
             name: "Notch Maximum Frequency",
             address: AUParameterAddress(1),
-            min: 20,
-            max: 10_000,
+            min: Float(AKPhaser.notchMaximumFrequencyRange.lowerBound),
+            max: Float(AKPhaser.notchMaximumFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -89,8 +97,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "notchWidth",
             name: "Between 10 and 5000",
             address: AUParameterAddress(2),
-            min: 10,
-            max: 5_000,
+            min: Float(AKPhaser.notchWidthRange.lowerBound),
+            max: Float(AKPhaser.notchWidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -101,8 +109,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "notchFrequency",
             name: "Between 1.1 and 4",
             address: AUParameterAddress(3),
-            min: 1.1,
-            max: 4.0,
+            min: Float(AKPhaser.notchFrequencyRange.lowerBound),
+            max: Float(AKPhaser.notchFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -113,8 +121,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "vibratoMode",
             name: "Direct or Vibrato (default)",
             address: AUParameterAddress(4),
-            min: 0,
-            max: 1,
+            min: Float(AKPhaser.vibratoModeRange.lowerBound),
+            max: Float(AKPhaser.vibratoModeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -125,8 +133,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "depth",
             name: "Between 0 and 1",
             address: AUParameterAddress(5),
-            min: 0,
-            max: 1,
+            min: Float(AKPhaser.depthRange.lowerBound),
+            max: Float(AKPhaser.depthRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -137,8 +145,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Between 0 and 1",
             address: AUParameterAddress(6),
-            min: 0,
-            max: 1,
+            min: Float(AKPhaser.feedbackRange.lowerBound),
+            max: Float(AKPhaser.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -149,8 +157,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "inverted",
             name: "1 or 0",
             address: AUParameterAddress(7),
-            min: 0,
-            max: 1,
+            min: Float(AKPhaser.invertedRange.lowerBound),
+            max: Float(AKPhaser.invertedRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -161,8 +169,8 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             withIdentifier: "lfoBPM",
             name: "Between 24 and 360",
             address: AUParameterAddress(8),
-            min: 24,
-            max: 360,
+            min: Float(AKPhaser.lfoBPMRange.lowerBound),
+            max: Float(AKPhaser.lfoBPMRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -171,15 +179,15 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM]))
-        notchMinimumFrequency.value = 100
-        notchMaximumFrequency.value = 800
-        notchWidth.value = 1_000
-        notchFrequency.value = 1.5
-        vibratoMode.value = 1
-        depth.value = 1
-        feedback.value = 0
-        inverted.value = 0
-        lfoBPM.value = 30
+        notchMinimumFrequency.value = Float(AKPhaser.defaultNotchMinimumFrequency)
+        notchMaximumFrequency.value = Float(AKPhaser.defaultNotchMaximumFrequency)
+        notchWidth.value = Float(AKPhaser.defaultNotchWidth)
+        notchFrequency.value = Float(AKPhaser.defaultNotchFrequency)
+        vibratoMode.value = Float(AKPhaser.defaultVibratoMode)
+        depth.value = Float(AKPhaser.defaultDepth)
+        feedback.value = Float(AKPhaser.defaultFeedback)
+        inverted.value = Float(AKPhaser.defaultInverted)
+        lfoBPM.value = Float(AKPhaser.defaultLfoBPM)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

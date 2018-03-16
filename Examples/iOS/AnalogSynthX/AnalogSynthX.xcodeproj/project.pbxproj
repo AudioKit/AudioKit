@@ -95,6 +95,7 @@
 		C44760661DCD65EC00628666 /* AnalogSynthX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnalogSynthX.entitlements; sourceTree = "<group>"; };
 		C44760671DCD65ED00628666 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C447606A1DCD675400628666 /* AnalogSynthX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AnalogSynthX-Bridging-Header.h"; sourceTree = "<group>"; };
+		C472C969202305060038D986 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C49D69791D1F2CB000BF018A /* GeneratorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneratorBank.swift; path = AudioSystem/GeneratorBank.swift; sourceTree = "<group>"; };
 		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
 		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
@@ -246,6 +247,7 @@
 		C42FFBED1C3DDAAC00823BD4 = {
 			isa = PBXGroup;
 			children = (
+				C472C969202305060038D986 /* README.md */,
 				C42FFBF81C3DDAAC00823BD4 /* AnalogSynthX */,
 				EA127F471C42097600289567 /* Frameworks */,
 				C42FFBF71C3DDAAC00823BD4 /* Products */,

@@ -18,7 +18,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var reverbDuration: Double = 0.5 {
+    var reverbDuration: Double = AKFlatFrequencyResponseReverb.defaultReverbDuration {
         didSet { setParameter(.reverbDuration, value: reverbDuration) }
     }
 
@@ -31,7 +31,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         return createFlatFrequencyResponseReverbDSP(Int32(count), sampleRate)
     }
 
-    override init(componentDescription: AudioComponentDescription,
+    public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
@@ -41,8 +41,8 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
             withIdentifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AUParameterAddress(0),
-            min: 0,
-            max: 10,
+            min: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.lowerBound),
+            max: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -51,7 +51,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
-        reverbDuration.value = 0.5
+        reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
