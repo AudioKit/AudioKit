@@ -68,6 +68,7 @@ public:
     
 private:
     CFStringRef presetPath;
+    void initForTesting();
     bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
     void loadDemoSamples();
     OSStatus loadPreset();
