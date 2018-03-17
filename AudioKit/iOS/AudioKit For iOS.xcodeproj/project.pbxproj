@@ -1119,10 +1119,8 @@
 		F02767321E79C7690099CA47 /* AKSporthStack+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767311E79C7440099CA47 /* AKSporthStack+Internal.h */; };
 		F02767341E79D1D20099CA47 /* AKCustomUgenInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767331E79D1CF0099CA47 /* AKCustomUgenInfo.h */; };
 		F02767371E79D43B0099CA47 /* AKCustomUgenFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = F02767361E79D3E50099CA47 /* AKCustomUgenFunction.h */; };
-		F4318C8D1FE892860022E418 /* AKParameterRampBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4E1FC944FE00EDA024 /* AKParameterRampBase.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		F4318C8E1FE892890022E418 /* AKLinearParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4AC0B4D1FC944FE00EDA024 /* AKLinearParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		F4318C901FE89E7B0022E418 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4318C8F1FE89E7B0022E418 /* AKTuningTableBase.swift */; };
 		F4B7AEB11EB8DA6000594E86 /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B7AEB01EB8DA6000594E86 /* AKTuningTable+Brun.swift */; };
+		F4BE6551205C8D270014135A /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4318C8F1FE89E7B0022E418 /* AKTuningTableBase.swift */; };
 		F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85781EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift */; };
 		F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA85791EB666260066BE5C /* AKTuningTable+EqualTemperament.swift */; };
 		F4CA85811EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA857A1EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift */; };
@@ -5675,6 +5673,7 @@
 				C49B14B9204A06B8009C7C8E /* gen_sinesum.c in Sources */,
 				C49E9DF61D2B1F9100E5E8BF /* AKDuration.swift in Sources */,
 				C49B1460204A06B7009C7C8E /* comb.c in Sources */,
+				F4BE6551205C8D270014135A /* AKTuningTableBase.swift in Sources */,
 				C49B13A1204A06B7009C7C8E /* vocwrapper.c in Sources */,
 				C49B145E204A06B7009C7C8E /* pshift.c in Sources */,
 				C4537FB11C3A438D00A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
