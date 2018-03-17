@@ -3,6 +3,8 @@
 #include "AUMidiDefs.h"
 #include <cstring>
 #include <ctype.h>
+#include <math.h>
+
 #include "wavpack.h"
 
 // OSErr definitions taken from deprecated CarbonCore/MacErrors.h
@@ -44,18 +46,19 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
     presetPath = nil;
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
+    
+    initForTesting();
 }
 
 AKSampler_Plugin::~AKSampler_Plugin()
 {
 }
 
-OSStatus AKSampler_Plugin::Initialize()
+void AKSampler_Plugin::initForTesting()
 {
-	AUInstrumentBase::Initialize();
-    AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
-    printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
-    
+    // I originally I put this code in Initialize(), but it turns out to be an Apple requirement
+    // "that parameters retain value across reset and initialization"
+
     masterVolume = 1.0f;
     pitchOffset = 0.0f;
     vibratoDepth = 0.0f;
@@ -69,7 +72,37 @@ OSStatus AKSampler_Plugin::Initialize()
     ampEGParams.setReleaseTimeSeconds(0.5f);
     
     //loadDemoSamples();
+    
+#if 0
+    // single-cycle experiment
+    float sine[1024];
+    for (int i=0; i < 1024; i++) sine[i] = sin(i/1024.0f * 2.0f * M_PI);
+    AKSampleDataDescriptor sdd;
+    sdd.sd.noteNumber = 28;
+    sdd.sd.noteHz = 44100.0f / 1024;
+    sdd.sd.min_note = sdd.sd.max_note = -1;
+    sdd.sd.min_vel = sdd.sd.max_vel = -1;
+    sdd.sd.bLoop = true;
+    sdd.sd.fStart = sdd.sd.fEnd = 0.0f;
+    sdd.sd.fLoopStart = 0.0f;
+    sdd.sd.fLoopEnd = 1.0f;
+    sdd.sampleRateHz = 44100.0f;
+    sdd.bInterleaved = false;
+    sdd.nChannels = 1;
+    sdd.nSamples = 1024;
+    sdd.pData = sine;
+    loadSampleData(sdd);
+    setLoopThruRelease(true);
+    buildSimpleKeyMap();
+#endif
+}
 
+OSStatus AKSampler_Plugin::Initialize()
+{
+	AUInstrumentBase::Initialize();
+    AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
+    printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
+    
     return noErr;
 }
 
