@@ -2,13 +2,13 @@
 //  AKModulatedDelay_Defines.h
 //  AudioKit
 //
-//  Created by Shane Dunne on 2018-03-17.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
 //
 
 #pragma once
 
-// Constants inherent to the definiton of Chorus and Flanger effects
+// Constants inherent to the definition of Chorus and Flanger effects
 #define kChorusMinDelayMs       4.0f
 #define kChorusMaxDelayMs       24.0f
 #define kFlangerMinDelayMs      0.01f
@@ -22,7 +22,7 @@
 #define kChorusDefaultFeedback      0.0f
 #define kChorusDefaultMix           0.25
 
-// Default parameter values: Chorus
+// Default parameter values: Flanger
 #define kFlangerDefaultModFreqHz    1.0f
 #define kFlangerMinModFreqHz        0.1f
 #define kFlangerMaxModFreqHz        10.0f
