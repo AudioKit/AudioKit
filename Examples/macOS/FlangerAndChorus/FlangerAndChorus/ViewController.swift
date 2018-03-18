@@ -38,14 +38,14 @@ class ViewController: NSViewController {
 
         conductor.midi.addListener(self)
 
-        flangerFrequencySlider.minValue = AKFlanger.frequencyRange.lowerBound
-        flangerFrequencySlider.maxValue = AKFlanger.frequencyRange.upperBound
-        flangerDepthSlider.minValue = AKFlanger.depthRange.lowerBound
-        flangerDepthSlider.maxValue = AKFlanger.depthRange.upperBound
-        flangerFeedbackSlider.minValue = AKFlanger.feedbackRange.lowerBound
-        flangerFeedbackSlider.maxValue = AKFlanger.feedbackRange.upperBound
-        flangerDryWetMixSlider.minValue = AKFlanger.dryWetMixRange.lowerBound
-        flangerDryWetMixSlider.maxValue = AKFlanger.dryWetMixRange.upperBound
+        flangerFrequencySlider.minValue = Double(kAKFlanger_MinFrequency)
+        flangerFrequencySlider.maxValue = Double(kAKFlanger_MaxFrequency)
+        flangerDepthSlider.minValue = 0.0
+        flangerDepthSlider.maxValue = 1.0
+        flangerFeedbackSlider.minValue = 0.0
+        flangerFeedbackSlider.maxValue = 1.0
+        flangerDryWetMixSlider.minValue = 0.0
+        flangerDryWetMixSlider.maxValue = 1.0
 
         flangerFrequencySlider.doubleValue = conductor.flanger.frequency
         flangerDepthSlider.doubleValue = conductor.flanger.depth
@@ -57,14 +57,14 @@ class ViewController: NSViewController {
         flangerDryWetMixReadout.doubleValue = conductor.flanger.dryWetMix
         flangerFeedbackReadout.doubleValue = conductor.flanger.feedback
 
-        chorusFrequencySlider.minValue = AKChorus.frequencyRange.lowerBound
-        chorusFrequencySlider.maxValue = AKChorus.frequencyRange.upperBound
-        chorusDepthSlider.minValue = AKChorus.depthRange.lowerBound
-        chorusDepthSlider.maxValue = AKChorus.depthRange.upperBound
-        chorusFeedbackSlider.minValue = AKChorus.feedbackRange.lowerBound
-        chorusFeedbackSlider.maxValue = AKChorus.feedbackRange.upperBound
-        chorusDryWetMixSlider.minValue = AKChorus.dryWetMixRange.lowerBound
-        chorusDryWetMixSlider.maxValue = AKChorus.dryWetMixRange.upperBound
+        chorusFrequencySlider.minValue = Double(kAKChorus_MinFrequency)
+        chorusFrequencySlider.maxValue = Double(kAKChorus_MaxFrequency)
+        chorusDepthSlider.minValue = 0.0
+        chorusDepthSlider.maxValue = 1.0
+        chorusFeedbackSlider.minValue = 0.0
+        chorusFeedbackSlider.maxValue = 1.0
+        chorusDryWetMixSlider.minValue = 0.0
+        chorusDryWetMixSlider.maxValue = 1.0
 
         chorusFrequencySlider.doubleValue = conductor.chorus.frequency
         chorusDepthSlider.doubleValue = conductor.chorus.depth

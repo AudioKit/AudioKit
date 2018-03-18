@@ -5,5 +5,8 @@ This directory stores the platform-independent, C++ building-block classes devel
 ## Common
 Code used in several other modules of AudioKit Core.
 
+## ModulatedDelay
+This stereo modulated delay-line is the basis of the **AKChorus** and **AKFlanger** modules.
+
 ## Sampler
 A polyphonic sampler instrument to replace Apple's **AUSampler**.

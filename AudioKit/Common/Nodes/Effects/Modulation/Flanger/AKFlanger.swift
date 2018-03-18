@@ -18,17 +18,6 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    // These must accord with #defines in AKModulatedDelayDSP.hpp
-    public static let frequencyRange = 0.1 ... 10.0
-    public static let depthRange = 0.0 ... 1.0
-    public static let feedbackRange = -0.95 ... 0.95
-    public static let dryWetMixRange = 0.0 ... 1.0
-
-    public static let defaultFrequency = 1.0
-    public static let defaultDepth = 0.25
-    public static let defaultFeedback = 0.25
-    public static let defaultDryWetMix = 0.5
-
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
@@ -42,7 +31,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Frequency (Hz)
-    @objc open dynamic var frequency: Double = defaultFrequency {
+    @objc open dynamic var frequency: Double = 1.0 {
         willSet {
             if frequency == newValue {
                 return
@@ -60,7 +49,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Depth (fraction)
-    @objc open dynamic var depth: Double = defaultDepth {
+    @objc open dynamic var depth: Double = 0.0 {
         willSet {
             if depth == newValue {
                 return
@@ -78,7 +67,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback (fraction)
-    @objc open dynamic var feedback: Double = defaultFeedback {
+    @objc open dynamic var feedback: Double = 0.0 {
         willSet {
             if feedback == newValue {
                 return
@@ -96,7 +85,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry Wet Mix (fraction)
-    @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
+    @objc open dynamic var dryWetMix: Double = 0.5 {
         willSet {
             if dryWetMix == newValue {
                 return
@@ -131,10 +120,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = defaultFrequency,
-        depth: Double = defaultDepth,
-        feedback: Double = defaultFeedback,
-        dryWetMix: Double = defaultDryWetMix) {
+        frequency: Double = Double(kAKFlanger_DefaultFrequency),
+        depth: Double = Double(kAKFlanger_DefaultDepth),
+        feedback: Double = Double(kAKFlanger_DefaultFeedback),
+        dryWetMix: Double = Double(kAKFlanger_DefaultDryWetMix)) {
 
         self.frequency = frequency
         self.depth = depth
