@@ -61,6 +61,12 @@
 		34BB6759205AC238000E5450 /* unpack3.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB673A205AC237000E5450 /* unpack3.c */; };
 		34BB675A205AC238000E5450 /* tags.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB673B205AC237000E5450 /* tags.c */; };
 		34BB675B205AC238000E5450 /* decorr_tables.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BB673C205AC237000E5450 /* decorr_tables.h */; };
+		34F5A35C205ECBE400290001 /* AdjustableDelayLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A356205ECBE300290001 /* AdjustableDelayLine.cpp */; };
+		34F5A35D205ECBE400290001 /* AKModulatedDelay_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A357205ECBE300290001 /* AKModulatedDelay_Typedefs.h */; };
+		34F5A35E205ECBE400290001 /* ModulatedDelay_Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A358205ECBE300290001 /* ModulatedDelay_Defines.h */; };
+		34F5A35F205ECBE400290001 /* ModulatedDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A359205ECBE300290001 /* ModulatedDelay.cpp */; };
+		34F5A360205ECBE400290001 /* ModulatedDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35A205ECBE300290001 /* ModulatedDelay.hpp */; };
+		34F5A361205ECBE400290001 /* AdjustableDelayLine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35B205ECBE300290001 /* AdjustableDelayLine.hpp */; };
 		52145B161F3C58F20069C88B /* AKRhinoGuitarProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52145B121F3C58F20069C88B /* AKRhinoGuitarProcessor.swift */; };
 		52145B171F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 52145B131F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52145B181F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52145B141F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm */; };
@@ -233,11 +239,9 @@
 		C43622CD1CCDC70B00DB41DE /* AKMIDISampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43622CC1CCDC70B00DB41DE /* AKMIDISampler.swift */; };
 		C4414F701F5E7D0900D8DB8E /* AKPropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4414F6F1F5E7D0800D8DB8E /* AKPropertyControl.swift */; };
 		C443E0E120312CC700407CF9 /* AKChorusAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C443E0DF20312CC700407CF9 /* AKChorusAudioUnit.swift */; };
-		C443E0E220312CC700407CF9 /* AKChorus.mm in Sources */ = {isa = PBXBuildFile; fileRef = C443E0E020312CC700407CF9 /* AKChorus.mm */; };
 		C443E0E720312CE400407CF9 /* AKModulatedDelayDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C443E0E420312CE400407CF9 /* AKModulatedDelayDSP.mm */; };
 		C443E0E820312CE400407CF9 /* AKModulatedDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C443E0E520312CE400407CF9 /* AKModulatedDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C443E0EC20312D6F00407CF9 /* AKFlangerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C443E0EA20312D6F00407CF9 /* AKFlangerAudioUnit.swift */; };
-		C443E0ED20312D6F00407CF9 /* AKFlanger.mm in Sources */ = {isa = PBXBuildFile; fileRef = C443E0EB20312D6F00407CF9 /* AKFlanger.mm */; };
 		C44A8168200AF6B300D1CCC2 /* AKPWMOscillator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C44A8165200AF6B200D1CCC2 /* AKPWMOscillator.mm */; };
 		C44A8169200AF6B300D1CCC2 /* AKPWMOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A8166200AF6B300D1CCC2 /* AKPWMOscillatorAudioUnit.swift */; };
 		C44A816A200AF6B300D1CCC2 /* AKPWMOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C44A8167200AF6B300D1CCC2 /* AKPWMOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1203,6 +1207,12 @@
 		34BB673A205AC237000E5450 /* unpack3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unpack3.c; sourceTree = "<group>"; };
 		34BB673B205AC237000E5450 /* tags.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tags.c; sourceTree = "<group>"; };
 		34BB673C205AC237000E5450 /* decorr_tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decorr_tables.h; sourceTree = "<group>"; };
+		34F5A356205ECBE300290001 /* AdjustableDelayLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdjustableDelayLine.cpp; sourceTree = "<group>"; };
+		34F5A357205ECBE300290001 /* AKModulatedDelay_Typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKModulatedDelay_Typedefs.h; sourceTree = "<group>"; };
+		34F5A358205ECBE300290001 /* ModulatedDelay_Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModulatedDelay_Defines.h; sourceTree = "<group>"; };
+		34F5A359205ECBE300290001 /* ModulatedDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModulatedDelay.cpp; sourceTree = "<group>"; };
+		34F5A35A205ECBE300290001 /* ModulatedDelay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ModulatedDelay.hpp; sourceTree = "<group>"; };
+		34F5A35B205ECBE300290001 /* AdjustableDelayLine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AdjustableDelayLine.hpp; sourceTree = "<group>"; };
 		52145B121F3C58F20069C88B /* AKRhinoGuitarProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRhinoGuitarProcessor.swift; sourceTree = "<group>"; };
 		52145B131F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRhinoGuitarProcessorAudioUnit.h; sourceTree = "<group>"; };
 		52145B141F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1389,11 +1399,9 @@
 		C4414F6F1F5E7D0800D8DB8E /* AKPropertyControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPropertyControl.swift; sourceTree = "<group>"; };
 		C44243051D4B0FEE00C4182C /* AKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSlider.swift; sourceTree = "<group>"; };
 		C443E0DF20312CC700407CF9 /* AKChorusAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChorusAudioUnit.swift; sourceTree = "<group>"; };
-		C443E0E020312CC700407CF9 /* AKChorus.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKChorus.mm; sourceTree = "<group>"; };
 		C443E0E420312CE400407CF9 /* AKModulatedDelayDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKModulatedDelayDSP.mm; sourceTree = "<group>"; };
 		C443E0E520312CE400407CF9 /* AKModulatedDelayDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKModulatedDelayDSP.hpp; sourceTree = "<group>"; };
 		C443E0EA20312D6F00407CF9 /* AKFlangerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlangerAudioUnit.swift; sourceTree = "<group>"; };
-		C443E0EB20312D6F00407CF9 /* AKFlanger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlanger.mm; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C44A8165200AF6B200D1CCC2 /* AKPWMOscillator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillator.mm; sourceTree = "<group>"; };
 		C44A8166200AF6B300D1CCC2 /* AKPWMOscillatorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillatorAudioUnit.swift; sourceTree = "<group>"; };
@@ -2323,6 +2331,7 @@
 		3404A78120507B1500A2C9E4 /* AudioKitCore */ = {
 			isa = PBXGroup;
 			children = (
+				34F5A355205ECBE300290001 /* ModulatedDelay */,
 				3404A78220507B1500A2C9E4 /* README.md */,
 				3404A78320507B1500A2C9E4 /* Common */,
 				3404A78E20507B1500A2C9E4 /* Sampler */,
@@ -2412,6 +2421,19 @@
 				3404A7C420507BEB00A2C9E4 /* README.md */,
 			);
 			path = AKSampler;
+			sourceTree = "<group>";
+		};
+		34F5A355205ECBE300290001 /* ModulatedDelay */ = {
+			isa = PBXGroup;
+			children = (
+				34F5A356205ECBE300290001 /* AdjustableDelayLine.cpp */,
+				34F5A357205ECBE300290001 /* AKModulatedDelay_Typedefs.h */,
+				34F5A358205ECBE300290001 /* ModulatedDelay_Defines.h */,
+				34F5A359205ECBE300290001 /* ModulatedDelay.cpp */,
+				34F5A35A205ECBE300290001 /* ModulatedDelay.hpp */,
+				34F5A35B205ECBE300290001 /* AdjustableDelayLine.hpp */,
+			);
+			path = ModulatedDelay;
 			sourceTree = "<group>";
 		};
 		52145B101F3C58F20069C88B /* Guitar Processors */ = {
@@ -3050,7 +3072,6 @@
 			children = (
 				C44EA2442018704D0072399F /* AKFlanger.swift */,
 				C443E0EA20312D6F00407CF9 /* AKFlangerAudioUnit.swift */,
-				C443E0EB20312D6F00407CF9 /* AKFlanger.mm */,
 			);
 			path = Flanger;
 			sourceTree = "<group>";
@@ -3071,7 +3092,6 @@
 			children = (
 				C44EA24D2018704D0072399F /* AKChorus.swift */,
 				C443E0DF20312CC700407CF9 /* AKChorusAudioUnit.swift */,
-				C443E0E020312CC700407CF9 /* AKChorus.mm */,
 			);
 			path = Chorus;
 			sourceTree = "<group>";
@@ -5008,6 +5028,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B12B88A7201C1B2C008F196D /* AKExponentialParameterRamp.hpp in Headers */,
+				34F5A361205ECBE400290001 /* AdjustableDelayLine.hpp in Headers */,
 				C49B1547204A06B8009C7C8E /* StifKarp.h in Headers */,
 				55E4F5211F57CB540088018A /* AKSamplerMetronome.h in Headers */,
 				C49B1554204A06B8009C7C8E /* Modulate.h in Headers */,
@@ -5069,6 +5090,7 @@
 				C49B1571204A06B8009C7C8E /* Saxofony.h in Headers */,
 				C49B1442204A06B7009C7C8E /* Compressor.h in Headers */,
 				C40C41581C40E3A5009D870B /* EZAudioFloatConverter.h in Headers */,
+				34F5A35D205ECBE400290001 /* AKModulatedDelay_Typedefs.h in Headers */,
 				C49B156A204A06B8009C7C8E /* InetWvOut.h in Headers */,
 				C49B1543204A06B8009C7C8E /* VoicForm.h in Headers */,
 				C49B141C204A06B7009C7C8E /* DelayAPF.h in Headers */,
@@ -5084,6 +5106,7 @@
 				C49B138D204A06B7009C7C8E /* md5.h in Headers */,
 				C49B154A204A06B8009C7C8E /* Drummer.h in Headers */,
 				C42F35041C057E03000E937C /* AudioKit.h in Headers */,
+				34F5A360205ECBE400290001 /* ModulatedDelay.hpp in Headers */,
 				C4077BAD200896B000E5923C /* AKBoosterDSP.hpp in Headers */,
 				C49B1586204A06B8009C7C8E /* Function.h in Headers */,
 				C40C415C1C40E3A5009D870B /* EZAudioPlayer.h in Headers */,
@@ -5192,6 +5215,7 @@
 				C4E13D2F1C42360C008F0A3C /* AKPhaseLockedVocoderDSPKernel.hpp in Headers */,
 				C47047A11E76A24A00D9906F /* AKRhodesPianoDSPKernel.hpp in Headers */,
 				C49B143D204A06B7009C7C8E /* DynArray.hpp in Headers */,
+				34F5A35E205ECBE400290001 /* ModulatedDelay_Defines.h in Headers */,
 				C4AC4EC3200AE9740095694F /* AKFMOscillatorDSP.hpp in Headers */,
 				C4077B7B2008809400E5923C /* AKThreePoleLowpassFilterDSP.hpp in Headers */,
 				C49B1541204A06B8009C7C8E /* BlowHole.h in Headers */,
@@ -5502,7 +5526,6 @@
 				C49B15AB204A06B9009C7C8E /* OnePole.cpp in Sources */,
 				C47047781E76884C00D9906F /* AKShaker.swift in Sources */,
 				C49B1492204A06B8009C7C8E /* conv.c in Sources */,
-				C443E0ED20312D6F00407CF9 /* AKFlanger.mm in Sources */,
 				C49B141A204A06B7009C7C8E /* in.c in Sources */,
 				C49B13A4204A06B7009C7C8E /* eqfil.c in Sources */,
 				C466153B1EEA651B0044A5FC /* AKVocalTract.swift in Sources */,
@@ -5757,6 +5780,7 @@
 				C44B597D1C4B5FC70008507F /* AKMorphingOscillator.swift in Sources */,
 				3404A7CB20507BEB00A2C9E4 /* AKSamplerDSP.mm in Sources */,
 				C4E729861D382A3A00E0647E /* AKResonantFilter.swift in Sources */,
+				34F5A35C205ECBE400290001 /* AdjustableDelayLine.cpp in Sources */,
 				C49B1464204A06B7009C7C8E /* saturator.c in Sources */,
 				C4537FF61C3A438D00A51738 /* AKToneFilter.swift in Sources */,
 				C49B13EE204A06B7009C7C8E /* bitcrush.c in Sources */,
@@ -6031,6 +6055,7 @@
 				C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */,
 				C49B14C7204A06B8009C7C8E /* tog.c in Sources */,
 				3404A7A320507B1500A2C9E4 /* SamplerVoice.cpp in Sources */,
+				34F5A35F205ECBE400290001 /* ModulatedDelay.cpp in Sources */,
 				C48DB7931CD5373000D1EC13 /* CheckError.swift in Sources */,
 				C453803B1C3A599F00A51738 /* AKAmplitudeTracker.swift in Sources */,
 				C49B14B5204A06B8009C7C8E /* dcblock.c in Sources */,
@@ -6057,7 +6082,6 @@
 				898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */,
 				C463028F1C20E7A7009B44D9 /* divide.swift in Sources */,
 				C4E7519F1C233A2300688A1B /* AKOperation.swift in Sources */,
-				C443E0E220312CC700407CF9 /* AKChorus.mm in Sources */,
 				C48444E91C36FD7F007BE794 /* square.swift in Sources */,
 				C49B13F1204A06B7009C7C8E /* incr.c in Sources */,
 				C49B2169204A28F3009C7C8E /* AKAppleSampler+SoundFont.swift in Sources */,

@@ -2,7 +2,7 @@
 //  AKFlangerAudioUnit.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -18,19 +18,19 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = AKFlanger.defaultFrequency {
+    var frequency: Double = Double(kAKFlanger_DefaultFrequency) {
         didSet { setParameter(.frequency, value: frequency) }
     }
 
-    var depth: Double = AKFlanger.defaultDepth {
+    var depth: Double = Double(kAKFlanger_DefaultDepth) {
         didSet { setParameter(.depth, value: depth) }
     }
 
-    var feedback: Double = AKFlanger.defaultFeedback {
+    var feedback: Double = Double(kAKFlanger_DefaultFeedback) {
         didSet { setParameter(.feedback, value: feedback) }
     }
 
-    var dryWetMix: Double = AKFlanger.defaultDryWetMix {
+    var dryWetMix: Double = Double(kAKFlanger_DefaultDryWetMix) {
         didSet { setParameter(.dryWetMix, value: dryWetMix) }
     }
 
@@ -53,8 +53,8 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: Float(AKFlanger.frequencyRange.lowerBound),
-            max: Float(AKFlanger.frequencyRange.upperBound),
+            min: kAKFlanger_MinFrequency,
+            max: kAKFlanger_MaxFrequency,
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -65,8 +65,8 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             withIdentifier: "depth",
             name: "Depth 0-1",
             address: AUParameterAddress(1),
-            min: Float(AKFlanger.depthRange.lowerBound),
-            max: Float(AKFlanger.depthRange.upperBound),
+            min: Float(0),
+            max: Float(1),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -77,8 +77,8 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Feedback 0-1",
             address: AUParameterAddress(2),
-            min: Float(AKFlanger.feedbackRange.lowerBound),
-            max: Float(AKFlanger.feedbackRange.upperBound),
+            min: Float(0),
+            max: Float(1),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -89,8 +89,8 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             withIdentifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AUParameterAddress(3),
-            min: Float(AKFlanger.dryWetMixRange.lowerBound),
-            max: Float(AKFlanger.dryWetMixRange.upperBound),
+            min: Float(0),
+            max: Float(2),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -99,10 +99,10 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
-        frequency.value = Float(AKFlanger.defaultFrequency)
-        depth.value = Float(AKFlanger.defaultDepth)
-        feedback.value = Float(AKFlanger.defaultFeedback)
-        dryWetMix.value = Float(AKFlanger.defaultDryWetMix)
+        frequency.value = kAKFlanger_DefaultFrequency
+        depth.value = kAKFlanger_DefaultDepth
+        feedback.value = kAKFlanger_DefaultFeedback
+        dryWetMix.value = kAKFlanger_DefaultDryWetMix
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}
