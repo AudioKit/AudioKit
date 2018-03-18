@@ -18,19 +18,19 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = Double(kAKChorus_DefaultFrequency) {
+    var frequency: Double = AKChorus.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
 
-    var depth: Double = Double(kAKChorus_DefaultDepth) {
+    var depth: Double = AKChorus.defaultDepth {
         didSet { setParameter(.depth, value: depth) }
     }
 
-    var feedback: Double = Double(kAKChorus_DefaultFeedback) {
+    var feedback: Double = AKChorus.defaultFeedback {
         didSet { setParameter(.feedback, value: feedback) }
     }
 
-    var dryWetMix: Double = Double(kAKChorus_DefaultDryWetMix) {
+    var dryWetMix: Double = AKChorus.defaultDryWetMix {
         didSet { setParameter(.dryWetMix, value: dryWetMix) }
     }
 
@@ -53,8 +53,8 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
             address: AUParameterAddress(0),
-            min: kAKChorus_MinFrequency,
-            max: kAKChorus_MaxFrequency,
+            min: Float(AKChorus.frequencyRange.lowerBound),
+            max: Float(AKChorus.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -65,8 +65,8 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             withIdentifier: "depth",
             name: "Depth 0-1",
             address: AUParameterAddress(1),
-            min: Float(0),
-            max: Float(1),
+            min: Float(AKChorus.depthRange.lowerBound),
+            max: Float(AKChorus.depthRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -77,8 +77,8 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             withIdentifier: "feedback",
             name: "Feedback 0-1",
             address: AUParameterAddress(2),
-            min: Float(0),
-            max: Float(1),
+            min: Float(AKChorus.feedbackRange.lowerBound),
+            max: Float(AKChorus.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -89,8 +89,8 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             withIdentifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AUParameterAddress(3),
-            min: Float(0),
-            max: Float(1),
+            min: Float(AKChorus.dryWetMixRange.lowerBound),
+            max: Float(AKChorus.dryWetMixRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -99,10 +99,10 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
-        frequency.value = kAKChorus_DefaultFrequency
-        depth.value = kAKChorus_DefaultDepth
-        feedback.value = kAKChorus_DefaultFeedback
-        dryWetMix.value = kAKChorus_DefaultDryWetMix
+        frequency.value = Float(AKChorus.defaultFrequency)
+        depth.value = Float(AKChorus.defaultDepth)
+        feedback.value = Float(AKChorus.defaultFeedback)
+        dryWetMix.value = Float(AKChorus.defaultDryWetMix)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

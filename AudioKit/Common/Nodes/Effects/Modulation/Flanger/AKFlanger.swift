@@ -18,6 +18,16 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    public static let frequencyRange = kAKFlanger_MinFrequency ... kAKFlanger_MaxFrequency
+    public static let depthRange = 0.0 ... 1.0
+    public static let feedbackRange = -0.95 ... 0.95
+    public static let dryWetMixRange = 0.0 ... 1.0
+
+    public static let defaultFrequency = Double(kAKFlanger_DefaultFrequency)
+    public static let defaultDepth = Double(kAKFlanger_DefaultDepth)
+    public static let defaultFeedback = Double(kAKFlanger_DefaultFeedback)
+    public static let defaultDryWetMix = Double(kAKFlanger_DefaultDryWetMix)
+
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
@@ -31,7 +41,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Frequency (Hz)
-    @objc open dynamic var frequency: Double = 1.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -49,7 +59,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Modulation Depth (fraction)
-    @objc open dynamic var depth: Double = 0.0 {
+    @objc open dynamic var depth: Double = defaultDepth {
         willSet {
             if depth == newValue {
                 return
@@ -67,7 +77,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Feedback (fraction)
-    @objc open dynamic var feedback: Double = 0.0 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             if feedback == newValue {
                 return
@@ -85,7 +95,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Dry Wet Mix (fraction)
-    @objc open dynamic var dryWetMix: Double = 0.5 {
+    @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             if dryWetMix == newValue {
                 return
@@ -120,10 +130,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = Double(kAKFlanger_DefaultFrequency),
-        depth: Double = Double(kAKFlanger_DefaultDepth),
-        feedback: Double = Double(kAKFlanger_DefaultFeedback),
-        dryWetMix: Double = Double(kAKFlanger_DefaultDryWetMix)) {
+        frequency: Double = defaultFrequency,
+        depth: Double = defaultDepth,
+        feedback: Double = defaultFeedback,
+        dryWetMix: Double = defaultDryWetMix) {
 
         self.frequency = frequency
         self.depth = depth
@@ -149,10 +159,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        self.frequencyParameter = tree["frequency"]
-        self.depthParameter = tree["depth"]
-        self.feedbackParameter = tree["feedback"]
-        self.dryWetMixParameter = tree["dryWetMix"]
+        frequencyParameter = tree["frequency"]
+        depthParameter = tree["depth"]
+        feedbackParameter = tree["feedback"]
+        dryWetMixParameter = tree["dryWetMix"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -165,10 +175,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.setParameterImmediately(.frequency, value: frequency)
-        self.internalAU?.setParameterImmediately(.depth, value: depth)
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
-        self.internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.depth, value: depth)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
     }
 
     // MARK: - Control
