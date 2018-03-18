@@ -604,7 +604,6 @@
 		C49B1441204A06B7009C7C8E /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1209204A06B6009C7C8E /* Filter.h */; };
 		C49B1442204A06B7009C7C8E /* Compressor.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B120A204A06B6009C7C8E /* Compressor.h */; };
 		C49B1443204A06B7009C7C8E /* RageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B120B204A06B6009C7C8E /* RageProcessor.cpp */; };
-		C49B1444204A06B7009C7C8E /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B120D204A06B6009C7C8E /* sporth.c */; };
 		C49B1445204A06B7009C7C8E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B120E204A06B6009C7C8E /* stack.c */; };
 		C49B1446204A06B7009C7C8E /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B120F204A06B6009C7C8E /* plumber.c */; };
 		C49B1447204A06B7009C7C8E /* func.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1210204A06B6009C7C8E /* func.c */; };
@@ -5573,7 +5572,6 @@
 				C49B14DC204A06B8009C7C8E /* Mandolin.cpp in Sources */,
 				C4E751AB1C235CE800688A1B /* reverberateWithChowning.swift in Sources */,
 				C4A9164E1C24F95E006C1A15 /* metronome.swift in Sources */,
-				C49B1444204A06B7009C7C8E /* sporth.c in Sources */,
 				C49B1427204A06B7009C7C8E /* Filter.cpp in Sources */,
 				C49B13BB204A06B7009C7C8E /* posc3.c in Sources */,
 				C40C411F1C40E2E1009D870B /* AudioKit.swift in Sources */,
