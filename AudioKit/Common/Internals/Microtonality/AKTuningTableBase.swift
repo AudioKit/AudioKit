@@ -49,6 +49,7 @@ import Foundation
     /// Notes Per Octave: The count of the frequency array
     @objc public var npo: Int {
         get {
+            // default to 12ET
             return 12
         }
     }
