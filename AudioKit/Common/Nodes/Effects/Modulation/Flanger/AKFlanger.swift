@@ -18,10 +18,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    public static let frequencyRange = kAKFlanger_MinFrequency ... kAKFlanger_MaxFrequency
-    public static let depthRange = kAKFlanger_MinDepth ... kAKFlanger_MaxDepth
-    public static let feedbackRange = kAKFlanger_MinFeedback ... kAKFlanger_MaxFeedback
-    public static let dryWetMixRange = kAKFlanger_MinDryWetMix ... kAKFlanger_MaxDryWetMix
+    public static let frequencyRange = Double(kAKFlanger_MinFrequency) ... Double(kAKFlanger_MaxFrequency)
+    public static let depthRange = Double(kAKFlanger_MinDepth) ... Double(kAKFlanger_MaxDepth)
+    public static let feedbackRange = Double(kAKFlanger_MinFeedback) ... Double(kAKFlanger_MaxFeedback)
+    public static let dryWetMixRange = Double(kAKFlanger_MinDryWetMix) ... Double(kAKFlanger_MaxDryWetMix)
 
     public static let defaultFrequency = Double(kAKFlanger_DefaultFrequency)
     public static let defaultDepth = Double(kAKFlanger_DefaultDepth)

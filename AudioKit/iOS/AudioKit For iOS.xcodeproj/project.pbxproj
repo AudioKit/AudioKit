@@ -3964,13 +3964,13 @@
 		C49B1148204A06B5009C7C8E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				C49B138B204A06B7009C7C8E /* README.md */,
 				3404A78120507B1500A2C9E4 /* AudioKitCore */,
 				C49B1149204A06B6009C7C8E /* Soundpipe */,
 				C49B11E2204A06B6009C7C8E /* Devoloop */,
 				C49B120C204A06B6009C7C8E /* Sporth */,
 				C49B12A7204A06B6009C7C8E /* STK */,
 				3404A7AC20507B8800A2C9E4 /* Wavpack */,
-				C49B138B204A06B7009C7C8E /* README.md */,
 			);
 			name = Core;
 			path = ../../Core;
