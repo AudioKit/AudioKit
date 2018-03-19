@@ -93,13 +93,12 @@
     @objc public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
         return delta12ETDictionary[nn]
     }
-
+    
     /// Notes Per Octave: The count of the masterSet array
     @objc override public var npo: Int {
-        get {
-            return masterSet.count
-        }
+        return masterSet.count
     }
+    
     /// Initialization for standard default 12 tone equal temperament
     @objc public override init() {
         super.init()
@@ -108,7 +107,7 @@
 
     /// Create the tuning using the input masterSet
     ///
-    /// - parameter inputFrequencies: An array of frequencies, i.e., the "masterSet"
+    /// - parameter inputMasterSet: An array of frequencies, i.e., the "masterSet"
     ///
     @objc @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
         if inputMasterSet.isEmpty {
