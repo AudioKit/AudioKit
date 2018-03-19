@@ -19,9 +19,9 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     private var token: AUParameterObserverToken?
 
     public static let frequencyRange = kAKChorus_MinFrequency ... kAKChorus_MaxFrequency
-    public static let depthRange = 0.0 ... 1.0
-    public static let feedbackRange = 0.0 ... 0.95
-    public static let dryWetMixRange = 0.0 ... 1.0
+    public static let depthRange = kAKChorus_MinDepth ... kAKChorus_MaxDepth
+    public static let feedbackRange = kAKChorus_MinFeedback ... kAKChorus_MaxFeedback
+    public static let dryWetMixRange = kAKChorus_MinDryWetMix ... kAKChorus_MaxDryWetMix
 
     public static let defaultFrequency = Double(kAKChorus_DefaultFrequency)
     public static let defaultDepth = Double(kAKChorus_DefaultDepth)
