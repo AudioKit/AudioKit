@@ -20,18 +20,32 @@ extern "C" void* createFlangerDSP(int nChannels, double sampleRate)
 
 #import "ModulatedDelay_Defines.h"
 const float kAKChorus_DefaultFrequency = kChorusDefaultModFreqHz;
-const float kAKChorus_MinFrequency = kChorusMinModFreqHz;
-const float kAKChorus_MaxFrequency = kChorusMaxModFreqHz;
 const float kAKChorus_DefaultDepth = kChorusDefaultDepth;
 const float kAKChorus_DefaultFeedback = kChorusDefaultFeedback;
 const float kAKChorus_DefaultDryWetMix = kChorusDefaultMix;
 
+const float kAKChorus_MinFrequency = kChorusMinModFreqHz;
+const float kAKChorus_MaxFrequency = kChorusMaxModFreqHz;
+const float kAKChorus_MinFeedback  = kChorusMinFeedback;
+const float kAKChorus_MaxFeedback  = kChorusMaxFeedback;
+const float kAKChorus_MinDepth     = kChorusMinDepth;
+const float kAKChorus_MaxDepth     = kChorusMaxDepth;
+const float kAKChorus_MinDryWetMix = kChorusMinDryWetMix;
+const float kAKChorus_MaxDryWetMix = kChorusMaxDryWetMix;
+
 const float kAKFlanger_DefaultFrequency = kFlangerDefaultModFreqHz;
-const float kAKFlanger_MinFrequency = kFlangerMinModFreqHz;
-const float kAKFlanger_MaxFrequency = kFlangerMaxModFreqHz;
 const float kAKFlanger_DefaultDepth = kFlangerDefaultDepth;
 const float kAKFlanger_DefaultFeedback = kFlangerDefaultFeedback;
 const float kAKFlanger_DefaultDryWetMix = kFlangerDefaultMix;
+
+const float kAKFlanger_MinFrequency = kFlangerMinModFreqHz;
+const float kAKFlanger_MaxFrequency = kFlangerMaxModFreqHz;
+const float kAKFlanger_MinFeedback  = kFlangerMinFeedback;
+const float kAKFlanger_MaxFeedback  = kFlangerMaxFeedback;
+const float kAKFlanger_MinDepth     = kFlangerMinDepth;
+const float kAKFlanger_MaxDepth     = kFlangerMaxDepth;
+const float kAKFlanger_MinDryWetMix = kFlangerMinDryWetMix;
+const float kAKFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
     : AudioKitCore::ModulatedDelay(type)

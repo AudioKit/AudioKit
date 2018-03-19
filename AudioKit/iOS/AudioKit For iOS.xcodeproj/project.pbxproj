@@ -1603,6 +1603,7 @@
 		C49352041C3CBA6C00A28D7F /* AKBalancerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerAudioUnit.mm; sourceTree = "<group>"; };
 		C49352051C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBalancerDSPKernel.hpp; sourceTree = "<group>"; };
 		C49390811E0889DB009FEAA1 /* AKStereoFieldLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiter.swift; sourceTree = "<group>"; };
+		C49499E0205F2C8F00F28368 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C49614A71C2F361400ACAB4E /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
 		C49A09FC1D529742007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
@@ -2331,8 +2332,8 @@
 		3404A78120507B1500A2C9E4 /* AudioKitCore */ = {
 			isa = PBXGroup;
 			children = (
-				34F5A355205ECBE300290001 /* ModulatedDelay */,
 				3404A78220507B1500A2C9E4 /* README.md */,
+				34F5A355205ECBE300290001 /* ModulatedDelay */,
 				3404A78320507B1500A2C9E4 /* Common */,
 				3404A78E20507B1500A2C9E4 /* Sampler */,
 			);
@@ -2426,6 +2427,7 @@
 		34F5A355205ECBE300290001 /* ModulatedDelay */ = {
 			isa = PBXGroup;
 			children = (
+				C49499E0205F2C8F00F28368 /* README.md */,
 				34F5A356205ECBE300290001 /* AdjustableDelayLine.cpp */,
 				34F5A357205ECBE300290001 /* AKModulatedDelay_Typedefs.h */,
 				34F5A358205ECBE300290001 /* ModulatedDelay_Defines.h */,
