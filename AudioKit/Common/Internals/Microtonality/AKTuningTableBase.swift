@@ -48,12 +48,10 @@ import Foundation
     
     /// Notes Per Octave: The count of the frequency array
     @objc public var npo: Int {
-        get {
-            // default to 12ET
-            return 12
-        }
+        // default to 12ET
+        return 12
     }
-
+    
     /// Return the Frequency for the given MIDINoteNumber
     @objc public func frequency(forNoteNumber noteNumber: MIDINoteNumber) -> Frequency {
         return tableData[Int(noteNumber)]
