@@ -23,7 +23,8 @@ class ViewController: NSViewController {
     @IBOutlet var inputSource: NSPopUpButton!
     @IBOutlet var chooseAudioButton: NSButton!
     @IBOutlet var inputSourceInfo: NSTextField!
-
+    @IBOutlet var loopButton: NSButton!
+    
     var openPanel: NSOpenPanel?
 
     var audioTitle: String {
@@ -114,12 +115,17 @@ class ViewController: NSViewController {
         })
     }
 
+    @IBAction func setLoopState(_ sender: NSButton) {
+        player?.isLooping = sender.state == .on
+    }
+
     /// open an audio URL for playing
     func open(url: URL) {
         if player == nil {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
-            player?.isLooping = true
+            player?.isLooping = loopButton.state == .on
+            player?.bufferLooping = false
         } else {
             do {
                 try player?.load(url: url)

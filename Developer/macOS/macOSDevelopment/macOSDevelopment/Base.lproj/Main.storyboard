@@ -757,6 +757,17 @@ IA
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8R-4z-Nck">
+                                            <rect key="frame" x="205" y="38" width="63" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Loop" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="uzf-Hk-rkU">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="setLoopState:" target="XfG-lQ-9wD" id="qzr-P8-7iN"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                             </box>
@@ -828,6 +839,7 @@ IA
                         <outlet property="chooseAudioButton" destination="l3p-S9-rpb" id="bsQ-Ck-Pmo"/>
                         <outlet property="inputSource" destination="0V9-qu-KOn" id="UID-ot-ray"/>
                         <outlet property="inputSourceInfo" destination="C9o-fd-EYc" id="0sX-Q2-gJL"/>
+                        <outlet property="loopButton" destination="p8R-4z-Nck" id="P4l-eL-Uaz"/>
                         <outlet property="playButton" destination="tEs-YG-bjc" id="7Rl-fz-8nk"/>
                         <outlet property="slider1" destination="ECb-sw-G5e" id="oA8-TR-BBs"/>
                         <outlet property="slider1Value" destination="Cb0-Ku-Foi" id="SP8-fG-5js"/>

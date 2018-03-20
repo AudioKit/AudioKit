@@ -245,9 +245,10 @@ public class AKPlayer: AKNode {
 
     /// true if the player is buffering audio rather than playing from disk
     public var isBuffered: Bool {
-        return isLooping || isReversed || buffering == .always
+        return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
+    public var bufferLooping: Bool = false
     public var isLooping: Bool = false
     public var isPaused: Bool {
         return pauseTime != nil
@@ -579,7 +580,12 @@ public class AKPlayer: AKNode {
             initialize()
         }
 
-        let bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
+        var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
+
+        if isLooping && bufferLooping {
+            AKLog("buffer looping is on, no completion events will be sent")
+            bufferOptions = [.loops, .interrupts]
+        }
 
         // AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
@@ -650,12 +656,19 @@ public class AKPlayer: AKNode {
 
         faderTimer?.invalidate()
 
+        if isLooping && bufferLooping {
+            startTime = loop.start
+            endTime = loop.end
+            pauseTime = nil
+            return
+        }
+
         if currentFrame >= frameCount {
-            if pauseTime != nil {
-                AKLog("Resetting startime, pauseTime was", pauseTime)
-                startTime = 0
-                pauseTime = nil
-            }
+//            if pauseTime != nil {
+//                AKLog("Resetting startime, pauseTime was", pauseTime)
+//                startTime = 0
+//                pauseTime = nil
+//            }
 
             DispatchQueue.main.async {
                 self.handleComplete()
@@ -677,11 +690,11 @@ public class AKPlayer: AKNode {
             play()
             return
         }
-//        if pauseTime != nil {
-//            AKLog("Resetting startime, pauseTime was", pauseTime)
-//            startTime = 0
-//            pauseTime = nil
-//        }
+        if pauseTime != nil {
+            AKLog("Resetting startime, pauseTime was", pauseTime)
+            startTime = 0
+            pauseTime = nil
+        }
         completionHandler?()
     }
 
