@@ -192,7 +192,7 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            return max(0, _startTime) // isLooping ? loop.start :
+            return max(0, _startTime)
         }
 
         set {
