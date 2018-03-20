@@ -2344,6 +2344,7 @@
 		3404A78320507B1500A2C9E4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				3404A78820507B1500A2C9E4 /* README.md */,
 				3404A78920507B1500A2C9E4 /* FunctionTable.hpp */,
 				3404A78720507B1500A2C9E4 /* FunctionTable.cpp */,
 				3404A78A20507B1500A2C9E4 /* LinearRamper.hpp */,
@@ -2353,7 +2354,6 @@
 				3404A78D20507B1500A2C9E4 /* ResonantLowPassFilter.cpp */,
 				3404A78C20507B1500A2C9E4 /* SustainPedalLogic.hpp */,
 				3404A78620507B1500A2C9E4 /* SustainPedalLogic.cpp */,
-				3404A78820507B1500A2C9E4 /* README.md */,
 			);
 			path = Common;
 			sourceTree = "<group>";
