@@ -146,6 +146,11 @@ public class AKPlayer: AKNode {
         }
     }
 
+    /// If set to true the player will load the audio into memory and loop from there.
+    /// While this creates a seamless loop the downside is that you can't easily scrub through the audio.
+    /// If you need to be able to be able to scan around the file, keep this false and stream from disk.
+    public var bufferLooping: Bool = false
+
     /// The internal audio file
     public private(set) var audioFile: AVAudioFile?
 
@@ -248,8 +253,8 @@ public class AKPlayer: AKNode {
         return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
-    public var bufferLooping: Bool = false
     public var isLooping: Bool = false
+
     public var isPaused: Bool {
         return pauseTime != nil
     }
@@ -406,7 +411,6 @@ public class AKPlayer: AKNode {
 
     public func pause() {
         pauseTime = currentTime
-        AKLog("Pausing at \(currentTime)")
         stop()
     }
 
@@ -415,9 +419,8 @@ public class AKPlayer: AKNode {
             play()
             return
         }
+        // clear the frame count in the player
         playerNode.stop()
-
-        AKLog("pauseTime", pauseTime)
         play(from: pauseTime)
     }
     /// Stop playback and cancel any pending scheduled playback or completion events
@@ -582,8 +585,8 @@ public class AKPlayer: AKNode {
 
         var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
+        // see note in bufferLooping
         if isLooping && bufferLooping {
-            AKLog("buffer looping is on, no completion events will be sent")
             bufferOptions = [.loops, .interrupts]
         }
 
@@ -650,12 +653,13 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
+        // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
         faderTimer?.invalidate()
 
+        // reset the loop if user stopped it
         if isLooping && bufferLooping {
             startTime = loop.start
             endTime = loop.end
@@ -664,20 +668,8 @@ public class AKPlayer: AKNode {
         }
 
         if currentFrame >= frameCount {
-//            if pauseTime != nil {
-//                AKLog("Resetting startime, pauseTime was", pauseTime)
-//                startTime = 0
-//                pauseTime = nil
-//            }
-
             DispatchQueue.main.async {
                 self.handleComplete()
-                
-//                self.completionHandler?()
-//                self.stop()
-//                if self.isLooping {
-//                    self.play()
-//                }
             }
         }
     }
@@ -691,7 +683,6 @@ public class AKPlayer: AKNode {
             return
         }
         if pauseTime != nil {
-            AKLog("Resetting startime, pauseTime was", pauseTime)
             startTime = 0
             pauseTime = nil
         }
