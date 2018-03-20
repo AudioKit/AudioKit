@@ -62,6 +62,22 @@ class Conductor {
         // http://getdunne.net/download/ROMPlayer_Instruments.zip
         sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX Brass.sfz")
         
+        // Illustration of how to load single-sample waveforms
+        // See https://www.adventurekid.se/akrt/waveforms/ to obtain the "AdventureKid" WAV files.
+//        do {
+//            let path = "/Users/shane/Desktop/AKWF Samples/AKWF_bw_sawbright/AKWF_bsaw_0005.wav"
+//            let furl = URL(fileURLWithPath: path)
+//            let file = try AKAudioFile(forReading: furl)
+//            let desc = AKSampleDescriptor(noteNumber: 26, noteHz: 44100.0/600,
+//                                          min_note: 0, max_note: 127, min_vel: 0, max_vel: 127,
+//                                          bLoop: true, fLoopStart: 0.0, fLoopEnd: 1.0, fStart: 0.0, fEnd: 0.0)
+//            sampler.loadAKAudioFile(sd: desc, file: file)
+//        } catch {
+//            print("\(error.localizedDescription)")
+//        }
+//        sampler.setLoop(thruRelease: true)
+//        sampler.buildSimpleKeyMap()
+        
         sampler.ampAttackTime = 0.01
         sampler.ampDecayTime = 0.1
         sampler.ampSustainLevel = 0.8

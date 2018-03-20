@@ -28,9 +28,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKBankDSPKernel.hpp"
 #import "ExceptionCatcher.h"
 
-// Core
-#import "wavpack_public.h"
-
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -144,7 +141,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPhaseLockedVocoderAudioUnit.h"
 #import "AKSamplePlayerAudioUnit.h"
 #import "AKPresetManager.h"
+#if !TARGET_OS_TV
 #import "AKSamplerDSP.hpp"
+#endif
 
 // Testing
 #import "AKTesterAudioUnit.h"

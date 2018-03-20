@@ -39,7 +39,7 @@ namespace AudioKitCore
         
         inline float process(float inputSample)
         {
-            float outputSample = mA0*inputSample + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2;
+            float outputSample = (float)(mA0*inputSample + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
             
             mX2 = mX1;
             mX1 = inputSample;

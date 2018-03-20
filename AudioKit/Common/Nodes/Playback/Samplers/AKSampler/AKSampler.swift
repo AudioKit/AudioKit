@@ -362,6 +362,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     open func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
+    
+    open func setLoop(thruRelease: Bool) {
+        internalAU?.setLoop(thruRelease: thruRelease);
+    }
 
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteHz: Float(frequency))

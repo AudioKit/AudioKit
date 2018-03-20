@@ -18,16 +18,15 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    // These must accord with #defines in SDModulatedDelayDSPKernel.hpp
-    public static let frequencyRange = 0.1 ... 10.0
-    public static let depthRange = 0.0 ... 1.0
-    public static let feedbackRange = 0.0 ... 0.95
-    public static let dryWetMixRange = 0.0 ... 1.0
+    public static let frequencyRange = Double(kAKChorus_MinFrequency) ... Double(kAKChorus_MaxFrequency)
+    public static let depthRange = Double(kAKChorus_MinDepth) ... Double(kAKChorus_MaxDepth)
+    public static let feedbackRange = Double(kAKChorus_MinFeedback) ... Double(kAKChorus_MaxFeedback)
+    public static let dryWetMixRange = Double(kAKChorus_MinDryWetMix) ... Double(kAKChorus_MaxDryWetMix)
 
-    public static let defaultFrequency = 1.0
-    public static let defaultDepth = 0.25
-    public static let defaultFeedback = 0.0
-    public static let defaultDryWetMix = 0.25
+    public static let defaultFrequency = Double(kAKChorus_DefaultFrequency)
+    public static let defaultDepth = Double(kAKChorus_DefaultDepth)
+    public static let defaultFeedback = Double(kAKChorus_DefaultFeedback)
+    public static let defaultDryWetMix = Double(kAKChorus_DefaultDryWetMix)
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
@@ -160,10 +159,10 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
             return
         }
 
-        self.frequencyParameter = tree["frequency"]
-        self.depthParameter = tree["depth"]
-        self.feedbackParameter = tree["feedback"]
-        self.dryWetMixParameter = tree["dryWetMix"]
+        frequencyParameter = tree["frequency"]
+        depthParameter = tree["depth"]
+        feedbackParameter = tree["feedback"]
+        dryWetMixParameter = tree["dryWetMix"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -176,10 +175,10 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        self.internalAU?.setParameterImmediately(.frequency, value: frequency)
-        self.internalAU?.setParameterImmediately(.depth, value: depth)
-        self.internalAU?.setParameterImmediately(.feedback, value: feedback)
-        self.internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.depth, value: depth)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.dryWetMix, value: dryWetMix)
     }
 
     // MARK: - Control

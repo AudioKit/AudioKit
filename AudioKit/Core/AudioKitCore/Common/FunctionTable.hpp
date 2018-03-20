@@ -53,7 +53,7 @@ namespace AudioKitCore
             
             float si = pWaveTable[ri];
             float sj = pWaveTable[rj];
-            return (1.0 - f) * si + f * sj;
+            return (float)((1.0 - f) * si + f * sj);
         }
         
         // functions for use by class AKWaveShaper (see comments in .mm file)
@@ -72,7 +72,7 @@ namespace AudioKitCore
             
             float si = pWaveTable[ri];
             float sj = pWaveTable[rj];
-            return (1.0 - f) * si + f * sj;
+            return (float)((1.0 - f) * si + f * sj);
         }
     };
     
@@ -94,12 +94,24 @@ namespace AudioKitCore
         
         void setFrequency(float frequency);
         
+        // For typical LFO applications, we simply get one sample at a time.
         inline float getSample()
         {
             float sample = waveTable.interp_cyclic(phase);
             phase += phaseDelta;
             if (phase >= 1.0f) phase -= 1.0f;
             return sample;
+        }
+
+        // For stereo modulation, we need to get two samples at a time: an "in-phase"
+        // sample which is the same as what getSample() above would return, plus a
+        // "quadrature" sample which is 90 degrees out-of-phase with the first one.
+        inline void getSamples(float* pInPhase, float* pQuadrature)
+        {
+            *pInPhase = waveTable.interp_cyclic(phase);
+            *pQuadrature = waveTable.interp_cyclic(phase + 0.25f);
+            phase += phaseDelta;
+            if (phase >= 1.0f) phase -= 1.0f;
         }
     };
     

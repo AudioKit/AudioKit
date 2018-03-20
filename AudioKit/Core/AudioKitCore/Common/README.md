@@ -3,7 +3,7 @@
 This directory contains basic building-block C++ classes used in several AudioKit DSP modules.
 
 ## ADSREnvelope
-Basic four-segment envelope generator with linear *Attack*, *Decay*, *Sustain* and *Release* segments.
+Basic four-segment envelope generator with linear *Attack*, *Decay*, *Sustain* and *Release* segments, plus a special "silence" segment used to quickly (but not instantaneously) silence a note before re-triggering it.
 
 This is a stand-alone class at the moment, but it will eventually become one of several specialized subclasses of a more general multi-segment "Envelope" class.
 

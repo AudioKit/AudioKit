@@ -34,6 +34,7 @@ void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD);
 void doAKSamplerUnloadAllSamples(void* pDSP);
 void doAKSamplerBuildSimpleKeyMap(void* pDSP);
 void doAKSamplerBuildKeyMap(void* pDSP);
+void doAKSamplerSetLoopThruRelease(void* pDSP, bool value);
 void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
 void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
 void doAKSamplerSustainPedal(void* pDSP, bool pedalDown);

@@ -11,6 +11,9 @@
 // consistent with the license text Apple provided with the original demo code.
 
 #include "ResonantLowPassFilter.hpp"
+#ifndef _USE_MATH_DEFINES
+  #define _USE_MATH_DEFINES
+#endif
 #include <math.h>
 
 namespace AudioKitCore
@@ -71,7 +74,7 @@ namespace AudioKitCore
         while (inFramesToProcess--)
         {
             float input = *sourceP++;
-            float output = mA0*input + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2;
+            float output = (float)(mA0*input + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
             
             mX2 = mX1;
             mX1 = input;
