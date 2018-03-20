@@ -43,7 +43,7 @@ namespace AudioKitCore
             
             float si = ri < nSampleCount ? pSamples[ri] : 0.0f;
             float sj = rj < nSampleCount ? pSamples[rj] : 0.0f;
-            return gain * ((1.0 - f) * si + f * sj);
+            return (float)(gain * ((1.0 - f) * si + f * sj));
         }
         
         inline void interp(double fIndex, float* pOutLeft, float* pOutRight, float gain)
@@ -65,10 +65,10 @@ namespace AudioKitCore
             
             float si = ri < nSampleCount ? pSamples[ri] : 0.0f;
             float sj = rj < nSampleCount ? pSamples[rj] : 0.0f;
-            *pOutLeft = gain * ((1.0 - f) * si + f * sj);
+            *pOutLeft = (float)(gain * ((1.0 - f) * si + f * sj));
             si = ri < nSampleCount ? pSamples[nSampleCount + ri] : 0.0f;
             sj = rj < nSampleCount ? pSamples[nSampleCount + rj] : 0.0f;
-            *pOutRight = gain * ((1.0 - f) * si + f * sj);
+            *pOutRight = (float)(gain * ((1.0f - f) * si + f * sj));
         }
     };
     

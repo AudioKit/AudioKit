@@ -140,9 +140,7 @@ custom_categories:
     - AKHighPassButterworthFilter
     - AKHighPassButterworthFilterAudioUnit
     - AKHighPassFilter
-    - AKHighPassFilterAudioUnit
     - AKHighShelfFilter
-    - AKHighShelfFilterAudioUnit
     - AKHighShelfParametricEqualizerFilter
     - AKHighShelfParametricEqualizerFilterAudioUnit
     - AKKorgLowPassFilter
@@ -150,9 +148,7 @@ custom_categories:
     - AKLowPassButterworthFilter
     - AKLowPassButterworthFilterAudioUnit
     - AKLowPassFilter
-    - AKLowPassFilterAudioUnit
     - AKLowShelfFilter
-    - AKLowShelfFilterAudioUnit
     - AKLowShelfParametricEqualizerFilter
     - AKLowShelfParametricEqualizerFilterAudioUnit
     - AKModalResonanceFilter

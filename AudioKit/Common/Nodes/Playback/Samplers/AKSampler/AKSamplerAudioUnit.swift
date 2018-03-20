@@ -253,6 +253,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     public func buildKeyMap() {
         doAKSamplerBuildKeyMap(pDSP)
     }
+    
+    public func setLoop(thruRelease: Bool) {
+        doAKSamplerSetLoopThruRelease(pDSP, thruRelease);
+    }
 
     public func playNote(noteNumber: UInt8, velocity: UInt8, noteHz: Float) {
         doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteHz)

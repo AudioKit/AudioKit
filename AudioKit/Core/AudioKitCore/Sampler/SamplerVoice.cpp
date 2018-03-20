@@ -25,24 +25,24 @@ namespace AudioKitCore
         double sr = (double)sampleRateHz;
         filterL.updateSampleRate(sr);
         filterR.updateSampleRate(sr);
-        filterEG.start(true);
+        filterEG.start();
         
         noteHz = freqHz;
         noteNumber = noteNum;
     }
     
-    void SamplerVoice::restart(float volume)
+    void SamplerVoice::restart(float volume, SampleBuffer* pSampleBuf)
     {
-        oscillator.fIndex = pSampleBuffer->fStart;
-        oscillator.bLooping = pSampleBuffer->bLoop;
+        tempNoteVol = noteVol;
+        pNewSampleBuffer = pSampleBuf;
+        ampEG.restart();
         noteVol = volume;
-        ampEG.start();
-        filterEG.start(true);
+        filterEG.start();
     }
     
-    void SamplerVoice::release()
+    void SamplerVoice::release(bool loopThruRelease)
     {
-        oscillator.bLooping = false;
+        if (!loopThruRelease) oscillator.bLooping = false;
         ampEG.release();
         filterEG.release();
     }
@@ -57,8 +57,20 @@ namespace AudioKitCore
     bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resonanceDb)
     {
         if (ampEG.isIdle()) return true;
-        
-        tempGain = masterVol * noteVol * ampEG.getSample();
+
+        if (ampEG.isPreStarting())
+        {
+            tempGain = masterVol * tempNoteVol * ampEG.getSample();
+            if (!ampEG.isPreStarting())
+            {
+                tempGain = masterVol * noteVol * ampEG.getSample();
+                pSampleBuffer = pNewSampleBuffer;
+                oscillator.fIndex = pSampleBuffer->fStart;
+                oscillator.bLooping = pSampleBuffer->bLoop;
+            }
+        }
+        else
+            tempGain = masterVol * noteVol * ampEG.getSample();
         oscillator.setPitchOffsetSemitones(pitchOffset);
         
         // negative value of cutoffMultiple means filters are disabled
