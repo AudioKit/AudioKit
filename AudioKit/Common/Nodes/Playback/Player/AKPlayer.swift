@@ -73,7 +73,7 @@ public class AKPlayer: AKNode {
 
     public struct Fade {
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -187,9 +187,7 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            // return startTimeQueue.sync {
-            return max(0, isLooping ? loop.start : _startTime)
-            // }
+            return max(0, _startTime) //isLooping ? loop.start :
         }
 
         set {
@@ -202,9 +200,7 @@ public class AKPlayer: AKNode {
     /// Get or set the end time of the player.
     public var endTime: Double {
         get {
-            // return endTimeQueue.sync {
             return isLooping ? loop.end : _endTime
-            // }
         }
 
         set {
@@ -238,6 +234,8 @@ public class AKPlayer: AKNode {
         return current
     }
 
+    public var pauseTime: Double?
+
     // MARK: - Public Options
 
     /// true if any fades have been set
@@ -251,6 +249,9 @@ public class AKPlayer: AKNode {
     }
 
     public var isLooping: Bool = false
+    public var isPaused: Bool {
+        return pauseTime != nil
+    }
 
     /// Reversing the audio will set the player to buffering
     public var isReversed: Bool = false {
@@ -399,10 +400,25 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
-
         initFader(at: audioTime, hostTime: hostTime)
     }
 
+    public func pause() {
+        pauseTime = currentTime
+        AKLog("Pausing at \(currentTime)")
+        stop()
+    }
+
+    public func resume() {
+        guard let pauseTime = pauseTime else {
+            play()
+            return
+        }
+        playerNode.stop()
+
+        AKLog("pauseTime", pauseTime)
+        play(from: pauseTime)
+    }
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
         resetFader(false)
@@ -410,6 +426,7 @@ public class AKPlayer: AKNode {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
+        // pauseTime = nil
     }
 
     // MARK: - Fade Handlers
@@ -562,7 +579,7 @@ public class AKPlayer: AKNode {
             initialize()
         }
 
-        let bufferOptions: AVAudioPlayerNodeBufferOptions = isLooping ? [.loops, .interrupts] : [.interrupts]
+        let bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
         // AKLog("Scheduling buffer...\(startTime) to \(endTime)")
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
@@ -608,7 +625,7 @@ public class AKPlayer: AKNode {
                                        startingFrame: startFrame,
                                        frameCount: frameCount,
                                        at: audioTime,
-                                       completionCallbackType: .dataPlayedBack,
+                                       completionCallbackType: .dataRendered, // .dataPlayedBack,
                                        completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
@@ -627,15 +644,27 @@ public class AKPlayer: AKNode {
     // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc private func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
-        // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount)")
+        AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
         faderTimer?.invalidate()
 
         if currentFrame >= frameCount {
+            if pauseTime != nil {
+                AKLog("Resetting startime, pauseTime was", pauseTime)
+                startTime = 0
+                pauseTime = nil
+            }
+
             DispatchQueue.main.async {
-                self.completionHandler?()
+                self.handleComplete()
+                
+//                self.completionHandler?()
+//                self.stop()
+//                if self.isLooping {
+//                    self.play()
+//                }
             }
         }
     }
@@ -648,6 +677,11 @@ public class AKPlayer: AKNode {
             play()
             return
         }
+//        if pauseTime != nil {
+//            AKLog("Resetting startime, pauseTime was", pauseTime)
+//            startTime = 0
+//            pauseTime = nil
+//        }
         completionHandler?()
     }
 
@@ -661,7 +695,6 @@ public class AKPlayer: AKNode {
 
         let fileFormat = audioFile.fileFormat
         let processingFormat = audioFile.processingFormat
-
         var startFrame = AVAudioFramePosition(startTime * fileFormat.sampleRate)
         var endFrame = AVAudioFramePosition(endTime * fileFormat.sampleRate)
 
@@ -721,7 +754,6 @@ public class AKPlayer: AKNode {
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
-
     }
 
     // Read the buffer in backwards

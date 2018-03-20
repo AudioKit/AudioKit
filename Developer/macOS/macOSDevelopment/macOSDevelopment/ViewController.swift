@@ -135,12 +135,14 @@ class ViewController: NSViewController {
         if node == oscillator {
             state ? oscillator.start() : oscillator.stop()
         } else if node == player {
-            state ? player?.play() : player?.stop()
+            state ? player?.resume() : player?.pause()
         }
     }
 
     private func handleAudioComplete() {
-        playButton?.state = .off
+        if !(player?.isLooping ?? false) {
+            playButton?.state = .off
+        }
     }
 
     @IBAction func handleUpdateParam(_ sender: NSSlider) {
