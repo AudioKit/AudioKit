@@ -89,7 +89,7 @@ namespace AudioKitCore
         FunctionTable waveTable;
         
         ~FunctionTableOscillator() { deinit(); }
-        void init(double sampleRate, float frequency);
+        void init(double sampleRate, float frequency, int tableLength=DEFAULT_WAVETABLE_SIZE);
         void deinit();
         
         void setFrequency(float frequency);

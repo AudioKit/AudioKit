@@ -12,9 +12,9 @@
 namespace AudioKitCore
 {
     ModulatedDelay::ModulatedDelay(AKModulatedDelayType type)
-    : effectType(type)
-    , modFreqHz(1.0f)
+    : modFreqHz(1.0f)
     , modDepthFraction(0.0f)
+    , effectType(type)
     {
     }
     
@@ -22,6 +22,7 @@ namespace AudioKitCore
     {
         minDelayMs = kChorusMinDelayMs;
         maxDelayMs = kChorusMaxDelayMs;
+        modOscillator.init(sampleRate, modFreqHz);
         switch (effectType) {
             case kFlanger:
                 minDelayMs = kFlangerMinDelayMs;
@@ -39,7 +40,6 @@ namespace AudioKitCore
         rightDelayLine.init(sampleRate, maxDelayMs);
         leftDelayLine.setDelayMs(minDelayMs);
         rightDelayLine.setDelayMs(minDelayMs);
-        modOscillator.init(sampleRate, modFreqHz);
     }
     
     void ModulatedDelay::deinit()
