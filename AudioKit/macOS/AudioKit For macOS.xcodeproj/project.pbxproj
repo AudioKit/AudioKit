@@ -1129,6 +1129,7 @@
 		EAFECEE21F4EBEC700A2B046 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662E11D448D7D00D26565 /* EZAudioPlotGL.m */; };
 		EAFECEE31F4EBEE900A2B046 /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662E81D448D7D00D26565 /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEE41F4EBEE900A2B046 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662E91D448D7D00D26565 /* EZPlot.m */; };
+		F4F01C79205F4EEE007C4F74 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F01C78205F4EED007C4F74 /* AKTuningTableBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2289,6 +2290,7 @@
 		EAFECEBD1F4EBBFE00A2B046 /* AudioKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAFECEC01F4EBBFE00A2B046 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAFECED61F4EBE1300A2B046 /* AudioKitUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioKitUI.h; sourceTree = "<group>"; };
+		F4F01C78205F4EED007C4F74 /* AKTuningTableBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTableBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4948,6 +4950,7 @@
 		C4D4C4DD1EB7175100134B39 /* Microtonality */ = {
 			isa = PBXGroup;
 			children = (
+				F4F01C78205F4EED007C4F74 /* AKTuningTableBase.swift */,
 				C4D4C4E41EB7175100134B39 /* AKTuningTable.swift */,
 				A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */,
 				C4D4C4DE1EB7175100134B39 /* AKTuningTable+CombinationProductSet.swift */,
@@ -5982,6 +5985,7 @@
 				C49B1825204A0AD0009C7C8E /* talkbox.c in Sources */,
 				C49B18E1204A0AD1009C7C8E /* slist.c in Sources */,
 				C45666CC1D448D7E00D26565 /* EZRecorder.m in Sources */,
+				F4F01C79205F4EEE007C4F74 /* AKTuningTableBase.swift in Sources */,
 				34BB66C2205ABBC0000E5450 /* pack_utils.c in Sources */,
 				C49B18FC204A0AD1009C7C8E /* tenvx.c in Sources */,
 				C4DE8584200CAF3C0075C82B /* AKFluteAudioUnit.swift in Sources */,

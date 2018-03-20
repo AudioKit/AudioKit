@@ -1043,6 +1043,7 @@
 		EAFECF111F4EC4C000A2B046 /* AKOfflineRendererAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF0C1F4EC4C000A2B046 /* AKOfflineRendererAudioUnit.mm */; };
 		EAFECF121F4EC4C000A2B046 /* AKOfflineRenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF0D1F4EC4C000A2B046 /* AKOfflineRenderNode.swift */; };
 		EAFECF141F4EC74500A2B046 /* AKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF131F4EC74400A2B046 /* AKConnection.swift */; };
+		F4F01C7B205F4F0F007C4F74 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F01C7A205F4F0F007C4F74 /* AKTuningTableBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2108,6 +2109,7 @@
 		EAFECF0C1F4EC4C000A2B046 /* AKOfflineRendererAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKOfflineRendererAudioUnit.mm; sourceTree = "<group>"; };
 		EAFECF0D1F4EC4C000A2B046 /* AKOfflineRenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOfflineRenderNode.swift; sourceTree = "<group>"; };
 		EAFECF131F4EC74400A2B046 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
+		F4F01C7A205F4F0F007C4F74 /* AKTuningTableBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTableBase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4354,6 +4356,7 @@
 		C4D4C4EC1EB7176600134B39 /* Microtonality */ = {
 			isa = PBXGroup;
 			children = (
+				F4F01C7A205F4F0F007C4F74 /* AKTuningTableBase.swift */,
 				C4D4C4F31EB7176600134B39 /* AKTuningTable.swift */,
 				A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */,
 				C4D4C4ED1EB7176600134B39 /* AKTuningTable+CombinationProductSet.swift */,
@@ -5440,6 +5443,7 @@
 				C4E752491C23888700688A1B /* phasor.swift in Sources */,
 				C4E7523D1C23888700688A1B /* highPassButterworthFilter.swift in Sources */,
 				C4D4C4F71EB7176600134B39 /* AKTuningTable+RecurrenceRelation.swift in Sources */,
+				F4F01C7B205F4F0F007C4F74 /* AKTuningTableBase.swift in Sources */,
 				C49B1E92204A0CFB009C7C8E /* srand.c in Sources */,
 				C45381AA1C3A5CBD00A51738 /* AKBandPassButterworthFilter.swift in Sources */,
 				C49B1DE9204A0CFA009C7C8E /* mode.c in Sources */,
