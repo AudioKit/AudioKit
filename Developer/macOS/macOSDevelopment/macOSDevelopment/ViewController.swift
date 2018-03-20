@@ -24,7 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet var chooseAudioButton: NSButton!
     @IBOutlet var inputSourceInfo: NSTextField!
     @IBOutlet var loopButton: NSButton!
-    
+
     var openPanel: NSOpenPanel?
 
     var audioTitle: String {
