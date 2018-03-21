@@ -17,7 +17,7 @@ extension AudioUnitManager {
 
         // stop
         if player.isPlaying {
-            player.stop()
+            player.pause()
         }
 
         playButton.state = state ? .on : .off
@@ -41,6 +41,7 @@ extension AudioUnitManager {
             }
             startEngine(completionHandler: {
                 player.volume = 1
+
                 player.play(from: self.waveform?.position ?? 0)
                 self.startAudioTimer()
             })

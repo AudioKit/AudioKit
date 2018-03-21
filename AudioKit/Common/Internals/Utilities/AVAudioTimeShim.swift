@@ -48,7 +48,7 @@ extension AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
-    /// Returns an AVAudioTime offest by seconds.
+    /// Returns an AVAudioTime offset by seconds.
     open func offset(seconds: Double) -> AVAudioTime {
 
         if isSampleTimeValid && isHostTimeValid {

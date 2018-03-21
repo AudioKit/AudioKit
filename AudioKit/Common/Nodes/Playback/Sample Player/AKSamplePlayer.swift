@@ -309,7 +309,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         let data = buf!.floatChannelData
         internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
                                   sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
-        
+
         avAudiofile = file
         startPoint = 0
         endPoint = Sample(file.samplesCount)
