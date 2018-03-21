@@ -23,6 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet var inputSource: NSPopUpButton!
     @IBOutlet var chooseAudioButton: NSButton!
     @IBOutlet var inputSourceInfo: NSTextField!
+    @IBOutlet var loopButton: NSButton!
 
     var openPanel: NSOpenPanel?
 
@@ -114,12 +115,17 @@ class ViewController: NSViewController {
         })
     }
 
+    @IBAction func setLoopState(_ sender: NSButton) {
+        player?.isLooping = sender.state == .on
+    }
+
     /// open an audio URL for playing
     func open(url: URL) {
         if player == nil {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
-            player?.isLooping = true
+            player?.isLooping = loopButton.state == .on
+            player?.bufferLooping = false
         } else {
             do {
                 try player?.load(url: url)
@@ -135,12 +141,14 @@ class ViewController: NSViewController {
         if node == oscillator {
             state ? oscillator.start() : oscillator.stop()
         } else if node == player {
-            state ? player?.play() : player?.stop()
+            state ? player?.resume() : player?.pause()
         }
     }
 
     private func handleAudioComplete() {
-        playButton?.state = .off
+        if !(player?.isLooping ?? false) {
+            playButton?.state = .off
+        }
     }
 
     @IBAction func handleUpdateParam(_ sender: NSSlider) {
