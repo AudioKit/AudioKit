@@ -62,7 +62,7 @@ namespace AudioKitCore
         float *pOutLeft  = outBuffers[0];
         float *pOutRight = outBuffers[1];
         
-        for (int i=0; i < sampleCount; i++)
+        for (int i=0; i < (int)sampleCount; i++)
         {
             float modLeft, modRight;
             modOscillator.getSamples(&modLeft, &modRight);

@@ -22,7 +22,7 @@ namespace AudioKitCore
         pBuffer = new float[capacity];
         for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
         writeIndex = 0;
-        readIndex = capacity - 1;
+        readIndex = (float)(capacity - 1);
     }
     
     void AdjustableDelayLine::deinit()
@@ -35,7 +35,7 @@ namespace AudioKitCore
     {
         float fReadWriteGap = float(delayMs * sampleRateHz / 1000.0);
         if (fReadWriteGap < 0.0f) fReadWriteGap = 0.0f;
-        if (fReadWriteGap > capacity) fReadWriteGap = capacity;
+        if (fReadWriteGap > capacity) fReadWriteGap = (float)capacity;
         readIndex = writeIndex - fReadWriteGap;
         while (readIndex < 0.0f) readIndex += capacity;
     }
@@ -57,7 +57,7 @@ namespace AudioKitCore
         
         float si = pBuffer[ri];
         float sj = pBuffer[rj];
-        float outSample = (1.0 - f) * si + f * sj;
+        float outSample = (1.0f - f) * si + f * sj;
         
         pBuffer[writeIndex++] = sample + fbFraction * outSample;
         if (writeIndex >= capacity) writeIndex = 0;
