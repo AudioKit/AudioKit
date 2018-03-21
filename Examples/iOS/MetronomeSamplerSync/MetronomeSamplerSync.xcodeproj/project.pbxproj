@@ -41,8 +41,8 @@
 		555CCCDD1F587D5D00614D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5585D4881F58DC9A0071A702 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		5585D48B1F58DCA20071A702 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "closed_hi_hat_F#1.wav"; path = "../../SamplerDemo/SamplerDemo/Sounds/closed_hi_hat_F#1.wav"; sourceTree = "<group>"; };
-		5585D4901F58DED20071A702 /* cheeb-ch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cheeb-ch.wav"; path = "../../SamplerDemo/SamplerDemo/Sounds/cheeb-ch.wav"; sourceTree = "<group>"; };
+		5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "closed_hi_hat_F#1.wav"; path = "../../AppleSamplerDemo/SamplerDemo/Sounds/closed_hi_hat_F#1.wav"; sourceTree = "<group>"; };
+		5585D4901F58DED20071A702 /* cheeb-ch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "cheeb-ch.wav"; path = "../../AppleSamplerDemo/SamplerDemo/Sounds/cheeb-ch.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

@@ -52,7 +52,7 @@ public struct AKMIDIEvent {
         let byteLimit = Int(internalData.count / 256)
         for i in 0...byteLimit {
             let arrayStart = i * 256
-            let arrayEnd:Int = min(Int(arrayStart + 256), Int(internalData.count))
+            let arrayEnd: Int = min(Int(arrayStart + 256), Int(internalData.count))
             let tempData = Array(internalData[arrayStart..<arrayEnd])
             splitData.append(tempData)
         }
