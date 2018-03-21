@@ -46,7 +46,7 @@ public struct AKMIDIEvent {
     /// Internal data
     public var internalData = [MIDIByte](zeros: 256)
     
-    /// Internal MIDIByte-sized packets
+    /// Internal MIDIByte-sized packets - in development / not used yet
     public var internalPackets:[[MIDIByte]] {
         var splitData = [[MIDIByte]]()
         let byteLimit = Int(internalData.count / 256)
