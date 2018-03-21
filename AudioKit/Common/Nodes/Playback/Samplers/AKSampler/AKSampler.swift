@@ -98,7 +98,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Filter cutoff (harmonic ratio)
-    @objc open dynamic var filterCutoff: Double = 1000.0 {
+    @objc open dynamic var filterCutoff: Double = 1_000.0 {
         willSet {
             if filterCutoff == newValue {
                 return
@@ -240,7 +240,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
-        filterCutoff: Double = 1000.0,
+        filterCutoff: Double = 1_000.0,
         filterResonance: Double = 0.0,
         ampAttackTime: Double = 0.0,
         ampDecayTime: Double = 0.0,
@@ -330,9 +330,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
-        let sampleRate = Float(file.sampleRate);
-        let sampleCount = Int32(file.samplesCount);
-        let channelCount = Int32(file.channelCount);
+        let sampleRate = Float(file.sampleRate)
+        let sampleCount = Int32(file.samplesCount)
+        let channelCount = Int32(file.channelCount)
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
         internalAU?.loadSampleData( sdd: AKSampleDataDescriptor( sd: sd,
@@ -352,7 +352,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     open func unloadAllSamples() {
-        internalAU?.unloadAllSamples();
+        internalAU?.unloadAllSamples()
     }
 
     open func buildSimpleKeyMap() {
@@ -362,9 +362,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     open func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
-    
+
     open func setLoop(thruRelease: Bool) {
-        internalAU?.setLoop(thruRelease: thruRelease);
+        internalAU?.setLoop(thruRelease: thruRelease)
     }
 
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {

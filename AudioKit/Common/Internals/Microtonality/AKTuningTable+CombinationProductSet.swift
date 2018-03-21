@@ -49,6 +49,6 @@ extension AKTuningTable {
         tuningTable(fromFrequencies: [A * B * C, A * B * D, A * C * D, B * C * D])
         return 4
     }
-    
+
     //TODO: Triadic Diamond, Triad, Reciprocal
 }

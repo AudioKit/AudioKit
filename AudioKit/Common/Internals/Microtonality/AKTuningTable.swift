@@ -41,7 +41,7 @@
             updateTuningTableFromMasterSet()
         }
     }
-    
+
     /// Frequency of standard reference note
     /// equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
     @objc public var middleCFrequency: Frequency = 261.625_565_300_6 {
@@ -49,7 +49,7 @@
             updateTuningTableFromMasterSet()
         }
     }
-    
+
     /// Octave number for standard reference note.  Can be negative
     /// ..., -2, -1, 0, 1, 2, ...
     @objc public var middleCOctave: Int = 0 {
@@ -57,25 +57,25 @@
             updateTuningTableFromMasterSet()
         }
     }
-    
+
     /// Range of downwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend DOWN range
     @objc public var etNNPitchBendRangeDown: Cents = -50 {
         didSet {
             updateTuningTableFromMasterSet()
         }
     }
-    
+
     internal let pitchBendLow: Double = 0
-    
+
     /// Range of upwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend UP range
     @objc public var etNNPitchBendRangeUp: Cents = 50 {
         didSet {
             updateTuningTableFromMasterSet()
         }
     }
-    
+
     internal let pitchBendHigh: Double = 16_383
-    
+
     internal var etNNDictionary = Dictionary<MIDINoteNumber, AKTuningTableETNN>()
 
     /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
@@ -84,7 +84,7 @@
     @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
         return etNNDictionary[nn]
     }
-    
+
     internal var delta12ETDictionary = Dictionary<MIDINoteNumber, AKTuningTableDelta12ET>()
 
     /// Given the tuning table's MIDINoteNumber NN return an AKTuningTableETNN of the equivalent 12ET MIDINoteNumber plus Pitch Bend
@@ -93,12 +93,12 @@
     @objc public func delta12ET(NN nn: MIDINoteNumber) -> AKTuningTableDelta12ET? {
         return delta12ETDictionary[nn]
     }
-    
+
     /// Notes Per Octave: The count of the masterSet array
     @objc override public var npo: Int {
         return masterSet.count
     }
-    
+
     /// Initialization for standard default 12 tone equal temperament
     @objc public override init() {
         super.init()
@@ -152,10 +152,10 @@
     // Assume masterSet is set and valid:  Process and update tuning table.
     @objc internal func updateTuningTableFromMasterSet() {
         //AKLog("masterSet: \(masterSet)")
-        
+
         etNNDictionary.removeAll(keepingCapacity: true)
         delta12ETDictionary.removeAll(keepingCapacity: true)
-        
+
         for i in 0 ..< AKTuningTable.midiNoteCount {
             let ff = Frequency(i - Int(middleCNoteNumber)) / Frequency(masterSet.count)
             var ttOctaveFactor = Frequency(trunc(ff))
@@ -182,7 +182,7 @@
                 let etnnt = modf(freqAs12ETNN)
                 var nnAs12ETNN = MIDINoteNumber(etnnt.0) // integer part "12ET note number"
                 var etnnpbf = 100 * etnnt.1  // convert fractional part to Cents
-                
+
                 // if fractional part is [0.5,1.0] then flip it: add one to note number and negate pitchbend.
                 if etnnpbf >= 50 && nnAs12ETNN < MIDINoteNumber(AKTuningTable.midiNoteCount - 1) {
                     nnAs12ETNN = nnAs12ETNN + 1
