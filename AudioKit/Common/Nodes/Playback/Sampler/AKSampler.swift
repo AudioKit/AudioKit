@@ -130,7 +130,7 @@ open class AKSampler: AKNode {
                 try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
             }
         } catch {
-            AKLog("Error loading audio file at \(filePath)")
+            AKLog("Error AKSampler.loadPath loading file at \(filePath)")
             throw error
         }
     }
