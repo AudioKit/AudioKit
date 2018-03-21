@@ -15,7 +15,7 @@ extension Notification.Name {
 
 /// Audio Unit Manager
 open class AKAudioUnitManager: NSObject {
-    //static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
+    // static let ComponentDescription = AudioComponentDescription(type: kAudioUnitType_MusicDevice, subType: 0)
 
     /// The notifications this class may generate
     public enum Notification {
