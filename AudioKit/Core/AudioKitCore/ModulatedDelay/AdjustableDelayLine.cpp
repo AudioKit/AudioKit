@@ -2,7 +2,7 @@
 //  AdjustableDelayLine.cpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-03-17.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
 //
 
