@@ -14,7 +14,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
 
     private var au: AUWrapper
 
-    fileprivate var mixer: AKMixer
+    fileprivate var mixer = AKMixer()
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     @objc open dynamic var threshold: Double = -20 {
@@ -76,13 +76,14 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain.volume = 1 - dryWetMix
-            effectGain?.volume = dryWetMix
+            effectGain.volume = dryWetMix
         }
     }
 
     fileprivate var lastKnownMix: Double = 1
+    fileprivate var inputMixer = AKMixer()
     fileprivate var inputGain = AKMixer()
-    fileprivate var effectGain: AKMixer?
+    fileprivate var effectGain = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -114,22 +115,17 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         self.releaseTime = releaseTime
         self.masterGain = masterGain
 
-        input?.connect(to: inputGain)
         inputGain.volume = 0
-        mixer = AKMixer(inputGain)
-
-        effectGain = AKMixer(input)
-        effectGain?.volume = 1
+        effectGain.volume = 1
 
         let effect = _Self.effect
         self.internalEffect = effect
-
         AudioKit.engine.attach(effect)
         au = AUWrapper(effect)
-        if let node = effectGain?.avAudioNode {
-            AudioKit.engine.connect(node, to: effect)
-        }
-        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+
+        input?.connect(to: inputMixer)
+        inputMixer >>> inputGain >>> mixer
+        inputMixer >>> effectGain >>> effect >>> mixer
 
         super.init(avAudioNode: mixer.avAudioNode)
 
@@ -141,7 +137,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     public var inputNode: AVAudioNode {
-        return inputGain.avAudioNode
+        return inputMixer.avAudioNode
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -165,7 +161,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     override open func disconnect() {
         stop()
 
-        AudioKit.detach(nodes: [inputGain.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputGain.avAudioNode, effectGain.avAudioNode, mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }
