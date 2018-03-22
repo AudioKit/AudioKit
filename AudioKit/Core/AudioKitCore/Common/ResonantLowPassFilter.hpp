@@ -2,7 +2,7 @@
 //  ResonantLowPassFilter.hpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-23 based on sample code by Apple, Inc.
+//  Created by Shane Dunne based on sample code by Apple, Inc.
 //  Copyright © 2018 AudioKit and Apple.
 //
 // ResonantLowPassFilter implements a simple digital low-pass filter with dynamically

@@ -3,7 +3,7 @@
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
-//  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #include "AdjustableDelayLine.hpp"

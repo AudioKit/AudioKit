@@ -2,7 +2,7 @@
 //  AKSampler_Typedefs.h
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-03-04.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 // This file is safe to include in either (Objective-)C or C++ contexts.
