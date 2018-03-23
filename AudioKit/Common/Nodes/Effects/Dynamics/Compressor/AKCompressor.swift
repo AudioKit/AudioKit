@@ -13,7 +13,6 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     private var au: AUWrapper
-    fileprivate var mixer = AKMixer()
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     @objc open dynamic var threshold: Double = -20 {
@@ -79,10 +78,11 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    fileprivate var lastKnownMix: Double = 1
-    fileprivate var inputMixer = AKMixer()
-    fileprivate var inputGain = AKMixer()
-    fileprivate var effectGain = AKMixer()
+    private var lastKnownMix: Double = 1
+    private var mixer = AKMixer()
+    private var inputMixer = AKMixer()
+    private var inputGain = AKMixer()
+    private var effectGain = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -118,7 +118,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         effectGain.volume = 1
 
         input?.connect(to: inputMixer)
-        inputMixer.connect(to: [inputGain!, effectGain!])
+        inputMixer.connect(to: [inputGain, effectGain])
 
         let effect = _Self.effect
         self.internalEffect = effect
