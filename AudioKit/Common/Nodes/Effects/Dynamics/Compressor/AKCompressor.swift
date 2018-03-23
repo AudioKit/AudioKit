@@ -145,7 +145,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     public var inputNode: AVAudioNode {
-        return inputGain.avAudioNode
+        return inputMixer.avAudioNode
     }
 
     /// Function to start, play, or activate the node, all do the same thing
