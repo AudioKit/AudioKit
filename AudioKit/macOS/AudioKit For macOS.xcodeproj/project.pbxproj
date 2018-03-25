@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		075C6EC51F0D6C7C0075027C /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075C6EC41F0D6C7C0075027C /* AKMIDITransformer.swift */; };
-		3404A755204F474700A2C9E4 /* SampleBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A74D204F474500A2C9E4 /* SampleBuffer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A755204F474700A2C9E4 /* SampleBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A74D204F474500A2C9E4 /* SampleBuffer.hpp */; };
 		3404A757204F474700A2C9E4 /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A74F204F474500A2C9E4 /* Sampler.cpp */; };
-		3404A758204F474700A2C9E4 /* SamplerVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A750204F474600A2C9E4 /* SamplerVoice.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		3404A759204F474700A2C9E4 /* Sampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A751204F474600A2C9E4 /* Sampler.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A758204F474700A2C9E4 /* SamplerVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A750204F474600A2C9E4 /* SamplerVoice.hpp */; };
+		3404A759204F474700A2C9E4 /* Sampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A751204F474600A2C9E4 /* Sampler.hpp */; };
 		3404A75A204F474700A2C9E4 /* SampleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A752204F474600A2C9E4 /* SampleBuffer.cpp */; };
 		3404A75B204F474700A2C9E4 /* AKSampler_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3404A753204F474600A2C9E4 /* AKSampler_Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3404A75C204F474700A2C9E4 /* SamplerVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A754204F474700A2C9E4 /* SamplerVoice.cpp */; };
@@ -20,16 +20,16 @@
 		3404A766204F515500A2C9E4 /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A760204F515400A2C9E4 /* AKSampler+SFZ.swift */; };
 		3404A767204F515500A2C9E4 /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A761204F515400A2C9E4 /* AKSampler.swift */; };
 		3404A769204F515500A2C9E4 /* AKSamplerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A763204F515500A2C9E4 /* AKSamplerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		3404A774204F879600A2C9E4 /* SustainPedalLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A76A204F879300A2C9E4 /* SustainPedalLogic.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A774204F879600A2C9E4 /* SustainPedalLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A76A204F879300A2C9E4 /* SustainPedalLogic.hpp */; };
 		3404A775204F879600A2C9E4 /* FunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A76B204F879400A2C9E4 /* FunctionTable.cpp */; };
-		3404A776204F879600A2C9E4 /* FunctionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A76C204F879400A2C9E4 /* FunctionTable.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A776204F879600A2C9E4 /* FunctionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A76C204F879400A2C9E4 /* FunctionTable.hpp */; };
 		3404A777204F879600A2C9E4 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A76D204F879400A2C9E4 /* SustainPedalLogic.cpp */; };
 		3404A779204F879600A2C9E4 /* ADSREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A76F204F879500A2C9E4 /* ADSREnvelope.cpp */; };
-		3404A77A204F879600A2C9E4 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A770204F879500A2C9E4 /* ADSREnvelope.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A77A204F879600A2C9E4 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A770204F879500A2C9E4 /* ADSREnvelope.hpp */; };
 		3404A77B204F879600A2C9E4 /* ResonantLowPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A771204F879500A2C9E4 /* ResonantLowPassFilter.cpp */; };
-		3404A77C204F879600A2C9E4 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A772204F879600A2C9E4 /* ResonantLowPassFilter.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		3404A77D204F879600A2C9E4 /* LinearRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A773204F879600A2C9E4 /* LinearRamper.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		3404A78020506BEA00A2C9E4 /* SampleOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A77F20506BE900A2C9E4 /* SampleOscillator.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3404A77C204F879600A2C9E4 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A772204F879600A2C9E4 /* ResonantLowPassFilter.hpp */; };
+		3404A77D204F879600A2C9E4 /* LinearRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A773204F879600A2C9E4 /* LinearRamper.hpp */; };
+		3404A78020506BEA00A2C9E4 /* SampleOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A77F20506BE900A2C9E4 /* SampleOscillator.hpp */; };
 		34086808203107B700ADEB55 /* AKModulatedDelayDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34086807203107B700ADEB55 /* AKModulatedDelayDSP.mm */; };
 		3413B63220309CC200880F8D /* AKChorusAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3413B63120309CC200880F8D /* AKChorusAudioUnit.swift */; };
 		3413B6382030B15000880F8D /* AKModulatedDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3413B6372030B15000880F8D /* AKModulatedDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1450,10 +1450,10 @@
 		C45665161D448D7E00D26565 /* AKDecimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKDecimator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665181D448D7E00D26565 /* AKRingModulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKRingModulator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C456651A1D448D7E00D26565 /* AKTanhDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKTanhDistortion.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C45665201D448D7E00D26565 /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKCompressor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C45665221D448D7E00D26565 /* AKDynamicsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKDynamicsProcessor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C45665241D448D7E00D26565 /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKExpander.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C45665261D448D7E00D26565 /* AKPeakLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKPeakLimiter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		C45665201D448D7E00D26565 /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKCompressor.swift; sourceTree = "<group>"; };
+		C45665221D448D7E00D26565 /* AKDynamicsProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKDynamicsProcessor.swift; sourceTree = "<group>"; };
+		C45665241D448D7E00D26565 /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKExpander.swift; sourceTree = "<group>"; };
+		C45665261D448D7E00D26565 /* AKPeakLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKPeakLimiter.swift; sourceTree = "<group>"; };
 		C45665291D448D7E00D26565 /* AKAmplitudeEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKAmplitudeEnvelope.swift; sourceTree = "<group>"; };
 		C456652E1D448D7E00D26565 /* AKTremolo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKTremolo.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C45665391D448D7E00D26565 /* AKBandPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AKBandPassButterworthFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
