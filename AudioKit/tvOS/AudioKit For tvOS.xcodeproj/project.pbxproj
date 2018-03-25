@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		34F5A381205ED22D00290001 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A365205ED22C00290001 /* ADSREnvelope.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		34F5A382205ED22D00290001 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A366205ED22C00290001 /* ResonantLowPassFilter.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		34F5A382205ED22D00290001 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A366205ED22C00290001 /* ResonantLowPassFilter.hpp */; };
 		34F5A383205ED22D00290001 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A367205ED22C00290001 /* SustainPedalLogic.cpp */; };
 		34F5A384205ED22D00290001 /* FunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A368205ED22C00290001 /* FunctionTable.cpp */; };
-		34F5A386205ED22D00290001 /* FunctionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36A205ED22C00290001 /* FunctionTable.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		34F5A387205ED22D00290001 /* LinearRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36B205ED22C00290001 /* LinearRamper.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		34F5A386205ED22D00290001 /* FunctionTable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36A205ED22C00290001 /* FunctionTable.hpp */; };
+		34F5A387205ED22D00290001 /* LinearRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36B205ED22C00290001 /* LinearRamper.hpp */; };
 		34F5A388205ED22D00290001 /* ADSREnvelope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A36C205ED22C00290001 /* ADSREnvelope.cpp */; };
-		34F5A389205ED22D00290001 /* SustainPedalLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36D205ED22C00290001 /* SustainPedalLogic.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		34F5A389205ED22D00290001 /* SustainPedalLogic.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A36D205ED22C00290001 /* SustainPedalLogic.hpp */; };
 		34F5A38A205ED22D00290001 /* ResonantLowPassFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A36E205ED22C00290001 /* ResonantLowPassFilter.cpp */; };
 		34F5A394205ED22D00290001 /* AdjustableDelayLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A37A205ED22C00290001 /* AdjustableDelayLine.cpp */; };
 		34F5A395205ED22D00290001 /* AKModulatedDelay_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A37B205ED22C00290001 /* AKModulatedDelay_Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
