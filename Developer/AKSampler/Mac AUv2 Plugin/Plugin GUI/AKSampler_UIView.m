@@ -58,9 +58,6 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     // add new listeners
     [self priv_addListeners];
     
-    // populate preset popup
-    [self priv_populatePresetPopup];
-    
     // initial setup
     [self priv_synchronizeUIWithParameterValues];
 }
@@ -90,6 +87,28 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         printf("Error %d trying to set preset name property", result);
 }
 
+- (IBAction)onPresetFolderButton:(NSButton *)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setAllowsMultipleSelection:NO];
+    [panel setCanChooseDirectories:YES];
+    [panel setCanChooseFiles:NO];
+    if ([panel runModal] != NSModalResponseOK) return;
+    mPresetFolder = [[panel URLs] lastObject];
+    
+    // Should I do something here to release the previous copied value?
+    CFStringRef cfstr = (__bridge CFStringRef)[[mPresetFolder path] copy];
+    UInt32 dataSize = sizeof(CFStringRef);
+    ComponentResult result = AudioUnitSetProperty(mAU,
+                                                  kPresetFolderPathProperty,
+                                                  kAudioUnitScope_Global,
+                                                  0,
+                                                  (void*)cfstr,
+                                                  dataSize);
+    if (result != noErr)
+        printf("Error %d trying to set preset folder path property", result);
+
+    [self priv_populatePresetPopup];
+}
 
 #pragma mark ____ PRIVATE FUNCTIONS ____
 
@@ -98,11 +117,12 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [presetPopup removeAllItems];
 
     NSArray<NSString *> *allFiles = [[NSFileManager defaultManager]
-                                     contentsOfDirectoryAtPath:@PRESETS_DIR_PATH
+                                     contentsOfDirectoryAtPath:[mPresetFolder path]
                                      error:nil];
-    for (int i=0; i < [allFiles count]; i++)
+    NSArray<NSString *> *filesSorted = [allFiles sortedArrayUsingSelector:@selector(compare:)];
+    for (int i=0; i < [filesSorted count]; i++)
     {
-        NSString *fileName = [allFiles objectAtIndex:i];
+        NSString *fileName = [filesSorted objectAtIndex:i];
         if ([fileName hasSuffix:@".sfz"])
             [presetPopup addItemWithTitle: [fileName stringByReplacingOccurrencesOfString:@".sfz" withString:@""]];
     }

@@ -25,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kew-Ge-XfN">
-                                <rect key="frame" x="18" y="187" width="260" height="19"/>
+                                <rect key="frame" x="18" y="187" width="321" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="xpB-2x-vjz">
                                     <connections>
@@ -34,7 +34,7 @@
                                 </sliderCell>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Nl-ixH">
-                                <rect key="frame" x="291" y="189" width="169" height="17"/>
+                                <rect key="frame" x="343" y="189" width="117" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume: 100%" id="zca-QO-ih0">
                                     <font key="font" metaFont="system"/>
@@ -51,7 +51,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B2o-Rf-chf">
-                                <rect key="frame" x="18" y="131" width="129" height="17"/>
+                                <rect key="frame" x="18" y="131" width="107" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Load Preset:" id="5MB-bF-Dkb">
                                     <font key="font" metaFont="system"/>
@@ -60,7 +60,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlj-Gi-WwS">
-                                <rect key="frame" x="151" y="125" width="272" height="26"/>
+                                <rect key="frame" x="129" y="125" width="332" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="NvV-GA-DDW" id="inI-O1-2HN">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -77,6 +77,17 @@
                                     <action selector="onPresetSelect:" target="c22-O7-iKe" id="pGH-t5-f29"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-pH-7Lf">
+                                <rect key="frame" x="145" y="80" width="188" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Choose Presets Folder..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ed6-5q-0rE">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onPresetFolderButton:" target="c22-O7-iKe" id="bBh-XL-0Hs"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <color key="borderColor" red="1" green="0.26521911069999998" blue="0.31012866309999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
