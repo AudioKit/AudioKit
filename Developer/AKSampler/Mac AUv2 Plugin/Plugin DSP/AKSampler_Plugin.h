@@ -67,9 +67,10 @@ public:
                                         UInt32 nFrames);
     
 private:
-    CFStringRef presetPath;
+    CFStringRef presetFolderPath;
+    CFStringRef presetName;
     void initForTesting();
-    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
+    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd, float volBoostDb=0.0f);
     void loadDemoSamples();
     OSStatus loadPreset();
 };
