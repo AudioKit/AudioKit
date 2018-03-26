@@ -113,7 +113,7 @@ void AKSampler_Plugin::Cleanup()
     printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
 }
 
-bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
+bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, float volBoostDb)
 {
     char errMsg[100];
     WavpackContext* wpc = WavpackOpenFileInput(sfd.path, errMsg, OPEN_2CH_MAX, 0);
@@ -142,6 +142,13 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
         int32_t* pi = (int32_t*)pf;
         for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
             *pf++ = scale * *pi++;
+    }
+    if (volBoostDb != 0.0f)
+    {
+        float scale = exp(volBoostDb / 20.0f);
+        float* pf = sdd.pData;
+        for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
+            *pf++ *= scale;
     }
     
     loadSampleData(sdd);
@@ -287,6 +294,7 @@ OSStatus AKSampler_Plugin::loadPreset()
     int lokey, hikey, pitch, lovel, hivel;
     bool bLoop;
     float fLoopStart, fLoopEnd;
+    float volBoost, tuningOffset;
     char sampleFileName[100];
     char *p, *pp;
 
@@ -304,6 +312,14 @@ OSStatus AKSampler_Plugin::loadPreset()
             lokey = 0;
             hikey = 127;
             pitch = 60;
+
+            pp = strstr(p, " key");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) pitch = hikey = lokey = atoi(pp);
+            }
             
             pp = strstr(p, "lokey");
             if (pp)
@@ -338,6 +354,8 @@ OSStatus AKSampler_Plugin::loadPreset()
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            volBoost = 0.0f;
+            tuningOffset = 0.0f;
             
             pp = strstr(p, "lovel");
             if (pp)
@@ -354,7 +372,23 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) hivel = atoi(pp);
             }
-            
+
+            pp = strstr(p, "volume");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) volBoost = atof(pp);
+            }
+
+            pp = strstr(p, "tune");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) tuningOffset = atof(pp);
+            }
+
             pp = strstr(p, "loop_mode");
             if (pp)
             {
@@ -399,12 +433,12 @@ OSStatus AKSampler_Plugin::loadPreset()
             sfd.sd.fLoopEnd = fLoopEnd;
             sfd.sd.fEnd = 0.0f;
             sfd.sd.noteNumber = pitch;
-            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber - tuningOffset/100.0f);
             sfd.sd.min_note = lokey;
             sfd.sd.max_note = hikey;
             sfd.sd.min_vel = lovel;
             sfd.sd.max_vel = hivel;
-            loadCompressedSampleFile(sfd);
+            loadCompressedSampleFile(sfd, volBoost);
         }
     }
     fclose(pfile);
