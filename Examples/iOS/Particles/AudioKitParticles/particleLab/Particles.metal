@@ -2,7 +2,7 @@
 //  Particles.metal
 //  MetalParticles
 //
-//  Created by Simon Gladman on 17/01/2015.
+//  Created by Simon Gladman, revision history on Githbub.
 //  Copyright (c) 2015 Simon Gladman. All rights reserved.
 //
 //  Thanks to: http://memkite.com/blog/2014/12/15/data-parallel-programming-with-metal-and-swift-for-iphoneipad-gpu/

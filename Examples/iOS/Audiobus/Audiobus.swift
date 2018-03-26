@@ -2,10 +2,10 @@
 //  Audiobus.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 2/06/16.
+//  Created by Daniel Clelland, revision history on Githbub.
 //  Updated for AudioKit by Aurelius Prochazka.
 //
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Foundation

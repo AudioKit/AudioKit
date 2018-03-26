@@ -1,7 +1,7 @@
 //
 //  Filter.h
 //
-//  Created by Mike Gazzaruso on 05/02/14.
+//  Created by Mike Gazzaruso, revision history on Githbub.
 //
 //
 

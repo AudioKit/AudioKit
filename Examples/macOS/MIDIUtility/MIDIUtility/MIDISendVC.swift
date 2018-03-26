@@ -2,8 +2,8 @@
 //  MIDISendVC.swift
 //  MIDIUtility
 //
-//  Created by Jeff Cooper on 9/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 import Foundation
 import AudioKit

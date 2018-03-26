@@ -2,7 +2,7 @@
 //  AKExponentialParameterRamp.cpp
 //  AudioKit
 //
-//  Created by Ryan Francesconi on 1/26/18.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  AKChorus_ViewFactory.h
 //  AKChorusUI
 //
-//  Created by Shane Dunne on 2018-03-02.
+//  Created by Shane Dunne, revision history on Githbub.
 //
 
 #import <Cocoa/Cocoa.h>
