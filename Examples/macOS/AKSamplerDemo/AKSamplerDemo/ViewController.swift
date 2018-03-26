@@ -46,16 +46,23 @@ class ViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var filterReleaseSlider: NSSlider!
     @IBOutlet weak var filterReleaseReadout: NSTextField!
 
+    var sfzFolderPath = "/Users/shane/Desktop/SuperFM SFZ"
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         conductor.midi.addListener(self)
 
         sampleSetPopup.removeAllItems()
-        sampleSetPopup.addItem(withTitle: "Brass")
-        sampleSetPopup.addItem(withTitle: "LoTine")
-        sampleSetPopup.addItem(withTitle: "Metalimba")
-        sampleSetPopup.addItem(withTitle: "Pluck Brass")
+        do {
+            for fileName in try FileManager.default.contentsOfDirectory(atPath: sfzFolderPath).sorted() {
+                if fileName.hasSuffix(".sfz") {
+                    sampleSetPopup.addItem(withTitle: fileName)
+                }
+            }
+        } catch {
+            print(error)
+        }
 
         sampler.filterCutoff = 100.0
 
@@ -97,8 +104,28 @@ class ViewController: NSViewController, NSWindowDelegate {
         return true
     }
 
+    @IBAction func onFolderButton(_ sender: NSButton) {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        if openPanel.runModal() == NSApplication.ModalResponse.OK {
+            sfzFolderPath = openPanel.url!.path
+            sampleSetPopup.removeAllItems()
+            do {
+                for fileName in try FileManager.default.contentsOfDirectory(atPath: sfzFolderPath).sorted() {
+                    if fileName.hasSuffix(".sfz") {
+                        sampleSetPopup.addItem(withTitle: fileName)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+
     @IBAction func onSampleSetSelect(_ sender: NSPopUpButton) {
-        conductor.loadSamples(byIndex: sender.indexOfSelectedItem)
+        conductor.loadSfz(folderPath: sfzFolderPath, sfzFileName: sender.titleOfSelectedItem!)
     }
 
     @IBAction func onVolumeSliderChange(_ sender: NSSlider) {

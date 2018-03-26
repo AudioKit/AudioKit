@@ -43,7 +43,8 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 	: AUInstrumentBase(inComponentInstance, 0, 1)    // 0 inputs, 1 output
     , AudioKitCore::Sampler()
 {
-    presetPath = nil;
+    presetFolderPath = nil;
+    presetName = nil;
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
     
@@ -112,7 +113,7 @@ void AKSampler_Plugin::Cleanup()
     printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
 }
 
-bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
+bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, float volBoostDb)
 {
     char errMsg[100];
     WavpackContext* wpc = WavpackOpenFileInput(sfd.path, errMsg, OPEN_2CH_MAX, 0);
@@ -141,6 +142,13 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
         int32_t* pi = (int32_t*)pf;
         for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
             *pf++ = scale * *pi++;
+    }
+    if (volBoostDb != 0.0f)
+    {
+        float scale = exp(volBoostDb / 20.0f);
+        float* pf = sdd.pData;
+        for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
+            *pf++ *= scale;
     }
     
     loadSampleData(sdd);
@@ -271,13 +279,14 @@ OSStatus AKSampler_Plugin::loadPreset()
 {
     // Nicer way to load presets using .sfz metadata files. See bottom of AKSampler_Params.h
     // for instructions to download and set up these presets.
-    const char *presetName = CFStringGetCStringPtr(presetPath, kCFStringEncodingMacRoman);
-    printf("loadPreset: %s...", presetName);
+    const char *pPath = CFStringGetCStringPtr(presetFolderPath, kCFStringEncodingMacRoman);
+    const char *pName = CFStringGetCStringPtr(presetName, kCFStringEncodingMacRoman);
+    printf("loadPreset: %s...", pName);
     
     this->deinit();     // unload any samples already present
     
     char buf[1000];
-    sprintf(buf, "%s/%s.sfz", PRESETS_DIR_PATH, presetName);
+    sprintf(buf, "%s/%s.sfz", pPath, pName);
     
     FILE* pfile = fopen(buf, "r");
     if (!pfile) return fnfErr;
@@ -285,6 +294,7 @@ OSStatus AKSampler_Plugin::loadPreset()
     int lokey, hikey, pitch, lovel, hivel;
     bool bLoop;
     float fLoopStart, fLoopEnd;
+    float volBoost, tuningOffset;
     char sampleFileName[100];
     char *p, *pp;
 
@@ -302,6 +312,14 @@ OSStatus AKSampler_Plugin::loadPreset()
             lokey = 0;
             hikey = 127;
             pitch = 60;
+
+            pp = strstr(p, " key");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) pitch = hikey = lokey = atoi(pp);
+            }
             
             pp = strstr(p, "lokey");
             if (pp)
@@ -336,6 +354,8 @@ OSStatus AKSampler_Plugin::loadPreset()
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            volBoost = 0.0f;
+            tuningOffset = 0.0f;
             
             pp = strstr(p, "lovel");
             if (pp)
@@ -352,7 +372,23 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) hivel = atoi(pp);
             }
-            
+
+            pp = strstr(p, "volume");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) volBoost = atof(pp);
+            }
+
+            pp = strstr(p, "tune");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) tuningOffset = atof(pp);
+            }
+
             pp = strstr(p, "loop_mode");
             if (pp)
             {
@@ -382,11 +418,12 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 while (*pp != 0 && isspace(*pp)) pp++;
                 char* pq = sampleFileName;
-                while (*pp != '.') *pq++ = *pp++;
+                char* pdot = strrchr(pp, '.');
+                while (pp < pdot) *pq++ = *pp++;
                 strcpy(pq, ".wv");
             }
             
-            sprintf(buf, "%s/%s", PRESETS_DIR_PATH, sampleFileName);
+            sprintf(buf, "%s/%s", pPath, sampleFileName);
 
             AKSampleFileDescriptor sfd;
             sfd.path = buf;
@@ -396,12 +433,12 @@ OSStatus AKSampler_Plugin::loadPreset()
             sfd.sd.fLoopEnd = fLoopEnd;
             sfd.sd.fEnd = 0.0f;
             sfd.sd.noteNumber = pitch;
-            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
+            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber - tuningOffset/100.0f);
             sfd.sd.min_note = lokey;
             sfd.sd.max_note = hikey;
             sfd.sd.min_vel = lovel;
             sfd.sd.max_vel = hivel;
-            loadCompressedSampleFile(sfd);
+            loadCompressedSampleFile(sfd, volBoost);
         }
     }
     fclose(pfile);
@@ -427,6 +464,7 @@ OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inProper
                 return noErr;
 
             case kPresetNameProperty:
+            case kPresetFolderPathProperty:
                 outWritable = true;
                 outDataSize = sizeof(CFStringRef);
                 return noErr;
@@ -470,8 +508,12 @@ OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inPropertyID
                 return noErr;
             }
 
+            case kPresetFolderPathProperty:
+                outData = (void*)presetFolderPath;
+                return noErr;
+
             case kPresetNameProperty:
-                outData = (void*)presetPath;
+                outData = (void*)presetName;
                 return noErr;
         }
     }
@@ -485,10 +527,18 @@ OSStatus AKSampler_Plugin::SetProperty(         AudioUnitPropertyID         inPr
                                                 const void *                inData,
                                                 UInt32                      inDataSize)
 {
-    if (inScope == kAudioUnitScope_Global && inPropertyID == kPresetNameProperty)
+    if (inScope == kAudioUnitScope_Global)
     {
-        presetPath = (CFStringRef)inData;
-        return loadPreset();
+        if (inPropertyID == kPresetFolderPathProperty)
+        {
+            presetFolderPath = (CFStringRef)inData;
+            return noErr;
+        }
+        else if (inPropertyID == kPresetNameProperty)
+        {
+            presetName = (CFStringRef)inData;
+            return loadPreset();
+        }
     }
     
     // Default implementation for all non-custom properties

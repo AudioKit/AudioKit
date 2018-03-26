@@ -17,8 +17,9 @@
     IBOutlet NSPopUpButton *presetPopup;
     
     // Other Members
-    AudioUnit                 mAU;
-    AUEventListenerRef        mParameterListener;
+    AudioUnit               mAU;
+    AUEventListenerRef      mParameterListener;
+    NSURL*                  mPresetFolder;
 }
 
 #pragma mark ____ PUBLIC FUNCTIONS ____

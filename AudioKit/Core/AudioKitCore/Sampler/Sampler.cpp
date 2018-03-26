@@ -13,6 +13,7 @@ namespace AudioKitCore {
     
     Sampler::Sampler()
     : sampleRateHz(44100.0f)    // sensible guess
+    , keyMapValid(false)
     , filterEnable(false)
     , masterVolume(1.0f)
     , pitchOffset(0.0f)
@@ -45,6 +46,7 @@ namespace AudioKitCore {
     
     void Sampler::deinit()
     {
+        keyMapValid = false;
         for (KeyMappedSampleBuffer* pBuf : sampleBufferList) delete pBuf;
         sampleBufferList.clear();
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
@@ -112,6 +114,7 @@ namespace AudioKitCore {
     void Sampler::buildSimpleKeyMap()
     {
         // clear out the old mapping entirely
+        keyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
         
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
@@ -137,14 +140,16 @@ namespace AudioKitCore {
                 }
             }
         }
+        keyMapValid = true;
     }
     
     // rebuild keyMap based on explicit mapping data in samples
     void Sampler::buildKeyMap(void)
     {
         // clear out the old mapping entirely
+        keyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
-        
+
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
         {
             for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
@@ -153,6 +158,7 @@ namespace AudioKitCore {
                     keyMap[nn].push_back(pBuf);
             }
         }
+        keyMapValid = true;
     }
     
     SamplerVoice* Sampler::voicePlayingNote(unsigned int noteNumber)
@@ -196,7 +202,7 @@ namespace AudioKitCore {
     {
         //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
         // sanity check: ensure we are initialized with at least one buffer
-        if (sampleBufferList.size() == 0) return;
+        if (!keyMapValid || sampleBufferList.size() == 0) return;
         
         // is any voice already playing this note?
         SamplerVoice* pVoice = voicePlayingNote(noteNumber);
