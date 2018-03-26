@@ -2,7 +2,7 @@
 //  Loop.swift
 //  AudioKitParticles
 //
-//  Created by Aurelius Prochazka on 2/9/16.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2016 Simon Gladman. All rights reserved.
 //
 

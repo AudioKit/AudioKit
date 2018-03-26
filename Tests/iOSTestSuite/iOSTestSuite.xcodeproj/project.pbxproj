@@ -108,6 +108,7 @@
 		C44FF93B1FD0994F00B2217D /* AKPinkNoiseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DB1FD0994F00B2217D /* AKPinkNoiseTest.swift */; };
 		C44FF93C1FD0994F00B2217D /* AKResonantFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DC1FD0994F00B2217D /* AKResonantFilterTests.swift */; };
 		C44FF93D1FD0994F00B2217D /* AKBoosterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */; };
+		C45357C220441A3200C5C7CC /* AKDynaRageCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45357C120441A3200C5C7CC /* AKDynaRageCompressorTests.swift */; };
 		C464077120105CB600299119 /* AKBrownianNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C464077020105CB600299119 /* AKBrownianNoiseTests.swift */; };
 		EA8F6ED720157A4900B68497 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44FF7B91FD098D000B2217D /* AudioKit.framework */; };
 /* End PBXBuildFile section */
@@ -241,6 +242,7 @@
 		C44FF8DB1FD0994F00B2217D /* AKPinkNoiseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPinkNoiseTest.swift; sourceTree = "<group>"; };
 		C44FF8DC1FD0994F00B2217D /* AKResonantFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilterTests.swift; sourceTree = "<group>"; };
 		C44FF8DD1FD0994F00B2217D /* AKBoosterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBoosterTests.swift; sourceTree = "<group>"; };
+		C45357C120441A3200C5C7CC /* AKDynaRageCompressorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDynaRageCompressorTests.swift; sourceTree = "<group>"; };
 		C464077020105CB600299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -322,6 +324,7 @@
 				C44FF89D1FD0994F00B2217D /* AKDistortionTests.swift */,
 				C44FF88B1FD0994F00B2217D /* AKDynamicRangeCompressorTests.swift */,
 				C44FF8C21FD0994F00B2217D /* AKDynamicsProcessorTests.swift */,
+				C45357C120441A3200C5C7CC /* AKDynaRageCompressorTests.swift */,
 				C44FF8B01FD0994F00B2217D /* AKEqualizerFilterTests.swift */,
 				C44FF8BC1FD0994F00B2217D /* AKExpanderTests.swift */,
 				C44FF8CE1FD0994F00B2217D /* AKFlatFrequencyResponseReverbTests.swift */,
@@ -585,6 +588,7 @@
 				C44FF90A1FD0994F00B2217D /* AKFormantFilterTests.swift in Sources */,
 				C44FF9051FD0994F00B2217D /* AKAutoWahTests.swift in Sources */,
 				C44FF8FE1FD0994F00B2217D /* autoWahTests.swift in Sources */,
+				C45357C220441A3200C5C7CC /* AKDynaRageCompressorTests.swift in Sources */,
 				C44FF91F1FD0994F00B2217D /* pinkNoiseTests.swift in Sources */,
 				C44FF90B1FD0994F00B2217D /* AKToneComplementFilterTests.swift in Sources */,
 				C44FF9281FD0994F00B2217D /* squareTests.swift in Sources */,

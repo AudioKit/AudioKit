@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  AudioKitParticles
 //
-//  Created by Simon Gladman on 28/12/2015.
+//  Created by Simon Gladman, revision history on Githbub.
 //  Copyright © 2015 Simon Gladman. All rights reserved.
 //
 

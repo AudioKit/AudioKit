@@ -2,7 +2,7 @@
 //  Conductor.swift
 //  AKSamplerDemo
 //
-//  Created by Shane Dunne on 2018-03-07.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

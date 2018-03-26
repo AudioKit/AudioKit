@@ -2,7 +2,7 @@
 //  AKChorus_UIView.m
 //  AKChorusUI
 //
-//  Created by Shane Dunne on 2018-03-20.
+//  Created by Shane Dunne, revision history on Githbub.
 //
 
 #import "AKChorus_UIView.h"

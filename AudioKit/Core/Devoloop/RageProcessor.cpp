@@ -2,7 +2,7 @@
 //  RageProcessor.cpp
 //  DynaRage
 //
-//  Created by Mike Gazzaruso on 11/10/15.
+//  Created by Mike Gazzaruso, revision history on Githbub.
 //  Copyright © 2015 Mike Gazzaruso. All rights reserved.
 //
 

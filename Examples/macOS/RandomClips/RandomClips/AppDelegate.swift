@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  RandomClips
 //
-//  Created by David O'Neill on 9/8/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by David O'Neill, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa

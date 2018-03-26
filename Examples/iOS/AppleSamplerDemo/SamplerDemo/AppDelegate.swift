@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  SamplerDemo
 //
-//  Created by Kanstantsin Linou on 7/5/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit

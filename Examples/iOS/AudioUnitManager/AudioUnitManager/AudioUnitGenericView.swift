@@ -2,7 +2,7 @@
 //  AudioUnitGenericView.swift
 //  AudioUnitManagerExample-iOS
 //
-//  Created by Ryan Francesconi on 8/14/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
