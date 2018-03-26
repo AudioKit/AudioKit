@@ -54,6 +54,7 @@ namespace AudioKitCore
         
         // maps MIDI note numbers to "closest" samples (all velocity layers)
         std::list<KeyMappedSampleBuffer*> keyMap[MIDI_NOTENUMBERS];
+        bool keyMapValid;
         
         SamplerVoice voice[MAX_POLYPHONY];                // table of voice resources
         
