@@ -70,7 +70,7 @@ private:
     CFStringRef presetFolderPath;
     CFStringRef presetName;
     void initForTesting();
-    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
+    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd, float volBoostDb=0.0f);
     void loadDemoSamples();
     OSStatus loadPreset();
 };
