@@ -1068,6 +1068,17 @@
                                     <action selector="onSampleSetSelect:" target="XfG-lQ-9wD" id="t2r-dJ-ciU"/>
                                 </connections>
                             </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-wV-rAI">
+                                <rect key="frame" x="474" y="388" width="112" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Folder..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sh1-dA-h1I">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onFolderButton:" target="XfG-lQ-9wD" id="fIY-n4-6Gm"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

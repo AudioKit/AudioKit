@@ -52,10 +52,11 @@ class Conductor {
         }
     }
 
-    private func setupSampler() {
+    private func setupSampler()
+    {
         // Example (below) of loading compressed sample files without a SFZ file
         //loadAndMapCompressedSampleFiles()
-
+        
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
         // http://getdunne.net/download/ROMPlayer_Instruments.zip
@@ -108,16 +109,13 @@ class Conductor {
         midi.openInput(midi.inputNames[byIndex])
     }
 
-    func loadSamples(byIndex: Int) {
-        if byIndex < 0 || byIndex > 3 { return }
-
+    func loadSfz(folderPath: String, sfzFileName: String) {
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
-
-        let sfzFiles = [ "TX Brass.sfz", "TX LoTine81z.sfz", "TX Metalimba.sfz", "TX Pluck Bass.sfz" ]
+        
         sampler.unloadAllSamples()
-        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: sfzFiles[byIndex])
-
+        sampler.loadUsingSfzFile(folderPath: folderPath, sfzFileName: sfzFileName)
+        
         let elapsedTime = info.systemUptime - begin
         print("Time to load samples \(elapsedTime) seconds")
     }
@@ -166,9 +164,11 @@ class Conductor {
 
 }
 
-extension Conductor {
+extension Conductor
+{
     private func loadCompressed(baseURL: URL, noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
-                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1) {
+                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1)
+    {
         let folderURL = baseURL.appendingPathComponent(folderName)
         let fileName = folderName + fileEnding
         let fileURL = folderURL.appendingPathComponent(fileName)
@@ -180,7 +180,8 @@ extension Conductor {
         sampler.loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: fileURL.path))
     }
 
-    func loadAndMapCompressedSampleFiles() {
+    func loadAndMapCompressedSampleFiles()
+    {
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
 
