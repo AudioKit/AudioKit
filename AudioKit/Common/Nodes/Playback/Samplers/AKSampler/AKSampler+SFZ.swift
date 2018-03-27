@@ -38,7 +38,11 @@ extension AKSampler {
                     hikey = 127
                     pitch = 60
                     for part in trimmed.dropFirst(7).components(separatedBy: .whitespaces) {
-                        if part.hasPrefix("lokey") {
+                        if part.hasPrefix("key") {
+                            pitch = Int32(part.components(separatedBy: "=")[1])!
+                            lokey = pitch
+                            hikey = pitch
+                        } else if part.hasPrefix("lokey") {
                             lokey = Int32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("hikey") {
                             hikey = Int32(part.components(separatedBy: "=")[1])!
