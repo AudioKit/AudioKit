@@ -62,7 +62,7 @@ namespace AudioKitCore
         filterEG.reset();
     }
     
-    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resonanceDb)
+    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resLinear)
     {
         if (ampEG.isIdle()) return true;
 
@@ -92,8 +92,8 @@ namespace AudioKitCore
             
             double cutoffHz = noteHz * (1.0f + cutoffMultiple * filterEG.getSample());
             
-            filterL.setParams(cutoffHz, resonanceDb);
-            filterR.setParams(cutoffHz, resonanceDb);
+            filterL.setParams(cutoffHz, resLinear);
+            filterR.setParams(cutoffHz, resLinear);
         }
         
         return false;

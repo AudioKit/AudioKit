@@ -709,7 +709,7 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kFilterResonanceDb:
-            outValue = resonanceDb;
+            outValue = -20.0f * log10(resLinear);
             break;
             
         case kAmpEgAttackTimeSeconds:
@@ -783,7 +783,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kFilterResonanceDb:
-            resonanceDb = inValue;
+            resLinear = pow(10.0, -0.5 * inValue);
             break;
             
         case kAmpEgAttackTimeSeconds:

@@ -2,99 +2,102 @@
 //  ResonantLowPassFilter.cpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne based on sample code by Apple, Inc.
+//  Created by Shane Dunne
 //  Copyright © 2018 AudioKit and Apple.
 //
 // ResonantLowPassFilter implements a simple digital low-pass filter with dynamically
-// adjustable cutoff frequency and resonance. The code is derived from Apple's old
-// AUv2 filter demo, and based on careful reading, I am confident this usage is
-// consistent with the license text Apple provided with the original demo code.
+// adjustable cutoff frequency and resonance.
 
 #include "ResonantLowPassFilter.hpp"
-#ifndef _USE_MATH_DEFINES
-  #define _USE_MATH_DEFINES
-#endif
+#include "FunctionTable.hpp"
 #include <math.h>
 
 namespace AudioKitCore
 {
+    // To avoid having to call sin() and cos() in setParams() (whenever filter parameters
+    // are changed), we maintain this static sine lookup table.
+    static FunctionTable sineTable;
+    static float Sine(float phase) { return sineTable.interp_cyclic(phase); }
+    static float Cosine(float phase) { return sineTable.interp_cyclic(phase + 0.25f); }
 
-    static const float kMinCutoffHz = 12.0;
-    static const float kMinResonance = -20.0;
-    static const float kMaxResonance = 20.0;
+    static const float kMinCutoffHz = 12.0f;
+    static const float kMinResLinear = 0.1f;
+    static const float kMaxResLinear = 10.0f;
     
     ResonantLowPassFilter::ResonantLowPassFilter()
     {
-        init(44100.0);  // sensible guess
+        init(44100.0);  // sensible guess, will be overridden by init() call anyway
+
+        if (sineTable.pWaveTable == 0)  // build sine table only once
+        {
+            sineTable.init(2048);
+            sineTable.sinusoid();
+        }
     }
     
     void ResonantLowPassFilter::init(double sampleRateHz)
     {
         this->sampleRateHz = sampleRateHz;
-        
-        // initialize filter state
-        mX1 = mX2 = mY1 = mY1 = 0.0;
-        
-        // force filter coefficient calculation
-        mLastCutoffHz = mLastResonanceDb = -1.0;
+        x1 = x2 = y1 = y1 = 0.0;
+        mLastCutoffHz = mLastResLinear = -1.0;  // force recalc of coefficients
     }
     
-    void ResonantLowPassFilter::setParams(double newCutoffHz, double newResonanceDb)
+    void ResonantLowPassFilter::setParams(double newCutoffHz, double newResLinear)
     {
         // only calculate the filter coefficients if the parameters have changed from last time
-        if (newCutoffHz == mLastCutoffHz && newResonanceDb == mLastResonanceDb) return;
+        if (newCutoffHz == mLastCutoffHz && newResLinear == mLastResLinear) return;
         
         if (newCutoffHz < kMinCutoffHz) newCutoffHz = kMinCutoffHz;
-        if (newResonanceDb < kMinResonance ) newResonanceDb = kMinResonance;
-        if (newResonanceDb > kMaxResonance ) newResonanceDb = kMaxResonance;
+        if (newResLinear < kMinResLinear ) newResLinear = kMinResLinear;
+        if (newResLinear > kMaxResLinear ) newResLinear = kMaxResLinear;
         
         // convert cutoff from Hz to 0->1 normalized frequency
         double cutoff = 2.0 * newCutoffHz / sampleRateHz;
         if (cutoff > 0.99) cutoff = 0.99;   // clip
         
         mLastCutoffHz = newCutoffHz;
-        mLastResonanceDb = newResonanceDb;
-        
-        double r = pow(10.0, 0.05 * -newResonanceDb);        // convert resonance from decibels to linear
-        
-        double k = 0.5 * r * sin(M_PI * cutoff);
+        mLastResLinear = newResLinear;
+
+        double k = 0.5 * newResLinear * Sine(0.5 * cutoff);
         double c1 = 0.5 * (1.0 - k) / (1.0 + k);
-        double c2 = (0.5 + c1) * cos(M_PI * cutoff);
+        double c2 = (0.5 + c1) * Cosine(0.5 * cutoff);
         double c3 = (0.5 + c1 - c2) * 0.25;
         
-        mA0 = 2.0 * c3;
-        mA1 = 2.0 * 2.0 * c3;
-        mA2 = 2.0 * c3;
-        mB1 = 2.0 * -c2;
-        mB2 = 2.0 * c1;
+        a0 = 2.0 * c3;
+        a1 = 2.0 * 2.0 * c3;
+        a2 = 2.0 * c3;
+        b1 = 2.0 * -c2;
+        b2 = 2.0 * c1;
     }
     
     void ResonantLowPassFilter::process(const float *sourceP, float *destP, int inFramesToProcess)
     {
         while (inFramesToProcess--)
         {
-            float input = *sourceP++;
-            float output = (float)(mA0*input + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
-            if (isnan(output)) output = 0.0f;
+            float inputSample = *sourceP++;
+            float outputSample = (float)(a0*inputSample + a1*x1 + a2*x2 - b1*y1 - b2*y2);
+            if (!isnormal(outputSample))
+                outputSample = 0.0f;
+
+            x2 = x1;
+            x1 = inputSample;
+            y2 = y1;
+            y1 = outputSample;
             
-            mX2 = mX1;
-            mX1 = input;
-            mY2 = mY1;
-            mY1 = output;
-            
-            *destP++ = output;
+            *destP++ = outputSample;
         }
     }
 
     float ResonantLowPassFilter::process(float inputSample)
     {
-        float outputSample = (float)(mA0*inputSample + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
-        if (isnan(outputSample)) outputSample = 0.0f;
+        float outputSample = (float)(a0*inputSample + a1*x1 + a2*x2 - b1*y1 - b2*y2);
+        if (!isnormal(outputSample))
+            outputSample = 0.0f;
 
-        mX2 = mX1;
-        mX1 = inputSample;
-        mY2 = mY1;
-        mY1 = outputSample;
+        x2 = x1;
+        x1 = inputSample;
+        y2 = y1;
+        y1 = outputSample;
 
         return outputSample;
     }
