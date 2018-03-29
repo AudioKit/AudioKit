@@ -75,6 +75,7 @@ namespace AudioKitCore
         {
             float input = *sourceP++;
             float output = (float)(mA0*input + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
+            if (isnan(output)) output = 0.0f;
             
             mX2 = mX1;
             mX1 = input;
@@ -84,5 +85,19 @@ namespace AudioKitCore
             *destP++ = output;
         }
     }
+
+    float ResonantLowPassFilter::process(float inputSample)
+    {
+        float outputSample = (float)(mA0*inputSample + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
+        if (isnan(outputSample)) outputSample = 0.0f;
+
+        mX2 = mX1;
+        mX1 = inputSample;
+        mY2 = mY1;
+        mY1 = outputSample;
+
+        return outputSample;
+    }
+
 
 }

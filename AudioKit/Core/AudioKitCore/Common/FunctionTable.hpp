@@ -37,9 +37,9 @@ namespace AudioKitCore
         void deinit();
         
         // functions for use by class FunctionTableOscillator
-        void triangle();
-        void sawtooth();
-        void sinusoid();
+        void triangle(float amplitude=1.0f);
+        void sawtooth(float amplitude=1.0f);
+        void sinusoid(float amplitude=1.0f);
         
         inline float interp_cyclic(float phase)
         {

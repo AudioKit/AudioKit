@@ -14,6 +14,35 @@
     // IBOutlets
     IBOutlet NSSlider *volumeSlider;
     IBOutlet NSTextField *volumeText;
+    IBOutlet NSSlider *pitchOffsetSlider;
+    IBOutlet NSTextField *pitchOffsetText;
+    IBOutlet NSSlider *vibratoDepthSlider;
+    IBOutlet NSTextField *vibratoDepthText;
+
+    IBOutlet NSSlider *ampAttackSlider;
+    IBOutlet NSTextField *ampAttackText;
+    IBOutlet NSSlider *ampDecaySlider;
+    IBOutlet NSTextField *ampDecayText;
+    IBOutlet NSSlider *ampSustainSlider;
+    IBOutlet NSTextField *ampSustainText;
+    IBOutlet NSSlider *ampReleaseSlider;
+    IBOutlet NSTextField *ampReleaseText;
+
+    IBOutlet NSButton *filterEnableCheckbox;
+    IBOutlet NSSlider *filterCutoffSlider;
+    IBOutlet NSTextField *filterCutoffText;
+    IBOutlet NSSlider *filterResonanceSlider;
+    IBOutlet NSTextField *filterResonanceText;
+    
+    IBOutlet NSSlider *filterAttackSlider;
+    IBOutlet NSTextField *filterAttackText;
+    IBOutlet NSSlider *filterDecaySlider;
+    IBOutlet NSTextField *filterDecayText;
+    IBOutlet NSSlider *filterSustainSlider;
+    IBOutlet NSTextField *filterSustainText;
+    IBOutlet NSSlider *filterReleaseSlider;
+    IBOutlet NSTextField *filterReleaseText;
+
     IBOutlet NSPopUpButton *presetPopup;
     
     // Other Members
@@ -26,7 +55,8 @@
 - (void)setAU:(AudioUnit)inAU;
 
 #pragma mark ____ INTERFACE ACTIONS ____
-- (IBAction)onVolumeSlider:(id)sender;
+- (IBAction)onVolumeSlider:(NSSlider *)sender;
+- (IBAction)onPitchOffsetSlider:(NSSlider *)sender;
 - (IBAction)onPresetSelect:(NSPopUpButton *)sender;
 
 #pragma mark ____ PRIVATE FUNCTIONS

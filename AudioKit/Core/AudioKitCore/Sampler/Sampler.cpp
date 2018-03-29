@@ -40,7 +40,9 @@ namespace AudioKitCore {
         filterEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
         vibratoLFO.waveTable.sinusoid();
         vibratoLFO.init(sampleRate/CHUNKSIZE, 5.0f);
-        
+
+        for (int i=0; i<MAX_POLYPHONY; i++) voice[i].init(sampleRate);
+
         return 0;   // no error
     }
     
