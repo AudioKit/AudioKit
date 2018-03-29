@@ -11,6 +11,14 @@
 
 namespace AudioKitCore
 {
+    void SamplerVoice::init(double sampleRate)
+    {
+        filterL.init(sampleRate);
+        filterR.init(sampleRate);
+        ampEG.init();
+        filterEG.init();
+    }
+    
     void SamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pBuf)
     {
         pSampleBuffer = pBuf;

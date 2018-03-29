@@ -6,6 +6,7 @@
 #include <math.h>
 
 #include "wavpack.h"
+#include "FunctionTable.hpp"
 
 // OSErr definitions taken from deprecated CarbonCore/MacErrors.h
 // Somewhere there's a newer header file I should be using
@@ -74,10 +75,11 @@ void AKSampler_Plugin::initForTesting()
     
     //loadDemoSamples();
     
-#if 0
-    // single-cycle experiment
-    float sine[1024];
-    for (int i=0; i < 1024; i++) sine[i] = sin(i/1024.0f * 2.0f * M_PI);
+#if 1
+    // load single-cycle saw waves so there's something to play
+    AudioKitCore::FunctionTable ftable;
+    ftable.init(1024);
+    ftable.sawtooth(0.2f);
     AKSampleDataDescriptor sdd;
     sdd.sd.noteNumber = 28;
     sdd.sd.noteHz = 44100.0f / 1024;
@@ -91,7 +93,7 @@ void AKSampler_Plugin::initForTesting()
     sdd.bInterleaved = false;
     sdd.nChannels = 1;
     sdd.nSamples = 1024;
-    sdd.pData = sine;
+    sdd.pData = ftable.pWaveTable;
     loadSampleData(sdd);
     setLoopThruRelease(true);
     buildSimpleKeyMap();
@@ -600,8 +602,8 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
         case kFilterResonanceDb:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterResonanceDb], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Decibels;
-            outParameterInfo.minValue = 0.0;
-            outParameterInfo.maxValue = 10.0;
+            outParameterInfo.minValue = -20.0;
+            outParameterInfo.maxValue = 20.0;
             outParameterInfo.defaultValue = 0.0;
             break;
             

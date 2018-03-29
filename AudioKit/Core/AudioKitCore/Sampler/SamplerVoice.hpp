@@ -35,6 +35,8 @@ namespace AudioKitCore
         bool filterEnable;  // true if filter should be used
         
         SamplerVoice() : noteNumber(-1) {}
+
+        void init(double sampleRate);
         
         void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pSampleBuf);
         void restart(float volume, SampleBuffer* pSampleBuf);

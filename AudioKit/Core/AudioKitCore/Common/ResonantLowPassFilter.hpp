@@ -36,18 +36,7 @@ namespace AudioKitCore
         void setResonance(double newResonanceDb) { setParams(mLastCutoffHz, newResonanceDb); }
         
         void process(const float *inSourceP, float *inDestP, int inFramesToProcess);
-        
-        inline float process(float inputSample)
-        {
-            float outputSample = (float)(mA0*inputSample + mA1*mX1 + mA2*mX2 - mB1*mY1 - mB2*mY2);
-            
-            mX2 = mX1;
-            mX1 = inputSample;
-            mY2 = mY1;
-            mY1 = outputSample;
-            
-            return outputSample;
-        }
+        float process(float inputSample);
     };
 
 }
