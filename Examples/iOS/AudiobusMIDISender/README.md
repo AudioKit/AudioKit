@@ -1,4 +1,4 @@
-#Audiobus MIDI Sender
+# Audiobus MIDI Sender
 This project gives examples of how to:
 
 * Use AKSequencer to send MIDI messages externally using AKCallbackInstrument
@@ -7,7 +7,7 @@ This project gives examples of how to:
 * Send MIDI data to Audiobus 3 MIDI receivers
 * Allow Audiobus to control the transport for AKSequencer
 
-####IMPORTANT:
+#### IMPORTANT:
 Minimally, to get this project to run, you will need to:
 
 * Add AudioKit and Audiobus to the project
@@ -20,7 +20,7 @@ Minimally, to get this project to run, you will need to:
 
 
 
-##Getting the Project Audiobus Compatible
+## Getting the Project Audiobus Compatible
 This project uses the [SenderSynth](https://github.com/AudioKit/AudioKit/tree/master/Examples/iOS/SenderSynth) project as its starting point.  All of the steps needed to set up SenderSynth are also needed here (except, of course, making the synth).  The steps are:
 
 * Importing AudioKit and adding Audiobus files
@@ -34,7 +34,7 @@ This project uses the [SenderSynth](https://github.com/AudioKit/AudioKit/tree/ma
 * Getting an API key from the Audiobus developer website
 
 
-##Preparing AKSequencer for External MIDI
+## Preparing AKSequencer for External MIDI
 Normally, AKSequencer tracks are connected directly to MIDI Inputs, but if we want to send MIDI outside the app, we need to connect each track to an AKCallbackInstrument.  The callback function takes three arguments: MIDIStatus, MIDINoteNumber, and MIDIVelocity. Presumably, you'd want to send normal MIDI externally when Audiobus is not connected. Typically that setup would look like this:
 
 ```
@@ -56,11 +56,11 @@ callbackInst.callback = { status, note, velocity in
 For sending to Audiobus we will use this basic pattern, but send messages to Audiobus instead of CoreMIDI.
 This pattern is also useful for getting the UI to respond to sequencer events (but these callbacks are called on a background thread, so make sure that UI updates are called explictly on the main thread).
 
-##Setting up Audiobus MIDI
+## Setting up Audiobus MIDI
 ###Include Helper Files
 Make sure to include the helper methods in the file Audiobus+MIDI.swift in your project.
 
-###Creating Audiobus MIDISendPorts
+### Creating Audiobus MIDISendPorts
 First, call Audiobus.start() to instantiate the Audiobus controller, then add the MIDIPorts.  Adding MIDISendPorts involves two steps. First, create the port, then add it to the Audiobus controller:
 
 ```
@@ -73,7 +73,7 @@ if let port = ABMIDISenderPort(name: "MIDISend", title: "MIDI Send") {
 The 'name' is the internal port name, and the 'title' is the user-facing name.  You will need to enter the names and titles that your app uses exactly as they are in your code when you re-apply for the API key.  If they don't match, Audiobus will not let your app run.
 Keep the references to the ports created in the first step, because you'll need to pass these references when sending messages to Audiobus.
 
-###Sending NoteOn and NoteOff Messages
+### Sending NoteOn and NoteOff Messages
 You can send messages by passing your ABMIDISendPort reference to the Audiobus Controller, along with the MIDI data:
 
 ```
@@ -82,7 +82,7 @@ Audiobus.sendNoteOnMessage(midiSendPort: midiSendPort, status: status, note: not
 
 These messages should also be sent from the AKCallbackInstrument connected to the AKSequencer.
 
-###Letting Audiobus Shut Off CoreMIDI Messages
+### Letting Audiobus Shut Off CoreMIDI Messages
 Obviously, you don't want to continue sending MIDI through AKMIDI when sending to Audiobus, or else each MIDI messages would be sent twice.  Audiobus insists that you let it control when conventional MIDI messages can be sent.  They're very adamant about this. So you must send a closure to your Audiobus controller that will allow Audiobus to shut off the CoreMIDI messages.  In the example project, I have a flag ```coreMIDIIsActive``` which controls the flow of the MIDI messages in my callback:
 
 ```
@@ -105,7 +105,7 @@ Audiobus.setUpEnableCoreMIDIBlock { [weak self] isEnabled in
 ```  
 Some enableCoreMIDIBlock closure must be passed to the Audiobus controller, to give Audiobus control over your app's MIDI flow.
 
-###Controlling App Transport
+### Controlling App Transport
 The Audiobus transport controls can control your app using an ```ABTrigger``` which you can add to your Audiobus controller.  Audiobus provides many different trigger types, but typically for a sequencer, ```ABTriggerTypePlayToggle``` would be appropriate.  You create the trigger and add it to the controller:
 
 ```
@@ -138,7 +138,7 @@ func stop() {
 
 
         
-###Getting a New API Key
+### Getting a New API Key
 When this is all set up, you will need to get a new API key from the Audiobus developer site.  As in the SenderSynth example, you need to build your code and locate the plist file.  When you submit your plist file, the only port it will generate automatically is the 'aurg' (audio sender) port.  If your app doesn't send audio, it gives you the option to hide this port.
 You must manually add MIDI sender ports and type in their names and titles.  These should match the names and titles you included in your code when you instantiated the ABMIDISenderPort:
 
