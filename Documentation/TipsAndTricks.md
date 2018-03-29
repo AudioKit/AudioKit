@@ -7,7 +7,7 @@
 This was originally documented [here](https://github.com/AudioKit/AudioKit/issues/1152).
 
 ```
-func foo(){
+func foo() {
 	let a: Float = 10
 	let b: Float = 20
 	let c = abs(a+b)
@@ -22,7 +22,7 @@ results in the error "Binary operator '<' cannot be applied to operands of type 
 The solution is to explicitly declare `c` as a Float.  
 
 ```
-func foo(){
+func foo() {
 	let a: Float = 10
 	let b: Float = 20
 	let c: Float = abs(a+b)
