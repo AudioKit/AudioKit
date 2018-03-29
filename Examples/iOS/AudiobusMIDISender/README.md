@@ -57,7 +57,7 @@ For sending to Audiobus we will use this basic pattern, but send messages to Aud
 This pattern is also useful for getting the UI to respond to sequencer events (but these callbacks are called on a background thread, so make sure that UI updates are called explictly on the main thread).
 
 ## Setting up Audiobus MIDI
-###Include Helper Files
+### Include Helper Files
 Make sure to include the helper methods in the file Audiobus+MIDI.swift in your project.
 
 ### Creating Audiobus MIDISendPorts
@@ -83,7 +83,7 @@ Audiobus.sendNoteOnMessage(midiSendPort: midiSendPort, status: status, note: not
 These messages should also be sent from the AKCallbackInstrument connected to the AKSequencer.
 
 ### Letting Audiobus Shut Off CoreMIDI Messages
-Obviously, you don't want to continue sending MIDI through AKMIDI when sending to Audiobus, or else each MIDI messages would be sent twice.  Audiobus insists that you let it control when conventional MIDI messages can be sent.  They're very adamant about this. So you must send a closure to your Audiobus controller that will allow Audiobus to shut off the CoreMIDI messages.  In the example project, I have a flag ```coreMIDIIsActive``` which controls the flow of the MIDI messages in my callback:
+Obviously, you don't want to continue sending MIDI through AKMIDI when sending to Audiobus, or else each MIDI message would be sent twice.  Audiobus insists that you let it control when conventional MIDI messages can be sent.  They're very adamant about this. So you must send a closure to your Audiobus controller that will allow Audiobus to shut off the CoreMIDI messages.  In the example project, I have a flag ```coreMIDIIsActive``` which controls the flow of the MIDI messages in my callback:
 
 ```
 fileprivate func noteOn(midiSendPort: ABMIDISenderPort, status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
