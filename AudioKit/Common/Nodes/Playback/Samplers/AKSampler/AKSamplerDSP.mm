@@ -130,7 +130,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             filterCutoffRamp.setTarget(value, immediate);
             break;
         case filterResonanceParam:
-            filterResonanceRamp.setTarget(pow(10.0, -0.5 * value), immediate);
+            filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
         case ampAttackTimeParam:
@@ -221,8 +221,9 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
+        filterResonanceRamp.advanceTo(_now + frameOffset);
         resLinear = (float)filterResonanceRamp.getValue();
-        
+
         // get data
         float *outBuffers[2];
         outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
