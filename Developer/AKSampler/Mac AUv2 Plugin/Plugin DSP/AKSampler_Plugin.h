@@ -39,12 +39,16 @@ public:
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue &   outValue);
-    
+
     virtual OSStatus SetParameter(      AudioUnitParameterID        inParameterID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue     inValue,
                                         UInt32                      inBufferOffsetInFrames);
+
+    virtual OSStatus SaveState(         CFPropertyListRef *         outData);
+    
+    virtual OSStatus RestoreState(      CFPropertyListRef           inData);
 
     virtual OSStatus HandleNoteOn(      UInt8 inChannel, UInt8 inNoteNumber,
                                         UInt8 inVelocity, UInt32 inStartFrame);
