@@ -19,7 +19,7 @@ namespace AudioKitCore {
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
     , cutoffMultiple(30.0f)
-    , resonanceDb(0.0f)
+    , resLinear(1.0f)
     , loopThruRelease(false)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
@@ -212,7 +212,7 @@ namespace AudioKitCore {
         {
             // re-start the note
             pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
-            //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
+            //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
             return;
         }
         
@@ -226,8 +226,8 @@ namespace AudioKitCore {
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
-                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, pBuf %p)\n",
-                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, pBuf);
+                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
+                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, i, pBuf);
                 return;
             }
         }
@@ -269,7 +269,7 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, resonanceDb) ||
+                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, resLinear) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

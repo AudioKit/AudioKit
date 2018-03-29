@@ -44,7 +44,7 @@ namespace AudioKitCore
         void stop();
         
         // return true if amp envelope is finished
-        bool prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resonanceDb);
+        bool prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resLinear);
         
         bool getSamples(int nSamples, float* pOut);
         bool getSamples(int nSamples, float* pOutLeft, float* pOutRight);
