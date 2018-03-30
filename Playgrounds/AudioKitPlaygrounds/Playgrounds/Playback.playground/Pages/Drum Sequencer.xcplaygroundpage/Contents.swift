@@ -1,4 +1,4 @@
-//: ## Drums
+//: ## Drum Sequencer
 
 import AudioKitPlaygrounds
 import AudioKit
