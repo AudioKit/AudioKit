@@ -709,7 +709,7 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kFilterResonanceDb:
-            outValue = resonanceDb;
+            outValue = -20.0f * log10(resLinear);
             break;
             
         case kAmpEgAttackTimeSeconds:
@@ -758,6 +758,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
                                             UInt32                      inBufferOffsetInFrames)
 {
     if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
+    //printf("SetParameter %d to %f\n", inParameterID, inValue);
     
     switch (inParameterID)
     {
@@ -782,7 +783,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kFilterResonanceDb:
-            resonanceDb = inValue;
+            resLinear = pow(10.0, -0.5 * inValue);
             break;
             
         case kAmpEgAttackTimeSeconds:
@@ -821,6 +822,29 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             return kAudioUnitErr_InvalidParameter;
     }
     
+    // The base-class method stashes the parameter values so they're accessible to SaveState()
+    return AUBase::SetParameter(inParameterID, inScope, inElement, inValue, inBufferOffsetInFrames);
+}
+
+OSStatus AKSampler_Plugin::SaveState(CFPropertyListRef *outData)
+{
+    // Call base-class method to return its stashed copies of all parameters
+    return AUBase::SaveState(outData);
+}
+
+OSStatus AKSampler_Plugin::RestoreState(CFPropertyListRef inData)
+{
+    // Base-class method restores parameter values to wherever it stashes them
+    AUBase::RestoreState(inData);
+
+    // So, we have to ask the base GetParameter() method for each of the values, then call
+    // our own SetParameter() to put them in this class's variables.
+    for (int paramID = 0; paramID < kNumberOfParams; paramID++)
+    {
+        float value;
+        AUBase::GetParameter(paramID, kAudioUnitScope_Global, 0, value);
+        SetParameter(paramID, kAudioUnitScope_Global, 0, value, 0);
+    }
     return noErr;
 }
 
