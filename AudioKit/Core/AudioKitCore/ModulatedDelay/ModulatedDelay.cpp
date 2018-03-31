@@ -1,9 +1,9 @@
 //
 //  ModulatedDelay.cpp
-//  ExtendingAudioKit
+//  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-03-17.
-//  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
+//  Created by Shane Dunne, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #include "ModulatedDelay.hpp"

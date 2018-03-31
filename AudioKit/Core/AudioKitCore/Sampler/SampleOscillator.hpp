@@ -2,7 +2,7 @@
 //  SampleOscillator.hpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-24.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -27,7 +27,7 @@ namespace AudioKitCore
         // return true if we run out of samples
         inline bool getSample(SampleBuffer* pSampleBuffer, int nSamples, float* pOut, float gain)
         {
-            if (fIndex > pSampleBuffer->fEnd) return true;
+            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->fEnd) return true;
             *pOut = pSampleBuffer->interp(fIndex, gain);
             
             fIndex += fIncMul * fIncrement;
@@ -42,7 +42,7 @@ namespace AudioKitCore
         // return true if we run out of samples
         inline bool getSamplePair(SampleBuffer* pSampleBuffer, int nSamples, float* pOutLeft, float* pOutRight, float gain)
         {
-            if (fIndex > pSampleBuffer->fEnd) return true;
+            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->fEnd) return true;
             pSampleBuffer->interp(fIndex, pOutLeft, pOutRight, gain);
             
             fIndex += fIncMul * fIncrement;

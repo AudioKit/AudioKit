@@ -2,7 +2,7 @@
 //  SDBoosterDSP.hpp
 //  ExtendingAudioKit
 //
-//  Created by Shane Dunne on 1/23/2018
+//  Created by Shane Dunne, revision history on Githbub
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

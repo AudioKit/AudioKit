@@ -2,7 +2,7 @@
 //  FileManagerUtils.swift
 //  Synth Two
 //
-//  Created by Shane Dunne on 2017-12-17.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2017 Shane Dunne. All rights reserved.
 //
 

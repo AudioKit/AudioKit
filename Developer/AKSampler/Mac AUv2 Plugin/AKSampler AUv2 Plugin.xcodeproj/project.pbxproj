@@ -183,7 +183,6 @@
 		3404A8402050AF2700A2C9E4 /* ResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResonantLowPassFilter.hpp; sourceTree = "<group>"; };
 		3404A8412050AF2700A2C9E4 /* SustainPedalLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SustainPedalLogic.cpp; sourceTree = "<group>"; };
 		3404A8422050AF2700A2C9E4 /* FunctionTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionTable.cpp; sourceTree = "<group>"; };
-		3404A8432050AF2700A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3404A8442050AF2700A2C9E4 /* FunctionTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FunctionTable.hpp; sourceTree = "<group>"; };
 		3404A8452050AF2700A2C9E4 /* LinearRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LinearRamper.hpp; sourceTree = "<group>"; };
 		3404A8462050AF2700A2C9E4 /* ADSREnvelope.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSREnvelope.cpp; sourceTree = "<group>"; };
@@ -195,7 +194,6 @@
 		3404A8572050AF3C00A2C9E4 /* SampleOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SampleOscillator.hpp; sourceTree = "<group>"; };
 		3404A8582050AF3C00A2C9E4 /* Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
 		3404A8592050AF3C00A2C9E4 /* SampleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleBuffer.cpp; sourceTree = "<group>"; };
-		3404A85A2050AF3C00A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3404A85B2050AF3C00A2C9E4 /* Sampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
 		3404A85C2050AF3C00A2C9E4 /* SamplerVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SamplerVoice.hpp; sourceTree = "<group>"; };
 		3427DF2D2049DCA600B9DC53 /* AKSampler_ViewFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKSampler_ViewFactory.h; sourceTree = "<group>"; };
@@ -399,15 +397,14 @@
 			isa = PBXGroup;
 			children = (
 				3404A83F2050AF2700A2C9E4 /* ADSREnvelope.hpp */,
-				3404A8402050AF2700A2C9E4 /* ResonantLowPassFilter.hpp */,
-				3404A8412050AF2700A2C9E4 /* SustainPedalLogic.cpp */,
-				3404A8422050AF2700A2C9E4 /* FunctionTable.cpp */,
-				3404A8432050AF2700A2C9E4 /* README.md */,
-				3404A8442050AF2700A2C9E4 /* FunctionTable.hpp */,
-				3404A8452050AF2700A2C9E4 /* LinearRamper.hpp */,
 				3404A8462050AF2700A2C9E4 /* ADSREnvelope.cpp */,
-				3404A8472050AF2700A2C9E4 /* SustainPedalLogic.hpp */,
+				3404A8452050AF2700A2C9E4 /* LinearRamper.hpp */,
+				3404A8442050AF2700A2C9E4 /* FunctionTable.hpp */,
+				3404A8422050AF2700A2C9E4 /* FunctionTable.cpp */,
+				3404A8402050AF2700A2C9E4 /* ResonantLowPassFilter.hpp */,
 				3404A8482050AF2700A2C9E4 /* ResonantLowPassFilter.cpp */,
+				3404A8472050AF2700A2C9E4 /* SustainPedalLogic.hpp */,
+				3404A8412050AF2700A2C9E4 /* SustainPedalLogic.cpp */,
 			);
 			name = Common;
 			path = ../../../AudioKit/Core/AudioKitCore/Common;
@@ -416,15 +413,14 @@
 		3404A8532050AF3C00A2C9E4 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
-				3404A8542050AF3C00A2C9E4 /* SamplerVoice.cpp */,
-				3404A8552050AF3C00A2C9E4 /* SampleBuffer.hpp */,
 				3404A8562050AF3C00A2C9E4 /* AKSampler_Typedefs.h */,
-				3404A8572050AF3C00A2C9E4 /* SampleOscillator.hpp */,
-				3404A8582050AF3C00A2C9E4 /* Sampler.cpp */,
+				3404A8552050AF3C00A2C9E4 /* SampleBuffer.hpp */,
 				3404A8592050AF3C00A2C9E4 /* SampleBuffer.cpp */,
-				3404A85A2050AF3C00A2C9E4 /* README.md */,
-				3404A85B2050AF3C00A2C9E4 /* Sampler.hpp */,
+				3404A8572050AF3C00A2C9E4 /* SampleOscillator.hpp */,
 				3404A85C2050AF3C00A2C9E4 /* SamplerVoice.hpp */,
+				3404A8542050AF3C00A2C9E4 /* SamplerVoice.cpp */,
+				3404A85B2050AF3C00A2C9E4 /* Sampler.hpp */,
+				3404A8582050AF3C00A2C9E4 /* Sampler.cpp */,
 			);
 			name = Sampler;
 			path = ../../../AudioKit/Core/AudioKitCore/Sampler;

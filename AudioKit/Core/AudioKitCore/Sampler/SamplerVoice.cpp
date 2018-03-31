@@ -2,7 +2,7 @@
 //  SamplerVoice.cpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-24.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -11,6 +11,14 @@
 
 namespace AudioKitCore
 {
+    void SamplerVoice::init(double sampleRate)
+    {
+        filterL.init(sampleRate);
+        filterR.init(sampleRate);
+        ampEG.init();
+        filterEG.init();
+    }
+    
     void SamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pBuf)
     {
         pSampleBuffer = pBuf;
@@ -54,7 +62,7 @@ namespace AudioKitCore
         filterEG.reset();
     }
     
-    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resonanceDb)
+    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resLinear)
     {
         if (ampEG.isIdle()) return true;
 
@@ -84,8 +92,8 @@ namespace AudioKitCore
             
             double cutoffHz = noteHz * (1.0f + cutoffMultiple * filterEG.getSample());
             
-            filterL.setParams(cutoffHz, resonanceDb);
-            filterR.setParams(cutoffHz, resonanceDb);
+            filterL.setParams(cutoffHz, resLinear);
+            filterR.setParams(cutoffHz, resLinear);
         }
         
         return false;

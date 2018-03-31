@@ -4,7 +4,7 @@
 //
 //  https://github.com/michaeltyson/TPCircularBuffer
 //
-//  Created by Michael Tyson on 10/12/2011.
+//  Created by Michael Tyson, revision history on Githbub.
 //
 //
 //  This implementation makes use of a virtual memory mapping technique that inserts a virtual copy

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioToolbox
@@ -15,7 +15,7 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
-extension Collection where IndexDistance == Int {
+extension Collection {
     /// Return a random element from the collection
     public var randomIndex: Index {
         let offset = Int(arc4random_uniform(UInt32(Int64(count))))

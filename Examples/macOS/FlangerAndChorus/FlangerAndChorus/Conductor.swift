@@ -2,7 +2,7 @@
 //  Conductor.swift
 //  AKTest1
 //
-//  Created by Shane Dunne on 2018-01-19.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 Shane Dunne. All rights reserved.
 //
 

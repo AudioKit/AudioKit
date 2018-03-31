@@ -2,7 +2,7 @@
 //  ParticleLab.swift
 //  MetalParticles
 //
-//  Created by Simon Gladman on 04/04/2015.
+//  Created by Simon Gladman, revision history on Githbub.
 //  Copyright (c) 2015 Simon Gladman. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify

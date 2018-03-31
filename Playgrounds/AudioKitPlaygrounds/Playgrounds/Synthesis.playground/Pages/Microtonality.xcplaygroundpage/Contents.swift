@@ -120,7 +120,7 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 
 // Start Audio
 AudioKit.output = mixer
-AudioKit.start(withPeriodicFunctions: sequencerFunction)
+try AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
 import AudioKitUI
@@ -200,22 +200,6 @@ class LiveView: AKLiveViewController {
                          format: "%0.3f s"
         ) { sliderValue in
             osc.releaseDuration = sliderValue
-        })
-
-        addView(AKSlider(property: "Detuning Offset",
-                         value: osc.detuningOffset,
-                         range: -1_200 ... 1_200,
-                         format: "%0.1f Cents"
-        ) { sliderValue in
-            osc.detuningOffset = sliderValue
-        })
-
-        addView(AKSlider(property: "Detuning Multiplier",
-                         value: osc.detuningMultiplier,
-                         range: 0.5 ... 2.0,
-                         taper: log(3) / log(2)
-        ) { sliderValue in
-            osc.detuningMultiplier = sliderValue
         })
     }
 }

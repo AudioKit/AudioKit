@@ -2,7 +2,7 @@
 //  AKSampler.swift
 //  AudioKit
 //
-//  Created by Shane Dunne on 2018-02-19.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -224,7 +224,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
-    ///   - filterResonance: dB, 0.0 - 10.0
+    ///   - filterResonance: dB, -20.0 - 20.0
     ///   - ampAttackTime: seconds, 0.0 - 10.0
     ///   - ampDecayTime: seconds, 0.0 - 10.0
     ///   - ampSustainLevel: 0.0 - 1.0

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
@@ -204,7 +204,10 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     override open func disconnect() {
         stop()
 
-        AudioKit.detach(nodes: [inputMixer.avAudioNode, inputGain!.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputMixer.avAudioNode,
+                                inputGain!.avAudioNode,
+                                effectGain!.avAudioNode,
+                                mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by David Sweetman, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 public class AKScheduledAction {

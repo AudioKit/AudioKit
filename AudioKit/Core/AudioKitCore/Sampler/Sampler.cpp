@@ -2,7 +2,7 @@
 //  Sampler.cpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-21.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -13,12 +13,13 @@ namespace AudioKitCore {
     
     Sampler::Sampler()
     : sampleRateHz(44100.0f)    // sensible guess
+    , keyMapValid(false)
     , filterEnable(false)
     , masterVolume(1.0f)
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
     , cutoffMultiple(30.0f)
-    , resonanceDb(0.0f)
+    , resLinear(1.0f)
     , loopThruRelease(false)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
@@ -39,12 +40,15 @@ namespace AudioKitCore {
         filterEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
         vibratoLFO.waveTable.sinusoid();
         vibratoLFO.init(sampleRate/CHUNKSIZE, 5.0f);
-        
+
+        for (int i=0; i<MAX_POLYPHONY; i++) voice[i].init(sampleRate);
+
         return 0;   // no error
     }
     
     void Sampler::deinit()
     {
+        keyMapValid = false;
         for (KeyMappedSampleBuffer* pBuf : sampleBufferList) delete pBuf;
         sampleBufferList.clear();
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
@@ -112,6 +116,7 @@ namespace AudioKitCore {
     void Sampler::buildSimpleKeyMap()
     {
         // clear out the old mapping entirely
+        keyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
         
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
@@ -137,14 +142,16 @@ namespace AudioKitCore {
                 }
             }
         }
+        keyMapValid = true;
     }
     
     // rebuild keyMap based on explicit mapping data in samples
     void Sampler::buildKeyMap(void)
     {
         // clear out the old mapping entirely
+        keyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
-        
+
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
         {
             for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
@@ -153,6 +160,7 @@ namespace AudioKitCore {
                     keyMap[nn].push_back(pBuf);
             }
         }
+        keyMapValid = true;
     }
     
     SamplerVoice* Sampler::voicePlayingNote(unsigned int noteNumber)
@@ -196,7 +204,7 @@ namespace AudioKitCore {
     {
         //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
         // sanity check: ensure we are initialized with at least one buffer
-        if (sampleBufferList.size() == 0) return;
+        if (!keyMapValid || sampleBufferList.size() == 0) return;
         
         // is any voice already playing this note?
         SamplerVoice* pVoice = voicePlayingNote(noteNumber);
@@ -204,7 +212,7 @@ namespace AudioKitCore {
         {
             // re-start the note
             pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
-            //printf("Restart note %d as %d\n", noteNumber, pBuf->noteNumber);
+            //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
             return;
         }
         
@@ -218,8 +226,8 @@ namespace AudioKitCore {
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
-                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, pBuf %p)\n",
-                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, pBuf);
+                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
+                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, i, pBuf);
                 return;
             }
         }
@@ -261,7 +269,7 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, resonanceDb) ||
+                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, resLinear) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

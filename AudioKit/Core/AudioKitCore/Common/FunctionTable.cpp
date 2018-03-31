@@ -2,7 +2,7 @@
 //  FunctionTable.cpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-03-04.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -30,39 +30,39 @@ namespace AudioKitCore
         pWaveTable = 0;
     }
     
-    void FunctionTable::triangle()
+    void FunctionTable::triangle(float amplitude)
     {
         // in case user forgot, init table to size 2
         if (pWaveTable == 0) init(2);
         
         if (nTableSize == 2)   // default 2 elements suffice for a triangle wave
         {
-            pWaveTable[0] = -1.0f;
-            pWaveTable[1] = 1.0f;
+            pWaveTable[0] = -amplitude;
+            pWaveTable[1] = amplitude;
         }
         else    // you would normally only do this if you plan to low-pass filter the result
         {
             for (int i=0; i < nTableSize; i++)
-                pWaveTable[i] = 2.0f * (0.5f - fabsf((float(i)/nTableSize) - 0.5f)) - 1.0f;
+                pWaveTable[i] = 2.0f * amplitude * (0.5f - fabsf((float(i)/nTableSize) - 0.5f)) - amplitude;
         }
     }
     
-    void FunctionTable::sawtooth()
+    void FunctionTable::sawtooth(float amplitude)
     {
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
         
         for (int i=0; i < nTableSize; i++)
-            pWaveTable[i] = (float)(2.0 * double(i)/nTableSize - 1.0);
+            pWaveTable[i] = (float)(2.0 * amplitude * double(i)/nTableSize - amplitude);
     }
     
-    void FunctionTable::sinusoid()
+    void FunctionTable::sinusoid(float amplitude)
     {
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
         
         for (int i=0; i < nTableSize; i++)
-            pWaveTable[i] = (float)(sin(double(i)/nTableSize * 2.0 * M_PI));
+            pWaveTable[i] = (float)(amplitude * sin(double(i)/nTableSize * 2.0 * M_PI));
     }
     
     // Initialize a FunctionTable to an exponential-rise shape, scaled to fit in the unit square.

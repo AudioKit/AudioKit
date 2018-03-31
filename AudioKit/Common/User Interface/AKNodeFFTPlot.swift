@@ -3,7 +3,7 @@
 //  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Plot the FFT output from any node in an signal processing graph

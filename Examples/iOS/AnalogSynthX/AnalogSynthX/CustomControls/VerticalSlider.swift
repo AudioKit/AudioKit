@@ -2,7 +2,7 @@
 //  VerticalSlider.swift
 //  Analog Synth X
 //
-//  Created by Matthew Fecher on 1/11/16.
+//  Created by Matthew Fecher, revision history on Githbub.
 //  Copyright (c) 2016 AudioKit. All rights reserved.
 
 // Slider code adapted from:

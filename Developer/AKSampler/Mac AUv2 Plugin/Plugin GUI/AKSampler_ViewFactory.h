@@ -2,7 +2,7 @@
 //  AKSampler_ViewFactory.h
 //  AKSamplerUI
 //
-//  Created by Shane Dunne on 2018-03-02.
+//  Created by Shane Dunne, revision history on Githbub.
 //
 
 #import <Cocoa/Cocoa.h>

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Marcus W. Hobbs, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// helper object to simulate a Swift tuple for ObjC interoperability

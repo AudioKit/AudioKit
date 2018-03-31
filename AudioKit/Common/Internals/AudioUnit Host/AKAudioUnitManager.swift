@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension Notification.Name {
@@ -137,7 +137,7 @@ open class AKAudioUnitManager: NSObject {
 
     // just get a non nil list of Audio Units
     private var linkedEffects: [AVAudioUnit] {
-        return _effectsChain.flatMap { $0 }
+        return _effectsChain.compactMap { $0 }
     }
 
     /// How many effects are active

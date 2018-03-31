@@ -2,7 +2,7 @@
 //  EZAudio.m
 //  EZAudioCoreGraphicsWaveformExample
 //
-//  Created by Syed Haris Ali on 5/13/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 

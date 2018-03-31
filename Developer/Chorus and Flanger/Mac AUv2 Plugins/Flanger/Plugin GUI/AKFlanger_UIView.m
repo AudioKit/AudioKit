@@ -2,7 +2,7 @@
 //  AKFlanger_UIView.m
 //  AKFlangerUI
 //
-//  Created by Shane Dunne on 2018-03-20.
+//  Created by Shane Dunne, revision history on Githbub.
 //
 
 #import "AKFlanger_UIView.h"

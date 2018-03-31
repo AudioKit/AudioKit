@@ -2,7 +2,7 @@
 //  KeyboardListener.swift
 //  DropDown
 //
-//  Created by Kevin Hirsch on 30/07/15.
+//  Created by Kevin Hirsch, revision history on Githbub.
 //  Copyright (c) 2015 Kevin Hirsch. All rights reserved.
 //
 

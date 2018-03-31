@@ -2,7 +2,7 @@
 //  SamplerVoice.hpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-24.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -35,6 +35,8 @@ namespace AudioKitCore
         bool filterEnable;  // true if filter should be used
         
         SamplerVoice() : noteNumber(-1) {}
+
+        void init(double sampleRate);
         
         void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pSampleBuf);
         void restart(float volume, SampleBuffer* pSampleBuf);
@@ -42,7 +44,7 @@ namespace AudioKitCore
         void stop();
         
         // return true if amp envelope is finished
-        bool prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resonanceDb);
+        bool prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resLinear);
         
         bool getSamples(int nSamples, float* pOut);
         bool getSamples(int nSamples, float* pOutLeft, float* pOutRight);

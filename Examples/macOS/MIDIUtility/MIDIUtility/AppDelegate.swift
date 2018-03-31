@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  MIDIUtility
 //
-//  Created by Aurelius Prochazka and Jeff Cooper on 4/29/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka and Jeff Cooper, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa

@@ -2,8 +2,8 @@
 //  KnobView.swift
 //  Analog Synth X
 //
-//  Created by Matthew Fecher on 7/20/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Matthew Fecher, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit

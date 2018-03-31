@@ -2,8 +2,8 @@
 //  AKTuningTableBase.swift
 //  AudioKit
 //
-//  Created by Marcus W. Hobbs on 12/18/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Marcus W. Hobbs, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Foundation
