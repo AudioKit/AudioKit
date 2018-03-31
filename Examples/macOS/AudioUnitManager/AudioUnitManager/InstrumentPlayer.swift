@@ -90,7 +90,7 @@ public class InstrumentPlayer: NSObject {
             cbytes[2] = 0
             self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
 
-            cbytes.deallocate(capacity: 3)
+            cbytes.deallocate()
 
         } // dispached
     } // scheduleInstrumentLoop
