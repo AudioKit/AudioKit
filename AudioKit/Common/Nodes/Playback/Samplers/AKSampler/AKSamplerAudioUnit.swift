@@ -1,9 +1,9 @@
 //
 //  AKSamplerAudioUnit.swift
-//  ExtendingAudioKit
+//  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-19.
-//  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
+//  Created by Shane Dunne, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -129,7 +129,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         let filterResonanceParam = AUParameterTree.createParameter(withIdentifier: "filterResonance",
                                                                 name: "Filter resonance (dB))",
                                                                 address: AUParameterAddress(paramAddress),
-                                                                min: 1.0, max: 10.0,
+                                                                min: -20.0, max: 20.0,
                                                                 unit: .decibels, unitName: nil,
                                                                 flags: rampFlags,
                                                                 valueStrings: nil, dependentParameters: nil)

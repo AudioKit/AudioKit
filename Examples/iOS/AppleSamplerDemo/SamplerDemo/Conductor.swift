@@ -2,8 +2,8 @@
 //  Conductor.swift
 //  SamplerDemo
 //
-//  Created by Jeff Cooper and Kanstantsin Linou on 7/2/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Jeff Cooper and Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit

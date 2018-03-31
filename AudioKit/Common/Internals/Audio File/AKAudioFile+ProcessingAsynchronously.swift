@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek and Brandon Barber, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 ///  Major Revision: Async process objects are now handled by AKAudioFile ProcessFactory singleton.

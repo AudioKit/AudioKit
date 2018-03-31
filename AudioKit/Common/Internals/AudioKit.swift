@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #if !os(tvOS)
@@ -269,9 +269,9 @@ public typealias AKCallback = () -> Void
     @objc fileprivate static func updateSessionCategoryAndOptions() throws {
         #if !os(macOS)
             let sessionCategory = AKSettings.computedSessionCategory()
-            let sessionOptions = AKSettings.computedSessionOptions()
 
             #if os(iOS)
+                let sessionOptions = AKSettings.computedSessionOptions()
                 try AKSettings.setSession(category: sessionCategory,
                                           with: sessionOptions)
             #elseif os(tvOS)

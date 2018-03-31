@@ -2,8 +2,8 @@
 //  PitchShifterViewController.swift
 //  SongProcessor
 //
-//  Created by Elizabeth Simonian on 10/17/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Elizabeth Simonian, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit

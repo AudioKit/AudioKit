@@ -2,10 +2,10 @@
 //  Audiobus.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 2/06/16.
+//  Created by Daniel Clelland, revision history on Githbub.
 //  Updated for AudioKit by Aurelius Prochazka.
 //
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -169,7 +169,7 @@ private extension ABAudiobusController {
             return false
         }
 
-        return connectedPorts.flatMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
+        return connectedPorts.compactMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
     }
 
 }

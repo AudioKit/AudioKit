@@ -1,7 +1,7 @@
 //
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 7/14/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

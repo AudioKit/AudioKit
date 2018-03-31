@@ -1,7 +1,7 @@
 //
 //  SMSegmentView.swift
 //
-//  Created by Si MA on 03/01/2016.
+//  Created by Si MA, revision history on Githbub.
 //  Copyright (c) 2016 Si Ma. All rights reserved.
 //
 

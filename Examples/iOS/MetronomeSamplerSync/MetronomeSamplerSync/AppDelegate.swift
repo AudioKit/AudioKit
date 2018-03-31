@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MetronomeSamplerSync
 //
-//  Created by David O'Neill on 8/31/17.
+//  Created by David O'Neill, revision history on Githbub.
 //  Copyright © 2017 O'Neill. All rights reserved.
 //
 

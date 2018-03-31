@@ -2,7 +2,7 @@
 //  SMAlphaImageSegment.swift
 //  SMSegmentViewController
 //
-//  Created by mlaskowski on 01/10/15.
+//  Created by mlaskowski, revision history on Githbub.
 //  Copyright © 2016 si.ma. All rights reserved.
 //
 

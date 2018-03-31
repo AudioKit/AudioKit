@@ -1,8 +1,8 @@
 //
 //  AKModulatedDelayDSP.hpp
-//  AudioKit For macOS
+//  AudioKit
 //
-//  Created by Shane Dunne on 2018-02-11.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

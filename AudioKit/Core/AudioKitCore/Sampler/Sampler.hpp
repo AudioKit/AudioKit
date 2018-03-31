@@ -2,7 +2,7 @@
 //  Sampler.hpp
 //  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-21.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -54,6 +54,7 @@ namespace AudioKitCore
         
         // maps MIDI note numbers to "closest" samples (all velocity layers)
         std::list<KeyMappedSampleBuffer*> keyMap[MIDI_NOTENUMBERS];
+        bool keyMapValid;
         
         SamplerVoice voice[MAX_POLYPHONY];                // table of voice resources
         
@@ -67,7 +68,11 @@ namespace AudioKitCore
         ADSREnvelopeParams filterEGParams;
         
         // performance parameters
-        float masterVolume, pitchOffset, vibratoDepth, cutoffMultiple, resonanceDb;
+        float masterVolume, pitchOffset, vibratoDepth;
+
+        // per-voice filter parameters
+        float cutoffMultiple;   // multiple of note frequency - 1.0 means cutoff at fundamental
+        float resLinear;        // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         
         // sample-related parameters
         bool loopThruRelease;   // if true, sample continue looping thru note release phase

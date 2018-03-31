@@ -2,7 +2,7 @@
 //  Conductor.swift
 //  AKSamplerDemo
 //
-//  Created by Shane Dunne on 2018-03-07.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -52,16 +52,17 @@ class Conductor {
         }
     }
 
-    private func setupSampler() {
+    private func setupSampler()
+    {
         // Example (below) of loading compressed sample files without a SFZ file
         //loadAndMapCompressedSampleFiles()
-
+        
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
         // http://getdunne.net/download/ROMPlayer_Instruments.zip
         sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX Brass.sfz")
 
-        // Illustration of how to load single-sample waveforms
+        // Illustration of how to load single-cycle waveforms
         // See https://www.adventurekid.se/akrt/waveforms/ to obtain the "AdventureKid" WAV files.
 //        do {
 //            let path = "/Users/shane/Desktop/AKWF Samples/AKWF_bw_sawbright/AKWF_bsaw_0005.wav"
@@ -77,17 +78,33 @@ class Conductor {
 //        sampler.setLoop(thruRelease: true)
 //        sampler.buildSimpleKeyMap()
 
+        // illustration of how to create a single-cycle waveform programmatically in Swift
+//        var myData = [Float](repeating: 0.0, count: 1000)
+//        for i in 0..<1000 {
+//            myData[i] = sin(2.0 * Float(i)/1000 * Float.pi)
+//        }
+//        let sampleRate = Float(AKSettings.sampleRate)
+//        let desc = AKSampleDescriptor(noteNumber: 69, noteHz: sampleRate/1000, min_note: -1, max_note: -1, min_vel: -1, max_vel: -1, bLoop: true, fLoopStart: 0, fLoopEnd: 1, fStart: 0, fEnd: 0)
+//        let ptr = UnsafeMutablePointer<Float>(mutating: myData)
+//        let ddesc = AKSampleDataDescriptor(sd: desc, sampleRateHz: sampleRate, bInterleaved: false, nChannels: 1, nSamples: 1000, pData: ptr)
+//        sampler.loadRawSampleData(sdd: ddesc)
+//        sampler.setLoop(thruRelease: true)
+//        sampler.buildSimpleKeyMap()
+
+        // Set up the main amplitude envelope
         sampler.ampAttackTime = 0.01
         sampler.ampDecayTime = 0.1
         sampler.ampSustainLevel = 0.8
         sampler.ampReleaseTime = 0.5
 
-        //        sampler.filterEnable = true
-        //        sampler.filterCutoff = 20.0
-        //        sampler.filterAttackTime = 1.0
-        //        sampler.filterDecayTime = 1.0
-        //        sampler.filterSustainLevel = 0.5
-        //        sampler.filterReleaseTime = 10.0
+        // optionally, enable the per-voice filters and set up the filter envelope
+        // (Try this with the AdventrueKid sawtooth waveform example above)
+//        sampler.filterEnable = true
+//        sampler.filterCutoff = 20.0
+//        sampler.filterAttackTime = 1.0
+//        sampler.filterDecayTime = 1.0
+//        sampler.filterSustainLevel = 0.5
+//        sampler.filterReleaseTime = 10.0
     }
 
     func addMIDIListener(_ listener: AKMIDIListener) {
@@ -108,16 +125,13 @@ class Conductor {
         midi.openInput(midi.inputNames[byIndex])
     }
 
-    func loadSamples(byIndex: Int) {
-        if byIndex < 0 || byIndex > 3 { return }
-
+    func loadSfz(folderPath: String, sfzFileName: String) {
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
-
-        let sfzFiles = [ "TX Brass.sfz", "TX LoTine81z.sfz", "TX Metalimba.sfz", "TX Pluck Bass.sfz" ]
+        
         sampler.unloadAllSamples()
-        sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: sfzFiles[byIndex])
-
+        sampler.loadUsingSfzFile(folderPath: folderPath, sfzFileName: sfzFileName)
+        
         let elapsedTime = info.systemUptime - begin
         print("Time to load samples \(elapsedTime) seconds")
     }
@@ -166,9 +180,11 @@ class Conductor {
 
 }
 
-extension Conductor {
+extension Conductor
+{
     private func loadCompressed(baseURL: URL, noteNumber: MIDINoteNumber, folderName: String, fileEnding: String,
-                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1) {
+                                min_note: Int32 = -1, max_note: Int32 = -1, min_vel: Int32 = -1, max_vel: Int32 = -1)
+    {
         let folderURL = baseURL.appendingPathComponent(folderName)
         let fileName = folderName + fileEnding
         let fileURL = folderURL.appendingPathComponent(fileName)
@@ -180,7 +196,8 @@ extension Conductor {
         sampler.loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: fileURL.path))
     }
 
-    func loadAndMapCompressedSampleFiles() {
+    func loadAndMapCompressedSampleFiles()
+    {
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
 

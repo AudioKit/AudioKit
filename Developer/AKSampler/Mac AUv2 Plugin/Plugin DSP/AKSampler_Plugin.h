@@ -39,12 +39,16 @@ public:
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue &   outValue);
-    
+
     virtual OSStatus SetParameter(      AudioUnitParameterID        inParameterID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue     inValue,
                                         UInt32                      inBufferOffsetInFrames);
+
+    virtual OSStatus SaveState(         CFPropertyListRef *         outData);
+    
+    virtual OSStatus RestoreState(      CFPropertyListRef           inData);
 
     virtual OSStatus HandleNoteOn(      UInt8 inChannel, UInt8 inNoteNumber,
                                         UInt8 inVelocity, UInt32 inStartFrame);
@@ -67,9 +71,10 @@ public:
                                         UInt32 nFrames);
     
 private:
-    CFStringRef presetPath;
+    CFStringRef presetFolderPath;
+    CFStringRef presetName;
     void initForTesting();
-    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd);
+    bool loadCompressedSampleFile(AKSampleFileDescriptor& sfd, float volBoostDb=0.0f);
     void loadDemoSamples();
     OSStatus loadPreset();
 };

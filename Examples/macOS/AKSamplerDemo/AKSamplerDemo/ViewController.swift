@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ExtendingAudioKit
 //
-//  Created by Shane Dunne on 2018-01-23.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -27,6 +27,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var filterEnableCheckbox: NSButton!
     @IBOutlet weak var filterCutoffSlider: NSSlider!
     @IBOutlet weak var filterCutoffReadout: NSTextField!
+    @IBOutlet weak var filterResonanceSlider: NSSlider!
+    @IBOutlet weak var filterResonanceReadout: NSTextField!
 
     @IBOutlet weak var ampAttackSlider: NSSlider!
     @IBOutlet weak var ampAttackReadout: NSTextField!
@@ -46,16 +48,23 @@ class ViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var filterReleaseSlider: NSSlider!
     @IBOutlet weak var filterReleaseReadout: NSTextField!
 
+    var sfzFolderPath = "/Users/shane/Desktop/SuperFM SFZ"
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         conductor.midi.addListener(self)
 
         sampleSetPopup.removeAllItems()
-        sampleSetPopup.addItem(withTitle: "Brass")
-        sampleSetPopup.addItem(withTitle: "LoTine")
-        sampleSetPopup.addItem(withTitle: "Metalimba")
-        sampleSetPopup.addItem(withTitle: "Pluck Brass")
+        do {
+            for fileName in try FileManager.default.contentsOfDirectory(atPath: sfzFolderPath).sorted() {
+                if fileName.hasSuffix(".sfz") {
+                    sampleSetPopup.addItem(withTitle: fileName)
+                }
+            }
+        } catch {
+            print(error)
+        }
 
         sampler.filterCutoff = 100.0
 
@@ -65,9 +74,12 @@ class ViewController: NSViewController, NSWindowDelegate {
         pitchOffsetReadout.doubleValue = sampler.pitchBend
         vibratoDepthSlider.doubleValue = sampler.vibratoDepth
         vibratoDepthReadout.doubleValue = sampler.vibratoDepth
+
         filterEnableCheckbox.state = sampler.filterEnable ? .on : .off
         filterCutoffSlider.intValue = Int32(sampler.filterCutoff)
         filterCutoffReadout.intValue = Int32(sampler.filterCutoff)
+        filterResonanceSlider.doubleValue = sampler.filterResonance
+        filterResonanceReadout.doubleValue = sampler.filterResonance
 
         ampAttackSlider.doubleValue = sampler.ampAttackTime
         ampAttackReadout.doubleValue = sampler.ampAttackTime
@@ -97,8 +109,28 @@ class ViewController: NSViewController, NSWindowDelegate {
         return true
     }
 
+    @IBAction func onFolderButton(_ sender: NSButton) {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        if openPanel.runModal() == NSApplication.ModalResponse.OK {
+            sfzFolderPath = openPanel.url!.path
+            sampleSetPopup.removeAllItems()
+            do {
+                for fileName in try FileManager.default.contentsOfDirectory(atPath: sfzFolderPath).sorted() {
+                    if fileName.hasSuffix(".sfz") {
+                        sampleSetPopup.addItem(withTitle: fileName)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+
     @IBAction func onSampleSetSelect(_ sender: NSPopUpButton) {
-        conductor.loadSamples(byIndex: sender.indexOfSelectedItem)
+        conductor.loadSfz(folderPath: sfzFolderPath, sfzFileName: sender.titleOfSelectedItem!)
     }
 
     @IBAction func onVolumeSliderChange(_ sender: NSSlider) {
@@ -123,6 +155,11 @@ class ViewController: NSViewController, NSWindowDelegate {
     @IBAction func onFilterCutoffSliderChange(_ sender: NSSlider) {
         filterCutoffReadout.intValue = sender.intValue
         sampler.filterCutoff = sender.doubleValue
+    }
+
+    @IBAction func onFilterResonanceSlider(_ sender: NSSlider) {
+        filterResonanceReadout.floatValue = sender.floatValue
+        sampler.filterResonance = sender.doubleValue
     }
 
     @IBAction func onAmpAttackSliderChange(_ sender: NSSlider) {

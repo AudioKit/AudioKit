@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)

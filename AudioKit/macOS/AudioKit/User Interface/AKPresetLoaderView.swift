@@ -2,7 +2,7 @@
 //  AKPresetLoaderView.swift
 //  AudioKit for macOS
 //
-//  Created by Aurelius Prochazka on 7/30/16.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 

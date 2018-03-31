@@ -1,13 +1,14 @@
 //
 //  AKSamplerDSP.cpp
-//  ExtendingAudioKit
+//  AudioKit Core
 //
-//  Created by Shane Dunne on 2018-02-19.
-//  Copyright © 2018 Shane Dunne & Associates. All rights reserved.
+//  Created by Shane Dunne, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKSamplerDSP.hpp"
 #include "wavpack.h"
+#include <math.h>
 
 extern "C" void* createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
@@ -91,7 +92,7 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
     filterCutoffRamp.setTarget(1000.0, true);
-    filterResonanceRamp.setTarget(0.0, true);
+    filterResonanceRamp.setTarget(1.0, true);
 }
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
@@ -129,7 +130,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             filterCutoffRamp.setTarget(value, immediate);
             break;
         case filterResonanceParam:
-            filterResonanceRamp.setTarget(value, immediate);
+            filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
         case ampAttackTimeParam:
@@ -178,7 +179,7 @@ float AKSamplerDSP::getParameter(uint64_t address)
         case filterCutoffParam:
             return filterCutoffRamp.getTarget();
         case filterResonanceParam:
-            return filterResonanceRamp.getTarget();
+            return -20.0f * log10(filterResonanceRamp.getTarget());
 
         case ampAttackTimeParam:
             return ampEGParams.getAttackTimeSeconds();
@@ -220,8 +221,9 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        resonanceDb = (float)filterResonanceRamp.getValue();
-        
+        filterResonanceRamp.advanceTo(_now + frameOffset);
+        resLinear = (float)filterResonanceRamp.getValue();
+
         // get data
         float *outBuffers[2];
         outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
