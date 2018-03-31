@@ -169,7 +169,7 @@ private extension ABAudiobusController {
             return false
         }
 
-        return connectedPorts.flatMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
+        return connectedPorts.compactMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
     }
 
 }
