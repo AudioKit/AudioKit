@@ -107,6 +107,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
         self.bufferSize = UInt32(bufferSize)
 
         setupNode(input)
+        self.node = input
         setupReconnection()
     }
 }
