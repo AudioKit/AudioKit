@@ -9,6 +9,8 @@ Preparing sets of samples for **AKSampler** involves four steps:
 
 This document describes the process of preparing a set of demonstration samples, starting with the sample files included with [ROMPlayer](https://github.com/AudioKit/ROMPlayer).
 
+You can download the finished product from [this link](http://audiokit.io/downloads/ROMPlayerInstruments.zip).
+
 ## Preparing/acquiring sample files
 The demo samples were recorded and prepared by Matthew Fecher from a Yamaha TX81z hardware FM synthesizer module, using commercial sampling software called [SampleRobot](http://www.samplerobot.com). If you have *MainStage 3* on the Mac, you can use its excellent *autosampler* function instead.
 
