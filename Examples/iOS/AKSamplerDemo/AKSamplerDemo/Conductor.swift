@@ -58,7 +58,7 @@ class Conductor {
 
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
-        // http://getdunne.net/download/ROMPlayer_Instruments.zip
+        // http://audiokit.io/downloads/ROMPlayer_Instruments.zip
         // see loadSamples(byIndex:) below
 
         sampler.ampAttackTime = 0.01
@@ -168,7 +168,7 @@ extension Conductor {
     }
 
     func loadAndMapCompressedSampleFiles() {
-        // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // Download http://audiokit.io/downloads/TX_LoTine81z.zip
         // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
         // Uncompress and put into your app's Documents folder.
         let folderName = "TX LoTine81z"
