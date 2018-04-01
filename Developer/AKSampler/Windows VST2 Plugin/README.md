@@ -18,4 +18,4 @@ To facilitate reading *compressed* sound files, this project uses David Bryant's
 *Wavpack* is subject to the terms of the MIT License.
 
 ## Demo sound files
-To get started right away, we recommend that you download a small set of prepared files from this link: http://getdunne.net/download/ROMPlayer_Instruments.zip. That download also includes some useful utilities and a detailed README describing how to prepare your own sample files.
+To get started right away, we recommend that you download a small set of prepared files from [this link](http://audiokit.io/downloads/ROMPlayerInstruments.zip). That download also includes some useful utilities and a detailed README describing how to prepare your own sample files.

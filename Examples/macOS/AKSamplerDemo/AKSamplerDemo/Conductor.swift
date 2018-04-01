@@ -59,7 +59,7 @@ class Conductor {
         
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
-        // http://getdunne.net/download/ROMPlayer_Instruments.zip
+        // http://audiokit.io/downloads/ROMPlayerInstruments.zip
         sampler.loadUsingSfzFile(folderPath: "/Users/shane/Downloads/ROMPlayer Instruments", sfzFileName: "TX Brass.sfz")
 
         // Illustration of how to load single-cycle waveforms
@@ -201,7 +201,7 @@ extension Conductor
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
 
-        // Download http://getdunne.com/download/TX_LoTine81z.zip
+        // Download http://audiokit.io/downloads/TX_LoTine81z.zip
         // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
         // Uncompress and put folder inside wherever baseURL (see above) points
 

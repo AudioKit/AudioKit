@@ -41,6 +41,6 @@ enum {
     kPresetNameProperty
 };
 
-// Download http://getdunne.com/download/ROMPlayer_Instruments.zip and unzip in your Downloads folder.
+// Download http://audiokit.io/downloads/ROMPlayerInstruments.zip and unzip in your Downloads folder.
 // Then change "shane" below to your user name.
-#define PRESETS_DIR_PATH "/Users/shane/Desktop/MM Dreams SFZ"
+#define PRESETS_DIR_PATH "/Users/shane/Desktop/ROMPlayer Instruments"
