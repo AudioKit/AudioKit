@@ -27,3 +27,9 @@ There are many sample projects included in AudioKit's `Examples` folder. The exa
 
 * [Audio Unit Creation](AudioUnitCreation.md)
 * [Is AudioUnit Extension different from the AuV3 plugin which I use in Logic?](PluginsVsExtensions.md)
+
+## Sampler Overviews
+
+* [Survey of AudioKit's Sampler Options](Samplers.md)
+* [AKSampler in-depth](AKSampler.md)
+* [Preparing Sample Sets](PreparingSampleSets.md)
