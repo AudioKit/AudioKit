@@ -162,7 +162,7 @@ void AKSampler_Plugin::loadDemoSamples()
 {
     // Example showing how to load a group of samples when you don't have a .sfz metadata file.
     
-    // Download http://getdunne.com/download/TX_LoTine81z.zip
+    // Download http://audiokit.io/downloads/TX_LoTine81z.zip
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
     // Put folder wherever you wish (e.g. inside a "Compressed Sounds" folder on your Mac desktop
     // and edit paths below accordingly

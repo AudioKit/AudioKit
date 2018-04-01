@@ -8,7 +8,7 @@ Note you must **run the AKSamplerDemo program once on your iOS device** to get i
 The demo program supports *iTunes File Sharing*, so once you have installed it on your iOS device, you can use iTunes to copy samples into its *Documents* folder. See [this Apple document](https://support.apple.com/en-ca/HT201301) for details.
 
 ## Getting the demo samples
-To use this demo, you will first need to have some samples to load. Start by downloading [these ready-made samples](http://getdunne.net/download/ROMPlayer_Instruments.zip). Unzip wherever you wish, and use *iTunes File Sharing* as described above, to copy the *ROMPlayer Instruments** folder into the Documents area for **AKSamplerDemo**. 
+To use this demo, you will first need to have some samples to load. Start by downloading [these ready-made samples](http://audiokit.io/downloads/ROMPlayerInstruments.zip). Unzip wherever you wish, and use *iTunes File Sharing* as described above, to copy the *ROMPlayer Instruments** folder into the Documents area for **AKSamplerDemo**. 
 
 The demo samples are the same as the ones included in the AudioKit **ROMPlayer** code repo on GitHub. They have been compressed using [WavPack](http://www.wavpack.com), and a `.sfz` metadata file has been added, to specify key/velocity mapping and loop points.
 
