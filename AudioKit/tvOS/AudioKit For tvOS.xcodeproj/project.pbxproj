@@ -814,50 +814,9 @@
 		C49B211B204A0D57009C7C8E /* Shakers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B206F204A0D54009C7C8E /* Shakers.cpp */; };
 		C49B211C204A0D57009C7C8E /* DelayL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B2070204A0D54009C7C8E /* DelayL.cpp */; };
 		C49B211D204A0D57009C7C8E /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B2071204A0D54009C7C8E /* OneZero.cpp */; };
-		C49B211E204A0D57009C7C8E /* mandpluk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2073204A0D54009C7C8E /* mandpluk.raw */; };
-		C49B211F204A0D57009C7C8E /* impuls20.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2074204A0D54009C7C8E /* impuls20.raw */; };
-		C49B2120204A0D57009C7C8E /* twopeaks.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2075204A0D54009C7C8E /* twopeaks.raw */; };
-		C49B2121204A0D57009C7C8E /* tommiddr.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2076204A0D54009C7C8E /* tommiddr.raw */; };
-		C49B2122204A0D57009C7C8E /* mand8.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2077204A0D54009C7C8E /* mand8.raw */; };
-		C49B2123204A0D57009C7C8E /* mand9.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2078204A0D54009C7C8E /* mand9.raw */; };
-		C49B2124204A0D57009C7C8E /* sineblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2079204A0D54009C7C8E /* sineblnk.raw */; };
-		C49B2125204A0D57009C7C8E /* mand10.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B207A204A0D54009C7C8E /* mand10.raw */; };
-		C49B2126204A0D57009C7C8E /* mand11.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B207B204A0D54009C7C8E /* mand11.raw */; };
-		C49B2127204A0D57009C7C8E /* snardrum.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B207C204A0D54009C7C8E /* snardrum.raw */; };
-		C49B2128204A0D57009C7C8E /* mand12.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B207D204A0D54009C7C8E /* mand12.raw */; };
 		C49B2129204A0D57009C7C8E /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B207E204A0D54009C7C8E /* mand_raw.h */; };
-		C49B212A204A0D57009C7C8E /* silence.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B207F204A0D54009C7C8E /* silence.raw */; };
-		C49B212B204A0D57009C7C8E /* impuls40.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2080204A0D54009C7C8E /* impuls40.raw */; };
-		C49B212C204A0D57009C7C8E /* ppksblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2081204A0D54009C7C8E /* ppksblnk.raw */; };
-		C49B212D204A0D57009C7C8E /* dope.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2082204A0D54009C7C8E /* dope.raw */; };
-		C49B212E204A0D57009C7C8E /* ahh.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2083204A0D54009C7C8E /* ahh.raw */; };
-		C49B212F204A0D57009C7C8E /* peksblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2084204A0D54009C7C8E /* peksblnk.raw */; };
 		C49B2130204A0D57009C7C8E /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B2085204A0D54009C7C8E /* fwavblnk_raw.h */; };
-		C49B2131204A0D57009C7C8E /* britestk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2086204A0D54009C7C8E /* britestk.raw */; };
-		C49B2132204A0D57009C7C8E /* tomlowdr.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2087204A0D54009C7C8E /* tomlowdr.raw */; };
-		C49B2133204A0D57009C7C8E /* eee.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2088204A0D54009C7C8E /* eee.raw */; };
-		C49B2134204A0D57009C7C8E /* halfwave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2089204A0D54009C7C8E /* halfwave.raw */; };
-		C49B2135204A0D57009C7C8E /* cowbell1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B208A204A0D54009C7C8E /* cowbell1.raw */; };
-		C49B2136204A0D57009C7C8E /* sinewave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B208B204A0D54009C7C8E /* sinewave.raw */; };
-		C49B2137204A0D57009C7C8E /* hihatcym.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B208C204A0D54009C7C8E /* hihatcym.raw */; };
-		C49B2138204A0D57009C7C8E /* ridecymb.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B208D204A0D54009C7C8E /* ridecymb.raw */; };
-		C49B2139204A0D57009C7C8E /* snglpeak.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B208E204A0D54009C7C8E /* snglpeak.raw */; };
 		C49B213A204A0D57009C7C8E /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B208F204A0D54009C7C8E /* sinewave_raw.h */; };
-		C49B213B204A0D57009C7C8E /* mand4.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2090204A0D54009C7C8E /* mand4.raw */; };
-		C49B213C204A0D57009C7C8E /* mand5.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2091204A0D54009C7C8E /* mand5.raw */; };
-		C49B213D204A0D57009C7C8E /* impuls10.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2092204A0D54009C7C8E /* impuls10.raw */; };
-		C49B213E204A0D57009C7C8E /* mand7.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2093204A0D54009C7C8E /* mand7.raw */; };
-		C49B213F204A0D57009C7C8E /* ooo.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2094204A0D54009C7C8E /* ooo.raw */; };
-		C49B2140204A0D57009C7C8E /* mand6.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2095204A0D54009C7C8E /* mand6.raw */; };
-		C49B2141204A0D57009C7C8E /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2096204A0D54009C7C8E /* fwavblnk.raw */; };
-		C49B2142204A0D57009C7C8E /* tomhidrm.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2097204A0D54009C7C8E /* tomhidrm.raw */; };
-		C49B2143204A0D57009C7C8E /* mand2.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2098204A0D54009C7C8E /* mand2.raw */; };
-		C49B2144204A0D57009C7C8E /* tambourn.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B2099204A0D54009C7C8E /* tambourn.raw */; };
-		C49B2145204A0D57009C7C8E /* mand3.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B209A204A0D54009C7C8E /* mand3.raw */; };
-		C49B2146204A0D57009C7C8E /* marmstk1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B209B204A0D54009C7C8E /* marmstk1.raw */; };
-		C49B2147204A0D57009C7C8E /* mand1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B209C204A0D54009C7C8E /* mand1.raw */; };
-		C49B2148204A0D57009C7C8E /* bassdrum.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B209D204A0D54009C7C8E /* bassdrum.raw */; };
-		C49B2149204A0D57009C7C8E /* crashcym.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B209E204A0D54009C7C8E /* crashcym.raw */; };
 		C49B214A204A0D57009C7C8E /* Rhodey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B209F204A0D54009C7C8E /* Rhodey.cpp */; };
 		C49B214B204A0D57009C7C8E /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B20A0204A0D55009C7C8E /* Stk.cpp */; };
 		C49B214C204A0D57009C7C8E /* FileLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B20A1204A0D55009C7C8E /* FileLoop.cpp */; };
@@ -877,7 +836,6 @@
 		C49B2177204A2A84009C7C8E /* AKAppleSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B216F204A2A84009C7C8E /* AKAppleSampler+getAUPresetXML.swift */; };
 		C49B2178204A2A84009C7C8E /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B2170204A2A84009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49B2179204A2A84009C7C8E /* TemplateAUPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B2171204A2A84009C7C8E /* TemplateAUPreset.h */; };
-		C49B217A204A2A84009C7C8E /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = C49B2172204A2A84009C7C8E /* Skeleton.aupreset */; };
 		C49B217B204A2A84009C7C8E /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B2173204A2A84009C7C8E /* AKAUPresetBuilder.swift */; };
 		C49B217C204A2A84009C7C8E /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C49B2174204A2A84009C7C8E /* AKPresetManager.m */; };
 		C49B217D204A2A84009C7C8E /* AKAppleSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B2175204A2A84009C7C8E /* AKAppleSampler+SoundFont.swift */; };
@@ -1012,6 +970,12 @@
 		EA03BFE4201F333200E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */; };
 		EA03BFEC202070F400E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFEB202070F300E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA03C02A2024604500E8BE2C /* ParameterRamper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA03C0292024604500E8BE2C /* ParameterRamper.cpp */; };
+		EA13F14E20722C770090288E /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA13F14820722C770090288E /* AKSampler+SFZ.swift */; };
+		EA13F14F20722C770090288E /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA13F14920722C770090288E /* AKSampler.swift */; };
+		EA13F15020722C770090288E /* AKSamplerAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA13F14A20722C770090288E /* AKSamplerAudioUnit.swift */; };
+		EA13F15120722C770090288E /* AKSamplerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA13F14B20722C770090288E /* AKSamplerDSP.hpp */; };
+		EA13F15220722C770090288E /* AKSamplerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA13F14C20722C770090288E /* AKSamplerDSP.mm */; };
+		EA13F15320722C770090288E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EA13F14D20722C770090288E /* README.md */; };
 		EA6949E91C5A2F610035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E81C5A2F610035B5DF /* AKSettings.swift */; };
 		EA6949EF1C5AE1EA0035B5DF /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */; };
 		EAB4E0512026A08700171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E0502026A08600171A16 /* AKCostelloReverbDSP.mm */; };
@@ -2089,6 +2053,12 @@
 		EA03BFE3201F333200E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFEB202070F300E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA03C0292024604500E8BE2C /* ParameterRamper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterRamper.cpp; sourceTree = "<group>"; };
+		EA13F14820722C770090288E /* AKSampler+SFZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SFZ.swift"; sourceTree = "<group>"; };
+		EA13F14920722C770090288E /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSampler.swift; sourceTree = "<group>"; };
+		EA13F14A20722C770090288E /* AKSamplerAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSamplerAudioUnit.swift; sourceTree = "<group>"; };
+		EA13F14B20722C770090288E /* AKSamplerDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSamplerDSP.hpp; sourceTree = "<group>"; };
+		EA13F14C20722C770090288E /* AKSamplerDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSamplerDSP.mm; sourceTree = "<group>"; };
+		EA13F14D20722C770090288E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EA6949E81C5A2F610035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		EA8BA9851C5E253900BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
@@ -3976,6 +3946,7 @@
 		C49B216C204A2A84009C7C8E /* Samplers */ = {
 			isa = PBXGroup;
 			children = (
+				EA13F14720722C770090288E /* AKSampler */,
 				C49B216D204A2A84009C7C8E /* Apple Sampler */,
 			);
 			path = Samplers;
@@ -4567,6 +4538,19 @@
 			path = Convolution;
 			sourceTree = "<group>";
 		};
+		EA13F14720722C770090288E /* AKSampler */ = {
+			isa = PBXGroup;
+			children = (
+				EA13F14820722C770090288E /* AKSampler+SFZ.swift */,
+				EA13F14920722C770090288E /* AKSampler.swift */,
+				EA13F14A20722C770090288E /* AKSamplerAudioUnit.swift */,
+				EA13F14B20722C770090288E /* AKSamplerDSP.hpp */,
+				EA13F14C20722C770090288E /* AKSamplerDSP.mm */,
+				EA13F14D20722C770090288E /* README.md */,
+			);
+			path = AKSampler;
+			sourceTree = "<group>";
+		};
 		EAF006771C4C7A5200ECD392 /* Morphing Oscillator */ = {
 			isa = PBXGroup;
 			children = (
@@ -4784,6 +4768,7 @@
 				C49B20F8204A0D57009C7C8E /* TapDelay.h in Headers */,
 				C49B20D6204A0D57009C7C8E /* Drummer.h in Headers */,
 				C49B20DB204A0D57009C7C8E /* InetWvIn.h in Headers */,
+				EA13F15120722C770090288E /* AKSamplerDSP.hpp in Headers */,
 				C49B20DF204A0D57009C7C8E /* PitShift.h in Headers */,
 				C49DCD4D1D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */,
 				C4AC0B161FC9419900EDA024 /* AKAudioUnitBase.h in Headers */,
@@ -5022,51 +5007,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49B2147204A0D57009C7C8E /* mand1.raw in Resources */,
-				C49B213E204A0D57009C7C8E /* mand7.raw in Resources */,
-				C49B2140204A0D57009C7C8E /* mand6.raw in Resources */,
-				C49B213D204A0D57009C7C8E /* impuls10.raw in Resources */,
-				C49B2141204A0D57009C7C8E /* fwavblnk.raw in Resources */,
-				C49B2127204A0D57009C7C8E /* snardrum.raw in Resources */,
-				C49B2136204A0D57009C7C8E /* sinewave.raw in Resources */,
-				C49B211F204A0D57009C7C8E /* impuls20.raw in Resources */,
-				C49B213F204A0D57009C7C8E /* ooo.raw in Resources */,
-				C49B2148204A0D57009C7C8E /* bassdrum.raw in Resources */,
 				C49B1DDE204A0CFA009C7C8E /* COPYING in Resources */,
-				C49B2124204A0D57009C7C8E /* sineblnk.raw in Resources */,
-				C49B2137204A0D57009C7C8E /* hihatcym.raw in Resources */,
-				C49B2128204A0D57009C7C8E /* mand12.raw in Resources */,
-				C49B2135204A0D57009C7C8E /* cowbell1.raw in Resources */,
-				C49B212C204A0D57009C7C8E /* ppksblnk.raw in Resources */,
-				C49B213B204A0D57009C7C8E /* mand4.raw in Resources */,
-				C49B2133204A0D57009C7C8E /* eee.raw in Resources */,
-				C49B2125204A0D57009C7C8E /* mand10.raw in Resources */,
-				C49B2121204A0D57009C7C8E /* tommiddr.raw in Resources */,
-				C49B212B204A0D57009C7C8E /* impuls40.raw in Resources */,
-				C49B213C204A0D57009C7C8E /* mand5.raw in Resources */,
-				C49B211E204A0D57009C7C8E /* mandpluk.raw in Resources */,
-				C49B2122204A0D57009C7C8E /* mand8.raw in Resources */,
-				C49B2132204A0D57009C7C8E /* tomlowdr.raw in Resources */,
-				C49B2134204A0D57009C7C8E /* halfwave.raw in Resources */,
-				C49B212F204A0D57009C7C8E /* peksblnk.raw in Resources */,
-				C49B2143204A0D57009C7C8E /* mand2.raw in Resources */,
-				C49B2123204A0D57009C7C8E /* mand9.raw in Resources */,
-				C49B2146204A0D57009C7C8E /* marmstk1.raw in Resources */,
-				C49B2149204A0D57009C7C8E /* crashcym.raw in Resources */,
-				C49B217A204A2A84009C7C8E /* Skeleton.aupreset in Resources */,
-				C49B2144204A0D57009C7C8E /* tambourn.raw in Resources */,
-				C49B212D204A0D57009C7C8E /* dope.raw in Resources */,
-				C49B212E204A0D57009C7C8E /* ahh.raw in Resources */,
-				C49B2145204A0D57009C7C8E /* mand3.raw in Resources */,
 				C49B1DD8204A0CFA009C7C8E /* LICENSE.txt in Resources */,
-				C49B212A204A0D57009C7C8E /* silence.raw in Resources */,
-				C49B2142204A0D57009C7C8E /* tomhidrm.raw in Resources */,
-				C49B2139204A0D57009C7C8E /* snglpeak.raw in Resources */,
-				C49B2126204A0D57009C7C8E /* mand11.raw in Resources */,
-				C49B2131204A0D57009C7C8E /* britestk.raw in Resources */,
-				C49B2138204A0D57009C7C8E /* ridecymb.raw in Resources */,
+				EA13F15320722C770090288E /* README.md in Resources */,
 				C44EA26F201870EC0072399F /* README.md in Resources */,
-				C49B2120204A0D57009C7C8E /* twopeaks.raw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5212,6 +5156,7 @@
 				C470CF96201747E7003D1AFA /* AKTremoloAudioUnit.swift in Sources */,
 				C49B1E6A204A0CFA009C7C8E /* Compressor.cpp in Sources */,
 				C49B2153204A0D57009C7C8E /* DelayA.cpp in Sources */,
+				EA13F15020722C770090288E /* AKSamplerAudioUnit.swift in Sources */,
 				C49B1ED5204A0CFB009C7C8E /* gen_sine.c in Sources */,
 				C428590F1E90B7C3009B737D /* AKZitaReverb.swift in Sources */,
 				C49B1ED0204A0CFB009C7C8E /* pdhalf.c in Sources */,
@@ -5317,6 +5262,7 @@
 				C49A0A271D54290F007D8ADB /* threePoleLowPassFilter.swift in Sources */,
 				C46B27BC2029AE7D00EC0E87 /* AKPhaserDSP.mm in Sources */,
 				C49B1E8F204A0CFA009C7C8E /* tadsr.c in Sources */,
+				EA13F15220722C770090288E /* AKSamplerDSP.mm in Sources */,
 				C4D4C4FA1EB7176600134B39 /* AKTuningTable.swift in Sources */,
 				C49B1E95204A0CFB009C7C8E /* bpm.c in Sources */,
 				C47AE4DC1D39CCC60091118F /* AKPhaseDistortionOscillator.swift in Sources */,
@@ -5372,6 +5318,7 @@
 				C49B1E03204A0CFA009C7C8E /* waveset.c in Sources */,
 				C4E375A11D13575C00FDB70D /* AKMandolin.swift in Sources */,
 				C48444FD1C370339007BE794 /* pluckedString.swift in Sources */,
+				EA13F14F20722C770090288E /* AKSampler.swift in Sources */,
 				C49B1E2E204A0CFA009C7C8E /* scale.c in Sources */,
 				C49B217D204A2A84009C7C8E /* AKAppleSampler+SoundFont.swift in Sources */,
 				C49B211D204A0D57009C7C8E /* OneZero.cpp in Sources */,
@@ -5686,6 +5633,7 @@
 				C49B1EF9204A0CFB009C7C8E /* butlp.c in Sources */,
 				C49B211C204A0D57009C7C8E /* DelayL.cpp in Sources */,
 				C4D800671F94A1EA00D4A5F0 /* AKAudioFile+Utilities.swift in Sources */,
+				EA13F14E20722C770090288E /* AKSampler+SFZ.swift in Sources */,
 				C44EA278201870EC0072399F /* AKPhaser.swift in Sources */,
 				C4D4C4F61EB7176600134B39 /* AKTuningTable+NorthIndianRaga.swift in Sources */,
 				C49B1EA7204A0CFB009C7C8E /* bltriangle.c in Sources */,
