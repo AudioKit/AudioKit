@@ -960,50 +960,9 @@
 		C49B1B53204A0C48009C7C8E /* Shakers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AA7204A0C44009C7C8E /* Shakers.cpp */; };
 		C49B1B54204A0C48009C7C8E /* DelayL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AA8204A0C45009C7C8E /* DelayL.cpp */; };
 		C49B1B55204A0C48009C7C8E /* OneZero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AA9204A0C45009C7C8E /* OneZero.cpp */; };
-		C49B1B56204A0C48009C7C8E /* mandpluk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AAB204A0C45009C7C8E /* mandpluk.raw */; };
-		C49B1B57204A0C48009C7C8E /* impuls20.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AAC204A0C45009C7C8E /* impuls20.raw */; };
-		C49B1B58204A0C48009C7C8E /* twopeaks.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AAD204A0C45009C7C8E /* twopeaks.raw */; };
-		C49B1B59204A0C48009C7C8E /* tommiddr.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AAE204A0C45009C7C8E /* tommiddr.raw */; };
-		C49B1B5A204A0C48009C7C8E /* mand8.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AAF204A0C45009C7C8E /* mand8.raw */; };
-		C49B1B5B204A0C48009C7C8E /* mand9.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB0204A0C45009C7C8E /* mand9.raw */; };
-		C49B1B5C204A0C48009C7C8E /* sineblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB1204A0C45009C7C8E /* sineblnk.raw */; };
-		C49B1B5D204A0C48009C7C8E /* mand10.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB2204A0C45009C7C8E /* mand10.raw */; };
-		C49B1B5E204A0C48009C7C8E /* mand11.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB3204A0C45009C7C8E /* mand11.raw */; };
-		C49B1B5F204A0C48009C7C8E /* snardrum.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB4204A0C45009C7C8E /* snardrum.raw */; };
-		C49B1B60204A0C48009C7C8E /* mand12.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB5204A0C45009C7C8E /* mand12.raw */; };
 		C49B1B61204A0C48009C7C8E /* mand_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1AB6204A0C45009C7C8E /* mand_raw.h */; };
-		C49B1B62204A0C48009C7C8E /* silence.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB7204A0C45009C7C8E /* silence.raw */; };
-		C49B1B63204A0C48009C7C8E /* impuls40.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB8204A0C45009C7C8E /* impuls40.raw */; };
-		C49B1B64204A0C48009C7C8E /* ppksblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AB9204A0C45009C7C8E /* ppksblnk.raw */; };
-		C49B1B65204A0C48009C7C8E /* dope.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ABA204A0C45009C7C8E /* dope.raw */; };
-		C49B1B66204A0C48009C7C8E /* ahh.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ABB204A0C45009C7C8E /* ahh.raw */; };
-		C49B1B67204A0C48009C7C8E /* peksblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ABC204A0C45009C7C8E /* peksblnk.raw */; };
 		C49B1B68204A0C48009C7C8E /* fwavblnk_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1ABD204A0C45009C7C8E /* fwavblnk_raw.h */; };
-		C49B1B69204A0C48009C7C8E /* britestk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ABE204A0C45009C7C8E /* britestk.raw */; };
-		C49B1B6A204A0C48009C7C8E /* tomlowdr.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ABF204A0C45009C7C8E /* tomlowdr.raw */; };
-		C49B1B6B204A0C48009C7C8E /* eee.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC0204A0C45009C7C8E /* eee.raw */; };
-		C49B1B6C204A0C48009C7C8E /* halfwave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC1204A0C45009C7C8E /* halfwave.raw */; };
-		C49B1B6D204A0C48009C7C8E /* cowbell1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC2204A0C45009C7C8E /* cowbell1.raw */; };
-		C49B1B6E204A0C48009C7C8E /* sinewave.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC3204A0C45009C7C8E /* sinewave.raw */; };
-		C49B1B6F204A0C48009C7C8E /* hihatcym.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC4204A0C45009C7C8E /* hihatcym.raw */; };
-		C49B1B70204A0C48009C7C8E /* ridecymb.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC5204A0C45009C7C8E /* ridecymb.raw */; };
-		C49B1B71204A0C48009C7C8E /* snglpeak.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC6204A0C45009C7C8E /* snglpeak.raw */; };
 		C49B1B72204A0C48009C7C8E /* sinewave_raw.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1AC7204A0C45009C7C8E /* sinewave_raw.h */; };
-		C49B1B73204A0C48009C7C8E /* mand4.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC8204A0C45009C7C8E /* mand4.raw */; };
-		C49B1B74204A0C48009C7C8E /* mand5.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AC9204A0C45009C7C8E /* mand5.raw */; };
-		C49B1B75204A0C48009C7C8E /* impuls10.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACA204A0C45009C7C8E /* impuls10.raw */; };
-		C49B1B76204A0C48009C7C8E /* mand7.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACB204A0C45009C7C8E /* mand7.raw */; };
-		C49B1B77204A0C48009C7C8E /* ooo.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACC204A0C45009C7C8E /* ooo.raw */; };
-		C49B1B78204A0C48009C7C8E /* mand6.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACD204A0C45009C7C8E /* mand6.raw */; };
-		C49B1B79204A0C48009C7C8E /* fwavblnk.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACE204A0C45009C7C8E /* fwavblnk.raw */; };
-		C49B1B7A204A0C48009C7C8E /* tomhidrm.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1ACF204A0C45009C7C8E /* tomhidrm.raw */; };
-		C49B1B7B204A0C48009C7C8E /* mand2.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD0204A0C45009C7C8E /* mand2.raw */; };
-		C49B1B7C204A0C48009C7C8E /* tambourn.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD1204A0C45009C7C8E /* tambourn.raw */; };
-		C49B1B7D204A0C48009C7C8E /* mand3.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD2204A0C45009C7C8E /* mand3.raw */; };
-		C49B1B7E204A0C48009C7C8E /* marmstk1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD3204A0C45009C7C8E /* marmstk1.raw */; };
-		C49B1B7F204A0C48009C7C8E /* mand1.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD4204A0C45009C7C8E /* mand1.raw */; };
-		C49B1B80204A0C48009C7C8E /* bassdrum.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD5204A0C45009C7C8E /* bassdrum.raw */; };
-		C49B1B81204A0C48009C7C8E /* crashcym.raw in Resources */ = {isa = PBXBuildFile; fileRef = C49B1AD6204A0C45009C7C8E /* crashcym.raw */; };
 		C49B1B82204A0C48009C7C8E /* Rhodey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AD7204A0C45009C7C8E /* Rhodey.cpp */; };
 		C49B1B83204A0C48009C7C8E /* Stk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AD8204A0C45009C7C8E /* Stk.cpp */; };
 		C49B1B84204A0C48009C7C8E /* FileLoop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1AD9204A0C46009C7C8E /* FileLoop.cpp */; };
@@ -1021,7 +980,6 @@
 		C49B218A204A2AE7009C7C8E /* AKAppleSampler+getAUPresetXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B2182204A2AE7009C7C8E /* AKAppleSampler+getAUPresetXML.swift */; };
 		C49B218B204A2AE7009C7C8E /* AKPresetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B2183204A2AE7009C7C8E /* AKPresetManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49B218C204A2AE7009C7C8E /* TemplateAUPreset.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B2184204A2AE7009C7C8E /* TemplateAUPreset.h */; };
-		C49B218D204A2AE7009C7C8E /* Skeleton.aupreset in Resources */ = {isa = PBXBuildFile; fileRef = C49B2185204A2AE7009C7C8E /* Skeleton.aupreset */; };
 		C49B218E204A2AE7009C7C8E /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B2186204A2AE7009C7C8E /* AKAUPresetBuilder.swift */; };
 		C49B218F204A2AE7009C7C8E /* AKPresetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C49B2187204A2AE7009C7C8E /* AKPresetManager.m */; };
 		C49B2190204A2AE7009C7C8E /* AKAppleSampler+SoundFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49B2188204A2AE7009C7C8E /* AKAppleSampler+SoundFont.swift */; };
@@ -5392,48 +5350,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49B1B7F204A0C48009C7C8E /* mand1.raw in Resources */,
-				C49B1B76204A0C48009C7C8E /* mand7.raw in Resources */,
-				C49B1B78204A0C48009C7C8E /* mand6.raw in Resources */,
-				C49B1B75204A0C48009C7C8E /* impuls10.raw in Resources */,
-				C49B1B79204A0C48009C7C8E /* fwavblnk.raw in Resources */,
-				C49B1B5F204A0C48009C7C8E /* snardrum.raw in Resources */,
-				C49B1B6E204A0C48009C7C8E /* sinewave.raw in Resources */,
-				C49B1B57204A0C48009C7C8E /* impuls20.raw in Resources */,
-				C49B1B77204A0C48009C7C8E /* ooo.raw in Resources */,
-				C49B1B80204A0C48009C7C8E /* bassdrum.raw in Resources */,
-				C49B1B5C204A0C48009C7C8E /* sineblnk.raw in Resources */,
-				C49B1B6F204A0C48009C7C8E /* hihatcym.raw in Resources */,
-				C49B1B60204A0C48009C7C8E /* mand12.raw in Resources */,
-				C49B1B6D204A0C48009C7C8E /* cowbell1.raw in Resources */,
-				C49B1B64204A0C48009C7C8E /* ppksblnk.raw in Resources */,
-				C49B1B73204A0C48009C7C8E /* mand4.raw in Resources */,
-				C49B1B6B204A0C48009C7C8E /* eee.raw in Resources */,
-				C49B1B5D204A0C48009C7C8E /* mand10.raw in Resources */,
-				C49B1B59204A0C48009C7C8E /* tommiddr.raw in Resources */,
-				C49B1B63204A0C48009C7C8E /* impuls40.raw in Resources */,
-				C49B1B74204A0C48009C7C8E /* mand5.raw in Resources */,
-				C49B1B56204A0C48009C7C8E /* mandpluk.raw in Resources */,
-				C49B1B5A204A0C48009C7C8E /* mand8.raw in Resources */,
-				C49B1B6A204A0C48009C7C8E /* tomlowdr.raw in Resources */,
-				C49B1B6C204A0C48009C7C8E /* halfwave.raw in Resources */,
-				C49B1B67204A0C48009C7C8E /* peksblnk.raw in Resources */,
-				C49B1B7B204A0C48009C7C8E /* mand2.raw in Resources */,
-				C49B1B5B204A0C48009C7C8E /* mand9.raw in Resources */,
-				C49B1B7E204A0C48009C7C8E /* marmstk1.raw in Resources */,
-				C49B1B81204A0C48009C7C8E /* crashcym.raw in Resources */,
-				C49B218D204A2AE7009C7C8E /* Skeleton.aupreset in Resources */,
-				C49B1B7C204A0C48009C7C8E /* tambourn.raw in Resources */,
-				C49B1B65204A0C48009C7C8E /* dope.raw in Resources */,
-				C49B1B66204A0C48009C7C8E /* ahh.raw in Resources */,
-				C49B1B7D204A0C48009C7C8E /* mand3.raw in Resources */,
-				C49B1B62204A0C48009C7C8E /* silence.raw in Resources */,
-				C49B1B7A204A0C48009C7C8E /* tomhidrm.raw in Resources */,
-				C49B1B71204A0C48009C7C8E /* snglpeak.raw in Resources */,
-				C49B1B5E204A0C48009C7C8E /* mand11.raw in Resources */,
-				C49B1B69204A0C48009C7C8E /* britestk.raw in Resources */,
-				C49B1B70204A0C48009C7C8E /* ridecymb.raw in Resources */,
-				C49B1B58204A0C48009C7C8E /* twopeaks.raw in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
