@@ -79,6 +79,7 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
 
 void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    _playing = false;
     sp_osc_create(&_private->_osc);
     sp_osc_init(_sp, _private->_osc, _private->_ftbl, 0);
     _private->_osc->freq = defaultFrequency;
