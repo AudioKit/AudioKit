@@ -11,8 +11,9 @@
     "homepage": "http://audiokit.io/",
     "social_media_url": "http://twitter.com/AudioKitMan",
     "documentation_url": "http://audiokit.io/docs/",
+    "static_framework": true,
     "source": {
-        "http": "https://github.com/audiokit/AudioKit/releases/download/v4.2/AudioKit.framework.zip"
+        "http": "http://github.com/audiokit/AudioKit/releases/download/v4.2/AudioKit.framework.zip"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
