@@ -73,7 +73,7 @@ public class AKPlayer: AKNode {
 
     public struct Fade {
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -253,13 +253,7 @@ public class AKPlayer: AKNode {
         return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
-    public var isLooping: Bool = false {
-        didSet {
-//            #if os(iOS)
-//                bufferLooping = true
-//            #endif
-        }
-    }
+    public var isLooping: Bool = false
 
     public var isPaused: Bool {
         return pauseTime != nil
