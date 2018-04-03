@@ -115,7 +115,7 @@ class ViewController: UIViewController {
             effectMenus[i]?.direction = .any
             effectMenus[i]?.textFont = UIFont.systemFont(ofSize: 10)
 
-            effectMenus[i]?.selectionAction = { [weak self] (index: Int, name: String) in
+            effectMenus[i]?.selectionAction = { [weak self] (_: Int, name: String) in
                 guard let strongSelf = self else { return }
                 guard let auManager = strongSelf.auManager else { return }
 
@@ -160,10 +160,12 @@ class ViewController: UIViewController {
         }
 
         if player.isPlaying {
+            AKLog("Stop")
             player.stop()
             sender.setTitle("▶️", for: .normal)
 
         } else {
+            AKLog("Play")
             player.play()
             sender.setTitle("⏹", for: .normal)
         }
@@ -203,7 +205,7 @@ class ViewController: UIViewController {
         let au = AudioUnitGenericView(au: audioUnit)
         auContainer.addSubview(au)
         auContainer.contentSize = au.frame.size
-        self.currentAU = au
+        currentAU = au
 
     }
 
