@@ -73,7 +73,7 @@ public class AKPlayer: AKNode {
 
     public struct Fade {
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -253,7 +253,13 @@ public class AKPlayer: AKNode {
         return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
-    public var isLooping: Bool = false
+    public var isLooping: Bool = false {
+        didSet {
+//            #if os(iOS)
+//                bufferLooping = true
+//            #endif
+        }
+    }
 
     public var isPaused: Bool {
         return pauseTime != nil
@@ -545,6 +551,7 @@ public class AKPlayer: AKNode {
         if isLooping && loop.end > 0 {
             segmentDuration = loop.end - startTime
         }
+
         DispatchQueue.main.async {
             self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
                                                         target: self,
@@ -627,15 +634,13 @@ public class AKPlayer: AKNode {
 
         frameCount = AVAudioFrameCount(totalFrames)
 
-        // AKLog("startFrame: \(startFrame) frameCount: \(frameCount)")
-
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             playerNode.scheduleSegment(audioFile,
                                        startingFrame: startFrame,
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
+                                       completionHandler: handleCallbackComplete)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
