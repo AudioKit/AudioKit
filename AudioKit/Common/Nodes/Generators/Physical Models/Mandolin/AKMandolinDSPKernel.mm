@@ -18,7 +18,7 @@ struct AKMandolinDSPKernel::_Internal
     float bodySize = 1;
 };
 
-AKMandolinDSPKernel::AKMandolinDSPKernel() { }
+AKMandolinDSPKernel::AKMandolinDSPKernel() : _private(new _Internal) { }
 
 AKMandolinDSPKernel::~AKMandolinDSPKernel() = default;
 
