@@ -253,13 +253,7 @@ public class AKPlayer: AKNode {
         return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
-    public var isLooping: Bool = false {
-        didSet {
-//            #if os(iOS)
-//                bufferLooping = true
-//            #endif
-        }
-    }
+    public var isLooping: Bool = false
 
     public var isPaused: Bool {
         return pauseTime != nil
