@@ -56,6 +56,7 @@ class ViewController: UIViewController {
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             let player = AKPlayer(audioFile: audioFile)
             player.isLooping = true
+            player.bufferLooping = true
             player >>> mixer
 
             // setup the initial input/output connections
