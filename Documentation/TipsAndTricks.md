@@ -1,9 +1,11 @@
 # AudioKit Tips and Tricks
 
-1. Because AudioKit is a static framework, Xcode will strip out the parts of AudioKit that you don't need for your app, keeping the size small. But, sometimes it is bad at deciding what you need and you'll get bizarre 'unrecognized selector sent to instance' at runtime, even though things compile fine.  If this is happening to you.  Add the following to the  "Other Linker Flags" in the "Build Settings" tab for your app: "-all_load".  This will force all of AudioKit to load regardless of what Xcode deems you need. This should be a very rare occurrence, but its a great tip to keep in your arsenal.
+## 1. Fix for 'unrecognized selector' bugs
+
+Because AudioKit is a static framework, Xcode will strip out the parts of AudioKit that you don't need for your app, keeping the size small. But, sometimes it is bad at deciding what you need and you'll get bizarre 'unrecognized selector sent to instance' at runtime, even though things compile fine.  If this is happening to you.  Add the following to the  "Other Linker Flags" in the "Build Settings" tab for your app: "-all_load".  This will force all of AudioKit to load regardless of what Xcode deems you need. This should be a very rare occurrence, but its a great tip to keep in your arsenal.
 
 
-2. Making AKAppleSampler not get corrupted by an audio route change 
+## 2. Making AKAppleSampler not get corrupted by an audio route change 
 
 When the audio session route changes (the iOS device is plugged into an external sound interface, headphones are connected, you start capturing a video on a mac using Quicktime...) AKSamplers start producing distorted audio.
 
@@ -35,7 +37,7 @@ Note 1: Sometimes stopping and starting AudioKit is not necessary. I suspect tha
 
 Note 2: Samplers need to reload. AudioKit could implement route tracking in the main singleton, register all samplers and do this automatically to work properly out of the box.
 
-3. Overridden math functions can show AKOperation related errors.  
+## 3. Overridden math functions can show AKOperation related errors.  
 
 This was originally documented [here](https://github.com/AudioKit/AudioKit/issues/1152).
 
