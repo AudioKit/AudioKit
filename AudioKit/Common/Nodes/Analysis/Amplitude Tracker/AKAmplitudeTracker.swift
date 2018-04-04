@@ -69,6 +69,8 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
+    ///   - threshold: point at which the callback is called
+    ///   - thresholdCallback: function to execute when the threshold is reached
     ///
     @objc public init(
         _ input: AKNode? = nil,
