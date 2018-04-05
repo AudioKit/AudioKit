@@ -2,9 +2,13 @@
 
 This document was only begun for AudioKit 4.1, but it should be kept to date from here on.
 
-## AudioKit 4.1 to Develop
+## AudioKt 4.2 to develop
 
-1. Any occurrence of AKSampler will have to be renamed AKAppleSampler if you want to continue to use this class. AKSampler is now a sampler that does not depend on Apple's AUSampler.
+No changes yet.
+
+## AudioKit 4.1 to 4.2
+
+Any occurrence of AKSampler will have to be renamed AKAppleSampler if you want to continue to use this class. AKSampler is now a sampler that does not depend on Apple's AUSampler.
 
 ## AudioKit 4.0.x to AudioKit 4.1
 
