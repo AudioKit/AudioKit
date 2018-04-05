@@ -550,7 +550,6 @@
 		C49B1E83204A0CFA009C7C8E /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4E204A0CF8009C7C8E /* Filter.h */; };
 		C49B1E84204A0CFA009C7C8E /* Compressor.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4F204A0CF8009C7C8E /* Compressor.h */; };
 		C49B1E85204A0CFA009C7C8E /* RageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C50204A0CF8009C7C8E /* RageProcessor.cpp */; };
-		C49B1E86204A0CFA009C7C8E /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C52204A0CF8009C7C8E /* sporth.c */; };
 		C49B1E87204A0CFA009C7C8E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C53204A0CF8009C7C8E /* stack.c */; };
 		C49B1E88204A0CFA009C7C8E /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C54204A0CF8009C7C8E /* plumber.c */; };
 		C49B1E89204A0CFA009C7C8E /* func.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C55204A0CF8009C7C8E /* func.c */; };
@@ -5243,7 +5242,6 @@
 				C45382091C3A5CBD00A51738 /* AKOperationGeneratorAudioUnit.mm in Sources */,
 				C49B1E8C204A0CFA009C7C8E /* mode.c in Sources */,
 				C42859211E90B80A009B737D /* AKDynamicRangeCompressor.swift in Sources */,
-				C49B1E86204A0CFA009C7C8E /* sporth.c in Sources */,
 				EA03BFD4201DD89C00E8BE2C /* AKMandolinDSPKernel.mm in Sources */,
 				C49B1DEE204A0CFA009C7C8E /* pitchamdf.c in Sources */,
 				C46B27B02029A39F00EC0E87 /* AKVariableDelayDSP.mm in Sources */,
