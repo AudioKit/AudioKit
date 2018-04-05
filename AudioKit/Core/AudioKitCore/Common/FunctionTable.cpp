@@ -64,6 +64,19 @@ namespace AudioKitCore
         for (int i=0; i < nTableSize; i++)
             pWaveTable[i] = (float)(amplitude * sin(double(i)/nTableSize * 2.0 * M_PI));
     }
+
+    void FunctionTable::square(float amplitude, float dutyCycle)
+    {
+        // in case user forgot, init table to default size
+        if (pWaveTable == 0) init();
+
+        float dcOffset = amplitude * (2.0f * dutyCycle - 1.0f);
+        for (int i=0; i < nTableSize; i++)
+        {
+            float phase = (float)i / nTableSize;
+            pWaveTable[i] = (phase < dutyCycle ? amplitude : -amplitude) - dcOffset;
+        }
+    }
     
     // Initialize a FunctionTable to an exponential-rise shape, scaled to fit in the unit square.
     // The function itself is y = -exp(-x), where x ranges from 'left' to 'right'.
