@@ -365,7 +365,7 @@ open class AKSequencer {
         return Int(count)
     }
 
-    /// Load a MIDI file from the bundle
+    /// Load a MIDI file from the bundle (removes old tracks, if present)
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
         guard let file = bundle.path(forResource: filename, ofType: "mid") else {
@@ -376,7 +376,7 @@ open class AKSequencer {
         loadMIDIFile(fromUrl: fileURL)
     }
 
-    /// Load a MIDI file given a URL
+    /// Load a MIDI file given a URL (removes old tracks, if present)
     open func loadMIDIFile(fromUrl fileURL: URL) {
         removeTracks()
         if let existingSequence = sequence {
