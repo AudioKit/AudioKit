@@ -22,7 +22,7 @@ open class AKSequencer {
     var musicPlayer: MusicPlayer?
 
     /// Loop control
-    open var loopEnabled: Bool = false
+    open private(set) var loopEnabled: Bool = false
 
     /// Sequencer Initialization
     @objc public init() {
@@ -373,18 +373,12 @@ open class AKSequencer {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
-        if let existingSequence = sequence {
-            let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
-            if status != OSStatus(noErr) {
-                AKLog("status reading midi file: \(status)")
-            }
-        }
-
-        initTracks()
+        loadMIDIFile(fromUrl: fileURL)
     }
 
     /// Load a MIDI file given a URL
     open func loadMIDIFile(fromUrl fileURL: URL) {
+        removeTracks()
         if let existingSequence = sequence {
             let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
             if status != OSStatus(noErr) {
@@ -396,11 +390,9 @@ open class AKSequencer {
 
     /// Initialize all tracks
     ///
-    /// Clears the AKMusicTrack array, and rebuilds it based on actual contents of music sequence
+    /// Rebuilds tracks based on actual contents of music sequence
     ///
     func initTracks() {
-        tracks.removeAll()
-
         var count: UInt32 = 0
         if let existingSequence = sequence {
             MusicSequenceGetTrackCount(existingSequence, &count)
@@ -415,6 +407,22 @@ open class AKSequencer {
                 tracks.append(AKMusicTrack(musicTrack: existingMusicTrack, name: "InitializedTrack"))
             }
         }
+        
+        if loopEnabled {
+            enableLooping()
+        }
+    }
+    
+    ///  Dispose of tracks associated with sequence
+    func removeTracks() {
+        if let existingSequence = sequence {
+            for track in tracks {
+                if let internalTrack = track.internalMusicTrack {
+                    MusicSequenceDisposeTrack(existingSequence, internalTrack)
+                }
+            }
+        }
+        tracks.removeAll()
     }
 
     /// Get a new track
