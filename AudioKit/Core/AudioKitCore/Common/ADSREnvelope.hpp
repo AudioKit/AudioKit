@@ -50,14 +50,15 @@ namespace AudioKitCore
         } segment;
         
         void init();
-        
+
         void start();       // called for note-on
         void restart();     // quickly dampen note then start again
         void release();     // called for note-off
         void reset();       // reset to idle state
         bool isIdle() { return segment == kIdle; }
         bool isPreStarting() { return segment == kSilence; }
-        
+        bool isReleasing() { return segment == kRelease; }
+
         inline float getSample()
         {
             if (segment == kIdle) { return 0.0f; }
