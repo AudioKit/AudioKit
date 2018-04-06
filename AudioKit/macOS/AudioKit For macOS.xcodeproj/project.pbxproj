@@ -694,7 +694,6 @@
 		C49B18B7204A0AD1009C7C8E /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1682204A0ACF009C7C8E /* Filter.h */; };
 		C49B18B8204A0AD1009C7C8E /* Compressor.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1683204A0ACF009C7C8E /* Compressor.h */; };
 		C49B18B9204A0AD1009C7C8E /* RageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1684204A0ACF009C7C8E /* RageProcessor.cpp */; };
-		C49B18BA204A0AD1009C7C8E /* sporth.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1686204A0ACF009C7C8E /* sporth.c */; };
 		C49B18BB204A0AD1009C7C8E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1687204A0ACF009C7C8E /* stack.c */; };
 		C49B18BC204A0AD1009C7C8E /* plumber.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1688204A0ACF009C7C8E /* plumber.c */; };
 		C49B18BD204A0AD1009C7C8E /* func.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1689204A0ACF009C7C8E /* func.c */; };
@@ -5780,7 +5779,6 @@
 				C49B18DB204A0AD1009C7C8E /* bltriangle.c in Sources */,
 				C45669BE1D448D7E00D26565 /* delay.swift in Sources */,
 				EA03BFDA201DE80800E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */,
-				C49B18BA204A0AD1009C7C8E /* sporth.c in Sources */,
 				C49B1B83204A0C48009C7C8E /* Stk.cpp in Sources */,
 				C49B1850204A0AD0009C7C8E /* metro.c in Sources */,
 				C45669D81D448D7E00D26565 /* square.swift in Sources */,
