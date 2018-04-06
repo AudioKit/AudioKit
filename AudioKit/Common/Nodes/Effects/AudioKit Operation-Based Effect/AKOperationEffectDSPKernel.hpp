@@ -76,9 +76,6 @@ public:
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
-        if (sporthCode) {
-            free(sporthCode);
-        }
     }
 
     void reset() {
