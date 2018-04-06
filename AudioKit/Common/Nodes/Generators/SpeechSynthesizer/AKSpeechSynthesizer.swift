@@ -35,6 +35,12 @@ open class AKSpeechSynthesizer: AKNode {
             debugPrint("Cannot get Speech Channel")
             exit(1)
         }
+        
+        // Adjust the speech rate/pitch or other property by set property to SpeechChannel
+        // https://github.com/apple/swift-3-api-guidelines-review/blob/64e3132a6a383b4a4603605180ded31efd37dcdc/Platforms/OSX/ApplicationServices/SpeechSynthesis.swift#L311
+        // and various examples from Apple in
+        // https://github.com/ooper-shlab/CocoaSpeechSynthesisExample-Swift/blob/master/SpeakingTextWindow.swift#L910
+        SetSpeechRate(speechChannel, 100)
 
         SpeakCFString(speechChannel, "Hello World. AK Speech Synthesizer works!" as CFString, nil)
     }
