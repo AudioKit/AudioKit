@@ -88,6 +88,7 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
 
 void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    _playing = false;
     sp_oscmorph_create(&_private->_oscmorph);
 }
 
