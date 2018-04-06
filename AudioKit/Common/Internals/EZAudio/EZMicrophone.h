@@ -56,10 +56,7 @@
 
 /**
  Called anytime the EZMicrophone starts or stops.
-<<<<<<< Updated upstream
  @param microphone The instance of the EZMicrophone that triggered the event.
-=======
->>>>>>> Stashed changes
  @param isPlaying A BOOL indicating whether the EZMicrophone instance is playing or not.
  */
 - (void)microphone:(EZMicrophone *)microphone changedPlayingState:(BOOL)isPlaying;
@@ -176,11 +173,7 @@
 
 /**
  Creates an instance of the EZMicrophone with a custom AudioStreamBasicDescription and provides the caller to specify a delegate to respond to the audioReceived callback. This will not start fetching the audio until startFetchingAudio has been called. Use initWithMicrophoneDelegate:startsImmediately: to instantiate this class and immediately start fetching audio data.
-<<<<<<< Updated upstream
- @param 	delegate A EZMicrophoneDelegate delegate that will receive the audioReceived callback.
-=======
  @param 	delegate 	        A EZMicrophoneDelegate delegate that will receive the audioReceived callback.
->>>>>>> Stashed changes
  @param 	audioStreamBasicDescription A custom AudioStreamBasicFormat for the microphone input.
  @return	An instance of the EZMicrophone class. This should be strongly retained.
  */
