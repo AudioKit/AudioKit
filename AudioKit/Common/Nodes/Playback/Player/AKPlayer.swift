@@ -297,7 +297,7 @@ public class AKPlayer: AKNode {
         return nil
     }
 
-    /// Create a player from an AVAudioFile
+    /// Create a player from an AVAudioFile (or AKAudioFile)
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
