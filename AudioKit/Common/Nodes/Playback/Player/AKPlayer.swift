@@ -259,7 +259,12 @@ public class AKPlayer: AKNode {
     public var pauseTime: Double?
 
     // MARK: - Public Options
+    /// true if the player is buffering audio rather than playing from disk
+    public var isBuffered: Bool {
+        return isNormalized || isReversed || buffering == .always
+    }
 
+    /// Will automatically normalize on buffer updates if enabled
     public var isNormalized: Bool = false {
         didSet {
             updateBuffer(force: true)
@@ -269,11 +274,6 @@ public class AKPlayer: AKNode {
     /// true if any fades have been set
     public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
-    }
-
-    /// true if the player is buffering audio rather than playing from disk
-    public var isBuffered: Bool {
-        return isNormalized || isReversed || buffering == .always
     }
 
     public var isLooping: Bool = false
