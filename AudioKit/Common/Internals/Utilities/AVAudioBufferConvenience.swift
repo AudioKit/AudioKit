@@ -9,9 +9,10 @@
 extension AVAudioPCMBuffer {
 
     public struct Peak {
-        var time: Double = 0
-        var framePosition: Int = 0
-        var amplitude: Float = 1
+        public static var min: Float = -10_000.0
+        public var time: Double = 0
+        public var framePosition: Int = 0
+        public var amplitude: Float = 1
     }
 
     /**
@@ -103,9 +104,7 @@ extension AVAudioPCMBuffer {
 
         var value = Peak()
         var position = 0
-
-        var peakValue: Float = -10_000.0
-
+        var peakValue: Float = Peak.min
         let frameLength = 512
         let channelCount = Int(self.format.channelCount)
 
@@ -136,16 +135,14 @@ extension AVAudioPCMBuffer {
         }
 
         value.amplitude = peakValue
-
-        AKLog(value)
-
+        //AKLog(value)
         return value
     }
 
     // Returns the highest level in the given array
     private func getPeak(from buffer: [Float]) -> Float {
         // create variable with very small value to hold the peak value
-        var peak: Float = -10_000.0
+        var peak: Float = Peak.min
 
         for i in 0 ..< buffer.count {
             // store the absolute value of the sample
@@ -205,7 +202,6 @@ extension AVAudioPCMBuffer {
             j += 1
         }
         reversedBuffer?.frameLength = length
-
         return reversedBuffer
     }
 
@@ -223,7 +219,7 @@ extension AVAudioPCMBuffer {
         let sampleRate = self.format.sampleRate
         let channelCount = Int(self.format.channelCount)
 
-        AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
+        // AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
 
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
         var gain: Double = inTime > 0 ? 0.01 : 1
