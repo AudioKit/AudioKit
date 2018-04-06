@@ -9,7 +9,7 @@
 /// An easy to use class to do usual microphone tracking
 public class AKMicrophoneTracker {
 
-    var engine = AKMicrophoneTrackerEngine()
+    var engine: AKMicrophoneTrackerEngine
 
     /// Tracked amplitude
     public var amplitude: Double {
@@ -32,7 +32,8 @@ public class AKMicrophoneTracker {
     }
 
     /// Initialize the tracker
-    @objc public init() {
+    @objc public init(hopSize: Int = 4096, peakCount: Int = 20) {
+        engine = AKMicrophoneTrackerEngine(hopSize: UInt32(hopSize), peakCount: UInt32(peakCount))
         // Could automatically start the tracker here, but elected not to at BlackBox/Ryan McLeod's request
         // Subclass and change this if you like
     }

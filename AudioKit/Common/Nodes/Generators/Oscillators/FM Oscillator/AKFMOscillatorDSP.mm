@@ -88,6 +88,7 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
 
 void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    _playing = false;
     sp_fosc_create(&_private->_fosc);
     sp_fosc_init(_sp, _private->_fosc, _private->_ftbl);
     _private->_fosc->freq = defaultBaseFrequency;
