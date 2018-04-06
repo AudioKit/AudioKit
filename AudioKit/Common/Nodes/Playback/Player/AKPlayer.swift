@@ -80,7 +80,11 @@ public class AKPlayer: AKNode {
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
 
-        public var inTime: Double = 0
+        public var inTime: Double = 0 {
+            willSet {
+                if newValue != inTime { needsUpdate = true }
+            }
+        }
 
         // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
@@ -88,7 +92,11 @@ public class AKPlayer: AKNode {
         // Currently Unused
         public var inStartGain: Double = minimumGain
 
-        public var outTime: Double = 0
+        public var outTime: Double = 0 {
+            willSet {
+                if newValue != outTime { needsUpdate = true }
+            }
+        }
 
         public var outTimeOffset: Double = 0
 
@@ -97,6 +105,8 @@ public class AKPlayer: AKNode {
 
         // TODO: this would tell Booster what ramper to use when multiple curves are available
         public var type: AKPlayer.FadeType = .exponential
+
+        var needsUpdate: Bool = false
     }
 
     // MARK: - Private Parts
@@ -413,6 +423,10 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
+        guard !isBuffered else {
+            faderNode.gain = gain
+            return
+        }
         initFader(at: audioTime, hostTime: hostTime)
     }
 
@@ -699,8 +713,8 @@ public class AKPlayer: AKNode {
 
     // Fills the buffer with data read from audioFile
     private func updateBuffer(force: Bool = false) {
+        AKLog(force)
         if !isBuffered { return }
-
         guard let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat
@@ -718,10 +732,15 @@ public class AKPlayer: AKNode {
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
         }
 
-        let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || loop.needsUpdate)
+        let updateNeeded = (force ||
+                            buffer == nil ||
+                            startFrame != startingFrame ||
+                            endFrame != endingFrame
+                            || loop.needsUpdate
+                            || fade.needsUpdate)
 
         if !updateNeeded {
+            AKLog("No buffer update needed")
             return
         }
 
@@ -761,6 +780,12 @@ public class AKPlayer: AKNode {
             loop.needsUpdate = false
         }
 
+        if isFaded {
+            let inTime = fade.inTime //- fade.inTimeOffset
+            fadeBuffer(inTime: inTime, outTime: fade.outTime)
+            fade.needsUpdate = false
+        }
+
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
@@ -789,6 +814,75 @@ public class AKPlayer: AKNode {
 
         // set the buffer now to be the reverse one
         self.buffer = reversedBuffer
+    }
+
+    /// Apply sample level fades to the internal buffer.
+    ///  - Parameters:
+    ///     - inTime specified in seconds, 0 if no fade
+    ///     - outTime specified in seconds, 0 if no fade
+    fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
+        guard isBuffered,
+            let buffer = self.buffer,
+            let floatData = buffer.floatChannelData,
+            let audioFile = audioFile else { return }
+
+        // do nothing in this case
+        if inTime == 0 && outTime == 0 {
+            AKLog("no fades specified.")
+            return
+        }
+
+        let fadeBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format,
+                                          frameCapacity: buffer.frameCapacity)
+
+        let length: UInt32 = buffer.frameLength
+        AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
+
+        // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
+        var gain: Double = inTime > 0 ? 0.01 : 1
+
+        let sampleTime: Double = 1.0 / audioFile.processingFormat.sampleRate
+
+        // from -20db?
+        let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
+
+        // for decay to x% amplitude (-dB) over the given decay time
+        let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
+
+        // where in the buffer to end the fade in
+        let fadeInSamples = Int(audioFile.processingFormat.sampleRate * inTime)
+        // where in the buffer to start the fade out
+        let fadeOutSamples = Int(Double(length) - (audioFile.processingFormat.sampleRate * outTime))
+
+        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
+
+        // i is the index in the buffer
+        for i in 0 ..< Int(length) {
+            // n is the channel
+            for n in 0 ..< Int(buffer.format.channelCount) {
+
+                if i < fadeInSamples && inTime > 0 {
+                    gain *= fadeInPower
+                } else if i > fadeOutSamples && outTime > 0 {
+                    gain *= fadeOutPower
+                } else {
+                    gain = 1.0
+                }
+
+                // sanity check
+                if gain > 1 {
+                    gain = 1
+                }
+
+                let sample = floatData[n][i] * Float(gain)
+                fadeBuffer?.floatChannelData?[n][i] = sample
+            }
+        }
+        // update this
+        fadeBuffer?.frameLength = length
+
+        // set the buffer now to be the faded one
+        self.buffer = fadeBuffer
     }
 
     /// Disconnect the node and release resources
