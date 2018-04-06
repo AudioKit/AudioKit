@@ -333,7 +333,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-all_load",
@@ -363,7 +363,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-all_load",
