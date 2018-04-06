@@ -26,6 +26,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         super.init()
         let midi = AudioKit.midi
         self.enableMIDI(midi.client, name: midiInputName)
+        hideVirtualMIDIPort()
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)

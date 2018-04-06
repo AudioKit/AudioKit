@@ -28,6 +28,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? "Unnamed")
+        hideVirtualMIDIPort()
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -120,5 +121,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
             stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
         }
+    }
+    
+    func showVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    func hideVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }
