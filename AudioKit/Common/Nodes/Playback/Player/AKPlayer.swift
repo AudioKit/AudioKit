@@ -733,14 +733,14 @@ public class AKPlayer: AKNode {
         }
 
         let updateNeeded = (force ||
-                            buffer == nil ||
-                            startFrame != startingFrame ||
-                            endFrame != endingFrame
-                            || loop.needsUpdate
-                            || fade.needsUpdate)
+            buffer == nil ||
+            startFrame != startingFrame ||
+            endFrame != endingFrame
+            || loop.needsUpdate
+            || fade.needsUpdate)
 
         if !updateNeeded {
-            AKLog("No buffer update needed")
+            // AKLog("No buffer update needed")
             return
         }
 
@@ -781,7 +781,7 @@ public class AKPlayer: AKNode {
         }
 
         if isFaded {
-            let inTime = fade.inTime //- fade.inTimeOffset
+            let inTime = fade.inTime // - fade.inTimeOffset
             fadeBuffer(inTime: inTime, outTime: fade.outTime)
             fade.needsUpdate = false
         }
@@ -836,7 +836,7 @@ public class AKPlayer: AKNode {
                                           frameCapacity: buffer.frameCapacity)
 
         let length: UInt32 = buffer.frameLength
-        AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
+        // AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
 
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
         var gain: Double = inTime > 0 ? 0.01 : 1
