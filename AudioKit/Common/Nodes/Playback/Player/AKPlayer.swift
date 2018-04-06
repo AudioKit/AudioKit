@@ -45,9 +45,9 @@ import AVFoundation
 public class AKPlayer: AKNode {
 
     /// How the player should handle audio. If buffering, it will load the audio data into
-    /// an internal buffer and play from ram. If not, it will play the file from disk.
+    /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
-    /// such as Looping, Reversing or Fading
+    /// such as Perfect Looping or Reversing
     public enum BufferingType {
         case dynamic, always
     }
@@ -72,6 +72,8 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
+        public init() {}
+
         /// a constant
         public static var minimumGain: Double = 0.0002
 
@@ -113,6 +115,12 @@ public class AKPlayer: AKNode {
     private var completionTimer: Timer?
     private var faderTimer: Timer?
 
+    // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
+    // if you don't need them, you can disable them off here
+    private var useCompletionHandler: Bool {
+        return isLooping || completionHandler != nil
+    }
+
     // startTime and endTime may be accessed from multiple thread contexts
     private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
     private let endTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.endTimeQueue")
@@ -131,13 +139,17 @@ public class AKPlayer: AKNode {
     // MARK: - Public Properties
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
-    /// stop() is called while playing or when looping.
+    /// stop() is called while playing or when looping from a buffer.
     public var completionHandler: AKCallback?
 
     public var buffer: AVAudioPCMBuffer?
 
-    /// Sets if the player should buffer dynamically, always or never
-    /// Not buffering means playing from disk, buffering is playing from RAM
+    /// Sets if the player should buffer dynamically (as needed) or always.
+    /// Not buffering means streaming from disk (best for long files),
+    /// buffering is playing from RAM (best for shorter sounds you might want to loop).
+    /// For seamless looping you should load the sound into RAM.
+    /// While this creates a perfect loop, the downside is that you can't easily scrub through the audio.
+    /// If you need to be able to be able to scan around the file, keep this .dynamic and stream from disk.
     public var buffering: BufferingType = .dynamic {
         didSet {
             if buffering == .always {
@@ -145,11 +157,6 @@ public class AKPlayer: AKNode {
             }
         }
     }
-
-    /// If set to true the player will load the audio into memory and loop from there.
-    /// While this creates a seamless loop the downside is that you can't easily scrub through the audio.
-    /// If you need to be able to be able to scan around the file, keep this false and stream from disk.
-    public var bufferLooping: Bool = false
 
     /// The internal audio file
     public private(set) var audioFile: AVAudioFile?
@@ -250,7 +257,7 @@ public class AKPlayer: AKNode {
 
     /// true if the player is buffering audio rather than playing from disk
     public var isBuffered: Bool {
-        return isReversed || buffering == .always || (isLooping && bufferLooping)
+        return isReversed || buffering == .always
     }
 
     public var isLooping: Bool = false
@@ -425,12 +432,12 @@ public class AKPlayer: AKNode {
     }
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
-        resetFader(false)
         playerNode.stop()
+
+        resetFader(false)
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
-        // pauseTime = nil
     }
 
     // MARK: - Fade Handlers
@@ -586,8 +593,7 @@ public class AKPlayer: AKNode {
 
         var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        // see note in bufferLooping
-        if isLooping && bufferLooping {
+        if isLooping && buffering == .always {
             bufferOptions = [.loops, .interrupts]
         }
 
@@ -596,8 +602,8 @@ public class AKPlayer: AKNode {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
                                       options: bufferOptions,
-                                      completionCallbackType: .dataPlayedBack,
-                                      completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
+                                      completionCallbackType: .dataRendered,
+                                      completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -634,7 +640,7 @@ public class AKPlayer: AKNode {
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: handleCallbackComplete)
+                                       completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
@@ -656,18 +662,18 @@ public class AKPlayer: AKNode {
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
-        faderTimer?.invalidate()
+        DispatchQueue.main.async {
+            // cancel any upcoming fades
+            self.faderTimer?.invalidate()
 
-        // reset the loop if user stopped it
-        if isLooping && bufferLooping {
-            startTime = loop.start
-            endTime = loop.end
-            pauseTime = nil
-            return
-        }
-
-        if currentFrame >= frameCount {
-            DispatchQueue.main.async {
+            // reset the loop if user stopped it
+            if self.isLooping && self.buffering == .always {
+                self.startTime = self.loop.start
+                self.endTime = self.loop.end
+                self.pauseTime = nil
+                return
+            }
+            if self.currentFrame >= self.frameCount {
                 self.handleComplete()
             }
         }
