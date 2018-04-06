@@ -123,7 +123,10 @@ class ViewController: NSViewController {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
-            player?.bufferLooping = false
+            // for seamless looping use:
+            player?.buffering = .always
+            player?.fade.inTime = 1
+            player?.fade.outTime = 1
         } else {
             do {
                 try player?.load(url: url)
