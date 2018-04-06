@@ -11,7 +11,7 @@ AudioKit offers three different sampler modules:
 ## AKAppleSampler and AKMIDISampler
 **NOTE:** In earlier versions of AudioKit, **AKAppleSampler** was called **AKSampler**.
 
-Apple's *AUSampler* Audio Unit, despite a few unfortunate flows, is exceptionally powerful, and has served as the basis for countless sample-based iOS music apps. It has five huge advantages over the other two sampler modules:
+Apple's *AUSampler* Audio Unit, despite a few unfortunate flaws, is exceptionally powerful, and has served as the basis for countless sample-based iOS music apps. It has five huge advantages over the other two sampler modules:
 
 1. *Streaming:* AUSampler plays sample data directly from files; it is not necessary to pre-load samples into memory.
 2. AUSampler is *polytimbral:* Sounds can be defined using multiple *layers*, so each note can involve multiple samples played back in different combinations. Each layer can optionally include a low-pass filter with resonance, one or more envelope generators, and one or more LFOs for modulation.
