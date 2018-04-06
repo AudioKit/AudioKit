@@ -11,6 +11,7 @@ import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
+    @IBOutlet var inputSourceBox: NSBox!
 
     // Default controls
     @IBOutlet var playButton: NSButton!
@@ -44,6 +45,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     @IBAction func start(_ sender: Any) {
@@ -57,6 +59,13 @@ class ViewController: NSViewController {
         initSpeechSynthesizer()
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
+
+        guard let content = inputSourceBox.contentView else { return }
+        for sv in content.subviews {
+            guard let control = sv as? NSControl else { continue }
+            control.isEnabled = true
+        }
+
     }
 
     private func updateInfo() {
@@ -115,6 +124,14 @@ class ViewController: NSViewController {
 
     @IBAction func setLoopState(_ sender: NSButton) {
         player?.isLooping = sender.state == .on
+    }
+
+    @IBAction func setNormalizeState(_ sender: NSButton) {
+        player?.isNormalized = sender.state == .on
+    }
+
+    @IBAction func setReversedState(_ sender: NSButton) {
+        player?.isReversed = sender.state == .on
     }
 
     /// open an audio URL for playing

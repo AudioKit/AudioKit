@@ -259,15 +259,21 @@ public class AKPlayer: AKNode {
     public var pauseTime: Double?
 
     // MARK: - Public Options
+    /// true if the player is buffering audio rather than playing from disk
+    public var isBuffered: Bool {
+        return isNormalized || isReversed || buffering == .always
+    }
+
+    /// Will automatically normalize on buffer updates if enabled
+    public var isNormalized: Bool = false {
+        didSet {
+            updateBuffer(force: true)
+        }
+    }
 
     /// true if any fades have been set
     public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
-    }
-
-    /// true if the player is buffering audio rather than playing from disk
-    public var isBuffered: Bool {
-        return isReversed || buffering == .always
     }
 
     public var isLooping: Bool = false
@@ -770,18 +776,21 @@ public class AKPlayer: AKNode {
             return
         }
 
+        if isLooping {
+            loop.needsUpdate = false
+        }
+
+        if isNormalized {
+            normalizeBuffer()
+        }
+
         // Now, we'll reverse the data in the buffer if specified
         if isReversed {
             reverseBuffer()
         }
 
-        if isLooping {
-            loop.needsUpdate = false
-        }
-
         if isFaded {
-            let inTime = fade.inTime // - fade.inTimeOffset
-            fadeBuffer(inTime: inTime, outTime: fade.outTime)
+            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
             fade.needsUpdate = false
         }
 
@@ -793,26 +802,18 @@ public class AKPlayer: AKNode {
     // Read the buffer in backwards
     fileprivate func reverseBuffer() {
         guard isBuffered, let buffer = self.buffer else { return }
-
-        let reversedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format,
-                                              frameCapacity: buffer.frameCapacity)
-
-        var j: Int = 0
-        let length = buffer.frameLength
-
-        // i represents the normal buffer read in reverse
-        for i in (0 ..< Int(length)).reversed() {
-            // n is the channel
-            for n in 0 ..< Int(buffer.format.channelCount) {
-                // we write the reverseBuffer via the j index
-                reversedBuffer?.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
-            }
-            j += 1
+        if let reversededBuffer = buffer.reverse() {
+            self.buffer = reversededBuffer
+            AKLog("Reversed Buffer")
         }
-        reversedBuffer?.frameLength = length
+    }
 
-        // set the buffer now to be the reverse one
-        self.buffer = reversedBuffer
+    fileprivate func normalizeBuffer() {
+        guard isBuffered, let buffer = self.buffer else { return }
+        if let normalizedBuffer = buffer.normalize() {
+            self.buffer = normalizedBuffer
+            AKLog("Normalized Buffer")
+        }
     }
 
     /// Apply sample level fades to the internal buffer.
@@ -820,68 +821,11 @@ public class AKPlayer: AKNode {
     ///     - inTime specified in seconds, 0 if no fade
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
-        guard isBuffered,
-            let buffer = self.buffer,
-            let floatData = buffer.floatChannelData,
-            let audioFile = audioFile else { return }
-
-        // do nothing in this case
-        if inTime == 0 && outTime == 0 {
-            AKLog("no fades specified.")
-            return
+        guard isBuffered, let buffer = self.buffer else { return }
+        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime) {
+            self.buffer = fadedBuffer
+            AKLog("Faded Buffer")
         }
-
-        let fadeBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format,
-                                          frameCapacity: buffer.frameCapacity)
-
-        let length: UInt32 = buffer.frameLength
-        // AKLog("fadeBuffer() inTime: \(inTime) outTime: \(outTime)")
-
-        // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
-        var gain: Double = inTime > 0 ? 0.01 : 1
-
-        let sampleTime: Double = 1.0 / audioFile.processingFormat.sampleRate
-
-        // from -20db?
-        let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
-
-        // for decay to x% amplitude (-dB) over the given decay time
-        let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
-
-        // where in the buffer to end the fade in
-        let fadeInSamples = Int(audioFile.processingFormat.sampleRate * inTime)
-        // where in the buffer to start the fade out
-        let fadeOutSamples = Int(Double(length) - (audioFile.processingFormat.sampleRate * outTime))
-
-        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
-
-        // i is the index in the buffer
-        for i in 0 ..< Int(length) {
-            // n is the channel
-            for n in 0 ..< Int(buffer.format.channelCount) {
-
-                if i < fadeInSamples && inTime > 0 {
-                    gain *= fadeInPower
-                } else if i > fadeOutSamples && outTime > 0 {
-                    gain *= fadeOutPower
-                } else {
-                    gain = 1.0
-                }
-
-                // sanity check
-                if gain > 1 {
-                    gain = 1
-                }
-
-                let sample = floatData[n][i] * Float(gain)
-                fadeBuffer?.floatChannelData?[n][i] = sample
-            }
-        }
-        // update this
-        fadeBuffer?.frameLength = length
-
-        // set the buffer now to be the faded one
-        self.buffer = fadeBuffer
     }
 
     /// Disconnect the node and release resources
