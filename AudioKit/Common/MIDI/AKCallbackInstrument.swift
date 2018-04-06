@@ -22,10 +22,8 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     /// - parameter midiInputName: Name of the instrument's MIDI input
     /// - parameter callback: Initial callback
     ///
-    public init(midiInputName: String = "callback midi in", callback: AKMIDICallback? = nil) {
-        super.init()
-        let midi = AudioKit.midi
-        self.enableMIDI(midi.client, name: midiInputName)
+    public init(midiInputName: String = "AudioKit Callback Instrument", callback: AKMIDICallback? = nil) {
+        super.init(midiInputName: midiInputName)
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)

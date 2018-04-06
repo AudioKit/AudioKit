@@ -19,15 +19,16 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "AKMIDIInstrument"
+    open var name = "AudioKit MIDI Instrument"
 
     /// Initialize the MIDI Instrument
     ///
-    /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    /// - Parameter midiInputName: Name of the instrument's MIDI input
     ///
-    public init(midiOutputName: String? = nil) {
+    public init(midiInputName: String? = nil) {
         super.init()
-        enableMIDI(name: midiOutputName ?? "Unnamed")
+        enableMIDI(name: midiInputName ?? name)
+        hideVirtualMIDIPort()
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -37,7 +38,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - name: Name to connect with
     ///
     open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
-                         name: String = "Unnamed") {
+                         name: String = "AudioKit MIDI Instrument") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
@@ -120,5 +121,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
             stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
         }
+    }
+    
+    func showVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    func hideVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }
