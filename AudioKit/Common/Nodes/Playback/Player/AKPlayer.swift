@@ -713,7 +713,6 @@ public class AKPlayer: AKNode {
 
     // Fills the buffer with data read from audioFile
     private func updateBuffer(force: Bool = false) {
-        AKLog(force)
         if !isBuffered { return }
         guard let audioFile = audioFile else { return }
 
