@@ -29,6 +29,7 @@ open class AKMIDISampler: AKAppleSampler {
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? name)
+        hideVirtualMIDIPort()
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -127,7 +128,7 @@ open class AKMIDISampler: AKAppleSampler {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
     }
-
+    
     /// Discard all virtual ports
     open func destroyEndpoint() {
         if midiIn != 0 {
@@ -135,5 +136,11 @@ open class AKMIDISampler: AKAppleSampler {
             midiIn = 0
         }
     }
-
+    
+    func showVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    func hideVirtualMIDIPort(){
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
+    }
 }
