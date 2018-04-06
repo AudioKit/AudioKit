@@ -662,6 +662,7 @@ public class AKPlayer: AKNode {
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
+        // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // cancel any upcoming fades
             self.faderTimer?.invalidate()
