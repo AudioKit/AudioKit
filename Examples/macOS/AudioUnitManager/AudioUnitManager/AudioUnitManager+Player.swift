@@ -87,6 +87,10 @@ extension AudioUnitManager {
     func open(url: URL) {
         guard let internalManager = internalManager else { return }
 
+        try? AudioKit.stop()
+
+        peak = nil
+
         if player == nil {
             player = AKPlayer(url: url)
         } else {
@@ -99,6 +103,8 @@ extension AudioUnitManager {
         player.completionHandler = handleAudioComplete
         internalManager.connectEffects(firstNode: player, lastNode: mixer)
         player.isLooping = isLooping
+        player.isNormalized = false
+        player.buffering = isBuffered ? .always : .dynamic
 
         playButton.isEnabled = true
         fileField.stringValue = "🔈 \(url.lastPathComponent)"
@@ -115,8 +121,9 @@ extension AudioUnitManager {
         waveform.frame = waveformContainer.frame
         waveform.fitToFrame()
         waveform.delegate = self
-
         audioEnabled = true
+
+        audioNormalizedButton.state = .off
     }
 
     func close() {
