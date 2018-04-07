@@ -23,6 +23,7 @@ static const CFStringRef paramName[] =
     CFSTR("Vibrato Depth"),
     CFSTR("Filter Enable"),
     CFSTR("Filter Cutoff"),
+    CFSTR("Filter EG Strength"),
     CFSTR("Filter Resonance"),
     
     CFSTR("Amp EG Attack"),
@@ -65,7 +66,8 @@ void AKSampler_Plugin::initForTesting()
     pitchOffset = 0.0f;
     vibratoDepth = 0.0f;
     
-    cutoffMultiple = 1000.0f;
+    cutoffMultiple = 4.0f;
+    cutoffEgStrength = 20.0f;
     filterEnable = false;
     
     ampEGParams.setAttackTimeSeconds(0.01f);
@@ -599,6 +601,15 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.defaultValue = 1000.0;
             break;
     
+        case kFilterCutoffEgStrength:
+            outParameterInfo.flags += SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplayLogarithmic);
+            AUBase::FillInParameterName (outParameterInfo, paramName[kFilterCutoffEgStrength], false);
+            outParameterInfo.unit = kAudioUnitParameterUnit_Generic;
+            outParameterInfo.minValue = 0.0;
+            outParameterInfo.maxValue = 100.0;
+            outParameterInfo.defaultValue = 20.0;
+            break;
+
         case kFilterResonanceDb:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterResonanceDb], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Decibels;
@@ -708,6 +719,10 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
             outValue = cutoffMultiple;
             break;
             
+        case kFilterCutoffEgStrength:
+            outValue = cutoffEgStrength;
+            break;
+
         case kFilterResonanceDb:
             outValue = -20.0f * log10(resLinear);
             break;
@@ -782,6 +797,10 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             cutoffMultiple = inValue;
             break;
             
+        case kFilterCutoffEgStrength:
+            cutoffEgStrength = inValue;
+            break;
+
         case kFilterResonanceDb:
             resLinear = pow(10.0, -0.5 * inValue);
             break;
