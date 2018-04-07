@@ -38,7 +38,7 @@ namespace AudioKitCore
     void ResonantLowPassFilter::init(double sampleRateHz)
     {
         this->sampleRateHz = sampleRateHz;
-        x1 = x2 = y1 = y1 = 0.0;
+        x1 = x2 = y1 = y2 = 0.0;
         mLastCutoffHz = mLastResLinear = -1.0;  // force recalc of coefficients
     }
     
