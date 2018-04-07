@@ -136,7 +136,7 @@ extension AVAudioPCMBuffer {
         }
 
         value.amplitude = peakValue
-        //AKLog(value)
+        // AKLog(value)
         return value
     }
 
