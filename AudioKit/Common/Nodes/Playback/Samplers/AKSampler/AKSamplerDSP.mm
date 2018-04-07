@@ -91,7 +91,8 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
-    filterCutoffRamp.setTarget(1000.0, true);
+    filterCutoffRamp.setTarget(4, true);
+    filterEgStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
 }
 
@@ -114,6 +115,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             pitchBendRamp.setRampTime(value, _sampleRate);
             vibratoDepthRamp.setRampTime(value, _sampleRate);
             filterCutoffRamp.setRampTime(value, _sampleRate);
+            filterEgStrengthRamp.setRampTime(value, _sampleRate);
             filterResonanceRamp.setRampTime(value, _sampleRate);
             break;
 
@@ -128,6 +130,9 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             break;
         case filterCutoffParam:
             filterCutoffRamp.setTarget(value, immediate);
+            break;
+        case filterEgStrengthParam:
+            filterEgStrengthRamp.setTarget(value, immediate);
             break;
         case filterResonanceParam:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
@@ -178,6 +183,8 @@ float AKSamplerDSP::getParameter(uint64_t address)
             return vibratoDepthRamp.getTarget();
         case filterCutoffParam:
             return filterCutoffRamp.getTarget();
+        case filterEgStrengthParam:
+            return filterEgStrengthRamp.getTarget();
         case filterResonanceParam:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
@@ -221,6 +228,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
+        filterEgStrengthRamp.advanceTo(_now + frameOffset);
+        cutoffEgStrength = (float)filterEgStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(_now + frameOffset);
         resLinear = (float)filterResonanceRamp.getValue();
 

@@ -14,7 +14,7 @@ typedef NS_ENUM(int64_t, AKSamplerParameter)
 {
     // ramped parameters
     masterVolumeParam, pitchBendParam, vibratoDepthParam,
-    filterCutoffParam, filterResonanceParam,
+    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
     // simple parameters
     ampAttackTimeParam, ampDecayTimeParam, ampSustainLevelParam, ampReleaseTimeParam,
     filterAttackTimeParam, filterDecayTimeParam, filterSustainLevelParam, filterReleaseTimeParam,
@@ -52,6 +52,7 @@ struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
     AKLinearParameterRamp filterCutoffRamp;
+    AKLinearParameterRamp filterEgStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
     
     AKSamplerDSP();

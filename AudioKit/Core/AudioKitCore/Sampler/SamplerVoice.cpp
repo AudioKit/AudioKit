@@ -62,7 +62,9 @@ namespace AudioKitCore
         filterEG.reset();
     }
     
-    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset, float cutoffMultiple, float resLinear)
+    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset,
+                                        float cutoffMultiple, float cutoffEgStrength,
+                                        float resLinear)
     {
         if (ampEG.isIdle()) return true;
 
@@ -89,9 +91,7 @@ namespace AudioKitCore
         else
         {
             filterEnable = true;
-            
-            double cutoffHz = noteHz * (1.0f + cutoffMultiple * filterEG.getSample());
-            
+            double cutoffHz = noteHz * (1.0f + cutoffMultiple + cutoffEgStrength * filterEG.getSample());
             filterL.setParams(cutoffHz, resLinear);
             filterR.setParams(cutoffHz, resLinear);
         }

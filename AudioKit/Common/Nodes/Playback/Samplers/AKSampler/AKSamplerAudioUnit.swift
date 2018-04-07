@@ -32,8 +32,12 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.vibratoDepthParam, value: vibratoDepth) }
     }
 
-    var filterCutoff: Double = 1_000.0 {
+    var filterCutoff: Double = 4.0 {
         didSet { setParameter(.filterCutoffParam, value: filterCutoff) }
+    }
+
+    var filterEgStrength: Double = 20.0 {
+        didSet { setParameter(.filterEgStrengthParam, value: filterCutoff) }
     }
 
     var filterResonance: Double = 0.0 {
@@ -126,6 +130,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 flags: rampFlags,
                                                                 valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
+        let filterEgStrengthParam = AUParameterTree.createParameter(withIdentifier: "filterEgStrength",
+                                                                name: "Filter EG strength",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1_000.0,
+                                                                unit: .ratio, unitName: nil,
+                                                                flags: rampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
         let filterResonanceParam = AUParameterTree.createParameter(withIdentifier: "filterResonance",
                                                                 name: "Filter resonance (dB))",
                                                                 address: AUParameterAddress(paramAddress),
@@ -208,7 +220,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                      valueStrings: nil, dependentParameters: nil)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
-                                                                   filterCutoffParam, filterResonanceParam,
+                                                                   filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
                                                                    ampAttackTimeParam, ampDecayTimeParam,
                                                                    ampSustainLevelParam, ampReleaseTimeParam,
                                                                    filterAttackTimeParam, filterDecayTimeParam,
@@ -217,7 +229,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         masterVolumeParam.value = 1.0
         pitchBendParam.value = 0.0
         vibratoDepthParam.value = 0.0
-        filterCutoffParam.value = 1_000.0
+        filterCutoffParam.value = 4.0
+        filterEgStrengthParam.value = 20.0
         filterResonanceParam.value = 0.0
         ampAttackTimeParam.value = 0.0
         ampDecayTimeParam.value = 0.0

@@ -72,6 +72,7 @@ namespace AudioKitCore
 
         // per-voice filter parameters
         float cutoffMultiple;   // multiple of note frequency - 1.0 means cutoff at fundamental
+        float cutoffEgStrength; // how much filter EG adds on top of cutoffMultiple
         float resLinear;        // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         
         // sample-related parameters
