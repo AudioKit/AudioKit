@@ -27,6 +27,8 @@ class ViewController: NSViewController, NSWindowDelegate {
     @IBOutlet weak var filterEnableCheckbox: NSButton!
     @IBOutlet weak var filterCutoffSlider: NSSlider!
     @IBOutlet weak var filterCutoffReadout: NSTextField!
+    @IBOutlet weak var filterEgStrengthSlider: NSSlider!
+    @IBOutlet weak var filterEgStrengthReadout: NSTextField!
     @IBOutlet weak var filterResonanceSlider: NSSlider!
     @IBOutlet weak var filterResonanceReadout: NSTextField!
 
@@ -77,7 +79,8 @@ class ViewController: NSViewController, NSWindowDelegate {
 
         filterEnableCheckbox.state = sampler.filterEnable ? .on : .off
         filterCutoffSlider.intValue = Int32(sampler.filterCutoff)
-        filterCutoffReadout.intValue = Int32(sampler.filterCutoff)
+        filterCutoffReadout.doubleValue = sampler.filterCutoff
+        filterEgStrengthReadout.doubleValue = sampler.filterEgStrength
         filterResonanceSlider.doubleValue = sampler.filterResonance
         filterResonanceReadout.doubleValue = sampler.filterResonance
 
@@ -153,8 +156,13 @@ class ViewController: NSViewController, NSWindowDelegate {
     }
 
     @IBAction func onFilterCutoffSliderChange(_ sender: NSSlider) {
-        filterCutoffReadout.intValue = sender.intValue
+        filterCutoffReadout.doubleValue = sender.doubleValue
         sampler.filterCutoff = sender.doubleValue
+    }
+
+    @IBAction func onFilterEgStrengthSliderChange(_ sender: NSSlider) {
+        filterEgStrengthReadout.doubleValue = sender.doubleValue;
+        sampler.filterEgStrength = sender.doubleValue
     }
 
     @IBAction func onFilterResonanceSlider(_ sender: NSSlider) {
