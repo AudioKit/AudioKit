@@ -9,6 +9,7 @@
 extension AVAudioPCMBuffer {
 
     public struct Peak {
+        public init() {}
         public static var min: Float = -10_000.0
         public var time: Double = 0
         public var framePosition: Int = 0
@@ -135,7 +136,7 @@ extension AVAudioPCMBuffer {
         }
 
         value.amplitude = peakValue
-        //AKLog(value)
+        // AKLog(value)
         return value
     }
 
