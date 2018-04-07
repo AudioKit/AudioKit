@@ -31,6 +31,8 @@
     IBOutlet NSButton *filterEnableCheckbox;
     IBOutlet NSSlider *filterCutoffSlider;
     IBOutlet NSTextField *filterCutoffText;
+    IBOutlet NSSlider *filterEgStrengthSlider;
+    IBOutlet NSTextField *filterEgStrengthText;
     IBOutlet NSSlider *filterResonanceSlider;
     IBOutlet NSTextField *filterResonanceText;
     
