@@ -11,6 +11,7 @@ import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
+    @IBOutlet var inputSourceBox: NSBox!
 
     // Default controls
     @IBOutlet var playButton: NSButton!
@@ -33,7 +34,7 @@ class ViewController: NSViewController {
     }
 
     // Define components ⏦ ⏚ ⎍ ⍾ ⚙︎
-    var oscillator = AKOscillator()
+    var speechSynthesizer = AKSpeechSynthesizer()
     var booster = AKBooster()
     var player: AKPlayer?
     var node: AKNode? {
@@ -44,6 +45,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
 
     @IBAction func start(_ sender: Any) {
@@ -54,21 +56,26 @@ class ViewController: NSViewController {
         } catch {
             AKLog("AudioKit did not start!")
         }
-        initOscillator()
+        initSpeechSynthesizer()
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
+
+        guard let content = inputSourceBox.contentView else { return }
+        for sv in content.subviews {
+            guard let control = sv as? NSControl else { continue }
+            control.isEnabled = true
+        }
+
     }
 
     private func updateInfo() {
         chooseAudioButton.isEnabled = node == player
-        inputSourceInfo.stringValue = node == player ? "🔊 \(audioTitle)" : "🔊 ⏦ \(oscillator.frequency) hz"
     }
-    private func initOscillator() {
-        guard node != oscillator else { return }
+    private func initSpeechSynthesizer() {
+        guard node != speechSynthesizer else { return }
         booster.disconnectInput()
-        oscillator >>> booster
-        node = oscillator
-        oscillator.stop()
+        speechSynthesizer >>> booster
+        node = speechSynthesizer
     }
 
     private func initPlayer() {
@@ -87,15 +94,15 @@ class ViewController: NSViewController {
 
     @IBAction func changeInput(_ sender: NSPopUpButton) {
         guard let title = sender.selectedItem?.title else { return }
-        if title == "Oscillator" {
-            initOscillator()
+        if title == "SpeechSynthesizer" {
+            initSpeechSynthesizer()
         } else if title == "Player" {
             initPlayer()
         }
     }
 
-    @IBAction func chooseOscillator(_ sender: Any) {
-        initOscillator()
+    @IBAction func chooseSpeechSynthesizer(_ sender: Any) {
+        initSpeechSynthesizer()
     }
 
     @IBAction func chooseAudio(_ sender: Any) {
@@ -119,13 +126,24 @@ class ViewController: NSViewController {
         player?.isLooping = sender.state == .on
     }
 
+    @IBAction func setNormalizeState(_ sender: NSButton) {
+        player?.isNormalized = sender.state == .on
+    }
+
+    @IBAction func setReversedState(_ sender: NSButton) {
+        player?.isReversed = sender.state == .on
+    }
+
     /// open an audio URL for playing
     func open(url: URL) {
         if player == nil {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
-            player?.bufferLooping = false
+            // for seamless looping use:
+            player?.buffering = .always
+            player?.fade.inTime = 1
+            player?.fade.outTime = 1
         } else {
             do {
                 try player?.load(url: url)
@@ -138,8 +156,8 @@ class ViewController: NSViewController {
 
     @IBAction func handlePlay(_ sender: NSButton) {
         let state = sender.state == .on
-        if node == oscillator {
-            state ? oscillator.start() : oscillator.stop()
+        if node == speechSynthesizer {
+            speechSynthesizer.sayHello()
         } else if node == player {
             state ? player?.resume() : player?.pause()
         }

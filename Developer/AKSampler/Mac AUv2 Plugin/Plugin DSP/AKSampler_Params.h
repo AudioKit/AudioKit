@@ -18,6 +18,7 @@ enum
     kVibratoDepthSemitones,
     kFilterEnable,
     kFilterCutoffHarmonic,
+    kFilterCutoffEgStrength,
     kFilterResonanceDb,
     
     kAmpEgAttackTimeSeconds,

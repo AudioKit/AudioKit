@@ -10,7 +10,6 @@
 
 #include "ResonantLowPassFilter.hpp"
 #include "FunctionTable.hpp"
-#include <math.h>
 
 namespace AudioKitCore
 {
@@ -38,7 +37,7 @@ namespace AudioKitCore
     void ResonantLowPassFilter::init(double sampleRateHz)
     {
         this->sampleRateHz = sampleRateHz;
-        x1 = x2 = y1 = y1 = 0.0;
+        x1 = x2 = y1 = y2 = 0.0;
         mLastCutoffHz = mLastResLinear = -1.0;  // force recalc of coefficients
     }
     
@@ -76,8 +75,6 @@ namespace AudioKitCore
         {
             float inputSample = *sourceP++;
             float outputSample = (float)(a0*inputSample + a1*x1 + a2*x2 - b1*y1 - b2*y2);
-            if (!isnormal(outputSample))
-                outputSample = 0.0f;
 
             x2 = x1;
             x1 = inputSample;
@@ -87,20 +84,5 @@ namespace AudioKitCore
             *destP++ = outputSample;
         }
     }
-
-    float ResonantLowPassFilter::process(float inputSample)
-    {
-        float outputSample = (float)(a0*inputSample + a1*x1 + a2*x2 - b1*y1 - b2*y2);
-        if (!isnormal(outputSample))
-            outputSample = 0.0f;
-
-        x2 = x1;
-        x1 = inputSample;
-        y2 = y1;
-        y1 = outputSample;
-
-        return outputSample;
-    }
-
 
 }

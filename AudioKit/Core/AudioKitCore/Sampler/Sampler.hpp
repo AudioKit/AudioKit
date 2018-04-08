@@ -28,7 +28,11 @@ namespace AudioKitCore
         
         int init(double sampleRate);    // returns system error code, nonzero only if a problem occurs
         void deinit();                  // call this to un-load all samples and clear the keymap
-        
+
+        // call before/after loading/unloading samples, to ensure none are in use
+        void stopAllVoices();
+        void restartVoices();
+
         // call to load samples
         void loadSampleData(AKSampleDataDescriptor& sdd);
         
@@ -72,10 +76,14 @@ namespace AudioKitCore
 
         // per-voice filter parameters
         float cutoffMultiple;   // multiple of note frequency - 1.0 means cutoff at fundamental
+        float cutoffEgStrength; // how much filter EG adds on top of cutoffMultiple
         float resLinear;        // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         
         // sample-related parameters
         bool loopThruRelease;   // if true, sample continue looping thru note release phase
+
+        // temporary state
+        bool stoppingAllVoices;
         
         // helper functions
         SamplerVoice* voicePlayingNote(unsigned noteNumber);

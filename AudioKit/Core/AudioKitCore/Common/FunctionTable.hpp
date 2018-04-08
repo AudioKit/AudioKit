@@ -40,6 +40,7 @@ namespace AudioKitCore
         void triangle(float amplitude=1.0f);
         void sawtooth(float amplitude=1.0f);
         void sinusoid(float amplitude=1.0f);
+        void square(float amplitude=1.0f, float dutyCycle=0.5f);
         
         inline float interp_cyclic(float phase)
         {
