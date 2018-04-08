@@ -707,7 +707,7 @@
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SpeechSynthesizer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" misplaced="YES" id="m2S-Jp-Qdl">
+                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="489" height="217"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -716,35 +716,35 @@
                                 <subviews>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9jR-br-uMX">
                                         <rect key="frame" x="0.0" y="173" width="441" height="22"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Replace" drawsBackground="YES" id="yUo-y8-mmV">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Replace this with some text to say" drawsBackground="YES" id="yUo-y8-mmV">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UT0-dQ-RA4">
-                                        <rect key="frame" x="-2" y="148" width="35" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Pitch" id="39G-YS-5dQ">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-yw-IpO">
-                                        <rect key="frame" x="-2" y="123" width="445" height="19"/>
-                                        <sliderCell key="cell" state="on" alignment="left" maxValue="200" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="b44-66-2GN"/>
-                                    </slider>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LmW-fU-PHS">
-                                        <rect key="frame" x="-2" y="100" width="32" height="17"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Rate" id="0Ny-FK-zWX">
+                                        <rect key="frame" x="-2" y="148" width="112" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Words Per Minute" id="0Ny-FK-zWX">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XlN-XG-GFF">
+                                        <rect key="frame" x="-2" y="123" width="445" height="19"/>
+                                        <sliderCell key="cell" state="on" alignment="left" minValue="100" maxValue="1000" doubleValue="150" tickMarkPosition="above" sliderType="linear" id="vel-aE-xOi"/>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UT0-dQ-RA4">
+                                        <rect key="frame" x="-2" y="100" width="102" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Base Frequency" id="39G-YS-5dQ">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-yw-IpO">
                                         <rect key="frame" x="-2" y="75" width="445" height="19"/>
-                                        <sliderCell key="cell" state="on" alignment="left" maxValue="500" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="vel-aE-xOi"/>
+                                        <sliderCell key="cell" state="on" alignment="left" minValue="90" maxValue="240" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="b44-66-2GN"/>
                                     </slider>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PXg-h3-5p5">
                                         <rect key="frame" x="-2" y="52" width="72" height="17"/>
@@ -756,18 +756,41 @@
                                     </textField>
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PdY-Pc-Enb">
                                         <rect key="frame" x="-2" y="27" width="445" height="19"/>
-                                        <sliderCell key="cell" state="on" alignment="left" maxValue="500" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="t08-1T-kJt"/>
+                                        <sliderCell key="cell" state="on" alignment="left" maxValue="20" tickMarkPosition="above" sliderType="linear" id="t08-1T-kJt"/>
                                     </slider>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mX9-Fu-bHj">
-                                        <rect key="frame" x="-6" y="-7" width="78" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Speak" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ggO-IH-PrV">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="speak:" target="XfG-lQ-9wD" id="ADo-3m-yNB"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNi-pA-FOp">
+                                        <rect key="frame" x="0.0" y="0.0" width="131" height="21"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mX9-Fu-bHj">
+                                                <rect key="frame" x="-6" y="-7" width="78" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Speak" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ggO-IH-PrV">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="speak:" target="XfG-lQ-9wD" id="ADo-3m-yNB"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VgC-SR-BJG">
+                                                <rect key="frame" x="68" y="-7" width="69" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NF2-eP-Xmm">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="stop:" target="XfG-lQ-9wD" id="bUp-bE-udx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
