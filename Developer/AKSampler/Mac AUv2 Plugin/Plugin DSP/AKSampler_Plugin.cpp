@@ -286,8 +286,9 @@ OSStatus AKSampler_Plugin::loadPreset()
     const char *pPath = CFStringGetCStringPtr(presetFolderPath, kCFStringEncodingMacRoman);
     const char *pName = CFStringGetCStringPtr(presetName, kCFStringEncodingMacRoman);
     printf("loadPreset: %s...", pName);
-    
-    this->deinit();     // unload any samples already present
+
+    stopAllVoices();        // make sure no voices are active
+    deinit();               // unload any samples already present
     
     char buf[1000];
     sprintf(buf, "%s/%s.sfz", pPath, pName);
@@ -448,6 +449,7 @@ OSStatus AKSampler_Plugin::loadPreset()
     fclose(pfile);
     
     buildKeyMap();
+    restartVoices();    // now it's safe to start new notes
     printf("done\n");
     return noErr;
 }

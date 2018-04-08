@@ -80,6 +80,16 @@ extern "C" void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
+extern "C" void doAKSamplerStopAllVoices(void* pDSP)
+{
+    ((AKSamplerDSP*)pDSP)->stopAllVoices();
+}
+
+extern "C" void doAKSamplerRestartVoices(void* pDSP)
+{
+    ((AKSamplerDSP*)pDSP)->restartVoices();
+}
+
 extern "C" void doAKSamplerSustainPedal(void* pDSP, bool pedalDown)
 {
     ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);

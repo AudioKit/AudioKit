@@ -129,7 +129,6 @@ class Conductor {
         let info = ProcessInfo.processInfo
         let begin = info.systemUptime
         
-        sampler.unloadAllSamples()
         sampler.betterLoadUsingSfzFile(folderPath: folderPath, sfzFileName: sfzFileName)
         
         let elapsedTime = info.systemUptime - begin

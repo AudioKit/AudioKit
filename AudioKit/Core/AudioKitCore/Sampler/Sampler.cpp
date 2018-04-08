@@ -22,6 +22,7 @@ namespace AudioKitCore {
     , cutoffEgStrength(20.0f)
     , resLinear(1.0f)
     , loopThruRelease(false)
+    , stoppingAllVoices(false)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
@@ -203,6 +204,8 @@ namespace AudioKitCore {
     
     void Sampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
     {
+        if (stoppingAllVoices) return;
+
         //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
         // sanity check: ensure we are initialized with at least one buffer
         if (!keyMapValid || sampleBufferList.size() == 0) return;
@@ -255,6 +258,27 @@ namespace AudioKitCore {
             //printf("Stop note %d release\n", noteNumber);
         }
     }
+
+    void Sampler::stopAllVoices()
+    {
+        // Lock out starting any new notes, and tell Render() to stop all active notes
+        stoppingAllVoices = true;
+
+        // Wait until Render() has killed all active notes
+        bool noteStillSounding = true;
+        while (noteStillSounding)
+        {
+            noteStillSounding = false;
+            for (int i=0; i < MAX_POLYPHONY; i++)
+                if (voice[i].noteNumber >= 0) noteStillSounding = true;
+        }
+    }
+
+    void Sampler::restartVoices()
+    {
+        // Allow starting new notes again
+        stoppingAllVoices = false;
+    }
     
     void Sampler::Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
     {
@@ -270,7 +294,8 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, cutoffEgStrength, resLinear) ||
+                if (stoppingAllVoices ||
+                    pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, cutoffEgStrength, resLinear) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

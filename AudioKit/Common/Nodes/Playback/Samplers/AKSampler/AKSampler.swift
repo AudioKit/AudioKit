@@ -367,6 +367,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
                                                                  pData: data) )
     }
 
+    open func stopAllVoices() {
+        internalAU?.stopAllVoices()
+    }
+
+    open func restartVoices() {
+        internalAU?.restartVoices()
+    }
+
     open func loadRawSampleData(sdd: AKSampleDataDescriptor) {
         internalAU?.loadSampleData(sdd: sdd)
     }
