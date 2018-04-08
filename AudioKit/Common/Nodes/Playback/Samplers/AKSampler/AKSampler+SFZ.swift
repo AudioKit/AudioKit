@@ -11,6 +11,10 @@ extension AKSampler {
     // See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 
     open func loadUsingSfzFile(folderPath: String, sfzFileName: String) {
+
+        stopAllVoices()
+        unloadAllSamples()
+        
         var lokey: Int32 = 0
         var hikey: Int32 = 127
         var pitch: Int32 = 60
@@ -111,5 +115,6 @@ extension AKSampler {
         }
 
         buildKeyMap()
+        restartVoices()
     }
 }

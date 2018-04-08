@@ -37,6 +37,8 @@ void doAKSamplerBuildKeyMap(void* pDSP);
 void doAKSamplerSetLoopThruRelease(void* pDSP, bool value);
 void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
 void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
+void doAKSamplerStopAllVoices(void* pDSP);
+void doAKSamplerRestartVoices(void* pDSP);
 void doAKSamplerSustainPedal(void* pDSP, bool pedalDown);
 
 #else

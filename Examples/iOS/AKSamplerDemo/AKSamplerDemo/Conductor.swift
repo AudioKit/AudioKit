@@ -58,7 +58,7 @@ class Conductor {
 
         // Preferred method: use SFZ file
         // You can download a small set of ready-to-use SFZ files and samples from
-        // http://audiokit.io/downloads/ROMPlayer_Instruments.zip
+        // http://audiokit.io/downloads/ROMPlayerInstruments.zip
         // see loadSamples(byIndex:) below
 
         sampler.ampAttackTime = 0.01
@@ -100,7 +100,6 @@ class Conductor {
 
         let folderURL = FileManagerUtils.shared.getDocsUrl("ROMPlayer Instruments")
         let sfzFiles = [ "TX Brass.sfz", "TX LoTine81z.sfz", "TX Metalimba.sfz", "TX Pluck Bass.sfz" ]
-        sampler.unloadAllSamples()
         sampler.loadUsingSfzFile(folderPath: folderURL.path, sfzFileName: sfzFiles[byIndex])
 
         let elapsedTime = info.systemUptime - begin
@@ -116,9 +115,7 @@ class Conductor {
     }
 
     func allNotesOff() {
-        for note in 0 ... 127 {
-            sampler.silence(noteNumber: MIDINoteNumber(note))
-        }
+        sampler.stopAllVoices()
     }
 
     func afterTouch(_ pressure: MIDIByte) {

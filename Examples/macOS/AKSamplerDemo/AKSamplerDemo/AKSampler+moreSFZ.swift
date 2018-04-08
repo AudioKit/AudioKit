@@ -11,6 +11,10 @@
     extension AKSampler
     {
         open func betterLoadUsingSfzFile(folderPath: String, sfzFileName: String) {
+
+        	stopAllVoices()
+        	unloadAllSamples()
+
             var lokey: Int32 = 0
             var hikey: Int32 = 127
             var pitch: Int32 = 60
@@ -112,5 +116,6 @@
             }
 
             buildKeyMap()
+            restartVoices()
         }
     }

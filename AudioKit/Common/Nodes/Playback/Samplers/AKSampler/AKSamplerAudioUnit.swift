@@ -245,6 +245,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
     public override var canProcessInPlace: Bool { return true; }
 
+    public func stopAllVoices() {
+        doAKSamplerStopAllVoices(pDSP)
+    }
+
+    public func restartVoices() {
+        doAKSamplerRestartVoices(pDSP)
+    }
+
     public func loadSampleData(sdd: AKSampleDataDescriptor) {
         var sdd_copy = sdd
         doAKSamplerLoadData(pDSP, &sdd_copy)
