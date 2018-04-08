@@ -2440,12 +2440,12 @@
 			name = "AudioUnit Host";
 			sourceTree = "<group>";
 		};
-		BEA4C113207722AE007437A7 /* SpeechSynthesizer */ = {
+		BEA4C113207722AE007437A7 /* Speech Synthesizer */ = {
 			isa = PBXGroup;
 			children = (
 				BEA4C114207722CF007437A7 /* AKSpeechSynthesizer.swift */,
 			);
-			path = SpeechSynthesizer;
+			path = "Speech Synthesizer";
 			sourceTree = "<group>";
 		};
 		C403C2252009B4E400875AE4 /* Oscillator */ = {
@@ -3412,7 +3412,7 @@
 		C45665C71D448D7E00D26565 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
-				BEA4C113207722AE007437A7 /* SpeechSynthesizer */,
+				BEA4C113207722AE007437A7 /* Speech Synthesizer */,
 				C45665C81D448D7E00D26565 /* AudioKit Operation-Based Generator */,
 				C45665CD1D448D7E00D26565 /* Noise */,
 				C45665D81D448D7E00D26565 /* Oscillators */,

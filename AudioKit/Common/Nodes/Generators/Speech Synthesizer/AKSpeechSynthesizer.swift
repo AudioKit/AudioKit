@@ -20,7 +20,10 @@ open class AKSpeechSynthesizer: AKNode {
 
     fileprivate let speechAU = AVAudioUnitGenerator(audioComponentDescription: ComponentDescription)
 
-    public func sayHello() {
+    public func say(text: String,
+                    wordsPerMinute: Double = 100,
+                    frequency: Double = 100,
+                    modulation: Double = 0) {
         var channel: SpeechChannel?
         var propsize: UInt32 = UInt32(MemoryLayout<SpeechChannel>.size)
 
@@ -32,31 +35,28 @@ open class AKSpeechSynthesizer: AKNode {
                                         &propsize))
 
         guard let speechChannel = channel else {
-            debugPrint("Cannot get Speech Channel")
-            exit(1)
+            AKLog("Cannot get Speech Channel")
+            return
         }
 
-        // Adjust the speech rate/pitch or other property by set property to SpeechChannel
-        // https://github.com/apple/swift-3-api-guidelines-review/blob/64e3132a6a383b4a4603605180ded31efd37dcdc/Platforms/OSX/ApplicationServices/SpeechSynthesis.swift#L311
-        // and various examples from Apple in
-        // https://github.com/ooper-shlab/CocoaSpeechSynthesisExample-Swift/blob/master/SpeakingTextWindow.swift#L910
-        let randomSpeechRate: Int32 = Int32(arc4random_uniform(100) + 120)
-        SetSpeechRate(speechChannel, randomSpeechRate)
+        let _ = SetSpeechProperty(speechChannel, kSpeechRateProperty, wordsPerMinute as NSNumber)
+        let _ = SetSpeechProperty(speechChannel, kSpeechPitchBaseProperty, frequency as NSNumber)
+        let _ = SetSpeechProperty(speechChannel, kSpeechPitchModProperty, modulation as NSNumber)
 
+            
         // change voices randomly
-        var numOfVoices: Int16 = 0
-        CountVoices(&numOfVoices)
-        var theVoiceSpec = VoiceSpec()
-        let randomVoiceIndex: Int16 = Int16(arc4random_uniform(UInt32(numOfVoices - 1)) + 1)
-        GetIndVoice(randomVoiceIndex, &theVoiceSpec)
-        let voiceDict: NSDictionary = [kSpeechVoiceID: theVoiceSpec.id,
-        kSpeechVoiceCreator: theVoiceSpec.creator]
-
-        SetSpeechProperty(speechChannel, kSpeechCurrentVoiceProperty, voiceDict)
-
+//        var numOfVoices: Int16 = 0
+//        CountVoices(&numOfVoices)
+//        var theVoiceSpec = VoiceSpec()
+//        let randomVoiceIndex: Int16 = Int16(arc4random_uniform(UInt32(numOfVoices - 1)) + 1)
+//        GetIndVoice(randomVoiceIndex, &theVoiceSpec)
+//        let voiceDict: NSDictionary = [kSpeechVoiceID: theVoiceSpec.id, kSpeechVoiceCreator: theVoiceSpec.creator]
+//
+//        SetSpeechProperty(speechChannel, kSpeechCurrentVoiceProperty, voiceDict)
 
 
-        SpeakCFString(speechChannel, "Hello World. AK Speech Synthesizer works!" as CFString, nil)
+
+        SpeakCFString(speechChannel, text as CFString, nil)
     }
 
     @objc public override init() {
