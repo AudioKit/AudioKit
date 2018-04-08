@@ -733,6 +733,9 @@
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XlN-XG-GFF">
                                         <rect key="frame" x="-2" y="123" width="445" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" minValue="100" maxValue="1000" doubleValue="150" tickMarkPosition="above" sliderType="linear" id="vel-aE-xOi"/>
+                                        <connections>
+                                            <action selector="slid:" target="XfG-lQ-9wD" id="svq-3a-Wfd"/>
+                                        </connections>
                                     </slider>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UT0-dQ-RA4">
                                         <rect key="frame" x="-2" y="100" width="102" height="17"/>
@@ -745,6 +748,9 @@
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N7w-yw-IpO">
                                         <rect key="frame" x="-2" y="75" width="445" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" minValue="90" maxValue="240" doubleValue="100" tickMarkPosition="above" sliderType="linear" id="b44-66-2GN"/>
+                                        <connections>
+                                            <action selector="slid:" target="XfG-lQ-9wD" id="4e8-uE-4dg"/>
+                                        </connections>
                                     </slider>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PXg-h3-5p5">
                                         <rect key="frame" x="-2" y="52" width="72" height="17"/>
@@ -757,6 +763,9 @@
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PdY-Pc-Enb">
                                         <rect key="frame" x="-2" y="27" width="445" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="20" tickMarkPosition="above" sliderType="linear" id="t08-1T-kJt"/>
+                                        <connections>
+                                            <action selector="slid:" target="XfG-lQ-9wD" id="RMi-Nn-zMW"/>
+                                        </connections>
                                     </slider>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNi-pA-FOp">
                                         <rect key="frame" x="0.0" y="0.0" width="131" height="21"/>
@@ -823,8 +832,11 @@
                     </view>
                     <connections>
                         <outlet property="modulationSlider" destination="PdY-Pc-Enb" id="Ms6-sm-VPe"/>
+                        <outlet property="modulationTextField" destination="PXg-h3-5p5" id="hff-rr-Oee"/>
                         <outlet property="pitchSlider" destination="N7w-yw-IpO" id="9fX-PN-tb1"/>
+                        <outlet property="pitchTextField" destination="UT0-dQ-RA4" id="wlt-yx-jxf"/>
                         <outlet property="rateSlider" destination="XlN-XG-GFF" id="lyI-yx-0o3"/>
+                        <outlet property="rateTextField" destination="LmW-fU-PHS" id="fbV-MU-UzH"/>
                         <outlet property="textField" destination="9jR-br-uMX" id="Z4J-R6-RuC"/>
                     </connections>
                 </viewController>

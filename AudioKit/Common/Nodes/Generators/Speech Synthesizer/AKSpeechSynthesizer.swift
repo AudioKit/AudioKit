@@ -2,8 +2,8 @@
 //  AKSpeechSynthesizer.swift
 //  AudioKit
 //
-//  Created by Wangchou Lu on H30/04/06.
-//  Copyright © 平成30年 AudioKit. All rights reserved.
+//  Created by Wangchou Lu, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's SpeechSynthesis Audio Unit
@@ -29,16 +29,16 @@ open class AKSpeechSynthesizer: AKNode {
     var theVoiceSpec = VoiceSpec()
 
     /// Rate in words per minute
-    public var rate: Double {
+    public var rate: Int {
         get {
             guard let speechChannel = channel else {
                 AKLog("Cannot get Speech Channel")
-                return 0.0
+                return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechRateProperty, &valueAsNSNumber) == OSErr(noErr) {
-                return valueAsNSNumber!.doubleValue!
+                return Int(valueAsNSNumber!.doubleValue!.rounded())
             } else {
-                return 0.0
+                return 0
             }
         }
         set (newRate) {
@@ -46,22 +46,21 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            AKLog("Trying to set new rate")
             let _ = SetSpeechProperty(speechChannel, kSpeechRateProperty, newRate as NSNumber?)
         }
     }
 
     /// Base Frequency in Hz
-    public var frequency: Double {
+    public var frequency: Int {
         get {
             guard let speechChannel = channel else {
                 AKLog("Cannot get Speech Channel")
-                return 0.0
+                return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechPitchBaseProperty, &valueAsNSNumber) == OSErr(noErr) {
-                return valueAsNSNumber!.doubleValue!
+                return Int(valueAsNSNumber!.doubleValue!.rounded())
             } else {
-                return 0.0
+                return 0
             }
         }
         set (newFrequency) {
@@ -69,22 +68,21 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            AKLog("Trying to set new freq")
             let _ = SetSpeechProperty(speechChannel, kSpeechPitchBaseProperty, newFrequency as NSNumber?)
         }
     }
 
     /// Modulation Width in Hz
-    public var modulation: Double {
+    public var modulation: Int {
         get {
             guard let speechChannel = channel else {
                 AKLog("Cannot get Speech Channel")
-                return 0.0
+                return 0
             }
             if CopySpeechProperty(speechChannel, kSpeechPitchModProperty, &valueAsNSNumber) == OSErr(noErr) {
-                return valueAsNSNumber!.doubleValue!
+                return Int(valueAsNSNumber!.doubleValue!.rounded())
             } else {
-                return 0.0
+                return 0
             }
         }
         set (newModulation) {
@@ -92,7 +90,6 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            AKLog("Trying to set new modulation")
             let _ = SetSpeechProperty(speechChannel, kSpeechPitchModProperty, newModulation as NSNumber?)
         }
     }
@@ -103,18 +100,17 @@ open class AKSpeechSynthesizer: AKNode {
             AKLog("Cannot get Speech Channel")
             return
         }
-        AKLog("Stopping")
         StopSpeech(speechChannel)
     }
     
     public func say(text: String,
-                    rate: Double = 100,
-                    frequency: Double = 100,
-                    modulation: Double = 0) {
+                    rate: Int? = nil,
+                    frequency: Int? = nil,
+                    modulation: Int? = nil) {
 
-        self.rate = rate
-        self.frequency = frequency
-        self.modulation = modulation
+        self.rate = rate ?? self.rate
+        self.frequency = frequency ?? self.frequency
+        self.modulation = modulation ?? self.modulation
 
         guard let speechChannel = channel else {
             AKLog("Cannot get Speech Channel")
