@@ -20,6 +20,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var rateSlider: NSSlider!
     @IBOutlet weak var modulationSlider: NSSlider!
 
+    @IBOutlet weak var rateTextField: NSTextField!
+    @IBOutlet weak var pitchTextField: NSTextField!
+    @IBOutlet weak var modulationTextField: NSTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,27 +48,30 @@ class ViewController: NSViewController {
 
         rateSlider.maxValue = speechSynthesizer.rate * 2
         pitchSlider.maxValue = speechSynthesizer.frequency * 2
-        modulationSlider.maxValue = speechSynthesizer.modulation * 5
+        modulationSlider.maxValue = speechSynthesizer.modulation * 2
 
-        rateSlider.doubleValue = speechSynthesizer.rate
-        pitchSlider.doubleValue = speechSynthesizer.frequency
-        modulationSlider.doubleValue = speechSynthesizer.modulation
-
-
+        rateSlider.integerValue = speechSynthesizer.rate
+        pitchSlider.integerValue = speechSynthesizer.frequency
+        modulationSlider.integerValue = speechSynthesizer.modulation
+        updateLabels()
     }
 
-    @IBAction func speak(_ sender: NSButton) {
-        AKLog("rate: \(speechSynthesizer.rate)")
-        AKLog("freq: \(speechSynthesizer.frequency)")
-        AKLog("modu: \(speechSynthesizer.modulation)")
-        AKLog("set rate: \(rateSlider.doubleValue)")
-        AKLog("set freq: \(pitchSlider.doubleValue)")
-        AKLog("set modu: \(modulationSlider.doubleValue)")
-        speechSynthesizer.say(text: textField.stringValue,
-                              rate: rateSlider.doubleValue,
-                              frequency: pitchSlider.doubleValue,
-                              modulation: modulationSlider.doubleValue)
+    @IBAction func slid(_ sender: NSSlider) {
+        speechSynthesizer.rate = rateSlider.integerValue
+        speechSynthesizer.frequency = pitchSlider.integerValue
+        speechSynthesizer.modulation = modulationSlider.integerValue
+        updateLabels()
+    }
 
+    func updateLabels() {
+        rateTextField.stringValue = "Words Per Minute: \(speechSynthesizer.rate)"
+        pitchTextField.stringValue = "Base Frequency \(speechSynthesizer.frequency)"
+        modulationTextField.stringValue = "Modulation: \(speechSynthesizer.modulation)"
+    }
+    
+
+    @IBAction func speak(_ sender: NSButton) {
+        speechSynthesizer.say(text: textField.stringValue)
     }
 
     @IBAction func stop(_ sender: NSButton) {
