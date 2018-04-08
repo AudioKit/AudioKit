@@ -11,11 +11,10 @@ if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
     player = AKPlayer(audioFile: mixloop)
     player.completionHandler = { Swift.print("completion callback has been triggered!") }
     player.isLooping = true
-
+    player.buffering = .always
     AudioKit.output = player
     try AudioKit.start()
 }
-
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
 
@@ -29,7 +28,6 @@ class LiveView: AKLiveViewController {
     var fadeOutSlider: AKSlider!
 
     override func viewDidLoad() {
-
         AKPlaygroundLoop(every: 1 / 10.0) {
             if player.duration > 0 {
                 self.playingPositionSlider?.value = player.currentTime

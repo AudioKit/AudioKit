@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -706,11 +706,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="AKSamplerDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="484"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="538"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oNY-Qg-YnV">
-                                <rect key="frame" x="158" y="401" width="304" height="19"/>
+                                <rect key="frame" x="158" y="455" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="6LO-uZ-Fih"/>
                                 <connections>
@@ -718,7 +718,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aD2-K0-9R4">
-                                <rect key="frame" x="18" y="403" width="120" height="17"/>
+                                <rect key="frame" x="18" y="457" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Master Volume" id="O83-Fp-5Cw">
                                     <font key="font" metaFont="system"/>
@@ -727,7 +727,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gqz-l1-fut">
-                                <rect key="frame" x="478" y="403" width="104" height="17"/>
+                                <rect key="frame" x="478" y="457" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="5Cd-GQ-PbE">
                                     <font key="font" metaFont="system"/>
@@ -736,7 +736,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="App-cu-50V">
-                                <rect key="frame" x="158" y="376" width="304" height="19"/>
+                                <rect key="frame" x="158" y="430" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-24" maxValue="24" tickMarkPosition="above" sliderType="linear" id="NjS-6v-JWv"/>
                                 <connections>
@@ -744,7 +744,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z5i-Ve-vOJ">
-                                <rect key="frame" x="18" y="378" width="120" height="17"/>
+                                <rect key="frame" x="18" y="432" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Pitch Offset" id="JbJ-y2-aCv">
                                     <font key="font" metaFont="system"/>
@@ -753,7 +753,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c2I-G8-OGI">
-                                <rect key="frame" x="478" y="378" width="104" height="17"/>
+                                <rect key="frame" x="478" y="432" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="tEm-qN-ZpI">
                                     <font key="font" metaFont="system"/>
@@ -762,7 +762,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jsz-fL-0Je">
-                                <rect key="frame" x="158" y="351" width="304" height="19"/>
+                                <rect key="frame" x="158" y="405" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="iqW-Pn-U6S"/>
                                 <connections>
@@ -770,7 +770,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mAD-zG-z0d">
-                                <rect key="frame" x="18" y="353" width="120" height="17"/>
+                                <rect key="frame" x="18" y="407" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Vibrato Depth" id="rgs-ua-ne9">
                                     <font key="font" metaFont="system"/>
@@ -779,7 +779,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nIo-x7-5WM">
-                                <rect key="frame" x="18" y="190" width="120" height="17"/>
+                                <rect key="frame" x="18" y="244" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter Enable" id="YOl-dM-SbF">
                                     <font key="font" metaFont="system"/>
@@ -788,7 +788,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hbw-Hx-vUW">
-                                <rect key="frame" x="478" y="353" width="104" height="17"/>
+                                <rect key="frame" x="478" y="407" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="kO2-Ln-sBF">
                                     <font key="font" metaFont="system"/>
@@ -797,15 +797,15 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qze-sp-7e6">
-                                <rect key="frame" x="158" y="163" width="304" height="19"/>
+                                <rect key="frame" x="158" y="217" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="ZIG-ab-Qk9"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1000" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="ZIG-ab-Qk9"/>
                                 <connections>
                                     <action selector="onFilterCutoffSliderChange:" target="XfG-lQ-9wD" id="Gej-wu-Z8s"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6RJ-eA-Dqa">
-                                <rect key="frame" x="18" y="165" width="120" height="17"/>
+                                <rect key="frame" x="18" y="219" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter Cutoff" id="H8U-UA-5FC">
                                     <font key="font" metaFont="system"/>
@@ -814,7 +814,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uvh-oC-4ux">
-                                <rect key="frame" x="478" y="165" width="104" height="17"/>
+                                <rect key="frame" x="478" y="219" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="8q6-C1-UwM">
                                     <font key="font" metaFont="system"/>
@@ -823,7 +823,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rga-JG-BsB">
-                                <rect key="frame" x="158" y="189" width="61" height="18"/>
+                                <rect key="frame" x="158" y="243" width="61" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="x4f-CM-x7b">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -834,7 +834,7 @@
                                 </connections>
                             </button>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOD-xy-ONG">
-                                <rect key="frame" x="158" y="308" width="304" height="19"/>
+                                <rect key="frame" x="158" y="362" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="Fd9-Hr-7l7"/>
                                 <connections>
@@ -842,7 +842,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38h-kZ-9Jw">
-                                <rect key="frame" x="18" y="310" width="120" height="17"/>
+                                <rect key="frame" x="18" y="364" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amp EG Attack" id="W8M-ed-D8W">
                                     <font key="font" metaFont="system"/>
@@ -851,7 +851,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="533-7c-3M2">
-                                <rect key="frame" x="478" y="310" width="104" height="17"/>
+                                <rect key="frame" x="478" y="364" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="XlT-LN-6lg">
                                     <font key="font" metaFont="system"/>
@@ -860,7 +860,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZLJ-4F-QDD">
-                                <rect key="frame" x="158" y="283" width="304" height="19"/>
+                                <rect key="frame" x="158" y="337" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="Hhd-Th-nEF"/>
                                 <connections>
@@ -868,7 +868,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fsp-pM-rbK">
-                                <rect key="frame" x="18" y="285" width="120" height="17"/>
+                                <rect key="frame" x="18" y="339" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amp EG Decay" id="Dzv-cr-GWO">
                                     <font key="font" metaFont="system"/>
@@ -877,7 +877,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qlx-JG-L5l">
-                                <rect key="frame" x="478" y="285" width="104" height="17"/>
+                                <rect key="frame" x="478" y="339" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="rKm-U2-Bge">
                                     <font key="font" metaFont="system"/>
@@ -886,7 +886,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aeU-ki-B03">
-                                <rect key="frame" x="158" y="258" width="304" height="19"/>
+                                <rect key="frame" x="158" y="312" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="vTz-tl-T0k"/>
                                 <connections>
@@ -894,7 +894,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tTF-J9-RR2">
-                                <rect key="frame" x="18" y="260" width="120" height="17"/>
+                                <rect key="frame" x="18" y="314" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amp EG Sustain" id="yOd-e2-ERi">
                                     <font key="font" metaFont="system"/>
@@ -903,7 +903,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xfm-vQ-7ZM">
-                                <rect key="frame" x="478" y="260" width="104" height="17"/>
+                                <rect key="frame" x="478" y="314" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="REZ-rb-hk2">
                                     <font key="font" metaFont="system"/>
@@ -912,7 +912,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqQ-KS-SRv">
-                                <rect key="frame" x="158" y="233" width="304" height="19"/>
+                                <rect key="frame" x="158" y="287" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="b2J-cX-aj7"/>
                                 <connections>
@@ -920,7 +920,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q88-yg-Ia0">
-                                <rect key="frame" x="18" y="235" width="120" height="17"/>
+                                <rect key="frame" x="18" y="289" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Amp EG Release" id="BQw-BA-Knj">
                                     <font key="font" metaFont="system"/>
@@ -929,7 +929,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGM-PR-ylJ">
-                                <rect key="frame" x="478" y="235" width="104" height="17"/>
+                                <rect key="frame" x="478" y="289" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="t5Z-f4-fcY">
                                     <font key="font" metaFont="system"/>
@@ -938,7 +938,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lTH-tP-EeX">
-                                <rect key="frame" x="158" y="93" width="304" height="19"/>
+                                <rect key="frame" x="158" y="110" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="VSL-uo-MRO"/>
                                 <connections>
@@ -946,7 +946,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XA1-dO-yxq">
-                                <rect key="frame" x="18" y="95" width="120" height="17"/>
+                                <rect key="frame" x="18" y="112" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter EG Attack" id="BlY-1d-W0o">
                                     <font key="font" metaFont="system"/>
@@ -955,7 +955,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mm4-Nw-585">
-                                <rect key="frame" x="478" y="95" width="104" height="17"/>
+                                <rect key="frame" x="478" y="112" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="Vue-8o-Yjh">
                                     <font key="font" metaFont="system"/>
@@ -964,7 +964,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Ie-6S-bbh">
-                                <rect key="frame" x="158" y="68" width="304" height="19"/>
+                                <rect key="frame" x="158" y="85" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="VI2-ZN-mdb"/>
                                 <connections>
@@ -972,7 +972,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9p-pX-H5p">
-                                <rect key="frame" x="18" y="70" width="120" height="17"/>
+                                <rect key="frame" x="18" y="87" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter EG Decay" id="gAg-lF-kKA">
                                     <font key="font" metaFont="system"/>
@@ -981,7 +981,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fr7-iG-cSX">
-                                <rect key="frame" x="478" y="70" width="104" height="17"/>
+                                <rect key="frame" x="478" y="87" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="kO1-nP-maE">
                                     <font key="font" metaFont="system"/>
@@ -990,7 +990,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c4n-il-ceo">
-                                <rect key="frame" x="158" y="43" width="304" height="19"/>
+                                <rect key="frame" x="158" y="60" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="Lzu-4i-e0k"/>
                                 <connections>
@@ -998,7 +998,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E94-Eu-Fod">
-                                <rect key="frame" x="18" y="45" width="120" height="17"/>
+                                <rect key="frame" x="18" y="62" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter EG Sustain" id="Goz-Pv-CHx">
                                     <font key="font" metaFont="system"/>
@@ -1007,7 +1007,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jAj-Zb-BR5">
-                                <rect key="frame" x="478" y="45" width="104" height="17"/>
+                                <rect key="frame" x="478" y="62" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="VeQ-6I-Kqz">
                                     <font key="font" metaFont="system"/>
@@ -1016,7 +1016,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlJ-sA-svF">
-                                <rect key="frame" x="158" y="18" width="304" height="19"/>
+                                <rect key="frame" x="158" y="35" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="10" tickMarkPosition="above" sliderType="linear" id="1k5-Bb-Jbb"/>
                                 <connections>
@@ -1024,7 +1024,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lJB-j2-vKN">
-                                <rect key="frame" x="18" y="20" width="120" height="17"/>
+                                <rect key="frame" x="18" y="37" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter EG Release" id="yE7-BH-ler">
                                     <font key="font" metaFont="system"/>
@@ -1033,7 +1033,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9R6-Sx-p2S">
-                                <rect key="frame" x="478" y="20" width="104" height="17"/>
+                                <rect key="frame" x="478" y="37" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="pdg-NU-LpH">
                                     <font key="font" metaFont="system"/>
@@ -1042,7 +1042,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qrz-aL-ebT">
-                                <rect key="frame" x="18" y="441" width="120" height="17"/>
+                                <rect key="frame" x="18" y="495" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Sample Set" id="PEH-mz-7rj">
                                     <font key="font" metaFont="system"/>
@@ -1051,7 +1051,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LjV-Ck-u8H">
-                                <rect key="frame" x="158" y="436" width="305" height="26"/>
+                                <rect key="frame" x="158" y="490" width="305" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="72Z-Ki-T9X" id="5Xt-FB-qAv">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1069,7 +1069,7 @@
                                 </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-wV-rAI">
-                                <rect key="frame" x="474" y="432" width="112" height="32"/>
+                                <rect key="frame" x="474" y="486" width="112" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Folder..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sh1-dA-h1I">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1079,8 +1079,34 @@
                                     <action selector="onFolderButton:" target="XfG-lQ-9wD" id="fIY-n4-6Gm"/>
                                 </connections>
                             </button>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZe-iS-lP5">
+                                <rect key="frame" x="158" y="193" width="304" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Fl9-9S-JXt"/>
+                                <connections>
+                                    <action selector="onFilterEgStrengthSliderChange:" target="XfG-lQ-9wD" id="u5M-g9-mxf"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHG-bi-Fbm">
+                                <rect key="frame" x="18" y="195" width="120" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter EG Strength" id="s0D-8Y-2s2">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uj4-i8-rAQ">
+                                <rect key="frame" x="478" y="195" width="104" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="JxT-wO-Rw9">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k6K-tQ-4eL">
-                                <rect key="frame" x="158" y="138" width="304" height="19"/>
+                                <rect key="frame" x="158" y="168" width="304" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="-20" maxValue="20" tickMarkPosition="above" sliderType="linear" id="OU1-CP-cPL"/>
                                 <connections>
@@ -1088,7 +1114,7 @@
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HQq-0v-hDC">
-                                <rect key="frame" x="18" y="140" width="120" height="17"/>
+                                <rect key="frame" x="18" y="170" width="120" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Filter Resonance" id="ua3-Hk-7j4">
                                     <font key="font" metaFont="system"/>
@@ -1097,7 +1123,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cQV-hG-TPg">
-                                <rect key="frame" x="478" y="140" width="104" height="17"/>
+                                <rect key="frame" x="478" y="170" width="104" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="value" id="r3k-SJ-IF3">
                                     <font key="font" metaFont="system"/>
@@ -1122,6 +1148,8 @@
                         <outlet property="filterCutoffSlider" destination="Qze-sp-7e6" id="CKY-GA-JHp"/>
                         <outlet property="filterDecayReadout" destination="Fr7-iG-cSX" id="wax-gr-Cib"/>
                         <outlet property="filterDecaySlider" destination="2Ie-6S-bbh" id="Ixq-xP-NeM"/>
+                        <outlet property="filterEgStrengthReadout" destination="uj4-i8-rAQ" id="qE9-DV-h2N"/>
+                        <outlet property="filterEgStrengthSlider" destination="GZe-iS-lP5" id="3dI-rv-JJd"/>
                         <outlet property="filterEnableCheckbox" destination="Rga-JG-BsB" id="TGs-22-m65"/>
                         <outlet property="filterReleaseReadout" destination="9R6-Sx-p2S" id="HZi-Z0-QHN"/>
                         <outlet property="filterReleaseSlider" destination="UlJ-sA-svF" id="yiv-n5-Y6V"/>
@@ -1140,7 +1168,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="677"/>
+            <point key="canvasLocation" x="75" y="704"/>
         </scene>
     </scenes>
 </document>

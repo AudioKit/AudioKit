@@ -14,6 +14,7 @@
 		3404A83A2050AABA00A2C9E4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3404A8382050AABA00A2C9E4 /* AudioKit.framework */; };
 		3404A83B2050AABA00A2C9E4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3404A8392050AABA00A2C9E4 /* AudioKitUI.framework */; };
 		3404A83D2050AB9900A2C9E4 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A83C2050AB9900A2C9E4 /* Conductor.swift */; };
+		3447616720795BC200AE1C4F /* AKSampler+moreSFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3447616620795BC200AE1C4F /* AKSampler+moreSFZ.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		3404A8382050AABA00A2C9E4 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		3404A8392050AABA00A2C9E4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		3404A83C2050AB9900A2C9E4 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
+		3447616620795BC200AE1C4F /* AKSampler+moreSFZ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKSampler+moreSFZ.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				3404A82D2050AA3500A2C9E4 /* Main.storyboard */,
 				3404A8302050AA3500A2C9E4 /* Info.plist */,
 				3404A8312050AA3500A2C9E4 /* AKSamplerDemo.entitlements */,
+				3447616620795BC200AE1C4F /* AKSampler+moreSFZ.swift */,
 			);
 			path = AKSamplerDemo;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 				3404A83D2050AB9900A2C9E4 /* Conductor.swift in Sources */,
 				3404A82A2050AA3500A2C9E4 /* ViewController.swift in Sources */,
 				3404A8282050AA3500A2C9E4 /* AppDelegate.swift in Sources */,
+				3447616720795BC200AE1C4F /* AKSampler+moreSFZ.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

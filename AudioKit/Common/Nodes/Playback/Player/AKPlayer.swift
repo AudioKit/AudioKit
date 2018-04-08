@@ -45,9 +45,9 @@ import AVFoundation
 public class AKPlayer: AKNode {
 
     /// How the player should handle audio. If buffering, it will load the audio data into
-    /// an internal buffer and play from ram. If not, it will play the file from disk.
+    /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
-    /// such as Looping, Reversing or Fading
+    /// such as Perfect Looping or Reversing
     public enum BufferingType {
         case dynamic, always
     }
@@ -72,13 +72,19 @@ public class AKPlayer: AKNode {
     }
 
     public struct Fade {
+        public init() {}
+
         /// a constant
         public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
 
-        public var inTime: Double = 0
+        public var inTime: Double = 0 {
+            willSet {
+                if newValue != inTime { needsUpdate = true }
+            }
+        }
 
         // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
@@ -86,7 +92,11 @@ public class AKPlayer: AKNode {
         // Currently Unused
         public var inStartGain: Double = minimumGain
 
-        public var outTime: Double = 0
+        public var outTime: Double = 0 {
+            willSet {
+                if newValue != outTime { needsUpdate = true }
+            }
+        }
 
         public var outTimeOffset: Double = 0
 
@@ -95,6 +105,8 @@ public class AKPlayer: AKNode {
 
         // TODO: this would tell Booster what ramper to use when multiple curves are available
         public var type: AKPlayer.FadeType = .exponential
+
+        var needsUpdate: Bool = false
     }
 
     // MARK: - Private Parts
@@ -112,6 +124,12 @@ public class AKPlayer: AKNode {
     private var prerollTimer: Timer?
     private var completionTimer: Timer?
     private var faderTimer: Timer?
+
+    // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
+    // if you don't need them, you can disable them off here
+    private var useCompletionHandler: Bool {
+        return isLooping || completionHandler != nil
+    }
 
     // startTime and endTime may be accessed from multiple thread contexts
     private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
@@ -131,13 +149,17 @@ public class AKPlayer: AKNode {
     // MARK: - Public Properties
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
-    /// stop() is called while playing or when looping.
+    /// stop() is called while playing or when looping from a buffer.
     public var completionHandler: AKCallback?
 
     public var buffer: AVAudioPCMBuffer?
 
-    /// Sets if the player should buffer dynamically, always or never
-    /// Not buffering means playing from disk, buffering is playing from RAM
+    /// Sets if the player should buffer dynamically (as needed) or always.
+    /// Not buffering means streaming from disk (best for long files),
+    /// buffering is playing from RAM (best for shorter sounds you might want to loop).
+    /// For seamless looping you should load the sound into RAM.
+    /// While this creates a perfect loop, the downside is that you can't easily scrub through the audio.
+    /// If you need to be able to be able to scan around the file, keep this .dynamic and stream from disk.
     public var buffering: BufferingType = .dynamic {
         didSet {
             if buffering == .always {
@@ -145,11 +167,6 @@ public class AKPlayer: AKNode {
             }
         }
     }
-
-    /// If set to true the player will load the audio into memory and loop from there.
-    /// While this creates a seamless loop the downside is that you can't easily scrub through the audio.
-    /// If you need to be able to be able to scan around the file, keep this false and stream from disk.
-    public var bufferLooping: Bool = false
 
     /// The internal audio file
     public private(set) var audioFile: AVAudioFile?
@@ -242,15 +259,21 @@ public class AKPlayer: AKNode {
     public var pauseTime: Double?
 
     // MARK: - Public Options
+    /// true if the player is buffering audio rather than playing from disk
+    public var isBuffered: Bool {
+        return isNormalized || isReversed || buffering == .always
+    }
+
+    /// Will automatically normalize on buffer updates if enabled
+    public var isNormalized: Bool = false {
+        didSet {
+            updateBuffer(force: true)
+        }
+    }
 
     /// true if any fades have been set
     public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
-    }
-
-    /// true if the player is buffering audio rather than playing from disk
-    public var isBuffered: Bool {
-        return isReversed || buffering == .always || (isLooping && bufferLooping)
     }
 
     public var isLooping: Bool = false
@@ -290,7 +313,7 @@ public class AKPlayer: AKNode {
         return nil
     }
 
-    /// Create a player from an AVAudioFile
+    /// Create a player from an AVAudioFile (or AKAudioFile)
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
@@ -406,6 +429,10 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
+        guard !isBuffered else {
+            faderNode.gain = gain
+            return
+        }
         initFader(at: audioTime, hostTime: hostTime)
     }
 
@@ -425,12 +452,12 @@ public class AKPlayer: AKNode {
     }
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
-        resetFader(false)
         playerNode.stop()
+
+        resetFader(false)
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
-        // pauseTime = nil
     }
 
     // MARK: - Fade Handlers
@@ -586,8 +613,7 @@ public class AKPlayer: AKNode {
 
         var bufferOptions: AVAudioPlayerNodeBufferOptions = [.interrupts] // isLooping ? [.loops, .interrupts] : [.interrupts]
 
-        // see note in bufferLooping
-        if isLooping && bufferLooping {
+        if isLooping && buffering == .always {
             bufferOptions = [.loops, .interrupts]
         }
 
@@ -596,8 +622,8 @@ public class AKPlayer: AKNode {
             playerNode.scheduleBuffer(buffer,
                                       at: audioTime,
                                       options: bufferOptions,
-                                      completionCallbackType: .dataPlayedBack,
-                                      completionHandler: completionHandler != nil ? handleCallbackComplete : nil)
+                                      completionCallbackType: .dataRendered,
+                                      completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleBuffer(buffer,
@@ -634,7 +660,7 @@ public class AKPlayer: AKNode {
                                        frameCount: frameCount,
                                        at: audioTime,
                                        completionCallbackType: .dataRendered, // .dataPlayedBack,
-                                       completionHandler: handleCallbackComplete)
+                                       completionHandler: useCompletionHandler ? handleCallbackComplete : nil)
         } else {
             // Fallback on earlier version
             playerNode.scheduleSegment(audioFile,
@@ -656,18 +682,19 @@ public class AKPlayer: AKNode {
         // only forward the completion if is actually done playing.
         // if the user calls stop() themselves then the currentFrame will be < frameCount
 
-        faderTimer?.invalidate()
+        // it seems to be unstable having any outbound calls from this callback not be sent to main?
+        DispatchQueue.main.async {
+            // cancel any upcoming fades
+            self.faderTimer?.invalidate()
 
-        // reset the loop if user stopped it
-        if isLooping && bufferLooping {
-            startTime = loop.start
-            endTime = loop.end
-            pauseTime = nil
-            return
-        }
-
-        if currentFrame >= frameCount {
-            DispatchQueue.main.async {
+            // reset the loop if user stopped it
+            if self.isLooping && self.buffering == .always {
+                self.startTime = self.loop.start
+                self.endTime = self.loop.end
+                self.pauseTime = nil
+                return
+            }
+            if self.currentFrame >= self.frameCount {
                 self.handleComplete()
             }
         }
@@ -693,7 +720,6 @@ public class AKPlayer: AKNode {
     // Fills the buffer with data read from audioFile
     private func updateBuffer(force: Bool = false) {
         if !isBuffered { return }
-
         guard let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat
@@ -711,10 +737,15 @@ public class AKPlayer: AKNode {
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
         }
 
-        let updateNeeded = (force || buffer == nil ||
-            startFrame != startingFrame || endFrame != endingFrame || loop.needsUpdate)
+        let updateNeeded = (force ||
+            buffer == nil ||
+            startFrame != startingFrame ||
+            endFrame != endingFrame
+            || loop.needsUpdate
+            || fade.needsUpdate)
 
         if !updateNeeded {
+            // AKLog("No buffer update needed")
             return
         }
 
@@ -745,13 +776,22 @@ public class AKPlayer: AKNode {
             return
         }
 
+        if isLooping {
+            loop.needsUpdate = false
+        }
+
+        if isNormalized {
+            normalizeBuffer()
+        }
+
         // Now, we'll reverse the data in the buffer if specified
         if isReversed {
             reverseBuffer()
         }
 
-        if isLooping {
-            loop.needsUpdate = false
+        if isFaded {
+            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
+            fade.needsUpdate = false
         }
 
         // these are only stored to check if the buffer needs to be updated in subsequent fills
@@ -762,26 +802,30 @@ public class AKPlayer: AKNode {
     // Read the buffer in backwards
     fileprivate func reverseBuffer() {
         guard isBuffered, let buffer = self.buffer else { return }
-
-        let reversedBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format,
-                                              frameCapacity: buffer.frameCapacity)
-
-        var j: Int = 0
-        let length = buffer.frameLength
-
-        // i represents the normal buffer read in reverse
-        for i in (0 ..< Int(length)).reversed() {
-            // n is the channel
-            for n in 0 ..< Int(buffer.format.channelCount) {
-                // we write the reverseBuffer via the j index
-                reversedBuffer?.floatChannelData?[n][j] = buffer.floatChannelData?[n][i] ?? 0.0
-            }
-            j += 1
+        if let reversededBuffer = buffer.reverse() {
+            self.buffer = reversededBuffer
+            AKLog("Reversed Buffer")
         }
-        reversedBuffer?.frameLength = length
+    }
 
-        // set the buffer now to be the reverse one
-        self.buffer = reversedBuffer
+    fileprivate func normalizeBuffer() {
+        guard isBuffered, let buffer = self.buffer else { return }
+        if let normalizedBuffer = buffer.normalize() {
+            self.buffer = normalizedBuffer
+            AKLog("Normalized Buffer")
+        }
+    }
+
+    /// Apply sample level fades to the internal buffer.
+    ///  - Parameters:
+    ///     - inTime specified in seconds, 0 if no fade
+    ///     - outTime specified in seconds, 0 if no fade
+    fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
+        guard isBuffered, let buffer = self.buffer else { return }
+        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime) {
+            self.buffer = fadedBuffer
+            AKLog("Faded Buffer")
+        }
     }
 
     /// Disconnect the node and release resources

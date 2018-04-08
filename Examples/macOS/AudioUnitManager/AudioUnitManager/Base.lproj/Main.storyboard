@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
@@ -821,6 +821,17 @@ IA
                                                 <action selector="handleBufferedButton:" target="XfG-lQ-9wD" id="C9n-mX-ftq"/>
                                             </connections>
                                         </button>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9cE-gO-45D">
+                                            <rect key="frame" x="68" y="5" width="72" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Normalized" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="Al1-bT-FFr">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="miniSystem"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="handleNormalizedButton:" target="XfG-lQ-9wD" id="Ze4-Nw-8Jj"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
@@ -852,6 +863,7 @@ IA
                     <connections>
                         <outlet property="auInstrumentSelector" destination="ivi-4Y-hNl" id="3F4-QS-hPK"/>
                         <outlet property="audioBufferedButton" destination="fC4-Re-xty" id="6lX-Kh-Okm"/>
+                        <outlet property="audioNormalizedButton" destination="9cE-gO-45D" id="Zwb-3H-pg2"/>
                         <outlet property="audioReversedButton" destination="L70-53-rOV" id="fyW-dB-eaN"/>
                         <outlet property="effectsContainer" destination="ITC-cm-Fp0" id="zca-Q1-X5c"/>
                         <outlet property="fileField" destination="o1u-EC-Pe1" id="xN7-mS-Zdi"/>

@@ -22,6 +22,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var filterCutoffParameter: AUParameter?
+    fileprivate var filterEgStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
 
     fileprivate var ampAttackTimeParameter: AUParameter?
@@ -98,7 +99,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Filter cutoff (harmonic ratio)
-    @objc open dynamic var filterCutoff: Double = 1_000.0 {
+    @objc open dynamic var filterCutoff: Double = 4.0 {
         willSet {
             if filterCutoff == newValue {
                 return
@@ -112,6 +113,24 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
 
             internalAU?.filterCutoff = newValue
+        }
+    }
+
+    /// Filter EG strength (harmonic ratio)
+    @objc open dynamic var filterEgStrength: Double = 20.0 {
+        willSet {
+            if filterEgStrength == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp ?? false {
+                if token != nil && filterEgStrengthParameter != nil {
+                    filterEgStrengthParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+
+            internalAU?.filterEgStrength = newValue
         }
     }
 
@@ -224,6 +243,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
+    ///   - filterEgStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - ampAttackTime: seconds, 0.0 - 10.0
     ///   - ampDecayTime: seconds, 0.0 - 10.0
@@ -240,7 +260,8 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
-        filterCutoff: Double = 1_000.0,
+        filterCutoff: Double = 4.0,
+        filterEgStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         ampAttackTime: Double = 0.0,
         ampDecayTime: Double = 0.0,
@@ -256,6 +277,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.filterCutoff = filterCutoff
+        self.filterEgStrength = filterEgStrength
         self.filterResonance = filterResonance
         self.ampAttackTime = ampAttackTime
         self.ampDecayTime = ampDecayTime
@@ -290,6 +312,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
         self.filterCutoffParameter = tree["filterCutoff"]
+        self.filterEgStrengthParameter = tree["filterEgStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
         self.ampAttackTimeParameter = tree["ampAttackTime"]
         self.ampDecayTimeParameter = tree["ampDecayTime"]
@@ -317,6 +340,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.pitchBendParam, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepthParam, value: vibratoDepth)
         self.internalAU?.setParameterImmediately(.filterCutoffParam, value: filterCutoff)
+        self.internalAU?.setParameterImmediately(.filterEgStrengthParam, value: filterEgStrength)
         self.internalAU?.setParameterImmediately(.filterResonanceParam, value: filterResonance)
         self.internalAU?.setParameterImmediately(.ampAttackTimeParam, value: ampAttackTime)
         self.internalAU?.setParameterImmediately(.ampDecayTimeParam, value: ampDecayTime)
@@ -341,6 +365,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
                                                                  nChannels: channelCount,
                                                                  nSamples: sampleCount,
                                                                  pData: data) )
+    }
+
+    open func stopAllVoices() {
+        internalAU?.stopAllVoices()
+    }
+
+    open func restartVoices() {
+        internalAU?.restartVoices()
     }
 
     open func loadRawSampleData(sdd: AKSampleDataDescriptor) {
