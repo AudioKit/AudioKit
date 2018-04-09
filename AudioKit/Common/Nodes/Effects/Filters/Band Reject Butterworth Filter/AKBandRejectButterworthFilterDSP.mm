@@ -103,6 +103,7 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {
