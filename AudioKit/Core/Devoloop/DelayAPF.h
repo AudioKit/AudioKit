@@ -19,7 +19,7 @@
 */
 
 #pragma once
-#include "Delay.h"
+#include "CDelay.h"
 
 // derived class of CDelay
 class CDelayAPF : public CDelay {

@@ -19,7 +19,7 @@
         bool processAudio(float* pInput, float* pOutput);
 */
 #pragma once
-#include "Delay.h"
+#include "CDelay.h"
 
 // derived class: CDelay does most of the work
 class CCombFilter : public CDelay {
