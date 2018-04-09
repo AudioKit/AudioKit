@@ -89,6 +89,7 @@ void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAud
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

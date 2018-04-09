@@ -131,6 +131,7 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {
