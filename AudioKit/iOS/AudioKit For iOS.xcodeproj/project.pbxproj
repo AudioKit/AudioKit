@@ -600,9 +600,9 @@
 		C49B1439204A06B7009C7C8E /* OnePoleLPF.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1201204A06B6009C7C8E /* OnePoleLPF.h */; };
 		C49B143A204A06B7009C7C8E /* DynArray.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1202204A06B6009C7C8E /* DynArray.h */; };
 		C49B143B204A06B7009C7C8E /* CombFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1203204A06B6009C7C8E /* CombFilter.h */; };
-		C49B143C204A06B7009C7C8E /* Delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1204204A06B6009C7C8E /* Delay.cpp */; };
+		C49B143C204A06B7009C7C8E /* CDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1204204A06B6009C7C8E /* CDelay.cpp */; };
 		C49B143D204A06B7009C7C8E /* DynArray.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49B1205204A06B6009C7C8E /* DynArray.hpp */; };
-		C49B143E204A06B7009C7C8E /* Delay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1206204A06B6009C7C8E /* Delay.h */; };
+		C49B143E204A06B7009C7C8E /* CDelay.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1206204A06B6009C7C8E /* CDelay.h */; };
 		C49B143F204A06B7009C7C8E /* def.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1207204A06B6009C7C8E /* def.h */; };
 		C49B1440204A06B7009C7C8E /* Equalisator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1208204A06B6009C7C8E /* Equalisator.cpp */; };
 		C49B1441204A06B7009C7C8E /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1209204A06B6009C7C8E /* Filter.h */; };
@@ -1745,9 +1745,9 @@
 		C49B1201204A06B6009C7C8E /* OnePoleLPF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePoleLPF.h; sourceTree = "<group>"; };
 		C49B1202204A06B6009C7C8E /* DynArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynArray.h; sourceTree = "<group>"; };
 		C49B1203204A06B6009C7C8E /* CombFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CombFilter.h; sourceTree = "<group>"; };
-		C49B1204204A06B6009C7C8E /* Delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Delay.cpp; sourceTree = "<group>"; };
+		C49B1204204A06B6009C7C8E /* CDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDelay.cpp; sourceTree = "<group>"; };
 		C49B1205204A06B6009C7C8E /* DynArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DynArray.hpp; sourceTree = "<group>"; };
-		C49B1206204A06B6009C7C8E /* Delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Delay.h; sourceTree = "<group>"; };
+		C49B1206204A06B6009C7C8E /* CDelay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDelay.h; sourceTree = "<group>"; };
 		C49B1207204A06B6009C7C8E /* def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = def.h; sourceTree = "<group>"; };
 		C49B1208204A06B6009C7C8E /* Equalisator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Equalisator.cpp; sourceTree = "<group>"; };
 		C49B1209204A06B6009C7C8E /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
@@ -4158,8 +4158,8 @@
 				C49B11EF204A06B6009C7C8E /* Compressor.cpp */,
 				C49B120A204A06B6009C7C8E /* Compressor.h */,
 				C49B1207204A06B6009C7C8E /* def.h */,
-				C49B1204204A06B6009C7C8E /* Delay.cpp */,
-				C49B1206204A06B6009C7C8E /* Delay.h */,
+				C49B1204204A06B6009C7C8E /* CDelay.cpp */,
+				C49B1206204A06B6009C7C8E /* CDelay.h */,
 				C49B11E7204A06B6009C7C8E /* DelayAPF.cpp */,
 				C49B11E3204A06B6009C7C8E /* DelayAPF.h */,
 				C49B1202204A06B6009C7C8E /* DynArray.h */,
@@ -5235,7 +5235,7 @@
 				C49B153B204A06B8009C7C8E /* SineWave.h in Headers */,
 				C49B1538204A06B8009C7C8E /* SingWave.h in Headers */,
 				C49B1575204A06B8009C7C8E /* Cubic.h in Headers */,
-				C49B143E204A06B7009C7C8E /* Delay.h in Headers */,
+				C49B143E204A06B7009C7C8E /* CDelay.h in Headers */,
 				C49B1537204A06B8009C7C8E /* ReedTable.h in Headers */,
 				C49B1565204A06B8009C7C8E /* TwoZero.h in Headers */,
 				C4DE858C200CB8870075C82B /* AKFluteDSP.hpp in Headers */,
@@ -5540,7 +5540,7 @@
 				C42858F21E90B647009B737D /* AKDynamicRangeCompressor.swift in Sources */,
 				C493520D1C3CBA6C00A28D7F /* AKBalancerAudioUnit.mm in Sources */,
 				C49B1452204A06B7009C7C8E /* phaser.c in Sources */,
-				C49B143C204A06B7009C7C8E /* Delay.cpp in Sources */,
+				C49B143C204A06B7009C7C8E /* CDelay.cpp in Sources */,
 				551AAC261F61F24700A14C0D /* AVAudioTimeShim.swift in Sources */,
 				F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */,
 				C49B147A204A06B8009C7C8E /* pluck.c in Sources */,
