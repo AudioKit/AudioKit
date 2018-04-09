@@ -1,4 +1,4 @@
-#include "Delay.h"
+#include "CDelay.h"
 #include "pluginconstants.h"
 
 CDelay::CDelay() {
