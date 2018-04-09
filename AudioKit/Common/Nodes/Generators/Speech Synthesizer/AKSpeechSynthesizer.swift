@@ -100,6 +100,8 @@ open class AKSpeechSynthesizer: AKNode {
             AKLog("Cannot get Speech Channel")
             return
         }
+        AKLog("Stopping should work, but its known to be nonfunctional.")
+        AKLog("Instead, send the speech synthesizer through AKBooster and mute the output.")
         StopSpeech(speechChannel)
     }
     
