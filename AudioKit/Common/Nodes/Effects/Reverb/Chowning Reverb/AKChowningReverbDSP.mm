@@ -57,6 +57,7 @@ void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

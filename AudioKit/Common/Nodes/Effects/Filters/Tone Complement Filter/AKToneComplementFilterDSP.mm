@@ -89,6 +89,7 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {
