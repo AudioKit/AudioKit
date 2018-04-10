@@ -258,6 +258,14 @@ open class AKMusicTrack {
     }
 
     func clearMetaEvents() {
+        clearHelper(kMusicEventType_Meta, from: "clearMetaEvents")
+    }
+
+    func clearSysexEvents() {
+        clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
+    }
+
+    private func clearHelper(_ eventType: UInt32, from functionName: String) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -265,7 +273,7 @@ open class AKMusicTrack {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
-            AKLog("Unable to create iterator in clearMetaEvents")
+            AKLog("Unable to create iterator in \(functionName)")
             return
         }
         var eventTime = MusicTimeStamp(0)
@@ -278,7 +286,7 @@ open class AKMusicTrack {
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
 
-            if eventType == kMusicEventType_Meta {
+            if eventType == eventType {
                 MusicEventIteratorDeleteEvent(iterator)
             }
             MusicEventIteratorNextEvent(iterator)
