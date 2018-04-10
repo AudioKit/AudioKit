@@ -416,6 +416,12 @@ open class AKSequencer {
     ///  Dispose of tracks associated with sequence
     func removeTracks() {
         if let existingSequence = sequence {
+            var tempoTrack: MusicTrack?
+            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+            if let track = tempoTrack {
+                MusicTrackClear(track, 0, length.musicTimeStamp)
+            }
+            
             for track in tracks {
                 if let internalTrack = track.internalMusicTrack {
                     MusicSequenceDisposeTrack(existingSequence, internalTrack)
