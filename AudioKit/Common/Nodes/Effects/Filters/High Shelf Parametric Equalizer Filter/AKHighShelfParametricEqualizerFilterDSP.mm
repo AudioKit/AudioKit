@@ -119,6 +119,7 @@ void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCou
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

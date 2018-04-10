@@ -13,30 +13,45 @@ namespace AudioKitCore
     
     struct LinearRamper
     {
-        float value;        // current value
-        float target;       // where it is headed
-        float increment;    // per-sample increment
+        static float constexpr flagValue = 100000.0f;
+
+        float value;            // current value
+        float target;           // where it is headed
+        float increment;        // per-sample increment
+        float constantValue;    // special case of horizontal ramp
         
-        LinearRamper() : value(0.0f), target(0.0f), increment(0.0f) {}
+        LinearRamper() : value(0.0f), target(0.0f), increment(0.0f), constantValue(flagValue) {}
         
         // initialize to a stable value
         void init(float v)
         {
             value = target = v;
             increment = 0.0f;
+            constantValue = flagValue;
         }
         
         // initialize all parameters
         void init(float startValue, float targetValue, float intervalSamples)
         {
+            constantValue = flagValue;  // assume startValue != targetValue
             target = targetValue;
             if (intervalSamples < 1.0f)
             {
+                // target has already been hit, we're already done
                 value = target;
                 increment = 0.0f;
             }
+            else if (startValue == targetValue)
+            {
+                // special case of horizontal ramp
+                constantValue = startValue; // remember the constant value here
+                value = 0.0f;               // and let value
+                increment = 1.0f;           // count samples
+                target = intervalSamples;   // to time the interval
+            }
             else
             {
+                // normal case: value ramps to target
                 value = startValue;
                 increment = (target - value) / intervalSamples;
             }
@@ -57,12 +72,13 @@ namespace AudioKitCore
         
         inline float getNextValue()
         {
-            return value += increment;
+            value += increment;
+            return (constantValue == flagValue) ? value : constantValue;
         }
         
         inline void getValues(int count, float* pOut)
         {
-            for (int i=0; i < count; i++) *pOut++ = value += increment;
+            for (int i=0; i < count; i++) *pOut++ = getNextValue();
         }
     };
 
