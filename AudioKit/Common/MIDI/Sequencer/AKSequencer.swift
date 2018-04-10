@@ -280,6 +280,52 @@ open class AKSequencer {
         DisposeMusicEventIterator(iterator)
         return outBool
     }
+    
+    /// Possible values for the time signature lower value
+    public enum TimeSignatureBottomValue: UInt8 {
+        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        case two = 1
+        case four = 2
+        case eight = 3
+        case sixteen = 4
+    }
+    
+    /// Add a time signature event to start of a tempo track
+    /// NB: will affect MIDI file layout but NOT sequencer playback
+    ///
+    /// - Parameters:
+    ///   - timeSignatureTop: Number of beats per measure
+    ///   - timeSignatureBottom: Unit of beat
+    ///
+    
+    open func addTimeSignatureEvent(timeSignatureTop: UInt8, timeSignatureBottom: TimeSignatureBottomValue) {
+        var tempoTrack: MusicTrack?
+        if let existingSequence = sequence {
+            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        }
+        
+        let ticksPerMetronomeClick: UInt8 = 24
+        let thirtySecondNotesPerQuarter: UInt8 = 8
+        let data: [MIDIByte] = [timeSignatureTop,
+                                timeSignatureBottom.rawValue,
+                                ticksPerMetronomeClick,
+                                thirtySecondNotesPerQuarter]
+        
+        var metaEvent = MIDIMetaEvent()
+        metaEvent.metaEventType = 0x58 // i.e, set time signature
+        metaEvent.dataLength = UInt32(data.count)
+        
+        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
+            for i in 0 ..< data.count {
+                pointer[i] = data[i]
+            }
+        })
+        
+        let result = MusicTrackNewMetaEvent(tempoTrack!, MusicTimeStamp(0), &metaEvent)
+        if result != 0 {
+            AKLog("Unable to set time signature")
+        }
+    }
 
     /// Convert seconds into AKDuration
     ///
