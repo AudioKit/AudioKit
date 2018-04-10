@@ -59,6 +59,7 @@
     }
 
     /// Range of downwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend DOWN range
+    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave. 
     @objc public var etNNPitchBendRangeDown: Cents = -50 {
         didSet {
             updateTuningTableFromMasterSet()
@@ -68,6 +69,7 @@
     internal let pitchBendLow: Double = 0
 
     /// Range of upwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend UP range
+    /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave. 
     @objc public var etNNPitchBendRangeUp: Cents = 50 {
         didSet {
             updateTuningTableFromMasterSet()
