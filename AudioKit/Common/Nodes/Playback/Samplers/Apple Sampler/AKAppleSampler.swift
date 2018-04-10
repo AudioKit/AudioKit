@@ -120,7 +120,9 @@ open class AKAppleSampler: AKNode {
         }
     }
 
-    /// Load a file path
+    /// Load a file path. The sampler can be configured by loading
+    /// instruments from different types of files such as an aupreset, a DLS or SF2 sound bank,
+    /// an EXS24 instrument, a single audio file, or an array of audio files.
     ///
     /// - parameter filePath: Name of the file with the extension
     ///
