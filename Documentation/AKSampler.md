@@ -5,7 +5,7 @@
 
 In earlier versions of AudioKit, the name **AKSampler** referred to the module now called **AKAppleSampler**.
 
-**AKAppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect, and the new **AKSampler** is an attempt to provide an open-source alternative.
+**AKAppleSampler** and its companion class **AKMIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. The new **AKSampler** is an attempt to provide an open-source alternative.
 
 **AKSampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AKAppleSampler** (formerly called AKSampler) or the **AKMIDISampler** wrapper class, you should continue to use it.
 
