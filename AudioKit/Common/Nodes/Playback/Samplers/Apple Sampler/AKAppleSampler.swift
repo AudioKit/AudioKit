@@ -28,7 +28,9 @@ open class AKAppleSampler: AKNode {
     /// Sampler AV Audio Unit
     @objc open dynamic var samplerUnit = AVAudioUnitSampler()
 
-    /// Transposition amount in semitones, from -24 to 24, Default: 0
+    /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
+    /// Doesn't transpose by playing another note (and the accoring zone and layer)
+    /// but bends the sound up and down like tuning. 
     @objc open dynamic var tuning: Double {
         get {
             return Double(samplerUnit.globalTuning / 100.0)
