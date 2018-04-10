@@ -290,7 +290,7 @@ open class AKSequencer {
         case sixteen = 4
     }
     
-    /// Add a time signature event to start of a tempo track
+    /// Add a time signature event to start of tempo track
     /// NB: will affect MIDI file layout but NOT sequencer playback
     ///
     /// - Parameters:
@@ -302,6 +302,10 @@ open class AKSequencer {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        }
+        
+        if let tempoTrack = tempoTrack {
+            clearTimeSignatureEvents(tempoTrack)
         }
         
         let ticksPerMetronomeClick: UInt8 = 24
@@ -324,6 +328,23 @@ open class AKSequencer {
         let result = MusicTrackNewMetaEvent(tempoTrack!, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
             AKLog("Unable to set time signature")
+        }
+    }
+    
+    /// Remove existing time signature events from tempo track
+    func clearTimeSignatureEvents(_ track: MusicTrack) {
+        let timeSignatureMetaEventByte: UInt8 = 0x58
+        let metaEventType = kMusicEventType_Meta
+        
+        AKMusicTrack.iterateMusicTrack(track) {iterator, eventTime, eventType, eventData, eventDataSize in
+            guard eventType == metaEventType else { return }
+            
+            let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
+            guard let  dataMetaEventType = data?.pointee.metaEventType else { return }
+            
+            if dataMetaEventType == timeSignatureMetaEventByte {
+                MusicEventIteratorDeleteEvent(iterator)
+            }
         }
     }
 
