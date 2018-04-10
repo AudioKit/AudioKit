@@ -16,10 +16,10 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
     fileprivate var mixer: AKMixer
 
-    /// Threshold (dB) ranges from -40 to 20 (Default: -20)
+    /// Threshold (dB) ranges from -100 to 20 (Default: -20)
     @objc open dynamic var threshold: Double = -20 {
         didSet {
-            threshold = (-40...20).clamp(threshold)
+            threshold = (-100...20).clamp(threshold)
             au[kDynamicsProcessorParam_Threshold] = threshold
         }
     }
@@ -40,18 +40,18 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    @objc open dynamic var expansionThreshold: Double = 2 {
+    /// Expansion Threshold (rate) ranges from -120 to 0 (Default: 0)
+    @objc open dynamic var expansionThreshold: Double = 0 {
         didSet {
-            expansionThreshold = (1...50).clamp(expansionThreshold)
+            expansionThreshold = (-120...0).clamp(expansionThreshold)
             au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
         }
     }
 
-    /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+    /// Attack Time (secs) ranges from 0.001 to 0.3 (Default: 0.001)
     @objc open dynamic var attackTime: Double = 0.001 {
         didSet {
-            attackTime = (0.000_1...0.2).clamp(attackTime)
+            attackTime = (0.001...0.3).clamp(attackTime)
             au[kDynamicsProcessorParam_AttackTime] = attackTime
         }
     }
