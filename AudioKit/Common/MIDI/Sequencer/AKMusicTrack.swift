@@ -260,11 +260,11 @@ open class AKMusicTrack {
     func clearMetaEvents() {
         clearHelper(kMusicEventType_Meta, from: "clearMetaEvents")
     }
-    
+
     func clearSysexEvents() {
         clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
     }
-    
+
     private func clearHelper(_ eventType: UInt32, from functionName: String) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
