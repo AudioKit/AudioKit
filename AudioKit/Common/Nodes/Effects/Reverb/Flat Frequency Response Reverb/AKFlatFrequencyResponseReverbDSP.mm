@@ -97,6 +97,7 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
             if (channel == 0) {
                 sp_allpass_compute(_sp, _private->_allpass0, in, out);

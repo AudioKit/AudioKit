@@ -16,6 +16,7 @@ AudioUnitParameter parameter[] = {
     { 0, kVibratoDepthSemitones, kAudioUnitScope_Global, 0 },
     { 0, kFilterEnable, kAudioUnitScope_Global, 0 },
     { 0, kFilterCutoffHarmonic, kAudioUnitScope_Global, 0 },
+    { 0, kFilterCutoffEgStrength, kAudioUnitScope_Global, 0 },
     { 0, kFilterResonanceDb, kAudioUnitScope_Global, 0 },
     { 0, kAmpEgAttackTimeSeconds, kAudioUnitScope_Global, 0 },
     { 0, kAmpEgDecayTimeSeconds, kAudioUnitScope_Global, 0 },
@@ -125,6 +126,13 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [filterCutoffText setFloatValue: inValue];
     NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kFilterCutoffHarmonic], (Float32)inValue, 0) == noErr,
              @"[AKSampler_UIView onFilterCutoffSlider:] AUParameterSet()");
+}
+
+- (IBAction)onFilterEgStrengthSlider:(NSSlider *)sender {
+    float inValue = [sender floatValue];
+    [filterEgStrengthText setFloatValue: inValue];
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kFilterCutoffEgStrength], (Float32)inValue, 0) == noErr,
+             @"[AKSampler_UIView onFilterEgStrengthSlider:] AUParameterSet()");
 }
 
 - (IBAction)onFilterResonanceSlider:(NSSlider *)sender {
@@ -300,6 +308,10 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         case kFilterCutoffHarmonic:
             [filterCutoffSlider setFloatValue: inValue];
             [filterCutoffText setFloatValue: inValue];
+            break;
+        case kFilterCutoffEgStrength:
+            [filterEgStrengthSlider setFloatValue: inValue];
+            [filterEgStrengthText setFloatValue: inValue];
             break;
         case kFilterResonanceDb:
             [filterResonanceSlider setFloatValue: inValue];

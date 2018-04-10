@@ -107,6 +107,7 @@ public:
                 }
                 if (!_playing) {
                     *out = *in;
+                    continue;
                 }
                 if (channel == 0) {
                     sp_comb_compute(_sp, _comb0, in, out);
