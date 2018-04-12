@@ -32,7 +32,7 @@ public class AKMicrophoneTracker {
     }
 
     /// Initialize the tracker
-    @objc public init(hopSize: Int = 4096, peakCount: Int = 20) {
+    @objc public init(hopSize: Int = 4_096, peakCount: Int = 20) {
         engine = AKMicrophoneTrackerEngine(hopSize: UInt32(hopSize), peakCount: UInt32(peakCount))
         // Could automatically start the tracker here, but elected not to at BlackBox/Ryan McLeod's request
         // Subclass and change this if you like
