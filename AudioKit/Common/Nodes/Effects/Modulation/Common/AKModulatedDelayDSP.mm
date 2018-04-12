@@ -133,6 +133,15 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
     outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + bufferOffset;
     unsigned channelCount = _outBufferListPtr->mNumberBuffers;
 
+    if (!_playing)
+    {
+        // effect bypassed: just copy input to output
+        memcpy(outBuffers[0], inBuffers[0], frameCount * sizeof(float));
+        if (channelCount > 0)
+            memcpy(outBuffers[1], inBuffers[1], frameCount * sizeof(float));
+        return;
+    }
+
     // process in chunks of maximum length CHUNKSIZE
     for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);

@@ -185,11 +185,11 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
-        AKLog("start() \(isStopped)")
+        internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        AKLog("stop() \(isPlaying)")
+        internalAU?.stop()
     }
 }
