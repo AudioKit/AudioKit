@@ -123,11 +123,11 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
         }
     }
-    
-    func showVirtualMIDIPort(){
+
+    func showVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
     }
-    func hideVirtualMIDIPort(){
+    func hideVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }
