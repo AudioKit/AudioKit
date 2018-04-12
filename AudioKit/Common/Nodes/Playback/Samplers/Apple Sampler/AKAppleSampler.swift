@@ -11,10 +11,10 @@ import CoreAudio
 
 /// Sampler audio generation.
 ///
-/// 1) init the audio unit like this: var sampler = AKAppleSampler()
-/// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3) connect to the engine: AudioKit.output = sampler
-/// 4) start the engine AudioKit.start()
+/// 1. init the audio unit like this: var sampler = AKAppleSampler()
+/// 2. load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
+/// 3. connect to the engine: AudioKit.output = sampler
+/// 4. start the engine AudioKit.start()
 ///
 open class AKAppleSampler: AKNode {
 
@@ -28,7 +28,9 @@ open class AKAppleSampler: AKNode {
     /// Sampler AV Audio Unit
     @objc open dynamic var samplerUnit = AVAudioUnitSampler()
 
-    /// Transposition amount in semitones, from -24 to 24, Default: 0
+    /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
+    /// Doesn't transpose by playing another note (and the accoring zone and layer)
+    /// but bends the sound up and down like tuning. 
     @objc open dynamic var tuning: Double {
         get {
             return Double(samplerUnit.globalTuning / 100.0)
@@ -120,7 +122,9 @@ open class AKAppleSampler: AKNode {
         }
     }
 
-    /// Load a file path
+    /// Load a file path. The sampler can be configured by loading
+    /// instruments from different types of files such as an aupreset, a DLS or SF2 sound bank,
+    /// an EXS24 instrument, a single audio file, or an array of audio files.
     ///
     /// - parameter filePath: Name of the file with the extension
     ///

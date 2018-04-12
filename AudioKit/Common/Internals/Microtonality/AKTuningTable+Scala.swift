@@ -8,7 +8,7 @@
 
 extension AKTuningTable {
 
-    /// Use a Scala file to write the tuning table
+    /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.
     public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
