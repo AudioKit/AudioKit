@@ -14,13 +14,16 @@ import Foundation
 
 enum AKError : Error, LocalizedError{
     case AudioKitNotRunning
+    case CouldNotOpenFile
     case Unexplained
     public var errorDescription: String? {
         switch self {
         case .AudioKitNotRunning:
-            return "I'm afraid I can't do that, Dave - AudioKit is not currently running"
+            return "AudioKit is not currently running"
+        case .CouldNotOpenFile:
+            return "Can't open file"
         default:
-            return "Unexplained error"
+            return "I'm sorry Dave, I'm afraid I can't do that"
         }
     }
 }
