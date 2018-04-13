@@ -190,10 +190,14 @@ open class AKAppleSampler: AKNode {
                          velocity: MIDIVelocity = 127,
                          channel: MIDIChannel = 0) throws {
         try AKTry {
-            self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+            if !AudioKit.engine.isRunning{
+                AKLog("Cannot play note - AudioKit not running")
+                throw AKError.AudioKitNotRunning
+            }else{
+                self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+            }
         }
     }
-
     /// Stop a MIDI Note
     ///
     /// - Parameters:
