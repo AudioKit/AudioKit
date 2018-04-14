@@ -12,7 +12,7 @@ import Foundation
 // and hopefully provide more detail to developers when code fails
 // Please feel free to add any errors you need especially if they come up frequently
 
-enum AKError : Error, LocalizedError{
+enum AKError: Error, LocalizedError {
     case AudioKitNotRunning
     case CouldNotOpenFile
     case Unexplained
