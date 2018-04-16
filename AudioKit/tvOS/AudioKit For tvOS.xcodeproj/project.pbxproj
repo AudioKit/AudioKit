@@ -1045,6 +1045,7 @@
 		EAFECF121F4EC4C000A2B046 /* AKOfflineRenderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF0D1F4EC4C000A2B046 /* AKOfflineRenderNode.swift */; };
 		EAFECF141F4EC74500A2B046 /* AKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFECF131F4EC74400A2B046 /* AKConnection.swift */; };
 		F4F01C7B205F4F0F007C4F74 /* AKTuningTableBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F01C7A205F4F0F007C4F74 /* AKTuningTableBase.swift */; };
+		FE1614782080FFD3002D62E0 /* AKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1614772080FFD3002D62E0 /* AKError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2158,6 +2159,7 @@
 		EAFECF0D1F4EC4C000A2B046 /* AKOfflineRenderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOfflineRenderNode.swift; sourceTree = "<group>"; };
 		EAFECF131F4EC74400A2B046 /* AKConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConnection.swift; sourceTree = "<group>"; };
 		F4F01C7A205F4F0F007C4F74 /* AKTuningTableBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTuningTableBase.swift; sourceTree = "<group>"; };
+		FE1614772080FFD3002D62E0 /* AKError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -4331,6 +4333,7 @@
 				C46402431DD99E8B005542E2 /* AKComponent.swift */,
 				B1DAFDDF1FCE0D8E00511A43 /* AKConverter.swift */,
 				EAF9C9881C69A4FC00C10CCE /* AKDevice.swift */,
+				FE1614772080FFD3002D62E0 /* AKError.swift */,
 				C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */,
 				524B77B91CC4B060001D82D1 /* AKNotifications.swift */,
 				C468D0631E9CD4C9005FACFA /* AKPeriodicFunction.swift */,
@@ -5280,6 +5283,7 @@
 				C49B1EB1204A0CFB009C7C8E /* writecode.c in Sources */,
 				C49B1EE0204A0CFB009C7C8E /* incr.c in Sources */,
 				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
+				FE1614782080FFD3002D62E0 /* AKError.swift in Sources */,
 				B1F47AC01DC54E0F00706A2F /* EZAudioFileMarker.m in Sources */,
 				C4D4C4F41EB7176600134B39 /* AKTuningTable+CombinationProductSet.swift in Sources */,
 				C49B1E47204A0CFA009C7C8E /* dcblock.c in Sources */,

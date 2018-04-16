@@ -51,6 +51,17 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     double sampleRateHz = (double)getSampleRate();
     init(sampleRateHz);
 
+    // load one sinewave or sawtooth sample
+    float sine[1024];
+    //for (int i = 0; i < 1024; i++) sine[i] = (float)sin(2 * M_PI * i / 1024.0);   // sine
+    for (int i = 0; i < 1024; i++) sine[i] = 2.0f * i / 1024.0f - 1.0f; // saw
+    AKSampleDataDescriptor sdd = {
+        { 29, 44100.0f / 1024, 0, 127, 0, 127, true, 0.0f, 1.0f, 0.0f, 0.0f },
+        44100.0f, false, 1, 1024, sine };
+    loadSampleData(sdd);
+    buildSimpleKeyMap();
+    loopThruRelease = true;
+
     ampEGParams.setAttackTimeSeconds(0.01f);
     ampEGParams.setDecayTimeSeconds(0.1f);
     ampEGParams.sustainFraction = 0.8f;
@@ -58,7 +69,7 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
 
     filterEnable = false;
     cutoffMultiple = 1000.0f;
-    resonanceDb = 0.0f;
+    resLinear = 1.0f;
     filterEGParams.setAttackTimeSeconds(2.0f);
     filterEGParams.setDecayTimeSeconds(2.0f);
     filterEGParams.sustainFraction = 0.1f;
@@ -600,6 +611,9 @@ void AKSamplerDSP::getParameterName (VstInt32 index, char* label)
         case kFilterCutoff:
             vst_strncpy(label, "F.Cutoff", kVstMaxParamStrLen);
             break;
+        case kFilterEgStrength:
+            vst_strncpy(label, "F.EnvAmt", kVstMaxParamStrLen);
+            break;
         case kFilterResonance:
             vst_strncpy(label, "F.Reso", kVstMaxParamStrLen);
             break;
@@ -650,8 +664,11 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
         case kFilterCutoff:
             float2string(cutoffMultiple, text, kVstMaxParamStrLen);
             break;
+        case kFilterEgStrength:
+            float2string(cutoffEgStrength, text, kVstMaxParamStrLen);
+            break;
         case kFilterResonance:
-            float2string(resonanceDb, text, kVstMaxParamStrLen);
+            float2string(-20.0f * log10(resLinear), text, kVstMaxParamStrLen);
             break;
         case kFilterEnable:
             if (filterEnable)
@@ -703,8 +720,11 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
     case kFilterCutoff:
         sprintf(text, "%.1f", cutoffMultiple);
         break;
+    case kFilterEgStrength:
+        sprintf(text, "%.1f", cutoffEgStrength);
+        break;
     case kFilterResonance:
-        sprintf(text, "%.1f dB", resonanceDb);
+        sprintf(text, "%.1f dB", -20.0f * log10(resLinear));
         break;
     case kFilterEnable:
         sprintf(text, "%s", filterEnable ? "enabled" : "disabled");
@@ -753,8 +773,11 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
     case kFilterCutoff:
         cutoffMultiple = value * 1000.0f;
         break;
+    case kFilterEgStrength:
+        cutoffEgStrength = value * 1000.0f;
+        break;
     case kFilterResonance:
-        resonanceDb = value * 20.0f;
+        resLinear = pow(10.0f, -0.5f * value);
         break;
     case kFilterEnable:
         filterEnable = value > 0.5f;
@@ -809,8 +832,11 @@ float AKSamplerDSP::getParameter (VstInt32 index)
         case kFilterCutoff:
             value = cutoffMultiple / 1000.0f;
             break;
+        case kFilterEgStrength:
+            value = cutoffEgStrength / 1000.0f;
+            break;
         case kFilterResonance:
-            value = resonanceDb / 20.0f;
+            value = -20.0f * log10(resLinear);
             break;
         case kFilterEnable:
             value = filterEnable ? 1.0f : 0.0f;
@@ -855,8 +881,10 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
         return vibratoDepth;
     case kFilterCutoff:
         return cutoffMultiple;
+    case kFilterEgStrength:
+        return cutoffEgStrength;
     case kFilterResonance:
-        return resonanceDb;
+        return -20.0f * log10(resLinear);
     case kFilterEnable:
         return filterEnable ? 1.0f : 0.0f;
     case kAmpAttackTime:

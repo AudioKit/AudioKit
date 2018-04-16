@@ -8,8 +8,7 @@
 
     import AudioKit
 
-    extension AKSampler
-    {
+    extension AKSampler {
         open func betterLoadUsingSfzFile(folderPath: String, sfzFileName: String) {
 
         	stopAllVoices()
@@ -62,8 +61,7 @@
                             hikey = Int32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("pitch_keycenter") {
                             pitch = Int32(part.components(separatedBy: "=")[1])!
-                        }
-                        else if part.hasPrefix("lovel") {
+                        } else if part.hasPrefix("lovel") {
                             lovel = Int32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("hivel") {
                             hivel = Int32(part.components(separatedBy: "=")[1])!
