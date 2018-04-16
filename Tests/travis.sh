@@ -46,6 +46,9 @@ xcodebuild -project Examples/iOS/MetronomeSamplerSync/MetronomeSamplerSync.xcode
 echo "Building iOS MicrophoneAnalysis"
 xcodebuild -project Examples/iOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -sdk iphonesimulator -scheme MicrophoneAnalysis -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 15
 
+echo "Building iOS MIDIFileEditAndSync"
+xcodebuild -project Examples/iOS/MIDIFileEditAndSync/MIDIFileEditAndSync.xcodeproj -sdk iphonesimulator -scheme MIDIFileEditAndSync -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
+
 echo "Building iOS MIDIUtility"
 xcodebuild -project Examples/iOS/MIDIUtility/MIDIUtility.xcodeproj -sdk iphonesimulator -scheme MIDIUtility -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
 
