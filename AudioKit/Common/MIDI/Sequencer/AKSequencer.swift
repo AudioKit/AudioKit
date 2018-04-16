@@ -66,11 +66,11 @@ open class AKSequencer {
 
     /// Initialize the sequence with a MIDI file
     ///
-    /// - parameter fromUrl: URL of MIDI File
+    /// - parameter fromURL: URL of MIDI File
     ///
-    public convenience init(fromUrl fileURL: URL) {
+    public convenience init(fromURL fileURL: URL) {
         self.init()
-        loadMIDIFile(fromUrl: fileURL)
+        loadMIDIFile(fromURL: fileURL)
     }
 
     /// Preroll the music player. Call this function in advance of playback to reduce the sequencers 
@@ -450,11 +450,11 @@ open class AKSequencer {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
-        loadMIDIFile(fromUrl: fileURL)
+        loadMIDIFile(fromURL: fileURL)
     }
 
     /// Load a MIDI file given a URL (removes old tracks, if present)
-    open func loadMIDIFile(fromUrl fileURL: URL) {
+    open func loadMIDIFile(fromURL fileURL: URL) {
         removeTracks()
         if let existingSequence = sequence {
             let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
@@ -482,12 +482,12 @@ open class AKSequencer {
     /// Add tracks from MIDI file to existing sequencer
     ///
     /// - Parameters:
-    ///   - filename: fromUrl: URL of MIDI File
+    ///   - filename: fromURL: URL of MIDI File
     ///   - useExistingSequencerLength: flag for automatically setting length of new track to current sequence length
     ///
     ///  Will copy only MIDINoteMessage events
     open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
-        let tempSequencer = AKSequencer(fromUrl: url)
+        let tempSequencer = AKSequencer(fromURL: url)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
