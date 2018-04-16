@@ -64,6 +64,15 @@ open class AKSequencer {
         loadMIDIFile(filename)
     }
 
+    /// Initialize the sequence with a MIDI file
+    ///
+    /// - parameter fromUrl: URL of MIDI File
+    ///
+    public convenience init(fromUrl fileURL: URL) {
+        self.init()
+        loadMIDIFile(fromUrl: fileURL)
+    }
+
     /// Preroll the music player. Call this function in advance of playback to reduce the sequencers 
     /// startup latency. If you call `play` without first calling this function, the sequencer will 
     /// call this function before beginning playback.
@@ -299,7 +308,6 @@ open class AKSequencer {
     ///   - timeSignatureTop: Number of beats per measure
     ///   - timeSignatureBottom: Unit of beat
     ///
-
     open func addTimeSignatureEvent(timeSignatureTop: UInt8, timeSignatureBottom: TimeSignatureBottomValue) {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
@@ -457,6 +465,57 @@ open class AKSequencer {
         initTracks()
     }
 
+    // MARK: Adding MIDI File data to current sequencer
+
+    /// Add tracks from MIDI file to existing sequencer
+    ///
+    /// - Parameters:
+    ///   - filename: Location of the MIDI File
+    ///   - useExistingSequencerLength: flag for automatically setting length of new track to current sequence length
+    ///
+    ///  Will copy only MIDINoteMessage events
+    open func addMIDIFileTracks(_ filename: String, useExistingSequencerLength: Bool = true) {
+        let tempSequencer = AKSequencer(filename: filename)
+        addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
+    }
+
+    /// Add tracks from MIDI file to existing sequencer
+    ///
+    /// - Parameters:
+    ///   - filename: fromUrl: URL of MIDI File
+    ///   - useExistingSequencerLength: flag for automatically setting length of new track to current sequence length
+    ///
+    ///  Will copy only MIDINoteMessage events
+    open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
+        let tempSequencer = AKSequencer(fromUrl: url)
+        addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
+    }
+
+    /// Creates new AKMusicTrack with copied note event data from another AKSequencer
+    func addMusicTrackNoteData(from tempSequencer: AKSequencer, useExistingSequencerLength: Bool) {
+        guard !isPlaying else {
+            AKLog("Can't add tracks during playback")
+            return }
+        
+        let oldLength = self.length
+        for track in tempSequencer.tracks {
+            let noteData = track.getMIDINoteData()
+
+            if noteData.isEmpty { continue }
+            let addedTrack = newTrack()
+
+            addedTrack?.replaceMIDINoteData(with: noteData)
+
+            if useExistingSequencerLength {
+                addedTrack?.setLength(oldLength)
+            }
+        }
+
+        if loopEnabled {
+            enableLooping()
+        }
+    }
+
     /// Initialize all tracks
     ///
     /// Rebuilds tracks based on actual contents of music sequence
@@ -516,6 +575,27 @@ open class AKSequencer {
         //AKLog("Calling initTracks() from newTrack")
         //initTracks()
         return tracks.last
+    }
+
+    /// Delete track and remove it from the sequence
+    /// Not to be used during playback
+    open func deleteTrack(trackIndex: Int) {
+        guard !isPlaying else {
+            AKLog("Can't delete sequencer track during playback")
+            return }
+        guard trackIndex < tracks.count,
+            let internalTrack = tracks[trackIndex].internalMusicTrack else {
+                AKLog("Can't get track for index")
+                return
+        }
+
+        guard let existingSequence = sequence else {
+            AKLog("Can't get sequence")
+            return
+        }
+
+        MusicSequenceDisposeTrack(existingSequence, internalTrack)
+        tracks.remove(at: trackIndex)
     }
 
     /// Clear all events from all tracks within the specified range
