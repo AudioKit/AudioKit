@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 public typealias AKThresholdCallback = @convention(block) (Bool) -> Void
@@ -69,6 +69,8 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
+    ///   - threshold: point at which the callback is called
+    ///   - thresholdCallback: function to execute when the threshold is reached
     ///
     @objc public init(
         _ input: AKNode? = nil,

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 private let sizeOfMIDIPacketList = MemoryLayout<MIDIPacketList>.size
@@ -108,7 +108,7 @@ extension AKMIDI {
 
         // the discussion section of MIDIPacketListAdd states that "The maximum
         // size of a packet list is 65536 bytes." Checking for that limit here.
-        if bufferSize > 65536 {
+        if bufferSize > 65_536 {
             AKLog("error sending midi : data array is too large, requires a buffer larger than 65536")
             return
         }

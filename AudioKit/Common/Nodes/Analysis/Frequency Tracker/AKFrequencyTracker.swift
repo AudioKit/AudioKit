@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is based on an algorithm originally created by Miller Puckette.
@@ -42,8 +42,8 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        hopSize: Double = 512,
-        peakCount: Double = 20) {
+        hopSize: Int = 512,
+        peakCount: Int = 20) {
 
         _Self.register()
 
@@ -58,6 +58,8 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
             input?.connect(to: strongSelf)
         }
+        internalAU?.setPeakCount(UInt32(peakCount))
+        internalAU?.setHopSize(UInt32(hopSize))
     }
 
     // MARK: - Control

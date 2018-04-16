@@ -1,8 +1,8 @@
 //
 //  AUParamSlider.swift
 //
-//  Created by Ryan Francesconi on 6/28/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation

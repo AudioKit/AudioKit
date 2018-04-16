@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AudiobusMIDISender" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Playing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hve-he-lEm">
+                                <rect key="frame" x="82.5" y="42" width="210.5" height="55"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Qr8-2S-GOg">
+                                <rect key="frame" x="80" y="247.5" width="215" height="36"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aow-Or-3o4">
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Play"/>
+                                        <connections>
+                                            <action selector="pressPlay:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5CS-lU-Mfo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXf-hv-dA9">
+                                        <rect key="frame" x="178" y="0.0" width="37" height="36"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                        <state key="normal" title="Stop"/>
+                                        <connections>
+                                            <action selector="pressStop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0CY-Z9-yeO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="y8K-bI-Eos">
+                                <rect key="frame" x="0.0" y="333.5" width="375" height="333.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ku-hy-kGx">
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="333.5"/>
+                                    </view>
+                                    <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fG4-Pc-hSl">
+                                        <rect key="frame" x="94" y="0.0" width="93.5" height="333.5"/>
+                                    </view>
+                                    <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0Z-Vh-xjc">
+                                        <rect key="frame" x="187.5" y="0.0" width="94" height="333.5"/>
+                                    </view>
+                                    <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ae2-tt-sC4">
+                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="333.5"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Qr8-2S-GOg" secondAttribute="trailing" constant="80" id="9kx-Y8-AVL"/>
+                            <constraint firstItem="Hve-he-lEm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="Ejz-c8-r5R"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y8K-bI-Eos" secondAttribute="trailing" id="N7O-Kf-Z6O"/>
+                            <constraint firstItem="Qr8-2S-GOg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="RN9-qb-P4n"/>
+                            <constraint firstItem="y8K-bI-Eos" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="VTg-Ff-OfO"/>
+                            <constraint firstItem="Hve-he-lEm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aww-ic-bca"/>
+                            <constraint firstItem="fG4-Pc-hSl" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="evf-0d-52P"/>
+                            <constraint firstItem="y8K-bI-Eos" firstAttribute="top" secondItem="Qr8-2S-GOg" secondAttribute="bottom" constant="50" id="fSL-g4-KAW"/>
+                            <constraint firstItem="y8K-bI-Eos" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="uF2-O7-1t4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="isPlayingLabel" destination="Hve-he-lEm" id="pkh-CO-oI9"/>
+                        <outletCollection property="noteOnDisplay" destination="6Ku-hy-kGx" collectionClass="NSMutableArray" id="eXR-kR-1X2"/>
+                        <outletCollection property="noteOnDisplay" destination="fG4-Pc-hSl" collectionClass="NSMutableArray" id="IJU-ao-e8W"/>
+                        <outletCollection property="noteOnDisplay" destination="i0Z-Vh-xjc" collectionClass="NSMutableArray" id="Jjs-uX-fns"/>
+                        <outletCollection property="noteOnDisplay" destination="Ae2-tt-sC4" collectionClass="NSMutableArray" id="HYD-Bu-JJh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>

@@ -2,8 +2,8 @@
 //  MIDISendVC.swift
 //  MIDIUtility
 //
-//  Created by Jeff Cooper on 9/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 import Foundation
 import AudioKit
@@ -89,7 +89,7 @@ class MIDISenderVC: NSViewController {
                 Swift.print("parsed sysex: \(sysexToSend!)")
                 return
             }
-            Swift.print("sending sysex \(sysexToSend!)")
+            Swift.print("sending \(midiBytes.count) bytes of sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         } else {

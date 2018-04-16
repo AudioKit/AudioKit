@@ -2,7 +2,7 @@
 //  MultitouchGestureRecognizer.swift
 //  MultitouchGestureRecognizer
 //
-//  Created by Daniel Clelland on 20/11/15.
+//  Created by Daniel Clelland, revision history on Githbub.
 //  Copyright © 2015 Daniel Clelland. All rights reserved.
 //
 

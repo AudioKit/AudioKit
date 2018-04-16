@@ -1,13 +1,13 @@
 //
 //  Compressor.h
 //
-//  Created by Mike Gazzaruso on 26/05/14.
+//  Created by Mike Gazzaruso, revision history on Githbub.
 //
 //
 
 #pragma once
 
-#include "Delay.h"
+#include "CDelay.h"
 #include "pluginconstants.h"
 
 class Compressor {

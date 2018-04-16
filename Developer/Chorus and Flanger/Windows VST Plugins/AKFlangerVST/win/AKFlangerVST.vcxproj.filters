@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="VST Plugin">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\DSP">
+      <UniqueIdentifier>{1e83360a-fefe-41df-a5e1-89f13dd046e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\GUI">
+      <UniqueIdentifier>{5ac02592-0543-4b26-ac77-34555adc251d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\Shared">
+      <UniqueIdentifier>{7b82106c-606a-407a-ba62-8899e83d0aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK">
+      <UniqueIdentifier>{2cf8f20d-2283-420e-b20c-43b3463bd9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK\pluginterfaces">
+      <UniqueIdentifier>{ad505991-f276-4da5-a3e6-c175f693d390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK\public.sdk">
+      <UniqueIdentifier>{10afc8d0-2da8-4c65-8a63-393fd27b46f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core ModulatedDelay">
+      <UniqueIdentifier>{ea7c3129-03f3-415a-b9fb-d6c8d8c469f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core ModulatedDelay\Common">
+      <UniqueIdentifier>{3590703b-77d6-43cb-8b56-2f6dfaa83bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core ModulatedDelay\ModulatedDelay">
+      <UniqueIdentifier>{9774fb88-8a32-4bfe-bf22-2bc1b48e2f0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp">
+      <Filter>Core ModulatedDelay\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource.h">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\TRACE.h">
+      <Filter>VST Plugin\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffect.h">
+      <Filter>VST2_SDK\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffectx.h">
+      <Filter>VST2_SDK\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\aeffeditor.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKFlangerDSP.h">
+      <Filter>VST Plugin\DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKFlangerGUI.h">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKFlangerParams.h">
+      <Filter>VST Plugin\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\AKModulatedDelay_Typedefs.h">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\ModulatedDelay_Defines.h">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\AdjustableDelayLine.hpp">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.cpp">
+      <Filter>Core ModulatedDelay\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\vstplugmain.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\AKFlangerDSP.cpp">
+      <Filter>VST Plugin\DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\AKFlangerGUI.cpp">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\ModulatedDelay.cpp">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\ModulatedDelay.hpp">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\ModulatedDelay\AdjustableDelayLine.cpp">
+      <Filter>Core ModulatedDelay\ModulatedDelay</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\source\AKFlangerGUI.rc">
+      <Filter>VST Plugin\GUI</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

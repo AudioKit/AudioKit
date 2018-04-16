@@ -1,7 +1,7 @@
 //
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 7/14/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -23,6 +23,7 @@ class AudioUnitManager: NSViewController {
     @IBOutlet var loopButton: NSButton!
     @IBOutlet var audioBufferedButton: NSButton!
     @IBOutlet var audioReversedButton: NSButton!
+    @IBOutlet var audioNormalizedButton: NSButton!
     @IBOutlet var instrumentPlayButton: NSButton!
     @IBOutlet var fileField: NSTextField!
     @IBOutlet var fmButton: NSButton!
@@ -44,8 +45,18 @@ class AudioUnitManager: NSViewController {
     internal var auInstrument: AKAudioUnitInstrument?
     internal var windowPositions = [String: NSPoint]()
 
+    internal var peak: AVAudioPCMBuffer.Peak?
+
     public var isLooping: Bool {
         return loopButton.state == .on
+    }
+
+    public var isBuffered: Bool {
+        return audioBufferedButton.state == .on
+    }
+
+    public var isNormalized: Bool {
+        return audioNormalizedButton.state == .on
     }
 
     public var audioEnabled: Bool = false {
@@ -54,6 +65,8 @@ class AudioUnitManager: NSViewController {
             playButton.isEnabled = audioEnabled
             rewindButton.isEnabled = audioEnabled
             loopButton.isEnabled = audioEnabled
+            audioBufferedButton.isEnabled = audioEnabled
+            audioNormalizedButton.isEnabled = audioEnabled
         }
     }
 
@@ -87,11 +100,11 @@ class AudioUnitManager: NSViewController {
     internal func startEngine(completionHandler: AKCallback? = nil) {
         // AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
         if !AudioKit.engine.isRunning {
-        do {
-            try AudioKit.start()
-        } catch {
-            AKLog("AudioKit did not start!")
-        }
+            do {
+                try AudioKit.start()
+            } catch {
+                AKLog("AudioKit did not start!")
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 completionHandler?()
                 AKLog("* engine.isRunning: \(AudioKit.engine.isRunning)")
@@ -136,6 +149,25 @@ class AudioUnitManager: NSViewController {
                 self.handlePlay(state: true)
             }
         }
+    }
+
+    @IBAction func handleNormalizedButton(_ sender: NSButton) {
+        guard let player = player else { return }
+        guard let waveform = waveform else { return }
+
+        var gain: Float = 1
+
+        if sender.state == .on {
+            audioBufferedButton.state = .on
+            player.buffering = .always
+
+            if peak == nil, let bufferPeak = player.buffer?.peak() {
+                gain = 1 / bufferPeak.amplitude
+            }
+        }
+
+        player.isNormalized = sender.state == .on
+        waveform.gain = gain
     }
 
     @IBAction func handleBufferedButton(_ sender: NSButton) {

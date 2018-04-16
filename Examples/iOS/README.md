@@ -12,7 +12,7 @@
 * Particles -Metal based audio visualizer (works on devices only, not the simulator)
 * Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
 * Recorder - Simple audio recorder
-* Sampler Demo - example of AudioKit's AKSampler
+* Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
 * Sequencer Demo - examjple of AudioKit's AKSequencer
 * Song Processor - adding effects to songs from the device's iTunes Library 

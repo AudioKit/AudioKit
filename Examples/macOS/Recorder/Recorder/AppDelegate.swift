@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Recorder
 //
-//  Created by Aurelius Prochazka on 2/4/17.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 

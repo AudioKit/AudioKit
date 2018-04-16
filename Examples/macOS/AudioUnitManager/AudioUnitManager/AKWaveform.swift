@@ -2,7 +2,7 @@
 //  AKWaveform.swift
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 12/7/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
@@ -87,6 +87,19 @@ public class AKWaveform: AKView {
         }
     }
 
+    public var gain: Float = 1 {
+        didSet {
+            AKLog(gain)
+            guard let data = file?.getWaveformData(withNumberOfPoints: 256) else { return }
+            for i in 0 ..< plots.count {
+                plots[i]?.gain = gain
+                plots[i]?.updateBuffer(data.buffers[i], withBufferSize: data.bufferSize)
+                plots[i]?.redraw()
+            }
+
+        }
+    }
+
     convenience init?(url: URL, color: NSColor = NSColor.black) {
         self.init()
         file = EZAudioFile(url: url)
@@ -125,7 +138,7 @@ public class AKWaveform: AKView {
         isLooping = false
     }
 
-    private func createPlot(data: UnsafeMutablePointer<Float>, size: UInt32) -> EZAudioPlot {
+    private func createPlot(data: UnsafeMutablePointer<Float>, size: UInt32, gain: Float = 1) -> EZAudioPlot {
         let plot = EZAudioPlot()
         plot.frame = NSRect(x: 0, y: 0, width: 200, height: 20)
         plot.plotType = EZPlotType.buffer
@@ -133,7 +146,7 @@ public class AKWaveform: AKView {
         plot.shouldMirror = true
         plot.color = color
         plot.wantsLayer = true
-        plot.gain = 1.5 // just make it a bit more present looking
+        plot.gain = gain // just make it a bit more present looking
 
         // customize the waveform
         plot.waveformLayer.fillColor = color.cgColor

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -13,7 +13,7 @@ import CoreAudio
 ///
 /// Be sure to enableMIDI if you want to receive messages
 ///
-open class AKMIDISampler: AKSampler {
+open class AKMIDISampler: AKAppleSampler {
     // MARK: - Properties
 
     /// MIDI Input
@@ -29,6 +29,7 @@ open class AKMIDISampler: AKSampler {
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? name)
+        hideVirtualMIDIPort()
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -136,4 +137,10 @@ open class AKMIDISampler: AKSampler {
         }
     }
 
+    func showVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    func hideVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
+    }
 }

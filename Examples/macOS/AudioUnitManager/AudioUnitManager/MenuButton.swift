@@ -2,7 +2,7 @@
 //  MenuButton.swift
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 8/3/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //
 
 import Cocoa

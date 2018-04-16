@@ -2,8 +2,8 @@
 //  AKSamplePlayerTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Jeff Cooper and Aurelius Prochazka on 18 Dec 2017.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Jeff Cooper and Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit

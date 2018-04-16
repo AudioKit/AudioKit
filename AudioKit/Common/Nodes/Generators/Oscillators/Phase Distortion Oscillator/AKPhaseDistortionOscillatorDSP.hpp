@@ -108,7 +108,8 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
-
+        _playing = false;
+        
         sp_pdhalf_create(&_pdhalf);
         sp_tabread_create(&_tab);
         sp_tabread_init(_sp, _tab, _ftbl, 1);

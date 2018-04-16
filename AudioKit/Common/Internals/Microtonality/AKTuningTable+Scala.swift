@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Marcus W. Hobbs, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKTuningTable {
 
-    /// Use a Scala file to write the tuning table
+    /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.
     public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
