@@ -1033,6 +1033,7 @@
 		C4BC7565203035FC00062B11 /* AKMetalBarDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BC7562203035FB00062B11 /* AKMetalBarDSP.mm */; };
 		C4BC7566203035FC00062B11 /* AKMetalBarDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4BC7563203035FC00062B11 /* AKMetalBarDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4C378FF1F0C55640085F876 /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C378FE1F0C55640085F876 /* AKSequencer.swift */; };
+		C4CC303C208484E1004E91CB /* AKMIDINoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */; };
 		C4D4C4E51EB7175100134B39 /* AKTuningTable+CombinationProductSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4DE1EB7175100134B39 /* AKTuningTable+CombinationProductSet.swift */; };
 		C4D4C4E61EB7175100134B39 /* AKTuningTable+EqualTemperament.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4DF1EB7175100134B39 /* AKTuningTable+EqualTemperament.swift */; };
 		C4D4C4E71EB7175100134B39 /* AKTuningTable+NorthIndianRaga.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4C4E01EB7175100134B39 /* AKTuningTable+NorthIndianRaga.swift */; };
@@ -2209,6 +2210,7 @@
 		C4BC7562203035FB00062B11 /* AKMetalBarDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMetalBarDSP.mm; sourceTree = "<group>"; };
 		C4BC7563203035FC00062B11 /* AKMetalBarDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMetalBarDSP.hpp; sourceTree = "<group>"; };
 		C4C378FE1F0C55640085F876 /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
+		C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINoteData.swift; sourceTree = "<group>"; };
 		C4D35CBA1E8A3D8000E42D93 /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C4D35CBB1E8A3D8000E42D93 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4D35CBD1E8A3D8000E42D93 /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
@@ -2802,6 +2804,7 @@
 			isa = PBXGroup;
 			children = (
 				C45664E81D448D7E00D26565 /* AKDuration.swift */,
+				C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */,
 				C45664E91D448D7E00D26565 /* AKMusicTrack.swift */,
 				C4C378FE1F0C55640085F876 /* AKSequencer.swift */,
 			);
@@ -5340,7 +5343,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -5583,6 +5586,7 @@
 				C4535780204121E800C5C7CC /* AKAutoWahDSP.mm in Sources */,
 				C4077AC620082C1800E5923C /* AKLowPassButterworthFilterAudioUnit.swift in Sources */,
 				C464075C2010581200299119 /* AKPinkNoiseAudioUnit.swift in Sources */,
+				C4CC303C208484E1004E91CB /* AKMIDINoteData.swift in Sources */,
 				C4146D371F3E46E8001AAE11 /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */,
 				34BB66C5205ABBC0000E5450 /* read_words.c in Sources */,
 				C45669101D448D7E00D26565 /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
@@ -6405,7 +6409,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
