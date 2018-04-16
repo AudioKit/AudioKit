@@ -375,6 +375,7 @@ open class AKMusicTrack {
             MusicTrackClear(track, start.beats, start.beats + duration.beats)
         }
     }
+    // MARK: Add Events
 
     /// Add Note to sequence
     ///
@@ -403,6 +404,28 @@ open class AKMusicTrack {
             duration: Float32(duration.beats))
 
         MusicTrackNewMIDINoteEvent(track, position.musicTimeStamp, &noteMessage)
+    }
+    
+    /// Add Note to sequence with AKMIDINoteData
+    ///
+    /// - parameter midiNoteData: AKMIDINoteData containing relevant note details
+    ///
+    open func add(midiNoteData: AKMIDINoteData) {
+        add(noteNumber: midiNoteData.noteNumber,
+            velocity: midiNoteData.velocity,
+            position: midiNoteData.position,
+            duration: midiNoteData.duration,
+            channel: midiNoteData.channel)
+    }
+
+    /// Erases current note events and recreates track from note data in AKMIDINoteData array
+    /// Order of structs in array is irrelevant
+    ///
+    /// - parameter midiNoteData: AKMIDINoteData array containing relevant note details
+    ///
+    open func replaceMIDINoteData(with trackMIDINoteData: [AKMIDINoteData]) {
+        clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: length))
+        trackMIDINoteData.forEach { add(midiNoteData: $0) }
     }
 
     /// Add Controller change to sequence
@@ -483,6 +506,39 @@ open class AKMusicTrack {
     ///
     open func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
         addPitchBend(8_192, position: position, channel: channel)
+    }
+    
+    // MARK: Getting data from MusicTrack
+    
+    /// Get an array of all the MIDI Note data in the internalMusicTrack
+    /// Modifying this array alone will not change the internalMusicTrack
+    ///
+    /// NB: The data is generated sequentially, but maintaining the order in not important
+    ///
+    open func getMIDINoteData() -> [AKMIDINoteData] {
+        var noteData = [AKMIDINoteData]()
+
+        AKMusicTrack.iterateMusicTrack(internalMusicTrack!) { _, eventTime, eventType, eventData, _ in
+            guard eventType == kMusicEventType_MIDINoteMessage else { return }
+            let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
+
+            guard let channel = data?.pointee.channel,
+                let note = data?.pointee.note,
+                let velocity = data?.pointee.velocity,
+                let dur = data?.pointee.duration else {
+                    AKLog("Problem with raw midi note message")
+                    return
+            }
+            let noteDetails = AKMIDINoteData(noteNumber: note,
+                                       velocity: velocity,
+                                       channel: channel,
+                                       duration: AKDuration(beats: Double(dur)),
+                                       position: AKDuration(beats: eventTime))
+            
+            noteData.append(noteDetails)
+        }
+
+        return noteData
     }
 
     /// Copy this track to another track
