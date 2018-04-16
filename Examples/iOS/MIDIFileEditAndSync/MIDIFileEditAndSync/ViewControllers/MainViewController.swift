@@ -223,7 +223,7 @@ extension MainViewController: FileLoaderDelegate, UIDocumentInteractionControlle
         let seq = manager.seq else { return }
         seq.stop()
         if fileLoadMode == .newFile {
-            seq.loadMIDIFile(fromUrl: url)
+            seq.loadMIDIFile(fromURL: url)
         } else {
             seq.addMIDIFileTracks(url)
         }
