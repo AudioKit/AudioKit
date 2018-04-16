@@ -25,7 +25,7 @@ class SequencerManager {
     }
     
     fileprivate func setUpSequencer() {
-        seq = AKSequencer(filename: "D_Loop_01")
+        seq = AKSequencer(filename: "D_mixolydian_01")
         seq?.setLength(minLoopLength)
         seq?.enableLooping()
         node = AKMIDINode(node: oscBank)

@@ -25,16 +25,16 @@ struct Constants{
     }
 
     static let localMIDIFiles = [
-        "D_Loop_01",
-        "D_Loop_02",
-        "D_Loop_03",
-        "D_Loop_04",
-        "D_Loop_05",
         "D_mixolydian_01",
         "D_mixolydian_02",
         "D_mixolydian_03",
         "D_mixolydian_04",
         "D_mixolydian_05",
+        "D_Loop_01",
+        "D_Loop_02",
+        "D_Loop_03",
+        "D_Loop_04",
+        "D_Loop_05",
         "D_mixolydian_tripletFeel_01",
         "D_mixolydian_tripletFeel_02",
         "D_mixolydian_tripletFeel_03",
