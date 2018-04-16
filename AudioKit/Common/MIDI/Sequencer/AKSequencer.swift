@@ -493,23 +493,29 @@ open class AKSequencer {
 
     /// Creates new AKMusicTrack with copied note event data from another AKSequencer
     func addMusicTrackNoteData(from tempSequencer: AKSequencer, useExistingSequencerLength: Bool) {
+        guard !isPlaying else {
+            AKLog("Can't add tracks during playback")
+            return }
+        
+        let oldLength = self.length
         for track in tempSequencer.tracks {
             let noteData = track.getMIDINoteData()
-            
+
             if noteData.isEmpty { continue }
             let addedTrack = newTrack()
-            
-            if useExistingSequencerLength {
-                addedTrack?.setLengthSoft(self.length)
-                if loopEnabled {
-                    enableLooping()
-                }
-            }
-            
+
             addedTrack?.replaceMIDINoteData(with: noteData)
+
+            if useExistingSequencerLength {
+                addedTrack?.setLength(oldLength)
+            }
+        }
+
+        if loopEnabled {
+            enableLooping()
         }
     }
-    
+
     /// Initialize all tracks
     ///
     /// Rebuilds tracks based on actual contents of music sequence
