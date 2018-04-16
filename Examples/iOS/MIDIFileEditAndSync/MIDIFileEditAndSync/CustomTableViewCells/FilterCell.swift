@@ -23,7 +23,7 @@ class FilterCell: UITableViewCell {
         offset -= 1
         filterModifier?.changeOffset(pitchClass: pitchClass, offset: offset)
     }
-    
+
     @IBAction func increaseOffset(_ sender: Any) {
         offset += 1
         filterModifier?.changeOffset(pitchClass: pitchClass, offset: offset)

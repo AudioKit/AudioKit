@@ -16,14 +16,14 @@ class SequencerManager {
                                      decayDuration: 0.03)
     let mixer = AKMixer()
     var node: AKMIDINode!
-    
+
     let minLoopLength = AKDuration(beats: 4)
-    
+
     init() {
         setUpSequencer()
         startAudioKit()
     }
-    
+
     fileprivate func setUpSequencer() {
         seq = AKSequencer(filename: "D_mixolydian_01")
         seq?.setLength(minLoopLength)
@@ -71,20 +71,20 @@ class SequencerManager {
         if seq.length < minLoopLength {
             seq.setLength(minLoopLength)
         }
-        
+
         if seq.loopEnabled {
             seq.enableLooping()
         }
-        
+
         seq.setGlobalMIDIOutput(node.midiIn)
     }
-    
+
     // MARK: - MIDI editing
     // general helper to alter AKMIDINoteData arrays for selected tracks
     fileprivate func modifyNotesInSelectedTracks(_ selectedTracks: Set<Int>,
                                                  modification: (AKMIDINoteData) -> AKMIDINoteData) {
         guard let seq = seq else { return }
-        for (i,track) in seq.tracks.enumerated() {
+        for (i, track) in seq.tracks.enumerated() {
             if selectedTracks.contains(i) {
                 var result = track.getMIDINoteData()
                 for (j, note) in result.enumerated() {
@@ -99,23 +99,23 @@ class SequencerManager {
                      filterFunction: (AKMIDINoteData) -> AKMIDINoteData) {
         modifyNotesInSelectedTracks(selectedTracks, modification: filterFunction)
     }
-    
+
     func doubleTrackLengths(_ selectedTracks: Set<Int>) {
-        modifyNotesInSelectedTracks(selectedTracks) {note in
+        modifyNotesInSelectedTracks(selectedTracks) { note in
             var newNote = note
             newNote.position = AKDuration(beats: note.position.beats * 2)
             newNote.duration = AKDuration(beats: note.duration.beats * 2)
             return newNote
         }
     }
-    
+
     func halveTrackLengths(_ selectedTracks: Set<Int>) {
-        modifyNotesInSelectedTracks(selectedTracks)  {note in
+        modifyNotesInSelectedTracks(selectedTracks) { note in
             var newNote = note
             newNote.position = AKDuration(beats: note.position.beats / 2)
             let newDuration = note.duration.beats / 2
             // very weird things happen when durations get shorter than the default PPQN of 24
-            if newDuration >= 1/24 {
+            if newDuration >= 1 / 24 {
                 newNote.duration = AKDuration(beats: newDuration)
             } else {
                 AKLog("Note is already too short")
@@ -123,17 +123,17 @@ class SequencerManager {
             return newNote
         }
     }
-    
+
     func shiftRight(_ selectedTracks: Set<Int>) {
-        modifyNotesInSelectedTracks(selectedTracks) {note in
+        modifyNotesInSelectedTracks(selectedTracks) { note in
             var newNote = note
             newNote.position = AKDuration(beats: note.position.beats + 1)
             return newNote
         }
     }
-    
+
     func shiftLeft(_ selectedTracks: Set<Int>) {
-        modifyNotesInSelectedTracks(selectedTracks) {note in
+        modifyNotesInSelectedTracks(selectedTracks) { note in
             var newNote = note
             newNote.position = AKDuration(beats: note.position.beats - 1)
             return newNote

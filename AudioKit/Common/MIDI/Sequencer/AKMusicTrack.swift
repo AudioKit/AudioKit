@@ -405,7 +405,7 @@ open class AKMusicTrack {
 
         MusicTrackNewMIDINoteEvent(track, position.musicTimeStamp, &noteMessage)
     }
-    
+
     /// Add Note to sequence with AKMIDINoteData
     ///
     /// - parameter midiNoteData: AKMIDINoteData containing relevant note details
@@ -507,9 +507,9 @@ open class AKMusicTrack {
     open func resetPitchBend(position: AKDuration, channel: MIDIChannel = 0) {
         addPitchBend(8_192, position: position, channel: channel)
     }
-    
+
     // MARK: Getting data from MusicTrack
-    
+
     /// Get an array of all the MIDI Note data in the internalMusicTrack
     /// Modifying this array alone will not change the internalMusicTrack
     ///
@@ -534,7 +534,7 @@ open class AKMusicTrack {
                                        channel: channel,
                                        duration: AKDuration(beats: Double(dur)),
                                        position: AKDuration(beats: eventTime))
-            
+
             noteData.append(noteDetails)
         }
 

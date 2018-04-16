@@ -21,7 +21,7 @@ class SequencerSettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
         setup()
@@ -31,7 +31,7 @@ class SequencerSettingsVC: UIViewController {
         setUpTextFields()
         loopEnabledSwitch.isOn = sequencerDelegate?.loopEnabled ?? true
     }
-    
+
     @IBAction func switchMoved(_ sender: Any) {
         if loopEnabledSwitch.isOn {
             sequencerDelegate?.enableLooping()
@@ -42,7 +42,7 @@ class SequencerSettingsVC: UIViewController {
 }
 
 extension SequencerSettingsVC: UITextFieldDelegate {
-    
+
     fileprivate func setUpTextFields() {
         tempoTextField.delegate = self
         tempoTextField.text = "\(Int(sequencerDelegate?.tempo ?? 0))"
@@ -78,7 +78,7 @@ extension SequencerSettingsVC: UITextFieldDelegate {
         }
         return false
     }
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         moveTextField(textField, moveDistance: -200, up: true)
     }
@@ -86,14 +86,14 @@ extension SequencerSettingsVC: UITextFieldDelegate {
     fileprivate func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
         let moveDuration = 0.3
         let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        
+
         UIView.beginAnimations("animateTextField", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(moveDuration)
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
     }
-    
+
     // resign textField responder when screen touched
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for txt in self.view.subviews {

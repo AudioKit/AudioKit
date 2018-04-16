@@ -13,7 +13,7 @@ public struct AKMIDINoteData: CustomStringConvertible {
     public var channel: MIDIChannel
     public var duration: AKDuration
     public var position: AKDuration
-    
+
     public var description: String {
         return """
         note: \(noteNumber)
