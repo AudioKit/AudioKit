@@ -496,7 +496,7 @@ open class AKSequencer {
         guard !isPlaying else {
             AKLog("Can't add tracks during playback")
             return }
-        
+
         let oldLength = self.length
         for track in tempSequencer.tracks {
             let noteData = track.getMIDINoteData()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Constants{
+struct Constants {
 
     static let pitchClassSpellings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     enum Identifiers: String {

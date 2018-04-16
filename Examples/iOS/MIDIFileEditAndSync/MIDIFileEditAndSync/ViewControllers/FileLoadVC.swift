@@ -38,13 +38,13 @@ extension FileLoadVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Constants.localMIDIFiles.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.fileLoadCell.rawValue, for: indexPath)
         cell.textLabel?.text = Constants.localMIDIFiles[indexPath.row]
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.loadFile(filename: Constants.localMIDIFiles[indexPath.row])
         navigationController?.popViewController(animated: true)

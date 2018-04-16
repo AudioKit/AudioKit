@@ -32,7 +32,7 @@ class MainViewController: UIViewController {
     }
 
     @IBOutlet weak var trackTableView: UITableView!
-    
+
     // MARK: - Set up
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class MainViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         trackTableView.reloadData()
     }
-    
+
     // MARK: - IBActions: Options
     @IBAction func play(_ sender: Any) {
         sequencerManager?.play()
@@ -109,7 +109,7 @@ class MainViewController: UIViewController {
     // MARK: - Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let id = Constants.Identifiers(rawValue: segue.identifier ?? "") else { return }
-        
+
         switch id {
         case .toFilterSettings:
             guard let vc = segue.destination as? MIDIFilterVC else { return }
@@ -156,14 +156,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifiers.trackCell.rawValue, for: indexPath) as? TrackCell,
             let manager = sequencerManager,
             let seq = manager.seq else { return UITableViewCell() }
-        
+
         if indexPath.row < seq.trackCount {
             cell.index.text = "\(indexPath.row)"
             cell.noteEvents.text = "Note Events: \(seq.tracks[indexPath.row].getMIDINoteData().count)"
             cell.selectionStyle = .blue
             cell.trackNum = indexPath.row
-            
-            let longPress = UILongPressGestureRecognizer.init(target: self, action: #selector(longPressCell(gesture:)))
+
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressCell(gesture:)))
             longPress.minimumPressDuration = 0.5
             cell.addGestureRecognizer(longPress)
         } else {
@@ -179,25 +179,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let manager = sequencerManager,
             let seq = manager.seq,
             indexPath.row >= seq.tracks.count  else { return }
-        
+
         for row in 0 ..< tableView.numberOfRows(inSection: 0) {
             tableView.selectRow(at: IndexPath(item: row, section: 0), animated: false, scrollPosition: .none)
         }
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Music Tracks"
     }
-    
+
     @objc func longPressCell(gesture: UILongPressGestureRecognizer) {
         guard let cell = gesture.view as? TrackCell else { return }
         guard gesture.state == .began else { return }
-        
+
         trackForInspection = cell.trackNum
         performSegue(withIdentifier: Constants.Identifiers.toMIDINoteDataVC.rawValue, sender: self)
     }
@@ -214,10 +214,10 @@ extension MainViewController: FileLoaderDelegate, UIDocumentInteractionControlle
         } else {
             seq.addMIDIFileTracks(filename)
         }
-      
+
         updatesForSequencerChange()
     }
-    
+
     func loadFile(url: URL) {
         guard let manager = sequencerManager,
         let seq = manager.seq else { return }
@@ -227,20 +227,20 @@ extension MainViewController: FileLoaderDelegate, UIDocumentInteractionControlle
         } else {
             seq.addMIDIFileTracks(url)
         }
-       
+
         updatesForSequencerChange()
     }
-    
+
     fileprivate func updatesForSequencerChange() {
         sequencerManager?.sequencerTracksChanged()
         trackTableView.reloadData()
     }
-    
+
     fileprivate func share(url: URL) {
         documentInteractionController.url = url
         documentInteractionController.presentOptionsMenu(from: trackTableView.frame, in: view, animated: true)
     }
-    
+
 }
 
 protocol FileLoaderDelegate: class {
