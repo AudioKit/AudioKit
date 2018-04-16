@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		07C0F21B1F13EE1200F928C9 /* AKMIDITransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */; };
+		1F2DAD7420845EC800F1C9E3 /* AKMIDINoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DAD7320845EC700F1C9E3 /* AKMIDINoteData.swift */; };
 		3404A79920507B1500A2C9E4 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A78420507B1500A2C9E4 /* ADSREnvelope.hpp */; };
 		3404A79A20507B1500A2C9E4 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */; };
 		3404A79B20507B1500A2C9E4 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A78620507B1500A2C9E4 /* SustainPedalLogic.cpp */; };
@@ -1109,6 +1110,7 @@
 
 /* Begin PBXFileReference section */
 		07C0F21A1F13EE1200F928C9 /* AKMIDITransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITransformer.swift; sourceTree = "<group>"; };
+		1F2DAD7320845EC700F1C9E3 /* AKMIDINoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDINoteData.swift; sourceTree = "<group>"; };
 		3404A78220507B1500A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3404A78420507B1500A2C9E4 /* ADSREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADSREnvelope.hpp; sourceTree = "<group>"; };
 		3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResonantLowPassFilter.hpp; sourceTree = "<group>"; };
@@ -3863,6 +3865,7 @@
 			children = (
 				C49E9DF31D2B1F9100E5E8BF /* AKDuration.swift */,
 				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
+				1F2DAD7320845EC700F1C9E3 /* AKMIDINoteData.swift */,
 				C49E9DF51D2B1F9100E5E8BF /* AKSequencer.swift */,
 			);
 			path = Sequencer;
@@ -6087,6 +6090,7 @@
 				E4630B461D2BC73300437E75 /* AKMandolinPresets.swift in Sources */,
 				C49B13FD204A06B7009C7C8E /* count.c in Sources */,
 				C4E751951C220C4E00688A1B /* triangleWave.swift in Sources */,
+				1F2DAD7420845EC800F1C9E3 /* AKMIDINoteData.swift in Sources */,
 				C49B1471204A06B7009C7C8E /* ref.c in Sources */,
 				C4AC4EC9200AEA7C0095694F /* AKPhaseDistortionOscillator.mm in Sources */,
 				C46302811C20E7A7009B44D9 /* bitcrush.swift in Sources */,
