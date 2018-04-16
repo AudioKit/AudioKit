@@ -13,7 +13,6 @@ class ViewController: NSViewController {
 
     var speechSynthesizer = AKSpeechSynthesizer()
 
-
     @IBOutlet weak var textField: NSTextField!
 
     @IBOutlet weak var pitchSlider: NSSlider!
@@ -41,7 +40,6 @@ class ViewController: NSViewController {
             AKLog("AudioKit did not start!")
         }
 
-
         rateSlider.minValue = speechSynthesizer.rate / 2
         pitchSlider.minValue = speechSynthesizer.frequency / 2
         modulationSlider.minValue = 0
@@ -68,7 +66,6 @@ class ViewController: NSViewController {
         pitchTextField.stringValue = "Base Frequency \(speechSynthesizer.frequency)"
         modulationTextField.stringValue = "Modulation: \(speechSynthesizer.modulation)"
     }
-    
 
     @IBAction func speak(_ sender: NSButton) {
         speechSynthesizer.say(text: textField.stringValue)
@@ -79,4 +76,3 @@ class ViewController: NSViewController {
     }
 
 }
-

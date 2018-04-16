@@ -14,7 +14,7 @@ extension AKSampler {
 
         stopAllVoices()
         unloadAllSamples()
-        
+
         var lokey: Int32 = 0
         var hikey: Int32 = 127
         var pitch: Int32 = 60

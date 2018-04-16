@@ -115,6 +115,11 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 pVst->getParamString(kFilterResonance, text);
                 SetDlgItemText(hwnd, IDC_FILTER_RESONANCE_READOUT, text);
                 return (INT_PTR)TRUE;
+            case IDC_FILTER_EGSTRENGTH_SLIDER:
+                pVst->setParamFraction(kFilterEgStrength, fv);
+                pVst->getParamString(kFilterResonance, text);
+                SetDlgItemText(hwnd, IDC_FILTER_EGSTRENGTH_READOUT, text);
+                return (INT_PTR)TRUE;
 
             case IDC_AMP_ATTACK_SLIDER:
                 pVst->setParamFraction(kAmpAttackTime, fv);
@@ -169,6 +174,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 float v = 0.0f;
                 if (SendDlgItemMessage(hDlg, IDC_FILTER_ENABLE_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
                 pVst->setParamFraction(kFilterEnable, v);
+                enableFilterControls(v > 0.0f);
                 return (INT_PTR)TRUE;
             }
 
@@ -192,6 +198,17 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
 		break;
 	}
 	return (INT_PTR)FALSE;
+}
+
+void AKSamplerGUI::enableFilterControls(bool show)
+{
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_CUTOFF_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_RESONANCE_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_ATTACK_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_DECAY_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_SUSTAIN_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_RELEASE_SLIDER), show ? TRUE : FALSE);
 }
 
 void AKSamplerGUI::setParameter(VstInt32 index, float value)
@@ -222,6 +239,10 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
     case kFilterCutoff:
         SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+        break;
+    case kFilterEgStrength:
+        SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+        SetDlgItemText(hwnd, IDC_FILTER_EGSTRENGTH_READOUT, text);
         break;
     case kFilterResonance:
         SendDlgItemMessage(hwnd, IDC_FILTER_RESONANCE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
@@ -283,13 +304,20 @@ void AKSamplerGUI::updateAllParameters()
     pVst->getParamString(kVibratoDepth, text);
     SetDlgItemText(hwnd, IDC_VIBRATO_DEPTH_READOUT, text);
 
+    bool filterEnabled = pVst->getParameter(kFilterEnable) > 0.5;
     SendDlgItemMessage(hwnd, IDC_FILTER_ENABLE_CHECK, BM_SETCHECK,
-        (pVst->getParameter(kFilterEnable) > 0.5) ? BST_CHECKED : BST_UNCHECKED, 0);
+        filterEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
+    enableFilterControls(filterEnabled);
 
     sliderPos = (int)(100.0f * pVst->getParamFraction(kFilterCutoff) + 0.5f);
     SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
     pVst->getParamString(kFilterCutoff, text);
     SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+
+    sliderPos = (int)(100.0f * pVst->getParamFraction(kFilterEgStrength) + 0.5f);
+    SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+    pVst->getParamString(kFilterEgStrength, text);
+    SetDlgItemText(hwnd, IDC_FILTER_EGSTRENGTH_READOUT, text);
 
     sliderPos = (int)(100.0f * pVst->getParamFraction(kFilterResonance) + 0.5f);
     SendDlgItemMessage(hwnd, IDC_FILTER_RESONANCE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);

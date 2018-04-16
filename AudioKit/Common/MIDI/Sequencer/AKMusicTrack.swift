@@ -517,7 +517,7 @@ open class AKMusicTrack {
             MusicTrackMerge(existingInittrack, 0.0, length, internalMusicTrack!, 0.0)
         }
     }
-    
+
     /// Generalized method for iterating thru a CoreMIDI MusicTrack with a closure to handle events
     ///
     /// - Parameters:
@@ -537,19 +537,19 @@ open class AKMusicTrack {
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
-        
+
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            
+
             midiEventHandler(iterator, eventTime, eventType, eventData, eventDataSize)
-            
+
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
     }
-    
+
     /// Set the MIDI Ouput
     ///
     /// - parameter endpoint: MIDI Endpoint Port

@@ -16,14 +16,14 @@ open class AKSpeechSynthesizer: AKNode {
         componentSubType: kAudioUnitSubType_SpeechSynthesis,
         componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
-        componentFlagsMask: 0 
+        componentFlagsMask: 0
     )
     fileprivate let speechAU = AVAudioUnitGenerator(audioComponentDescription: ComponentDescription)
 
     // Generic value for C-style getting of parameters
-    fileprivate var valueAsNSNumber: CFTypeRef? = nil
+    fileprivate var valueAsNSNumber: CFTypeRef?
     // Speech channel
-    fileprivate var channel: SpeechChannel? = nil
+    fileprivate var channel: SpeechChannel?
     fileprivate var propsize: UInt32 = UInt32(MemoryLayout<SpeechChannel>.size)
 
     var theVoiceSpec = VoiceSpec()
@@ -104,7 +104,7 @@ open class AKSpeechSynthesizer: AKNode {
         AKLog("Instead, send the speech synthesizer through AKBooster and mute the output.")
         StopSpeech(speechChannel)
     }
-    
+
     public func say(text: String,
                     rate: Int? = nil,
                     frequency: Int? = nil,
@@ -131,7 +131,6 @@ open class AKSpeechSynthesizer: AKNode {
                                         0,
                                         &channel,
                                         &propsize))
-
 
     }
 }
