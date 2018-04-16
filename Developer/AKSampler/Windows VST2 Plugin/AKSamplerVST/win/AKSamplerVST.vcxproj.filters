@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="VST Plugin">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Core Sampler">
+      <UniqueIdentifier>{ea7c3129-03f3-415a-b9fb-d6c8d8c469f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Sampler\Sampler">
+      <UniqueIdentifier>{9774fb88-8a32-4bfe-bf22-2bc1b48e2f0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core Sampler\Common">
+      <UniqueIdentifier>{3590703b-77d6-43cb-8b56-2f6dfaa83bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\DSP">
+      <UniqueIdentifier>{1e83360a-fefe-41df-a5e1-89f13dd046e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\GUI">
+      <UniqueIdentifier>{5ac02592-0543-4b26-ac77-34555adc251d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST Plugin\Shared">
+      <UniqueIdentifier>{7b82106c-606a-407a-ba62-8899e83d0aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK">
+      <UniqueIdentifier>{2cf8f20d-2283-420e-b20c-43b3463bd9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK\pluginterfaces">
+      <UniqueIdentifier>{ad505991-f276-4da5-a3e6-c175f693d390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VST2_SDK\public.sdk">
+      <UniqueIdentifier>{10afc8d0-2da8-4c65-8a63-393fd27b46f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.hpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\LinearRamper.hpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.hpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\SustainPedalLogic.hpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKSampler_Typedefs.h">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.hpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleOscillator.hpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.hpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.hpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKSamplerDSP.h">
+      <Filter>VST Plugin\DSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKSamplerGUI.h">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource.h">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\TRACE.h">
+      <Filter>VST Plugin\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\AKSamplerParams.h">
+      <Filter>VST Plugin\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffect.h">
+      <Filter>VST2_SDK\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffectx.h">
+      <Filter>VST2_SDK\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\aeffeditor.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.h">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.cpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.cpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.cpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\SustainPedalLogic.cpp">
+      <Filter>Core Sampler\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.cpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.cpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.cpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\AKSamplerDSP.cpp">
+      <Filter>VST Plugin\DSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\AKSamplerGUI.cpp">
+      <Filter>VST Plugin\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\vstplugmain.cpp">
+      <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\source\AKSamplerGUI.rc">
+      <Filter>VST Plugin\GUI</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

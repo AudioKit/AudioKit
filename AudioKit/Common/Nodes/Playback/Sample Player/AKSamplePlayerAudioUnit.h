@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -21,10 +21,11 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) BOOL loop;
 @property (nonatomic) float loopStartPoint;
 @property (nonatomic) float loopEndPoint;
+@property (nonatomic) AKCCallback loadCompletionHandler;
 @property (nonatomic) AKCCallback completionHandler;
 
 - (void)setupAudioFileTable:(UInt32)size;
-- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate;
+- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels;
 - (int)size;
 - (double)position;
 

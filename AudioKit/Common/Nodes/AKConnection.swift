@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by David O'Neill, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A transitory used to pass connection information.

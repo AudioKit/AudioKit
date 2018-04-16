@@ -3,7 +3,7 @@
 //  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension Notification.Name {
@@ -107,6 +107,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
         self.bufferSize = UInt32(bufferSize)
 
         setupNode(input)
+        self.node = input
         setupReconnection()
     }
 }

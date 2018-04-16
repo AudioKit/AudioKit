@@ -1,65 +1,84 @@
 //
-//  AKModulatedDelayDSP.cpp
+//  AKModulatedDelayDSP.mm
 //  AudioKit
 //
-//  Created by Shane Dunne on 2018-02-11.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #include "AKModulatedDelayDSP.hpp"
 
+extern "C" void* createChorusDSP(int nChannels, double sampleRate)
+{
+    return new AKModulatedDelayDSP(kChorus);
+}
+
+extern "C" void* createFlangerDSP(int nChannels, double sampleRate)
+{
+    return new AKModulatedDelayDSP(kFlanger);
+}
+
+#import "ModulatedDelay_Defines.h"
+const float kAKChorus_DefaultFrequency = kChorusDefaultModFreqHz;
+const float kAKChorus_DefaultDepth = kChorusDefaultDepth;
+const float kAKChorus_DefaultFeedback = kChorusDefaultFeedback;
+const float kAKChorus_DefaultDryWetMix = kChorusDefaultMix;
+
+const float kAKChorus_MinFrequency = kChorusMinModFreqHz;
+const float kAKChorus_MaxFrequency = kChorusMaxModFreqHz;
+const float kAKChorus_MinFeedback  = kChorusMinFeedback;
+const float kAKChorus_MaxFeedback  = kChorusMaxFeedback;
+const float kAKChorus_MinDepth     = kChorusMinDepth;
+const float kAKChorus_MaxDepth     = kChorusMaxDepth;
+const float kAKChorus_MinDryWetMix = kChorusMinDryWetMix;
+const float kAKChorus_MaxDryWetMix = kChorusMaxDryWetMix;
+
+const float kAKFlanger_DefaultFrequency = kFlangerDefaultModFreqHz;
+const float kAKFlanger_DefaultDepth = kFlangerDefaultDepth;
+const float kAKFlanger_DefaultFeedback = kFlangerDefaultFeedback;
+const float kAKFlanger_DefaultDryWetMix = kFlangerDefaultMix;
+
+const float kAKFlanger_MinFrequency = kFlangerMinModFreqHz;
+const float kAKFlanger_MaxFrequency = kFlangerMaxModFreqHz;
+const float kAKFlanger_MinFeedback  = kFlangerMinFeedback;
+const float kAKFlanger_MaxFeedback  = kFlangerMaxFeedback;
+const float kAKFlanger_MinDepth     = kFlangerMinDepth;
+const float kAKFlanger_MaxDepth     = kFlangerMaxDepth;
+const float kAKFlanger_MinDryWetMix = kFlangerMinDryWetMix;
+const float kAKFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
+
 AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
-    : effectType(type)
+    : AudioKitCore::ModulatedDelay(type)
     , AKDSPBase()
 {
-    frequencyRamp.setTarget(DEFAULT_FREQUENCY_HZ, true);
-    frequencyRamp.setDurationInSamples(10000);
-    depthRamp.setTarget(MIN_FRACTION, true);
+    depthRamp.setTarget(0.0f, true);
     depthRamp.setDurationInSamples(10000);
-    feedbackRamp.setTarget(MIN_FRACTION, true);
+    feedbackRamp.setTarget(0.0f, true);
     feedbackRamp.setDurationInSamples(10000);
     switch (type) {
         case kFlanger:
-            dryWetMixRamp.setTarget(FLANGER_DEFAULT_DRYWETMIX, true);
+            frequencyRamp.setTarget(kAKFlanger_DefaultFrequency, true);
+            dryWetMixRamp.setTarget(kAKFlanger_DefaultDryWetMix, true);
             break;
         case kChorus:
         default:
-            dryWetMixRamp.setTarget(CHORUS_DEFAULT_DRYWETMIX, true);
+            frequencyRamp.setTarget(kAKChorus_DefaultFrequency, true);
+            dryWetMixRamp.setTarget(kAKChorus_DefaultDryWetMix, true);
             break;
     }
     dryWetMixRamp.setDurationInSamples(10000);
+    frequencyRamp.setDurationInSamples(10000);
 }
 
-void AKModulatedDelayDSP::init(int _channels, double _sampleRate)
+void AKModulatedDelayDSP::init(int channels, double sampleRate)
 {
-    AKDSPBase::init(_channels, _sampleRate);
-    
-    minDelayMs = CHORUS_MIN_DELAY_MS;
-    maxDelayMs = CHORUS_MAX_DELAY_MS;
-    switch (effectType) {
-        case kFlanger:
-            minDelayMs = FLANGER_MIN_DELAY_MS;
-            maxDelayMs = FLANGER_MAX_DELAY_MS;
-            modOscillator.initTriangle(_sampleRate, DEFAULT_FREQUENCY_HZ);
-            break;
-        case kChorus:
-        default:
-            modOscillator.initSinusoid(_sampleRate, DEFAULT_FREQUENCY_HZ);
-            break;
-    }
-    delayRangeMs = 0.5f * (maxDelayMs - minDelayMs);
-    midDelayMs = 0.5f * (minDelayMs + maxDelayMs);
-    leftDelayLine.init(_sampleRate, maxDelayMs);
-    rightDelayLine.init(_sampleRate, maxDelayMs);
-    leftDelayLine.setDelayMs(minDelayMs);
-    rightDelayLine.setDelayMs(minDelayMs);
+    AKDSPBase::init(channels, sampleRate);
+    AudioKitCore::ModulatedDelay::init(channels, sampleRate);
 }
 
 void AKModulatedDelayDSP::deinit()
 {
-    leftDelayLine.deinit();
-    rightDelayLine.deinit();
-    modOscillator.deinit();
+    AudioKitCore::ModulatedDelay::deinit();
 }
 
 void AKModulatedDelayDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -103,198 +122,54 @@ float AKModulatedDelayDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
+#define CHUNKSIZE 8     // defines ramp interval
+
 void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
-    
-    // For each sample.
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        
+    float *inBuffers[2], *outBuffers[2];
+    inBuffers[0]  = (float *)_inBufferListPtr->mBuffers[0].mData  + bufferOffset;
+    inBuffers[1]  = (float *)_inBufferListPtr->mBuffers[1].mData  + bufferOffset;
+    outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + bufferOffset;
+    outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + bufferOffset;
+    unsigned channelCount = _outBufferListPtr->mNumberBuffers;
+
+    if (!_playing)
+    {
+        // effect bypassed: just copy input to output
+        memcpy(outBuffers[0], inBuffers[0], frameCount * sizeof(float));
+        if (channelCount > 0)
+            memcpy(outBuffers[1], inBuffers[1], frameCount * sizeof(float));
+        return;
+    }
+
+    // process in chunks of maximum length CHUNKSIZE
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
+        int chunkSize = frameCount - frameIndex;
+        if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
         
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-            frequencyRamp.advanceTo(_now + frameOffset);
-            depthRamp.advanceTo(_now + frameOffset);
-            feedbackRamp.advanceTo(_now + frameOffset);
-            dryWetMixRamp.advanceTo(_now + frameOffset);
-            
-            modOscillator.setFrequency(frequencyRamp.getValue());
-            float fb = feedbackRamp.getValue();
-            leftDelayLine.setFeedback(fb);
-            rightDelayLine.setFeedback(fb);
-        }
+        // ramp parameters
+        frequencyRamp.advanceTo(_now + frameOffset);
+        depthRamp.advanceTo(_now + frameOffset);
+        feedbackRamp.advanceTo(_now + frameOffset);
+        dryWetMixRamp.advanceTo(_now + frameOffset);
         
-        // do actual signal processing
-        float *inLeft  = (float *)_inBufferListPtr->mBuffers[0].mData  + frameOffset;
-        float *outLeft = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        float *inRight  = (float *)_inBufferListPtr->mBuffers[1].mData  + frameOffset;
-        float *outRight = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
+        // apply changes
+        modOscillator.setFrequency(frequencyRamp.getValue());
+        modDepthFraction = depthRamp.getValue();
+        float fb = feedbackRamp.getValue();
+        leftDelayLine.setFeedback(fb);
+        rightDelayLine.setFeedback(fb);
+        dryWetMix = dryWetMixRamp.getValue();
+
+        // process
+        Render(channelCount, chunkSize, inBuffers, outBuffers);
         
-        float modLeft, modRight;
-        modOscillator.getSamples(&modLeft, &modRight);
-        float depth = depthRamp.getValue();
-        
-        float leftDelayMs = midDelayMs + delayRangeMs * depth * modLeft;
-        float rightDelayMs = midDelayMs + delayRangeMs * depth * modRight;
-        switch (effectType) {
-            case kFlanger:
-                leftDelayMs = minDelayMs + delayRangeMs * depth * (1.0f + modLeft);
-                rightDelayMs = minDelayMs + delayRangeMs * depth * (1.0f + modRight);
-                break;
-                
-            case kChorus:
-            default:
-                break;
-        }
-        leftDelayLine.setDelayMs(leftDelayMs);
-        rightDelayLine.setDelayMs(rightDelayMs);
-        
-        float dryWetMix = dryWetMixRamp.getValue();
-        float dryFraction = 1.0f - dryWetMix;
-        *outLeft = dryFraction * (*inLeft) + dryWetMix * leftDelayLine.push(*inLeft);
-        *outRight = dryFraction * (*inRight) + dryWetMix * rightDelayLine.push(*inRight);
+        // advance pointers
+        inBuffers[0] += chunkSize;
+        inBuffers[1] += chunkSize;
+        outBuffers[0] += chunkSize;
+        outBuffers[1] += chunkSize;
     }
 }
 
-
-SDDelayLine::SDDelayLine() : pBuffer(0)
-{
-}
-
-void SDDelayLine::init(double sampleRate, double maxDelayMs)
-{
-    sampleRateHz = sampleRate;
-    capacity = int(maxDelayMs * sampleRateHz / 1000.0);
-    if (pBuffer) delete[] pBuffer;
-    pBuffer = new float[capacity];
-    for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
-    writeIndex = 0;
-    readIndex = capacity - 1;
-}
-
-void SDDelayLine::deinit()
-{
-    if (pBuffer) delete[] pBuffer;
-    pBuffer = 0;
-}
-
-void SDDelayLine::setDelayMs(double delayMs)
-{
-    float fReadWriteGap = float(delayMs * sampleRateHz / 1000.0);
-    if (fReadWriteGap < 0.0f) fReadWriteGap = 0.0f;
-    if (fReadWriteGap > capacity) fReadWriteGap = capacity;
-    readIndex = writeIndex - fReadWriteGap;
-    while (readIndex < 0.0f) readIndex += capacity;
-}
-
-void SDDelayLine::setFeedback(float feedback)
-{
-    fbFraction = feedback;
-}
-
-float SDDelayLine::push(float sample)
-{
-    if (!pBuffer) return sample;
-    
-    int ri = int(readIndex);
-    float f = readIndex - ri;
-    int rj = ri + 1; if (rj >= capacity) rj -= capacity;
-    readIndex += 1.0f;
-    if (readIndex >= capacity) readIndex -= capacity;
-    
-    float si = pBuffer[ri];
-    float sj = pBuffer[rj];
-    float outSample = (1.0 - f) * si + f * sj;
-    
-    pBuffer[writeIndex++] = sample + fbFraction * outSample;
-    if (writeIndex >= capacity) writeIndex = 0;
-    
-    return outSample;
-}
-
-
-SDWaveTable::SDWaveTable()
-: pWaveTable(0), nTableSize(0)
-{
-}
-
-void SDWaveTable::init(int tableLength)
-{
-    if (nTableSize == tableLength) return;
-    nTableSize = tableLength;
-    if (pWaveTable) delete[] pWaveTable;
-    pWaveTable = new float[tableLength];
-}
-
-void SDWaveTable::deinit()
-{
-    if (pWaveTable) delete[] pWaveTable;
-    pWaveTable = 0;
-}
-
-void SDWaveTable::initSinusoid(int tableLength)
-{
-    init(tableLength);
-    for (int i=0; i < tableLength; i++)
-        pWaveTable[i] = sin(double(i)/tableLength * 2.0 * M_PI);
-}
-
-void SDWaveTable::initTriangle(int tableLength)
-{
-    init(tableLength);
-    for (int i=0; i < tableLength; i++)
-        pWaveTable[i] = 2.0f * (0.5f - fabs((double(i)/tableLength) - 0.5)) - 1.0f;
-}
-
-float SDWaveTable::interp(float phase)
-{
-    while (phase < 0) phase += 1.0;
-    while (phase >= 1.0) phase -= 1.0f;
-    
-    float readIndex = phase * nTableSize;
-    int ri = int(readIndex);
-    float f = readIndex - ri;
-    int rj = ri + 1; if (rj >= nTableSize) rj -= nTableSize;
-    
-    float si = pWaveTable[ri];
-    float sj = pWaveTable[rj];
-    return (1.0 - f) * si + f * sj;
-}
-
-
-void SDTwoPhaseOscillator::init(double sampleRate, float frequency, int tableLength)
-{
-    sampleRateHz = sampleRate;
-    phase = 0.0f;
-    phaseDelta = frequency / sampleRate;
-}
-
-void SDTwoPhaseOscillator::deinit()
-{
-    waveTable.deinit();
-}
-
-void SDTwoPhaseOscillator::initSinusoid(double sampleRate, float frequency, int tableLength)
-{
-    init(sampleRate, frequency, tableLength);
-    waveTable.initSinusoid(tableLength);
-}
-
-void SDTwoPhaseOscillator::initTriangle(double sampleRate, float frequency, int tableLength)
-{
-    init(sampleRate, frequency, tableLength);
-    waveTable.initTriangle(tableLength);
-}
-
-void SDTwoPhaseOscillator::setFrequency(float frequency)
-{
-    phaseDelta = frequency / sampleRateHz;
-}
-
-void SDTwoPhaseOscillator::getSamples(float* pSin, float* pCos)
-{
-    *pSin = waveTable.interp(phase);
-    *pCos = waveTable.interp(phase + 0.25f);
-    phase += phaseDelta;
-    if (phase >= 1.0f) phase -= 1.0f;
-}

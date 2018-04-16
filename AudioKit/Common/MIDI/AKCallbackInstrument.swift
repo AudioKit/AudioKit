@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Function type for MIDI callbacks
@@ -22,10 +22,9 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     /// - parameter midiInputName: Name of the instrument's MIDI input
     /// - parameter callback: Initial callback
     ///
-    public init(midiInputName: String = "callback midi in", callback: AKMIDICallback? = nil) {
-        super.init()
-        let midi = AudioKit.midi
-        self.enableMIDI(midi.client, name: midiInputName)
+    public init(midiInputName: String = "AudioKit Callback Instrument", callback: AKMIDICallback? = nil) {
+        super.init(midiInputName: midiInputName)
+        self.name = midiInputName
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)

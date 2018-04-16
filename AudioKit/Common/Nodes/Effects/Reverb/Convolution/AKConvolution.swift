@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This module will perform partitioned convolution on an input signal using an
@@ -141,7 +141,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                     internalAU?.start()
                 } else {
                     // failure
-                    theData?.deallocate(capacity: Int(dataSize))
+                    theData?.deallocate()
                     theData = nil // make sure to return NULL
                     AKLog("Error = \(err)"); break Exit
                 }

@@ -2,7 +2,7 @@
 //  Equalisator.cpp
 //  Rhino
 //
-//  Created by Mike Gazzaruso on 27/04/15.
+//  Created by Mike Gazzaruso, revision history on Githbub.
 //
 //
 

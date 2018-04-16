@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  FilterEffects
 //
-//  Created by Aurelius Prochazka on 10/8/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit

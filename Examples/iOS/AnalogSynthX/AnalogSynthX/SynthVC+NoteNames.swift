@@ -2,8 +2,8 @@
 //  NoteNames.swift
 //  AnalogSynthX
 //
-//  Created by Matthew Fecher on 1/16/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Matthew Fecher, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit

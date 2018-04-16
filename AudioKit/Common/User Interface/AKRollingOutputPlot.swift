@@ -3,7 +3,7 @@
 //  AudioKitUI
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot

@@ -119,6 +119,7 @@ void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

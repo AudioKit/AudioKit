@@ -89,6 +89,7 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

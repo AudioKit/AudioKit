@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -18,22 +18,22 @@ class AKCompressorTests: AKTestCase {
 
     func testAttackTime() {
         output = AKCompressor(input, attackTime: 0.1)
-        AKTestMD5("6845eab70c0b672ace59845cb28c404e")
+        AKTestMD5("3dfe38dc6ed21994dc6c14b91d83490b")
     }
 
     func testDefault() {
         output = AKCompressor(input)
-        AKTestMD5("4a0832f24a7096bd9384a76f8bd9db01")
+        AKTestMD5("23be28244888d44bf98233e42d8df0f7")
     }
 
     func testHeadRoom() {
         output = AKCompressor(input, headRoom: 0)
-        AKTestMD5("2bd03fd22113e7df4ff3e610aac1f3a1")
+        AKTestMD5("aeb15ce0bc17083e23269b8d811cb54d")
     }
 
     func testMasterGain() {
         output = AKCompressor(input, masterGain: 1)
-        AKTestMD5("28f9437589641f6ab28c8e989e9444d0")
+        AKTestMD5("605c58df1139a4072b5bbb4d1fd23dc8")
     }
 
     func testParameters() {
@@ -43,14 +43,14 @@ class AKCompressorTests: AKTestCase {
                               attackTime: 0.1,
                               releaseTime: 0.1,
                               masterGain: 1)
-        AKTestMD5("b5ce91252b050c6875b07232bae29a93")
+        AKTestMD5("01d8b6f5527c23cf019b9f95d7ef860f")
     }
 
     // Release time is not currently tested
 
     func testThreshold() {
         output = AKCompressor(input, threshold: -25)
-        AKTestMD5("3d3d402e24582ac17f47c72e8315fffb")
+        AKTestMD5("4f58d7056622d0ba99f8579d286a3251")
     }
 
 }

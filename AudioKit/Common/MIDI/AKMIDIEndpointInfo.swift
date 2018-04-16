@@ -2,8 +2,8 @@
 //  AKMIDIEndpointInfo.swift
 //  AudioKit
 //
-//  Created by dejaWorks on 06/05/2017.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by dejaWorks, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// MIDI Endpoint Information

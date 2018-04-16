@@ -3,9 +3,15 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+/// An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that 
+/// doesn't rely on an as much Apple AV foundation/engine code as the others.
+/// As any other Sampler, it plays a part of a given sound file at a specified rate 
+/// with specified volume. Changing the rate plays it faster and therefore sounds 
+/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
+/// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
 /// A Sample type, just a UInt32
@@ -148,6 +154,11 @@ open class AKSamplePlayer: AKNode, AKComponent {
     fileprivate var avAudiofile: AVAudioFile?
     fileprivate var maximumSamples: Int = 0
 
+    open var loadCompletionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.loadCompletionHandler = newValue
+        }
+    }
     open var completionHandler: AKCallback = {} {
         willSet {
             internalAU?.completionHandler = newValue
@@ -173,7 +184,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
                       rate: Double = 1,
                       volume: Double = 1,
                       maximumSamples: Int = 0,
-                      completionHandler: @escaping AKCCallback = {}) {
+                      completionHandler: @escaping AKCCallback = {},
+                      loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
         self.rate = rate
@@ -185,6 +197,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
         }
         self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
+        self.loadCompletionHandler = loadCompletionHandler
 
         _Self.register()
 
@@ -198,6 +211,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU!.completionHandler = completionHandler
+            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -296,12 +310,11 @@ open class AKSamplePlayer: AKNode, AKComponent {
             maximumSamples = Int(file.samplesCount)
             internalAU?.setupAudioFileTable(sizeToUse)
         }
-        var flattened = Array(file.floatChannelData!.joined())
-        if file.channelCount == 1 { // if mono, convert to stereo
-            flattened.append(contentsOf: file.floatChannelData![0])
-        }
-        let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadAudioData(data, size: UInt32(flattened.count), sampleRate: Float(file.sampleRate))
+        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
+        try! file.read(into: buf!)
+        let data = buf!.floatChannelData
+        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
 
         avAudiofile = file
         startPoint = 0
