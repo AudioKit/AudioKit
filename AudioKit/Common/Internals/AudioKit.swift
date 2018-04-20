@@ -36,6 +36,8 @@ public typealias AKCallback = () -> Void
     /// Notification observers
     internal static var notificationObservers: [Any] = []
 
+    // MARK: - Device Management
+    
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {
@@ -48,8 +50,6 @@ public typealias AKCallback = () -> Void
             }
         }
     }
-
-    // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
     @objc open static var inputDevices: [AKDevice]? {
