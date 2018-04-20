@@ -16,7 +16,8 @@ extension AudioKit {
     @objc open static var format = AKSettings.audioFormat
     
     @objc static var shouldBeRunning = false
-    
+
+    #if os(iOS)
     var isIAAConnected: Bool {
         do {
             let result: UInt32? = try AudioKit.engine.outputNode.audioUnit?.getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
@@ -26,5 +27,5 @@ extension AudioKit {
         }
         return false
     }
-    
+    #endif
 }
