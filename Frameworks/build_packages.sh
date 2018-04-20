@@ -7,6 +7,7 @@ set -o pipefail
 VERSION=$(cat ../VERSION)
 PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
 SKIP_JAZZY=1 # Broken for now
+SUBDIR=${SUBDIR:-"packages"}
 
 if ! which gsed > /dev/null 2>&1;
 then
@@ -18,6 +19,11 @@ fi
 if ! test -d AudioKit-iOS;
 then
 	./build_frameworks.sh
+fi
+
+if ! test -d "$SUBDIR";
+then
+	mkdir "$SUBDIR"
 fi
 
 # Generate documentation to include in the zip files
@@ -53,7 +59,7 @@ create_package()
 	find -d . -name build -exec rm -rf {} \;
 	find -d . -name xcuserdata -exec rm -rf {} \;
 	cd ..
-	zip -9yr ${DIR}-${VERSION}.zip $DIR
+	zip -9yr ${SUBDIR}/${DIR}-${VERSION}.zip $DIR
 }
 
 create_playgrounds()
@@ -68,7 +74,7 @@ create_playgrounds()
 	find . -name .DS_Store -exec rm -rf {} \;
 	find . -name build -or -name xcuserdata -exec rm -rf {} \;
 	cd ..
-        zip -9yr AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
+        zip -9yr ${SUBDIR}/AudioKitPlaygrounds-${VERSION}.zip AudioKitPlaygrounds
 }
 
 rm -rf Carthage
@@ -86,5 +92,5 @@ echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
 rm -f AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
-zip -9yr ../AudioKit.framework.zip $PLATFORMS LICENSE README.md
+zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
 
