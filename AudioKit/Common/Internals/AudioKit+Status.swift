@@ -10,13 +10,21 @@ import Foundation
 
 extension AudioKit {
     
-    var isIaaConnected:Bool{
-        var connected:UInt32 = 0
-        var dataSize = UInt32(MemoryLayout<UInt32>.stride)
-        let mainAudioUnit = AudioKit.engine.outputNode.audioUnit!
-        AudioUnitGetProperty(mainAudioUnit,
-                             kAudioUnitProperty_IsInterAppConnected,
-                             kAudioUnitScope_Global, 0, &connected, &dataSize);
-        return Bool(truncating: connected as NSNumber)
+    // MARK: Global audio format (44.1K, Stereo)
+    
+    /// Format of AudioKit Nodes
+    @objc open static var format = AKSettings.audioFormat
+    
+    @objc static var shouldBeRunning = false
+    
+    var isIAAConnected: Bool {
+        do {
+            let result: UInt32? = try AudioKit.engine.outputNode.audioUnit?.getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
+            return result == 1
+        } catch {
+            AKLog("could not get IAA status: \(error)")
+        }
+        return false
     }
+    
 }

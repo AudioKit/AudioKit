@@ -20,11 +20,6 @@ public typealias AKCallback = () -> Void
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
-    // MARK: Global audio format (44.1K, Stereo)
-
-    /// Format of AudioKit Nodes
-    @objc open static var format = AKSettings.audioFormat
-
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
@@ -35,8 +30,6 @@ public typealias AKCallback = () -> Void
     #if !os(tvOS)
     open static let midi = AKMIDI()
     #endif
-
-    @objc static var shouldBeRunning = false
 
     @objc static var finalMixer = AKMixer()
 
