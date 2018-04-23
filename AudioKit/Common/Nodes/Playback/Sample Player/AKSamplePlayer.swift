@@ -308,8 +308,8 @@ open class AKSamplePlayer: AKNode, AKComponent {
         let sizeToUse = UInt32(file.samplesCount * 2)
         if maximumSamples == 0 {
             maximumSamples = Int(file.samplesCount)
+            internalAU?.setupAudioFileTable(sizeToUse)
         }
-        internalAU?.setupAudioFileTable(sizeToUse)
         let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
         try! file.read(into: buf!)
         let data = buf!.floatChannelData
