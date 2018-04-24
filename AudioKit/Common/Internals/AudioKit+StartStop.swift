@@ -7,6 +7,9 @@
 //
 
 import Foundation
+#if !os(macOS)
+import UIKit
+#endif
 
 extension AudioKit {
     
