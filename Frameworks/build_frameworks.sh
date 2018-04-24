@@ -11,13 +11,13 @@ BUILD_DIR="$PWD/build"
 
 if [ ! -f build_frameworks.sh ]; then
     echo "This script needs to be run from the Frameworks folder"
-	exit 0
+    exit 0
 fi
 
 VERSION=`cat ../VERSION`
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
-if test "$TRAVIS" = true;
+if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "";
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
@@ -53,8 +53,8 @@ create_universal_framework()
 		cp -v fix-framework.sh "${DIR}/${PROJECT_NAME}.framework/"
 	fi
 	
-	if test "$TRAVIS" = true;
-	then # Only build for simulator on Travis CI
+	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "";
+	then # Only build for simulator on Travis CI, unless we're building a release
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_NAME}.framework/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* "${DIR}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"
