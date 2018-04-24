@@ -4,6 +4,7 @@ env:
 - LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 before_install:
 - pod repo update
+- brew install gnu-sed
 - gem install xcpretty -N
 script: "./Tests/travis.sh"
 notifications:
