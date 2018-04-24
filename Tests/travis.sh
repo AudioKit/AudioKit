@@ -8,6 +8,10 @@ set -o pipefail
 
 echo "Building AudioKit Frameworks"
 cd Frameworks
+if test "$TRAVIS_TAG" != ""; then
+   ./build_packages.sh || exit 1
+   exit 0
+else
    ./build_frameworks.sh || exit 1
 cd ..
 

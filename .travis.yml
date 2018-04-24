@@ -4,9 +4,19 @@ env:
 - LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 before_install:
 - pod repo update
-- brew install gnu-sed
+- brew install gnu-sed s3cmd
 - gem install xcpretty -N
 script: "./Tests/travis.sh"
 notifications:
   slack:
     secure: Bgfiib7NP2/98fjJvW+PraQQFnj5X23+Zmvy9XqIe9NetzyNqWVN6URRFdcjvSnpah1kg2gGhIdkT5gvBT8HcP8OS6x/2lMFQsOhuA0mMoJ3tK3vhve10s3Mt8JvWqnEI3OmnDF/Yx7FN0sGiTskLYvi7jCzLY1QNqdg52VTsNI=
+deploy:
+  provider: releases
+  api_key:
+    secure: TzjRJUQRWJIzIOB3THAgJW8XJqpVlvk7w8m1B1EpTVkF0/d3Bz8i9IYegiydLy5pSrXR7GhHwqkn/CrwBdTr0WrlyujWA4uhedAxZEwY2hJpQ5vzw9EK1UT3Uxcs0aibgWgz20FpVSPtu2HxSGTspCqrk7vdFxQFL8b1MB2SXERnBs1eYHLBDq5O8/3hNwvH1JLRyK+pUYZwty105DEGwLSnGDsivIloutcj0cNvbCW0WKf2UnYroFPyh+paex1cY1WzUPtzxm18TxV+2i3sXNHB0ANjM/br+88RjcqH8cbMj95jcHebl5qCURdH6ab4LroNMezt5HtifiPpFkKuMcXbDwrE0Bgrb8FU2iW5f8+G6N3RwRk+5tVBWhc747Iii1Zw9UEeKrx6KhypbVZaW5nknB6ixy/aol9Ne7Zru3XNqMwQBBukMRhd0TBQeGcioeqNJAzt0Q40WSWb2QWPQ7rqd7Ym3G3v7PMW49dAkrWi38hqyOjmuNCWLxMu+88/+btAugnWNJ5+FiMhXEObnlbrYwVKYgGp0fnSaUHl60ualmcaNmPHAr0YIKzwRTjl3yiQ0JpexxTimGq2R1wsbqX6OI7AVWESBpv9mLLt+6dYsLEaKexiEVdRNhHlyXTZQxM25BG/spOakatJc60DcCHOpAebCV0l+SrqLMxJhPI=
+  file_glob: true
+  skip_cleanup: true
+  file: Frameworks/packages/*.zip
+  on:
+    repo: catloafsoft/AudioKit
+    tags: true
