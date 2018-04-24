@@ -13,6 +13,7 @@ if test "$TRAVIS_TAG" != ""; then
    exit 0
 else
    ./build_frameworks.sh || exit 1
+fi
 cd ..
 
 echo "Building iOS HelloWorld"
