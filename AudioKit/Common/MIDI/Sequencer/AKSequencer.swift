@@ -443,6 +443,32 @@ open class AKSequencer {
         return Int(count)
     }
 
+    /// Time Resolution, i.e., Pulses per quarter note
+    open var timeResolution: UInt32 {
+        let failedValue: UInt32 = 0
+        guard let existingSequence = sequence else {
+            AKLog("Couldn't get sequence for time resolution")
+            return failedValue
+        }
+        var tempoTrack: MusicTrack?
+        MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        
+        guard let unwrappedTempoTrack = tempoTrack else {
+            AKLog("No tempo track for time resolution")
+            return failedValue
+        }
+        
+        var ppqn: UInt32 = 0
+        var propertyLength: UInt32 = 0
+        
+        MusicTrackGetProperty(unwrappedTempoTrack,
+                              kSequenceTrackProperty_TimeResolution,
+                              &ppqn,
+                              &propertyLength);
+        
+        return ppqn
+    }
+
     /// Load a MIDI file from the bundle (removes old tracks, if present)
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
