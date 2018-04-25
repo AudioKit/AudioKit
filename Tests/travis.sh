@@ -9,7 +9,10 @@ set -o pipefail
 echo "Building AudioKit Frameworks"
 cd Frameworks
 if test "$TRAVIS_TAG" != ""; then
+   echo "Deploying for release tagged $TRAVIS_TAG ..."
    ./build_packages.sh || exit 1
+   echo "Uploading CocoaPods archive to S3 ..."
+   s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
    exit 0
 else
    ./build_frameworks.sh || exit 1
