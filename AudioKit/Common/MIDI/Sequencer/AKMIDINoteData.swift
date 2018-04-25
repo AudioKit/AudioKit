@@ -7,7 +7,7 @@
 //
 
 /// Struct holding revelant data for AKMusicTrack note events
-public struct AKMIDINoteData: CustomStringConvertible {
+public struct AKMIDINoteData: CustomStringConvertible, Equatable {
     public var noteNumber: MIDINoteNumber
     public var velocity: MIDIVelocity
     public var channel: MIDIChannel
