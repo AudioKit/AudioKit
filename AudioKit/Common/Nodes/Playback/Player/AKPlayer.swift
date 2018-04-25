@@ -75,7 +75,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -114,6 +114,7 @@ public class AKPlayer: AKNode {
     // The underlying player node
     private let playerNode = AVAudioPlayerNode()
     private let faderNode = AKBooster()
+    private let timePitchNode = AKTimePitch()
     private var mixer = AVAudioMixerNode()
     private var startingFrame: AVAudioFramePosition?
     private var endingFrame: AVAudioFramePosition?
@@ -197,6 +198,26 @@ public class AKPlayer: AKNode {
             }
             fade.maximumGain = gain
             faderNode.gain = gain
+        }
+    }
+
+    public var rate: Double = 1 {
+        didSet {
+            timePitchNode.rate = rate
+
+            if rate == 1 && pitch == 0 {
+                timePitchNode.bypass()
+            }
+        }
+    }
+
+    public var pitch: Double = 0 {
+        didSet {
+            timePitchNode.pitch = pitch
+
+            if rate == 1 && pitch == 0 {
+                timePitchNode.bypass()
+            }
         }
     }
 
@@ -336,16 +357,21 @@ public class AKPlayer: AKNode {
         if faderNode.avAudioNode.engine == nil {
             AudioKit.engine.attach(faderNode.avAudioNode)
         }
+        if faderNode.avAudioNode.engine == nil {
+            AudioKit.engine.attach(faderNode.avAudioNode)
+        }
 
         playerNode.disconnectOutput()
 
         let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
                                    channels: audioFile.fileFormat.channelCount)
 
-        AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
+        AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: format)
+        AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
         faderNode.gain = Fade.minimumGain
+        timePitchNode.bypass() // bypass timePitch by default
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -429,6 +455,13 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
+
+        if pitch != 0 || rate != 1 {
+            timePitchNode.start()
+        }
+
+        faderNode.start()
+
         guard !isBuffered else {
             faderNode.gain = gain
             return
@@ -458,6 +491,10 @@ public class AKPlayer: AKNode {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
+
+        // the time strecher draws a fair bit of CPU when it isn't bypassed, so auto bypass it
+        timePitchNode.bypass()
+        faderNode.bypass()
     }
 
     // MARK: - Fade Handlers
@@ -473,10 +510,14 @@ public class AKPlayer: AKNode {
             return
         }
 
-        guard let hostTime = hostTime, let triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
+        guard let hostTime = hostTime, var triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
             startFade()
             return
         }
+
+        triggerTime /= rate
+
+        AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
             self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
@@ -505,7 +546,7 @@ public class AKPlayer: AKNode {
 
         if inTime > 0 {
             faderNode.gain = Fade.minimumGain
-            faderNode.rampTime = inTime
+            faderNode.rampTime = inTime / rate
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
@@ -524,7 +565,8 @@ public class AKPlayer: AKNode {
             }
             fadeOutWithTime(midFadeDuration)
         } else {
-            let when = (duration - startTime) - (duration - endTime) - fade.outTime
+            var when = (duration - startTime) - (duration - endTime) - fade.outTime
+            when /= rate
 
             DispatchQueue.main.async {
                 self.faderTimer = Timer.scheduledTimer(timeInterval: when,
@@ -544,7 +586,7 @@ public class AKPlayer: AKNode {
 
     private func fadeOutWithTime(_ time: Double) {
         if time > 0 {
-            faderNode.rampTime = time
+            faderNode.rampTime = time / rate
             faderNode.gain = Fade.minimumGain
         }
     }
