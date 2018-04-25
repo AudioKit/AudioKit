@@ -18,5 +18,4 @@ deploy:
   skip_cleanup: true
   file: Frameworks/packages/*.zip
   on:
-    repo: catloafsoft/AudioKit
     tags: true
