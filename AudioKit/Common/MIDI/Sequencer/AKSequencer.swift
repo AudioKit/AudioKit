@@ -310,8 +310,10 @@ open class AKSequencer {
     ///   - ticksPerMetronomeClick: MIDI clocks between metronome clicks (not PPQN), typically 24
     ///   - thirtySecondNotesPerQuarter: Number of 32nd notes making a quarter, typically 8
     ///
-    open func addTimeSignatureEvent(timeSignatureTop: UInt8, timeSignatureBottom: TimeSignatureBottomValue,
-                                    ticksPerMetronomeClick: UInt8 = 24, thirtySecondNotesPerQuarter: UInt8 = 8) {
+    open func addTimeSignatureEvent(timeSignatureTop: UInt8,
+                                    timeSignatureBottom: TimeSignatureBottomValue,
+                                    ticksPerMetronomeClick: UInt8 = 24,
+                                    thirtySecondNotesPerQuarter: UInt8 = 8) {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
