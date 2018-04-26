@@ -9,12 +9,12 @@
 import Foundation
 
 extension AudioKit {
-    
+
     // MARK: - Testing
-    
+
     /// Testing AKNode
     @objc open static var tester: AKTester?
-    
+
     /// Test the output of a given node
     ///
     /// - Parameters:
@@ -25,10 +25,10 @@ extension AudioKit {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
-            
+
             tester = AKTester(node, samples: samples)
             output = tester
-            
+
             // maximum number of frames the engine will be asked to render in any single render call
             let maxNumberOfFrames: AVAudioFrameCount = 4_096
             try AKTry {
@@ -36,13 +36,13 @@ extension AudioKit {
                 try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
                 try engine.start()
             }
-            
+
             afterStart()
             tester?.play()
-            
+
             let buffer: AVAudioPCMBuffer = AVAudioPCMBuffer(pcmFormat: engine.manualRenderingFormat,
                                                             frameCapacity: engine.manualRenderingMaximumFrameCount)!
-            
+
             while engine.manualRenderingSampleTime < samples {
                 let framesToRender = buffer.frameCapacity
                 let status = try engine.renderOffline(framesToRender, to: buffer)
@@ -50,15 +50,15 @@ extension AudioKit {
                 case .success:
                     // data rendered successfully
                     break
-                    
+
                 case .insufficientDataFromInputNode:
                     // applicable only if using the input node as one of the sources
                     break
-                    
+
                 case .cannotDoInCurrentContext:
                     // engine could not render in the current render call, retry in next iteration
                     break
-                    
+
                 case .error:
                     // error occurred while rendering
                     fatalError("render failed")

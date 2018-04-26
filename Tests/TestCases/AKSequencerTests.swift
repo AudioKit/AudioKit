@@ -9,7 +9,7 @@
 import AudioKit
 import XCTest
 
-class AKSequencerTests: AKTestCase  {
+class AKSequencerTests: AKTestCase {
     var seq: AKSequencer!
 
     override func setUp() {
@@ -28,7 +28,7 @@ class AKSequencerTests: AKTestCase  {
 
     func testNewTrack_addingTrackWillIncreaseTrackCount() {
         let _ = seq.newTrack()
-        
+
         XCTAssertEqual(seq.trackCount, 1)
     }
 
@@ -70,10 +70,10 @@ class AKSequencerTests: AKTestCase  {
 
         XCTAssertEqual(trackA!.length, originalLength)
         XCTAssertEqual(trackA!.getMIDINoteData().count, Int(originalLength))
-        
+
         let newLength: Double = 4.0
         seq.setLength(AKDuration(beats: newLength))
-        
+
         XCTAssertEqual(trackA!.length, newLength)
         XCTAssertEqual(trackA!.getMIDINoteData().count, Int(newLength))
     }
@@ -85,7 +85,7 @@ class AKSequencerTests: AKTestCase  {
         // longest track is 8 beats
         let trackB = seq.newTrack()
         trackB?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 8))
-        
+
         let trackC = seq.newTrack()
         trackC?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 4))
 
@@ -125,29 +125,29 @@ class AKSequencerTests: AKTestCase  {
 
         XCTAssertEqual(seq.trackCount, 1)
     }
-    
+
     func testDeleteTrack_attemptingToDeleteBadIndexWillHaveNoEffect() {
         // default seq has no tracks
         seq.deleteTrack(trackIndex: 3)
-        
+
         // no effect, i.e., it doesn't crash
         XCTAssertEqual(seq.trackCount, 0)
     }
-    
+
     func testDeleteTrack_deletingLongerTrackWillChangeSequencerLength() {
         let trackA = seq.newTrack()
         trackA?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 8))
-        
+
         let trackB = seq.newTrack()
         trackB?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 4))
-        
+
         XCTAssertEqual(seq.length, AKDuration(beats: 8.0))
-        
+
         seq.deleteTrack(trackIndex: 0)
-        
+
         XCTAssertEqual(seq.length, AKDuration(beats: 4.0))
     }
-    
+
     func testDeleteTrack_indexOfTracksWithHigherIndicesWillDecrement() {
         let _ = seq.newTrack()
         let _ = seq.newTrack()
@@ -183,7 +183,7 @@ class AKSequencerTests: AKTestCase  {
         let replacement = generatePopulatedSequencer(numBeats: 4, numTracks: 1)
         let midiURL = replacement.writeDataToURL()
         seq.loadMIDIFile(fromURL: midiURL)
-        
+
         XCTAssertEqual(seq.trackCount, 1)
         XCTAssertEqual(seq.length, AKDuration(beats: 4))
     }
@@ -193,7 +193,7 @@ class AKSequencerTests: AKTestCase  {
         let sourceSeq = generatePopulatedSequencer(numBeats: 8, numTracks: numTracks)
         let _ = sourceSeq.newTrack() // plus one empty track
         let midiURL = sourceSeq.writeDataToURL()
-        
+
         seq.loadMIDIFile(fromURL: midiURL)
         XCTAssertEqual(seq.trackCount, numTracks + 1)
     }
@@ -240,7 +240,7 @@ class AKSequencerTests: AKTestCase  {
             let newTrack = seq.newTrack()
             newTrack?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: 6, noteNumber: 50))
         }
-        
+
         // add 4 track MIDI file
         let numberOfTracksInNewFile = 4
         let newSeq = generatePopulatedSequencer(numBeats: 4, noteNumber: 60, numTracks: numberOfTracksInNewFile)
@@ -340,18 +340,18 @@ class AKSequencerTests: AKTestCase  {
         XCTAssertEqual(seq.tracks[2].length, MusicTimeStamp(longerLength))
         XCTAssertEqual(seq.tracks[3].length, MusicTimeStamp(longerLength))
     }
-    
+
     // MARK: Time Signature
     func testTimeSignature_tracksByDefaultHaveNoTimeSignatureEvents() {
         XCTAssertEqual(seq.countTimeSignatureEvents(), 0)
     }
-    
+
     func testAddTimeSignatureEvent_shouldAddSingleEvent() {
         seq.addTimeSignatureEvent(timeSignatureTop: 5,
                                   timeSignatureBottom: AKSequencer.TimeSignatureBottomValue.four)
         XCTAssertEqual(seq.countTimeSignatureEvents(), 1)
     }
-    
+
     func testAddTimeSignatureEvent_addingEventsShouldClearEarlierEvents() {
         seq.addTimeSignatureEvent(timeSignatureTop: 5,
                                   timeSignatureBottom: AKSequencer.TimeSignatureBottomValue.four)
@@ -359,7 +359,7 @@ class AKSequencerTests: AKTestCase  {
                                   timeSignatureBottom: AKSequencer.TimeSignatureBottomValue.sixteen)
         XCTAssertEqual(seq.countTimeSignatureEvents(), 1)
     }
-    
+
     // MARK: - helper functions
     func generateMIDINoteDataArray(numBeats: Int, noteNumber: Int = 60) -> [AKMIDINoteData] {
         return (0 ..< numBeats).map { AKMIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
@@ -425,18 +425,16 @@ extension AKSequencer {
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
-        
+
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            
+
             midiEventHandler(iterator, eventTime, eventType, eventData, eventDataSize)
-            
+
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
     }
 }
-
-
