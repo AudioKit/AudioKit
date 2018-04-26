@@ -15,6 +15,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
+@available(*, deprecated, message: "AKSamplePlayer is now AKWaveTable")
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
