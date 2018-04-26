@@ -86,6 +86,141 @@ class AKMusicTrackTests: AKTestCase {
         XCTAssertTrue(musicTrack.doesNotHaveNote(atPosition: 2.0, withNoteNumber: 60))
         XCTAssertTrue(musicTrack.hasNote(atPosition: 3.0, withNoteNumber: 61))
     }
+
+    // MARK: - getMIDINoteData
+    func testGetMIDINoteData_emptyTrackYieldsEmptyArray() {
+        // start with empty track
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
+    }
+
+    func testGetMIDINoteData_trackWith4NotesYieldsArrayWIth4Values() {
+        addFourNotesToTrack(musicTrack)
+        
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 4)
+    }
+
+    func testGetMIDINoteData_notesInSamePositionDoNotOverwrite() {
+        musicTrack.add(noteNumber: 60,
+                       velocity: 120,
+                       position: AKDuration(beats: 0),
+                       duration: AKDuration(beats: 0.5))
+        
+        musicTrack.add(noteNumber: 72,
+                       velocity: 120,
+                       position: AKDuration(beats: 0),
+                       duration: AKDuration(beats: 0.5))
+        
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 2)
+    }
+
+    func testGetMIDINoteData_willNoteCopyMetaEvents() {
+        musicTrack.addPitchBend(0, position: AKDuration(beats: 0), channel: 0)
+        
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
+    }
+
+    func testGetMIDINoteData_MIDINoteDataElementCorrespondsToNote() {
+        let pitch = MIDINoteNumber(60)
+        let vel = MIDIVelocity(120)
+        let dur = AKDuration(beats: 0.75)
+        let channel = MIDIChannel(3)
+        let position = AKDuration(beats: 1.5)
+
+        musicTrack.add(noteNumber: pitch,
+                       velocity: vel,
+                       position: position,
+                       duration: dur,
+                       channel: channel)
+        
+        let noteData = musicTrack.getMIDINoteData()[0]
+
+        XCTAssertEqual(noteData.noteNumber, pitch)
+        XCTAssertEqual(noteData.velocity, vel)
+        XCTAssertEqual(noteData.duration, dur)
+        XCTAssertEqual(noteData.position, position)
+        XCTAssertEqual(noteData.channel, channel)
+    }
+
+    // MARK: - replaceMIDINoteData
+    // helper function
+    func addFourNotesToTrack(_ track: AKMusicTrack) {
+        for i in 0 ..< 4 {
+            track.add(noteNumber: UInt8(60 + i),
+                           velocity: 120,
+                           position: AKDuration(beats: Double(i)),
+                           duration: AKDuration(beats: 0.5))
+        }
+    }
+
+    func testReplaceMIDINoteData_replacingPopulatedTrackWithEmptyArrayClearsTrack() {
+        addFourNotesToTrack(musicTrack)
+
+        musicTrack.replaceMIDINoteData(with: [])
+
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
+    }
+
+    func testReplaceMIDINoteData_canCopyNotesFromOtherTrack() {
+        let otherTrack = AKMusicTrack()
+        addFourNotesToTrack(otherTrack)
+
+        musicTrack.replaceMIDINoteData(with: otherTrack.getMIDINoteData())
+
+        let musicTrackNoteData = musicTrack.getMIDINoteData()
+        let otherTrackNoteData = otherTrack.getMIDINoteData()
+        for i in 0 ..< 4 {
+            XCTAssertEqual(otherTrackNoteData[i], musicTrackNoteData[i])
+        }
+    }
+
+    func testReplaceMIDINoteData_orderOfElementsInInputIsIrrelevant() {
+        addFourNotesToTrack(musicTrack)
+        let originalNoteData = musicTrack.getMIDINoteData()
+        
+        musicTrack.replaceMIDINoteData(with: originalNoteData.reversed())
+        let newTrackData = musicTrack.getMIDINoteData()
+
+        for i in 0 ..< 4 {
+            XCTAssertEqual(newTrackData[i], originalNoteData[i])
+        }
+    }
+
+    func testReplaceMIDINoteData_canIncreaseLengthOfTrack() {
+        addFourNotesToTrack(musicTrack)
+        let originalLength = musicTrack.length
+        var noteData = musicTrack.getMIDINoteData()
+
+        // increase duration of last note
+        noteData[3].duration = AKDuration(beats: 4)
+        musicTrack.replaceMIDINoteData(with: noteData)
+
+        XCTAssertTrue(musicTrack.length > originalLength)
+    }
+
+    func testReplaceMIDINoteData_willNOTDecreaseLengthOfTrackIfLengthExplicitlyIsSet() {
+        // length is explicitly set in setup
+        addFourNotesToTrack(musicTrack)
+        let originalLength = musicTrack.length
+        var noteData = musicTrack.getMIDINoteData()
+        
+        // remove last note
+        let _ = noteData.popLast()
+        musicTrack.replaceMIDINoteData(with: noteData)
+        XCTAssertEqual(originalLength, musicTrack.length)
+    }
+    
+    func testReplaceMIDINoteData_willDecreaseLengthOfTrackIfLengthNOTExplicitlySet() {
+        // newTrack's length is not explicitly set
+        let newTrack = AKMusicTrack()
+        addFourNotesToTrack(newTrack)
+        let originalLength = newTrack.length
+        var noteData = newTrack.getMIDINoteData()
+        
+        // remove last note
+        let _ = noteData.popLast()
+        newTrack.replaceMIDINoteData(with: noteData)
+        XCTAssertTrue(originalLength > newTrack.length)
+    }
 }
 
 // MARK: - For AKMusicTrack Testing
