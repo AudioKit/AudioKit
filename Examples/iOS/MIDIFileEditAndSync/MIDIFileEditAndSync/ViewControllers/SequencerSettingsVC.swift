@@ -69,7 +69,10 @@ extension SequencerSettingsVC: UITextFieldDelegate {
             }
         case timeSigTextField:
             if 1 ..< 60 ~= value {
-                sequencerDelegate?.addTimeSignatureEvent(timeSignatureTop: UInt8(value), timeSignatureBottom: .four)
+                sequencerDelegate?.addTimeSignatureEvent(timeSignatureTop: UInt8(value),
+                                                         timeSignatureBottom: .four,
+                                                         ticksPerMetronomeClick: 24,
+                                                         thirtySecondNotesPerQuarter: 8)
                 moveTextField(textField, moveDistance: -200, up: false)
                 return true
             }
