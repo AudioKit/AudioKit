@@ -454,20 +454,20 @@ open class AKSequencer {
         }
         var tempoTrack: MusicTrack?
         MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        
+
         guard let unwrappedTempoTrack = tempoTrack else {
             AKLog("No tempo track for time resolution")
             return failedValue
         }
-        
+
         var ppqn: UInt32 = 0
         var propertyLength: UInt32 = 0
-        
+
         MusicTrackGetProperty(unwrappedTempoTrack,
                               kSequenceTrackProperty_TimeResolution,
                               &ppqn,
-                              &propertyLength);
-        
+                              &propertyLength)
+
         return ppqn
     }
 

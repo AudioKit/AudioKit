@@ -95,7 +95,7 @@ class AKMusicTrackTests: AKTestCase {
 
     func testGetMIDINoteData_trackWith4NotesYieldsArrayWIth4Values() {
         addFourNotesToTrack(musicTrack)
-        
+
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 4)
     }
 
@@ -104,18 +104,18 @@ class AKMusicTrackTests: AKTestCase {
                        velocity: 120,
                        position: AKDuration(beats: 0),
                        duration: AKDuration(beats: 0.5))
-        
+
         musicTrack.add(noteNumber: 72,
                        velocity: 120,
                        position: AKDuration(beats: 0),
                        duration: AKDuration(beats: 0.5))
-        
+
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 2)
     }
 
     func testGetMIDINoteData_willNoteCopyMetaEvents() {
         musicTrack.addPitchBend(0, position: AKDuration(beats: 0), channel: 0)
-        
+
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
     }
 
@@ -131,7 +131,7 @@ class AKMusicTrackTests: AKTestCase {
                        position: position,
                        duration: dur,
                        channel: channel)
-        
+
         let noteData = musicTrack.getMIDINoteData()[0]
 
         XCTAssertEqual(noteData.noteNumber, pitch)
@@ -176,7 +176,7 @@ class AKMusicTrackTests: AKTestCase {
     func testReplaceMIDINoteData_orderOfElementsInInputIsIrrelevant() {
         addFourNotesToTrack(musicTrack)
         let originalNoteData = musicTrack.getMIDINoteData()
-        
+
         musicTrack.replaceMIDINoteData(with: originalNoteData.reversed())
         let newTrackData = musicTrack.getMIDINoteData()
 
@@ -202,20 +202,20 @@ class AKMusicTrackTests: AKTestCase {
         addFourNotesToTrack(musicTrack)
         let originalLength = musicTrack.length
         var noteData = musicTrack.getMIDINoteData()
-        
+
         // remove last note
         let _ = noteData.popLast()
         musicTrack.replaceMIDINoteData(with: noteData)
         XCTAssertEqual(originalLength, musicTrack.length)
     }
-    
+
     func testReplaceMIDINoteData_willDecreaseLengthOfTrackIfLengthNOTExplicitlySet() {
         // newTrack's length is not explicitly set
         let newTrack = AKMusicTrack()
         addFourNotesToTrack(newTrack)
         let originalLength = newTrack.length
         var noteData = newTrack.getMIDINoteData()
-        
+
         // remove last note
         let _ = noteData.popLast()
         newTrack.replaceMIDINoteData(with: noteData)

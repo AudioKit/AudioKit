@@ -111,7 +111,7 @@ protocol SequencerDelegate: class {
     var loopEnabled: Bool { get }
     var tempo: Double { get }
     var length: AKDuration { get }
-    
+
     func addTimeSignatureEvent(timeSignatureTop: UInt8,
                                timeSignatureBottom: AKSequencer.TimeSignatureBottomValue,
                                ticksPerMetronomeClick: UInt8,

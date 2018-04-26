@@ -12,10 +12,9 @@ import UIKit
 #endif
 
 extension AudioKit {
-    
-    
+
     // MARK: - Start/Stop
-    
+
     /// Start up the audio engine with periodic functions
     open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         for function in functions {
@@ -23,7 +22,7 @@ extension AudioKit {
         }
         try start()
     }
-    
+
     /// Start up the audio engine
     @objc open static func start() throws {
         if output == nil {
@@ -33,7 +32,7 @@ extension AudioKit {
         try AKTry {
             engine.prepare()
         }
-        
+
         #if os(iOS)
         try updateSessionCategoryAndOptions()
         try AVAudioSession.sharedInstance().setActive(true)
@@ -56,11 +55,11 @@ extension AudioKit {
         }
         shouldBeRunning = true
     }
-    
+
     @objc internal static func updateSessionCategoryAndOptions() throws {
         #if !os(macOS)
         let sessionCategory = AKSettings.computedSessionCategory()
-        
+
         #if os(iOS)
         let sessionOptions = AKSettings.computedSessionOptions()
         try AKSettings.setSession(category: sessionCategory,
@@ -70,7 +69,7 @@ extension AudioKit {
         #endif
         #endif
     }
-    
+
     /// Stop the audio engine
     @objc open static func stop() throws {
         // Stop the engine.
@@ -78,7 +77,7 @@ extension AudioKit {
             engine.stop()
         }
         shouldBeRunning = false
-        
+
         #if os(iOS)
         do {
             NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
@@ -90,7 +89,7 @@ extension AudioKit {
         }
         #endif
     }
-    
+
     // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
