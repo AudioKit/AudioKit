@@ -189,7 +189,7 @@
 #if !os(macOS)
 extension AKSettings {
 
-  /// Shortcut for AVAudioSession.sharedInstance()
+    /// Shortcut for AVAudioSession.sharedInstance()
     @objc open static let session = AVAudioSession.sharedInstance()
 
     /// Convenience method accessible from Objective-C
@@ -295,9 +295,10 @@ extension AKSettings {
     /// Returns true if headPhones are connected, otherwise return false
     @objc static open var headPhonesPlugged: Bool {
         return session.currentRoute.outputs.contains {
-            [AVAudioSessionPortHeadphones,
-             AVAudioSessionPortBluetoothHFP,
-             AVAudioSessionPortBluetoothA2DP].contains($0.portType)
+            let headphonePortTypes = [AVAudioSessionPortHeadphones,
+                                      AVAudioSessionPortBluetoothHFP,
+                                      AVAudioSessionPortBluetoothA2DP]
+            return headphonePortTypes.contains($0.portType)
         }
     }
 
