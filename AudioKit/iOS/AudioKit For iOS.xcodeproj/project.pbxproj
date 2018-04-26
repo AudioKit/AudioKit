@@ -3717,7 +3717,7 @@
 				C40C42AE1C420C1D009D870B /* Samplers */,
 				FED92BDE1ED1331D00E93264 /* Sample Player */,
 				C40C42B21C420C1D009D870B /* Time Pitch Stretching */,
-				FE1F57A4209235F8006B34CF /* WaveTable */,
+				FE1F57A4209235F8006B34CF /* Wave Table */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -5001,7 +5001,7 @@
 			path = Microtonality;
 			sourceTree = "<group>";
 		};
-		FE1F57A4209235F8006B34CF /* WaveTable */ = {
+		FE1F57A4209235F8006B34CF /* Wave Table */ = {
 			isa = PBXGroup;
 			children = (
 				FE1F57A8209235F8006B34CF /* AKWaveTable.swift */,
@@ -5009,7 +5009,7 @@
 				FE1F57A6209235F8006B34CF /* AKWaveTableAudioUnit.mm */,
 				FE1F57A7209235F8006B34CF /* AKWaveTableDSPKernel.hpp */,
 			);
-			path = WaveTable;
+			path = "Wave Table";
 			sourceTree = "<group>";
 		};
 		FED92BDE1ED1331D00E93264 /* Sample Player */ = {
