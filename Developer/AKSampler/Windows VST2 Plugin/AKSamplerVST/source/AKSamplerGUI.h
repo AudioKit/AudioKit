@@ -34,6 +34,7 @@ protected:
     HWND hwnd;
     int WIDTH, HEIGHT;
 
+    void enableFilterControls(bool show);
     void updateAllParameters();
     void choosePresetDirectory();
     void populatePresetsComboBox();

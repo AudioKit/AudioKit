@@ -1,5 +1,6 @@
 #!/bin/bash
 if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -l` -gt 0; then
+	echo "Found some absolute references to user directories in the projects. This should be fixed!"
 	cat /tmp/found
 	exit 1
 fi
@@ -7,7 +8,19 @@ set -o pipefail
 
 echo "Building AudioKit Frameworks"
 cd Frameworks
+if test "$TRAVIS_TAG" != ""; then
+   if test "$AWS_ACCESS_KEY" = ""; then
+      echo "You must set the AWS_ACCESS_KEY and AWS_SECRET environment variables in Travis for automated builds!" >&2
+      exit 1
+   fi
+   echo "Deploying for release tagged $TRAVIS_TAG ..."
+   ./build_packages.sh || exit 1
+   echo "Uploading CocoaPods archive to S3 ..."
+   s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
+   exit
+else
    ./build_frameworks.sh || exit 1
+fi
 cd ..
 
 echo "Building iOS HelloWorld"
@@ -45,6 +58,9 @@ xcodebuild -project Examples/iOS/MetronomeSamplerSync/MetronomeSamplerSync.xcode
 
 echo "Building iOS MicrophoneAnalysis"
 xcodebuild -project Examples/iOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -sdk iphonesimulator -scheme MicrophoneAnalysis -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 15
+
+echo "Building iOS MIDIFileEditAndSync"
+xcodebuild -project Examples/iOS/MIDIFileEditAndSync/MIDIFileEditAndSync.xcodeproj -sdk iphonesimulator -scheme MIDIFileEditAndSync -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
 
 echo "Building iOS MIDIUtility"
 xcodebuild -project Examples/iOS/MIDIUtility/MIDIUtility.xcodeproj -sdk iphonesimulator -scheme MIDIUtility -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16

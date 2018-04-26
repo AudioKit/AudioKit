@@ -10,30 +10,29 @@ import Foundation
 import AudioKit
 
 class AudiobusCompatibleSequencer {
-    
+
     var mixer: AKMixer!
     var midi: AKMIDI!
     var seq: AKSequencer!
-    
+
     let numTracks = 4
     var callbackInsts: [AKCallbackInstrument]!
     var tracks: [AKMusicTrack]!
     var ports: [ABMIDISenderPort]!
-    
+
     var coreMIDIIsActive = true
     var isPlaying: Bool = false
     var transportTrigger: ABTrigger!
     weak var displayDelegate: DisplayDelegate?
 
-    
     init() {
         midi = AKMIDI()
-        midi.createVirtualOutputPort(10101, name: "my port")
+        midi.createVirtualOutputPort(10_101, name: "my port")
         midi.openOutput()
-        
+
         mixer = AKMixer()
         AudioKit.output = mixer
-        
+
         seq = AKSequencer()
         createTracksAndCallBackInst()
         writeMIDIData()
@@ -41,7 +40,7 @@ class AudiobusCompatibleSequencer {
         addAudiobusTrigger()
         startAudioKit()
     }
-    
+
     fileprivate func startAudioKit() {
         do {
             AKSettings.playbackWhileMuted = true
@@ -50,7 +49,7 @@ class AudiobusCompatibleSequencer {
             print("Couldn't start Audiokit")
         }
     }
-    
+
     // MARK: - Setting up Audiobus
     fileprivate func allowAudiobusToDisableCoreMIDI() {
         Audiobus.setUpEnableCoreMIDIBlock { [weak self] isEnabled in
@@ -59,9 +58,9 @@ class AudiobusCompatibleSequencer {
             print("CoreMIDI Send Enabled: \(isEnabled)")
         }
     }
-    
+
     fileprivate func addAudiobusTrigger() {
-        transportTrigger = ABTrigger(systemType: ABTriggerTypePlayToggle) { [weak self] trigger, ports in
+        transportTrigger = ABTrigger(systemType: ABTriggerTypePlayToggle) { [weak self] _, _ in
             guard let this = self else { return }
             if this.isPlaying {
                 this.stop()
@@ -71,7 +70,7 @@ class AudiobusCompatibleSequencer {
         }
         Audiobus.addTrigger(transportTrigger)
     }
-    
+
     // MARK: - Building Tracks, Callback Instruments, and ABMIDISendPorts
     fileprivate func createTracksAndCallBackInst() {
         tracks = [AKMusicTrack]()
@@ -88,11 +87,10 @@ class AudiobusCompatibleSequencer {
             tracks[i].setMIDIOutput(callbackInsts[i].midiIn)
         }
     }
-    
-    
+
     // MARK: - Handling NoteOn and NoteOff Msgs
-    fileprivate func setUpCallBackFunctions(channel: Int) -> AKCallbackInstrument{
-        return  AKCallbackInstrument() { [weak self] status, note, velocity in
+    fileprivate func setUpCallBackFunctions(channel: Int) -> AKCallbackInstrument {
+        return  AKCallbackInstrument { [weak self] status, note, velocity in
             guard let this = self else { return}
             switch status {
             case .noteOn:
@@ -106,7 +104,7 @@ class AudiobusCompatibleSequencer {
             }
         }
     }
-    
+
     fileprivate func noteOn(midiSendPort: ABMIDISenderPort, status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         if coreMIDIIsActive {
             self.midi.sendNoteOnMessage(noteNumber: note, velocity: velocity, channel: channel)
@@ -114,7 +112,7 @@ class AudiobusCompatibleSequencer {
             Audiobus.sendNoteOnMessage(midiSendPort: midiSendPort, status: status, note: note, velocity: velocity)
         }
     }
-    
+
     fileprivate func noteOff(midiSendPort: ABMIDISenderPort, status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         if coreMIDIIsActive {
             self.midi.sendNoteOffMessage(noteNumber: note, velocity: velocity, channel: MIDIChannel(channel))
@@ -122,7 +120,7 @@ class AudiobusCompatibleSequencer {
             Audiobus.sendNoteOffMessage(midiSendPort: midiSendPort, status: status, note: note, velocity: velocity)
         }
     }
-    
+
     // MARK: - Write data to the tracks
     fileprivate func writeMIDIData() {
         var midinote = 60
@@ -130,7 +128,7 @@ class AudiobusCompatibleSequencer {
         seq.setLength(AKDuration(beats: beats))
         seq.enableLooping()
         seq.setTempo(100)
-        
+
         for i in 0 ..< numTracks {
             let interval = beats / Double(i + 1)
             for noteNum in 0 ..< (i + 1) {
@@ -142,7 +140,7 @@ class AudiobusCompatibleSequencer {
             midinote += 7
         }
     }
-    
+
     // MARK: - Handling Transport
     func play() {
         isPlaying = true
@@ -151,7 +149,7 @@ class AudiobusCompatibleSequencer {
         seq.play()
         displayDelegate?.showIsPlaying(true)
     }
-    
+
     func stop() {
         isPlaying = false
         transportTrigger.state = ABTriggerStateNormal
@@ -159,5 +157,3 @@ class AudiobusCompatibleSequencer {
         displayDelegate?.showIsPlaying(false)
     }
 }
-
-

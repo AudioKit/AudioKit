@@ -40,8 +40,8 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     // Useful to reconnect after connecting to Audiobus or IAA
     @objc func reconnect() {
-        node?.avAudioNode.removeTap(onBus: 0)
-        setupNode(node)
+        pause()
+        resume()
     }
 
     @objc open func pause() {
@@ -71,10 +71,10 @@ open class AKNodeOutputPlot: EZAudioPlot {
     /// The node whose output to graph
     @objc open var node: AKNode? {
         willSet {
-            node?.avAudioNode.removeTap(onBus: 0)
+            pause()
         }
         didSet {
-            setupNode(node)
+            resume()
         }
     }
 
