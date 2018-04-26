@@ -14,12 +14,6 @@
 /// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
-/// A Sample type, just a UInt32
-public typealias Sample = UInt32
-
-/// Callback function that can be called from C
-public typealias AKCCallback = @convention(block) () -> Void
-
 /// Audio player that loads a sample into memory
 open class AKWaveTable: AKNode, AKComponent {
 
