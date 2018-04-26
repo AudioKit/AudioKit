@@ -128,7 +128,7 @@ open class AKMIDISampler: AKAppleSampler {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
     }
-    
+
     /// Discard all virtual ports
     open func destroyEndpoint() {
         if midiIn != 0 {
@@ -136,11 +136,11 @@ open class AKMIDISampler: AKAppleSampler {
             midiIn = 0
         }
     }
-    
-    func showVirtualMIDIPort(){
+
+    func showVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
     }
-    func hideVirtualMIDIPort(){
+    func hideVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }

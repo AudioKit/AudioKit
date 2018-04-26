@@ -50,7 +50,11 @@ class ViewController: NSViewController {
 
     @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
-        AudioKit.output = booster
+        let osc = AKOscillator()
+        AudioKit.output = osc
+        osc.start()
+        osc.amplitude = 0.0
+        osc.rampTime = 0.0
         do {
             try AudioKit.start()
         } catch {
@@ -157,7 +161,7 @@ class ViewController: NSViewController {
     @IBAction func handlePlay(_ sender: NSButton) {
         let state = sender.state == .on
         if node == speechSynthesizer {
-            speechSynthesizer.sayHello()
+//            speechSynthesizer.sayHello()
         } else if node == player {
             state ? player?.resume() : player?.pause()
         }

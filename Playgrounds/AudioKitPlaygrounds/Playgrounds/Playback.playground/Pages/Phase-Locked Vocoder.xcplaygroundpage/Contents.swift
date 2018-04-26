@@ -1,5 +1,5 @@
 //: ## Phase-Locked Vocoder
-//: A different kind of time and pitch stretching
+//: A different kind of time and pitch stretching. It plays a spectral freeze of the current position in time.
 import AudioKitPlaygrounds
 import AudioKit
 

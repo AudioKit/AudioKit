@@ -161,7 +161,7 @@ class ViewController: NSViewController, NSWindowDelegate {
     }
 
     @IBAction func onFilterEgStrengthSliderChange(_ sender: NSSlider) {
-        filterEgStrengthReadout.doubleValue = sender.doubleValue;
+        filterEgStrengthReadout.doubleValue = sender.doubleValue
         sampler.filterEgStrength = sender.doubleValue
     }
 

@@ -64,7 +64,18 @@ open class AKSequencer {
         loadMIDIFile(filename)
     }
 
-    /// Preroll for the music player
+    /// Initialize the sequence with a MIDI file
+    ///
+    /// - parameter fromURL: URL of MIDI File
+    ///
+    public convenience init(fromURL fileURL: URL) {
+        self.init()
+        loadMIDIFile(fromURL: fileURL)
+    }
+
+    /// Preroll the music player. Call this function in advance of playback to reduce the sequencers 
+    /// startup latency. If you call `play` without first calling this function, the sequencer will 
+    /// call this function before beginning playback.
     open func preroll() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerPreroll(existingMusicPlayer)
@@ -281,6 +292,72 @@ open class AKSequencer {
         return outBool
     }
 
+    /// Possible values for the time signature lower value
+    public enum TimeSignatureBottomValue: UInt8 {
+        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
+        case two = 1
+        case four = 2
+        case eight = 3
+        case sixteen = 4
+    }
+
+    /// Add a time signature event to start of tempo track
+    /// NB: will affect MIDI file layout but NOT sequencer playback
+    ///
+    /// - Parameters:
+    ///   - timeSignatureTop: Number of beats per measure
+    ///   - timeSignatureBottom: Unit of beat
+    ///
+    open func addTimeSignatureEvent(timeSignatureTop: UInt8, timeSignatureBottom: TimeSignatureBottomValue) {
+        var tempoTrack: MusicTrack?
+        if let existingSequence = sequence {
+            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        }
+
+        if let tempoTrack = tempoTrack {
+            clearTimeSignatureEvents(tempoTrack)
+        }
+
+        let ticksPerMetronomeClick: UInt8 = 24
+        let thirtySecondNotesPerQuarter: UInt8 = 8
+        let data: [MIDIByte] = [timeSignatureTop,
+                                timeSignatureBottom.rawValue,
+                                ticksPerMetronomeClick,
+                                thirtySecondNotesPerQuarter]
+
+        var metaEvent = MIDIMetaEvent()
+        metaEvent.metaEventType = 0x58 // i.e, set time signature
+        metaEvent.dataLength = UInt32(data.count)
+
+        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
+            for i in 0 ..< data.count {
+                pointer[i] = data[i]
+            }
+        })
+
+        let result = MusicTrackNewMetaEvent(tempoTrack!, MusicTimeStamp(0), &metaEvent)
+        if result != 0 {
+            AKLog("Unable to set time signature")
+        }
+    }
+
+    /// Remove existing time signature events from tempo track
+    func clearTimeSignatureEvents(_ track: MusicTrack) {
+        let timeSignatureMetaEventByte: UInt8 = 0x58
+        let metaEventType = kMusicEventType_Meta
+
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _ in
+            guard eventType == metaEventType else { return }
+
+            let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
+            guard let  dataMetaEventType = data?.pointee.metaEventType else { return }
+
+            if dataMetaEventType == timeSignatureMetaEventByte {
+                MusicEventIteratorDeleteEvent(iterator)
+            }
+        }
+    }
+
     /// Convert seconds into AKDuration
     ///
     /// - parameter seconds: time in seconds
@@ -373,11 +450,11 @@ open class AKSequencer {
             return
         }
         let fileURL = URL(fileURLWithPath: file)
-        loadMIDIFile(fromUrl: fileURL)
+        loadMIDIFile(fromURL: fileURL)
     }
 
     /// Load a MIDI file given a URL (removes old tracks, if present)
-    open func loadMIDIFile(fromUrl fileURL: URL) {
+    open func loadMIDIFile(fromURL fileURL: URL) {
         removeTracks()
         if let existingSequence = sequence {
             let status: OSStatus = MusicSequenceFileLoad(existingSequence, fileURL as CFURL, .midiType, MusicSequenceLoadFlags())
@@ -386,6 +463,57 @@ open class AKSequencer {
             }
         }
         initTracks()
+    }
+
+    // MARK: Adding MIDI File data to current sequencer
+
+    /// Add tracks from MIDI file to existing sequencer
+    ///
+    /// - Parameters:
+    ///   - filename: Location of the MIDI File
+    ///   - useExistingSequencerLength: flag for automatically setting length of new track to current sequence length
+    ///
+    ///  Will copy only MIDINoteMessage events
+    open func addMIDIFileTracks(_ filename: String, useExistingSequencerLength: Bool = true) {
+        let tempSequencer = AKSequencer(filename: filename)
+        addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
+    }
+
+    /// Add tracks from MIDI file to existing sequencer
+    ///
+    /// - Parameters:
+    ///   - filename: fromURL: URL of MIDI File
+    ///   - useExistingSequencerLength: flag for automatically setting length of new track to current sequence length
+    ///
+    ///  Will copy only MIDINoteMessage events
+    open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
+        let tempSequencer = AKSequencer(fromURL: url)
+        addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
+    }
+
+    /// Creates new AKMusicTrack with copied note event data from another AKSequencer
+    func addMusicTrackNoteData(from tempSequencer: AKSequencer, useExistingSequencerLength: Bool) {
+        guard !isPlaying else {
+            AKLog("Can't add tracks during playback")
+            return }
+
+        let oldLength = self.length
+        for track in tempSequencer.tracks {
+            let noteData = track.getMIDINoteData()
+
+            if noteData.isEmpty { continue }
+            let addedTrack = newTrack()
+
+            addedTrack?.replaceMIDINoteData(with: noteData)
+
+            if useExistingSequencerLength {
+                addedTrack?.setLength(oldLength)
+            }
+        }
+
+        if loopEnabled {
+            enableLooping()
+        }
     }
 
     /// Initialize all tracks
@@ -407,15 +535,21 @@ open class AKSequencer {
                 tracks.append(AKMusicTrack(musicTrack: existingMusicTrack, name: "InitializedTrack"))
             }
         }
-        
+
         if loopEnabled {
             enableLooping()
         }
     }
-    
+
     ///  Dispose of tracks associated with sequence
     func removeTracks() {
         if let existingSequence = sequence {
+            var tempoTrack: MusicTrack?
+            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+            if let track = tempoTrack {
+                MusicTrackClear(track, 0, length.musicTimeStamp)
+            }
+
             for track in tracks {
                 if let internalTrack = track.internalMusicTrack {
                     MusicSequenceDisposeTrack(existingSequence, internalTrack)
@@ -441,6 +575,27 @@ open class AKSequencer {
         //AKLog("Calling initTracks() from newTrack")
         //initTracks()
         return tracks.last
+    }
+
+    /// Delete track and remove it from the sequence
+    /// Not to be used during playback
+    open func deleteTrack(trackIndex: Int) {
+        guard !isPlaying else {
+            AKLog("Can't delete sequencer track during playback")
+            return }
+        guard trackIndex < tracks.count,
+            let internalTrack = tracks[trackIndex].internalMusicTrack else {
+                AKLog("Can't get track for index")
+                return
+        }
+
+        guard let existingSequence = sequence else {
+            AKLog("Can't get sequence")
+            return
+        }
+
+        MusicSequenceDisposeTrack(existingSequence, internalTrack)
+        tracks.remove(at: trackIndex)
     }
 
     /// Clear all events from all tracks within the specified range
