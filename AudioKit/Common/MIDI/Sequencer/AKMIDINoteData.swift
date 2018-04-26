@@ -13,6 +13,18 @@ public struct AKMIDINoteData: CustomStringConvertible, Equatable {
     public var channel: MIDIChannel
     public var duration: AKDuration
     public var position: AKDuration
+    
+    public init(noteNumber: MIDINoteNumber,
+                velocity: MIDIVelocity,
+                channel: MIDIChannel,
+                duration: AKDuration,
+                position: AKDuration) {
+        self.noteNumber = noteNumber
+        self.velocity = velocity
+        self.channel = channel
+        self.duration = duration
+        self.position = position
+    }
 
     public var description: String {
         return """
