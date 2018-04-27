@@ -52,6 +52,7 @@ open class AKStepper: UIView {
     /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        assert(minimum < maximum, "ARE YOU A WIZARD?")
     }
 
     /// Draw the stepper
