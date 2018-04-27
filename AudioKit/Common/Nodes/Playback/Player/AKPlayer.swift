@@ -52,11 +52,6 @@ public class AKPlayer: AKNode {
         case dynamic, always
     }
 
-    // TODO: allow for different curve slopes in parameter ramper, implement other types
-    public enum FadeType {
-        case exponential // linear, logarithmic
-    }
-
     public struct Loop {
         public var start: Double = 0 {
             willSet {
@@ -103,8 +98,8 @@ public class AKPlayer: AKNode {
         // Currently Unused
         public var outStartGain: Double = 1
 
-        // TODO: this would tell Booster what ramper to use when multiple curves are available
-        public var type: AKPlayer.FadeType = .exponential
+        // tell Booster what ramper to use when multiple curves are available
+        public var type: AKSettings.RampType = .exponential
 
         var needsUpdate: Bool = false
     }
@@ -217,6 +212,19 @@ public class AKPlayer: AKNode {
 
             if rate == 1 && pitch == 0 {
                 timePitchNode.bypass()
+            }
+        }
+    }
+
+    public var rampType: AKSettings.RampType {
+        get {
+            return faderNode.rampType
+        }
+
+        set {
+            faderNode.rampType = newValue
+            if isBuffered && isFaded {
+                updateBuffer(force: true)
             }
         }
     }
@@ -371,6 +379,7 @@ public class AKPlayer: AKNode {
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
         faderNode.gain = Fade.minimumGain
+        faderNode.rampType = .exponential
         timePitchNode.bypass() // bypass timePitch by default
         loop.start = 0
         loop.end = duration
@@ -864,7 +873,7 @@ public class AKPlayer: AKNode {
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
         guard isBuffered, let buffer = self.buffer else { return }
-        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime) {
+        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime, rampType: self.rampType) {
             self.buffer = fadedBuffer
             AKLog("Faded Buffer")
         }
