@@ -6,17 +6,27 @@ if test `find . -name \*.pbxproj -exec grep -H /Users/ {} \;|tee /tmp/found|wc -
 fi
 set -o pipefail
 
+VERSION=$(cat VERSION)
+
 echo "Building AudioKit Frameworks"
 cd Frameworks
-if test "$TRAVIS_TAG" != ""; then
+if test "$TRAVIS_TAG" != "" || test "$TRAVIS_BRANCH" = "staging"; then
    if test "$AWS_ACCESS_KEY" = ""; then
       echo "You must set the AWS_ACCESS_KEY and AWS_SECRET environment variables in Travis for automated builds!" >&2
       exit 1
    fi
-   echo "Deploying for release tagged $TRAVIS_TAG ..."
+   if test "$TRAVIS_TAG" != ""; then
+   	echo "Deploying for release tagged $TRAVIS_TAG ..."
+   else
+   	echo "Deploying staging release build for version $VERSION..."
+   fi
    ./build_packages.sh || exit 1
    echo "Uploading CocoaPods archive to S3 ..."
-   s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
+   if test "$TRAVIS_TAG" != ""; then
+   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
+   else
+   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/${VERSION}/AudioKit.framework.zip
+   fi
    exit
 else
    ./build_frameworks.sh || exit 1
