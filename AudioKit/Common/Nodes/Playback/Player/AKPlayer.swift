@@ -81,6 +81,18 @@ public class AKPlayer: AKNode {
             }
         }
 
+        public var inRampType: AKSettings.RampType = .exponential {
+            willSet {
+                if newValue != inRampType { needsUpdate = true }
+            }
+        }
+
+        public var outRampType: AKSettings.RampType = .exponential {
+            willSet {
+                if newValue != outRampType { needsUpdate = true }
+            }
+        }
+
         // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
 
@@ -216,17 +228,11 @@ public class AKPlayer: AKNode {
         }
     }
 
-    public var rampType: AKSettings.RampType {
-        get {
-            return faderNode.rampType
-        }
-
-        set {
-            faderNode.rampType = newValue
-            if isBuffered && isFaded {
-                // need to re-fade the buffer if rampType changes
-                updateBuffer(force: true)
-            }
+    // convenience for setting both in and out fade ramp types
+    public var rampType: AKSettings.RampType = .exponential {
+        didSet {
+            fade.inRampType = rampType
+            fade.outRampType = rampType
         }
     }
 
@@ -545,6 +551,7 @@ public class AKPlayer: AKNode {
             state = true
         }
 
+        faderNode.rampType = fade.inRampType
         faderNode.rampTime = AKSettings.rampTime
         faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
@@ -596,6 +603,7 @@ public class AKPlayer: AKNode {
 
     private func fadeOutWithTime(_ time: Double) {
         if time > 0 {
+            faderNode.rampType = fade.outRampType
             faderNode.rampTime = time / rate
             faderNode.gain = Fade.minimumGain
         }
@@ -874,7 +882,10 @@ public class AKPlayer: AKNode {
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
         guard isBuffered, let buffer = self.buffer else { return }
-        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime, rampType: self.rampType) {
+        if let fadedBuffer = buffer.fade(inTime: inTime,
+                                         outTime: outTime,
+                                         inRampType: fade.inRampType,
+                                         outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
             AKLog("Faded Buffer")
         }

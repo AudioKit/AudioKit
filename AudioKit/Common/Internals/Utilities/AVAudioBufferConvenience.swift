@@ -207,7 +207,11 @@ extension AVAudioPCMBuffer {
     }
 
     /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter if you only want one of them
-    open func fade(inTime: Double, outTime: Double, rampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+    open func fade(inTime: Double,
+                   outTime: Double,
+                   inRampType: AKSettings.RampType = .exponential,
+                   outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+        
         guard let floatData = self.floatChannelData, inTime > 0 || outTime > 0 else {
             AKLog("Error fading buffer, returning original...")
             return self
@@ -230,13 +234,18 @@ extension AVAudioPCMBuffer {
         var fadeInPower: Double = 1
         var fadeOutPower: Double = 1
 
-        if rampType == .linear {
+        if inRampType == .linear {
             gain = inTime > 0 ? 0 : 1
             fadeInPower = sampleTime / inTime
+
+        } else if inRampType == .exponential {
+            fadeInPower = exp(log(10) * sampleTime / inTime)
+        }
+
+        if outRampType == .linear {
             fadeOutPower = sampleTime / outTime
 
-        } else if rampType == .exponential {
-            fadeInPower = exp(log(10) * sampleTime / inTime)
+        } else if outRampType == .exponential {
             fadeOutPower = exp(-log(25) * sampleTime / outTime)
         }
 
@@ -255,16 +264,16 @@ extension AVAudioPCMBuffer {
             for n in 0 ..< channelCount {
                 if i < fadeInSamples && inTime > 0 {
 
-                    if rampType == .exponential {
+                    if inRampType == .exponential {
                         gain *= fadeInPower
-                    } else if rampType == .linear {
+                    } else if inRampType == .linear {
                         gain += fadeInPower
                     }
 
                 } else if i > fadeOutSamples && outTime > 0 {
-                    if rampType == .exponential {
+                    if outRampType == .exponential {
                         gain *= fadeOutPower
-                    } else if rampType == .linear {
+                    } else if outRampType == .linear {
                         gain -= fadeOutPower
                     }
                 } else {
