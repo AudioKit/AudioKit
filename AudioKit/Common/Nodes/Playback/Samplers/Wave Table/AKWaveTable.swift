@@ -1,12 +1,12 @@
 //
-//  AKSamplePlayer.swift
+//  AKWaveTable.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that 
 /// doesn't rely on an as much Apple AV foundation/engine code as the others.
 /// As any other Sampler, it plays a part of a given sound file at a specified rate 
 /// with specified volume. Changing the rate plays it faster and therefore sounds 
@@ -15,10 +15,9 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-@available(*, deprecated, message: "AKSamplePlayer is now AKWaveTable")
-open class AKSamplePlayer: AKNode, AKComponent {
+open class AKWaveTable: AKNode, AKComponent {
 
-    public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
+    public typealias AKAudioUnitType = AKWaveTableAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
 
@@ -297,7 +296,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
     /// Load a new audio file into memory
     open func load(file: AKAudioFile) {
         if file.channelCount > 2 || file.channelCount < 1 {
-            AKLog("AKSamplePlayer currently only supports mono or stereo samples")
+            AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
         }
         let sizeToUse = UInt32(file.samplesCount * 2)
