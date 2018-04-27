@@ -15,7 +15,7 @@ open class AKStepper: UIView {
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
     var plusButton: AKButton!
-    var minusButton: AKButton!
+    var minusButton: AKButton?
     @IBInspectable var value: Double = 1.0
     @IBInspectable var increment: Double = 1.0
     @IBInspectable var minimum: Double = 0
@@ -24,16 +24,17 @@ open class AKStepper: UIView {
         print("callback: \(val)")
     }
 
-    private var mainStack: UIStackView!
-    
+    private var inverted: Bool {
+        return maximum < minimum
+    }
     private func doPlusAction(){
-        print("up")
-        value += increment
+        print("plus")
+        value += min(increment, maximum - value)
         callback(value)
     }
     private func doMinusAction(){
-        print("dn")
-        value -= increment
+        print("minus")
+        value -= min(increment, minimum + value)
         callback(value)
     }
     /// Initialize the stepper view
@@ -59,10 +60,10 @@ open class AKStepper: UIView {
     }
     
     private func genStackViews(rect: CGRect){
-        mainStack = UIStackView(frame: rect)
+        let mainStack = UIStackView(frame: rect)
         mainStack.axis = .vertical
         mainStack.distribution = .fillEqually
-        mainStack.spacing = 10
+        mainStack.spacing = 1
         label = UILabel(frame: rect)
         label.text = text
         label.backgroundColor = .lightGray
@@ -78,13 +79,12 @@ open class AKStepper: UIView {
         minusButton = AKButton(title: "-", callback: {_ in
             self.doMinusAction()
         })
-        buttons.addArrangedSubview(minusButton)
-        buttons.addArrangedSubview(plusButton)
+        addToStackIfPossible(view: minusButton, stack: buttons)
+        addToStackIfPossible(view: plusButton, stack: buttons)
         
         mainStack.addArrangedSubview(label)
         mainStack.addArrangedSubview(buttons)
         self.addSubview(mainStack)
-        buttons.layoutIfNeeded()
     }
     
     /// Require constraint-based layout
@@ -94,5 +94,14 @@ open class AKStepper: UIView {
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
+    }
+    override open func layoutSubviews() {
+        minusButton?.setNeedsDisplay()
+        plusButton?.setNeedsDisplay()
+    }
+    private func addToStackIfPossible(view: UIView?, stack: UIStackView){
+        if view != nil{
+            stack.addArrangedSubview(view!)
+        }
     }
 }
