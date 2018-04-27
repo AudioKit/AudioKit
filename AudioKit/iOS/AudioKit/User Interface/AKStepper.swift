@@ -28,20 +28,17 @@ open class AKStepper: UIView {
         return maximum < minimum
     }
     private func doPlusAction(){
-        print("plus")
         value += min(increment, maximum - value)
         callback(value)
     }
     private func doMinusAction(){
-        print("minus")
         value -= min(increment, minimum + value)
         callback(value)
     }
     /// Initialize the stepper view
-    public init(text: String,
-                      value: Double?,
-                      frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
-                      callback: @escaping (Double) -> Void) {
+    public init(text: String, value: Double?,
+                frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
+                callback: @escaping (Double) -> Void) {
         self.callback = callback
         self.value = value!
         self.text = text
