@@ -10,6 +10,7 @@ import AudioKit
 import AudioKitUI
 import Cocoa
 
+// If you make changes to this class, either don't commit them, or make sure you don't break the exisiting setup.
 class ViewController: NSViewController {
     @IBOutlet var inputSourceBox: NSBox!
 
@@ -21,10 +22,16 @@ class ViewController: NSViewController {
     @IBOutlet var slider2: NSSlider!
     @IBOutlet var slider1Value: NSTextField!
     @IBOutlet var slider2Value: NSTextField!
+    @IBOutlet var slider3: NSSlider!
+    @IBOutlet var sliderLabel3: NSTextField!
+    @IBOutlet var slider3Value: NSTextField!
     @IBOutlet var inputSource: NSPopUpButton!
     @IBOutlet var chooseAudioButton: NSButton!
     @IBOutlet var inputSourceInfo: NSTextField!
+
     @IBOutlet var loopButton: NSButton!
+    @IBOutlet var reverseButton: NSButton!
+    @IBOutlet var normalizeButton: NSButton!
 
     var openPanel: NSOpenPanel?
 
@@ -34,12 +41,13 @@ class ViewController: NSViewController {
     }
 
     // Define components ⏦ ⏚ ⎍ ⍾ ⚙︎
+    var osc = AKOscillator()
     var speechSynthesizer = AKSpeechSynthesizer()
     var booster = AKBooster()
     var player: AKPlayer?
     var node: AKNode? {
         didSet {
-            updateInfo()
+            updateEnabled()
         }
     }
 
@@ -50,17 +58,20 @@ class ViewController: NSViewController {
 
     @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
-        let osc = AKOscillator()
-        AudioKit.output = osc
+
         osc.start()
-        osc.amplitude = 0.0
+        osc.frequency = 220
+        osc.amplitude = 1
         osc.rampTime = 0.0
+
+        AudioKit.output = booster
+
         do {
             try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
-        initSpeechSynthesizer()
+
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
 
@@ -70,11 +81,23 @@ class ViewController: NSViewController {
             control.isEnabled = true
         }
 
+        initOscillator()
     }
 
-    private func updateInfo() {
+    private func updateEnabled() {
         chooseAudioButton.isEnabled = node == player
+        loopButton.isEnabled = node == player
+        reverseButton.isEnabled = node == player
+        normalizeButton.isEnabled = node == player
     }
+
+    private func initOscillator() {
+        guard node != osc else { return }
+        booster.disconnectInput()
+        osc >>> booster
+        node = osc
+    }
+
     private func initSpeechSynthesizer() {
         guard node != speechSynthesizer else { return }
         booster.disconnectInput()
@@ -87,7 +110,6 @@ class ViewController: NSViewController {
             chooseAudio(chooseAudioButton)
             return
         }
-        updateInfo()
         guard node != player else { return }
         guard let player = player else { return }
 
@@ -98,7 +120,10 @@ class ViewController: NSViewController {
 
     @IBAction func changeInput(_ sender: NSPopUpButton) {
         guard let title = sender.selectedItem?.title else { return }
-        if title == "SpeechSynthesizer" {
+
+        if title == "Oscillator" {
+            initOscillator()
+        } else if title == "SpeechSynthesizer" {
             initSpeechSynthesizer()
         } else if title == "Player" {
             initPlayer()
@@ -146,8 +171,8 @@ class ViewController: NSViewController {
             player?.isLooping = loopButton.state == .on
             // for seamless looping use:
             player?.buffering = .always
-            player?.fade.inTime = 1
-            player?.fade.outTime = 1
+            player?.fade.inTime = 0
+            player?.fade.outTime = 0
         } else {
             do {
                 try player?.load(url: url)
@@ -160,7 +185,9 @@ class ViewController: NSViewController {
 
     @IBAction func handlePlay(_ sender: NSButton) {
         let state = sender.state == .on
-        if node == speechSynthesizer {
+        if node == osc {
+            state ? osc.play() : osc.stop()
+        } else if node == speechSynthesizer {
 //            speechSynthesizer.sayHello()
         } else if node == player {
             state ? player?.resume() : player?.pause()
@@ -180,6 +207,19 @@ class ViewController: NSViewController {
         } else if sender == slider2 {
             booster.rampTime = slider2.doubleValue
             slider2Value.stringValue = String(describing: roundTo(booster.rampTime, decimalPlaces: 3))
+        } else if sender == slider3 {
+            let value = Int(slider3.intValue)
+            if value == 0 {
+                booster.rampType = .linear
+                slider3Value.stringValue = "Linear"
+            } else if value == 1 {
+                booster.rampType = .exponential
+                slider3Value.stringValue = "Exponential"
+            } else if value == 2 {
+                // booster.rampType = .logarithmic
+                slider3Value.stringValue = "Logarithmic"
+                AKLog("Unimplemented: Log ramp type")
+            }
         }
     }
 

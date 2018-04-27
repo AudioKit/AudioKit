@@ -49,6 +49,12 @@
         }
     }
 
+    @objc public enum RampType: Int {
+        case linear = 0
+        case exponential = 1
+        case logarithmic = 2
+    }
+
     /// The sample rate in Hertz
     @objc open static var sampleRate: Double = 44_100
 

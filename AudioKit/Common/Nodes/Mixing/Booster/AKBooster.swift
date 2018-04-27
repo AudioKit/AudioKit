@@ -28,6 +28,12 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
+    @objc open dynamic var rampType: AKSettings.RampType = .linear {
+        willSet {
+            internalAU?.rampType = newValue.rawValue
+        }
+    }
+
     fileprivate var lastKnownLeftGain: Double = 1.0
     fileprivate var lastKnownRightGain: Double = 1.0
 
