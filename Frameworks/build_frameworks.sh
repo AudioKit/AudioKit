@@ -17,7 +17,7 @@ fi
 VERSION=`cat ../VERSION`
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
-if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "";
+if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "staging";
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
