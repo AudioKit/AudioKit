@@ -14,6 +14,8 @@ open class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
+    var valueLabel: UILabel! //fixme
+    var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton?
     @IBInspectable var value: Double = 1.0
@@ -29,10 +31,12 @@ open class AKStepper: UIView {
     }
     private func doPlusAction(){
         value += min(increment, maximum - value)
+        valueLabel.text = "\(value)"
         callback(value)
     }
     private func doMinusAction(){
-        value -= min(increment, minimum + value)
+        value -= min(increment, value - minimum)
+        valueLabel.text = "\(value)"
         callback(value)
     }
     /// Initialize the stepper view
@@ -57,31 +61,33 @@ open class AKStepper: UIView {
     }
     
     private func genStackViews(rect: CGRect){
-        let mainStack = UIStackView(frame: rect)
-        mainStack.axis = .vertical
-        mainStack.distribution = .fillEqually
-        mainStack.spacing = 1
-        label = UILabel(frame: rect)
-        label.text = text
-        label.backgroundColor = .lightGray
-        label.textAlignment = .center
-        
-        let buttons = UIStackView(frame: rect)
-        buttons.axis = .horizontal
-        buttons.distribution = .fillEqually
-        buttons.spacing = 5
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusAction()
         })
         minusButton = AKButton(title: "-", callback: {_ in
             self.doMinusAction()
         })
+        let borderWidth = minusButton!.borderWidth
+        label = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
+        label.text = text
+        label.textAlignment = .left
+        valueLabel = UILabel(frame: CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
+        valueLabel.text = "\(value)"
+        valueLabel.textAlignment = .right
+        
+        let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7))
+        buttons.axis = .horizontal
+        buttons.distribution = .fillEqually
+        buttons.spacing = 5
+        
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
         
-        mainStack.addArrangedSubview(label)
-        mainStack.addArrangedSubview(buttons)
-        self.addSubview(mainStack)
+        self.addSubview(label)
+        self.addSubview(buttons)
+        if showsValue {
+            self.addSubview(valueLabel)
+        }
     }
     
     /// Require constraint-based layout
