@@ -42,7 +42,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        hopSize: Int = 4096,
+        hopSize: Int = 4_096,
         peakCount: Int = 20) {
 
         _Self.register()
