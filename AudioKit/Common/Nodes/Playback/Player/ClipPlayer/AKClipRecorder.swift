@@ -6,10 +6,23 @@
 //  Copyright © 2017 Audive Inc. All rights reserved.
 //
 
-/// A closure that will be called when the clip is finished recording. If
-/// successful URL will be non-nil. If recording failed, Error will be non nil.  The actual
-/// start time is included and should be checked in case it was adjusted.
-public typealias AKRecordingResult = (URL?, Double, Error?) -> Void
+/// A closure that will be called when the clip is finished recording.
+/// Result will be an error or a clip. ClipRecording.url is the location
+/// of the recording in the temporary diretory, it should be moved or copied
+/// from this location within this closure, it will be deleted after.
+/// startTime and duration may be different than parameters given in recordClip().
+///
+public typealias ClipRecordingCompletion = (ClipRecordingResult) -> Void
+
+public struct ClipRecording {
+    var url: URL
+    var startTime: Double
+    var duration: Double
+}
+public enum ClipRecordingResult {
+    case clip(ClipRecording)
+    case error(Error)
+}
 
 open class AKClipRecorder {
 
@@ -97,16 +110,16 @@ open class AKClipRecorder {
         for clip in clips {
             group.enter()
             clip.endTime = clipEndTime
-            clip.completion = doAfter(result: clip.completion, action: {
+            clip.completion = doAfter(completion: clip.completion, action: {
                 group.leave()
             })
         }
         group.notify(queue: DispatchQueue.main, execute: completion)
     }
-    private func doAfter(result: @escaping AKRecordingResult,
-                         action: @escaping () -> Void) -> AKRecordingResult {
-        return { (url, time, error) in
-            result(url, time, error)
+    private func doAfter(completion: @escaping ClipRecordingCompletion,
+                         action: @escaping () -> Void) -> ClipRecordingCompletion {
+        return { result in
+            completion(result)
             action()
         }
     }
@@ -127,14 +140,12 @@ open class AKClipRecorder {
     ///   - duration: The duration in seconds of the clip to record, will be adjusted if start time
     /// was adjusted.
     ///   - tap: An optional tap to access audio as it's being recorded.
-    ///   - completion: A closure that will be called when the clip is finished recording. If
-    /// successful URL will be non-nil. If recording failed, Error will be non nil.  The actual
-    /// start time is included and should be checked in case it was adjusted.
+    ///   - completion: A closure that will be called when the clip is finished recording. time and duration may be different in the result.
     ///
     public func recordClip(time: Double = 0,
                            duration: Double = Double.greatestFiniteMagnitude,
                            tap: AVAudioNodeTapBlock? = nil,
-                           completion: @escaping AKRecordingResult) throws {
+                           completion: @escaping ClipRecordingCompletion) throws {
 
         guard time >= 0, duration > 0, time + duration > timing.currentTime else {
             throw ClipRecordingError.invalidParameters
@@ -153,7 +164,7 @@ open class AKClipRecorder {
         }
 
         guard let audioFile = clip.audioFile, audioFile.length > 0 else {
-            clip.completion(nil, 0, error ?? ClipRecordingError.clipIsEmpty)
+            clip.completion(ClipRecordingResult.error(error ?? ClipRecordingError.clipIsEmpty))
             completion?()
             return
         }
@@ -163,11 +174,12 @@ open class AKClipRecorder {
         if clip.audioTimeStart != nil,
             let audioFile = clip.audioFile,
             audioFile.length > 0 {
+            let duration = audioFile.duration
             clip.audioFile = nil
-            clip.completion(url, clip.startTime, error)
+            clip.completion(ClipRecordingResult.clip(ClipRecording(url: url, startTime: clip.startTime, duration: duration)))
             completion?()
         } else {
-            clip.completion(nil, 0, error ?? ClipRecordingError.timingError)
+            clip.completion(ClipRecordingResult.error(error ?? ClipRecordingError.timingError))
             completion?()
         }
         if FileManager.default.fileExists(atPath: url.path) {
@@ -275,22 +287,22 @@ private class AKClipRecording: Equatable {
     var endTime: Double
     var audioTimeStart: AVAudioTime?
     var audioFile: AKAudioFile?
-    var completion: AKRecordingResult
+    var completion: ClipRecordingCompletion
     var tap: AVAudioNodeTapBlock?
     init(start: Double = 0,
          end: Double = Double.greatestFiniteMagnitude,
          audioFile: AKAudioFile? = nil,
-         completion: @escaping AKRecordingResult) {
+         completion: @escaping ClipRecordingCompletion) {
 
         startTime = start
         endTime = end
         var called = false
-        self.completion = { (url: URL?, actualStart: Double, error: Error?) in
+        self.completion = { result in
             if called {
                 return
             }
             called = true
-            completion(url, actualStart, error)
+            completion(result)
         }
         self.audioFile = audioFile
     }
