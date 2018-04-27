@@ -9,12 +9,13 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import "AKExponentialParameterRamp.hpp"
+#import "AKParameterRamp.hpp"
 
 typedef NS_ENUM(AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,
-    AKBoosterParameterRampTime
+    AKBoosterParameterRampTime,
+    AKBoosterParameterRampType
 };
 
 #ifndef __cplusplus
