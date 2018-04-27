@@ -2652,6 +2652,7 @@
 			isa = PBXGroup;
 			children = (
 				3404A7BF20507BEB00A2C9E4 /* AKSampler */,
+				FE1F57A4209235F8006B34CF /* Wave Table */,
 				C49B215B204A28F3009C7C8E /* Apple Sampler */,
 			);
 			path = Samplers;
@@ -3717,7 +3718,6 @@
 				C40C42AE1C420C1D009D870B /* Samplers */,
 				FED92BDE1ED1331D00E93264 /* Sample Player */,
 				C40C42B21C420C1D009D870B /* Time Pitch Stretching */,
-				FE1F57A4209235F8006B34CF /* Wave Table */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
