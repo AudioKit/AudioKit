@@ -54,26 +54,27 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    }
-
-    @IBAction func start(_ sender: Any) {
         booster.gain = slider1.doubleValue
 
         osc.start()
         osc.frequency = 220
         osc.amplitude = 1
         osc.rampTime = 0.0
-
+        booster.rampType = .exponential
         AudioKit.output = booster
+
+        handleUpdateParam(slider1)
+        handleUpdateParam(slider2)
+        handleUpdateParam(slider3)
+    }
+
+    @IBAction func start(_ sender: Any) {
 
         do {
             try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }
-
-        handleUpdateParam(slider1)
-        handleUpdateParam(slider2)
 
         guard let content = inputSourceBox.contentView else { return }
         for sv in content.subviews {
@@ -121,6 +122,8 @@ class ViewController: NSViewController {
     @IBAction func changeInput(_ sender: NSPopUpButton) {
         guard let title = sender.selectedItem?.title else { return }
 
+        inputSourceInfo.stringValue = title
+
         if title == "Oscillator" {
             initOscillator()
         } else if title == "SpeechSynthesizer" {
@@ -165,14 +168,18 @@ class ViewController: NSViewController {
 
     /// open an audio URL for playing
     func open(url: URL) {
+        inputSourceInfo.stringValue = url.lastPathComponent
+
         if player == nil {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
             // for seamless looping use:
-            player?.buffering = .always
+            player?.buffering = .dynamic
+            // can use these to test the internal fader in the player:
             player?.fade.inTime = 0
             player?.fade.outTime = 0
+            player?.rampType = booster.rampType // init to last set rampType
         } else {
             do {
                 try player?.load(url: url)
@@ -207,13 +214,16 @@ class ViewController: NSViewController {
         } else if sender == slider2 {
             booster.rampTime = slider2.doubleValue
             slider2Value.stringValue = String(describing: roundTo(booster.rampTime, decimalPlaces: 3))
+
         } else if sender == slider3 {
             let value = Int(slider3.intValue)
             if value == 0 {
                 booster.rampType = .linear
+                player?.rampType = .linear
                 slider3Value.stringValue = "Linear"
             } else if value == 1 {
                 booster.rampType = .exponential
+                player?.rampType = .exponential
                 slider3Value.stringValue = "Exponential"
             } else if value == 2 {
                 // booster.rampType = .logarithmic

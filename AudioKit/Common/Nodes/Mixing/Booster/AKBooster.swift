@@ -28,7 +28,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    @objc open dynamic var rampType: AKSettings.RampType = .linear {
+    @objc open dynamic var rampType: AKSettings.RampType = .exponential {
         willSet {
             internalAU?.rampType = newValue.rawValue
         }
@@ -164,6 +164,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         })
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rampTime, value: rampTime)
+        self.internalAU?.rampType = rampType.rawValue
     }
 
     // MARK: - Control
