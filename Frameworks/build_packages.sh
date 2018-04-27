@@ -90,7 +90,7 @@ test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && create_playgrounds
 
 # Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 
-echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
+echo "Packaging AudioKit frameworks version $VERSION for CocoaPods and Carthage ..."
 rm -f AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
