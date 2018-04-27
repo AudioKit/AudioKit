@@ -70,7 +70,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -224,6 +224,7 @@ public class AKPlayer: AKNode {
         set {
             faderNode.rampType = newValue
             if isBuffered && isFaded {
+                // need to re-fade the buffer if rampType changes
                 updateBuffer(force: true)
             }
         }
