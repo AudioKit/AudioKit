@@ -15,8 +15,8 @@ extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKBoosterDSP::_Internal {
-    AKExponentialParameterRamp leftGainRamp;
-    AKExponentialParameterRamp rightGainRamp;
+    AKParameterRamp leftGainRamp;
+    AKParameterRamp rightGainRamp;
 };
 
 AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
@@ -38,6 +38,10 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case AKBoosterParameterRampTime:
             _private->leftGainRamp.setRampTime(value, _sampleRate);
             _private->rightGainRamp.setRampTime(value, _sampleRate);
+            break;
+        case AKBoosterParameterRampType:
+            _private->leftGainRamp.setRampType(value);
+            _private->rightGainRamp.setRampType(value);
             break;
     }
 }
