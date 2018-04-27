@@ -7,6 +7,7 @@ set -o pipefail
 PROJECT_NAME=AudioKit
 PROJECT_UI_NAME=AudioKitUI
 CONFIGURATION=${CONFIGURATION:-"Release"}
+STAGING_BRANCH="staging"
 BUILD_DIR="$PWD/build"
 
 if [ ! -f build_frameworks.sh ]; then
@@ -17,7 +18,7 @@ fi
 VERSION=`cat ../VERSION`
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
-if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "staging";
+if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
@@ -53,7 +54,7 @@ create_universal_framework()
 		cp -v fix-framework.sh "${DIR}/${PROJECT_NAME}.framework/"
 	fi
 	
-	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "";
+	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
 	then # Only build for simulator on Travis CI, unless we're building a release
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_NAME}.framework/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/"
