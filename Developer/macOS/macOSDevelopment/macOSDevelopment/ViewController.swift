@@ -177,9 +177,10 @@ class ViewController: NSViewController {
             // for seamless looping use:
             player?.buffering = .dynamic
             // can use these to test the internal fader in the player:
-            player?.fade.inTime = 0
-            player?.fade.outTime = 0
-            player?.rampType = booster.rampType // init to last set rampType
+            player?.fade.inTime = 1
+            player?.fade.outTime = 1
+            player?.fade.inRampType = .linear
+            player?.fade.outRampType = .exponential
         } else {
             do {
                 try player?.load(url: url)
@@ -219,11 +220,11 @@ class ViewController: NSViewController {
             let value = Int(slider3.intValue)
             if value == 0 {
                 booster.rampType = .linear
-                player?.rampType = .linear
+                //player?.rampType = .linear
                 slider3Value.stringValue = "Linear"
             } else if value == 1 {
                 booster.rampType = .exponential
-                player?.rampType = .exponential
+                //player?.rampType = .exponential
                 slider3Value.stringValue = "Exponential"
             } else if value == 2 {
                 // booster.rampType = .logarithmic
