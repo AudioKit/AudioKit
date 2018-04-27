@@ -206,12 +206,13 @@ extension AVAudioPCMBuffer {
         return reversedBuffer
     }
 
-    /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter if you only want one of them
+    /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter
+    /// if you only want one of them
     open func fade(inTime: Double,
                    outTime: Double,
                    inRampType: AKSettings.RampType = .exponential,
                    outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
-        
+
         guard let floatData = self.floatChannelData, inTime > 0 || outTime > 0 else {
             AKLog("Error fading buffer, returning original...")
             return self
