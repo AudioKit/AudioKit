@@ -603,6 +603,7 @@ public class AKPlayer: AKNode {
 
     private func fadeOutWithTime(_ time: Double) {
         if time > 0 {
+            // at this point init the faderNode with the correct settings for fade out
             faderNode.rampType = fade.outRampType
             faderNode.rampTime = time / rate
             faderNode.gain = Fade.minimumGain
