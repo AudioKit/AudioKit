@@ -79,7 +79,7 @@ open class AKNugder : AKStepper {
                 value += increment
             }
         }else{
-            if value - increment >= originalValue - increment{
+            if value > originalValue{
                 value -= increment
             }
         }
@@ -93,7 +93,7 @@ open class AKNugder : AKStepper {
                 value -= increment
             }
         }else{
-            if value + increment <= originalValue + increment {
+            if value < originalValue {
                 value += increment
             }
         }
