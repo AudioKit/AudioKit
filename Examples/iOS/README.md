@@ -15,5 +15,11 @@
 * Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
 * Sequencer Demo - examjple of AudioKit's AKSequencer
-* Song Processor - adding effects to songs from the device's iTunes Library 
 * Sporth Editor - A graphical user interface to the Sporth audio language
+
+## External Examples
+
+Here are the examples of AudioKit that are not included in this repository. 
+
+* [ROM Player](https://github.com/AudioKit/ROMPlayer) - EXS24, Sound Font, Wave Player 
+* [Song Processor](http://github.com/AudioKit/SongProcessor) - adding effects to songs from the device's iTunes Library 
