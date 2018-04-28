@@ -50,9 +50,9 @@ open class AKNugder : AKStepper {
         startTimers()
     }
     private var frameRate = TimeInterval(1.0 / 60.0)
-    private var plusButtonTimer: Timer?
+    private var animationTimer: Timer?
     private var lastValue: Double = 0
-    private func animatePlusValue(){
+    private func animateValue(){
         if plusButton.isPressed{
             if value < maximum {
                 value += min(increment, maximum - value)
@@ -94,9 +94,9 @@ open class AKNugder : AKStepper {
     }
     private func startTimers(){
         DispatchQueue.main.async {
-            if let timer = self.startTimerIfNeeded(timer: self.plusButtonTimer,
-                                                   callback: {_ in self.animatePlusValue() }){
-                self.plusButtonTimer = timer
+            if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
+                                                   callback: {_ in self.animateValue() }){
+                self.animationTimer = timer
             }
         }
     }
