@@ -105,33 +105,3 @@ open class AKNugder : AKStepper {
         print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
-infix operator ==~ : AssignmentPrecedence
-public func ==~ (left: Double, right: Double) -> Bool
-{
-    return fabs(left.distance(to: right)) <= 1e-15
-}
-infix operator !=~ : AssignmentPrecedence
-public func !=~ (left: Double, right: Double) -> Bool
-{
-    return !(left ==~ right)
-}
-infix operator <=~ : AssignmentPrecedence
-public func <=~ (left: Double, right: Double) -> Bool
-{
-    return (left ==~ right) || (left <~ right)
-}
-infix operator >=~ : AssignmentPrecedence
-public func >=~ (left: Double, right: Double) -> Bool
-{
-    return (left ==~ right) || (left >~ right)
-}
-infix operator <~ : AssignmentPrecedence
-public func <~ (left: Double, right: Double) -> Bool
-{
-    return left.distance(to: right) > 1e-15
-}
-infix operator >~ : AssignmentPrecedence
-public func >~ (left: Double, right: Double) -> Bool
-{
-    return left.distance(to: right) < -1e-15
-}

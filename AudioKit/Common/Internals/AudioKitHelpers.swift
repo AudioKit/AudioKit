@@ -390,3 +390,35 @@ prefix operator ❗️
 prefix public func ❗️(a: Bool) -> Bool {
     return !a
 }
+
+/// Approximation Operators - for when Swift gets double / float arithmetic wrong
+infix operator ==~ : AssignmentPrecedence
+public func ==~ (left: Double, right: Double) -> Bool
+{
+    return fabs(left.distance(to: right)) <= 1e-15
+}
+infix operator !=~ : AssignmentPrecedence
+public func !=~ (left: Double, right: Double) -> Bool
+{
+    return !(left ==~ right)
+}
+infix operator <=~ : AssignmentPrecedence
+public func <=~ (left: Double, right: Double) -> Bool
+{
+    return (left ==~ right) || (left <~ right)
+}
+infix operator >=~ : AssignmentPrecedence
+public func >=~ (left: Double, right: Double) -> Bool
+{
+    return (left ==~ right) || (left >~ right)
+}
+infix operator <~ : AssignmentPrecedence
+public func <~ (left: Double, right: Double) -> Bool
+{
+    return left.distance(to: right) > 1e-15
+}
+infix operator >~ : AssignmentPrecedence
+public func >~ (left: Double, right: Double) -> Bool
+{
+    return left.distance(to: right) < -1e-15
+}
