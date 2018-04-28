@@ -53,22 +53,22 @@ open class AKNugder : AKStepper {
     private var lastValue: Double = 0
     private func animateValue(){
         if !plusButton.isPressed && !minusButton.isPressed{
-            if value > originalValue{
-                value -= increment//min(increment, value - minimum)
-            }else if value < originalValue {
-                value += increment//min(increment, maximum - value)
+            if value >~ originalValue{
+                value -= increment
+            }else if value <~ originalValue {
+                value += increment
             }
         }else if plusButton.isPressed{
-            if value < maximum {
-                value += increment//min(increment, maximum - value)
+            if value <~ maximum {
+                value += increment
             }
         }else if minusButton.isPressed{
-            if value > minimum{
-                value -= increment//min(increment, value - minimum)
+            if value >~ minimum{
+                value -= increment
             }
         }
-        if value > maximum { value = maximum }
-        if value < minimum { value = minimum }
+        if value >~ maximum { value = maximum }
+        if value <~ minimum { value = minimum }
         callbackOnChange()
         lastValue = value
     }
@@ -104,4 +104,34 @@ open class AKNugder : AKStepper {
         minimum += diff
         print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
+}
+infix operator ==~ : AssignmentPrecedence
+public func ==~ (left: Double, right: Double) -> Bool
+{
+    return fabs(left.distance(to: right)) <= 1e-15
+}
+infix operator !=~ : AssignmentPrecedence
+public func !=~ (left: Double, right: Double) -> Bool
+{
+    return !(left ==~ right)
+}
+infix operator <=~ : AssignmentPrecedence
+public func <=~ (left: Double, right: Double) -> Bool
+{
+    return (left ==~ right) || (left <~ right)
+}
+infix operator >=~ : AssignmentPrecedence
+public func >=~ (left: Double, right: Double) -> Bool
+{
+    return (left ==~ right) || (left >~ right)
+}
+infix operator <~ : AssignmentPrecedence
+public func <~ (left: Double, right: Double) -> Bool
+{
+    return left.distance(to: right) > 1e-15
+}
+infix operator >~ : AssignmentPrecedence
+public func >~ (left: Double, right: Double) -> Bool
+{
+    return left.distance(to: right) < -1e-15
 }
