@@ -22,6 +22,7 @@ protected:
     float _startValue = 0;
     int64_t _duration = 0;  // in samples
     int64_t _startSample = 0;
+    int _rampType = 0; // see AKSettings.RampType
 
     void updateTarget(int64_t atSample) {
         _target = _paramValue;
@@ -33,7 +34,13 @@ public:
 
     virtual float computeValueAt(int64_t atSample) = 0;
 
+    void setRampType(int rampType) {
+        _rampType = rampType;
+    }
 
+    int getRampType() {
+        return _rampType;
+    }
 
     void setTarget(float value, bool immediate = false) {
         if (immediate) { _startValue = _paramValue = _value = _target = value; }
@@ -54,8 +61,13 @@ public:
         return (sampleRate == 0) ? 0 : _duration / sampleRate;
     }
 
-    float getValue() { return _value; }
-    float getTarget() { return _target; }
+    float getValue() {
+        return _value;
+    }
+
+    float getTarget() {
+        return _target;
+    }
 
     float advanceTo(int64_t atSample) {
         if (_paramValue != _target) { updateTarget(atSample); }

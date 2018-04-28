@@ -30,6 +30,12 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampTime, value: rampTime) }
     }
 
+    var rampType: Int = 0 {
+        didSet {
+            setParameter(.rampType, value: Double(rampType))
+        }
+    }
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
         return createBoosterDSP(Int32(count), sampleRate)
