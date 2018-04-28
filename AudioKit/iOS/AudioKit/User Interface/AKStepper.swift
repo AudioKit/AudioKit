@@ -17,24 +17,21 @@ open class AKStepper: UIView {
     var valueLabel: UILabel! //fixme
     var showsValue: Bool = true
     var plusButton: AKButton!
-    var minusButton: AKButton?
-    @IBInspectable var value: Double = 1.0
-    @IBInspectable var increment: Double = 1.0
+    var minusButton: AKButton!
+    @IBInspectable var value: Double = 0.5
+    @IBInspectable var increment: Double = 0.1
     @IBInspectable var minimum: Double = 0
-    @IBInspectable var maximum: Double = 0
+    @IBInspectable var maximum: Double = 1
     open var callback: (Double)->Void = {val in
         print("callback: \(val)")
     }
 
-    private var inverted: Bool {
-        return maximum < minimum
-    }
-    private func doPlusAction(){
+    internal func doPlusAction(){
         value += min(increment, maximum - value)
         valueLabel.text = "\(value)"
         callback(value)
     }
-    private func doMinusAction(){
+    internal func doMinusAction(){
         value -= min(increment, value - minimum)
         valueLabel.text = "\(value)"
         callback(value)
@@ -52,9 +49,11 @@ open class AKStepper: UIView {
     /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        assert(minimum < maximum, "ARE YOU A WIZARD?")
     }
-
+    override open func awakeFromNib() {
+        checkValues()
+        super.awakeFromNib()
+    }
     /// Draw the stepper
     override open func draw(_ rect: CGRect) {
         super.draw(rect)
@@ -62,12 +61,7 @@ open class AKStepper: UIView {
     }
     
     private func genStackViews(rect: CGRect){
-        plusButton = AKButton(title: "+", callback: {_ in
-            self.doPlusAction()
-        })
-        minusButton = AKButton(title: "-", callback: {_ in
-            self.doMinusAction()
-        })
+        setupButtons()
         let borderWidth = minusButton!.borderWidth
         label = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
         label.text = text
@@ -107,5 +101,19 @@ open class AKStepper: UIView {
         if view != nil{
             stack.addArrangedSubview(view!)
         }
+    }
+    internal func checkValues(){
+        assert(minimum < maximum)
+        assert(value >= minimum)
+        assert(value <= maximum)
+        assert(increment < maximum - minimum)
+    }
+    internal func setupButtons(){
+        plusButton = AKButton(title: "+", callback: {_ in
+            self.doPlusAction()
+        })
+        minusButton = AKButton(title: "-", callback: {_ in
+            self.doMinusAction()
+        })
     }
 }
