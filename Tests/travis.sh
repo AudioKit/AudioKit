@@ -44,10 +44,6 @@ echo "Skipping tvOS HelloWorld (on develop branch)"
 
 echo "Building More Advanced Examples"
 
-echo "Building iOS AnalogSynthX"
-cd Examples/iOS/AnalogSynthX; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/AnalogSynthX/AnalogSynthX.xcworkspace -sdk iphonesimulator -scheme AnalogSynthX -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 7
-
 echo "Building iOS AKSamplerDemo"
 xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
 
