@@ -19,8 +19,8 @@ public enum AKButtonStyle {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    public var buttonDownCallback: (AKButton) -> Void = { _ in }
-    public var buttonUpCallback: (AKButton) -> Void = { _ in }
+    public var callback: (AKButton) -> Void = { _ in }
+    public var releaseCallback: (AKButton) -> Void = { _ in }
 
     var isPressed: Bool{
         return isHighlighted
@@ -82,17 +82,16 @@ public enum AKButtonStyle {
 
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        buttonDownCallback(self)
+        callback(self)
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
     }
 
     /// Handle touch events
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        buttonUpCallback(self)
+        releaseCallback(self)
         transform = CGAffineTransform.identity
         isHighlighted = false
-        
     }
     
     /// Initialize the button
@@ -104,7 +103,7 @@ public enum AKButtonStyle {
         self.title = title
         self.color = color
         self.highlightedColor = color.darker(by: 11)!
-        self.buttonDownCallback = callback
+        self.callback = callback
 
         clipsToBounds = true
     }
