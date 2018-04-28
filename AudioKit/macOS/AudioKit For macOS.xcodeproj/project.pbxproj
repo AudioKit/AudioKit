@@ -93,6 +93,7 @@
 		A1FE77A21F64549E00A2E41C /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		B157704420937B5100830A3E /* AKParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B157704320937B5100830A3E /* AKParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B19AE76D1F30F58500F9DC25 /* AKAudioUnitInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */; };
 		B19AE76E1F30F58500F9DC25 /* AKAudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */; };
 		B1BC5A2B1FD915AB0052D4CE /* AKPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BC5A2A1FD915AB0052D4CE /* AKPlayer.swift */; };
@@ -1202,6 +1203,7 @@
 		A1FE779E1F64549E00A2E41C /* AKAudioEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioEffect.mm; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
+		B157704320937B5100830A3E /* AKParameterRamp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamp.hpp; sourceTree = "<group>"; };
 		B19AE76B1F30F58500F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
 		B19AE76C1F30F58500F9DC25 /* AKAudioUnitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitManager.swift; path = "AudioUnit Host/AKAudioUnitManager.swift"; sourceTree = "<group>"; };
 		B1BC5A2A1FD915AB0052D4CE /* AKPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlayer.swift; sourceTree = "<group>"; };
@@ -4923,6 +4925,7 @@
 				B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */,
 				C4AC0B631FC9460400EDA024 /* AKLinearParameterRamp.hpp */,
 				C4AC0B641FC9460400EDA024 /* AKParameterRampBase.hpp */,
+				B157704320937B5100830A3E /* AKParameterRamp.hpp */,
 			);
 			path = "Parameter Rampers";
 			sourceTree = "<group>";
@@ -4995,6 +4998,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C49B1B32204A0C48009C7C8E /* Bowed.h in Headers */,
+				B157704420937B5100830A3E /* AKParameterRamp.hpp in Headers */,
 				34F5A354205EC31000290001 /* AdjustableDelayLine.hpp in Headers */,
 				C47C528B2093066200A6FB3C /* AKWaveTableDSPKernel.hpp in Headers */,
 				B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */,
@@ -5380,7 +5384,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6453,7 +6457,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
