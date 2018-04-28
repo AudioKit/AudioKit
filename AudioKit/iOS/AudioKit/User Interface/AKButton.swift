@@ -22,6 +22,9 @@ public enum AKButtonStyle {
     public var buttonDownCallback: (AKButton) -> Void = { _ in }
     public var buttonUpCallback: (AKButton) -> Void = { _ in }
 
+    var isPressed: Bool{
+        return isHighlighted
+    }
     private var isHighlighted = false {
         didSet {
             setNeedsDisplay()

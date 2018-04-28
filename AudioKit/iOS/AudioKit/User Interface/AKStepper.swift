@@ -14,34 +14,41 @@ open class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
-    var valueLabel: UILabel! //fixme
+    var valueLabel: UILabel! //fixme}
     var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton!
-    @IBInspectable var value: Double = 0.5
+    @IBInspectable var value: Double = 0.5 {
+        didSet{
+            DispatchQueue.main.async {
+                self.valueLabel.text = String(format: "%.3f", self.value)
+            }
+            
+        }
+    }
     @IBInspectable var increment: Double = 0.1
     @IBInspectable var minimum: Double = 0
     @IBInspectable var maximum: Double = 1
+    internal var originalValue:Double = 0.5
     open var callback: (Double)->Void = {val in
         print("callback: \(val)")
     }
 
     internal func doPlusAction(){
         value += min(increment, maximum - value)
-        valueLabel.text = "\(value)"
         callback(value)
     }
     internal func doMinusAction(){
         value -= min(increment, value - minimum)
-        valueLabel.text = "\(value)"
         callback(value)
     }
     /// Initialize the stepper view
-    public init(text: String, value: Double?,
+    public init(text: String, value: Double,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
                 callback: @escaping (Double) -> Void) {
         self.callback = callback
-        self.value = value!
+        self.value = value
+        self.originalValue = value
         self.text = text
         super.init(frame: frame)
     }
@@ -49,6 +56,7 @@ open class AKStepper: UIView {
     /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.originalValue = value
     }
     override open func awakeFromNib() {
         checkValues()
@@ -107,6 +115,7 @@ open class AKStepper: UIView {
         assert(value >= minimum)
         assert(value <= maximum)
         assert(increment < maximum - minimum)
+        originalValue = value
     }
     internal func setupButtons(){
         plusButton = AKButton(title: "+", callback: {_ in
