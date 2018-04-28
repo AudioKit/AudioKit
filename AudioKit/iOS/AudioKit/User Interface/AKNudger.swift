@@ -16,10 +16,10 @@ open class AKNugder : AKStepper {
         minusButton = AKButton(title: "-", callback: {_ in
             self.doMinusActionHit()
         })
-        plusButton.buttonUpCallback = {_ in
+        plusButton.releaseCallback = {_ in
             self.doPlusActionRelease()
         }
-        minusButton.buttonUpCallback = {_ in
+        minusButton.releaseCallback = {_ in
             self.doMinusActionRelease()
         }
     }
@@ -44,7 +44,6 @@ open class AKNugder : AKStepper {
         }
     }
     override internal func checkValues() {
-        //nothing to assert
         assert(minimum < maximum)
         originalValue = value
         startTimers()
@@ -53,22 +52,19 @@ open class AKNugder : AKStepper {
     private var animationTimer: Timer?
     private var lastValue: Double = 0
     private func animateValue(){
-        if plusButton.isPressed{
-            if value < maximum {
-                value += min(increment, maximum - value)
-            }
-        }else{
+        if !plusButton.isPressed && !minusButton.isPressed{
             if value > originalValue{
-                value -= increment
+                value -= increment//min(increment, value - minimum)
+            }else if value < originalValue {
+                value += increment//min(increment, maximum - value)
             }
-        }
-        if minusButton.isPressed{
+        }else if plusButton.isPressed{
+            if value < maximum {
+                value += increment//min(increment, maximum - value)
+            }
+        }else if minusButton.isPressed{
             if value > minimum{
-                value -= min(increment, value - minimum)
-            }
-        }else{
-            if value < originalValue {
-                value += increment
+                value -= increment//min(increment, value - minimum)
             }
         }
         if value > maximum { value = maximum }
@@ -99,5 +95,13 @@ open class AKNugder : AKStepper {
                 self.animationTimer = timer
             }
         }
+    }
+    open func setStable(value: Double) {
+        print("old values lo \(minimum) med \(originalValue) hi \(maximum)")
+        let diff = value - originalValue
+        originalValue = value
+        maximum += diff
+        minimum += diff
+        print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
