@@ -26,8 +26,6 @@ open class AKNugder : AKStepper {
     private func doPlusActionHit() {
         if increment == 0 {
             value = maximum
-        }else{
-            print("animating \(value)")
         }
     }
     private func doPlusActionRelease() {
@@ -38,8 +36,6 @@ open class AKNugder : AKStepper {
     private func doMinusActionHit() {
         if increment == 0 {
             value = minimum
-        }else{
-            print("animating \(value)")
         }
     }
     private func doMinusActionRelease() {
@@ -55,48 +51,27 @@ open class AKNugder : AKStepper {
     }
     private var frameRate = TimeInterval(1.0 / 60.0)
     private var plusButtonTimer: Timer?
-    private var minusButtonTimer: Timer?
-    private func startPlusTimer(){
-        DispatchQueue.main.async {
-            if let timer = self.startTimerIfNeeded(timer: self.plusButtonTimer,
-                                                   callback: {_ in self.animatePlusValue() }){
-                self.plusButtonTimer = timer
-            }
-        }
-    }
-    private func startMinusTimer(){
-        DispatchQueue.main.async {
-            if let timer = self.startTimerIfNeeded(timer: self.minusButtonTimer,
-                                                   callback: {_ in self.animateMinusValue() }){
-                self.minusButtonTimer = timer
-            }
-        }
-    }
     private var lastValue: Double = 0
     private func animatePlusValue(){
         if plusButton.isPressed{
-            if value + increment < maximum + increment {
-                value += increment
+            if value < maximum {
+                value += min(increment, maximum - value)
             }
         }else{
             if value > originalValue{
                 value -= increment
             }
         }
-        if value > maximum { value = maximum }
-        callbackOnChange()
-        lastValue = value
-    }
-    private func animateMinusValue(){
         if minusButton.isPressed{
-            if value - increment >= minimum - increment{
-                value -= increment
+            if value > minimum{
+                value -= min(increment, value - minimum)
             }
         }else{
             if value < originalValue {
                 value += increment
             }
         }
+        if value > maximum { value = maximum }
         if value < minimum { value = minimum }
         callbackOnChange()
         lastValue = value
@@ -118,7 +93,11 @@ open class AKNugder : AKStepper {
         }
     }
     private func startTimers(){
-        startPlusTimer()
-        startMinusTimer()
+        DispatchQueue.main.async {
+            if let timer = self.startTimerIfNeeded(timer: self.plusButtonTimer,
+                                                   callback: {_ in self.animatePlusValue() }){
+                self.plusButtonTimer = timer
+            }
+        }
     }
 }
