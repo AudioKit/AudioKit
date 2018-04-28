@@ -25,12 +25,9 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 Installation details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
 
-AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage Package managers:
+AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
-| Package Manager                                  | Config File | Contents                     |
-|--------------------------------------------------|-------------|------------------------------|
-| [Carthage](https://github.com/Carthage/Carthage) | `Cartfile`  | `github "audiokit/AudioKit"` |
-| [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 4.0'`   |
+    pod 'AudioKit', '~> 4.0'`
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
