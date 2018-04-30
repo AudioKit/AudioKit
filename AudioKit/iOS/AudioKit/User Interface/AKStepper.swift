@@ -12,7 +12,7 @@ import UIKit
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
 open class AKStepper: UIView {
 
-    @IBInspectable var text: String = "Stepper"
+    @IBInspectable open var text: String = "Stepper"
     var label: UILabel! //fixme
     var valueLabel: UILabel! //fixme}
     var showsValue: Bool = true

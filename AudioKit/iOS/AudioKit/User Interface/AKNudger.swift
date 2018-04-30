@@ -48,27 +48,27 @@ open class AKNugder : AKStepper {
         originalValue = value
         startTimers()
     }
-    private var frameRate = TimeInterval(1.0 / 60.0)
+    private var frameRate = TimeInterval(1.0 / 50.0)
     private var animationTimer: Timer?
     private var lastValue: Double = 0
     private func animateValue(){
         if !plusButton.isPressed && !minusButton.isPressed{
-            if value >~ originalValue{
+            if value ~> originalValue{
                 value -= increment
-            }else if value <~ originalValue {
+            }else if value ~< originalValue {
                 value += increment
             }
         }else if plusButton.isPressed{
-            if value <~ maximum {
+            if value ~< maximum {
                 value += increment
             }
         }else if minusButton.isPressed{
-            if value >~ minimum{
+            if value ~> minimum{
                 value -= increment
             }
         }
-        if value >~ maximum { value = maximum }
-        if value <~ minimum { value = minimum }
+        if value ~> maximum { value = maximum }
+        if value ~< minimum { value = minimum }
         callbackOnChange()
         lastValue = value
     }
@@ -97,11 +97,10 @@ open class AKNugder : AKStepper {
         }
     }
     open func setStable(value: Double) {
-        print("old values lo \(minimum) med \(originalValue) hi \(maximum)")
         let diff = value - originalValue
         originalValue = value
+        lastValue = value
         maximum += diff
         minimum += diff
-        print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
