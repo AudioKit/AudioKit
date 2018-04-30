@@ -71,7 +71,7 @@ Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywend
 
 Here are three methods for getting support which are roughly listed in order of what you should try first:
 
-1. Post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the #AudioKit hashtag.
+1. Post your problem to [https://stackoverflow.com/questions/tagged/audiokit(StackOverflow with the #AudioKit hashtag).
 
 2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
 
