@@ -53,30 +53,37 @@ open class AKNugder : AKStepper {
     private var lastValue: Double = 0
     private func animateValue(){
         if !plusButton.isPressed && !minusButton.isPressed{
-            if value ~> originalValue{
-                value -= increment
-            }else if value ~< originalValue {
-                value += increment
+            if plusHeldCounter > 0{
+                plusHeldCounter -= 1
+            }
+            if minusHeldCounter > 0{
+                minusHeldCounter -= 1
             }
         }else if plusButton.isPressed{
-            if value ~< maximum {
-                value += increment
-            }
+            plusHeldCounter += 1
         }else if minusButton.isPressed{
-            if value ~> minimum{
-                value -= increment
-            }
+            minusHeldCounter += 1
         }
-        if value ~> maximum { value = maximum }
-        if value ~< minimum { value = minimum }
+        value = originalValue + (increment * plusHeldCounter) - (increment * minusHeldCounter)
+        if value > maximum {
+            value = maximum
+            plusHeldCounter -= 1
+        }
+        if value < minimum {
+            value = minimum
+            minusHeldCounter -= 1
+        }
         callbackOnChange()
         lastValue = value
+        print("plus: \(plusHeldCounter) minus: \(minusHeldCounter)")
     }
     private func callbackOnChange(){
         if lastValue != value{
             callback(value)
         }
     }
+    private var plusHeldCounter: Int = 0
+    private var minusHeldCounter: Int = 0
     private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer?{
         if timer != nil, timer!.isValid{
             return nil
@@ -97,10 +104,11 @@ open class AKNugder : AKStepper {
         }
     }
     open func setStable(value: Double) {
+        print("old values lo \(minimum) med \(originalValue) hi \(maximum)")
         let diff = value - originalValue
         originalValue = value
-        lastValue = value
         maximum += diff
         minimum += diff
+        print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
