@@ -22,7 +22,6 @@ open class AKStepper: UIView {
         didSet{
             DispatchQueue.main.async {
                 self.valueLabel.text = String(format: "%.3f", self.value)
-                print("value set to \(self.value) increment: \(self.increment)")
             }
             
         }
