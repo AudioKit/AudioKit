@@ -12,12 +12,12 @@ import UIKit
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
 open class AKStepper: UIView {
 
-    @IBInspectable open var text: String = "Stepper"
+    @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
     var valueLabel: UILabel! //fixme}
-    open var showsValue: Bool = true
-    public var plusButton: AKButton!
-    public var minusButton: AKButton!
+    var showsValue: Bool = true
+    var plusButton: AKButton!
+    var minusButton: AKButton!
     @IBInspectable public var currentValue: Double = 0.5 {
         didSet{
             DispatchQueue.main.async {

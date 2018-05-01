@@ -9,7 +9,7 @@
 import Foundation
 
 open class AKNugder : AKStepper {
-    public var linear = true
+    open var linear = true
     override internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusActionHit()
