@@ -48,36 +48,46 @@ open class AKNugder : AKStepper {
         originalValue = value
         startTimers()
     }
-    private var frameRate = TimeInterval(1.0 / 60.0)
+    private var frameRate = TimeInterval(1.0 / 50.0)
     private var animationTimer: Timer?
     private var lastValue: Double = 0
-    private func animateValue(){
-        if !plusButton.isPressed && !minusButton.isPressed{
-            if value >~ originalValue{
-                value -= increment
-            }else if value <~ originalValue {
-                value += increment
+    private func animateValue() {
+        if !plusButton.isPressed{
+            if plusHeldCounter > 0{
+                plusHeldCounter -= 1
             }
-        }else if plusButton.isPressed{
-            if value <~ maximum {
-                value += increment
-            }
-        }else if minusButton.isPressed{
-            if value >~ minimum{
-                value -= increment
+        }else if plusButton.isPressed {
+            if plusHeldCounter < maxPlusCounter{
+                plusHeldCounter += 1
             }
         }
-        if value >~ maximum { value = maximum }
-        if value <~ minimum { value = minimum }
+        if !minusButton.isPressed {
+            if minusHeldCounter > 0{
+                minusHeldCounter -= 1
+            }
+        }else if minusButton.isPressed {
+            if minusHeldCounter < maxMinusCounter{
+                minusHeldCounter += 1
+            }
+        }
+        value = originalValue + (increment * plusHeldCounter) - (increment * minusHeldCounter)
         callbackOnChange()
         lastValue = value
     }
-    private func callbackOnChange(){
+    private func callbackOnChange() {
         if lastValue != value{
             callback(value)
         }
     }
-    private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer?{
+    private var plusHeldCounter: Int = 0
+    private var minusHeldCounter: Int = 0
+    private var maxPlusCounter: Int {
+        return Int(abs((maximum - originalValue) / increment))
+    }
+    private var maxMinusCounter: Int {
+        return Int(abs((minimum - originalValue) / increment))
+    }
+    private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer? {
         if timer != nil, timer!.isValid{
             return nil
         }
@@ -88,7 +98,7 @@ open class AKNugder : AKStepper {
             return nil
         }
     }
-    private func startTimers(){
+    private func startTimers() {
         DispatchQueue.main.async {
             if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
                                                    callback: {_ in self.animateValue() }){
@@ -97,11 +107,9 @@ open class AKNugder : AKStepper {
         }
     }
     open func setStable(value: Double) {
-        print("old values lo \(minimum) med \(originalValue) hi \(maximum)")
         let diff = value - originalValue
         originalValue = value
         maximum += diff
         minimum += diff
-        print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
