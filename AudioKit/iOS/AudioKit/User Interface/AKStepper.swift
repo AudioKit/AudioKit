@@ -19,26 +19,26 @@ open class AKStepper: UIView {
     var plusButton: AKButton!
     var minusButton: AKButton!
     @IBInspectable var value: Double = 0.5 {
-        didSet{
+        didSet {
             DispatchQueue.main.async {
                 self.valueLabel.text = String(format: "%.3f", self.value)
             }
-            
+
         }
     }
     @IBInspectable var increment: Double = 0.1
     @IBInspectable var minimum: Double = 0
     @IBInspectable var maximum: Double = 1
-    internal var originalValue:Double = 0.5
-    open var callback: (Double)->Void = {val in
+    internal var originalValue: Double = 0.5
+    open var callback: (Double) -> Void = {val in
         print("callback: \(val)")
     }
 
-    internal func doPlusAction(){
+    internal func doPlusAction() {
         value += min(increment, maximum - value)
         callback(value)
     }
-    internal func doMinusAction(){
+    internal func doMinusAction() {
         value -= min(increment, value - minimum)
         callback(value)
     }
@@ -67,8 +67,8 @@ open class AKStepper: UIView {
         super.draw(rect)
         genStackViews(rect: rect)
     }
-    
-    private func genStackViews(rect: CGRect){
+
+    private func genStackViews(rect: CGRect) {
         setupButtons()
         let borderWidth = minusButton!.borderWidth
         label = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
@@ -77,22 +77,22 @@ open class AKStepper: UIView {
         valueLabel = UILabel(frame: CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
         valueLabel.text = "\(value)"
         valueLabel.textAlignment = .right
-        
+
         let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7))
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 5
-        
+
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
-        
+
         self.addSubview(label)
         self.addSubview(buttons)
         if showsValue {
             self.addSubview(valueLabel)
         }
     }
-    
+
     /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
         return true
@@ -105,19 +105,19 @@ open class AKStepper: UIView {
         minusButton?.setNeedsDisplay()
         plusButton?.setNeedsDisplay()
     }
-    private func addToStackIfPossible(view: UIView?, stack: UIStackView){
-        if view != nil{
+    private func addToStackIfPossible(view: UIView?, stack: UIStackView) {
+        if view != nil {
             stack.addArrangedSubview(view!)
         }
     }
-    internal func checkValues(){
+    internal func checkValues() {
         assert(minimum < maximum)
         assert(value >= minimum)
         assert(value <= maximum)
         assert(increment < maximum - minimum)
         originalValue = value
     }
-    internal func setupButtons(){
+    internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusAction()
         })

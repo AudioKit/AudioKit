@@ -22,7 +22,7 @@ public enum AKButtonStyle {
     public var callback: (AKButton) -> Void = { _ in }
     public var releaseCallback: (AKButton) -> Void = { _ in }
 
-    var isPressed: Bool{
+    var isPressed: Bool {
         return isHighlighted
     }
     private var isHighlighted = false {
@@ -93,7 +93,7 @@ public enum AKButtonStyle {
         transform = CGAffineTransform.identity
         isHighlighted = false
     }
-    
+
     /// Initialize the button
     @objc public convenience init(title: String,
                       color: AKColor = AKStylist.sharedInstance.nextColor,

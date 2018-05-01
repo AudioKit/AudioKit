@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-open class AKDualButton : UIView {
-    
+open class AKDualButton: UIView {
+
 }
