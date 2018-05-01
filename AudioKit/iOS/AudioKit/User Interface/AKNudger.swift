@@ -9,6 +9,7 @@
 import Foundation
 
 open class AKNugder : AKStepper {
+    public var linear = true
     override internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusActionHit()
@@ -56,7 +57,7 @@ open class AKNugder : AKStepper {
             if plusHeldCounter > 0{
                 plusHeldCounter -= 1
             }
-        }else if plusButton.isPressed {
+        } else {
             if plusHeldCounter < maxPlusCounter{
                 plusHeldCounter += 1
             }
@@ -65,12 +66,14 @@ open class AKNugder : AKStepper {
             if minusHeldCounter > 0{
                 minusHeldCounter -= 1
             }
-        }else if minusButton.isPressed {
+        } else {
             if minusHeldCounter < maxMinusCounter{
                 minusHeldCounter += 1
             }
         }
-        value = originalValue + (increment * plusHeldCounter) - (increment * minusHeldCounter)
+        let addValue = Double(increment * plusHeldCounter) * (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
+        let subValue = Double(increment * minusHeldCounter) * (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
+        value = originalValue + addValue - subValue
         callbackOnChange()
         lastValue = value
     }
