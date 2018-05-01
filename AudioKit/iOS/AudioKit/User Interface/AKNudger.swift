@@ -26,27 +26,27 @@ open class AKNugder : AKStepper {
     }
     private func doPlusActionHit() {
         if increment == 0 {
-            value = maximum
+            currentValue = maximum
         }
     }
     private func doPlusActionRelease() {
         if increment == 0 {
-            value = originalValue
+            currentValue = originalValue
         }
     }
     private func doMinusActionHit() {
         if increment == 0 {
-            value = minimum
+            currentValue = minimum
         }
     }
     private func doMinusActionRelease() {
         if increment == 0 {
-            value = originalValue
+            currentValue = originalValue
         }
     }
     override internal func checkValues() {
         assert(minimum < maximum)
-        originalValue = value
+        originalValue = currentValue
         startTimers()
     }
     private var frameRate = TimeInterval(1.0 / 50.0)
@@ -73,13 +73,13 @@ open class AKNugder : AKStepper {
         }
         let addValue = Double(increment * plusHeldCounter) * (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
         let subValue = Double(increment * minusHeldCounter) * (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
-        value = originalValue + addValue - subValue
+        currentValue = originalValue + addValue - subValue
         callbackOnChange()
-        lastValue = value
+        lastValue = currentValue
     }
     private func callbackOnChange() {
-        if lastValue != value{
-            callback(value)
+        if lastValue != currentValue{
+            callback(currentValue)
         }
     }
     private var plusHeldCounter: Int = 0
