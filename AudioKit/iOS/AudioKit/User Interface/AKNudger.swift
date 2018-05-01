@@ -51,40 +51,43 @@ open class AKNugder : AKStepper {
     private var frameRate = TimeInterval(1.0 / 50.0)
     private var animationTimer: Timer?
     private var lastValue: Double = 0
-    private func animateValue(){
-        if !plusButton.isPressed && !minusButton.isPressed{
+    private func animateValue() {
+        if !plusButton.isPressed{
             if plusHeldCounter > 0{
                 plusHeldCounter -= 1
             }
+        }else if plusButton.isPressed {
+            if plusHeldCounter < maxPlusCounter{
+                plusHeldCounter += 1
+            }
+        }
+        if !minusButton.isPressed {
             if minusHeldCounter > 0{
                 minusHeldCounter -= 1
             }
-        }else if plusButton.isPressed{
-            plusHeldCounter += 1
-        }else if minusButton.isPressed{
-            minusHeldCounter += 1
+        }else if minusButton.isPressed {
+            if minusHeldCounter < maxMinusCounter{
+                minusHeldCounter += 1
+            }
         }
         value = originalValue + (increment * plusHeldCounter) - (increment * minusHeldCounter)
-        if value > maximum {
-            value = maximum
-            plusHeldCounter -= 1
-        }
-        if value < minimum {
-            value = minimum
-            minusHeldCounter -= 1
-        }
         callbackOnChange()
         lastValue = value
-        print("plus: \(plusHeldCounter) minus: \(minusHeldCounter)")
     }
-    private func callbackOnChange(){
+    private func callbackOnChange() {
         if lastValue != value{
             callback(value)
         }
     }
     private var plusHeldCounter: Int = 0
     private var minusHeldCounter: Int = 0
-    private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer?{
+    private var maxPlusCounter: Int {
+        return Int(abs((maximum - originalValue) / increment))
+    }
+    private var maxMinusCounter: Int {
+        return Int(abs((minimum - originalValue) / increment))
+    }
+    private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer? {
         if timer != nil, timer!.isValid{
             return nil
         }
@@ -95,7 +98,7 @@ open class AKNugder : AKStepper {
             return nil
         }
     }
-    private func startTimers(){
+    private func startTimers() {
         DispatchQueue.main.async {
             if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
                                                    callback: {_ in self.animateValue() }){
