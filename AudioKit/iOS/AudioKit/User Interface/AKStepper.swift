@@ -12,7 +12,7 @@ import UIKit
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
 open class AKStepper: UIView {
 
-    @IBInspectable var text: String = "Stepper"
+    @IBInspectable open var text: String = "Stepper"
     var label: UILabel! //fixme
     var valueLabel: UILabel! //fixme}
     var showsValue: Bool = true
@@ -22,7 +22,6 @@ open class AKStepper: UIView {
         didSet{
             DispatchQueue.main.async {
                 self.valueLabel.text = String(format: "%.3f", self.value)
-                print("value set to \(self.value) increment: \(self.increment)")
             }
             
         }
