@@ -107,11 +107,9 @@ open class AKNugder : AKStepper {
         }
     }
     open func setStable(value: Double) {
-        print("old values lo \(minimum) med \(originalValue) hi \(maximum)")
         let diff = value - originalValue
         originalValue = value
         maximum += diff
         minimum += diff
-        print("set new values to lo \(minimum) med \(originalValue) hi \(maximum)")
     }
 }
