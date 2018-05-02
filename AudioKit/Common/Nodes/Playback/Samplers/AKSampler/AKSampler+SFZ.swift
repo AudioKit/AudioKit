@@ -38,9 +38,6 @@ extension AKSampler {
                 }
                 if trimmed.hasPrefix("<group>") {
                     // parse a <group> line
-                    lokey = 0
-                    hikey = 127
-                    pitch = 60
                     for part in trimmed.dropFirst(7).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("key") {
                             pitch = Int32(part.components(separatedBy: "=")[1])!
@@ -57,12 +54,6 @@ extension AKSampler {
                 }
                 if trimmed.hasPrefix("<region>") {
                     // parse a <region> line
-                    lovel = 0
-                    hivel = 127
-                    sample = ""
-                    loopmode = ""
-                    loopstart = 0
-                    loopend = 0
                     for part in trimmed.dropFirst(8).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("lovel") {
                             lovel = Int32(part.components(separatedBy: "=")[1])!
