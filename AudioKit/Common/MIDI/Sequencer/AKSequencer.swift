@@ -218,7 +218,10 @@ open class AKSequencer {
         }
     }
 
-    /// Tempo retrieved from the sequencer
+    /// Tempo retrieved from the sequencer. Defaults to 120
+    /// NB: It looks at the currentPosition back in time for the last tempo event. 
+    /// If the sequence is not started, it returns default 120
+    /// A sequence may contain several tempo events. 
     open var tempo: Double {
         var tempoOut: Double = 120.0
 
