@@ -32,8 +32,8 @@ extension AKSampler {
         var loopStartPoint: Float32 = 0
         var loopEndPoint: Float32 = 0
 
-        let baseURL = URL(fileURLWithPath: folderPath)
-        let sfzURL = baseURL.appendingPathComponent(sfzFileName)
+        let baseURL = URL(fileURLWithPath: path)
+        let sfzURL = baseURL.appendingPathComponent(fileName)
         do {
             let data = try String(contentsOf: sfzURL, encoding: .ascii)
             let lines = data.components(separatedBy: .newlines)
@@ -93,13 +93,15 @@ extension AKSampler {
                                                               endPoint: 0.0)
                     let sampleFileURL = baseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor, path: sampleFileURL.path))
+                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                              path: sampleFileURL.path))
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
                             let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor, path: compressedFileURL.path))
+                                loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                                      path: compressedFileURL.path))
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
                                 loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
@@ -109,7 +111,7 @@ extension AKSampler {
                 }
             }
         } catch {
-            print(error)
+            AKLog(error)
         }
 
         buildKeyMap()
