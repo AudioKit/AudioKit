@@ -353,18 +353,18 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterEnableParam, value: filterEnable ? 1.0 : 0.0)
     }
 
-    open func loadAKAudioFile(sd: AKSampleDescriptor, file: AKAudioFile) {
+    open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
         let sampleRate = Float(file.sampleRate)
         let sampleCount = Int32(file.samplesCount)
         let channelCount = Int32(file.channelCount)
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData( sdd: AKSampleDataDescriptor( sd: sd,
-                                                                 sampleRateHz: sampleRate,
-                                                                 bInterleaved: false,
-                                                                 nChannels: channelCount,
-                                                                 nSamples: sampleCount,
-                                                                 pData: data) )
+        internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                sampleRate: sampleRate,
+                                                                isInterleaved: false,
+                                                                channelCount: channelCount,
+                                                                sampleCount: sampleCount,
+                                                                data: data) )
     }
 
     open func stopAllVoices() {
@@ -400,7 +400,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteHz: Float(frequency))
+        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
     }
 
     open override func stop(noteNumber: MIDINoteNumber) {
