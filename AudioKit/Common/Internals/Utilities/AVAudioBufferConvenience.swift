@@ -31,12 +31,12 @@ extension AVAudioPCMBuffer {
 
         let remainingCapacity = frameCapacity - frameLength
         if remainingCapacity == 0 {
-            print("AVAudioBuffer copy(from) - no capacity!")
+            AKLog("AVAudioBuffer copy(from) - no capacity!")
             return 0
         }
 
         if format != buffer.format {
-            print("AVAudioBuffer copy(from) - formats must match!")
+            AKLog("AVAudioBuffer copy(from) - formats must match!")
             return 0
         }
 
@@ -44,7 +44,7 @@ extension AVAudioPCMBuffer {
                             buffer.frameLength - readOffset))
 
         if count <= 0 {
-            print("AVAudioBuffer copy(from) - No frames to copy!")
+            AKLog("AVAudioBuffer copy(from) - No frames to copy!")
             return 0
         }
 
