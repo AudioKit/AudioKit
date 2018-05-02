@@ -15,15 +15,15 @@ extension AKSampler {
         stopAllVoices()
         unloadAllSamples()
 
-        var lokey: Int32 = 0
-        var hikey: Int32 = 127
-        var pitch: Int32 = 60
-        var lovel: Int32 = 0
-        var hivel: Int32 = 127
+        var lowNoteNumber: MIDINoteNumber = 0
+        var highNoteNumber: MIDINoteNumber = 127
+        var noteNumber: MIDINoteNumber = 60
+        var lowVelocity: MIDIVelocity = 0
+        var highVelocity: MIDIVelocity = 127
         var sample: String = ""
-        var loopmode: String = ""
-        var loopstart: Float32 = 0
-        var loopend: Float32 = 0
+        var loopMode: String = ""
+        var loopStartPoint: Float32 = 0
+        var loopEndPoint: Float32 = 0
 
         let baseURL = URL(fileURLWithPath: folderPath)
         let sfzURL = baseURL.appendingPathComponent(sfzFileName)
@@ -40,15 +40,15 @@ extension AKSampler {
                     // parse a <group> line
                     for part in trimmed.dropFirst(7).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("key") {
-                            pitch = Int32(part.components(separatedBy: "=")[1])!
-                            lokey = pitch
-                            hikey = pitch
+                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
+                            lowNoteNumber = noteNumber
+                            highNoteNumber = noteNumber
                         } else if part.hasPrefix("lokey") {
-                            lokey = Int32(part.components(separatedBy: "=")[1])!
+                            lowNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("hikey") {
-                            hikey = Int32(part.components(separatedBy: "=")[1])!
+                            highNoteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("pitch_keycenter") {
-                            pitch = Int32(part.components(separatedBy: "=")[1])!
+                            noteNumber = MIDINoteNumber(part.components(separatedBy: "=")[1])!
                         }
                     }
                 }
@@ -56,46 +56,46 @@ extension AKSampler {
                     // parse a <region> line
                     for part in trimmed.dropFirst(8).components(separatedBy: .whitespaces) {
                         if part.hasPrefix("lovel") {
-                            lovel = Int32(part.components(separatedBy: "=")[1])!
+                            lowVelocity = MIDIVelocity(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("hivel") {
-                            hivel = Int32(part.components(separatedBy: "=")[1])!
+                            highVelocity = MIDIVelocity(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("loop_mode") {
-                            loopmode = part.components(separatedBy: "=")[1]
+                            loopMode = part.components(separatedBy: "=")[1]
                         } else if part.hasPrefix("loop_start") {
-                            loopstart = Float32(part.components(separatedBy: "=")[1])!
+                            loopStartPoint = Float32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("loop_end") {
-                            loopend = Float32(part.components(separatedBy: "=")[1])!
+                            loopEndPoint = Float32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("sample") {
                             sample = trimmed.components(separatedBy: "sample=")[1]
                         }
                     }
 
-                    let noteFreq = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(pitch)))
-                    print("load \(pitch) \(noteFreq) Hz range \(lokey)-\(hikey) vel \(lovel)-\(hivel) \(sample)")
+                    let noteFrequency = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
+                    AKLog("load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
-                    let sd = AKSampleDescriptor(noteNumber: pitch,
-                                                noteHz: noteFreq,
-                                                min_note: lokey,
-                                                max_note: hikey,
-                                                min_vel: lovel,
-                                                max_vel: hivel,
-                                                bLoop: loopmode != "",
-                                                fLoopStart: loopstart,
-                                                fLoopEnd: loopend,
-                                                fStart: 0.0,
-                                                fEnd: 0.0)
+                    let sampleDescriptor = AKSampleDescriptor(noteNumber: Int32(noteNumber),
+                                                              noteFrequency: noteFrequency,
+                                                              minimumNoteNumber: Int32(lowNoteNumber),
+                                                              maximumNoteNumber: Int32(highNoteNumber),
+                                                              minimumVelocity: Int32(lowVelocity),
+                                                              maximumVelocity: Int32(highVelocity),
+                                                              isLooping: loopMode != "",
+                                                              loopStartPoint: loopStartPoint,
+                                                              loopEndPoint: loopEndPoint,
+                                                              startPoint: 0.0,
+                                                              endPoint: 0.0)
                     let sampleFileURL = baseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: sampleFileURL.path))
+                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor, path: sampleFileURL.path))
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
                             let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: compressedFileURL.path))
+                                loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor, path: compressedFileURL.path))
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
-                                loadAKAudioFile(sd: sd, file: sampleFile)
+                                loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
                             }
                         }
                     }
