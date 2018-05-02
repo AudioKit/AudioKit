@@ -29,28 +29,28 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
     }
     
     AKSampleDataDescriptor sdd;
-    sdd.sd = pSFD->sd;
-    sdd.sampleRateHz = (float)WavpackGetSampleRate(wpc);
-    sdd.nChannels = WavpackGetReducedChannels(wpc);
-    sdd.nSamples = WavpackGetNumSamples(wpc);
-    sdd.bInterleaved = sdd.nChannels > 1;
-    sdd.pData = new float[sdd.nChannels * sdd.nSamples];
+    sdd.sampleDescriptor = pSFD->sampleDescriptor;
+    sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
+    sdd.channelCount = WavpackGetReducedChannels(wpc);
+    sdd.sampleCount = WavpackGetNumSamples(wpc);
+    sdd.isInterleaved = sdd.channelCount > 1;
+    sdd.data = new float[sdd.channelCount * sdd.sampleCount];
     
     int mode = WavpackGetMode(wpc);
-    WavpackUnpackSamples(wpc, (int32_t*)sdd.pData, sdd.nSamples);
+    WavpackUnpackSamples(wpc, (int32_t*)sdd.data, sdd.sampleCount);
     if ((mode & MODE_FLOAT) == 0)
     {
         // convert samples to floating-point
         int bps = WavpackGetBitsPerSample(wpc);
         float scale = 1.0f / (1 << (bps - 1));
-        float* pf = sdd.pData;
+        float* pf = sdd.data;
         int32_t* pi = (int32_t*)pf;
-        for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
+        for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
     
     ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
-    delete[] sdd.pData;
+    delete[] sdd.data;
 }
 
 extern "C" void doAKSamplerUnloadAllSamples(void* pDSP)
@@ -70,9 +70,9 @@ extern "C" void doAKSamplerSetLoopThruRelease(void* pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-extern "C" void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
+extern "C" void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
-    ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
+    ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
 extern "C" void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate)
@@ -148,16 +148,16 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
-        case ampAttackTimeParam:
+        case attackTimeParam:
             ampEGParams.setAttackTimeSeconds(value);
             break;
-        case ampDecayTimeParam:
+        case decayTimeParam:
             ampEGParams.setDecayTimeSeconds(value);
             break;
-        case ampSustainLevelParam:
+        case sustainLevelParam:
             ampEGParams.sustainFraction = value;
             break;
-        case ampReleaseTimeParam:
+        case releaseTimeParam:
             ampEGParams.setReleaseTimeSeconds(value);
             break;
 
@@ -198,13 +198,13 @@ float AKSamplerDSP::getParameter(uint64_t address)
         case filterResonanceParam:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
-        case ampAttackTimeParam:
+        case attackTimeParam:
             return ampEGParams.getAttackTimeSeconds();
-        case ampDecayTimeParam:
+        case decayTimeParam:
             return ampEGParams.getDecayTimeSeconds();
-        case ampSustainLevelParam:
+        case sustainLevelParam:
             return ampEGParams.sustainFraction;
-        case ampReleaseTimeParam:
+        case releaseTimeParam:
             return ampEGParams.getReleaseTimeSeconds();
 
         case filterAttackTimeParam:

@@ -81,28 +81,28 @@
                         print("load \(pitch) \(noteFreq) Hz range \(lokey)-\(hikey) vel \(lovel)-\(hivel) \(sample)")
 
                         let sd = AKSampleDescriptor(noteNumber: pitch,
-                                                    noteHz: noteFreq,
-                                                    min_note: lokey,
-                                                    max_note: hikey,
-                                                    min_vel: lovel,
-                                                    max_vel: hivel,
-                                                    bLoop: loopmode != "" && loopmode != "no_loop",
-                                                    fLoopStart: loopstart,
-                                                    fLoopEnd: loopend,
-                                                    fStart: 0.0,
-                                                    fEnd: 0.0)
+                                                    noteFrequency: noteFreq,
+                                                    minimumNoteNumber: lokey,
+                                                    maximumNoteNumber: hikey,
+                                                    minimumVelocity: lovel,
+                                                    maximumVelocity: hivel,
+                                                    isLooping: loopmode != "" && loopmode != "no_loop",
+                                                    loopStartPoint: loopstart,
+                                                    loopEndPoint: loopend,
+                                                    startPoint: 0.0,
+                                                    endPoint: 0.0)
                         let sampleFileURL = baseURL.appendingPathComponent(sample)
                         if sample.hasSuffix(".wv") {
-                            loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: sampleFileURL.path))
+                            loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sd, path: sampleFileURL.path))
                         } else {
                             if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
                                 let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                                 let fileMgr = FileManager.default
                                 if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                    loadCompressedSampleFile(sfd: AKSampleFileDescriptor(sd: sd, path: compressedFileURL.path))
+                                    loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sd, path: compressedFileURL.path))
                                 } else {
                                     let sampleFile = try AKAudioFile(forReading: sampleFileURL)
-                                    loadAKAudioFile(sd: sd, file: sampleFile)
+                                    loadAKAudioFile(from: sd, file: sampleFile)
                                 }
                             }
                         }
