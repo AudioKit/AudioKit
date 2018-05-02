@@ -27,14 +27,14 @@ namespace AudioKitCore
         // return true if we run out of samples
         inline bool getSample(SampleBuffer* pSampleBuffer, int nSamples, float* pOut, float gain)
         {
-            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->fEnd) return true;
+            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->endPoint) return true;
             *pOut = pSampleBuffer->interp(fIndex, gain);
             
             fIndex += fIncMul * fIncrement;
             if (pSampleBuffer->bLoop && bLooping)
             {
-                if (fIndex >= pSampleBuffer->fLoopEnd)
-                    fIndex = fIndex - pSampleBuffer->fLoopEnd + pSampleBuffer->fLoopStart;
+                if (fIndex >= pSampleBuffer->loopEndPoint)
+                    fIndex = fIndex - pSampleBuffer->loopEndPoint + pSampleBuffer->loopStartPoint;
             }
             return false;
         }
@@ -42,14 +42,14 @@ namespace AudioKitCore
         // return true if we run out of samples
         inline bool getSamplePair(SampleBuffer* pSampleBuffer, int nSamples, float* pOutLeft, float* pOutRight, float gain)
         {
-            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->fEnd) return true;
+            if (pSampleBuffer == NULL || fIndex > pSampleBuffer->endPoint) return true;
             pSampleBuffer->interp(fIndex, pOutLeft, pOutRight, gain);
             
             fIndex += fIncMul * fIncrement;
             if (pSampleBuffer->bLoop && bLooping)
             {
-                if (fIndex >= pSampleBuffer->fLoopEnd)
-                    fIndex = fIndex - pSampleBuffer->fLoopEnd + pSampleBuffer->fLoopStart;
+                if (fIndex >= pSampleBuffer->loopEndPoint)
+                    fIndex = fIndex - pSampleBuffer->loopEndPoint + pSampleBuffer->loopStartPoint;
             }
             return false;
         }

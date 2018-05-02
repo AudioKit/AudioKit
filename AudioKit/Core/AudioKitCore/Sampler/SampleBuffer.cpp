@@ -15,11 +15,11 @@ namespace AudioKitCore
     : pSamples(0)
     , nChannelCount(0)
     , nSampleCount(0)
-    , fStart(0.0f)
-    , fEnd(0.0f)
+    , startPoint(0.0f)
+    , endPoint(0.0f)
     , bLoop(false)
-    , fLoopStart(0.0f)
-    , fLoopEnd(0.0f)
+    , loopStartPoint(0.0f)
+    , loopEndPoint(0.0f)
     {
     }
     
@@ -35,8 +35,8 @@ namespace AudioKitCore
         this->nChannelCount = nChannelCount;
         if (pSamples) delete[] pSamples;
         pSamples = new float[nChannelCount * nSampleCount];
-        fLoopStart = fStart = 0.0f;
-        fLoopEnd = fEnd = (float)nSampleCount;
+        loopStartPoint = startPoint = 0.0f;
+        loopEndPoint = endPoint = (float)nSampleCount;
     }
     
     void SampleBuffer::deinit()
