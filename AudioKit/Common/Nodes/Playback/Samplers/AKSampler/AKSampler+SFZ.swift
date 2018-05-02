@@ -6,11 +6,18 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-extension AKSampler {
-    // Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
-    // See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
+/// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
+/// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 
-    open func loadUsingSfzFile(folderPath: String, sfzFileName: String) {
+extension AKSampler {
+
+    /// Load an SFZ at the given location
+    ///
+    /// Parameters:
+    ///   - path: Path tothe file as a string
+    ///   - fileName: Name of the SFZ file
+    ///
+    open func loadSFZ(path: String, fileName: String) {
 
         stopAllVoices()
         unloadAllSamples()
