@@ -43,7 +43,7 @@ namespace AudioKitCore
         // optionally call this to make samples continue looping after note-release
         void setLoopThruRelease(bool value) { loopThruRelease = value; }
         
-        void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
+        void playNote(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stopNote(unsigned noteNumber, bool immediate);
         void sustainPedal(bool down);
         
@@ -88,7 +88,7 @@ namespace AudioKitCore
         // helper functions
         SamplerVoice* voicePlayingNote(unsigned noteNumber);
         KeyMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
-        void play(unsigned noteNumber, unsigned velocity, float noteHz);
+        void play(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stop(unsigned noteNumber, bool immediate);
     };
 }

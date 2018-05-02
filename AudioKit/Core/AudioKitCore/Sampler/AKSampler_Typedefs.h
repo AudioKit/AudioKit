@@ -12,32 +12,32 @@
 typedef struct
 {
     int noteNumber;
-    float noteHz;
+    float noteFrequency;
     
-    int min_note, max_note;
-    int min_vel, max_vel;
+    int minimumNoteNumber, maximumNoteNumber;
+    int minimumVelocity, maximumVelocity;
     
-    bool bLoop;
-    float fLoopStart, fLoopEnd;
-    float fStart, fEnd;
+    bool isLooping;
+    float loopStartPoint, loopEndPoint;
+    float startPoint, endPoint;
 
 } AKSampleDescriptor;
 
 typedef struct
 {
-    AKSampleDescriptor sd;
+    AKSampleDescriptor sampleDescriptor;
     
-    float sampleRateHz;
-    bool bInterleaved;
-    int nChannels;
-    int nSamples;
-    float *pData;
+    float sampleRate;
+    bool isInterleaved;
+    int channelCount;
+    int sampleCount;
+    float *data;
 
 } AKSampleDataDescriptor;
 
 typedef struct
 {
-    AKSampleDescriptor sd;
+    AKSampleDescriptor sampleDescriptor;
     
     const char* path;
     
