@@ -357,7 +357,7 @@ open class AKSequencer {
                         // and https://github.com/jverkoey/swift-midi/blob/master/LUMI/CoreMIDI/MIDIPacket%2BSequenceType.swift
                         // and https://forums.developer.apple.com/thread/60350#170204
                         // as I'm not this fluent in swift, I couldn't work it out. 
-                        // I was able to work it out: see the ObjC-Code in Issue #
+                        // I was able to work it out: see the ObjC-Code in Issue #1353 https://github.com/AudioKit/AudioKit/issues/1353
                         
                         let arrayBuffer = UnsafeBufferPointer(start: data, count: Int(data.pointee.dataLength))
                         let array = Array(arrayBuffer)
