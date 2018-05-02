@@ -386,8 +386,8 @@ public class AKPlayer: AKNode {
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
         faderNode.gain = Fade.minimumGain
-        faderNode.rampType = .exponential
-        timePitchNode.bypass() // bypass timePitch by default
+        faderNode.rampType = .linear
+        timePitchNode.bypass() // bypass timePitch by default to save CPU
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -559,6 +559,8 @@ public class AKPlayer: AKNode {
     @objc private func startFade() {
         let inTime = fade.inTime - fade.inTimeOffset
 
+        AKLog("Fading in to", fade.maximumGain)
+
         faderNode.rampTime = AKSettings.rampTime
 
         if inTime > 0 {
@@ -607,6 +609,7 @@ public class AKPlayer: AKNode {
             faderNode.rampType = fade.outRampType
             faderNode.rampTime = time / rate
             faderNode.gain = Fade.minimumGain
+            AKLog("Fading out to", Fade.minimumGain)
         }
     }
 

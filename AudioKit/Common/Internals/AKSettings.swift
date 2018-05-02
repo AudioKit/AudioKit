@@ -49,10 +49,12 @@
         }
     }
 
+    /// Constants for ramps used in AKParameterRamp.hpp, AKBooster, and others
     @objc public enum RampType: Int {
         case linear = 0
         case exponential = 1
         case logarithmic = 2
+        case sCurve = 3
     }
 
     /// The sample rate in Hertz
