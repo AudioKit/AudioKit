@@ -172,22 +172,22 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     @IBAction func onAmpAttackSliderChange(_ sender: NSSlider) {
         ampAttackReadout.floatValue = sender.floatValue
-        sampler.ampAttackTime = sender.doubleValue
+        sampler.atackTime = sender.doubleValue
     }
 
     @IBAction func onAmpDecaySliderChange(_ sender: NSSlider) {
         ampDecayReadout.floatValue = sender.floatValue
-        sampler.ampDecayTime = sender.doubleValue
+        sampler.decayTime = sender.doubleValue
     }
 
     @IBAction func onAmpSustainSliderChange(_ sender: NSSlider) {
         ampSustainReadout.intValue = sender.intValue
-        sampler.ampSustainLevel = sender.doubleValue / 100.0
+        sampler.sustainLevel = sender.doubleValue / 100.0
     }
 
     @IBAction func onAmpReleaseSliderChange(_ sender: NSSlider) {
         ampReleaseReadout.floatValue = sender.floatValue
-        sampler.ampReleaseTime = sender.doubleValue
+        sampler.releaseTime = sender.doubleValue
     }
 
     @IBAction func onFilterAttackSliderChange(_ sender: NSSlider) {
