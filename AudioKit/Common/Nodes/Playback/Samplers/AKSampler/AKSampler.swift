@@ -375,12 +375,12 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         internalAU?.restartVoices()
     }
 
-    open func loadRawSampleData(sdd: AKSampleDataDescriptor) {
-        internalAU?.loadSampleData(sdd: sdd)
+    open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+        internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
-    open func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
-        internalAU?.loadCompressedSampleFile(sfd: sfd)
+    open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+        internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
     open func unloadAllSamples() {

@@ -253,14 +253,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerRestartVoices(pDSP)
     }
 
-    public func loadSampleData(sdd: AKSampleDataDescriptor) {
-        var sdd_copy = sdd
-        doAKSamplerLoadData(pDSP, &sdd_copy)
+    public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+        var copy = sampleDataDescriptor
+        doAKSamplerLoadData(pDSP, &copy)
     }
 
-    public func loadCompressedSampleFile(sfd: AKSampleFileDescriptor) {
-        var sfd_copy = sfd
-        doAKSamplerLoadCompressedFile(pDSP, &sfd_copy)
+    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+        var copy = sampleFileDescriptor
+        doAKSamplerLoadCompressedFile(pDSP, &copy)
     }
 
     public func unloadAllSamples() {
@@ -279,8 +279,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerSetLoopThruRelease(pDSP, thruRelease)
     }
 
-    public func playNote(noteNumber: UInt8, velocity: UInt8, noteHz: Float) {
-        doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteHz)
+    public func playNote(noteNumber: UInt8, velocity: UInt8, noteFrequency: Float) {
+        doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteFrequency)
     }
 
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
