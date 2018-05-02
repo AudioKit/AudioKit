@@ -167,8 +167,7 @@ extension Conductor {
                                     maximumNoteNumber: maximumNoteNumber,
                                     minimumVelocity: minimumVelocity,
                                     maximumVelocity: maximumVelocity,
-                                    // test looping based on fractional start/end values
-                                    isLooping: true,
+                                    isLooping: true, // test looping based on fractional start/end values
                                     loopStartPoint: 0.2,
                                     loopEndPoint: 0.3,
                                     startPoint: 0.0,
