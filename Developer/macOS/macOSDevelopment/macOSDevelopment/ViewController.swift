@@ -177,10 +177,10 @@ class ViewController: NSViewController {
             // for seamless looping use:
             player?.buffering = .dynamic
             // can use these to test the internal fader in the player:
-            player?.fade.inTime = 1
-            player?.fade.outTime = 1
-            player?.fade.inRampType = .linear
-            player?.fade.outRampType = .exponential
+//            player?.fade.inTime = 1
+//            player?.fade.outTime = 1
+//            player?.fade.inRampType = .linear
+//            player?.fade.outRampType = .exponential
         } else {
             do {
                 try player?.load(url: url)
@@ -212,24 +212,30 @@ class ViewController: NSViewController {
         if sender == slider1 {
             booster.gain = slider1.doubleValue
             slider1Value.stringValue = String(describing: roundTo(booster.gain, decimalPlaces: 3))
+            
         } else if sender == slider2 {
             booster.rampTime = slider2.doubleValue
             slider2Value.stringValue = String(describing: roundTo(booster.rampTime, decimalPlaces: 3))
 
         } else if sender == slider3 {
             let value = Int(slider3.intValue)
-            if value == 0 {
+            if value == AKSettings.RampType.linear.rawValue {
                 booster.rampType = .linear
-                //player?.rampType = .linear
+                // player?.rampType = .linear
                 slider3Value.stringValue = "Linear"
-            } else if value == 1 {
+
+            } else if value == AKSettings.RampType.exponential.rawValue {
                 booster.rampType = .exponential
-                //player?.rampType = .exponential
+                // player?.rampType = .exponential
                 slider3Value.stringValue = "Exponential"
-            } else if value == 2 {
-                // booster.rampType = .logarithmic
+
+            } else if value == AKSettings.RampType.logarithmic.rawValue {
+                booster.rampType = .logarithmic
                 slider3Value.stringValue = "Logarithmic"
-                AKLog("Unimplemented: Log ramp type")
+
+            } else if value == AKSettings.RampType.sCurve.rawValue {
+                booster.rampType = .sCurve
+                slider3Value.stringValue = "S Curve"
             }
         }
     }

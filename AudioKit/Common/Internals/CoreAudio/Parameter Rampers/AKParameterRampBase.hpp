@@ -34,6 +34,27 @@ public:
 
     virtual float computeValueAt(int64_t atSample) = 0;
 
+    float getStartValue() {
+        return _startValue;
+    }
+
+    float getValue() {
+        return _value;
+    }
+
+    void setTarget(float value, bool immediate = false) {
+        if (immediate) {
+            _startValue = _paramValue = _value = _target = value;
+
+        } else {
+            _paramValue = value;
+        }
+    }
+
+    float getTarget() {
+        return _target;
+    }
+    
     void setRampType(int rampType) {
         _rampType = rampType;
     }
@@ -42,16 +63,13 @@ public:
         return _rampType;
     }
 
-    void setTarget(float value, bool immediate = false) {
-        if (immediate) { _startValue = _paramValue = _value = _target = value; }
-        else { _paramValue = value; }
-    }
-
     void setDurationInSamples(int64_t duration) {
         if (duration >= 0) _duration = duration;
     }
 
-    float getDurationInSamples() { return _duration; }
+    float getDurationInSamples() {
+        return _duration;
+    }
 
     void setRampTime(float seconds, int64_t sampleRate) {
         _duration = seconds * sampleRate;
@@ -59,14 +77,6 @@ public:
 
     float getRampTime(int64_t sampleRate) {
         return (sampleRate == 0) ? 0 : _duration / sampleRate;
-    }
-
-    float getValue() {
-        return _value;
-    }
-
-    float getTarget() {
-        return _target;
     }
 
     float advanceTo(int64_t atSample) {
