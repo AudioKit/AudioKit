@@ -78,7 +78,8 @@ extension AKSampler {
                     }
 
                     let noteFrequency = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
-                    AKLog("load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber) vel \(lowVelocity)-\(highVelocity) \(sample)")
+                    let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
+                    AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
                     let sampleDescriptor = AKSampleDescriptor(noteNumber: Int32(noteNumber),
                                                               noteFrequency: noteFrequency,
@@ -100,8 +101,9 @@ extension AKSampler {
                             let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                                      path: compressedFileURL.path))
+                                loadCompressedSampleFile(
+                                    from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                 path: compressedFileURL.path))
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
                                 loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
