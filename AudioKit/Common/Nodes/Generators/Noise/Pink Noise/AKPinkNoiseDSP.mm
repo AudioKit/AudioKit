@@ -22,7 +22,7 @@ struct AKPinkNoiseDSP::_Internal {
 
 AKPinkNoiseDSP::AKPinkNoiseDSP() : _private(new _Internal) {
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -31,8 +31,8 @@ void AKPinkNoiseDSP::setParameter(AUParameterAddress address, AUValue value, boo
         case AKPinkNoiseParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKPinkNoiseParameterRampTime:
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKPinkNoiseParameterRampDuration:
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,8 +42,8 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKPinkNoiseParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKPinkNoiseParameterRampTime:
-            return _private->amplitudeRamp.getRampTime(_sampleRate);
+        case AKPinkNoiseParameterRampDuration:
+            return _private->amplitudeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

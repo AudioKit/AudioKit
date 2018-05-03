@@ -25,11 +25,11 @@ struct AKEqualizerFilterDSP::_Internal {
 
 AKEqualizerFilterDSP::AKEqualizerFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->gainRamp.setTarget(defaultGain, true);
-    _private->gainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->gainRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKEqualizerFilterDSP::setParameter(AUParameterAddress address, AUValue valu
         case AKEqualizerFilterParameterGain:
             _private->gainRamp.setTarget(clamp(value, gainLowerBound, gainUpperBound), immediate);
             break;
-        case AKEqualizerFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
-            _private->gainRamp.setRampTime(value, _sampleRate);
+        case AKEqualizerFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
+            _private->gainRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
             return _private->bandwidthRamp.getTarget();
         case AKEqualizerFilterParameterGain:
             return _private->gainRamp.getTarget();
-        case AKEqualizerFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKEqualizerFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

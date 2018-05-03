@@ -120,13 +120,13 @@ void AKSamplerDSP::deinit()
 void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
 {
     switch (address) {
-        case AKSamplerParameterRampTime:
-            masterVolumeRamp.setRampTime(value, _sampleRate);
-            pitchBendRamp.setRampTime(value, _sampleRate);
-            vibratoDepthRamp.setRampTime(value, _sampleRate);
-            filterCutoffRamp.setRampTime(value, _sampleRate);
-            filterEgStrengthRamp.setRampTime(value, _sampleRate);
-            filterResonanceRamp.setRampTime(value, _sampleRate);
+        case AKSamplerParameterRampDuration:
+            masterVolumeRamp.setRampDuration(value, _sampleRate);
+            pitchBendRamp.setRampDuration(value, _sampleRate);
+            vibratoDepthRamp.setRampDuration(value, _sampleRate);
+            filterCutoffRamp.setRampDuration(value, _sampleRate);
+            filterEgStrengthRamp.setRampDuration(value, _sampleRate);
+            filterResonanceRamp.setRampDuration(value, _sampleRate);
             break;
 
         case AKSamplerParameterMasterVolume:
@@ -182,8 +182,8 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
 float AKSamplerDSP::getParameter(AUParameterAddress address)
 {
     switch (address) {
-        case AKSamplerParameterRampTime:
-            return pitchBendRamp.getRampTime(_sampleRate);
+        case AKSamplerParameterRampDuration:
+            return pitchBendRamp.getRampDuration(_sampleRate);
 
         case AKSamplerParameterMasterVolume:
             return masterVolumeRamp.getTarget();

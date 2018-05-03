@@ -30,23 +30,23 @@ struct AKPhaserDSP::_Internal {
 
 AKPhaserDSP::AKPhaserDSP() : _private(new _Internal) {
     _private->notchMinimumFrequencyRamp.setTarget(defaultNotchMinimumFrequency, true);
-    _private->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->notchMaximumFrequencyRamp.setTarget(defaultNotchMaximumFrequency, true);
-    _private->notchMaximumFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->notchMaximumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->notchWidthRamp.setTarget(defaultNotchWidth, true);
-    _private->notchWidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->notchWidthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->notchFrequencyRamp.setTarget(defaultNotchFrequency, true);
-    _private->notchFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->notchFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->vibratoModeRamp.setTarget(defaultVibratoMode, true);
-    _private->vibratoModeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->vibratoModeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->depthRamp.setTarget(defaultDepth, true);
-    _private->depthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->depthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->invertedRamp.setTarget(defaultInverted, true);
-    _private->invertedRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->invertedRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->lfoBPMRamp.setTarget(defaultLfoBPM, true);
-    _private->lfoBPMRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->lfoBPMRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -79,16 +79,16 @@ void AKPhaserDSP::setParameter(AUParameterAddress address, AUValue value, bool i
         case AKPhaserParameterLfoBPM:
             _private->lfoBPMRamp.setTarget(clamp(value, lfoBPMLowerBound, lfoBPMUpperBound), immediate);
             break;
-        case AKPhaserParameterRampTime:
-            _private->notchMinimumFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->notchMaximumFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->notchWidthRamp.setRampTime(value, _sampleRate);
-            _private->notchFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->vibratoModeRamp.setRampTime(value, _sampleRate);
-            _private->depthRamp.setRampTime(value, _sampleRate);
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
-            _private->invertedRamp.setRampTime(value, _sampleRate);
-            _private->lfoBPMRamp.setRampTime(value, _sampleRate);
+        case AKPhaserParameterRampDuration:
+            _private->notchMinimumFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->notchMaximumFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->notchWidthRamp.setRampDuration(value, _sampleRate);
+            _private->notchFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->vibratoModeRamp.setRampDuration(value, _sampleRate);
+            _private->depthRamp.setRampDuration(value, _sampleRate);
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
+            _private->invertedRamp.setRampDuration(value, _sampleRate);
+            _private->lfoBPMRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -114,8 +114,8 @@ float AKPhaserDSP::getParameter(uint64_t address) {
             return _private->invertedRamp.getTarget();
         case AKPhaserParameterLfoBPM:
             return _private->lfoBPMRamp.getTarget();
-        case AKPhaserParameterRampTime:
-            return _private->notchMinimumFrequencyRamp.getRampTime(_sampleRate);
+        case AKPhaserParameterRampDuration:
+            return _private->notchMinimumFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

@@ -15,7 +15,7 @@ typedef NS_ENUM(AUParameterAddress, AKDynamicRangeCompressorParameter) {
     AKDynamicRangeCompressorParameterThreshold,
     AKDynamicRangeCompressorParameterAttackTime,
     AKDynamicRangeCompressorParameterReleaseTime,
-    AKDynamicRangeCompressorParameterRampTime
+    AKDynamicRangeCompressorParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -49,7 +49,7 @@ public:
     float defaultAttackDuration = 0.1;
     float defaultReleaseDuration = 0.1;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

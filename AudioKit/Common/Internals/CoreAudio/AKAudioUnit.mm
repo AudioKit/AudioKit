@@ -16,7 +16,7 @@
 }
 
 @synthesize parameterTree = _parameterTree;
-@synthesize rampTime = _rampTime;
+@synthesize rampDuration = _rampDuration;
 - (void)start {}
 - (void)stop {}
 - (BOOL)isPlaying {
@@ -26,13 +26,13 @@
     return NO;
 }
 
--(double)rampTime {
-    return _rampTime;
+-(double)rampDuration {
+    return _rampDuration;
 }
 
--(void)setRampTime:(double)rampTime {
-    if (_rampTime == rampTime) { return; }
-    _rampTime = rampTime;
+-(void)setRampDuration:(double)rampDuration {
+    if (_rampDuration == rampDuration) { return; }
+    _rampDuration = rampDuration;
     [self setUpParameterRamp];
 }
 
@@ -100,11 +100,11 @@
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over rampTime in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
+    // Ramp over rampDuration in seconds.
+    __block AUAudioFrameCount rampDuration = AUAudioFrameCount(_rampDuration * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
+        scheduleParameter(AUEventSampleTimeImmediate, rampDuration, param.address, value);
     };
 }
 

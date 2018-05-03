@@ -200,8 +200,8 @@ public class AKPlayer: AKNode {
     /// Amplification Factor, in the range of 0.0002 to 2
     public var gain: Double = 1 {
         didSet {
-            if faderNode.rampTime != AKSettings.rampTime {
-                faderNode.rampTime = AKSettings.rampTime
+            if faderNode.rampDuration != AKSettings.rampDuration {
+                faderNode.rampDuration = AKSettings.rampDuration
             }
             fade.maximumGain = gain
             faderNode.gain = gain
@@ -516,7 +516,7 @@ public class AKPlayer: AKNode {
     // MARK: - Fade Handlers
 
     private func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(fade, faderNode.rampTime, faderNode.gain, audioTime, hostTime)
+        // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)
 
         if faderTimer?.isValid ?? false {
             faderTimer?.invalidate()
@@ -552,7 +552,7 @@ public class AKPlayer: AKNode {
         }
 
         faderNode.rampType = fade.inRampType
-        faderNode.rampTime = AKSettings.rampTime
+        faderNode.rampDuration = AKSettings.rampDuration
         faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
 
@@ -561,16 +561,16 @@ public class AKPlayer: AKNode {
 
         AKLog("Fading in to", fade.maximumGain)
 
-        faderNode.rampTime = AKSettings.rampTime
+        faderNode.rampDuration = AKSettings.rampDuration
 
         if inTime > 0 {
             faderNode.gain = Fade.minimumGain
-            faderNode.rampTime = inTime / rate
+            faderNode.rampDuration = inTime / rate
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
 
-        // AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
+        // AKLog("rampDuration", faderNode.rampDuration, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
 
         faderTimer?.invalidate()
 
@@ -607,7 +607,7 @@ public class AKPlayer: AKNode {
         if time > 0 {
             // at this point init the faderNode with the correct settings for fade out
             faderNode.rampType = fade.outRampType
-            faderNode.rampTime = time / rate
+            faderNode.rampDuration = time / rate
             faderNode.gain = Fade.minimumGain
             AKLog("Fading out to", Fade.minimumGain)
         }

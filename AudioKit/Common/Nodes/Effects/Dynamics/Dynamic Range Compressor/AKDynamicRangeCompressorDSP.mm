@@ -26,13 +26,13 @@ struct AKDynamicRangeCompressorDSP::_Internal {
 
 AKDynamicRangeCompressorDSP::AKDynamicRangeCompressorDSP() : _private(new _Internal) {
     _private->ratioRamp.setTarget(defaultRatio, true);
-    _private->ratioRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->ratioRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->thresholdRamp.setTarget(defaultThreshold, true);
-    _private->thresholdRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->thresholdRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->attackDurationRamp.setTarget(defaultAttackDuration, true);
-    _private->attackDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->attackDurationRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->releaseDurationRamp.setTarget(defaultReleaseDuration, true);
-    _private->releaseDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->releaseDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -50,11 +50,11 @@ void AKDynamicRangeCompressorDSP::setParameter(AUParameterAddress address, AUVal
         case AKDynamicRangeCompressorParameterReleaseTime:
             _private->releaseDurationRamp.setTarget(clamp(value, releaseDurationLowerBound, releaseDurationUpperBound), immediate);
             break;
-        case AKDynamicRangeCompressorParameterRampTime:
-            _private->ratioRamp.setRampTime(value, _sampleRate);
-            _private->thresholdRamp.setRampTime(value, _sampleRate);
-            _private->attackDurationRamp.setRampTime(value, _sampleRate);
-            _private->releaseDurationRamp.setRampTime(value, _sampleRate);
+        case AKDynamicRangeCompressorParameterRampDuration:
+            _private->ratioRamp.setRampDuration(value, _sampleRate);
+            _private->thresholdRamp.setRampDuration(value, _sampleRate);
+            _private->attackDurationRamp.setRampDuration(value, _sampleRate);
+            _private->releaseDurationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -70,8 +70,8 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
             return _private->attackDurationRamp.getTarget();
         case AKDynamicRangeCompressorParameterReleaseTime:
             return _private->releaseDurationRamp.getTarget();
-        case AKDynamicRangeCompressorParameterRampTime:
-            return _private->ratioRamp.getRampTime(_sampleRate);
+        case AKDynamicRangeCompressorParameterRampDuration:
+            return _private->ratioRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

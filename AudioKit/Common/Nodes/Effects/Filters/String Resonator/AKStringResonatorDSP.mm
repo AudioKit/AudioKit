@@ -24,9 +24,9 @@ struct AKStringResonatorDSP::_Internal {
 
 AKStringResonatorDSP::AKStringResonatorDSP() : _private(new _Internal) {
     _private->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
-    _private->fundamentalFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue valu
         case AKStringResonatorParameterFeedback:
             _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
-        case AKStringResonatorParameterRampTime:
-            _private->fundamentalFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
+        case AKStringResonatorParameterRampDuration:
+            _private->fundamentalFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
             return _private->fundamentalFrequencyRamp.getTarget();
         case AKStringResonatorParameterFeedback:
             return _private->feedbackRamp.getTarget();
-        case AKStringResonatorParameterRampTime:
-            return _private->fundamentalFrequencyRamp.getRampTime(_sampleRate);
+        case AKStringResonatorParameterRampDuration:
+            return _private->fundamentalFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

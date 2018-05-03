@@ -24,9 +24,9 @@ struct AKVariableDelayDSP::_Internal {
 
 AKVariableDelayDSP::AKVariableDelayDSP() : _private(new _Internal) {
     _private->timeRamp.setTarget(defaultTime, true);
-    _private->timeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->timeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKVariableDelayDSP::setParameter(AUParameterAddress address, AUValue value,
         case AKVariableDelayParameterFeedback:
             _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
-        case AKVariableDelayParameterRampTime:
-            _private->timeRamp.setRampTime(value, _sampleRate);
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
+        case AKVariableDelayParameterRampDuration:
+            _private->timeRamp.setRampDuration(value, _sampleRate);
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
             return _private->timeRamp.getTarget();
         case AKVariableDelayParameterFeedback:
             return _private->feedbackRamp.getTarget();
-        case AKVariableDelayParameterRampTime:
-            return _private->timeRamp.getRampTime(_sampleRate);
+        case AKVariableDelayParameterRampDuration:
+            return _private->timeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

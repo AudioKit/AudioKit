@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKMetalBarParameter) {
     AKMetalBarParameterPosition,
     AKMetalBarParameterStrikeVelocity,
     AKMetalBarParameterStrikeWidth,
-    AKMetalBarParameterRampTime
+    AKMetalBarParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -63,7 +63,7 @@ public:
 
     float internalTrigger = 0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
