@@ -24,9 +24,9 @@ struct AKModalResonanceFilterDSP::_Internal {
 
 AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : _private(new _Internal) {
     _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->qualityFactorRamp.setTarget(defaultQualityFactor, true);
-    _private->qualityFactorRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->qualityFactorRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKModalResonanceFilterDSP::setParameter(AUParameterAddress address, AUValue
         case AKModalResonanceFilterParameterQualityFactor:
             _private->qualityFactorRamp.setTarget(clamp(value, qualityFactorLowerBound, qualityFactorUpperBound), immediate);
             break;
-        case AKModalResonanceFilterParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->qualityFactorRamp.setRampTime(value, _sampleRate);
+        case AKModalResonanceFilterParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->qualityFactorRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
             return _private->frequencyRamp.getTarget();
         case AKModalResonanceFilterParameterQualityFactor:
             return _private->qualityFactorRamp.getTarget();
-        case AKModalResonanceFilterParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKModalResonanceFilterParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

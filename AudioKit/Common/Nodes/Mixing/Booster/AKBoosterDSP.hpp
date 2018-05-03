@@ -15,7 +15,7 @@
 typedef NS_ENUM(AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,
-    AKBoosterParameterRampTime,
+    AKBoosterParameterRampDuration,
     AKBoosterParameterRampType
 };
 

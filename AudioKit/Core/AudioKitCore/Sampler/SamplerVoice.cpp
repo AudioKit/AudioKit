@@ -22,8 +22,8 @@ namespace AudioKitCore
     void SamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pBuf)
     {
         pSampleBuffer = pBuf;
-        oscillator.fIndex = pBuf->fStart;
-        oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteHz);
+        oscillator.fIndex = pBuf->startPoint;
+        oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteFrequency);
         oscillator.fIncMul = 1.0;
         oscillator.bLooping = pBuf->bLoop;
         
@@ -35,7 +35,7 @@ namespace AudioKitCore
         filterR.updateSampleRate(sr);
         filterEG.start();
         
-        noteHz = freqHz;
+        noteFrequency = freqHz;
         noteNumber = noteNum;
     }
     
@@ -75,7 +75,7 @@ namespace AudioKitCore
             {
                 tempGain = masterVol * noteVol * ampEG.getSample();
                 pSampleBuffer = pNewSampleBuffer;
-                oscillator.fIndex = pSampleBuffer->fStart;
+                oscillator.fIndex = pSampleBuffer->startPoint;
                 oscillator.bLooping = pSampleBuffer->bLoop;
             }
         }
@@ -91,7 +91,7 @@ namespace AudioKitCore
         else
         {
             filterEnable = true;
-            double cutoffHz = noteHz * (1.0f + cutoffMultiple + cutoffEgStrength * filterEG.getSample());
+            double cutoffHz = noteFrequency * (1.0f + cutoffMultiple + cutoffEgStrength * filterEG.getSample());
             filterL.setParams(cutoffHz, resLinear);
             filterR.setParams(cutoffHz, resLinear);
         }

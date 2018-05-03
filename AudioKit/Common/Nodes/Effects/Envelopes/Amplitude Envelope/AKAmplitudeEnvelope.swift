@@ -23,14 +23,14 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var sustainLevelParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
-    /// Attack time
+    /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration == newValue {
@@ -46,7 +46,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Decay time
+    /// Decay Duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration == newValue {
@@ -78,7 +78,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Release time
+    /// Release Duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration == newValue {
@@ -105,10 +105,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - attackDuration: Attack time
-    ///   - decayDuration: Decay time
+    ///   - attackDuration: Attack Duration in seconds
+    ///   - decayDuration: Decay Duration in seconds
     ///   - sustainLevel: Sustain Level
-    ///   - releaseDuration: Release time
+    ///   - releaseDuration: Release Duration in seconds
     ///
     @objc public init(
         _ input: AKNode? = nil,

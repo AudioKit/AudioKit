@@ -25,7 +25,7 @@
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
-@property double rampTime;
+@property double rampDuration;
 
 -(AUImplementorValueProvider)getter;
 -(AUImplementorValueObserver)setter;
@@ -81,7 +81,7 @@
 }\
 
 #define standardSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
                                                                         channels:AKSettings.numberOfChannels]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
@@ -90,7 +90,7 @@
                                                                 busType:AUAudioUnitBusTypeInput \
                                                                  busses:@[_inputBus.bus]];
 #define standardGeneratorSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
                                                                         channels:AKSettings.numberOfChannels]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \

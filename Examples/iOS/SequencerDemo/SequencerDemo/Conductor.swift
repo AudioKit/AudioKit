@@ -55,8 +55,8 @@ class Conductor {
         pumper.headRoom = 0.10
         pumper.threshold = -15
         pumper.masterGain = 10
-        pumper.attackTime = 0.01
-        pumper.releaseTime = 0.3
+        pumper.attackDuration = 0.01
+        pumper.releaseDuration = 0.3
 
         [verb, bassDrum, snareDrum, snareGhost, snareVerb] >>> mixer
 

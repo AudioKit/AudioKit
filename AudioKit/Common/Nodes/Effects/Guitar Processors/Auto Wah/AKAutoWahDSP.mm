@@ -25,11 +25,11 @@ struct AKAutoWahDSP::_Internal {
 
 AKAutoWahDSP::AKAutoWahDSP() : _private(new _Internal) {
     _private->wahRamp.setTarget(defaultWah, true);
-    _private->wahRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->wahRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->mixRamp.setTarget(defaultMix, true);
-    _private->mixRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->mixRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKAutoWahDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case AKAutoWahParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKAutoWahParameterRampTime:
-            _private->wahRamp.setRampTime(value, _sampleRate);
-            _private->mixRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKAutoWahParameterRampDuration:
+            _private->wahRamp.setRampDuration(value, _sampleRate);
+            _private->mixRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKAutoWahDSP::getParameter(uint64_t address) {
             return _private->mixRamp.getTarget();
         case AKAutoWahParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKAutoWahParameterRampTime:
-            return _private->wahRamp.getRampTime(_sampleRate);
+        case AKAutoWahParameterRampDuration:
+            return _private->wahRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

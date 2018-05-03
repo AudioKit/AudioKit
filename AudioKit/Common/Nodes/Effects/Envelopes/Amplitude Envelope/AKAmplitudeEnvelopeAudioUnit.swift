@@ -31,8 +31,8 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.releaseDuration, value: releaseDuration) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -48,7 +48,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
 
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
-            name: "Attack time",
+            name: "Attack duration (secs)",
             address: AUParameterAddress(0),
             min: 0,
             max: 99,
@@ -60,7 +60,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         )
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
-            name: "Decay time",
+            name: "Decay duration (secs)",
             address: AUParameterAddress(1),
             min: 0,
             max: 99,
@@ -84,7 +84,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         )
         let releaseDuration = AUParameterTree.createParameter(
             withIdentifier: "releaseDuration",
-            name: "Release time",
+            name: "Release duration (secs)",
             address: AUParameterAddress(3),
             min: 0,
             max: 99,

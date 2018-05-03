@@ -24,9 +24,9 @@ struct AKBandPassButterworthFilterDSP::_Internal {
 
 AKBandPassButterworthFilterDSP::AKBandPassButterworthFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKBandPassButterworthFilterDSP::setParameter(AUParameterAddress address, AU
         case AKBandPassButterworthFilterParameterBandwidth:
             _private->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
-        case AKBandPassButterworthFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
+        case AKBandPassButterworthFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKBandPassButterworthFilterDSP::getParameter(uint64_t address) {
             return _private->centerFrequencyRamp.getTarget();
         case AKBandPassButterworthFilterParameterBandwidth:
             return _private->bandwidthRamp.getTarget();
-        case AKBandPassButterworthFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKBandPassButterworthFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

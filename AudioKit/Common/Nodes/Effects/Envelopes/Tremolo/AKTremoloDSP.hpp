@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
     AKTremoloParameterFrequency,
     AKTremoloParameterDepth,
-    AKTremoloParameterRampTime
+    AKTremoloParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -53,9 +53,9 @@ public:
             case AKTremoloParameterDepth:
                 depthRamp.setTarget(value, immediate);
                 break;
-            case AKTremoloParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                depthRamp.setRampTime(value, _sampleRate);
+            case AKTremoloParameterRampDuration:
+                frequencyRamp.setRampDuration(value, _sampleRate);
+                depthRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -67,9 +67,9 @@ public:
                 return frequencyRamp.getTarget();
             case AKTremoloParameterDepth:
                 return depthRamp.getTarget();
-            case AKTremoloParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
-                return depthRamp.getRampTime(_sampleRate);
+            case AKTremoloParameterRampDuration:
+                return frequencyRamp.getRampDuration(_sampleRate);
+                return depthRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

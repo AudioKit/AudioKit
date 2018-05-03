@@ -25,7 +25,7 @@ namespace AudioKitCore
         ADSREnvelope ampEG, filterEG;
         
         int noteNumber;     // MIDI note number, or -1 if not playing any note
-        float noteHz;       // note frequency in Hz
+        float noteFrequency;// note frequency in Hz
         float noteVol;      // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables

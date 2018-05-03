@@ -20,8 +20,8 @@ struct AKDynaRageCompressorDSPKernel::_Internal {
     
     float ratio = 1.0;
     float threshold = 0.0;
-    float attackTime = 0.1;
-    float releaseTime = 0.1;
+    float attackDuration = 0.1;
+    float releaseDuration = 0.1;
     float rage = 0.1;
     BOOL rageIsOn = true;
 };
@@ -32,17 +32,17 @@ AKDynaRageCompressorDSPKernel::~AKDynaRageCompressorDSPKernel() = default;
 void AKDynaRageCompressorDSPKernel::init(int _channels, double _sampleRate) {
     AKDSPKernel::init(_channels, _sampleRate);
     _private->left_compressor = new Compressor(_private->threshold, _private->ratio,
-                                               _private->attackTime, _private->releaseTime, (int)_sampleRate);
-    _private->right_compressor = new Compressor(_private->threshold, _private->ratio, _private->attackTime,
-                                                _private->releaseTime, (int)_sampleRate);
+                                               _private->attackDuration, _private->releaseDuration, (int)_sampleRate);
+    _private->right_compressor = new Compressor(_private->threshold, _private->ratio, _private->attackDuration,
+                                                _private->releaseDuration, (int)_sampleRate);
     
     _private->left_rageprocessor = new RageProcessor((int)_sampleRate);
     _private->right_rageprocessor = new RageProcessor((int)_sampleRate);
     
     ratioRamper.init();
     thresholdRamper.init();
-    attackTimeRamper.init();
-    releaseTimeRamper.init();
+    attackDurationRamper.init();
+    releaseDurationRamper.init();
     rageRamper.init();
 }
 
@@ -50,8 +50,8 @@ void AKDynaRageCompressorDSPKernel::reset() {
     resetted = true;
     ratioRamper.reset();
     thresholdRamper.reset();
-    attackTimeRamper.reset();
-    releaseTimeRamper.reset();
+    attackDurationRamper.reset();
+    releaseDurationRamper.reset();
     rageRamper.reset();
 }
 
@@ -65,14 +65,14 @@ void AKDynaRageCompressorDSPKernel::setThreshold(float value) {
     thresholdRamper.setImmediate(_private->threshold);
 }
 
-void AKDynaRageCompressorDSPKernel::setAttackTime(float value) {
-    _private->attackTime = clamp(value, 20.0f, 500.0f);
-    attackTimeRamper.setImmediate(_private->attackTime);
+void AKDynaRageCompressorDSPKernel::setAttackDuration(float value) {
+    _private->attackDuration = clamp(value, 20.0f, 500.0f);
+    attackDurationRamper.setImmediate(_private->attackDuration);
 }
 
-void AKDynaRageCompressorDSPKernel::setReleaseTime(float value) {
-    _private->releaseTime = clamp(value, 20.0f, 500.0f);
-    releaseTimeRamper.setImmediate(_private->releaseTime);
+void AKDynaRageCompressorDSPKernel::setReleaseDuration(float value) {
+    _private->releaseDuration = clamp(value, 20.0f, 500.0f);
+    releaseDurationRamper.setImmediate(_private->releaseDuration);
 }
 
 void AKDynaRageCompressorDSPKernel::setRage(float value) {
@@ -94,12 +94,12 @@ void AKDynaRageCompressorDSPKernel::setParameter(AUParameterAddress address, AUV
             thresholdRamper.setUIValue(clamp(value, -100.0f, 0.0f));
             break;
             
-        case attackTimeAddress:
-            attackTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
+        case attackDurationAddress:
+            attackDurationRamper.setUIValue(clamp(value, 0.1f, 500.0f));
             break;
             
-        case releaseTimeAddress:
-            releaseTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
+        case releaseDurationAddress:
+            releaseDurationRamper.setUIValue(clamp(value, 0.1f, 500.0f));
             break;
             
         case rageAddress:
@@ -118,11 +118,11 @@ AUValue AKDynaRageCompressorDSPKernel::getParameter(AUParameterAddress address) 
         case thresholdAddress:
             return thresholdRamper.getUIValue();
             
-        case attackTimeAddress:
-            return attackTimeRamper.getUIValue();
+        case attackDurationAddress:
+            return attackDurationRamper.getUIValue();
             
-        case releaseTimeAddress:
-            return releaseTimeRamper.getUIValue();
+        case releaseDurationAddress:
+            return releaseDurationRamper.getUIValue();
             
         case rageAddress:
             return rageRamper.getUIValue();
@@ -141,12 +141,12 @@ void AKDynaRageCompressorDSPKernel::startRamp(AUParameterAddress address, AUValu
             thresholdRamper.startRamp(clamp(value, -100.0f, 0.0f), duration);
             break;
             
-        case attackTimeAddress:
-            attackTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
+        case attackDurationAddress:
+            attackDurationRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
             break;
             
-        case releaseTimeAddress:
-            releaseTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
+        case releaseDurationAddress:
+            releaseDurationRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
             break;
             
         case rageAddress:
@@ -163,14 +163,14 @@ void AKDynaRageCompressorDSPKernel::process(AUAudioFrameCount frameCount, AUAudi
         
         _private->ratio = ratioRamper.getAndStep();
         _private->threshold = thresholdRamper.getAndStep();
-        _private->attackTime = attackTimeRamper.getAndStep();
-        _private->releaseTime = releaseTimeRamper.getAndStep();
+        _private->attackDuration = attackDurationRamper.getAndStep();
+        _private->releaseDuration = releaseDurationRamper.getAndStep();
         _private->rage = rageRamper.getAndStep();
         
         _private->left_compressor->setParameters(_private->threshold, _private->ratio,
-                                                 _private->attackTime, _private->releaseTime);
+                                                 _private->attackDuration, _private->releaseDuration);
         _private->right_compressor->setParameters(_private->threshold, _private->ratio,
-                                                  _private->attackTime, _private->releaseTime);
+                                                  _private->attackDuration, _private->releaseDuration);
         
         for (int channel = 0; channel < channels; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;

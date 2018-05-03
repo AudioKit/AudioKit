@@ -15,7 +15,7 @@ class AKDynaRangeCompressorTests: AKTestCase {
         super.setUp()
         // Need to have a longer test duration to allow for envelope to progress
         duration = 1.0
-        input.rampTime = 0.0
+        input.rampDuration = 0.0
         input.amplitude = 0.1
     }
 

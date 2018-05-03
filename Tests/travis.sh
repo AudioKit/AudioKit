@@ -44,10 +44,6 @@ echo "Skipping tvOS HelloWorld (on develop branch)"
 
 echo "Building More Advanced Examples"
 
-echo "Building iOS AnalogSynthX"
-cd Examples/iOS/AnalogSynthX; pod install; cd ../../..
-xcodebuild -workspace Examples/iOS/AnalogSynthX/AnalogSynthX.xcworkspace -sdk iphonesimulator -scheme AnalogSynthX -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 7
-
 echo "Building iOS AKSamplerDemo"
 xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
 
@@ -80,9 +76,6 @@ xcodebuild -project Examples/iOS/Recorder/Recorder.xcodeproj -sdk iphonesimulato
 
 echo "Building iOS SequencerDemo"
 xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk iphonesimulator -scheme SequencerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 18
-
-echo "Building iOS SongProcessor"
-xcodebuild -project Examples/iOS/SongProcessor/SongProcessor.xcodeproj -sdk iphonesimulator -scheme SongProcessor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 19
 
 echo "Building iOS SporthEditor"
 xcodebuild -project Examples/iOS/SporthEditor/SporthEditor.xcodeproj -sdk iphonesimulator -scheme SporthEditor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 20

@@ -33,10 +33,10 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var feedbackParameter: AUParameter?
     fileprivate var dryWetMixParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 

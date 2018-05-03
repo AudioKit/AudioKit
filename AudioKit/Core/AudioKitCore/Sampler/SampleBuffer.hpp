@@ -19,10 +19,10 @@ namespace AudioKitCore
         float sampleRateHz;
         int nChannelCount;
         int nSampleCount;
-        float fStart, fEnd;
+        float startPoint, endPoint;
         bool bLoop;
-        float fLoopStart, fLoopEnd;
-        float noteHz;
+        float loopStartPoint, loopEndPoint;
+        float noteFrequency;
         
         SampleBuffer();
         ~SampleBuffer();
@@ -76,7 +76,7 @@ namespace AudioKitCore
     struct KeyMappedSampleBuffer : public SampleBuffer
     {
         // Any of these members may be negative, meaning "no value assigned"
-        int noteNumber;     // closest MIDI note-number to this sample's frequency (noteHz)
+        int noteNumber;     // closest MIDI note-number to this sample's frequency (noteFrequency)
         int min_note, max_note;     // minimum and maximum note numbers for mapping
         int min_vel, max_vel;       // min/max MIDI velocities for mapping
     };

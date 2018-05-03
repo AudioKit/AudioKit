@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
     AKClarinetParameterFrequency,
     AKClarinetParameterAmplitude,
-    AKClarinetParameterRampTime
+    AKClarinetParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
