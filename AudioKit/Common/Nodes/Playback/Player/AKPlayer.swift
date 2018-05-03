@@ -193,35 +193,53 @@ public class AKPlayer: AKNode {
 
     /// Volume 0.0 -> 1.0, default 1.0
     public var volume: Double {
-        get { return Double(playerNode.volume) }
-        set { playerNode.volume = Float(newValue) }
-    }
+        get {
+            return Double(playerNode.volume)
+        }
 
-    /// Amplification Factor, in the range of 0.0002 to 2
-    public var gain: Double = 1 {
-        didSet {
-            if faderNode.rampTime != AKSettings.rampTime {
-                faderNode.rampTime = AKSettings.rampTime
-            }
-            fade.maximumGain = gain
-            faderNode.gain = gain
+        set {
+            playerNode.volume = Float(newValue)
         }
     }
 
-    public var rate: Double = 1 {
-        didSet {
-            timePitchNode.rate = rate
+    /// Amplification Factor, in the range of 0.0002 to 2
+    public var gain: Double {
+        get {
+            return fade.maximumGain
+        }
 
-            if rate == 1 && pitch == 0 {
+        set {
+            fade.maximumGain = newValue
+            faderNode.gain = newValue
+        }
+    }
+
+    public var rate: Double {
+        get {
+            if timePitchNode.isBypassed {
+                return 1
+            }
+            return timePitchNode.rate
+        }
+
+        set {
+            timePitchNode.rate = newValue
+            if newValue == 1 && pitch == 0 {
                 timePitchNode.bypass()
             }
         }
     }
 
-    public var pitch: Double = 0 {
-        didSet {
-            timePitchNode.pitch = pitch
+    public var pitch: Double {
+        get {
+            if timePitchNode.isBypassed {
+                return 0
+            }
+            return timePitchNode.pitch
+        }
 
+        set {
+            timePitchNode.pitch = newValue
             if rate == 1 && pitch == 0 {
                 timePitchNode.bypass()
             }
@@ -238,8 +256,12 @@ public class AKPlayer: AKNode {
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
     public var pan: Double {
-        get { return Double(playerNode.pan) }
-        set { playerNode.pan = Float(newValue) }
+        get {
+            return Double(playerNode.pan)
+        }
+        set {
+            playerNode.pan = Float(newValue)
+        }
     }
 
     /// Get or set the start time of the player.
@@ -502,7 +524,6 @@ public class AKPlayer: AKNode {
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
         playerNode.stop()
-
         resetFader(false)
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
@@ -530,9 +551,7 @@ public class AKPlayer: AKNode {
             startFade()
             return
         }
-
         triggerTime /= rate
-
         AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
@@ -550,7 +569,6 @@ public class AKPlayer: AKNode {
         if fade.inTime == 0 {
             state = true
         }
-
         faderNode.rampType = fade.inRampType
         faderNode.rampTime = AKSettings.rampTime
         faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
@@ -569,9 +587,6 @@ public class AKPlayer: AKNode {
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
-
-        // AKLog("rampTime", faderNode.rampTime, "gain", faderNode.gain, "startTime", startTime, "endTime", endTime, "FADE", fade)
-
         faderTimer?.invalidate()
 
         guard fade.outTime > 0 else { return }
