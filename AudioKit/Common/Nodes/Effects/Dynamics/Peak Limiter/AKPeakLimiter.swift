@@ -16,15 +16,15 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
     private var mixer: AKMixer
 
-    /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    @objc open dynamic var attackTime: Double = 0.012 {
+    /// Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    @objc open dynamic var attackDuration: Double = 0.012 {
         didSet {
-            attackTime = (0.001...0.03).clamp(attackTime)
-            au[kLimiterParam_AttackTime] = attackTime
+            attackDuration = (0.001...0.03).clamp(attackDuration)
+            au[kLimiterParam_AttackTime] = attackDuration
         }
     }
 
-    /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    /// Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     @objc open dynamic var decayTime: Double = 0.024 {
         didSet {
             decayTime = (0.001...0.06).clamp(decayTime)
@@ -64,17 +64,17 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    ///   - attackDuration: Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
     ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        attackTime: Double = 0.012,
+        attackDuration: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {
 
-        self.attackTime = attackTime
+        self.attackDuration = attackDuration
         self.decayTime = decayTime
         self.preGain = preGain
 
@@ -101,7 +101,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         }
         AudioKit.engine.connect(effect, to: mixer.avAudioNode, format: AudioKit.format)
 
-        au[kLimiterParam_AttackTime] = attackTime
+        au[kLimiterParam_AttackTime] = attackDuration
         au[kLimiterParam_DecayTime] = decayTime
         au[kLimiterParam_PreGain] = preGain
     }

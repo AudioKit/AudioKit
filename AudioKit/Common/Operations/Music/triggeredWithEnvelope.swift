@@ -12,9 +12,9 @@ extension AKOperation {
     ///
     /// - Parameters:
     ///   - trigger: A triggering operation such as a metronome
-    ///   - attack: Attack time, in seconds. (Default: 0.1)
-    ///   - hold: Hold time, in seconds. (Default: 0.3)
-    ///   - release: Release time, in seconds. (Default: 0.2)
+    ///   - attack: Attack duration, in seconds. (Default: 0.1)
+    ///   - hold: Hold duration, in seconds. (Default: 0.3)
+    ///   - release: Release duration, in seconds. (Default: 0.2)
     ///
     public func triggeredWithEnvelope(
         trigger: AKParameter,

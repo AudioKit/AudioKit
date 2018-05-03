@@ -30,7 +30,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Attack time
+    /// Attack Duration
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration == newValue {
@@ -105,10 +105,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - attackDuration: Attack time
-    ///   - decayDuration: Decay time
+    ///   - attackDuration: Attack Duration
+    ///   - decayDuration: Decay Duration
     ///   - sustainLevel: Sustain Level
-    ///   - releaseDuration: Release time
+    ///   - releaseDuration: Release Duration
     ///
     @objc public init(
         _ input: AKNode? = nil,

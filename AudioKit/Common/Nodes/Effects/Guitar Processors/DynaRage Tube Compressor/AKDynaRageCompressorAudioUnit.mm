@@ -26,8 +26,8 @@
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
 }
-- (void)setAttackTime:(float)attackTime {
-    _kernel.setAttackTime(attackTime);
+- (void)setAttackTime:(float)attackDuration {
+    _kernel.setAttackTime(attackDuration);
 }
 - (void)setReleaseTime:(float)releaseTime {
     _kernel.setReleaseTime(releaseTime);
@@ -61,18 +61,18 @@ standardKernelPassthroughs()
                        min:-100.0
                        max:0.0
                       unit:kAudioUnitParameterUnit_Generic];
-    // Create a parameter object for the attackTime.
-    AUParameter *attackTimeAUParameter =
-    [AUParameter parameter:@"attackTime"
-                      name:@"Attack time"
-                   address:AKDynaRageCompressorDSPKernel::attackTimeAddress
+    // Create a parameter object for the attackDuration.
+    AUParameter *attackDurationAUParameter =
+    [AUParameter parameter:@"attackDuration"
+                      name:@"Attack duration"
+                   address:AKDynaRageCompressorDSPKernel::attackDurationAddress
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
     // Create a parameter object for the releaseTime.
     AUParameter *releaseTimeAUParameter =
     [AUParameter parameter:@"releaseTime"
-                      name:@"Release time"
+                      name:@"Release duration"
                    address:AKDynaRageCompressorDSPKernel::releaseTimeAddress
                        min:0.1
                        max:500.0
@@ -91,13 +91,13 @@ standardKernelPassthroughs()
     // Initialize the parameter values.
     ratioAUParameter.value = 1.0;
     thresholdAUParameter.value = 0.0;
-    attackTimeAUParameter.value = 0.1;
+    attackDurationAUParameter.value = 0.1;
     releaseTimeAUParameter.value = 0.1;
     rageAUParameter.value = 0.1;
 
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::ratioAddress,       ratioAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::thresholdAddress,   thresholdAUParameter.value);
-    _kernel.setParameter(AKDynaRageCompressorDSPKernel::attackTimeAddress,  attackTimeAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::releaseTimeAddress, releaseTimeAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::rageAddress,  rageAUParameter.value);
 
@@ -105,7 +105,7 @@ standardKernelPassthroughs()
     _parameterTree = [AUParameterTree tree:@[
                                              ratioAUParameter,
                                              thresholdAUParameter,
-                                             attackTimeAUParameter,
+                                             attackDurationAUParameter,
                                              releaseTimeAUParameter,
                                              rageAUParameter
                                              ]];

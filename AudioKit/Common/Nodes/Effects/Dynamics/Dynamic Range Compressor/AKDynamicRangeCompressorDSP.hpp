@@ -39,14 +39,14 @@ public:
     float ratioUpperBound = 100.0;
     float thresholdLowerBound = -100.0;
     float thresholdUpperBound = 0.0;
-    float attackTimeLowerBound = 0.0;
-    float attackTimeUpperBound = 1.0;
+    float attackDurationLowerBound = 0.0;
+    float attackDurationUpperBound = 1.0;
     float releaseTimeLowerBound = 0.0;
     float releaseTimeUpperBound = 1.0;
 
     float defaultRatio = 1;
     float defaultThreshold = 0.0;
-    float defaultAttackTime = 0.1;
+    float defaultAttackDuration = 0.1;
     float defaultReleaseTime = 0.1;
 
     int defaultRampTimeSamples = 10000;

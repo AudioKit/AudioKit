@@ -48,8 +48,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampTimeParam, value: rampTime) }
     }
 
-    var attackTime: Double = 0.0 {
-        didSet { setParameter(.attackTimeParam, value: attackTime) }
+    var attackDuration: Double = 0.0 {
+        didSet { setParameter(.attackDurationParam, value: attackDuration) }
     }
 
     var decayTime: Double = 0.0 {
@@ -147,8 +147,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 valueStrings: nil, dependentParameters: nil)
 
         paramAddress += 1
-        let attackTimeParam = AUParameterTree.createParameter(withIdentifier: "attackTime",
-                                                                name: "Amp Attack time (seconds)",
+        let attackDurationParam = AUParameterTree.createParameter(withIdentifier: "attackDuration",
+                                                                name: "Amplitude Attack duration (seconds)",
                                                                 address: AUParameterAddress(paramAddress),
                                                                 min: 0.0, max: 1_000.0,
                                                                 unit: .seconds, unitName: nil,
@@ -156,7 +156,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let decayTimeParam = AUParameterTree.createParameter(withIdentifier: "decayTime",
-                                                              name: "Amp Decay time (seconds)",
+                                                              name: "Amplitude Decay duration (seconds)",
                                                               address: AUParameterAddress(paramAddress),
                                                               min: 0.0, max: 1_000.0,
                                                               unit: .seconds, unitName: nil,
@@ -164,7 +164,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                               valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let sustainLevelParam = AUParameterTree.createParameter(withIdentifier: "sustainLevel",
-                                                             name: "Amp Sustain level (fraction)",
+                                                             name: "Amplitude Sustain level (fraction)",
                                                              address: AUParameterAddress(paramAddress),
                                                              min: 0.0, max: 1.0,
                                                              unit: .generic, unitName: nil,
@@ -172,7 +172,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                              valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let releaseTimeParam = AUParameterTree.createParameter(withIdentifier: "releaseTime",
-                                                              name: "Amp Release time (seconds)",
+                                                              name: "Amplitude Release duration (seconds)",
                                                               address: AUParameterAddress(paramAddress),
                                                               min: 0.0, max: 1_000.0,
                                                               unit: .seconds, unitName: nil,
@@ -180,7 +180,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                               valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterAttackTimeParam = AUParameterTree.createParameter(withIdentifier: "filterAttackTime",
-                                                                 name: "Filter Attack time (seconds)",
+                                                                 name: "Filter Attack duration (seconds)",
                                                                  address: AUParameterAddress(paramAddress),
                                                                  min: 0.0, max: 1_000.0,
                                                                  unit: .seconds, unitName: nil,
@@ -188,7 +188,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                  valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterDecayTimeParam = AUParameterTree.createParameter(withIdentifier: "filterDecayTime",
-                                                                name: "Filter Decay time (seconds)",
+                                                                name: "Filter Decay duration (seconds)",
                                                                 address: AUParameterAddress(paramAddress),
                                                                 min: 0.0, max: 1_000.0,
                                                                 unit: .seconds, unitName: nil,
@@ -204,7 +204,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterReleaseTimeParam = AUParameterTree.createParameter(withIdentifier: "filterReleaseTime",
-                                                                  name: "Filter Release time (seconds)",
+                                                                  name: "Filter Release duration (seconds)",
                                                                   address: AUParameterAddress(paramAddress),
                                                                   min: 0.0, max: 1_000.0,
                                                                   unit: .seconds, unitName: nil,
@@ -221,7 +221,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
                                                                    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
-                                                                   attackTimeParam, decayTimeParam,
+                                                                   attackDurationParam, decayTimeParam,
                                                                    sustainLevelParam, releaseTimeParam,
                                                                    filterAttackTimeParam, filterDecayTimeParam,
                                                                    filterSustainLevelParam, filterReleaseTimeParam,
@@ -232,7 +232,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterCutoffParam.value = 4.0
         filterEgStrengthParam.value = 20.0
         filterResonanceParam.value = 0.0
-        attackTimeParam.value = 0.0
+        attackDurationParam.value = 0.0
         decayTimeParam.value = 0.0
         sustainLevelParam.value = 1.0
         releaseTimeParam.value = 0.0

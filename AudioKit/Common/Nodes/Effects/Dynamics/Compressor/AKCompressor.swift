@@ -30,15 +30,15 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    @objc open dynamic var attackTime: Double = 0.001 {
+    /// Attack Duration (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
+    @objc open dynamic var attackDuration: Double = 0.001 {
         didSet {
-            attackTime = (0.000_1...0.2).clamp(attackTime)
-            au[kDynamicsProcessorParam_AttackTime] = attackTime
+            attackDuration = (0.000_1...0.2).clamp(attackDuration)
+            au[kDynamicsProcessorParam_AttackTime] = attackDuration
         }
     }
 
-    /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+    /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
     @objc open dynamic var releaseTime: Double = 0.05 {
         didSet {
             releaseTime = (0.01...3).clamp(releaseTime)
@@ -96,21 +96,21 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - input: Input node to process
     ///   - threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
     ///   - headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
-    ///   - attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    ///   - releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+    ///   - attackDuration: Attack Duration (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+    ///   - releaseTime: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
         _ input: AKNode? = nil,
         threshold: Double = -20,
         headRoom: Double = 5,
-        attackTime: Double = 0.001,
+        attackDuration: Double = 0.001,
         releaseTime: Double = 0.05,
         masterGain: Double = 0) {
 
         self.threshold = threshold
         self.headRoom = headRoom
-        self.attackTime = attackTime
+        self.attackDuration = attackDuration
         self.releaseTime = releaseTime
         self.masterGain = masterGain
 
@@ -133,7 +133,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
 
         au[kDynamicsProcessorParam_Threshold] = threshold
         au[kDynamicsProcessorParam_HeadRoom] = headRoom
-        au[kDynamicsProcessorParam_AttackTime] = attackTime
+        au[kDynamicsProcessorParam_AttackTime] = attackDuration
         au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
         au[kDynamicsProcessorParam_MasterGain] = masterGain
     }

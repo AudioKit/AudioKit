@@ -48,7 +48,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
 
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
-            name: "Attack time",
+            name: "Attack duration",
             address: AUParameterAddress(0),
             min: 0,
             max: 99,
