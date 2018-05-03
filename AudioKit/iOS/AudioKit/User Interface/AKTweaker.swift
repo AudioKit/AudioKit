@@ -28,6 +28,8 @@ open class AKTweaker : UIView {
     }
     public func setStable(value: Double){
         nudger.setStable(value: value)
+        coarseStepper.currentValue = value
+        fineStepper.currentValue = value
     }
     
     override init(frame: CGRect) {
