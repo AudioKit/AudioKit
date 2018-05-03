@@ -68,10 +68,10 @@ class Conductor {
 
 //        sampler.filterEnable = true
 //        sampler.filterCutoff = 20.0
-//        sampler.filterAttackTime = 1.0
-//        sampler.filterDecayTime = 1.0
+//        sampler.filterAttackDuration = 1.0
+//        sampler.filterDecayDuration = 1.0
 //        sampler.filterSustainLevel = 0.5
-//        sampler.filterReleaseTime = 10.0
+//        sampler.filterReleaseDuration = 10.0
     }
 
     func addMIDIListener(_ listener: AKMIDIListener) {

@@ -64,20 +64,20 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.releaseDurationParam, value: releaseDuration) }
     }
 
-    var filterAttackTime: Double = 0.0 {
-        didSet { setParameter(.filterAttackTimeParam, value: filterAttackTime) }
+    var filterAttackDuration: Double = 0.0 {
+        didSet { setParameter(.filterAttackDurationParam, value: filterAttackDuration) }
     }
 
-    var filterDecayTime: Double = 0.0 {
-        didSet { setParameter(.filterDecayTimeParam, value: filterDecayTime) }
+    var filterDecayDuration: Double = 0.0 {
+        didSet { setParameter(.filterDecayDurationParam, value: filterDecayDuration) }
     }
 
     var filterSustainLevel: Double = 0.0 {
         didSet { setParameter(.filterSustainLevelParam, value: filterSustainLevel) }
     }
 
-    var filterReleaseTime: Double = 0.0 {
-        didSet { setParameter(.filterReleaseTimeParam, value: filterReleaseTime) }
+    var filterReleaseDuration: Double = 0.0 {
+        didSet { setParameter(.filterReleaseDurationParam, value: filterReleaseDuration) }
     }
 
     var filterEnable: Double = 0.0 {
@@ -179,7 +179,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    flags: nonRampFlags,
                                                                    valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
-        let filterAttackTimeParam = AUParameterTree.createParameter(withIdentifier: "filterAttackTime",
+        let filterAttackDurationParam = AUParameterTree.createParameter(withIdentifier: "filterAttackDuration",
                                                                     name: "Filter Attack duration (seconds)",
                                                                     address: AUParameterAddress(paramAddress),
                                                                     min: 0.0, max: 1_000.0,
@@ -187,7 +187,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                     flags: nonRampFlags,
                                                                     valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
-        let filterDecayTimeParam = AUParameterTree.createParameter(withIdentifier: "filterDecayTime",
+        let filterDecayDurationParam = AUParameterTree.createParameter(withIdentifier: "filterDecayDuration",
                                                                    name: "Filter Decay duration (seconds)",
                                                                    address: AUParameterAddress(paramAddress),
                                                                    min: 0.0, max: 1_000.0,
@@ -203,7 +203,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                       flags: nonRampFlags,
                                                                       valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
-        let filterReleaseTimeParam = AUParameterTree.createParameter(withIdentifier: "filterReleaseTime",
+        let filterReleaseDurationParam = AUParameterTree.createParameter(withIdentifier: "filterReleaseDuration",
                                                                      name: "Filter Release duration (seconds)",
                                                                      address: AUParameterAddress(paramAddress),
                                                                      min: 0.0, max: 1_000.0,
@@ -223,8 +223,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
                                                                    attackDurationParam, decayDurationParam,
                                                                    sustainLevelParam, releaseDurationParam,
-                                                                   filterAttackTimeParam, filterDecayTimeParam,
-                                                                   filterSustainLevelParam, filterReleaseTimeParam,
+                                                                   filterAttackDurationParam, filterDecayDurationParam,
+                                                                   filterSustainLevelParam, filterReleaseDurationParam,
                                                                    filterEnableParam ]))
         masterVolumeParam.value = 1.0
         pitchBendParam.value = 0.0
@@ -236,10 +236,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         decayDurationParam.value = 0.0
         sustainLevelParam.value = 1.0
         releaseDurationParam.value = 0.0
-        filterAttackTimeParam.value = 0.0
-        filterDecayTimeParam.value = 0.0
+        filterAttackDurationParam.value = 0.0
+        filterDecayDurationParam.value = 0.0
         filterSustainLevelParam.value = 1.0
-        filterReleaseTimeParam.value = 0.0
+        filterReleaseDurationParam.value = 0.0
         filterEnableParam.value = 0.0
     }
 
