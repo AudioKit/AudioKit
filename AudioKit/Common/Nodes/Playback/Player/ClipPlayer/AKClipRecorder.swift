@@ -15,9 +15,9 @@
 public typealias ClipRecordingCompletion = (ClipRecordingResult) -> Void
 
 public struct ClipRecording {
-    var url: URL
-    var startTime: Double
-    var duration: Double
+    public let url: URL
+    public let startTime: Double
+    public let duration: Double
 }
 public enum ClipRecordingResult {
     case clip(ClipRecording)
