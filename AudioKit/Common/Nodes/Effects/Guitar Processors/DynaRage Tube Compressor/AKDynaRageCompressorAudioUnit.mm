@@ -26,11 +26,11 @@
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
 }
-- (void)setAttackTime:(float)attackDuration {
-    _kernel.setAttackTime(attackDuration);
+- (void)setAttackDuration:(float)attackDuration {
+    _kernel.setAttackDuration(attackDuration);
 }
-- (void)setReleaseTime:(float)releaseDuration {
-    _kernel.setReleaseTime(releaseDuration);
+- (void)setReleaseDuration:(float)releaseDuration {
+    _kernel.setReleaseDuration(releaseDuration);
 }
 - (void)setRage:(float)rage {
     _kernel.setRage(rage);

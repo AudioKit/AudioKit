@@ -45,9 +45,9 @@ public:
 
     void setThreshold(float value);
 
-    void setAttackTime(float value);
+    void setAttackDuration(float value);
 
-    void setReleaseTime(float value);
+    void setReleaseDuration(float value);
 
     void setRage(float value) ;
 

@@ -30,8 +30,8 @@ void Compressor::setParameters(float fThreshold, float fRatio, float fAttack,
                                float fRelease) {
     this->theThreshold = fThreshold;
     this->theRatio = fRatio;
-    this->envDetector.setAttackTime(fAttack);
-    this->envDetector.setReleaseTime(fRelease);
+    this->envDetector.setAttackDuration(fAttack);
+    this->envDetector.setReleaseDuration(fRelease);
 }
 
 float Compressor::Process(float fInputSignal, bool bLimitOn,

@@ -65,12 +65,12 @@ void AKDynaRageCompressorDSPKernel::setThreshold(float value) {
     thresholdRamper.setImmediate(_private->threshold);
 }
 
-void AKDynaRageCompressorDSPKernel::setAttackTime(float value) {
+void AKDynaRageCompressorDSPKernel::setAttackDuration(float value) {
     _private->attackDuration = clamp(value, 20.0f, 500.0f);
     attackDurationRamper.setImmediate(_private->attackDuration);
 }
 
-void AKDynaRageCompressorDSPKernel::setReleaseTime(float value) {
+void AKDynaRageCompressorDSPKernel::setReleaseDuration(float value) {
     _private->releaseDuration = clamp(value, 20.0f, 500.0f);
     releaseDurationRamper.setImmediate(_private->releaseDuration);
 }
