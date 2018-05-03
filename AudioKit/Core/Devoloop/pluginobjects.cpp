@@ -42,11 +42,11 @@ void CEnvelopeDetector::init(float samplerate, float attack_in_ms,
   m_bLogDetector = bLogDetector;
 
   // set themm_uDetectMode = uDetect;
-  setAttackTime(attack_in_ms);
-  setReleaseTime(release_in_ms);
+  setAttackDuration(attack_in_ms);
+  setReleaseDuration(release_in_ms);
 }
 
-void CEnvelopeDetector::setAttackTime(float attack_in_ms) {
+void CEnvelopeDetector::setAttackDuration(float attack_in_ms) {
   m_fAttackTime_mSec = attack_in_ms;
 
   if (m_bAnalogTC)
@@ -55,7 +55,7 @@ void CEnvelopeDetector::setAttackTime(float attack_in_ms) {
     m_fAttackTime = expf(DIGITAL_TC / (attack_in_ms * m_fSampleRate * 0.001f));
 }
 
-void CEnvelopeDetector::setReleaseTime(float release_in_ms) {
+void CEnvelopeDetector::setReleaseDuration(float release_in_ms) {
   m_fReleaseTime_mSec = release_in_ms;
 
   if (m_bAnalogTC)
@@ -67,8 +67,8 @@ void CEnvelopeDetector::setReleaseTime(float release_in_ms) {
 
 void CEnvelopeDetector::setTCModeAnalog(bool bAnalogTC) {
   m_bAnalogTC = bAnalogTC;
-  setAttackTime(m_fAttackTime_mSec);
-  setReleaseTime(m_fReleaseTime_mSec);
+  setAttackDuration(m_fAttackTime_mSec);
+  setReleaseDuration(m_fReleaseTime_mSec);
 }
 
 float CEnvelopeDetector::detect(float fInput) {

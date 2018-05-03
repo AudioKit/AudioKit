@@ -16,8 +16,8 @@ typedef NS_ENUM(int64_t, AKSamplerParameter)
     masterVolumeParam, pitchBendParam, vibratoDepthParam,
     filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
     // simple parameters
-    attackTimeParam, decayTimeParam, sustainLevelParam, releaseTimeParam,
-    filterAttackTimeParam, filterDecayTimeParam, filterSustainLevelParam, filterReleaseTimeParam,
+    attackDurationParam, decayDurationParam, sustainLevelParam, releaseDurationParam,
+    filterAttackDurationParam, filterDecayDurationParam, filterSustainLevelParam, filterReleaseDurationParam,
     filterEnableParam,
     
     // ensure this is always last in the list, to simplify parameter addressing

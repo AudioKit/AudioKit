@@ -12,8 +12,8 @@
 @interface AKDynaRageCompressorAudioUnit : AKAudioUnit
 @property (nonatomic) float ratio;
 @property (nonatomic) float threshold;
-@property (nonatomic) float attackTime;
-@property (nonatomic) float releaseTime;
+@property (nonatomic) float attackDuration;
+@property (nonatomic) float releaseDuration;
 @property (nonatomic) float rage;
 @property (nonatomic) BOOL rageIsOn;
 @end

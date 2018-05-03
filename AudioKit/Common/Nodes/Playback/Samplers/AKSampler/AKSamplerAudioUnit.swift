@@ -48,36 +48,36 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.rampTimeParam, value: rampTime) }
     }
 
-    var attackTime: Double = 0.0 {
-        didSet { setParameter(.attackTimeParam, value: attackTime) }
+    var attackDuration: Double = 0.0 {
+        didSet { setParameter(.attackDurationParam, value: attackDuration) }
     }
 
-    var decayTime: Double = 0.0 {
-        didSet { setParameter(.decayTimeParam, value: decayTime) }
+    var decayDuration: Double = 0.0 {
+        didSet { setParameter(.decayDurationParam, value: decayDuration) }
     }
 
     var sustainLevel: Double = 0.0 {
         didSet { setParameter(.sustainLevelParam, value: sustainLevel) }
     }
 
-    var releaseTime: Double = 0.0 {
-        didSet { setParameter(.releaseTimeParam, value: releaseTime) }
+    var releaseDuration: Double = 0.0 {
+        didSet { setParameter(.releaseDurationParam, value: releaseDuration) }
     }
 
-    var filterAttackTime: Double = 0.0 {
-        didSet { setParameter(.filterAttackTimeParam, value: filterAttackTime) }
+    var filterAttackDuration: Double = 0.0 {
+        didSet { setParameter(.filterAttackDurationParam, value: filterAttackDuration) }
     }
 
-    var filterDecayTime: Double = 0.0 {
-        didSet { setParameter(.filterDecayTimeParam, value: filterDecayTime) }
+    var filterDecayDuration: Double = 0.0 {
+        didSet { setParameter(.filterDecayDurationParam, value: filterDecayDuration) }
     }
 
     var filterSustainLevel: Double = 0.0 {
         didSet { setParameter(.filterSustainLevelParam, value: filterSustainLevel) }
     }
 
-    var filterReleaseTime: Double = 0.0 {
-        didSet { setParameter(.filterReleaseTimeParam, value: filterReleaseTime) }
+    var filterReleaseDuration: Double = 0.0 {
+        didSet { setParameter(.filterReleaseDurationParam, value: filterReleaseDuration) }
     }
 
     var filterEnable: Double = 0.0 {
@@ -107,20 +107,20 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let pitchBendParam = AUParameterTree.createParameter(withIdentifier: "pitchBend",
-                                                       name: "Pitch Offset (semitones)",
-                                                       address: AUParameterAddress(paramAddress),
-                                                       min: -1_000.0, max: 1_000.0,
-                                                       unit: .relativeSemiTones, unitName: nil,
-                                                       flags: rampFlags,
-                                                       valueStrings: nil, dependentParameters: nil)
+                                                             name: "Pitch Offset (semitones)",
+                                                             address: AUParameterAddress(paramAddress),
+                                                             min: -1_000.0, max: 1_000.0,
+                                                             unit: .relativeSemiTones, unitName: nil,
+                                                             flags: rampFlags,
+                                                             valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let vibratoDepthParam = AUParameterTree.createParameter(withIdentifier: "vibratoDepth",
-                                                        name: "Vibrato amount (semitones)",
-                                                        address: AUParameterAddress(paramAddress),
-                                                        min: 0.0, max: 24.0,
-                                                        unit: .relativeSemiTones, unitName: nil,
-                                                        flags: rampFlags,
-                                                        valueStrings: nil, dependentParameters: nil)
+                                                                name: "Vibrato amount (semitones)",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 24.0,
+                                                                unit: .relativeSemiTones, unitName: nil,
+                                                                flags: rampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterCutoffParam = AUParameterTree.createParameter(withIdentifier: "filterCutoff",
                                                                 name: "Filter cutoff (harmonic))",
@@ -131,100 +131,100 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterEgStrengthParam = AUParameterTree.createParameter(withIdentifier: "filterEgStrength",
-                                                                name: "Filter EG strength",
-                                                                address: AUParameterAddress(paramAddress),
-                                                                min: 0.0, max: 1_000.0,
-                                                                unit: .ratio, unitName: nil,
-                                                                flags: rampFlags,
-                                                                valueStrings: nil, dependentParameters: nil)
+                                                                    name: "Filter EG strength",
+                                                                    address: AUParameterAddress(paramAddress),
+                                                                    min: 0.0, max: 1_000.0,
+                                                                    unit: .ratio, unitName: nil,
+                                                                    flags: rampFlags,
+                                                                    valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
         let filterResonanceParam = AUParameterTree.createParameter(withIdentifier: "filterResonance",
-                                                                name: "Filter resonance (dB))",
-                                                                address: AUParameterAddress(paramAddress),
-                                                                min: -20.0, max: 20.0,
-                                                                unit: .decibels, unitName: nil,
-                                                                flags: rampFlags,
-                                                                valueStrings: nil, dependentParameters: nil)
+                                                                   name: "Filter resonance (dB))",
+                                                                   address: AUParameterAddress(paramAddress),
+                                                                   min: -20.0, max: 20.0,
+                                                                   unit: .decibels, unitName: nil,
+                                                                   flags: rampFlags,
+                                                                   valueStrings: nil, dependentParameters: nil)
 
         paramAddress += 1
-        let attackTimeParam = AUParameterTree.createParameter(withIdentifier: "attackTime",
-                                                                name: "Amp Attack time (seconds)",
-                                                                address: AUParameterAddress(paramAddress),
-                                                                min: 0.0, max: 1_000.0,
-                                                                unit: .seconds, unitName: nil,
-                                                                flags: nonRampFlags,
-                                                                valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let decayTimeParam = AUParameterTree.createParameter(withIdentifier: "decayTime",
-                                                              name: "Amp Decay time (seconds)",
-                                                              address: AUParameterAddress(paramAddress),
-                                                              min: 0.0, max: 1_000.0,
-                                                              unit: .seconds, unitName: nil,
-                                                              flags: nonRampFlags,
-                                                              valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let sustainLevelParam = AUParameterTree.createParameter(withIdentifier: "sustainLevel",
-                                                             name: "Amp Sustain level (fraction)",
-                                                             address: AUParameterAddress(paramAddress),
-                                                             min: 0.0, max: 1.0,
-                                                             unit: .generic, unitName: nil,
-                                                             flags: nonRampFlags,
-                                                             valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let releaseTimeParam = AUParameterTree.createParameter(withIdentifier: "releaseTime",
-                                                              name: "Amp Release time (seconds)",
-                                                              address: AUParameterAddress(paramAddress),
-                                                              min: 0.0, max: 1_000.0,
-                                                              unit: .seconds, unitName: nil,
-                                                              flags: nonRampFlags,
-                                                              valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let filterAttackTimeParam = AUParameterTree.createParameter(withIdentifier: "filterAttackTime",
-                                                                 name: "Filter Attack time (seconds)",
-                                                                 address: AUParameterAddress(paramAddress),
-                                                                 min: 0.0, max: 1_000.0,
-                                                                 unit: .seconds, unitName: nil,
-                                                                 flags: nonRampFlags,
-                                                                 valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let filterDecayTimeParam = AUParameterTree.createParameter(withIdentifier: "filterDecayTime",
-                                                                name: "Filter Decay time (seconds)",
-                                                                address: AUParameterAddress(paramAddress),
-                                                                min: 0.0, max: 1_000.0,
-                                                                unit: .seconds, unitName: nil,
-                                                                flags: nonRampFlags,
-                                                                valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let filterSustainLevelParam = AUParameterTree.createParameter(withIdentifier: "filterSustainLevel",
-                                                                   name: "Filter Sustain level (fraction)",
-                                                                   address: AUParameterAddress(paramAddress),
-                                                                   min: 0.0, max: 1.0,
-                                                                   unit: .generic, unitName: nil,
-                                                                   flags: nonRampFlags,
-                                                                   valueStrings: nil, dependentParameters: nil)
-        paramAddress += 1
-        let filterReleaseTimeParam = AUParameterTree.createParameter(withIdentifier: "filterReleaseTime",
-                                                                  name: "Filter Release time (seconds)",
+        let attackDurationParam = AUParameterTree.createParameter(withIdentifier: "attackDuration",
+                                                                  name: "Amplitude Attack duration (seconds)",
                                                                   address: AUParameterAddress(paramAddress),
                                                                   min: 0.0, max: 1_000.0,
                                                                   unit: .seconds, unitName: nil,
                                                                   flags: nonRampFlags,
                                                                   valueStrings: nil, dependentParameters: nil)
         paramAddress += 1
-        let filterEnableParam = AUParameterTree.createParameter(withIdentifier: "filterEnable",
-                                                                     name: "Filter Enable",
+        let decayDurationParam = AUParameterTree.createParameter(withIdentifier: "decayDuration",
+                                                                 name: "Amplitude Decay duration (seconds)",
+                                                                 address: AUParameterAddress(paramAddress),
+                                                                 min: 0.0, max: 1_000.0,
+                                                                 unit: .seconds, unitName: nil,
+                                                                 flags: nonRampFlags,
+                                                                 valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let sustainLevelParam = AUParameterTree.createParameter(withIdentifier: "sustainLevel",
+                                                                name: "Amplitude Sustain level (fraction)",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .generic, unitName: nil,
+                                                                flags: nonRampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let releaseDurationParam = AUParameterTree.createParameter(withIdentifier: "releaseDuration",
+                                                                   name: "Amplitude Release duration (seconds)",
+                                                                   address: AUParameterAddress(paramAddress),
+                                                                   min: 0.0, max: 1_000.0,
+                                                                   unit: .seconds, unitName: nil,
+                                                                   flags: nonRampFlags,
+                                                                   valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterAttackDurationParam = AUParameterTree.createParameter(withIdentifier: "filterAttackDuration",
+                                                                    name: "Filter Attack duration (seconds)",
+                                                                    address: AUParameterAddress(paramAddress),
+                                                                    min: 0.0, max: 1_000.0,
+                                                                    unit: .seconds, unitName: nil,
+                                                                    flags: nonRampFlags,
+                                                                    valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterDecayDurationParam = AUParameterTree.createParameter(withIdentifier: "filterDecayDuration",
+                                                                   name: "Filter Decay duration (seconds)",
+                                                                   address: AUParameterAddress(paramAddress),
+                                                                   min: 0.0, max: 1_000.0,
+                                                                   unit: .seconds, unitName: nil,
+                                                                   flags: nonRampFlags,
+                                                                   valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterSustainLevelParam = AUParameterTree.createParameter(withIdentifier: "filterSustainLevel",
+                                                                      name: "Filter Sustain level (fraction)",
+                                                                      address: AUParameterAddress(paramAddress),
+                                                                      min: 0.0, max: 1.0,
+                                                                      unit: .generic, unitName: nil,
+                                                                      flags: nonRampFlags,
+                                                                      valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterReleaseDurationParam = AUParameterTree.createParameter(withIdentifier: "filterReleaseDuration",
+                                                                     name: "Filter Release duration (seconds)",
                                                                      address: AUParameterAddress(paramAddress),
-                                                                     min: 0.0, max: 1.0,
-                                                                     unit: .boolean, unitName: nil,
+                                                                     min: 0.0, max: 1_000.0,
+                                                                     unit: .seconds, unitName: nil,
                                                                      flags: nonRampFlags,
                                                                      valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let filterEnableParam = AUParameterTree.createParameter(withIdentifier: "filterEnable",
+                                                                name: "Filter Enable",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .boolean, unitName: nil,
+                                                                flags: nonRampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
                                                                    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
-                                                                   attackTimeParam, decayTimeParam,
-                                                                   sustainLevelParam, releaseTimeParam,
-                                                                   filterAttackTimeParam, filterDecayTimeParam,
-                                                                   filterSustainLevelParam, filterReleaseTimeParam,
+                                                                   attackDurationParam, decayDurationParam,
+                                                                   sustainLevelParam, releaseDurationParam,
+                                                                   filterAttackDurationParam, filterDecayDurationParam,
+                                                                   filterSustainLevelParam, filterReleaseDurationParam,
                                                                    filterEnableParam ]))
         masterVolumeParam.value = 1.0
         pitchBendParam.value = 0.0
@@ -232,14 +232,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterCutoffParam.value = 4.0
         filterEgStrengthParam.value = 20.0
         filterResonanceParam.value = 0.0
-        attackTimeParam.value = 0.0
-        decayTimeParam.value = 0.0
+        attackDurationParam.value = 0.0
+        decayDurationParam.value = 0.0
         sustainLevelParam.value = 1.0
-        releaseTimeParam.value = 0.0
-        filterAttackTimeParam.value = 0.0
-        filterDecayTimeParam.value = 0.0
+        releaseDurationParam.value = 0.0
+        filterAttackDurationParam.value = 0.0
+        filterDecayDurationParam.value = 0.0
         filterSustainLevelParam.value = 1.0
-        filterReleaseTimeParam.value = 0.0
+        filterReleaseDurationParam.value = 0.0
         filterEnableParam.value = 0.0
     }
 

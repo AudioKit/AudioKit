@@ -61,17 +61,17 @@ class Conductor {
         // http://audiokit.io/downloads/ROMPlayerInstruments.zip
         // see loadSamples(byIndex:) below
 
-        sampler.attackTime = 0.01
-        sampler.decayTime = 0.1
+        sampler.attackDuration = 0.01
+        sampler.decayDuration = 0.1
         sampler.sustainLevel = 0.8
-        sampler.releaseTime = 0.5
+        sampler.releaseDuration = 0.5
 
 //        sampler.filterEnable = true
 //        sampler.filterCutoff = 20.0
-//        sampler.filterAttackTime = 1.0
-//        sampler.filterDecayTime = 1.0
+//        sampler.filterAttackDuration = 1.0
+//        sampler.filterDecayDuration = 1.0
 //        sampler.filterSustainLevel = 0.5
-//        sampler.filterReleaseTime = 10.0
+//        sampler.filterReleaseDuration = 10.0
     }
 
     func addMIDIListener(_ listener: AKMIDIListener) {
