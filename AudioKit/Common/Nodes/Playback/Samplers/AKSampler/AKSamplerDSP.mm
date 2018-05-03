@@ -161,16 +161,16 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             ampEGParams.setReleaseTimeSeconds(value);
             break;
 
-        case filterAttackTimeParam:
+        case filterAttackDurationParam:
             filterEGParams.setAttackTimeSeconds(value);
             break;
-        case filterDecayTimeParam:
+        case filterDecayDurationParam:
             filterEGParams.setDecayTimeSeconds(value);
             break;
         case filterSustainLevelParam:
             filterEGParams.sustainFraction = value;
             break;
-        case filterReleaseTimeParam:
+        case filterReleaseDurationParam:
             filterEGParams.setReleaseTimeSeconds(value);
             break;
         case filterEnableParam:
@@ -207,13 +207,13 @@ float AKSamplerDSP::getParameter(uint64_t address)
         case releaseDurationParam:
             return ampEGParams.getReleaseTimeSeconds();
 
-        case filterAttackTimeParam:
+        case filterAttackDurationParam:
             return filterEGParams.getAttackTimeSeconds();
-        case filterDecayTimeParam:
+        case filterDecayDurationParam:
             return filterEGParams.getDecayTimeSeconds();
         case filterSustainLevelParam:
             return filterEGParams.sustainFraction;
-        case filterReleaseTimeParam:
+        case filterReleaseDurationParam:
             return filterEGParams.getReleaseTimeSeconds();
         case filterEnableParam:
             return filterEnable ? 1.0f : 0.0f;

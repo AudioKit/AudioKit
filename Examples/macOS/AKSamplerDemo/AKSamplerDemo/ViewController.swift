@@ -93,14 +93,14 @@ class ViewController: NSViewController, NSWindowDelegate {
         ampReleaseSlider.doubleValue = sampler.releaseDuration
         ampReleaseReadout.doubleValue = sampler.releaseDuration
 
-        filterAttackSlider.doubleValue = sampler.filterAttackTime
-        filterAttackReadout.doubleValue = sampler.filterAttackTime
-        filterDecaySlider.doubleValue = sampler.filterDecayTime
-        filterDecayReadout.doubleValue = sampler.filterDecayTime
+        filterAttackSlider.doubleValue = sampler.filterAttackDuration
+        filterAttackReadout.doubleValue = sampler.filterAttackDuration
+        filterDecaySlider.doubleValue = sampler.filterDecayDuration
+        filterDecayReadout.doubleValue = sampler.filterDecayDuration
         filterSustainSlider.intValue = Int32(100 * sampler.filterSustainLevel)
         filterSustainReadout.intValue = Int32(100 * sampler.filterSustainLevel)
-        filterReleaseSlider.doubleValue = sampler.filterReleaseTime
-        filterReleaseReadout.doubleValue = sampler.filterReleaseTime
+        filterReleaseSlider.doubleValue = sampler.filterReleaseDuration
+        filterReleaseReadout.doubleValue = sampler.filterReleaseDuration
     }
 
     override func viewDidAppear() {
@@ -192,12 +192,12 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     @IBAction func onFilterAttackSliderChange(_ sender: NSSlider) {
         filterAttackReadout.floatValue = sender.floatValue
-        sampler.filterAttackTime = sender.doubleValue
+        sampler.filterAttackDuration = sender.doubleValue
     }
 
     @IBAction func onFilterDecaySliderChange(_ sender: NSSlider) {
         filterDecayReadout.floatValue = sender.floatValue
-        sampler.filterDecayTime = sender.doubleValue
+        sampler.filterDecayDuration = sender.doubleValue
     }
 
     @IBAction func onFilterSustainSliderChange(_ sender: NSSlider) {
@@ -207,7 +207,7 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     @IBAction func onFilterReleaseSliderChange(_ sender: NSSlider) {
         filterReleaseReadout.floatValue = sender.floatValue
-        sampler.filterReleaseTime = sender.doubleValue
+        sampler.filterReleaseDuration = sender.doubleValue
     }
 }
 

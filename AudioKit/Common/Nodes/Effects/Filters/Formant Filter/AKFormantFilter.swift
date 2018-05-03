@@ -80,7 +80,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Impulse reponse decay time (in seconds)
+    /// Impulse reponse decay duration (in seconds)
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             if decayDuration == newValue {
@@ -109,7 +109,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - centerFrequency: Center frequency.
     ///   - attackDuration: Impulse response attack duration (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - decayDuration: Impulse reponse decay duration (in seconds)
     ///
     @objc public init(
         _ input: AKNode? = nil,
