@@ -12,9 +12,9 @@ extension AKOperation {
     ///
     /// - Parameters:
     ///   - gate: 1 for on and 0 for off
-    ///   - attack: Attack time, in seconds. (Default: 0.1)
-    ///   - hold: Hold time, in seconds. (Default: 0.3)
-    ///   - release: Release time, in seconds. (Default: 0.2)
+    ///   - attack: Attack duration, in seconds. (Default: 0.1)
+    ///   - hold: Hold duration, in seconds. (Default: 0.3)
+    ///   - release: Release duration, in seconds. (Default: 0.2)
     ///
     public func gatedADSREnvelope(
         gate: AKParameter,

@@ -59,7 +59,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         )
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
-            name: "Impulse response attack time (Seconds)",
+            name: "Impulse response attack duration (Seconds)",
             address: AUParameterAddress(1),
             min: Float(AKFormantFilter.attackDurationRange.lowerBound),
             max: Float(AKFormantFilter.attackDurationRange.upperBound),
@@ -71,7 +71,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         )
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
-            name: "Impulse reponse decay time (Seconds)",
+            name: "Impulse reponse decay duration (Seconds)",
             address: AUParameterAddress(2),
             min: Float(AKFormantFilter.decayDurationRange.lowerBound),
             max: Float(AKFormantFilter.decayDurationRange.upperBound),
