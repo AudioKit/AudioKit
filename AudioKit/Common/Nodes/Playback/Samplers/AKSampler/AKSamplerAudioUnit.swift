@@ -21,67 +21,67 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     var masterVolume: Double = 0.0 {
-        didSet { setParameter(.masterVolumeParam, value: masterVolume) }
+        didSet { setParameter(.masterVolume, value: masterVolume) }
     }
 
     var pitchBend: Double = 0.0 {
-        didSet { setParameter(.pitchBendParam, value: pitchBend) }
+        didSet { setParameter(.pitchBend, value: pitchBend) }
     }
 
     var vibratoDepth: Double = 1.0 {
-        didSet { setParameter(.vibratoDepthParam, value: vibratoDepth) }
+        didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
 
     var filterCutoff: Double = 4.0 {
-        didSet { setParameter(.filterCutoffParam, value: filterCutoff) }
+        didSet { setParameter(.filterCutoff, value: filterCutoff) }
     }
 
     var filterEgStrength: Double = 20.0 {
-        didSet { setParameter(.filterEgStrengthParam, value: filterCutoff) }
+        didSet { setParameter(.filterEgStrength, value: filterCutoff) }
     }
 
     var filterResonance: Double = 0.0 {
-        didSet { setParameter(.filterResonanceParam, value: filterResonance) }
+        didSet { setParameter(.filterResonance, value: filterResonance) }
     }
 
     var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTimeParam, value: rampTime) }
+        didSet { setParameter(.rampTime, value: rampTime) }
     }
 
     var attackDuration: Double = 0.0 {
-        didSet { setParameter(.attackDurationParam, value: attackDuration) }
+        didSet { setParameter(.attackDuration, value: attackDuration) }
     }
 
     var decayDuration: Double = 0.0 {
-        didSet { setParameter(.decayDurationParam, value: decayDuration) }
+        didSet { setParameter(.decayDuration, value: decayDuration) }
     }
 
     var sustainLevel: Double = 0.0 {
-        didSet { setParameter(.sustainLevelParam, value: sustainLevel) }
+        didSet { setParameter(.sustainLevel, value: sustainLevel) }
     }
 
     var releaseDuration: Double = 0.0 {
-        didSet { setParameter(.releaseDurationParam, value: releaseDuration) }
+        didSet { setParameter(.releaseDuration, value: releaseDuration) }
     }
 
     var filterAttackDuration: Double = 0.0 {
-        didSet { setParameter(.filterAttackDurationParam, value: filterAttackDuration) }
+        didSet { setParameter(.filterAttackDuration, value: filterAttackDuration) }
     }
 
     var filterDecayDuration: Double = 0.0 {
-        didSet { setParameter(.filterDecayDurationParam, value: filterDecayDuration) }
+        didSet { setParameter(.filterDecayDuration, value: filterDecayDuration) }
     }
 
     var filterSustainLevel: Double = 0.0 {
-        didSet { setParameter(.filterSustainLevelParam, value: filterSustainLevel) }
+        didSet { setParameter(.filterSustainLevel, value: filterSustainLevel) }
     }
 
     var filterReleaseDuration: Double = 0.0 {
-        didSet { setParameter(.filterReleaseDurationParam, value: filterReleaseDuration) }
+        didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
     }
 
     var filterEnable: Double = 0.0 {
-        didSet { setParameter(.filterEnableParam, value: filterEnable) }
+        didSet { setParameter(.filterEnable, value: filterEnable) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
