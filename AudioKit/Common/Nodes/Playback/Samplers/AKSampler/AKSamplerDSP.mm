@@ -151,13 +151,13 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
         case attackDurationParam:
             ampEGParams.setAttackTimeSeconds(value);
             break;
-        case decayTimeParam:
+        case decayDurationParam:
             ampEGParams.setDecayTimeSeconds(value);
             break;
         case sustainLevelParam:
             ampEGParams.sustainFraction = value;
             break;
-        case releaseTimeParam:
+        case releaseDurationParam:
             ampEGParams.setReleaseTimeSeconds(value);
             break;
 
@@ -200,11 +200,11 @@ float AKSamplerDSP::getParameter(uint64_t address)
 
         case attackDurationParam:
             return ampEGParams.getAttackTimeSeconds();
-        case decayTimeParam:
+        case decayDurationParam:
             return ampEGParams.getDecayTimeSeconds();
         case sustainLevelParam:
             return ampEGParams.sustainFraction;
-        case releaseTimeParam:
+        case releaseDurationParam:
             return ampEGParams.getReleaseTimeSeconds();
 
         case filterAttackTimeParam:

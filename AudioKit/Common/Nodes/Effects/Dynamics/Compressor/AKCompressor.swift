@@ -38,11 +38,11 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
-    @objc open dynamic var releaseTime: Double = 0.05 {
+    /// Release Duration (seconds) ranges from 0.01 to 3 (Default: 0.05)
+    @objc open dynamic var releaseDuration: Double = 0.05 {
         didSet {
-            releaseTime = (0.01...3).clamp(releaseTime)
-            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+            releaseDuration = (0.01...3).clamp(releaseDuration)
+            au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         }
     }
 
@@ -97,7 +97,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
     ///   - headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
     ///   - attackDuration: Attack Duration (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    ///   - releaseTime: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
+    ///   - releaseDuration: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
@@ -105,13 +105,13 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         threshold: Double = -20,
         headRoom: Double = 5,
         attackDuration: Double = 0.001,
-        releaseTime: Double = 0.05,
+        releaseDuration: Double = 0.05,
         masterGain: Double = 0) {
 
         self.threshold = threshold
         self.headRoom = headRoom
         self.attackDuration = attackDuration
-        self.releaseTime = releaseTime
+        self.releaseDuration = releaseDuration
         self.masterGain = masterGain
 
         inputGain.volume = 0
@@ -134,7 +134,7 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         au[kDynamicsProcessorParam_Threshold] = threshold
         au[kDynamicsProcessorParam_HeadRoom] = headRoom
         au[kDynamicsProcessorParam_AttackTime] = attackDuration
-        au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+        au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 

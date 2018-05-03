@@ -56,11 +56,11 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-    @objc open dynamic var releaseTime: Double = 0.05 {
+    /// Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
+    @objc open dynamic var releaseDuration: Double = 0.05 {
         didSet {
-            releaseTime = (0.01...3).clamp(releaseTime)
-            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+            releaseDuration = (0.01...3).clamp(releaseDuration)
+            au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         }
     }
 
@@ -117,7 +117,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     ///   - expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     ///   - attackDuration: Attack Duration (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    ///   - releaseTime: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
+    ///   - releaseDuration: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///   - compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
     ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
@@ -130,7 +130,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         expansionRatio: Double = 2,
         expansionThreshold: Double = 2,
         attackDuration: Double = 0.001,
-        releaseTime: Double = 0.05,
+        releaseDuration: Double = 0.05,
         masterGain: Double = 0,
         compressionAmount: Double = 0,
         inputAmplitude: Double = 0,
@@ -141,7 +141,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         self.expansionRatio = expansionRatio
         self.expansionThreshold = expansionThreshold
         self.attackDuration = attackDuration
-        self.releaseTime = releaseTime
+        self.releaseDuration = releaseDuration
         self.masterGain = masterGain
 
         inputGain = AKMixer()
@@ -173,7 +173,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         au[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
         au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
         au[kDynamicsProcessorParam_AttackTime] = attackDuration
-        au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+        au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 

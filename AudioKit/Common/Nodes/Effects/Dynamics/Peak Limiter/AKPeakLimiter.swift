@@ -25,10 +25,10 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    @objc open dynamic var decayTime: Double = 0.024 {
+    @objc open dynamic var decayDuration: Double = 0.024 {
         didSet {
-            decayTime = (0.001...0.06).clamp(decayTime)
-            au[kLimiterParam_DecayTime] = decayTime
+            decayDuration = (0.001...0.06).clamp(decayDuration)
+            au[kLimiterParam_DecayTime] = decayDuration
         }
     }
 
@@ -65,17 +65,17 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - attackDuration: Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    ///   - decayDuration: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
         _ input: AKNode? = nil,
         attackDuration: Double = 0.012,
-        decayTime: Double = 0.024,
+        decayDuration: Double = 0.024,
         preGain: Double = 0) {
 
         self.attackDuration = attackDuration
-        self.decayTime = decayTime
+        self.decayDuration = decayDuration
         self.preGain = preGain
 
         inputGain = AKMixer()
@@ -102,7 +102,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         AudioKit.engine.connect(effect, to: mixer.avAudioNode, format: AudioKit.format)
 
         au[kLimiterParam_AttackTime] = attackDuration
-        au[kLimiterParam_DecayTime] = decayTime
+        au[kLimiterParam_DecayTime] = decayDuration
         au[kLimiterParam_PreGain] = preGain
     }
 

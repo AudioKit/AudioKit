@@ -18,7 +18,7 @@ public:
         ratioAddress = 0,
         thresholdAddress = 1,
         attackDurationAddress = 2,
-        releaseTimeAddress = 3,
+        releaseDurationAddress = 3,
         rageAddress = 4
     };
 
@@ -73,7 +73,7 @@ public:
     ParameterRamper ratioRamper = 1;
     ParameterRamper thresholdRamper = 0.0;
     ParameterRamper attackDurationRamper = 0.1;
-    ParameterRamper releaseTimeRamper = 0.1;
+    ParameterRamper releaseDurationRamper = 0.1;
     ParameterRamper rageRamper = 0.1;
 };
 
