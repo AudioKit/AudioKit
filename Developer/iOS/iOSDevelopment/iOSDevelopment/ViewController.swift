@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         sliderLabel1.text = "Gain"
-        sliderLabel2.text = "Ramp Time"
+        sliderLabel2.text = "Ramp Duration"
         button1.titleLabel?.text = "Start"
     }
 
@@ -63,8 +63,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func slid2(_ sender: UISlider) {
-        booster.rampTime = Double(slider2.value)
-        updateText("booster ramp time = \(booster.rampTime)")
+        booster.rampDuration = Double(slider2.value)
+        updateText("booster ramp duration = \(booster.rampDuration)")
     }
 
     func updateText(_ input: String) {

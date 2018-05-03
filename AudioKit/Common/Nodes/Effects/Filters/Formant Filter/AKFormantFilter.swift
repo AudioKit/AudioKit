@@ -41,10 +41,10 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initial value for Decay Duration
     public static let defaultDecayDuration = 0.04
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -64,7 +64,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Impulse response attack time (in seconds).
+    /// Impulse response attack duration (in seconds).
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             if attackDuration == newValue {
@@ -80,7 +80,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Impulse reponse decay time (in seconds)
+    /// Impulse reponse decay duration (in seconds)
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             if decayDuration == newValue {
@@ -108,8 +108,8 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - centerFrequency: Center frequency.
-    ///   - attackDuration: Impulse response attack time (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - attackDuration: Impulse response attack duration (in seconds).
+    ///   - decayDuration: Impulse reponse decay duration (in seconds)
     ///
     @objc public init(
         _ input: AKNode? = nil,

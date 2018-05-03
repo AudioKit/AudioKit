@@ -22,8 +22,8 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.limit, value: limit) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,

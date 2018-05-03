@@ -88,8 +88,8 @@
     /// Whether AirPlay is enabled when audio input is enabled
     @objc open static var allowAirPlay: Bool = false
 
-    /// Global default rampTime value
-    @objc open static var rampTime: Double = 0.0002
+    /// Global default rampDuration value
+    @objc open static var rampDuration: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     @objc open static var notificationsEnabled: Bool = false

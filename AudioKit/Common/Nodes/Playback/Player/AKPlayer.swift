@@ -70,7 +70,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.0002
+        public static var minimumGain: Double = 0.000_2
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -537,7 +537,7 @@ public class AKPlayer: AKNode {
     // MARK: - Fade Handlers
 
     private func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(fade, faderNode.rampTime, faderNode.gain, audioTime, hostTime)
+        // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)
 
         if faderTimer?.isValid ?? false {
             faderTimer?.invalidate()
@@ -570,7 +570,7 @@ public class AKPlayer: AKNode {
             state = true
         }
         faderNode.rampType = fade.inRampType
-        faderNode.rampTime = AKSettings.rampTime
+        faderNode.rampDuration = AKSettings.rampDuration
         faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
 
@@ -579,11 +579,11 @@ public class AKPlayer: AKNode {
 
         AKLog("Fading in to", fade.maximumGain)
 
-        faderNode.rampTime = AKSettings.rampTime
+        faderNode.rampDuration = AKSettings.rampDuration
 
         if inTime > 0 {
             faderNode.gain = Fade.minimumGain
-            faderNode.rampTime = inTime / rate
+            faderNode.rampDuration = inTime / rate
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
@@ -622,7 +622,7 @@ public class AKPlayer: AKNode {
         if time > 0 {
             // at this point init the faderNode with the correct settings for fade out
             faderNode.rampType = fade.outRampType
-            faderNode.rampTime = time / rate
+            faderNode.rampDuration = time / rate
             faderNode.gain = Fade.minimumGain
             AKLog("Fading out to", Fade.minimumGain)
         }

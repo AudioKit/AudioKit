@@ -51,9 +51,9 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
         case AKClarinetParameterAmplitude:
             _private->amplitudeRamp.setTarget(value, immediate);
             break;
-        case AKClarinetParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKClarinetParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -65,8 +65,8 @@ float AKClarinetDSP::getParameter(AUParameterAddress address)  {
             return _private->frequencyRamp.getTarget();
         case AKClarinetParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKClarinetParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKClarinetParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

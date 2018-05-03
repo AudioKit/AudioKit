@@ -30,7 +30,7 @@ class AKCostelloReverbTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKCostelloReverb(input)
-        effect.rampTime = 0.0
+        effect.rampDuration = 0.0
         effect.cutoffFrequency = 1_234
         effect.feedback = 0.95
         output = effect

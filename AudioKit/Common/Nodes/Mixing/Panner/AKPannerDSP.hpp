@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
     AKPannerParameterPan,
-    AKPannerParameterRampTime
+    AKPannerParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -45,8 +45,8 @@ public:
             case AKPannerParameterPan:
                 panRamp.setTarget(value, immediate);
                 break;
-            case AKPannerParameterRampTime:
-                panRamp.setRampTime(value, _sampleRate);
+            case AKPannerParameterRampDuration:
+                panRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -56,8 +56,8 @@ public:
         switch (address) {
             case AKPannerParameterPan:
                 return panRamp.getTarget();
-            case AKPannerParameterRampTime:
-                return panRamp.getRampTime(_sampleRate);
+            case AKPannerParameterRampDuration:
+                return panRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

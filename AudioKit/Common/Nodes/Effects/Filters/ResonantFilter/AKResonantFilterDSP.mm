@@ -24,9 +24,9 @@ struct AKResonantFilterDSP::_Internal {
 
 AKResonantFilterDSP::AKResonantFilterDSP() : _private(new _Internal) {
     _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value
         case AKResonantFilterParameterBandwidth:
             _private->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
-        case AKResonantFilterParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
+        case AKResonantFilterParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
             return _private->frequencyRamp.getTarget();
         case AKResonantFilterParameterBandwidth:
             return _private->bandwidthRamp.getTarget();
-        case AKResonantFilterParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKResonantFilterParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

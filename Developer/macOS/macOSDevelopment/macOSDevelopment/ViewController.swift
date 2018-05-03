@@ -59,7 +59,7 @@ class ViewController: NSViewController {
         osc.start()
         osc.frequency = 220
         osc.amplitude = 1
-        osc.rampTime = 0.0
+        osc.rampDuration = 0.0
         booster.rampType = .exponential
         AudioKit.output = booster
 
@@ -214,8 +214,8 @@ class ViewController: NSViewController {
             slider1Value.stringValue = String(describing: roundTo(booster.gain, decimalPlaces: 3))
             
         } else if sender == slider2 {
-            booster.rampTime = slider2.doubleValue
-            slider2Value.stringValue = String(describing: roundTo(booster.rampTime, decimalPlaces: 3))
+            booster.rampDuration = slider2.doubleValue
+            slider2Value.stringValue = String(describing: roundTo(booster.rampDuration, decimalPlaces: 3))
 
         } else if sender == slider3 {
             let value = Int(slider3.intValue)

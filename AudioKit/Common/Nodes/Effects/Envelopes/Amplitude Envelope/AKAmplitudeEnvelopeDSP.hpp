@@ -15,7 +15,7 @@ typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
     AKAmplitudeEnvelopeParameterDecayDuration,
     AKAmplitudeEnvelopeParameterSustainLevel,
     AKAmplitudeEnvelopeParameterReleaseDuration,
-    AKAmplitudeEnvelopeParameterRampTime
+    AKAmplitudeEnvelopeParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -66,11 +66,11 @@ public:
             case AKAmplitudeEnvelopeParameterReleaseDuration:
                 releaseDurationRamp.setTarget(value, immediate);
                 break;
-            case AKAmplitudeEnvelopeParameterRampTime:
-                attackDurationRamp.setRampTime(value, _sampleRate);
-                decayDurationRamp.setRampTime(value, _sampleRate);
-                sustainLevelRamp.setRampTime(value, _sampleRate);
-                releaseDurationRamp.setRampTime(value, _sampleRate);
+            case AKAmplitudeEnvelopeParameterRampDuration:
+                attackDurationRamp.setRampDuration(value, _sampleRate);
+                decayDurationRamp.setRampDuration(value, _sampleRate);
+                sustainLevelRamp.setRampDuration(value, _sampleRate);
+                releaseDurationRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -86,11 +86,11 @@ public:
                 return sustainLevelRamp.getTarget();
             case AKAmplitudeEnvelopeParameterReleaseDuration:
                 return releaseDurationRamp.getTarget();
-            case AKAmplitudeEnvelopeParameterRampTime:
-                return attackDurationRamp.getRampTime(_sampleRate);
-                return decayDurationRamp.getRampTime(_sampleRate);
-                return sustainLevelRamp.getRampTime(_sampleRate);
-                return releaseDurationRamp.getRampTime(_sampleRate);
+            case AKAmplitudeEnvelopeParameterRampDuration:
+                return attackDurationRamp.getRampDuration(_sampleRate);
+                return decayDurationRamp.getRampDuration(_sampleRate);
+                return sustainLevelRamp.getRampDuration(_sampleRate);
+                return releaseDurationRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

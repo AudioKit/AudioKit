@@ -31,25 +31,25 @@ struct AKZitaReverbDSP::_Internal {
 
 AKZitaReverbDSP::AKZitaReverbDSP() : _private(new _Internal) {
     _private->predelayRamp.setTarget(defaultPredelay, true);
-    _private->predelayRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->predelayRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->crossoverFrequencyRamp.setTarget(defaultCrossoverFrequency, true);
-    _private->crossoverFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->crossoverFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->lowReleaseTimeRamp.setTarget(defaultLowReleaseTime, true);
-    _private->lowReleaseTimeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->lowReleaseTimeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->midReleaseTimeRamp.setTarget(defaultMidReleaseTime, true);
-    _private->midReleaseTimeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->midReleaseTimeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->dampingFrequencyRamp.setTarget(defaultDampingFrequency, true);
-    _private->dampingFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->dampingFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->equalizerFrequency1Ramp.setTarget(defaultEqualizerFrequency1, true);
-    _private->equalizerFrequency1Ramp.setDurationInSamples(defaultRampTimeSamples);
+    _private->equalizerFrequency1Ramp.setDurationInSamples(defaultRampDurationSamples);
     _private->equalizerLevel1Ramp.setTarget(defaultEqualizerLevel1, true);
-    _private->equalizerLevel1Ramp.setDurationInSamples(defaultRampTimeSamples);
+    _private->equalizerLevel1Ramp.setDurationInSamples(defaultRampDurationSamples);
     _private->equalizerFrequency2Ramp.setTarget(defaultEqualizerFrequency2, true);
-    _private->equalizerFrequency2Ramp.setDurationInSamples(defaultRampTimeSamples);
+    _private->equalizerFrequency2Ramp.setDurationInSamples(defaultRampDurationSamples);
     _private->equalizerLevel2Ramp.setTarget(defaultEqualizerLevel2, true);
-    _private->equalizerLevel2Ramp.setDurationInSamples(defaultRampTimeSamples);
+    _private->equalizerLevel2Ramp.setDurationInSamples(defaultRampDurationSamples);
     _private->dryWetMixRamp.setTarget(defaultDryWetMix, true);
-    _private->dryWetMixRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->dryWetMixRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -85,17 +85,17 @@ void AKZitaReverbDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKZitaReverbParameterDryWetMix:
             _private->dryWetMixRamp.setTarget(clamp(value, dryWetMixLowerBound, dryWetMixUpperBound), immediate);
             break;
-        case AKZitaReverbParameterRampTime:
-            _private->predelayRamp.setRampTime(value, _sampleRate);
-            _private->crossoverFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->lowReleaseTimeRamp.setRampTime(value, _sampleRate);
-            _private->midReleaseTimeRamp.setRampTime(value, _sampleRate);
-            _private->dampingFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->equalizerFrequency1Ramp.setRampTime(value, _sampleRate);
-            _private->equalizerLevel1Ramp.setRampTime(value, _sampleRate);
-            _private->equalizerFrequency2Ramp.setRampTime(value, _sampleRate);
-            _private->equalizerLevel2Ramp.setRampTime(value, _sampleRate);
-            _private->dryWetMixRamp.setRampTime(value, _sampleRate);
+        case AKZitaReverbParameterRampDuration:
+            _private->predelayRamp.setRampDuration(value, _sampleRate);
+            _private->crossoverFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->lowReleaseTimeRamp.setRampDuration(value, _sampleRate);
+            _private->midReleaseTimeRamp.setRampDuration(value, _sampleRate);
+            _private->dampingFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->equalizerFrequency1Ramp.setRampDuration(value, _sampleRate);
+            _private->equalizerLevel1Ramp.setRampDuration(value, _sampleRate);
+            _private->equalizerFrequency2Ramp.setRampDuration(value, _sampleRate);
+            _private->equalizerLevel2Ramp.setRampDuration(value, _sampleRate);
+            _private->dryWetMixRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -123,8 +123,8 @@ float AKZitaReverbDSP::getParameter(uint64_t address) {
             return _private->equalizerLevel2Ramp.getTarget();
         case AKZitaReverbParameterDryWetMix:
             return _private->dryWetMixRamp.getTarget();
-        case AKZitaReverbParameterRampTime:
-            return _private->predelayRamp.getRampTime(_sampleRate);
+        case AKZitaReverbParameterRampDuration:
+            return _private->predelayRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
