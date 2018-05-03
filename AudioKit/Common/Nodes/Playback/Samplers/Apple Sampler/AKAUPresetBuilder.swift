@@ -57,8 +57,8 @@ open class AKAUPresetBuilder {
     ///   - dict:           Collection of dictionaries with format as given above
     ///   - path:           Where the AUPreset will be created
     ///   - instrumentName: The name of the AUPreset
-    ///   - attack:         Attack time in seconds
-    ///   - release:        Release time in seconds
+    ///   - attack:         Attack duration in seconds
+    ///   - release:        Release duration in seconds
     ///
     static open func createAUPreset(dict: [NSMutableDictionary],
                                     path: String,

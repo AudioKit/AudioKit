@@ -22,8 +22,8 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     // Compressor Processor
     fileprivate var ratioParameter: AUParameter?
     fileprivate var thresholdParameter: AUParameter?
-    fileprivate var attackTimeParameter: AUParameter?
-    fileprivate var releaseTimeParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
 
     // Rage Processor
     fileprivate var rageParameter: AUParameter?
@@ -65,31 +65,31 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Attack time
-    @objc open dynamic var attackTime: Double = 0.1 {
+    /// Attack dration
+    @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
-            if attackTime != newValue {
+            if attackDuration != newValue {
                 if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
-                        attackTimeParameter?.setValue(Float(newValue), originator: existingToken)
+                        attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.attackTime = Float(newValue)
+                    internalAU?.attackDuration = Float(newValue)
                 }
             }
         }
     }
 
-    /// Release time
-    @objc open dynamic var releaseTime: Double = 0.1 {
+    /// Release duration
+    @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
-            if releaseTime != newValue {
+            if releaseDuration != newValue {
                 if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
-                        releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
+                        releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.releaseTime = Float(newValue)
+                    internalAU?.releaseDuration = Float(newValue)
                 }
             }
         }
@@ -130,22 +130,22 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - ratio: Ratio to compress with, a value > 1 will compress
     ///   - threshold: Threshold (in dB) 0 = max
-    ///   - attackTime: Attack time
-    ///   - releaseTime: Release time
+    ///   - attackDuration: Attack duration in seconds
+    ///   - releaseDuration: Release duration in seconds
     ///
     @objc public init(
         _ input: AKNode? = nil,
         ratio: Double = 1,
         threshold: Double = 0.0,
-        attackTime: Double = 0.1,
-        releaseTime: Double = 0.1,
+        attackDuration: Double = 0.1,
+        releaseDuration: Double = 0.1,
         rage: Double = 0.1,
         rageIsOn: Bool = true) {
 
         self.ratio = ratio
         self.threshold = threshold
-        self.attackTime = attackTime
-        self.releaseTime = releaseTime
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
         self.rage = rage
         self.rageIsOn = rageIsOn
 
@@ -169,8 +169,8 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
 
         ratioParameter = tree["ratio"]
         thresholdParameter = tree["threshold"]
-        attackTimeParameter = tree["attackTime"]
-        releaseTimeParameter = tree["releaseTime"]
+        attackDurationParameter = tree["attackDuration"]
+        releaseDurationParameter = tree["releaseDuration"]
         rageParameter = tree["rage"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
@@ -180,10 +180,10 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
                     self?.ratio = Double(value)
                 } else if address == self?.thresholdParameter?.address {
                     self?.threshold = Double(value)
-                } else if address == self?.attackTimeParameter?.address {
-                    self?.attackTime = Double(value)
-                } else if address == self?.releaseTimeParameter?.address {
-                    self?.releaseTime = Double(value)
+                } else if address == self?.attackDurationParameter?.address {
+                    self?.attackDuration = Double(value)
+                } else if address == self?.releaseDurationParameter?.address {
+                    self?.releaseDuration = Double(value)
                 } else if address == self?.rageParameter?.address {
                     self?.rage = Double(value)
                 }
@@ -192,8 +192,8 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
 
         internalAU?.ratio = Float(ratio)
         internalAU?.threshold = Float(threshold)
-        internalAU?.attackTime = Float(attackTime)
-        internalAU?.releaseTime = Float(releaseTime)
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.rage = Float(rage)
         internalAU?.rageIsOn = Bool(rageIsOn)
 
