@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         delay = AKVariableDelay(input)
-        delay.rampTime = 0.5 // Allows for some cool effects
+        delay.rampDuration = 0.5 // Allows for some cool effects
         delayMixer = AKDryWetMixer(input, delay)
 
         reverb = AKCostelloReverb(delayMixer)

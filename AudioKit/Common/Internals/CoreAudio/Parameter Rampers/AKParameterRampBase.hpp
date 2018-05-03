@@ -71,11 +71,11 @@ public:
         return _duration;
     }
 
-    void setRampTime(float seconds, int64_t sampleRate) {
+    void setRampDuration(float seconds, int64_t sampleRate) {
         _duration = seconds * sampleRate;
     }
 
-    float getRampTime(int64_t sampleRate) {
+    float getRampDuration(int64_t sampleRate) {
         return (sampleRate == 0) ? 0 : _duration / sampleRate;
     }
 

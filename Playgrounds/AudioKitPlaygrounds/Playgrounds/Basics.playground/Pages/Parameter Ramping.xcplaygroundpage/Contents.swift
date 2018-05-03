@@ -2,10 +2,10 @@
 //:
 //: ---
 //:
-//: ## Parameter Ramp Time
+//: ## Parameter Ramping
 //: Most AudioKit nodes have parameters that you can change.
 //: Its very common need to change these parameters in a smooth way
-//: to avoid pops and clicks, so you can set a ramp time to slow the
+//: to avoid pops and clicks, so you can set a ramp duration to slow the
 //: variation of a property from its current value to its next.
 import AudioKitPlaygrounds
 import AudioKit
@@ -39,10 +39,10 @@ import AudioKitUI
 class LiveView: AKLiveViewController {
 
     override func viewDidLoad() {
-        addTitle("Parameter Ramp Time")
+        addTitle("Parameter Ramp Duration")
 
-        addView(AKSlider(property: "Ramp Time", value: filter.rampTime, format: "%0.3f s") { sliderValue in
-            filter.rampTime = sliderValue
+        addView(AKSlider(property: "Ramp Duration", value: filter.rampDuration, format: "%0.3f s") { sliderValue in
+            filter.rampDuration = sliderValue
         })
     }
 }

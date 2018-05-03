@@ -26,7 +26,7 @@
 - (BOOL)isSetUp { return (_kernel == NULL) ? false : _kernel->resetted; }
 
 - (void)standardSetup {
-    self.rampTime = AKSettings.rampTime;
+    self.rampDuration = AKSettings.rampDuration;
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
                                                                         channels:AKSettings.numberOfChannels];
     //_kernel->init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);

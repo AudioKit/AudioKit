@@ -53,7 +53,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
-        oscillator.rampTime = 0.0
+        oscillator.rampDuration = 0.0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.phaseDistortion = 1.234

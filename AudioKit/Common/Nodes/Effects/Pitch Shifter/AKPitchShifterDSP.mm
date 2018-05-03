@@ -25,11 +25,11 @@ struct AKPitchShifterDSP::_Internal {
 
 AKPitchShifterDSP::AKPitchShifterDSP() : _private(new _Internal) {
     _private->shiftRamp.setTarget(defaultShift, true);
-    _private->shiftRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->shiftRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->windowSizeRamp.setTarget(defaultWindowSize, true);
-    _private->windowSizeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->windowSizeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->crossfadeRamp.setTarget(defaultCrossfade, true);
-    _private->crossfadeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->crossfadeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKPitchShifterDSP::setParameter(AUParameterAddress address, AUValue value, 
         case AKPitchShifterParameterCrossfade:
             _private->crossfadeRamp.setTarget(clamp(value, crossfadeLowerBound, crossfadeUpperBound), immediate);
             break;
-        case AKPitchShifterParameterRampTime:
-            _private->shiftRamp.setRampTime(value, _sampleRate);
-            _private->windowSizeRamp.setRampTime(value, _sampleRate);
-            _private->crossfadeRamp.setRampTime(value, _sampleRate);
+        case AKPitchShifterParameterRampDuration:
+            _private->shiftRamp.setRampDuration(value, _sampleRate);
+            _private->windowSizeRamp.setRampDuration(value, _sampleRate);
+            _private->crossfadeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKPitchShifterDSP::getParameter(uint64_t address) {
             return _private->windowSizeRamp.getTarget();
         case AKPitchShifterParameterCrossfade:
             return _private->crossfadeRamp.getTarget();
-        case AKPitchShifterParameterRampTime:
-            return _private->shiftRamp.getRampTime(_sampleRate);
+        case AKPitchShifterParameterRampDuration:
+            return _private->shiftRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

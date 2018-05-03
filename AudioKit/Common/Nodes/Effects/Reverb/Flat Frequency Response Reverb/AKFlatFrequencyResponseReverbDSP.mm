@@ -29,7 +29,7 @@ void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
 
 AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : _private(new _Internal) {
     _private->reverbDurationRamp.setTarget(defaultReverbDuration, true);
-    _private->reverbDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,8 +38,8 @@ void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, 
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
             _private->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
             break;
-        case AKFlatFrequencyResponseReverbParameterRampTime:
-            _private->reverbDurationRamp.setRampTime(value, _sampleRate);
+        case AKFlatFrequencyResponseReverbParameterRampDuration:
+            _private->reverbDurationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -49,8 +49,8 @@ float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
             return _private->reverbDurationRamp.getTarget();
-        case AKFlatFrequencyResponseReverbParameterRampTime:
-            return _private->reverbDurationRamp.getRampTime(_sampleRate);
+        case AKFlatFrequencyResponseReverbParameterRampDuration:
+            return _private->reverbDurationRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

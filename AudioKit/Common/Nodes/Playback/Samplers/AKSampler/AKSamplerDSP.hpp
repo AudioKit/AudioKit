@@ -31,7 +31,7 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterEnable,
     
     // ensure this is always last in the list, to simplify parameter addressing
-    AKSamplerParameterRampTime,
+    AKSamplerParameterRampDuration,
 };
 
 #ifndef __cplusplus

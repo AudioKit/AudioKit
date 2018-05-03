@@ -14,7 +14,7 @@ typedef NS_ENUM(AUParameterAddress, AKFormantFilterParameter) {
     AKFormantFilterParameterCenterFrequency,
     AKFormantFilterParameterAttackDuration,
     AKFormantFilterParameterDecayDuration,
-    AKFormantFilterParameterRampTime
+    AKFormantFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -45,7 +45,7 @@ public:
     float defaultAttackDuration = 0.007;
     float defaultDecayDuration = 0.04;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
