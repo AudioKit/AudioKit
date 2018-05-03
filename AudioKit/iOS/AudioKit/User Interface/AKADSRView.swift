@@ -14,19 +14,19 @@ import UIKit
     /// Type of function to call when values of the ADSR have changed
     public typealias ADSRCallback = (Double, Double, Double, Double) -> Void
 
-    /// Attack time in seconds, Default: 0.1
+    /// Attack duration in seconds, Default: 0.1
     @IBInspectable open var attackDuration: Double = 0.100
 
-    /// Decay time in seconds, Default: 0.1
+    /// Decay duration in seconds, Default: 0.1
     @IBInspectable open var decayDuration: Double = 0.100
 
     /// Sustain Level (0-1), Default: 0.5
     @IBInspectable open var sustainLevel: Double = 0.50
 
-    /// Release time in seconds, Default: 0.1
+    /// Release duration in seconds, Default: 0.1
     @IBInspectable open var releaseDuration: Double = 0.100
 
-    /// Attack time in milliseconds
+    /// Attack duration in milliseconds
     var attackTime: CGFloat {
         get {
             return CGFloat(attackDuration * 1_000.0)
@@ -36,7 +36,7 @@ import UIKit
         }
     }
 
-    /// Decay time in milliseconds
+    /// Decay duration in milliseconds
     var decayTime: CGFloat {
         get {
             return CGFloat(decayDuration * 1_000.0)
@@ -56,7 +56,7 @@ import UIKit
         }
     }
 
-    /// Release time in milliseconds
+    /// Release duration in milliseconds
     var releaseTime: CGFloat {
         get {
             return CGFloat(releaseDuration * 1_000.0)

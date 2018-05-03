@@ -25,15 +25,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var filterEgStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
 
-    fileprivate var attackTimeParameter: AUParameter?
-    fileprivate var decayTimeParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
-    fileprivate var releaseTimeParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
 
-    fileprivate var filterAttackTimeParameter: AUParameter?
-    fileprivate var filterDecayTimeParameter: AUParameter?
+    fileprivate var filterAttackDurationParameter: AUParameter?
+    fileprivate var filterDecayDurationParameter: AUParameter?
     fileprivate var filterSustainLevelParameter: AUParameter?
-    fileprivate var filterReleaseTimeParameter: AUParameter?
+    fileprivate var filterReleaseDurationParameter: AUParameter?
 
     fileprivate var filterEnableParameter: AUParameter?
 
@@ -152,25 +152,25 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         }
     }
 
-    /// Amp attack time (seconds)
-    @objc open dynamic var attackTime: Double = 0.0 {
+    /// Amplitude attack duration (seconds)
+    @objc open dynamic var attackDuration: Double = 0.0 {
         willSet {
-            if attackTime != newValue {
-                internalAU?.attackTime = newValue
+            if attackDuration != newValue {
+                internalAU?.attackDuration = newValue
             }
         }
     }
 
-    /// Amp Decay time (seconds)
-    @objc open dynamic var decayTime: Double = 0.0 {
+    /// Amplitude Decay duration (seconds)
+    @objc open dynamic var decayDuration: Double = 0.0 {
         willSet {
-            if decayTime != newValue {
-                internalAU?.decayTime = newValue
+            if decayDuration != newValue {
+                internalAU?.decayDuration = newValue
             }
         }
     }
 
-    /// Amp sustain level (fraction)
+    /// Amplitude sustain level (fraction)
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
@@ -179,29 +179,29 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         }
     }
 
-    /// Amp Release time (seconds)
-    @objc open dynamic var releaseTime: Double = 0.0 {
+    /// Amplitude Release duration (seconds)
+    @objc open dynamic var releaseDuration: Double = 0.0 {
         willSet {
-            if releaseTime != newValue {
-                internalAU?.releaseTime = newValue
+            if releaseDuration != newValue {
+                internalAU?.releaseDuration = newValue
             }
         }
     }
 
-    /// Filter attack time (seconds)
-    @objc open dynamic var filterAttackTime: Double = 0.0 {
+    /// Filter attack duration (seconds)
+    @objc open dynamic var filterAttackDuration: Double = 0.0 {
         willSet {
-            if filterAttackTime != newValue {
-                internalAU?.filterAttackTime = newValue
+            if filterAttackDuration != newValue {
+                internalAU?.filterAttackDuration = newValue
             }
         }
     }
 
-    /// Filter Decay time (seconds)
-    @objc open dynamic var filterDecayTime: Double = 0.0 {
+    /// Filter Decay duration (seconds)
+    @objc open dynamic var filterDecayDuration: Double = 0.0 {
         willSet {
-            if filterDecayTime != newValue {
-                internalAU?.filterDecayTime = newValue
+            if filterDecayDuration != newValue {
+                internalAU?.filterDecayDuration = newValue
             }
         }
     }
@@ -215,11 +215,11 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         }
     }
 
-    /// Filter Release time (seconds)
-    @objc open dynamic var filterReleaseTime: Double = 0.0 {
+    /// Filter Release duration (seconds)
+    @objc open dynamic var filterReleaseDuration: Double = 0.0 {
         willSet {
-            if filterReleaseTime != newValue {
-                internalAU?.filterReleaseTime = newValue
+            if filterReleaseDuration != newValue {
+                internalAU?.filterReleaseDuration = newValue
             }
         }
     }
@@ -245,15 +245,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
     ///   - filterEgStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
-    ///   - attackTime: seconds, 0.0 - 10.0
-    ///   - decayTime: seconds, 0.0 - 10.0
+    ///   - attackDuration: seconds, 0.0 - 10.0
+    ///   - decayDuration: seconds, 0.0 - 10.0
     ///   - sustainLevel: 0.0 - 1.0
-    ///   - releaseTime: seconds, 0.0 - 10.0
+    ///   - releaseDuration: seconds, 0.0 - 10.0
     ///   - filterEnable: true to enable per-voice filters
-    ///   - filterAttackTime: seconds, 0.0 - 10.0
-    ///   - filterDecayTime: seconds, 0.0 - 10.0
+    ///   - filterAttackDuration: seconds, 0.0 - 10.0
+    ///   - filterDecayDuration: seconds, 0.0 - 10.0
     ///   - filterSustainLevel: 0.0 - 1.0
-    ///   - filterReleaseTime: seconds, 0.0 - 10.0
+    ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///
     @objc public init(
         _ input: AKNode? = nil,
@@ -263,15 +263,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         filterCutoff: Double = 4.0,
         filterEgStrength: Double = 20.0,
         filterResonance: Double = 0.0,
-        attackTime: Double = 0.0,
-        decayTime: Double = 0.0,
+        attackDuration: Double = 0.0,
+        decayDuration: Double = 0.0,
         sustainLevel: Double = 1.0,
-        releaseTime: Double = 0.0,
+        releaseDuration: Double = 0.0,
         filterEnable: Bool = false,
-        filterAttackTime: Double = 0.0,
-        filterDecayTime: Double = 0.0,
+        filterAttackDuration: Double = 0.0,
+        filterDecayDuration: Double = 0.0,
         filterSustainLevel: Double = 1.0,
-        filterReleaseTime: Double = 0.0) {
+        filterReleaseDuration: Double = 0.0) {
 
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
@@ -279,15 +279,15 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterCutoff = filterCutoff
         self.filterEgStrength = filterEgStrength
         self.filterResonance = filterResonance
-        self.attackTime = attackTime
-        self.decayTime = decayTime
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
-        self.releaseTime = releaseTime
+        self.releaseDuration = releaseDuration
         self.filterEnable = filterEnable
-        self.filterAttackTime = filterAttackTime
-        self.filterDecayTime = filterDecayTime
+        self.filterAttackDuration = filterAttackDuration
+        self.filterDecayDuration = filterDecayDuration
         self.filterSustainLevel = filterSustainLevel
-        self.filterReleaseTime = filterReleaseTime
+        self.filterReleaseDuration = filterReleaseDuration
 
         _Self.register()
 
@@ -314,14 +314,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterCutoffParameter = tree["filterCutoff"]
         self.filterEgStrengthParameter = tree["filterEgStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
-        self.attackTimeParameter = tree["attackTime"]
-        self.decayTimeParameter = tree["decayTime"]
+        self.attackDurationParameter = tree["attackDuration"]
+        self.decayDurationParameter = tree["decayDuration"]
         self.sustainLevelParameter = tree["sustainLevel"]
-        self.releaseTimeParameter = tree["releaseTime"]
-        self.filterAttackTimeParameter = tree["filterAttackTime"]
-        self.filterDecayTimeParameter = tree["filterDecayTime"]
+        self.releaseDurationParameter = tree["releaseDuration"]
+        self.filterAttackDurationParameter = tree["filterAttackDuration"]
+        self.filterDecayDurationParameter = tree["filterDecayDuration"]
         self.filterSustainLevelParameter = tree["filterSustainLevel"]
-        self.filterReleaseTimeParameter = tree["filterReleaseTime"]
+        self.filterReleaseDurationParameter = tree["filterReleaseDuration"]
         self.filterEnableParameter = tree["filterEnable"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
@@ -342,14 +342,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterCutoffParam, value: filterCutoff)
         self.internalAU?.setParameterImmediately(.filterEgStrengthParam, value: filterEgStrength)
         self.internalAU?.setParameterImmediately(.filterResonanceParam, value: filterResonance)
-        self.internalAU?.setParameterImmediately(.attackTimeParam, value: attackTime)
-        self.internalAU?.setParameterImmediately(.decayTimeParam, value: decayTime)
+        self.internalAU?.setParameterImmediately(.attackDurationParam, value: attackDuration)
+        self.internalAU?.setParameterImmediately(.decayDurationParam, value: decayDuration)
         self.internalAU?.setParameterImmediately(.sustainLevelParam, value: sustainLevel)
-        self.internalAU?.setParameterImmediately(.releaseTimeParam, value: releaseTime)
-        self.internalAU?.setParameterImmediately(.filterAttackTimeParam, value: filterAttackTime)
-        self.internalAU?.setParameterImmediately(.filterDecayTimeParam, value: filterDecayTime)
+        self.internalAU?.setParameterImmediately(.releaseDurationParam, value: releaseDuration)
+        self.internalAU?.setParameterImmediately(.filterAttackDurationParam, value: filterAttackDuration)
+        self.internalAU?.setParameterImmediately(.filterDecayDurationParam, value: filterDecayDuration)
         self.internalAU?.setParameterImmediately(.filterSustainLevelParam, value: filterSustainLevel)
-        self.internalAU?.setParameterImmediately(.filterReleaseTimeParam, value: filterReleaseTime)
+        self.internalAU?.setParameterImmediately(.filterReleaseDurationParam, value: filterReleaseDuration)
         self.internalAU?.setParameterImmediately(.filterEnableParam, value: filterEnable ? 1.0 : 0.0)
     }
 
