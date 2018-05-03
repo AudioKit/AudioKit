@@ -17,7 +17,7 @@ public:
     enum {
         ratioAddress = 0,
         thresholdAddress = 1,
-        attackTimeAddress = 2,
+        attackDurationAddress = 2,
         releaseTimeAddress = 3,
         rageAddress = 4
     };
@@ -72,7 +72,7 @@ public:
     bool resetted = false;
     ParameterRamper ratioRamper = 1;
     ParameterRamper thresholdRamper = 0.0;
-    ParameterRamper attackTimeRamper = 0.1;
+    ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper releaseTimeRamper = 0.1;
     ParameterRamper rageRamper = 0.1;
 };

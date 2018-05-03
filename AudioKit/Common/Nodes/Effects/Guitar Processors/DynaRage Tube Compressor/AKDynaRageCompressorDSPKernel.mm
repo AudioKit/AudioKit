@@ -20,7 +20,7 @@ struct AKDynaRageCompressorDSPKernel::_Internal {
     
     float ratio = 1.0;
     float threshold = 0.0;
-    float attackTime = 0.1;
+    float attackDuration = 0.1;
     float releaseTime = 0.1;
     float rage = 0.1;
     BOOL rageIsOn = true;
@@ -32,8 +32,8 @@ AKDynaRageCompressorDSPKernel::~AKDynaRageCompressorDSPKernel() = default;
 void AKDynaRageCompressorDSPKernel::init(int _channels, double _sampleRate) {
     AKDSPKernel::init(_channels, _sampleRate);
     _private->left_compressor = new Compressor(_private->threshold, _private->ratio,
-                                               _private->attackTime, _private->releaseTime, (int)_sampleRate);
-    _private->right_compressor = new Compressor(_private->threshold, _private->ratio, _private->attackTime,
+                                               _private->attackDuration, _private->releaseTime, (int)_sampleRate);
+    _private->right_compressor = new Compressor(_private->threshold, _private->ratio, _private->attackDuration,
                                                 _private->releaseTime, (int)_sampleRate);
     
     _private->left_rageprocessor = new RageProcessor((int)_sampleRate);
@@ -41,7 +41,7 @@ void AKDynaRageCompressorDSPKernel::init(int _channels, double _sampleRate) {
     
     ratioRamper.init();
     thresholdRamper.init();
-    attackTimeRamper.init();
+    attackDurationRamper.init();
     releaseTimeRamper.init();
     rageRamper.init();
 }
@@ -50,7 +50,7 @@ void AKDynaRageCompressorDSPKernel::reset() {
     resetted = true;
     ratioRamper.reset();
     thresholdRamper.reset();
-    attackTimeRamper.reset();
+    attackDurationRamper.reset();
     releaseTimeRamper.reset();
     rageRamper.reset();
 }
@@ -66,8 +66,8 @@ void AKDynaRageCompressorDSPKernel::setThreshold(float value) {
 }
 
 void AKDynaRageCompressorDSPKernel::setAttackTime(float value) {
-    _private->attackTime = clamp(value, 20.0f, 500.0f);
-    attackTimeRamper.setImmediate(_private->attackTime);
+    _private->attackDuration = clamp(value, 20.0f, 500.0f);
+    attackDurationRamper.setImmediate(_private->attackDuration);
 }
 
 void AKDynaRageCompressorDSPKernel::setReleaseTime(float value) {
@@ -94,8 +94,8 @@ void AKDynaRageCompressorDSPKernel::setParameter(AUParameterAddress address, AUV
             thresholdRamper.setUIValue(clamp(value, -100.0f, 0.0f));
             break;
             
-        case attackTimeAddress:
-            attackTimeRamper.setUIValue(clamp(value, 0.1f, 500.0f));
+        case attackDurationAddress:
+            attackDurationRamper.setUIValue(clamp(value, 0.1f, 500.0f));
             break;
             
         case releaseTimeAddress:
@@ -118,8 +118,8 @@ AUValue AKDynaRageCompressorDSPKernel::getParameter(AUParameterAddress address) 
         case thresholdAddress:
             return thresholdRamper.getUIValue();
             
-        case attackTimeAddress:
-            return attackTimeRamper.getUIValue();
+        case attackDurationAddress:
+            return attackDurationRamper.getUIValue();
             
         case releaseTimeAddress:
             return releaseTimeRamper.getUIValue();
@@ -141,8 +141,8 @@ void AKDynaRageCompressorDSPKernel::startRamp(AUParameterAddress address, AUValu
             thresholdRamper.startRamp(clamp(value, -100.0f, 0.0f), duration);
             break;
             
-        case attackTimeAddress:
-            attackTimeRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
+        case attackDurationAddress:
+            attackDurationRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
             break;
             
         case releaseTimeAddress:
@@ -163,14 +163,14 @@ void AKDynaRageCompressorDSPKernel::process(AUAudioFrameCount frameCount, AUAudi
         
         _private->ratio = ratioRamper.getAndStep();
         _private->threshold = thresholdRamper.getAndStep();
-        _private->attackTime = attackTimeRamper.getAndStep();
+        _private->attackDuration = attackDurationRamper.getAndStep();
         _private->releaseTime = releaseTimeRamper.getAndStep();
         _private->rage = rageRamper.getAndStep();
         
         _private->left_compressor->setParameters(_private->threshold, _private->ratio,
-                                                 _private->attackTime, _private->releaseTime);
+                                                 _private->attackDuration, _private->releaseTime);
         _private->right_compressor->setParameters(_private->threshold, _private->ratio,
-                                                  _private->attackTime, _private->releaseTime);
+                                                  _private->attackDuration, _private->releaseTime);
         
         for (int channel = 0; channel < channels; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;

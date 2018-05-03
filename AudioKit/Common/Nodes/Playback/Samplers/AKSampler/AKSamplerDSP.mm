@@ -148,7 +148,7 @@ void AKSamplerDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
-        case attackTimeParam:
+        case attackDurationParam:
             ampEGParams.setAttackTimeSeconds(value);
             break;
         case decayTimeParam:
@@ -198,7 +198,7 @@ float AKSamplerDSP::getParameter(uint64_t address)
         case filterResonanceParam:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
-        case attackTimeParam:
+        case attackDurationParam:
             return ampEGParams.getAttackTimeSeconds();
         case decayTimeParam:
             return ampEGParams.getDecayTimeSeconds();
