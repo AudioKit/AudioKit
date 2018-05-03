@@ -30,8 +30,8 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.attackTime, value: attackDuration) }
     }
 
-    var releaseTime: Double = AKDynamicRangeCompressor.defaultReleaseTime {
-        didSet { setParameter(.releaseTime, value: releaseTime) }
+    var releaseDuration: Double = AKDynamicRangeCompressor.defaultReleaseDuration {
+        didSet { setParameter(.releaseTime, value: releaseDuration) }
     }
 
     var rampTime: Double = 0.0 {
@@ -85,12 +85,12 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-        let releaseTime = AUParameterTree.createParameter(
-            withIdentifier: "releaseTime",
+        let releaseDuration = AUParameterTree.createParameter(
+            withIdentifier: "releaseDuration",
             name: "Release duration",
             address: AUParameterAddress(3),
-            min: Float(AKDynamicRangeCompressor.releaseTimeRange.lowerBound),
-            max: Float(AKDynamicRangeCompressor.releaseTimeRange.upperBound),
+            min: Float(AKDynamicRangeCompressor.releaseDurationRange.lowerBound),
+            max: Float(AKDynamicRangeCompressor.releaseDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -98,11 +98,11 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             dependentParameters: nil
         )
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackDuration, releaseTime]))
+        setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackDuration, releaseDuration]))
         ratio.value = Float(AKDynamicRangeCompressor.defaultRatio)
         threshold.value = Float(AKDynamicRangeCompressor.defaultThreshold)
         attackDuration.value = Float(AKDynamicRangeCompressor.defaultAttackDuration)
-        releaseTime.value = Float(AKDynamicRangeCompressor.defaultReleaseTime)
+        releaseDuration.value = Float(AKDynamicRangeCompressor.defaultReleaseDuration)
     }
 
     public override var canProcessInPlace: Bool { get { return true; }}

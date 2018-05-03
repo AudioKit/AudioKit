@@ -29,8 +29,8 @@
 - (void)setAttackTime:(float)attackDuration {
     _kernel.setAttackTime(attackDuration);
 }
-- (void)setReleaseTime:(float)releaseTime {
-    _kernel.setReleaseTime(releaseTime);
+- (void)setReleaseTime:(float)releaseDuration {
+    _kernel.setReleaseTime(releaseDuration);
 }
 - (void)setRage:(float)rage {
     _kernel.setRage(rage);
@@ -69,11 +69,11 @@ standardKernelPassthroughs()
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
-    // Create a parameter object for the releaseTime.
-    AUParameter *releaseTimeAUParameter =
-    [AUParameter parameter:@"releaseTime"
+    // Create a parameter object for the releaseDuration.
+    AUParameter *releaseDurationAUParameter =
+    [AUParameter parameter:@"releaseDuration"
                       name:@"Release duration"
-                   address:AKDynaRageCompressorDSPKernel::releaseTimeAddress
+                   address:AKDynaRageCompressorDSPKernel::releaseDurationAddress
                        min:0.1
                        max:500.0
                       unit:kAudioUnitParameterUnit_Seconds];
@@ -92,13 +92,13 @@ standardKernelPassthroughs()
     ratioAUParameter.value = 1.0;
     thresholdAUParameter.value = 0.0;
     attackDurationAUParameter.value = 0.1;
-    releaseTimeAUParameter.value = 0.1;
+    releaseDurationAUParameter.value = 0.1;
     rageAUParameter.value = 0.1;
 
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::ratioAddress,       ratioAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::thresholdAddress,   thresholdAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::attackDurationAddress,  attackDurationAUParameter.value);
-    _kernel.setParameter(AKDynaRageCompressorDSPKernel::releaseTimeAddress, releaseTimeAUParameter.value);
+    _kernel.setParameter(AKDynaRageCompressorDSPKernel::releaseDurationAddress, releaseDurationAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::rageAddress,  rageAUParameter.value);
 
     // Create the parameter tree.
@@ -106,7 +106,7 @@ standardKernelPassthroughs()
                                              ratioAUParameter,
                                              thresholdAUParameter,
                                              attackDurationAUParameter,
-                                             releaseTimeAUParameter,
+                                             releaseDurationAUParameter,
                                              rageAUParameter
                                              ]];
 

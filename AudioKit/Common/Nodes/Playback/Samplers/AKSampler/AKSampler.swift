@@ -26,9 +26,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var filterResonanceParameter: AUParameter?
 
     fileprivate var attackDurationParameter: AUParameter?
-    fileprivate var decayTimeParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
-    fileprivate var releaseTimeParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
 
     fileprivate var filterAttackTimeParameter: AUParameter?
     fileprivate var filterDecayTimeParameter: AUParameter?
@@ -162,10 +162,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Amplitude Decay duration (seconds)
-    @objc open dynamic var decayTime: Double = 0.0 {
+    @objc open dynamic var decayDuration: Double = 0.0 {
         willSet {
-            if decayTime != newValue {
-                internalAU?.decayTime = newValue
+            if decayDuration != newValue {
+                internalAU?.decayDuration = newValue
             }
         }
     }
@@ -180,10 +180,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Amplitude Release duration (seconds)
-    @objc open dynamic var releaseTime: Double = 0.0 {
+    @objc open dynamic var releaseDuration: Double = 0.0 {
         willSet {
-            if releaseTime != newValue {
-                internalAU?.releaseTime = newValue
+            if releaseDuration != newValue {
+                internalAU?.releaseDuration = newValue
             }
         }
     }
@@ -246,9 +246,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - filterEgStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - attackDuration: seconds, 0.0 - 10.0
-    ///   - decayTime: seconds, 0.0 - 10.0
+    ///   - decayDuration: seconds, 0.0 - 10.0
     ///   - sustainLevel: 0.0 - 1.0
-    ///   - releaseTime: seconds, 0.0 - 10.0
+    ///   - releaseDuration: seconds, 0.0 - 10.0
     ///   - filterEnable: true to enable per-voice filters
     ///   - filterAttackTime: seconds, 0.0 - 10.0
     ///   - filterDecayTime: seconds, 0.0 - 10.0
@@ -264,9 +264,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         filterEgStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         attackDuration: Double = 0.0,
-        decayTime: Double = 0.0,
+        decayDuration: Double = 0.0,
         sustainLevel: Double = 1.0,
-        releaseTime: Double = 0.0,
+        releaseDuration: Double = 0.0,
         filterEnable: Bool = false,
         filterAttackTime: Double = 0.0,
         filterDecayTime: Double = 0.0,
@@ -280,9 +280,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterEgStrength = filterEgStrength
         self.filterResonance = filterResonance
         self.attackDuration = attackDuration
-        self.decayTime = decayTime
+        self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
-        self.releaseTime = releaseTime
+        self.releaseDuration = releaseDuration
         self.filterEnable = filterEnable
         self.filterAttackTime = filterAttackTime
         self.filterDecayTime = filterDecayTime
@@ -315,9 +315,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterEgStrengthParameter = tree["filterEgStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
         self.attackDurationParameter = tree["attackDuration"]
-        self.decayTimeParameter = tree["decayTime"]
+        self.decayDurationParameter = tree["decayDuration"]
         self.sustainLevelParameter = tree["sustainLevel"]
-        self.releaseTimeParameter = tree["releaseTime"]
+        self.releaseDurationParameter = tree["releaseDuration"]
         self.filterAttackTimeParameter = tree["filterAttackTime"]
         self.filterDecayTimeParameter = tree["filterDecayTime"]
         self.filterSustainLevelParameter = tree["filterSustainLevel"]
@@ -343,9 +343,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterEgStrengthParam, value: filterEgStrength)
         self.internalAU?.setParameterImmediately(.filterResonanceParam, value: filterResonance)
         self.internalAU?.setParameterImmediately(.attackDurationParam, value: attackDuration)
-        self.internalAU?.setParameterImmediately(.decayTimeParam, value: decayTime)
+        self.internalAU?.setParameterImmediately(.decayDurationParam, value: decayDuration)
         self.internalAU?.setParameterImmediately(.sustainLevelParam, value: sustainLevel)
-        self.internalAU?.setParameterImmediately(.releaseTimeParam, value: releaseTime)
+        self.internalAU?.setParameterImmediately(.releaseDurationParam, value: releaseDuration)
         self.internalAU?.setParameterImmediately(.filterAttackTimeParam, value: filterAttackTime)
         self.internalAU?.setParameterImmediately(.filterDecayTimeParam, value: filterDecayTime)
         self.internalAU?.setParameterImmediately(.filterSustainLevelParam, value: filterSustainLevel)

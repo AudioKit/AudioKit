@@ -20,7 +20,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     fileprivate var ratioParameter: AUParameter?
     fileprivate var thresholdParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?
-    fileprivate var releaseTimeParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Ratio
     public static let ratioRange = 0.01 ... 100.0
@@ -31,8 +31,8 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Lower and upper bounds for Attack Duration
     public static let attackDurationRange = 0.0 ... 1.0
 
-    /// Lower and upper bounds for Release Time
-    public static let releaseTimeRange = 0.0 ... 1.0
+    /// Lower and upper bounds for Release Duration
+    public static let releaseDurationRange = 0.0 ... 1.0
 
     /// Initial value for Ratio
     public static let defaultRatio = 1.0
@@ -44,7 +44,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     public static let defaultAttackDuration = 0.1
 
     /// Initial value for Release Duration
-    public static let defaultReleaseTime = 0.1
+    public static let defaultReleaseDuration = 0.1
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     @objc open dynamic var rampTime: Double = AKSettings.rampTime {
@@ -85,7 +85,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         }
     }
 
-    /// Attack Duration
+    /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             if attackDuration == newValue {
@@ -101,15 +101,15 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         }
     }
 
-    /// Release time
-    @objc open dynamic var releaseTime: Double = defaultReleaseTime {
+    /// Release Duration in seconds
+    @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseTime == newValue {
+            if releaseDuration == newValue {
                 return
             }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
-                    releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
                 }
             }
@@ -130,21 +130,21 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     ///   - input: Input node to process
     ///   - ratio: Ratio to compress with, a value > 1 will compress
     ///   - threshold: Threshold (in dB) 0 = max
-    ///   - attackDuration: Attack duration (seconds)
-    ///   - releaseTime: Release time
+    ///   - attackDuration: Attack duration in seconds
+    ///   - releaseDuration: Release duration in seconds
     ///
     @objc public init(
         _ input: AKNode? = nil,
         ratio: Double = defaultRatio,
         threshold: Double = defaultThreshold,
         attackDuration: Double = defaultAttackDuration,
-        releaseTime: Double = defaultReleaseTime
+        releaseDuration: Double = defaultReleaseDuration
         ) {
 
         self.ratio = ratio
         self.threshold = threshold
         self.attackDuration = attackDuration
-        self.releaseTime = releaseTime
+        self.releaseDuration = releaseDuration
 
         _Self.register()
 
@@ -167,7 +167,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         ratioParameter = tree["ratio"]
         thresholdParameter = tree["threshold"]
         attackDurationParameter = tree["attackDuration"]
-        releaseTimeParameter = tree["releaseTime"]
+        releaseDurationParameter = tree["releaseDuration"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -184,7 +184,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         internalAU?.setParameterImmediately(.ratio, value: ratio)
         internalAU?.setParameterImmediately(.threshold, value: threshold)
         internalAU?.setParameterImmediately(.attackTime, value: attackDuration)
-        internalAU?.setParameterImmediately(.releaseTime, value: releaseTime)
+        internalAU?.setParameterImmediately(.releaseTime, value: releaseDuration)
     }
 
     // MARK: - Control
