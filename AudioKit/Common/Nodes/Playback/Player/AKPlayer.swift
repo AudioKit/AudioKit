@@ -70,7 +70,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.0002
+        public static var minimumGain: Double = 0.000_2
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
