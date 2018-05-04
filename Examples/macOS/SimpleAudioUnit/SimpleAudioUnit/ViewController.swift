@@ -34,7 +34,6 @@ class ViewController: NSViewController {
             let player = AKPlayer(audioFile: audioFile)
             player.isLooping = true
             player.buffering = .always
-            // splayer >>> mixer
             self.player = player
         }
 
