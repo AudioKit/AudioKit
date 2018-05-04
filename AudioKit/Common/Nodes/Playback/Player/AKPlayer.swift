@@ -52,11 +52,6 @@ public class AKPlayer: AKNode {
         case dynamic, always
     }
 
-    // TODO: allow for different curve slopes in parameter ramper, implement other types
-    public enum FadeType {
-        case exponential // linear, logarithmic
-    }
-
     public struct Loop {
         public var start: Double = 0 {
             willSet {
@@ -86,6 +81,18 @@ public class AKPlayer: AKNode {
             }
         }
 
+        public var inRampType: AKSettings.RampType = .exponential {
+            willSet {
+                if newValue != inRampType { needsUpdate = true }
+            }
+        }
+
+        public var outRampType: AKSettings.RampType = .exponential {
+            willSet {
+                if newValue != outRampType { needsUpdate = true }
+            }
+        }
+
         // if you want to start midway into a fade
         public var inTimeOffset: Double = 0
 
@@ -103,8 +110,8 @@ public class AKPlayer: AKNode {
         // Currently Unused
         public var outStartGain: Double = 1
 
-        // TODO: this would tell Booster what ramper to use when multiple curves are available
-        public var type: AKPlayer.FadeType = .exponential
+        // tell Booster what ramper to use when multiple curves are available
+        public var type: AKSettings.RampType = .exponential
 
         var needsUpdate: Bool = false
     }
@@ -114,6 +121,7 @@ public class AKPlayer: AKNode {
     // The underlying player node
     private let playerNode = AVAudioPlayerNode()
     private let faderNode = AKBooster()
+    private let timePitchNode = AKTimePitch()
     private var mixer = AVAudioMixerNode()
     private var startingFrame: AVAudioFramePosition?
     private var endingFrame: AVAudioFramePosition?
@@ -197,6 +205,34 @@ public class AKPlayer: AKNode {
             }
             fade.maximumGain = gain
             faderNode.gain = gain
+        }
+    }
+
+    public var rate: Double = 1 {
+        didSet {
+            timePitchNode.rate = rate
+
+            if rate == 1 && pitch == 0 {
+                timePitchNode.bypass()
+            }
+        }
+    }
+
+    public var pitch: Double = 0 {
+        didSet {
+            timePitchNode.pitch = pitch
+
+            if rate == 1 && pitch == 0 {
+                timePitchNode.bypass()
+            }
+        }
+    }
+
+    // convenience for setting both in and out fade ramp types
+    public var rampType: AKSettings.RampType = .exponential {
+        didSet {
+            fade.inRampType = rampType
+            fade.outRampType = rampType
         }
     }
 
@@ -336,16 +372,22 @@ public class AKPlayer: AKNode {
         if faderNode.avAudioNode.engine == nil {
             AudioKit.engine.attach(faderNode.avAudioNode)
         }
+        if faderNode.avAudioNode.engine == nil {
+            AudioKit.engine.attach(faderNode.avAudioNode)
+        }
 
         playerNode.disconnectOutput()
 
         let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
                                    channels: audioFile.fileFormat.channelCount)
 
-        AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
+        AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: format)
+        AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: format)
         AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
 
         faderNode.gain = Fade.minimumGain
+        faderNode.rampType = .linear
+        timePitchNode.bypass() // bypass timePitch by default to save CPU
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -429,6 +471,13 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
+
+        if pitch != 0 || rate != 1 {
+            timePitchNode.start()
+        }
+
+        faderNode.start()
+
         guard !isBuffered else {
             faderNode.gain = gain
             return
@@ -458,6 +507,10 @@ public class AKPlayer: AKNode {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
+
+        // the time strecher draws a fair bit of CPU when it isn't bypassed, so auto bypass it
+        timePitchNode.bypass()
+        faderNode.bypass()
     }
 
     // MARK: - Fade Handlers
@@ -473,10 +526,14 @@ public class AKPlayer: AKNode {
             return
         }
 
-        guard let hostTime = hostTime, let triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
+        guard let hostTime = hostTime, var triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
             startFade()
             return
         }
+
+        triggerTime /= rate
+
+        AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
             self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
@@ -494,6 +551,7 @@ public class AKPlayer: AKNode {
             state = true
         }
 
+        faderNode.rampType = fade.inRampType
         faderNode.rampTime = AKSettings.rampTime
         faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
     }
@@ -501,11 +559,13 @@ public class AKPlayer: AKNode {
     @objc private func startFade() {
         let inTime = fade.inTime - fade.inTimeOffset
 
+        AKLog("Fading in to", fade.maximumGain)
+
         faderNode.rampTime = AKSettings.rampTime
 
         if inTime > 0 {
             faderNode.gain = Fade.minimumGain
-            faderNode.rampTime = inTime
+            faderNode.rampTime = inTime / rate
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
@@ -524,7 +584,8 @@ public class AKPlayer: AKNode {
             }
             fadeOutWithTime(midFadeDuration)
         } else {
-            let when = (duration - startTime) - (duration - endTime) - fade.outTime
+            var when = (duration - startTime) - (duration - endTime) - fade.outTime
+            when /= rate
 
             DispatchQueue.main.async {
                 self.faderTimer = Timer.scheduledTimer(timeInterval: when,
@@ -544,8 +605,11 @@ public class AKPlayer: AKNode {
 
     private func fadeOutWithTime(_ time: Double) {
         if time > 0 {
-            faderNode.rampTime = time
+            // at this point init the faderNode with the correct settings for fade out
+            faderNode.rampType = fade.outRampType
+            faderNode.rampTime = time / rate
             faderNode.gain = Fade.minimumGain
+            AKLog("Fading out to", Fade.minimumGain)
         }
     }
 
@@ -822,7 +886,10 @@ public class AKPlayer: AKNode {
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: Double = 0, outTime: Double = 0) {
         guard isBuffered, let buffer = self.buffer else { return }
-        if let fadedBuffer = buffer.fade(inTime: inTime, outTime: outTime) {
+        if let fadedBuffer = buffer.fade(inTime: inTime,
+                                         outTime: outTime,
+                                         inRampType: fade.inRampType,
+                                         outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
             AKLog("Faded Buffer")
         }

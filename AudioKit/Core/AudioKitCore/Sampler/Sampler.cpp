@@ -59,38 +59,38 @@ namespace AudioKitCore {
     void Sampler::loadSampleData(AKSampleDataDescriptor& sdd)
     {
         KeyMappedSampleBuffer* pBuf = new KeyMappedSampleBuffer();
-        pBuf->min_note = sdd.sd.min_note;
-        pBuf->max_note = sdd.sd.max_note;
-        pBuf->min_vel = sdd.sd.min_vel;
-        pBuf->max_vel = sdd.sd.max_vel;
+        pBuf->min_note = sdd.sampleDescriptor.minimumNoteNumber;
+        pBuf->max_note = sdd.sampleDescriptor.maximumNoteNumber;
+        pBuf->min_vel = sdd.sampleDescriptor.minimumVelocity;
+        pBuf->max_vel = sdd.sampleDescriptor.maximumVelocity;
         sampleBufferList.push_back(pBuf);
         
-        pBuf->init(sdd.sampleRateHz, sdd.nChannels, sdd.nSamples);
-        float* pData = sdd.pData;
-        if (sdd.bInterleaved) for (int i=0; i < sdd.nSamples; i++)
+        pBuf->init(sdd.sampleRate, sdd.channelCount, sdd.sampleCount);
+        float* pData = sdd.data;
+        if (sdd.isInterleaved) for (int i=0; i < sdd.sampleCount; i++)
         {
             pBuf->setData(i, *pData++);
-            if (sdd.nChannels > 1) pBuf->setData(sdd.nSamples + i, *pData++);
+            if (sdd.channelCount > 1) pBuf->setData(sdd.sampleCount + i, *pData++);
         }
-        else for (int i=0; i < sdd.nChannels * sdd.nSamples; i++)
+        else for (int i=0; i < sdd.channelCount * sdd.sampleCount; i++)
         {
             pBuf->setData(i, *pData++);
         }
-        pBuf->noteNumber = sdd.sd.noteNumber;
-        pBuf->noteHz = sdd.sd.noteHz;
+        pBuf->noteNumber = sdd.sampleDescriptor.noteNumber;
+        pBuf->noteFrequency = sdd.sampleDescriptor.noteFrequency;
         
-        if (sdd.sd.fStart > 0.0f) pBuf->fStart = sdd.sd.fStart;
-        if (sdd.sd.fEnd > 0.0f)   pBuf->fEnd = sdd.sd.fEnd;
+        if (sdd.sampleDescriptor.startPoint > 0.0f) pBuf->startPoint = sdd.sampleDescriptor.startPoint;
+        if (sdd.sampleDescriptor.endPoint > 0.0f)   pBuf->endPoint = sdd.sampleDescriptor.endPoint;
         
-        pBuf->bLoop = sdd.sd.bLoop;
+        pBuf->bLoop = sdd.sampleDescriptor.isLooping;
         if (pBuf->bLoop)
         {
-            // fLoopStart, fLoopEnd are usually sample indices, but values 0.0-1.0
+            // loopStartPoint, loopEndPoint are usually sample indices, but values 0.0-1.0
             // are interpreted as fractions of the total sample length.
-            if (sdd.sd.fLoopStart > 1.0f) pBuf->fLoopStart = sdd.sd.fLoopStart;
-            else pBuf->fLoopStart = pBuf->fEnd * sdd.sd.fLoopStart;
-            if (sdd.sd.fLoopEnd > 1.0f) pBuf->fLoopEnd = sdd.sd.fLoopEnd;
-            else pBuf->fLoopEnd = pBuf->fEnd * sdd.sd.fLoopEnd;
+            if (sdd.sampleDescriptor.loopStartPoint > 1.0f) pBuf->loopStartPoint = sdd.sampleDescriptor.loopStartPoint;
+            else pBuf->loopStartPoint = pBuf->endPoint * sdd.sampleDescriptor.loopStartPoint;
+            if (sdd.sampleDescriptor.loopEndPoint > 1.0f) pBuf->loopEndPoint = sdd.sampleDescriptor.loopEndPoint;
+            else pBuf->loopEndPoint = pBuf->endPoint * sdd.sampleDescriptor.loopEndPoint;
         }
     }
     
@@ -175,12 +175,12 @@ namespace AudioKitCore {
         return 0;
     }
 
-    void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
         pedalLogic.keyDownAction(noteNumber);
         //if (pedalLogic.keyDownAction(noteNumber))
         //    stop(noteNumber, false);
-        play(noteNumber, velocity, noteHz);
+        play(noteNumber, velocity, noteFrequency);
     }
     
     void Sampler::stopNote(unsigned noteNumber, bool immediate)
@@ -202,11 +202,11 @@ namespace AudioKitCore {
         }
     }
     
-    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
         if (stoppingAllVoices) return;
 
-        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
+        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
         // sanity check: ensure we are initialized with at least one buffer
         if (!keyMapValid || sampleBufferList.size() == 0) return;
         
@@ -229,9 +229,9 @@ namespace AudioKitCore {
                 // found a free voice: assign it to play this note
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
-                pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
+                pVoice->start(noteNumber, sampleRateHz, noteFrequency, velocity / 127.0f, pBuf);
                 //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
-                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, i, pBuf);
+                //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
                 return;
             }
         }

@@ -33,11 +33,8 @@ public typealias AKCallback = () -> Void
 
     @objc static var finalMixer = AKMixer()
 
-    /// Notification observers
-    internal static var notificationObservers: [Any] = []
-
     // MARK: - Device Management
-    
+
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {
@@ -45,7 +42,8 @@ public typealias AKCallback = () -> Void
                 try updateSessionCategoryAndOptions()
                 output?.connect(to: finalMixer)
                 engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
-            } catch {
+
+                } catch {
                 AKLog("Could not set output: \(error)")
             }
         }
@@ -136,7 +134,7 @@ public typealias AKCallback = () -> Void
         return nil
     }
 
-    /// Change the preferred input device, giving it one of the names from the list of available inputs.
+        /// Change the preferred input device, giving it one of the names from the list of available inputs.
     @objc open static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
             try AKTry {
@@ -211,16 +209,5 @@ public typealias AKCallback = () -> Void
     /// Disconnect all inputs
     @objc open static func disconnectAllInputs() {
         engine.disconnectNodeInput(finalMixer.avAudioNode)
-    }
-
-    // MARK: - Deinitialization
-
-    deinit {
-        #if os(iOS)
-            NotificationCenter.default.removeObserver(
-                self,
-                name: .AKEngineRestartedAfterRouteChange,
-                object: nil)
-        #endif
     }
 }

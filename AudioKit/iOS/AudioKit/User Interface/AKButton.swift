@@ -20,15 +20,16 @@ public enum AKButtonStyle {
     static var standardCornerRadius: CGFloat = 3.0
 
     public var callback: (AKButton) -> Void = { _ in }
+    public var releaseCallback: (AKButton) -> Void = { _ in }
 
+    var isPressed: Bool {
+        return isHighlighted
+    }
     private var isHighlighted = false {
         didSet {
             setNeedsDisplay()
         }
     }
-
-    private var highlightAnimationTimer: Timer?
-    private var highlightAnimationAlpha: CGFloat = 1.0
 
     /// Text to display on the button
     @IBInspectable open var title: String {
@@ -38,21 +39,21 @@ public enum AKButtonStyle {
     }
 
     /// Background color of the button
-    @IBInspectable open var color: UIColor {
+    @IBInspectable open var color: AKColor {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Button border color
-    @IBInspectable open var borderColor: UIColor? {
+    @IBInspectable open var borderColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
     }
 
     /// Color when the button is highlighted
-    @IBInspectable open var highlightedColor: UIColor? {
+    @IBInspectable open var highlightedColor: AKColor {
         didSet {
             setNeedsDisplay()
         }
@@ -66,7 +67,7 @@ public enum AKButtonStyle {
     }
 
     /// Text color
-    @IBInspectable open var textColor: UIColor? {
+    @IBInspectable open var textColor: AKColor? {
         didSet {
             setNeedsDisplay()
         }
@@ -82,42 +83,27 @@ public enum AKButtonStyle {
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         callback(self)
-
         transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
         isHighlighted = true
     }
 
     /// Handle touch events
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        releaseCallback(self)
         transform = CGAffineTransform.identity
         isHighlighted = false
-
-        if let highlightAnimationTimer = highlightAnimationTimer {
-            highlightAnimationTimer.invalidate()
-            self.highlightAnimationTimer = nil
-        }
-        self.highlightAnimationAlpha = 0.6
-        highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
-    }
-
-    @objc private func highlightAnimationTimerDidFire() {
-        highlightAnimationAlpha += 0.01
-        setNeedsDisplay()
-        if highlightAnimationAlpha == 1.0, let highlightAnimationTimer = highlightAnimationTimer {
-            highlightAnimationTimer.invalidate()
-            self.highlightAnimationTimer = nil
-        }
     }
 
     /// Initialize the button
-    @objc public init(title: String,
+    @objc public convenience init(title: String,
                       color: AKColor = AKStylist.sharedInstance.nextColor,
                       frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                       callback: @escaping (AKButton) -> Void) {
+        self.init(frame: frame)
         self.title = title
         self.color = color
+        self.highlightedColor = color.darker(by: 11)!
         self.callback = callback
-        super.init(frame: frame)
 
         clipsToBounds = true
     }
@@ -126,6 +112,7 @@ public enum AKButtonStyle {
     override public init(frame: CGRect) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
+        self.highlightedColor = color.darker(by: 11)!
         super.init(frame: frame)
 
         self.backgroundColor = AKColor.clear
@@ -136,6 +123,7 @@ public enum AKButtonStyle {
     required public init?(coder: NSCoder) {
         self.title = ""
         self.color = AKStylist.sharedInstance.nextColor
+        self.highlightedColor = color.darker(by: 11)!
         super.init(coder: coder)
 
         self.clipsToBounds = true
@@ -201,17 +189,9 @@ public enum AKButtonStyle {
 
         // Set fill color based on highlight state
         if isHighlighted {
-            if let highlightedColor = highlightedColor {
-                highlightedColor.setFill()
-            } else {
-                color.withAlphaComponent(0.6).setFill()
-            }
+            highlightedColor.setFill()
         } else {
-            if highlightAnimationTimer != nil {
-                color.withAlphaComponent(highlightAnimationAlpha).setFill()
-            } else {
-                color.setFill()
-            }
+            color.setFill()
         }
 
         outerPath.fill()
