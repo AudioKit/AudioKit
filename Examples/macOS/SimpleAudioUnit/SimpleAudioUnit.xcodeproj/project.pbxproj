@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1631212209CFC2100904F79 /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1631211209CFC2100904F79 /* Organ.wav */; };
 		B1F827C0209CDAD2006DE336 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F827BF209CDAD2006DE336 /* AppDelegate.swift */; };
 		B1F827C2209CDAD2006DE336 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F827C1209CDAD2006DE336 /* ViewController.swift */; };
 		B1F827C4209CDAD4006DE336 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C3209CDAD4006DE336 /* Assets.xcassets */; };
 		B1F827C7209CDAD4006DE336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C5209CDAD4006DE336 /* Main.storyboard */; };
 		B1F827D1209CDAFA006DE336 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827CF209CDAFA006DE336 /* AudioKit.framework */; };
 		B1F827D2209CDAFA006DE336 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; };
-		B1F827D4209CEF1B006DE336 /* Organ.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1F827D3209CEF1B006DE336 /* Organ.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B1631211209CFC2100904F79 /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Organ.wav; sourceTree = "<group>"; };
 		B1F827BC209CDAD2006DE336 /* SimpleAudioUnit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleAudioUnit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1F827BF209CDAD2006DE336 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1F827C1209CDAD2006DE336 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,7 +27,6 @@
 		B1F827C9209CDAD4006DE336 /* SimpleAudioUnit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SimpleAudioUnit.entitlements; sourceTree = "<group>"; };
 		B1F827CF209CDAFA006DE336 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
-		B1F827D3209CEF1B006DE336 /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Organ.wav; path = ../../../iOS/AudioUnitManager/AudioUnitManager/Organ.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 				B1F827C3209CDAD4006DE336 /* Assets.xcassets */,
 				B1F827C5209CDAD4006DE336 /* Main.storyboard */,
 				B1F827C8209CDAD4006DE336 /* Info.plist */,
-				B1F827D3209CEF1B006DE336 /* Organ.wav */,
+				B1631211209CFC2100904F79 /* Organ.wav */,
 				B1F827C9209CDAD4006DE336 /* SimpleAudioUnit.entitlements */,
 			);
 			path = SimpleAudioUnit;
@@ -139,7 +139,7 @@
 			files = (
 				B1F827C4209CDAD4006DE336 /* Assets.xcassets in Resources */,
 				B1F827C7209CDAD4006DE336 /* Main.storyboard in Resources */,
-				B1F827D4209CEF1B006DE336 /* Organ.wav in Resources */,
+				B1631212209CFC2100904F79 /* Organ.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
