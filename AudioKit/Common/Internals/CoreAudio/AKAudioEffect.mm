@@ -28,7 +28,7 @@
 - (void)standardSetup {
     self.rampDuration = AKSettings.rampDuration;
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+                                                                        channels:AKSettings.channelCount];
     //_kernel->init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
     _inputBus.init(self.defaultFormat, 8);
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self

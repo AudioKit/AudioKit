@@ -49,7 +49,7 @@
 
     // Initialize a default format for the busses.
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+                                                                        channels:AKSettings.channelCount];
 
     [self createParameters];
 
