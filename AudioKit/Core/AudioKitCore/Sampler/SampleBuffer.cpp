@@ -12,12 +12,12 @@ namespace AudioKitCore
 {
 
     SampleBuffer::SampleBuffer()
-    : pSamples(0)
-    , nChannelCount(0)
-    , nSampleCount(0)
+    : samples(0)
+    , channelCount(0)
+    , sampleCount(0)
     , startPoint(0.0f)
     , endPoint(0.0f)
-    , bLoop(false)
+    , isLooping(false)
     , loopStartPoint(0.0f)
     , loopEndPoint(0.0f)
     {
@@ -28,28 +28,28 @@ namespace AudioKitCore
         deinit();
     }
     
-    void SampleBuffer::init(float sampleRate, int nChannelCount, int nSampleCount)
+    void SampleBuffer::init(float sampleRate, int channelCount, int sampleCount)
     {
-        this->sampleRateHz = sampleRate;
-        this->nSampleCount = nSampleCount;
-        this->nChannelCount = nChannelCount;
-        if (pSamples) delete[] pSamples;
-        pSamples = new float[nChannelCount * nSampleCount];
+        this->sampleRate = sampleRate;
+        this->sampleCount = sampleCount;
+        this->channelCount = channelCount;
+        if (samples) delete[] samples;
+        samples = new float[channelCount * sampleCount];
         loopStartPoint = startPoint = 0.0f;
-        loopEndPoint = endPoint = (float)nSampleCount;
+        loopEndPoint = endPoint = (float)sampleCount;
     }
     
     void SampleBuffer::deinit()
     {
-        if (pSamples) delete[] pSamples;
-        pSamples = 0;
+        if (samples) delete[] samples;
+        samples = 0;
     }
     
-    void SampleBuffer::setData(unsigned nIndex, float data)
+    void SampleBuffer::setData(unsigned index, float data)
     {
-        if ((int)nIndex < nChannelCount * nSampleCount)
+        if ((int)index < channelCount * sampleCount)
         {
-            pSamples[nIndex] = data;
+            samples[index] = data;
         }
     }
     
