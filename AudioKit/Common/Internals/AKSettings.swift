@@ -61,7 +61,7 @@
     @objc open static var sampleRate: Double = 44_100
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    @objc open static var numberOfChannels: UInt32 = 2
+    @objc open static var channelCount: UInt32 = 2
 
     /// Whether we should be listening to audio input (microphone)
     @objc open static var audioInputEnabled: Bool = false
@@ -71,7 +71,7 @@
 
     /// Global audio format AudioKit will default to
     @objc open static var audioFormat: AVAudioFormat {
-        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)!
+        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount)!
     }
 
     /// Whether to output to the speaker (rather than receiver) when audio input is enabled
