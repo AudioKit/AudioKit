@@ -216,9 +216,6 @@ public class AKPlayer: AKNode {
 
     public var rate: Double {
         get {
-            if timePitchNode.isBypassed {
-                return 1
-            }
             return timePitchNode.rate
         }
 
