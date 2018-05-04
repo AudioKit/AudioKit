@@ -70,7 +70,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -223,7 +223,7 @@ public class AKPlayer: AKNode {
 
         set {
             timePitchNode.rate = newValue
-            if timePitchNode.isBypassed  && timePitchNode.rate != 1  {
+            if timePitchNode.isBypassed && timePitchNode.rate != 1 {
                 timePitchNode.start()
             }
         }
