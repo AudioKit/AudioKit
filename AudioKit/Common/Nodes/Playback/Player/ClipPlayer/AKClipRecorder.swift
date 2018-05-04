@@ -203,7 +203,11 @@ open class AKClipRecorder {
                 var adjustedBuffer = buffer
                 var adjustedAudioTme = audioTime
                 if clip.audioTimeStart == nil {
+                    print("clip.startTime \(clip.startTime)")
+                    print("timeIn \(timeIn)")
                     clip.startTime = max(clip.startTime, timeIn)
+                    print("= ip.startTime \(clip.startTime)")
+
                     guard let audioTimeStart = timing.audioTime(at: clip.startTime) else {
                         finalize(clip: clip, error: ClipRecordingError.timingError)
                         continue
@@ -311,7 +315,7 @@ private class AKClipRecording: Equatable {
             let tmp = URL(fileURLWithPath: NSTemporaryDirectory())
             let url = tmp.appendingPathComponent(UUID().uuidString).appendingPathExtension("caf").standardizedFileURL
             guard let fileFormat = AVAudioFormat(commonFormat: .pcmFormatInt16,
-                                           sampleRate: AudioKit.format.sampleRate,
+                                           sampleRate: buffer.format.sampleRate,
                                            channels: buffer.format.channelCount,
                                            interleaved: true) else {
                                             throw ClipRecordingError.formatError
@@ -321,8 +325,8 @@ private class AKClipRecording: Equatable {
                                         commonFormat: buffer.format.commonFormat,
                                         interleaved: buffer.format.isInterleaved)
         }
-        try audioFile?.write(from: buffer)
         tap?(buffer, audioTime)
+        try audioFile?.write(from: buffer)
     }
     static public func == (a: AKClipRecording, b: AKClipRecording) -> Bool {
         return a === b
