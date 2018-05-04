@@ -56,7 +56,10 @@ class ViewController: NSViewController {
             }
 
             // We've decided ahead of time we're looking for the AUDelay unit...
-            let item = audioUnits.first { $0.name == self.requestedAU && $0.manufacturerName == self.requestedManufacturer }
+            let item = audioUnits.first {
+                $0.name == self.requestedAU &&
+                    $0.manufacturerName == self.requestedManufacturer
+            }
             guard let component = item else { return }
             self.createUnit(component.audioComponentDescription)
         })
@@ -64,8 +67,8 @@ class ViewController: NSViewController {
 
     // We ask the manager to instansiate the AU for us
     func createUnit(_ acd: AudioComponentDescription) {
-        self.manager.createEffectAudioUnit(acd) { au in
-            guard let audioUnit = au else {
+        self.manager.createEffectAudioUnit(acd) { audioUnit in
+            guard let audioUnit = audioUnit else {
                 AKLog("* Unable to create audioUnit")
                 return
             }
@@ -96,7 +99,8 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 // Create a floating window for the AU
                 let unitWindow = NSWindow()
-                unitWindow.title = "\(avUnit.auAudioUnit.manufacturerName ?? ""): \(avUnit.auAudioUnit.audioUnitName ?? "Untitled")"
+                unitWindow.title = (avUnit.auAudioUnit.manufacturerName ?? "") + ": " +
+                    (avUnit.auAudioUnit.audioUnitName ?? "Untitled")
                 // take over the window with this view controller
                 unitWindow.contentViewController = ui
 
