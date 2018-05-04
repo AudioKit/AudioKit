@@ -53,7 +53,7 @@
 
     // Initialize a default format for the busses.
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
+                                                                                  channels:AKSettings.channelCount];
 
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount+2, defaultFormat.sampleRate);
