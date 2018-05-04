@@ -149,32 +149,32 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             break;
 
         case AKSamplerParameterAttackDuration:
-            ampEGParams.setAttackTimeSeconds(value);
+            adsrEnvelopeParameters.setAttackTimeSeconds(value);
             break;
         case AKSamplerParameterDecayDuration:
-            ampEGParams.setDecayTimeSeconds(value);
+            adsrEnvelopeParameters.setDecayTimeSeconds(value);
             break;
         case AKSamplerParameterSustainLevel:
-            ampEGParams.sustainFraction = value;
+            adsrEnvelopeParameters.sustainFraction = value;
             break;
         case AKSamplerParameterReleaseDuration:
-            ampEGParams.setReleaseTimeSeconds(value);
+            adsrEnvelopeParameters.setReleaseTimeSeconds(value);
             break;
 
         case AKSamplerParameterFilterAttackDuration:
-            filterEGParams.setAttackTimeSeconds(value);
+            filterEnvelopeParameters.setAttackTimeSeconds(value);
             break;
         case AKSamplerParameterFilterDecayDuration:
-            filterEGParams.setDecayTimeSeconds(value);
+            filterEnvelopeParameters.setDecayTimeSeconds(value);
             break;
         case AKSamplerParameterFilterSustainLevel:
-            filterEGParams.sustainFraction = value;
+            filterEnvelopeParameters.sustainFraction = value;
             break;
         case AKSamplerParameterFilterReleaseDuration:
-            filterEGParams.setReleaseTimeSeconds(value);
+            filterEnvelopeParameters.setReleaseTimeSeconds(value);
             break;
         case AKSamplerParameterFilterEnable:
-            filterEnable = value > 0.5f;
+            isFilterEnabled = value > 0.5f;
             break;
     }
 }
@@ -199,24 +199,24 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
         case AKSamplerParameterAttackDuration:
-            return ampEGParams.getAttackTimeSeconds();
+            return adsrEnvelopeParameters.getAttackTimeSeconds();
         case AKSamplerParameterDecayDuration:
-            return ampEGParams.getDecayTimeSeconds();
+            return adsrEnvelopeParameters.getDecayTimeSeconds();
         case AKSamplerParameterSustainLevel:
-            return ampEGParams.sustainFraction;
+            return adsrEnvelopeParameters.sustainFraction;
         case AKSamplerParameterReleaseDuration:
-            return ampEGParams.getReleaseTimeSeconds();
+            return adsrEnvelopeParameters.getReleaseTimeSeconds();
 
         case AKSamplerParameterFilterAttackDuration:
-            return filterEGParams.getAttackTimeSeconds();
+            return filterEnvelopeParameters.getAttackTimeSeconds();
         case AKSamplerParameterFilterDecayDuration:
-            return filterEGParams.getDecayTimeSeconds();
+            return filterEnvelopeParameters.getDecayTimeSeconds();
         case AKSamplerParameterFilterSustainLevel:
-            return filterEGParams.sustainFraction;
+            return filterEnvelopeParameters.sustainFraction;
         case AKSamplerParameterFilterReleaseDuration:
-            return filterEGParams.getReleaseTimeSeconds();
+            return filterEnvelopeParameters.getReleaseTimeSeconds();
         case AKSamplerParameterFilterEnable:
-            return filterEnable ? 1.0f : 0.0f;
+            return isFilterEnabled ? 1.0f : 0.0f;
     }
     return 0;
 }
@@ -239,15 +239,15 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
         filterEgStrengthRamp.advanceTo(_now + frameOffset);
-        cutoffEgStrength = (float)filterEgStrengthRamp.getValue();
+        cutoffEnvelopeStrength = (float)filterEgStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(_now + frameOffset);
-        resLinear = (float)filterResonanceRamp.getValue();
+        linearResonance = (float)filterResonanceRamp.getValue();
 
         // get data
         float *outBuffers[2];
         outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float*)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
-        AudioKitCore::Sampler::Render(channelCount, chunkSize, outBuffers);
+        AudioKitCore::Sampler::render(channelCount, chunkSize, outBuffers);
     }
 }
