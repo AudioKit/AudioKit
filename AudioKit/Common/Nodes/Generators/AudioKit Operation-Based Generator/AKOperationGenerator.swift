@@ -74,15 +74,15 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
-    ///   - operations:       Array of operations [left, right]
+    ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(numberOfChannels: Int, operations: ([AKOperation]) -> [AKOperation]) {
+    public convenience init(channelCount: Int, operations: ([AKOperation]) -> [AKOperation]) {
 
         let computedParameters = operations(AKOperation.parameters)
         let left = computedParameters[0]
 
-        if numberOfChannels == 2 {
+        if channelCount == 2 {
             let right = computedParameters[1]
             self.init(sporth: "\(right.sporth) \(left.sporth)")
         } else {

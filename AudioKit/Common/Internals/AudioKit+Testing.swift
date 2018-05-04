@@ -30,10 +30,10 @@ extension AudioKit {
             output = tester
 
             // maximum number of frames the engine will be asked to render in any single render call
-            let maxNumberOfFrames: AVAudioFrameCount = 4_096
+            let maximumFrameCount: AVAudioFrameCount = 4_096
             try AKTry {
                 engine.reset()
-                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maxNumberOfFrames)
+                try engine.enableManualRenderingMode(.offline, format: format, maximumFrameCount: maximumFrameCount)
                 try engine.start()
             }
 

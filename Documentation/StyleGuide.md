@@ -1,38 +1,57 @@
 # AudioKit Style Guide
 
-## Variable naming should be consistent across languages (ie. Swifty)
+## Names
+
+Audio programming is full of abbreviations, difficult concepts, and new terminology, so to help alleviate the difficulty associated with reading audio code, we adopt the following variable naming conventions.
+
+### Variable naming should be consistent across languages (ie. Swifty)
 
 Since the highest level language we're using is AudioKit, students of AudioKit will learn that first.  
 As they dig deeper, they will be exposed to other languages, specifically C-variants, and they should
 not be surprised the variables in those languages.  In specific, this means camel case variable naming
 with a lowercase first character (except for Classes, which are uppercase).  No Hungarian notation.
 
-## Variable names with descriptors should have descriptors in front of the word
+### Variable names with descriptors should have descriptors in front of the word
 
 Example: 'leftOutput' not 'outputLeft'
 
-## Variables should not include the units of the variable unless absolutely necessary
+The primary reason for adding descriptors to the right is some sort of vertical alignment or alphabetical arrangement to your variables. Unfortuanately, English is the opposite from this, so to maximize readability, the descriptors come before the nounds.
+
+### Variables should not include the units of the variable unless absolutely necessary
 
 Example: 'frequency' not 'Hz'
 
-## Only variable names of collections are pluralized
+Variable units are very important, and it could have been our standard to always use unit as in 'frequencyInHz' but that can get pretty long so units were dropped and we choose instead to highlight the concept.  If units could be checkable as in Mathematica, that would be great, perhaps some day.
 
-Examples: 'channelCount' not 'numberOfChannels'
+Exception: For clarity when converting between types.
 
-## Avoid abbreviations and shortenings unless absolutely obvious
+### Only variable names of collections are pluralized
 
-## Acronyms are always all CAPS or all lowercase, not camelCase
+Example: 'channelCount' not 'numberOfChannels'
 
- Examples: 'enableMIDI' not 'enableMIDI' and 'midiChannel' not 'MIDIChannel' or 'MidiChannel'
+### Avoid abbreviations and shortenings unless absolutely obvious
 
-## Time Intervals are "Durations"
+### Acronyms are always all CAPS or all lowercase, not camel case
 
-## Boolean variable should start with "is" and if a verb, should end with "ed" or "ing"
+Examples: 'enableMIDI' not 'enableMidi' and 'adsrEnvelope' not 'AdsrEnvelope'
+
+While some acronyms are pronouncable (like 'MIDI') many are not, and when you see words in camel case variables, we expect to be able to mentally separate and pronounce the components as words.  Capitalization alerts the reader of this.  The exception to all caps is all lower case, for when the acronym appears in the beginning of the variable name.
+
+### Time Intervals are "Durations"
+
+When you're writing audio apps, often timing is a very important issue and the distinction between the time something takes to be done and the time the action should start can become confusing if both are called "times".  So, to distinguish, any amount of time is labeled as a Duration and a time is an actual moment in time. 
+
+### Boolean variable should start with "is" and if a verb, should end with "ed" or "ing"
 
 Examples: 'isLooping' not 'loop' and 'isFilterEnabled' not 'filterEnable'
 
-## Comments should documentation generating
+## Documentation / Commenting
 
-## Comments should appear on the line prior to the code
+Ideally, our code would not need comments because it would be so clear to read the code directly, but this often impossible so commenting is important. 
 
-## Folders should contain a README.md
+### Comments should documentation generating
+
+### Comments should appear on the line prior to the code
+
+### Folders should contain a README.md
+
