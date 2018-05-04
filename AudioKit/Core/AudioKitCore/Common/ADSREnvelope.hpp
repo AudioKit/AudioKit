@@ -14,13 +14,13 @@ namespace AudioKitCore
 {
 
     // many ADSREnvelopes can share a common set of parameters
-    struct ADSREnvelopeParams
+    struct ADSREnvelopeParameters
     {
         float sampleRateHz;
         float attackSamples, decaySamples, releaseSamples;
         float sustainFraction;    // [0.0, 1.0]
         
-        ADSREnvelopeParams();
+        ADSREnvelopeParameters();
         void init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
         void init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
         void updateSampleRate(float newSampleRateHz);
@@ -35,7 +35,7 @@ namespace AudioKitCore
     
     struct ADSREnvelope
     {
-        ADSREnvelopeParams* pParams; // many ADSREnvelopes can share a common set of parameters
+        ADSREnvelopeParameters* pParams; // many ADSREnvelopes can share a common set of parameters
         
         LinearRamper ramper;
         
