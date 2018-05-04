@@ -14,14 +14,14 @@ open class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
-    var valueLabel: UILabel! //fixme}
+    var valueLabel: UILabel? //fixme
     var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton!
     @IBInspectable public var currentValue: Double = 0.5 {
         didSet{
             DispatchQueue.main.async {
-                self.valueLabel.text = String(format: "%.3f", self.currentValue)
+                self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
             
         }
@@ -45,17 +45,23 @@ open class AKStepper: UIView {
     /// Initialize the stepper view
     public init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double,
                 frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
-                callback: @escaping (Double) -> Void) {
+                showsValue: Bool = true, callback: @escaping (Double) -> Void) {
         self.callback = callback
         self.minimum = minimum
         self.maximum = maximum
         self.increment = increment
         self.currentValue = value
         self.originalValue = value
+        self.showsValue = showsValue
         self.text = text
         super.init(frame: frame)
+        generateUIComponents(frame: frame)
         checkValues()
         setupButtons()
+        addSubview(label)
+        if showsValue {
+            addSubview(valueLabel!)
+        }
     }
 
     /// Initialize within Interface Builder
@@ -77,28 +83,29 @@ open class AKStepper: UIView {
     
     private func genStackViews(rect: CGRect){
         let borderWidth = minusButton!.borderWidth
-        label = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
+        label.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         label.text = text
         label.textAlignment = .left
-        valueLabel = UILabel(frame: CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
-        valueLabel.text = "\(currentValue)"
-        valueLabel.textAlignment = .right
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        valueLabel?.text = "\(currentValue)"
+        valueLabel?.textAlignment = .right
         
         let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7))
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
-        buttons.spacing = 5
+        buttons.spacing = 1
         
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
         
-        self.addSubview(label)
+//        self.addSubview(label)
         self.addSubview(buttons)
-        if showsValue {
-            self.addSubview(valueLabel)
-        }
     }
-    
+    private func generateUIComponents(frame: CGRect){
+        //frame will be overridden w draw function
+        label = UILabel(frame: frame)
+        valueLabel = UILabel(frame: frame)
+    }
     /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
         return true

@@ -15,11 +15,11 @@ open class AKTweaker : UIView {
     var fineStepper : AKStepper!
     var nudger: AKNugder!
     var nameLabel: UILabel!
-    var valueLabel: UILabel!
+    var valueLabel: UILabel?
     public var currentValue: Double = 1.0 {
         didSet{
             DispatchQueue.main.async {
-                self.valueLabel.text = String(format: "%.3f", self.currentValue)
+                self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
         }
     }
@@ -38,11 +38,11 @@ open class AKTweaker : UIView {
     }
     private func genSubViews(){
         coarseStepper = AKStepper(text: "Coarse", value: 1.0, minimum: -2.0, maximum: 2.0,
-                                  increment: 0.1, callback: {_ in })
+                                  increment: 0.1, showsValue: false, callback: {_ in })
         fineStepper = AKStepper(text: "Fine", value: 1.0, minimum: -2.0, maximum: 2.0,
-                                increment: 0.01, callback: {_ in })
+                                increment: 0.01, showsValue: false, callback: {_ in })
         nudger = AKNugder(text: "Nudge", value: 1.0, minimum: -2.0, maximum: 2.0,
-                          increment: 0.0666, callback: {_ in })
+                          increment: 0.0666, showsValue: false, callback: {_ in })
         coarseStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
@@ -66,6 +66,12 @@ open class AKTweaker : UIView {
         coarseStepper.showsValue = false
         fineStepper.showsValue = false
         nudger.showsValue = false
+        
+        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.3))
+        
+        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.3))
+        self.addSubview(nameLabel)
+        self.addSubview(valueLabel!)
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -77,25 +83,23 @@ open class AKTweaker : UIView {
     }
     private func genStackViews(rect: CGRect){
         let borderWidth = fineStepper.plusButton.borderWidth
-        nameLabel = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
+        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
-        valueLabel = UILabel(frame: CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
-        valueLabel.text = "\(currentValue)"
-        valueLabel.textAlignment = .right
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        valueLabel?.text = "\(currentValue)"
+        valueLabel?.textAlignment = .right
         
         let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.7))
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
-        buttons.spacing = 5
+        buttons.spacing = 10
         
         addToStackIfPossible(view: coarseStepper, stack: buttons)
         addToStackIfPossible(view: fineStepper, stack: buttons)
         addToStackIfPossible(view: nudger, stack: buttons)
         
-        self.addSubview(nameLabel)
-        self.addSubview(valueLabel)
         self.addSubview(buttons)
     }
     private func addToStackIfPossible(view: UIView?, stack: UIStackView){
