@@ -209,39 +209,35 @@ public class AKPlayer: AKNode {
         }
 
         set {
+            // this is the value that the fader will fade to
             fade.maximumGain = newValue
+            // this is the current value of the fader, set immediately
             faderNode.gain = newValue
         }
     }
 
     public var rate: Double {
         get {
-            if timePitchNode.isBypassed {
-                return 1
-            }
             return timePitchNode.rate
         }
 
         set {
             timePitchNode.rate = newValue
-            if newValue == 1 && pitch == 0 {
-                timePitchNode.bypass()
+            if timePitchNode.isBypassed && timePitchNode.rate != 1 {
+                timePitchNode.start()
             }
         }
     }
 
     public var pitch: Double {
         get {
-            if timePitchNode.isBypassed {
-                return 0
-            }
             return timePitchNode.pitch
         }
 
         set {
             timePitchNode.pitch = newValue
-            if rate == 1 && pitch == 0 {
-                timePitchNode.bypass()
+            if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
+                timePitchNode.start()
             }
         }
     }
