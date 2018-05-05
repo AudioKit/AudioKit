@@ -59,6 +59,9 @@ xcodebuild -project Examples/iOS/Drums/Drums.xcodeproj -sdk iphonesimulator -sch
 echo "Building iOS HelloObjectiveC"
 xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean 	build | xcpretty -c || exit 13
 
+echo "Building iOS LoopbackRecording"
+xcodebuild -project Examples/iOS/LoopbackRecording/LoopbackRecording.xcodeproj -sdk iphonesimulator -scheme LoopbackRecording -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
+
 echo "Building iOS MetronomeSamplerSync"
 xcodebuild -project Examples/iOS/MetronomeSamplerSync/MetronomeSamplerSync.xcodeproj -sdk iphonesimulator -scheme MetronomeSamplerSync -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
 
@@ -95,6 +98,9 @@ xcodebuild -project Examples/macOS/FlangerAndChorus/FlangerAndChorus.xcodeproj -
 echo "Building macOS MicrophoneAnalysis"
 xcodebuild -project Examples/macOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -scheme MicrophoneAnalysis ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 25
 
+echo "Building macOS MIDIFileEditAndSync"
+xcodebuild -project Examples/macOS/MIDIFileEditAndSync/MIDIFileEditAndSync.xcodeproj -scheme MIDIFileEditAndSync ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 26
+
 echo "Building macOS MIDIUtility"
 xcodebuild -project Examples/macOS/MIDIUtility/MIDIUtility.xcodeproj -scheme MIDIUtility ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 26
 
@@ -103,6 +109,12 @@ xcodebuild -project Examples/macOS/RandomClips/RandomClips.xcodeproj -scheme Ran
 
 echo "Building macOS Recorder"
 xcodebuild -project Examples/macOS/Recorder/Recorder.xcodeproj -scheme Recorder ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 28
+
+echo "Building macOS SimpleAudioUnit"
+xcodebuild -project Examples/macOS/SimpleAudioUnit/SimpleAudioUnit.xcodeproj -scheme SimpleAudioUnit ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 29
+
+echo "Building macOS SpeechSynthesizer"
+xcodebuild -project Examples/macOS/SpeechSynthesizer/SpeechSynthesizer.xcodeproj -scheme SpeechSynthesizer ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 29
 
 echo "Building macOS SporthEditor"
 xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 29
