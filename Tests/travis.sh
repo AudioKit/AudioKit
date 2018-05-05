@@ -98,9 +98,6 @@ xcodebuild -project Examples/macOS/FlangerAndChorus/FlangerAndChorus.xcodeproj -
 echo "Building macOS MicrophoneAnalysis"
 xcodebuild -project Examples/macOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -scheme MicrophoneAnalysis ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 25
 
-echo "Building macOS MIDIFileEditAndSync"
-xcodebuild -project Examples/macOS/MIDIFileEditAndSync/MIDIFileEditAndSync.xcodeproj -scheme MIDIFileEditAndSync ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 26
-
 echo "Building macOS MIDIUtility"
 xcodebuild -project Examples/macOS/MIDIUtility/MIDIUtility.xcodeproj -scheme MIDIUtility ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 26
 
