@@ -1,12 +1,18 @@
 # AudioKit Style Guide
 
+<img style="float: right;" src="https://i0.wp.com/ericasadun.com/wp-content/uploads/2017/06/esswift_xlargecover.jpg?resize=190%2C228&ssl=1)">
+
+AudioKit is a Swift framework with support for Objective-C and internal code in C and C++.  For this reason,
+we mostly use Swift conventions throughout our code, even in the C-variants. We almost entirely defer to
+Erica Sadun's style choices in her amazing book [Swift Style](https://pragprog.com/book/esswift/swift-style).
+
 ## Names
 
 Audio programming is full of abbreviations, difficult concepts, and new terminology, so to help alleviate the difficulty associated with reading audio code, we adopt the following variable naming conventions.
 
 ### Variable naming should be consistent across languages (ie. Swifty)
 
-Since the highest level language we're using is AudioKit, students of AudioKit will learn that first.  
+Since the highest level language we're using is AudioKit, students of AudioKit will learn that first.
 As they dig deeper, they will be exposed to other languages, specifically C-variants, and they should
 not be surprised the variables in those languages.  In specific, this means camel case variable naming
 with a lowercase first character (except for Classes, which are uppercase).  No Hungarian notation.
@@ -39,7 +45,7 @@ While some acronyms are pronouncable (like 'MIDI') many are not, and when you se
 
 ### Time Intervals are "Durations"
 
-When you're writing audio apps, often timing is a very important issue and the distinction between the time something takes to be done and the time the action should start can become confusing if both are called "times".  So, to distinguish, any amount of time is labeled as a Duration and a time is an actual moment in time. 
+When you're writing audio apps, often timing is a very important issue and the distinction between the time something takes to be done and the time the action should start can become confusing if both are called "times".  So, to distinguish, any amount of time is labeled as a Duration and a time is an actual moment in time.
 
 ### Boolean variable should start with "is" and if a verb, should end with "ed" or "ing"
 
@@ -47,7 +53,7 @@ Examples: 'isLooping' not 'loop' and 'isFilterEnabled' not 'filterEnable'
 
 ## Documentation / Commenting
 
-Ideally, our code would not need comments because it would be so clear to read the code directly, but this often impossible so commenting is important. 
+Ideally, our code would not need comments because it would be so clear to read the code directly, but this often impossible so commenting is important.
 
 ### Comments should documentation generating
 
