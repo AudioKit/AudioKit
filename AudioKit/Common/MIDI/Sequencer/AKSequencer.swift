@@ -297,11 +297,11 @@ open class AKSequencer {
     
     // Remove existing tempo events
     func clearTempoEvents(_ track: MusicTrack) {
-        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, hasDeletedEvent in
-            hasDeletedEvent = false
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+            isReadyForNextEvent = true
             if eventType == kMusicEventType_ExtendedTempo {
                 MusicEventIteratorDeleteEvent(iterator)
-                hasDeletedEvent = true
+                isReadyForNextEvent = false
             }
         }
     }
