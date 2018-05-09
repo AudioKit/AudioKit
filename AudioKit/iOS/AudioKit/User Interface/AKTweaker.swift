@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class AKTweaker : UIView {
+@IBDesignable open class AKTweaker : UIView {
     
     @IBInspectable open var name: String = "Speed"
     var coarseStepper : AKStepper!
