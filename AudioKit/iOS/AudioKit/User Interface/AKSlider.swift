@@ -106,6 +106,10 @@ public enum AKSliderStyle {
         contentMode = .redraw
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
