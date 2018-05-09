@@ -1108,6 +1108,7 @@
 		FE72B21D208AA6C600D861BC /* AudioKit+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21C208AA6C600D861BC /* AudioKit+Testing.swift */; };
 		FE72B21F208AA72C00D861BC /* AudioKit+StartStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21E208AA72B00D861BC /* AudioKit+StartStop.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
+		FED713AB20A3A77F00F837F8 /* AKCoarseFineSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED713AA20A3A77F00F837F8 /* AKCoarseFineSlider.swift */; };
 		FED92BE31ED1331D00E93264 /* AKSamplePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */; };
 		FED92BE41ED1331D00E93264 /* AKSamplePlayerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = FED92BE01ED1331D00E93264 /* AKSamplePlayerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FED92BE51ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */; };
@@ -2297,6 +2298,7 @@
 		FE72B21C208AA6C600D861BC /* AudioKit+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+Testing.swift"; sourceTree = "<group>"; };
 		FE72B21E208AA72B00D861BC /* AudioKit+StartStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+StartStop.swift"; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
+		FED713AA20A3A77F00F837F8 /* AKCoarseFineSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKCoarseFineSlider.swift; sourceTree = "<group>"; };
 		FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSamplePlayer.swift; sourceTree = "<group>"; };
 		FED92BE01ED1331D00E93264 /* AKSamplePlayerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSamplePlayerAudioUnit.h; sourceTree = "<group>"; };
 		FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSamplePlayerAudioUnit.mm; sourceTree = "<group>"; };
@@ -3017,6 +3019,7 @@
 				C470476D1E75314B00D9906F /* AKStepper.swift */,
 				C46B142E1F2E656C00847655 /* AKTableView.swift */,
 				C4DABC431D4E858100A8942F /* AKTelephoneView.swift */,
+				FED713AA20A3A77F00F837F8 /* AKCoarseFineSlider.swift */,
 				FE05428220983B8800034DAB /* AKTweaker.swift */,
 			);
 			name = iOS;
@@ -6269,6 +6272,7 @@
 				EA7D07101F4E63F400707706 /* AKNodeOutputPlot.swift in Sources */,
 				EA7D07161F4E63FA00707706 /* AKKeyboardView.swift in Sources */,
 				EA7D071F1F4E63FA00707706 /* AKResourceAudioFileLoaderView.swift in Sources */,
+				FED713AB20A3A77F00F837F8 /* AKCoarseFineSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6421,7 +6425,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6451,7 +6455,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6482,7 +6486,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -6513,7 +6517,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
