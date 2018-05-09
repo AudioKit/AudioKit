@@ -14,8 +14,11 @@ import Foundation
     var coarseStepper : AKStepper!
     var fineStepper : AKStepper!
     var nudger: AKNugder!
+    var slider: AKSlider!
     var nameLabel: UILabel!
     var valueLabel: UILabel?
+    public var minimum: Double = -2.0
+    public var maximum: Double = 2.0
     public var currentValue: Double = 1.0 {
         didSet{
             DispatchQueue.main.async {
@@ -37,12 +40,11 @@ import Foundation
         genSubViews()
     }
     private func genSubViews(){
-        coarseStepper = AKStepper(text: "Coarse", value: 1.0, minimum: -2.0, maximum: 2.0,
-                                  increment: 0.1, showsValue: false, callback: {_ in })
-        fineStepper = AKStepper(text: "Fine", value: 1.0, minimum: -2.0, maximum: 2.0,
-                                increment: 0.01, showsValue: false, callback: {_ in })
-        nudger = AKNugder(text: "Nudge", value: 1.0, minimum: -2.0, maximum: 2.0,
+        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, showsValue: false, callback: {_ in })
+        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, showsValue: false, callback: {_ in })
+        nudger = AKNugder(text: "Nudge", value: currentValue, minimum: minimum, maximum: maximum,
                           increment: 0.0666, showsValue: false, callback: {_ in })
+        slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
         coarseStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
@@ -76,6 +78,19 @@ import Foundation
             self.touchBeganCallback()
         }
         nudger.touchEndedCallback = {
+            self.touchEndedCallback()
+        }
+        slider.callback = { value in
+            self.callback(value)
+            self.currentValue = value
+            self.coarseStepper.currentValue = value
+            self.fineStepper.currentValue = value
+            self.nudger.setStable(value: value)
+        }
+        slider.touchBeganCallback = {
+            self.touchBeganCallback()
+        }
+        slider.touchEndedCallback = {
             self.touchEndedCallback()
         }
         coarseStepper.backgroundColor = .clear
