@@ -105,7 +105,7 @@ public enum AKSliderStyle {
         self.isUserInteractionEnabled = true
         contentMode = .redraw
     }
-
+    // More required initialization from IB
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -124,8 +124,11 @@ public enum AKSliderStyle {
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        touchesBeganCallback()
     }
-
+    open var touchesBeganCallback: () -> Void = {
+        print("touches began")
+    }
     /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -146,8 +149,18 @@ public enum AKSliderStyle {
             isDragging = false
             setNeedsDisplay()
         }
+        touchesEndedCallback()
     }
-
+    open var touchesEndedCallback: () -> Void = {
+        print("touches ended")
+    }
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchesCancelledCallback()
+    }
+    open var touchesCancelledCallback: () -> Void = {
+        print("touches cancelled")
+    }
+    
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
         case .roundIndicator: return sliderHeight
