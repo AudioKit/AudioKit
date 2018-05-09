@@ -57,7 +57,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     _inputBus.deallocateRenderResources();
 }
 -(BOOL)renderToFile:(NSURL * _Nonnull)fileURL
-            seconds:(double)seconds
+           duration:(double)duration
            settings:(NSDictionary<NSString *, id> * _Nullable)settings
               error:(NSError * _Nullable * _Nullable)outError{
 
@@ -73,7 +73,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
             settings = fixedSettings;
         }
     }
-    if(![AKOfflineRenderAudioUnit checkSeconds:seconds error:outError]) {
+    if(![AKOfflineRenderAudioUnit checkDuration:duration error:outError]) {
         return false;
     }
     AURenderPullInputBlock pullInputBlock = [self getPullInputBlock:outError];
@@ -90,7 +90,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc]initWithPCMFormat:self.defaultFormat frameCapacity:self.maximumFramesToRender];
     int bytesPerFrame = self.defaultFormat.streamDescription->mBytesPerFrame;
 
-    return [self render:round(seconds * self.defaultFormat.sampleRate)
+    return [self render:round(duration * self.defaultFormat.sampleRate)
          pullInputBlock:pullInputBlock
             renderBlock:^BOOL(AudioBufferList *bufferList, AVAudioFrameCount frames, NSError **outError) {
                 AudioBufferList *outBufferlist = buffer.mutableAudioBufferList;
@@ -104,8 +104,8 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
 }
 
 
--(AVAudioPCMBuffer * _Nullable)renderToBuffer:(NSTimeInterval)seconds error:(NSError *_Nullable*__null_unspecified)outError{
-    if (![AKOfflineRenderAudioUnit checkSeconds:seconds error:outError]) {
+-(AVAudioPCMBuffer * _Nullable)renderToBuffer:(NSTimeInterval)duration error:(NSError *_Nullable*__null_unspecified)outError{
+    if (![AKOfflineRenderAudioUnit checkDuration:duration error:outError]) {
         return nil;
     }
     AURenderPullInputBlock pullInputBlock = [self getPullInputBlock:outError];
@@ -113,7 +113,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
         return nil;
     }
 
-    UInt32 frameCount = round(seconds * self.defaultFormat.sampleRate);
+    UInt32 frameCount = round(duration * self.defaultFormat.sampleRate);
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc]initWithPCMFormat:self.defaultFormat frameCapacity:frameCount];
 
     if (!buffer) {
@@ -276,8 +276,8 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     }
     return false;
 }
-+(BOOL)checkSeconds:(double)seconds error:(NSError **)outError{
-    if (seconds <= 0) {
++(BOOL)checkDuration:(double)duration error:(NSError **)outError{
+    if (duration <= 0) {
         return [AKOfflineRenderAudioUnit outError:outError withDomain:@"AKOfflineRenderAudioUnit" code:1
                                       description:@"Can't render <= 0 seconds"];
     }
