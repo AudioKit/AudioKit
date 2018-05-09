@@ -88,7 +88,6 @@ open class AKTweaker : UIView {
         nameLabel.textAlignment = .left
         
         valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
-        valueLabel?.text = "\(currentValue)"
         valueLabel?.textAlignment = .right
         
         let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.7))
