@@ -23,22 +23,22 @@ open class AKStepper: UIView {
             DispatchQueue.main.async {
                 self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
-            
+
         }
     }
     @IBInspectable public var increment: Double = 0.1
     @IBInspectable public var minimum: Double = 0
     @IBInspectable public var maximum: Double = 1
-    internal var originalValue:Double = 0.5
-    open var callback: (Double)->Void = {val in
+    internal var originalValue: Double = 0.5
+    open var callback: (Double) -> Void = {val in
         print("callback: \(val)")
     }
 
-    internal func doPlusAction(){
+    internal func doPlusAction() {
         currentValue += min(increment, maximum - currentValue)
         callback(currentValue)
     }
-    internal func doMinusAction(){
+    internal func doMinusAction() {
         currentValue -= min(increment, currentValue - minimum)
         callback(currentValue)
     }
@@ -80,8 +80,7 @@ open class AKStepper: UIView {
         super.draw(rect)
         genStackViews(rect: rect)
     }
-    
-    private func genStackViews(rect: CGRect){
+    private func genStackViews(rect: CGRect) {
         let borderWidth = minusButton!.borderWidth
         label.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         label.text = text
@@ -97,8 +96,6 @@ open class AKStepper: UIView {
         
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
-        
-//        self.addSubview(label)
         self.addSubview(buttons)
     }
     private func generateUIComponents(frame: CGRect){
@@ -118,19 +115,19 @@ open class AKStepper: UIView {
         minusButton?.setNeedsDisplay()
         plusButton?.setNeedsDisplay()
     }
-    private func addToStackIfPossible(view: UIView?, stack: UIStackView){
-        if view != nil{
+    private func addToStackIfPossible(view: UIView?, stack: UIStackView) {
+        if view != nil {
             stack.addArrangedSubview(view!)
         }
     }
-    internal func checkValues(){
+    internal func checkValues() {
         assert(minimum < maximum)
         assert(currentValue >= minimum)
         assert(currentValue <= maximum)
         assert(increment < maximum - minimum)
         originalValue = currentValue
     }
-    internal func setupButtons(){
+    internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusAction()
         })

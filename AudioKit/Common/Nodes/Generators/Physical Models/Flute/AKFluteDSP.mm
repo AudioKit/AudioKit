@@ -50,9 +50,9 @@ void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool imme
         case AKFluteParameterAmplitude:
             _private->amplitudeRamp.setTarget(value, immediate);
             break;
-        case AKFluteParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKFluteParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -64,8 +64,8 @@ float AKFluteDSP::getParameter(AUParameterAddress address)  {
             return _private->frequencyRamp.getTarget();
         case AKFluteParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKFluteParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKFluteParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

@@ -23,7 +23,7 @@ struct AKClipperDSP::_Internal {
 
 AKClipperDSP::AKClipperDSP() : _private(new _Internal) {
     _private->limitRamp.setTarget(defaultLimit, true);
-    _private->limitRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->limitRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -32,8 +32,8 @@ void AKClipperDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case AKClipperParameterLimit:
             _private->limitRamp.setTarget(clamp(value, limitLowerBound, limitUpperBound), immediate);
             break;
-        case AKClipperParameterRampTime:
-            _private->limitRamp.setRampTime(value, _sampleRate);
+        case AKClipperParameterRampDuration:
+            _private->limitRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -43,8 +43,8 @@ float AKClipperDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKClipperParameterLimit:
             return _private->limitRamp.getTarget();
-        case AKClipperParameterRampTime:
-            return _private->limitRamp.getRampTime(_sampleRate);
+        case AKClipperParameterRampDuration:
+            return _private->limitRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

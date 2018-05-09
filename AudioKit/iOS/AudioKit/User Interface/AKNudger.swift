@@ -53,21 +53,21 @@ open class AKNugder : AKStepper {
     private var animationTimer: Timer?
     private var lastValue: Double = 0
     private func animateValue() {
-        if !plusButton.isPressed{
-            if plusHeldCounter > 0{
+        if !plusButton.isPressed {
+            if plusHeldCounter > 0 {
                 plusHeldCounter -= 1
             }
         } else {
-            if plusHeldCounter < maxPlusCounter{
+            if plusHeldCounter < maxPlusCounter {
                 plusHeldCounter += 1
             }
         }
         if !minusButton.isPressed {
-            if minusHeldCounter > 0{
+            if minusHeldCounter > 0 {
                 minusHeldCounter -= 1
             }
         } else {
-            if minusHeldCounter < maxMinusCounter{
+            if minusHeldCounter < maxMinusCounter {
                 minusHeldCounter += 1
             }
         }
@@ -78,7 +78,7 @@ open class AKNugder : AKStepper {
         lastValue = currentValue
     }
     private func callbackOnChange() {
-        if lastValue != currentValue{
+        if lastValue != currentValue {
             callback(currentValue)
         }
     }
@@ -91,7 +91,7 @@ open class AKNugder : AKStepper {
         return Int(abs((minimum - originalValue) / increment))
     }
     private func startTimerIfNeeded(timer: Timer?, callback: @escaping (Timer) -> Void ) -> Timer? {
-        if timer != nil, timer!.isValid{
+        if timer != nil, timer!.isValid {
             return nil
         }
         if #available(iOS 10.0, *) {
@@ -104,7 +104,7 @@ open class AKNugder : AKStepper {
     private func startTimers() {
         DispatchQueue.main.async {
             if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
-                                                   callback: {_ in self.animateValue() }){
+                                                   callback: {_ in self.animateValue() }) {
                 self.animationTimer = timer
             }
         }

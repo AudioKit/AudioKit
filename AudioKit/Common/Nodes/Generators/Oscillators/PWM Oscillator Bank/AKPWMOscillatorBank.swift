@@ -27,10 +27,10 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoRateParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -49,7 +49,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Attack time
+    /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
@@ -63,7 +63,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    /// Decay time
+    /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
@@ -91,7 +91,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    /// Release time
+    /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
@@ -162,10 +162,10 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///
     /// - Parameters:
     ///   - pulseWidth: Duty cycle width (range 0-1).
-    ///   - attackDuration: Attack time
-    ///   - decayDuration: Decay time
+    ///   - attackDuration: Attack duration in seconds
+    ///   - decayDuration: Decay duration in seconds
     ///   - sustainLevel: Sustain Level
-    ///   - releaseDuration: Release time
+    ///   - releaseDuration: Release duration in seconds
     ///   - pitchBend: Change of pitch in semitones
     ///   - vibratoDepth: Vibrato size in semitones
     ///   - vibratoRate: Frequency of vibrato in Hz

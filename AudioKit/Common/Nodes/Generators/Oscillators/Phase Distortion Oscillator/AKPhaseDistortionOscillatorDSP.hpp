@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
     AKPhaseDistortionOscillatorParameterPhaseDistortion,
     AKPhaseDistortionOscillatorParameterDetuningOffset,
     AKPhaseDistortionOscillatorParameterDetuningMultiplier,
-    AKPhaseDistortionOscillatorParameterRampTime
+    AKPhaseDistortionOscillatorParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -77,12 +77,12 @@ public:
             case AKPhaseDistortionOscillatorParameterDetuningMultiplier:
                 detuningMultiplierRamp.setTarget(value, immediate);
                 break;
-            case AKPhaseDistortionOscillatorParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                amplitudeRamp.setRampTime(value, _sampleRate);
-                phaseDistortionRamp.setRampTime(value, _sampleRate);
-                detuningOffsetRamp.setRampTime(value, _sampleRate);
-                detuningMultiplierRamp.setRampTime(value, _sampleRate);
+            case AKPhaseDistortionOscillatorParameterRampDuration:
+                frequencyRamp.setRampDuration(value, _sampleRate);
+                amplitudeRamp.setRampDuration(value, _sampleRate);
+                phaseDistortionRamp.setRampDuration(value, _sampleRate);
+                detuningOffsetRamp.setRampDuration(value, _sampleRate);
+                detuningMultiplierRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -100,8 +100,8 @@ public:
                 return detuningOffsetRamp.getTarget();
             case AKPhaseDistortionOscillatorParameterDetuningMultiplier:
                 return detuningMultiplierRamp.getTarget();
-            case AKPhaseDistortionOscillatorParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
+            case AKPhaseDistortionOscillatorParameterRampDuration:
+                return frequencyRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

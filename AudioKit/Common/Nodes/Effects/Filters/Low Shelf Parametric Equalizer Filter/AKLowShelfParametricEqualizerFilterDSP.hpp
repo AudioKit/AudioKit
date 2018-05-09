@@ -14,7 +14,7 @@ typedef NS_ENUM(AUParameterAddress, AKLowShelfParametricEqualizerFilterParameter
     AKLowShelfParametricEqualizerFilterParameterCornerFrequency,
     AKLowShelfParametricEqualizerFilterParameterGain,
     AKLowShelfParametricEqualizerFilterParameterQ,
-    AKLowShelfParametricEqualizerFilterParameterRampTime
+    AKLowShelfParametricEqualizerFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -45,7 +45,7 @@ public:
     float defaultGain = 1.0;
     float defaultQ = 0.707;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

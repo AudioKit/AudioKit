@@ -23,7 +23,7 @@ struct AKToneFilterDSP::_Internal {
 
 AKToneFilterDSP::AKToneFilterDSP() : _private(new _Internal) {
     _private->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    _private->halfPowerPointRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -32,8 +32,8 @@ void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKToneFilterParameterHalfPowerPoint:
             _private->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
-        case AKToneFilterParameterRampTime:
-            _private->halfPowerPointRamp.setRampTime(value, _sampleRate);
+        case AKToneFilterParameterRampDuration:
+            _private->halfPowerPointRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -43,8 +43,8 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKToneFilterParameterHalfPowerPoint:
             return _private->halfPowerPointRamp.getTarget();
-        case AKToneFilterParameterRampTime:
-            return _private->halfPowerPointRamp.getRampTime(_sampleRate);
+        case AKToneFilterParameterRampDuration:
+            return _private->halfPowerPointRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

@@ -16,8 +16,8 @@ class AKCompressorTests: AKTestCase {
         duration = 1.0
     }
 
-    func testAttackTime() {
-        output = AKCompressor(input, attackTime: 0.1)
+    func testAttackDuration() {
+        output = AKCompressor(input, attackDuration: 0.1)
         AKTestMD5("3dfe38dc6ed21994dc6c14b91d83490b")
     }
 
@@ -40,8 +40,8 @@ class AKCompressorTests: AKTestCase {
         output = AKCompressor(input,
                               threshold: -25,
                               headRoom: 10,
-                              attackTime: 0.1,
-                              releaseTime: 0.1,
+                              attackDuration: 0.1,
+                              releaseDuration: 0.1,
                               masterGain: 1)
         AKTestMD5("01d8b6f5527c23cf019b9f95d7ef860f")
     }

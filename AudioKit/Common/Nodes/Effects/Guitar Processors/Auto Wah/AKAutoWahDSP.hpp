@@ -14,7 +14,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
     AKAutoWahParameterWah,
     AKAutoWahParameterMix,
     AKAutoWahParameterAmplitude,
-    AKAutoWahParameterRampTime
+    AKAutoWahParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -45,7 +45,7 @@ public:
     float defaultMix = 1.0;
     float defaultAmplitude = 0.1;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

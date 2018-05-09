@@ -1,6 +1,5 @@
 # AudioKit iOS Examples
 
-* Analog Synth X - polyphonic synthesizer with a very nice user interface
 * Audio Unit Manager - host audio units inside your application
 * Drums - trigger drum sounds from 8 pads on your iOS device
 * Filter Effects - Audiobus enabled effects processing
@@ -15,5 +14,12 @@
 * Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
 * Sequencer Demo - examjple of AudioKit's AKSequencer
-* Song Processor - adding effects to songs from the device's iTunes Library 
 * Sporth Editor - A graphical user interface to the Sporth audio language
+
+## External Examples
+
+Here are the examples of AudioKit that are not included in this repository. 
+
+* [Analog Synth X](https://github.com/AudioKit/AnalogSynthX) - polyphonic synthesizer with a very nice user interface
+* [ROM Player](https://github.com/AudioKit/ROMPlayer) - EXS24, Sound Font, Wave Player 
+* [Song Processor](http://github.com/AudioKit/SongProcessor) - adding effects to songs from the device's iTunes Library 

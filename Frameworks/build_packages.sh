@@ -8,6 +8,7 @@ VERSION=$(cat ../VERSION)
 PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
 SKIP_JAZZY=1 # Broken for now
 SUBDIR=${SUBDIR:-"packages"}
+STAGING_BRANCH="staging"
 
 if ! which gsed > /dev/null 2>&1;
 then
@@ -45,6 +46,7 @@ create_package()
 	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$os"
 	cp -a "$DIR/AudioKit.framework" "$DIR/AudioKitUI.framework" "Carthage/$os/"
+	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && return
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
@@ -84,11 +86,11 @@ do
 	create_package $os
 done
 
-create_playgrounds
+test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && create_playgrounds
 
-# Create binary framework zip for Carthage, to be uploaded to Github along with release
+# Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 
-echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
+echo "Packaging AudioKit frameworks version $VERSION for CocoaPods and Carthage ..."
 rm -f AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
