@@ -257,15 +257,17 @@ open class AKMusicTrack {
         }
     }
 
-    func clearMetaEvents() {
+    /// Clear meta events from the track
+    open func clearMetaEvents() {
         clearHelper(kMusicEventType_Meta, from: "clearMetaEvents")
     }
-
-    func clearSysexEvents() {
+    
+    /// Clear SysEx events from the track
+    open func clearSysexEvents() {
         clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
     }
 
-    private func clearHelper(_ eventType: UInt32, from functionName: String) {
+    private func clearHelper(_ targetEventType: UInt32, from functionName: String) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -286,7 +288,7 @@ open class AKMusicTrack {
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
 
-            if eventType == eventType {
+            if targetEventType == eventType {
                 MusicEventIteratorDeleteEvent(iterator)
             } else {
                 MusicEventIteratorNextEvent(iterator)
