@@ -10,7 +10,7 @@ import AudioKit
 import UIKit
 
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
-open class AKStepper: UIView {
+@IBDesignable open class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
@@ -70,6 +70,9 @@ open class AKStepper: UIView {
         checkValues()
         self.originalValue = currentValue
         setupButtons()
+    }
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
     }
     override open func awakeFromNib() {
         checkValues()

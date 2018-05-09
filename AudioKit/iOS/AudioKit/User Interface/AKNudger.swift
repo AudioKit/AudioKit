@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class AKNugder : AKStepper {
+@IBDesignable open class AKNugder : AKStepper {
     open var linear = true
     override internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
@@ -114,5 +114,15 @@ open class AKNugder : AKStepper {
         originalValue = value
         maximum += diff
         minimum += diff
+    }
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
+                showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+        super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }
 }
