@@ -133,9 +133,19 @@ import UIKit
     internal func setupButtons() {
         plusButton = AKButton(title: "+", callback: {_ in
             self.doPlusAction()
+            self.touchBeganCallback()
         })
+        plusButton.releaseCallback = {_ in
+            self.touchEndedCallback()
+        }
         minusButton = AKButton(title: "-", callback: {_ in
             self.doMinusAction()
+            self.touchBeganCallback()
         })
+        minusButton.releaseCallback = {_ in
+            self.touchEndedCallback()
+        }
     }
+    open var touchBeganCallback: () -> Void = { }
+    open var touchEndedCallback: () -> Void = { }
 }

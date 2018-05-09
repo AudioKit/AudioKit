@@ -49,16 +49,34 @@ import Foundation
             self.fineStepper.currentValue = value
             self.nudger.setStable(value: value)
         }
+        coarseStepper.touchBeganCallback = {
+            self.touchBeganCallback()
+        }
+        coarseStepper.touchEndedCallback = {
+            self.touchEndedCallback()
+        }
         fineStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
             self.coarseStepper.currentValue = value
             self.nudger.setStable(value: value)
         }
+        fineStepper.touchBeganCallback = {
+            self.touchBeganCallback()
+        }
+        fineStepper.touchEndedCallback = {
+            self.touchEndedCallback()
+        }
         nudger.linear = false
         nudger.callback = {value in
             self.callback(value)
             self.currentValue = value
+        }
+        nudger.touchBeganCallback = {
+            self.touchBeganCallback()
+        }
+        nudger.touchEndedCallback = {
+            self.touchEndedCallback()
         }
         coarseStepper.backgroundColor = .clear
         fineStepper.backgroundColor = .clear
@@ -114,4 +132,6 @@ import Foundation
         super.prepareForInterfaceBuilder()
         clipsToBounds = true
     }
+    open var touchBeganCallback: () -> Void = { }
+    open var touchEndedCallback: () -> Void = { }
 }
