@@ -115,6 +115,7 @@ import UIKit
         clipsToBounds = true
     }
     override open func layoutSubviews() {
+        super.layoutSubviews()
         minusButton?.setNeedsDisplay()
         plusButton?.setNeedsDisplay()
     }
