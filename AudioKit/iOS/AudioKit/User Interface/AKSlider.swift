@@ -245,8 +245,8 @@ public enum AKSliderStyle {
 
         // Calculate slider height and other values based on expected label height
         let sliderTextMargin: CGFloat = 5.0
-        let sliderOrigin = nameLabelTextHeight + sliderTextMargin
-        sliderHeight = height - sliderOrigin - sliderTextMargin
+        let sliderOrigin = (showsValueBubble ? nameLabelTextHeight + sliderTextMargin : 0)
+        sliderHeight = (showsValueBubble ? height - sliderOrigin - sliderTextMargin : height)
         let indicatorSize = CGSize(width: indicatorWidth, height: sliderHeight)
         let sliderCornerRadius = indicatorSize.width / sliderStyle.cornerRadiusFactor
 
