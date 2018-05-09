@@ -126,9 +126,7 @@ public enum AKSliderStyle {
         super.touchesBegan(touches, with: event)
         touchesBeganCallback()
     }
-    open var touchesBeganCallback: () -> Void = {
-        print("touches began")
-    }
+    open var touchesBeganCallback: () -> Void = { }
     /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -151,15 +149,11 @@ public enum AKSliderStyle {
         }
         touchesEndedCallback()
     }
-    open var touchesEndedCallback: () -> Void = {
-        print("touches ended")
-    }
+    open var touchesEndedCallback: () -> Void = { }
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesCancelledCallback()
     }
-    open var touchesCancelledCallback: () -> Void = {
-        print("touches cancelled")
-    }
+    open var touchesCancelledCallback: () -> Void = { }
     
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
