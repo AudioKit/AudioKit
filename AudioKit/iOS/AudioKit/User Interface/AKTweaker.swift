@@ -50,6 +50,7 @@ import Foundation
             self.currentValue = value
             self.fineStepper.currentValue = value
             self.nudger.setStable(value: value)
+            self.slider.value = value
         }
         coarseStepper.touchBeganCallback = {
             self.touchBeganCallback()
@@ -62,6 +63,7 @@ import Foundation
             self.currentValue = value
             self.coarseStepper.currentValue = value
             self.nudger.setStable(value: value)
+            self.slider.value = value
         }
         fineStepper.touchBeganCallback = {
             self.touchBeganCallback()
@@ -73,6 +75,7 @@ import Foundation
         nudger.callback = {value in
             self.callback(value)
             self.currentValue = value
+            self.slider.value = value
         }
         nudger.touchBeganCallback = {
             self.touchBeganCallback()
@@ -100,11 +103,12 @@ import Foundation
         fineStepper.showsValue = false
         nudger.showsValue = false
         
-        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.3))
+        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
         
-        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.3))
+        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
         self.addSubview(nameLabel)
         self.addSubview(valueLabel!)
+        self.addSubview(slider)
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -116,14 +120,16 @@ import Foundation
     }
     private func genStackViews(rect: CGRect){
         let borderWidth = fineStepper.plusButton.borderWidth
-        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.10)
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
-        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.10)
         valueLabel?.textAlignment = .right
         
-        let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.7))
+        slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.4)
+        
+        let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel!.frame.height, width: rect.width, height: rect.height * 0.5))
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
