@@ -28,21 +28,25 @@ import Foundation
         if increment == 0 {
             currentValue = maximum
         }
+        touchBeganCallback()
     }
     private func doPlusActionRelease() {
         if increment == 0 {
             currentValue = originalValue
         }
+        touchEndedCallback()
     }
     private func doMinusActionHit() {
         if increment == 0 {
             currentValue = minimum
         }
+        touchBeganCallback()
     }
     private func doMinusActionRelease() {
         if increment == 0 {
             currentValue = originalValue
         }
+        touchEndedCallback()
     }
     override internal func checkValues() {
         assert(minimum < maximum)
