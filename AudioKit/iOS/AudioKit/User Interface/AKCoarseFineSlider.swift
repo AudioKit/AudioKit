@@ -102,15 +102,14 @@ import Foundation
     }
     internal func genStackViews(rect: CGRect){
         let borderWidth = fineStepper.plusButton.borderWidth
-        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.10)
+        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         nameLabel.text = name
         nameLabel.textAlignment = .left
-        nameLabel.backgroundColor = .gray
         
-        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.10)
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         valueLabel?.textAlignment = .right
         
-        slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.3)
+        slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
         
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel!.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
