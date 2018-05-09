@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, SDBoosterParameter) {
     SDBoosterParameterLeftGain,
     SDBoosterParameterRightGain,
-    SDBoosterParameterRampTime
+    SDBoosterParameterRampDuration
 };
 
 #ifndef __cplusplus

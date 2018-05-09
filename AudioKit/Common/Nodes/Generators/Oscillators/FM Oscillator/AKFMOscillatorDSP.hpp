@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKFMOscillatorParameter) {
     AKFMOscillatorParameterModulatingMultiplier,
     AKFMOscillatorParameterModulationIndex,
     AKFMOscillatorParameterAmplitude,
-    AKFMOscillatorParameterRampTime
+    AKFMOscillatorParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -53,7 +53,7 @@ public:
     float defaultModulationIndex = 1.0;
     float defaultAmplitude = 1.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

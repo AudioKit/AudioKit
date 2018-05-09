@@ -33,10 +33,10 @@ open class AKWaveTable: AKNode, AKComponent {
     fileprivate var rateParameter: AUParameter?
     fileprivate var volumeParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -117,7 +117,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     /// Number of samples in the audio stored in memory
     open var size: Sample {
-        if (avAudiofile != nil) {
+        if avAudiofile != nil {
             return Sample(avAudiofile!.samplesCount)
         }
         return Sample(maximumSamples)
@@ -185,7 +185,7 @@ open class AKWaveTable: AKNode, AKComponent {
         self.rate = rate
         self.volume = volume
         self.endPoint = endPoint
-        if (file != nil) {
+        if file != nil {
             self.avAudiofile = file!
             self.endPoint = Sample(avAudiofile!.samplesCount)
         }
@@ -241,7 +241,7 @@ open class AKWaveTable: AKNode, AKComponent {
         if maximumSamples != 0 {
             internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
         }
-        if (file != nil) {
+        if file != nil {
             load(file: file!)
         }
     }

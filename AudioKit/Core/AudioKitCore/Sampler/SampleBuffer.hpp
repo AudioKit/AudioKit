@@ -15,47 +15,47 @@ namespace AudioKitCore
     
     struct SampleBuffer
     {
-        float *pSamples;
-        float sampleRateHz;
-        int nChannelCount;
-        int nSampleCount;
-        float fStart, fEnd;
-        bool bLoop;
-        float fLoopStart, fLoopEnd;
-        float noteHz;
+        float *samples;
+        float sampleRate;
+        int channelCount;
+        int sampleCount;
+        float startPoint, endPoint;
+        bool isLooping;
+        float loopStartPoint, loopEndPoint;
+        float noteFrequency;
         
         SampleBuffer();
         ~SampleBuffer();
         
-        void init(float sampleRate, int nChannelCount, int sampleCount);
+        void init(float sampleRate, int channelCount, int sampleCount);
         void deinit();
         
-        void setData(unsigned nIndex, float data);
+        void setData(unsigned index, float data);
         
         // Use double for the real-valued index, because oscillators will need the extra precision.
         inline float interp(double fIndex, float gain)
         {
-            if (pSamples == 0 || nSampleCount == 0) return 0.0f;
+            if (samples == 0 || sampleCount == 0) return 0.0f;
             
             int ri = int(fIndex);
             double f = fIndex - ri;
             int rj = ri + 1;
             
-            float si = ri < nSampleCount ? pSamples[ri] : 0.0f;
-            float sj = rj < nSampleCount ? pSamples[rj] : 0.0f;
+            float si = ri < sampleCount ? samples[ri] : 0.0f;
+            float sj = rj < sampleCount ? samples[rj] : 0.0f;
             return (float)(gain * ((1.0 - f) * si + f * sj));
         }
         
-        inline void interp(double fIndex, float* pOutLeft, float* pOutRight, float gain)
+        inline void interp(double fIndex, float* leftOutput, float* rightOutput, float gain)
         {
-            if (pSamples == 0 || nSampleCount == 0)
+            if (samples == 0 || sampleCount == 0)
             {
-                *pOutLeft = *pOutRight = 0.0f;
+                *leftOutput = *rightOutput = 0.0f;
                 return;
             }
-            if (nChannelCount == 1)
+            if (channelCount == 1)
             {
-                *pOutLeft = *pOutRight = interp(fIndex, gain);
+                *leftOutput = *rightOutput = interp(fIndex, gain);
                 return;
             }
             
@@ -63,12 +63,12 @@ namespace AudioKitCore
             double f = fIndex - ri;
             int rj = ri + 1;
             
-            float si = ri < nSampleCount ? pSamples[ri] : 0.0f;
-            float sj = rj < nSampleCount ? pSamples[rj] : 0.0f;
-            *pOutLeft = (float)(gain * ((1.0 - f) * si + f * sj));
-            si = ri < nSampleCount ? pSamples[nSampleCount + ri] : 0.0f;
-            sj = rj < nSampleCount ? pSamples[nSampleCount + rj] : 0.0f;
-            *pOutRight = (float)(gain * ((1.0f - f) * si + f * sj));
+            float si = ri < sampleCount ? samples[ri] : 0.0f;
+            float sj = rj < sampleCount ? samples[rj] : 0.0f;
+            *leftOutput = (float)(gain * ((1.0 - f) * si + f * sj));
+            si = ri < sampleCount ? samples[sampleCount + ri] : 0.0f;
+            sj = rj < sampleCount ? samples[sampleCount + rj] : 0.0f;
+            *rightOutput = (float)(gain * ((1.0f - f) * si + f * sj));
         }
     };
     
@@ -76,9 +76,9 @@ namespace AudioKitCore
     struct KeyMappedSampleBuffer : public SampleBuffer
     {
         // Any of these members may be negative, meaning "no value assigned"
-        int noteNumber;     // closest MIDI note-number to this sample's frequency (noteHz)
-        int min_note, max_note;     // minimum and maximum note numbers for mapping
-        int min_vel, max_vel;       // min/max MIDI velocities for mapping
+        int noteNumber;     // closest MIDI note-number to this sample's frequency (noteFrequency)
+        int minimumNoteNumber, maximumNoteNumber;     // bounding note numbers for mapping
+        int minimumVelocity, maximumVelocity;       // min/max MIDI velocities for mapping
     };
 
 }

@@ -26,7 +26,7 @@ public extension AKMoogLadder {
         AKLog("public func presetSomeNewMoogLadderFilter() {")
         AKLog("    cutoffFrequency = \(String(format: "%0.3f", cutoffFrequency))")
         AKLog("    resonance = \(String(format: "%0.3f", resonance))")
-        AKLog("    ramp time = \(String(format: "%0.3f", rampTime))")
+        AKLog("    ramp duration = \(String(format: "%0.3f", rampDuration))")
         AKLog("}\n")
     }
 

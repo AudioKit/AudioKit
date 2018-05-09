@@ -645,7 +645,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         // from -20db?
         let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
 
-        // for decay to x% amplitude (-dB) over the given decay time
+        // for decay to x% amplitude (-dB) over the given decay duration
         let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
 
         // where in the buffer to end the fade in

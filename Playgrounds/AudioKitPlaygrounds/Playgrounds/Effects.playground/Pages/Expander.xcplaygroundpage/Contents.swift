@@ -44,19 +44,19 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             expander.expansionThreshold = sliderValue
         })
-        addView(AKSlider(property: "Attack Time",
-                         value: expander.attackTime,
+        addView(AKSlider(property: "Attack Duration",
+                         value: expander.attackDuration,
                          range: 0.001 ... 0.2,
                          format: "%0.4f s"
         ) { sliderValue in
-            expander.attackTime = sliderValue
+            expander.attackDuration = sliderValue
         })
-        addView(AKSlider(property: "Release Time",
-                         value: expander.releaseTime,
+        addView(AKSlider(property: "Release Duration",
+                         value: expander.releaseDuration,
                          range: 0.01 ... 3,
                          format: "%0.3f s"
         ) { sliderValue in
-            expander.releaseTime = sliderValue
+            expander.releaseDuration = sliderValue
         })
         addView(AKSlider(property: "Master Gain",
                          value: expander.masterGain,

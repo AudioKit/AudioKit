@@ -11,7 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(AUParameterAddress, AKChowningReverbParameter) {
-    AKChowningReverbParameterRampTime
+    AKChowningReverbParameterRampDuration
 };
 
 #ifndef __cplusplus

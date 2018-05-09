@@ -10,4 +10,4 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
+AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.channelCount, AKSettings.sampleRate) { }

@@ -96,11 +96,11 @@ void AKModulatedDelayDSP::setParameter(AUParameterAddress address, float value, 
         case AKModulatedDelayParameterDryWetMix:
             dryWetMixRamp.setTarget(value, immediate);
             break;
-        case AKModulatedDelayParameterRampTime:
-            frequencyRamp.setRampTime(value, _sampleRate);
-            depthRamp.setRampTime(value, _sampleRate);
-            feedbackRamp.setRampTime(value, _sampleRate);
-            dryWetMixRamp.setRampTime(value, _sampleRate);
+        case AKModulatedDelayParameterRampDuration:
+            frequencyRamp.setRampDuration(value, _sampleRate);
+            depthRamp.setRampDuration(value, _sampleRate);
+            feedbackRamp.setRampDuration(value, _sampleRate);
+            dryWetMixRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -116,8 +116,8 @@ float AKModulatedDelayDSP::getParameter(AUParameterAddress address)
             return feedbackRamp.getTarget();
         case AKModulatedDelayParameterDryWetMix:
             return dryWetMixRamp.getTarget();
-        case AKModulatedDelayParameterRampTime:
-            return frequencyRamp.getRampTime(_sampleRate);
+        case AKModulatedDelayParameterRampDuration:
+            return frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
