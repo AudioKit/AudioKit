@@ -39,7 +39,7 @@ class AKBoosterTests: AKTestCase {
         booster.rightGain = 0.0
         osc.connect(to: booster)
         AudioKit.output = booster
-        try! AudioKit.renderToFile(audioFile, seconds: 4, prerender: {
+        try! AudioKit.renderToFile(audioFile, duration: 4, prerender: {
             osc.start()
         })
     }

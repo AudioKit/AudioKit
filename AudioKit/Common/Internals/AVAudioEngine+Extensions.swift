@@ -18,12 +18,12 @@ extension AVAudioEngine {
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
     ///         - audioFile: An file initialized for writing
-    ///         - seconds: Duration to render
+    ///         - duration: Duration to render, in seconds
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
     ///
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
-    public func renderToFile(_ audioFile: AVAudioFile, seconds: Double, prerender: (() -> Void)? = nil) throws {
-        guard seconds >= 0 else {
+    public func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
+        guard duration >= 0 else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
@@ -46,7 +46,7 @@ extension AVAudioEngine {
         prerender?()
 
         // Render until file contains >= target samples
-        let targetSamples = AVAudioFramePosition(seconds * manualRenderingFormat.sampleRate)
+        let targetSamples = AVAudioFramePosition(duration * manualRenderingFormat.sampleRate)
         while audioFile.framePosition < targetSamples {
             let framesToRender = min(buffer.frameCapacity, AVAudioFrameCount( targetSamples - audioFile.framePosition))
             let status = try renderOffline(framesToRender, to: buffer)
