@@ -106,6 +106,5 @@ import Foundation
     override internal func genStackViews(rect: CGRect){
         super.genStackViews(rect: rect)
         buttons.layoutSubviews()
-        nudger.layoutSubviews()
     }
 }
