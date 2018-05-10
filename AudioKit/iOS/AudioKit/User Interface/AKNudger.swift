@@ -106,7 +106,6 @@ import Foundation
         minimum += diff
     }
     override internal func setupButtons(frame: CGRect) {
-        print("AKNudger.setupButtons")
         plusButton = AKButton(title: "+", frame: frame, callback: {_ in
             self.doPlusActionHit()
         })
@@ -124,15 +123,12 @@ import Foundation
         self.addSubview(buttons)
     }
     override public init(frame: CGRect) {
-        print("AKNudger.init(frame)")
         super.init(frame: frame)
     }
     required public init?(coder aDecoder: NSCoder) {
-        print("AKNudger.init(coder)")
         super.init(coder: aDecoder)
     }
     public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
-        print("AKNudger.init(custom) - \(frame.height)")
         super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }
 }
