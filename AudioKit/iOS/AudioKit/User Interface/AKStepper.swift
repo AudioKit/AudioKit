@@ -15,6 +15,7 @@ import UIKit
     @IBInspectable var text: String = "Stepper"
     var label: UILabel! //fixme
     var valueLabel: UILabel? //fixme
+    var buttons: UIStackView!
     var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton!
@@ -91,20 +92,17 @@ import UIKit
         valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         valueLabel?.text = "\(currentValue)"
         valueLabel?.textAlignment = .right
-        
-        let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7))
-        buttons.axis = .horizontal
-        buttons.distribution = .fillEqually
-        buttons.spacing = 1
-        
-        addToStackIfPossible(view: minusButton, stack: buttons)
-        addToStackIfPossible(view: plusButton, stack: buttons)
-        self.addSubview(buttons)
+        print("AKSTepper.genStackViews - width: \(rect.width)")
+        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7)
     }
     private func generateUIComponents(frame: CGRect){
         //frame will be overridden w draw function
         label = UILabel(frame: frame)
         valueLabel = UILabel(frame: frame)
+        buttons = UIStackView(frame: frame)
+        buttons.axis = .horizontal
+        buttons.distribution = .fillEqually
+        buttons.spacing = 1
     }
     /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
@@ -131,24 +129,25 @@ import UIKit
         assert(increment < maximum - minimum)
         originalValue = currentValue
     }
-    internal var buttonFrame: CGRect {
-        return CGRect(x: frame.origin.x, y: frame.origin.y + label.frame.height, width: frame.width / 2, height: frame.height * 0.7)
-    }
     internal func setupButtons(frame: CGRect) {
-        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
+        let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
+        plusButton = AKButton(title: "+", frame: buttonFrame, callback: {_ in
             self.doPlusAction()
             self.touchBeganCallback()
         })
         plusButton.releaseCallback = {_ in
             self.touchEndedCallback()
         }
-        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
+        minusButton = AKButton(title: "-", frame: buttonFrame, callback: {_ in
             self.doMinusAction()
             self.touchBeganCallback()
         })
         minusButton.releaseCallback = {_ in
             self.touchEndedCallback()
         }
+        addToStackIfPossible(view: minusButton, stack: buttons)
+        addToStackIfPossible(view: plusButton, stack: buttons)
+        self.addSubview(buttons)
     }
     open var touchBeganCallback: () -> Void = { }
     open var touchEndedCallback: () -> Void = { }

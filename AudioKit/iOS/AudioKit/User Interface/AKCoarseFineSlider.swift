@@ -39,9 +39,9 @@ import Foundation
     override init(frame: CGRect) {
         super.init(frame: frame)
         genSubViews()
-        print("AKCoarseFine.init(frame)")
     }
     internal func genSubViews(){
+        print("AKCoarseFine.genSubViews")
         coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, frame: frame, showsValue: false, callback: {_ in })
         fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, frame: frame, showsValue: false, callback: {_ in })
         slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
@@ -94,16 +94,20 @@ import Foundation
         self.addSubview(valueLabel!)
         self.addSubview(slider)
         self.addSubview(buttons)
+        addToStackIfPossible(view: coarseStepper, stack: buttons)
+        addToStackIfPossible(view: fineStepper, stack: buttons)
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         genSubViews()
     }
     override open func draw(_ rect: CGRect) {
+        print("AKCoarseFine.draw")
         super.draw(rect)
         genStackViews(rect: rect)
     }
     internal func genStackViews(rect: CGRect){
+        print("AKCoarseFine.genStackViews")
         let borderWidth = fineStepper.plusButton.borderWidth
         nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         nameLabel.text = name
@@ -113,17 +117,11 @@ import Foundation
         valueLabel?.textAlignment = .right
         
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
-        
+        print(buttons.arrangedSubviews.count)
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel!.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
-        addToStackIfPossible(view: coarseStepper, stack: buttons)
-        addToStackIfPossible(view: fineStepper, stack: buttons)
-    }
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        print("AKCoarseSlider.layoutSubviews")
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView){
         if view != nil{

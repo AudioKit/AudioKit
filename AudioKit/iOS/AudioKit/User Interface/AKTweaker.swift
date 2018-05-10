@@ -52,10 +52,6 @@ import Foundation
         
         nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
         buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.7))
-        self.addSubview(nameLabel)
-        self.addSubview(valueLabel!)
-        self.addSubview(slider)
-        self.addSubview(buttons)
         
         nudger = AKNugder(text: "Nudge", value: currentValue, minimum: minimum, maximum: maximum,
                           increment: 0.0666, frame: frame, showsValue: false, callback: {_ in })
@@ -94,6 +90,14 @@ import Foundation
         }
         nudger.backgroundColor = .clear
         nudger.showsValue = false
+        
+        self.addSubview(nameLabel)
+        self.addSubview(valueLabel!)
+        self.addSubview(slider)
+        self.addSubview(buttons)
+        addToStackIfPossible(view: coarseStepper, stack: buttons)
+        addToStackIfPossible(view: fineStepper, stack: buttons)
+        addToStackIfPossible(view: nudger, stack: buttons)
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -101,6 +105,8 @@ import Foundation
     }
     override internal func genStackViews(rect: CGRect){
         super.genStackViews(rect: rect)
-        addToStackIfPossible(view: nudger, stack: buttons)
+        buttons.layoutSubviews()
+        nudger.layoutSubviews()
+        nudger.setNeedsDisplay()
     }
 }
