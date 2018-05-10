@@ -10,20 +10,6 @@ import Foundation
 
 @IBDesignable open class AKNugder : AKStepper {
     open var linear = true
-    override internal func setupButtons(frame: CGRect) {
-        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
-            self.doPlusActionHit()
-        })
-        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
-            self.doMinusActionHit()
-        })
-        plusButton.releaseCallback = {_ in
-            self.doPlusActionRelease()
-        }
-        minusButton.releaseCallback = {_ in
-            self.doMinusActionRelease()
-        }
-    }
     private func doPlusActionHit() {
         if increment == 0 {
             currentValue = maximum
@@ -119,13 +105,34 @@ import Foundation
         maximum += diff
         minimum += diff
     }
+    override internal func setupButtons(frame: CGRect) {
+        print("AKNudger.setupButtons")
+        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
+            self.doPlusActionHit()
+        })
+        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
+            self.doMinusActionHit()
+        })
+        plusButton.releaseCallback = {_ in
+            self.doPlusActionRelease()
+        }
+        minusButton.releaseCallback = {_ in
+            self.doMinusActionRelease()
+        }
+        addToStackIfPossible(view: minusButton, stack: buttons)
+        addToStackIfPossible(view: plusButton, stack: buttons)
+        self.addSubview(buttons)
+    }
     override public init(frame: CGRect) {
+        print("AKNudger.init(frame)")
         super.init(frame: frame)
     }
     required public init?(coder aDecoder: NSCoder) {
+        print("AKNudger.init(coder)")
         super.init(coder: aDecoder)
     }
     public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+        print("AKNudger.init(custom) - \(frame.height)")
         super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }
 }
