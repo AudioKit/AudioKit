@@ -195,6 +195,7 @@ open class AKSequencer {
         }
         if let existingTempoTrack = tempoTrack {
             MusicTrackClear(existingTempoTrack, 0, length.beats)
+            clearTempoEvents(existingTempoTrack)
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, 0, constrainedTempo)
         }
     }
@@ -218,7 +219,10 @@ open class AKSequencer {
         }
     }
 
-    /// Tempo retrieved from the sequencer
+    /// Tempo retrieved from the sequencer. Defaults to 120
+    /// NB: It looks at the currentPosition back in time for the last tempo event. 
+    /// If the sequence is not started, it returns default 120
+    /// A sequence may contain several tempo events. 
     open var tempo: Double {
         var tempoOut: Double = 120.0
 
@@ -257,39 +261,52 @@ open class AKSequencer {
         return tempoOut
     }
 
-    var isTempoTrackEmpty: Bool {
-        var outBool = true
-        var tempIterator: MusicEventIterator?
+    /// returns an array of (MusicTimeStamp, bpm) tuples
+    /// for all tempo events on the tempo track
+    open var allTempoEvents: [(MusicTimeStamp, Double)] {
         var tempoTrack: MusicTrack?
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-
-        if let existingTempoTrack = tempoTrack {
-            NewMusicEventIterator(existingTempoTrack, &tempIterator)
-        }
-        guard let iterator = tempIterator else {
-            return true
-        }
-
-        var eventTime = MusicTimeStamp(0)
-        var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer?
-        var eventDataSize: UInt32 = 0
-        var hasNextEvent: DarwinBoolean = false
-
-        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-        while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-
-            if eventType != 5 {
-                outBool = true
+        guard let existingSequence = sequence else { return [] }
+        MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        guard tempoTrack != nil else { return [] }
+        
+        var tempos = [(MusicTimeStamp, Double)]()
+        
+        AKMusicTrack.iterateMusicTrack(tempoTrack!) { _, eventTime, eventType, eventData, _, _ in
+            if eventType == kMusicEventType_ExtendedTempo {
+                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
+                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
+                    tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+                }
             }
-            MusicEventIteratorNextEvent(iterator)
-            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
-        DisposeMusicEventIterator(iterator)
-        return outBool
+        return tempos
+    }
+
+    /// returns the tempo at a given position in beats
+    /// - parameter at: Position at which the tempo is desired
+    open func getTempo(at position: MusicTimeStamp) -> Double {
+        // MIDI file with no tempo events defaults to 120 bpm
+        var tempoAtPosition: Double = 120.0
+        for event in allTempoEvents {
+            if event.0 <= position {
+                tempoAtPosition = event.1
+            } else {
+                break
+            }
+        }
+
+        return tempoAtPosition
+    }
+    
+    // Remove existing tempo events
+    func clearTempoEvents(_ track: MusicTrack) {
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+            isReadyForNextEvent = true
+            if eventType == kMusicEventType_ExtendedTempo {
+                MusicEventIteratorDeleteEvent(iterator)
+                isReadyForNextEvent = false
+            }
+        }
     }
 
     /// Possible values for the time signature lower value
@@ -299,6 +316,102 @@ open class AKSequencer {
         case four = 2
         case eight = 3
         case sixteen = 4
+    }
+
+    /// reads the sequence and returns the time signature event previous to currentPosition. If nothing found: returns nil
+    /// If the sequence is not started, it returns nil
+    /// A sequence may contain several time signatures. 
+    open var timeSignature : (UInt8, TimeSignatureBottomValue)? {
+        var timeSignatureTop : UInt8?
+        var timeSignatureBottom: TimeSignatureBottomValue?
+        var outValue : (UInt8, TimeSignatureBottomValue)?
+        
+        
+        var tempoTrack: MusicTrack?
+        if let existingSequence = sequence {
+            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        }
+        
+        var tempIterator: MusicEventIterator?
+        if let existingTempoTrack = tempoTrack {
+            NewMusicEventIterator(existingTempoTrack, &tempIterator)
+        }
+        
+        guard let iterator = tempIterator else {
+            return nil
+        }
+        
+        var eventTime: MusicTimeStamp = 0
+        var eventType: MusicEventType = kMusicEventType_Meta
+        var eventData: UnsafeRawPointer?
+        var eventDataSize: UInt32 = 0
+        
+        // we look back in time of the currentPosition for the last meta event
+        var hasPreviousEvent: DarwinBoolean = false
+        MusicEventIteratorSeek(iterator, currentPosition.beats)
+        MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
+        while hasPreviousEvent.boolValue {
+            MusicEventIteratorPreviousEvent(iterator)
+            MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            // one midi event holds both the upper and lower nominee and dominator
+            // there are several meta events in a midi file: SMTPE, time signature, ...
+            if eventType == kMusicEventType_Meta {
+                
+                if let data = eventData?.assumingMemoryBound(to: MIDIMetaEvent.self) {
+                    let isThisTheMetaType = data.pointee.metaEventType
+                    // 88 is the time signature. Don't know if it is defined as a const somewher; 0x58
+                    if isThisTheMetaType == 88 { 
+                        // the event contains two data: the upper time signature and the lower time signature
+                        // see https://stackoverflow.com/questions/25880178/read-time-signature-like-4-4-from-midi-file-ios
+                        
+                        
+                        // this (UInt8) stuff is quite tricky to get round. 
+                        // see Gene De Lisa on https://stackoverflow.com/questions/33466596/swift-2-how-to-parse-a-time-signature-from-midimetaevent
+                        // and https://github.com/jverkoey/swift-midi/blob/master/LUMI/CoreMIDI/MIDIPacket%2BSequenceType.swift
+                        // and https://forums.developer.apple.com/thread/60350#170204
+                        // as I'm not this fluent in swift, I couldn't work it out. 
+                        // I was able to work it out: see the ObjC-Code in Issue #1353 https://github.com/AudioKit/AudioKit/issues/1353
+                        
+                        let arrayBuffer = UnsafeBufferPointer(start: data, count: Int(data.pointee.dataLength))
+                        let array = Array(arrayBuffer)
+                        
+                        // AKLog("array: \(array.description)")
+                        // AKLog("Signature value: \(array[0].data)")
+                        timeSignatureTop = array[0].data
+                        
+                        // lower doesn't work
+                        let isThisLower = array[1].data
+                        // AKLog("lower: \(isThisLower)")
+                        timeSignatureBottom = AKSequencer.TimeSignatureBottomValue(rawValue: isThisLower)
+                    }
+                    
+                    // other things I tried
+                    
+                    /*var metaEventPointer: UnsafePointer<MIDIMetaEvent> = UnsafePointer(data)
+
+                    withUnsafeMutablePointer(to: &metaEventPointer, { pointer in
+                        timeSignatureTop = metaEventPointer.data[0]
+                        timeSignatureBottom = metaEventPointer.data[1]*/
+
+                        /*for i in 0 ..< metaEventPointer.pointee.dataLength {
+                            pointer[Int(i)] = data[Int(i)]
+                        }*/
+                    //})
+
+                    /*let metaEventPointer: UnsafePointer<MIDIMetaEvent> = UnsafePointer(data)
+                    let lenght = metaEventPointer.pointee.dataLength
+                    timeSignatureTop = metaEventPointer.pointee.data[0]
+                    timeSignatureBottom = metaEventPointer.pointee.data[1]*/
+                }
+            }
+        }
+        DisposeMusicEventIterator(iterator)
+        
+        if (timeSignatureTop != nil && timeSignatureBottom != nil) {
+            outValue = (timeSignatureTop, timeSignatureBottom) as? (UInt8, AKSequencer.TimeSignatureBottomValue)
+        }
+        return outValue
     }
 
     /// Add a time signature event to start of tempo track
@@ -349,7 +462,8 @@ open class AKSequencer {
         let timeSignatureMetaEventByte: UInt8 = 0x58
         let metaEventType = kMusicEventType_Meta
 
-        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _ in
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+            isReadyForNextEvent = true
             guard eventType == metaEventType else { return }
 
             let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
@@ -357,6 +471,7 @@ open class AKSequencer {
 
             if dataMetaEventType == timeSignatureMetaEventByte {
                 MusicEventIteratorDeleteEvent(iterator)
+                isReadyForNextEvent = false
             }
         }
     }
