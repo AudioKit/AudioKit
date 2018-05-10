@@ -16,6 +16,8 @@ import Foundation
     var slider: AKSlider!
     var nameLabel: UILabel!
     var valueLabel: UILabel?
+    private var buttonPercent: CGFloat = 0.5
+    private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
     public var minimum: Double = -2.0
     public var maximum: Double = 2.0
@@ -37,10 +39,11 @@ import Foundation
     override init(frame: CGRect) {
         super.init(frame: frame)
         genSubViews()
+        print("AKCoarseFine.init(frame)")
     }
     internal func genSubViews(){
-        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, showsValue: false, callback: {_ in })
-        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, showsValue: false, callback: {_ in })
+        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, frame: frame, showsValue: false, callback: {_ in })
+        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, frame: frame, showsValue: false, callback: {_ in })
         slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
         coarseStepper.callback = { value in
             self.callback(value)
@@ -83,10 +86,10 @@ import Foundation
         coarseStepper.showsValue = false
         fineStepper.showsValue = false
         
-        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
+        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
         
-        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
-        buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.7))
+        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
+        buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * buttonPercent))
         self.addSubview(nameLabel)
         self.addSubview(valueLabel!)
         self.addSubview(slider)
@@ -115,13 +118,12 @@ import Foundation
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
-        dump(buttons.frame)
         addToStackIfPossible(view: coarseStepper, stack: buttons)
         addToStackIfPossible(view: fineStepper, stack: buttons)
     }
     override open func layoutSubviews() {
         super.layoutSubviews()
-        buttons.setNeedsDisplay()
+        print("AKCoarseSlider.layoutSubviews")
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView){
         if view != nil{

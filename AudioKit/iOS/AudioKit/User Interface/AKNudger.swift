@@ -10,11 +10,11 @@ import Foundation
 
 @IBDesignable open class AKNugder : AKStepper {
     open var linear = true
-    override internal func setupButtons() {
-        plusButton = AKButton(title: "+", callback: {_ in
+    override internal func setupButtons(frame: CGRect) {
+        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
             self.doPlusActionHit()
         })
-        minusButton = AKButton(title: "-", callback: {_ in
+        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
             self.doMinusActionHit()
         })
         plusButton.releaseCallback = {_ in
@@ -125,7 +125,7 @@ import Foundation
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
+    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect,
                 showsValue: Bool = true, callback: @escaping (Double) -> Void) {
         super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }

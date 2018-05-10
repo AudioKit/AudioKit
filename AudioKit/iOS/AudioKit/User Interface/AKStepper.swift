@@ -44,8 +44,7 @@ import UIKit
     }
     /// Initialize the stepper view
     public init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
-                showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+                frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
         self.callback = callback
         self.minimum = minimum
         self.maximum = maximum
@@ -57,7 +56,7 @@ import UIKit
         super.init(frame: frame)
         generateUIComponents(frame: frame)
         checkValues()
-        setupButtons()
+        setupButtons(frame: frame)
         addSubview(label)
         if showsValue {
             addSubview(valueLabel!)
@@ -69,7 +68,8 @@ import UIKit
         super.init(coder: aDecoder)
         checkValues()
         self.originalValue = currentValue
-        setupButtons()
+        generateUIComponents(frame: frame)
+        setupButtons(frame: frame)
     }
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -131,15 +131,18 @@ import UIKit
         assert(increment < maximum - minimum)
         originalValue = currentValue
     }
-    internal func setupButtons() {
-        plusButton = AKButton(title: "+", callback: {_ in
+    internal var buttonFrame: CGRect {
+        return CGRect(x: frame.origin.x, y: frame.origin.y + label.frame.height, width: frame.width / 2, height: frame.height * 0.7)
+    }
+    internal func setupButtons(frame: CGRect) {
+        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
             self.doPlusAction()
             self.touchBeganCallback()
         })
         plusButton.releaseCallback = {_ in
             self.touchEndedCallback()
         }
-        minusButton = AKButton(title: "-", callback: {_ in
+        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
             self.doMinusAction()
             self.touchBeganCallback()
         })
