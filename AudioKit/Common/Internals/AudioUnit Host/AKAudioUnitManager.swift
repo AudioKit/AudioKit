@@ -77,9 +77,9 @@ open class AKAudioUnitManager: NSObject {
                     }
 
                     if let acd = newValue[i]?.audioComponentDescription {
-                        AKAudioUnitManager.createEffectAudioUnit(acd) { au in
+                        AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
                             unitsCreated += 1
-                            self._effectsChain[i] = au
+                            self._effectsChain[i] = audioUnit
                         }
                     }
                 } else {
@@ -159,14 +159,22 @@ open class AKAudioUnitManager: NSObject {
 
     private func addObservors() {
         // Sign up for a notification when the list of available components changes.
-        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged, object: nil, queue: nil, using: componentRegistrationObservor)
-        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation, object: nil, queue: nil, using: componentInstanceObservor)
+        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
+                                               object: nil, queue: nil,
+                                               using: componentRegistrationObservor)
+        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation,
+                                               object: nil, queue: nil,
+                                               using: componentInstanceObservor)
     }
 
     private func removeObservors() {
         // remove Notification Observers
-        NotificationCenter.default.removeObserver(componentRegistrationObservor, name: .ComponentRegistrationsChanged, object: nil)
-        NotificationCenter.default.removeObserver(componentInstanceObservor, name: .ComponentInstanceInvalidation, object: nil)
+        NotificationCenter.default.removeObserver(componentRegistrationObservor,
+                                                  name: .ComponentRegistrationsChanged,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(componentInstanceObservor,
+                                                  name: .ComponentInstanceInvalidation,
+                                                  object: nil)
     }
 
     private func componentRegistrationObservor(notification: Foundation.Notification) {
@@ -217,8 +225,8 @@ open class AKAudioUnitManager: NSObject {
     /// Create an instrument with a name and a completion handler
     public func createInstrument(name: String, completionHandler: ((AVAudioUnitMIDIInstrument?) -> Void)? = nil) {
         guard let desc = (availableInstruments.first { $0.name == name })?.audioComponentDescription else { return }
-        AKAudioUnitManager.createInstrumentAudioUnit(desc) { au in
-            guard let audioUnit = au else {
+        AKAudioUnitManager.createInstrumentAudioUnit(desc) { audioUnit in
+            guard let audioUnit = audioUnit else {
                 AKLog("Unable to create audioUnit")
                 return
             }
@@ -265,8 +273,8 @@ open class AKAudioUnitManager: NSObject {
             let acd = component.audioComponentDescription
             // AKLog("\(index) \(name) -- \(acd)")
 
-            AKAudioUnitManager.createEffectAudioUnit(acd) { au in
-                guard let audioUnit = au else {
+            AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
+                guard let audioUnit = audioUnit else {
                     AKLog("Unable to create audioUnit")
                     return
                 }
