@@ -22,8 +22,11 @@ import Foundation
         name = "Tweaker"
     }
     override internal func genSubViews(){
+        print("AKTweaker.genSubViews")
         coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, frame: frame, showsValue: false, callback: {_ in })
         fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, frame: frame, showsValue: false, callback: {_ in })
+        nudger = AKNugder(text: "Nudge", value: currentValue, minimum: minimum, maximum: maximum,
+                          increment: 0.0666, frame: frame, showsValue: false, callback: {_ in })
         slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
         coarseStepper.touchBeganCallback = {
             self.touchBeganCallback()
@@ -53,8 +56,6 @@ import Foundation
         nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
         buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.7))
         
-        nudger = AKNugder(text: "Nudge", value: currentValue, minimum: minimum, maximum: maximum,
-                          increment: 0.0666, frame: frame, showsValue: false, callback: {_ in })
         coarseStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
@@ -104,9 +105,9 @@ import Foundation
         name = "Tweaker"
     }
     override internal func genStackViews(rect: CGRect){
+        print("AKTweaker.genStackViews")
         super.genStackViews(rect: rect)
         buttons.layoutSubviews()
         nudger.layoutSubviews()
-        nudger.setNeedsDisplay()
     }
 }

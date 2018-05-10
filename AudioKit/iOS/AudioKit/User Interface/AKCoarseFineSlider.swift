@@ -117,7 +117,6 @@ import Foundation
         valueLabel?.textAlignment = .right
         
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
-        print(buttons.arrangedSubviews.count)
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel!.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually

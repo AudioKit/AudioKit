@@ -46,6 +46,7 @@ import UIKit
     /// Initialize the stepper view
     public init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double,
                 frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+        print("AKStepper.init(custom) - \(frame.height)")
         self.callback = callback
         self.minimum = minimum
         self.maximum = maximum
@@ -66,13 +67,15 @@ import UIKit
 
     /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
+        print("AKStepper.init(coder)")
         super.init(coder: aDecoder)
-        checkValues()
-        self.originalValue = currentValue
         generateUIComponents(frame: frame)
+        checkValues()
         setupButtons(frame: frame)
+        self.originalValue = currentValue
     }
     override public init(frame: CGRect) {
+        print("AKStepper.init - \(frame.height)")
         super.init(frame: frame)
     }
     override open func awakeFromNib() {
@@ -81,10 +84,12 @@ import UIKit
     }
     /// Draw the stepper
     override open func draw(_ rect: CGRect) {
+        print("AKStepper.draw - \(rect.height)")
         super.draw(rect)
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect) {
+        print("AKStepper.genStackViews - \(rect.height)")
         let borderWidth = minusButton!.borderWidth
         label.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         label.text = text
@@ -92,11 +97,11 @@ import UIKit
         valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         valueLabel?.text = "\(currentValue)"
         valueLabel?.textAlignment = .right
-        print("AKSTepper.genStackViews - width: \(rect.width)")
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7)
     }
     private func generateUIComponents(frame: CGRect){
         //frame will be overridden w draw function
+        print("AKStepper.generateUIComponents - \(frame.height)")
         label = UILabel(frame: frame)
         valueLabel = UILabel(frame: frame)
         buttons = UIStackView(frame: frame)
@@ -113,11 +118,12 @@ import UIKit
         clipsToBounds = true
     }
     override open func layoutSubviews() {
+        print("AKStepper.layoutSubviews")
         super.layoutSubviews()
         minusButton?.setNeedsDisplay()
         plusButton?.setNeedsDisplay()
     }
-    private func addToStackIfPossible(view: UIView?, stack: UIStackView) {
+    internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
         if view != nil {
             stack.addArrangedSubview(view!)
         }
@@ -130,6 +136,7 @@ import UIKit
         originalValue = currentValue
     }
     internal func setupButtons(frame: CGRect) {
+        print("AKStepper.setupButtons - \(frame.height)")
         let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
         plusButton = AKButton(title: "+", frame: buttonFrame, callback: {_ in
             self.doPlusAction()
