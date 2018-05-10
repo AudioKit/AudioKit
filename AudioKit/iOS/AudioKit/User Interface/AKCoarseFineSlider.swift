@@ -37,7 +37,6 @@ import Foundation
         coarseStepper.currentValue = value
         fineStepper.currentValue = value
     }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         genSubViews()
@@ -120,6 +119,7 @@ import Foundation
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
+        buttons.layoutSubviews()
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView){
         if view != nil{
