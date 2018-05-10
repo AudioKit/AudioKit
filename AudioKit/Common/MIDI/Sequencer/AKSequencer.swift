@@ -195,6 +195,7 @@ open class AKSequencer {
         }
         if let existingTempoTrack = tempoTrack {
             MusicTrackClear(existingTempoTrack, 0, length.beats)
+            clearTempoEvents(existingTempoTrack)
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, 0, constrainedTempo)
         }
     }
@@ -257,39 +258,52 @@ open class AKSequencer {
         return tempoOut
     }
 
-    var isTempoTrackEmpty: Bool {
-        var outBool = true
-        var tempIterator: MusicEventIterator?
+    /// returns an array of (MusicTimeStamp, bpm) tuples
+    /// for all tempo events on the tempo track
+    open var allTempoEvents: [(MusicTimeStamp, Double)] {
         var tempoTrack: MusicTrack?
-        if let existingSequence = sequence {
-            MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-        }
-
-        if let existingTempoTrack = tempoTrack {
-            NewMusicEventIterator(existingTempoTrack, &tempIterator)
-        }
-        guard let iterator = tempIterator else {
-            return true
-        }
-
-        var eventTime = MusicTimeStamp(0)
-        var eventType = MusicEventType()
-        var eventData: UnsafeRawPointer?
-        var eventDataSize: UInt32 = 0
-        var hasNextEvent: DarwinBoolean = false
-
-        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-        while hasNextEvent.boolValue {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-
-            if eventType != 5 {
-                outBool = true
+        guard let existingSequence = sequence else { return [] }
+        MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
+        guard tempoTrack != nil else { return [] }
+        
+        var tempos = [(MusicTimeStamp, Double)]()
+        
+        AKMusicTrack.iterateMusicTrack(tempoTrack!) { _, eventTime, eventType, eventData, _, _ in
+            if eventType == kMusicEventType_ExtendedTempo {
+                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
+                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
+                    tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+                }
             }
-            MusicEventIteratorNextEvent(iterator)
-            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
-        DisposeMusicEventIterator(iterator)
-        return outBool
+        return tempos
+    }
+
+    /// returns the tempo at a given position in beats
+    /// - parameter at: Position at which the tempo is desired
+    open func getTempo(at position: MusicTimeStamp) -> Double {
+        // MIDI file with no tempo events defaults to 120 bpm
+        var tempoAtPosition: Double = 120.0
+        for event in allTempoEvents {
+            if event.0 <= position {
+                tempoAtPosition = event.1
+            } else {
+                break
+            }
+        }
+
+        return tempoAtPosition
+    }
+    
+    // Remove existing tempo events
+    func clearTempoEvents(_ track: MusicTrack) {
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+            isReadyForNextEvent = true
+            if eventType == kMusicEventType_ExtendedTempo {
+                MusicEventIteratorDeleteEvent(iterator)
+                isReadyForNextEvent = false
+            }
+        }
     }
 
     /// Possible values for the time signature lower value
@@ -349,7 +363,8 @@ open class AKSequencer {
         let timeSignatureMetaEventByte: UInt8 = 0x58
         let metaEventType = kMusicEventType_Meta
 
-        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _ in
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+            isReadyForNextEvent = true
             guard eventType == metaEventType else { return }
 
             let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
@@ -357,6 +372,7 @@ open class AKSequencer {
 
             if dataMetaEventType == timeSignatureMetaEventByte {
                 MusicEventIteratorDeleteEvent(iterator)
+                isReadyForNextEvent = false
             }
         }
     }
