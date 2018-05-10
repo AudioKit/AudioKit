@@ -19,9 +19,11 @@ import Foundation
     private var buttonPercent: CGFloat = 0.5
     private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
-    public var minimum: Double = -2.0
-    public var maximum: Double = 2.0
-    public var currentValue: Double = 1.0 {
+    @IBInspectable public var minimum: Double = -2.0
+    @IBInspectable public var maximum: Double = 2.0
+    @IBInspectable public var coarseIncrement: Double = 1
+    @IBInspectable public var fineIncrement: Double = 0.1
+    @IBInspectable public var currentValue: Double = 1.0 {
         didSet{
             DispatchQueue.main.async {
                 self.valueLabel?.text = String(format: "%.3f", self.currentValue)
@@ -41,8 +43,8 @@ import Foundation
         genSubViews()
     }
     internal func genSubViews(){
-        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.1, frame: frame, showsValue: false, callback: {_ in })
-        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, frame: frame, showsValue: false, callback: {_ in })
+        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: coarseIncrement, frame: frame, showsValue: false, callback: {_ in })
+        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: fineIncrement, frame: frame, showsValue: false, callback: {_ in })
         slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
         coarseStepper.callback = { value in
             self.callback(value)
