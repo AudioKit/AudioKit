@@ -34,7 +34,6 @@ import UIKit
     open var callback: (Double) -> Void = {val in
         print("akstepper callback: \(val)")
     }
-
     internal func doPlusAction() {
         currentValue += min(increment, maximum - currentValue)
         callback(currentValue)

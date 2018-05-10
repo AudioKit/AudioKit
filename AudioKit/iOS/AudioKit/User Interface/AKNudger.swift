@@ -108,15 +108,19 @@ import Foundation
     override internal func setupButtons(frame: CGRect) {
         plusButton = AKButton(title: "+", frame: frame, callback: {_ in
             self.doPlusActionHit()
+            self.touchBeganCallback()
         })
         minusButton = AKButton(title: "-", frame: frame, callback: {_ in
             self.doMinusActionHit()
+            self.touchBeganCallback()
         })
         plusButton.releaseCallback = {_ in
             self.doPlusActionRelease()
+            self.touchEndedCallback()
         }
         minusButton.releaseCallback = {_ in
             self.doMinusActionRelease()
+            self.touchEndedCallback()
         }
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
