@@ -125,8 +125,7 @@ import Foundation
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect,
-                showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
         super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }
 }
