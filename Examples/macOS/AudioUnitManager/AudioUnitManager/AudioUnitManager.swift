@@ -34,7 +34,7 @@ class AudioUnitManager: NSViewController {
     internal var audioTimer: Timer?
     internal var audioPlaying: Bool = false
     internal var openPanel: NSOpenPanel?
-    internal var internalManager: AKAudioUnitManager?
+    internal var internalManager = AKAudioUnitManager(inserts: 6)
     internal var midiManager: AKMIDI?
     internal var player: AKPlayer?
     internal var waveform: AKWaveform?
@@ -224,7 +224,6 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleInstrumentSelected(_ sender: NSPopUpButton) {
-        guard let internalManager = internalManager else { return }
         guard let auname = sender.titleOfSelectedItem else { return }
 
         if auname == "-" {
@@ -243,7 +242,7 @@ class AudioUnitManager: NSViewController {
             if self.auInstrument == nil {
                 return
             }
-            internalManager.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
+            self.internalManager.connectEffects(firstNode: self.auInstrument, lastNode: self.mixer)
             self.showAudioUnit(audioUnit, identifier: 6)
             DispatchQueue.main.async {
                 self.instrumentPlayButton.isEnabled = true
@@ -305,7 +304,7 @@ extension AudioUnitManager: NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         if let w = notification.object as? NSWindow {
             if w == view.window {
-                internalManager?.reset()
+                internalManager.reset()
                 do {
                     try AudioKit.stop()
                 } catch {
