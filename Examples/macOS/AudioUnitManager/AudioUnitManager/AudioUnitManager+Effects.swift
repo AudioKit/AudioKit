@@ -13,14 +13,13 @@ import Cocoa
 extension AudioUnitManager {
 
     internal func initManager() {
-        internalManager = AKAudioUnitManager(inserts: 6)
-        internalManager?.delegate = self
+        internalManager.delegate = self
 
-        internalManager?.requestEffects(completionHandler: { audioUnits in
+        internalManager.requestEffects(completionHandler: { audioUnits in
             self.updateEffectsUI(audioUnits: audioUnits)
         })
 
-        internalManager?.requestInstruments(completionHandler: { audioUnits in
+        internalManager.requestInstruments(completionHandler: { audioUnits in
             self.updateInstrumentsUI(audioUnits: audioUnits)
         })
     }
@@ -51,8 +50,6 @@ extension AudioUnitManager {
     ////////////////////////////
 
     func showEffect(at auIndex: Int, state: Bool) {
-        guard let internalManager = internalManager else { return }
-
         if auIndex > internalManager.effectsChain.count - 1 {
             AKLog("index is out of range")
             return
@@ -75,7 +72,6 @@ extension AudioUnitManager {
     }
 
     func handleEffectSelected(_ auname: String, identifier: Int) {
-        guard let internalManager = internalManager else { return }
         AKLog("\(identifier) \(auname)")
 
         if auname == "-" {
@@ -150,8 +146,6 @@ extension AudioUnitManager {
     }
 
     private func fillAUMenu(button: MenuButton, manufacturers: [String], audioUnits: [AVAudioUnitComponent]) {
-        guard let internalManager = internalManager else { return }
-
         if button.menu == nil {
             let theMenu = NSMenu(title: "Effects")
             theMenu.font = NSFont.systemFont(ofSize: 10)
@@ -193,7 +187,7 @@ extension AudioUnitManager {
 
         let internalSubmenu = button.menu?.items.first(where: { $0.title == akInternals })
 
-        for name in internalManager.internalAudioUnits {
+        for name in AKAudioUnitManager.internalAudioUnits {
             let item = ClosureMenuItem(title: name, closure: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.handleEffectSelected(name, identifier: button.tag)
@@ -315,8 +309,6 @@ extension AudioUnitManager {
     }
 
     fileprivate func reconnect() {
-        guard let internalManager = internalManager else { return }
-
         // is FM playing?
         if fmOscillator.isStarted {
             internalManager.connectEffects(firstNode: fmOscillator, lastNode: mixer)
@@ -343,8 +335,7 @@ extension AudioUnitManager {
 extension AudioUnitManager: AKAudioUnitManagerDelegate {
 
     func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        if type == AKAudioUnitManager.Notification.changed {
-            guard let internalManager = internalManager else { return }
+        if type == .changed {
             updateEffectsUI(audioUnits: internalManager.availableEffects)
         }
     }

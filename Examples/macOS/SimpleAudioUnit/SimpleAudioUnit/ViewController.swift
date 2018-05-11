@@ -67,7 +67,7 @@ class ViewController: NSViewController {
 
     // We ask the manager to instansiate the AU for us
     func createUnit(_ acd: AudioComponentDescription) {
-        self.manager.createEffectAudioUnit(acd) { audioUnit in
+        AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
             guard let audioUnit = audioUnit else {
                 AKLog("* Unable to create audioUnit")
                 return
