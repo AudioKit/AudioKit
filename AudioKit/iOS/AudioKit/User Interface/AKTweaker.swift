@@ -21,7 +21,7 @@ import Foundation
         super.init(frame: frame)
         name = "Tweaker"
     }
-    override internal func genSubViews(){
+    override internal func genSubViews() {
         coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.01, frame: frame, showsValue: false, callback: {_ in })
         fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: 0.001, frame: frame, showsValue: false, callback: {_ in })
         nudger = AKNugder(text: "Nudge", value: currentValue, minimum: minimum, maximum: maximum,
