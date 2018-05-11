@@ -16,6 +16,7 @@ import UIKit
     public var labelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
+    @IBInspectable public var buttonBorderWidth: CGFloat = 3.0
     var label: UILabel! //fixme
     var valueLabel: UILabel? //fixme
     var buttons: UIStackView!
@@ -149,6 +150,8 @@ import UIKit
         }
         plusButton.font = buttonFont!
         minusButton.font = buttonFont!
+        plusButton.borderWidth = buttonBorderWidth
+        minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
         self.addSubview(buttons)

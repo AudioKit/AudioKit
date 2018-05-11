@@ -16,6 +16,7 @@ import Foundation
     public var buttonLabelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
     @IBInspectable public var stringFormat: String = "%.3f"
+    @IBInspectable public var buttonBorderWidth: CGFloat = 3.0
     var coarseStepper : AKStepper!
     var fineStepper : AKStepper!
     var slider: AKSlider!
@@ -111,6 +112,8 @@ import Foundation
         fineStepper.backgroundColor = .clear
         coarseStepper.showsValue = false
         fineStepper.showsValue = false
+        coarseStepper.buttonBorderWidth = buttonBorderWidth
+        fineStepper.buttonBorderWidth = buttonBorderWidth
         
         valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
         
@@ -141,12 +144,11 @@ import Foundation
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect){
-        let borderWidth = fineStepper.plusButton.borderWidth
-        nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
+        nameLabel.frame = CGRect(x: rect.origin.x + buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
-        valueLabel.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
+        valueLabel.frame = CGRect(x: rect.origin.x - buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         valueLabel.textAlignment = .right
         
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
