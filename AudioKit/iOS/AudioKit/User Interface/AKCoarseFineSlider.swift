@@ -54,6 +54,11 @@ import Foundation
     public var callback: (Double) -> Void = {val in
         print(val)
     }
+    public func reset(to value: Double){
+        setStable(value: value)
+        currentValue = value
+        slider.value = value
+    }
     public func setStable(value: Double){
         coarseStepper.currentValue = value
         fineStepper.currentValue = value
