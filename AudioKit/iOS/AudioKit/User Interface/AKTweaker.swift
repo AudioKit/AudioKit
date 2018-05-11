@@ -90,6 +90,9 @@ import Foundation
         }
         nudger.backgroundColor = .clear
         nudger.showsValue = false
+        super.setupFonts()
+        nudger.labelFont = buttonLabelFont
+        nudger.buttonFont = buttonFont
         
         self.addSubview(nameLabel)
         self.addSubview(valueLabel!)
@@ -102,9 +105,5 @@ import Foundation
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         name = "Tweaker"
-    }
-    override internal func genStackViews(rect: CGRect){
-        super.genStackViews(rect: rect)
-        buttons.layoutSubviews()
     }
 }

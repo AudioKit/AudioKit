@@ -31,6 +31,8 @@ public enum AKButtonStyle {
         }
     }
 
+    public var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
+    
     /// Text to display on the button
     @IBInspectable open var title: String {
         didSet {
@@ -201,7 +203,7 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
+        let labelFontAttributes = [NSAttributedStringKey.font: font,
                                    NSAttributedStringKey.foregroundColor: textColorForTheme,
                                    NSAttributedStringKey.paragraphStyle: labelStyle]
 
