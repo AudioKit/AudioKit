@@ -112,8 +112,7 @@ import UIKit
     }
     override open func layoutSubviews() {
         super.layoutSubviews()
-        minusButton?.setNeedsDisplay()
-        plusButton?.setNeedsDisplay()
+        genStackViews(rect: bounds)
     }
     internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
         if view != nil {
