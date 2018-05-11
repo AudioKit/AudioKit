@@ -15,6 +15,7 @@ import Foundation
     public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var buttonLabelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
+    @IBInspectable public var stringFormat: String = "%.3f"
     var coarseStepper : AKStepper!
     var fineStepper : AKStepper!
     var slider: AKSlider!
@@ -23,14 +24,30 @@ import Foundation
     private var buttonPercent: CGFloat = 0.5
     private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
-    @IBInspectable public var minimum: Double = -2.0
-    @IBInspectable public var maximum: Double = 2.0
-    @IBInspectable public var coarseIncrement: Double = 1
-    @IBInspectable public var fineIncrement: Double = 0.1
+    @IBInspectable public var minimum: Double = -2.0 {
+        didSet{
+            slider.range = minimum...maximum
+            coarseStepper.minimum = minimum
+            fineStepper.minimum = minimum
+        }
+    }
+    @IBInspectable public var maximum: Double = 2.0 {
+        didSet{
+            slider.range = minimum...maximum
+            coarseStepper.maximum = maximum
+            fineStepper.maximum = maximum
+        }
+    }
+    @IBInspectable public var coarseIncrement: Double = 1 {
+        didSet{ coarseStepper.increment = coarseIncrement }
+    }
+    @IBInspectable public var fineIncrement: Double = 0.1 {
+        didSet{ fineStepper.increment = fineIncrement }
+    }
     @IBInspectable public var currentValue: Double = 1.0 {
         didSet{
             DispatchQueue.main.async {
-                self.valueLabel.text = String(format: "%.3f", self.currentValue)
+                self.valueLabel.text = String(format: self.stringFormat, self.currentValue)
             }
         }
     }
@@ -128,6 +145,9 @@ import Foundation
         valueLabel.textAlignment = .right
         
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
+        slider.range = minimum...maximum
+        slider.value = currentValue
+        
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
