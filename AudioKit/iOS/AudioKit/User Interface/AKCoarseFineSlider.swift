@@ -136,4 +136,8 @@ import Foundation
     }
     open var touchBeganCallback: () -> Void = { }
     open var touchEndedCallback: () -> Void = { }
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        genStackViews(rect: bounds)
+    }
 }
