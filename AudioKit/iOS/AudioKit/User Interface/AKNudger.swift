@@ -122,6 +122,10 @@ import Foundation
             self.doMinusActionRelease()
             self.touchEndedCallback()
         }
+        plusButton.font = buttonFont!
+        minusButton.font = buttonFont!
+        plusButton.borderWidth = buttonBorderWidth
+        minusButton.borderWidth = buttonBorderWidth
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
         self.addSubview(buttons)

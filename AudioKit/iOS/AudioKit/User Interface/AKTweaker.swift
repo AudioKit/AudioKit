@@ -49,6 +49,8 @@ import Foundation
         fineStepper.backgroundColor = .clear
         coarseStepper.showsValue = false
         fineStepper.showsValue = false
+        coarseStepper.buttonBorderWidth = buttonBorderWidth
+        fineStepper.buttonBorderWidth = buttonBorderWidth
         
         valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * 0.15))
         
@@ -93,6 +95,7 @@ import Foundation
         super.setupFonts()
         nudger.labelFont = buttonLabelFont
         nudger.buttonFont = buttonFont
+        nudger.buttonBorderWidth = buttonBorderWidth
         
         self.addSubview(nameLabel)
         self.addSubview(valueLabel!)
