@@ -55,6 +55,11 @@ public enum AKSliderStyle {
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
+    
+    /// Fonts for display above the slider
+    public var labelFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
+    public var valueFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
+    public var bubbleFont: UIFont { return UIFont.systemFont(ofSize: bubbleFontSize) }
 
     /// Only integer
     @IBInspectable open var onlyIntegers: Bool = false
@@ -232,7 +237,7 @@ public enum AKSliderStyle {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
+        let nameLabelFontAttributes = [NSAttributedStringKey.font: labelFont,
                                        NSAttributedStringKey.foregroundColor: themeTextColor,
                                        NSAttributedStringKey.paragraphStyle: nameLabelStyle]
 
@@ -313,7 +318,7 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: bubbleFont,
                                             NSAttributedStringKey.foregroundColor: themeTextColor,
                                             NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 
@@ -362,7 +367,7 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .right
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
+            let valueLabelFontAttributes = [NSAttributedStringKey.font: valueFont,
                                             NSAttributedStringKey.foregroundColor: themeTextColor,
                                             NSAttributedStringKey.paragraphStyle: valueLabelStyle]
 

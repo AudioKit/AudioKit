@@ -13,6 +13,9 @@ import UIKit
 @IBDesignable open class AKStepper: UIView {
 
     @IBInspectable var text: String = "Stepper"
+    public var labelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
     var label: UILabel! //fixme
     var valueLabel: UILabel? //fixme
     var buttons: UIStackView!
@@ -96,7 +99,9 @@ import UIKit
     private func generateUIComponents(frame: CGRect){
         //frame will be overridden w draw function
         label = UILabel(frame: frame)
+        label.font = labelFont
         valueLabel = UILabel(frame: frame)
+        valueLabel?.font = valueFont
         buttons = UIStackView(frame: frame)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
@@ -142,6 +147,8 @@ import UIKit
         minusButton.releaseCallback = {_ in
             self.touchEndedCallback()
         }
+        plusButton.font = buttonFont!
+        minusButton.font = buttonFont!
         addToStackIfPossible(view: minusButton, stack: buttons)
         addToStackIfPossible(view: plusButton, stack: buttons)
         self.addSubview(buttons)

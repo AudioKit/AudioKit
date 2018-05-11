@@ -11,11 +11,15 @@ import Foundation
 @IBDesignable open class AKCoarseFineSlider : UIView {
     
     @IBInspectable open var name: String = "CoarseFineSlider"
+    public var titleFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var buttonLabelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
     var coarseStepper : AKStepper!
     var fineStepper : AKStepper!
     var slider: AKSlider!
     var nameLabel: UILabel!
-    var valueLabel: UILabel?
+    var valueLabel: UILabel!
     private var buttonPercent: CGFloat = 0.5
     private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
@@ -26,7 +30,7 @@ import Foundation
     @IBInspectable public var currentValue: Double = 1.0 {
         didSet{
             DispatchQueue.main.async {
-                self.valueLabel?.text = String(format: "%.3f", self.currentValue)
+                self.valueLabel.text = String(format: "%.3f", self.currentValue)
             }
         }
     }
@@ -90,12 +94,21 @@ import Foundation
         
         nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
         buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * buttonPercent))
-        self.addSubview(nameLabel)
-        self.addSubview(valueLabel!)
-        self.addSubview(slider)
-        self.addSubview(buttons)
+        setupFonts()
+        addSubview(nameLabel)
+        addSubview(valueLabel)
+        addSubview(slider)
+        addSubview(buttons)
         addToStackIfPossible(view: coarseStepper, stack: buttons)
         addToStackIfPossible(view: fineStepper, stack: buttons)
+    }
+    internal func setupFonts(){
+        coarseStepper.labelFont = buttonLabelFont
+        coarseStepper.buttonFont = buttonFont
+        fineStepper.labelFont = buttonLabelFont
+        fineStepper.buttonFont = buttonFont
+        nameLabel.font = titleFont
+        valueLabel.font = valueFont
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -105,17 +118,17 @@ import Foundation
         super.draw(rect)
         genStackViews(rect: rect)
     }
-    internal func genStackViews(rect: CGRect){
+    private func genStackViews(rect: CGRect){
         let borderWidth = fineStepper.plusButton.borderWidth
         nameLabel.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         nameLabel.text = name
         nameLabel.textAlignment = .left
         
-        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
-        valueLabel?.textAlignment = .right
+        valueLabel.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
+        valueLabel.textAlignment = .right
         
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
-        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel!.frame.height, width: rect.width, height: rect.height * 0.5)
+        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
