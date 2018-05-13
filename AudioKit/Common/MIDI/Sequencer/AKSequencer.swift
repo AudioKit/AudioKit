@@ -8,22 +8,22 @@
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
 open class AKSequencer {
-
+    
     /// Music sequence
     open var sequence: MusicSequence?
-
+    
     /// Pointer to Music Sequence
     open var sequencePointer: UnsafeMutablePointer<MusicSequence>?
-
+    
     /// Array of AudioKit Music Tracks
     open var tracks = [AKMusicTrack]()
-
+    
     /// Music Player
     var musicPlayer: MusicPlayer?
-
+    
     /// Loop control
     open private(set) var loopEnabled: Bool = false
-
+    
     /// Sequencer Initialization
     @objc public init() {
         NewMusicSequence(&sequence)
@@ -36,25 +36,25 @@ open class AKSequencer {
             MusicPlayerSetSequence(existingMusicPlayer, sequence)
         }
     }
-
+    
     deinit {
         AKLog("deinit:")
-
+        
         if let player = musicPlayer {
             DisposeMusicPlayer(player)
         }
-
+        
         if let seq = sequence {
             for track in self.tracks {
                 if let intTrack = track.internalMusicTrack {
                     MusicSequenceDisposeTrack(seq, intTrack)
                 }
             }
-
+            
             DisposeMusicSequence(seq)
         }
     }
-
+    
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter filename: Location of the MIDI File
@@ -63,7 +63,7 @@ open class AKSequencer {
         self.init()
         loadMIDIFile(filename)
     }
-
+    
     /// Initialize the sequence with a MIDI file
     ///
     /// - parameter fromURL: URL of MIDI File
@@ -72,27 +72,27 @@ open class AKSequencer {
         self.init()
         loadMIDIFile(fromURL: fileURL)
     }
-
-    /// Preroll the music player. Call this function in advance of playback to reduce the sequencers 
-    /// startup latency. If you call `play` without first calling this function, the sequencer will 
+    
+    /// Preroll the music player. Call this function in advance of playback to reduce the sequencers
+    /// startup latency. If you call `play` without first calling this function, the sequencer will
     /// call this function before beginning playback.
     open func preroll() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerPreroll(existingMusicPlayer)
         }
     }
-
+    
     /// Set loop functionality of entire sequence
     open func toggleLoop() {
         (loopEnabled ? disableLooping() : enableLooping())
     }
-
+    
     /// Enable looping for all tracks - loops entire sequence
     open func enableLooping() {
         setLoopInfo(length, numberOfLoops: 0)
         loopEnabled = true
     }
-
+    
     /// Enable looping for all tracks with specified length
     ///
     /// - parameter loopLength: Loop length in beats
@@ -101,13 +101,13 @@ open class AKSequencer {
         setLoopInfo(loopLength, numberOfLoops: 0)
         loopEnabled = true
     }
-
+    
     /// Disable looping for all tracks
     open func disableLooping() {
         setLoopInfo(AKDuration(beats: 0), numberOfLoops: 0)
         loopEnabled = false
     }
-
+    
     /// Set looping duration and count for all tracks
     ///
     /// - Parameters:
@@ -120,7 +120,7 @@ open class AKSequencer {
         }
         loopEnabled = true
     }
-
+    
     /// Set length of all tracks
     ///
     /// - parameter length: Length of tracks in beats
@@ -139,21 +139,21 @@ open class AKSequencer {
             MusicTrackSetProperty(existingTempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
         }
     }
-
+    
     /// Length of longest track in the sequence
     open var length: AKDuration {
-
+        
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
-
+        
         for track in tracks {
             tmpLength = track.length
             if tmpLength >= length { length = tmpLength }
         }
-
+        
         return  AKDuration(beats: length, tempo: tempo)
     }
-
+    
     /// Set the rate of the sequencer
     ///
     /// - parameter rate: Set the rate relative to the tempo of the track
@@ -163,7 +163,7 @@ open class AKSequencer {
             MusicPlayerSetPlayRateScalar(existingMusicPlayer, MusicTimeStamp(rate))
         }
     }
-
+    
     /// Rate relative to the default tempo (BPM) of the track
     open var rate: Double {
         var rate = MusicTimeStamp(1.0)
@@ -172,13 +172,13 @@ open class AKSequencer {
         }
         return rate
     }
-
+    
     /// Set the tempo of the sequencer
     open func setTempo(_ bpm: Double) {
         let constrainedTempo = (10...280).clamp(bpm)
-
+        
         var tempoTrack: MusicTrack?
-
+        
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
@@ -190,7 +190,7 @@ open class AKSequencer {
             currTime = fmod(currTime, length.beats)
             if let existingTempoTrack = tempoTrack {
                 MusicTrackNewExtendedTempoEvent(existingTempoTrack, currTime, constrainedTempo)
-
+                
             }
         }
         if let existingTempoTrack = tempoTrack {
@@ -199,7 +199,7 @@ open class AKSequencer {
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, 0, constrainedTempo)
         }
     }
-
+    
     /// Add a  tempo change to the score
     ///
     /// - Parameters:
@@ -208,9 +208,9 @@ open class AKSequencer {
     ///
     open func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
         let constrainedTempo = (10...280).clamp(bpm)
-
+        
         var tempoTrack: MusicTrack?
-
+        
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
@@ -218,19 +218,19 @@ open class AKSequencer {
             MusicTrackNewExtendedTempoEvent(existingTempoTrack, position.beats, constrainedTempo)
         }
     }
-
+    
     /// Tempo retrieved from the sequencer. Defaults to 120
-    /// NB: It looks at the currentPosition back in time for the last tempo event. 
+    /// NB: It looks at the currentPosition back in time for the last tempo event.
     /// If the sequence is not started, it returns default 120
-    /// A sequence may contain several tempo events. 
+    /// A sequence may contain several tempo events.
     open var tempo: Double {
         var tempoOut: Double = 120.0
-
+        
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
-
+        
         var tempIterator: MusicEventIterator?
         if let existingTempoTrack = tempoTrack {
             NewMusicEventIterator(existingTempoTrack, &tempIterator)
@@ -238,12 +238,12 @@ open class AKSequencer {
         guard let iterator = tempIterator else {
             return 0.0
         }
-
+        
         var eventTime: MusicTimeStamp = 0
         var eventType: MusicEventType = kMusicEventType_ExtendedTempo
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
-
+        
         var hasPreviousEvent: DarwinBoolean = false
         MusicEventIteratorSeek(iterator, currentPosition.beats)
         MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
@@ -260,7 +260,7 @@ open class AKSequencer {
         DisposeMusicEventIterator(iterator)
         return tempoOut
     }
-
+    
     /// returns an array of (MusicTimeStamp, bpm) tuples
     /// for all tempo events on the tempo track
     open var allTempoEvents: [(MusicTimeStamp, Double)] {
@@ -281,9 +281,12 @@ open class AKSequencer {
         }
         return tempos
     }
-
+    
     /// returns the tempo at a given position in beats
     /// - parameter at: Position at which the tempo is desired
+    ///
+    /// if there are more than one events precisely at the requested position
+    /// it will return the most recently added
     open func getTempo(at position: MusicTimeStamp) -> Double {
         // MIDI file with no tempo events defaults to 120 bpm
         var tempoAtPosition: Double = 120.0
@@ -294,7 +297,7 @@ open class AKSequencer {
                 break
             }
         }
-
+        
         return tempoAtPosition
     }
     
@@ -308,174 +311,142 @@ open class AKSequencer {
             }
         }
     }
-
-    /// Possible values for the time signature lower value
-    public enum TimeSignatureBottomValue: UInt8 {
-        // According to MIDI spec, second byte is log base 2 of time signature 'denominator'
-        case two = 1
-        case four = 2
-        case eight = 3
-        case sixteen = 4
-    }
-
-    /// reads the sequence and returns the time signature event previous to currentPosition. If nothing found: returns nil
-    /// If the sequence is not started, it returns nil
-    /// A sequence may contain several time signatures. 
-    open var timeSignature : (UInt8, TimeSignatureBottomValue)? {
-        var timeSignatureTop : UInt8?
-        var timeSignatureBottom: TimeSignatureBottomValue?
-        var outValue : (UInt8, TimeSignatureBottomValue)?
-        
+    
+    // MARK: - Time Signature
+    /// Return and array of (MusicTimeStamp, AKTimeSignature) tuples
+    open var allTimeSignatureEvents: [(MusicTimeStamp, AKTimeSignature)] {
+        struct TimeSignatureEvent {
+            var metaEventType: UInt8 = 0
+            var unused1: UInt8 = 0
+            var unused2: UInt8 = 0
+            var unused3: UInt8 = 0
+            var dataLength:UInt32 = 0
+            var data: (UInt8, UInt8, UInt8, UInt8) = (0, 0, 0, 0)
+        }
         
         var tempoTrack: MusicTrack?
+        var result = [(MusicTimeStamp, AKTimeSignature)]()
+        
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
         
-        var tempIterator: MusicEventIterator?
-        if let existingTempoTrack = tempoTrack {
-            NewMusicEventIterator(existingTempoTrack, &tempIterator)
+        guard let unwrappedTempoTrack = tempoTrack else {
+            AKLog("Couldn't get tempo track")
+            return result
         }
         
-        guard let iterator = tempIterator else {
-            return nil
-        }
-        
-        var eventTime: MusicTimeStamp = 0
-        var eventType: MusicEventType = kMusicEventType_Meta
-        var eventData: UnsafeRawPointer?
-        var eventDataSize: UInt32 = 0
-        
-        // we look back in time of the currentPosition for the last meta event
-        var hasPreviousEvent: DarwinBoolean = false
-        MusicEventIteratorSeek(iterator, currentPosition.beats)
-        MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
-        while hasPreviousEvent.boolValue {
-            MusicEventIteratorPreviousEvent(iterator)
-            MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            // one midi event holds both the upper and lower nominee and dominator
-            // there are several meta events in a midi file: SMTPE, time signature, ...
-            if eventType == kMusicEventType_Meta {
-                
-                if let data = eventData?.assumingMemoryBound(to: MIDIMetaEvent.self) {
-                    let isThisTheMetaType = data.pointee.metaEventType
-                    // 88 is the time signature. Don't know if it is defined as a const somewher; 0x58
-                    if isThisTheMetaType == 88 { 
-                        // the event contains two data: the upper time signature and the lower time signature
-                        // see https://stackoverflow.com/questions/25880178/read-time-signature-like-4-4-from-midi-file-ios
-                        
-                        
-                        // this (UInt8) stuff is quite tricky to get round. 
-                        // see Gene De Lisa on https://stackoverflow.com/questions/33466596/swift-2-how-to-parse-a-time-signature-from-midimetaevent
-                        // and https://github.com/jverkoey/swift-midi/blob/master/LUMI/CoreMIDI/MIDIPacket%2BSequenceType.swift
-                        // and https://forums.developer.apple.com/thread/60350#170204
-                        // as I'm not this fluent in swift, I couldn't work it out. 
-                        // I was able to work it out: see the ObjC-Code in Issue #1353 https://github.com/AudioKit/AudioKit/issues/1353
-                        
-                        let arrayBuffer = UnsafeBufferPointer(start: data, count: Int(data.pointee.dataLength))
-                        let array = Array(arrayBuffer)
-                        
-                        // AKLog("array: \(array.description)")
-                        // AKLog("Signature value: \(array[0].data)")
-                        timeSignatureTop = array[0].data
-                        
-                        // lower doesn't work
-                        let isThisLower = array[1].data
-                        // AKLog("lower: \(isThisLower)")
-                        timeSignatureBottom = AKSequencer.TimeSignatureBottomValue(rawValue: isThisLower)
-                    }
-                    
-                    // other things I tried
-                    
-                    /*var metaEventPointer: UnsafePointer<MIDIMetaEvent> = UnsafePointer(data)
-
-                    withUnsafeMutablePointer(to: &metaEventPointer, { pointer in
-                        timeSignatureTop = metaEventPointer.data[0]
-                        timeSignatureBottom = metaEventPointer.data[1]*/
-
-                        /*for i in 0 ..< metaEventPointer.pointee.dataLength {
-                            pointer[Int(i)] = data[Int(i)]
-                        }*/
-                    //})
-
-                    /*let metaEventPointer: UnsafePointer<MIDIMetaEvent> = UnsafePointer(data)
-                    let lenght = metaEventPointer.pointee.dataLength
-                    timeSignatureTop = metaEventPointer.pointee.data[0]
-                    timeSignatureBottom = metaEventPointer.pointee.data[1]*/
+        let timeSignatureMetaEventByte: UInt8 = 0x58
+        AKMusicTrack.iterateMusicTrack(unwrappedTempoTrack) { _, eventTime, eventType, eventData, dataSize, _ in
+            guard let eventData = eventData else { return }
+            guard eventType == kMusicEventType_Meta else { return }
+            
+            let metaEventPointer = eventData.bindMemory(to: MIDIMetaEvent.self, capacity: Int(dataSize))
+            let metaEvent = metaEventPointer.pointee
+            if metaEvent.metaEventType == timeSignatureMetaEventByte {
+                let timeSigPointer = eventData.bindMemory(to: TimeSignatureEvent.self, capacity: Int(dataSize))
+                let rawTimeSig = timeSigPointer.pointee
+                guard let bottomValue = AKTimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig.data.1) else {
+                    AKLog("Inavlid time signature bottom value")
+                    return
                 }
+                let timeSigEvent = AKTimeSignature(topValue: rawTimeSig.data.0,
+                                                   bottomValue: bottomValue)
+                result.append((eventTime, timeSigEvent))
             }
         }
-        DisposeMusicEventIterator(iterator)
         
-        if (timeSignatureTop != nil && timeSignatureBottom != nil) {
-            outValue = (timeSignatureTop, timeSignatureBottom) as? (UInt8, AKSequencer.TimeSignatureBottomValue)
-        }
-        return outValue
+        return result
     }
-
+    
+    /// returns the time signature at a given position in beats
+    /// - parameter at: Position at which the time signature is desired
+    ///
+    /// if there are more than one events precisely at the requested position
+    /// it will return the most recently added
+    open func getTimeSignature(at position: MusicTimeStamp) -> AKTimeSignature {
+        var outTimeSignature = AKTimeSignature() // 4/4, by default
+        for event in allTimeSignatureEvents {
+            if event.0 <= position {
+                outTimeSignature = event.1
+            } else {
+                break
+            }
+        }
+        
+        return outTimeSignature
+    }
+    
     /// Add a time signature event to start of tempo track
     /// NB: will affect MIDI file layout but NOT sequencer playback
     ///
     /// - Parameters:
-    ///   - timeSignatureTop: Number of beats per measure
-    ///   - timeSignatureBottom: Unit of beat
+    ///   - at: MusicTimeStamp where time signature event will be placed
+    ///   - timeSignature: Time signature for added event
     ///   - ticksPerMetronomeClick: MIDI clocks between metronome clicks (not PPQN), typically 24
     ///   - thirtySecondNotesPerQuarter: Number of 32nd notes making a quarter, typically 8
+    ///   - clearExistingEvents: Flag that will clear other Time Signature Events from tempo track
     ///
-    open func addTimeSignatureEvent(timeSignatureTop: UInt8,
-                                    timeSignatureBottom: TimeSignatureBottomValue,
+    open func addTimeSignatureEvent(at timeStamp: MusicTimeStamp = 0.0,
+                                    timeSignature: AKTimeSignature,
                                     ticksPerMetronomeClick: UInt8 = 24,
-                                    thirtySecondNotesPerQuarter: UInt8 = 8) {
+                                    thirtySecondNotesPerQuarter: UInt8 = 8,
+                                    clearExistingEvents: Bool = true) {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
         }
-
-        if let tempoTrack = tempoTrack {
-            clearTimeSignatureEvents(tempoTrack)
+        
+        guard let unwrappedTempoTrack = tempoTrack else {
+            AKLog("Couldn't get tempo track")
+            return
         }
-
-        let data: [MIDIByte] = [timeSignatureTop,
-                                timeSignatureBottom.rawValue,
+        
+        if clearExistingEvents {
+            clearTimeSignatureEvents(unwrappedTempoTrack)
+        }
+        
+        let data: [MIDIByte] = [timeSignature.topValue,
+                                timeSignature.bottomValue.rawValue,
                                 ticksPerMetronomeClick,
                                 thirtySecondNotesPerQuarter]
-
+        
         var metaEvent = MIDIMetaEvent()
         metaEvent.metaEventType = 0x58 // i.e, set time signature
         metaEvent.dataLength = UInt32(data.count)
-
+        
         withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
             for i in 0 ..< data.count {
                 pointer[i] = data[i]
             }
         })
-
-        let result = MusicTrackNewMetaEvent(tempoTrack!, MusicTimeStamp(0), &metaEvent)
+        
+        let result = MusicTrackNewMetaEvent(unwrappedTempoTrack, timeStamp, &metaEvent)
         if result != 0 {
             AKLog("Unable to set time signature")
         }
     }
-
+    
+    
     /// Remove existing time signature events from tempo track
     func clearTimeSignatureEvents(_ track: MusicTrack) {
         let timeSignatureMetaEventByte: UInt8 = 0x58
         let metaEventType = kMusicEventType_Meta
-
+        
         AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
             isReadyForNextEvent = true
             guard eventType == metaEventType else { return }
-
+            
             let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
             guard let  dataMetaEventType = data?.pointee.metaEventType else { return }
-
+            
             if dataMetaEventType == timeSignatureMetaEventByte {
                 MusicEventIteratorDeleteEvent(iterator)
                 isReadyForNextEvent = false
             }
         }
     }
-
+    
     /// Convert seconds into AKDuration
     ///
     /// - parameter seconds: time in seconds
@@ -490,7 +461,7 @@ open class AKSequencer {
         outBeats.beats *= sign
         return outBeats
     }
-
+    
     /// Convert beats into seconds
     ///
     /// - parameter duration: AKDuration
@@ -505,28 +476,28 @@ open class AKSequencer {
         outSecs *= sign
         return outSecs
     }
-
+    
     /// Play the sequence
     open func play() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStart(existingMusicPlayer)
         }
     }
-
+    
     /// Stop the sequence
     @objc open func stop() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStop(existingMusicPlayer)
         }
     }
-
+    
     /// Rewind the sequence
     open func rewind() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerSetTime(existingMusicPlayer, 0)
         }
     }
-
+    
     /// Wheter or not the sequencer is currently playing
     open var isPlaying: Bool {
         var isPlayingBool: DarwinBoolean = false
@@ -535,7 +506,7 @@ open class AKSequencer {
         }
         return isPlayingBool.boolValue
     }
-
+    
     /// Current Time
     open var currentPosition: AKDuration {
         var currentTime = MusicTimeStamp()
@@ -545,12 +516,12 @@ open class AKSequencer {
         let duration = AKDuration(beats: currentTime)
         return duration
     }
-
+    
     /// Current Time relative to sequencer length
     open var currentRelativePosition: AKDuration {
         return currentPosition % length //can switch to modTime func when/if % is removed
     }
-
+    
     /// Track count
     open var trackCount: Int {
         var count: UInt32 = 0
@@ -559,7 +530,7 @@ open class AKSequencer {
         }
         return Int(count)
     }
-
+    
     /// Time Resolution, i.e., Pulses per quarter note
     open var timeResolution: UInt32 {
         let failedValue: UInt32 = 0
@@ -569,23 +540,23 @@ open class AKSequencer {
         }
         var tempoTrack: MusicTrack?
         MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
-
+        
         guard let unwrappedTempoTrack = tempoTrack else {
             AKLog("No tempo track for time resolution")
             return failedValue
         }
-
+        
         var ppqn: UInt32 = 0
         var propertyLength: UInt32 = 0
-
+        
         MusicTrackGetProperty(unwrappedTempoTrack,
                               kSequenceTrackProperty_TimeResolution,
                               &ppqn,
                               &propertyLength)
-
+        
         return ppqn
     }
-
+    
     /// Load a MIDI file from the bundle (removes old tracks, if present)
     open func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main
@@ -596,7 +567,7 @@ open class AKSequencer {
         let fileURL = URL(fileURLWithPath: file)
         loadMIDIFile(fromURL: fileURL)
     }
-
+    
     /// Load a MIDI file given a URL (removes old tracks, if present)
     open func loadMIDIFile(fromURL fileURL: URL) {
         removeTracks()
@@ -608,9 +579,9 @@ open class AKSequencer {
         }
         initTracks()
     }
-
+    
     // MARK: Adding MIDI File data to current sequencer
-
+    
     /// Add tracks from MIDI file to existing sequencer
     ///
     /// - Parameters:
@@ -622,7 +593,7 @@ open class AKSequencer {
         let tempSequencer = AKSequencer(filename: filename)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
-
+    
     /// Add tracks from MIDI file to existing sequencer
     ///
     /// - Parameters:
@@ -634,32 +605,32 @@ open class AKSequencer {
         let tempSequencer = AKSequencer(fromURL: url)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
-
+    
     /// Creates new AKMusicTrack with copied note event data from another AKSequencer
     func addMusicTrackNoteData(from tempSequencer: AKSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
             AKLog("Can't add tracks during playback")
             return }
-
+        
         let oldLength = self.length
         for track in tempSequencer.tracks {
             let noteData = track.getMIDINoteData()
-
+            
             if noteData.isEmpty { continue }
             let addedTrack = newTrack()
-
+            
             addedTrack?.replaceMIDINoteData(with: noteData)
-
+            
             if useExistingSequencerLength {
                 addedTrack?.setLength(oldLength)
             }
         }
-
+        
         if loopEnabled {
             enableLooping()
         }
     }
-
+    
     /// Initialize all tracks
     ///
     /// Rebuilds tracks based on actual contents of music sequence
@@ -669,7 +640,7 @@ open class AKSequencer {
         if let existingSequence = sequence {
             MusicSequenceGetTrackCount(existingSequence, &count)
         }
-
+        
         for i in 0 ..< count {
             var musicTrack: MusicTrack?
             if let existingSequence = sequence {
@@ -679,7 +650,7 @@ open class AKSequencer {
                 tracks.append(AKMusicTrack(musicTrack: existingMusicTrack, name: "InitializedTrack"))
             }
         }
-
+        
         if loopEnabled {
             enableLooping()
         }
@@ -692,6 +663,8 @@ open class AKSequencer {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
             if let track = tempoTrack {
                 MusicTrackClear(track, 0, length.musicTimeStamp)
+                clearTimeSignatureEvents(track)
+                clearTempoEvents(track)
             }
 
             for track in tracks {
@@ -702,10 +675,10 @@ open class AKSequencer {
         }
         tracks.removeAll()
     }
-
+    
     /// Get a new track
     open func newTrack(_ name: String = "Unnamed") -> AKMusicTrack? {
-
+        
         var newMusicTrack: MusicTrack?
         var count: UInt32 = 0
         if let existingSequence = sequence {
@@ -715,12 +688,12 @@ open class AKSequencer {
         if let existingNewMusicTrack = newMusicTrack {
             tracks.append(AKMusicTrack(musicTrack: existingNewMusicTrack, name: name))
         }
-
+        
         //AKLog("Calling initTracks() from newTrack")
         //initTracks()
         return tracks.last
     }
-
+    
     /// Delete track and remove it from the sequence
     /// Not to be used during playback
     open func deleteTrack(trackIndex: Int) {
@@ -732,16 +705,16 @@ open class AKSequencer {
                 AKLog("Can't get track for index")
                 return
         }
-
+        
         guard let existingSequence = sequence else {
             AKLog("Can't get sequence")
             return
         }
-
+        
         MusicSequenceDisposeTrack(existingSequence, internalTrack)
         tracks.remove(at: trackIndex)
     }
-
+    
     /// Clear all events from all tracks within the specified range
     //
     /// - Parameters:
@@ -753,7 +726,7 @@ open class AKSequencer {
             track.clearRange(start: start, duration: duration)
         }
     }
-
+    
     /// Set the music player time directly
     ///
     /// - parameter time: Music time stamp to set
@@ -763,7 +736,7 @@ open class AKSequencer {
             MusicPlayerSetTime(existingMusicPlayer, time)
         }
     }
-
+    
     /// Generate NSData from the sequence
     open func genData() -> Data? {
         var status = noErr
@@ -771,7 +744,7 @@ open class AKSequencer {
         var data: Unmanaged<CFData>?
         if let existingSequence = sequence {
             status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
-
+            
             if status != noErr {
                 AKLog("error creating MusicSequence Data")
                 return nil
@@ -783,21 +756,21 @@ open class AKSequencer {
         data?.release()
         return ns
     }
-
+    
     /// Print sequence to console
     open func debug() {
         if let existingPointer = sequencePointer {
             CAShow(existingPointer)
         }
     }
-
+    
     /// Set the midi output for all tracks
     open func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
         for track in tracks {
             track.setMIDIOutput(midiEndpoint)
         }
     }
-
+    
     /// Nearest time of quantized beat
     open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         let noteOnTimeRel = currentRelativePosition.beats
@@ -811,17 +784,17 @@ open class AKSequencer {
         //AKLog("nearest \(optimisedQuantTime.beats)")
         return optimisedQuantTime
     }
-
+    
     /// The last quantized beat
     open func previousQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[0]
     }
-
+    
     /// Next quantized beat
     open func nextQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
         return getQuantizationPositions(quantizationInBeats: quantizationInBeats)[1]
     }
-
+    
     /// An array of all quantization points
     func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
         let noteOnTimeRel = currentRelativePosition.beats
@@ -830,7 +803,7 @@ open class AKSequencer {
         let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
         return [lastSpot, nextSpot]
     }
-
+    
     /// Time modulus
     func modTime(_ time: Double) -> Double {
         return time.truncatingRemainder(dividingBy: length.beats)
