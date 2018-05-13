@@ -182,6 +182,7 @@
 		C419101B2009A5E00067B5E0 /* AKStereoFieldLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910172009A5DF0067B5E0 /* AKStereoFieldLimiter.swift */; };
 		C419101C2009A5E00067B5E0 /* AKStereoFieldLimiterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41910182009A5E00067B5E0 /* AKStereoFieldLimiterAudioUnit.swift */; };
 		C419B22C1EEE814D0041474F /* vocalTract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C419B22B1EEE814D0041474F /* vocalTract.swift */; };
+		C42371F120A7F65B00507E72 /* AKTimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42371F020A7F65A00507E72 /* AKTimeSignature.swift */; };
 		C42899921D552E2C00B941B5 /* smoothDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899911D552E2C00B941B5 /* smoothDelay.swift */; };
 		C42899941D552F9F00B941B5 /* lowPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */; };
 		C42899961D5543E400B941B5 /* korgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899951D5543E400B941B5 /* korgLowPassFilter.swift */; };
@@ -1294,6 +1295,7 @@
 		C41910172009A5DF0067B5E0 /* AKStereoFieldLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiter.swift; sourceTree = "<group>"; };
 		C41910182009A5E00067B5E0 /* AKStereoFieldLimiterAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoFieldLimiterAudioUnit.swift; sourceTree = "<group>"; };
 		C419B22B1EEE814D0041474F /* vocalTract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vocalTract.swift; sourceTree = "<group>"; };
+		C42371F020A7F65A00507E72 /* AKTimeSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTimeSignature.swift; sourceTree = "<group>"; };
 		C42899911D552E2C00B941B5 /* smoothDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = smoothDelay.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = lowPassButterworthFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C42899951D5543E400B941B5 /* korgLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = korgLowPassFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -2835,6 +2837,7 @@
 				C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */,
 				C45664E91D448D7E00D26565 /* AKMusicTrack.swift */,
 				C4C378FE1F0C55640085F876 /* AKSequencer.swift */,
+				C42371F020A7F65A00507E72 /* AKTimeSignature.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -6044,6 +6047,7 @@
 				C49B1944204A0AD1009C7C8E /* expon.c in Sources */,
 				C4DF6ADE2029575300984C87 /* AKKorgLowPassFilterDSP.mm in Sources */,
 				C44EA23920186DBF0072399F /* AKPhaser.swift in Sources */,
+				C42371F120A7F65B00507E72 /* AKTimeSignature.swift in Sources */,
 				C49B187E204A0AD0009C7C8E /* fog.c in Sources */,
 				C49B1875204A0AD0009C7C8E /* streson.c in Sources */,
 				C45669001D448D7E00D26565 /* AKHighPassButterworthFilter.swift in Sources */,
