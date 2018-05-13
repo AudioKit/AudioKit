@@ -70,7 +70,7 @@ extension SequencerSettingsVC: UITextFieldDelegate {
         case timeSigTextField:
             if 1 ..< 60 ~= value {
                 let timeSig = AKTimeSignature(topValue: UInt8(value),
-                                              bottomValue: AKTimeSignature.TimeSignatureBottomValue = .four)
+                                              bottomValue: AKTimeSignature.TimeSignatureBottomValue.four)
                 sequencerDelegate?.addTimeSignatureEvent(at: 0.0,
                                                          timeSignature: timeSig,
                                                          ticksPerMetronomeClick: 24,
