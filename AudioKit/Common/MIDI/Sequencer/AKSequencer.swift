@@ -285,7 +285,7 @@ open class AKSequencer {
     /// returns the tempo at a given position in beats
     /// - parameter at: Position at which the tempo is desired
     ///
-    /// if there are more than one events precisely at the requested position
+    /// if there is more than one event precisely at the requested position
     /// it will return the most recently added
     open func getTempo(at position: MusicTimeStamp) -> Double {
         // MIDI file with no tempo events defaults to 120 bpm
@@ -362,8 +362,9 @@ open class AKSequencer {
     /// returns the time signature at a given position in beats
     /// - parameter at: Position at which the time signature is desired
     ///
-    /// if there are more than one events precisely at the requested position
-    /// it will return the most recently added
+    /// If there is more than one event precisely at the requested position
+    /// it will return the most recently added.
+    /// Will return 4/4 if there is no Time Signature event at or before position
     open func getTimeSignature(at position: MusicTimeStamp) -> AKTimeSignature {
         var outTimeSignature = AKTimeSignature() // 4/4, by default
         for event in allTimeSignatureEvents {
