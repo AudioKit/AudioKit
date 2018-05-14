@@ -55,9 +55,9 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value);
     AUValue getParameter(AUParameterAddress address);
-    
+
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables
@@ -65,7 +65,7 @@ public:
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
-    
+
 public:
     bool started = true;
     bool resetted = false;

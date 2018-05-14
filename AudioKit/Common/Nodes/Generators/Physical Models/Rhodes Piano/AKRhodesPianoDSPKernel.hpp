@@ -19,9 +19,9 @@ public:
         frequencyAddress = 0,
         amplitudeAddress = 1
     };
-    
+
     AKRhodesPianoDSPKernel();
-    
+
     ~AKRhodesPianoDSPKernel();
 
     void init(int _channels, double _sampleRate) override;

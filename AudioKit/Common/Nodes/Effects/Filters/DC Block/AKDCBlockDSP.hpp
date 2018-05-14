@@ -26,13 +26,13 @@ class AKDCBlockDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
- 
+
 public:
     AKDCBlockDSP();
     ~AKDCBlockDSP();
 
     int defaultRampTimeSamples = 10000;
-    
+
     void init(int _channels, double _sampleRate) override;
 
     void destroy();

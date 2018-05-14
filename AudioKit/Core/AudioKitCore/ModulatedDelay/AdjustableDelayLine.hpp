@@ -17,17 +17,17 @@ namespace AudioKitCore
         int capacity;
         int writeIndex;
         float readIndex;
-        
+
     public:
         AdjustableDelayLine();
         ~AdjustableDelayLine() { deinit(); }
-        
+
         void init(double sampleRate, double maxDelayMs);
         void deinit();
-        
+
         void setDelayMs(double delayMs);
         void setFeedback(float feedback);
         float push(float sample);
     };
-    
+
 }

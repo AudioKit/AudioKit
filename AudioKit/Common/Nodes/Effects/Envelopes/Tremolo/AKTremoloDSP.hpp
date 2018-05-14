@@ -35,7 +35,7 @@ class AKTremoloDSP : public AKSoundpipeDSPBase {
 private:
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp depthRamp;
-   
+
 public:
     AKTremoloDSP() {
         frequencyRamp.setTarget(10.0, true);

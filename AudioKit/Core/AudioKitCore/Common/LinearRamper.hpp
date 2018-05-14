@@ -10,7 +10,7 @@
 
 namespace AudioKitCore
 {
-    
+
     struct LinearRamper
     {
         static float constexpr flagValue = 100000.0f;
@@ -19,9 +19,9 @@ namespace AudioKitCore
         float target;           // where it is headed
         float increment;        // per-sample increment
         float constantValue;    // special case of horizontal ramp
-        
+
         LinearRamper() : value(0.0f), target(0.0f), increment(0.0f), constantValue(flagValue) {}
-        
+
         // initialize to a stable value
         void init(float v)
         {
@@ -29,7 +29,7 @@ namespace AudioKitCore
             increment = 0.0f;
             constantValue = flagValue;
         }
-        
+
         // initialize all parameters
         void init(float startValue, float targetValue, float intervalSamples)
         {
@@ -56,26 +56,26 @@ namespace AudioKitCore
                 increment = (target - value) / intervalSamples;
             }
         }
-        
+
         // reset new target and new interval, retaining current value
         inline void reinit(float targetValue, float intervalSamples)
         {
             init(value, targetValue, intervalSamples);
         }
-        
+
         inline float isRamping()
         {
             if (increment == 0.0f) return false;
             if (increment > 0.0f) return value < target;
             else return value > target;
         }
-        
+
         inline float getNextValue()
         {
             value += increment;
             return (constantValue == flagValue) ? value : constantValue;
         }
-        
+
         inline void getValues(int count, float* pOut)
         {
             for (int i=0; i < count; i++) *pOut++ = getNextValue();

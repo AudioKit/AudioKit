@@ -20,7 +20,7 @@ private:
 public:
     ParameterRamper(float value);
     ~ParameterRamper();
-    
+
     void setImmediate(float value);
 
     void init();
@@ -40,9 +40,9 @@ public:
     void step();
 
     float getAndStep();
-    
+
     void stepBy(uint32_t n);
-    
+
 };
 
 #endif

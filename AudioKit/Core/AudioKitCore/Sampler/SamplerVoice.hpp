@@ -23,26 +23,26 @@ namespace AudioKitCore
         SampleBuffer* pSampleBuffer;      // a pointer to the sample buffer for that oscillator,
         ResonantLowPassFilter filterL, filterR;     // two filters (left/right),
         ADSREnvelope ampEG, filterEG;
-        
+
         int noteNumber;     // MIDI note number, or -1 if not playing any note
         float noteHz;       // note frequency in Hz
         float noteVol;      // fraction 0.0 - 1.0, based on MIDI velocity
-        
+
         // temporary holding variables
         float tempNoteVol;  // holds previous note volume while damping note before restarting
         SampleBuffer* pNewSampleBuffer; // holds next sample buffer to use at restart
         float tempGain;     // product of global volume, note volume, and amp EG
         bool filterEnable;  // true if filter should be used
-        
+
         SamplerVoice() : noteNumber(-1) {}
 
         void init(double sampleRate);
-        
+
         void start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pSampleBuf);
         void restart(float volume, SampleBuffer* pSampleBuf);
         void release(bool loopThruRelease);
         void stop();
-        
+
         // return true if amp envelope is finished
         bool prepToGetSamples(float masterVol, float pitchOffset,
                               float cutoffMultiple, float cutoffEgStrength, float resLinear);

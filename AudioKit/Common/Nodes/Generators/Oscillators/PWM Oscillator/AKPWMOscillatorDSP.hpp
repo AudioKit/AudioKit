@@ -105,7 +105,7 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
         _playing = false;
-        
+
         sp_blsquare_create(&_blsquare);
         sp_blsquare_init(_sp, _blsquare);
         *_blsquare->freq = 440;
