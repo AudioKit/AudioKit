@@ -12,6 +12,7 @@ import AudioKitUI
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var button: AKButton!
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
@@ -20,15 +21,17 @@ class ViewController: NSViewController {
     var moogLadder: AKMoogLadder!
     var delay: AKDelay!
     var mainMixer: AKMixer!
-//    @IBOutlet weak var inputPlot: AKNodeOutputPlot!
+    @IBOutlet weak var inputPlot: AKNodeOutputPlot!
 
     let mic = AKMicrophone()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //button.title = "Test"
         // Patching
-//        inputPlot.node = mic
+        inputPlot.node = mic
+        inputPlot.backgroundColor = NSColor.black
         micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
 
@@ -57,19 +60,24 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             Swift.print("Playing Ended")
         }
+        inputPlot.node = mic
     }
 
     @IBAction func record(_ sender: Any) {
+        inputPlot.node = mic
         do {
             try recorder.record()
         } catch { print("Errored recording.") }
     }
     @IBAction func play(_ sender: Any) {
         player.play()
+        inputPlot.node = player
     }
     @IBAction func stop(_ sender: Any) {
         player.stop()
+        inputPlot.node = mic
         micBooster.gain = 0
+        tape = recorder.audioFile!
         player.load(audioFile: tape)
 
         if let _ = player.audioFile?.duration {
@@ -87,6 +95,7 @@ class ViewController: NSViewController {
     }
     @IBAction func reset(_ sender: Any) {
         player.stop()
+        inputPlot.node = mic
         do {
             try recorder.reset()
         } catch { print("Errored resetting.") }
