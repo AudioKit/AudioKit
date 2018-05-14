@@ -12,7 +12,10 @@ import AudioKitUI
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var button: AKButton!
+    @IBOutlet weak var stopButton: AKButton!
+    @IBOutlet weak var playButton: AKButton!
+    @IBOutlet weak var recordButton: AKButton!
+
     var micMixer: AKMixer!
     var recorder: AKNodeRecorder!
     var player: AKPlayer!
@@ -27,8 +30,26 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.layer?.backgroundColor = CGColor.black
 
-        //button.title = "Test"
+        stopButton.title = "Stop"
+        stopButton.color = NSColor.blue
+        stopButton.callback = { _ in
+            self.stop()
+        }
+
+        playButton.title = "Play"
+        playButton.color = NSColor.green
+        playButton.callback = { _ in
+            self.play()
+        }
+
+        recordButton.title = "Record"
+        recordButton.color = NSColor.red
+        recordButton.callback = { _ in
+            self.record()
+        }
+        
         // Patching
         inputPlot.node = mic
         inputPlot.backgroundColor = NSColor.black
@@ -63,17 +84,19 @@ class ViewController: NSViewController {
         inputPlot.node = mic
     }
 
-    @IBAction func record(_ sender: Any) {
+    func record() {
         inputPlot.node = mic
         do {
             try recorder.record()
         } catch { print("Errored recording.") }
     }
-    @IBAction func play(_ sender: Any) {
+    
+    func play() {
         player.play()
         inputPlot.node = player
     }
-    @IBAction func stop(_ sender: Any) {
+
+    func stop() {
         player.stop()
         inputPlot.node = mic
         micBooster.gain = 0
@@ -93,12 +116,6 @@ class ViewController: NSViewController {
             }
         }
     }
-    @IBAction func reset(_ sender: Any) {
-        player.stop()
-        inputPlot.node = mic
-        do {
-            try recorder.reset()
-        } catch { print("Errored resetting.") }
-    }
+
 
 }
