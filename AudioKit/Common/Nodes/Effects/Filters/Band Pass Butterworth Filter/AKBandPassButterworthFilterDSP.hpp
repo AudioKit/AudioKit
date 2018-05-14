@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKBandPassButterworthFilterParameter) {
     AKBandPassButterworthFilterParameterCenterFrequency,
     AKBandPassButterworthFilterParameterBandwidth,
-    AKBandPassButterworthFilterParameterRampTime
+    AKBandPassButterworthFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -41,7 +41,7 @@ public:
     float defaultCenterFrequency = 2000.0;
     float defaultBandwidth = 100.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

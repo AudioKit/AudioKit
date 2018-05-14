@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(AUParameterAddress, AKToneFilterParameter) {
     AKToneFilterParameterHalfPowerPoint,
-    AKToneFilterParameterRampTime
+    AKToneFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -37,7 +37,7 @@ public:
 
     float defaultHalfPowerPoint = 1000.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

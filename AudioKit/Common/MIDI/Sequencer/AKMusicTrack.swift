@@ -257,15 +257,17 @@ open class AKMusicTrack {
         }
     }
 
-    func clearMetaEvents() {
+    /// Clear meta events from the track
+    open func clearMetaEvents() {
         clearHelper(kMusicEventType_Meta, from: "clearMetaEvents")
     }
-
-    func clearSysexEvents() {
+    
+    /// Clear SysEx events from the track
+    open func clearSysexEvents() {
         clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
     }
 
-    private func clearHelper(_ eventType: UInt32, from functionName: String) {
+    private func clearHelper(_ targetEventType: UInt32, from functionName: String) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return
@@ -286,10 +288,11 @@ open class AKMusicTrack {
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
 
-            if eventType == eventType {
+            if targetEventType == eventType {
                 MusicEventIteratorDeleteEvent(iterator)
+            } else {
+                MusicEventIteratorNextEvent(iterator)
             }
-            MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
@@ -312,18 +315,22 @@ open class AKMusicTrack {
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
+        var isReadyForNextEvent: Bool
 
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
+            isReadyForNextEvent = true
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let convertedData = eventData?.load(as: MIDINoteMessage.self) {
                     if convertedData.note == MIDIByte(note) {
                         MusicEventIteratorDeleteEvent(iterator)
+                        isReadyForNextEvent = false
                     }
                 }
             }
-            MusicEventIteratorNextEvent(iterator)
+            
+            if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
@@ -518,7 +525,7 @@ open class AKMusicTrack {
     open func getMIDINoteData() -> [AKMIDINoteData] {
         var noteData = [AKMIDINoteData]()
 
-        AKMusicTrack.iterateMusicTrack(internalMusicTrack!) { _, eventTime, eventType, eventData, _ in
+        AKMusicTrack.iterateMusicTrack(internalMusicTrack!) { _, eventTime, eventType, eventData, _, _ in
             guard eventType == kMusicEventType_MIDINoteMessage else { return }
             let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
 
@@ -581,7 +588,7 @@ open class AKMusicTrack {
     ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///
-    class func iterateMusicTrack(_ track: MusicTrack, midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32) -> Void) {
+    class func iterateMusicTrack(_ track: MusicTrack, midiEventHandler: (MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer?, UInt32, inout Bool) -> Void) {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
@@ -593,14 +600,15 @@ open class AKMusicTrack {
         var eventData: UnsafeRawPointer?
         var eventDataSize: UInt32 = 0
         var hasNextEvent: DarwinBoolean = false
+        var isReadyForNextEvent = true
 
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
 
-            midiEventHandler(iterator, eventTime, eventType, eventData, eventDataSize)
+            midiEventHandler(iterator, eventTime, eventType, eventData, eventDataSize, &isReadyForNextEvent)
 
-            MusicEventIteratorNextEvent(iterator)
+            if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)

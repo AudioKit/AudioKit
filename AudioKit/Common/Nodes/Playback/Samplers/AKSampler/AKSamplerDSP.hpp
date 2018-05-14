@@ -8,20 +8,30 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(int64_t, AKSamplerParameter)
+typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 {
     // ramped parameters
-    masterVolumeParam, pitchBendParam, vibratoDepthParam,
-    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
+    AKSamplerParameterMasterVolume,
+    AKSamplerParameterPitchBend,
+    AKSamplerParameterVibratoDepth,
+    AKSamplerParameterFilterCutoff,
+    AKSamplerParameterFilterEgStrength,
+    AKSamplerParameterFilterResonance,
     // simple parameters
-    ampAttackTimeParam, ampDecayTimeParam, ampSustainLevelParam, ampReleaseTimeParam,
-    filterAttackTimeParam, filterDecayTimeParam, filterSustainLevelParam, filterReleaseTimeParam,
-    filterEnableParam,
+    AKSamplerParameterAttackDuration,
+    AKSamplerParameterDecayDuration,
+    AKSamplerParameterSustainLevel,
+    AKSamplerParameterReleaseDuration,
+    AKSamplerParameterFilterAttackDuration,
+    AKSamplerParameterFilterDecayDuration,
+    AKSamplerParameterFilterSustainLevel,
+    AKSamplerParameterFilterReleaseDuration,
+    AKSamplerParameterFilterEnable,
     
     // ensure this is always last in the list, to simplify parameter addressing
-    rampTimeParam,
+    AKSamplerParameterRampDuration,
 };
 
 #ifndef __cplusplus
@@ -35,7 +45,7 @@ void doAKSamplerUnloadAllSamples(void* pDSP);
 void doAKSamplerBuildSimpleKeyMap(void* pDSP);
 void doAKSamplerBuildKeyMap(void* pDSP);
 void doAKSamplerSetLoopThruRelease(void* pDSP, bool value);
-void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
+void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
 void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
 void doAKSamplerStopAllVoices(void* pDSP);
 void doAKSamplerRestartVoices(void* pDSP);

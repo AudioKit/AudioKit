@@ -43,22 +43,22 @@ namespace AudioKitCore
         // optionally call this to make samples continue looping after note-release
         void setLoopThruRelease(bool value) { loopThruRelease = value; }
         
-        void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
+        void playNote(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stopNote(unsigned noteNumber, bool immediate);
         void sustainPedal(bool down);
         
-        void Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[]);
+        void render(unsigned channelCount, unsigned sampleCount, float *outBuffers[]);
         
     protected:
         // current sampling rate, samples/sec
-        float sampleRateHz;
+        float sampleRate;
         
         // list of (pointers to) all loaded samples
         std::list<KeyMappedSampleBuffer*> sampleBufferList;
         
         // maps MIDI note numbers to "closest" samples (all velocity layers)
         std::list<KeyMappedSampleBuffer*> keyMap[MIDI_NOTENUMBERS];
-        bool keyMapValid;
+        bool isKeyMapValid;
         
         SamplerVoice voice[MAX_POLYPHONY];                // table of voice resources
         
@@ -67,17 +67,17 @@ namespace AudioKitCore
         SustainPedalLogic pedalLogic;
         
         // simple parameters
-        bool filterEnable;
-        ADSREnvelopeParams ampEGParams;
-        ADSREnvelopeParams filterEGParams;
+        bool isFilterEnabled;
+        ADSREnvelopeParameters adsrEnvelopeParameters;
+        ADSREnvelopeParameters filterEnvelopeParameters;
         
         // performance parameters
         float masterVolume, pitchOffset, vibratoDepth;
 
         // per-voice filter parameters
         float cutoffMultiple;   // multiple of note frequency - 1.0 means cutoff at fundamental
-        float cutoffEgStrength; // how much filter EG adds on top of cutoffMultiple
-        float resLinear;        // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
+        float cutoffEnvelopeStrength; // how much filter EG adds on top of cutoffMultiple
+        float linearResonance;        // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         
         // sample-related parameters
         bool loopThruRelease;   // if true, sample continue looping thru note release phase
@@ -88,7 +88,7 @@ namespace AudioKitCore
         // helper functions
         SamplerVoice* voicePlayingNote(unsigned noteNumber);
         KeyMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
-        void play(unsigned noteNumber, unsigned velocity, float noteHz);
+        void play(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stop(unsigned noteNumber, bool immediate);
     };
 }

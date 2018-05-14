@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
     AKStringResonatorParameterFundamentalFrequency,
     AKStringResonatorParameterFeedback,
-    AKStringResonatorParameterRampTime
+    AKStringResonatorParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -41,7 +41,7 @@ public:
     float defaultFundamentalFrequency = 100;
     float defaultFeedback = 0.95;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

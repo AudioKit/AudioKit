@@ -26,10 +26,10 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
     /// Initial value for Amplitude
     public static let defaultAmplitude = 1.0
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 

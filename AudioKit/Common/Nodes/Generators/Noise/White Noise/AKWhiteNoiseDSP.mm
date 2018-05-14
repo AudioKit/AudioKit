@@ -22,7 +22,7 @@ struct AKWhiteNoiseDSP::_Internal {
 
 AKWhiteNoiseDSP::AKWhiteNoiseDSP() : _private(new _Internal) {
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -31,8 +31,8 @@ void AKWhiteNoiseDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKWhiteNoiseParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKWhiteNoiseParameterRampTime:
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKWhiteNoiseParameterRampDuration:
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,8 +42,8 @@ float AKWhiteNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKWhiteNoiseParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKWhiteNoiseParameterRampTime:
-            return _private->amplitudeRamp.getRampTime(_sampleRate);
+        case AKWhiteNoiseParameterRampDuration:
+            return _private->amplitudeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

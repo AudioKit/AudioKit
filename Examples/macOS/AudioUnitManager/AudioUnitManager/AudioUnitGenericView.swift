@@ -74,8 +74,4 @@ class AudioUnitGenericView: NSView {
         frame.size = NSSize(width: preferredWidth, height: preferredHeight)
     }
 
-    func handleChange(_ sender: NSSlider) {
-        // Swift.print(sender.doubleValue)
-    }
-
 }

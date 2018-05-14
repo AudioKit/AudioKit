@@ -39,10 +39,10 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Initial value for Q
     public static let defaultQ = 0.707
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 

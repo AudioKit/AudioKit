@@ -34,12 +34,12 @@ class AKBoosterTests: AKTestCase {
         let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
         let osc = AKOscillator()
         let booster = AKBooster(osc, gain: 1.0)
-        booster.rampTime = 1
+        booster.rampDuration = 1
         booster.leftGain = 0.0
         booster.rightGain = 0.0
         osc.connect(to: booster)
         AudioKit.output = booster
-        try! AudioKit.renderToFile(audioFile, seconds: 4, prerender: {
+        try! AudioKit.renderToFile(audioFile, duration: 4, prerender: {
             osc.start()
         })
     }

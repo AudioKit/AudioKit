@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
     AKMoogLadderParameterCutoffFrequency,
     AKMoogLadderParameterResonance,
-    AKMoogLadderParameterRampTime
+    AKMoogLadderParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -41,7 +41,7 @@ public:
     float defaultCutoffFrequency = 1000;
     float defaultResonance = 0.5;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
