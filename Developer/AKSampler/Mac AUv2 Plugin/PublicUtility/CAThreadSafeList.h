@@ -22,7 +22,7 @@ private:
 		Node *		mNext;
 		EEventType	mEventType;
 		T			mObject;
-		
+
 		Node *&	next() { return mNext; }
 	};
 
@@ -31,19 +31,19 @@ public:
 	public:
 		iterator() { }
 		iterator(Node *n) : mNode(n) { }
-		
+
 		bool operator == (const iterator &other) const { return this->mNode == other.mNode; }
 		bool operator != (const iterator &other) const { return this->mNode != other.mNode; }
-		
+
 		T & operator * () const { return mNode->mObject; }
-		
+
 		iterator & operator ++ () { mNode = mNode->next(); return *this; }	// preincrement
 		iterator operator ++ (int) { iterator tmp = *this; mNode = mNode->next(); return tmp; } // postincrement
-		
+
 	private:
 		Node *		mNode;
 	};
-	
+
 	TThreadSafeList() { }
 	~TThreadSafeList()
 	{
@@ -51,9 +51,9 @@ public:
 		mPendingList.free_all();
 		mFreeList.free_all();
 	}
-	
+
 	// These may be called on any thread
-	
+
 	void	deferred_add(const T &obj)	// can be called on any thread
 	{
 		Node *node = AllocNode();
@@ -62,7 +62,7 @@ public:
 		mPendingList.push_atomic(node);
 		//mPendingList.dump("pending after add");
 	}
-	
+
 	void	deferred_remove(const T &obj)	// can be called on any thread
 	{
 		Node *node = AllocNode();
@@ -71,22 +71,22 @@ public:
 		mPendingList.push_atomic(node);
 		//mPendingList.dump("pending after remove");
 	}
-	
+
 	void	deferred_clear()					// can be called on any thread
 	{
 		Node *node = AllocNode();
 		node->mEventType = kClear;
 		mPendingList.push_atomic(node);
 	}
-	
+
 	// These must be called from only one thread
-	
+
 	void	update()		// must only be called from one thread
 	{
 		NodeStack reversed;
 		Node *event, *node, *next;
 		bool workDone = false;
-		
+
 		// reverse the events so they are in order
 		event = mPendingList.pop_all();
 		while (event != NULL) {
@@ -98,7 +98,7 @@ public:
 		if (workDone) {
 			//reversed.dump("pending popped");
 			//mActiveList.dump("active before update");
-			
+
 			// now process them
 			while ((event = reversed.pop_NA()) != NULL) {
 				switch (event->mEventType) {
@@ -152,14 +152,14 @@ public:
 			//mActiveList.dump("active after update");
 		}
 	}
-	
+
 	iterator begin() const {
 		//mActiveList.dump("active at begin");
 		return iterator(mActiveList.head());
 	}
 	iterator end() const { return iterator(NULL); }
 
-	
+
 private:
 	Node *	AllocNode()
 	{
@@ -168,7 +168,7 @@ private:
 			node = (Node *)CA_malloc(sizeof(Node));
 		return node;
 	}
-	
+
 	void	FreeNode(Node *node)
 	{
 		mFreeList.push_atomic(node);
@@ -182,7 +182,7 @@ private:
 			while ((node = this->pop_NA()) != NULL)
 				free(node);
 		}
-		
+
 		Node **	phead() { return &this->mHead; }
 		Node *	head() const { return this->mHead; }
 	};

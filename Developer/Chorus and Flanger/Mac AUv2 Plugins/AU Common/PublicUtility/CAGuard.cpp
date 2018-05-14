@@ -131,7 +131,7 @@ bool	CAGuard::WaitFor(UInt64 inNanos)
 		theTimeSpec.tv_sec = 0;
 		theTimeSpec.tv_nsec = static_cast<long>(inNanos);
 	}
-	
+
 	#if	Log_TimedWaits || Log_Latency || Log_Average_Latency
 		UInt64	theStartNanos = CAHostTimeBase::GetCurrentTimeInNanos();
 	#endif
@@ -145,19 +145,19 @@ bool	CAGuard::WaitFor(UInt64 inNanos)
 	OSStatus theError = pthread_cond_timedwait_relative_np(&mCondVar, &mMutex, &theTimeSpec);
 	ThrowIf((theError != 0) && (theError != ETIMEDOUT), CAException(theError), "CAGuard::WaitFor: Wait got an error");
 	mOwner = pthread_self();
-	
+
 	#if	Log_TimedWaits || Log_Latency || Log_Average_Latency
 		UInt64	theEndNanos = CAHostTimeBase::GetCurrentTimeInNanos();
 	#endif
-	
+
 	#if	Log_TimedWaits
 		DebugMessageN1("CAGuard::WaitFor: waited  %.0f", (Float64)(theEndNanos - theStartNanos));
 	#endif
-	
+
 	#if	Log_Latency
 		DebugMessageN1("CAGuard::WaitFor: latency  %.0f", (Float64)((theEndNanos - theStartNanos) - inNanos));
 	#endif
-	
+
 	#if	Log_Average_Latency
 		++mAverageLatencyCount;
 		mAverageLatencyAccumulator += (theEndNanos - theStartNanos) - inNanos;
@@ -193,7 +193,7 @@ bool	CAGuard::WaitFor(UInt64 inNanos)
 	#if	Log_WaitOwnership
 		DebugPrintf("%lu %.4f: CAGuard::WaitFor: thread %lu is waiting on %s, owner: %lu\n", GetCurrentThreadId(), ((Float64)(CAHostTimeBase::GetCurrentTimeInNanos()) / 1000000.0), GetCurrentThreadId(), mName, mOwner);
 	#endif
-	
+
 	ReleaseMutex(mMutex);
 	HANDLE theHandles[] = { mMutex, mEvent };
 	OSStatus theError = WaitForMultipleObjects(2, theHandles, true, theWaitTime);
@@ -208,15 +208,15 @@ bool	CAGuard::WaitFor(UInt64 inNanos)
 	#if	Log_TimedWaits || Log_Latency || Log_Average_Latency
 		UInt64	theEndNanos = CAHostTimeBase::GetCurrentTimeInNanos();
 	#endif
-	
+
 	#if	Log_TimedWaits
 		DebugMessageN1("CAGuard::WaitFor: waited  %.0f", (Float64)(theEndNanos - theStartNanos));
 	#endif
-	
+
 	#if	Log_Latency
 		DebugMessageN1("CAGuard::WaitFor: latency  %.0f", (Float64)((theEndNanos - theStartNanos) - inNanos));
 	#endif
-	
+
 	#if	Log_Average_Latency
 		++mAverageLatencyCount;
 		mAverageLatencyAccumulator += (theEndNanos - theStartNanos) - inNanos;
@@ -242,11 +242,11 @@ bool	CAGuard::WaitUntil(UInt64 inNanos)
 {
 	bool	theAnswer = false;
 	UInt64	theCurrentNanos = CAHostTimeBase::GetCurrentTimeInNanos();
-	
+
 #if	Log_TimedWaits
 	DebugMessageN2("CAGuard::WaitUntil: now: %.0f, requested: %.0f", (double)theCurrentNanos, (double)inNanos);
 #endif
-	
+
 	if(inNanos > theCurrentNanos)
 	{
 #if Log_Errors
@@ -281,7 +281,7 @@ void	CAGuard::Notify()
 	#if	Log_WaitOwnership
 		DebugPrintf("%lu %.4f: CAGuard::Notify: thread %lu is notifying %s, owner: %lu\n", GetCurrentThreadId(), ((Float64)(CAHostTimeBase::GetCurrentTimeInNanos()) / 1000000.0), GetCurrentThreadId(), mName, mOwner);
 	#endif
-	
+
 	SetEvent(mEvent);
 #endif
 }
@@ -299,7 +299,7 @@ void	CAGuard::NotifyAll()
 	#if	Log_WaitOwnership
 		DebugPrintf("%lu %.4f: CAGuard::NotifyAll: thread %lu is notifying %s, owner: %lu\n", GetCurrentThreadId(), ((Float64)(CAHostTimeBase::GetCurrentTimeInNanos()) / 1000000.0), GetCurrentThreadId(), mName, mOwner);
 	#endif
-	
+
 	SetEvent(mEvent);
 #endif
 }

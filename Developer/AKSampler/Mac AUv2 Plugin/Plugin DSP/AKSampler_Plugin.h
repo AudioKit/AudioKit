@@ -9,7 +9,7 @@ class AKSampler_Plugin : public AUInstrumentBase, public AudioKitCore::Sampler
 public:
 	AKSampler_Plugin(AudioUnit inComponentInstance);
 	virtual	~AKSampler_Plugin();
-				
+
 	virtual OSStatus Initialize();
 	virtual void Cleanup();
 	virtual OSStatus Version() { return kAKSamplerVersion; }
@@ -19,18 +19,18 @@ public:
                                         AudioUnitElement            inElement,
                                         UInt32 &                    outDataSize,
                                         Boolean &                   outWritable );
-    
+
     virtual OSStatus GetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         void *                      outData);
-    
+
     virtual OSStatus SetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         const void *                inData,
                                         UInt32                      inDataSize);
-    
+
 	virtual OSStatus GetParameterInfo(  AudioUnitScope              inScope,
                                         AudioUnitParameterID        inParameterID,
                                         AudioUnitParameterInfo &    outParameterInfo);
@@ -47,12 +47,12 @@ public:
                                         UInt32                      inBufferOffsetInFrames);
 
     virtual OSStatus SaveState(         CFPropertyListRef *         outData);
-    
+
     virtual OSStatus RestoreState(      CFPropertyListRef           inData);
 
     virtual OSStatus HandleNoteOn(      UInt8 inChannel, UInt8 inNoteNumber,
                                         UInt8 inVelocity, UInt32 inStartFrame);
-    
+
     virtual OSStatus HandleNoteOff(     UInt8 inChannel, UInt8 inNoteNumber,
                                         UInt8 inVelocity, UInt32 inStartFrame);
 
@@ -60,7 +60,7 @@ public:
                                             UInt8 inController,
                                             UInt8 inValue,
                                             UInt32 inStartFrame);
-    
+
     virtual OSStatus HandlePitchWheel(  UInt8 inChannel,
                                         UInt8 inPitch1,
                                         UInt8 inPitch2,
@@ -69,7 +69,7 @@ public:
     virtual OSStatus Render(            AudioUnitRenderActionFlags& ioActionFlags,
                                         const AudioTimeStamp&       inTimeStamp,
                                         UInt32 nFrames);
-    
+
 private:
     CFStringRef presetFolderPath;
     CFStringRef presetName;

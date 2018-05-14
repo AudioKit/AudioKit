@@ -13,9 +13,9 @@ Part of Core Audio AUInstrument Base Classes
 bool SynthNote::AttackNote(
 			SynthPartElement *				inPart,
 			SynthGroupElement *				inGroup,
-			NoteInstanceID					inNoteID, 
-			UInt64							inAbsoluteSampleFrame, 
-			UInt32							inOffsetSampleFrame, 
+			NoteInstanceID					inNoteID,
+			UInt64							inAbsoluteSampleFrame,
+			UInt32							inOffsetSampleFrame,
 			const MusicDeviceNoteParams		&inParams)
 {
 #if DEBUG_PRINT
@@ -32,8 +32,8 @@ bool SynthNote::AttackNote(
 
 	mPitch = inParams.mPitch;
 	mVelocity = inParams.mVelocity;
-	
-	
+
+
 	return Attack(inParams);
 }
 
@@ -78,25 +78,25 @@ double SynthNote::SampleRate()
 	return GetAudioUnit()->GetOutput(0)->GetStreamFormat().mSampleRate;
 }
 
-AUInstrumentBase* SynthNote::GetAudioUnit() const 
-{ 
-	return (AUInstrumentBase*)mGroup->GetAudioUnit(); 
+AUInstrumentBase* SynthNote::GetAudioUnit() const
+{
+	return (AUInstrumentBase*)mGroup->GetAudioUnit();
 }
 
-Float32 SynthNote::GetGlobalParameter(AudioUnitParameterID inParamID) const 
+Float32 SynthNote::GetGlobalParameter(AudioUnitParameterID inParamID) const
 {
 	return mGroup->GetAudioUnit()->Globals()->GetParameter(inParamID);
 }
 
-void SynthNote::NoteEnded(UInt32 inFrame) 
-{ 
+void SynthNote::NoteEnded(UInt32 inFrame)
+{
 	mGroup->NoteEnded(this, inFrame);
-	mNoteID = 0xFFFFFFFF; 
+	mNoteID = 0xFFFFFFFF;
 }
 
-float SynthNote::GetPitchBend() const 
-{ 
-	return mGroup->GetPitchBend(); 
+float SynthNote::GetPitchBend() const
+{
+	return mGroup->GetPitchBend();
 }
 
 

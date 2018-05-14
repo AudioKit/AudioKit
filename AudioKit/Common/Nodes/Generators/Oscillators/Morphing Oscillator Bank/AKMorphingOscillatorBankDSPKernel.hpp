@@ -18,7 +18,7 @@ public:
         standardBankEnumElements(),
         indexAddress = numberOfBankEnumElements
     };
-    
+
     struct NoteState {
         NoteState* next;
         NoteState* prev;

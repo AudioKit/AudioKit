@@ -11,7 +11,7 @@
 #include "pluginconstants.h"
 
 class Compressor {
-    
+
 public:
     Compressor(float fThreshold, float fRatio, float fAttack, float fRelease,
                int iSampleRate);
@@ -19,7 +19,7 @@ public:
     void setParameters(float fThreshold, float fRatio, float fAttack,
                        float fRelease);
     float getCompGain();
-    
+
     // Private
 private:
     CEnvelopeDetector envDetector;

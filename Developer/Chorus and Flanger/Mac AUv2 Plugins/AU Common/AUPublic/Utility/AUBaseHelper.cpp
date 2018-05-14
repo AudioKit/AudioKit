@@ -15,18 +15,18 @@ Part of Core Audio AUBase Classes
 #endif
 
 OSStatus	GetFileRefPath (CFDictionaryRef parent, CFStringRef frKey, CFStringRef * fPath)
-{	
+{
 	static CFStringRef kFRString = CFSTR (kAUPresetExternalFileRefs);
-	
+
 	const void* frVal = CFDictionaryGetValue(parent, kFRString);
 	if (!frVal) return kAudioUnitErr_InvalidPropertyValue;
 
 	const void* frString = CFDictionaryGetValue ((CFDictionaryRef)frVal, frKey);
 	if (!frString) return kAudioUnitErr_InvalidPropertyValue;
-		
+
 	if (fPath)
 		*fPath = (CFStringRef)frString;
-	
+
 	return noErr;
 }
 
@@ -36,7 +36,7 @@ CFMutableDictionaryRef CreateFileRefDict (CFStringRef fKey, CFStringRef fPath, C
 		fileRefDict = CFDictionaryCreateMutable	(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 	CFDictionarySetValue (fileRefDict, fKey, fPath);
-	
+
 	return fileRefDict;
 }
 
@@ -75,11 +75,11 @@ void PrintAUParamEvent (AudioUnitParameterEvent& event, FILE* f)
 		fprintf (f, "\tEvent Type:%s,", (isRamp ? "ramp" : "immediate"));
 		if (isRamp)
 			fprintf (f, "start=%ld,dur=%ld,startValue=%f,endValue=%f\n",
-					(long)event.eventValues.ramp.startBufferOffset, (long)event.eventValues.ramp.durationInFrames, 
+					(long)event.eventValues.ramp.startBufferOffset, (long)event.eventValues.ramp.durationInFrames,
 					event.eventValues.ramp.startValue, event.eventValues.ramp.endValue);
 		else
-			fprintf (f, "start=%ld,value=%f\n", 
-					(long)event.eventValues.immediate.bufferOffset, 
+			fprintf (f, "start=%ld,value=%f\n",
+					(long)event.eventValues.immediate.bufferOffset,
 					event.eventValues.immediate.value);
 		fprintf (f, "- - - - - - - - - - - - - - - -\n");
 }

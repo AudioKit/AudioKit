@@ -61,19 +61,19 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			case kAudioUnitRenderSelect:
 				result = (This->AudioUnitAPIVersion() > 1);
 				break;
-				
+
 			default:
 				return ComponentBase::ComponentEntryDispatch(params, This);
 		}
 		break;
-		
+
 	case kAudioUnitInitializeSelect:
 	{
 		CAMutex::Locker lock2(This->GetMutex());
 		result = This->DoInitialize();
 	}
 		break;
-		
+
 	case kAudioUnitUninitializeSelect:
 	{
 		CAMutex::Locker lock2(This->GetMutex());
@@ -96,7 +96,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			// always assume they're non-null
 			UInt32 dataSize;
 			Boolean writable;
-			
+
 			result = This->DispatchGetPropertyInfo(pinID, pinScope, pinElement, dataSize, writable);
 			if (poutDataSize != NULL)
 				*poutDataSize = dataSize;
@@ -118,7 +118,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			Boolean writable;
 			char *tempBuffer;
 			void *destBuffer;
-			
+
 			if (pioDataSize == NULL) {
 				ca_debug_string("AudioUnitGetProperty: null size pointer");
 				result = kAudio_ParamError;
@@ -126,12 +126,12 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			}
 			if (poutData == NULL) {
 				UInt32 dataSize;
-				
+
 				result = This->DispatchGetPropertyInfo(pinID, pinScope, pinElement, dataSize, writable);
 				*pioDataSize = dataSize;
 				goto finishGetProperty;
 			}
-			
+
 			clientBufferSize = *pioDataSize;
 			if (clientBufferSize == 0)
 			{
@@ -140,13 +140,13 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 				result = kAudio_ParamError;
 				goto finishGetProperty;
 			}
-			
-			result = This->DispatchGetPropertyInfo(pinID, pinScope, pinElement, 
+
+			result = This->DispatchGetPropertyInfo(pinID, pinScope, pinElement,
 													actualPropertySize, writable);
-			if (result) 
+			if (result)
 				goto finishGetProperty;
-			
-			if (clientBufferSize < actualPropertySize) 
+
+			if (clientBufferSize < actualPropertySize)
 			{
 				tempBuffer = new char[actualPropertySize];
 				destBuffer = tempBuffer;
@@ -154,9 +154,9 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 				tempBuffer = NULL;
 				destBuffer = poutData;
 			}
-			
+
 			result = This->DispatchGetProperty(pinID, pinScope, pinElement, destBuffer);
-			
+
 			if (result == noErr) {
 				if (clientBufferSize < actualPropertySize && tempBuffer != NULL)
 				{
@@ -173,7 +173,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 
 		}
 		break;
-		
+
 	case kAudioUnitSetPropertySelect:
 		{
 			CAMutex::Locker lock(This->GetMutex());
@@ -182,7 +182,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			PARAM(AudioUnitElement, pinElement, 2, 5);
 			PARAM(const void *, pinData, 3, 5);
 			PARAM(UInt32, pinDataSize, 4, 5);
-			
+
 			if (pinData && pinDataSize)
 				result = This->DispatchSetProperty(pinID, pinScope, pinElement, pinData, pinDataSize);
 			else {
@@ -207,7 +207,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 
 		}
 		break;
-		
+
 	case kAudioUnitAddPropertyListenerSelect:
 		{
 			CAMutex::Locker lock(This->GetMutex());
@@ -238,7 +238,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 			result = This->RemovePropertyListener(pinID, pinProc, pinProcRefCon, true);
 		}
 		break;
-		
+
 	case kAudioUnitAddRenderNotifySelect:
 		{
 			CAMutex::Locker lock(This->GetMutex());
@@ -304,7 +304,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 				PARAM(UInt32, pinNumberFrames, 3, 5);
 				PARAM(AudioBufferList *, pioData, 4, 5);
 				AudioUnitRenderActionFlags tempFlags;
-				
+
 				if (pinTimeStamp == NULL || pioData == NULL)
 					result = kAudio_ParamError;
 				else {
@@ -314,7 +314,7 @@ OSStatus		AUBase::ComponentEntryDispatch(ComponentParameters *params, AUBase *Th
 					}
 					result = This->DoRender(*pinActionFlags, *pinTimeStamp, pinOutputBusNumber, pinNumberFrames, *pioData);
 				}
-			}			
+			}
 		}
 		break;
 
@@ -345,13 +345,13 @@ OSStatus CMgr_AudioUnitBaseGetParameter(	AUBase *				This,
 											float					*outValue)
 {
 	OSStatus result = AUBase::noErr;
-	
+
 	try {
 		if (This == NULL || outValue == NULL) return kAudio_ParamError;
 		result = This->GetParameter(inID, inScope, inElement, *outValue);
 	}
 	COMPONENT_CATCH
-	
+
 	return result;
 }
 
@@ -363,13 +363,13 @@ OSStatus CMgr_AudioUnitBaseSetParameter(	AUBase * 				This,
 											UInt32					inBufferOffset)
 {
 	OSStatus result = AUBase::noErr;
-	
+
 	try {
 		if (This == NULL) return kAudio_ParamError;
 		result = This->SetParameter(inID, inScope, inElement, inValue, inBufferOffset);
 	}
 	COMPONENT_CATCH
-	
+
 	return result;
 }
 
@@ -381,10 +381,10 @@ OSStatus CMgr_AudioUnitBaseRender(			AUBase *				This,
 											AudioBufferList *		ioData)
 {
 	if (inTimeStamp == NULL || ioData == NULL) return kAudio_ParamError;
-	
+
 	OSStatus result = AUBase::noErr;
 	AudioUnitRenderActionFlags tempFlags;
-	
+
 	try {
 		if (ioActionFlags == NULL) {
 			tempFlags = 0;
@@ -393,6 +393,6 @@ OSStatus CMgr_AudioUnitBaseRender(			AUBase *				This,
 		result = This->DoRender(*ioActionFlags, *inTimeStamp, inBusNumber, inNumberFrames, *ioData);
 	}
 	COMPONENT_CATCH
-	
+
 	return result;
 }

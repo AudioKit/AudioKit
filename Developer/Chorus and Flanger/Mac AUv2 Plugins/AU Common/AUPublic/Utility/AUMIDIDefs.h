@@ -29,7 +29,7 @@ enum
 	kMidiController_Balance					= 8,
 	kMidiController_Pan						= 10,
 	kMidiController_Expression				= 11,
-	
+
 	// these controls have a (0-63) == off, (64-127) == on
 	kMidiController_Sustain					= 64, //hold1
 	kMidiController_Portamento				= 65,
@@ -45,7 +45,7 @@ enum
 	kMidiController_VibratoRate				= 76,
 	kMidiController_VibratoDepth			= 77,
 	kMidiController_VibratoDelay			= 78,
-	
+
 	// these controls have a 0-127 range and in MIDI they have no LSB (so fractional values are lost in MIDI)
 	kMidiController_ReverbLevel				= 91,
 	kMidiController_ChorusLevel				= 93,
@@ -63,7 +63,7 @@ enum
 };
 
 // RPN values
-enum 
+enum
 {
 	kMidiControllerValue_RPNPitchBendSensitivity	= 0,
 	kMidiControllerValue_RPNChannelFineTuning		= 1,
@@ -73,7 +73,7 @@ enum
 };
 
 // GM2 Sound Bank Constants
-enum 
+enum
 {
 	kGM2MelodicBank						= 0x7900,
 	kGM2PercussionBank					= 0x7800,
@@ -83,7 +83,7 @@ enum
 	kBankMSBMask						= 0xff00
 };
 
-enum 
+enum
 {
 	kMSBController_MidPoint			= 0x40
 };

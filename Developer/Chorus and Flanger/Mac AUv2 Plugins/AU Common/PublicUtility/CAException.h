@@ -33,7 +33,7 @@ public:
 					~CAException() {}
 
 	OSStatus		GetError() const { return mError; }
-	
+
 protected:
 	OSStatus		mError;
 };

@@ -31,7 +31,7 @@ AKChorusGUI::~AKChorusGUI()
 }
 
 bool AKChorusGUI::open (void* ptr)
-{ 
+{
     systemWindow = ptr;
     hwnd = CreateDialog(GetInstance(), MAKEINTRESOURCE(IDD_DIALOG1), (HWND)ptr, dp);
 

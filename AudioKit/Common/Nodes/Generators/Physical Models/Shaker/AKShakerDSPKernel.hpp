@@ -19,7 +19,7 @@ public:
     enum {
         amplitudeAddress = 0
     };
-    
+
     // MARK: Member Functions
 
     AKShakerDSPKernel();

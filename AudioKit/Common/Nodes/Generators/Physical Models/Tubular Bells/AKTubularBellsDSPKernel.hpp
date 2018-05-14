@@ -15,12 +15,12 @@
 
 class AKTubularBellsDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
-    
+
     enum {
         frequencyAddress = 0,
         amplitudeAddress = 1
     };
-    
+
     // MARK: Member Functions
 
     AKTubularBellsDSPKernel();
@@ -47,7 +47,7 @@ public:
     AUValue getParameter(AUParameterAddress address);
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables

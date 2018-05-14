@@ -40,7 +40,7 @@ void MidiControls::Reset()
 }
 
 
-SynthElement::SynthElement(AUInstrumentBase *audioUnit, UInt32 inElement) 
+SynthElement::SynthElement(AUInstrumentBase *audioUnit, UInt32 inElement)
 	: AUElement(audioUnit), mIndex(inElement)
 {
 }
@@ -49,7 +49,7 @@ SynthElement::~SynthElement()
 {
 }
 
-SynthGroupElement::SynthGroupElement(AUInstrumentBase *audioUnit, UInt32 inElement, MIDIControlHandler *inHandler) 
+SynthGroupElement::SynthGroupElement(AUInstrumentBase *audioUnit, UInt32 inElement, MIDIControlHandler *inHandler)
 	: SynthElement(audioUnit, inElement),
 	mCurrentAbsoluteFrame(-1),
 	mMidiControlHandler(inHandler),
@@ -71,7 +71,7 @@ void	SynthGroupElement::SetGroupID (MusicDeviceGroupID inGroup)
 	mGroupID = inGroup;
 }
 
-void SynthGroupElement::Reset() 
+void SynthGroupElement::Reset()
 {
 #if DEBUG_PRINT
 	printf("SynthGroupElement::Reset\n");
@@ -81,7 +81,7 @@ void SynthGroupElement::Reset()
 		mNoteList[i].Empty();
 }
 
-SynthPartElement::SynthPartElement(AUInstrumentBase *audioUnit, UInt32 inElement) 
+SynthPartElement::SynthPartElement(AUInstrumentBase *audioUnit, UInt32 inElement)
 	: SynthElement(audioUnit, inElement)
 {
 }
@@ -94,7 +94,7 @@ SynthNote *SynthGroupElement::GetNote(NoteInstanceID inNoteID, bool unreleasedOn
 #if DEBUG_PRINT_RENDER
 	printf("SynthGroupElement::GetNote %d, unreleased = %d\n", inNoteID, unreleasedOnly);
 #endif
-	const UInt32 lastNoteState = unreleasedOnly ? 
+	const UInt32 lastNoteState = unreleasedOnly ?
 									(mSostenutoIsOn ? kNoteState_Sostenutoed : kNoteState_Attacked)
 										: kNoteState_Released;
 	SynthNote *note = NULL;
@@ -138,7 +138,7 @@ void SynthGroupElement::NoteOn(SynthNote *note,
 }
 
 void SynthGroupElement::NoteOff(NoteInstanceID inNoteID, UInt32 inFrame)
-{	
+{
 #if DEBUG_PRINT_NOTE
 	printf("SynthGroupElement::NoteOff %d\n", inNoteID);
 #endif
@@ -179,7 +179,7 @@ void SynthGroupElement::NoteEnded(SynthNote *inNote, UInt32 inFrame)
 		SynthNoteList *list = &mNoteList[inNote->GetState()];
 		list->RemoveNote(inNote);
 	}
-	
+
 	GetAUInstrument()->AddFreeNote(inNote);
 }
 
@@ -207,7 +207,7 @@ bool SynthGroupElement::ChannelMessage(UInt16 controllerID, UInt16 inValue)
 	// Sustain and sostenuto are "pedal events", and are handled during render cycle
 	if (controllerID <= kMidiController_RPN_MSB && controllerID != kMidiController_Sustain && controllerID != kMidiController_Sostenuto)
 		handled = mMidiControlHandler->SetController(controllerID, UInt8(inValue));
-	else 
+	else
 	{
 		switch (controllerID)
 		{
@@ -258,7 +258,7 @@ void SynthGroupElement::SostenutoOff(UInt32 inFrame)
 		mMidiControlHandler->SetController(kMidiController_Sostenuto, 0);
 		mSostenutoIsOn = false;
 		mNoteList[kNoteState_Attacked].TransferAllFrom(&mNoteList[kNoteState_Sostenutoed], inFrame);
-		if (mSustainIsOn) 
+		if (mSustainIsOn)
 			mNoteList[kNoteState_ReleasedButSustained].TransferAllFrom(&mNoteList[kNoteState_ReleasedButSostenutoed], inFrame);
 		else
 			mNoteList[kNoteState_Released].TransferAllFrom(&mNoteList[kNoteState_ReleasedButSostenutoed], inFrame);
@@ -285,7 +285,7 @@ void SynthGroupElement::SustainOff(UInt32 inFrame)
 	if (mSustainIsOn) {
 		mMidiControlHandler->SetController(kMidiController_Sustain, 0);
 		mSustainIsOn = false;
-	
+
 		mNoteList[kNoteState_Released].TransferAllFrom(&mNoteList[kNoteState_ReleasedButSustained], inFrame);
 	}
 }
@@ -304,14 +304,14 @@ void SynthGroupElement::AllNotesOff(UInt32 inFrame)
 		while (note)
 		{
 			SynthNote *nextNote = note->mNext;
-			
+
 			mNoteList[i].RemoveNote(note);
 			note->Release(inFrame);
 			mNoteList[newState].AddNote(note);
-			
+
 			note = nextNote;
 		}
-	}	
+	}
 }
 
 void SynthGroupElement::AllSoundOff(UInt32 inFrame)
@@ -320,21 +320,21 @@ void SynthGroupElement::AllSoundOff(UInt32 inFrame)
 	printf("SynthGroupElement::AllSoundOff\n");
 #endif
 	SynthNote *note;
-	
+
 	for (UInt32 i=0 ; i<kNumberOfActiveNoteStates; ++i)
 	{
 		note = mNoteList[i].mHead;
 		while (note)
 		{
 			SynthNote *nextNote = note->mNext;
-			
+
 			mNoteList[i].RemoveNote(note);
 			note->FastRelease(inFrame);
 			mNoteList[kNoteState_FastReleased].AddNote(note);
 			GetAUInstrument()->DecNumActiveNotes();
 			note = nextNote;
 		}
-	}	
+	}
 }
 
 void SynthGroupElement::ResetAllControllers(UInt32 inFrame)
@@ -357,7 +357,7 @@ OSStatus SynthGroupElement::Render(SInt64 inAbsoluteSampleFrame, UInt32 inNumber
 		{
 			buffArray[outBus] = &GetAudioUnit()->GetOutput(outBus)->GetBufferList();
 		}
-		
+
 		for (UInt32 i=0 ; i<kNumberOfSoundingNoteStates; ++i)
 		{
 			SynthNote *note = mNoteList[i].mHead;
@@ -367,10 +367,10 @@ OSStatus SynthGroupElement::Render(SInt64 inAbsoluteSampleFrame, UInt32 inNumber
 				printf("SynthGroupElement::Render: state %d, note %p\n", i, note);
 #endif
 				SynthNote *nextNote = note->mNext;
-				
+
 				OSStatus err = note->Render(inAbsoluteSampleFrame, inNumberFrames, buffArray, numOutputs);
 				if (err) return err;
-				
+
 				note = nextNote;
 			}
 		}

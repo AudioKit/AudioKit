@@ -32,7 +32,7 @@ private:
 public:
 
     AKClarinetDSP();
-    
+
     ~AKClarinetDSP();
 
     /** Uses the ParameterAddress as a key */

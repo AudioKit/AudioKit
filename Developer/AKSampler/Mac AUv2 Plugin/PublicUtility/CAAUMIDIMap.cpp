@@ -11,7 +11,7 @@ Part of Core Audio Public Utility Classes
 
 struct AllMidiTransformers
 {
-	MIDILinearTransformer linearTrans; 
+	MIDILinearTransformer linearTrans;
 	MIDILogTransformer logTrans;
 	MIDIExpTransformer expTrans;
 	MIDISqrtTransformer sqrtTrans;
@@ -39,13 +39,13 @@ static void CheckInitAllMidiTransformers()
 MIDIValueTransformer *	CAAUMIDIMap::GetTransformer (UInt32 inFlags)
 {
 #if TARGET_OS_MAC
-	if (gAllMidiTransformers == NULL) 
+	if (gAllMidiTransformers == NULL)
 		CheckInitAllMidiTransformers();
 #else
-	if (gAllMidiTransformers == NULL) 
+	if (gAllMidiTransformers == NULL)
 		gAllMidiTransformers = new AllMidiTransformers();
 #endif
-	
+
 	if (AudioUnitDisplayTypeIsLogarithmic(inFlags))
 		return &gAllMidiTransformers->logTrans;
 	else if (AudioUnitDisplayTypeIsExponential(inFlags))
@@ -138,13 +138,13 @@ bool	CAAUMIDIMap::MIDI_Matches (UInt8 inChannel, UInt8 inData1, UInt8 inData2, F
 				}
 				return false;
 			}
-			//printf("this in midi matches %X with ", this); 
-			outLinear = inData2 / 127.; 
+			//printf("this in midi matches %X with ", this);
+			outLinear = inData2 / 127.;
 			return true;
 		}
 		return false;
 	}
-	
+
 		// this just matches on the patch change value itself...
 	if (IsPatchChange()) {
 		if (mData1 == inData1) {

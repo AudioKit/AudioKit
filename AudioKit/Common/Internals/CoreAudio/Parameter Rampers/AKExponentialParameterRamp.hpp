@@ -25,7 +25,7 @@ struct AKExponentialParameterRamp : AKParameterRampBase {
 
         // calculate adjustment factor
         float scale = (maxv-minv) / (maxp-minp);
-        
+
         _value = exp(minv + scale * (atSample-minp));
 
 //        printf( "%6.4lf %6.4lf \n", _startValue, _target);

@@ -35,7 +35,7 @@
     IBOutlet NSTextField *filterEgStrengthText;
     IBOutlet NSSlider *filterResonanceSlider;
     IBOutlet NSTextField *filterResonanceText;
-    
+
     IBOutlet NSSlider *filterAttackSlider;
     IBOutlet NSTextField *filterAttackText;
     IBOutlet NSSlider *filterDecaySlider;
@@ -46,7 +46,7 @@
     IBOutlet NSTextField *filterReleaseText;
 
     IBOutlet NSPopUpButton *presetPopup;
-    
+
     // Other Members
     AudioUnit               mAU;
     AUEventListenerRef      mParameterListener;

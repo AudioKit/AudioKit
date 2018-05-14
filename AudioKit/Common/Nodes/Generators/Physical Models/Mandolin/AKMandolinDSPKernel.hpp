@@ -19,9 +19,9 @@ public:
         detuneAddress = 0,
         bodySizeAddress = 1,
     };
-    
+
     AKMandolinDSPKernel();
-    
+
     ~AKMandolinDSPKernel();
 
     void init(int _channels, double _sampleRate) override;
@@ -35,9 +35,9 @@ public:
     void setBodySize(float value);
 
     void setFrequency(float frequency, int course);
-    
+
     void pluck(int course, float position, int velocity);
-    
+
     void mute(int course);
 
     void setParameter(AUParameterAddress address, AUValue value);
@@ -52,7 +52,7 @@ public:
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
-    
+
 public:
     bool started = false;
     bool resetted = false;

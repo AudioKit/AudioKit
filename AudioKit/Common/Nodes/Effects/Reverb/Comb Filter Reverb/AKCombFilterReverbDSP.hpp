@@ -93,7 +93,7 @@ public:
                 reverbDurationRamp.advanceTo(_now + frameOffset);
             }
             _comb0->revtime = reverbDurationRamp.getValue();
-            _comb1->revtime = reverbDurationRamp.getValue();            
+            _comb1->revtime = reverbDurationRamp.getValue();
 
             float *tmpin[2];
             float *tmpout[2];

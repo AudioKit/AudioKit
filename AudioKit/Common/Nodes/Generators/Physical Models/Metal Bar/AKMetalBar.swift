@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// 
+///
 ///
 open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit

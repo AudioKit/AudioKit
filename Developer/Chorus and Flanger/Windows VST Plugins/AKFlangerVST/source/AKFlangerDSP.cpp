@@ -78,8 +78,8 @@ bool AKFlangerDSP::getProductString (char* text)
 }
 
 VstInt32 AKFlangerDSP::getVendorVersion ()
-{ 
-	return 1000; 
+{
+	return 1000;
 }
 
 VstInt32 AKFlangerDSP::canDo (char* text)
@@ -97,7 +97,7 @@ void AKFlangerDSP::getParameterName (VstInt32 index, char* label)
 	{
         // note kVstMaxParamStrLen is only 8 chars
 		case kModFreq:
-            vst_strncpy (label, "Rate", kVstMaxParamStrLen); 
+            vst_strncpy (label, "Rate", kVstMaxParamStrLen);
             break;
         case kModDepth:
             vst_strncpy(label, "Depth", kVstMaxParamStrLen);

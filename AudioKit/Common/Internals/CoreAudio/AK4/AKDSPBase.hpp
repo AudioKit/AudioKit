@@ -78,7 +78,7 @@ public:
         this->_nChannels = nChannels;
         this->_sampleRate = sampleRate;
     }
-    
+
     /// override this if your DSP kernel allocates memory; free it here
     virtual void deinit() {
     }

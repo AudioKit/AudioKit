@@ -22,12 +22,12 @@ namespace AudioKitCore
     , fLoopEnd(0.0f)
     {
     }
-    
+
     SampleBuffer::~SampleBuffer()
     {
         deinit();
     }
-    
+
     void SampleBuffer::init(float sampleRate, int nChannelCount, int nSampleCount)
     {
         this->sampleRateHz = sampleRate;
@@ -38,13 +38,13 @@ namespace AudioKitCore
         fLoopStart = fStart = 0.0f;
         fLoopEnd = fEnd = (float)nSampleCount;
     }
-    
+
     void SampleBuffer::deinit()
     {
         if (pSamples) delete[] pSamples;
         pSamples = 0;
     }
-    
+
     void SampleBuffer::setData(unsigned nIndex, float data)
     {
         if ((int)nIndex < nChannelCount * nSampleCount)
@@ -52,5 +52,5 @@ namespace AudioKitCore
             pSamples[nIndex] = data;
         }
     }
-    
+
 }

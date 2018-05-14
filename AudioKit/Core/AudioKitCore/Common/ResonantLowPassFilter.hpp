@@ -20,22 +20,22 @@ namespace AudioKitCore
     {
         // coefficients
         double a0, a1, a2, b1, b2;
-        
+
         // state
         double x1, x2, y1, y2;
-        
+
         // misc
         double sampleRateHz, mLastCutoffHz, mLastResLinear;
-        
+
         ResonantLowPassFilter();
-        
+
         void init(double sampleRateHz);
         void updateSampleRate(double sampleRateHz) { this->sampleRateHz = sampleRateHz; }
-        
+
         void setParams(double newCutoffHz, double newResLinear);
         void setCutoff(double newCutoffHz) { setParams(newCutoffHz, mLastResLinear); }
         void setResonance(double newResLinear) { setParams(mLastCutoffHz, newResLinear); }
-        
+
         void process(const float *inSourceP, float *inDestP, int inFramesToProcess);
 
         inline float process(float inputSample)

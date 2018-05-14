@@ -19,7 +19,7 @@ typedef NS_ENUM(int64_t, AKSamplerParameter)
     ampAttackTimeParam, ampDecayTimeParam, ampSustainLevelParam, ampReleaseTimeParam,
     filterAttackTimeParam, filterDecayTimeParam, filterSustainLevelParam, filterReleaseTimeParam,
     filterEnableParam,
-    
+
     // ensure this is always last in the list, to simplify parameter addressing
     rampTimeParam,
 };
@@ -56,14 +56,14 @@ struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterEgStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
-    
+
     AKSamplerDSP();
     void init(int nChannels, double sampleRate) override;
     void deinit() override;
 
     void setParameter(uint64_t address, float value, bool immediate) override;
     float getParameter(uint64_t address) override;
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 

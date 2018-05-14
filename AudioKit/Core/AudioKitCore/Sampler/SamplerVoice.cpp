@@ -18,7 +18,7 @@ namespace AudioKitCore
         ampEG.init();
         filterEG.init();
     }
-    
+
     void SamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pBuf)
     {
         pSampleBuffer = pBuf;
@@ -26,19 +26,19 @@ namespace AudioKitCore
         oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteHz);
         oscillator.fIncMul = 1.0;
         oscillator.bLooping = pBuf->bLoop;
-        
+
         noteVol = volume;
         ampEG.start();
-        
+
         double sr = (double)sampleRateHz;
         filterL.updateSampleRate(sr);
         filterR.updateSampleRate(sr);
         filterEG.start();
-        
+
         noteHz = freqHz;
         noteNumber = noteNum;
     }
-    
+
     void SamplerVoice::restart(float volume, SampleBuffer* pSampleBuf)
     {
         tempNoteVol = noteVol;
@@ -47,21 +47,21 @@ namespace AudioKitCore
         noteVol = volume;
         filterEG.start();
     }
-    
+
     void SamplerVoice::release(bool loopThruRelease)
     {
         if (!loopThruRelease) oscillator.bLooping = false;
         ampEG.release();
         filterEG.release();
     }
-    
+
     void SamplerVoice::stop()
     {
         noteNumber = -1;
         ampEG.reset();
         filterEG.reset();
     }
-    
+
     bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset,
                                         float cutoffMultiple, float cutoffEgStrength,
                                         float resLinear)
@@ -82,7 +82,7 @@ namespace AudioKitCore
         else
             tempGain = masterVol * noteVol * ampEG.getSample();
         oscillator.setPitchOffsetSemitones(pitchOffset);
-        
+
         // negative value of cutoffMultiple means filters are disabled
         if (cutoffMultiple < 0.0f)
         {
@@ -95,10 +95,10 @@ namespace AudioKitCore
             filterL.setParams(cutoffHz, resLinear);
             filterR.setParams(cutoffHz, resLinear);
         }
-        
+
         return false;
     }
-    
+
     bool SamplerVoice::getSamples(int nSamples, float* pOut)
     {
         for (int i=0; i < nSamples; i++)
@@ -109,7 +109,7 @@ namespace AudioKitCore
         }
         return false;
     }
-    
+
     bool SamplerVoice::getSamples(int nSamples, float* pOutLeft, float* pOutRight)
     {
         for (int i=0; i < nSamples; i++)

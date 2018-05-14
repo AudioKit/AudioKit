@@ -48,7 +48,7 @@ SInt32 AUBase::sVectorUnitType = kVecUninitialized;
 
 //_____________________________________________________________________________
 //
-AUBase::AUBase(	AudioComponentInstance			inInstance, 
+AUBase::AUBase(	AudioComponentInstance			inInstance,
 				UInt32							numInputElements,
 				UInt32							numOutputElements,
 				UInt32							numGroupElements) :
@@ -56,7 +56,7 @@ AUBase::AUBase(	AudioComponentInstance			inInstance,
 	mElementsCreated(false),
 	mInitialized(false),
 	mHasBegunInitializing(false),
-	mInitNumInputEls(numInputElements), mInitNumOutputEls(numOutputElements), 
+	mInitNumInputEls(numInputElements), mInitNumOutputEls(numOutputElements),
 #if !CA_BASIC_AU_FEATURES
 	mInitNumGroupEls(numGroupElements),
 #endif
@@ -75,7 +75,7 @@ AUBase::AUBase(	AudioComponentInstance			inInstance,
 	#endif
 {
 	ResetRenderTime ();
-	
+
 	if(!sAUBaseCFStringsInitialized)
 	{
 		kUntitledString = CFSTR("Untitled");
@@ -97,11 +97,11 @@ AUBase::AUBase(	AudioComponentInstance			inInstance,
 	}
 
 	mAudioUnitAPIVersion = 2;
-	
+
 	SetMaxFramesPerSlice(kAUDefaultMaxFramesPerSlice);
 
 	GlobalScope().Initialize(this, kAudioUnitScope_Global, 1);
-	
+
 #if !CA_NO_AU_UI_FEATURES
 	memset (&mHostCallbackInfo, 0, sizeof (mHostCallbackInfo));
 #endif
@@ -135,7 +135,7 @@ void	AUBase::CreateElements()
 		Groups().Initialize(this, kAudioUnitScope_Group, mInitNumGroupEls);
 #endif
 		CreateExtendedElements();
-		
+
 		mElementsCreated = true;
 	}
 }
@@ -162,7 +162,7 @@ OSStatus			AUBase::CanSetMaxFrames() const
 void				AUBase::ReallocateBuffers()
 {
 	CreateElements();
-	
+
 	UInt32 nOutputs = Outputs().GetNumberOfElements();
 	for (UInt32 i = 0; i < nOutputs; ++i) {
 		AUOutputElement *output = GetOutput(i);
@@ -201,7 +201,7 @@ void				AUBase::DeallocateIOBuffers()
 OSStatus			AUBase::DoInitialize()
 {
 	OSStatus result = noErr;
-	
+
 	if (!mInitialized) {
 		result = Initialize();
 		if (result == noErr) {
@@ -239,7 +239,7 @@ void				AUBase::DoCleanup()
 {
 	if (mInitialized)
 		Cleanup();
-	
+
 	DeallocateIOBuffers();
 	ResetRenderTime ();
 
@@ -272,22 +272,22 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 {
 	OSStatus result = noErr;
 	bool validateElement = true;
-	
+
 	switch (inID) {
 	case kAudioUnitProperty_MakeConnection:
 		ca_require(inScope == kAudioUnitScope_Input || inScope == kAudioUnitScope_Global, InvalidScope);
 		outDataSize = sizeof(AudioUnitConnection);
 		outWritable = true;
 		break;
-		
-		
+
+
 	case kAudioUnitProperty_SetRenderCallback:
 		ca_require(AudioUnitAPIVersion() > 1, InvalidProperty);
 		ca_require(inScope == kAudioUnitScope_Input || inScope == kAudioUnitScope_Global, InvalidScope);
 		outDataSize = sizeof(AURenderCallbackStruct);
 		outWritable = true;
 		break;
-		
+
 	case kAudioUnitProperty_StreamFormat:
 		outDataSize = sizeof(CAStreamBasicDescription);
 		outWritable = IsStreamFormatWritable(inScope, inElement);
@@ -312,7 +312,7 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 			outWritable = false;
 		}
 		break;
-		
+
 	case kAudioUnitProperty_PresentPreset:
 #if !CA_USE_AUDIO_PLUGIN_ONLY
 #ifndef __LP64__
@@ -323,23 +323,23 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		outDataSize = sizeof(AUPreset);
 		outWritable = true;
 		break;
-	
+
 	case kAudioUnitProperty_ElementName:
 		outDataSize = sizeof (CFStringRef);
 		outWritable = true;
 		break;
-	
+
 	case kAudioUnitProperty_ParameterList:
 		{
 			UInt32 nparams = 0;
 			result = GetParameterList(inScope, NULL, nparams);
-			
+
 			outDataSize = sizeof(AudioUnitParameterID) * nparams;
 			outWritable = false;
 			validateElement = false;
 		}
 		break;
-		
+
 	case kAudioUnitProperty_ParameterInfo:
 		outDataSize = sizeof(AudioUnitParameterInfo);
 		outWritable = false;
@@ -357,13 +357,13 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		outWritable = BusCountWritable(inScope);
 		validateElement = false;
 		break;
-	
+
 	case kAudioUnitProperty_Latency:
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 		outDataSize = sizeof(Float64);
 		outWritable = false;
 		break;
-	
+
 	case kAudioUnitProperty_TailTime:
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 		if (SupportsTail()) {
@@ -372,19 +372,19 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		} else
 			goto InvalidProperty;
 		break;
-	
+
 	case kAudioUnitProperty_MaximumFramesPerSlice:
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 		outDataSize = sizeof(UInt32);
 		outWritable = true;
 		break;
-	
+
 	case kAudioUnitProperty_LastRenderError:
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 		outDataSize = sizeof(OSStatus);
 		outWritable = false;
 		break;
-		
+
 	case kAudioUnitProperty_SupportedNumChannels:
 	{
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
@@ -397,7 +397,7 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		outWritable = false;
 		break;
 	}
-	
+
 	case kAudioUnitProperty_SupportedChannelLayoutTags:
 	{
 		UInt32 numLayouts = GetChannelLayoutTags(inScope, inElement, NULL);
@@ -410,7 +410,7 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		validateElement = false; //already done it
 		break;
 	}
-	
+
 	case kAudioUnitProperty_AudioChannelLayout:
 	{
 		outWritable = false;
@@ -450,11 +450,11 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		if (outDataSize == 0)
 			goto InvalidProperty;
 		outDataSize *= sizeof (AudioComponentDescription);
-		
+
 		outWritable = false;
 		break;
 #endif
-	
+
 	case kAudioUnitProperty_ParameterValueStrings:
 		result = GetParameterValueStrings(inScope, inElement, NULL);
 		if (result == noErr) {
@@ -477,7 +477,7 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		outDataSize = sizeof(CFStringRef);
 		outWritable = true;
 		break;
-	
+
 	case kAudioUnitProperty_IconLocation:
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 		outWritable = false;
@@ -497,7 +497,7 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 		outDataSize = sizeof(Float64);
 		outWritable = false;
 		break;
-	
+
     case kAudioUnitProperty_NickName:
         ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
         outDataSize = sizeof(CFStringRef);
@@ -511,9 +511,9 @@ OSStatus			AUBase::DispatchGetPropertyInfo(AudioUnitPropertyID				inID,
 	}
 
 	if (result == noErr && validateElement) {
-		ca_require(GetElement(inScope, inElement) != NULL, InvalidElement);	
+		ca_require(GetElement(inScope, inElement) != NULL, InvalidElement);
 	}
-	
+
 	return result;
 InvalidProperty:
 	return kAudioUnitErr_InvalidProperty;
@@ -539,11 +539,11 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 	case kAudioUnitProperty_StreamFormat:
 		*(CAStreamBasicDescription *)outData = GetStreamFormat(inScope, inElement);
 		break;
-	
+
 	case kAudioUnitProperty_SampleRate:
 		*(Float64 *)outData = GetStreamFormat(inScope, inElement).mSampleRate;
 		break;
-	
+
 	case kAudioUnitProperty_ParameterList:
 		{
 			UInt32 nparams = 0;
@@ -575,7 +575,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 			result = GetPresets ((CFArrayRef *)outData);
 		}
 		break;
-	
+
 	case kAudioUnitProperty_PresentPreset:
 #if !CA_USE_AUDIO_PLUGIN_ONLY
 #ifndef __LP64__
@@ -584,15 +584,15 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 #endif
 		{
 			*(AUPreset *)outData = mCurrentPreset;
-				
+
 				// retain current string (as client owns a reference to it and will release it)
-			if (inID == kAudioUnitProperty_PresentPreset && mCurrentPreset.presetName) 
+			if (inID == kAudioUnitProperty_PresentPreset && mCurrentPreset.presetName)
 				CFRetain (mCurrentPreset.presetName);
 
 			result = noErr;
 		}
 		break;
-	
+
 	case kAudioUnitProperty_ElementName:
 		{
 			AUElement * element = GetElement(inScope, inElement);
@@ -608,7 +608,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 	case kAudioUnitProperty_ElementCount:
 		*(UInt32 *)outData = GetScope(inScope).GetNumberOfElements();
 		break;
-	
+
 	case kAudioUnitProperty_Latency:
 		*(Float64 *)outData = GetLatency();
 		break;
@@ -619,7 +619,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 		else
 			result = kAudioUnitErr_InvalidProperty;
 		break;
-	
+
 	case kAudioUnitProperty_MaximumFramesPerSlice:
 		*(UInt32 *)outData = mMaxFramesPerSlice;
 		break;
@@ -646,9 +646,9 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 				result = kAudioUnitErr_InvalidProperty;
 		}
 		break;
-		
+
 	case kAudioUnitProperty_AudioChannelLayout:
-	{	
+	{
 		AudioChannelLayout* ptr = outData ? static_cast<AudioChannelLayout*>(outData) : NULL;
 		Boolean writable;
 		UInt32 dataSize = GetAudioChannelLayout(inScope, inElement, ptr, writable);
@@ -670,7 +670,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
  	case kAudioUnitProperty_ParameterValueStrings:
 		result = GetParameterValueStrings(inScope, inElement, (CFArrayRef *)outData);
 		break;
-		
+
 #if !CA_USE_AUDIO_PLUGIN_ONLY
 	case kAudioUnitProperty_FastDispatch:
 		if (!IsCMgrObject()) result = kAudioUnitErr_InvalidProperty;
@@ -715,7 +715,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 			result = kAudioUnitErr_InvalidPropertyValue;
 		}
 		break;
-		
+
 	case kAudioUnitProperty_IconLocation:
 		{
 			CFURLRef iconLocation = CopyIconLocation();
@@ -731,15 +731,15 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
 			AudioUnitParameterNameInfo * ioClumpInfo = (AudioUnitParameterNameInfo*) outData;
 			if (ioClumpInfo->inID == kAudioUnitClumpID_System)	// this ID value is reserved
 				result = kAudioUnitErr_InvalidPropertyValue;
-			else 
+			else
 			{
 				result = CopyClumpName(inScope, ioClumpInfo->inID, ioClumpInfo->inDesiredLength, &ioClumpInfo->outName);
-					
+
 					// this is provided for compatbility with existing implementations that don't know
 					// about this new mechanism
 				if (result == kAudioUnitErr_InvalidProperty)
 					result = GetProperty (inID, inScope, inElement, outData);
-			}	
+			}
 		}
 		break;
 
@@ -754,7 +754,7 @@ OSStatus			AUBase::DispatchGetProperty(	AudioUnitPropertyID 			inID,
         if (mNickName) CFRetain(mNickName);
         *(CFStringRef*)outData = mNickName;
         break;
-            
+
 	default:
 		result = GetProperty(inID, inScope, inElement, outData);
 		break;
@@ -782,7 +782,7 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 		}
 		break;
 
-		
+
 	case kAudioUnitProperty_SetRenderCallback:
 		{
 			ca_require(inDataSize >= sizeof(AURenderCallbackStruct), InvalidPropertyValue);
@@ -800,7 +800,7 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 			PropertyChanged(inID, inScope, inElement);
 		}
 		break;
-	
+
 	case kAudioUnitProperty_MaximumFramesPerSlice:
 		ca_require(inDataSize == sizeof(UInt32), InvalidPropertyValue);
 		result = CanSetMaxFrames();
@@ -818,20 +818,20 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 				// sizes of this struct based on aligment padding inconsistencies
 			memset (&newDesc, 0, sizeof(newDesc));
 			memcpy (&newDesc, inData, 36);
-			
+
 			ca_require(SanityCheck(newDesc), InvalidFormat);
 
 			ca_require(ValidFormat(inScope, inElement, newDesc), InvalidFormat);
 
 			const CAStreamBasicDescription curDesc = GetStreamFormat(inScope, inElement);
-			
+
 			if ( !curDesc.IsExactlyEqual(newDesc) ) {
 				ca_require(IsStreamFormatWritable(inScope, inElement), NotWritable);
 				result = ChangeStreamFormat(inScope, inElement, curDesc, newDesc);
 			}
 		}
 		break;
-	
+
 	case kAudioUnitProperty_SampleRate:
 		{
 			ca_require(inDataSize == sizeof(Float64), InvalidPropertyValue);
@@ -840,9 +840,9 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 			const CAStreamBasicDescription curDesc = GetStreamFormat(inScope, inElement);
 			CAStreamBasicDescription newDesc = curDesc;
 			newDesc.mSampleRate = *(Float64 *)inData;
-			
+
 			ca_require(ValidFormat(inScope, inElement, newDesc), InvalidFormat);
-			
+
 			if ( !curDesc.IsExactlyEqual(newDesc) ) {
 				ca_require(IsStreamFormatWritable(inScope, inElement), NotWritable);
 				result = ChangeStreamFormat(inScope, inElement, curDesc, newDesc);
@@ -854,14 +854,14 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 		{
 			const AudioChannelLayout *layout = static_cast<const AudioChannelLayout *>(inData);
 			size_t headerSize = sizeof(AudioChannelLayout) - sizeof(AudioChannelDescription);
-			
+
 			ca_require(inDataSize >= headerSize + layout->mNumberChannelDescriptions * sizeof(AudioChannelDescription), InvalidPropertyValue);
 			result = SetAudioChannelLayout(inScope, inElement, layout);
 			if (result == noErr)
 				PropertyChanged(inID, inScope, inElement);
 			break;
 		}
-	
+
 	case kAudioUnitProperty_ClassInfo:
 		ca_require(inDataSize == sizeof(CFPropertyListRef *), InvalidPropertyValue);
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
@@ -878,7 +878,7 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 			ca_require(inDataSize == sizeof(AUPreset), InvalidPropertyValue);
 			ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
 			AUPreset & newPreset = *(AUPreset *)inData;
-			
+
 			if (newPreset.presetNumber >= 0)
 			{
 				result = NewFactoryPresetSet(newPreset);
@@ -897,7 +897,7 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 				result = kAudioUnitErr_InvalidPropertyValue;
 		}
 		break;
-	
+
 	case kAudioUnitProperty_ElementName:
 		{
 			ca_require(GetElement(inScope, inElement) != NULL, InvalidElement);
@@ -965,7 +965,7 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
 		break;
 
 #endif // !CA_NO_AU_UI_FEATURES
-	
+
     case kAudioUnitProperty_NickName:
     {
 		ca_require(inScope == kAudioUnitScope_Global, InvalidScope);
@@ -977,12 +977,12 @@ OSStatus			AUBase::DispatchSetProperty(	AudioUnitPropertyID 			inID,
         PropertyChanged(inID, inScope, inElement);
         break;
     }
-            
+
 	default:
 		result = SetProperty(inID, inScope, inElement, inData, inDataSize);
 		if (result == noErr)
 			PropertyChanged(inID, inScope, inElement);
-		
+
 		break;
 	}
 	return result;
@@ -1024,7 +1024,7 @@ OSStatus			AUBase::DispatchRemovePropertyValue (AudioUnitPropertyID		inID,
 			PropertyChanged(inID, inScope, inElement);
 		break;
 	}
-	
+
 #if !CA_NO_AU_HOST_CALLBACKS
 	case kAudioUnitProperty_HostCallbacks:
 	{
@@ -1050,7 +1050,7 @@ OSStatus			AUBase::DispatchRemovePropertyValue (AudioUnitPropertyID		inID,
 		mContextName = NULL;
 		result = noErr;
 		break;
-	
+
 #endif // !CA_NO_AU_UI_FEATURES
 
     case kAudioUnitProperty_NickName:
@@ -1066,10 +1066,10 @@ OSStatus			AUBase::DispatchRemovePropertyValue (AudioUnitPropertyID		inID,
     }
 
 	default:
-		result = RemovePropertyValue (inID, inScope, inElement);		
+		result = RemovePropertyValue (inID, inScope, inElement);
 		break;
 	}
-		
+
 	return result;
 #if !CA_NO_AU_UI_FEATURES || !CA_NO_AU_HOST_CALLBACKS
 InvalidScope:
@@ -1119,7 +1119,7 @@ OSStatus			AUBase::RemovePropertyValue (	AudioUnitPropertyID		 		inID,
 {
 	return kAudioUnitErr_InvalidPropertyValue;
 }
-												
+
 //_____________________________________________________________________________
 //
 OSStatus			AUBase::AddPropertyListener(	AudioUnitPropertyID				inID,
@@ -1127,11 +1127,11 @@ OSStatus			AUBase::AddPropertyListener(	AudioUnitPropertyID				inID,
 													void *							inProcRefCon)
 {
 	PropertyListener pl;
-	
+
 	pl.propertyID = inID;
 	pl.listenerProc = inProc;
 	pl.listenerRefCon = inProcRefCon;
-	
+
 	if (mPropertyListeners.empty())
 		mPropertyListeners.reserve(32);
 	mPropertyListeners.push_back(pl);
@@ -1158,7 +1158,7 @@ OSStatus			AUBase::RemovePropertyListener(		AudioUnitPropertyID				inID,
 //_____________________________________________________________________________
 //
 void				AUBase::PropertyChanged(			AudioUnitPropertyID				inID,
-														AudioUnitScope					inScope, 
+														AudioUnitScope					inScope,
 														AudioUnitElement				inElement)
 {
 	for (PropertyListeners::iterator it = mPropertyListeners.begin(); it != mPropertyListeners.end(); ++it)
@@ -1201,7 +1201,7 @@ OSStatus 	AUBase::GetParameter(			AudioUnitParameterID			inID,
 	return noErr;
 }
 
-											
+
 //_____________________________________________________________________________
 //
 OSStatus 	AUBase::SetParameter(			AudioUnitParameterID			inID,
@@ -1221,22 +1221,22 @@ OSStatus 	AUBase::ScheduleParameter (	const AudioUnitParameterEvent 		*inParamet
 													UInt32							inNumEvents)
 {
 	bool canScheduleParameters = CanScheduleParameters();
-		
-	for (UInt32 i = 0; i < inNumEvents; ++i) 
+
+	for (UInt32 i = 0; i < inNumEvents; ++i)
 	{
 		if (inParameterEvent[i].eventType == kParameterEvent_Immediate)
 		{
 			SetParameter (inParameterEvent[i].parameter,
-							inParameterEvent[i].scope, 
+							inParameterEvent[i].scope,
 							inParameterEvent[i].element,
-							inParameterEvent[i].eventValues.immediate.value, 
+							inParameterEvent[i].eventValues.immediate.value,
 							inParameterEvent[i].eventValues.immediate.bufferOffset);
 		}
 		if (canScheduleParameters) {
 			mParamList.push_back (inParameterEvent[i]);
 		}
 	}
-	
+
 	return noErr;
 }
 
@@ -1259,9 +1259,9 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 														void					*inUserData )
 {
 	OSStatus result = noErr;
-	
+
 	int totalFramesToProcess = inFramesToProcess;
-	
+
 	int framesRemaining = totalFramesToProcess;
 
 	unsigned int currentStartFrame = 0;	// start of the whole buffer
@@ -1272,23 +1272,23 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 	std::sort(inParamList.begin(), inParamList.end(), SortParameterEventList);
 
 	ParameterEventList::iterator iter = inParamList.begin();
-	
-	
+
+
 	while(framesRemaining > 0 )
 	{
 		// first of all, go through the ramped automation events and find out where the next
 		// division of our whole buffer will be
-		
+
 		int currentEndFrame = totalFramesToProcess;	// start out assuming we'll process all the way to
 													// the end of the buffer
-		
+
 		iter = inParamList.begin();
-		
+
 		// find the next break point
 		while(iter != inParamList.end() )
 		{
 			AudioUnitParameterEvent &event = *iter;
-			
+
 			int offset = event.eventType == kParameterEvent_Immediate ?  event.eventValues.immediate.bufferOffset : event.eventValues.ramp.startBufferOffset;
 
 			if(offset > (int)currentStartFrame && offset < currentEndFrame )
@@ -1301,7 +1301,7 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 			if(event.eventType == kParameterEvent_Ramped )
 			{
 				offset = event.eventValues.ramp.startBufferOffset + event.eventValues.ramp.durationInFrames;
-	
+
 				if(offset > (int)currentStartFrame && offset < currentEndFrame )
 				{
 					currentEndFrame = offset;
@@ -1310,31 +1310,31 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 
 			iter++;
 		}
-	
+
 		int framesThisTime = currentEndFrame - currentStartFrame;
 
-		// next, setup the parameter maps to be current for the ramp parameters active during 
+		// next, setup the parameter maps to be current for the ramp parameters active during
 		// this time segment...
-		
+
 		for(ParameterEventList::iterator iter2 = inParamList.begin(); iter2 != inParamList.end(); iter2++ )
 		{
 			AudioUnitParameterEvent &event = *iter2;
-			
+
 			bool eventFallsInSlice;
-			
-			
+
+
 			if(event.eventType == kParameterEvent_Ramped)
-				eventFallsInSlice = event.eventValues.ramp.startBufferOffset < currentEndFrame 
+				eventFallsInSlice = event.eventValues.ramp.startBufferOffset < currentEndFrame
 					&& event.eventValues.ramp.startBufferOffset + event.eventValues.ramp.durationInFrames > currentStartFrame;
 			else /* kParameterEvent_Immediate */
 				// actually, for the same parameter, there may be future immediate events which override this one,
 				// but it's OK since the event list is sorted in time order, we're guaranteed to end up with the current one
 				eventFallsInSlice = event.eventValues.immediate.bufferOffset <= currentStartFrame;
-				
+
 			if(eventFallsInSlice)
 			{
 				AUElement *element = GetElement(event.scope, event.element );
-				
+
 				if(element) element->SetScheduledEvent(	event.parameter,
 														event,
 														currentStartFrame,
@@ -1345,18 +1345,18 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 
 
 		// Finally, actually do the processing for this slice.....
-		
+
 		result = ProcessScheduledSlice(	inUserData,
 										currentStartFrame,
 										framesThisTime,
 										inFramesToProcess );
-								
+
 		if(result != noErr) break;
-		
+
 		framesRemaining -= framesThisTime;
 		currentStartFrame = currentEndFrame;	// now start from where we left off last time
 	}
-	
+
 	return result;
 }
 
@@ -1364,9 +1364,9 @@ OSStatus 	AUBase::ProcessForScheduledParams(	ParameterEventList		&inParamList,
 //
 void				AUBase::SetWantsRenderThreadID (bool inFlag)
 {
-	if (inFlag == mWantsRenderThreadID)	
+	if (inFlag == mWantsRenderThreadID)
 		return;
-	
+
 	mWantsRenderThreadID = inFlag;
 	if (!mWantsRenderThreadID)
 		mRenderThreadID = NULL;
@@ -1385,10 +1385,10 @@ OSStatus			AUBase::DoRender(		AudioUnitRenderActionFlags &	ioActionFlags,
 {
 	OSStatus theError;
 	RenderCallbackList::iterator rcit;
-	
+
 	AUTRACE(kCATrace_AUBaseRenderStart, mComponentInstance, (uintptr_t)this, inBusNumber, inFramesToProcess, (uintptr_t)ioData.mBuffers[0].mData);
 	DISABLE_DENORMALS
-	
+
 	try {
 		ca_require(IsInitialized(), Uninitialized);
 		ca_require(mAudioUnitAPIVersion >= 2, ParamErr);
@@ -1430,7 +1430,7 @@ OSStatus			AUBase::DoRender(		AudioUnitRenderActionFlags &	ioActionFlags,
 				buf.mDataByteSize = expectedBufferByteSize;
 			}
 		}
-		
+
 		if (WantsRenderThreadID())
 		{
 			#if TARGET_OS_MAC
@@ -1439,7 +1439,7 @@ OSStatus			AUBase::DoRender(		AudioUnitRenderActionFlags &	ioActionFlags,
 				mRenderThreadID = GetCurrentThreadId();
 			#endif
 		}
-		
+
 		AudioUnitRenderActionFlags flags;
 		if (mRenderCallbacksTouched) {
 			mRenderCallbacks.update();
@@ -1447,26 +1447,26 @@ OSStatus			AUBase::DoRender(		AudioUnitRenderActionFlags &	ioActionFlags,
 			for (rcit = mRenderCallbacks.begin(); rcit != mRenderCallbacks.end(); ++rcit) {
 				RenderCallback &rc = *rcit;
 				AUTRACE(kCATrace_AUBaseRenderCallbackStart, mComponentInstance, (intptr_t)this, (intptr_t)rc.mRenderNotify, 1, 0);
-				(*(AURenderCallback)rc.mRenderNotify)(rc.mRenderNotifyRefCon, 
+				(*(AURenderCallback)rc.mRenderNotify)(rc.mRenderNotifyRefCon,
 								&flags,
 								&inTimeStamp, inBusNumber, inFramesToProcess, &ioData);
 				AUTRACE(kCATrace_AUBaseRenderCallbackEnd, mComponentInstance, (intptr_t)this, (intptr_t)rc.mRenderNotify, 1, 0);
 			}
 		}
-		
+
 		theError = DoRenderBus(ioActionFlags, inTimeStamp, inBusNumber, output, inFramesToProcess, ioData);
-		
+
 		if (mRenderCallbacksTouched) {
 			flags = ioActionFlags | kAudioUnitRenderAction_PostRender;
-			
+
 			if (SetRenderError (theError)) {
-				flags |= kAudioUnitRenderAction_PostRenderError;		
+				flags |= kAudioUnitRenderAction_PostRenderError;
 			}
-			
+
 			for (rcit = mRenderCallbacks.begin(); rcit != mRenderCallbacks.end(); ++rcit) {
 				RenderCallback &rc = *rcit;
 				AUTRACE(kCATrace_AUBaseRenderCallbackStart, mComponentInstance, (intptr_t)this, (intptr_t)rc.mRenderNotify, 2, 0);
-				(*(AURenderCallback)rc.mRenderNotify)(rc.mRenderNotifyRefCon, 
+				(*(AURenderCallback)rc.mRenderNotify)(rc.mRenderNotifyRefCon,
 								&flags,
 								&inTimeStamp, inBusNumber, inFramesToProcess, &ioData);
 				AUTRACE(kCATrace_AUBaseRenderCallbackEnd, mComponentInstance, (intptr_t)this, (intptr_t)rc.mRenderNotify, 2, 0);
@@ -1489,12 +1489,12 @@ OSStatus			AUBase::DoRender(		AudioUnitRenderActionFlags &	ioActionFlags,
 		theError = -1;
 		goto errexit;
 	}
-done:	
+done:
 	RESTORE_DENORMALS
 	AUTRACE(kCATrace_AUBaseRenderEnd, mComponentInstance, (intptr_t)this, theError, ioActionFlags, CATrace_ablData(ioData));
-	
+
 	return theError;
-	
+
 Uninitialized:	theError = kAudioUnitErr_Uninitialized;				goto errexit;
 ParamErr:		theError = kAudio_ParamError;						goto errexit;
 TooManyFrames:	theError = kAudioUnitErr_TooManyFramesToProcess;	goto errexit;
@@ -1515,8 +1515,8 @@ OSStatus	AUBase::DoProcess (	AudioUnitRenderActionFlags  &		ioActionFlags,
 	AUTRACE(kCATrace_AUBaseRenderStart, mComponentInstance, (intptr_t)this, -1, inFramesToProcess, 0);
 	DISABLE_DENORMALS
 
-	try {		
-	
+	try {
+
 		if (!(ioActionFlags & (1 << 9)/*kAudioUnitRenderAction_DoNotCheckRenderArgs*/)) {
 			ca_require(IsInitialized(), Uninitialized);
 			ca_require(inFramesToProcess <= mMaxFramesPerSlice, TooManyFrames);
@@ -1549,7 +1549,7 @@ OSStatus	AUBase::DoProcess (	AudioUnitRenderActionFlags  &		ioActionFlags,
 				}
 			}
 		}
-		
+
 		if (WantsRenderThreadID())
 		{
 			#if TARGET_OS_MAC
@@ -1558,12 +1558,12 @@ OSStatus	AUBase::DoProcess (	AudioUnitRenderActionFlags  &		ioActionFlags,
 				mRenderThreadID = GetCurrentThreadId();
 			#endif
 		}
-		
+
 		if (NeedsToRender (inTimeStamp)) {
 			theError = ProcessBufferLists (ioActionFlags, ioData, ioData, inFramesToProcess);
 		} else
 			theError = noErr;
-			
+
 	}
 	catch (OSStatus err) {
 		theError = err;
@@ -1573,12 +1573,12 @@ OSStatus	AUBase::DoProcess (	AudioUnitRenderActionFlags  &		ioActionFlags,
 		theError = -1;
 		goto errexit;
 	}
-done:	
+done:
 	RESTORE_DENORMALS
 	AUTRACE(kCATrace_AUBaseRenderEnd, mComponentInstance, (intptr_t)this, theError, ioActionFlags, CATrace_ablData(ioData));
-	
+
 	return theError;
-	
+
 Uninitialized:	theError = kAudioUnitErr_Uninitialized;				goto errexit;
 ParamErr:		theError = kAudio_ParamError;						goto errexit;
 TooManyFrames:	theError = kAudioUnitErr_TooManyFramesToProcess;	goto errexit;
@@ -1598,25 +1598,25 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 {
 	OSStatus theError;
 	DISABLE_DENORMALS
-	
+
 	try {
-		
+
 		if (!(ioActionFlags & (1 << 9)/*kAudioUnitRenderAction_DoNotCheckRenderArgs*/)) {
 			ca_require(IsInitialized(), Uninitialized);
 			ca_require(inFramesToProcess <= mMaxFramesPerSlice, TooManyFrames);
 			ca_require (!UsesFixedBlockSize() || inFramesToProcess == GetMaxFramesPerSlice(), ParamErr);
-			
+
 			for (unsigned ibl = 0; ibl < inNumberInputBufferLists; ++ibl) {
 				if (inInputBufferLists[ibl] != NULL) {
 					AUInputElement *input = GetInput(ibl);	// will throw if non-existant
 					unsigned expectedBufferByteSize = inFramesToProcess * input->GetStreamFormat().mBytesPerFrame;
-					
+
 					if (input->GetStreamFormat().NumberChannelStreams() != inInputBufferLists[ibl]->mNumberBuffers) {
 						DebugMessageN5("%s:%d inInputBufferLists[%u]->mNumberBuffers=%u, input->GetStreamFormat().NumberChannelStreams()=%u; kAudio_ParamError",
 									   __FILE__, __LINE__, ibl, (unsigned)inInputBufferLists[ibl]->mNumberBuffers, (unsigned)input->GetStreamFormat().NumberChannelStreams());
 						goto ParamErr;
 					}
-					
+
 					for (unsigned ibuf = 0; ibuf < inInputBufferLists[ibl]->mNumberBuffers; ++ibuf) {
 						const AudioBuffer &buf = inInputBufferLists[ibl]->mBuffers[ibuf];
 						if (buf.mData != NULL) {
@@ -1635,7 +1635,7 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 					// skip NULL input audio buffer list
 				}
 			}
-			
+
 			for (unsigned obl = 0; obl < inNumberOutputBufferLists; ++obl) {
 				if (ioOutputBufferLists[obl] != NULL) {
 					AUOutputElement *output = GetOutput(obl);	// will throw if non-existant
@@ -1646,7 +1646,7 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 									   __FILE__, __LINE__, obl, (unsigned)ioOutputBufferLists[obl]->mNumberBuffers, (unsigned)output->GetStreamFormat().NumberChannelStreams());
 						goto ParamErr;
 					}
-					
+
 					for (unsigned obuf = 0; obuf < ioOutputBufferLists[obl]->mNumberBuffers; ++obuf) {
 						AudioBuffer &buf = ioOutputBufferLists[obl]->mBuffers[obuf];
 						if (buf.mData != NULL) {
@@ -1670,7 +1670,7 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 				}
 			}
 		}
-		
+
 		if (WantsRenderThreadID())
 		{
 #if TARGET_OS_MAC
@@ -1679,7 +1679,7 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 			mRenderThreadID = GetCurrentThreadId();
 #endif
 		}
-		
+
 		if (NeedsToRender (inTimeStamp)) {
 			theError = ProcessMultipleBufferLists (ioActionFlags, inFramesToProcess, inNumberInputBufferLists, inInputBufferLists, inNumberOutputBufferLists, ioOutputBufferLists);
 		} else
@@ -1693,11 +1693,11 @@ OSStatus	AUBase::DoProcessMultiple (	AudioUnitRenderActionFlags  & ioActionFlags
 		theError = -1;
 		goto errexit;
 	}
-done:	
+done:
 	RESTORE_DENORMALS
-	
+
 	return theError;
-	
+
 Uninitialized:	theError = kAudioUnitErr_Uninitialized;				goto errexit;
 ParamErr:		theError = kAudio_ParamError;						goto errexit;
 TooManyFrames:	theError = kAudioUnitErr_TooManyFramesToProcess;	goto errexit;
@@ -1710,15 +1710,15 @@ errexit:
 //_____________________________________________________________________________
 //
 OSStatus			AUBase::SetInputCallback(		UInt32							inPropertyID,
-													AudioUnitElement 				inElement, 
+													AudioUnitElement 				inElement,
 													AURenderCallback				inProc,
 													void *							inRefCon)
 {
 	AUInputElement *input = GetInput(inElement);	// may throw
-	
+
 	input->SetInputCallback(inProc, inRefCon);
 	PropertyChanged(inPropertyID, kAudioUnitScope_Input, inElement);
-	
+
 	return noErr;
 }
 
@@ -1729,7 +1729,7 @@ OSStatus			AUBase::SetConnection(			const AudioUnitConnection &		inConnection)
 
 	OSStatus err;
 	AUInputElement *input = GetInput(inConnection.destInputNumber);	// may throw
-		
+
 	if (inConnection.sourceAudioUnit) {
 		// connecting, not disconnecting
 		CAStreamBasicDescription sourceDesc;
@@ -1741,19 +1741,19 @@ OSStatus			AUBase::SetConnection(			const AudioUnitConnection &		inConnection)
 										inConnection.sourceOutputNumber,
 										&sourceDesc,
 										&size), errexit);
-		ca_require_noerr(err = DispatchSetProperty (kAudioUnitProperty_StreamFormat, 
-								kAudioUnitScope_Input, inConnection.destInputNumber, 
+		ca_require_noerr(err = DispatchSetProperty (kAudioUnitProperty_StreamFormat,
+								kAudioUnitScope_Input, inConnection.destInputNumber,
 								&sourceDesc, sizeof(CAStreamBasicDescription)), errexit);
 	}
 	input->SetConnection(inConnection);
-		
+
 	PropertyChanged(kAudioUnitProperty_MakeConnection, kAudioUnitScope_Input, inConnection.destInputNumber);
 	return noErr;
 
 errexit:
 	return err;
 }
- 
+
 //_____________________________________________________________________________
 //
 UInt32				AUBase::SupportedNumChannels (	const AUChannelInfo** 			outInfo)
@@ -1768,7 +1768,7 @@ bool				AUBase::ValidFormat(			AudioUnitScope					inScope,
 													const CAStreamBasicDescription &		inNewFormat)
 {
 	bool isInterleaved = false;
-	
+
 	return inNewFormat.IsCommonFloat32(&isInterleaved) && !isInterleaved;
 }
 
@@ -1802,7 +1802,7 @@ const CAStreamBasicDescription &
 {
 //#warning "aliasing of global scope format should be pushed to subclasses"
 	AUIOElement *element;
-	
+
 	switch (inScope) {
 	case kAudioUnitScope_Input:
 		element = Inputs().GetIOElement(inElement);
@@ -1822,9 +1822,9 @@ const CAStreamBasicDescription &
 OSStatus			AUBase::SetBusCount(	AudioUnitScope					inScope,
 											UInt32 							inCount)
 {
-	if (IsInitialized()) 
+	if (IsInitialized())
 		return kAudioUnitErr_Initialized;
-		
+
 	GetScope(inScope).SetNumberOfElements(inCount);
 	return noErr;
 }
@@ -1841,7 +1841,7 @@ OSStatus			AUBase::ChangeStreamFormat(		AudioUnitScope					inScope,
 
 //#warning "aliasing of global scope format should be pushed to subclasses"
 	AUIOElement *element;
-	
+
 	switch (inScope) {
 	case kAudioUnitScope_Input:
 		element = Inputs().GetIOElement(inElement);
@@ -1888,7 +1888,7 @@ OSStatus	AUBase::RemoveAudioChannelLayout(			AudioUnitScope				inScope,
 	return result;
 }
 
-OSStatus 	AUBase::SetAudioChannelLayout(				AudioUnitScope 				inScope, 
+OSStatus 	AUBase::SetAudioChannelLayout(				AudioUnitScope 				inScope,
 														AudioUnitElement 			inElement,
 														const AudioChannelLayout *	inLayout)
 {
@@ -1913,7 +1913,7 @@ OSStatus 	AUBase::SetAudioChannelLayout(				AudioUnitScope 				inScope,
 		}
 	}
 	free(tags);
-	
+
 	if (foundTag == false)
 		return kAudioUnitErr_InvalidPropertyValue;
 
@@ -1933,7 +1933,7 @@ OSStatus			AUBase::SaveState(		CFPropertyListRef * outData)
 {
 	AudioComponentDescription desc = GetComponentDescription();
 
-	CFMutableDictionaryRef dict = CFDictionaryCreateMutable	(NULL, 0, 
+	CFMutableDictionaryRef dict = CFDictionaryCreateMutable	(NULL, 0,
 								&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 // first step -> save the version to the data ref
@@ -1946,24 +1946,24 @@ OSStatus			AUBase::SaveState(		CFPropertyListRef * outData)
 
 	value = desc.componentSubType;
 	AddNumToDictionary (dict, kSubtypeString, value);
-	
+
 	value = desc.componentManufacturer;
 	AddNumToDictionary (dict, kManufacturerString, value);
-	
+
 // fourth step -> save the state of all parameters on all scopes and elements
 	CFMutableDataRef data = CFDataCreateMutable(NULL, 0);
 	for (AudioUnitScope iscope = 0; iscope < 3; ++iscope) {
 		AUScope &scope = GetScope(iscope);
 		scope.SaveState (data);
 	}
-    
+
     SaveExtendedScopes(data);
 
 // save all this in the data section of the dictionary
 	CFDictionarySetValue(dict, kDataString, data);
 	CFRelease (data);
-	
-//OK - now we're going to do some properties 	
+
+//OK - now we're going to do some properties
 //save the preset name...
 	CFDictionarySetValue (dict, kNameString, mCurrentPreset.presetName);
 
@@ -1973,44 +1973,44 @@ OSStatus			AUBase::SaveState(		CFPropertyListRef * outData)
 								kAudioUnitScope_Global,
 								0,
 								&value);
-	
+
 	if (result == noErr) {
 		AddNumToDictionary (dict, kRenderQualityString, value);
 	}
-	
+
 // Does the unit support the CPULoad Quality property - if so, save it...
 	Float32 cpuLoad;
 	result = DispatchGetProperty (6/*kAudioUnitProperty_CPULoad*/,
 								kAudioUnitScope_Global,
 								0,
 								&cpuLoad);
-	
+
 	if (result == noErr) {
 		CFNumberRef num = CFNumberCreate (NULL, kCFNumberFloatType, &cpuLoad);
 		CFDictionarySetValue (dict, kCPULoadString, num);
 		CFRelease (num);
 	}
 
-// Do we have any element names for any of our scopes?	
+// Do we have any element names for any of our scopes?
 	// first check to see if we have any names...
 	bool foundName = false;
 	for (AudioUnitScope i = 0; i < kNumScopes; ++i) {
 		foundName = GetScope (i).HasElementWithName();
-		if (foundName) 
+		if (foundName)
 			break;
 	}
 		// OK - we found a name away we go...
 	if (foundName) {
-		CFMutableDictionaryRef nameDict = CFDictionaryCreateMutable	(NULL, 0, 
+		CFMutableDictionaryRef nameDict = CFDictionaryCreateMutable	(NULL, 0,
 								&kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 		for (AudioUnitScope i = 0; i < kNumScopes; ++i) {
 			GetScope (i).AddElementNamesToDict (nameDict);
 		}
-		
+
 		CFDictionarySetValue (dict, kElementNameString, nameDict);
 		CFRelease (nameDict);
 	}
-	
+
 // we're done!!!
 	*outData = dict;
 
@@ -2022,16 +2022,16 @@ OSStatus			AUBase::SaveState(		CFPropertyListRef * outData)
 OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 {
 	if (CFGetTypeID(plist) != CFDictionaryGetTypeID()) return kAudioUnitErr_InvalidPropertyValue;
-	
+
 	AudioComponentDescription desc = GetComponentDescription();
-	
+
 	CFDictionaryRef dict = static_cast<CFDictionaryRef>(plist);
 
 // zeroeth step - make sure the Part key is NOT present, as this method is used
-// to restore the GLOBAL state of the dictionary	
+// to restore the GLOBAL state of the dictionary
 	if (CFDictionaryContainsKey (dict, kPartString))
 		return kAudioUnitErr_InvalidPropertyValue;
-		
+
 // first step -> check the saved version in the data ref
 // at this point we're only dealing with version==0
 	CFNumberRef cfnum = reinterpret_cast<CFNumberRef>(CFDictionaryGetValue (dict, kVersionString));
@@ -2054,22 +2054,22 @@ OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 	CFNumberGetValue (cfnum, kCFNumberSInt32Type, &value);
 	if (UInt32(value) != desc.componentManufacturer) return kAudioUnitErr_InvalidPropertyValue;
 
-// fourth step -> restore the state of all of the parameters for each scope and element	
+// fourth step -> restore the state of all of the parameters for each scope and element
 	CFDataRef data = reinterpret_cast<CFDataRef>(CFDictionaryGetValue (dict, kDataString));
-	if (data != NULL) 
+	if (data != NULL)
 	{
 		const UInt8 *p, *pend;
-		
+
 		p = CFDataGetBytePtr(data);
 		pend = p + CFDataGetLength(data);
-		
+
 		// we have a zero length data, which may just mean there were no parameters to save!
-		//	if (p >= pend) return noErr; 
-	
+		//	if (p >= pend) return noErr;
+
 		while (p < pend) {
             UInt32 scopeIdx = CFSwapInt32BigToHost(*(UInt32 *)p);
             p += sizeof(UInt32);
-            
+
 			AUScope &scope = GetScope(scopeIdx);
             p = scope.RestoreState(p);
         }
@@ -2083,12 +2083,12 @@ OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 	{
 		mCurrentPreset.presetName = name;
 		mCurrentPreset.presetNumber = -1;
-	} 
+	}
 	else { // no name entry make the default one
 		mCurrentPreset.presetName = kUntitledString;
 		mCurrentPreset.presetNumber = -1;
 	}
-	
+
 	CFRetain (mCurrentPreset.presetName);
 #if !CA_USE_AUDIO_PLUGIN_ONLY
 #ifndef __LP64__
@@ -2097,8 +2097,8 @@ OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 #endif
 	PropertyChanged(kAudioUnitProperty_PresentPreset, kAudioUnitScope_Global, 0);
 
-// Does the dict contain render quality information?		
-	if (CFDictionaryGetValueIfPresent (dict, kRenderQualityString, reinterpret_cast<const void**>(&cfnum))) 
+// Does the dict contain render quality information?
+	if (CFDictionaryGetValueIfPresent (dict, kRenderQualityString, reinterpret_cast<const void**>(&cfnum)))
 	{
 		CFNumberGetValue (cfnum, kCFNumberSInt32Type, &value);
 		DispatchSetProperty (kAudioUnitProperty_RenderQuality,
@@ -2107,9 +2107,9 @@ OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 								&value,
 								sizeof(value));
 	}
-	
+
 // Does the unit support the CPULoad Quality property - if so, save it...
-	if (CFDictionaryGetValueIfPresent (dict, kCPULoadString, reinterpret_cast<const void**>(&cfnum))) 
+	if (CFDictionaryGetValueIfPresent (dict, kCPULoadString, reinterpret_cast<const void**>(&cfnum)))
 	{
 		Float32 floatValue;
 		CFNumberGetValue (cfnum, kCFNumberFloatType, &floatValue);
@@ -2122,24 +2122,24 @@ OSStatus			AUBase::RestoreState(	CFPropertyListRef	plist)
 
 // Do we have any element names for any of our scopes?
 	CFDictionaryRef nameDict;
-	if (CFDictionaryGetValueIfPresent (dict, kElementNameString, reinterpret_cast<const void**>(&nameDict))) 
+	if (CFDictionaryGetValueIfPresent (dict, kElementNameString, reinterpret_cast<const void**>(&nameDict)))
 	{
 		char string[64];
-		for (int i = 0; i < kNumScopes; ++i) 
+		for (int i = 0; i < kNumScopes; ++i)
 		{
 			snprintf (string, sizeof(string), "%d", i);
 			CFStringRef key = CFStringCreateWithCString (NULL, string, kCFStringEncodingASCII);
 			CFDictionaryRef elementDict;
-			if (CFDictionaryGetValueIfPresent (nameDict, key, reinterpret_cast<const void**>(&elementDict))) 
+			if (CFDictionaryGetValueIfPresent (nameDict, key, reinterpret_cast<const void**>(&elementDict)))
 			{
 				bool didAddElements = GetScope (i).RestoreElementNames (elementDict);
 				if (didAddElements)
 					PropertyChanged (kAudioUnitProperty_ElementCount, i, 0);
 			}
-			CFRelease (key);				
+			CFRelease (key);
 		}
 	}
-	
+
 	return noErr;
 }
 
@@ -2173,18 +2173,18 @@ bool				AUBase::SetAFactoryPresetAsCurrent (const AUPreset & inPreset)
 }
 
 #if !CA_USE_AUDIO_PLUGIN_ONLY
-int			AUBase::GetNumCustomUIComponents () 
+int			AUBase::GetNumCustomUIComponents ()
 {
 	return 0;
 }
 
 void		AUBase::GetUIComponentDescs (ComponentDescription* inDescArray) {}
 #endif
-	
-bool		AUBase::HasIcon () 
+
+bool		AUBase::HasIcon ()
 {
 #if !CA_NO_AU_UI_FEATURES
-	CFURLRef url = CopyIconLocation(); 
+	CFURLRef url = CopyIconLocation();
 	if (url) {
 		CFRelease (url);
 		return true;
@@ -2193,11 +2193,11 @@ bool		AUBase::HasIcon ()
 	return false;
 }
 
-CFURLRef	AUBase::CopyIconLocation () 
+CFURLRef	AUBase::CopyIconLocation ()
 {
 	return NULL;
 }
-	
+
 //_____________________________________________________________________________
 //
 OSStatus			AUBase::GetParameterList(		AudioUnitScope					inScope,
@@ -2207,7 +2207,7 @@ OSStatus			AUBase::GetParameterList(		AudioUnitScope					inScope,
 	AUScope &scope = GetScope(inScope);
 	AUElement *elementWithMostParameters = NULL;
 	UInt32 maxNumParams = 0;
-	
+
 	int nElems = scope.GetNumberOfElements();
 	for (int ielem = 0; ielem < nElems; ++ielem) {
 		AUElement *element = scope.GetElement(ielem);
@@ -2217,10 +2217,10 @@ OSStatus			AUBase::GetParameterList(		AudioUnitScope					inScope,
 			elementWithMostParameters = element;
 		}
 	}
-	
+
 	if (outParameterList != NULL && elementWithMostParameters != NULL)
 		elementWithMostParameters->GetParameterList(outParameterList);
-	
+
 	outNumParameters = maxNumParams;
 	return noErr;
 }
@@ -2256,8 +2256,8 @@ OSStatus			AUBase::GetParameterHistoryInfo(	AudioUnitScope					inScope,
 
 //_____________________________________________________________________________
 //
-OSStatus			AUBase::CopyClumpName(			AudioUnitScope			inScope, 
-													UInt32					inClumpID, 
+OSStatus			AUBase::CopyClumpName(			AudioUnitScope			inScope,
+													UInt32					inClumpID,
 													UInt32					inDesiredNameLength,
 													CFStringRef *			outClumpName)
 {
@@ -2295,7 +2295,7 @@ AUElement *			AUBase::CreateElement(			AudioUnitScope					scope,
 #endif
 	}
 	COMPONENT_THROW(kAudioUnitErr_InvalidScope);
-	
+
 	return NULL;	// get rid of compiler warning
 }
 
@@ -2341,9 +2341,9 @@ const Float64 AUBase::kNoLastRenderedSampleTime = -1.;
 char*	AUBase::GetLoggingString () const
 {
 	if (mLogString) return mLogString;
-	
+
 	AudioComponentDescription desc = GetComponentDescription();
-	
+
 	const size_t logStringSize = 256;
 	const_cast<AUBase*>(this)->mLogString = new char[logStringSize];
 	char str[24];

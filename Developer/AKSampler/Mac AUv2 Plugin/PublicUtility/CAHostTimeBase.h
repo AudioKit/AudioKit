@@ -63,12 +63,12 @@ public:
 	static SInt64			HostDeltaToNanos(UInt64 inStartTime, UInt64 inEndTime);
 
 	static UInt64			MultiplyByRatio(UInt64 inMuliplicand, UInt32 inNumerator, UInt32 inDenominator);
-	
+
 private:
 	static void				Initialize();
-	
+
 	static pthread_once_t	sIsInited;
-	
+
 	static Float64			sFrequency;
 	static Float64			sInverseFrequency;
 	static UInt32			sMinDelta;
@@ -90,7 +90,7 @@ inline UInt64	CAHostTimeBase::GetTheCurrentTime()
 		QueryPerformanceCounter(&theValue);
 		theTime = *((UInt64*)&theValue);
 	#endif
-	
+
 	#if	Track_Host_TimeBase
 		if(sLastTime != 0)
 		{
@@ -112,7 +112,7 @@ inline UInt64	CAHostTimeBase::GetTheCurrentTime()
 inline UInt64	CAHostTimeBase::ConvertToNanos(UInt64 inHostTime)
 {
 	pthread_once(&sIsInited, Initialize);
-	
+
 	UInt64 theAnswer = MultiplyByRatio(inHostTime, sToNanosNumerator, sToNanosDenominator);
 	#if CoreAudio_Debug
 		if(((sToNanosNumerator > sToNanosDenominator) && (theAnswer < inHostTime)) || ((sToNanosDenominator > sToNanosNumerator) && (theAnswer > inHostTime)))
@@ -120,7 +120,7 @@ inline UInt64	CAHostTimeBase::ConvertToNanos(UInt64 inHostTime)
 			DebugPrintf("CAHostTimeBase::ConvertToNanos: The conversion wrapped");
 		}
 	#endif
-	
+
 	return theAnswer;
 }
 
@@ -147,7 +147,7 @@ inline UInt64	CAHostTimeBase::GetCurrentTimeInNanos()
 inline UInt64	CAHostTimeBase::AbsoluteHostDeltaToNanos(UInt64 inStartTime, UInt64 inEndTime)
 {
 	UInt64 theAnswer;
-	
+
 	if(inStartTime <= inEndTime)
 	{
 		theAnswer = inEndTime - inStartTime;
@@ -156,7 +156,7 @@ inline UInt64	CAHostTimeBase::AbsoluteHostDeltaToNanos(UInt64 inStartTime, UInt6
 	{
 		theAnswer = inStartTime - inEndTime;
 	}
-	
+
 	return ConvertToNanos(theAnswer);
 }
 
@@ -164,7 +164,7 @@ inline SInt64	CAHostTimeBase::HostDeltaToNanos(UInt64 inStartTime, UInt64 inEndT
 {
 	SInt64 theAnswer;
 	SInt64 theSign = 1;
-	
+
 	if(inStartTime <= inEndTime)
 	{
 		theAnswer = static_cast<SInt64>(inEndTime - inStartTime);
@@ -174,7 +174,7 @@ inline SInt64	CAHostTimeBase::HostDeltaToNanos(UInt64 inStartTime, UInt64 inEndT
 		theAnswer = static_cast<SInt64>(inStartTime - inEndTime);
 		theSign = -1;
 	}
-	
+
 	return theSign * static_cast<SInt64>(ConvertToNanos(static_cast<UInt64>(theAnswer)));
 }
 

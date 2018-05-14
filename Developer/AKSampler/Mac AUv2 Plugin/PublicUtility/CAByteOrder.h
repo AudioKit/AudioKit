@@ -33,7 +33,7 @@ CF_INLINE Float32 CASwapFloat32 (Float32 arg) {
 
 	flip.f = arg;
 	flip.i = CFSwapInt32 (flip.i);
-	
+
 	return flip.f;
 }
 
@@ -45,7 +45,7 @@ CF_INLINE Float64 CASwapFloat64 (Float64 arg) {
 
 	flip.f = arg;
 	flip.i = CFSwapInt64 (flip.i);
-	
+
 	return flip.f;
 }
 

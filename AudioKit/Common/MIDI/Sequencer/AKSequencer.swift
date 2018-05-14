@@ -73,8 +73,8 @@ open class AKSequencer {
         loadMIDIFile(fromURL: fileURL)
     }
 
-    /// Preroll the music player. Call this function in advance of playback to reduce the sequencers 
-    /// startup latency. If you call `play` without first calling this function, the sequencer will 
+    /// Preroll the music player. Call this function in advance of playback to reduce the sequencers
+    /// startup latency. If you call `play` without first calling this function, the sequencer will
     /// call this function before beginning playback.
     open func preroll() {
         if let existingMusicPlayer = musicPlayer {

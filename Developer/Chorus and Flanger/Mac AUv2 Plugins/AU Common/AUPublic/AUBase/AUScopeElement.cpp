@@ -20,7 +20,7 @@ Part of Core Audio AUBase Classes
 //
 void	AUElement::UseIndexedParameters(int inNumberOfParameters)
 {
-	mIndexedParameters.resize (inNumberOfParameters);	
+	mIndexedParameters.resize (inNumberOfParameters);
 	mUseIndexedParameters = true;
 }
 
@@ -32,12 +32,12 @@ void	AUElement::UseIndexedParameters(int inNumberOfParameters)
 inline ParameterMapEvent&	AUElement::GetParamEvent(AudioUnitParameterID paramID)
 {
 	ParameterMapEvent *event;
-	
+
 	if(mUseIndexedParameters)
 	{
 		if(paramID >= mIndexedParameters.size() )
 			COMPONENT_THROW(kAudioUnitErr_InvalidParameter);
-		
+
 		event = &mIndexedParameters[paramID];
 	}
 	else
@@ -45,10 +45,10 @@ inline ParameterMapEvent&	AUElement::GetParamEvent(AudioUnitParameterID paramID)
 		ParameterMap::iterator i = mParameters.find(paramID);
 		if (i == mParameters.end())
 			COMPONENT_THROW(kAudioUnitErr_InvalidParameter);
-			
+
 		event = &(*i).second;
 	}
-	
+
 	return *event;
 }
 
@@ -58,19 +58,19 @@ inline ParameterMapEvent&	AUElement::GetParamEvent(AudioUnitParameterID paramID)
 //	returns whether the specified paramID is known to the element
 //
 bool		AUElement::HasParameterID (AudioUnitParameterID paramID) const
-{	
+{
 	if(mUseIndexedParameters)
 	{
 		if(paramID >= mIndexedParameters.size() )
 			return false;
-		
+
 		return true;
 	}
-	
+
 	ParameterMap::const_iterator i = mParameters.find(paramID);
 	if (i == mParameters.end())
 		return false;
-		
+
 	return true;
 }
 
@@ -81,7 +81,7 @@ bool		AUElement::HasParameterID (AudioUnitParameterID paramID) const
 AudioUnitParameterValue		AUElement::GetParameter(AudioUnitParameterID paramID)
 {
 	ParameterMapEvent &event = GetParamEvent(paramID);
-	
+
 	return event.GetValue();
 }
 
@@ -95,7 +95,7 @@ void			AUElement::GetRampSliceStartEnd(	AudioUnitParameterID		paramID,
 
 {
 	ParameterMapEvent &event = GetParamEvent(paramID);
-		
+
 	// works even if the value is constant (immediate parameter value)
 	event.GetRampSliceStartEnd(outStartValue, outEndValue, outValuePerFrameDelta );
 }
@@ -106,7 +106,7 @@ AudioUnitParameterValue			AUElement::GetEndValue(	AudioUnitParameterID		paramID)
 
 {
 	ParameterMapEvent &event = GetParamEvent(paramID);
-		
+
 	// works even if the value is constant (immediate parameter value)
 	return event.GetEndValue();
 }
@@ -123,21 +123,21 @@ void			AUElement::SetParameter(AudioUnitParameterID paramID, AudioUnitParameterV
 	else
 	{
 		ParameterMap::iterator i = mParameters.find(paramID);
-	
+
 		if (i == mParameters.end())
 		{
 			if (mAudioUnit->IsInitialized() && !okWhenInitialized) {
 				// The AU should not be creating new parameters once initialized.
-				// If a client tries to set an undefined parameter, we could throw as follows, 
+				// If a client tries to set an undefined parameter, we could throw as follows,
 				// but this might cause a regression. So it is better to just fail silently.
 				// COMPONENT_THROW(kAudioUnitErr_InvalidParameter);
 #if DEBUG
-				fprintf(stderr, "WARNING: %s SetParameter for undefined param ID %d while initialized. Ignoring..\n", 
+				fprintf(stderr, "WARNING: %s SetParameter for undefined param ID %d while initialized. Ignoring..\n",
 								mAudioUnit->GetLoggingString(), (int)paramID);
 #endif
 			} else {
 				// create new entry in map for the paramID (only happens first time)
-				ParameterMapEvent event(inValue);		
+				ParameterMapEvent event(inValue);
 				mParameters[paramID] = event;
 			}
 		}
@@ -166,21 +166,21 @@ void			AUElement::SetScheduledEvent(	AudioUnitParameterID 			paramID,
 	else
 	{
 		ParameterMap::iterator i = mParameters.find(paramID);
-	
+
 		if (i == mParameters.end())
 		{
 			if (mAudioUnit->IsInitialized() && !okWhenInitialized) {
 				// The AU should not be creating new parameters once initialized.
-				// If a client tries to set an undefined parameter, we could throw as follows, 
+				// If a client tries to set an undefined parameter, we could throw as follows,
 				// but this might cause a regression. So it is better to just fail silently.
 				// COMPONENT_THROW(kAudioUnitErr_InvalidParameter);
 #if DEBUG
-				fprintf(stderr, "WARNING: %s SetScheduledEvent for undefined param ID %d while initialized. Ignoring..\n", 
+				fprintf(stderr, "WARNING: %s SetScheduledEvent for undefined param ID %d while initialized. Ignoring..\n",
 								mAudioUnit->GetLoggingString(), (int)paramID);
 #endif
 			} else {
 				// create new entry in map for the paramID (only happens first time)
-				ParameterMapEvent event(inEvent, inSliceOffsetInBuffer, inSliceDurationFrames);		
+				ParameterMapEvent event(inEvent, inSliceOffsetInBuffer, inSliceDurationFrames);
 				mParameters[paramID] = event;
 			}
 		}
@@ -188,7 +188,7 @@ void			AUElement::SetScheduledEvent(	AudioUnitParameterID 			paramID,
 		{
 			// paramID already exists in map so simply change its value
 			ParameterMapEvent &event = (*i).second;
-			
+
 			event.SetScheduledEvent(inEvent, inSliceOffsetInBuffer, inSliceDurationFrames );
 		}
 	}
@@ -226,7 +226,7 @@ void			AUElement::SaveState(AudioUnitScope scope, CFMutableDataRef data)
 		nparams = static_cast<UInt32>(mIndexedParameters.size());
 		theData = CFSwapInt32HostToBig(nparams);
 		CFDataAppendBytes(data, (UInt8 *)&theData, sizeof(nparams));
-	
+
 		for (UInt32 i = 0; i < nparams; i++)
 		{
 			struct {
@@ -243,12 +243,12 @@ void			AUElement::SaveState(AudioUnitScope scope, CFMutableDataRef data)
 					continue;
 				}
 			}
-			
+
 			entry.paramID = CFSwapInt32HostToBig(i);
-	
+
 			AudioUnitParameterValue v = mIndexedParameters[i].GetValue();
 			entry.value = CFSwapInt32HostToBig(*(UInt32 *)&v );
-	
+
 			CFDataAppendBytes(data, (UInt8 *)&entry, sizeof(entry));
 		}
 	}
@@ -257,14 +257,14 @@ void			AUElement::SaveState(AudioUnitScope scope, CFMutableDataRef data)
 		nparams = static_cast<uint32_t>(mParameters.size());
 		theData = CFSwapInt32HostToBig(nparams);
 		CFDataAppendBytes(data, (UInt8 *)&theData, sizeof(nparams));
-	
+
 		for (ParameterMap::iterator i = mParameters.begin(); i != mParameters.end(); ++i) {
 			struct {
 				UInt32				paramID;
 				//CFSwappedFloat32	value; crashes gcc3 PFE
 				UInt32				value;	// really a big-endian float
 			} entry;
-			
+
 			if (mAudioUnit->GetParameterInfo(scope, (*i).first, paramInfo) == noErr) {
 				if ((paramInfo.flags & kAudioUnitParameterFlag_CFNameRelease) && paramInfo.cfNameString)
 					CFRelease(paramInfo.cfNameString);
@@ -275,10 +275,10 @@ void			AUElement::SaveState(AudioUnitScope scope, CFMutableDataRef data)
 			}
 
 			entry.paramID = CFSwapInt32HostToBig((*i).first);
-	
+
 			AudioUnitParameterValue v = (*i).second.GetValue();
 			entry.value = CFSwapInt32HostToBig(*(UInt32 *)&v );
-	
+
 			CFDataAppendBytes(data, (UInt8 *)&entry, sizeof(entry));
 		}
 	}
@@ -296,20 +296,20 @@ const UInt8 *	AUElement::RestoreState(const UInt8 *state)
 	const UInt8 *p = state;
 	UInt32 nparams = CFSwapInt32BigToHost(*(UInt32 *)p);
 	p += sizeof(UInt32);
-	
+
 	for (UInt32 i = 0; i < nparams; ++i) {
 		struct {
 			AudioUnitParameterID		paramID;
 			AudioUnitParameterValue		value;
 		} entry;
-		
+
 		entry.paramID = CFSwapInt32BigToHost(*(UInt32 *)p);
 		p += sizeof(UInt32);
 		FloatInt32 temp;
 		temp.i = CFSwapInt32BigToHost(*(UInt32 *)p);
 		entry.value = temp.f;
 		p += sizeof(AudioUnitParameterValue);
-		
+
 		SetParameter(entry.paramID, entry.value);
 	}
 	return p;
@@ -317,10 +317,10 @@ const UInt8 *	AUElement::RestoreState(const UInt8 *state)
 
 //_____________________________________________________________________________
 //
-void	AUElement::SetName (CFStringRef inName) 
-{ 
+void	AUElement::SetName (CFStringRef inName)
+{
 	if (mElementName) CFRelease (mElementName);
-	mElementName = inName; 
+	mElementName = inName;
 	if (mElementName) CFRetain (mElementName);
 }
 
@@ -351,9 +351,9 @@ void			AUIOElement::AllocateBuffer(UInt32 inFramesToAllocate)
 	if (GetAudioUnit()->HasBegunInitializing())
 	{
 		UInt32 framesToAllocate = inFramesToAllocate > 0 ? inFramesToAllocate : GetAudioUnit()->GetMaxFramesPerSlice();
-		
+
 //		printf ("will allocate: %d\n", (int)((mWillAllocate && NeedsBufferSpace()) ? framesToAllocate : 0));
-		
+
 		mIOBuffer.Allocate(mStreamFormat, (mWillAllocate && NeedsBufferSpace()) ? framesToAllocate : 0);
 	}
 }
@@ -370,21 +370,21 @@ void			AUIOElement::DeallocateBuffer()
 //		AudioChannelLayout support
 
 // outLayoutTagsPtr WILL be NULL if called to find out how many
-// layouts that Audio Unit will report 
+// layouts that Audio Unit will report
 // return 0 (ie. NO channel layouts) if the AU doesn't require channel layout knowledge
 UInt32		AUIOElement::GetChannelLayoutTags (AudioChannelLayoutTag		*outLayoutTagsPtr)
 {
 	return 0;
 }
-		
-// As the AudioChannelLayout can be a variable length structure 
+
+// As the AudioChannelLayout can be a variable length structure
 // (though in most cases it won't be!!!)
 // The size of the ACL is always returned by the method
-// if outMapPtr is NOT-NULL, then AU should copy into this pointer (outMapPtr) the current ACL that it has in use. 
+// if outMapPtr is NOT-NULL, then AU should copy into this pointer (outMapPtr) the current ACL that it has in use.
 // the AU should also return whether the property is writable (that is the client can provide any arbitrary ACL that the audio unit will then honour)
 // or if the property is read only - which is the generally preferred mode.
 // If the AU doesn't require an AudioChannelLayout, then just return 0.
-UInt32		AUIOElement::GetAudioChannelLayout (AudioChannelLayout	*outMapPtr, 
+UInt32		AUIOElement::GetAudioChannelLayout (AudioChannelLayout	*outMapPtr,
 												Boolean				&outWritable)
 {
 	return 0;
@@ -489,7 +489,7 @@ bool	AUScope::RestoreElementNames (CFDictionaryRef& inNameDict)
 	//first we have to see if we have enough elements
 	bool didAddElements = false;
 	unsigned int maxElNum = GetNumberOfElements();
-	
+
 	int dictSize = static_cast<int>(CFDictionaryGetCount(inNameDict));
 	CFStringRef * keys = (CFStringRef*)CA_malloc (dictSize * sizeof (CFStringRef));
 	CFDictionaryGetKeysAndValues (inNameDict, reinterpret_cast<const void**>(keys), NULL);
@@ -508,7 +508,7 @@ bool	AUScope::RestoreElementNames (CFDictionaryRef& inNameDict)
         }
 	}
 	free (keys);
-	
+
 	return didAddElements;
 }
 
@@ -523,11 +523,11 @@ void    AUScope::SaveState(CFMutableDataRef data)
                 UInt32	scope;
                 UInt32	element;
             } hdr;
-            
+
             hdr.scope = CFSwapInt32HostToBig(GetScope());
             hdr.element = CFSwapInt32HostToBig(ielem);
             CFDataAppendBytes(data, (UInt8 *)&hdr, sizeof(hdr));
-            
+
             element->SaveState(mScope, data);
         }
     }
@@ -545,10 +545,10 @@ const UInt8 *	AUScope::RestoreState(const UInt8 *state)
         } entry;
         UInt32 nparams = CFSwapInt32BigToHost(*(UInt32 *)p);
         p += sizeof(UInt32);
-        
+
         p += nparams * sizeof(entry);
     } else
         p = element->RestoreState(p);
-    
+
     return p;
 }

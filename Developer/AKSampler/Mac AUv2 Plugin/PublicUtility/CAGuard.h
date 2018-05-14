@@ -45,7 +45,7 @@ public:
 	virtual void	Wait();
 	virtual bool	WaitFor(UInt64 inNanos);
 	virtual bool	WaitUntil(UInt64 inNanos);
-	
+
 	virtual void	Notify();
 	virtual void	NotifyAll();
 
@@ -60,34 +60,34 @@ protected:
 	Float64			mAverageLatencyAccumulator;
 	UInt32			mAverageLatencyCount;
 #endif
-	
+
 //	Helper class to manage taking and releasing recursively
 public:
 	class			Locker
 	{
-	
+
 	//	Construction/Destruction
 	public:
 					Locker(CAGuard& inGuard) : mGuard(inGuard), mNeedsRelease(false) { mNeedsRelease = mGuard.Lock(); }
 					~Locker() { if(mNeedsRelease) { mGuard.Unlock(); } }
-	
+
 	private:
 					Locker(const Locker&);
 		Locker&		operator=(const Locker&);
-	
+
 	//	Actions
 	public:
 		void		Wait() { mGuard.Wait(); }
 		bool		WaitFor(UInt64 inNanos) { return mGuard.WaitFor(inNanos); }
 		bool		WaitUntil(UInt64 inNanos) { return mGuard.WaitUntil(inNanos); }
-		
+
 		void		Notify() { mGuard.Notify(); }
 		void		NotifyAll() { mGuard.NotifyAll(); }
 
 	//	Implementation
 	private:
 		CAGuard&	mGuard;
-		bool		mNeedsRelease;	
+		bool		mNeedsRelease;
 	};
 
 };

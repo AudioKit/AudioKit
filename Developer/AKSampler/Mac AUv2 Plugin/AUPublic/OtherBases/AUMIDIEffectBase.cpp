@@ -22,7 +22,7 @@ static OSStatus		AUMIDIEffectBaseMIDIEvent(void *				inComponentStorage,
 #endif
 
 AUMIDIEffectBase::AUMIDIEffectBase(		AudioComponentInstance				inInstance,
-						bool 						inProcessesInPlace ) 
+						bool 						inProcessesInPlace )
 	: AUEffectBase(inInstance, inProcessesInPlace),
 	  AUMIDIBase(this)
 {
@@ -35,12 +35,12 @@ OSStatus			AUMIDIEffectBase::GetPropertyInfo(AudioUnitPropertyID			inID,
 							Boolean &				outWritable)
 {
 	OSStatus result;
-	
+
 	result = AUEffectBase::GetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
-	
+
 	if (result == kAudioUnitErr_InvalidProperty)
 		result = AUMIDIBase::DelegateGetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
-	
+
 	return result;
 }
 
@@ -60,12 +60,12 @@ OSStatus			AUMIDIEffectBase::GetProperty(	AudioUnitPropertyID		inID,
 		return kAudioUnitErr_InvalidElement;
 	}
 #endif
-	
+
 	result = AUEffectBase::GetProperty (inID, inScope, inElement, outData);
-	
+
 	if (result == kAudioUnitErr_InvalidProperty)
 		result = AUMIDIBase::DelegateGetProperty (inID, inScope, inElement, outData);
-	
+
 	return result;
 }
 
@@ -77,10 +77,10 @@ OSStatus			AUMIDIEffectBase::SetProperty(	AudioUnitPropertyID			inID,
 {
 
 	OSStatus result = AUEffectBase::SetProperty (inID, inScope, inElement, inData, inDataSize);
-		
+
 	if (result == kAudioUnitErr_InvalidProperty)
 		result = AUMIDIBase::DelegateSetProperty (inID, inScope, inElement, inData, inDataSize);
-		
+
 	return result;
 }
 
@@ -92,7 +92,7 @@ OSStatus			AUMIDIEffectBase::ComponentEntryDispatch(ComponentParameters *			para
 	if (This == NULL) return paramErr;
 
 	OSStatus result;
-	
+
 	switch (params->what) {
 	case kMusicDeviceMIDIEventSelect:
 	case kMusicDeviceSysExSelect:
@@ -102,7 +102,7 @@ OSStatus			AUMIDIEffectBase::ComponentEntryDispatch(ComponentParameters *			para
 		result = AUEffectBase::ComponentEntryDispatch(params, This);
 		break;
 	}
-	
+
 	return result;
 }
 #endif

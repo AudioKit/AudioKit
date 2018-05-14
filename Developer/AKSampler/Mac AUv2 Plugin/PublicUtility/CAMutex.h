@@ -44,10 +44,10 @@ public:
 	virtual bool	Lock();
 	virtual void	Unlock();
 	virtual bool	Try(bool& outWasLocked);	// returns true if lock is free, false if not
-	
+
 	virtual bool	IsFree() const;
 	virtual bool	IsOwnedByCurrentThread() const;
-		
+
 //	Implementation
 protected:
 	const char*		mName;
@@ -63,24 +63,24 @@ protected:
 public:
 	class			Locker
 	{
-	
+
 	//	Construction/Destruction
 	public:
 					Locker(CAMutex& inMutex) : mMutex(&inMutex), mNeedsRelease(false) { mNeedsRelease = mMutex->Lock(); }
 					Locker(CAMutex* inMutex) : mMutex(inMutex), mNeedsRelease(false) { mNeedsRelease = (mMutex != NULL && mMutex->Lock()); }
 						// in this case the mutex can be null
 					~Locker() { if(mNeedsRelease) { mMutex->Unlock(); } }
-	
-	
+
+
 	private:
 					Locker(const Locker&);
 		Locker&		operator=(const Locker&);
-	
+
 	//	Implementation
 	private:
 		CAMutex*	mMutex;
 		bool		mNeedsRelease;
-	
+
 	};
 
 // Unlocker
@@ -89,24 +89,24 @@ public:
 	public:
 						Unlocker(CAMutex& inMutex);
 						~Unlocker();
-		
+
 	private:
 		CAMutex&	mMutex;
 		bool		mNeedsLock;
-		
+
 		// Hidden definitions of copy ctor, assignment operator
 		Unlocker(const Unlocker& copy);				// Not implemented
 		Unlocker& operator=(const Unlocker& copy);	// Not implemented
 	};
-	
+
 // you can use this with Try - if you take the lock in try, pass in the outWasLocked var
 	class Tryer {
-	
+
 	//	Construction/Destruction
 	public:
 		Tryer (CAMutex &mutex) : mMutex(mutex), mNeedsRelease(false), mHasLock(false) { mHasLock = mMutex.Try (mNeedsRelease); }
 		~Tryer () { if (mNeedsRelease) mMutex.Unlock(); }
-		
+
 		bool HasLock () const { return mHasLock; }
 
 	private:

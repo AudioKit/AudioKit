@@ -25,14 +25,14 @@ template <class T>
 class TAtomicStack {
 public:
 	TAtomicStack() : mHead(NULL) { }
-	
+
 	// non-atomic routines, for use when initializing/deinitializing, operate NON-atomically
 	void	push_NA(T *item)
 	{
 		item->next() = mHead;
 		mHead = item;
 	}
-	
+
 	T *		pop_NA()
 	{
 		T *result = mHead;
@@ -40,11 +40,11 @@ public:
 			mHead = result->next();
 		return result;
 	}
-	
+
 	bool	empty() const { return mHead == NULL; }
-	
+
 	T *		head() { return mHead; }
-	
+
 	// atomic routines
 	void	push_atomic(T *item)
 	{
@@ -54,7 +54,7 @@ public:
 			item->next() = head_;
 		} while (!compare_and_swap(head_, item, &mHead));
 	}
-	
+
 	void	push_multiple_atomic(T *item)
 		// pushes entire linked list headed by item
 	{
@@ -69,7 +69,7 @@ public:
 			tail->next() = head_;
 		} while (!compare_and_swap(head_, item, &mHead));
 	}
-	
+
 	T *		pop_atomic_single_reader()
 		// this may only be used when only one thread may potentially pop from the stack.
 		// if multiple threads may pop, this suffers from the ABA problem.
@@ -82,7 +82,7 @@ public:
 		} while (!compare_and_swap(result, result->next(), &mHead));
 		return result;
 	}
-	
+
 	T *		pop_atomic()
 		// This is inefficient for large linked lists.
 		// prefer pop_all() to a series of calls to pop_atomic.
@@ -97,7 +97,7 @@ public:
 		}
 		return result;
 	}
-	
+
 	T *		pop_all()
 	{
 		T *result;
@@ -107,7 +107,7 @@ public:
 		} while (!compare_and_swap(result, NULL, &mHead));
 		return result;
 	}
-	
+
 	T*		pop_all_reversed()
 	{
 		TAtomicStack<T> reversed;
@@ -119,7 +119,7 @@ public:
 		}
 		return reversed.mHead;
 	}
-	
+
 	static bool	compare_and_swap(T *oldvalue, T *newvalue, T **pvalue)
 	{
 #if TARGET_OS_MAC
@@ -135,7 +135,7 @@ public:
 			return CAAtomicCompareAndSwap32Barrier(SInt32(oldvalue), SInt32(newvalue), (SInt32*)pvalue);
 #endif
 	}
-	
+
 protected:
 	T *		mHead;
 };
@@ -156,7 +156,7 @@ public:
 	void *	pop_atomic() { return OSAtomicDequeue(&mHead, mNextPtrOffset); }
 	void *	pop_atomic_single_reader() { return pop_atomic(); }
 	void *	pop_NA() { return pop_atomic(); }
-	
+
 private:
 	OSQueueHead		mHead;
 	size_t			mNextPtrOffset;
@@ -183,10 +183,10 @@ public:
 	T *		pop_atomic() { return (T *)OSAtomicDequeue(&mHead, mNextPtrOffset); }
 	T *		pop_atomic_single_reader() { return pop_atomic(); }
 	T *		pop_NA() { return pop_atomic(); }
-	
+
 	// caution: do not try to implement pop_all_reversed here. the writer could add new elements
 	// while the reader is trying to pop old ones!
-	
+
 private:
 	OSQueueHead		mHead;
 	ssize_t			mNextPtrOffset;

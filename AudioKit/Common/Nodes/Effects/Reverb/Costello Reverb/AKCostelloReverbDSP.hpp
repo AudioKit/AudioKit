@@ -28,7 +28,7 @@ class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
- 
+
 public:
     AKCostelloReverbDSP();
     ~AKCostelloReverbDSP();
@@ -48,7 +48,7 @@ public:
 
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
-    
+
     void init(int _channels, double _sampleRate) override;
 
     void destroy();

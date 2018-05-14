@@ -26,7 +26,7 @@ public:
 	{
 		return AUMIDIBase::MIDIEvent (inStatus, inData1, inData2, inOffsetSampleFrame);
 	}
-    
+
 	/*! @method SysEx */
 	virtual OSStatus            SysEx(const UInt8 *         inData,
                                       UInt32                inLength)

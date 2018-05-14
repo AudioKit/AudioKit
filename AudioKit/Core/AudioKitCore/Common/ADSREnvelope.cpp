@@ -17,7 +17,7 @@ namespace AudioKitCore
     {
         init(0.0f, 0.0f, 1.0f, 0.0f);
     }
-    
+
     void ADSREnvelopeParams::init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
     {
         attackSamples = attackSeconds * sampleRateHz;
@@ -25,13 +25,13 @@ namespace AudioKitCore
         sustainFraction = susFraction;
         releaseSamples = releaseSeconds * sampleRateHz;
     }
-    
+
     void ADSREnvelopeParams::init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
     {
         sampleRateHz = newSampleRateHz;
         init(attackSeconds, decaySeconds, susFraction, releaseSeconds);
     }
-    
+
     void ADSREnvelopeParams::updateSampleRate(float newSampleRateHz)
     {
         float scaleFactor = newSampleRateHz / sampleRateHz;
@@ -40,14 +40,14 @@ namespace AudioKitCore
         decaySamples *= scaleFactor;
         releaseSamples *= scaleFactor;
     }
-    
-    
+
+
     void ADSREnvelope::init()
     {
         segment = kIdle;
         ramper.init(0.0f);
     }
-    
+
     void ADSREnvelope::start()
     {
 //        if (segment == kIdle)
@@ -60,11 +60,11 @@ namespace AudioKitCore
 //            // envelope has been retriggered; start new attack from where we are
 //            ramper.reinit(1.0f, pParams->attackSamples);
 //        }
-        
+
         ramper.init(0.0f, 1.0f, pParams->attackSamples);
         segment = kAttack;
     }
-    
+
     void ADSREnvelope::release()
     {
         segment = kRelease;

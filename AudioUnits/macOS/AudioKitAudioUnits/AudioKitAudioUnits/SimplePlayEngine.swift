@@ -1,7 +1,7 @@
 /*
 	Copyright (C) 2016 Apple Inc. All Rights Reserved.
 	See LICENSE.txt for this sample’s licensing information
-	
+
 	Abstract:
 	Illustrates use of AVAudioUnitComponentManager, AVAudioEngine, AVAudioUnit and AUAudioUnit to play an audio file through a selected Audio Unit.
 */
@@ -9,7 +9,7 @@
 import AVFoundation
 
 /*
-	This class implements a small engine to play an audio file in a loop using 
+	This class implements a small engine to play an audio file in a loop using
 	`AVAudioEngine`. An audio unit can be selected from those located by
 	`AVAudioUnitComponentManager`. The engine supports choosing from the audio unit's
 	presets.
@@ -192,7 +192,7 @@ public class SimplePlayEngine: NSObject {
 			/*
 				Locating components can be a little slow, especially the first time.
 				Do this work on a separate dispatch thread.
-				
+
 				Make a component description matching any AU of the type.
 			*/
 			var componentDescription = AudioComponentDescription()
@@ -359,7 +359,7 @@ public class SimplePlayEngine: NSObject {
 		self.engine.connect(self.engine.mainMixerNode, to: self.engine.outputNode, format: hardwareFormat)
 
 		/*
-			Pause the player before re-wiring it. (It is not simple to keep it 
+			Pause the player before re-wiring it. (It is not simple to keep it
             playing across an insertion or deletion.)
 		*/
 		if isEffect() && isPlaying {

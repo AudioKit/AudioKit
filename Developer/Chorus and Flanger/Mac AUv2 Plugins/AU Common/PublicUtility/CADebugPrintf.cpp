@@ -31,7 +31,7 @@ Part of Core Audio Public Utility Classes
 			return 0;
 		}
 	#endif
-	
+
 	#if defined(CoreAudio_UseSideFile)
 		#include <unistd.h>
 		FILE* sDebugPrintfSideFile = NULL;

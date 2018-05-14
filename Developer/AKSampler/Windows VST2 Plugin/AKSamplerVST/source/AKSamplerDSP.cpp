@@ -569,8 +569,8 @@ bool AKSamplerDSP::getProductString (char* text)
 }
 
 VstInt32 AKSamplerDSP::getVendorVersion ()
-{ 
-	return 1000; 
+{
+	return 1000;
 }
 
 VstInt32 AKSamplerDSP::canDo (char* text)
@@ -600,7 +600,7 @@ void AKSamplerDSP::getParameterName (VstInt32 index, char* label)
 	{
         // note kVstMaxParamStrLen is only 8 chars
 		case kMasterVolume:
-            vst_strncpy (label, "Volume", kVstMaxParamStrLen); 
+            vst_strncpy (label, "Volume", kVstMaxParamStrLen);
             break;
         case kPitchBend:
             vst_strncpy(label, "P.Bend", kVstMaxParamStrLen);

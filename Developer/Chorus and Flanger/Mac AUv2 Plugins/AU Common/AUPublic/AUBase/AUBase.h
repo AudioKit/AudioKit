@@ -43,7 +43,7 @@ Part of Core Audio AUBase Classes
 
 #ifndef AUTRACE
 	#define AUTRACE(code, obj, a, b, c, d)
-#endif	
+#endif
 
 #include "AUPlugInDispatch.h"
 
@@ -56,11 +56,11 @@ Part of Core Audio AUBase Classes
 
 #define kAUDefaultSampleRate		44100.0
 #if !TARGET_OS_WIN32
-#define kAUDefaultMaxFramesPerSlice	1156 
+#define kAUDefaultMaxFramesPerSlice	1156
 //this allows enough default frames for a 512 dest 44K and SRC from 96K
 // add a padding of 4 frames for any altivec rounding
 #else
-#define kAUDefaultMaxFramesPerSlice	2048 
+#define kAUDefaultMaxFramesPerSlice	2048
 #endif
 
 // ________________________________________________________________________
@@ -70,16 +70,16 @@ class AUBase : public ComponentBase {
 public:
 
 	/*! @ctor AUBase */
-								AUBase(					AudioComponentInstance			inInstance, 
+								AUBase(					AudioComponentInstance			inInstance,
 														UInt32							numInputElements,
 														UInt32							numOutputElements,
 														UInt32							numGroupElements = 0);
 	/*! @dtor AUBase */
 	virtual						~AUBase();
-	
+
 	/*! @method PostConstructor */
 	virtual void				PostConstructor() { CreateElements(); }
-								
+
 	/*! @method PreDestructor */
 	virtual void				PreDestructor();
 
@@ -97,7 +97,7 @@ public:
 	// ________________________________________________________________________
 	// Virtual methods (mostly) directly corresponding to the entry points.  Many of these
 	// have useful implementations here and will not need overriding.
-	
+
 	/*! @method DoInitialize */
 			OSStatus			DoInitialize();
 				// this implements the entry point and makes sure that initialization
@@ -107,16 +107,16 @@ public:
 	virtual OSStatus			Initialize();
 				// ... so that overrides to this method can assume that they will only
 				// be called exactly once.
-	
+
 	/*! @method IsInitialized */
 			bool				IsInitialized() const { return mInitialized; }
 	/*! @method HasBegunInitializing */
 			bool				HasBegunInitializing() const { return mHasBegunInitializing; }
-			
+
 	/*! @method DoCleanup */
 			void				DoCleanup();
 				// same pattern as with Initialize
-	
+
 	/*! @method Cleanup */
 	virtual void				Cleanup();
 
@@ -125,7 +125,7 @@ public:
 														AudioUnitElement 				inElement);
 
 	// Note about GetPropertyInfo, GetProperty, SetProperty:
-	// Certain properties are trapped out in these dispatch functions and handled with different virtual 
+	// Certain properties are trapped out in these dispatch functions and handled with different virtual
 	// methods.  (To discourage hacks and keep vtable size down, these are non-virtual)
 
 	/*! @method DispatchGetPropertyInfo */
@@ -147,7 +147,7 @@ public:
 														AudioUnitElement 				inElement,
 														const void *					inData,
 														UInt32 							inDataSize);
-													
+
 			OSStatus			DispatchRemovePropertyValue(	AudioUnitPropertyID 	inID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement);
@@ -171,7 +171,7 @@ public:
 														AudioUnitElement 				inElement,
 														const void *					inData,
 														UInt32 							inDataSize);
-													
+
 	/*! @method ClearPropertyUsage */
 	virtual OSStatus			RemovePropertyValue (	AudioUnitPropertyID		 		inID,
 														AudioUnitScope 					inScope,
@@ -181,28 +181,28 @@ public:
 	virtual OSStatus			AddPropertyListener(	AudioUnitPropertyID				inID,
 														AudioUnitPropertyListenerProc	inProc,
 														void *							inProcRefCon);
-														
+
 	/*! @method RemovePropertyListener */
 	virtual OSStatus			RemovePropertyListener(	AudioUnitPropertyID				inID,
 														AudioUnitPropertyListenerProc	inProc,
 														void *							inProcRefCon,
 														bool							refConSpecified);
-	
+
 	/*! @method SetRenderNotification */
 	virtual OSStatus			SetRenderNotification(	AURenderCallback		 		inProc,
 														void *							inRefCon);
-	
+
 	/*! @method RemoveRenderNotification */
 	virtual OSStatus			RemoveRenderNotification(
 														AURenderCallback		 		inProc,
 														void *							inRefCon);
-	
+
 	/*! @method GetParameter */
 	virtual OSStatus 	GetParameter(			AudioUnitParameterID			inID,
 														AudioUnitScope 					inScope,
 														AudioUnitElement 				inElement,
 														AudioUnitParameterValue &		outValue);
-												
+
 	/*! @method SetParameter */
 	virtual OSStatus 	SetParameter(			AudioUnitParameterID			inID,
 														AudioUnitScope 					inScope,
@@ -216,7 +216,7 @@ public:
 	/*! @method ScheduleParameter */
 	virtual OSStatus 	ScheduleParameter (		const AudioUnitParameterEvent 	*inParameterEvent,
 														UInt32							inNumEvents);
-	
+
 
 	/*! @method DoRender */
 	OSStatus 	DoRender(								AudioUnitRenderActionFlags &	ioActionFlags,
@@ -224,14 +224,14 @@ public:
 														UInt32							inBusNumber,
 														UInt32							inNumberFrames,
 														AudioBufferList &				ioData);
-	
+
 
 	/*! @method Process */
 	OSStatus	DoProcess (							AudioUnitRenderActionFlags  &		ioActionFlags,
 													const AudioTimeStamp &				inTimeStamp,
 													UInt32								inFramesToProcess,
 													AudioBufferList &					ioData);
-	
+
 	/*! @method ProcessMultiple */
 	OSStatus	DoProcessMultiple (					AudioUnitRenderActionFlags  &		ioActionFlags,
 													const AudioTimeStamp &				inTimeStamp,
@@ -240,7 +240,7 @@ public:
 													const AudioBufferList **			inInputBufferLists,
 													UInt32 								inNumberOutputBufferLists,
 													AudioBufferList **					ioOutputBufferLists);
-		
+
 	/*! @method ProcessBufferLists */
 	virtual OSStatus	ProcessBufferLists(			AudioUnitRenderActionFlags &		ioActionFlags,
 													const AudioBufferList &				inBuffer,
@@ -252,7 +252,7 @@ public:
 
 	/*! @method ProcessMultipleBufferLists */
 	virtual OSStatus	ProcessMultipleBufferLists(	AudioUnitRenderActionFlags &		ioActionFlags,
-													UInt32								inFramesToProcess, 
+													UInt32								inFramesToProcess,
 												    UInt32								inNumberInputBufferLists,
 												    const AudioBufferList **			inInputBufferLists,
 												    UInt32							 	inNumberOutputBufferLists,
@@ -260,18 +260,18 @@ public:
 						{
 							return kAudio_UnimplementedError;
 						}
-	
+
 	/*! @method ComplexRender */
-	virtual OSStatus	ComplexRender(				AudioUnitRenderActionFlags &		ioActionFlags, 
-													const AudioTimeStamp &				inTimeStamp, 
-													UInt32								inOutputBusNumber, 
-													UInt32								inNumberOfPackets, 
-													UInt32 *							outNumberOfPackets, 
-													AudioStreamPacketDescription *		outPacketDescriptions, 
-													AudioBufferList &					ioData, 
-													void *								outMetadata, 
-													UInt32 *							outMetadataByteSize) 
-						{	
+	virtual OSStatus	ComplexRender(				AudioUnitRenderActionFlags &		ioActionFlags,
+													const AudioTimeStamp &				inTimeStamp,
+													UInt32								inOutputBusNumber,
+													UInt32								inNumberOfPackets,
+													UInt32 *							outNumberOfPackets,
+													AudioStreamPacketDescription *		outPacketDescriptions,
+													AudioBufferList &					ioData,
+													void *								outMetadata,
+													UInt32 *							outMetadataByteSize)
+						{
 							return kAudio_UnimplementedError;
 						}
 
@@ -280,7 +280,7 @@ public:
 	// Otherwise, override Render().
 	//
 	// N.B. Implementations of this method can assume that the output's buffer list has already been
-	// prepared and access it with GetOutput(inBusNumber)->GetBufferList() instead of 
+	// prepared and access it with GetOutput(inBusNumber)->GetBufferList() instead of
 	// GetOutput(inBusNumber)->PrepareBuffer(nFrames) -- if PrepareBuffer is called, a
 	// copy may occur after rendering.
 	/*! @method RenderBus */
@@ -295,7 +295,7 @@ public:
 								}
 
 	// N.B. For a unit with only one output bus, it can assume in its implementation of this
-	// method that the output's buffer list has already been prepared and access it with 
+	// method that the output's buffer list has already been prepared and access it with
 	// GetOutput(0)->GetBufferList() instead of GetOutput(0)->PrepareBuffer(nFrames)
 	//  -- if PrepareBuffer is called, a copy may occur after rendering.
 	/*! @method Render */
@@ -306,7 +306,7 @@ public:
 									return noErr;
 								}
 
-								
+
 #pragma mark -
 #pragma mark Property Dispatch
 
@@ -325,10 +325,10 @@ public:
 
 	/*! @method SetConnection */
 	virtual OSStatus			SetConnection(			const AudioUnitConnection &		inConnection);
-	
+
 	/*! @method SetInputCallback */
 	virtual OSStatus			SetInputCallback(		UInt32							inPropertyID,
-														AudioUnitElement 				inElement, 
+														AudioUnitElement 				inElement,
 														AURenderCallback				inProc,
 														void *							inRefCon);
 
@@ -350,7 +350,7 @@ public:
 
 	/*! @method SaveState */
 	virtual OSStatus			SaveState(				CFPropertyListRef *				outData);
-    
+
     /*! @method SaveExtendedScopes */
 	virtual void                SaveExtendedScopes(		CFMutableDataRef				outData) {};
 
@@ -363,8 +363,8 @@ public:
 														CFArrayRef *					outStrings);
 
 	/*! @method CopyClumpName */
-	virtual OSStatus			CopyClumpName(			AudioUnitScope					inScope, 
-														UInt32							inClumpID, 
+	virtual OSStatus			CopyClumpName(			AudioUnitScope					inScope,
+														UInt32							inClumpID,
 														UInt32							inDesiredNameLength,
 														CFStringRef *					outClumpName);
 
@@ -375,14 +375,14 @@ public:
 		// and the name should be valid, or the preset WON'T take
 	/*! @method SetAFactoryPresetAsCurrent */
 	bool						SetAFactoryPresetAsCurrent (const AUPreset & inPreset);
-		
+
 		// Called when someone sets a new, valid preset
 		// If this is a valid preset, then the subclass sets its state to that preset
 		// and returns noErr.
 		// If not a valid preset, return an error, and the pre-existing preset is restored
 	/*! @method NewFactoryPresetSet */
 	virtual OSStatus			NewFactoryPresetSet (const AUPreset & inNewFactoryPreset);
-	
+
 	/*! @method NewCustomPresetSet */
 	virtual OSStatus            NewCustomPresetSet (const AUPreset & inNewCustomPreset);
 
@@ -393,10 +393,10 @@ public:
 	/*! @method GetUIComponentDescs */
 	virtual void				GetUIComponentDescs (ComponentDescription* inDescArray);
 #endif
-	
+
 	/*! @method CopyIconLocation */
 	virtual CFURLRef			CopyIconLocation ();
-	
+
 	// default is no latency, and unimplemented tail time
 	/*! @method GetLatency */
     virtual Float64				GetLatency() {return 0.0;}
@@ -408,18 +408,18 @@ public:
 	/*! @method IsStreamFormatWritable */
 			bool				IsStreamFormatWritable(	AudioUnitScope					scope,
 														AudioUnitElement				element);
-	
+
 	/*! @method StreamFormatWritable */
 	virtual bool				StreamFormatWritable(	AudioUnitScope					scope,
 														AudioUnitElement				element) = 0;
 															// scope will always be input or output
-			
+
 			// pass in a pointer to get the struct, and num channel infos
 			// you can pass in NULL to just get the number
 			// a return value of 0 (the default in AUBase) means the property is not supported...
 	/*! @method SupportedNumChannels */
 	virtual UInt32				SupportedNumChannels (	const AUChannelInfo**			outInfo);
-																												
+
 	/*! @method ValidFormat */
 	virtual bool				ValidFormat(			AudioUnitScope					inScope,
 														AudioUnitElement				inElement,
@@ -430,7 +430,7 @@ public:
 															// native-endian 32-bit float, any sample rate,
 															// any number of channels; override when other
 															// formats are supported.  A subclass's override can
-															// choose to always return true and trap invalid 
+															// choose to always return true and trap invalid
 															// formats in ChangeStreamFormat.
 
 
@@ -455,7 +455,7 @@ public:
 														const CAStreamBasicDescription & inNewFormat);
 															// Will only be called after StreamFormatWritable
 															// and ValidFormat have succeeded.
-															
+
 	// ________________________________________________________________________
 
 #if !CA_USE_AUDIO_PLUGIN_ONLY
@@ -466,7 +466,7 @@ public:
 
 	// ________________________________________________________________________
 	// Methods useful for subclasses
-	
+
 	/*! @method GetScope */
 	AUScope &					GetScope(				AudioUnitScope					inScope)
 	{
@@ -477,10 +477,10 @@ public:
 		}
 		return mScopes[inScope];
 	}
-	
+
 	/*! @method GetScopeExtended */
 	virtual AUScope *			GetScopeExtended (AudioUnitScope inScope) { return NULL; }
-	
+
 	/*! @method GlobalScope */
 	AUScope &					GlobalScope() { return mScopes[kAudioUnitScope_Global]; }
 	/*! @method Inputs */
@@ -493,7 +493,7 @@ public:
 #endif
 	/*! @method Globals */
 	AUElement *					Globals()	{ return mScopes[kAudioUnitScope_Global].GetElement(0); }
-	
+
 	/*! @method SetNumberOfElements */
 	void						SetNumberOfElements(	AudioUnitScope					inScope,
 														UInt32							numElements);
@@ -504,14 +504,14 @@ public:
 	{
 		return GetScope(inScope).GetElement(inElement);
 	}
-	
+
 	/*! @method GetIOElement */
 	AUIOElement *				GetIOElement(			AudioUnitScope 					inScope,
 														AudioUnitElement			 	inElement)
 	{
 		return GetScope(inScope).GetIOElement(inElement);
 	}
-	
+
 	/*! @method SafeGetElement */
 	AUElement *					SafeGetElement(			AudioUnitScope 					inScope,
 														AudioUnitElement			 	inElement)
@@ -524,13 +524,13 @@ public:
 	{
 		return static_cast<AUInputElement *>(Inputs().SafeGetElement(inElement));
 	}
-	
+
 	/*! @method GetOutput */
 	AUOutputElement *			GetOutput(				AudioUnitElement				inElement)
 	{
 		return static_cast<AUOutputElement *>(Outputs().SafeGetElement(inElement));
 	}
-	
+
 #if !CA_BASIC_AU_FEATURES
 	/*! @method GetGroup */
 	AUElement *					GetGroup(				AudioUnitElement				inElement)
@@ -538,7 +538,7 @@ public:
 		return Groups().SafeGetElement(inElement);
 	}
 #endif
-	
+
 	/*! @method PullInput */
 	OSStatus					PullInput(				UInt32	 					inBusNumber,
 														AudioUnitRenderActionFlags &ioActionFlags,
@@ -555,7 +555,7 @@ public:
 	bool						UsesFixedBlockSize() const { return mUsesFixedBlockSize; }
 	/*! @method SetUsesFixedBlockSize */
 	void						SetUsesFixedBlockSize(bool inUsesFixedBlockSize) { mUsesFixedBlockSize = inUsesFixedBlockSize; }
-	
+
 	/*! @method GetVectorUnitType */
 	static SInt32				GetVectorUnitType() { return sVectorUnitType; }
 	/*! @method HasVectorUnit */
@@ -566,12 +566,12 @@ public:
 	static bool					HasSSE2() { return sVectorUnitType >= kVecSSE2; }
 	/*! @method HasSSE3 */
 	static bool					HasSSE3() { return sVectorUnitType >= kVecSSE3; }
-	
+
 	/*! @method AudioUnitAPIVersion */
 	UInt8						AudioUnitAPIVersion() const { return mAudioUnitAPIVersion; }
-	
+
 	/*! @method IsRenderThread */
-	bool						InRenderThread () const 
+	bool						InRenderThread () const
 								{
 #if TARGET_OS_MAC
 									return (mRenderThreadID ? pthread_equal (mRenderThreadID, pthread_self()) : false);
@@ -589,7 +589,7 @@ public:
 
 	/*! @method PropertyChanged */
 	virtual void				PropertyChanged(		AudioUnitPropertyID				inID,
-														AudioUnitScope					inScope, 
+														AudioUnitScope					inScope,
 														AudioUnitElement				inElement);
 
 #if !CA_NO_AU_UI_FEATURES
@@ -600,12 +600,12 @@ public:
 	// as this can save work in the host.
 
 	/*! @method CallHostBeatAndTempo */
-	OSStatus	CallHostBeatAndTempo (Float64				*outCurrentBeat,  
+	OSStatus	CallHostBeatAndTempo (Float64				*outCurrentBeat,
 										Float64				*outCurrentTempo)
 	{
-		return (mHostCallbackInfo.beatAndTempoProc 
-						? (*mHostCallbackInfo.beatAndTempoProc) (mHostCallbackInfo.hostUserData, 
-																	outCurrentBeat, 
+		return (mHostCallbackInfo.beatAndTempoProc
+						? (*mHostCallbackInfo.beatAndTempoProc) (mHostCallbackInfo.hostUserData,
+																	outCurrentBeat,
 																	outCurrentTempo)
 						: -1);
 	}
@@ -616,14 +616,14 @@ public:
 										UInt32            	*outTimeSig_Denominator,
 										Float64           	*outCurrentMeasureDownBeat)
 	{
-		return (mHostCallbackInfo.musicalTimeLocationProc 
+		return (mHostCallbackInfo.musicalTimeLocationProc
 						? (*mHostCallbackInfo.musicalTimeLocationProc) (mHostCallbackInfo.hostUserData,
 																			outDeltaSampleOffsetToNextBeat,
 																			outTimeSig_Numerator,
 																			outTimeSig_Denominator,
 																			outCurrentMeasureDownBeat)
 						: -1);
-	}											
+	}
 
 	/*! @method CallHostTransportState */
 	OSStatus	CallHostTransportState (Boolean 			*outIsPlaying,
@@ -633,7 +633,7 @@ public:
 										Float64 			*outCycleStartBeat,
 										Float64 			*outCycleEndBeat)
 	{
-		return (mHostCallbackInfo.transportStateProc 
+		return (mHostCallbackInfo.transportStateProc
 						? (*mHostCallbackInfo.transportStateProc) (mHostCallbackInfo.hostUserData,
 																		outIsPlaying,
 																		outTransportStateChanged,
@@ -646,7 +646,7 @@ public:
 #endif
 
 	char*						GetLoggingString () const;
-	
+
 	CAMutex*					GetMutex() { return mAUMutex; }
 
 	// ________________________________________________________________________
@@ -664,7 +664,7 @@ public:
 	virtual OSStatus	Start() { return kAudio_UnimplementedError; }
 	/*! @method Stop */
 	virtual OSStatus	Stop() { return kAudio_UnimplementedError; }
-	
+
 #if !CA_BASIC_AU_FEATURES
 #pragma mark -
 #pragma mark AU Music Base Dispatch
@@ -677,38 +677,38 @@ public:
 	/*! @method PrepareInstrument */
 	virtual OSStatus			ReleaseInstrument(MusicDeviceInstrumentID inInstrument) { return kAudio_UnimplementedError; }
 #endif
-	
+
 	// ________________________________________________________________________
 	// ________________________________________________________________________
 	// ________________________________________________________________________
 	// music device/music effect methods -- incomplete
 	/*! @method MIDIEvent */
-	virtual OSStatus	MIDIEvent(		UInt32 						inStatus, 
-										UInt32 						inData1, 
-										UInt32 						inData2, 
+	virtual OSStatus	MIDIEvent(		UInt32 						inStatus,
+										UInt32 						inData1,
+										UInt32 						inData2,
 										UInt32 						inOffsetSampleFrame) { return kAudio_UnimplementedError; }
 
 	/*! @method SysEx */
-	virtual OSStatus	SysEx(			const UInt8 *				inData, 
+	virtual OSStatus	SysEx(			const UInt8 *				inData,
 										UInt32 						inLength) { return kAudio_UnimplementedError;}
-										
+
 	/*! @method StartNote */
-	virtual OSStatus	StartNote(		MusicDeviceInstrumentID 	inInstrument, 
-										MusicDeviceGroupID 			inGroupID, 
-										NoteInstanceID *			outNoteInstanceID, 
-										UInt32 						inOffsetSampleFrame, 
+	virtual OSStatus	StartNote(		MusicDeviceInstrumentID 	inInstrument,
+										MusicDeviceGroupID 			inGroupID,
+										NoteInstanceID *			outNoteInstanceID,
+										UInt32 						inOffsetSampleFrame,
 										const MusicDeviceNoteParams &inParams) { return kAudio_UnimplementedError; }
 
 	/*! @method StopNote */
-	virtual OSStatus	StopNote(		MusicDeviceGroupID 			inGroupID, 
-										NoteInstanceID 				inNoteInstanceID, 
+	virtual OSStatus	StopNote(		MusicDeviceGroupID 			inGroupID,
+										NoteInstanceID 				inNoteInstanceID,
 										UInt32 						inOffsetSampleFrame) { return kAudio_UnimplementedError; }
 #endif
 
 	// ________________________________________________________________________
 	// ________________________________________________________________________
 	// ________________________________________________________________________
-	
+
 protected:
 #pragma mark -
 #pragma mark Implementation methods
@@ -717,7 +717,7 @@ protected:
 	virtual void				ReallocateBuffers();
 									// needs to be called when mMaxFramesPerSlice changes
 	virtual void				DeallocateIOBuffers();
-		
+
 	/*! @method FillInParameterName */
 	static void					FillInParameterName (AudioUnitParameterInfo& ioInfo, CFStringRef inName, bool inShouldRelease)
 	{
@@ -727,25 +727,25 @@ protected:
 			ioInfo.flags |= kAudioUnitParameterFlag_CFNameRelease;
 		CFStringGetCString (inName, ioInfo.name, offsetof (AudioUnitParameterInfo, clumpID), kCFStringEncodingUTF8);
 	}
-	
-	static void					HasClump (AudioUnitParameterInfo& ioInfo, UInt32 inClumpID)				
+
+	static void					HasClump (AudioUnitParameterInfo& ioInfo, UInt32 inClumpID)
 	{
 		ioInfo.clumpID = inClumpID;
 		ioInfo.flags |= kAudioUnitParameterFlag_HasClump;
 	}
-	
+
 	/*! @method SetMaxFramesPerSlice */
 	virtual void				SetMaxFramesPerSlice(UInt32 nFrames);
 
 	/*! @method CanSetMaxFrames */
 	virtual OSStatus			CanSetMaxFrames() const;
-	
+
 	/*! @method WantsRenderThreadID */
 	bool						WantsRenderThreadID () const { return mWantsRenderThreadID; }
-	
+
 	/*! @method SetWantsRenderThreadID */
 	void						SetWantsRenderThreadID (bool inFlag);
-	
+
 	/*! @method SetRenderError */
 	OSStatus					SetRenderError (OSStatus inErr)
 	{
@@ -755,7 +755,7 @@ protected:
 		}
 		return inErr;
 	}
-	
+
 private:
 	/*! @method DoRenderBus */
 	// shared between Render and RenderSlice, inlined to minimize function call overhead
@@ -795,13 +795,13 @@ private:
 									memset (&mCurrentRenderTime, 0, sizeof(mCurrentRenderTime));
 									mCurrentRenderTime.mSampleTime = kNoLastRenderedSampleTime;
 								}
-				
+
 protected:
 	/*! @method GetAudioChannelLayout */
 	virtual UInt32				GetChannelLayoutTags(	AudioUnitScope				scope,
 														AudioUnitElement 			element,
 														AudioChannelLayoutTag *		outLayoutTags);
-														
+
 	/*! @method GetAudioChannelLayout */
 	virtual UInt32				GetAudioChannelLayout(	AudioUnitScope				scope,
 														AudioUnitElement 			element,
@@ -809,13 +809,13 @@ protected:
 														Boolean &					outWritable);
 
 	/*! @method SetAudioChannelLayout */
-	virtual OSStatus			SetAudioChannelLayout(	AudioUnitScope 				scope, 
+	virtual OSStatus			SetAudioChannelLayout(	AudioUnitScope 				scope,
 														AudioUnitElement 			element,
 														const AudioChannelLayout *	inLayout);
 
 	/*! @method RemoveAudioChannelLayout */
 	virtual OSStatus			RemoveAudioChannelLayout(AudioUnitScope scope, AudioUnitElement element);
-	
+
 	/*! @method NeedsToRender */
 	bool						NeedsToRender(			const AudioTimeStamp &		inTimeStamp)
 								{
@@ -824,7 +824,7 @@ protected:
 										mCurrentRenderTime = inTimeStamp;
 									return needsToRender;
 								}
-	
+
 	// Scheduled parameter implementation:
 
 	typedef std::vector<AudioUnitParameterEvent> ParameterEventList;
@@ -835,14 +835,14 @@ protected:
 	// for which the DSP code depends.  ProcessForScheduledParams() will call (potentially repeatedly)
 	// virtual method ProcessScheduledSlice() to perform the actual DSP for a given sub-division of
 	// the buffer.  The job of ProcessForScheduledParams() is to sub-divide the buffer into smaller
-	// pieces according to the scheduled times found in the ParameterEventList (usually coming 
+	// pieces according to the scheduled times found in the ParameterEventList (usually coming
 	// directly from a previous call to ScheduleParameter() ), setting the appropriate immediate or
 	// ramped parameter values for the corresponding scopes and elements, then calling ProcessScheduledSlice()
 	// to do the actual DSP for each of these divisions.
 	virtual OSStatus 	ProcessForScheduledParams(	ParameterEventList		&inParamList,
 															UInt32					inFramesToProcess,
 															void					*inUserData );
-	
+
 	//	This method is called (potentially repeatedly) by ProcessForScheduledParams()
 	//	in order to perform the actual DSP required for this portion of the entire buffer
 	//	being processed.  The entire buffer can be divided up into smaller "slices"
@@ -855,11 +855,11 @@ protected:
 														UInt32				inStartFrameInBuffer,
 														UInt32				inSliceFramesToProcess,
 														UInt32				inTotalBufferFrames ) {return noErr;};	// default impl does nothing...
-	
-	
+
+
 	/*! @method CurrentRenderTime */
 	const AudioTimeStamp &		CurrentRenderTime () const { return mCurrentRenderTime; }
-	
+
 	// ________________________________________________________________________
 	//	Private data members to discourage hacking in subclasses
 private:
@@ -868,17 +868,17 @@ private:
 			mRenderNotify(proc),
 			mRenderNotifyRefCon(ref)
 		{ }
-		
+
 		AURenderCallback			mRenderNotify;
 		void *						mRenderNotifyRefCon;
-		
+
 		bool operator == (const RenderCallback &other) {
 			return this->mRenderNotify == other.mRenderNotify &&
 					this->mRenderNotifyRefCon == other.mRenderNotifyRefCon;
 		}
 	};
 	typedef TThreadSafeList<RenderCallback>	RenderCallbackList;
-	
+
 protected:
 #if !CA_BASIC_AU_FEATURES
 	enum { kNumScopes = 4 };
@@ -897,7 +897,7 @@ protected:
 private:
 	/*! @var mAudioUnitAPIVersion */
 	UInt8						mAudioUnitAPIVersion;
-	
+
 	/*! @var mInitNumInputEls */
 	const UInt32				mInitNumInputEls;
 	/*! @var mInitNumOutputEls */
@@ -908,36 +908,36 @@ private:
 #endif
 	/*! @var mScopes */
 	AUScope						mScopes[kNumScopes];
-	
+
 	/*! @var mRenderCallbacks */
 	RenderCallbackList			mRenderCallbacks;
 	bool						mRenderCallbacksTouched;
-	
+
 	/*! @var mRenderThreadID */
 #if TARGET_OS_MAC
 	pthread_t					mRenderThreadID;
 #elif TARGET_OS_WIN32
 	UInt32						mRenderThreadID;
 #endif
-	
+
 	/*! @var mWantsRenderThreadID */
 	bool						mWantsRenderThreadID;
-		
+
 	/*! @var mCurrentRenderTime */
 	AudioTimeStamp				mCurrentRenderTime;
-	
+
 	/*! @var mMaxFramesPerSlice */
 	UInt32						mMaxFramesPerSlice;
-	
+
 	/*! @var mLastRenderError */
 	OSStatus					mLastRenderError;
 	/*! @var mCurrentPreset */
 	AUPreset					mCurrentPreset;
-	
+
 protected:
 	/*! @var mUsesFixedBlockSize */
 	bool						mUsesFixedBlockSize;
-	
+
 	struct PropertyListener {
 		AudioUnitPropertyID				propertyID;
 		AudioUnitPropertyListenerProc	listenerProc;
@@ -949,10 +949,10 @@ protected:
 	ParameterEventList			mParamList;
 	/*! @var mPropertyListeners */
 	PropertyListeners			mPropertyListeners;
-	
+
 	/*! @var mBuffersAllocated */
 	bool						mBuffersAllocated;
-	
+
 	/*! @var mLogString */
 	// if this is NOT null, it will contain identifying info about this AU.
 	char*						mLogString;
@@ -980,7 +980,7 @@ protected:
 #endif
 };
 
-inline 	OSStatus	AUInputElement::PullInputWithBufferList(	
+inline 	OSStatus	AUInputElement::PullInputWithBufferList(
 												AudioUnitRenderActionFlags &  	ioActionFlags,
 												const AudioTimeStamp &			inTimeStamp,
 												AudioUnitElement				inElement,
@@ -988,7 +988,7 @@ inline 	OSStatus	AUInputElement::PullInputWithBufferList(
 												AudioBufferList *				inBufferList)
 {
 	OSStatus theResult;
-	
+
 	if (HasConnection()) {
 			// only support connections for V2 audio units
 #if !CA_USE_AUDIO_PLUGIN_ONLY
@@ -1004,7 +1004,7 @@ inline 	OSStatus	AUInputElement::PullInputWithBufferList(
 			theResult = (mInputProc)(
 							mInputProcRefCon, &ioActionFlags, &inTimeStamp, inElement, nFrames, inBufferList);
 	}
-	
+
 	if (mInputType == kNoInput)	// defense: the guy upstream could have disconnected
 								// it's a horrible thing to do, but may happen!
 		return kAudioUnitErr_NoConnection;

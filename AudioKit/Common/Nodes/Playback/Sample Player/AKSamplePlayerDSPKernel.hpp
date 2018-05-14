@@ -29,7 +29,7 @@ public:
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-        
+
         rateRamper.init();
         volumeRamper.init();
     }
@@ -41,7 +41,7 @@ public:
         sp_tabread_init(sp, tabread2, ftbl2, 1);
         tabread1->mode = 0;
         tabread2->mode = 0;
-        
+
         lastPosition = 0.0;
         inLoopPhase = false;
         position = startPointViaRate();
@@ -163,13 +163,13 @@ public:
                 break;
         }
     }
-    
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             rate = double(rateRamper.getAndStep());
             volume = double(volumeRamper.getAndStep());
 
@@ -194,7 +194,7 @@ public:
                     lastPosition = position;
                 }
             }
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
@@ -213,7 +213,7 @@ public:
             }
         }
     }
-    
+
     float startPointViaRate(){
         if (rate == 0) {return 0;}
         if (useTempStartPoint){
@@ -254,7 +254,7 @@ public:
         return sourceSampleRate / AKSettings.sampleRate;
     }
     // MARK: Member Variables
-    
+
     bool loopReversed(){
         if (loopEndPoint < loopStartPoint && rate > 0){
             return true;
@@ -273,7 +273,7 @@ public:
     bool startEndReversed(){
         return (endPointViaRate() < startPointViaRate() ? true : false);
     }
-    
+
     void calculateMainPlayComplete(double nextPosition){
         if (nextPosition > endPointViaRate() && !startEndReversed()){
             mainPlayComplete = true;

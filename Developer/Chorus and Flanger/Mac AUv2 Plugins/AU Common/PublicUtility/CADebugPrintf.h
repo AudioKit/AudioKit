@@ -26,7 +26,7 @@ Part of Core Audio Public Utility Classes
 //#define	CoreAudio_UseSideFile	"/CoreAudio-%d.txt"
 
 #if	DEBUG || CoreAudio_Debug
-	
+
 	#if	TARGET_OS_WIN32
 		#if defined(__cplusplus)
 		extern "C"
@@ -78,9 +78,9 @@ Part of Core Audio Public Utility Classes
 	#endif
 
 #else
-	#define	DebugPrintfRtn	
-	#define	DebugPrintfFile	
-	#define	DebugPrintfLineEnding	
+	#define	DebugPrintfRtn
+	#define	DebugPrintfFile
+	#define	DebugPrintfLineEnding
 	#define	DebugPrintfFileComma
 	#define	DebugPrintf(inFormat, ...)
 #endif

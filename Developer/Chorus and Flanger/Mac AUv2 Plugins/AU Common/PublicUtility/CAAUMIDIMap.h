@@ -15,7 +15,7 @@ Part of Core Audio Public Utility Classes
 /*
 enum {
 	kAUParameterMIDIMapping_AnyChannelFlag		= (1L << 0),
-		// If this flag is set and mStatus is a MIDI channel message, then the MIDI channel number 
+		// If this flag is set and mStatus is a MIDI channel message, then the MIDI channel number
 		// in the status byte is ignored; the mapping is from the specified MIDI message on ANY channel.
 
 	kAUParameterMIDIMapping_AnyNoteFlag			= (1L << 1),
@@ -30,7 +30,7 @@ enum {
 		// this is only useful for boolean typed parameters. When set, it means that the parameter's
 		// value should be toggled (if true, become false and vice versa) when the represented MIDI message
 		// is received
-	
+
 	kAUParameterMIDIMapping_Bipolar				= (1L << 4),
 		// this can be set to when mapping a MIDI Controller to indicate that the parameter (typically a boolean
 		// style parameter) will only have its value changed to either the on or off state of a MIDI controller message
@@ -80,41 +80,41 @@ Create a mapping between a parameter and a MIDI message through either:
 
 	* The AUParameterMIDIMapping Structure
 
-	Command				mStatus			mData1			
-	Note Off			0x8n			Note Num		
-	Note On				0x9n			Note Num		
-	Key Pressure		0xAn			Note Num		
-	Control Change		0xBn			ControllerID	
-	Patch Change		0xCn			Patch Num		
-	Channel Pressure	DxDn			0 (Unused)		
-	Pitch Bend			0xEn			0 (Unused)		
+	Command				mStatus			mData1
+	Note Off			0x8n			Note Num
+	Note On				0x9n			Note Num
+	Key Pressure		0xAn			Note Num
+	Control Change		0xBn			ControllerID
+	Patch Change		0xCn			Patch Num
+	Channel Pressure	DxDn			0 (Unused)
+	Pitch Bend			0xEn			0 (Unused)
 
 	(where n is 0-0xF to correspond to MIDI channels 1-16)
 
 		Details:
 
 	In general MIDI Commands can be mapped to either a specific channel as specified in the mStatus bit.
-	If the kAUParameterMIDIMapping_AnyChannelFlag bit is set mStatus is a MIDI channel message, then the 
+	If the kAUParameterMIDIMapping_AnyChannelFlag bit is set mStatus is a MIDI channel message, then the
 	MIDI channel number in the status byte is ignored; the mapping is from the specified MIDI message on ANY channel.
 
 	For note commands (note on, note off, key pressure), the MIDI message can trigger either with just a specific
 	note number, or any note number if the kAUParameterMIDIMapping_AnyNoteFlag bit is set. In these instances, the
-	note number is used as the trigger value (for instance, a note message could be used to set the 
+	note number is used as the trigger value (for instance, a note message could be used to set the
 											  cut off frequency of a filter).
 
- The Properties:								
+ The Properties:
 
 	kAudioUnitProperty_AllParameterMIDIMappings							array of AUParameterMIDIMapping (read/write)
 	This property is used to both retreive and set the current mapping state between (some/many/all of) its parameters
 	and MIDI messages. When set, it should replace any previous mapped settings the AU had.
 
 	If this property is implemented by a non-MIDI capable AU (such as an 'aufx' type), then the property is
-	read only, and recommends a suggested set of mappings for the host to perform. In this case, it is the 
+	read only, and recommends a suggested set of mappings for the host to perform. In this case, it is the
 	host's responsibility to map MIDI message to the AU parameters. As described previously, there are a set
-	of default mappings (see AudioToolbox/AUMIDIController.h) that the host can recommend to the user 
+	of default mappings (see AudioToolbox/AUMIDIController.h) that the host can recommend to the user
 	in this circumstance.
 
-	This property's size will be very dynamic, depending on the number of mappings currently in affect, so the 
+	This property's size will be very dynamic, depending on the number of mappings currently in affect, so the
 	caller should always get the size of the property first before retrieving it. The AU should return an error
 	if the caller doesn't provide enough space to return all of the current mappings.
 
@@ -131,19 +131,19 @@ Create a mapping between a parameter and a MIDI message through either:
 	(1) If a mapping struct is provided, then that struct provides *all* of the information that the AU should
 	use to map the parameter, *except* for the MIDI message. The AU should then listen for the next MIDI message
 	and associate that MIDI message with the supplied AUParameter mapping. When this MIDI message is received and
-	the mapping made, the AU should also issue a notification on this property 
+	the mapping made, the AU should also issue a notification on this property
 	(kAudioUnitProperty_HotMapParameterMIDIMapping) to indicate to the host that the mapping has been made. The host
 	can then retrieve the mapping that was made by getting the value of this property.
 
-	To avoid possible confusion, it is recommended that once the host has retrieved this mapping (if it is 
+	To avoid possible confusion, it is recommended that once the host has retrieved this mapping (if it is
 	presenting a UI to describe the mappings for example), that it then clears the mapping state as described next.
 
 	Thus, the only time this property will return a valid value is when the AU has made a mapping. If the AU's mapping
-	state has been cleared (or it has not been asked to make a mapping), then the AU should return 
+	state has been cleared (or it has not been asked to make a mapping), then the AU should return
 	kAudioUnitErr_InvalidPropertyValue if the host tries to read this value.
 
 	(2) If the value passed in is NULL, then if the AU had a parameter that it was in the process of mapping, it
-	should disregard that (stop listening to the MIDI messages to create a mapping) and discard the partially 
+	should disregard that (stop listening to the MIDI messages to create a mapping) and discard the partially
 	mapped struct. If the value is NULL and the AU is not in the process of mapping, the AU can ignore the request.
 
 	At all times, the _AllMappings property will completely describe the current known state of the AU's mappings
@@ -204,25 +204,25 @@ struct MIDICubeTransformer : public MIDIValueTransformer {
 
 
 class CAAUMIDIMap : public AUParameterMIDIMapping {
-	
+
 public:
-// variables for more efficient parsing of MIDI to Param value	
+// variables for more efficient parsing of MIDI to Param value
 	Float32						mMinValue;
 	Float32						mMaxValue;
 	MIDIValueTransformer		*mTransType;
 
-// methods	
+// methods
 	static MIDIValueTransformer *GetTransformer (UInt32 inFlags);
-	
+
 								CAAUMIDIMap() { memset(this, 0, sizeof(CAAUMIDIMap)); }
-								CAAUMIDIMap (const AUParameterMIDIMapping& inMap) 
+								CAAUMIDIMap (const AUParameterMIDIMapping& inMap)
 								{
 									memset(this, 0, sizeof(CAAUMIDIMap));
 									memcpy (this, &inMap, sizeof(inMap));
 								}
-								CAAUMIDIMap (AudioUnitScope inScope, AudioUnitElement inElement, AudioUnitParameterID inParam) 
-								{ 
-									memset(this, 0, sizeof(CAAUMIDIMap)); 
+								CAAUMIDIMap (AudioUnitScope inScope, AudioUnitElement inElement, AudioUnitParameterID inParam)
+								{
+									memset(this, 0, sizeof(CAAUMIDIMap));
 									mScope = inScope;
 									mElement = inElement;
 									mParameterID = inParam;
@@ -233,41 +233,41 @@ public:
 
 	// returns -1 if any channel bit is set
 	SInt32						Channel () const { return IsAnyChannel() ? -1 : (mStatus & 0xF); }
-	bool						IsAnyChannel () const { 
-									return mFlags & kAUParameterMIDIMapping_AnyChannelFlag; 
+	bool						IsAnyChannel () const {
+									return mFlags & kAUParameterMIDIMapping_AnyChannelFlag;
 								}
 									// preserves the existing channel info in the status byte
 									// preserves any previously set mFlags value
-	void						SetAnyChannel (bool inFlag) 
-								{ 
-									if (inFlag) 
-										mFlags |= kAUParameterMIDIMapping_AnyChannelFlag; 
+	void						SetAnyChannel (bool inFlag)
+								{
+									if (inFlag)
+										mFlags |= kAUParameterMIDIMapping_AnyChannelFlag;
 									else
 										mFlags &= ~kAUParameterMIDIMapping_AnyChannelFlag;
 								}
 
-	bool						IsAnyNote () const { 		
+	bool						IsAnyNote () const {
 									return (mFlags & kAUParameterMIDIMapping_AnyNoteFlag) != 0;
 								}
 									// preserves the existing key num in the mData1 byte
 									// preserves any previously set mFlags value
 	void						SetAnyNote (bool inFlag)
-								{ 
-									if (inFlag) 
-										mFlags |= kAUParameterMIDIMapping_AnyNoteFlag; 
+								{
+									if (inFlag)
+										mFlags |= kAUParameterMIDIMapping_AnyNoteFlag;
 									else
 										mFlags &= ~kAUParameterMIDIMapping_AnyNoteFlag;
 								}
-									
+
 	bool						IsToggle() const { return (mFlags & kAUParameterMIDIMapping_Toggle) != 0; }
 	void						SetToggle (bool inFlag)
 								{
-									if (inFlag) 
-										mFlags |= kAUParameterMIDIMapping_Toggle; 
+									if (inFlag)
+										mFlags |= kAUParameterMIDIMapping_Toggle;
 									else
 										mFlags &= ~kAUParameterMIDIMapping_Toggle;
 								}
-	
+
 	bool						IsBipolar() const { return (mFlags & kAUParameterMIDIMapping_Bipolar) != 0; }
 									// inUseOnValue is valid ONLY if inFlag is true
 	void						SetBipolar (bool inFlag, bool inUseOnValue = false)
@@ -288,56 +288,56 @@ public:
 	bool						IsSubRange () const { return (mFlags & kAUParameterMIDIMapping_SubRange) != 0; }
 	void						SetSubRange (Float32 inStartValue, Float32 inStopValue)
 								{
-									mFlags |= kAUParameterMIDIMapping_SubRange; 
-									
+									mFlags |= kAUParameterMIDIMapping_SubRange;
+
 									mSubRangeMin = inStartValue;
 									mSubRangeMax = inStopValue;
 								}
-	
+
 	void						SetParamRange(Float32 minValue, Float32 maxValue)
 								{
 									mMinValue = minValue;
-									mMaxValue = maxValue;		
+									mMaxValue = maxValue;
 								}
-									
+
 								// this will retain the subrange values previously set.
-	void						SetSubRange (bool inFlag) 
-								{ 
+	void						SetSubRange (bool inFlag)
+								{
 									if (inFlag)
-										mFlags |= kAUParameterMIDIMapping_SubRange; 
+										mFlags |= kAUParameterMIDIMapping_SubRange;
 									else
-										mFlags &= ~kAUParameterMIDIMapping_SubRange; 
+										mFlags &= ~kAUParameterMIDIMapping_SubRange;
 								}
-	
+
 	bool						IsAnyValue() const{return !IsBipolar();}
 	bool						IsOnValue() const{return IsBipolar_OnValue();}
 	bool						IsOffValue() const{return IsBipolar();}
-								
+
 	bool						IsNoteOff () const { return ((mStatus & 0xF0) == 0x80); }
 	bool						IsNoteOn () const { return ((mStatus & 0xF0) == 0x90); }
-	
+
 	bool						IsKeyPressure () const { return ((mStatus & 0xF0) == 0xA0); }
-	
+
 	bool						IsKeyEvent () const { return (mStatus > 0x7F) && (mStatus < 0xB0); }
-	
+
 	bool						IsPatchChange () const { return ((mStatus & 0xF0) == 0xC0); }
 	bool						IsChannelPressure () const { return ((mStatus & 0xF0) == 0xD0); }
 	bool						IsPitchBend () const { return ((mStatus & 0xF0) == 0xE0); }
 	bool						IsControlChange () const { return ((mStatus & 0xF0) == 0xB0); }
-	
-	
+
+
 	void						SetControllerOnValue(){SetBipolar(true,true);}
 	void						SetControllerOffValue(){SetBipolar(true,false);}
 	void						SetControllerAnyValue(){SetBipolar(false,false);}
-								
-	// All of these Set calls will reset the mFlags field based on the 
+
+	// All of these Set calls will reset the mFlags field based on the
 	// anyChannel param value
 	void						SetNoteOff (UInt8 key, SInt8 channel, bool anyChannel = false)
 								{
 									mStatus = 0x80 | (channel & 0xF);
 									mData1 = key;
 									mFlags = (anyChannel ? kAUParameterMIDIMapping_AnyChannelFlag : 0);
-									
+
 								}
 
 	void						SetNoteOn (UInt8 key, SInt8 channel, bool anyChannel = false)
@@ -360,7 +360,7 @@ public:
 									mData1 = controllerID;
 									mFlags = (anyChannel ? kAUParameterMIDIMapping_AnyChannelFlag : 0);
 								}
-	
+
 	void						SetPatchChange (UInt8 patchChange, SInt8 channel, bool anyChannel = false)
 								{
 									mStatus = 0xC0 | (channel & 0xF);
@@ -381,8 +381,8 @@ public:
 									mData1 = 0;
 									mFlags = (anyChannel ? kAUParameterMIDIMapping_AnyChannelFlag : 0);
 								}
-	
-	
+
+
 	Float32						ParamValueFromMIDILinear (Float32		inLinearValue) const
 	{
 								Float32 low, high;
@@ -394,32 +394,32 @@ public:
 									low = mMinValue;
 									high = mMaxValue;
 								}
-								
-								
+
+
 								// WE ARE ASSUMING YOU HAVE SET THIS UP PROPERLY!!!!! (or this will crash cause it will be NULL)
 								return (Float32)mTransType->fromlinear((inLinearValue * (high - low)) + low);
 	}
-		
+
 
 		// The CALLER of this method must ensure that the status byte's MIDI Command (ignoring the channel) matches!!!
 	bool						MIDI_Matches (UInt8 inChannel, UInt8 inData1, UInt8 inData2, Float32 &outLinear) const;
-	
+
 	void						Print () const;
-	
+
 	void						Save (CFPropertyListRef &outData) const;
 	void						Restore (CFDictionaryRef inData);
-	
-	static void					SaveAsMapPList (AudioUnit						inUnit, 
-											const AUParameterMIDIMapping		* inMappings, 
-											UInt32								inNumMappings, 
+
+	static void					SaveAsMapPList (AudioUnit						inUnit,
+											const AUParameterMIDIMapping		* inMappings,
+											UInt32								inNumMappings,
 											CFPropertyListRef					&outData,
 											CFStringRef							inName = NULL);
 
 									// inNumMappings describes how much memory is allocated in outMappings
-	static void					RestoreFromMapPList (const CFDictionaryRef			inData, 
-														AUParameterMIDIMapping		* outMappings, 
+	static void					RestoreFromMapPList (const CFDictionaryRef			inData,
+														AUParameterMIDIMapping		* outMappings,
 														UInt32						inNumMappings);
-														
+
 	static UInt32				NumberOfMaps (const CFDictionaryRef inData);
 };
 
@@ -434,15 +434,15 @@ inline bool operator== (const CAAUMIDIMap &a, const CAAUMIDIMap &b)
 			&&  (a.mParameterID == b.mParameterID)
 			&& (a.mElement == b.mElement)
 			&& (a.mScope == b.mScope));
-	
+
 	// reserved field comparisons - ignored until/if they are used
 }
 
 inline bool operator< (const CAAUMIDIMap	&a, const CAAUMIDIMap &b)
 {
-	if ((a.mStatus & 0xF0) != (b.mStatus & 0xF0)) 
+	if ((a.mStatus & 0xF0) != (b.mStatus & 0xF0))
 		return ((a.mStatus & 0xF0) < (b.mStatus & 0xF0));
-	
+
 	if (a.mData1 != b.mData1)
 		return (a.mData1 < b.mData1);
 
@@ -450,7 +450,7 @@ inline bool operator< (const CAAUMIDIMap	&a, const CAAUMIDIMap &b)
 		return ((a.mStatus & 0xF) < (b.mStatus & 0xf));
 
 // reserved field comparisons - ignored until/if they are used
-		
+
 //		we're sorting this by MIDI, so we don't really care how the rest is sorted
 	return	((a.mParameterID < b.mParameterID)
 				&& (a.mElement < b.mElement)
@@ -460,7 +460,7 @@ inline bool operator< (const CAAUMIDIMap	&a, const CAAUMIDIMap &b)
 
 
 class CompareMIDIMap {
-	int compare (const CAAUMIDIMap &a, const CAAUMIDIMap &b) 
+	int compare (const CAAUMIDIMap &a, const CAAUMIDIMap &b)
 	{
 		if ((a.mStatus & 0xF0) < (b.mStatus & 0xF0))
 			return -1;
@@ -474,7 +474,7 @@ class CompareMIDIMap {
 		if (a.mData1 < b.mData1) return -1;
 		return 0;
 	}
-					 
+
 public:
 	bool operator() (const CAAUMIDIMap &a, const CAAUMIDIMap &b) {
 		return compare (a, b) < 0;
@@ -495,7 +495,7 @@ public:
 			break;
 	// ...
 	}
-	
+
 	in the for loop you call the MIDI_Matches call, to see if the MIDI event matches a given AUMIDIParam mapping
 	special note: you HAVE to transform note on (with vel zero) events to the note off status byte
 */

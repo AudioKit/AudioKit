@@ -57,7 +57,7 @@ Part of Core Audio Public Utility Classes
 #if	DEBUG || CoreAudio_Debug
 	// can be used to break into debugger immediately, also see CADebugger
 	#define BusError()		{ long* p=NULL; *p=0; }
-	
+
 	//	basic debugging print routines
 	#if	TARGET_OS_MAC && !TARGET_API_MAC_CARBON
 		extern void DebugStr(const unsigned char* debuggerMsg);
@@ -67,13 +67,13 @@ Part of Core Audio Public Utility Classes
 		#define DebugMessageN3(msg, N1, N2, N3)
 	#else
 		#include "CADebugPrintf.h"
-		
+
 		#if	(CoreAudio_FlushDebugMessages && !CoreAudio_UseSysLog && !CoreAudio_UseCALog) || defined(CoreAudio_UseSideFile)
 			#define	FlushRtn	,fflush(DebugPrintfFile)
 		#else
 			#define	FlushRtn
 		#endif
-		
+
 		#if		CoreAudio_ThreadStampMessages
 			#include <pthread.h>
 			#include "CAHostTimeBase.h"
@@ -99,7 +99,7 @@ Part of Core Audio Public Utility Classes
 	#else
 		#define vprint(msg)
 	#endif
-	
+
 	// Original macro keeps its function of turning on and off use of CADebuggerStop() for both asserts and throws.
 	// For backwards compat, it overrides any setting of the two sub-macros.
 	#if	CoreAudio_StopOnFailure

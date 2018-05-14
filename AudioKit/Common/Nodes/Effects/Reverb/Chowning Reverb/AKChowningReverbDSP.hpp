@@ -26,11 +26,11 @@ class AKChowningReverbDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
     std::unique_ptr<_Internal> _private;
- 
+
 public:
     AKChowningReverbDSP();
     ~AKChowningReverbDSP();
-    
+
     void init(int _channels, double _sampleRate) override;
 
     void destroy();

@@ -23,26 +23,26 @@ Part of Core Audio AUInstrument Base Classes
 struct SynthNoteList
 {
 	SynthNoteList() : mState(kNoteState_Unset), mHead(0), mTail(0) {}
-	
+
 	bool NotEmpty() const { return mHead != NULL; }
 	bool IsEmpty() const { return mHead == NULL; }
-	void Empty() { 
+	void Empty() {
 #if USE_SANITY_CHECK
 		SanityCheck();
 #endif
-		mHead = mTail = NULL; 
+		mHead = mTail = NULL;
 	}
-	
+
 	UInt32 Length() const {
 #if USE_SANITY_CHECK
 		SanityCheck();
 #endif
 		UInt32 length = 0;
-		for (SynthNote* note = mHead; note; note = note->mNext) 
+		for (SynthNote* note = mHead; note; note = note->mNext)
 			length++;
 		return length;
 	};
-	
+
 	void AddNote(SynthNote *inNote)
 	{
 #if DEBUG_PRINT
@@ -54,14 +54,14 @@ struct SynthNoteList
 		inNote->SetState(mState);
 		inNote->mNext = mHead;
 		inNote->mPrev = NULL;
-		
+
 		if (mHead) { mHead->mPrev = inNote; mHead = inNote; }
 		else mHead = mTail = inNote;
 #if USE_SANITY_CHECK
 		SanityCheck();
 #endif
 	}
-	
+
 	void RemoveNote(SynthNote *inNote)
 	{
 #if DEBUG_PRINT
@@ -75,7 +75,7 @@ struct SynthNoteList
 
 		if (inNote->mNext) inNote->mNext->mPrev = inNote->mPrev;
 		else mTail = inNote->mPrev;
-		
+
 		inNote->mPrev = 0;
 		inNote->mNext = 0;
 #if USE_SANITY_CHECK
@@ -93,7 +93,7 @@ struct SynthNoteList
 		inNoteList->SanityCheck();
 #endif
 		if (!inNoteList->mTail) return;
-		
+
 		if (mState == kNoteState_Released)
 		{
 			for (SynthNote* note = inNoteList->mHead; note; note = note->mNext)
@@ -112,14 +112,14 @@ struct SynthNoteList
 				note->SetState(mState);
 			}
 		}
-		
+
 		inNoteList->mTail->mNext = mHead;
-		
+
 		if (mHead) mHead->mPrev = inNoteList->mTail;
 		else mTail = inNoteList->mTail;
-		
+
 		mHead = inNoteList->mHead;
-		
+
 		inNoteList->mHead = NULL;
 		inNoteList->mTail = NULL;
 #if USE_SANITY_CHECK
@@ -127,7 +127,7 @@ struct SynthNoteList
 		inNoteList->SanityCheck();
 #endif
 	}
-	
+
 	SynthNote* FindOldestNote()
 	{
 #if DEBUG_PRINT
@@ -148,7 +148,7 @@ struct SynthNoteList
 		}
 		return oldestNote;
 	}
-	
+
 	SynthNote* FindMostQuietNote()
 	{
 #if DEBUG_PRINT
@@ -181,9 +181,9 @@ struct SynthNoteList
 #endif
 		return mostQuietNote;
 	}
-	
+
 	void SanityCheck() const;
-	
+
 	SynthNoteState	mState;
 	SynthNote *		mHead;
 	SynthNote *		mTail;

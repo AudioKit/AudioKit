@@ -32,7 +32,7 @@ class AKPannerDSP : public AKSoundpipeDSPBase {
 
 private:
     AKLinearParameterRamp panRamp;
-   
+
 public:
     AKPannerDSP() {
         panRamp.setTarget(0, true);

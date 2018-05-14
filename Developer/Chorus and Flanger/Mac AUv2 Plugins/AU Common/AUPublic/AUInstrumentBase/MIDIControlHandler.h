@@ -16,11 +16,11 @@ public:
 	virtual bool	SetPolyPressure(UInt8 inKey, UInt8 inValue) = 0;
 	virtual bool	SetController(UInt8 inControllerNumber, UInt8 inValue) = 0;
 	virtual bool	SetSysex(void *inSysexMsg) = 0;
-	
+
 	virtual float	GetPitchBend() const = 0;
 
 	/*! Default controller values.  These represent MSB values unless indicated in the name */
-	
+
 	enum
 	{
 		kDefault_Midpoint				= 0x40,		//! Used for all center-null-point controllers
@@ -32,7 +32,7 @@ public:
 		kDefault_ChannelPressure	= 0,
 		kDefault_ReverbSend			= 40,
 		kDefault_ChorusSend			= 0,
-		
+
 		kDefault_RPN_LSB				= 0x7f,
 		kDefault_RPN_MSB				= 0x7f,
 		kDefault_PitchBendRange		= 2,

@@ -14,7 +14,7 @@ public:
     float doRage(float fCurrentSample, float fKhorne, float fNurgle);
     MikeFilter filterToneZ;
     void setNumStages(int theStages);
-    
+
 private:
     int iSampleRate, iNumStages;
 };

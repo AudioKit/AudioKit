@@ -14,12 +14,12 @@
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Types
-    
+
     enum {
         standardBankEnumElements(),
         pulseWidthAddress = numberOfBankEnumElements
     };
-    
+
     struct NoteState {
         NoteState* next;
         NoteState* prev;

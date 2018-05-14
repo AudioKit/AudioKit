@@ -57,10 +57,10 @@ bool	operator== (const AudioChannelLayout &x, const AudioChannelLayout &y)
 	// (this may be too strict a comparison if all you care about are matching layout tags)
 	UInt32 theSize1 = CAAudioChannelLayout::CalculateByteSize(x.mNumberChannelDescriptions);
 	UInt32 theSize2 = CAAudioChannelLayout::CalculateByteSize(y.mNumberChannelDescriptions);
-	
+
 	if (theSize1 != theSize2)
 		return false;
-		
+
 	return !memcmp (&x, &y, theSize1);
 }
 
@@ -87,7 +87,7 @@ UInt32	CAAudioChannelLayout::NumberChannels (const AudioChannelLayout& inLayout)
 {
 	if (inLayout.mChannelLayoutTag == kAudioChannelLayoutTag_UseChannelDescriptions)
 		return inLayout.mNumberChannelDescriptions;
-	
+
 	if (inLayout.mChannelLayoutTag == kAudioChannelLayoutTag_UseChannelBitmap)
 		return CountOnes (inLayout.mChannelBitmap);
 
@@ -96,7 +96,7 @@ UInt32	CAAudioChannelLayout::NumberChannels (const AudioChannelLayout& inLayout)
 
 void 	CAShowAudioChannelLayout (FILE* file, const AudioChannelLayout *layout)
 {
-	if (layout == NULL) 
+	if (layout == NULL)
 	{
 		fprintf (file, "\tNULL layout\n");
 		return;
