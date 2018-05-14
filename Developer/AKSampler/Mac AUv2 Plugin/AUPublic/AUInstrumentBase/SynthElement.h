@@ -24,9 +24,9 @@ public:
 	virtual ~SynthElement();
 
 	UInt32 GetIndex() const { return mIndex; }
-	
+
 	AUInstrumentBase* GetAUInstrument() { return (AUInstrumentBase*)GetAudioUnit(); }
-	
+
 private:
 	UInt32 mIndex;
 };
@@ -60,11 +60,11 @@ public:
 
 	virtual float GetPitchBend() const { return mFPitchBend * mFPitchBendDepth; }
 
-	SInt16 GetHiResControl(UInt32 inIndex) const 
-	{   
+	SInt16 GetHiResControl(UInt32 inIndex) const
+	{
 		return ((mControls[inIndex] & 127) << 7) | (mControls[inIndex + 32] & 127);
 	}
-	
+
 	float GetControl(UInt32 inIndex) const
 	{
 		if (inIndex < 32) {
@@ -73,10 +73,10 @@ public:
 			return (float)mControls[inIndex];
 		}
 	}
-	
-	
+
+
 private:
-	
+
 	UInt8 mControls[128];
 	UInt8 mPolyPressure[128];
 	UInt8 mMonoPressure;
@@ -86,17 +86,17 @@ private:
 	UInt16 mActiveNRPN;
 	UInt16 mActiveRPValue;
 	UInt16 mActiveNRPValue;
-	
+
 	UInt16 mPitchBendDepth;
 	float mFPitchBendDepth;
 	float mFPitchBend;
-	
+
 	void SetHiResControl(UInt32 inIndex, UInt8 inMSB, UInt8 inLSB)
-		{ 
+		{
 			mControls[inIndex] = inMSB;
 			mControls[inIndex + 32] = inLSB;
 		}
-		
+
 };
 
 
@@ -106,7 +106,7 @@ public:
 	enum {
 		kUnassignedGroup = 0xFFFFFFFF
 	};
-	
+
 	SynthGroupElement(AUInstrumentBase *audioUnit, UInt32 inElement, MIDIControlHandler *inHandler);
 	virtual					~SynthGroupElement();
 
@@ -119,27 +119,27 @@ public:
 
 	void					NoteEnded(SynthNote *inNote, UInt32 inFrame);
 	void					NoteFastReleased(SynthNote *inNote);
-	
+
 	virtual bool			ChannelMessage(UInt16 controlID, UInt16 controlValue);
 	virtual void			AllNotesOff(UInt32 inFrame);
 	virtual void			AllSoundOff(UInt32 inFrame);
 	void					ResetAllControllers(UInt32 inFrame);
-	
+
 	SynthNote *				GetNote(NoteInstanceID inNoteID, bool unreleasedOnly=false, UInt32 *outNoteState=NULL);
-	
+
 	void					Reset();
-	
+
 	virtual OSStatus		Render(SInt64 inAbsoluteSampleFrame, UInt32 inNumberFrames, AUScope &outputs);
-	
+
 	float					GetPitchBend() const { return mMidiControlHandler->GetPitchBend(); }
 	SInt64					GetCurrentAbsoluteFrame() const { return mCurrentAbsoluteFrame; }
-	
+
 	MusicDeviceGroupID		GroupID () const { return mGroupID; }
 	virtual void			SetGroupID (MusicDeviceGroupID inGroup);
 
 	MIDIControlHandler *	GetMIDIControlHandler() const { return mMidiControlHandler; }
-	
-protected:	
+
+protected:
 	SInt64					mCurrentAbsoluteFrame;
 	SynthNoteList 			mNoteList[kNumberOfSoundingNoteStates];
 	MIDIControlHandler		*mMidiControlHandler;
@@ -148,7 +148,7 @@ private:
 	friend class AUInstrumentBase;
 	friend class AUMonotimbralInstrumentBase;
 	friend class AUMultitimbralInstrumentBase;
-	
+
 	bool					mSustainIsOn;
 	bool					mSostenutoIsOn;
 	UInt32					mOutputBus;
@@ -175,15 +175,15 @@ public:
 
 	UInt32		GetGroupIndex() const { return mGroupIndex; }
 	bool		InRange(Float32 inNote, Float32 inVelocity);
-	
+
 	UInt32		GetMaxPolyphony() const { return mMaxPolyphony; }
 	void		SetMaxPolyphony(UInt32 inMaxPolyphony) { mMaxPolyphony = inMaxPolyphony; }
-	
+
 private:
 	UInt32							mGroupIndex;
 	UInt32							mPatchIndex;
 	UInt32							mMaxPolyphony;
-	SynthKeyZone					mKeyZone;	
+	SynthKeyZone					mKeyZone;
 };
 
 #endif

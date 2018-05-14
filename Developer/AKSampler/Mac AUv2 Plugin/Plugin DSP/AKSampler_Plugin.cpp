@@ -25,7 +25,7 @@ static const CFStringRef paramName[] =
     CFSTR("Filter Cutoff"),
     CFSTR("Filter EG Strength"),
     CFSTR("Filter Resonance"),
-    
+
     CFSTR("Amp EG Attack"),
     CFSTR("Amp EG Decay"),
     CFSTR("Amp EG Sustain"),
@@ -49,7 +49,7 @@ AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
     presetName = nil;
 	CreateElements();
 	Globals()->UseIndexedParameters(kNumberOfParams);
-    
+
     initForTesting();
 }
 
@@ -65,18 +65,18 @@ void AKSampler_Plugin::initForTesting()
     masterVolume = 1.0f;
     pitchOffset = 0.0f;
     vibratoDepth = 0.0f;
-    
+
     cutoffMultiple = 4.0f;
     cutoffEgStrength = 20.0f;
     filterEnable = false;
-    
+
     ampEGParams.setAttackTimeSeconds(0.01f);
     ampEGParams.setDecayTimeSeconds(0.1f);
     ampEGParams.sustainFraction = 0.8f;
     ampEGParams.setReleaseTimeSeconds(0.5f);
-    
+
     //loadDemoSamples();
-    
+
 #if 1
     // load single-cycle saw waves so there's something to play
     AudioKitCore::FunctionTable ftable;
@@ -107,7 +107,7 @@ OSStatus AKSampler_Plugin::Initialize()
 	AUInstrumentBase::Initialize();
     AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
     printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
-    
+
     return noErr;
 }
 
@@ -126,7 +126,7 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, flo
         printf("Wavpack error loading %s: %s\n", sfd.path, errMsg);
         return false;
     }
-    
+
     AKSampleDataDescriptor sdd;
     sdd.sd = sfd.sd;
     sdd.sampleRateHz = (float)WavpackGetSampleRate(wpc);
@@ -134,7 +134,7 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, flo
     sdd.nSamples = WavpackGetNumSamples(wpc);
     sdd.bInterleaved = sdd.nChannels > 1;
     sdd.pData = new float[sdd.nChannels * sdd.nSamples];
-    
+
     int mode = WavpackGetMode(wpc);
     WavpackUnpackSamples(wpc, (int32_t*)sdd.pData, sdd.nSamples);
     if ((mode & MODE_FLOAT) == 0)
@@ -154,7 +154,7 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, flo
         for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
             *pf++ *= scale;
     }
-    
+
     loadSampleData(sdd);
     delete[] sdd.pData;
     return true;
@@ -163,12 +163,12 @@ bool AKSampler_Plugin::loadCompressedSampleFile(AKSampleFileDescriptor& sfd, flo
 void AKSampler_Plugin::loadDemoSamples()
 {
     // Example showing how to load a group of samples when you don't have a .sfz metadata file.
-    
+
     // Download http://audiokit.io/downloads/TX_LoTine81z.zip
     // These are Wavpack-compressed versions of the similarly-named samples in ROMPlayer.
     // Put folder wherever you wish (e.g. inside a "Compressed Sounds" folder on your Mac desktop
     // and edit paths below accordingly
-    
+
     char pathBuffer[200];
     const char* baseDir = "/Users/shane/Desktop/Compressed Sounds/";
     const char* samplePrefix = "TX LoTine81z/TX LoTine81z_ms";
@@ -179,7 +179,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.fLoopStart = 0.2f;
     sfd.sd.fLoopEnd = 0.3f;
     sfd.sd.fEnd = 0.0f;
-    
+
     sfd.sd.noteNumber = 48;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 0; sfd.sd.max_note = 51;
@@ -192,7 +192,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c2");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 54;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 52; sfd.sd.max_note = 57;
@@ -205,7 +205,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#2");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 60;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 58; sfd.sd.max_note = 63;
@@ -218,7 +218,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c3");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 66;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 64; sfd.sd.max_note = 69;
@@ -231,7 +231,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#3");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 72;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 70; sfd.sd.max_note = 75;
@@ -244,7 +244,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c4");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 78;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 76; sfd.sd.max_note = 81;
@@ -257,7 +257,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#4");
     loadCompressedSampleFile(sfd);
-    
+
     sfd.sd.noteNumber = 84;
     sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
     sfd.sd.min_note = 82; sfd.sd.max_note = 127;
@@ -270,7 +270,7 @@ void AKSampler_Plugin::loadDemoSamples()
     sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
     sprintf(pathBuffer, "%s%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c5");
     loadCompressedSampleFile(sfd);
-    
+
     buildKeyMap();
 }
 
@@ -289,13 +289,13 @@ OSStatus AKSampler_Plugin::loadPreset()
 
     stopAllVoices();        // make sure no voices are active
     deinit();               // unload any samples already present
-    
+
     char buf[1000];
     sprintf(buf, "%s/%s.sfz", pPath, pName);
-    
+
     FILE* pfile = fopen(buf, "r");
     if (!pfile) return fnfErr;
-    
+
     int lokey, hikey, pitch, lovel, hivel;
     bool bLoop;
     float fLoopStart, fLoopEnd;
@@ -307,10 +307,10 @@ OSStatus AKSampler_Plugin::loadPreset()
     {
         p = buf;
         while (*p != 0 && isspace(*p)) p++;
-        
+
         pp = strrchr(p, '\n');
         if (pp) *pp = 0;
-        
+
         if (hasPrefix(p, "<group>"))
         {
             p += 7;
@@ -325,7 +325,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) pitch = hikey = lokey = atoi(pp);
             }
-            
+
             pp = strstr(p, "lokey");
             if (pp)
             {
@@ -333,7 +333,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) lokey = atoi(pp);
             }
-            
+
             pp= strstr(p, "hikey");
             if (pp)
             {
@@ -341,7 +341,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) hikey = atoi(pp);
             }
-            
+
             pp= strstr(p, "pitch_keycenter");
             if (pp)
             {
@@ -361,7 +361,7 @@ OSStatus AKSampler_Plugin::loadPreset()
             fLoopEnd = 0.0f;
             volBoost = 0.0f;
             tuningOffset = 0.0f;
-            
+
             pp = strstr(p, "lovel");
             if (pp)
             {
@@ -369,7 +369,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) lovel = atoi(pp);
             }
-            
+
             pp = strstr(p, "hivel");
             if (pp)
             {
@@ -407,7 +407,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) fLoopStart = atof(pp);
             }
-            
+
             pp = strstr(p, "loop_end");
             if (pp)
             {
@@ -415,7 +415,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 if (pp) pp++;
                 if (pp) fLoopEnd = atof(pp);
             }
-            
+
             pp = strstr(p, "sample");
             if (pp)
             {
@@ -427,7 +427,7 @@ OSStatus AKSampler_Plugin::loadPreset()
                 while (pp < pdot) *pq++ = *pp++;
                 strcpy(pq, ".wv");
             }
-            
+
             sprintf(buf, "%s/%s", pPath, sampleFileName);
 
             AKSampleFileDescriptor sfd;
@@ -447,7 +447,7 @@ OSStatus AKSampler_Plugin::loadPreset()
         }
     }
     fclose(pfile);
-    
+
     buildKeyMap();
     restartVoices();    // now it's safe to start new notes
     printf("done\n");
@@ -476,7 +476,7 @@ OSStatus AKSampler_Plugin::GetPropertyInfo( AudioUnitPropertyID         inProper
                 return noErr;
         }
     }
-    
+
     return AUInstrumentBase::GetPropertyInfo (inPropertyID, inScope, inElement, outDataSize, outWritable);
 }
 
@@ -491,26 +491,26 @@ OSStatus AKSampler_Plugin::GetProperty( AudioUnitPropertyID         inPropertyID
             {
                 // Look for a resource in the main bundle by name and type.
                 CFBundleRef bundle = CFBundleGetBundleWithIdentifier( CFSTR("io.audiokit.AKSampler") );
-                
+
                 if (bundle == NULL) {
                     printf("Could not find bundle specified for GUI resources\n");
                     return fnfErr;
                 }
-                
+
                 CFURLRef bundleURL = CFBundleCopyResourceURL( bundle,
                                                              CFSTR("AKSamplerUI"),
                                                              CFSTR("bundle"),
                                                              NULL);
-                
+
                 if (bundleURL == NULL) {
                     printf("Could not create resource URL for GUI\n");
                     return fnfErr;
                 }
-                
+
                 CFStringRef className = CFSTR("AKSampler_ViewFactory");
                 AudioUnitCocoaViewInfo cocoaInfo = { bundleURL, { className } };
                 *((AudioUnitCocoaViewInfo *)outData) = cocoaInfo;
-                
+
                 return noErr;
             }
 
@@ -546,7 +546,7 @@ OSStatus AKSampler_Plugin::SetProperty(         AudioUnitPropertyID         inPr
             return loadPreset();
         }
     }
-    
+
     // Default implementation for all non-custom properties
     return AUInstrumentBase::SetProperty(inPropertyID, inScope, inElement, inData, inDataSize);
 }
@@ -569,7 +569,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 1.0;
             outParameterInfo.defaultValue = 1.0;
             break;
-            
+
         case kPitchOffsetSemitones:
             AUBase::FillInParameterName (outParameterInfo, paramName[kPitchOffsetSemitones], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_RelativeSemiTones;
@@ -577,7 +577,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 24.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-    
+
         case kVibratoDepthSemitones:
             AUBase::FillInParameterName (outParameterInfo, paramName[kVibratoDepthSemitones], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_RelativeSemiTones;
@@ -585,7 +585,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 24.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-            
+
         case kFilterEnable:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEnable], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Boolean;
@@ -593,7 +593,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 1.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-            
+
         case kFilterCutoffHarmonic:
             outParameterInfo.flags += SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplayLogarithmic);
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterCutoffHarmonic], false);
@@ -602,7 +602,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 1000.0;
             outParameterInfo.defaultValue = 1000.0;
             break;
-    
+
         case kFilterCutoffEgStrength:
             outParameterInfo.flags += SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplayLogarithmic);
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterCutoffEgStrength], false);
@@ -619,7 +619,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 20.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-            
+
         case kAmpEgAttackTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgAttackTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -627,7 +627,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-    
+
         case kAmpEgDecayTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgDecayTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -635,7 +635,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-            
+
         case kAmpEgSustainFraction:
             AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgSustainFraction], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_LinearGain;
@@ -643,7 +643,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 1.0;
             outParameterInfo.defaultValue = 1.0;
             break;
-    
+
         case kAmpEgReleaseTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kAmpEgReleaseTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -651,7 +651,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-    
+
         case kFilterEgAttackTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgAttackTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -659,7 +659,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-    
+
         case kFilterEgDecayTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgDecayTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -667,7 +667,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-    
+
         case kFilterEgSustainFraction:
             outParameterInfo.flags += SetAudioUnitParameterDisplayType (0, kAudioUnitParameterFlag_DisplayExponential);
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgSustainFraction], false);
@@ -676,7 +676,7 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 1.0;
             outParameterInfo.defaultValue = 1.0;
             break;
-            
+
         case kFilterEgReleaseTimeSeconds:
             AUBase::FillInParameterName (outParameterInfo, paramName[kFilterEgReleaseTimeSeconds], false);
             outParameterInfo.unit = kAudioUnitParameterUnit_Seconds;
@@ -684,11 +684,11 @@ OSStatus AKSampler_Plugin::GetParameterInfo(    AudioUnitScope          inScope,
             outParameterInfo.maxValue = 10.0;
             outParameterInfo.defaultValue = 0.0;
             break;
-            
+
         default:
             return kAudioUnitErr_InvalidParameter;
     }
-    
+
 	return noErr;
 }
 
@@ -698,29 +698,29 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
                                             AudioUnitParameterValue &   outValue)
 {
     if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
-    
+
     switch (inParameterID)
     {
         case kMasterVolumeFraction:
             outValue = masterVolume;
             break;
-            
+
         case kPitchOffsetSemitones:
             outValue = pitchOffset;
             break;
-            
+
         case kVibratoDepthSemitones:
             outValue = vibratoDepth;
             break;
-            
+
         case kFilterEnable:
             outValue = filterEnable ? 1.0f : 0.0f;
             break;
-            
+
         case kFilterCutoffHarmonic:
             outValue = cutoffMultiple;
             break;
-            
+
         case kFilterCutoffEgStrength:
             outValue = cutoffEgStrength;
             break;
@@ -728,43 +728,43 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
         case kFilterResonanceDb:
             outValue = -20.0f * log10(resLinear);
             break;
-            
+
         case kAmpEgAttackTimeSeconds:
             outValue = ampEGParams.getAttackTimeSeconds();
             break;
-            
+
         case kAmpEgDecayTimeSeconds:
             outValue = ampEGParams.getDecayTimeSeconds();
             break;
-            
+
         case kAmpEgSustainFraction:
             outValue = ampEGParams.sustainFraction;
             break;
-            
+
         case kAmpEgReleaseTimeSeconds:
             outValue = ampEGParams.getReleaseTimeSeconds();
             break;
-            
+
         case kFilterEgAttackTimeSeconds:
             outValue = filterEGParams.getAttackTimeSeconds();
             break;
-            
+
         case kFilterEgDecayTimeSeconds:
             outValue = filterEGParams.getDecayTimeSeconds();
             break;
-            
+
         case kFilterEgSustainFraction:
             outValue = filterEGParams.sustainFraction;
             break;
-            
+
         case kFilterEgReleaseTimeSeconds:
             outValue = filterEGParams.getReleaseTimeSeconds();
             break;
-            
+
         default:
             return kAudioUnitErr_InvalidParameter;
     }
-    
+
     return noErr;
 }
 
@@ -776,29 +776,29 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
 {
     if (inScope != kAudioUnitScope_Global) return kAudioUnitErr_InvalidScope;
     //printf("SetParameter %d to %f\n", inParameterID, inValue);
-    
+
     switch (inParameterID)
     {
         case kMasterVolumeFraction:
             masterVolume = inValue;
             break;
-            
+
         case kPitchOffsetSemitones:
             pitchOffset = inValue;
             break;
-            
+
         case kVibratoDepthSemitones:
             vibratoDepth = inValue;
             break;
-            
+
         case kFilterEnable:
             filterEnable = (inValue > 0.5f);
             break;
-            
+
         case kFilterCutoffHarmonic:
             cutoffMultiple = inValue;
             break;
-            
+
         case kFilterCutoffEgStrength:
             cutoffEgStrength = inValue;
             break;
@@ -806,7 +806,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
         case kFilterResonanceDb:
             resLinear = pow(10.0, -0.5 * inValue);
             break;
-            
+
         case kAmpEgAttackTimeSeconds:
             ampEGParams.setAttackTimeSeconds(inValue);
             break;
@@ -814,27 +814,27 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
         case kAmpEgDecayTimeSeconds:
             ampEGParams.setDecayTimeSeconds(inValue);
             break;
-            
+
         case kAmpEgSustainFraction:
             ampEGParams.sustainFraction = inValue;
             break;
-            
+
         case kAmpEgReleaseTimeSeconds:
             ampEGParams.setReleaseTimeSeconds(inValue);
             break;
-            
+
         case kFilterEgAttackTimeSeconds:
             filterEGParams.setAttackTimeSeconds(inValue);
             break;
-            
+
         case kFilterEgDecayTimeSeconds:
             filterEGParams.setDecayTimeSeconds(inValue);
             break;
-            
+
         case kFilterEgSustainFraction:
             filterEGParams.sustainFraction = inValue;
             break;
-            
+
         case kFilterEgReleaseTimeSeconds:
             filterEGParams.setReleaseTimeSeconds(inValue);
             break;
@@ -842,7 +842,7 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
         default:
             return kAudioUnitErr_InvalidParameter;
     }
-    
+
     // The base-class method stashes the parameter values so they're accessible to SaveState()
     return AUBase::SetParameter(inParameterID, inScope, inElement, inValue, inBufferOffsetInFrames);
 }
@@ -873,28 +873,28 @@ OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, con
 {
     AUOutputElement* outputBus = GetOutput(0);
     outputBus->PrepareBuffer(nFrames); // prepare the output buffer list
-    
+
     AudioBufferList& outputBufList = outputBus->GetBufferList();
     AUBufferList::ZeroBuffer(outputBufList);
-    
+
     float* outBuffers[2];
     outBuffers[0] = (float*)(outputBufList.mBuffers[0].mData);
     outBuffers[1] = (float*)(outputBufList.mBuffers[1].mData);
-    
+
     // process in chunks of maximum length CHUNKSIZE
     for (int frameIndex = 0; frameIndex < nFrames; frameIndex += CHUNKSIZE) {
         int chunkSize = nFrames - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
-        
+
         // Any ramping parameters would be updated here...
-        
+
         unsigned channelCount = outputBufList.mNumberBuffers;
         AudioKitCore::Sampler::Render(channelCount, chunkSize, outBuffers);
-        
+
         outBuffers[0] += CHUNKSIZE;
         outBuffers[1] += CHUNKSIZE;
     }
-    
+
     return noErr;
 }
 

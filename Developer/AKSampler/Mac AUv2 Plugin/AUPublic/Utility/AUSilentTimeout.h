@@ -26,7 +26,7 @@ public:
 				mTimeoutCounter = inTimeoutLimit;
 				mResetTimer = false;
 			}
-			
+
 			if(mTimeoutCounter > 0 )
 			{
 				mTimeoutCounter -= inFramesToProcess;
@@ -36,7 +36,7 @@ public:
 		else
 		{
 			// signal to reset the next time we receive silence
-			mResetTimer = true;	
+			mResetTimer = true;
 		}
 	}
 

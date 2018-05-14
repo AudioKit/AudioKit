@@ -85,7 +85,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
             if distortion == newValue {
@@ -130,7 +130,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
     ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     @objc public init(

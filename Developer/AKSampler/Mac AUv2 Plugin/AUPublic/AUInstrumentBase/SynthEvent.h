@@ -38,7 +38,7 @@ public:
 	SynthEvent() {}
 	~SynthEvent() {}
 
-	void Set(   
+	void Set(
 				UInt32							inEventType,
 				MusicDeviceGroupID				inGroupID,
 				NoteInstanceID					inNoteID,
@@ -50,20 +50,20 @@ public:
 		mGroupID = inGroupID;
 		mNoteID = inNoteID;
 		mOffsetSampleFrame = inOffsetSampleFrame;
-		
+
 		if (inNoteParams)
 		{
-			UInt32 paramSize = offsetof(MusicDeviceNoteParams, mControls) + (inNoteParams->argCount-2)*sizeof(NoteParamsControlValue); 
-			mNoteParams = inNoteParams->argCount > 3 
-								? (MusicDeviceNoteParams*)malloc(paramSize) 
+			UInt32 paramSize = offsetof(MusicDeviceNoteParams, mControls) + (inNoteParams->argCount-2)*sizeof(NoteParamsControlValue);
+			mNoteParams = inNoteParams->argCount > 3
+								? (MusicDeviceNoteParams*)malloc(paramSize)
 								: &mSmallNoteParams;
 			memcpy(mNoteParams, inNoteParams, paramSize);
 		}
-		else 
+		else
 			mNoteParams = NULL;
 	}
-	
-	
+
+
 	void Free()
 	{
 		if (mNoteParams)
@@ -73,27 +73,27 @@ public:
 			mNoteParams = NULL;
 		}
 	}
-	
+
 	UInt32					GetEventType() const { return mEventType; }
 	MusicDeviceGroupID		GetGroupID() const { return mGroupID; }
 	NoteInstanceID			GetNoteID() const { return mNoteID; }
 	UInt32					GetOffsetSampleFrame() const { return mOffsetSampleFrame; }
-	
+
 	MusicDeviceNoteParams*  GetParams() const { return mNoteParams; }
 
 	UInt32					GetArgCount() const { return mNoteParams->argCount; }
 	UInt32					NumberParameters() const { return mNoteParams->argCount - 2; }
-	
+
 	Float32					GetNote() const { return mNoteParams->mPitch; }
 	Float32					GetVelocity() const { return mNoteParams->mVelocity; }
-	
-	NoteParamsControlValue  GetParameter(UInt32 inIndex) const 
+
+	NoteParamsControlValue  GetParameter(UInt32 inIndex) const
 							{
-								if (inIndex >= NumberParameters()) 
+								if (inIndex >= NumberParameters())
 									throw std::runtime_error("index out of range");
-								return mNoteParams->mControls[inIndex]; 
+								return mNoteParams->mControls[inIndex];
 							}
-	
+
 private:
 	UInt32					mEventType;
 	MusicDeviceGroupID		mGroupID;

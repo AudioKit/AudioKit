@@ -38,8 +38,8 @@ void	AUInputElement::SetConnection(const AudioUnitConnection &conn)
 	if (conn.sourceAudioUnit == 0) {
 		Disconnect();
 		return;
-	}	
-	
+	}
+
 	mInputType = kFromConnection;
 	mConnection = conn;
 	AllocateBuffer();
@@ -98,16 +98,16 @@ OSStatus		AUInputElement::PullInput(	AudioUnitRenderActionFlags &  	ioActionFlag
 											const AudioTimeStamp &			inTimeStamp,
 											AudioUnitElement				inElement,
 											UInt32							nFrames)
-{	
+{
 	if (!IsActive())
 		return kAudioUnitErr_NoConnection;
-		
+
 	AudioBufferList *pullBuffer;
-	
+
 	if (HasConnection() || !WillAllocateBuffer())
 		pullBuffer = &mIOBuffer.PrepareNullBuffer(mStreamFormat, nFrames);
 	else
 		pullBuffer = &mIOBuffer.PrepareBuffer(mStreamFormat, nFrames);
-	
+
 	return PullInputWithBufferList (ioActionFlags, inTimeStamp, inElement, nFrames, pullBuffer);
 }

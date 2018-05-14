@@ -9,7 +9,7 @@ class AKFlanger_Plugin : public AUEffectBase, public AudioKitCore::ModulatedDela
 public:
 	AKFlanger_Plugin(AudioUnit inComponentInstance);
 	virtual	~AKFlanger_Plugin();
-				
+
 	virtual OSStatus Initialize();
 	virtual void Cleanup();
 	virtual OSStatus Version() { return kAKFlangerVersion; }
@@ -19,18 +19,18 @@ public:
                                         AudioUnitElement            inElement,
                                         UInt32 &                    outDataSize,
                                         Boolean &                   outWritable );
-    
+
     virtual OSStatus GetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         void *                      outData);
-    
+
     virtual OSStatus SetProperty(       AudioUnitPropertyID         inPropertyID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         const void *                inData,
                                         UInt32                      inDataSize);
-    
+
 	virtual OSStatus GetParameterInfo(  AudioUnitScope              inScope,
                                         AudioUnitParameterID        inParameterID,
                                         AudioUnitParameterInfo &    outParameterInfo);
@@ -39,7 +39,7 @@ public:
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,
                                         AudioUnitParameterValue &   outValue);
-    
+
     virtual OSStatus SetParameter(      AudioUnitParameterID        inParameterID,
                                         AudioUnitScope              inScope,
                                         AudioUnitElement            inElement,

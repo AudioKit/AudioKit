@@ -50,7 +50,7 @@ void	CAHostTimeBase::Initialize()
 		sFrequency = static_cast<Float64>(*((UInt64*)&theFrequency));
 	#endif
 	sInverseFrequency = 1.0 / sFrequency;
-	
+
 	#if	Log_Host_Time_Base_Parameters
 		DebugPrintf("Host Time Base Parameters");
 		DebugPrintf(" Minimum Delta:          %lu", (unsigned long)sMinDelta);

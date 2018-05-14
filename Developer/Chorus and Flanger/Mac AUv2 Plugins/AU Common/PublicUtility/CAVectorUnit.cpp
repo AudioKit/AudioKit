@@ -63,17 +63,17 @@ static bool IsCpuidAvailable()
 {
 	SInt32 return_value = 0x0;
 	_asm{
-		pushfd    ;			//push original EFLAGS 
-		pop eax   ;			//get original EFLAGS 
-		mov ecx, eax   ;	//save original EFLAGS 
-		xor eax, 200000h  ; //flip ID bit in EFLAGS 
-		push eax   ;		//save new EFLAGS value on stack 
-		popfd    ;			//replace current EFLAGS value 
-		pushfd    ;			//get new EFLAGS 
-		pop eax   ;			//store new EFLAGS in EAX 
-		xor eax, ecx   ;	 
+		pushfd    ;			//push original EFLAGS
+		pop eax   ;			//get original EFLAGS
+		mov ecx, eax   ;	//save original EFLAGS
+		xor eax, 200000h  ; //flip ID bit in EFLAGS
+		push eax   ;		//save new EFLAGS value on stack
+		popfd    ;			//replace current EFLAGS value
+		pushfd    ;			//get new EFLAGS
+		pop eax   ;			//store new EFLAGS in EAX
+		xor eax, ecx   ;
 		je end_cpuid_identify  ; //can't toggle ID bit
-		mov return_value, 0x1;	
+		mov return_value, 0x1;
 end_cpuid_identify:
 		nop;
 		}
@@ -85,9 +85,9 @@ end_cpuid_identify:
 SInt32	CAVectorUnit_Examine()
 {
 	int result = kVecNone;
-	
+
 #if TARGET_OS_WIN32
-#if HAS_IPP	
+#if HAS_IPP
 	// Initialize the static IPP library! This needs to be done before
 	// any IPP function calls, otherwise we may have a performance penalty
 	int status = ippStaticInit();
@@ -118,7 +118,7 @@ SInt32	CAVectorUnit_Examine()
 	if (getenv("CA_NoVector")) {
 		fprintf(stderr, "CA_NoVector set; Vector unit optimized routines will be bypassed\n");
 		return result;
-	} 
+	}
 	else
 #endif
 	{

@@ -34,12 +34,12 @@ char *CAStringForOSType (OSType t, char *writeLocation, size_t bufsize)
             q++;
 		}
         q = u.str;
-		
+
 		if (hasNonPrint)
 			p += snprintf (p, pend - p, "0x");
 		else if (p < pend)
 			*p++ = '\'';
-			
+
 		for (int i = 0; i < 4 && p < pend; ++i) {
 			if (hasNonPrint) {
 				p += snprintf(p, pend - p, "%02X", *q++);
@@ -58,11 +58,11 @@ char *CAStringForOSType (OSType t, char *writeLocation, size_t bufsize)
 
 const AudioStreamBasicDescription	CAStreamBasicDescription::sEmpty = { 0.0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-CAStreamBasicDescription::CAStreamBasicDescription() 
-{ 
-	memset (this, 0, sizeof(AudioStreamBasicDescription)); 
+CAStreamBasicDescription::CAStreamBasicDescription()
+{
+	memset (this, 0, sizeof(AudioStreamBasicDescription));
 }
-	
+
 CAStreamBasicDescription::CAStreamBasicDescription(const AudioStreamBasicDescription &desc)
 {
 	SetFrom(desc);
@@ -130,15 +130,15 @@ char *CAStreamBasicDescription::AsString(char *buf, size_t _bufsize, bool brief 
 			return theBuffer;
 		}
 	}
-	
+
 	nc = snprintf(buf, static_cast<size_t>(bufsize), "%2d ch, %6.0f Hz, %s (0x%08X) ", (int)NumberChannels(), mSampleRate, formatID, (int)mFormatFlags);
 	buf += nc; if ((bufsize -= nc) <= 0) goto exit;
 	if (mFormatID == kAudioFormatLinearPCM) {
 		bool isInt = !(mFormatFlags & kLinearPCMFormatFlagIsFloat);
 		int wordSize = static_cast<int>(SampleWordSize());
-		const char *endian = (wordSize > 1) ? 
+		const char *endian = (wordSize > 1) ?
 			((mFormatFlags & kLinearPCMFormatFlagIsBigEndian) ? " big-endian" : " little-endian" ) : "";
-		const char *sign = isInt ? 
+		const char *sign = isInt ?
 			((mFormatFlags & kLinearPCMFormatFlagIsSignedInteger) ? " signed" : " unsigned") : "";
 		const char *floatInt = isInt ? "integer" : "float";
 		char packed[32];
@@ -160,9 +160,9 @@ char *CAStreamBasicDescription::AsString(char *buf, size_t _bufsize, bool brief 
 			snprintf(bitdepth, sizeof(bitdepth), "%d.%d", (int)mBitsPerChannel - fracbits, fracbits);
 		else
 			snprintf(bitdepth, sizeof(bitdepth), "%d", (int)mBitsPerChannel);
-		
+
 		/*nc =*/ snprintf(buf, static_cast<size_t>(bufsize), "%s-bit%s%s %s%s%s%s%s",
-			bitdepth, endian, sign, floatInt, 
+			bitdepth, endian, sign, floatInt,
 			commaSpace, packed, align, deinter);
 		// buf += nc; if ((bufsize -= nc) <= 0) goto exit;
 	} else if (mFormatID == kAudioFormatAppleLossless) {
@@ -191,7 +191,7 @@ char *CAStreamBasicDescription::AsString(char *buf, size_t _bufsize, bool brief 
 		//	buf += nc; if ((bufsize -= nc) <= 0) goto exit;
 	}
 	else
-		/*nc =*/ snprintf(buf, static_cast<size_t>(bufsize), "%d bits/channel, %d bytes/packet, %d frames/packet, %d bytes/frame", 
+		/*nc =*/ snprintf(buf, static_cast<size_t>(bufsize), "%d bits/channel, %d bytes/packet, %d frames/packet, %d bytes/frame",
 			(int)mBitsPerChannel, (int)mBytesPerPacket, (int)mFramesPerPacket, (int)mBytesPerFrame);
 exit:
 	return theBuffer;
@@ -333,7 +333,7 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 		outName += theCharactersWritten;
 		inMaxNameLength -= static_cast<UInt32>(theCharactersWritten);
 	}
-	
+
 	switch(inDescription.mFormatID)
 	{
 		case kAudioFormatLinearPCM:
@@ -351,7 +351,7 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 						theEndianString = "Little Endian";
 					#endif
 				}
-				
+
 				const char* theKindString = NULL;
 				if((inDescription.mFormatFlags & kAudioFormatFlagIsFloat) != 0)
 				{
@@ -365,7 +365,7 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 				{
 					theKindString = (inAbbreviate ? "UInt" : "Unsigned Integer");
 				}
-				
+
 				const char* thePackingString = NULL;
 				if((inDescription.mFormatFlags & kAudioFormatFlagIsPacked) == 0)
 				{
@@ -378,7 +378,7 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 						thePackingString = "Low";
 					}
 				}
-				
+
 				const char* theMixabilityString = NULL;
 				if((inDescription.mFormatFlags & kIsNonMixableFlag) == 0)
 				{
@@ -388,7 +388,7 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 				{
 					theMixabilityString = "Unmixable";
 				}
-				
+
 				if(inAbbreviate)
 				{
 					if(theEndianString != NULL)
@@ -441,15 +441,15 @@ void	CAStreamBasicDescription::GetSimpleName(const AudioStreamBasicDescription& 
 				}
 			}
 			break;
-		
+
 		case kAudioFormatAC3:
 			strlcpy(outName, "AC-3", sizeof(outName));
 			break;
-		
+
 		case kAudioFormat60958AC3:
 			strlcpy(outName, "AC-3 for SPDIF", sizeof(outName));
 			break;
-		
+
 		default:
 			CACopy4CCToCString(outName, inDescription.mFormatID);
 			break;
@@ -476,9 +476,9 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 {
 	bool theAnswer = false;
 	bool isDone = false;
-	
+
 	//	note that if either side is 0, that field is skipped
-	
+
 	//	format ID is the first order sort
 	if((!isDone) && ((x.mFormatID != 0) && (y.mFormatID != 0)))
 	{
@@ -501,8 +501,8 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			isDone = true;
 		}
 	}
-	
-	
+
+
 	//  mixable is always better than non-mixable for linear PCM and should be the second order sort item
 	if((!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)))
 	{
@@ -517,7 +517,7 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			isDone = true;
 		}
 	}
-	
+
 	//	floating point vs integer for linear PCM only
 	if((!isDone) && ((x.mFormatID == kAudioFormatLinearPCM) && (y.mFormatID == kAudioFormatLinearPCM)))
 	{
@@ -528,7 +528,7 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			isDone = true;
 		}
 	}
-	
+
 	//	bit depth
 	if((!isDone) && ((x.mBitsPerChannel != 0) && (y.mBitsPerChannel != 0)))
 	{
@@ -539,7 +539,7 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			isDone = true;
 		}
 	}
-	
+
 	//	sample rate
 	if((!isDone) && fnonzero(x.mSampleRate) && fnonzero(y.mSampleRate))
 	{
@@ -550,7 +550,7 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			isDone = true;
 		}
 	}
-	
+
 	//	number of channels
 	if((!isDone) && ((x.mChannelsPerFrame != 0) && (y.mChannelsPerFrame != 0)))
 	{
@@ -561,7 +561,7 @@ bool	operator<(const AudioStreamBasicDescription& x, const AudioStreamBasicDescr
 			//isDone = true;
 		}
 	}
-	
+
 	return theAnswer;
 }
 
@@ -573,11 +573,11 @@ UInt32 CAStreamBasicDescription::GetRegularizedFormatFlags(bool forHardware) con
 		// First, if there are bits other than AllClear set, clear it because it's lying.
 		if (result & ~kAudioFormatFlagsAreAllClear)
 			result &= ~kAudioFormatFlagsAreAllClear;
-	
+
 		// If not forHardware, remove the mixability flag.
 		if (!forHardware)
 			result &= ~kLinearPCMFormatFlagIsNonMixable;
-		
+
 		// If the format has no extra bits, then it is packed.
 		if (!PackednessIsSignificant())
 			result |= kLinearPCMFormatFlagIsPacked;
@@ -589,15 +589,15 @@ UInt32 CAStreamBasicDescription::GetRegularizedFormatFlags(bool forHardware) con
 		// Remove the signed integer bit if it's float
 		if (result & kLinearPCMFormatFlagIsFloat)
 			result &= ~kLinearPCMFormatFlagIsSignedInteger;
-		
+
 		// If the bit depth is 8 bits or less and the format is packed, we don't care about endianness
 		if (mBitsPerChannel <= 8 && (result & kLinearPCMFormatFlagIsPacked))
 			result &= kAudioFormatFlagIsBigEndian;
-		
+
 		// If there is 1 channel, we don't care about non-interleavedness.
 		if (mChannelsPerFrame == 1)
 			result &= ~kLinearPCMFormatFlagIsNonInterleaved;
-		
+
 		// Finally, if the bits really are all 0, set the AllClear flag.
 		if (result == 0)
 			result = kAudioFormatFlagsAreAllClear;
@@ -620,12 +620,12 @@ bool CAStreamBasicDescription::EquivalentFormatFlags(const AudioStreamBasicDescr
 
 	if (x.mFormatID != kAudioFormatLinearPCM) // we already know the formatID's match and have taken wildcards out of the picture.
 		return x.mFormatFlags == y.mFormatFlags;
-	
+
 	// It is safe to down-cast from AudioStreamBasicDescription to its C++ wrapper.
 	// The cast could be avoided with a copy, but here, efficiency matters.
 	const CAStreamBasicDescription &a = *static_cast<const CAStreamBasicDescription *>(&x);
 	const CAStreamBasicDescription &b = *static_cast<const CAStreamBasicDescription *>(&y);
-	
+
 	return a.GetRegularizedFormatFlags(forHardware) == b.GetRegularizedFormatFlags(forHardware);
 }
 
@@ -645,22 +645,22 @@ bool	CAStreamBasicDescription::IsEquivalent(const AudioStreamBasicDescription &x
 		return
 			//	check the sample rate
 			(fiszero(x.mSampleRate) || fiszero(y.mSampleRate) || fequal(x.mSampleRate, y.mSampleRate))
-			
+
 			//	check the format ids
 			&& MATCH_WITH_WILDCARD(mFormatID)
-				
+
 			//	check the bytes per packet
 			&& MATCH_WITH_WILDCARD(mBytesPerPacket)
-			
+
 			//	check the frames per packet
 			&& MATCH_WITH_WILDCARD(mFramesPerPacket)
-			
+
 			//	check the bytes per frame
 			&& MATCH_WITH_WILDCARD(mBytesPerFrame)
-			
+
 			//	check the channels per frame
 			&& MATCH_WITH_WILDCARD(mChannelsPerFrame)
-			
+
 			//	check the bits per channel
 			&& MATCH_WITH_WILDCARD(mBitsPerChannel)
 
@@ -702,9 +702,9 @@ bool SanityCheck(const AudioStreamBasicDescription& x)
 	// This function returns false if there are sufficiently insane values in any field.
 	// It is very conservative so even some very unlikely values will pass.
 	// This is just meant to catch the case where the data from a file is corrupted.
-	
-	return 
-		(x.mSampleRate >= 0.)	
+
+	return
+		(x.mSampleRate >= 0.)
 		&& (x.mSampleRate < 3e6)	// SACD sample rate is 2.8224 MHz
 		&& (x.mBytesPerPacket < 1000000)
 		&& (x.mFramesPerPacket < 1000000)
@@ -719,7 +719,7 @@ bool SanityCheck(const AudioStreamBasicDescription& x)
 bool CAStreamBasicDescription::FromText(const char *inTextDesc, AudioStreamBasicDescription &fmt)
 {
 	const char *p = inTextDesc;
-	
+
 	memset(&fmt, 0, sizeof(fmt));
 
 	bool isPCM = true;	// until proven otherwise
@@ -772,18 +772,18 @@ bool CAStreamBasicDescription::FromText(const char *inTextDesc, AudioStreamBasic
 					p += 2;
 				}
 			}
-			
+
 			if (strchr("-@/#", buf[3])) {
 				// further special-casing for 'aac'
 				buf[3] = ' ';
 				--p;
 			}
-			
+
 			memcpy(&fmt.mFormatID, buf, 4);
 			fmt.mFormatID = CFSwapInt32BigToHost(fmt.mFormatID);
 		}
 	}
-	
+
 	if (isPCM) {
 		fmt.mFormatID = kAudioFormatLinearPCM;
 		fmt.mFormatFlags = pcmFlags;
@@ -882,6 +882,6 @@ Bail:
 	return false;
 }
 
-const char *CAStreamBasicDescription::sTextParsingUsageString = 
+const char *CAStreamBasicDescription::sTextParsingUsageString =
 	"format[@sample_rate_hz][/format_flags][#frames_per_packet][:LHbytesPerFrame][,channelsDI].\n"
 	"Format for PCM is [-][BE|LE]{F|I|UI}{bitdepth}; else a 4-char format code (e.g. aac, alac).\n";

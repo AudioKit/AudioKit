@@ -37,7 +37,7 @@ public typealias AKCallback = () -> Void
     internal static var notificationObservers: [Any] = []
 
     // MARK: - Device Management
-    
+
     /// An audio output operation that most applications will need to use last
     @objc open static var output: AKNode? {
         didSet {

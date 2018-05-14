@@ -20,22 +20,22 @@ public:
 		mItems = new ITEM[inMaxSize];
 		mMask = inMaxSize - 1;
 	}
-	
+
 	~LockFreeFIFOWithFree()
 	{
 		delete [] mItems;
 	}
 
-	
-	void Reset() 
+
+	void Reset()
 	{
 		FreeItems();
 		mReadIndex = 0;
 		mWriteIndex = 0;
 		mFreeIndex = 0;
 	}
-	
-	ITEM* WriteItem() 
+
+	ITEM* WriteItem()
 	{
 		//printf("WriteItem %d %d\n", mReadIndex, mWriteIndex);
 		FreeItems(); // free items on the write thread.
@@ -43,8 +43,8 @@ public:
 		if (nextWriteIndex == mFreeIndex) return NULL;
 		return &mItems[mWriteIndex];
 	}
-	
-	ITEM* ReadItem() 
+
+	ITEM* ReadItem()
 	{
 		//printf("ReadItem %d %d\n", mReadIndex, mWriteIndex);
 		if (mReadIndex == mWriteIndex) return NULL;
@@ -53,14 +53,14 @@ public:
 	void AdvanceWritePtr() { OSAtomicCompareAndSwap32(mWriteIndex, (mWriteIndex + 1) & mMask, &mWriteIndex); }
 	void AdvanceReadPtr()  { OSAtomicCompareAndSwap32(mReadIndex,  (mReadIndex  + 1) & mMask, &mReadIndex); }
 private:
-	ITEM* FreeItem() 
+	ITEM* FreeItem()
 	{
 		if (mFreeIndex == mReadIndex) return NULL;
 		return &mItems[mFreeIndex];
 	}
 	void AdvanceFreePtr() { OSAtomicCompareAndSwap32(mFreeIndex, (mFreeIndex + 1) & mMask, &mFreeIndex); }
-	
-	void FreeItems() 
+
+	void FreeItems()
 	{
 		ITEM* item;
 		while ((item = FreeItem()) != NULL)
@@ -69,7 +69,7 @@ private:
 			AdvanceFreePtr();
 		}
 	}
-	
+
 	volatile int32_t mReadIndex, mWriteIndex, mFreeIndex;
 	int32_t mMask;
 	ITEM *mItems;
@@ -91,38 +91,38 @@ public:
 		mItems = new ITEM[inMaxSize];
 		mMask = inMaxSize - 1;
 	}
-	
+
 	~LockFreeFIFO()
 	{
 		delete [] mItems;
 	}
-	
-	void Reset() 
+
+	void Reset()
 	{
 		mReadIndex = 0;
 		mWriteIndex = 0;
 	}
-	
-	ITEM* WriteItem() 
+
+	ITEM* WriteItem()
 	{
 		int32_t nextWriteIndex = (mWriteIndex + 1) & mMask;
 		if (nextWriteIndex == mReadIndex) return NULL;
 		return &mItems[mWriteIndex];
 	}
-	
-	ITEM* ReadItem() 
+
+	ITEM* ReadItem()
 	{
 		if (mReadIndex == mWriteIndex) return NULL;
 		return &mItems[mReadIndex];
 	}
-	
+
 		// the CompareAndSwap will always succeed. We use CompareAndSwap because it calls the PowerPC sync instruction,
 		// plus any processor bug workarounds for various CPUs.
 	void AdvanceWritePtr() { OSAtomicCompareAndSwap32(mWriteIndex, (mWriteIndex + 1) & mMask, &mWriteIndex); }
 	void AdvanceReadPtr()  { OSAtomicCompareAndSwap32(mReadIndex,  (mReadIndex  + 1) & mMask, &mReadIndex); }
-	
+
 private:
-	
+
 	volatile int32_t mReadIndex, mWriteIndex;
 	int32_t mMask;
 	ITEM *mItems;

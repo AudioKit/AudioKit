@@ -46,7 +46,7 @@ enum SynthNoteState {
         end of note             any state                                       free
 		soft voice stealing     any state                                       fast released
 		hard voice stealing     any state                                       free
-		
+
 		soft voice stealing happens when there is a note on event and NumActiveNotes > MaxActiveNotes
 		hard voice stealing happens when there is a note on event and NumActiveNotes == NumNotes (no free notes)
 		voice stealing removes the quietest note in the highest numbered state that has sounding notes.
@@ -70,20 +70,20 @@ struct SynthNote
 		mVelocity(0.0f)
 	{
 	}
-	
+
 	virtual					~SynthNote() {}
-	
+
 	virtual void			Reset();
 	//! Returns true if active note resulted from this call, otherwise false
 	virtual bool			AttackNote(
 									SynthPartElement *				inPart,
 									SynthGroupElement *				inGroup,
-									NoteInstanceID					inNoteID, 
-									UInt64							inAbsoluteSampleFrame, 
-									UInt32							inOffsetSampleFrame, 
+									NoteInstanceID					inNoteID,
+									UInt64							inAbsoluteSampleFrame,
+									UInt32							inOffsetSampleFrame,
 									const MusicDeviceNoteParams		&inParams
 							);
-								
+
 	virtual OSStatus		Render(UInt64 inAbsoluteSampleFrame, UInt32 inNumFrames, AudioBufferList** inBufferList, UInt32 inOutBusCount) = 0;
 	//! Returns true if active note resulted from this call, otherwise false
 	virtual bool			Attack(const MusicDeviceNoteParams &inParams) = 0;
@@ -96,7 +96,7 @@ struct SynthNote
 
 	SynthGroupElement*		GetGroup() const { return mGroup; }
 	SynthPartElement*		GetPart() const { return mPart; }
-	
+
 	AUInstrumentBase*		GetAudioUnit() const;
 
 	Float32					GetGlobalParameter(AudioUnitParameterID inParamID) const;
@@ -105,7 +105,7 @@ struct SynthNote
 	SynthNoteState			GetState() const { return mState; }
 	UInt8					GetMidiKey() const { return (UInt8) mPitch; }
 	UInt8					GetMidiVelocity() const { return (UInt8) mVelocity; }
-	
+
 	Boolean					IsSounding() const { return mState < kNumberOfSoundingNoteStates; }
 	Boolean					IsActive() const { return mState < kNumberOfActiveNoteStates; }
 	UInt64					GetAbsoluteStartFrame() const { return mAbsoluteStartFrame; }
@@ -117,7 +117,7 @@ struct SynthNote
 
 	float					GetPitchBend() const;
 	double					TuningA() const;
-	
+
 	Float32					GetPitch() const { return mPitch; }	// returns raw pitch from MusicDeviceNoteParams
 	virtual double			Frequency(); // returns the frequency of note + pitch bend.
 	virtual double			SampleRate();
@@ -125,7 +125,7 @@ struct SynthNote
 	// linked list pointers
 	SynthNote				*mPrev;
 	SynthNote				*mNext;
-	
+
 	friend class			SynthGroupElement;
 	friend struct			SynthNoteList;
 protected:
@@ -133,14 +133,14 @@ protected:
 private:
 	SynthPartElement*		mPart;
 	SynthGroupElement*	mGroup;
-		
+
 	NoteInstanceID			mNoteID;
 	SynthNoteState			mState;
 	UInt64					mAbsoluteStartFrame;
 	SInt32					mRelativeStartFrame;
 	SInt32					mRelativeReleaseFrame;
 	SInt32					mRelativeKillFrame;
-	
+
 	Float32					mPitch;
 	Float32					mVelocity;
 };

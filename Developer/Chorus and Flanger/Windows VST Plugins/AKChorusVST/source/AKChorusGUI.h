@@ -16,7 +16,7 @@ public:
 
     AudioEffect* getEffect () { return effect;}
     bool getRect (ERect** rect) { *rect = &myRect; return true;}
-   
+
     void idle () {}
 
     bool isOpen () { return systemWindow != 0; }

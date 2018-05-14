@@ -34,15 +34,15 @@ class ParameterMapEvent
 {
 public:
 /*! @ctor ParameterMapEvent */
-	ParameterMapEvent() 
-		: mEventType(kParameterEvent_Immediate), mBufferOffset(0), mDurationInFrames(0), mValue1(0.0f), mValue2(0.0f), mSliceDurationFrames(0) 
+	ParameterMapEvent()
+		: mEventType(kParameterEvent_Immediate), mBufferOffset(0), mDurationInFrames(0), mValue1(0.0f), mValue2(0.0f), mSliceDurationFrames(0)
 		{}
 
 /*! @ctor ParameterMapEvent */
 	ParameterMapEvent(AudioUnitParameterValue inValue)
-		: mEventType(kParameterEvent_Immediate), mBufferOffset(0), mDurationInFrames(0), mValue1(inValue), mValue2(inValue), mSliceDurationFrames(0) 
+		: mEventType(kParameterEvent_Immediate), mBufferOffset(0), mDurationInFrames(0), mValue1(inValue), mValue2(inValue), mSliceDurationFrames(0)
 		{}
-		
+
 	// constructor for scheduled event
 /*! @ctor ParameterMapEvent */
 	ParameterMapEvent(	const AudioUnitParameterEvent 	&inEvent,
@@ -51,7 +51,7 @@ public:
 	{
 		SetScheduledEvent(inEvent, inSliceOffsetInBuffer, inSliceDurationFrames );
 	};
-	
+
 /*! @method SetScheduledEvent */
 	void SetScheduledEvent(	const AudioUnitParameterEvent 	&inEvent,
 							UInt32 							inSliceOffsetInBuffer,
@@ -59,7 +59,7 @@ public:
 	{
 		mEventType = inEvent.eventType;
 		mSliceDurationFrames = inSliceDurationFrames;
-		
+
 		if(mEventType == kParameterEvent_Immediate )
 		{
 			// constant immediate value for the whole slice
@@ -76,9 +76,9 @@ public:
 			mValue2 			= 	inEvent.eventValues.ramp.endValue;
 		}
 	};
-	
-	
-	
+
+
+
 /*! @method GetEventType */
 	AUParameterEventType		GetEventType() const {return mEventType;};
 
@@ -87,13 +87,13 @@ public:
 /*! @method GetEndValue */
 	AudioUnitParameterValue		GetEndValue() const {return mValue2;};	// only valid if immediate event type
 /*! @method SetValue */
-	void						SetValue(AudioUnitParameterValue inValue) 
+	void						SetValue(AudioUnitParameterValue inValue)
 								{
-									mEventType = kParameterEvent_Immediate; 
-									mValue1 = inValue; 
+									mEventType = kParameterEvent_Immediate;
+									mValue1 = inValue;
 									mValue2 = inValue;
 								}
-	
+
 	// interpolates the start and end values corresponding to the current processing slice
 	// most ramp parameter implementations will want to use this method
 	// the start value will correspond to the start of the slice
@@ -105,7 +105,7 @@ public:
 	{
 		if (mEventType == kParameterEvent_Ramped) {
 			outValuePerFrameDelta = (mValue2 - mValue1) / mDurationInFrames;
-		
+
 			outStartValue = mValue1 + outValuePerFrameDelta * (-mBufferOffset);	// corresponds to frame 0 of this slice
 			outEndValue = outStartValue +  outValuePerFrameDelta * mSliceDurationFrames;
 		} else {
@@ -143,15 +143,15 @@ public:
 	}
 #endif
 
-private:	
+private:
 	AUParameterEventType		mEventType;
-	
+
 	SInt32						mBufferOffset;		// ramp start offset relative to start of this slice (may be negative)
 	UInt32						mDurationInFrames;	// total duration of ramp parameter
 	AudioUnitParameterValue     mValue1;				// value if immediate : startValue if ramp
 	AudioUnitParameterValue		mValue2;				// endValue (only used for ramp)
-	
-	UInt32					mSliceDurationFrames;	// duration of this processing slice 
+
+	UInt32					mSliceDurationFrames;	// duration of this processing slice
 };
 
 
@@ -166,10 +166,10 @@ public:
 /*! @ctor AUElement */
 								AUElement(AUBase *audioUnit) : mAudioUnit(audioUnit),
 									mUseIndexedParameters(false), mElementName(0) { }
-	
+
 /*! @dtor ~AUElement */
 	virtual						~AUElement() { if (mElementName) CFRelease (mElementName); }
-	
+
 /*! @method GetNumberOfParameters */
 	virtual UInt32				GetNumberOfParameters()
 	{
@@ -179,12 +179,12 @@ public:
 	virtual void				GetParameterList(AudioUnitParameterID *outList);
 /*! @method HasParameterID */
 	bool						HasParameterID (AudioUnitParameterID paramID) const;
-	
+
 /*! @method GetParameter */
 	AudioUnitParameterValue		GetParameter(AudioUnitParameterID paramID);
 /*! @method SetParameter */
 	void						SetParameter(AudioUnitParameterID paramID, AudioUnitParameterValue value, bool okWhenInitialized = false);
-	// Only set okWhenInitialized to true when you know the outside world cannot access this element. Otherwise the parameter map could get corrupted. 
+	// Only set okWhenInitialized to true when you know the outside world cannot access this element. Otherwise the parameter map could get corrupted.
 
 	// interpolates the start and end values corresponding to the current processing slice
 	// most ramp parameter implementations will want to use this method
@@ -193,7 +193,7 @@ public:
 													AudioUnitParameterValue &	outStartValue,
 													AudioUnitParameterValue &	outEndValue,
 													AudioUnitParameterValue &	outValuePerFrameDelta );
-													
+
 /*! @method GetEndValue */
 	AudioUnitParameterValue		GetEndValue(	AudioUnitParameterID		paramID);
 
@@ -203,7 +203,7 @@ public:
 													UInt32 							inSliceOffsetInBuffer,
 													UInt32							inSliceDurationFrames,
 													bool							okWhenInitialized = false );
-	// Only set okWhenInitialized to true when you know the outside world cannot access this element. Otherwise the parameter map could get corrupted. 
+	// Only set okWhenInitialized to true when you know the outside world cannot access this element. Otherwise the parameter map could get corrupted.
 
 
 /*! @method GetAudioUnit */
@@ -224,10 +224,10 @@ public:
 
 /*! @method AsIOElement*/
 	virtual AUIOElement*		AsIOElement () { return NULL; }
-	
+
 protected:
 	inline ParameterMapEvent&	GetParamEvent(AudioUnitParameterID paramID);
-	
+
 private:
 	typedef std::map<AudioUnitParameterID, ParameterMapEvent, std::less<AudioUnitParameterID> > ParameterMap;
 
@@ -240,7 +240,7 @@ private:
 	bool							mUseIndexedParameters;
 /*! @var mIndexedParameters */
 	std::vector<ParameterMapEvent>	mIndexedParameters;
-	
+
 /*! @var mElementName */
 	CFStringRef						mElementName;
 };
@@ -257,7 +257,7 @@ public:
 
 /*! @method GetStreamFormat */
 	const CAStreamBasicDescription &GetStreamFormat() const { return mStreamFormat; }
-	
+
 /*! @method SetStreamFormat */
 	virtual OSStatus			SetStreamFormat(const CAStreamBasicDescription &desc);
 
@@ -269,14 +269,14 @@ public:
 	virtual bool				NeedsBufferSpace() const = 0;
 
 /*! @method SetWillAllocateBuffer */
-	void						SetWillAllocateBuffer(bool inFlag) { 
-									mWillAllocate = inFlag; 
+	void						SetWillAllocateBuffer(bool inFlag) {
+									mWillAllocate = inFlag;
 								}
 /*! @method WillAllocateBuffer */
-	bool						WillAllocateBuffer() const { 
-									return mWillAllocate; 
+	bool						WillAllocateBuffer() const {
+									return mWillAllocate;
 								}
-	
+
 /*! @method UseExternalBuffer */
 	void						UseExternalBuffer(const AudioUnitExternalBuffer &buf) {
 									mIOBuffer.UseExternalBuffer(mStreamFormat, buf);
@@ -358,7 +358,7 @@ public:
 
 /*! @method SetAudioChannelLayout */
 	virtual OSStatus			SetAudioChannelLayout (const AudioChannelLayout &inData);
-		
+
 /*! @method RemoveAudioChannelLayout */
 	virtual OSStatus			RemoveAudioChannelLayout ();
 
@@ -382,32 +382,32 @@ protected:
 class AUScopeDelegate {
 public:
 /*! @ctor AUScopeDelegate */
-					AUScopeDelegate() : mCreator(NULL), mScope(0) { }	
+					AUScopeDelegate() : mCreator(NULL), mScope(0) { }
 /*! @dtor ~AUScopeDelegate */
 					virtual ~AUScopeDelegate() {}
-	
+
 /*! @method Initialize */
-	void					Initialize(	AUBase *creator, 
-										AudioUnitScope scope, 
+	void					Initialize(	AUBase *creator,
+										AudioUnitScope scope,
 										UInt32 numElements)
 	{
 		mCreator = creator;
 		mScope = scope;
 		SetNumberOfElements(numElements);
 	}
-	
+
 /*! @method SetNumberOfElements */
 	virtual void			SetNumberOfElements(UInt32 numElements) = 0;
-	
+
 /*! @method GetNumberOfElements */
 	virtual UInt32			GetNumberOfElements()	 = 0;
-	
+
 /*! @method GetElement */
 	virtual AUElement *		GetElement(UInt32 elementIndex) = 0;
-	
+
 	AUBase *			GetCreator() const { return mCreator; }
 	AudioUnitScope		GetScope() const { return mScope; }
-	
+
 
 private:
 /*! @var mCreator */
@@ -424,13 +424,13 @@ private:
 class AUScope {
 public:
 /*! @ctor AUScope */
-					AUScope() : mCreator(NULL), mScope(0), mDelegate(0) { }	
+					AUScope() : mCreator(NULL), mScope(0), mDelegate(0) { }
 /*! @dtor ~AUScope */
 					~AUScope();
-	
+
 /*! @method Initialize */
-	void			Initialize(AUBase *creator, 
-								AudioUnitScope scope, 
+	void			Initialize(AUBase *creator,
+								AudioUnitScope scope,
 								UInt32 numElements)
 	{
 		mCreator = creator;
@@ -438,22 +438,22 @@ public:
 
 		if (mDelegate)
 			return mDelegate->Initialize(creator, scope, numElements);
-			
+
 		SetNumberOfElements(numElements);
 	}
-	
+
 /*! @method SetNumberOfElements */
 	void			SetNumberOfElements(UInt32 numElements);
-	
+
 /*! @method GetNumberOfElements */
-	UInt32			GetNumberOfElements()	const	
+	UInt32			GetNumberOfElements()	const
 	{
 		if (mDelegate)
 			return mDelegate->GetNumberOfElements();
-			
+
 		return static_cast<UInt32>(mElements.size());
 	}
-	
+
 /*! @method GetElement */
 	AUElement *		GetElement(UInt32 elementIndex) const
 	{
@@ -464,7 +464,7 @@ public:
 			// catch passing -1 in as the elementIndex - causes a wrap around
 		return (i >= mElements.end() || i < mElements.begin()) ? NULL : *i;
 	}
-	
+
 /*! @method SafeGetElement */
 	AUElement *		SafeGetElement(UInt32 elementIndex)
 	{
@@ -473,7 +473,7 @@ public:
 			COMPONENT_THROW(kAudioUnitErr_InvalidElement);
 		return element;
 	}
-	
+
 /*! @method GetIOElement */
 	AUIOElement *	GetIOElement(UInt32 elementIndex) const
 	{
@@ -483,15 +483,15 @@ public:
 			COMPONENT_THROW (kAudioUnitErr_InvalidElement);
 		return ioel;
 	}
-	
+
 /*! @method HasElementWithName */
 	bool			HasElementWithName () const;
-	
+
 /*! @method AddElementNamesToDict */
 	void			AddElementNamesToDict (CFMutableDictionaryRef & inNameDict);
-	
+
 	bool			RestoreElementNames (CFDictionaryRef& inNameDict);
-	
+
 	AudioUnitScope		GetScope() const { return mScope; }
 
 	void SetDelegate(AUScopeDelegate* inDelegate) { mDelegate = inDelegate; }
@@ -501,7 +501,7 @@ public:
 
 /*! @method RestoreState */
     const UInt8 *	RestoreState(const UInt8 *state);
-	
+
 private:
 	typedef std::vector<AUElement *> ElementVector;
 /*! @var mCreator */

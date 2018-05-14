@@ -19,23 +19,23 @@ Part of Core Audio AUBase Classes
 class MusicDeviceBase : public AUBase, public AUMIDIBase {
 public:
 	/*! @ctor MusicDeviceBase */
-								MusicDeviceBase(		AudioComponentInstance			inInstance, 
+								MusicDeviceBase(		AudioComponentInstance			inInstance,
 														UInt32							numInputs,
 														UInt32							numOutputs,
 														UInt32							numGroups = 0);
 
 
-	virtual OSStatus	MIDIEvent(		UInt32 						inStatus, 
-										UInt32 						inData1, 
-										UInt32 						inData2, 
+	virtual OSStatus	MIDIEvent(		UInt32 						inStatus,
+										UInt32 						inData1,
+										UInt32 						inData2,
 										UInt32 						inOffsetSampleFrame)
 	{
 		return AUMIDIBase::MIDIEvent (inStatus, inData1, inData2, inOffsetSampleFrame);
 	}
 
 	/*! @method SysEx */
-	virtual OSStatus	SysEx(			const UInt8 *				inData, 
-										UInt32 						inLength) 
+	virtual OSStatus	SysEx(			const UInt8 *				inData,
+										UInt32 						inLength)
 	{
 		return AUMIDIBase::SysEx (inData, inLength);
 	}
@@ -52,7 +52,7 @@ public:
 												AudioUnitScope 				inScope,
 												AudioUnitElement		 	inElement,
 												void *						outData);
-												
+
 	/*! @method SetProperty */
 	virtual OSStatus			SetProperty(			AudioUnitPropertyID 			inID,
 														AudioUnitScope 					inScope,
@@ -65,7 +65,7 @@ public:
 												UInt8 	inNoteNumber,
 												UInt8 	inVelocity,
 												UInt32 	inStartFrame);
-																								
+
 	/*! @method HandleNoteOff */
 	virtual OSStatus			HandleNoteOff(	UInt8 	inChannel,
 												UInt8 	inNoteNumber,

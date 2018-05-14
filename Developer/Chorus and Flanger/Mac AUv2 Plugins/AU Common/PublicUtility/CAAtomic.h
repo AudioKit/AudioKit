@@ -10,9 +10,9 @@ Part of Core Audio Public Utility Classes
 	This file implements all Atomic operations using Interlocked functions specified in
 	Winbase.h
 NOTE: According to Microsoft documentation, all Interlocked functions generates a
-full barrier. 
+full barrier.
 	On Windows:
-	As the Interlocked functions returns the Old value, Extra checks and operations 
+	As the Interlocked functions returns the Old value, Extra checks and operations
 	are made after the atomic operation to return value consistent with OSX counterparts.
 */
 
@@ -29,7 +29,7 @@ full barrier.
 	#include <libkern/OSAtomic.h>
 #endif
 
-inline void CAMemoryBarrier() 
+inline void CAMemoryBarrier()
 {
 #if TARGET_OS_WIN32
 	MemoryBarrier();
@@ -42,7 +42,7 @@ inline SInt32 CAAtomicAdd32Barrier(SInt32 theAmt, volatile SInt32* theValue)
 {
 #if TARGET_OS_WIN32
 	long lRetVal = InterlockedExchangeAdd((volatile long*)theValue, theAmt);
-	// InterlockedExchangeAdd returns the original value which differs from OSX version. 
+	// InterlockedExchangeAdd returns the original value which differs from OSX version.
 	// At this point the addition would have occured and hence returning the new value
 	// to keep it sync with OSX.
 	return lRetVal + theAmt;

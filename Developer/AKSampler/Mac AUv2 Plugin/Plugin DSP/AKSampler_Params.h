@@ -20,12 +20,12 @@ enum
     kFilterCutoffHarmonic,
     kFilterCutoffEgStrength,
     kFilterResonanceDb,
-    
+
     kAmpEgAttackTimeSeconds,
     kAmpEgDecayTimeSeconds,
     kAmpEgSustainFraction,
     kAmpEgReleaseTimeSeconds,
-    
+
     kFilterEgAttackTimeSeconds,
     kFilterEgDecayTimeSeconds,
     kFilterEgSustainFraction,

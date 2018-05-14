@@ -20,7 +20,7 @@ void		CABufferList::AllocateBuffers(UInt32 nBytes)
 	UInt32 memorySize = nBytes * mABL.mNumberBuffers;
 	Byte *newMemory = new Byte[memorySize], *p = newMemory;
 	memset(newMemory, 0, memorySize);	// get page faults now, not later
-	
+
 	AudioBuffer *buf = mABL.mBuffers;
 	for (UInt32 i = mABL.mNumberBuffers; i--; ++buf) {
 		if (buf->mData != NULL && buf->mDataByteSize > 0)
@@ -46,7 +46,7 @@ void		CABufferList::AllocateBuffersAndCopyFrom(UInt32 nBytes, CABufferList *inSr
 	}
 	inSetPtrList->VerifyNotTrashingOwnedBuffer();
 	UInt32 fromByteSize = inSrcList->GetNumBytes();
-	
+
 	if (mABL.mNumberBuffers > 1)
 		// align successive buffers for Altivec and to take alternating
 		// cache line hits by spacing them by odd multiples of 16
@@ -54,7 +54,7 @@ void		CABufferList::AllocateBuffersAndCopyFrom(UInt32 nBytes, CABufferList *inSr
 	UInt32 memorySize = nBytes * mABL.mNumberBuffers;
 	Byte *newMemory = new Byte[memorySize], *p = newMemory;
 	memset(newMemory, 0, memorySize);	// make buffer "hot"
-	
+
 	AudioBuffer *buf = mABL.mBuffers;
 	AudioBuffer *ptrBuf = inSetPtrList->mABL.mBuffers;
 	AudioBuffer *srcBuf = inSrcList->mABL.mBuffers;
@@ -88,7 +88,7 @@ void		CABufferList::DeallocateBuffers()
 		mBufferMemory = NULL;
 		mBufferCapacity = 0;
 	}
-    
+
 }
 
 static void show(const AudioBufferList &abl, int framesToPrint, int wordSize, const char *label, const char *fmtstr=NULL)
@@ -155,7 +155,7 @@ void CAShowAudioBufferList(const AudioBufferList &abl, int framesToPrint, const 
 	CAStreamBasicDescription fmt(asbd);
 	int wordSize = 1;
 	char fmtstr[80] = { 0 };
-	
+
 	if (fmt.mFormatID == kAudioFormatLinearPCM) {
 		if (fmt.mFormatFlags & kLinearPCMFormatFlagIsFloat) {
 			if (fmt.mBitsPerChannel == 32) {

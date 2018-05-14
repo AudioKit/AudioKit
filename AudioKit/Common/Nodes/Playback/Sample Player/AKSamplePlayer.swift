@@ -6,11 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that
 /// doesn't rely on an as much Apple AV foundation/engine code as the others.
-/// As any other Sampler, it plays a part of a given sound file at a specified rate 
-/// with specified volume. Changing the rate plays it faster and therefore sounds 
-/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
+/// As any other Sampler, it plays a part of a given sound file at a specified rate
+/// with specified volume. Changing the rate plays it faster and therefore sounds
+/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.
 /// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 

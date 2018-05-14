@@ -20,12 +20,12 @@ Part of Core Audio AUInstrument Base Classes
 const UInt32 kEventQueueSize = 1024;
 
 AUInstrumentBase::AUInstrumentBase(
-							AudioComponentInstance			inInstance, 
+							AudioComponentInstance			inInstance,
 							UInt32							numInputs,
 							UInt32							numOutputs,
 							UInt32							numGroups,
 							UInt32							numParts)
-	: MusicDeviceBase(inInstance, numInputs, numOutputs, numGroups), 
+	: MusicDeviceBase(inInstance, numInputs, numOutputs, numGroups),
 	mAbsoluteSampleFrame(0),
 	mEventQueue(kEventQueueSize),
 	mNumNotes(0),
@@ -41,7 +41,7 @@ AUInstrumentBase::AUInstrumentBase(
 	mFreeNotes.mState = kNoteState_Free;
 	SetWantsRenderThreadID(true);
 }
-	
+
 
 AUInstrumentBase::~AUInstrumentBase()
 {
@@ -62,12 +62,12 @@ AUElement *	AUInstrumentBase::CreateElement(AudioUnitScope inScope, AudioUnitEle
 	return MusicDeviceBase::CreateElement(inScope, element);
 }
 
-void		AUInstrumentBase::CreateExtendedElements() 
+void		AUInstrumentBase::CreateExtendedElements()
 {
 	Parts().Initialize(this, kAudioUnitScope_Part, mInitNumPartEls);
 }
 
-AUScope *	AUInstrumentBase::GetScopeExtended (AudioUnitScope inScope) 
+AUScope *	AUInstrumentBase::GetScopeExtended (AudioUnitScope inScope)
 {
 	if (inScope == kAudioUnitScope_Part)
 		return &mPartScope;
@@ -84,7 +84,7 @@ void		AUInstrumentBase::SetNotes(UInt32 inNumNotes, UInt32 inMaxActiveNotes, Syn
 	mMaxActiveNotes = inMaxActiveNotes;
 	mNoteSize = inNoteDataSize;
 	mNotes = inNotes;
-	
+
 	for (UInt32 i=0; i<mNumNotes; ++i)
 	{
 			SynthNote *note = GetNote(i);
@@ -100,7 +100,7 @@ UInt32		AUInstrumentBase::CountActiveNotes()
 	for (UInt32 i=0; i<mNumNotes; ++i)
 	{
 		SynthNote *note = GetNote(i);
-		if (note->GetState() <= kNoteState_Released) 
+		if (note->GetState() <= kNoteState_Released)
 			sum++;
 	}
 	return sum;
@@ -127,16 +127,16 @@ OSStatus			AUInstrumentBase::Initialize()
 TO DO:
 	Currently ValidFormat will check and validate that the num channels is not being
 	changed if the AU doesn't support the SupportedNumChannels property - which is correct
-	
+
 	What needs to happen here is that IFF the AU does support this property, (ie, the AU
 	can be configured to have different num channels than its original configuration) then
 	the state of the AU at Initialization needs to be validated.
-	
+
 	This is work still to be done - see AUEffectBase for the kind of logic that needs to be applied here
 */
 
 	// override to call SetNotes
-	
+
 	mNoteIDCounter = 128; // reset this every time we initialise
 	mAbsoluteSampleFrame = 0;
 	return noErr;
@@ -161,7 +161,7 @@ OSStatus			AUInstrumentBase::Reset(			AudioUnitScope 					inScope,
 		for (UInt32 i=0; i<mNumNotes; ++i)
 		{
 			SynthNote *note = GetNote(i);
-			if (note->IsSounding()) 
+			if (note->IsSounding())
 				note->Kill(0);
 			note->ListRemove();
 			mFreeNotes.AddNote(note);
@@ -187,7 +187,7 @@ void		AUInstrumentBase::PerformEvents(const AudioTimeStamp& inTimeStamp)
 #endif
 	SynthEvent *event;
 	SynthGroupElement *group;
-	
+
 	while ((event = mEventQueue.ReadItem()) != NULL)
 	{
 #if DEBUG_PRINT_RENDER
@@ -232,12 +232,12 @@ void		AUInstrumentBase::PerformEvents(const AudioTimeStamp& inTimeStamp)
 				group->ResetAllControllers(event->GetOffsetSampleFrame());
 				break;
 		}
-		
+
 		mEventQueue.AdvanceReadPtr();
 	}
 }
 
-														
+
 OSStatus			AUInstrumentBase::Render(   AudioUnitRenderActionFlags &	ioActionFlags,
 												const AudioTimeStamp &			inTimeStamp,
 												UInt32							inNumberFrames)
@@ -273,18 +273,18 @@ OSStatus			AUInstrumentBase::Render(   AudioUnitRenderActionFlags &	ioActionFlag
 bool				AUInstrumentBase::ValidFormat(	AudioUnitScope					inScope,
 													AudioUnitElement				inElement,
 													const CAStreamBasicDescription  & inNewFormat)
-{	
+{
 		// if the AU supports this, then we should just let this go through to the Init call
-	if (SupportedNumChannels (NULL)) 
+	if (SupportedNumChannels (NULL))
 		return MusicDeviceBase::ValidFormat(inScope, inElement, inNewFormat);
 
 	bool isGood = MusicDeviceBase::ValidFormat (inScope, inElement, inNewFormat);
 	if (!isGood) return false;
-	
+
 		// if we get to here, then the basic criteria is that the
 		// num channels cannot change on an existing bus
 	AUIOElement *el = GetIOElement (inScope, inElement);
-	return (el->GetStreamFormat().NumberChannels() == inNewFormat.NumberChannels()); 
+	return (el->GetStreamFormat().NumberChannels() == inNewFormat.NumberChannels());
 }
 
 
@@ -295,8 +295,8 @@ bool				AUInstrumentBase::StreamFormatWritable(	AudioUnitScope					scope,
 }
 
 OSStatus			AUInstrumentBase::RealTimeStartNote(	SynthGroupElement 			*inGroup,
-															NoteInstanceID 				inNoteInstanceID, 
-															UInt32 						inOffsetSampleFrame, 
+															NoteInstanceID 				inNoteInstanceID,
+															UInt32 						inOffsetSampleFrame,
 															const MusicDeviceNoteParams &inParams)
 {
 	return noErr;
@@ -320,10 +320,10 @@ SynthGroupElement *	AUInstrumentBase::GetElForGroupID (MusicDeviceGroupID	inGrou
 	AUScope & groups = Groups();
 	unsigned int numEls = groups.GetNumberOfElements();
 	SynthGroupElement* unassignedEl = NULL;
-	
+
 	for (unsigned int i = 0; i < numEls; ++i) {
 		SynthGroupElement* el = reinterpret_cast<SynthGroupElement*>(groups.GetElement(i));
-		if (el->GroupID() == inGroupID) 
+		if (el->GroupID() == inGroupID)
 			return el;
 		if (el->GroupID() == SynthGroupElement::kUnassignedGroup) {
 			unassignedEl = el;
@@ -338,14 +338,14 @@ SynthGroupElement *	AUInstrumentBase::GetElForGroupID (MusicDeviceGroupID	inGrou
 }
 
 OSStatus			AUInstrumentBase::RealTimeStopNote(
-												MusicDeviceGroupID 			inGroupID, 
-												NoteInstanceID 				inNoteInstanceID, 
+												MusicDeviceGroupID 			inGroupID,
+												NoteInstanceID 				inNoteInstanceID,
 												UInt32 						inOffsetSampleFrame)
 {
 #if DEBUG_PRINT
 	printf("AUInstrumentBase::RealTimeStopNote ch %d id %d\n", inGroupID, inNoteInstanceID);
 #endif
-	
+
 	SynthGroupElement *gp = (inGroupID == kMusicNoteEvent_Unused
 								? GetElForNoteID (inNoteInstanceID)
 								: GetElForGroupID(inGroupID));
@@ -353,7 +353,7 @@ OSStatus			AUInstrumentBase::RealTimeStopNote(
 	{
 		gp->NoteOff (inNoteInstanceID, inOffsetSampleFrame);
 	}
-	
+
 	return noErr;
 }
 
@@ -364,7 +364,7 @@ SynthGroupElement *	AUInstrumentBase::GetElForNoteID (NoteInstanceID inNoteID)
 #endif
 	AUScope & groups = Groups();
 	unsigned int numEls = groups.GetNumberOfElements();
-	
+
 	for (unsigned int i = 0; i < numEls; ++i) {
 		SynthGroupElement* el = reinterpret_cast<SynthGroupElement*>(groups.GetElement(i));
 		if (el->GetNote(inNoteID) != NULL)	// searches for any note state
@@ -373,27 +373,27 @@ SynthGroupElement *	AUInstrumentBase::GetElForNoteID (NoteInstanceID inNoteID)
 	throw static_cast<OSStatus>(kAudioUnitErr_InvalidElement);
 }
 
-OSStatus			AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrument, 
-													MusicDeviceGroupID 			inGroupID, 
-													NoteInstanceID *			outNoteInstanceID, 
-													UInt32 						inOffsetSampleFrame, 
+OSStatus			AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrument,
+													MusicDeviceGroupID 			inGroupID,
+													NoteInstanceID *			outNoteInstanceID,
+													UInt32 						inOffsetSampleFrame,
 													const MusicDeviceNoteParams &inParams)
 {
 	OSStatus err = noErr;
-	
-	NoteInstanceID noteID; 
+
+	NoteInstanceID noteID;
 	if (outNoteInstanceID) {
 		noteID = NextNoteID();
 		*outNoteInstanceID = noteID;
 	} else
 		noteID = (UInt32)inParams.mPitch;
-	
+
 #if DEBUG_PRINT
 	printf("AUInstrumentBase::StartNote ch %u, key %u, offset %u\n", inGroupID, (unsigned) inParams.mPitch, inOffsetSampleFrame);
 #endif
 
 	if (InRenderThread ())
-	{		
+	{
 		err = RealTimeStartNote(
 					GetElForGroupID(inGroupID),
 					noteID,
@@ -412,14 +412,14 @@ OSStatus			AUInstrumentBase::StartNote(	MusicDeviceInstrumentID 	inInstrument,
 			inOffsetSampleFrame,
 			&inParams
 		);
-		
+
 		mEventQueue.AdvanceWritePtr();
 	}
 	return err;
 }
 
-OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID, 
-												NoteInstanceID 				inNoteInstanceID, 
+OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID,
+												NoteInstanceID 				inNoteInstanceID,
 												UInt32 						inOffsetSampleFrame)
 {
 #if DEBUG_PRINT
@@ -428,7 +428,7 @@ OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID,
 	OSStatus err = noErr;
 
 	if (InRenderThread ())
-	{		
+	{
 		err = RealTimeStopNote(
 			inGroupID,
 			inNoteInstanceID,
@@ -446,7 +446,7 @@ OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID,
 			inOffsetSampleFrame,
 			NULL
 		);
-		
+
 		mEventQueue.AdvanceWritePtr();
 	}
 	return err;
@@ -454,13 +454,13 @@ OSStatus			AUInstrumentBase::StopNote( MusicDeviceGroupID 			inGroupID,
 
 OSStatus	AUInstrumentBase::SendPedalEvent(MusicDeviceGroupID inGroupID, UInt32 inEventType, UInt32 inOffsetSampleFrame)
 {
-	
+
 	if (InRenderThread ())
 	{
 		SynthGroupElement *group = GetElForGroupID(inGroupID);
 		if (!group)
 			return kAudioUnitErr_InvalidElement;
-		
+
 		switch (inEventType)
 		{
 			case SynthEvent::kEventType_SustainOn :
@@ -494,7 +494,7 @@ OSStatus	AUInstrumentBase::SendPedalEvent(MusicDeviceGroupID inGroupID, UInt32 i
 		if (!event) return -1; // queue full
 
 		event->Set(inEventType, inGroupID, 0, 0, NULL);
-		
+
 		mEventQueue.AdvanceWritePtr();
 	}
 	return noErr;
@@ -538,7 +538,7 @@ OSStatus	AUInstrumentBase::HandleControlChange(	UInt8 	inChannel,
 	}
 	return noErr;
 }
-												
+
 OSStatus	AUInstrumentBase::HandlePitchWheel(		UInt8 	inChannel,
 													UInt8 	inPitch1,	// LSB
 													UInt8 	inPitch2,	// MSB
@@ -554,7 +554,7 @@ OSStatus	AUInstrumentBase::HandlePitchWheel(		UInt8 	inChannel,
 		return kAudioUnitErr_InvalidElement;
 }
 
-												
+
 OSStatus	AUInstrumentBase::HandleChannelPressure(UInt8 	inChannel,
 													UInt8 	inValue,
 													UInt32	inStartFrame)
@@ -609,13 +609,13 @@ OSStatus	AUInstrumentBase::HandleResetAllControllers(	UInt8 	inChannel)
 	return SendPedalEvent (inChannel, SynthEvent::kEventType_ResetAllControllers, 0);
 }
 
-	
+
 OSStatus	AUInstrumentBase::HandleAllNotesOff(			UInt8 	inChannel)
 {
 	return SendPedalEvent (inChannel, SynthEvent::kEventType_AllNotesOff, 0);
 }
 
-	
+
 OSStatus	AUInstrumentBase::HandleAllSoundOff(			UInt8 	inChannel)
 {
 	return SendPedalEvent (inChannel, SynthEvent::kEventType_AllSoundOff, 0);
@@ -632,7 +632,7 @@ SynthNote*  AUInstrumentBase::GetAFreeNote(UInt32 inFrame)
 		mFreeNotes.RemoveNote(note);
 		return note;
 	}
-	
+
 	return VoiceStealing(inFrame, true);
 }
 
@@ -686,13 +686,13 @@ SynthNote*  AUInstrumentBase::VoiceStealing(UInt32 inFrame, bool inKillIt)
 #if DEBUG_PRINT_NOTE
 	printf("no notes to steal????\n");
 #endif
-	return NULL; // It should be impossible to get here. It means there were no notes to kill in any state. 
+	return NULL; // It should be impossible to get here. It means there were no notes to kill in any state.
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 AUMonotimbralInstrumentBase::AUMonotimbralInstrumentBase(
-							AudioComponentInstance			inInstance, 
+							AudioComponentInstance			inInstance,
 							UInt32							numInputs,
 							UInt32							numOutputs,
 							UInt32							numGroups,
@@ -701,28 +701,28 @@ AUMonotimbralInstrumentBase::AUMonotimbralInstrumentBase(
 {
 }
 
-OSStatus			AUMonotimbralInstrumentBase::RealTimeStartNote(	
-															SynthGroupElement 			*inGroup, 
-															NoteInstanceID 				inNoteInstanceID, 
-															UInt32 						inOffsetSampleFrame, 
+OSStatus			AUMonotimbralInstrumentBase::RealTimeStartNote(
+															SynthGroupElement 			*inGroup,
+															NoteInstanceID 				inNoteInstanceID,
+															UInt32 						inOffsetSampleFrame,
 															const MusicDeviceNoteParams &inParams)
 {
 #if DEBUG_PRINT_RENDER
 	printf("AUMonotimbralInstrumentBase::RealTimeStartNote %d\n", inNoteInstanceID);
 #endif
 
-	if (NumActiveNotes() + 1 > MaxActiveNotes()) 
+	if (NumActiveNotes() + 1 > MaxActiveNotes())
 	{
 		VoiceStealing(inOffsetSampleFrame, false);
 	}
 	SynthNote *note = GetAFreeNote(inOffsetSampleFrame);
 	if (!note) return -1;
-	
+
 	SynthPartElement *part = GetPartElement (0);	// Only one part for monotimbral
-	
+
 	IncNumActiveNotes();
 	inGroup->NoteOn(note, part, inNoteInstanceID, inOffsetSampleFrame, inParams);
-	
+
 	return noErr;
 }
 
@@ -736,8 +736,8 @@ OSStatus			AUMultitimbralInstrumentBase::GetPropertyInfo(AudioUnitPropertyID	inI
 												Boolean &					outWritable)
 {
 	OSStatus result = noErr;
-	
-	switch (inID) 
+
+	switch (inID)
 	{
 #if !TARGET_OS_IPHONE
 		case kMusicDeviceProperty_PartGroup:
@@ -759,7 +759,7 @@ OSStatus			AUMultitimbralInstrumentBase::GetProperty(	AudioUnitPropertyID 	inID,
 {
 	OSStatus result = noErr;
 
-	switch (inID) 
+	switch (inID)
 	{
 #if !TARGET_OS_IPHONE
 		case kMusicDeviceProperty_PartGroup:
@@ -771,7 +771,7 @@ OSStatus			AUMultitimbralInstrumentBase::GetProperty(	AudioUnitPropertyID 	inID,
 		default:
 			result = AUInstrumentBase::GetProperty (inID, inScope, inElement, outData);
 	}
-	
+
 	return result;
 }
 
@@ -785,7 +785,7 @@ OSStatus			AUMultitimbralInstrumentBase::SetProperty(  AudioUnitPropertyID 			in
 {
 	OSStatus result = noErr;
 
-	switch (inID) 
+	switch (inID)
 	{
 #if !TARGET_OS_IPHONE
 		case kMusicDeviceProperty_PartGroup:
@@ -797,7 +797,7 @@ OSStatus			AUMultitimbralInstrumentBase::SetProperty(  AudioUnitPropertyID 			in
 		default:
 			result = MusicDeviceBase::SetProperty (inID, inScope, inElement, inData, inDataSize);
 	}
-	
+
 	return result;
 }
 

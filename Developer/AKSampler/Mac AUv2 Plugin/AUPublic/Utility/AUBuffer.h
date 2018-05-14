@@ -37,7 +37,7 @@ class AUBufferList {
 	};
 public:
 	/*! @ctor AUBufferList */
-	AUBufferList() : mPtrState(kPtrsInvalid), mExternalMemory(false), mPtrs(NULL), mMemory(NULL), 
+	AUBufferList() : mPtrState(kPtrsInvalid), mExternalMemory(false), mPtrs(NULL), mMemory(NULL),
 		mAllocatedStreams(0), mAllocatedFrames(0), mAllocatedBytes(0) { }
 	/*! @dtor ~AUBufferList */
 	~AUBufferList();
@@ -55,7 +55,7 @@ public:
 							memcpy(mPtrs, &abl, (char *)&abl.mBuffers[abl.mNumberBuffers] - (char *)&abl);
 							return *mPtrs;
 						}
-	
+
 	/*! @method SetBuffer */
 	void				SetBuffer(UInt32 index, const AudioBuffer &ab) {
 							if (mPtrState == kPtrsInvalid || index >= mPtrs->mNumberBuffers)
@@ -80,7 +80,7 @@ public:
 								COMPONENT_THROW(-1);
 							memcpy(&abl, mPtrs, (char *)&abl.mBuffers[abl.mNumberBuffers] - (char *)&abl);
 						}
-	
+
 	/*! @method CopyBufferContentsTo */
 	void				CopyBufferContentsTo(AudioBufferList &abl) const {
 							if (mPtrState == kPtrsInvalid)
@@ -96,12 +96,12 @@ public:
 								destbuf->mDataByteSize = srcbuf->mDataByteSize;
 							}
 						}
-	
+
 	/*! @method Allocate */
 	void				Allocate(const CAStreamBasicDescription &format, UInt32 nFrames);
 	/*! @method Deallocate */
 	void				Deallocate();
-	
+
 	/*! @method UseExternalBuffer */
 	void				UseExternalBuffer(const CAStreamBasicDescription &format, const AudioUnitExternalBuffer &buf);
 
@@ -119,7 +119,7 @@ public:
 
 	/*! @method GetAllocatedFrames */
 	UInt32				GetAllocatedFrames() const { return mAllocatedFrames; }
-	
+
 private:
 	/*! @ctor AUBufferList */
 	AUBufferList(AUBufferList &) { }	// prohibit copy constructor
@@ -146,34 +146,34 @@ private:
 template <class T>
 class TAUBuffer {
 public:
-	enum { 
+	enum {
 		kAlignInterval = 0x10,
 		kAlignMask = kAlignInterval - 1
 	};
-	
+
 	/*! @ctor TAUBuffer.0 */
 	TAUBuffer() :	mMemObject(NULL), mAlignedBuffer(NULL), mBufferSizeBytes(0)
 	{
 	}
-	
+
 	/*! @ctor TAUBuffer.1 */
 	TAUBuffer(UInt32 numElems, UInt32 numChannels) :	mMemObject(NULL), mAlignedBuffer(NULL),
 														mBufferSizeBytes(0)
 	{
 		Allocate(numElems, numChannels);
 	}
-	
+
 	/*! @dtor ~TAUBuffer */
 	~TAUBuffer()
 	{
 		Deallocate();
 	}
-		
+
 	/*! @method Allocate */
 	void	Allocate(UInt32 numElems)			// can also re-allocate
 	{
 		UInt32 reqSize = numElems * sizeof(T);
-		
+
 		if (mMemObject != NULL && reqSize == mBufferSizeBytes)
 			return;	// already allocated
 
@@ -192,28 +192,28 @@ public:
 	{
 		if (mMemObject == NULL) return;			// so this method has no effect if we're using
 												// an external buffer
-		
+
 		free(mMemObject);
 		mMemObject = NULL;
 		mAlignedBuffer = NULL;
 		mBufferSizeBytes = 0;
 	}
-	
+
 	/*! @method AllocateClear */
 	void	AllocateClear(UInt32 numElems)		// can also re-allocate
 	{
 		Allocate(numElems);
 		Clear();
 	}
-	
+
 	/*! @method Clear */
 	void	Clear()
 	{
 		memset(mAlignedBuffer, 0, mBufferSizeBytes);
 	}
-	
+
 	// accessors
-	
+
 	/*! @method operator T *()@ */
 	operator T *()				{ return mAlignedBuffer; }
 

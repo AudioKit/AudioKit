@@ -20,10 +20,10 @@ AUBufferList::~AUBufferList()
 static UInt32 SafeMultiplyAddUInt32(UInt32 a, UInt32 b, UInt32 c)
 {
 	if (a == 0 || b == 0) return c;  // prevent zero divide
-	
+
 	if (a > (0xFFFFFFFF - c) / b)
 		throw std::bad_alloc();
-	
+
 	return a * b + c;
 }
 
@@ -94,7 +94,7 @@ AudioBufferList &	AUBufferList::PrepareBuffer(const CAStreamBasicDescription &fo
 		if (nStreams > mAllocatedStreams)
 			COMPONENT_THROW(kAudioUnitErr_FormatNotSupported);
 	}
-	
+
 	AudioBufferList *abl = mPtrs;
 	abl->mNumberBuffers = nStreams;
 	AudioBuffer *buf = abl->mBuffers;
@@ -149,7 +149,7 @@ void		AUBufferList::UseExternalBuffer(const CAStreamBasicDescription &format, co
 		Byte *oldMemory = mMemory;
 		mMemory = buf.buffer;
 		mAllocatedBytes = alignedSize;
-		// from Allocate(): nBytes = nStreams * nFrames * format.mBytesPerFrame;	
+		// from Allocate(): nBytes = nStreams * nFrames * format.mBytesPerFrame;
 		// thus: nFrames = nBytes / (nStreams * format.mBytesPerFrame)
 		mAllocatedFrames = mAllocatedBytes / (format.NumberChannelStreams() * format.mBytesPerFrame);
 		mExternalMemory = true;

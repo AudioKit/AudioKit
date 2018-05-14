@@ -52,10 +52,10 @@ static OSStatus		MusicDeviceBaseStopNote(void *			inComponentStorage,
 
 #endif
 
-MusicDeviceBase::MusicDeviceBase(AudioComponentInstance			inInstance, 
+MusicDeviceBase::MusicDeviceBase(AudioComponentInstance			inInstance,
 									UInt32						numInputs,
 									UInt32						numOutputs,
-									UInt32						numGroups) 
+									UInt32						numGroups)
 	: AUBase(inInstance, numInputs, numOutputs, numGroups),
 	  AUMIDIBase(this)
 {
@@ -68,8 +68,8 @@ OSStatus			MusicDeviceBase::GetPropertyInfo(AudioUnitPropertyID	inID,
 							Boolean &				outWritable)
 {
 	OSStatus result;
-	
-	switch (inID) 
+
+	switch (inID)
 	{
 #if !TARGET_OS_IPHONE
 		case kMusicDeviceProperty_InstrumentCount:
@@ -81,7 +81,7 @@ OSStatus			MusicDeviceBase::GetPropertyInfo(AudioUnitPropertyID	inID,
 #endif
 		default:
 			result = AUBase::GetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
-			
+
 			if (result == kAudioUnitErr_InvalidProperty)
 				result = AUMIDIBase::DelegateGetPropertyInfo (inID, inScope, inElement, outDataSize, outWritable);
 			break;
@@ -96,7 +96,7 @@ OSStatus			MusicDeviceBase::GetProperty(	AudioUnitPropertyID			inID,
 {
 	OSStatus result;
 
-	switch (inID) 
+	switch (inID)
 	{
 #if !CA_USE_AUDIO_PLUGIN_ONLY
 		case kAudioUnitProperty_FastDispatch:
@@ -108,7 +108,7 @@ OSStatus			MusicDeviceBase::GetProperty(	AudioUnitPropertyID			inID,
 			else if (inElement == kMusicDeviceStartNoteSelect) {
 				*(TEMP_MusicDeviceStartNoteProc *)outData = MusicDeviceBaseStartNote;
 				return noErr;
-			}	
+			}
 			else if (inElement == kMusicDeviceStopNoteSelect) {
 				*(TEMP_MusicDeviceStopNoteProc *)outData = MusicDeviceBaseStopNote;
 				return noErr;
@@ -123,11 +123,11 @@ OSStatus			MusicDeviceBase::GetProperty(	AudioUnitPropertyID			inID,
 #endif
 		default:
 			result = AUBase::GetProperty (inID, inScope, inElement, outData);
-			
+
 			if (result == kAudioUnitErr_InvalidProperty)
 				result = AUMIDIBase::DelegateGetProperty (inID, inScope, inElement, outData);
 	}
-	
+
 	return result;
 }
 
@@ -141,10 +141,10 @@ OSStatus			MusicDeviceBase::SetProperty(	AudioUnitPropertyID 			inID,
 {
 
 	OSStatus result = AUBase::SetProperty (inID, inScope, inElement, inData, inDataSize);
-		
+
 	if (result == kAudioUnitErr_InvalidProperty)
 		result = AUMIDIBase::DelegateSetProperty (inID, inScope, inElement, inData, inDataSize);
-		
+
 	return result;
 }
 
@@ -167,7 +167,7 @@ OSStatus	MusicDeviceBase::HandleNoteOn(	UInt8 	inChannel,
 	params.mVelocity = inVelocity;
 	return StartNote (kMusicNoteEvent_UseGroupInstrument, inChannel, NULL, inStartFrame, params);
 }
-											
+
 OSStatus	MusicDeviceBase::HandleNoteOff(	UInt8 	inChannel,
 											UInt8 	inNoteNumber,
 											UInt8 	inVelocity,
@@ -176,17 +176,17 @@ OSStatus	MusicDeviceBase::HandleNoteOff(	UInt8 	inChannel,
 	return StopNote (inChannel, inNoteNumber, inStartFrame);
 }
 
-OSStatus			
-MusicDeviceBase::HandleStartNoteMessage (MusicDeviceInstrumentID		inInstrument, 
-										MusicDeviceGroupID				inGroupID, 
-										NoteInstanceID *				outNoteInstanceID, 
-										UInt32							inOffsetSampleFrame, 
+OSStatus
+MusicDeviceBase::HandleStartNoteMessage (MusicDeviceInstrumentID		inInstrument,
+										MusicDeviceGroupID				inGroupID,
+										NoteInstanceID *				outNoteInstanceID,
+										UInt32							inOffsetSampleFrame,
 										const MusicDeviceNoteParams *	inParams)
 {
 	if (inParams == NULL || outNoteInstanceID == NULL) return kAudio_ParamError;
 
 	if (!IsInitialized()) return kAudioUnitErr_Uninitialized;
-	
+
 	return StartNote (inInstrument, inGroupID, outNoteInstanceID, inOffsetSampleFrame, *inParams);
 }
 
@@ -213,7 +213,7 @@ OSStatus			MusicDeviceBase::ComponentEntryDispatch(	ComponentParameters *		param
 	if (This == NULL) return kAudio_ParamError;
 
 	OSStatus result;
-	
+
 	switch (params->what) {
 	case kMusicDeviceMIDIEventSelect:
 	case kMusicDeviceSysExSelect:
@@ -256,7 +256,7 @@ OSStatus			MusicDeviceBase::ComponentEntryDispatch(	ComponentParameters *		param
 		result = AUBase::ComponentEntryDispatch(params, This);
 		break;
 	}
-	
+
 	return result;
 }
 #endif

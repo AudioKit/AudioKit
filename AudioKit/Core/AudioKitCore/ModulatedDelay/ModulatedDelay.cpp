@@ -17,7 +17,7 @@ namespace AudioKitCore
     , effectType(type)
     {
     }
-    
+
     void ModulatedDelay::init(int channels, double sampleRate)
     {
         minDelayMs = kChorusMinDelayMs;
@@ -41,19 +41,19 @@ namespace AudioKitCore
         leftDelayLine.setDelayMs(minDelayMs);
         rightDelayLine.setDelayMs(minDelayMs);
     }
-    
+
     void ModulatedDelay::deinit()
     {
         leftDelayLine.deinit();
         rightDelayLine.deinit();
         modOscillator.deinit();
     }
-    
+
     void ModulatedDelay::setModFrequencyHz(float freq)
     {
         modOscillator.setFrequency(freq);
     }
-    
+
     void ModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
                                 float* inBuffers[], float *outBuffers[])
     {
@@ -61,12 +61,12 @@ namespace AudioKitCore
         float *pInRight  = inBuffers[1];
         float *pOutLeft  = outBuffers[0];
         float *pOutRight = outBuffers[1];
-        
+
         for (int i=0; i < (int)sampleCount; i++)
         {
             float modLeft, modRight;
             modOscillator.getSamples(&modLeft, &modRight);
-            
+
             float leftDelayMs = midDelayMs + delayRangeMs * modDepthFraction * modLeft;
             float rightDelayMs = midDelayMs + delayRangeMs * modDepthFraction * modRight;
             switch (effectType) {
@@ -74,14 +74,14 @@ namespace AudioKitCore
                     leftDelayMs = minDelayMs + delayRangeMs * modDepthFraction * (1.0f + modLeft);
                     rightDelayMs = minDelayMs + delayRangeMs * modDepthFraction * (1.0f + modRight);
                     break;
-                    
+
                 case kChorus:
                 default:
                     break;
             }
             leftDelayLine.setDelayMs(leftDelayMs);
             rightDelayLine.setDelayMs(rightDelayMs);
-            
+
             float dryFraction = 1.0f - dryWetMix;
             *pOutLeft++ = dryFraction * (*pInLeft) + dryWetMix * leftDelayLine.push(*pInLeft);
             pInLeft++;

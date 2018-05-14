@@ -67,14 +67,14 @@ enum {
 //	It adds a number of convenience routines, but otherwise adds nothing
 //	to the footprint of the original struct.
 //=============================================================================
-class CAStreamBasicDescription : 
+class CAStreamBasicDescription :
 	public AudioStreamBasicDescription
 {
 
 //	Constants
 public:
 	static const AudioStreamBasicDescription	sEmpty;
-	
+
 	enum CommonPCMFormat {
 		kPCMFormatOther		= 0,
 		kPCMFormatFloat32	= 1,
@@ -83,24 +83,24 @@ public:
 		kPCMFormatFloat64	= 4,
 		kPCMFormatInt32		= 5
 	};
-	
+
 	// options for IsEquivalent
 	enum {
 		kCompareDefault			= 0,
 		kCompareUsingWildcards	= 1 << 0,	// treats fields with values of 0 as wildcards.
 											// too liberal if you need to represent 0 channels.
 		kCompareForHardware		= 1 << 1,	// formats are hardware formats (IsNonMixable flag is significant).
-		
+
 		kCompareForHardwareUsingWildcards	= kCompareForHardware + kCompareUsingWildcards	//	for convenience
 	};
 	typedef UInt32 ComparisonOptions;
-	
+
 //	Construction/Destruction
 public:
 	CAStreamBasicDescription();
-	
+
 	CAStreamBasicDescription(const AudioStreamBasicDescription &desc);
-	
+
 	CAStreamBasicDescription(		double inSampleRate,		UInt32 inFormatID,
 									UInt32 inBytesPerPacket,	UInt32 inFramesPerPacket,
 									UInt32 inBytesPerFrame,		UInt32 inChannelsPerFrame,
@@ -157,55 +157,55 @@ public:
 	{
 		memcpy(this, &desc, sizeof(AudioStreamBasicDescription));
 	}
-	
+
 	bool		FromText(const char *inTextDesc) { return FromText(inTextDesc, *this); }
 	static bool	FromText(const char *inTextDesc, AudioStreamBasicDescription &outDesc);
 					// return true if parsing was successful
-	
+
 	static const char *sTextParsingUsageString;
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	// interrogation
-	
+
 	bool	IsPCM() const { return mFormatID == kAudioFormatLinearPCM; }
-	
+
 	bool	PackednessIsSignificant() const
 	{
 		Assert(IsPCM(), "PackednessIsSignificant only applies for PCM");
 		return (SampleWordSize() << 3) != mBitsPerChannel;
 	}
-	
+
 	bool	AlignmentIsSignificant() const
 	{
 		return PackednessIsSignificant() || (mBitsPerChannel & 7) != 0;
 	}
-	
+
 	bool	IsInterleaved() const
 	{
 		return !(mFormatFlags & kAudioFormatFlagIsNonInterleaved);
 	}
-	
+
 	bool	IsSignedInteger() const
 	{
 		return IsPCM() && (mFormatFlags & kAudioFormatFlagIsSignedInteger);
 	}
-	
+
 	bool	IsFloat() const
 	{
 		return IsPCM() && (mFormatFlags & kAudioFormatFlagIsFloat);
 	}
-	
+
 	bool	IsNativeEndian() const
 	{
 		return (mFormatFlags & kAudioFormatFlagIsBigEndian) == kAudioFormatFlagsNativeEndian;
 	}
-	
+
 	// for sanity with interleaved/deinterleaved possibilities, never access mChannelsPerFrame, use these:
-	UInt32	NumberInterleavedChannels() const	{ return IsInterleaved() ? mChannelsPerFrame : 1; }	
+	UInt32	NumberInterleavedChannels() const	{ return IsInterleaved() ? mChannelsPerFrame : 1; }
 	UInt32	NumberChannelStreams() const		{ return IsInterleaved() ? 1 : mChannelsPerFrame; }
 	UInt32	NumberChannels() const				{ return mChannelsPerFrame; }
-	UInt32	SampleWordSize() const				{ 
+	UInt32	SampleWordSize() const				{
 			return (mBytesPerFrame > 0 && NumberInterleavedChannels()) ? mBytesPerFrame / NumberInterleavedChannels() :  0;
 	}
 
@@ -214,15 +214,15 @@ public:
 		Assert(mBytesPerFrame > 0, "bytesPerFrame must be > 0 in BytesToFrames");
 		return nbytes / mBytesPerFrame;
 	}
-	
+
 	bool	SameChannelsAndInterleaving(const CAStreamBasicDescription &a) const
 	{
 		return this->NumberChannels() == a.NumberChannels() && this->IsInterleaved() == a.IsInterleaved();
 	}
-	
+
 	bool	IdentifyCommonPCMFormat(CommonPCMFormat &outFormat, bool *outIsInterleaved=NULL) const
 	{	// return true if it's a valid PCM format.
-	
+
 		outFormat = kPCMFormatOther;
 		// trap out patently invalid formats.
 		if (mFormatID != kAudioFormatLinearPCM || mFramesPerPacket != 1 || mBytesPerFrame != mBytesPerPacket || mBitsPerChannel/8 > mBytesPerFrame || mChannelsPerFrame == 0)
@@ -234,7 +234,7 @@ public:
 			if (wordsize % mChannelsPerFrame != 0) return false;
 			wordsize /= mChannelsPerFrame;
 		}
-		
+
 		if ((mFormatFlags & kAudioFormatFlagIsBigEndian) == kAudioFormatFlagsNativeEndian
 		&& wordsize * 8 == mBitsPerChannel) {
 			// packed and native endian, good
@@ -276,11 +276,11 @@ public:
 		CommonPCMFormat fmt;
 		return IdentifyCommonPCMFormat(fmt, outIsInterleaved) && fmt == kPCMFormatInt16;
 	}
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	//	manipulation
-	
+
 	CA_CANONICAL_DEPRECATED
 	void	SetCanonical(UInt32 nChannels, bool interleaved)
 				// note: leaves sample rate untouched
@@ -298,7 +298,7 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	CA_CANONICAL_DEPRECATED
 	bool	IsCanonical() const
 	{
@@ -316,7 +316,7 @@ public:
 			&& mBytesPerFrame == reqFrameSize
 			&& mBytesPerPacket == reqFrameSize);
 	}
-	
+
 	CA_CANONICAL_DEPRECATED
 	void	SetAUCanonical(UInt32 nChannels, bool interleaved)
 	{
@@ -336,7 +336,7 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	void	ChangeNumberChannels(UInt32 nChannels, bool interleaved)
 				// alter an existing format
 	{
@@ -354,42 +354,42 @@ public:
 			mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
 		}
 	}
-	
+
 	// _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 	//
 	//	other
-	
+
 	// IsEqual: Deprecated because of widespread errors due to the default wildcarding behavior.
 	ASBD_EQUALITY_DEPRECATED
 	bool IsEqual(const AudioStreamBasicDescription &other) const;
 	bool IsEqual(const AudioStreamBasicDescription &other, bool interpretingWildcards) const;
-   
+
 	// IsExactlyEqual: bit-for-bit. usually unnecessarily strict.
 	static bool IsExactlyEqual(const AudioStreamBasicDescription &x, const AudioStreamBasicDescription &y);
-	
+
 	// IsEquivalent: Returns whether the two formats are functionally the same, i.e. if one could
 	// be correctly passed as the other without an AudioConverter.
 	static bool IsEquivalent(const AudioStreamBasicDescription &x, const AudioStreamBasicDescription &y) { return IsEquivalent(x, y, kCompareDefault); }
 	static bool IsEquivalent(const AudioStreamBasicDescription &x, const AudioStreamBasicDescription &y, ComparisonOptions comparisonOptions);
-	
+
 	// Member versions of IsExactlyEqual and IsEquivalent.
 	bool IsExactlyEqual(const AudioStreamBasicDescription &other) const { return IsExactlyEqual(*this, other); }
 	bool IsEquivalent(const AudioStreamBasicDescription &other) const { return IsEquivalent(*this, other); }
 	bool IsEquivalent(const AudioStreamBasicDescription &other, ComparisonOptions comparisonOptions) const { return IsEquivalent(*this, other, comparisonOptions); }
-	
+
 	void	Print() const {
 		Print (stdout);
 	}
 
 	void	Print(FILE* file) const {
-		PrintFormat (file, "", "AudioStreamBasicDescription:");	
+		PrintFormat (file, "", "AudioStreamBasicDescription:");
 	}
 
 	void	PrintFormat(FILE *f, const char *indent, const char *name) const {
 		char buf[256];
 		fprintf(f, "%s%s %s\n", indent, name, AsString(buf, sizeof(buf)));
 	}
-	
+
 	void	PrintFormat2(FILE *f, const char *indent, const char *name) const { // no trailing newline
 		char buf[256];
 		fprintf(f, "%s%s %s", indent, name, AsString(buf, sizeof(buf)));
@@ -397,14 +397,14 @@ public:
 
 	char *	AsString(char *buf, size_t bufsize, bool brief=false) const;
 
-	static void Print (const AudioStreamBasicDescription &inDesc) 
-	{ 
+	static void Print (const AudioStreamBasicDescription &inDesc)
+	{
 		CAStreamBasicDescription desc(inDesc);
 		desc.Print ();
 	}
-	
+
 	OSStatus			Save(CFPropertyListRef *outData) const;
-		
+
 	OSStatus			Restore(CFPropertyListRef &inData);
 
 //	Operations

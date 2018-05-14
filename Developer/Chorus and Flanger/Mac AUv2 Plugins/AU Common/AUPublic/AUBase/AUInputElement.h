@@ -15,7 +15,7 @@ Part of Core Audio AUBase Classes
 /*! @class AUInputElement */
 class AUInputElement : public AUIOElement {
 public:
-	
+
 	/*! @ctor AUInputElement */
 						AUInputElement(AUBase *audioUnit);
 	/*! @dtor ~AUInputElement */
@@ -65,7 +65,7 @@ protected:
 	AURenderCallback			mInputProc;
 	/*! @var mInputProcRefCon */
 	void *						mInputProcRefCon;
-	
+
 	// if from connection:
 	/*! @var mConnection */
 	AudioUnitConnection			mConnection;

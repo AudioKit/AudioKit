@@ -12,7 +12,7 @@
 @interface AKFlanger_UIView : NSView
 {
     // IBOutlets
-    
+
     // Other Members
     AudioUnit                 mAU;
     AUEventListenerRef        mParameterListener;

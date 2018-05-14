@@ -80,31 +80,31 @@ public:
 
 			strlcpy(mOperation, operation, sizeof(mOperation));
 		}
-	
+
 	char *FormatError(char *str, size_t strsize) const
 	{
 		return FormatError(str, strsize, mError);
 	}
-	
+
 	char				mOperation[256];
 	const OSStatus		mError;
-	
+
 	// -------------------------------------------------
-	
+
 	typedef void (*WarningHandler)(const char *msg, OSStatus err);
-	
+
 	static char *FormatError(char *str, size_t strsize, OSStatus error)
 	{
 		strlcpy(str, CAX4CCString(error), strsize);
 		return str;
 	}
-	
+
 	static void Warning(const char *s, OSStatus error)
 	{
 		if (sWarningHandler)
 			(*sWarningHandler)(s, error);
 	}
-	
+
 	static void SetWarningHandler(WarningHandler f) { sWarningHandler = f; }
 private:
 	static WarningHandler	sWarningHandler;
@@ -140,7 +140,7 @@ private:
 				goto label;														\
 			}																	\
 		} while (0)
-	
+
 	#define XAssert(assertion)													\
 		do {																	\
 			if (!(assertion)) {													\
@@ -148,7 +148,7 @@ private:
 				__ASSERT_STOP;															\
 			}																	\
 		} while (0)
-	
+
 	#define XAssertNoError(error)												\
 		do {																	\
 			OSStatus __err = error;												\
@@ -233,7 +233,7 @@ private:
                   __LINE__);													\
           }																		\
       } while ( 0 )
-		
+
 #else
 	#define XThrowIfError(error, operation)										\
 		do {																	\

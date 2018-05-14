@@ -14,23 +14,23 @@ void SynthNoteList::SanityCheck() const
 	if (mState >= kNoteState_Unset) {
 		throw std::runtime_error("SanityCheck: mState is bad");
 	}
-	
+
 	if (mHead == NULL) {
-		if (mTail != NULL) 
+		if (mTail != NULL)
 			throw std::runtime_error("SanityCheck: mHead is NULL but not mTail");
 		return;
 	}
 	if (mTail == NULL) {
 		throw std::runtime_error("SanityCheck: mTail is NULL but not mHead");
 	}
-	
+
 	if (mHead->mPrev) {
 		throw std::runtime_error("SanityCheck: mHead has a mPrev");
 	}
 	if (mTail->mNext) {
 		throw std::runtime_error("SanityCheck: mTail has a mNext");
 	}
-	
+
 	SynthNote *note = mHead;
 	while (note)
 	{

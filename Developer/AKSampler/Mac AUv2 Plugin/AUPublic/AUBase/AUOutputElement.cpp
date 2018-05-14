@@ -9,7 +9,7 @@ Part of Core Audio AUBase Classes
 #include "AUOutputElement.h"
 #include "AUBase.h"
 
-AUOutputElement::AUOutputElement(AUBase *audioUnit) : 
+AUOutputElement::AUOutputElement(AUBase *audioUnit) :
 	AUIOElement(audioUnit)
 {
 	AllocateBuffer();

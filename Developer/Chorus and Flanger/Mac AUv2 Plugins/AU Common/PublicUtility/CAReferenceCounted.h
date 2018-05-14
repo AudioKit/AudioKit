@@ -15,11 +15,11 @@ Part of Core Audio Public Utility Classes
 class CAReferenceCounted {
 public:
 	CAReferenceCounted() : mRefCount(1) {}
-	
+
 	void	retain() { CAAtomicIncrement32(&mRefCount); }
-	
-	void	release() 
-			{ 
+
+	void	release()
+			{
 				SInt32 rc = CAAtomicDecrement32(&mRefCount);
 				if (rc == 0) {
 					releaseObject();
@@ -31,17 +31,17 @@ public:
 	public:
 		Retainer(CAReferenceCounted *obj) : mObject(obj) { mObject->retain(); }
 		~Retainer() { mObject->release(); }
-	
+
 	private:
 		CAReferenceCounted *	mObject;
 	};
 
 protected:
     virtual	~CAReferenceCounted() { }
-	
-	virtual void releaseObject () 
-			{ 
-				delete this; 
+
+	virtual void releaseObject ()
+			{
+				delete this;
 			}
 
 #if DEBUG
