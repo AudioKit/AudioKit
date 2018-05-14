@@ -15,7 +15,7 @@ typedef NS_ENUM(AUParameterAddress, AKModulatedDelayParameter) {
     AKModulatedDelayParameterDepth,
     AKModulatedDelayParameterFeedback,
     AKModulatedDelayParameterDryWetMix,
-    AKModulatedDelayParameterRampTime
+    AKModulatedDelayParameterRampDuration
 };
 
 // constants

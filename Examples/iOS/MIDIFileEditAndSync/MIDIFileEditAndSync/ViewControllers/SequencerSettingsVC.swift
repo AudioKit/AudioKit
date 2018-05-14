@@ -69,7 +69,13 @@ extension SequencerSettingsVC: UITextFieldDelegate {
             }
         case timeSigTextField:
             if 1 ..< 60 ~= value {
-                sequencerDelegate?.addTimeSignatureEvent(timeSignatureTop: UInt8(value), timeSignatureBottom: .four)
+                let timeSig = AKTimeSignature(topValue: UInt8(value),
+                                              bottomValue: AKTimeSignature.TimeSignatureBottomValue.four)
+                sequencerDelegate?.addTimeSignatureEvent(at: 0.0,
+                                                         timeSignature: timeSig,
+                                                         ticksPerMetronomeClick: 24,
+                                                         thirtySecondNotesPerQuarter: 8,
+                                                         clearExistingEvents: true)
                 moveTextField(textField, moveDistance: -200, up: false)
                 return true
             }
@@ -108,7 +114,12 @@ protocol SequencerDelegate: class {
     var loopEnabled: Bool { get }
     var tempo: Double { get }
     var length: AKDuration { get }
-    func addTimeSignatureEvent(timeSignatureTop: UInt8, timeSignatureBottom: AKSequencer.TimeSignatureBottomValue)
+
+    func addTimeSignatureEvent(at timeStamp: MusicTimeStamp,
+                               timeSignature: AKTimeSignature,
+                               ticksPerMetronomeClick: UInt8,
+                               thirtySecondNotesPerQuarter: UInt8,
+                               clearExistingEvents: Bool)
     func setTempo(_ bpm: Double)
     func enableLooping()
     func disableLooping()

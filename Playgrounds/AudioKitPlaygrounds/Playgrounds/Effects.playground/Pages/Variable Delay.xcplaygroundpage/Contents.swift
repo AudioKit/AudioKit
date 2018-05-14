@@ -8,7 +8,7 @@ let player = try AKPlayer(audioFile: file)
 player.isLooping = true
 
 var delay = AKVariableDelay(player)
-delay.rampTime = 0.2
+delay.rampDuration = 0.2
 AudioKit.output = AKMixer(player, delay)
 
 try AudioKit.start()

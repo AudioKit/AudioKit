@@ -21,10 +21,16 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var leftGainParameter: AUParameter?
     fileprivate var rightGainParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
+        }
+    }
+
+    @objc open dynamic var rampType: AKSettings.RampType = .linear {
+        willSet {
+            internalAU?.rampType = newValue.rawValue
         }
     }
 
@@ -158,6 +164,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         })
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rampDuration, value: rampDuration)
+        self.internalAU?.rampType = rampType.rawValue
     }
 
     // MARK: - Control

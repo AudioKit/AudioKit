@@ -151,8 +151,8 @@ public:
     void setTCModeAnalog(bool bAnalogTC); // {m_bAnalogTC = bAnalogTC;}
 
     // THEN do these after init
-    void setAttackTime(float attack_in_ms);
-    void setReleaseTime(float release_in_ms);
+    void setAttackDuration(float attack_in_ms);
+    void setReleaseDuration(float release_in_ms);
 
     // Use these "codes"
     // DETECT PEAK   = 0

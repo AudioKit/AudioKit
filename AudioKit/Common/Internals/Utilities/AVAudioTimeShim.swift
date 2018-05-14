@@ -31,16 +31,17 @@ extension AVAudioTime {
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
                 return self
         }
-        if isSampleTimeValid && sampleRate == anchorTime.sampleRate {
-            let secondsDiff = Double(sampleTime - anchorTime.sampleTime) / anchorTime.sampleRate
-            let hostTime = anchorTime.hostTime + secondsDiff / ticksToSeconds
-            return AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
-        } else {
+        if isHostTimeValid &&  anchorTime.isHostTimeValid {
             let secondsDiff = Double(hostTime.safeSubtract(anchorTime.hostTime)) * ticksToSeconds
             let sampleTime = anchorTime.sampleTime + AVAudioFramePosition(round(secondsDiff * anchorTime.sampleRate))
             let audioTime = AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
             return audioTime
+        } else {
+            let secondsDiff = Double(sampleTime - anchorTime.sampleTime) / anchorTime.sampleRate
+            let hostTime = anchorTime.hostTime + secondsDiff / ticksToSeconds
+            return AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
         }
+
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
@@ -55,22 +56,22 @@ extension AVAudioTime {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
                                atRate: sampleRate)
+        } else if isHostTimeValid {
+            return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds)
         } else if isSampleTimeValid {
             return AVAudioTime(sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
                                atRate: sampleRate)
-        } else if isHostTimeValid {
-            return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds)
         }
         return self
     }
 
     /// The time in seconds between receiver and otherTime.
     open func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
-        if isSampleTimeValid && otherTime.isSampleTimeValid {
-            return Double(sampleTime - otherTime.sampleTime) / sampleRate
-        }
         if isHostTimeValid && otherTime.isHostTimeValid {
             return Double(hostTime.safeSubtract(otherTime.hostTime)) * ticksToSeconds
+        }
+        if isSampleTimeValid && otherTime.isSampleTimeValid {
+            return Double(sampleTime - otherTime.sampleTime) / sampleRate
         }
         if isSampleTimeValid && isHostTimeValid {
             let completeTime = otherTime.extrapolateTimeShimmed(fromAnchor: self)
@@ -84,8 +85,9 @@ extension AVAudioTime {
     }
 
     /// Convert an AVAudioTime object to seconds with a hostTime reference
-    open func toSeconds(hostTime: UInt64) -> Double {
-        return AVAudioTime.seconds(forHostTime: self.hostTime - hostTime)
+    open func toSeconds(hostTime time: UInt64) -> Double {
+        guard isHostTimeValid else { return 0 }
+        return AVAudioTime.seconds(forHostTime: self.hostTime - time)
     }
 
     // Convert seconds to AVAudioTime with a hostTime reference
@@ -104,6 +106,12 @@ public func + (left: AVAudioTime, right: Double) -> AVAudioTime {
 }
 public func + (left: AVAudioTime, right: Int) -> AVAudioTime {
     return left.offset(seconds: Double(right))
+}
+public func - (left: AVAudioTime, right: Double) -> AVAudioTime {
+    return left.offset(seconds: -right)
+}
+public func - (left: AVAudioTime, right: Int) -> AVAudioTime {
+    return left.offset(seconds: Double(-right))
 }
 
 fileprivate extension UInt64 {

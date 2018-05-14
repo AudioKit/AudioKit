@@ -22,7 +22,7 @@ struct AKBrownianNoiseDSP::_Internal {
 
 AKBrownianNoiseDSP::AKBrownianNoiseDSP() : _private(new _Internal) {
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -31,8 +31,8 @@ void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value,
         case AKBrownianNoiseParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKBrownianNoiseParameterRampTime:
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKBrownianNoiseParameterRampDuration:
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,8 +42,8 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKBrownianNoiseParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKBrownianNoiseParameterRampTime:
-            return _private->amplitudeRamp.getRampTime(_sampleRate);
+        case AKBrownianNoiseParameterRampDuration:
+            return _private->amplitudeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
