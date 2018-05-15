@@ -8,44 +8,35 @@
 
 import Foundation
 
-open class AKNugder: AKStepper {
-    override internal func setupButtons() {
-        plusButton = AKButton(title: "+", callback: {_ in
-            self.doPlusActionHit()
-        })
-        minusButton = AKButton(title: "-", callback: {_ in
-            self.doMinusActionHit()
-        })
-        plusButton.releaseCallback = {_ in
-            self.doPlusActionRelease()
-        }
-        minusButton.releaseCallback = {_ in
-            self.doMinusActionRelease()
-        }
-    }
+@IBDesignable open class AKNugder : AKStepper {
+    open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {
-            value = maximum
+            currentValue = maximum
         }
+        touchBeganCallback()
     }
     private func doPlusActionRelease() {
         if increment == 0 {
-            value = originalValue
+            currentValue = originalValue
         }
+        touchEndedCallback()
     }
     private func doMinusActionHit() {
         if increment == 0 {
-            value = minimum
+            currentValue = minimum
         }
+        touchBeganCallback()
     }
     private func doMinusActionRelease() {
         if increment == 0 {
-            value = originalValue
+            currentValue = originalValue
         }
+        touchEndedCallback()
     }
     override internal func checkValues() {
         assert(minimum < maximum)
-        originalValue = value
+        originalValue = currentValue
         startTimers()
     }
     private var frameRate = TimeInterval(1.0 / 50.0)
@@ -56,7 +47,7 @@ open class AKNugder: AKStepper {
             if plusHeldCounter > 0 {
                 plusHeldCounter -= 1
             }
-        } else if plusButton.isPressed {
+        } else {
             if plusHeldCounter < maxPlusCounter {
                 plusHeldCounter += 1
             }
@@ -65,18 +56,20 @@ open class AKNugder: AKStepper {
             if minusHeldCounter > 0 {
                 minusHeldCounter -= 1
             }
-        } else if minusButton.isPressed {
+        } else {
             if minusHeldCounter < maxMinusCounter {
                 minusHeldCounter += 1
             }
         }
-        value = originalValue + (increment * plusHeldCounter) - (increment * minusHeldCounter)
+        let addValue = Double(increment * plusHeldCounter) * (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
+        let subValue = Double(increment * minusHeldCounter) * (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
+        currentValue = originalValue + addValue - subValue
         callbackOnChange()
-        lastValue = value
+        lastValue = currentValue
     }
     private func callbackOnChange() {
-        if lastValue != value {
-            callback(value)
+        if lastValue != currentValue {
+            callback(currentValue)
         }
     }
     private var plusHeldCounter: Int = 0
@@ -111,5 +104,39 @@ open class AKNugder: AKStepper {
         originalValue = value
         maximum += diff
         minimum += diff
+    }
+    override internal func setupButtons(frame: CGRect) {
+        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
+            self.doPlusActionHit()
+            self.touchBeganCallback()
+        })
+        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
+            self.doMinusActionHit()
+            self.touchBeganCallback()
+        })
+        plusButton.releaseCallback = {_ in
+            self.doPlusActionRelease()
+            self.touchEndedCallback()
+        }
+        minusButton.releaseCallback = {_ in
+            self.doMinusActionRelease()
+            self.touchEndedCallback()
+        }
+        plusButton.font = buttonFont!
+        minusButton.font = buttonFont!
+        plusButton.borderWidth = buttonBorderWidth
+        minusButton.borderWidth = buttonBorderWidth
+        addToStackIfPossible(view: minusButton, stack: buttons)
+        addToStackIfPossible(view: plusButton, stack: buttons)
+        self.addSubview(buttons)
+    }
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
+        super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #include "AKSampler_Typedefs.h"
 #include "SamplerVoice.hpp"
 #include "FunctionTable.hpp"
@@ -92,4 +93,4 @@ namespace AudioKitCore
         void stop(unsigned noteNumber, bool immediate);
     };
 }
-
+#endif

@@ -10,53 +10,73 @@ import AudioKit
 import UIKit
 
 /// Incrementor view, normally used for MIDI presets, but could be useful elsehwere
-open class AKStepper: UIView {
+@IBDesignable open class AKStepper: UIView {
 
-    @IBInspectable open var text: String = "Stepper"
+    @IBInspectable var text: String = "Stepper"
+    public var labelFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+    public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
+    @IBInspectable public var buttonBorderWidth: CGFloat = 3.0
     var label: UILabel! //fixme
-    var valueLabel: UILabel! //fixme}
+    var valueLabel: UILabel? //fixme
+    var buttons: UIStackView!
     var showsValue: Bool = true
     var plusButton: AKButton!
     var minusButton: AKButton!
-    @IBInspectable var value: Double = 0.5 {
-        didSet {
+    @IBInspectable public var currentValue: Double = 0.5 {
+        didSet{
             DispatchQueue.main.async {
-                self.valueLabel.text = String(format: "%.3f", self.value)
+                self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
 
         }
     }
-    @IBInspectable var increment: Double = 0.1
-    @IBInspectable var minimum: Double = 0
-    @IBInspectable var maximum: Double = 1
+    @IBInspectable public var increment: Double = 0.1
+    @IBInspectable public var minimum: Double = 0
+    @IBInspectable public var maximum: Double = 1
     internal var originalValue: Double = 0.5
     open var callback: (Double) -> Void = {val in
-        AKLog("callback: \(val)")
+        print("akstepper callback: \(val)")
     }
-
     internal func doPlusAction() {
-        value += min(increment, maximum - value)
-        callback(value)
+        currentValue += min(increment, maximum - currentValue)
+        callback(currentValue)
     }
     internal func doMinusAction() {
-        value -= min(increment, value - minimum)
-        callback(value)
+        currentValue -= min(increment, currentValue - minimum)
+        callback(currentValue)
     }
     /// Initialize the stepper view
-    public init(text: String, value: Double,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100),
-                callback: @escaping (Double) -> Void) {
+    public init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double,
+                frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
         self.callback = callback
-        self.value = value
+        self.minimum = minimum
+        self.maximum = maximum
+        self.increment = increment
+        self.currentValue = value
         self.originalValue = value
+        self.showsValue = showsValue
         self.text = text
         super.init(frame: frame)
+        generateUIComponents(frame: frame)
+        checkValues()
+        setupButtons(frame: frame)
+        addSubview(label)
+        if showsValue {
+            addSubview(valueLabel!)
+        }
     }
 
     /// Initialize within Interface Builder
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.originalValue = value
+        generateUIComponents(frame: frame)
+        checkValues()
+        setupButtons(frame: frame)
+        self.originalValue = currentValue
+    }
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
     }
     override open func awakeFromNib() {
         checkValues()
@@ -67,32 +87,27 @@ open class AKStepper: UIView {
         super.draw(rect)
         genStackViews(rect: rect)
     }
-
     private func genStackViews(rect: CGRect) {
-        setupButtons()
         let borderWidth = minusButton!.borderWidth
-        label = UILabel(frame: CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
+        label.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
         label.text = text
         label.textAlignment = .left
-        valueLabel = UILabel(frame: CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3))
-        valueLabel.text = "\(value)"
-        valueLabel.textAlignment = .right
-
-        let buttons = UIStackView(frame: CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7))
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        valueLabel?.text = "\(currentValue)"
+        valueLabel?.textAlignment = .right
+        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7)
+    }
+    private func generateUIComponents(frame: CGRect){
+        //frame will be overridden w draw function
+        label = UILabel(frame: frame)
+        label.font = labelFont
+        valueLabel = UILabel(frame: frame)
+        valueLabel?.font = valueFont
+        buttons = UIStackView(frame: frame)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
-        buttons.spacing = 5
-
-        addToStackIfPossible(view: minusButton, stack: buttons)
-        addToStackIfPossible(view: plusButton, stack: buttons)
-
-        self.addSubview(label)
-        self.addSubview(buttons)
-        if showsValue {
-            self.addSubview(valueLabel)
-        }
+        buttons.spacing = 1
     }
-
     /// Require constraint-based layout
     open class override var requiresConstraintBasedLayout: Bool {
         return true
@@ -102,27 +117,45 @@ open class AKStepper: UIView {
         clipsToBounds = true
     }
     override open func layoutSubviews() {
-        minusButton?.setNeedsDisplay()
-        plusButton?.setNeedsDisplay()
+        super.layoutSubviews()
+        genStackViews(rect: bounds)
     }
-    private func addToStackIfPossible(view: UIView?, stack: UIStackView) {
+    internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
         if view != nil {
             stack.addArrangedSubview(view!)
         }
     }
     internal func checkValues() {
         assert(minimum < maximum)
-        assert(value >= minimum)
-        assert(value <= maximum)
+        assert(currentValue >= minimum)
+        assert(currentValue <= maximum)
         assert(increment < maximum - minimum)
-        originalValue = value
+        originalValue = currentValue
     }
-    internal func setupButtons() {
-        plusButton = AKButton(title: "+", callback: {_ in
+    internal func setupButtons(frame: CGRect) {
+        let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
+        plusButton = AKButton(title: "+", frame: buttonFrame, callback: {_ in
             self.doPlusAction()
+            self.touchBeganCallback()
         })
-        minusButton = AKButton(title: "-", callback: {_ in
+        plusButton.releaseCallback = {_ in
+            self.touchEndedCallback()
+        }
+        minusButton = AKButton(title: "-", frame: buttonFrame, callback: {_ in
             self.doMinusAction()
+            self.touchBeganCallback()
         })
+        minusButton.releaseCallback = {_ in
+            self.touchEndedCallback()
+        }
+        plusButton.font = buttonFont!
+        minusButton.font = buttonFont!
+        plusButton.borderWidth = buttonBorderWidth
+        minusButton.borderWidth = buttonBorderWidth
+        addToStackIfPossible(view: minusButton, stack: buttons)
+        addToStackIfPossible(view: plusButton, stack: buttons)
+        self.addSubview(buttons)
     }
+    open var touchBeganCallback: () -> Void = { }
+    open var touchEndedCallback: () -> Void = { }
 }
