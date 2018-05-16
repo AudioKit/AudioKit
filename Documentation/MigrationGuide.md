@@ -2,7 +2,7 @@
 
 This document was only begun for AudioKit 4.1, but it should be kept to date from here on.
 
-## AudioKt 4.2 to develop
+## AudioKit 4.2 to develop
 
 No changes yet.
 
