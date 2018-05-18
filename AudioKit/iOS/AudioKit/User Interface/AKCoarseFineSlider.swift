@@ -55,7 +55,7 @@ import Foundation
     public var callback: (Double) -> Void = {val in
         print(val)
     }
-    public func reset(to value: Double){
+    public func resetValue(to value: Double){
         setStable(value: value)
         currentValue = value
         slider.value = value
