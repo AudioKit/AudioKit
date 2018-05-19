@@ -8,7 +8,7 @@
 import UIKit
 
 /// Delegate for keyboard events
-public protocol AKKeyboardDelegate: class {
+@objc public protocol AKKeyboardDelegate: class {
     /// Note on evenets
     func noteOn(note: MIDINoteNumber)
     /// Note off events
@@ -47,7 +47,7 @@ public protocol AKKeyboardDelegate: class {
     var onKeys = Set<MIDINoteNumber>()
 
     /// Allows multiple notes to play concurrently
-    open var polyphonicMode = false {
+    @objc open var polyphonicMode = false {
         didSet {
             for note in onKeys {
                 delegate?.noteOff(note: note)
@@ -72,7 +72,7 @@ public protocol AKKeyboardDelegate: class {
     // MARK: - Initialization
 
     /// Initialize the keyboard with default info
-    public override init(frame: CGRect) {
+    @objc public override init(frame: CGRect) {
         super.init(frame: frame)
         isMultipleTouchEnabled = true
     }
