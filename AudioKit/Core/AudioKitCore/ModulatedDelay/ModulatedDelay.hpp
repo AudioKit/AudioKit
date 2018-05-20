@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+#ifdef __cplusplus
 #pragma once
 
 #include "AKModulatedDelay_Typedefs.h"
@@ -42,3 +43,4 @@ namespace AudioKitCore
     };
     
 }
+#endif
