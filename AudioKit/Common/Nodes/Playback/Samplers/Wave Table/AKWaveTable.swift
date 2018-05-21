@@ -158,6 +158,11 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.completionHandler = newValue
         }
     }
+    open var loopCallback: AKCallback = {} {
+        willSet {
+            internalAU?.loopCallback = newValue
+        }
+    }
 
     // MARK: - Initialization
 
