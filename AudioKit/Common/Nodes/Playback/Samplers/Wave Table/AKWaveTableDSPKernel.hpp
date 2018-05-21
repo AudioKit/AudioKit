@@ -163,7 +163,7 @@ public:
                 break;
         }
     }
-    
+    long loopPhase = -1;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -302,8 +302,10 @@ public:
         if (mainPlayComplete){
             if (nextPosition > loopEndPointViaRate() && !loopReversed()){
                 position = loopStartPointViaRate();
+                loopCallback();
             }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
                 position = loopStartPointViaRate();
+                loopCallback();
             }
         }
     }
@@ -336,6 +338,7 @@ public:
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
     AKCCallback loadCompletionHandler = nullptr;
+    AKCCallback loopCallback = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;

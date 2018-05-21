@@ -43,6 +43,9 @@
 -(void)setLoadCompletionHandler:(AKCCallback)handler {
     _kernel.loadCompletionHandler = handler;
 }
+-(void)setLoopCallback:(AKCCallback)callback {
+    _kernel.loopCallback = callback;
+}
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
