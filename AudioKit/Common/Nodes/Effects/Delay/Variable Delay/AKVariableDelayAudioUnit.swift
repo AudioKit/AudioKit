@@ -71,6 +71,6 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         feedback.value = Float(AKVariableDelay.defaultFeedback)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true } }
 
 }

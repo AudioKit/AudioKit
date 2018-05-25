@@ -105,6 +105,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         negativeShapeParameter.value = Float(AKTanhDistortion.defaultNegativeShapeParameter)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true; } }
 
 }

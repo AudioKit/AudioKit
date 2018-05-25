@@ -122,6 +122,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = Float(AKFMOscillator.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true; } }
 
 }

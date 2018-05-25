@@ -71,6 +71,6 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true; } }
 
 }

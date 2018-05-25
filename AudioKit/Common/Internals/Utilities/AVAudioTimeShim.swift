@@ -31,7 +31,7 @@ extension AVAudioTime {
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
                 return self
         }
-        if isHostTimeValid &&  anchorTime.isHostTimeValid {
+        if isHostTimeValid && anchorTime.isHostTimeValid {
             let secondsDiff = Double(hostTime.safeSubtract(anchorTime.hostTime)) * ticksToSeconds
             let sampleTime = anchorTime.sampleTime + AVAudioFramePosition(round(secondsDiff * anchorTime.sampleRate))
             let audioTime = AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)

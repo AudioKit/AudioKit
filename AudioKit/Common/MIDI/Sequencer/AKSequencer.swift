@@ -152,7 +152,7 @@ open class AKSequencer {
             tmpLength = track.length
             if tmpLength >= length { length = tmpLength }
         }
-        
+
         return  AKDuration(beats: length, tempo: tempo)
     }
 
@@ -307,7 +307,7 @@ open class AKSequencer {
 
     // Remove existing tempo events
     func clearTempoEvents(_ track: MusicTrack) {
-        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, eventData, _, isReadyForNextEvent in
+        AKMusicTrack.iterateMusicTrack(track) {iterator, _, eventType, _, _, isReadyForNextEvent in
             isReadyForNextEvent = true
             if eventType == kMusicEventType_ExtendedTempo {
                 MusicEventIteratorDeleteEvent(iterator)
@@ -324,7 +324,7 @@ open class AKSequencer {
             var unused1: UInt8 = 0
             var unused2: UInt8 = 0
             var unused3: UInt8 = 0
-            var dataLength:UInt32 = 0
+            var dataLength: UInt32 = 0
             var data: (UInt8, UInt8, UInt8, UInt8) = (0, 0, 0, 0)
         }
 
@@ -559,7 +559,7 @@ open class AKSequencer {
                               kSequenceTrackProperty_TimeResolution,
                               &ppqn,
                               &propertyLength)
-        
+
         return ppqn
     }
 
@@ -718,7 +718,7 @@ open class AKSequencer {
             AKLog("Can't get sequence")
             return
         }
-        
+
         MusicSequenceDisposeTrack(existingSequence, internalTrack)
         tracks.remove(at: trackIndex)
     }
@@ -752,7 +752,7 @@ open class AKSequencer {
         var data: Unmanaged<CFData>?
         if let existingSequence = sequence {
             status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
-            
+
             if status != noErr {
                 AKLog("error creating MusicSequence Data")
                 return nil
