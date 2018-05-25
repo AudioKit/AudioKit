@@ -49,7 +49,7 @@ class ViewController: NSViewController {
         recordButton.callback = { _ in
             self.record()
         }
-        
+
         // Patching
         inputPlot.node = mic
         inputPlot.backgroundColor = NSColor.black
@@ -90,7 +90,7 @@ class ViewController: NSViewController {
             try recorder.record()
         } catch { print("Errored recording.") }
     }
-    
+
     func play() {
         player.play()
         inputPlot.node = player
@@ -116,6 +116,5 @@ class ViewController: NSViewController {
             }
         }
     }
-
 
 }

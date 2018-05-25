@@ -54,6 +54,6 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         limit.value = Float(AKClipper.defaultLimit)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true; } }
 
 }

@@ -478,7 +478,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -531,7 +531,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -584,7 +584,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -639,7 +639,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }

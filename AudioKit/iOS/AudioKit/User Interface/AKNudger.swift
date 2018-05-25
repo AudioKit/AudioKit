@@ -8,7 +8,7 @@
 
 import Foundation
 
-@IBDesignable open class AKNugder : AKStepper {
+@IBDesignable open class AKNugder: AKStepper {
     open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {
@@ -94,7 +94,7 @@ import Foundation
     private func startTimers() {
         DispatchQueue.main.async {
             if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
-                                                   callback: {_ in self.animateValue() }) {
+                                                   callback: { _ in self.animateValue() }) {
                 self.animationTimer = timer
             }
         }

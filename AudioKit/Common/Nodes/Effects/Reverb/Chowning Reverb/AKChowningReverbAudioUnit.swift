@@ -33,6 +33,6 @@ public class AKChowningReverbAudioUnit: AKAudioUnitBase {
         setParameterTree(AUParameterTree.createTree(withChildren: []))
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { get { return true; } }
 
 }
