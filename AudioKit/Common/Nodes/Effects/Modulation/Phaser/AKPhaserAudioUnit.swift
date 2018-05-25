@@ -190,6 +190,6 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
         lfoBPM.value = Float(AKPhaser.defaultLfoBPM)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

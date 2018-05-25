@@ -88,6 +88,6 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
         amplitude.value = Float(AKAutoWah.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

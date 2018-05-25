@@ -71,6 +71,6 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

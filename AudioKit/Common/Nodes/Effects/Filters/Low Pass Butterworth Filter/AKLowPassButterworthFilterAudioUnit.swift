@@ -54,6 +54,6 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
         cutoffFrequency.value = Float(AKLowPassButterworthFilter.defaultCutoffFrequency)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

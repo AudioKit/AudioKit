@@ -71,6 +71,6 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         qualityFactor.value = Float(AKModalResonanceFilter.defaultQualityFactor)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

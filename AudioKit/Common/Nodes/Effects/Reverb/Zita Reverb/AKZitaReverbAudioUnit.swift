@@ -207,6 +207,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         dryWetMix.value = Float(AKZitaReverb.defaultDryWetMix)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

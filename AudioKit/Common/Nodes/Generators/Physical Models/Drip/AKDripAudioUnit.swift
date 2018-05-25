@@ -156,6 +156,6 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = Float(AKDrip.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }
