@@ -54,6 +54,6 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = Float(AKBrownianNoise.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

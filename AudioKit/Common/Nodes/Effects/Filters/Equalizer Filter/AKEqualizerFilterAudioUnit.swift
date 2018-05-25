@@ -88,6 +88,6 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
         gain.value = Float(AKEqualizerFilter.defaultGain)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }

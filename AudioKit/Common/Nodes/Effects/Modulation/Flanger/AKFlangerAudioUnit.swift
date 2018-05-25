@@ -105,6 +105,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         dryWetMix.value = Float(AKFlanger.defaultDryWetMix)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; } }
+    public override var canProcessInPlace: Bool { return true } 
 
 }
