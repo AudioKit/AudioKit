@@ -243,7 +243,6 @@ extension Conductor {
         loadCompressed(baseURL: baseURL, noteNumber: 84, folderName: folderName, fileEnding: "_ms1_084_c5.wv", minimumNoteNumber: 82, maximumNoteNumber: 127, minimumVelocity: 44, maximumVelocity: 86)
         loadCompressed(baseURL: baseURL, noteNumber: 84, folderName: folderName, fileEnding: "_ms0_084_c5.wv", minimumNoteNumber: 82, maximumNoteNumber: 127, minimumVelocity: 87, maximumVelocity: 127)
 
-
         sampler.buildKeyMap()
 
         let elapsedTime = info.systemUptime - begin
