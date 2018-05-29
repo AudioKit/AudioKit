@@ -65,7 +65,7 @@ extension AKAudioFile {
     ///
     public convenience init(writeIn baseDir: BaseDirectory = .temp,
                             name: String? = nil,
-                            settings: [String : Any] = AKSettings.audioFormat.settings)
+                            settings: [String: Any] = AKSettings.audioFormat.settings)
         throws {
             let extPath: String = "\(name ?? UUID().uuidString).caf"
             let filePath: String = try baseDir.create(file: extPath, write: true)

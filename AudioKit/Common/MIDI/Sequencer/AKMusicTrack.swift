@@ -261,7 +261,7 @@ open class AKMusicTrack {
     open func clearMetaEvents() {
         clearHelper(kMusicEventType_Meta, from: "clearMetaEvents")
     }
-    
+
     /// Clear SysEx events from the track
     open func clearSysexEvents() {
         clearHelper(kMusicEventType_MIDIRawData, from: "clearSysexEvents")
@@ -329,7 +329,7 @@ open class AKMusicTrack {
                     }
                 }
             }
-            
+
             if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
