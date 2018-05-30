@@ -47,8 +47,8 @@ import Foundation
     }
 
     /// Notes Per Octave: The count of the frequency array
+    /// Defaults to 12 for the base class...should be overridden by subclasses
     @objc public var npo: Int {
-        // default to 12ET
         return 12
     }
 
