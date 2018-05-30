@@ -25,11 +25,11 @@ struct AKPeakingParametricEqualizerFilterDSP::_Internal {
 
 AKPeakingParametricEqualizerFilterDSP::AKPeakingParametricEqualizerFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->gainRamp.setTarget(defaultGain, true);
-    _private->gainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->gainRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->qRamp.setTarget(defaultQ, true);
-    _private->qRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->qRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKPeakingParametricEqualizerFilterDSP::setParameter(AUParameterAddress addr
         case AKPeakingParametricEqualizerFilterParameterQ:
             _private->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
             break;
-        case AKPeakingParametricEqualizerFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->gainRamp.setRampTime(value, _sampleRate);
-            _private->qRamp.setRampTime(value, _sampleRate);
+        case AKPeakingParametricEqualizerFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->gainRamp.setRampDuration(value, _sampleRate);
+            _private->qRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKPeakingParametricEqualizerFilterDSP::getParameter(uint64_t address) {
             return _private->gainRamp.getTarget();
         case AKPeakingParametricEqualizerFilterParameterQ:
             return _private->qRamp.getTarget();
-        case AKPeakingParametricEqualizerFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKPeakingParametricEqualizerFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

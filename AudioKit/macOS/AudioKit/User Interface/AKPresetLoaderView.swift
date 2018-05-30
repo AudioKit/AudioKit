@@ -109,7 +109,7 @@ public class AKPresetLoaderView: NSView {
     func drawPresetLoader(presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
         let rect = self.bounds
-        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
+        _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
 
         let cornerRadius: CGFloat = AKPresetLoaderView.standardCornerRadius
 

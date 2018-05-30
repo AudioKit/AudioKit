@@ -30,8 +30,8 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.crossfade, value: crossfade) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -88,6 +88,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         crossfade.value = Float(AKPitchShifter.defaultCrossfade)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

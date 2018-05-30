@@ -26,8 +26,8 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.bandwidth, value: bandwidth) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -71,6 +71,6 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

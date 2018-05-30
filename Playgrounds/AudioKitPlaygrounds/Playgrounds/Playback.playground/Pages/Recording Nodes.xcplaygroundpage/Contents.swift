@@ -7,7 +7,7 @@ import AudioKit
 //: Set up a source to be recorded
 var oscillator = AKOscillator(waveform: AKTable(.sawtooth))
 var currentAmplitude = 0.1
-var currentRampTime = 0.2
+var currentRampDuration = 0.2
 
 //: Pass our Oscillator thru a mixer. It fixes a problem with raw oscillator
 //: nodes that can only be recorded once they passed thru an AKMixer.
@@ -123,12 +123,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.rampTime = 0
+            oscillator.rampDuration = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
 
-        // Still use rampTime for volume
-        oscillator.rampTime = currentRampTime
+        // Still use rampDuration for volume
+        oscillator.rampDuration = currentRampDuration
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }

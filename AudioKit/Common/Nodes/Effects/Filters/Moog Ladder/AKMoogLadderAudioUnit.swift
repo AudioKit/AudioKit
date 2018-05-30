@@ -26,8 +26,8 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.resonance, value: resonance) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -71,6 +71,6 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         resonance.value = Float(AKMoogLadder.defaultResonance)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

@@ -25,11 +25,11 @@ struct AKFormantFilterDSP::_Internal {
 
 AKFormantFilterDSP::AKFormantFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->attackDurationRamp.setTarget(defaultAttackDuration, true);
-    _private->attackDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->attackDurationRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->decayDurationRamp.setTarget(defaultDecayDuration, true);
-    _private->decayDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->decayDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKFormantFilterDSP::setParameter(AUParameterAddress address, AUValue value,
         case AKFormantFilterParameterDecayDuration:
             _private->decayDurationRamp.setTarget(clamp(value, decayDurationLowerBound, decayDurationUpperBound), immediate);
             break;
-        case AKFormantFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->attackDurationRamp.setRampTime(value, _sampleRate);
-            _private->decayDurationRamp.setRampTime(value, _sampleRate);
+        case AKFormantFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->attackDurationRamp.setRampDuration(value, _sampleRate);
+            _private->decayDurationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKFormantFilterDSP::getParameter(uint64_t address) {
             return _private->attackDurationRamp.getTarget();
         case AKFormantFilterParameterDecayDuration:
             return _private->decayDurationRamp.getTarget();
-        case AKFormantFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKFormantFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

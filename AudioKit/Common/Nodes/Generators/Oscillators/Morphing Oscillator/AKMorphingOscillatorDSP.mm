@@ -28,15 +28,15 @@ struct AKMorphingOscillatorDSP::_Internal {
 
 AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : _private(new _Internal) {
     _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->indexRamp.setTarget(defaultIndex, true);
-    _private->indexRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->indexRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
-    _private->detuningOffsetRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
-    _private->detuningMultiplierRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -57,12 +57,12 @@ void AKMorphingOscillatorDSP::setParameter(AUParameterAddress address, AUValue v
         case AKMorphingOscillatorParameterDetuningMultiplier:
             _private->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
             break;
-        case AKMorphingOscillatorParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
-            _private->indexRamp.setRampTime(value, _sampleRate);
-            _private->detuningOffsetRamp.setRampTime(value, _sampleRate);
-            _private->detuningMultiplierRamp.setRampTime(value, _sampleRate);
+        case AKMorphingOscillatorParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            _private->indexRamp.setRampDuration(value, _sampleRate);
+            _private->detuningOffsetRamp.setRampDuration(value, _sampleRate);
+            _private->detuningMultiplierRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -80,8 +80,8 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
             return _private->detuningOffsetRamp.getTarget();
         case AKMorphingOscillatorParameterDetuningMultiplier:
             return _private->detuningMultiplierRamp.getTarget();
-        case AKMorphingOscillatorParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKMorphingOscillatorParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

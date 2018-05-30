@@ -34,8 +34,8 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.detuningMultiplier, value: detuningMultiplier) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -105,6 +105,6 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         detuningMultiplier.value = Float(AKOscillator.defaultDetuningMultiplier)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }
