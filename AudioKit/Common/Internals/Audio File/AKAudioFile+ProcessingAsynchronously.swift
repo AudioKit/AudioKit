@@ -325,6 +325,27 @@ extension AKAudioFile {
             }
         }
 
+        // In and OUT times trimming settings
+        let inFrame: Int64
+        let outFrame: Int64
+
+        if toSample == 0 {
+            outFrame = samplesCount
+        } else {
+            outFrame = min(samplesCount, toSample)
+        }
+
+        inFrame = abs(min(samplesCount, fromSample))
+
+        if outFrame <= inFrame {
+            AKLog("ERROR AKAudioFile export: In time must be less than Out time")
+
+            callback(nil,
+                     NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+
+            return
+        }
+
         let asset = url.isFileURL ? AVURLAsset(url: url) : AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             AKLog("internalExportSession session created")
@@ -385,23 +406,6 @@ extension AKAudioFile {
             // Sets the output file encoding (avoid .wav encoded as m4a...)
             internalExportSession.outputFileType = AVFileType(rawValue: exportFormat.UTI as String as String)
 
-            // In and OUT times triming settings
-            let inFrame: Int64
-            let outFrame: Int64
-
-            if toSample == 0 {
-                outFrame = samplesCount
-            } else {
-                outFrame = min(samplesCount, toSample)
-            }
-
-            inFrame = abs(min(samplesCount, fromSample))
-
-            if outFrame <= inFrame {
-                AKLog("ERROR AKAudioFile export: In time must be less than Out time")
-                callback(nil,
-                         NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
-            }
             let startTime = CMTimeMake(inFrame, Int32(sampleRate))
             let stopTime = CMTimeMake(outFrame, Int32(sampleRate))
             let timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
