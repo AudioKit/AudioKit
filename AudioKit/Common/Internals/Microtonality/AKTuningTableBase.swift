@@ -42,7 +42,7 @@ import Foundation
         super.init()
         for noteNumber in 0..<AKTuningTable.midiNoteCount {
             let f = 440 * exp2((noteNumber - 69) / 12)
-            setFrequency(f, at:MIDINoteNumber(noteNumber) )
+            setFrequency(f, at: MIDINoteNumber(noteNumber) )
         }
     }
 

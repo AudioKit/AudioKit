@@ -15,8 +15,8 @@ extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKBoosterDSP::_Internal {
-    AKExponentialParameterRamp leftGainRamp;
-    AKExponentialParameterRamp rightGainRamp;
+    AKParameterRamp leftGainRamp;
+    AKParameterRamp rightGainRamp;
 };
 
 AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
@@ -35,9 +35,13 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case AKBoosterParameterRightGain:
             _private->rightGainRamp.setTarget(value, immediate);
             break;
-        case AKBoosterParameterRampTime:
-            _private->leftGainRamp.setRampTime(value, _sampleRate);
-            _private->rightGainRamp.setRampTime(value, _sampleRate);
+        case AKBoosterParameterRampDuration:
+            _private->leftGainRamp.setRampDuration(value, _sampleRate);
+            _private->rightGainRamp.setRampDuration(value, _sampleRate);
+            break;
+        case AKBoosterParameterRampType:
+            _private->leftGainRamp.setRampType(value);
+            _private->rightGainRamp.setRampType(value);
             break;
     }
 }
@@ -49,8 +53,8 @@ float AKBoosterDSP::getParameter(AUParameterAddress address) {
             return _private->leftGainRamp.getTarget();
         case AKBoosterParameterRightGain:
             return _private->rightGainRamp.getTarget();
-        case AKBoosterParameterRampTime:
-            return _private->leftGainRamp.getRampTime(_sampleRate);
+        case AKBoosterParameterRampDuration:
+            return _private->leftGainRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

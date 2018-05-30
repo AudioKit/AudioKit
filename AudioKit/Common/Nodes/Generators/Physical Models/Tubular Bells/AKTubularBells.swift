@@ -10,7 +10,7 @@
 ///
 open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "rhod")
+    public static let ComponentDescription = AudioComponentDescription(generator: "tbel")
     public typealias AKAudioUnitType = AKTubularBellsAudioUnit
     // MARK: - Properties
 
@@ -20,10 +20,10 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 

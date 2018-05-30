@@ -24,9 +24,9 @@ struct AKBitCrusherDSP::_Internal {
 
 AKBitCrusherDSP::AKBitCrusherDSP() : _private(new _Internal) {
     _private->bitDepthRamp.setTarget(defaultBitDepth, true);
-    _private->bitDepthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bitDepthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->sampleRateRamp.setTarget(defaultSampleRate, true);
-    _private->sampleRateRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->sampleRateRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKBitCrusherDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKBitCrusherParameterSampleRate:
             _private->sampleRateRamp.setTarget(clamp(value, sampleRateLowerBound, sampleRateUpperBound), immediate);
             break;
-        case AKBitCrusherParameterRampTime:
-            _private->bitDepthRamp.setRampTime(value, _sampleRate);
-            _private->sampleRateRamp.setRampTime(value, _sampleRate);
+        case AKBitCrusherParameterRampDuration:
+            _private->bitDepthRamp.setRampDuration(value, _sampleRate);
+            _private->sampleRateRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
             return _private->bitDepthRamp.getTarget();
         case AKBitCrusherParameterSampleRate:
             return _private->sampleRateRamp.getTarget();
-        case AKBitCrusherParameterRampTime:
-            return _private->bitDepthRamp.getRampTime(_sampleRate);
+        case AKBitCrusherParameterRampDuration:
+            return _private->bitDepthRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

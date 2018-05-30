@@ -36,9 +36,9 @@ void SDBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case SDBoosterParameterRightGain:
             _private->rightGainRamp.setTarget(value, immediate);
             break;
-        case SDBoosterParameterRampTime:
-            _private->leftGainRamp.setRampTime(value, _sampleRate);
-            _private->rightGainRamp.setRampTime(value, _sampleRate);
+        case SDBoosterParameterRampDuration:
+            _private->leftGainRamp.setRampDuration(value, _sampleRate);
+            _private->rightGainRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -50,8 +50,8 @@ float SDBoosterDSP::getParameter(AUParameterAddress address) {
             return _private->leftGainRamp.getTarget();
         case SDBoosterParameterRightGain:
             return _private->rightGainRamp.getTarget();
-        case SDBoosterParameterRampTime:
-            return _private->leftGainRamp.getRampTime(_sampleRate);
+        case SDBoosterParameterRampDuration:
+            return _private->leftGainRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

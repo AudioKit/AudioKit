@@ -25,8 +25,8 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.depth, value: depth) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -70,6 +70,6 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
         depth.value = 1.0
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

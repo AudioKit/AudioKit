@@ -31,12 +31,12 @@ extension AVAudioPCMBuffer {
 
         let remainingCapacity = frameCapacity - frameLength
         if remainingCapacity == 0 {
-            print("AVAudioBuffer copy(from) - no capacity!")
+            AKLog("AVAudioBuffer copy(from) - no capacity!")
             return 0
         }
 
         if format != buffer.format {
-            print("AVAudioBuffer copy(from) - formats must match!")
+            AKLog("AVAudioBuffer copy(from) - formats must match!")
             return 0
         }
 
@@ -44,7 +44,7 @@ extension AVAudioPCMBuffer {
                             buffer.frameLength - readOffset))
 
         if count <= 0 {
-            print("AVAudioBuffer copy(from) - No frames to copy!")
+            AKLog("AVAudioBuffer copy(from) - No frames to copy!")
             return 0
         }
 
@@ -206,8 +206,13 @@ extension AVAudioPCMBuffer {
         return reversedBuffer
     }
 
-    /// Returns a new buffer that has had fades applied to it. Pass 0 if you don't want either inTime or outTime.
-    open func fade(inTime: Double, outTime: Double) -> AVAudioPCMBuffer? {
+    /// Creates a new buffer from this one that has fades applied to it. Pass 0 for either parameter
+    /// if you only want one of them
+    open func fade(inTime: Double,
+                   outTime: Double,
+                   inRampType: AKSettings.RampType = .exponential,
+                   outRampType: AKSettings.RampType = .exponential) -> AVAudioPCMBuffer? {
+
         guard let floatData = self.floatChannelData, inTime > 0 || outTime > 0 else {
             AKLog("Error fading buffer, returning original...")
             return self
@@ -227,27 +232,51 @@ extension AVAudioPCMBuffer {
 
         let sampleTime: Double = 1.0 / sampleRate
 
-        // from -20db?
-        let fadeInPower: Double = exp(log(10) * sampleTime / inTime)
+        var fadeInPower: Double = 1
+        var fadeOutPower: Double = 1
 
-        // for decay to x% amplitude (-dB) over the given decay time
-        let fadeOutPower: Double = exp(-log(25) * sampleTime / outTime)
+        if inRampType == .linear {
+            gain = inTime > 0 ? 0 : 1
+            fadeInPower = sampleTime / inTime
+
+        } else if inRampType == .exponential {
+            fadeInPower = exp(log(10) * sampleTime / inTime)
+        }
+
+        if outRampType == .linear {
+            fadeOutPower = sampleTime / outTime
+
+        } else if outRampType == .exponential {
+            fadeOutPower = exp(-log(25) * sampleTime / outTime)
+        }
+
+        // TODO: .logarithmic
 
         // where in the buffer to end the fade in
         let fadeInSamples = Int(sampleRate * inTime)
         // where in the buffer to start the fade out
         let fadeOutSamples = Int(Double(length) - (sampleRate * outTime))
 
-        // AKLog("fadeInPower \(fadeInPower) fadeOutPower \(fadeOutPower)")
+        // AKLog("rampType", rampType.rawValue, "fadeInPower", fadeInPower, "fadeOutPower", fadeOutPower)
 
         // i is the index in the buffer
         for i in 0 ..< Int(length) {
             // n is the channel
             for n in 0 ..< channelCount {
                 if i < fadeInSamples && inTime > 0 {
-                    gain *= fadeInPower
+
+                    if inRampType == .exponential {
+                        gain *= fadeInPower
+                    } else if inRampType == .linear {
+                        gain += fadeInPower
+                    }
+
                 } else if i > fadeOutSamples && outTime > 0 {
-                    gain *= fadeOutPower
+                    if outRampType == .exponential {
+                        gain *= fadeOutPower
+                    } else if outRampType == .linear {
+                        gain -= fadeOutPower
+                    }
                 } else {
                     gain = 1.0
                 }
@@ -255,6 +284,8 @@ extension AVAudioPCMBuffer {
                 // sanity check
                 if gain > 1 {
                     gain = 1
+                } else if gain < 0 {
+                    gain = 0
                 }
 
                 let sample = floatData[n][i] * Float(gain)

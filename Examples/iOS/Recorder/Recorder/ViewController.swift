@@ -18,15 +18,13 @@ class ViewController: UIViewController {
     var tape: AKAudioFile!
     var micBooster: AKBooster!
     var moogLadder: AKMoogLadder!
-    var delay: AKDelay!
     var mainMixer: AKMixer!
 
     let mic = AKMicrophone()
 
     var state = State.readyToRecord
 
-    @IBOutlet private var inputPlot: AKNodeOutputPlot!
-    @IBOutlet private var outputPlot: AKOutputWaveformPlot!
+    @IBOutlet private var plot: AKNodeOutputPlot?
     @IBOutlet private weak var infoLabel: UILabel!
     @IBOutlet private weak var resetButton: UIButton!
     @IBOutlet private weak var mainButton: UIButton!
@@ -43,11 +41,8 @@ class ViewController: UIViewController {
 
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
-        setupButtonNames()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
         // Clean tempFiles !
         AKAudioFile.cleanTempDirectory()
@@ -64,7 +59,6 @@ class ViewController: UIViewController {
         AKSettings.defaultToSpeaker = true
 
         // Patching
-        inputPlot.node = mic
         micMixer = AKMixer(mic)
         micBooster = AKBooster(micMixer)
 
@@ -87,7 +81,13 @@ class ViewController: UIViewController {
         } catch {
             AKLog("AudioKit did not start!")
         }
+    }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        plot?.node = mic
+        setupButtonNames()
         setupUIForRecording()
     }
 
@@ -132,16 +132,19 @@ class ViewController: UIViewController {
                         print("Export succeeded")
                     }
                 }
-                setupUIForPlaying ()
+                setupUIForPlaying()
             }
         case .readyToPlay :
             player.play()
             infoLabel.text = "Playing..."
             mainButton.setTitle("Stop", for: .normal)
             state = .playing
+            plot?.node = player
+
         case .playing :
             player.stop()
             setupUIForPlaying()
+            plot?.node = mic
         }
     }
 
@@ -202,6 +205,7 @@ class ViewController: UIViewController {
     }
     @IBAction func resetButtonTouched(sender: UIButton) {
         player.stop()
+        plot?.node = mic
         do {
             try recorder.reset()
         } catch { print("Errored resetting.") }
@@ -222,8 +226,4 @@ class ViewController: UIViewController {
         resonanceSlider.format = "%0.3f"
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }

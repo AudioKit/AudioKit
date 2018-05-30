@@ -27,7 +27,7 @@ class AKTremoloTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKTremolo(input, frequency:20, depth: 0.5)
+        output = AKTremolo(input, frequency: 20, depth: 0.5)
         AKTestMD5("81593bd2f89aa1ee6def976244a4d149")
     }
 

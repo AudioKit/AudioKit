@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaserParameter) {
     AKPhaserParameterFeedback,
     AKPhaserParameterInverted,
     AKPhaserParameterLfoBPM,
-    AKPhaserParameterRampTime
+    AKPhaserParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -69,7 +69,7 @@ public:
     float defaultInverted = 0;
     float defaultLfoBPM = 30;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

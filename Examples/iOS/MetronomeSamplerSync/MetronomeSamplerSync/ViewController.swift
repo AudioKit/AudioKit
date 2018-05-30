@@ -125,7 +125,7 @@ class ViewController: UIViewController {
 
         }))
 
-        let beatsSelector = UISegmentedControl(items: Array(1...8).map {String($0)})
+        let beatsSelector = UISegmentedControl(items: Array(1...8).map { String($0) })
         beatsSelector.addTarget(self, action: #selector(beatsSelected(segmentedControl:)), for: .valueChanged)
         beatsSelector.selectedSegmentIndex = 3
         addView(beatsSelector)
