@@ -101,11 +101,11 @@ class Conductor {
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        oscillator.play(noteNumber: OffsetNote(note, semitones:semitoneOffset), velocity: velocity)
+        oscillator.play(noteNumber: OffsetNote(note, semitones: semitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        oscillator.stop(noteNumber: OffsetNote(note, semitones:semitoneOffset))
+        oscillator.stop(noteNumber: OffsetNote(note, semitones: semitoneOffset))
     }
 
     func allNotesOff() {
