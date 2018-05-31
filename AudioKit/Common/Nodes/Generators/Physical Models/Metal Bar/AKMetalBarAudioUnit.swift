@@ -156,6 +156,6 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
         strikeWidth.value = Float(AKMetalBar.defaultStrikeWidth)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

@@ -212,7 +212,7 @@ class ViewController: NSViewController {
         if sender == slider1 {
             booster.gain = slider1.doubleValue
             slider1Value.stringValue = String(describing: roundTo(booster.gain, decimalPlaces: 3))
-            
+
         } else if sender == slider2 {
             booster.rampDuration = slider2.doubleValue
             slider2Value.stringValue = String(describing: roundTo(booster.rampDuration, decimalPlaces: 3))

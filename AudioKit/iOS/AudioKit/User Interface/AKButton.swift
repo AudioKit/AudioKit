@@ -32,7 +32,7 @@ public enum AKButtonStyle {
     }
 
     public var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
-    
+
     /// Text to display on the button
     @IBInspectable open var title: String {
         didSet {
