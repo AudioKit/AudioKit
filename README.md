@@ -116,19 +116,3 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 <a href="https://opencollective.com/AudioKit#backers" target="_blank"><img src="https://opencollective.com/AudioKit/backers.svg?width=890"></a>
 
 
-### Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/AudioKit#sponsor)]
-
-<a href="https://opencollective.com/AudioKit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/1/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/2/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/3/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/4/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/5/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/6/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/7/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/8/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/9/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/9/avatar.svg"></a>
-
-
