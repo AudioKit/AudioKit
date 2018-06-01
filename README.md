@@ -109,10 +109,3 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 <a href="graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 
-### Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/AudioKit#backer)]
-
-<a href="https://opencollective.com/AudioKit#backers" target="_blank"><img src="https://opencollective.com/AudioKit/backers.svg?width=890"></a>
-
-
