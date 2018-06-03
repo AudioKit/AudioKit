@@ -34,10 +34,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// Lower and upper bounds for Crossover Frequency
     public static let crossoverFrequencyRange = 10.0 ... 1_000.0
 
-    /// Lower and upper bounds for Low Release Time
+    /// Lower and upper bounds for Low Release Duration
     public static let lowReleaseTimeRange = 0.0 ... 10.0
 
-    /// Lower and upper bounds for Mid Release Time
+    /// Lower and upper bounds for Mid Release Duration
     public static let midReleaseTimeRange = 0.0 ... 10.0
 
     /// Lower and upper bounds for Damping Frequency
@@ -64,10 +64,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initial value for Crossover Frequency
     public static let defaultCrossoverFrequency = 200.0
 
-    /// Initial value for Low Release Time
+    /// Initial value for Low Release Duration
     public static let defaultLowReleaseTime = 3.0
 
-    /// Initial value for Mid Release Time
+    /// Initial value for Mid Release Duration
     public static let defaultMidReleaseTime = 2.0
 
     /// Initial value for Damping Frequency
@@ -88,10 +88,10 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initial value for Dry Wet Mix
     public static let defaultDryWetMix = 1.0
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 

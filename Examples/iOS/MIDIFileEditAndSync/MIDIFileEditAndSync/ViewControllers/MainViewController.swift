@@ -147,7 +147,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let manager = sequencerManager,
-            let seq = manager.seq else { return 0}
+            let seq = manager.seq else { return 0 }
         // last row is 'select all'
         return seq.tracks.count + 1
     }

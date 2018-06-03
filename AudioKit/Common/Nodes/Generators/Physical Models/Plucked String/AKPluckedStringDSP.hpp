@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
     AKPluckedStringParameterFrequency,
     AKPluckedStringParameterAmplitude,
-    AKPluckedStringParameterRampTime
+    AKPluckedStringParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -51,9 +51,9 @@ public:
             case AKPluckedStringParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKPluckedStringParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                amplitudeRamp.setRampTime(value, _sampleRate);
+            case AKPluckedStringParameterRampDuration:
+                frequencyRamp.setRampDuration(value, _sampleRate);
+                amplitudeRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -65,8 +65,8 @@ public:
                 return frequencyRamp.getTarget();
             case AKPluckedStringParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKPluckedStringParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
+            case AKPluckedStringParameterRampDuration:
+                return frequencyRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

@@ -14,7 +14,7 @@ typedef NS_ENUM(AUParameterAddress, AKEqualizerFilterParameter) {
     AKEqualizerFilterParameterCenterFrequency,
     AKEqualizerFilterParameterBandwidth,
     AKEqualizerFilterParameterGain,
-    AKEqualizerFilterParameterRampTime
+    AKEqualizerFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -45,7 +45,7 @@ public:
     float defaultBandwidth = 100.0;
     float defaultGain = 10.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

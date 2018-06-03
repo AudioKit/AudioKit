@@ -49,7 +49,7 @@ class Audiobus {
         self.controller = ABAudiobusController(apiKey: apiKey)
 
         var myDict: NSDictionary?
-        if let path = Bundle.main.path(forResource:"Info", ofType: "plist") {
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
@@ -132,7 +132,7 @@ class Audiobus {
     }
 
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
+        _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
                                                        object: nil,
                                                        queue: nil,
                                                        using: { _ in self.updateConnections() })

@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
     AKCombFilterReverbParameterReverbDuration,
-    AKCombFilterReverbParameterRampTime
+    AKCombFilterReverbParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -50,8 +50,8 @@ public:
             case AKCombFilterReverbParameterReverbDuration:
                 reverbDurationRamp.setTarget(value, immediate);
                 break;
-            case AKCombFilterReverbParameterRampTime:
-                reverbDurationRamp.setRampTime(value, _sampleRate);
+            case AKCombFilterReverbParameterRampDuration:
+                reverbDurationRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -61,8 +61,8 @@ public:
         switch (address) {
             case AKCombFilterReverbParameterReverbDuration:
                 return reverbDurationRamp.getTarget();
-            case AKCombFilterReverbParameterRampTime:
-                return reverbDurationRamp.getRampTime(_sampleRate);
+            case AKCombFilterReverbParameterRampDuration:
+                return reverbDurationRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

@@ -15,6 +15,12 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
+/// A Sample type, just a UInt32
+public typealias Sample = UInt32
+
+/// Callback function that can be called from C
+public typealias AKCCallback = @convention(block) () -> Void
+
 extension Collection {
     /// Return a random element from the collection
     public var randomIndex: Index {

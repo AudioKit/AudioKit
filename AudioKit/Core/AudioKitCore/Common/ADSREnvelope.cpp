@@ -12,13 +12,13 @@
 namespace AudioKitCore
 {
 
-    ADSREnvelopeParams::ADSREnvelopeParams()
+    ADSREnvelopeParameters::ADSREnvelopeParameters()
     : sampleRateHz(44100.0f) // a guess, will be overridden later by a call to init(,,,,)
     {
         init(0.0f, 0.0f, 1.0f, 0.0f);
     }
     
-    void ADSREnvelopeParams::init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
+    void ADSREnvelopeParameters::init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
     {
         attackSamples = attackSeconds * sampleRateHz;
         decaySamples = decaySeconds * sampleRateHz;
@@ -26,13 +26,13 @@ namespace AudioKitCore
         releaseSamples = releaseSeconds * sampleRateHz;
     }
     
-    void ADSREnvelopeParams::init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
+    void ADSREnvelopeParameters::init(float newSampleRateHz, float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds)
     {
         sampleRateHz = newSampleRateHz;
         init(attackSeconds, decaySeconds, susFraction, releaseSeconds);
     }
     
-    void ADSREnvelopeParams::updateSampleRate(float newSampleRateHz)
+    void ADSREnvelopeParameters::updateSampleRate(float newSampleRateHz)
     {
         float scaleFactor = newSampleRateHz / sampleRateHz;
         sampleRateHz = newSampleRateHz;

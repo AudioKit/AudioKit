@@ -27,8 +27,8 @@ public class SDBoosterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rightGain, value: rightGain) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,

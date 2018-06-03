@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
     AKMorphingOscillatorParameterIndex,
     AKMorphingOscillatorParameterDetuningOffset,
     AKMorphingOscillatorParameterDetuningMultiplier,
-    AKMorphingOscillatorParameterRampTime
+    AKMorphingOscillatorParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -53,7 +53,7 @@ public:
     float defaultDetuningOffset = 0;
     float defaultDetuningMultiplier = 1;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

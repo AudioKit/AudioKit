@@ -13,118 +13,118 @@ namespace AudioKitCore
 {
     void SamplerVoice::init(double sampleRate)
     {
-        filterL.init(sampleRate);
-        filterR.init(sampleRate);
-        ampEG.init();
-        filterEG.init();
+        leftFilter.init(sampleRate);
+        rightFilter.init(sampleRate);
+        adsrEnvelope.init();
+        filterEnvelope.init();
     }
     
-    void SamplerVoice::start(unsigned noteNum, float sampleRateHz, float freqHz, float volume, SampleBuffer* pBuf)
+    void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer* buffer)
     {
-        pSampleBuffer = pBuf;
-        oscillator.fIndex = pBuf->fStart;
-        oscillator.fIncrement = (pBuf->sampleRateHz / sampleRateHz) * (freqHz / pBuf->noteHz);
-        oscillator.fIncMul = 1.0;
-        oscillator.bLooping = pBuf->bLoop;
+        sampleBuffer = buffer;
+        oscillator.indexPoint = buffer->startPoint;
+        oscillator.increment = (buffer->sampleRate / sampleRate) * (frequency / buffer->noteFrequency);
+        oscillator.multiplier = 1.0;
+        oscillator.isLooping = buffer->isLooping;
         
-        noteVol = volume;
-        ampEG.start();
+        noteVolume = volume;
+        adsrEnvelope.start();
         
-        double sr = (double)sampleRateHz;
-        filterL.updateSampleRate(sr);
-        filterR.updateSampleRate(sr);
-        filterEG.start();
+        double sr = (double)sampleRate;
+        leftFilter.updateSampleRate(sr);
+        rightFilter.updateSampleRate(sr);
+        filterEnvelope.start();
         
-        noteHz = freqHz;
-        noteNumber = noteNum;
+        noteFrequency = frequency;
+        noteNumber = note;
     }
     
-    void SamplerVoice::restart(float volume, SampleBuffer* pSampleBuf)
+    void SamplerVoice::restart(float volume, SampleBuffer* buffer)
     {
-        tempNoteVol = noteVol;
-        pNewSampleBuffer = pSampleBuf;
-        ampEG.restart();
-        noteVol = volume;
-        filterEG.start();
+        tempNoteVolume = noteVolume;
+        newSampleBuffer = buffer;
+        adsrEnvelope.restart();
+        noteVolume = volume;
+        filterEnvelope.start();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
     {
-        if (!loopThruRelease) oscillator.bLooping = false;
-        ampEG.release();
-        filterEG.release();
+        if (!loopThruRelease) oscillator.isLooping = false;
+        adsrEnvelope.release();
+        filterEnvelope.release();
     }
     
     void SamplerVoice::stop()
     {
         noteNumber = -1;
-        ampEG.reset();
-        filterEG.reset();
+        adsrEnvelope.reset();
+        filterEnvelope.reset();
     }
     
-    bool SamplerVoice::prepToGetSamples(float masterVol, float pitchOffset,
-                                        float cutoffMultiple, float cutoffEgStrength,
+    bool SamplerVoice::prepToGetSamples(float masterVolume, float pitchOffset,
+                                        float cutoffMultiple, float cutoffEnvelopeStrength,
                                         float resLinear)
     {
-        if (ampEG.isIdle()) return true;
+        if (adsrEnvelope.isIdle()) return true;
 
-        if (ampEG.isPreStarting())
+        if (adsrEnvelope.isPreStarting())
         {
-            tempGain = masterVol * tempNoteVol * ampEG.getSample();
-            if (!ampEG.isPreStarting())
+            tempGain = masterVolume * tempNoteVolume * adsrEnvelope.getSample();
+            if (!adsrEnvelope.isPreStarting())
             {
-                tempGain = masterVol * noteVol * ampEG.getSample();
-                pSampleBuffer = pNewSampleBuffer;
-                oscillator.fIndex = pSampleBuffer->fStart;
-                oscillator.bLooping = pSampleBuffer->bLoop;
+                tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
+                sampleBuffer = newSampleBuffer;
+                oscillator.indexPoint = sampleBuffer->startPoint;
+                oscillator.isLooping = sampleBuffer->isLooping;
             }
         }
         else
-            tempGain = masterVol * noteVol * ampEG.getSample();
+            tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
         oscillator.setPitchOffsetSemitones(pitchOffset);
         
         // negative value of cutoffMultiple means filters are disabled
         if (cutoffMultiple < 0.0f)
         {
-            filterEnable = false;
+            isFilterEnabled = false;
         }
         else
         {
-            filterEnable = true;
-            double cutoffHz = noteHz * (1.0f + cutoffMultiple + cutoffEgStrength * filterEG.getSample());
-            filterL.setParams(cutoffHz, resLinear);
-            filterR.setParams(cutoffHz, resLinear);
+            isFilterEnabled = true;
+            double cutoffHz = noteFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * filterEnvelope.getSample());
+            leftFilter.setParams(cutoffHz, resLinear);
+            rightFilter.setParams(cutoffHz, resLinear);
         }
         
         return false;
     }
     
-    bool SamplerVoice::getSamples(int nSamples, float* pOut)
+    bool SamplerVoice::getSamples(int sampleCount, float* pOut)
     {
-        for (int i=0; i < nSamples; i++)
+        for (int i=0; i < sampleCount; i++)
         {
             float sample;
-            if (oscillator.getSample(pSampleBuffer, nSamples, &sample, tempGain)) return true;
-            *pOut++ += filterEnable ? filterL.process(sample) : sample;
+            if (oscillator.getSample(sampleBuffer, sampleCount, &sample, tempGain)) return true;
+            *pOut++ += isFilterEnabled ? leftFilter.process(sample) : sample;
         }
         return false;
     }
     
-    bool SamplerVoice::getSamples(int nSamples, float* pOutLeft, float* pOutRight)
+    bool SamplerVoice::getSamples(int sampleCount, float* leftOutput, float* rightOutput)
     {
-        for (int i=0; i < nSamples; i++)
+        for (int i=0; i < sampleCount; i++)
         {
             float leftSample, rightSample;
-            if (oscillator.getSamplePair(pSampleBuffer, nSamples, &leftSample, &rightSample, tempGain)) return true;
-            if (filterEnable)
+            if (oscillator.getSamplePair(sampleBuffer, sampleCount, &leftSample, &rightSample, tempGain)) return true;
+            if (isFilterEnabled)
             {
-                *pOutLeft++ += filterL.process(leftSample);
-                *pOutRight++ += filterR.process(rightSample);
+                *leftOutput++ += leftFilter.process(leftSample);
+                *rightOutput++ += rightFilter.process(rightSample);
             }
             else
             {
-                *pOutLeft++ += leftSample;
-                *pOutRight++ += rightSample;
+                *leftOutput++ += leftSample;
+                *rightOutput++ += rightSample;
             }
         }
         return false;

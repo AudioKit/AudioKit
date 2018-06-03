@@ -68,7 +68,7 @@ class ViewController: NSViewController, NSWindowDelegate {
             print(error)
         }
 
-        sampler.filterCutoff = 100.0
+        sampler.filterCutoff = 10.0
 
         masterVolumeSlider.intValue = Int32(100 * sampler.masterVolume)
         masterVolumeReadout.intValue = Int32(100 * sampler.masterVolume)
@@ -84,23 +84,23 @@ class ViewController: NSViewController, NSWindowDelegate {
         filterResonanceSlider.doubleValue = sampler.filterResonance
         filterResonanceReadout.doubleValue = sampler.filterResonance
 
-        ampAttackSlider.doubleValue = sampler.ampAttackTime
-        ampAttackReadout.doubleValue = sampler.ampAttackTime
-        ampDecaySlider.doubleValue = sampler.ampDecayTime
-        ampDecayReadout.doubleValue = sampler.ampDecayTime
-        ampSustainSlider.intValue = Int32(100 * sampler.ampSustainLevel)
-        ampSustainReadout.intValue = Int32(100 * sampler.ampSustainLevel)
-        ampReleaseSlider.doubleValue = sampler.ampReleaseTime
-        ampReleaseReadout.doubleValue = sampler.ampReleaseTime
+        ampAttackSlider.doubleValue = sampler.attackDuration
+        ampAttackReadout.doubleValue = sampler.attackDuration
+        ampDecaySlider.doubleValue = sampler.decayDuration
+        ampDecayReadout.doubleValue = sampler.decayDuration
+        ampSustainSlider.intValue = Int32(100 * sampler.sustainLevel)
+        ampSustainReadout.intValue = Int32(100 * sampler.sustainLevel)
+        ampReleaseSlider.doubleValue = sampler.releaseDuration
+        ampReleaseReadout.doubleValue = sampler.releaseDuration
 
-        filterAttackSlider.doubleValue = sampler.filterAttackTime
-        filterAttackReadout.doubleValue = sampler.filterAttackTime
-        filterDecaySlider.doubleValue = sampler.filterDecayTime
-        filterDecayReadout.doubleValue = sampler.filterDecayTime
+        filterAttackSlider.doubleValue = sampler.filterAttackDuration
+        filterAttackReadout.doubleValue = sampler.filterAttackDuration
+        filterDecaySlider.doubleValue = sampler.filterDecayDuration
+        filterDecayReadout.doubleValue = sampler.filterDecayDuration
         filterSustainSlider.intValue = Int32(100 * sampler.filterSustainLevel)
         filterSustainReadout.intValue = Int32(100 * sampler.filterSustainLevel)
-        filterReleaseSlider.doubleValue = sampler.filterReleaseTime
-        filterReleaseReadout.doubleValue = sampler.filterReleaseTime
+        filterReleaseSlider.doubleValue = sampler.filterReleaseDuration
+        filterReleaseReadout.doubleValue = sampler.filterReleaseDuration
     }
 
     override func viewDidAppear() {
@@ -172,32 +172,32 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     @IBAction func onAmpAttackSliderChange(_ sender: NSSlider) {
         ampAttackReadout.floatValue = sender.floatValue
-        sampler.ampAttackTime = sender.doubleValue
+        sampler.attackDuration = sender.doubleValue
     }
 
     @IBAction func onAmpDecaySliderChange(_ sender: NSSlider) {
         ampDecayReadout.floatValue = sender.floatValue
-        sampler.ampDecayTime = sender.doubleValue
+        sampler.decayDuration = sender.doubleValue
     }
 
     @IBAction func onAmpSustainSliderChange(_ sender: NSSlider) {
         ampSustainReadout.intValue = sender.intValue
-        sampler.ampSustainLevel = sender.doubleValue / 100.0
+        sampler.sustainLevel = sender.doubleValue / 100.0
     }
 
     @IBAction func onAmpReleaseSliderChange(_ sender: NSSlider) {
         ampReleaseReadout.floatValue = sender.floatValue
-        sampler.ampReleaseTime = sender.doubleValue
+        sampler.releaseDuration = sender.doubleValue
     }
 
     @IBAction func onFilterAttackSliderChange(_ sender: NSSlider) {
         filterAttackReadout.floatValue = sender.floatValue
-        sampler.filterAttackTime = sender.doubleValue
+        sampler.filterAttackDuration = sender.doubleValue
     }
 
     @IBAction func onFilterDecaySliderChange(_ sender: NSSlider) {
         filterDecayReadout.floatValue = sender.floatValue
-        sampler.filterDecayTime = sender.doubleValue
+        sampler.filterDecayDuration = sender.doubleValue
     }
 
     @IBAction func onFilterSustainSliderChange(_ sender: NSSlider) {
@@ -207,7 +207,7 @@ class ViewController: NSViewController, NSWindowDelegate {
 
     @IBAction func onFilterReleaseSliderChange(_ sender: NSSlider) {
         filterReleaseReadout.floatValue = sender.floatValue
-        sampler.filterReleaseTime = sender.doubleValue
+        sampler.filterReleaseDuration = sender.doubleValue
     }
 }
 

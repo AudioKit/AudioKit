@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
     AKVocalTractParameterTongueDiameter,
     AKVocalTractParameterTenseness,
     AKVocalTractParameterNasality,
-    AKVocalTractParameterRampTime
+    AKVocalTractParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
@@ -72,12 +72,12 @@ public:
             case AKVocalTractParameterNasality:
                 nasalityRamp.setTarget(value, immediate);
                 break;
-            case AKVocalTractParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                tonguePositionRamp.setRampTime(value, _sampleRate);
-                tongueDiameterRamp.setRampTime(value, _sampleRate);
-                tensenessRamp.setRampTime(value, _sampleRate);
-                nasalityRamp.setRampTime(value, _sampleRate);
+            case AKVocalTractParameterRampDuration:
+                frequencyRamp.setRampDuration(value, _sampleRate);
+                tonguePositionRamp.setRampDuration(value, _sampleRate);
+                tongueDiameterRamp.setRampDuration(value, _sampleRate);
+                tensenessRamp.setRampDuration(value, _sampleRate);
+                nasalityRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -95,8 +95,8 @@ public:
                 return tensenessRamp.getTarget();
             case AKVocalTractParameterNasality:
                 return nasalityRamp.getTarget();
-            case AKVocalTractParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
+            case AKVocalTractParameterRampDuration:
+                return frequencyRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }
