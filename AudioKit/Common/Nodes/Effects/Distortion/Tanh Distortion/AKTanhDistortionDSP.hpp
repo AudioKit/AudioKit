@@ -15,7 +15,7 @@ typedef NS_ENUM(AUParameterAddress, AKTanhDistortionParameter) {
     AKTanhDistortionParameterPostgain,
     AKTanhDistortionParameterPositiveShapeParameter,
     AKTanhDistortionParameterNegativeShapeParameter,
-    AKTanhDistortionParameterRampTime
+    AKTanhDistortionParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -49,7 +49,7 @@ public:
     float defaultPositiveShapeParameter = 0.0;
     float defaultNegativeShapeParameter = 0.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

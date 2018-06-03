@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, AKResonantFilterParameter) {
     AKResonantFilterParameterFrequency,
     AKResonantFilterParameterBandwidth,
-    AKResonantFilterParameterRampTime
+    AKResonantFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -41,7 +41,7 @@ public:
     float defaultFrequency = 4000.0;
     float defaultBandwidth = 1000.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;

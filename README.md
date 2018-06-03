@@ -3,7 +3,6 @@ AudioKit V4.2
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/master/LICENSE)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://cocoapods.org/pods/AudioKit)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 <img src="https://img.shields.io/badge/in-swift4.0-orange.svg">
@@ -28,12 +27,9 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 Installation details are found in the [Frameworks README file](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md).
 
-AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit) and Carthage Package managers:
+AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
-| Package Manager                                  | Config File | Contents                     |
-|--------------------------------------------------|-------------|------------------------------|
-| [Carthage](https://github.com/Carthage/Carthage) | `Cartfile`  | `github "audiokit/AudioKit"` |
-| [Cocoapods](https://cocoapods.org/)              | `Podfile`   | `pod 'AudioKit', '~> 4.0'`   |
+    pod 'AudioKit', '~> 4.0'`
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
@@ -77,7 +73,7 @@ Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywend
 
 Here are three methods for getting support which are roughly listed in order of what you should try first:
 
-1. Post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the #AudioKit hashtag.
+1. Post your problem to [https://stackoverflow.com/questions/tagged/audiokit(StackOverflow with the #AudioKit hashtag).
 
 2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
 

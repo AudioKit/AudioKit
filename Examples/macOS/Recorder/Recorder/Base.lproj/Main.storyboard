@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -295,8 +297,8 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Transformations" id="c8a-y6-VQd">
                                                 <items>
-                                                    <menuItem title="Make Upper Case" id="vmV-6d-7jI">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Make Upper Case" keyEquivalent="" id="vmV-6d-7jI">
+                                                        <modifierMask key="keyEquivalentModifierMask" control="YES" option="YES" command="YES"/>
                                                         <connections>
                                                             <action selector="uppercaseWord:" target="Ady-hI-5gd" id="sPh-Tk-edu"/>
                                                         </connections>
@@ -686,66 +688,65 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="643" height="319"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PBH-JP-nSy">
-                                <rect key="frame" x="13" y="222" width="83" height="32"/>
-                                <buttonCell key="cell" type="push" title="Record" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LaL-vk-OJR">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="record:" target="XfG-lQ-9wD" id="XuA-5k-hZZ"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rXD-td-90S">
-                                <rect key="frame" x="96" y="222" width="66" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Play" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RLO-ZD-Hb6">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="play:" target="XfG-lQ-9wD" id="IpE-TA-ec0"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUu-te-CzJ">
-                                <rect key="frame" x="162" y="222" width="69" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Stop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rcb-42-1K5">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="stop:" target="XfG-lQ-9wD" id="Jaf-0s-zfP"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOL-m6-bpx">
-                                <rect key="frame" x="231" y="222" width="75" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Reset" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ib0-bf-OPF">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="reset:" target="XfG-lQ-9wD" id="sVl-Iy-rDX"/>
-                                </connections>
-                            </button>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="V7b-Yt-8ZI" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
-                                <rect key="frame" x="20" y="20" width="440" height="189"/>
-                            </customView>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="14" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gOa-ln-rqF">
+                                <rect key="frame" x="0.0" y="0.0" width="643" height="319"/>
+                                <subviews>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b5N-d3-gKa">
+                                        <rect key="frame" x="109" y="255" width="425" height="64"/>
+                                        <subviews>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="mEo-dq-VsU" customClass="AKButton" customModule="AudioKitUI">
+                                                <rect key="frame" x="0.0" y="7" width="135" height="50"/>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="0Uh-El-c1X" customClass="AKButton" customModule="AudioKitUI">
+                                                <rect key="frame" x="145" y="7" width="135" height="50"/>
+                                            </customView>
+                                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="0F4-NV-CLb" customClass="AKButton" customModule="AudioKitUI">
+                                                <rect key="frame" x="290" y="7" width="135" height="50"/>
+                                            </customView>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="V7b-Yt-8ZI" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
+                                        <rect key="frame" x="102" y="0.0" width="440" height="241"/>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="b5N-d3-gKa" firstAttribute="height" secondItem="gOa-ln-rqF" secondAttribute="height" multiplier="0.2" id="DYh-v9-EbX"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="PBH-JP-nSy" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="2Sw-D3-aax"/>
-                            <constraint firstAttribute="trailing" secondItem="V7b-Yt-8ZI" secondAttribute="trailing" constant="20" id="9iv-Z9-pJf"/>
-                            <constraint firstItem="V7b-Yt-8ZI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Mrc-al-h75"/>
-                            <constraint firstAttribute="bottom" secondItem="V7b-Yt-8ZI" secondAttribute="bottom" constant="20" id="obY-CF-iKH"/>
-                            <constraint firstItem="V7b-Yt-8ZI" firstAttribute="top" secondItem="PBH-JP-nSy" secondAttribute="bottom" constant="20" id="vHh-oK-EHJ"/>
+                            <constraint firstItem="gOa-ln-rqF" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="7LQ-hI-YQ1"/>
+                            <constraint firstItem="gOa-ln-rqF" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="KOe-dF-IUk"/>
+                            <constraint firstItem="gOa-ln-rqF" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="SxR-aM-ol4"/>
+                            <constraint firstItem="gOa-ln-rqF" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="bmt-fj-oPf"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="inputPlot" destination="V7b-Yt-8ZI" id="aC4-iS-PAe"/>
+                        <outlet property="inputPlot" destination="V7b-Yt-8ZI" id="cKn-Lp-yfX"/>
+                        <outlet property="playButton" destination="0Uh-El-c1X" id="doJ-Zr-sgQ"/>
+                        <outlet property="recordButton" destination="0F4-NV-CLb" id="zU5-Nv-Iiz"/>
+                        <outlet property="stopButton" destination="mEo-dq-VsU" id="DcT-Xx-Kgg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

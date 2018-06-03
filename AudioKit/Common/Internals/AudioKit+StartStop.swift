@@ -12,10 +12,9 @@ import UIKit
 #endif
 
 extension AudioKit {
-    
-    
+
     // MARK: - Start/Stop
-    
+
     /// Start up the audio engine with periodic functions
     open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         for function in functions {
@@ -23,7 +22,7 @@ extension AudioKit {
         }
         try start()
     }
-    
+
     /// Start up the audio engine
     @objc open static func start() throws {
         if output == nil {
@@ -33,44 +32,34 @@ extension AudioKit {
         try AKTry {
             engine.prepare()
         }
-        
+
         #if os(iOS)
-        
-        if AKSettings.enableRouteChangeHandling {
-            
-            let routeChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioSessionRouteChange,
-                                                                             object: nil,
-                                                                             queue: OperationQueue.main,
-                                                                             using: { (notification) in
-                                                                                AudioKit.restartEngineAfterRouteChange(notification)
-            })
-            notificationObservers.append(routeChangeObserver)
-            
-        }
-        
-        if AKSettings.enableCategoryChangeHandling {
-            let configurationChangeObserver = NotificationCenter.default.addObserver(forName: .AVAudioEngineConfigurationChange,
-                                                                                     object: engine,
-                                                                                     queue: OperationQueue.main,
-                                                                                     using: { (notification) in
-                                                                                        AudioKit.restartEngineAfterConfigurationChange(notification)
-            })
-            notificationObservers.append(configurationChangeObserver)
-        }
         try updateSessionCategoryAndOptions()
         try AVAudioSession.sharedInstance().setActive(true)
+
+        /// Notification observers
+
+        // Subscribe to route changes that may affect our engine
+        // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
+        NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterRouteChange), name: .AVAudioSessionRouteChange, object: nil)
+
+        // Subscribe to session/configuration changes to our engine
+        // Automatic handling of this change can be disabled via AKSettings.enableCategoryChangeHandling
+        NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterConfigurationChange), name: .AVAudioEngineConfigurationChange, object: nil)
         #endif
-        
+
         try AKTry {
             try engine.start()
         }
         shouldBeRunning = true
     }
-    
+
     @objc internal static func updateSessionCategoryAndOptions() throws {
         #if !os(macOS)
         let sessionCategory = AKSettings.computedSessionCategory()
-        
+
         #if os(iOS)
         let sessionOptions = AKSettings.computedSessionOptions()
         try AKSettings.setSession(category: sessionCategory,
@@ -80,7 +69,7 @@ extension AudioKit {
         #endif
         #endif
     }
-    
+
     /// Stop the audio engine
     @objc open static func stop() throws {
         // Stop the engine.
@@ -88,13 +77,11 @@ extension AudioKit {
             engine.stop()
         }
         shouldBeRunning = false
-        
+
         #if os(iOS)
-        notificationObservers.forEach { (observer) in
-            NotificationCenter.default.removeObserver(observer)
-        }
-        
         do {
+            NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
             try AVAudioSession.sharedInstance().setActive(false)
         } catch {
             AKLog("couldn't stop session \(error)")
@@ -102,67 +89,91 @@ extension AudioKit {
         }
         #endif
     }
-    
+
     // MARK: - Configuration Change Response
-    
+
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
     @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
-        do {
-            if shouldBeRunning && !engine.isRunning {
-                #if !os(macOS)
-                let appIsNotActive = UIApplication.shared.applicationState != .active
-                let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
-                
-                if appIsNotActive && appDoesNotSupportBackgroundAudio {
-                    AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
-                    return
-                }
-                #endif
-                
-                try engine.start()
-                
-                // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
-                if AKSettings.notificationsEnabled {
-                    NotificationCenter.default.post(
-                        name: .AKEngineRestartedAfterConfigurationChange,
-                        object: nil,
-                        userInfo: notification.userInfo)
-                }
-            }
-        } catch {
-            AKLog("error restarting engine after route change")
-            // Note: doesn't throw since this is called from a notification observer
-        }
-    }
-    
-    // Restarts the engine after audio output has been changed, like headphones plugged in.
-    @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
-        if shouldBeRunning && !engine.isRunning {
+        // Notifications aren't guaranteed to be on the main thread
+        let checkRestart = {
             do {
-                #if !os(macOS)
-                let appIsNotActive = UIApplication.shared.applicationState != .active
-                let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
-                
-                if appIsNotActive && appDoesNotSupportBackgroundAudio {
-                    AKLog("engine not restarted after route change since app was not active and does not support background audio")
+                // By checking the notification sender in this block rather than during observer configuration we avoid needing to create a new observer if the engine somehow changes
+                guard let notifyingEngine = notification.object as? AVAudioEngine, notifyingEngine == engine else {
                     return
                 }
-                #endif
-                
-                try engine.start()
-                
-                // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
-                if AKSettings.notificationsEnabled {
-                    NotificationCenter.default.post(
-                        name: .AKEngineRestartedAfterRouteChange,
-                        object: nil,
-                        userInfo: notification.userInfo)
+
+                if AKSettings.enableCategoryChangeHandling && !engine.isRunning && shouldBeRunning {
+
+                    #if !os(macOS)
+                    let appIsNotActive = UIApplication.shared.applicationState != .active
+                    let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                    if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                        AKLog("engine not restarted after configuration change since app was not active and does not support background audio")
+                        return
+                    }
+                    #endif
+
+                    try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    if AKSettings.notificationsEnabled {
+                        NotificationCenter.default.post(
+                            name: .AKEngineRestartedAfterConfigurationChange,
+                            object: nil,
+                            userInfo: notification.userInfo)
+                    }
                 }
             } catch {
                 AKLog("error restarting engine after route change")
                 // Note: doesn't throw since this is called from a notification observer
             }
+        }
+        if Thread.isMainThread {
+            checkRestart()
+        } else {
+            DispatchQueue.main.async(execute: checkRestart)
+        }
+    }
+
+    // Restarts the engine after audio output has been changed, like headphones plugged in.
+    @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
+        // Notifications aren't guaranteed to come in on the main thread
+
+        let checkRestart = {
+
+            if AKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
+                do {
+                    #if !os(macOS)
+                    let appIsNotActive = UIApplication.shared.applicationState != .active
+                    let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
+
+                    if appIsNotActive && appDoesNotSupportBackgroundAudio {
+                        AKLog("engine not restarted after route change since app was not active and does not support background audio")
+                        return
+                    }
+                    #endif
+
+                    try engine.start()
+
+                    // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                    if AKSettings.notificationsEnabled {
+                        NotificationCenter.default.post(
+                            name: .AKEngineRestartedAfterRouteChange,
+                            object: nil,
+                            userInfo: notification.userInfo)
+                    }
+                } catch {
+                    AKLog("error restarting engine after route change")
+                    // Note: doesn't throw since this is called from a notification observer
+                }
+            }
+        }
+        if Thread.isMainThread {
+            checkRestart()
+        } else {
+            DispatchQueue.main.async(execute: checkRestart)
         }
     }
 }

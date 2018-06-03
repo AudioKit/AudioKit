@@ -12,22 +12,22 @@
 namespace AudioKitCore {
     
     Sampler::Sampler()
-    : sampleRateHz(44100.0f)    // sensible guess
-    , keyMapValid(false)
-    , filterEnable(false)
+    : sampleRate(44100.0f)    // sensible guess
+    , isKeyMapValid(false)
+    , isFilterEnabled(false)
     , masterVolume(1.0f)
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
     , cutoffMultiple(4.0f)
-    , cutoffEgStrength(20.0f)
-    , resLinear(1.0f)
+    , cutoffEnvelopeStrength(20.0f)
+    , linearResonance(1.0f)
     , loopThruRelease(false)
     , stoppingAllVoices(false)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
-            voice[i].ampEG.pParams = &ampEGParams;
-            voice[i].filterEG.pParams = &filterEGParams;
+            voice[i].adsrEnvelope.pParams = &adsrEnvelopeParameters;
+            voice[i].filterEnvelope.pParams = &filterEnvelopeParameters;
         }
     }
     
@@ -37,9 +37,9 @@ namespace AudioKitCore {
     
     int Sampler::init(double sampleRate)
     {
-        sampleRateHz = (float)sampleRate;
-        ampEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
-        filterEGParams.updateSampleRate((float)(sampleRate/CHUNKSIZE));
+        sampleRate = (float)sampleRate;
+        adsrEnvelopeParameters.updateSampleRate((float)(sampleRate/CHUNKSIZE));
+        filterEnvelopeParameters.updateSampleRate((float)(sampleRate/CHUNKSIZE));
         vibratoLFO.waveTable.sinusoid();
         vibratoLFO.init(sampleRate/CHUNKSIZE, 5.0f);
 
@@ -50,7 +50,7 @@ namespace AudioKitCore {
     
     void Sampler::deinit()
     {
-        keyMapValid = false;
+        isKeyMapValid = false;
         for (KeyMappedSampleBuffer* pBuf : sampleBufferList) delete pBuf;
         sampleBufferList.clear();
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
@@ -59,38 +59,38 @@ namespace AudioKitCore {
     void Sampler::loadSampleData(AKSampleDataDescriptor& sdd)
     {
         KeyMappedSampleBuffer* pBuf = new KeyMappedSampleBuffer();
-        pBuf->min_note = sdd.sd.min_note;
-        pBuf->max_note = sdd.sd.max_note;
-        pBuf->min_vel = sdd.sd.min_vel;
-        pBuf->max_vel = sdd.sd.max_vel;
+        pBuf->minimumNoteNumber = sdd.sampleDescriptor.minimumNoteNumber;
+        pBuf->maximumNoteNumber = sdd.sampleDescriptor.maximumNoteNumber;
+        pBuf->minimumVelocity = sdd.sampleDescriptor.minimumVelocity;
+        pBuf->maximumVelocity = sdd.sampleDescriptor.maximumVelocity;
         sampleBufferList.push_back(pBuf);
         
-        pBuf->init(sdd.sampleRateHz, sdd.nChannels, sdd.nSamples);
-        float* pData = sdd.pData;
-        if (sdd.bInterleaved) for (int i=0; i < sdd.nSamples; i++)
+        pBuf->init(sdd.sampleRate, sdd.channelCount, sdd.sampleCount);
+        float* pData = sdd.data;
+        if (sdd.isInterleaved) for (int i=0; i < sdd.sampleCount; i++)
         {
             pBuf->setData(i, *pData++);
-            if (sdd.nChannels > 1) pBuf->setData(sdd.nSamples + i, *pData++);
+            if (sdd.channelCount > 1) pBuf->setData(sdd.sampleCount + i, *pData++);
         }
-        else for (int i=0; i < sdd.nChannels * sdd.nSamples; i++)
+        else for (int i=0; i < sdd.channelCount * sdd.sampleCount; i++)
         {
             pBuf->setData(i, *pData++);
         }
-        pBuf->noteNumber = sdd.sd.noteNumber;
-        pBuf->noteHz = sdd.sd.noteHz;
+        pBuf->noteNumber = sdd.sampleDescriptor.noteNumber;
+        pBuf->noteFrequency = sdd.sampleDescriptor.noteFrequency;
         
-        if (sdd.sd.fStart > 0.0f) pBuf->fStart = sdd.sd.fStart;
-        if (sdd.sd.fEnd > 0.0f)   pBuf->fEnd = sdd.sd.fEnd;
+        if (sdd.sampleDescriptor.startPoint > 0.0f) pBuf->startPoint = sdd.sampleDescriptor.startPoint;
+        if (sdd.sampleDescriptor.endPoint > 0.0f)   pBuf->endPoint = sdd.sampleDescriptor.endPoint;
         
-        pBuf->bLoop = sdd.sd.bLoop;
-        if (pBuf->bLoop)
+        pBuf->isLooping = sdd.sampleDescriptor.isLooping;
+        if (pBuf->isLooping)
         {
-            // fLoopStart, fLoopEnd are usually sample indices, but values 0.0-1.0
+            // loopStartPoint, loopEndPoint are usually sample indices, but values 0.0-1.0
             // are interpreted as fractions of the total sample length.
-            if (sdd.sd.fLoopStart > 1.0f) pBuf->fLoopStart = sdd.sd.fLoopStart;
-            else pBuf->fLoopStart = pBuf->fEnd * sdd.sd.fLoopStart;
-            if (sdd.sd.fLoopEnd > 1.0f) pBuf->fLoopEnd = sdd.sd.fLoopEnd;
-            else pBuf->fLoopEnd = pBuf->fEnd * sdd.sd.fLoopEnd;
+            if (sdd.sampleDescriptor.loopStartPoint > 1.0f) pBuf->loopStartPoint = sdd.sampleDescriptor.loopStartPoint;
+            else pBuf->loopStartPoint = pBuf->endPoint * sdd.sampleDescriptor.loopStartPoint;
+            if (sdd.sampleDescriptor.loopEndPoint > 1.0f) pBuf->loopEndPoint = sdd.sampleDescriptor.loopEndPoint;
+            else pBuf->loopEndPoint = pBuf->endPoint * sdd.sampleDescriptor.loopEndPoint;
         }
     }
     
@@ -103,10 +103,10 @@ namespace AudioKitCore {
         for (KeyMappedSampleBuffer* pBuf : keyMap[noteNumber])
         {
             // if sample does not have velocity range, accept it trivially
-            if (pBuf->min_vel < 0 || pBuf->max_vel < 0) return pBuf;
+            if (pBuf->minimumVelocity < 0 || pBuf->maximumVelocity < 0) return pBuf;
             
             // otherwise (common case), accept based on velocity
-            if ((int)velocity >= pBuf->min_vel && (int)velocity <= pBuf->max_vel) return pBuf;
+            if ((int)velocity >= pBuf->minimumVelocity && (int)velocity <= pBuf->maximumVelocity) return pBuf;
         }
         
         // return nil if no samples mapped to note (or sample velocities are invalid)
@@ -118,7 +118,7 @@ namespace AudioKitCore {
     void Sampler::buildSimpleKeyMap()
     {
         // clear out the old mapping entirely
-        keyMapValid = false;
+        isKeyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
         
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
@@ -144,25 +144,25 @@ namespace AudioKitCore {
                 }
             }
         }
-        keyMapValid = true;
+        isKeyMapValid = true;
     }
     
     // rebuild keyMap based on explicit mapping data in samples
     void Sampler::buildKeyMap(void)
     {
         // clear out the old mapping entirely
-        keyMapValid = false;
+        isKeyMapValid = false;
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
 
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
         {
             for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
             {
-                if (nn >= pBuf->min_note && nn <= pBuf->max_note)
+                if (nn >= pBuf->minimumNoteNumber && nn <= pBuf->maximumNoteNumber)
                     keyMap[nn].push_back(pBuf);
             }
         }
-        keyMapValid = true;
+        isKeyMapValid = true;
     }
     
     SamplerVoice* Sampler::voicePlayingNote(unsigned int noteNumber)
@@ -175,12 +175,12 @@ namespace AudioKitCore {
         return 0;
     }
 
-    void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
         pedalLogic.keyDownAction(noteNumber);
         //if (pedalLogic.keyDownAction(noteNumber))
         //    stop(noteNumber, false);
-        play(noteNumber, velocity, noteHz);
+        play(noteNumber, velocity, noteFrequency);
     }
     
     void Sampler::stopNote(unsigned noteNumber, bool immediate)
@@ -202,13 +202,13 @@ namespace AudioKitCore {
         }
     }
     
-    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
         if (stoppingAllVoices) return;
 
-        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
+        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
         // sanity check: ensure we are initialized with at least one buffer
-        if (!keyMapValid || sampleBufferList.size() == 0) return;
+        if (!isKeyMapValid || sampleBufferList.size() == 0) return;
         
         // is any voice already playing this note?
         SamplerVoice* pVoice = voicePlayingNote(noteNumber);
@@ -229,9 +229,9 @@ namespace AudioKitCore {
                 // found a free voice: assign it to play this note
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
-                pVoice->start(noteNumber, sampleRateHz, noteHz, velocity / 127.0f, pBuf);
+                pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
-                //       noteNumber, noteHz, velocity, pBuf->noteNumber, pBuf->noteHz, i, pBuf);
+                //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
                 return;
             }
         }
@@ -280,13 +280,13 @@ namespace AudioKitCore {
         stoppingAllVoices = false;
     }
     
-    void Sampler::Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
+    void Sampler::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
     {
         float* pOutLeft = outBuffers[0];
         float* pOutRight = outBuffers[1];
         
         float pitchDev = this->pitchOffset + vibratoDepth * vibratoLFO.getSample();
-        float cutoffMul = filterEnable ? cutoffMultiple : -1.0f;
+        float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
         
         SamplerVoice* pVoice = &voice[0];
         for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
@@ -295,7 +295,7 @@ namespace AudioKitCore {
             if (nn >= 0)
             {
                 if (stoppingAllVoices ||
-                    pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, cutoffEgStrength, resLinear) ||
+                    pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, cutoffEnvelopeStrength, linearResonance) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

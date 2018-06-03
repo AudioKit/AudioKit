@@ -33,7 +33,7 @@
 
 @objc open class AKTuningTable: AKTuningTableBase {
 
-    @objc internal var masterSet = [Frequency]()
+    @objc private(set) public var masterSet = [Frequency]()
 
     /// Note number for standard reference note
     @objc public var middleCNoteNumber: MIDINoteNumber = 60 {

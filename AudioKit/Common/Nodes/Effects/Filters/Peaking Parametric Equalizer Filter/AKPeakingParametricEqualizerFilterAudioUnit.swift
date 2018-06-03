@@ -30,8 +30,8 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.Q, value: q) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -88,6 +88,6 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         q.value = Float(AKPeakingParametricEqualizerFilter.defaultQ)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

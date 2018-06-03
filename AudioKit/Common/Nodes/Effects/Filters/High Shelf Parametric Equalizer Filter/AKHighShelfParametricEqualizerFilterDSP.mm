@@ -25,11 +25,11 @@ struct AKHighShelfParametricEqualizerFilterDSP::_Internal {
 
 AKHighShelfParametricEqualizerFilterDSP::AKHighShelfParametricEqualizerFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->gainRamp.setTarget(defaultGain, true);
-    _private->gainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->gainRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->qRamp.setTarget(defaultQ, true);
-    _private->qRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->qRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKHighShelfParametricEqualizerFilterDSP::setParameter(AUParameterAddress ad
         case AKHighShelfParametricEqualizerFilterParameterQ:
             _private->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
             break;
-        case AKHighShelfParametricEqualizerFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->gainRamp.setRampTime(value, _sampleRate);
-            _private->qRamp.setRampTime(value, _sampleRate);
+        case AKHighShelfParametricEqualizerFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->gainRamp.setRampDuration(value, _sampleRate);
+            _private->qRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKHighShelfParametricEqualizerFilterDSP::getParameter(uint64_t address) {
             return _private->gainRamp.getTarget();
         case AKHighShelfParametricEqualizerFilterParameterQ:
             return _private->qRamp.getTarget();
-        case AKHighShelfParametricEqualizerFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKHighShelfParametricEqualizerFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }

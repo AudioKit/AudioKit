@@ -49,11 +49,19 @@
         }
     }
 
+    /// Constants for ramps used in AKParameterRamp.hpp, AKBooster, and others
+    @objc public enum RampType: Int {
+        case linear = 0
+        case exponential = 1
+        case logarithmic = 2
+        case sCurve = 3
+    }
+
     /// The sample rate in Hertz
     @objc open static var sampleRate: Double = 44_100
 
     /// Number of audio channels: 2 for stereo, 1 for mono
-    @objc open static var numberOfChannels: UInt32 = 2
+    @objc open static var channelCount: UInt32 = 2
 
     /// Whether we should be listening to audio input (microphone)
     @objc open static var audioInputEnabled: Bool = false
@@ -63,7 +71,7 @@
 
     /// Global audio format AudioKit will default to
     @objc open static var audioFormat: AVAudioFormat {
-        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)!
+        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount)!
     }
 
     /// Whether to output to the speaker (rather than receiver) when audio input is enabled
@@ -72,16 +80,16 @@
     /// Whether to use bluetooth when audio input is enabled
     @objc open static var useBluetooth: Bool = false
 
-#if !os(macOS)
+    #if !os(macOS)
     /// Additional control over the options to use for bluetooth
     @objc open static var bluetoothOptions: AVAudioSessionCategoryOptions = []
-#endif
+    #endif
 
     /// Whether AirPlay is enabled when audio input is enabled
     @objc open static var allowAirPlay: Bool = false
 
-    /// Global default rampTime value
-    @objc open static var rampTime: Double = 0.000_2
+    /// Global default rampDuration value
+    @objc open static var rampDuration: Double = 0.000_2
 
     /// Allows AudioKit to send Notifications
     @objc open static var notificationsEnabled: Bool = false
@@ -98,12 +106,13 @@
             let node = AudioKit.engine.outputNode
             guard let audioUnit = node.audioUnit else { return }
             let samplerate = node.outputFormat(forBus: 0).sampleRate
-            var frames = UInt32(round( newValue * samplerate ))
+            var frames = UInt32(round(newValue * samplerate))
 
             let status = AudioUnitSetProperty(audioUnit,
                                               kAudioDevicePropertyBufferFrameSize,
                                               kAudioUnitScope_Global,
-                                              0, &frames,
+                                              0,
+                                              &frames,
                                               UInt32(MemoryLayout<UInt32>.size))
             if status != 0 {
                 AKLog("error in set ioBufferDuration status \(status)")
@@ -189,7 +198,7 @@
 #if !os(macOS)
 extension AKSettings {
 
-  /// Shortcut for AVAudioSession.sharedInstance()
+    /// Shortcut for AVAudioSession.sharedInstance()
     @objc open static let session = AVAudioSession.sharedInstance()
 
     /// Convenience method accessible from Objective-C
@@ -199,7 +208,7 @@ extension AKSettings {
 
     /// Set the audio session type
     @objc open static func setSession(category: SessionCategory,
-                                with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
+                                      with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
 
         if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
             do {
@@ -208,7 +217,7 @@ extension AKSettings {
                 }
             } catch let error as NSError {
                 AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
-                    throw error
+                throw error
             }
         }
 
@@ -293,11 +302,12 @@ extension AKSettings {
 
     /// Checks if headphones are connected
     /// Returns true if headPhones are connected, otherwise return false
-    @objc static open var headPhonesPlugged: Bool {
+    @objc open static var headPhonesPlugged: Bool {
         return session.currentRoute.outputs.contains {
-            [AVAudioSessionPortHeadphones,
-             AVAudioSessionPortBluetoothHFP,
-             AVAudioSessionPortBluetoothA2DP].contains($0.portType)
+            let headphonePortTypes = [AVAudioSessionPortHeadphones,
+                                      AVAudioSessionPortBluetoothHFP,
+                                      AVAudioSessionPortBluetoothA2DP]
+            return headphonePortTypes.contains($0.portType)
         }
     }
 
@@ -335,12 +345,12 @@ extension AKSettings {
                 return AVAudioSessionCategoryMultiRoute
             case .audioProcessing:
                 #if !os(tvOS)
-                    return AVAudioSessionCategoryAudioProcessing
+                return AVAudioSessionCategoryAudioProcessing
                 #else
-                    return "AVAudioSessionCategoryAudioProcessing"
+                return "AVAudioSessionCategoryAudioProcessing"
                 #endif
             }
         }
-   }
+    }
 }
 #endif

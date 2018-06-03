@@ -16,7 +16,7 @@ player.isLooping = true
 var filter = AKBandPassButterworthFilter(player)
 filter.centerFrequency = 5_000 // Hz
 filter.bandwidth = 600 // Cents
-filter.rampTime = 1.0
+filter.rampDuration = 1.0
 AudioKit.output = filter
 try AudioKit.start()
 player.play()
