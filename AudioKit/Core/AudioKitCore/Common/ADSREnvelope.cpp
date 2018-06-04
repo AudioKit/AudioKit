@@ -60,8 +60,9 @@ namespace AudioKitCore
 //            // envelope has been retriggered; start new attack from where we are
 //            ramper.reinit(1.0f, pParams->attackSamples);
 //        }
-        
-        ramper.init(0.0f, 1.0f, pParams->attackSamples);
+
+        // SD have to make attack go above 1.0, or decay won't work if sustain is 1.0
+        ramper.init(0.0f, 1.01f, pParams->attackSamples);
         segment = kAttack;
     }
     
