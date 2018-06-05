@@ -304,6 +304,14 @@ open class AKWaveTable: AKNode, AKComponent {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
         }
+        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
+        do {
+            try file.read(into: buf!)
+        } catch {
+            AKLog("Load audio file failed. Error was:")
+            AKLog(error)
+            return
+        }
         let sizeToUse = UInt32(file.samplesCount * 2)
         if maximumSamples == 0 {
             maximumSamples = Int(file.samplesCount)
@@ -314,8 +322,6 @@ open class AKWaveTable: AKNode, AKComponent {
         endPoint = Sample(file.samplesCount)
         loopStartPoint = 0
         loopEndPoint = Sample(file.samplesCount)
-        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        try! file.read(into: buf!)
         let data = buf!.floatChannelData
         internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
                                   sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
