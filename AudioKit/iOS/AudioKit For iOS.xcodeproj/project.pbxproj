@@ -6347,6 +6347,7 @@
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WARNING_CFLAGS = "-Wno-incomplete-umbrella";
 			};
 			name = Debug;
 		};
@@ -6404,6 +6405,7 @@
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WARNING_CFLAGS = "-Wno-incomplete-umbrella";
 			};
 			name = Release;
 		};
