@@ -115,7 +115,7 @@ open class AKStereoOperation: AKComputedParameter {
     // MARK: - Initialization
 
     /// Default stereo input to any operation stack
-    open static var input = AKStereoOperation("((14 p) (15 p))")
+    public static var input = AKStereoOperation("((14 p) (15 p))")
 
     /// Initialize the stereo operation with a Sporth string
     ///

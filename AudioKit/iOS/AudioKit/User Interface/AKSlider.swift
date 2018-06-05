@@ -55,7 +55,7 @@ public enum AKSliderStyle {
 
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
-    
+
     /// Fonts for display above the slider
     public var labelFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
     public var valueFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
@@ -114,7 +114,7 @@ public enum AKSliderStyle {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
@@ -159,7 +159,7 @@ public enum AKSliderStyle {
         touchCancelledCallback()
     }
     open var touchCancelledCallback: () -> Void = { }
-    
+
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
         case .roundIndicator: return sliderHeight

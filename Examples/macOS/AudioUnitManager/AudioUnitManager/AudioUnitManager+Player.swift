@@ -13,8 +13,6 @@ extension AudioUnitManager {
 
     internal func handlePlay(state: Bool) {
         guard let player = player else { return }
-        guard let internalManager = internalManager else { return }
-
         // stop
         if player.isPlaying {
             player.pause()
@@ -85,8 +83,6 @@ extension AudioUnitManager {
 
     /// open an audio URL for playing
     func open(url: URL) {
-        guard let internalManager = internalManager else { return }
-
         try? AudioKit.stop()
 
         peak = nil
