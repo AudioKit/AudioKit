@@ -16,7 +16,7 @@ extension AudioKit {
     // MARK: - Start/Stop
 
     /// Start up the audio engine with periodic functions
-    open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
+    public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
         for function in functions {
             function.connect(to: finalMixer)
         }

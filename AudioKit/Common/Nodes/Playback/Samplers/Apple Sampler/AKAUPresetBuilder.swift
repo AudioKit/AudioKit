@@ -241,7 +241,7 @@ open class AKAUPresetBuilder {
     ///   - startNote: First note in range
     ///   - endNote:   Last note in range
     ///
-    open static func generateDictionary(
+    public static func generateDictionary(
         rootNote: Int,
         filename: String,
         startNote: Int,
