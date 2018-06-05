@@ -24,7 +24,7 @@ extension AudioKit {
     }
 
     /// Start up the audio engine
-    @objc open static func start() throws {
+    @objc public static func start() throws {
         if output == nil {
             AKLog("No output node has been set yet, no processing will happen.")
         }
@@ -71,7 +71,7 @@ extension AudioKit {
     }
 
     /// Stop the audio engine
-    @objc open static func stop() throws {
+    @objc public static func stop() throws {
         // Stop the engine.
         try AKTry {
             engine.stop()
