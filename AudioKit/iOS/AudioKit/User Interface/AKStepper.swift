@@ -24,7 +24,7 @@ import UIKit
     var plusButton: AKButton!
     var minusButton: AKButton!
     @IBInspectable public var currentValue: Double = 0.5 {
-        didSet{
+        didSet {
             DispatchQueue.main.async {
                 self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
@@ -97,7 +97,7 @@ import UIKit
         valueLabel?.textAlignment = .right
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7)
     }
-    private func generateUIComponents(frame: CGRect){
+    private func generateUIComponents(frame: CGRect) {
         //frame will be overridden w draw function
         label = UILabel(frame: frame)
         label.font = labelFont

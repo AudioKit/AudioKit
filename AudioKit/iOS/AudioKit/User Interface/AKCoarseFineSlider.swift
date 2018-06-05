@@ -8,8 +8,8 @@
 
 import Foundation
 
-@IBDesignable open class AKCoarseFineSlider : UIView {
-    
+@IBDesignable open class AKCoarseFineSlider: UIView {
+
     @IBInspectable open var name: String = "CoarseFineSlider"
     public var titleFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
     public var valueFont: UIFont? = UIFont.systemFont(ofSize: UIFont.systemFontSize)
@@ -17,8 +17,8 @@ import Foundation
     public var buttonFont: UIFont? = UIFont.boldSystemFont(ofSize: 24)
     @IBInspectable public var stringFormat: String = "%.3f"
     @IBInspectable public var buttonBorderWidth: CGFloat = 3.0
-    var coarseStepper : AKStepper!
-    var fineStepper : AKStepper!
+    var coarseStepper: AKStepper!
+    var fineStepper: AKStepper!
     var slider: AKSlider!
     var nameLabel: UILabel!
     var valueLabel: UILabel!
@@ -26,27 +26,27 @@ import Foundation
     private var labelPercent: CGFloat = 0.25
     internal var buttons: UIStackView!
     @IBInspectable public var minimum: Double = -2.0 {
-        didSet{
+        didSet {
             slider.range = minimum...maximum
             coarseStepper.minimum = minimum
             fineStepper.minimum = minimum
         }
     }
     @IBInspectable public var maximum: Double = 2.0 {
-        didSet{
+        didSet {
             slider.range = minimum...maximum
             coarseStepper.maximum = maximum
             fineStepper.maximum = maximum
         }
     }
     @IBInspectable public var coarseIncrement: Double = 1 {
-        didSet{ coarseStepper.increment = coarseIncrement }
+        didSet { coarseStepper.increment = coarseIncrement }
     }
     @IBInspectable public var fineIncrement: Double = 0.1 {
-        didSet{ fineStepper.increment = fineIncrement }
+        didSet { fineStepper.increment = fineIncrement }
     }
     @IBInspectable public var currentValue: Double = 1.0 {
-        didSet{
+        didSet {
             DispatchQueue.main.async {
                 self.valueLabel.text = String(format: self.stringFormat, self.currentValue)
             }
@@ -55,12 +55,12 @@ import Foundation
     public var callback: (Double) -> Void = {val in
         print(val)
     }
-    public func resetValue(to value: Double){
+    public func reset(to value: Double) {
         setStable(value: value)
         currentValue = value
         slider.value = value
     }
-    public func setStable(value: Double){
+    public func setStable(value: Double) {
         coarseStepper.currentValue = value
         fineStepper.currentValue = value
     }
@@ -68,10 +68,10 @@ import Foundation
         super.init(frame: frame)
         genSubViews()
     }
-    internal func genSubViews(){
-        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: coarseIncrement, frame: frame, showsValue: false, callback: {_ in })
-        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: fineIncrement, frame: frame, showsValue: false, callback: {_ in })
-        slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: {_ in })
+    internal func genSubViews() {
+        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: coarseIncrement, frame: frame, showsValue: false, callback: { _ in })
+        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: fineIncrement, frame: frame, showsValue: false, callback: { _ in })
+        slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: { _ in })
         coarseStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
@@ -114,9 +114,9 @@ import Foundation
         fineStepper.showsValue = false
         coarseStepper.buttonBorderWidth = buttonBorderWidth
         fineStepper.buttonBorderWidth = buttonBorderWidth
-        
+
         valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
-        
+
         nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
         buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * buttonPercent))
         setupFonts()
@@ -127,7 +127,7 @@ import Foundation
         addToStackIfPossible(view: coarseStepper, stack: buttons)
         addToStackIfPossible(view: fineStepper, stack: buttons)
     }
-    internal func setupFonts(){
+    internal func setupFonts() {
         coarseStepper.labelFont = buttonLabelFont
         coarseStepper.buttonFont = buttonFont
         fineStepper.labelFont = buttonLabelFont
@@ -143,26 +143,26 @@ import Foundation
         super.draw(rect)
         genStackViews(rect: rect)
     }
-    private func genStackViews(rect: CGRect){
+    private func genStackViews(rect: CGRect) {
         nameLabel.frame = CGRect(x: rect.origin.x + buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         nameLabel.text = name
         nameLabel.textAlignment = .left
-        
+
         valueLabel.frame = CGRect(x: rect.origin.x - buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
         valueLabel.textAlignment = .right
-        
+
         slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
         slider.range = minimum...maximum
         slider.value = currentValue
-        
+
         buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel.frame.height, width: rect.width, height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10
         buttons.layoutSubviews()
     }
-    internal func addToStackIfPossible(view: UIView?, stack: UIStackView){
-        if view != nil{
+    internal func addToStackIfPossible(view: UIView?, stack: UIStackView) {
+        if view != nil {
             stack.addArrangedSubview(view!)
         }
     }

@@ -243,7 +243,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterEnableParam.value = 0.0
     }
 
-    public override var canProcessInPlace: Bool { return true; }
+    public override var canProcessInPlace: Bool { return true }
 
     public func stopAllVoices() {
         doAKSamplerStopAllVoices(pDSP)

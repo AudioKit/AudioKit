@@ -34,6 +34,6 @@ public class AKDCBlockAudioUnit: AKAudioUnitBase {
         setParameterTree(AUParameterTree.createTree(withChildren: []))
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true } 
 
 }

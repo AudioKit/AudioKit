@@ -12,7 +12,7 @@ open class AKClipPlayer: AKNode {
     private var timeAtStart: Double = 0
 
     /// The underlying player node
-    open let playerNode = AVAudioPlayerNode()
+    public let playerNode = AVAudioPlayerNode()
     private var mixer = AVAudioMixerNode()
     private var scheduled = false
     private var _clips = [FileClip]()

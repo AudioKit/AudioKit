@@ -9,11 +9,9 @@
 import Foundation
 import AudioKitUI
 
-
 let samples = 882
 
 class CompareViewController: UIViewController {
-
 
     public var table1 = AKTable(count: samples)
     public var table2 = AKTable(count: samples)
@@ -32,7 +30,7 @@ class CompareViewController: UIViewController {
 
     func setFiles(file1: AKAudioFile, file2: AKAudioFile) {
 
-        for ft in [(file1,table1), (file2,table2)] {
+        for ft in [(file1, table1), (file2, table2)] {
             if let floats = ft.0.floatChannelData?[0] {
                 for i in 0 ..< table1.count {
                     ft.1[i] = floats[i]
@@ -52,7 +50,7 @@ class CompareViewController: UIViewController {
         view2 = v2
 
         view.addSubview(label)
-        let ms = Int(Double(table1.count) / file1.fileFormat.sampleRate * 1000)
+        let ms = Int(Double(table1.count) / file1.fileFormat.sampleRate * 1_000)
         label.text = "<-- \(ms) ms -->"
 
         view.addSubview(slider)

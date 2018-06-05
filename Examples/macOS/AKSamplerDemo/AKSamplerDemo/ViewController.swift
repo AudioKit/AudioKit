@@ -68,7 +68,7 @@ class ViewController: NSViewController, NSWindowDelegate {
             print(error)
         }
 
-        sampler.filterCutoff = 100.0
+        sampler.filterCutoff = 10.0
 
         masterVolumeSlider.intValue = Int32(100 * sampler.masterVolume)
         masterVolumeReadout.intValue = Int32(100 * sampler.masterVolume)
