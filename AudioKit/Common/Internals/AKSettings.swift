@@ -208,7 +208,7 @@ extension AKSettings {
 
     /// Set the audio session type
     @objc public static func setSession(category: SessionCategory,
-                                      with options: AVAudioSessionCategoryOptions = [.mixWithOthers]) throws {
+                                      with options: AVAudioSessionCategoryOptions = []) throws {
 
         if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
             do {
