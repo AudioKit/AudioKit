@@ -523,8 +523,8 @@ open class AKSequencer {
     }
 
     /// Current Time relative to sequencer length
-    open var currentRelativePosition: AKDuration {
-        return currentPosition % length //can switch to modTime func when/if % is removed
+    open var currentRelativePosition: Double {
+        return currentPosition.beats / length.beats
     }
 
     // MARK: Other Sequence Properties
@@ -781,7 +781,7 @@ open class AKSequencer {
 
     /// Nearest time of quantized beat
     open func nearestQuantizedPosition(quantizationInBeats: Double) -> AKDuration {
-        let noteOnTimeRel = currentRelativePosition.beats
+        let noteOnTimeRel = currentRelativePosition
         let quantizationPositions = getQuantizationPositions(quantizationInBeats: quantizationInBeats)
         let lastSpot = quantizationPositions[0]
         let nextSpot = quantizationPositions[1]
@@ -805,7 +805,7 @@ open class AKSequencer {
 
     /// An array of all quantization points
     func getQuantizationPositions(quantizationInBeats: Double) -> [AKDuration] {
-        let noteOnTimeRel = currentRelativePosition.beats
+        let noteOnTimeRel = currentRelativePosition
         let lastSpot = AKDuration(beats:
             modTime(noteOnTimeRel - (noteOnTimeRel.truncatingRemainder(dividingBy: quantizationInBeats))))
         let nextSpot = AKDuration(beats: modTime(lastSpot.beats + quantizationInBeats))
