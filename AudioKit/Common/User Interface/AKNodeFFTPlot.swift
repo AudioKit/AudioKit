@@ -37,7 +37,6 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         isConnected = true
     }
 
-
     // Useful to reconnect after connecting to Audiobus or IAA
     @objc func reconnect() {
         pause()
@@ -65,7 +64,6 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
                                                name: .IAADisconnected,
                                                object: nil)
     }
-
 
     internal var bufferSize: UInt32 = 1_024
 

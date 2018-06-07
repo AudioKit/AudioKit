@@ -71,6 +71,6 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }
