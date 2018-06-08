@@ -31,12 +31,15 @@
     /// Initialize the microphone
     override public init() {
         super.init()
-        #if !os(tvOS)
-            self.avAudioNode = mixer
-            AKSettings.audioInputEnabled = true
-            AudioKit.engine.attach(mixer)
-            AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: nil)
+        self.avAudioNode = mixer
+
+        #if os(tvOS)
+        print("Microphone not avaiable on tvOS")
+        return
         #endif
+
+        AKSettings.audioInputEnabled = true
+        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
     }
 
     deinit {
