@@ -40,7 +40,7 @@ import UIKit
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     /// Class to handle user actions
-    open weak var delegate: AKKeyboardDelegate?
+    @objc open weak var delegate: AKKeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
