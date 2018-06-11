@@ -10,10 +10,10 @@ import AVFoundation
 
 /**
  AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
- scheduling of sounds, looping, fading, and reversing. Players can be locked to a common
- clock as well as video by using hostTime in the various play functions. By default the
- player will buffer audio as needed, otherwise it will play it from disk. Looping, reversing,
- or applying fades will cause the file to buffer.
+ scheduling of sounds, looping, fading, time-stretching, pitch-shifting and reversing.
+ Players can be locked to a common clock as well as video by using hostTime in the various play functions.
+ By default the player will buffer audio if needed, otherwise stream from disk. Reversing the audio will cause the
+ file to buffer. For seamless looping use buffered playback.
 
  There are a few options for syncing to external objects.
 
@@ -36,6 +36,7 @@ import AVFoundation
  player.loop.start = 1
  player.loop.end = 3
  player.isLooping = true
+ player.buffer = true // if seamless is desired
 
  player.play()
  ```
@@ -70,7 +71,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -116,13 +117,22 @@ public class AKPlayer: AKNode {
         var needsUpdate: Bool = false
     }
 
+    // MARK: - Nodes
+
+    /// The underlying player node
+    public let playerNode = AVAudioPlayerNode()
+
+    /// The underlying booster which controls fades as well
+    public let faderNode = AKBooster()
+
+    /// The time pitch node - disabled by default
+    public private(set) var timePitchNode: AKTimePitch?
+
+    /// The main output
+    public let mixer = AVAudioMixerNode()
+
     // MARK: - Private Parts
 
-    // The underlying player node
-    private let playerNode = AVAudioPlayerNode()
-    private let faderNode = AKBooster()
-    private let timePitchNode = AKTimePitch()
-    private var mixer = AVAudioMixerNode()
     private var startingFrame: AVAudioFramePosition?
     private var endingFrame: AVAudioFramePosition?
 
@@ -216,12 +226,26 @@ public class AKPlayer: AKNode {
         }
     }
 
+    /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0 and disabled)
     public var rate: Double {
         get {
-            return timePitchNode.rate
+            return timePitchNode?.rate ?? 1
         }
 
         set {
+            // timePitch is only installed if it is requested. This saves CPU resources.
+            if newValue == 1 && timePitchNode != nil {
+                removeTimePitch()
+                return
+            }
+
+            if timePitchNode == nil && newValue != 1 {
+                stop()
+                timePitchNode = AKTimePitch()
+                initialize()
+            }
+
+            guard let timePitchNode = timePitchNode else { return }
             timePitchNode.rate = newValue
             if timePitchNode.isBypassed && timePitchNode.rate != 1 {
                 timePitchNode.start()
@@ -229,12 +253,26 @@ public class AKPlayer: AKNode {
         }
     }
 
+    /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0 and disabled)
     public var pitch: Double {
         get {
-            return timePitchNode.pitch
+            return timePitchNode?.pitch ?? 0
         }
 
         set {
+            // timePitch is only installed if it is requested. This saves CPU resources.
+            if newValue == 0 && timePitchNode != nil {
+                removeTimePitch()
+                return
+            }
+
+            if timePitchNode == nil && newValue != 0 {
+                timePitchNode = AKTimePitch()
+                initialize()
+            }
+
+            guard let timePitchNode = timePitchNode else { return }
+
             timePitchNode.pitch = newValue
             if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
                 timePitchNode.start()
@@ -379,37 +417,63 @@ public class AKPlayer: AKNode {
     }
 
     private func initialize() {
-        guard let audioFile = audioFile else { return }
-
-        if playerNode.engine == nil {
-            AudioKit.engine.attach(playerNode)
+        guard let audioFile = audioFile else {
+            return
         }
+
         if mixer.engine == nil {
             AudioKit.engine.attach(mixer)
         }
-        if faderNode.avAudioNode.engine == nil {
-            AudioKit.engine.attach(faderNode.avAudioNode)
-        }
-        if faderNode.avAudioNode.engine == nil {
-            AudioKit.engine.attach(faderNode.avAudioNode)
+
+        if playerNode.engine == nil {
+            AudioKit.engine.attach(playerNode)
+        } else {
+            playerNode.disconnectOutput()
         }
 
-        playerNode.disconnectOutput()
+        if faderNode.avAudioNode.engine == nil {
+            AudioKit.engine.attach(faderNode.avAudioNode)
+        } else {
+            faderNode.disconnectOutput()
+        }
+
+        if let timePitchNode = timePitchNode {
+            if timePitchNode.avAudioNode.engine == nil {
+                AudioKit.engine.attach(timePitchNode.avAudioNode)
+            } else {
+                timePitchNode.disconnectOutput()
+            }
+        }
 
         let format = AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
                                    channels: audioFile.fileFormat.channelCount)
 
-        AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: format)
-        AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: format)
-        AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
+        if let timePitchNode = timePitchNode {
+            AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: format)
+            AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: format)
+            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
+            timePitchNode.bypass() // bypass timePitch by default to save CPU
+
+        } else {
+            AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
+            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
+        }
 
         faderNode.gain = Fade.minimumGain
         faderNode.rampType = .linear
-        timePitchNode.bypass() // bypass timePitch by default to save CPU
         loop.start = 0
         loop.end = duration
         buffer = nil
         preroll(from: 0, to: duration)
+
+        // AKLog("player initialized. playerNode.engine: ", playerNode.engine)
+    }
+
+    private func removeTimePitch() {
+        stop()
+        timePitchNode?.disconnectOutput()
+        timePitchNode = nil
+        initialize()
     }
 
     // MARK: - Loading
@@ -491,7 +555,7 @@ public class AKPlayer: AKNode {
         playerNode.play()
 
         if pitch != 0 || rate != 1 {
-            timePitchNode.start()
+            timePitchNode?.start()
         }
 
         faderNode.start()
@@ -526,7 +590,7 @@ public class AKPlayer: AKNode {
         faderTimer?.invalidate()
 
         // the time strecher draws a fair bit of CPU when it isn't bypassed, so auto bypass it
-        timePitchNode.bypass()
+        timePitchNode?.bypass()
         faderNode.bypass()
     }
 
@@ -911,7 +975,10 @@ public class AKPlayer: AKNode {
         stop()
         audioFile = nil
         buffer = nil
-        AudioKit.detach(nodes: [mixer, playerNode])
+        AudioKit.detach(nodes: [mixer, playerNode, faderNode.avAudioNode])
+        if let timePitchNode = timePitchNode {
+            AudioKit.detach(nodes: [timePitchNode.avAudioNode])
+        }
     }
 
     deinit {
