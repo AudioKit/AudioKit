@@ -637,7 +637,7 @@ typedef struct
     } else {
         return NULL;
     }
-    //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
+    // NSLog(@"# of markers: %d\n", markerList->mNumberMarkers );
 
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:markerList->mNumberMarkers];
@@ -656,7 +656,7 @@ typedef struct
         if (markerList->mMarkers[i].mName != NULL) {
             afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
         }
-        //NSLog(@"%@\n", afm.name );
+        // NSLog(@"%@\n", afm.name );
         [array addObject:afm];
     }
     // cast to an immutable one
