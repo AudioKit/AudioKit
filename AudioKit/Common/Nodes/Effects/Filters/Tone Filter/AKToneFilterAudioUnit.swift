@@ -54,6 +54,6 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
         halfPowerPoint.value = Float(AKToneFilter.defaultHalfPowerPoint)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

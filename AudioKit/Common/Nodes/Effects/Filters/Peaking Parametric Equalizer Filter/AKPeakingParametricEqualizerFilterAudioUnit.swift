@@ -88,6 +88,6 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         q.value = Float(AKPeakingParametricEqualizerFilter.defaultQ)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }
