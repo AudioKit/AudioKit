@@ -105,6 +105,6 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         dryWetMix.value = Float(AKChorus.defaultDryWetMix)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

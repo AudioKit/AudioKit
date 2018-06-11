@@ -62,18 +62,18 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     buildSimpleKeyMap();
     loopThruRelease = true;
 
-    ampEGParams.setAttackTimeSeconds(0.01f);
-    ampEGParams.setDecayTimeSeconds(0.1f);
-    ampEGParams.sustainFraction = 0.8f;
-    ampEGParams.setReleaseTimeSeconds(0.5f);
+    adsrEnvelopeParameters.setAttackTimeSeconds(0.01f);
+    adsrEnvelopeParameters.setDecayTimeSeconds(0.1f);
+    adsrEnvelopeParameters.sustainFraction = 0.8f;
+    adsrEnvelopeParameters.setReleaseTimeSeconds(0.5f);
 
-    filterEnable = false;
+    isFilterEnabled = false;
     cutoffMultiple = 1000.0f;
-    resLinear = 1.0f;
-    filterEGParams.setAttackTimeSeconds(2.0f);
-    filterEGParams.setDecayTimeSeconds(2.0f);
-    filterEGParams.sustainFraction = 0.1f;
-    filterEGParams.setReleaseTimeSeconds(10.0f);
+    linearResonance = 1.0f;
+    filterEnvelopeParameters.setAttackTimeSeconds(2.0f);
+    filterEnvelopeParameters.setDecayTimeSeconds(2.0f);
+    filterEnvelopeParameters.sustainFraction = 0.1f;
+    filterEnvelopeParameters.setReleaseTimeSeconds(10.0f);
 
     // Set up preset folder path
     char baseDir[100];
@@ -102,20 +102,20 @@ bool AKSamplerDSP::loadSoundFile(AKSampleFileDescriptor &sfd)
 
     // Load standard sound file
     AKSampleDataDescriptor sdd;
-    sdd.sd = sfd.sd;
+    sdd.sampleDescriptor = sfd.sampleDescriptor;
 
     SndfileHandle sfh(filePath);
     TRACE("loadSoundFile %s, response \"%s\"\n", filePath, sfh.strError());
 
-    sdd.sampleRateHz = (float)sfh.samplerate();
-    sdd.nChannels = sfh.channels();
-    sdd.nSamples = (int)sfh.frames();
-    sdd.bInterleaved = sdd.nChannels > 1;
+    sdd.sampleRate = (float)sfh.samplerate();
+    sdd.channelCount = sfh.channels();
+    sdd.sampleCount = (int)sfh.frames();
+    sdd.isInterleaved = sdd.channelCount > 1;
 
-    sdd.pData = new float[sdd.nChannels * sdd.nSamples];
-    sfh.readf(sdd.pData, sdd.nSamples);
+    sdd.data = new float[sdd.channelCount * sdd.sampleCount];
+    sfh.readf(sdd.data, sdd.sampleCount);
     loadSampleData(sdd);
-    delete[] sdd.pData;
+    delete[] sdd.data;
 
     return true;
 }
@@ -134,28 +134,28 @@ bool AKSamplerDSP::loadCompressedSampleFile(AKSampleFileDescriptor& sfd)
     }
 
     AKSampleDataDescriptor sdd;
-    sdd.sd = sfd.sd;
-    sdd.sampleRateHz = (float)WavpackGetSampleRate(wpc);
-    sdd.nChannels = WavpackGetReducedChannels(wpc);
-    sdd.nSamples = WavpackGetNumSamples(wpc);
-    sdd.bInterleaved = sdd.nChannels > 1;
-    sdd.pData = new float[sdd.nChannels * sdd.nSamples];
+    sdd.sampleDescriptor = sfd.sampleDescriptor;
+    sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
+    sdd.channelCount = WavpackGetReducedChannels(wpc);
+    sdd.sampleCount = WavpackGetNumSamples(wpc);
+    sdd.isInterleaved = sdd.channelCount > 1;
+    sdd.data = new float[sdd.channelCount * sdd.sampleCount];
 
     int mode = WavpackGetMode(wpc);
-    WavpackUnpackSamples(wpc, (int32_t*)sdd.pData, sdd.nSamples);
+    WavpackUnpackSamples(wpc, (int32_t*)sdd.data, sdd.sampleCount);
     if ((mode & MODE_FLOAT) == 0)
     {
         // convert samples to floating-point
         int bps = WavpackGetBitsPerSample(wpc);
         float scale = 1.0f / (1 << (bps - 1));
-        float* pf = sdd.pData;
+        float* pf = sdd.data;
         int32_t* pi = (int32_t*)pf;
-        for (int i = 0; i < (sdd.nSamples * sdd.nChannels); i++)
+        for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
 
     loadSampleData(sdd);
-    delete[] sdd.pData;
+    delete[] sdd.data;
     return true;
 }
 
@@ -168,101 +168,101 @@ void AKSamplerDSP::loadAifDemoSamples()
 
     AKSampleFileDescriptor sfd;
     sfd.path = pathBuffer;
-    sfd.sd.bLoop = false;    // set true to test looping with fractional endpoints
-    sfd.sd.fStart = 0.0;
-    sfd.sd.fLoopStart = 0.2f;
-    sfd.sd.fLoopEnd = 0.3f;
-    sfd.sd.fEnd = 0.0f;
+    sfd.sampleDescriptor.isLooping = false;    // set true to test looping with fractional endpoints
+    sfd.sampleDescriptor.startPoint = 0.0;
+    sfd.sampleDescriptor.loopStartPoint = 0.2f;
+    sfd.sampleDescriptor.loopEndPoint = 0.3f;
+    sfd.sampleDescriptor.endPoint = 0.0f;
 
-    sfd.sd.noteNumber = 48;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 0; sfd.sd.max_note = 51;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c2");
+    sfd.sampleDescriptor.noteNumber = 48;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 0; sfd.sampleDescriptor.maximumNoteNumber = 51;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c2");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c2");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c2");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c2");
-    loadSoundFile(sfd);
-
-    sfd.sd.noteNumber = 54;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 52; sfd.sd.max_note = 57;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#2");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#2");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#2");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c2");
     loadSoundFile(sfd);
 
-    sfd.sd.noteNumber = 60;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 58; sfd.sd.max_note = 63;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c3");
+    sfd.sampleDescriptor.noteNumber = 54;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 52; sfd.sampleDescriptor.maximumNoteNumber = 57;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#2");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c3");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#2");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c3");
-    loadSoundFile(sfd);
-
-    sfd.sd.noteNumber = 66;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 64; sfd.sd.max_note = 69;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#3");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#3");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#3");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#2");
     loadSoundFile(sfd);
 
-    sfd.sd.noteNumber = 72;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 70; sfd.sd.max_note = 75;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c4");
+    sfd.sampleDescriptor.noteNumber = 60;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 58; sfd.sampleDescriptor.maximumNoteNumber = 63;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c3");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c4");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c3");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c4");
-    loadSoundFile(sfd);
-
-    sfd.sd.noteNumber = 78;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 76; sfd.sd.max_note = 81;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#4");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#4");
-    loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#4");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c3");
     loadSoundFile(sfd);
 
-    sfd.sd.noteNumber = 84;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 82; sfd.sd.max_note = 127;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.noteNumber = 66;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 64; sfd.sampleDescriptor.maximumNoteNumber = 69;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#3");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#3");
     loadSoundFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#3");
+    loadSoundFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 72;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 70; sfd.sampleDescriptor.maximumNoteNumber = 75;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c4");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c4");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c4");
+    loadSoundFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 78;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 76; sfd.sampleDescriptor.maximumNoteNumber = 81;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadSoundFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 84;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 82; sfd.sampleDescriptor.maximumNoteNumber = 127;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c5");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c5");
+    loadSoundFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.aif", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c5");
     loadSoundFile(sfd);
 
     buildKeyMap();
@@ -284,101 +284,101 @@ void AKSamplerDSP::loadWvDemoSamples()
 
     AKSampleFileDescriptor sfd;
     sfd.path = pathBuffer;
-    sfd.sd.bLoop = false;    // set true to test looping with fractional endpoints
-    sfd.sd.fStart = 0.0;
-    sfd.sd.fLoopStart = 0.2f;
-    sfd.sd.fLoopEnd = 0.3f;
-    sfd.sd.fEnd = 0.0f;
+    sfd.sampleDescriptor.isLooping = false;    // set true to test looping with fractional endpoints
+    sfd.sampleDescriptor.startPoint = 0.0;
+    sfd.sampleDescriptor.loopStartPoint = 0.2f;
+    sfd.sampleDescriptor.loopEndPoint = 0.3f;
+    sfd.sampleDescriptor.endPoint = 0.0f;
 
-    sfd.sd.noteNumber = 48;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 0; sfd.sd.max_note = 51;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c2");
+    sfd.sampleDescriptor.noteNumber = 48;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 0; sfd.sampleDescriptor.maximumNoteNumber = 51;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c2");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c2");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c2");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c2");
-    loadCompressedSampleFile(sfd);
-
-    sfd.sd.noteNumber = 54;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 52; sfd.sd.max_note = 57;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#2");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#2");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#2");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c2");
     loadCompressedSampleFile(sfd);
 
-    sfd.sd.noteNumber = 60;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 58; sfd.sd.max_note = 63;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c3");
+    sfd.sampleDescriptor.noteNumber = 54;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 52; sfd.sampleDescriptor.maximumNoteNumber = 57;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#2");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c3");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#2");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c3");
-    loadCompressedSampleFile(sfd);
-
-    sfd.sd.noteNumber = 66;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 64; sfd.sd.max_note = 69;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#3");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#3");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#3");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#2");
     loadCompressedSampleFile(sfd);
 
-    sfd.sd.noteNumber = 72;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 70; sfd.sd.max_note = 75;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c4");
+    sfd.sampleDescriptor.noteNumber = 60;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 58; sfd.sampleDescriptor.maximumNoteNumber = 63;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c3");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c4");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c3");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c4");
-    loadCompressedSampleFile(sfd);
-
-    sfd.sd.noteNumber = 78;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 76; sfd.sd.max_note = 81;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "f#4");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "f#4");
-    loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "f#4");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c3");
     loadCompressedSampleFile(sfd);
 
-    sfd.sd.noteNumber = 84;
-    sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-    sfd.sd.min_note = 82; sfd.sd.max_note = 127;
-    sfd.sd.min_vel = 0; sfd.sd.max_vel = 43;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.noteNumber = 66;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 64; sfd.sampleDescriptor.maximumNoteNumber = 69;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#3");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 44; sfd.sd.max_vel = 86;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#3");
     loadCompressedSampleFile(sfd);
-    sfd.sd.min_vel = 87; sfd.sd.max_vel = 127;
-    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sd.noteNumber, "c5");
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#3");
+    loadCompressedSampleFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 72;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 70; sfd.sampleDescriptor.maximumNoteNumber = 75;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c4");
+    loadCompressedSampleFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 78;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 76; sfd.sampleDescriptor.maximumNoteNumber = 81;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "f#4");
+    loadCompressedSampleFile(sfd);
+
+    sfd.sampleDescriptor.noteNumber = 84;
+    sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+    sfd.sampleDescriptor.minimumNoteNumber = 82; sfd.sampleDescriptor.maximumNoteNumber = 127;
+    sfd.sampleDescriptor.minimumVelocity = 0; sfd.sampleDescriptor.maximumVelocity = 43;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 2, sfd.sampleDescriptor.noteNumber, "c5");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 44; sfd.sampleDescriptor.maximumVelocity = 86;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 1, sfd.sampleDescriptor.noteNumber, "c5");
+    loadCompressedSampleFile(sfd);
+    sfd.sampleDescriptor.minimumVelocity = 87; sfd.sampleDescriptor.maximumVelocity = 127;
+    sprintf(pathBuffer, "%s\\%s%d_%03d_%s.wv", baseDir, samplePrefix, 0, sfd.sampleDescriptor.noteNumber, "c5");
     loadCompressedSampleFile(sfd);
 
     buildKeyMap();
@@ -512,17 +512,17 @@ bool AKSamplerDSP::loadPreset()
 
             AKSampleFileDescriptor sfd;
             sfd.path = buf;
-            sfd.sd.bLoop = bLoop;
-            sfd.sd.fStart = 0.0;
-            sfd.sd.fLoopStart = fLoopStart;
-            sfd.sd.fLoopEnd = fLoopEnd;
-            sfd.sd.fEnd = 0.0f;
-            sfd.sd.noteNumber = pitch;
-            sfd.sd.noteHz = NOTE_HZ(sfd.sd.noteNumber);
-            sfd.sd.min_note = lokey;
-            sfd.sd.max_note = hikey;
-            sfd.sd.min_vel = lovel;
-            sfd.sd.max_vel = hivel;
+            sfd.sampleDescriptor.isLooping = bLoop;
+            sfd.sampleDescriptor.startPoint = 0.0;
+            sfd.sampleDescriptor.loopStartPoint = fLoopStart;
+            sfd.sampleDescriptor.loopEndPoint = fLoopEnd;
+            sfd.sampleDescriptor.endPoint = 0.0f;
+            sfd.sampleDescriptor.noteNumber = pitch;
+            sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+            sfd.sampleDescriptor.minimumNoteNumber = lokey;
+            sfd.sampleDescriptor.maximumNoteNumber = hikey;
+            sfd.sampleDescriptor.minimumVelocity = lovel;
+            sfd.sampleDescriptor.maximumVelocity = hivel;
             loadSoundFile(sfd);
         }
     }
@@ -665,40 +665,40 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
             float2string(cutoffMultiple, text, kVstMaxParamStrLen);
             break;
         case kFilterEgStrength:
-            float2string(cutoffEgStrength, text, kVstMaxParamStrLen);
+            float2string(cutoffEnvelopeStrength, text, kVstMaxParamStrLen);
             break;
         case kFilterResonance:
-            float2string(-20.0f * log10(resLinear), text, kVstMaxParamStrLen);
+            float2string(-20.0f * log10(linearResonance), text, kVstMaxParamStrLen);
             break;
         case kFilterEnable:
-            if (filterEnable)
+            if (isFilterEnabled)
                 vst_strncpy(text, "ON", kVstMaxParamStrLen);
             else
                 vst_strncpy(text, "OFF", kVstMaxParamStrLen);
             break;
         case kAmpAttackTime:
-            float2string(ampEGParams.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(adsrEnvelopeParameters.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
             break;
         case kAmpDecayTime:
-            float2string(ampEGParams.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(adsrEnvelopeParameters.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
             break;
         case kAmpSustainLevel:
-            float2string(ampEGParams.sustainFraction, text, kVstMaxParamStrLen);
+            float2string(adsrEnvelopeParameters.sustainFraction, text, kVstMaxParamStrLen);
             break;
         case kAmpReleaseTime:
-            float2string(ampEGParams.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(adsrEnvelopeParameters.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterAttackTime:
-            float2string(filterEGParams.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(filterEnvelopeParameters.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterDecayTime:
-            float2string(filterEGParams.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(filterEnvelopeParameters.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterSustainLevel:
-            float2string(filterEGParams.sustainFraction, text, kVstMaxParamStrLen);
+            float2string(filterEnvelopeParameters.sustainFraction, text, kVstMaxParamStrLen);
             break;
         case kFilterReleaseTime:
-            float2string(filterEGParams.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(filterEnvelopeParameters.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
             break;
     }
 }
@@ -721,37 +721,37 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
         sprintf(text, "%.1f", cutoffMultiple);
         break;
     case kFilterEgStrength:
-        sprintf(text, "%.1f", cutoffEgStrength);
+        sprintf(text, "%.1f", cutoffEnvelopeStrength);
         break;
     case kFilterResonance:
-        sprintf(text, "%.1f dB", -20.0f * log10(resLinear));
+        sprintf(text, "%.1f dB", -20.0f * log10(linearResonance));
         break;
     case kFilterEnable:
-        sprintf(text, "%s", filterEnable ? "enabled" : "disabled");
+        sprintf(text, "%s", isFilterEnabled ? "enabled" : "disabled");
         break;
     case kAmpAttackTime:
-        sprintf(text, "%.2f sec", ampEGParams.getAttackTimeSeconds());
+        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getAttackTimeSeconds());
         break;
     case kAmpDecayTime:
-        sprintf(text, "%.2f sec", ampEGParams.getDecayTimeSeconds());
+        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getDecayTimeSeconds());
         break;
     case kAmpSustainLevel:
-        sprintf(text, "%.1f %%", 100.0f * ampEGParams.sustainFraction);
+        sprintf(text, "%.1f %%", 100.0f * adsrEnvelopeParameters.sustainFraction);
         break;
     case kAmpReleaseTime:
-        sprintf(text, "%.2f sec", ampEGParams.getReleaseTimeSeconds());
+        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getReleaseTimeSeconds());
         break;
     case kFilterAttackTime:
-        sprintf(text, "%.2f sec", filterEGParams.getAttackTimeSeconds());
+        sprintf(text, "%.2f sec", filterEnvelopeParameters.getAttackTimeSeconds());
         break;
     case kFilterDecayTime:
-        sprintf(text, "%.2f sec", filterEGParams.getDecayTimeSeconds());
+        sprintf(text, "%.2f sec", filterEnvelopeParameters.getDecayTimeSeconds());
         break;
     case kFilterSustainLevel:
-        sprintf(text, "%.1f %%", 100.0f * filterEGParams.sustainFraction);
+        sprintf(text, "%.1f %%", 100.0f * filterEnvelopeParameters.sustainFraction);
         break;
     case kFilterReleaseTime:
-        sprintf(text, "%.2f sec", filterEGParams.getReleaseTimeSeconds());
+        sprintf(text, "%.2f sec", filterEnvelopeParameters.getReleaseTimeSeconds());
         break;
     }
 }
@@ -774,37 +774,37 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         cutoffMultiple = value * 1000.0f;
         break;
     case kFilterEgStrength:
-        cutoffEgStrength = value * 1000.0f;
+        cutoffEnvelopeStrength = value * 1000.0f;
         break;
     case kFilterResonance:
-        resLinear = pow(10.0f, -0.5f * value);
+        linearResonance = pow(10.0f, -0.5f * value);
         break;
     case kFilterEnable:
-        filterEnable = value > 0.5f;
+        isFilterEnabled = value > 0.5f;
         break;
     case kAmpAttackTime:
-        ampEGParams.setAttackTimeSeconds(value * 10.0f);
+        adsrEnvelopeParameters.setAttackTimeSeconds(value * 10.0f);
         break;
     case kAmpDecayTime:
-        ampEGParams.setDecayTimeSeconds(value * 10.0f);
+        adsrEnvelopeParameters.setDecayTimeSeconds(value * 10.0f);
         break;
     case kAmpSustainLevel:
-        ampEGParams.sustainFraction = value;
+        adsrEnvelopeParameters.sustainFraction = value;
         break;
     case kAmpReleaseTime:
-        ampEGParams.setReleaseTimeSeconds(value * 10.0f);
+        adsrEnvelopeParameters.setReleaseTimeSeconds(value * 10.0f);
         break;
     case kFilterAttackTime:
-        filterEGParams.setAttackTimeSeconds(value * 10.0f);
+        filterEnvelopeParameters.setAttackTimeSeconds(value * 10.0f);
         break;
     case kFilterDecayTime:
-        filterEGParams.setDecayTimeSeconds(value * 10.0f);
+        filterEnvelopeParameters.setDecayTimeSeconds(value * 10.0f);
         break;
     case kFilterSustainLevel:
-        filterEGParams.sustainFraction = value;
+        filterEnvelopeParameters.sustainFraction = value;
         break;
     case kFilterReleaseTime:
-        filterEGParams.setReleaseTimeSeconds(value * 10.0f);
+        filterEnvelopeParameters.setReleaseTimeSeconds(value * 10.0f);
         break;
     }
 }
@@ -833,37 +833,37 @@ float AKSamplerDSP::getParameter (VstInt32 index)
             value = cutoffMultiple / 1000.0f;
             break;
         case kFilterEgStrength:
-            value = cutoffEgStrength / 1000.0f;
+            value = cutoffEnvelopeStrength / 1000.0f;
             break;
         case kFilterResonance:
-            value = -20.0f * log10(resLinear);
+            value = -20.0f * log10(linearResonance);
             break;
         case kFilterEnable:
-            value = filterEnable ? 1.0f : 0.0f;
+            value = isFilterEnabled ? 1.0f : 0.0f;
             break;
         case kAmpAttackTime:
-            value = ampEGParams.getAttackTimeSeconds() / 10.0f;
+            value = adsrEnvelopeParameters.getAttackTimeSeconds() / 10.0f;
             break;
         case kAmpDecayTime:
-            value = ampEGParams.getDecayTimeSeconds() / 10.0f;
+            value = adsrEnvelopeParameters.getDecayTimeSeconds() / 10.0f;
             break;
         case kAmpSustainLevel:
-            value = ampEGParams.sustainFraction;
+            value = adsrEnvelopeParameters.sustainFraction;
             break;
         case kAmpReleaseTime:
-            value = ampEGParams.getReleaseTimeSeconds() / 10.0f;
+            value = adsrEnvelopeParameters.getReleaseTimeSeconds() / 10.0f;
             break;
         case kFilterAttackTime:
-            value = filterEGParams.getAttackTimeSeconds() / 10.0f;
+            value = filterEnvelopeParameters.getAttackTimeSeconds() / 10.0f;
             break;
         case kFilterDecayTime:
-            value = filterEGParams.getDecayTimeSeconds() / 10.0f;
+            value = filterEnvelopeParameters.getDecayTimeSeconds() / 10.0f;
             break;
         case kFilterSustainLevel:
-            value = filterEGParams.sustainFraction;
+            value = filterEnvelopeParameters.sustainFraction;
             break;
         case kFilterReleaseTime:
-            value = filterEGParams.getReleaseTimeSeconds() / 10.0f;
+            value = filterEnvelopeParameters.getReleaseTimeSeconds() / 10.0f;
             break;
     }
 	return value;
@@ -882,27 +882,27 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
     case kFilterCutoff:
         return cutoffMultiple;
     case kFilterEgStrength:
-        return cutoffEgStrength;
+        return cutoffEnvelopeStrength;
     case kFilterResonance:
-        return -20.0f * log10(resLinear);
+        return -20.0f * log10(linearResonance);
     case kFilterEnable:
-        return filterEnable ? 1.0f : 0.0f;
+        return isFilterEnabled ? 1.0f : 0.0f;
     case kAmpAttackTime:
-        return ampEGParams.getAttackTimeSeconds();
+        return adsrEnvelopeParameters.getAttackTimeSeconds();
     case kAmpDecayTime:
-        return ampEGParams.getDecayTimeSeconds();
+        return adsrEnvelopeParameters.getDecayTimeSeconds();
     case kAmpSustainLevel:
-        return ampEGParams.sustainFraction;
+        return adsrEnvelopeParameters.sustainFraction;
     case kAmpReleaseTime:
-        return ampEGParams.getReleaseTimeSeconds();
+        return adsrEnvelopeParameters.getReleaseTimeSeconds();
     case kFilterAttackTime:
-        return filterEGParams.getAttackTimeSeconds();
+        return filterEnvelopeParameters.getAttackTimeSeconds();
     case kFilterDecayTime:
-        return filterEGParams.getDecayTimeSeconds();
+        return filterEnvelopeParameters.getDecayTimeSeconds();
     case kFilterSustainLevel:
-        return filterEGParams.sustainFraction;
+        return filterEnvelopeParameters.sustainFraction;
     case kFilterReleaseTime:
-        return filterEGParams.getReleaseTimeSeconds();
+        return filterEnvelopeParameters.getReleaseTimeSeconds();
     }
     return 0.0f;
 }
@@ -960,7 +960,7 @@ VstInt32 AKSamplerDSP::processEvents (VstEvents* ev)
         case kMidiControlChange:
             if (data1 == kMidiCCModWheel)
             {
-                if (filterEnable)
+                if (isFilterEnabled)
                     cutoffMultiple = 100.0f * data2 / 127.0f;
                 else
                     vibratoDepth = 2.0f * data2 / 127.0f;
@@ -1005,7 +1005,7 @@ void AKSamplerDSP::processReplacing (float** inputs, float** outputs, VstInt32 n
 
         // Any ramping parameters would be updated here...
 
-        AudioKitCore::Sampler::Render(2, chunkSize, outBuffers);
+        AudioKitCore::Sampler::render(2, chunkSize, outBuffers);
 
         outBuffers[0] += CHUNKSIZE;
         outBuffers[1] += CHUNKSIZE;

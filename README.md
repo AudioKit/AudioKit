@@ -7,6 +7,8 @@ AudioKit V4.2
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 <img src="https://img.shields.io/badge/in-swift4.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
+[![Backers on Open Collective](https://opencollective.com/AudioKit/backers/badge.svg)](#backers) 
+[![Sponsors on Open Collective](https://opencollective.com/AudioKit/sponsors/badge.svg)](#sponsors) 
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
@@ -96,3 +98,33 @@ But, there are many other important people in our family:
 |[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
 |[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
 |[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
+
+### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
+
+
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/AudioKit#backer)]
+
+<a href="https://opencollective.com/AudioKit#backers" target="_blank"><img src="https://opencollective.com/AudioKit/backers.svg?width=890"></a>
+
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/AudioKit#sponsor)]
+
+<a href="https://opencollective.com/AudioKit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/1/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/2/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/3/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/4/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/5/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/6/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/7/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/8/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/AudioKit/sponsor/9/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/9/avatar.svg"></a>
+
+

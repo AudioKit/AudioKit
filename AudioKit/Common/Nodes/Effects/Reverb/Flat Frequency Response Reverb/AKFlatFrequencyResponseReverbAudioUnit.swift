@@ -54,6 +54,6 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

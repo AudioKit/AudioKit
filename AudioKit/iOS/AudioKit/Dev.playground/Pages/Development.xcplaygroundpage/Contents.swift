@@ -91,11 +91,11 @@ func nnCalc(_ counter: Int) -> MIDINoteNumber {
     if counter < 0 {
         return 0
     }
-    
+
     let npo = sequencerPattern.count
     var note: Int = counter % npo
     note = sequencerPattern[note]
-    
+
     let rootNN: Int = 60
     let nn = MIDINoteNumber(note + rootNN + transposition)
     return nn
@@ -103,16 +103,16 @@ func nnCalc(_ counter: Int) -> MIDINoteNumber {
 
 // periodic function for arpeggio
 let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
-    
+
     // send note off for notes in the past
     let pastNN = nnCalc(performanceCounter - 2)
     osc.stop(noteNumber: pastNN)
-    
+
     // send note on for notes in the present
     let presentNN = nnCalc(performanceCounter)
     let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: presentNN)
     osc.play(noteNumber: presentNN, velocity: 127, frequency: frequency)
-    
+
     performanceCounter += 1
 }
 
@@ -124,19 +124,19 @@ sequencerFunction.start()
 import AudioKitUI
 
 class LiveView: AKLiveViewController {
-    
+
     override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")
-        
+
         addView(AKPresetLoaderView(presets: presetArray) { preset in
             presetDictionary[preset]?()
         })
-        
+
         addView(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })
-        
+
         addView(AKSlider(property: "MIDI Transposition",
                          value: Double(transposition),
                          range: -16 ... 16,
@@ -145,29 +145,29 @@ class LiveView: AKLiveViewController {
             transposition = Int(sliderValue)
             osc.reset()
         })
-        
+
         addView(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
-        
+
         addView(AKSlider(property: "FILTER Frequency Cutoff",
                          value: filter.cutoffFrequency,
                          range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
-        
+
         addView(AKSlider(property: "FILTER Frequency Resonance",
                          value: filter.resonance,
                          range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Attack",
                          value: osc.attackDuration,
                          range: 0 ... 2,
@@ -175,7 +175,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Decay",
                          value: osc.decayDuration,
                          range: 0 ... 2,
@@ -183,7 +183,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Sustain",
                          value: osc.sustainLevel,
                          range: 0 ... 2,
@@ -191,7 +191,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
-        
+
         addView(AKSlider(property: "OSC Amp Release",
                          value: osc.releaseDuration,
                          range: 0 ... 2,
