@@ -6,8 +6,6 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-import Cocoa
-
 public class AKDynamicPlayer: AKPlayer {
 
     /// The time pitch node - disabled by default
