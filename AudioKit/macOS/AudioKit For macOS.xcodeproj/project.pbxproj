@@ -2459,6 +2459,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		B1468E1720D022FD0030BA66 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B1BC5A2A1FD915AB0052D4CE /* AKPlayer.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		B1C452E41F2A55AF001AD289 /* AudioUnit Host */ = {
 			isa = PBXGroup;
 			children = (
@@ -3774,7 +3782,7 @@
 			children = (
 				C4A8A4C31EE4007500FDBE68 /* Metronome */,
 				C45666401D448D7E00D26565 /* Phase-Locked Vocoder */,
-				C45666451D448D7E00D26565 /* Player */,
+				C45666451D448D7E00D26565 /* Players */,
 				C45F3F701ED1576100A75143 /* Sample Player */,
 				C49B217F204A2AE7009C7C8E /* Samplers */,
 				C456664B1D448D7E00D26565 /* Time Pitch Stretching */,
@@ -3794,14 +3802,14 @@
 			path = "Phase-Locked Vocoder";
 			sourceTree = "<group>";
 		};
-		C45666451D448D7E00D26565 /* Player */ = {
+		C45666451D448D7E00D26565 /* Players */ = {
 			isa = PBXGroup;
 			children = (
 				555857D61F6217FF00C73F59 /* ClipPlayer */,
 				C45666461D448D7E00D26565 /* AKAudioPlayer.swift */,
-				B1BC5A2A1FD915AB0052D4CE /* AKPlayer.swift */,
+				B1468E1720D022FD0030BA66 /* Player */,
 			);
-			path = Player;
+			path = Players;
 			sourceTree = "<group>";
 		};
 		C456664B1D448D7E00D26565 /* Time Pitch Stretching */ = {
@@ -5390,7 +5398,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6465,7 +6473,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
