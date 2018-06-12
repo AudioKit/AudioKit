@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-    // MARK: - Fade Handlers
 
     internal func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
         // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)

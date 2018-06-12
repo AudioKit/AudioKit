@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-    // MARK: - Playback
 
     /// Play entire file right now
     public func play() {
