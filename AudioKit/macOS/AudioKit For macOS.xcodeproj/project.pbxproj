@@ -3805,8 +3805,8 @@
 		C45666451D448D7E00D26565 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				555857D61F6217FF00C73F59 /* ClipPlayer */,
 				C45666461D448D7E00D26565 /* AKAudioPlayer.swift */,
+				555857D61F6217FF00C73F59 /* ClipPlayer */,
 				B1468E1720D022FD0030BA66 /* Player */,
 			);
 			path = Players;

@@ -1102,7 +1102,7 @@
 		A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B12B88A8201C1B65008F196D /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
 		B15770492093C8E700830A3E /* AKParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamp.hpp; sourceTree = "<group>"; };
-		B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPlayer.swift; sourceTree = "<group>"; };
+		B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AKPlayer.swift; path = ../Player/AKPlayer.swift; sourceTree = "<group>"; };
 		B1DAFDDF1FCE0D8E00511A43 /* AKConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConverter.swift; sourceTree = "<group>"; };
 		B1F47ABD1DC54E0F00706A2F /* EZAudioFileMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFileMarker.h; sourceTree = "<group>"; };
 		B1F47ABE1DC54E0F00706A2F /* EZAudioFileMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFileMarker.m; sourceTree = "<group>"; };
@@ -2283,6 +2283,15 @@
 			name = Metronome;
 			sourceTree = "<group>";
 		};
+		B1468E1B20D023E20030BA66 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */,
+			);
+			name = Player;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		C408695F1C190EF600EF9DED /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
@@ -3232,7 +3241,7 @@
 				C4E13D301C42703C008F0A3C /* Phase-Locked Vocoder */,
 				C45F3F791ED157AB00A75143 /* Sample Player */,
 				C49B216C204A2A84009C7C8E /* Samplers */,
-				C4E13D351C42703C008F0A3C /* Player */,
+				C4E13D351C42703C008F0A3C /* Players */,
 				C4E13D3B1C42703C008F0A3C /* Time Pitch Stretching */,
 			);
 			path = Playback;
@@ -4482,14 +4491,14 @@
 			path = "Phase-Locked Vocoder";
 			sourceTree = "<group>";
 		};
-		C4E13D351C42703C008F0A3C /* Player */ = {
+		C4E13D351C42703C008F0A3C /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				B1468E1B20D023E20030BA66 /* Player */,
 				555857E61F62189700C73F59 /* ClipPlayer */,
 				C4E13D361C42703C008F0A3C /* AKAudioPlayer.swift */,
-				B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */,
 			);
-			path = Player;
+			path = Players;
 			sourceTree = "<group>";
 		};
 		C4E13D3B1C42703C008F0A3C /* Time Pitch Stretching */ = {

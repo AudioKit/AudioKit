@@ -1218,7 +1218,7 @@
 		8D6C6C521D421EBB008BFA4A /* AKAudioFile+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Utilities.swift"; sourceTree = "<group>"; };
 		B12B88A6201C1B2C008F196D /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
 		B15770472093C86A00830A3E /* AKParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamp.hpp; sourceTree = "<group>"; };
-		B18484791FD9ADB100F65DA6 /* AKPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlayer.swift; sourceTree = "<group>"; };
+		B18484791FD9ADB100F65DA6 /* AKPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPlayer.swift; path = ../Player/AKPlayer.swift; sourceTree = "<group>"; };
 		B19AE7731F30FC4700F9DC25 /* AKAudioUnitInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitInstrument.swift; path = "AudioUnit Host/AKAudioUnitInstrument.swift"; sourceTree = "<group>"; };
 		B19AE7741F30FC4700F9DC25 /* AKAudioUnitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioUnitManager.swift; path = "AudioUnit Host/AKAudioUnitManager.swift"; sourceTree = "<group>"; };
 		B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConverter.swift; sourceTree = "<group>"; };
@@ -2499,6 +2499,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		B1468E1820D023460030BA66 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B18484791FD9ADB100F65DA6 /* AKPlayer.swift */,
+			);
+			name = Player;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		B19AE7721F30FC2600F9DC25 /* AudioUnit Host */ = {
 			isa = PBXGroup;
 			children = (
@@ -2657,14 +2666,14 @@
 			path = Drip;
 			sourceTree = "<group>";
 		};
-		C40C42AC1C420C1D009D870B /* Player */ = {
+		C40C42AC1C420C1D009D870B /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				551AAC2B1F61F56200A14C0D /* ClipPlayer */,
 				C40C42AD1C420C1D009D870B /* AKAudioPlayer.swift */,
-				B18484791FD9ADB100F65DA6 /* AKPlayer.swift */,
+				551AAC2B1F61F56200A14C0D /* ClipPlayer */,
+				B1468E1820D023460030BA66 /* Player */,
 			);
-			path = Player;
+			path = Players;
 			sourceTree = "<group>";
 		};
 		C40C42AE1C420C1D009D870B /* Samplers */ = {
@@ -3737,7 +3746,7 @@
 			children = (
 				C4A8A4C01EE3FF9D00FDBE68 /* Metronome */,
 				C4E13D271C42360C008F0A3C /* Phase-Locked Vocoder */,
-				C40C42AC1C420C1D009D870B /* Player */,
+				C40C42AC1C420C1D009D870B /* Players */,
 				C40C42AE1C420C1D009D870B /* Samplers */,
 				FED92BDE1ED1331D00E93264 /* Sample Player */,
 				C40C42B21C420C1D009D870B /* Time Pitch Stretching */,
