@@ -455,6 +455,7 @@ public class AKPlayer: AKNode {
             timePitchNode.bypass() // bypass timePitch by default to save CPU
 
         } else {
+            // if the timePitchNode isn't created connect the player directly to the faderNode
             AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: format)
             AudioKit.connect(faderNode.avAudioNode, to: mixer, format: format)
         }
@@ -470,9 +471,11 @@ public class AKPlayer: AKNode {
     }
 
     private func removeTimePitch() {
+        guard let timePitchNode = timePitchNode else { return }
         stop()
-        timePitchNode?.disconnectOutput()
-        timePitchNode = nil
+        timePitchNode.disconnectOutput()
+        AudioKit.detach(nodes: [timePitchNode.avAudioNode])
+        self.timePitchNode = nil
         initialize()
     }
 
@@ -971,7 +974,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Disconnect the node and release resources
-    public override func disconnect() {
+    public override func detach() {
         stop()
         audioFile = nil
         buffer = nil
