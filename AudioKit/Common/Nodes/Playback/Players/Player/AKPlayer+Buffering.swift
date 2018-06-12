@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-    // MARK: - Buffering routines
 
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
