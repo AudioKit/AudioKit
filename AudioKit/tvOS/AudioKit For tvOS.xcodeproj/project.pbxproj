@@ -37,6 +37,12 @@
 		55E4F5331F57DB2D0088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5311F57DB2D0088018A /* AKSamplerMetronome.m */; };
 		A8E996F61EB921D100116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */; };
 		B12B88A9201C1B65008F196D /* AKExponentialParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B12B88A8201C1B65008F196D /* AKExponentialParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		B1468E3C20D070450030BA66 /* AKPlayer+Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3620D070430030BA66 /* AKPlayer+Playback.swift */; };
+		B1468E3D20D070450030BA66 /* AKPlayer+Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3720D070430030BA66 /* AKPlayer+Fader.swift */; };
+		B1468E3E20D070450030BA66 /* AKPlayer+Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3820D070440030BA66 /* AKPlayer+Timing.swift */; };
+		B1468E3F20D070450030BA66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B1468E3920D070440030BA66 /* README.md */; };
+		B1468E4020D070450030BA66 /* AKPlayer+Buffering.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3A20D070440030BA66 /* AKPlayer+Buffering.swift */; };
+		B1468E4120D070450030BA66 /* AKDynamicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3B20D070440030BA66 /* AKDynamicPlayer.swift */; };
 		B157704A2093C8E700830A3E /* AKParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B15770492093C8E700830A3E /* AKParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B184847C1FD9ADD100F65DA6 /* AKPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */; };
 		B1DAFDE01FCE0D8E00511A43 /* AKConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DAFDDF1FCE0D8E00511A43 /* AKConverter.swift */; };
@@ -1101,6 +1107,12 @@
 		55E4F5311F57DB2D0088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSamplerMetronome.m; path = Playback/AKSamplerMetronome.m; sourceTree = "<group>"; };
 		A8E996F51EB921D100116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B12B88A8201C1B65008F196D /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
+		B1468E3620D070430030BA66 /* AKPlayer+Playback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKPlayer+Playback.swift"; sourceTree = "<group>"; };
+		B1468E3720D070430030BA66 /* AKPlayer+Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKPlayer+Fader.swift"; sourceTree = "<group>"; };
+		B1468E3820D070440030BA66 /* AKPlayer+Timing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKPlayer+Timing.swift"; sourceTree = "<group>"; };
+		B1468E3920D070440030BA66 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B1468E3A20D070440030BA66 /* AKPlayer+Buffering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKPlayer+Buffering.swift"; sourceTree = "<group>"; };
+		B1468E3B20D070440030BA66 /* AKDynamicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicPlayer.swift; sourceTree = "<group>"; };
 		B15770492093C8E700830A3E /* AKParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamp.hpp; sourceTree = "<group>"; };
 		B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AKPlayer.swift; path = ../Player/AKPlayer.swift; sourceTree = "<group>"; };
 		B1DAFDDF1FCE0D8E00511A43 /* AKConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKConverter.swift; sourceTree = "<group>"; };
@@ -2286,10 +2298,15 @@
 		B1468E1B20D023E20030BA66 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				B1468E3B20D070440030BA66 /* AKDynamicPlayer.swift */,
 				B184847B1FD9ADD100F65DA6 /* AKPlayer.swift */,
+				B1468E3A20D070440030BA66 /* AKPlayer+Buffering.swift */,
+				B1468E3720D070430030BA66 /* AKPlayer+Fader.swift */,
+				B1468E3620D070430030BA66 /* AKPlayer+Playback.swift */,
+				B1468E3820D070440030BA66 /* AKPlayer+Timing.swift */,
+				B1468E3920D070440030BA66 /* README.md */,
 			);
-			name = Player;
-			path = "New Group";
+			path = Player;
 			sourceTree = "<group>";
 		};
 		C408695F1C190EF600EF9DED /* User Interface */ = {
@@ -4494,9 +4511,9 @@
 		C4E13D351C42703C008F0A3C /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				B1468E1B20D023E20030BA66 /* Player */,
-				555857E61F62189700C73F59 /* ClipPlayer */,
 				C4E13D361C42703C008F0A3C /* AKAudioPlayer.swift */,
+				555857E61F62189700C73F59 /* ClipPlayer */,
+				B1468E1B20D023E20030BA66 /* Player */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -5207,6 +5224,7 @@
 			files = (
 				C49B1DDE204A0CFA009C7C8E /* COPYING in Resources */,
 				C49B1DD8204A0CFA009C7C8E /* LICENSE.txt in Resources */,
+				B1468E3F20D070450030BA66 /* README.md in Resources */,
 				C44EA26F201870EC0072399F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5439,6 +5457,7 @@
 				C49B1E55204A0CFA009C7C8E /* rspline.c in Sources */,
 				C4812B0F202856D200D4AFB1 /* AKTanhDistortionDSP.mm in Sources */,
 				C49B1E3D204A0CFA009C7C8E /* drip.c in Sources */,
+				B1468E3C20D070450030BA66 /* AKPlayer+Playback.swift in Sources */,
 				C49B1E20204A0CFA009C7C8E /* random.c in Sources */,
 				C49B214C204A0D57009C7C8E /* FileLoop.cpp in Sources */,
 				C46B27BE2029AE8A00EC0E87 /* AKPitchShifterDSP.mm in Sources */,
@@ -5663,6 +5682,7 @@
 				C46B27BA2029AE6B00EC0E87 /* AKKorgLowPassFilterDSP.mm in Sources */,
 				C4D371501EEFA79E00B3DCA6 /* vocalTract.swift in Sources */,
 				C433232B1FE05FC800330AEC /* TPCircularBuffer+Unit.c in Sources */,
+				B1468E4120D070450030BA66 /* AKDynamicPlayer.swift in Sources */,
 				C49B1E53204A0CFA009C7C8E /* lpf18.c in Sources */,
 				C49B1E00204A0CFA009C7C8E /* gbuzz.c in Sources */,
 				C49A0A2B1D54295E007D8ADB /* reverberateWithCombFilter.swift in Sources */,
@@ -5686,6 +5706,7 @@
 				C458BFF0202FEE7D006428C9 /* AKBrownianNoiseDSP.mm in Sources */,
 				C49B1DDA204A0CFA009C7C8E /* kiss_fftr.c in Sources */,
 				C40C42251C40E5C2009D870B /* EZAudioFloatData.m in Sources */,
+				B1468E3E20D070450030BA66 /* AKPlayer+Timing.swift in Sources */,
 				C49B1F06204A0CFB009C7C8E /* voc.c in Sources */,
 				C49B1DE3204A0CFA009C7C8E /* vocwrapper.c in Sources */,
 				C4146D551F3E47C2001AAE11 /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */,
@@ -5893,6 +5914,8 @@
 				C49B1E49204A0CFA009C7C8E /* thresh.c in Sources */,
 				C45381C71C3A5CBD00A51738 /* AKHighPassFilter.swift in Sources */,
 				EA13F195207232530090288E /* pack_dsd.c in Sources */,
+				B1468E3D20D070450030BA66 /* AKPlayer+Fader.swift in Sources */,
+				B1468E4020D070450030BA66 /* AKPlayer+Buffering.swift in Sources */,
 				C470D07820174B84003D1AFA /* AKBoosterAudioUnit.swift in Sources */,
 				C49B1E15204A0CFA009C7C8E /* line.c in Sources */,
 				C453822F1C3A5CBD00A51738 /* AKMixer.swift in Sources */,
