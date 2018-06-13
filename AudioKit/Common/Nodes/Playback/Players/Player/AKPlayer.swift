@@ -249,14 +249,14 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            //return max(0, _startTime)
+            // return max(0, _startTime)
             return _startTime
         }
 
         set {
-            //startTimeQueue.sync {
-                self._startTime = max(0, newValue)
-            //}
+            // startTimeQueue.sync {
+            _startTime = max(0, newValue)
+            // }
         }
     }
 
@@ -271,9 +271,9 @@ public class AKPlayer: AKNode {
             if newValue == 0 {
                 newValue = duration
             }
-            //endTimeQueue.sync {
-                self._endTime = min(newValue, duration)
-            //}
+            // endTimeQueue.sync {
+            _endTime = min(newValue, duration)
+            // }
         }
     }
 
