@@ -79,6 +79,7 @@ extension AKPlayer {
     // if the file is scheduled, start a timer to determine when to start the completion timer
     private func startPrerollTimer(_ prerollTime: Double) {
         DispatchQueue.main.async {
+            self.prerollTimer?.invalidate()
             self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
                                                      target: self,
                                                      selector: #selector(self.startCompletionTimer),
@@ -95,6 +96,7 @@ extension AKPlayer {
         }
 
         DispatchQueue.main.async {
+            self.completionTimer?.invalidate()
             self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
                                                         target: self,
                                                         selector: #selector(self.handleComplete),

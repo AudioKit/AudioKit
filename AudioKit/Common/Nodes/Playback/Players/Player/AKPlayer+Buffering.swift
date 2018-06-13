@@ -28,12 +28,18 @@ extension AKPlayer {
             endFrame = AVAudioFramePosition(revEndTime * fileFormat.sampleRate)
         }
 
-        let updateNeeded = (force ||
+        var updateNeeded = force ||
             buffer == nil ||
             startFrame != startingFrame ||
             endFrame != endingFrame
-            || loop.needsUpdate
-            || fade.needsUpdate)
+
+        if loop.needsUpdate && isLooping {
+            updateNeeded = true
+        }
+
+        if fade.needsUpdate && isFaded {
+            updateNeeded = true
+        }
 
         if !updateNeeded {
             // AKLog("No buffer update needed")
@@ -88,6 +94,8 @@ extension AKPlayer {
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame
         endingFrame = endFrame
+
+        // AKLog("Filled buffer from \(startTime) to \(endTime)")
     }
 
     // Read the buffer in backwards
