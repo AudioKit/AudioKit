@@ -27,6 +27,7 @@ extension AKPlayer {
         AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
+            self.faderTimer?.invalidate()
             self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
                                                    target: self,
                                                    selector: #selector(self.startFade),
@@ -75,6 +76,7 @@ extension AKPlayer {
             when /= rate
 
             DispatchQueue.main.async {
+                self.faderTimer?.invalidate()
                 self.faderTimer = Timer.scheduledTimer(timeInterval: when,
                                                        target: self,
                                                        selector: #selector(self.fadeOut),

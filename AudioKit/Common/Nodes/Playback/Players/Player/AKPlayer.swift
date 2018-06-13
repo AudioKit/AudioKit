@@ -186,7 +186,7 @@ public class AKPlayer: AKNode {
     public var buffering: BufferingType = .dynamic {
         didSet {
             if buffering == .always {
-                preroll()
+                // preroll()
             }
         }
     }
@@ -249,13 +249,14 @@ public class AKPlayer: AKNode {
     /// Get or set the start time of the player.
     public var startTime: Double {
         get {
-            return max(0, _startTime)
+            //return max(0, _startTime)
+            return _startTime
         }
 
         set {
-            startTimeQueue.sync {
+            //startTimeQueue.sync {
                 self._startTime = max(0, newValue)
-            }
+            //}
         }
     }
 
@@ -270,9 +271,9 @@ public class AKPlayer: AKNode {
             if newValue == 0 {
                 newValue = duration
             }
-            endTimeQueue.sync {
+            //endTimeQueue.sync {
                 self._endTime = min(newValue, duration)
-            }
+            //}
         }
     }
 
@@ -419,7 +420,11 @@ public class AKPlayer: AKNode {
     /// Otherwise it just sets the startTime and endTime
     public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
         var from = startingTime
-        let to = endingTime
+        var to = endingTime
+
+        if to == 0 { to = duration }
+
+        AKLog(from, to)
 
         if from > to {
             from = 0
