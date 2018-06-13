@@ -618,6 +618,7 @@ public class AKPlayer: AKNode {
         AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
+            self.faderTimer?.invalidate()
             self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
                                                    target: self,
                                                    selector: #selector(self.startFade),
@@ -666,6 +667,7 @@ public class AKPlayer: AKNode {
             when /= rate
 
             DispatchQueue.main.async {
+                self.faderTimer?.invalidate()
                 self.faderTimer = Timer.scheduledTimer(timeInterval: when,
                                                        target: self,
                                                        selector: #selector(self.fadeOut),
@@ -700,6 +702,8 @@ public class AKPlayer: AKNode {
     // if the file is scheduled, start a timer to determine when to start the completion timer
     private func startPrerollTimer(_ prerollTime: Double) {
         DispatchQueue.main.async {
+            // ensure any previously created time has been invalidated before starting a new one
+            self.prerollTimer?.invalidate()
             self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
                                                      target: self,
                                                      selector: #selector(self.startCompletionTimer),
@@ -716,6 +720,8 @@ public class AKPlayer: AKNode {
         }
 
         DispatchQueue.main.async {
+            // ensure any previously created time has been invalidated before starting a new one
+            self.completionTimer?.invalidate()
             self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
                                                         target: self,
                                                         selector: #selector(self.handleComplete),
