@@ -148,7 +148,7 @@ public class AKPlayer: AKNode {
     // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
     // if you don't need them, you can disable them off here
     internal var useCompletionHandler: Bool {
-        return isLooping || completionHandler != nil
+        return (isLooping && !isBuffered) || completionHandler != nil
     }
 
     // startTime and endTime may be accessed from multiple thread contexts
@@ -424,7 +424,7 @@ public class AKPlayer: AKNode {
 
         if to == 0 { to = duration }
 
-        AKLog(from, to)
+        // AKLog(from, to)
 
         if from > to {
             from = 0
