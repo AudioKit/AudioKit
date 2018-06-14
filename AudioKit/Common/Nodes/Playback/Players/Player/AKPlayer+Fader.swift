@@ -8,12 +8,18 @@
 
 extension AKPlayer {
 
-    internal func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)
+    internal func createFader() {
+        AKLog("Creating AKBooster")
+        faderNode = AKBooster()
+        faderNode?.gain = Fade.minimumGain
+        faderNode?.rampType = rampType
+        initialize()
+    }
 
-        if faderTimer?.isValid ?? false {
-            faderTimer?.invalidate()
-        }
+    internal func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
+        guard faderNode != nil else { return }
+
+        // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)
 
         guard fade.inTime != 0 || fade.outTime != 0 else {
             return
@@ -38,6 +44,7 @@ extension AKPlayer {
     }
 
     internal func resetFader(_ state: Bool) {
+        guard let faderNode = faderNode else { return }
         var state = state
         if fade.inTime == 0 {
             state = true
@@ -48,9 +55,11 @@ extension AKPlayer {
     }
 
     @objc private func startFade() {
+        guard let faderNode = faderNode else { return }
+
         let inTime = fade.inTime - fade.inTimeOffset
 
-        AKLog("Fading in to", fade.maximumGain)
+        AKLog("Fading in to", fade.maximumGain, ", shape:", fade.inRampType.rawValue)
 
         faderNode.rampDuration = AKSettings.rampDuration
 
@@ -93,12 +102,14 @@ extension AKPlayer {
     }
 
     private func fadeOutWithTime(_ time: Double) {
+        guard let faderNode = faderNode else { return }
+
         if time > 0 {
             // at this point init the faderNode with the correct settings for fade out
             faderNode.rampType = fade.outRampType
             faderNode.rampDuration = time / rate
             faderNode.gain = Fade.minimumGain
-            AKLog("Fading out to", Fade.minimumGain)
+            AKLog("Fading out to", Fade.minimumGain, ", shape:", fade.outRampType.rawValue)
         }
     }
 
