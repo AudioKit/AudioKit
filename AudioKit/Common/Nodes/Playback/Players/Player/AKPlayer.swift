@@ -128,8 +128,8 @@ public class AKPlayer: AKNode {
     /// The main output
     public let mixer = AVAudioMixerNode()
 
-    /// The underlying gain booster which controls fades as well
-    public var faderNode: AKBooster? // = AKBooster()
+    /// The underlying gain booster which controls fades as well. Created on demand.
+    public var faderNode: AKBooster?
 
     // MARK: - Private Parts
 
