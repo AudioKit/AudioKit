@@ -129,7 +129,7 @@ public class AKPlayer: AKNode {
     public let mixer = AVAudioMixerNode()
 
     /// The underlying gain booster which controls fades as well
-    public let faderNode = AKBooster()
+    public var faderNode: AKBooster? // = AKBooster()
 
     // MARK: - Private Parts
 
@@ -152,8 +152,8 @@ public class AKPlayer: AKNode {
     }
 
     // startTime and endTime may be accessed from multiple thread contexts
-    private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
-    private let endTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.endTimeQueue")
+    //    private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
+    //    private let endTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.endTimeQueue")
 
     private var playerTime: Double {
         if let nodeTime = playerNode.lastRenderTime,
@@ -186,7 +186,7 @@ public class AKPlayer: AKNode {
     public var buffering: BufferingType = .dynamic {
         didSet {
             if buffering == .always {
-                // preroll()
+                // could respond to buffering scheme if desired. preroll etc.
             }
         }
     }
@@ -221,10 +221,14 @@ public class AKPlayer: AKNode {
         }
 
         set {
+            if newValue != 1 && faderNode == nil {
+                createFader()
+            }
+
             // this is the value that the fader will fade to
             fade.maximumGain = newValue
             // this is the current value of the fader, set immediately
-            faderNode.gain = newValue
+            faderNode?.gain = newValue
         }
     }
 
@@ -381,26 +385,32 @@ public class AKPlayer: AKNode {
             playerNode.disconnectOutput()
         }
 
-        if faderNode.avAudioNode.engine == nil {
-            AudioKit.engine.attach(faderNode.avAudioNode)
-        } else {
-            faderNode.disconnectOutput()
+        if let faderNode = faderNode {
+            if faderNode.avAudioNode.engine == nil {
+                AudioKit.engine.attach(faderNode.avAudioNode)
+            } else {
+                faderNode.disconnectOutput()
+            }
         }
 
-        faderNode.gain = Fade.minimumGain
-        faderNode.rampType = .linear
+        faderNode?.gain = Fade.minimumGain
+        faderNode?.rampType = .linear
         loop.start = 0
         loop.end = duration
         buffer = nil
 
         connectNodes()
-        preroll(from: 0, to: duration)
+        // preroll(from: 0, to: duration)
     }
 
     internal func connectNodes() {
         guard let processingFormat = processingFormat else { return }
-        AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
-        AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+        if let faderNode = faderNode {
+            AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
+            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+        } else {
+            AudioKit.connect(playerNode, to: mixer, format: processingFormat)
+        }
     }
 
     // MARK: - Loading
@@ -422,7 +432,9 @@ public class AKPlayer: AKNode {
         var from = startingTime
         var to = endingTime
 
-        if to == 0 { to = duration }
+        if to == 0 {
+            to = duration
+        }
 
         // AKLog(from, to)
 
@@ -432,6 +444,9 @@ public class AKPlayer: AKNode {
         startTime = from
         endTime = to
 
+        if isFaded && faderNode == nil {
+            createFader()
+        }
         resetFader(false)
 
         guard isBuffered else { return }
@@ -446,10 +461,10 @@ public class AKPlayer: AKNode {
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
-        faderNode.start()
+        faderNode?.start()
 
         guard !isBuffered else {
-            faderNode.gain = gain
+            faderNode?.gain = gain
             return
         }
         initFader(at: audioTime, hostTime: hostTime)
@@ -463,6 +478,12 @@ public class AKPlayer: AKNode {
         audioFile = nil
         buffer = nil
         AudioKit.detach(nodes: [mixer, playerNode])
+
+        if let faderNode = faderNode {
+            AudioKit.detach(nodes: [faderNode.avAudioNode])
+        }
+
+        faderNode = nil
     }
 
     deinit {

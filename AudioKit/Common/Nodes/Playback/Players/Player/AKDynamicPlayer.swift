@@ -82,16 +82,18 @@ public class AKDynamicPlayer: AKPlayer {
     internal override func connectNodes() {
         guard let processingFormat = processingFormat else { return }
 
-        if let timePitchNode = timePitchNode {
+        if let timePitchNode = timePitchNode, let faderNode = faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
             timePitchNode.bypass() // bypass timePitch by default to save CPU
 
-        } else {
+        } else if let faderNode = faderNode {
             // if the timePitchNode isn't created connect the player directly to the faderNode
             AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+        } else {
+            AudioKit.connect(playerNode, to: mixer, format: processingFormat)
         }
     }
 
@@ -119,7 +121,6 @@ public class AKDynamicPlayer: AKPlayer {
 
     public override func detach() {
         super.detach()
-        AudioKit.detach(nodes: [faderNode.avAudioNode])
         if let timePitchNode = timePitchNode {
             AudioKit.detach(nodes: [timePitchNode.avAudioNode])
         }
