@@ -221,12 +221,12 @@ public class AKPlayer: AKNode {
         }
 
         set {
+            // this is the value that the fader will fade to
+            fade.maximumGain = newValue
+
             if newValue != 1 && faderNode == nil {
                 createFader()
             }
-
-            // this is the value that the fader will fade to
-            fade.maximumGain = newValue
             // this is the current value of the fader, set immediately
             faderNode?.gain = newValue
         }
@@ -371,10 +371,17 @@ public class AKPlayer: AKNode {
     public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
+        loop.start = 0
+        loop.end = duration
         initialize()
     }
 
     internal func initialize() {
+        let wasPlaying = isPlaying
+        if wasPlaying {
+            pause()
+        }
+
         if mixer.engine == nil {
             AudioKit.engine.attach(mixer)
         }
@@ -392,13 +399,10 @@ public class AKPlayer: AKNode {
                 faderNode.disconnectOutput()
             }
         }
-
-        loop.start = 0
-        loop.end = duration
-        buffer = nil
-
         connectNodes()
-        // preroll(from: 0, to: duration)
+        if wasPlaying {
+            resume()
+        }
     }
 
     internal func connectNodes() {
