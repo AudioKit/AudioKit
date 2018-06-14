@@ -118,7 +118,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    /// `availableEffects` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
+    /// `availableInstruments` is accessed from multiple thread contexts. Use a dispatch queue for synchronization.
     public var availableInstruments: [AVAudioUnitComponent] {
         get {
             return availableInstrumentsAccessQueue.sync {
@@ -160,10 +160,12 @@ open class AKAudioUnitManager: NSObject {
     private func addObservors() {
         // Sign up for a notification when the list of available components changes.
         NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
-                                               object: nil, queue: nil,
+                                               object: nil,
+                                               queue: nil,
                                                using: componentRegistrationObservor)
         NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation,
-                                               object: nil, queue: nil,
+                                               object: nil,
+                                               queue: nil,
                                                using: componentInstanceObservor)
     }
 
