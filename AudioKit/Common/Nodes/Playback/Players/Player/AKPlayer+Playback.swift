@@ -64,7 +64,7 @@ extension AKPlayer {
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
         playerNode.stop()
-        faderNode.stop()
+        faderNode?.stop()
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
