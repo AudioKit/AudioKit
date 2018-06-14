@@ -11,7 +11,7 @@ extension AKPlayer {
     internal func createFader() {
         AKLog("Creating AKBooster")
         faderNode = AKBooster()
-        faderNode?.gain = Fade.minimumGain
+        faderNode?.gain = gain
         faderNode?.rampType = rampType
         initialize()
     }
