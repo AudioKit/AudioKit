@@ -393,8 +393,6 @@ public class AKPlayer: AKNode {
             }
         }
 
-        faderNode?.gain = Fade.minimumGain
-        faderNode?.rampType = .linear
         loop.start = 0
         loop.end = duration
         buffer = nil
@@ -482,7 +480,6 @@ public class AKPlayer: AKNode {
         if let faderNode = faderNode {
             AudioKit.detach(nodes: [faderNode.avAudioNode])
         }
-
         faderNode = nil
     }
 
