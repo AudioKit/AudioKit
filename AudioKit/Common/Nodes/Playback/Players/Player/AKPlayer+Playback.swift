@@ -60,6 +60,7 @@ extension AKPlayer {
         // clear the frame count in the player
         playerNode.stop()
         play(from: pauseTime)
+        AKLog("Resuming at \(pauseTime)")
     }
     /// Stop playback and cancel any pending scheduled playback or completion events
     public func stop() {
