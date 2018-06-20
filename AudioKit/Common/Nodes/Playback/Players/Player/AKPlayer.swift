@@ -426,6 +426,8 @@ public class AKPlayer: AKNode {
     public func load(audioFile: AVAudioFile) {
         self.audioFile = audioFile
         initialize()
+        // will reset the stored start / end times or update the buffer
+        preroll()
     }
 
     /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
@@ -460,6 +462,7 @@ public class AKPlayer: AKNode {
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     /// Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
+        // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
