@@ -1424,6 +1424,8 @@ int sp_wavin_create(sp_wavin **p);
 int sp_wavin_destroy(sp_wavin **p);
 int sp_wavin_init(sp_data *sp, sp_wavin *p, const char *filename);
 int sp_wavin_compute(sp_data *sp, sp_wavin *p, SPFLOAT *in, SPFLOAT *out);
+int sp_wavin_resetToStart(sp_data *sp, sp_wavin *p);
+int sp_wavin_seekToSample(sp_data *sp, sp_wavin *p, drwav_uint64 sample)
 
 typedef struct {
     SPFLOAT value;
