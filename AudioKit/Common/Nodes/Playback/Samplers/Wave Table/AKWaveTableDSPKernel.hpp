@@ -301,12 +301,16 @@ public:
     void calculateShouldLoop(double nextPosition){
         if (mainPlayComplete){
             if (nextPosition > loopEndPointViaRate() && !loopReversed()){
-                position = loopStartPointViaRate();
-                loopCallback();
+                doLoopActions();
             }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
-                position = loopStartPointViaRate();
-                loopCallback();
+                doLoopActions();
             }
+        }
+    }
+    void doLoopActions(){
+        position = loopStartPointViaRate();
+        if (loopCallback != NULL){
+            loopCallback();
         }
     }
 private:
