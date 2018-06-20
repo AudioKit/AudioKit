@@ -27,9 +27,11 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
+        sp_wavin_create(&wavin);
+
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
-        
+
         rateRamper.init();
         volumeRamper.init();
     }
@@ -63,6 +65,12 @@ public:
         }
     }
 
+    void loadFile(const char* filename) {
+        printSampleSize("before load");
+        printf("loading file: %s \n", filename);
+        sp_wavin_init(sp, wavin, filename);
+        printSampleSize("after load");
+    }
     void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
         sourceSampleRate = sampleRate;
         current_size = size / numChannels;
@@ -80,6 +88,7 @@ public:
     }
 
     void destroy() {
+        sp_wavin_destroy(&wavin);
         sp_tabread_destroy(&tabread1);
         sp_tabread_destroy(&tabread2);
         sp_ftbl_destroy(&ftbl1);
@@ -199,12 +208,17 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
+                        //printSampleSize("before compute");
+                        wavin->pos = position;
+                        sp_wavin_compute(sp, wavin, NULL, out);
+                        //printSampleSize("after compute");
                         tabread1->index = position;
                         tabread2->index = position;
-                        sp_tabread_compute(sp, tabread1, NULL, out);
+//                        sp_tabread_compute(sp, tabread1, NULL, out);
                         position += sampleStep();
                     } else {
-                        sp_tabread_compute(sp, tabread2, NULL, out);
+//                        sp_wavin_compute(sp, wavin, NULL, out);
+//                        sp_tabread_compute(sp, tabread2, NULL, out);
                     }
                     *out *= volume;
                 } else {
@@ -309,12 +323,17 @@ public:
             }
         }
     }
+    void printSampleSize(const char* where){
+        printf("wavin->wav.samplecount is %llu at %s \n", wavin->wav.totalSampleCount, where);
+    }
 private:
 
     sp_tabread *tabread1;
     sp_tabread *tabread2;
     sp_ftbl *ftbl1;
     sp_ftbl *ftbl2;
+
+    sp_wavin *wavin;
 
     float startPoint = 0;
     float endPoint = 1;

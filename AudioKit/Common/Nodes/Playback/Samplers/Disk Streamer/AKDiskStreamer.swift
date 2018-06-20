@@ -325,6 +325,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
         let data = buf!.floatChannelData
         internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
                                   sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
+        internalAU?.loadFile(file.avAsset.url.path)
+//        internalAU?.loadFile(file.avAsset.url.absoluteString)
     }
     //todo open func loadSound()
 
