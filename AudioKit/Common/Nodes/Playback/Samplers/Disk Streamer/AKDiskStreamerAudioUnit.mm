@@ -61,6 +61,9 @@
 - (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels {
     _kernel.loadAudioData(data, size, sampleRate, numChannels);
 }
+-(void)loadFile:(const char *)filename {
+    _kernel.loadFile(filename);
+}
 - (int)size {
     return _kernel.ftbl_size;
 }
