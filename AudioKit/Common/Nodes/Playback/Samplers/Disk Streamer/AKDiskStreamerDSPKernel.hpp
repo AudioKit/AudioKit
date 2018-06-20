@@ -66,10 +66,12 @@ public:
     }
 
     void loadFile(const char* filename) {
-        printSampleSize("before load");
-        printf("loading file: %s \n", filename);
         sp_wavin_init(sp, wavin, filename);
-        printSampleSize("after load");
+        sourceSampleRate = wavin->wav.sampleRate;
+        current_size = wavin->wav.totalSampleCount / wavin->wav.channels;
+        if (loadCompletionHandler != nil){
+            loadCompletionHandler();
+        }
     }
     void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
         sourceSampleRate = sampleRate;
@@ -208,17 +210,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        //printSampleSize("before compute");
-                        wavin->pos = position;
+                        wavin->pos = (drwav_uint64)floor(position);
                         sp_wavin_compute(sp, wavin, NULL, out);
-                        //printSampleSize("after compute");
-                        tabread1->index = position;
-                        tabread2->index = position;
-//                        sp_tabread_compute(sp, tabread1, NULL, out);
                         position += sampleStep();
                     } else {
 //                        sp_wavin_compute(sp, wavin, NULL, out);
-//                        sp_tabread_compute(sp, tabread2, NULL, out);
                     }
                     *out *= volume;
                 } else {
@@ -315,16 +311,21 @@ public:
     void calculateShouldLoop(double nextPosition){
         if (mainPlayComplete){
             if (nextPosition > loopEndPointViaRate() && !loopReversed()){
-                position = loopStartPointViaRate();
-                loopCallback();
+                doLoopActions();
             }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
-                position = loopStartPointViaRate();
-                loopCallback();
+                doLoopActions();
             }
         }
     }
-    void printSampleSize(const char* where){
-        printf("wavin->wav.samplecount is %llu at %s \n", wavin->wav.totalSampleCount, where);
+    void doLoopActions(){
+        sp_wavin_resetToStart(sp, wavin);
+        printf("should loop now %f \n", position);
+        printf("pos %llul - count %dl \n", wavin->pos, wavin->count);
+
+        position = loopStartPointViaRate();
+        if (loopCallback != NULL) {
+            loopCallback();
+        }
     }
 private:
 
@@ -359,7 +360,7 @@ public:
     AKCCallback loadCompletionHandler = nullptr;
     AKCCallback loopCallback = nullptr;
     UInt32 ftbl_size = 2;
-    UInt32 current_size = 2;
+    unsigned long long current_size = 2;
     double position = 0.0;
     float rate = 1;
 };
