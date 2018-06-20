@@ -1110,8 +1110,9 @@
 		FE2C8B2620DAC67500009BAC /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B2220DAC67400009BAC /* AKDiskStreamerAudioUnit.mm */; };
 		FE2C8B2720DAC67500009BAC /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B2320DAC67400009BAC /* AKDiskStreamerDSPKernel.hpp */; };
 		FE2C8B2820DAC67500009BAC /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */; };
-		FE2C8B4B20DADB3800009BAC /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B4920DADB3800009BAC /* dr_wav.h */; };
+		FE2C8B4B20DADB3800009BAC /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B4920DADB3800009BAC /* dr_wav.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE2C8B4C20DADB3800009BAC /* dr_wav.c in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B4A20DADB3800009BAC /* dr_wav.c */; };
+		FE2C8B4E20DADB6500009BAC /* wavin.c in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B4D20DADB6500009BAC /* wavin.c */; };
 		FE2FC5C22093D6E6007334A4 /* AKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C02093D4B5007334A4 /* AKColor.swift */; };
 		FE2FC5C52093EBB1007334A4 /* AKNudger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C32093EB7E007334A4 /* AKNudger.swift */; };
 		FE2FC5C92094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
@@ -2317,6 +2318,7 @@
 		FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
 		FE2C8B4920DADB3800009BAC /* dr_wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dr_wav.h; sourceTree = "<group>"; };
 		FE2C8B4A20DADB3800009BAC /* dr_wav.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dr_wav.c; sourceTree = "<group>"; };
+		FE2C8B4D20DADB6500009BAC /* wavin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavin.c; sourceTree = "<group>"; };
 		FE2FC5C02093D4B5007334A4 /* AKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKColor.swift; sourceTree = "<group>"; };
 		FE2FC5C32093EB7E007334A4 /* AKNudger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKNudger.swift; sourceTree = "<group>"; };
 		FE2FC5C62094E0BB007334A4 /* AKDualButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDualButton.swift; sourceTree = "<group>"; };
@@ -4239,6 +4241,7 @@
 				C49B1185204A06B6009C7C8E /* vdelay.c */,
 				C49B11D5204A06B6009C7C8E /* voc.c */,
 				C49B1187204A06B6009C7C8E /* waveset.c */,
+				FE2C8B4D20DADB6500009BAC /* wavin.c */,
 				C49B118A204A06B6009C7C8E /* wpkorg35.c */,
 				C49B11B3204A06B6009C7C8E /* zitarev.c */,
 			);
@@ -6123,6 +6126,7 @@
 				C49B13D6204A06B7009C7C8E /* delay.c in Sources */,
 				C49B140C204A06B7009C7C8E /* revsc.c in Sources */,
 				C40C428C1C41C3D6009D870B /* AKDrip.swift in Sources */,
+				FE2C8B4E20DADB6500009BAC /* wavin.c in Sources */,
 				8D0E46581D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift in Sources */,
 				C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */,
 				C49B14C7204A06B8009C7C8E /* tog.c in Sources */,
