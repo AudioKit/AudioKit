@@ -1110,6 +1110,8 @@
 		FE2C8B2620DAC67500009BAC /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B2220DAC67400009BAC /* AKDiskStreamerAudioUnit.mm */; };
 		FE2C8B2720DAC67500009BAC /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B2320DAC67400009BAC /* AKDiskStreamerDSPKernel.hpp */; };
 		FE2C8B2820DAC67500009BAC /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */; };
+		FE2C8B4B20DADB3800009BAC /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE2C8B4920DADB3800009BAC /* dr_wav.h */; };
+		FE2C8B4C20DADB3800009BAC /* dr_wav.c in Sources */ = {isa = PBXBuildFile; fileRef = FE2C8B4A20DADB3800009BAC /* dr_wav.c */; };
 		FE2FC5C22093D6E6007334A4 /* AKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C02093D4B5007334A4 /* AKColor.swift */; };
 		FE2FC5C52093EBB1007334A4 /* AKNudger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C32093EB7E007334A4 /* AKNudger.swift */; };
 		FE2FC5C92094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
@@ -2313,6 +2315,8 @@
 		FE2C8B2220DAC67400009BAC /* AKDiskStreamerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiskStreamerAudioUnit.mm; sourceTree = "<group>"; };
 		FE2C8B2320DAC67400009BAC /* AKDiskStreamerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDiskStreamerDSPKernel.hpp; sourceTree = "<group>"; };
 		FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
+		FE2C8B4920DADB3800009BAC /* dr_wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dr_wav.h; sourceTree = "<group>"; };
+		FE2C8B4A20DADB3800009BAC /* dr_wav.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dr_wav.c; sourceTree = "<group>"; };
 		FE2FC5C02093D4B5007334A4 /* AKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKColor.swift; sourceTree = "<group>"; };
 		FE2FC5C32093EB7E007334A4 /* AKNudger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKNudger.swift; sourceTree = "<group>"; };
 		FE2FC5C62094E0BB007334A4 /* AKDualButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDualButton.swift; sourceTree = "<group>"; };
@@ -4054,6 +4058,7 @@
 		C49B1153204A06B6009C7C8E /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				FE2C8B4820DADB3800009BAC /* dr_wav */,
 				C49B1154204A06B6009C7C8E /* inih */,
 				C49B1158204A06B6009C7C8E /* kissfft */,
 				C49B1160204A06B6009C7C8E /* faust */,
@@ -5086,6 +5091,15 @@
 			path = "Disk Streamer";
 			sourceTree = "<group>";
 		};
+		FE2C8B4820DADB3800009BAC /* dr_wav */ = {
+			isa = PBXGroup;
+			children = (
+				FE2C8B4920DADB3800009BAC /* dr_wav.h */,
+				FE2C8B4A20DADB3800009BAC /* dr_wav.c */,
+			);
+			path = dr_wav;
+			sourceTree = "<group>";
+		};
 		FED92BDE1ED1331D00E93264 /* Sample Player */ = {
 			isa = PBXGroup;
 			children = (
@@ -5185,6 +5199,7 @@
 				C49B152D204A06B8009C7C8E /* Noise.h in Headers */,
 				C49B138D204A06B7009C7C8E /* md5.h in Headers */,
 				C49B154A204A06B8009C7C8E /* Drummer.h in Headers */,
+				FE2C8B4B20DADB3800009BAC /* dr_wav.h in Headers */,
 				C42F35041C057E03000E937C /* AudioKit.h in Headers */,
 				34F5A360205ECBE400290001 /* ModulatedDelay.hpp in Headers */,
 				C4077BAD200896B000E5923C /* AKBoosterDSP.hpp in Headers */,
@@ -5819,6 +5834,7 @@
 				C45357882041550300C5C7CC /* AKAutoWah.swift in Sources */,
 				C49B149A204A06B8009C7C8E /* scale.c in Sources */,
 				C4D890C0202842390002A86A /* AKThreePoleLowpassFilterDSP.mm in Sources */,
+				FE2C8B4C20DADB3800009BAC /* dr_wav.c in Sources */,
 				C453802E1C3A592300A51738 /* AKMixer.swift in Sources */,
 				C49B147B204A06B8009C7C8E /* oscmorph.c in Sources */,
 				C4D1FCFD1CE5BCC80043209E /* AKTremolo.swift in Sources */,
