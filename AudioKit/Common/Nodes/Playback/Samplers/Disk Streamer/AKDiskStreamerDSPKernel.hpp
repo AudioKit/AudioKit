@@ -29,20 +29,12 @@ public:
 
         sp_wavin_create(&wavin);
 
-        sp_tabread_create(&tabread1);
-        sp_tabread_create(&tabread2);
-
         rateRamper.init();
         volumeRamper.init();
     }
 
     void start() {
         started = true;
-
-        sp_tabread_init(sp, tabread1, ftbl1, 1);
-        sp_tabread_init(sp, tabread2, ftbl2, 1);
-        tabread1->mode = 0;
-        tabread2->mode = 0;
         
         lastPosition = 0.0;
         inLoopPhase = false;
@@ -56,15 +48,6 @@ public:
         useTempEndPoint = false;
     }
 
-    void setUpTable(UInt32 size) {
-        if (current_size <= 2) {
-            current_size = size / 2;
-            ftbl_size = size / 2;
-            sp_ftbl_create(sp, &ftbl1, ftbl_size);
-            sp_ftbl_create(sp, &ftbl2, ftbl_size);
-        }
-    }
-
     void loadFile(const char* filename) {
         sp_wavin_init(sp, wavin, filename);
         sourceSampleRate = wavin->wav.sampleRate;
@@ -73,28 +56,9 @@ public:
             loadCompletionHandler();
         }
     }
-    void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
-        sourceSampleRate = sampleRate;
-        current_size = size / numChannels;
-        for (int i = 0; i < current_size; i++) {
-            ftbl1->tbl[i] = table[i];
-            if (numChannels == 1){ //mono - copy chanel to both buffers
-                ftbl2->tbl[i] = table[i];
-            }else if (numChannels == 2){
-                ftbl2->tbl[i] = table[i + current_size]; //stereo - right data comes after left data
-            }
-        }
-        if (loadCompletionHandler != nil){
-            loadCompletionHandler();
-        }
-    }
 
     void destroy() {
         sp_wavin_destroy(&wavin);
-        sp_tabread_destroy(&tabread1);
-        sp_tabread_destroy(&tabread2);
-        sp_ftbl_destroy(&ftbl1);
-        sp_ftbl_destroy(&ftbl2);
         AKSoundpipeKernel::destroy();
     }
 
@@ -129,10 +93,10 @@ public:
         loop = value;
     }
 
-    void setRate(float value) {
-        rate = clamp(value, -10.0f, 10.0f);
-        rateRamper.setImmediate(rate);
-    }
+//    void setRate(float value) {
+//        rate = clamp(value, -10.0f, 10.0f);
+//        rateRamper.setImmediate(rate);
+//    }
 
     void setVolume(float value) {
         volume = clamp(value, 0.0f, 10.0f);
@@ -319,8 +283,6 @@ public:
     }
     void doLoopActions(){
         sp_wavin_resetToStart(sp, wavin);
-        printf("should loop now %f \n", position);
-        printf("pos %llul - count %dl \n", wavin->pos, wavin->count);
 
         position = loopStartPointViaRate();
         if (loopCallback != NULL) {
@@ -328,12 +290,6 @@ public:
         }
     }
 private:
-
-    sp_tabread *tabread1;
-    sp_tabread *tabread2;
-    sp_ftbl *ftbl1;
-    sp_ftbl *ftbl2;
-
     sp_wavin *wavin;
 
     float startPoint = 0;

@@ -49,17 +49,11 @@
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
-- (void)setRate:(float)rate {
-    _kernel.setRate(rate);
-}
+//- (void)setRate:(float)rate {
+//    _kernel.setRate(rate);
+//}
 - (void)setVolume:(float)volume {
     _kernel.setVolume(volume);
-}
-- (void)setupAudioFileTable:(UInt32)size {
-    _kernel.setUpTable(size);
-}
-- (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels {
-    _kernel.loadAudioData(data, size, sampleRate, numChannels);
 }
 -(void)loadFile:(const char *)filename {
     _kernel.loadFile(filename);
@@ -109,13 +103,13 @@ standardKernelPassthroughs()
                                                           max:1
                                                          unit:kAudioUnitParameterUnit_Generic];
 
-    // Create a parameter object for the rate.
-    AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
-                                                     name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
-                                                  address:rateAddress
-                                                      min:-10
-                                                      max:10
-                                                     unit:kAudioUnitParameterUnit_Generic];
+//    // Create a parameter object for the rate.
+//    AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
+//                                                     name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
+//                                                  address:rateAddress
+//                                                      min:-10
+//                                                      max:10
+//                                                     unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the volume.
     AUParameter *volumeAUParameter = [AUParameter parameter:@"volume"
@@ -129,14 +123,14 @@ standardKernelPassthroughs()
     endPointAUParameter.value = 1;
     loopStartPointAUParameter.value = 0;
     loopEndPointAUParameter.value = 1;
-    rateAUParameter.value = 1;
+//    rateAUParameter.value = 1;
     volumeAUParameter.value = 1;
 
     _kernel.setParameter(startPointAddress,   startPointAUParameter.value);
     _kernel.setParameter(endPointAddress,  endPointAUParameter.value);
     _kernel.setParameter(loopStartPointAddress,   loopStartPointAUParameter.value);
     _kernel.setParameter(loopEndPointAddress,  loopEndPointAUParameter.value);
-    _kernel.setParameter(rateAddress, rateAUParameter.value);
+//    _kernel.setParameter(rateAddress, rateAUParameter.value);
     _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
@@ -145,7 +139,7 @@ standardKernelPassthroughs()
                                              endPointAUParameter,
                                              loopStartPointAUParameter,
                                              loopEndPointAUParameter,
-                                             rateAUParameter,
+//                                             rateAUParameter,
                                              volumeAUParameter
                                              ]];
 

@@ -7,11 +7,8 @@
 //
 
 /// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that 
-/// doesn't rely on an as much Apple AV foundation/engine code as the others.
-/// As any other Sampler, it plays a part of a given sound file at a specified rate 
-/// with specified volume. Changing the rate plays it faster and therefore sounds 
-/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
-/// Give it a blast on `Sample Player.xcplaygroundpage`
+/// will playback samples from disk, without incurring lots of memory usage
+
 import Foundation
 
 /// Audio player that loads a sample into memory
@@ -30,7 +27,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
     fileprivate var endPointParameter: AUParameter?
     fileprivate var loopStartPointParameter: AUParameter?
     fileprivate var loopEndPointParameter: AUParameter?
-    fileprivate var rateParameter: AUParameter?
+//    fileprivate var rateParameter: AUParameter?
     fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
@@ -78,19 +75,19 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @objc open dynamic var rate: Double = 1 {
-        willSet {
-            if rate != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        rateParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.rate = Float(newValue)
-                }
-            }
-        }
-    }
+//    @objc open dynamic var rate: Double = 1 {
+//        willSet {
+//            if rate != newValue {
+//                if internalAU?.isSetUp ?? false {
+//                    if let existingToken = token {
+//                        rateParameter?.setValue(Float(newValue), originator: existingToken)
+//                    }
+//                } else {
+//                    internalAU?.rate = Float(newValue)
+//                }
+//            }
+//        }
+//    }
 
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
@@ -120,7 +117,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         if avAudiofile != nil {
             return Sample(avAudiofile!.samplesCount)
         }
-        return Sample(maximumSamples)
+        return 0
     }
 
     /// originalSampleRate
@@ -146,7 +143,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     fileprivate var avAudiofile: AVAudioFile?
-    fileprivate var maximumSamples: Int = 0
 
     open var loadCompletionHandler: AKCallback = {} {
         willSet {
@@ -169,32 +165,29 @@ open class AKDiskStreamer: AKNode, AKComponent {
     /// Initialize this SamplePlayer node
     ///
     /// - Parameters:
-    ///   - file: Initial file to load (defining maximum size unless maximum samples are also set
+    ///   - file: Initial file to load
     ///   - startPoint: Point in samples from which to start playback
     ///   - endPoint: Point in samples at which to stop playback
-    ///   - rate: Multiplication factor from original speed (Default: 1)
+    ///   - rate: Multiplication factor from original speed (Default: 1) - NOT IMPLEMENTED YET
     ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
-    ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
     @objc public init(file: AKAudioFile? = nil,
                       startPoint: Sample = 0,
                       endPoint: Sample = 0,
-                      rate: Double = 1,
+                      //rate: Double = 1,
                       volume: Double = 1,
-                      maximumSamples: Int = 0,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
-        self.rate = rate
+//        self.rate = rate
         self.volume = volume
         self.endPoint = endPoint
         if file != nil {
             self.avAudiofile = file!
             self.endPoint = Sample(avAudiofile!.samplesCount)
         }
-        self.maximumSamples = maximumSamples
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
 
@@ -222,7 +215,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         endPointParameter = tree["endPoint"]
         loopStartPointParameter = tree["startPoint"]
         loopEndPointParameter = tree["endPoint"]
-        rateParameter = tree["rate"]
+//        rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
@@ -240,12 +233,9 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)
         internalAU?.loopEndPoint = Float(self.endPoint)
-        internalAU?.rate = Float(rate)
+//        internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
-        if maximumSamples != 0 {
-            internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
-        }
         if file != nil {
             load(file: file!)
         }
@@ -304,30 +294,10 @@ open class AKDiskStreamer: AKNode, AKComponent {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
             return
         }
-        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        do {
-            try file.read(into: buf!)
-        } catch {
-            AKLog("Load audio file failed. Error was:")
-            AKLog(error)
-            return
-        }
-        let sizeToUse = UInt32(file.samplesCount * 2)
-        if maximumSamples == 0 {
-            maximumSamples = Int(file.samplesCount)
-            internalAU?.setupAudioFileTable(sizeToUse)
-        }
-        avAudiofile = file
         startPoint = 0
         endPoint = Sample(file.samplesCount)
         loopStartPoint = 0
         loopEndPoint = Sample(file.samplesCount)
-        let data = buf!.floatChannelData
-        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
-                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
         internalAU?.loadFile(file.avAsset.url.path)
-//        internalAU?.loadFile(file.avAsset.url.absoluteString)
     }
-    //todo open func loadSound()
-
 }
