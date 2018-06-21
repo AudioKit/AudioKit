@@ -276,9 +276,9 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample, to: Sample) {
-        internalAU?.tempStartPoint = Float(safeSample(from))
-        internalAU?.tempEndPoint = Float(safeSample(to))
+    open func play(from startPoint: Sample, to endPoint: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(startPoint))
+        internalAU?.tempEndPoint = Float(safeSample(endPoint))
         start()
     }
 
