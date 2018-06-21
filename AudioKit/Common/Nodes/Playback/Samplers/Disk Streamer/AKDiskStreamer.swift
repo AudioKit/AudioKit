@@ -220,7 +220,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else {
+            if self == nil {
                 AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
