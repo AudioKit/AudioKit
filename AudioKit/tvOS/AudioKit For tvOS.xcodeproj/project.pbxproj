@@ -1062,6 +1062,9 @@
 		FE72B233208AAA3900D861BC /* AudioKit+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22D208AAA3700D861BC /* AudioKit+Status.swift */; };
 		FE72B234208AAA3900D861BC /* AudioKit+SafeConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22E208AAA3800D861BC /* AudioKit+SafeConnections.swift */; };
 		FE72B235208AAA3900D861BC /* AVAudioEngine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22F208AAA3800D861BC /* AVAudioEngine+Extensions.swift */; };
+		FE8FE9C120E4249000F15B7E /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9BF20E4249000F15B7E /* dr_wav.h */; };
+		FE8FE9C220E4249000F15B7E /* dr_wav.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9C020E4249000F15B7E /* dr_wav.c */; };
+		FE8FE9C420E424C900F15B7E /* wavin.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9C320E424C900F15B7E /* wavin.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2192,6 +2195,9 @@
 		FE72B22D208AAA3700D861BC /* AudioKit+Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioKit+Status.swift"; sourceTree = "<group>"; };
 		FE72B22E208AAA3800D861BC /* AudioKit+SafeConnections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioKit+SafeConnections.swift"; sourceTree = "<group>"; };
 		FE72B22F208AAA3800D861BC /* AVAudioEngine+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Extensions.swift"; sourceTree = "<group>"; };
+		FE8FE9BF20E4249000F15B7E /* dr_wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dr_wav.h; sourceTree = "<group>"; };
+		FE8FE9C020E4249000F15B7E /* dr_wav.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dr_wav.c; sourceTree = "<group>"; };
+		FE8FE9C320E424C900F15B7E /* wavin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavin.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3473,6 +3479,7 @@
 		C49B1B98204A0CF8009C7C8E /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				FE8FE9BE20E4249000F15B7E /* dr_wav */,
 				C49B1B99204A0CF8009C7C8E /* inih */,
 				C49B1B9D204A0CF8009C7C8E /* kissfft */,
 				C49B1BA5204A0CF8009C7C8E /* faust */,
@@ -3653,6 +3660,7 @@
 				C49B1BCA204A0CF8009C7C8E /* vdelay.c */,
 				C49B1C1A204A0CF8009C7C8E /* voc.c */,
 				C49B1BCC204A0CF8009C7C8E /* waveset.c */,
+				FE8FE9C320E424C900F15B7E /* wavin.c */,
 				C49B1BCF204A0CF8009C7C8E /* wpkorg35.c */,
 				C49B1BF8204A0CF8009C7C8E /* zitarev.c */,
 			);
@@ -4806,6 +4814,15 @@
 			path = OfflineRender;
 			sourceTree = "<group>";
 		};
+		FE8FE9BE20E4249000F15B7E /* dr_wav */ = {
+			isa = PBXGroup;
+			children = (
+				FE8FE9BF20E4249000F15B7E /* dr_wav.h */,
+				FE8FE9C020E4249000F15B7E /* dr_wav.c */,
+			);
+			path = dr_wav;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4846,6 +4863,7 @@
 				C470CFA820174872003D1AFA /* AKBandRejectButterworthFilterDSP.hpp in Headers */,
 				34F5A396205ED22D00290001 /* ModulatedDelay_Defines.h in Headers */,
 				C47C52922093069600A6FB3C /* AKWaveTableAudioUnit.h in Headers */,
+				FE8FE9C120E4249000F15B7E /* dr_wav.h in Headers */,
 				C49B20D0204A0D57009C7C8E /* Sphere.h in Headers */,
 				C49B1E73204A0CFA009C7C8E /* FFTReal.hpp in Headers */,
 				C4E13D3E1C42703C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h in Headers */,
@@ -5282,6 +5300,7 @@
 				C49B1EC2204A0CFB009C7C8E /* dmetro.c in Sources */,
 				C4D1FD081CE5BDC60043209E /* AKTremolo.swift in Sources */,
 				C49B1EC1204A0CFB009C7C8E /* phasor.c in Sources */,
+				FE8FE9C420E424C900F15B7E /* wavin.c in Sources */,
 				C49B1EC6204A0CFB009C7C8E /* delay.c in Sources */,
 				C49B1DFC204A0CFA009C7C8E /* fold.c in Sources */,
 				C49B1EC4204A0CFB009C7C8E /* prop.c in Sources */,
@@ -5737,6 +5756,7 @@
 				C40C423A1C40E5C2009D870B /* AKTesterAudioUnit.mm in Sources */,
 				555857E41F62187600C73F59 /* AVAudioBufferConvenience.swift in Sources */,
 				C49B1EDD204A0CFB009C7C8E /* bitcrush.c in Sources */,
+				FE8FE9C220E4249000F15B7E /* dr_wav.c in Sources */,
 				C40BB0921C4717C2004C138D /* AKCombFilterReverb.swift in Sources */,
 				C4812B252028578300D4AFB1 /* AKPeakingParametricEqualizerFilterDSP.mm in Sources */,
 				C49B1E33204A0CFA009C7C8E /* incr.c in Sources */,
