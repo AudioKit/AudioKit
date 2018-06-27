@@ -1062,7 +1062,7 @@
 		FE72B233208AAA3900D861BC /* AudioKit+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22D208AAA3700D861BC /* AudioKit+Status.swift */; };
 		FE72B234208AAA3900D861BC /* AudioKit+SafeConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22E208AAA3800D861BC /* AudioKit+SafeConnections.swift */; };
 		FE72B235208AAA3900D861BC /* AVAudioEngine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B22F208AAA3800D861BC /* AVAudioEngine+Extensions.swift */; };
-		FE8FE9C120E4249000F15B7E /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9BF20E4249000F15B7E /* dr_wav.h */; };
+		FE8FE9C120E4249000F15B7E /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9BF20E4249000F15B7E /* dr_wav.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE8FE9C220E4249000F15B7E /* dr_wav.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9C020E4249000F15B7E /* dr_wav.c */; };
 		FE8FE9C420E424C900F15B7E /* wavin.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9C320E424C900F15B7E /* wavin.c */; };
 /* End PBXBuildFile section */
