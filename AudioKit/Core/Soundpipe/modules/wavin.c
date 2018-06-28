@@ -49,6 +49,12 @@ int sp_wavin_compute(sp_data *sp, sp_wavin *p, SPFLOAT *in, SPFLOAT *out)
     return SP_OK;
 }
 
+int sp_wavin_resetToStart(sp_data *sp, sp_wavin *p)
+{
+    drwav_seek_to_sample(&p->wav, 0);
+    return SP_OK;
+}
+
 int sp_wavin_seek(sp_data *sp, sp_wavin *p, drwav_uint64 sample)
 {
     drwav_seek_to_sample(&p->wav, sample);
