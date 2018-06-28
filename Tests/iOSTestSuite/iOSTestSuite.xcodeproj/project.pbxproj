@@ -112,6 +112,7 @@
 		C47C528320929D7800A6FB3C /* AKSequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47C528220929D7800A6FB3C /* AKSequencerTests.swift */; };
 		C4F5E7A82068DF13008E0838 /* AKDynamicRangeCompressorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */; };
 		EA8F6ED720157A4900B68497 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C44FF7B91FD098D000B2217D /* AudioKit.framework */; };
+		FE920C3920E579CD00CA8AA7 /* AKDiskStreamerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */; };
 		FEE0730520E56B0A003F7FD5 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEE0730420E56B0A003F7FD5 /* sinechirp.wav */; };
 		FEE0730620E56B0A003F7FD5 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = FEE0730420E56B0A003F7FD5 /* sinechirp.wav */; };
 /* End PBXBuildFile section */
@@ -248,6 +249,7 @@
 		C464077020105CB600299119 /* AKBrownianNoiseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBrownianNoiseTests.swift; sourceTree = "<group>"; };
 		C47C528220929D7800A6FB3C /* AKSequencerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTests.swift; sourceTree = "<group>"; };
 		C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDynamicRangeCompressorTests.swift; sourceTree = "<group>"; };
+		FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamerTests.swift; sourceTree = "<group>"; };
 		FEE0730420E56B0A003F7FD5 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Developer/Common/sinechirp.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,6 +329,7 @@
 				C44FF87E1FD0994F00B2217D /* AKDCBlockTests.swift */,
 				C44FF8C41FD0994F00B2217D /* AKDecimatorTests.swift */,
 				C44FF8B61FD0994F00B2217D /* AKDelayTests.swift */,
+				FE920C3820E579CC00CA8AA7 /* AKDiskStreamerTests.swift */,
 				C44FF89D1FD0994F00B2217D /* AKDistortionTests.swift */,
 				C4F5E7A72068DF13008E0838 /* AKDynamicRangeCompressorTests.swift */,
 				C44FF8C21FD0994F00B2217D /* AKDynamicsProcessorTests.swift */,
@@ -559,6 +562,7 @@
 				C44FF9031FD0994F00B2217D /* AKLowShelfFilterTests.swift in Sources */,
 				C44FF9241FD0994F00B2217D /* AKDecimatorTests.swift in Sources */,
 				C44FF8EF1FD0994F00B2217D /* clipTests.swift in Sources */,
+				FE920C3920E579CD00CA8AA7 /* AKDiskStreamerTests.swift in Sources */,
 				C44FF9131FD0994F00B2217D /* resonantFilterTests.swift in Sources */,
 				C44FF9291FD0994F00B2217D /* AKReverbTests.swift in Sources */,
 				C44FF8E81FD0994F00B2217D /* bitcrushTests.swift in Sources */,
