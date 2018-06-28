@@ -168,20 +168,17 @@ open class AKDiskStreamer: AKNode, AKComponent {
     ///   - file: Initial file to load
     ///   - startPoint: Point in samples from which to start playback
     ///   - endPoint: Point in samples at which to stop playback
-    ///   - rate: Multiplication factor from original speed (Default: 1) - NOT IMPLEMENTED YET
     ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
     @objc public init(file: AKAudioFile? = nil,
                       startPoint: Sample = 0,
                       endPoint: Sample = 0,
-                      //rate: Double = 1,
                       volume: Double = 1,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
-//        self.rate = rate
         self.volume = volume
         self.endPoint = endPoint
         if file != nil {
