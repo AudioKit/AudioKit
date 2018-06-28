@@ -23,11 +23,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var startPointParameter: AUParameter?
-    fileprivate var endPointParameter: AUParameter?
-    fileprivate var loopStartPointParameter: AUParameter?
-    fileprivate var loopEndPointParameter: AUParameter?
-//    fileprivate var rateParameter: AUParameter?
     fileprivate var volumeParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
@@ -38,40 +33,11 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// startPoint in samples - where to start playing the sample from
-    @objc open dynamic var startPoint: Sample = 0 {
-        willSet {
-            if startPoint != newValue {
-                internalAU?.startPoint = Float(safeSample(newValue))
-            }
-        }
-    }
+    private var startPoint: Sample = 0
 
     /// endPoint - this is where the sample will play to before stopping.
-    /// A value less than the start point will play the sample backwards.
-    @objc open dynamic var endPoint: Sample = 0 {
-        willSet {
-            if endPoint != newValue {
-                internalAU?.endPoint = Float(safeSample(newValue))
-            }
-        }
-    }
-
-    /// loopStartPoint in samples - where to start playing the sample from
-    @objc open dynamic var loopStartPoint: Sample = 0 {
-        willSet {
-            if loopStartPoint != newValue {
-                internalAU?.loopStartPoint = Float(safeSample(newValue))
-            }
-        }
-    }
-
-    /// loopEndPoint - this is where the sample will play to before stopping.
-    @objc open dynamic var loopEndPoint: Sample = 0 {
-        willSet {
-            if endPoint != newValue {
-                internalAU?.loopEndPoint = Float(safeSample(newValue))
-            }
-        }
+    private var endPoint: Sample {
+        return Sample(avAudiofile?.samplesCount ?? 0)
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
@@ -154,11 +120,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
             internalAU?.completionHandler = newValue
         }
     }
-    open var loopCallback: AKCallback = {} {
-        willSet {
-            internalAU?.loopCallback = newValue
-        }
-    }
 
     // MARK: - Initialization
 
@@ -166,24 +127,18 @@ open class AKDiskStreamer: AKNode, AKComponent {
     ///
     /// - Parameters:
     ///   - file: Initial file to load
-    ///   - startPoint: Point in samples from which to start playback
-    ///   - endPoint: Point in samples at which to stop playback
     ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
     ///   - completionHandler: Callback to run when the sample playback is completed
+    ///   - loadCompletionHandler: Callback to run when the sample is loaded
     ///
     @objc public init(file: AKAudioFile? = nil,
-                      startPoint: Sample = 0,
-                      endPoint: Sample = 0,
                       volume: Double = 1,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
-        self.startPoint = startPoint
         self.volume = volume
-        self.endPoint = endPoint
         if file != nil {
             self.avAudiofile = file!
-            self.endPoint = Sample(avAudiofile!.samplesCount)
         }
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
@@ -208,11 +163,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
             return
         }
 
-        startPointParameter = tree["startPoint"]
-        endPointParameter = tree["endPoint"]
-        loopStartPointParameter = tree["startPoint"]
-        loopEndPointParameter = tree["endPoint"]
-//        rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
@@ -226,11 +176,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.startPoint = Float(startPoint)
-        internalAU?.endPoint = Float(self.endPoint)
-        internalAU?.loopStartPoint = Float(startPoint)
-        internalAU?.loopEndPoint = Float(self.endPoint)
-//        internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
         if file != nil {
@@ -244,8 +189,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
     @objc open func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
-        internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
-        internalAU?.loopEndPoint = Float(safeSample(loopEndPoint))
+        internalAU?.loopStartPoint = Float(safeSample(startPoint))
+        internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.start()
     }
 
@@ -256,26 +201,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
     /// Play from a certain sample
     open func play() {
-        start()
-    }
-
-    /// Play from a certain sample
-    open func play(from: Sample) {
-        internalAU?.tempStartPoint = Float(safeSample(from))
-        start()
-    }
-
-    /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample, length: Sample) {
-        internalAU?.tempStartPoint = Float(safeSample(from))
-        internalAU?.tempEndPoint = Float(safeSample(from + length))
-        start()
-    }
-
-    /// Play from a certain sample to an end sample
-    open func play(from startPoint: Sample, to endPoint: Sample) {
-        internalAU?.tempStartPoint = Float(safeSample(startPoint))
-        internalAU?.tempEndPoint = Float(safeSample(endPoint))
         start()
     }
 
@@ -292,9 +217,10 @@ open class AKDiskStreamer: AKNode, AKComponent {
             return
         }
         startPoint = 0
-        endPoint = Sample(file.samplesCount)
-        loopStartPoint = 0
-        loopEndPoint = Sample(file.samplesCount)
+        avAudiofile = file
+        internalAU?.endPoint = Float(safeSample(endPoint))
+        internalAU?.loopStartPoint = Float(safeSample(startPoint))
+        internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
     }
 }
