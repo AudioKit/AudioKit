@@ -14,8 +14,7 @@ enum {
     endPointAddress = 1,
     loopStartPointAddress = 2,
     loopEndPointAddress = 3,
-    rateAddress = 4,
-    volumeAddress = 5
+    volumeAddress = 4
 };
 
 class AKDiskStreamerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
@@ -105,9 +104,6 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case rateAddress:
-                rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
-                break;
 
             case volumeAddress:
                 volumeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
@@ -117,8 +113,6 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case rateAddress:
-                return rateRamper.getUIValue();
 
             case volumeAddress:
                 return volumeRamper.getUIValue();
@@ -129,9 +123,6 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case rateAddress:
-                rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
-                break;
 
             case volumeAddress:
                 volumeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
@@ -144,8 +135,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-            
-            rate = double(rateRamper.getAndStep());
+
             volume = double(volumeRamper.getAndStep());
 
             float startPointToUse = startPointViaRate();
