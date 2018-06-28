@@ -191,6 +191,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
+        print("playing from \(Float(safeSample(startPoint))) to \(Float(safeSample(endPoint)))")
         internalAU?.start()
     }
 
@@ -216,11 +217,14 @@ open class AKDiskStreamer: AKNode, AKComponent {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
             return
         }
+        print("loading sample that is \(file.length) long")
         startPoint = 0
         avAudiofile = file
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
+        print("endPOint is \(endPoint)")
+        print("safe endPOint is \(Float(safeSample(endPoint)))")
         internalAU?.loadFile(file.avAsset.url.path)
     }
 }
