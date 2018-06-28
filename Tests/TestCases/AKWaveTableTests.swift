@@ -1,5 +1,5 @@
 //
-//  AKSamplePlayerTests.swift
+//  AKWaveTableTests.swift
 //  AudioKitTestSuite
 //
 //  Created by Jeff Cooper and Aurelius Prochazka, revision history on Githbub.
@@ -9,9 +9,9 @@
 import AudioKit
 import XCTest
 
-class AKSamplePlayerTests: AKTestCase {
+class AKWaveTableTests: AKTestCase {
 
-    var sampler: AKSamplePlayer?
+    var sampler: AKWaveTable?
 
     func testDefault() {
         afterStart = {
@@ -131,11 +131,14 @@ class AKSamplePlayerTests: AKTestCase {
     }
 
     func setupSampler() {
-        let path = Bundle.main.path(forResource: "sinechirp", ofType: "wav")
-        let url = URL(fileURLWithPath: path!)
-        let file = try! AKAudioFile(forReading: url)
-        sampler = AKSamplePlayer(file: file)
-        output = sampler
+        if let path = Bundle.main.path(forResource: "sinechirp", ofType: "wav") {
+            let url = URL(fileURLWithPath: path)
+            let file = try! AKAudioFile(forReading: url)
+            sampler = AKWaveTable(file: file)
+            output = sampler
+        } else {
+            XCTFail("Could not load sinechirp.wav")
+        }
     }
 
     override func setUp() {
