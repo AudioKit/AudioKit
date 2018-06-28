@@ -1,5 +1,5 @@
 //
-//  AKWaveTableDSPKernel.hpp
+//  AKDiskStreamerDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -14,33 +14,26 @@ enum {
     endPointAddress = 1,
     loopStartPointAddress = 2,
     loopEndPointAddress = 3,
-    rateAddress = 4,
-    volumeAddress = 5
+    volumeAddress = 4
 };
 
-class AKWaveTableDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKDiskStreamerDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
-    AKWaveTableDSPKernel() {}
+    AKDiskStreamerDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
-        sp_tabread_create(&tabread1);
-        sp_tabread_create(&tabread2);
-        
+        sp_wavin_create(&wavin);
+
         rateRamper.init();
         volumeRamper.init();
     }
 
     void start() {
         started = true;
-
-        sp_tabread_init(sp, tabread1, ftbl1, 1);
-        sp_tabread_init(sp, tabread2, ftbl2, 1);
-        tabread1->mode = 0;
-        tabread2->mode = 0;
         
         lastPosition = 0.0;
         inLoopPhase = false;
@@ -54,36 +47,17 @@ public:
         useTempEndPoint = false;
     }
 
-    void setUpTable(UInt32 size) {
-        if (current_size <= 2) {
-            current_size = size / 2;
-            ftbl_size = size / 2;
-            sp_ftbl_create(sp, &ftbl1, ftbl_size);
-            sp_ftbl_create(sp, &ftbl2, ftbl_size);
-        }
-    }
-
-    void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
-        sourceSampleRate = sampleRate;
-        current_size = size / numChannels;
-        for (int i = 0; i < current_size; i++) {
-            ftbl1->tbl[i] = table[i];
-            if (numChannels == 1){ //mono - copy chanel to both buffers
-                ftbl2->tbl[i] = table[i];
-            }else if (numChannels == 2){
-                ftbl2->tbl[i] = table[i + current_size]; //stereo - right data comes after left data
-            }
-        }
+    void loadFile(const char* filename) {
+        sp_wavin_init(sp, wavin, filename);
+        sourceSampleRate = wavin->wav.sampleRate;
+        current_size = wavin->wav.totalSampleCount / wavin->wav.channels;
         if (loadCompletionHandler != nil){
             loadCompletionHandler();
         }
     }
 
     void destroy() {
-        sp_tabread_destroy(&tabread1);
-        sp_tabread_destroy(&tabread2);
-        sp_ftbl_destroy(&ftbl1);
-        sp_ftbl_destroy(&ftbl2);
+        sp_wavin_destroy(&wavin);
         AKSoundpipeKernel::destroy();
     }
 
@@ -118,10 +92,10 @@ public:
         loop = value;
     }
 
-    void setRate(float value) {
-        rate = clamp(value, -10.0f, 10.0f);
-        rateRamper.setImmediate(rate);
-    }
+//    void setRate(float value) {
+//        rate = clamp(value, -10.0f, 10.0f);
+//        rateRamper.setImmediate(rate);
+//    }
 
     void setVolume(float value) {
         volume = clamp(value, 0.0f, 10.0f);
@@ -130,9 +104,6 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case rateAddress:
-                rateRamper.setUIValue(clamp(value, -10.0f, 10.0f));
-                break;
 
             case volumeAddress:
                 volumeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
@@ -142,8 +113,6 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case rateAddress:
-                return rateRamper.getUIValue();
 
             case volumeAddress:
                 return volumeRamper.getUIValue();
@@ -154,9 +123,6 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case rateAddress:
-                rateRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
-                break;
 
             case volumeAddress:
                 volumeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
@@ -169,8 +135,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-            
-            rate = double(rateRamper.getAndStep());
+
             volume = double(volumeRamper.getAndStep());
 
             float startPointToUse = startPointViaRate();
@@ -199,12 +164,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        tabread1->index = position;
-                        tabread2->index = position;
-                        sp_tabread_compute(sp, tabread1, NULL, out);
+                        wavin->pos = (drwav_uint64)floor(position);
+                        sp_wavin_compute(sp, wavin, NULL, out);
                         position += sampleStep();
                     } else {
-                        sp_tabread_compute(sp, tabread2, NULL, out);
+//                        sp_wavin_compute(sp, wavin, NULL, out);
                     }
                     *out *= volume;
                 } else {
@@ -308,17 +272,15 @@ public:
         }
     }
     void doLoopActions(){
+        sp_wavin_resetToStart(sp, wavin);
+
         position = loopStartPointViaRate();
-        if (loopCallback != NULL){
+        if (loopCallback != NULL) {
             loopCallback();
         }
     }
 private:
-
-    sp_tabread *tabread1;
-    sp_tabread *tabread2;
-    sp_ftbl *ftbl1;
-    sp_ftbl *ftbl2;
+    sp_wavin *wavin;
 
     float startPoint = 0;
     float endPoint = 1;
@@ -344,7 +306,7 @@ public:
     AKCCallback loadCompletionHandler = nullptr;
     AKCCallback loopCallback = nullptr;
     UInt32 ftbl_size = 2;
-    UInt32 current_size = 2;
+    unsigned long long current_size = 2;
     double position = 0.0;
     float rate = 1;
 };

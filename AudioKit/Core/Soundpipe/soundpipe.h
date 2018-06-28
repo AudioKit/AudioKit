@@ -1410,6 +1410,23 @@ int sp_tabread_create(sp_tabread **p);
 int sp_tabread_destroy(sp_tabread **p);
 int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft, int mode);
 int sp_tabread_compute(sp_data *sp, sp_tabread *p, SPFLOAT *in, SPFLOAT *out);
+
+#include "dr_wav.h"
+#define WAVIN_BUFSIZE 1024
+typedef struct{
+    SPFLOAT buf[WAVIN_BUFSIZE];
+    int count;
+    drwav wav;
+    drwav_uint64 pos;
+} sp_wavin;
+
+int sp_wavin_create(sp_wavin **p);
+int sp_wavin_destroy(sp_wavin **p);
+int sp_wavin_init(sp_data *sp, sp_wavin *p, const char *filename);
+int sp_wavin_compute(sp_data *sp, sp_wavin *p, SPFLOAT *in, SPFLOAT *out);
+int sp_wavin_resetToStart(sp_data *sp, sp_wavin *p);
+int sp_wavin_seekToSample(sp_data *sp, sp_wavin *p, drwav_uint64 sample);
+
 typedef struct {
     SPFLOAT value;
     SPFLOAT target;
