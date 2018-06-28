@@ -125,7 +125,7 @@ extension AudioUnitManager {
     func close() {
         fileField.stringValue = ""
         waveform?.dispose()
-        player?.disconnect()
+        player?.detach()
         player = nil
         audioEnabled = false
     }
