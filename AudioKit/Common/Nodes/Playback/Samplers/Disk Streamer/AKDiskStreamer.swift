@@ -126,20 +126,15 @@ open class AKDiskStreamer: AKNode, AKComponent {
     /// Initialize this SamplePlayer node
     ///
     /// - Parameters:
-    ///   - file: Initial file to load
     ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///   - loadCompletionHandler: Callback to run when the sample is loaded
     ///
-    @objc public init(file: AKAudioFile? = nil,
-                      volume: Double = 1,
+    @objc public init(volume: Double = 1,
                       completionHandler: @escaping AKCCallback = {},
                       loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.volume = volume
-        if file != nil {
-            self.avAudiofile = file!
-        }
         self.completionHandler = completionHandler
         self.loadCompletionHandler = loadCompletionHandler
 
@@ -177,10 +172,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
             }
         })
         internalAU?.volume = Float(volume)
-
-        if file != nil {
-            load(file: file!)
-        }
     }
 
     // MARK: - Control
@@ -210,7 +201,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         return point
     }
 
-    /// Load a new audio file into memory
+    /// Load a new audio file into memory - this must be done after audiokit starts
     open func load(file: AKAudioFile) {
         if file.channelCount > 2 || file.channelCount < 1 {
             AKLog("AKDiskStreamer currently only supports mono or stereo samples")
