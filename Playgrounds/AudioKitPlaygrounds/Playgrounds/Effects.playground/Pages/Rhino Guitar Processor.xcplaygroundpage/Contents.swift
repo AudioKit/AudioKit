@@ -16,7 +16,7 @@ do {
     player.isLooping = true
     player.start()
 } catch let error as NSError {
-    print(error.localizedDescription)
+    AKLog(error.localizedDescription)
 }
 //: User Interface Set up
 import AudioKitUI

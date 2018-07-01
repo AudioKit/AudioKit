@@ -147,7 +147,7 @@ class ViewController: UIViewController {
 
         for view in views {
             view.frame = nextFrame
-            print("frame " + String(describing: nextFrame.origin.y))
+            AKLog("frame " + String(describing: nextFrame.origin.y))
             nextFrame = nextFrame.offsetBy(dx: 0, dy: nextFrame.size.height + inset)
         }
     }
