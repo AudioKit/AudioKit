@@ -38,7 +38,7 @@ class FileManagerUtils {
         do {
             try fileMgr.createDirectory(at: dstURL, withIntermediateDirectories: true, attributes: nil)
         } catch {
-            AKLog("Could not create destination directory")
+            print("Could not create destination directory")
         }
     }
 
@@ -51,7 +51,7 @@ class FileManagerUtils {
         do {
             try fileMgr.copyItem(at: srcURL, to: dstURL)
         } catch {
-            AKLog("Could not copy \(fileName)")
+            print("Could not copy \(fileName)")
         }
     }
 
@@ -60,11 +60,11 @@ class FileManagerUtils {
             let filelist = try fileMgr.contentsOfDirectory(atPath: pathFromBundle)
 
             for filename in filelist {
-                AKLog("Copying from \(pathFromBundle)/\(filename) to \(pathDestDocs)/\(filename)")
+                print("Copying from \(pathFromBundle)/\(filename) to \(pathDestDocs)/\(filename)")
                 try? fileMgr.copyItem(atPath: "\(pathFromBundle)/\(filename)", toPath: "\(pathDestDocs)/\(filename)")
             }
         } catch {
-            AKLog("copyFiles error\n")
+            print("copyFiles error\n")
         }
     }
 
