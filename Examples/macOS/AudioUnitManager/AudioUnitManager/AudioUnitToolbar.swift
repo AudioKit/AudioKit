@@ -50,7 +50,7 @@ class AudioUnitToolbar: NSView {
     }
 
     @objc func handleBypass() {
-        AKLog"bypass: \(bypassButton.state)")
+        print("bypass: \(bypassButton.state)")
         audioUnit?.auAudioUnit.shouldBypassEffect = bypassButton.state == .on
     }
 
