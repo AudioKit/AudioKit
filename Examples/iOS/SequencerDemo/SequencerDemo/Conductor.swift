@@ -95,11 +95,11 @@ class Conductor {
         if clear { sequencer.tracks[Sequence.melody.rawValue].clear() }
         sequencer.setLength(sequenceLength)
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
-        //print("steps in sequence: \(numberOfSteps)")
+        //AKLog("steps in sequence: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if arc4random_uniform(17) > 12 {
                 let step = Double(i) * stepSize
-                //print("step is \(step)")
+                //AKLog("step is \(step)")
                 let scale = (minor ? scale2 : scale1)
                 let scaleOffset = arc4random_uniform(UInt32(scale.count) - 1)
                 var octaveOffset = 0
@@ -111,7 +111,7 @@ class Conductor {
                         Float(octaveOffset)
                     )
                 }
-                //print("octave offset is \(octaveOffset)")
+                //AKLog("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
                 sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(noteToAdd),
                                                                velocity: 100,
@@ -151,7 +151,7 @@ class Conductor {
     func generateSnareDrumGhostSequence(_ stepSize: Float = 1 / 8, clear: Bool = true) {
         if clear { sequencer.tracks[Sequence.snareGhost.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
-        //print("steps in sequnce: \(numberOfSteps)")
+        //AKLog("steps in sequnce: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if arc4random_uniform(17) > 14 {
                 let step = Double(i) * stepSize
