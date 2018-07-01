@@ -79,7 +79,7 @@ class ViewController: NSViewController {
 
     func playingEnded() {
         DispatchQueue.main.async {
-            SAKLog("Playing Ended")
+            AKLog("Playing Ended")
         }
         inputPlot.node = mic
     }
