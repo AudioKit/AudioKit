@@ -164,7 +164,7 @@ extension NSLayoutConstraint {
 
     public static func activateConstraintsEqualToSuperview(child: NSView) {
         guard let superview = child.superview else {
-            AKLog("NSLayoutConstraint.fillSuperview() superview of child is nil")
+            print("NSLayoutConstraint.fillSuperview() superview of child is nil")
             return
         }
 
