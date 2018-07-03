@@ -67,7 +67,7 @@ let keypad = AKOperationGenerator { parameters in
         AKOperation.sineWave(frequency: AKOperation.parameters[2])
 
     let momentaryPress = keyPressTone.triggeredWithEnvelope(
-        trigger:AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
+        trigger: AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
     return momentaryPress * 0.4
 }
 

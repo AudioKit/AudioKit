@@ -4,7 +4,7 @@ This document was only begun for AudioKit 4.1, but it should be kept to date fro
 
 ## AudioKt 4.2 to develop
 
-No changes yet.
+* All occurrences of variables that are time lengths rather than instances of time are now called "durations".  ADSR times, for instance are durations nows, rampTime has become rampDuration.
 
 ## AudioKit 4.1 to 4.2
 
@@ -27,5 +27,5 @@ Part of the reason for this was that some major updates were postponed until Ver
 
 ## AudioKit 2.x to AudioKit 3+
 
-AudioKit 3 was a complete rewrite from AudioKit 2, using a different audio engine internally, so 
-there is no migration path between these two versions. 
+AudioKit 3 was a complete rewrite from AudioKit 2, using a different audio engine internally, so
+there is no migration path between these two versions.

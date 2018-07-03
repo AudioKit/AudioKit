@@ -5,7 +5,6 @@
 //  Created by Derek Lee, revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
-
 import AudioKit
 import XCTest
 
@@ -87,6 +86,100 @@ class AKMusicTrackTests: AKTestCase {
         XCTAssertTrue(musicTrack.hasNote(atPosition: 3.0, withNoteNumber: 61))
     }
 
+    // MARK: - clearNote()
+    func testClearNote_shouldClearAllMatchingNotes() {
+        musicTrack.addNote(withNumber: 60, atPosition: 0.0)
+        musicTrack.addNote(withNumber: 60, atPosition: 1.0)
+        musicTrack.addNote(withNumber: 60, atPosition: 2.0)
+        musicTrack.addNote(withNumber: 60, atPosition: 3.0)
+
+        musicTrack.clearNote(60)
+
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
+    }
+
+    func testClearNote_shouldClearOnlyMatchingNotes() {
+        musicTrack.addNote(withNumber: 61, atPosition: 0.0)
+        musicTrack.addNote(withNumber: 60, atPosition: 1.0)
+        musicTrack.addNote(withNumber: 60, atPosition: 2.0)
+        musicTrack.addNote(withNumber: 61, atPosition: 3.0)
+
+        musicTrack.clearNote(60)
+
+        XCTAssertEqual(musicTrack.getMIDINoteData().count, 2)
+    }
+
+    // MARK: - clearMetaEvent()
+    func testClearMetaEvent_clearsAllMetaEvents() {
+        let internalTrack = musicTrack.internalMusicTrack!
+
+        var metaEvent = MIDIMetaEvent(metaEventType: 58, unused1: 0, unused2: 0, unused3: 0, dataLength: 0, data: 0)
+        for i in 0 ..< 4 {
+            MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
+        }
+
+        XCTAssertEqual(musicTrack.metaEventCount, 5)
+
+        musicTrack.clearMetaEvents()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 0)
+    }
+
+    func testClearMetaEvent_clearsOnlyMetaEvents() {
+        addSysexMetaEventAndNotes()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 5)
+        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.noteCount, 4)
+
+        musicTrack.clearMetaEvents()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 0)
+        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.noteCount, 4)
+    }
+
+    // MARK: - clearSysexEvents
+    func testClearSysexEvents_clearsAllSysexEvents() {
+        for i in 0 ..< 4 {
+            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+        }
+
+        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+
+        musicTrack.clearSysexEvents()
+
+        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+    }
+
+    func testClearSysexEvents_clearsOnlySysexEvents() {
+        addSysexMetaEventAndNotes()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 5)
+        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+
+        musicTrack.clearSysexEvents()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 5)
+        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+        XCTAssertEqual(musicTrack.noteCount, 4)
+    }
+
+    // MARK: - clear()
+    func testClear_shouldRemoveNotesMetaAndSysex() {
+        addSysexMetaEventAndNotes()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 5)
+        XCTAssertEqual(musicTrack.sysexEventCount, 4)
+        XCTAssertEqual(musicTrack.noteCount, 4)
+
+        musicTrack.clear()
+
+        XCTAssertEqual(musicTrack.metaEventCount, 0)
+        XCTAssertEqual(musicTrack.sysexEventCount, 0)
+        XCTAssertEqual(musicTrack.noteCount, 0)
+    }
+
     // MARK: - getMIDINoteData
     func testGetMIDINoteData_emptyTrackYieldsEmptyArray() {
         // start with empty track
@@ -146,9 +239,9 @@ class AKMusicTrackTests: AKTestCase {
     func addFourNotesToTrack(_ track: AKMusicTrack) {
         for i in 0 ..< 4 {
             track.add(noteNumber: UInt8(60 + i),
-                           velocity: 120,
-                           position: AKDuration(beats: Double(i)),
-                           duration: AKDuration(beats: 0.5))
+                      velocity: 120,
+                      position: AKDuration(beats: Double(i)),
+                      duration: AKDuration(beats: 0.5))
         }
     }
 
@@ -204,7 +297,7 @@ class AKMusicTrackTests: AKTestCase {
         var noteData = musicTrack.getMIDINoteData()
 
         // remove last note
-        let _ = noteData.popLast()
+        _ = noteData.popLast()
         musicTrack.replaceMIDINoteData(with: noteData)
         XCTAssertEqual(originalLength, musicTrack.length)
     }
@@ -217,19 +310,62 @@ class AKMusicTrackTests: AKTestCase {
         var noteData = newTrack.getMIDINoteData()
 
         // remove last note
-        let _ = noteData.popLast()
+        _ = noteData.popLast()
         newTrack.replaceMIDINoteData(with: noteData)
         XCTAssertTrue(originalLength > newTrack.length)
+    }
+
+    // MARK: - helper functions for reuse
+    fileprivate func addSysexMetaEventAndNotes() {
+        let internalTrack = musicTrack.internalMusicTrack!
+
+        var metaEvent = MIDIMetaEvent(metaEventType: 58,
+                                      unused1: 0,
+                                      unused2: 0,
+                                      unused3: 0,
+                                      dataLength: 0,
+                                      data: 0)
+
+        for i in 0 ..< 4 {
+            MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
+            musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
+            musicTrack.addNote(withNumber: 60, atPosition: MusicTimeStamp(i))
+        }
     }
 }
 
 // MARK: - For AKMusicTrack Testing
+
 extension AKMusicTrack {
     var noteCount: Int {
         var count = 0
 
         iterateThroughEvents { _, eventType, _ in
             if eventType == kMusicEventType_MIDINoteMessage {
+                count += 1
+            }
+        }
+
+        return count
+    }
+
+    var metaEventCount: Int {
+        var count = 0
+
+        iterateThroughEvents { _, eventType, _ in
+            if eventType == kMusicEventType_Meta {
+                count += 1
+            }
+        }
+
+        return count
+    }
+
+    var sysexEventCount: Int {
+        var count = 0
+
+        iterateThroughEvents { _, eventType, _ in
+            if eventType == kMusicEventType_MIDIRawData {
                 count += 1
             }
         }
@@ -273,7 +409,7 @@ extension AKMusicTrack {
         _ eventTime: MusicTimeStamp,
         _ eventType: MusicEventType,
         _ eventData: UnsafeRawPointer?
-    ) -> Void
+        ) -> Void
     private func iterateThroughEvents(_ processMIDIEvent: MIDIEventProcessor) {
         guard let track = internalMusicTrack else {
             XCTFail("internalMusicTrack does not exist")

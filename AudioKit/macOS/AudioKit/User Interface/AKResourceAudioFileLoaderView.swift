@@ -129,7 +129,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
+        _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
         let rect = bounds
 
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
