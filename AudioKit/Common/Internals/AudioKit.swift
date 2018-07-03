@@ -23,7 +23,7 @@ public typealias AKCallback = () -> Void
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc open static var engine = AVAudioEngine()
+    @objc public static let engine = AVAudioEngine()
 
     /// Reference to singleton MIDI
 

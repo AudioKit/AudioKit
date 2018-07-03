@@ -44,9 +44,9 @@ open class AKDryWetMixer: AKNode, AKInput {
         dryGain.volume = 1 - balance
         dryGain.connect(to: mixer)
 
-        wet?.connect(to:wetGain)
+        wet?.connect(to: wetGain)
         wetGain.volume = balance
-        wetGain.connect(to:mixer)
+        wetGain.connect(to: mixer)
     }
     public var inputNode: AVAudioNode {
         return dryGain.avAudioNode

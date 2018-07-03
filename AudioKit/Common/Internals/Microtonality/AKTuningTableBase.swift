@@ -42,13 +42,13 @@ import Foundation
         super.init()
         for noteNumber in 0..<AKTuningTable.midiNoteCount {
             let f = 440 * exp2((noteNumber - 69) / 12)
-            setFrequency(f, at:MIDINoteNumber(noteNumber) )
+            setFrequency(f, at: MIDINoteNumber(noteNumber) )
         }
     }
 
     /// Notes Per Octave: The count of the frequency array
+    /// Defaults to 12 for the base class...should be overridden by subclasses
     @objc public var npo: Int {
-        // default to 12ET
         return 12
     }
 

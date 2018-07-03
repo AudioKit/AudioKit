@@ -7,31 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C42367C020A5264300507E72 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42367BE20A5264300507E72 /* AudioKit.framework */; };
 		C49BC4872079AF1C005A71A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BC4862079AF1C005A71A0 /* AppDelegate.swift */; };
 		C49BC4892079AF1C005A71A0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BC4882079AF1C005A71A0 /* ViewController.swift */; };
 		C49BC48B2079AF1E005A71A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49BC48A2079AF1E005A71A0 /* Assets.xcassets */; };
 		C49BC48E2079AF1E005A71A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C49BC48C2079AF1E005A71A0 /* Main.storyboard */; };
-		C49BC4A42079B172005A71A0 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49BC49D2079B15D005A71A0 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C49BC49C2079B15D005A71A0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C49BC4972079B15D005A71A0 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		C49BC49E2079B15D005A71A0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C49BC4972079B15D005A71A0 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		C42367BE20A5264300507E72 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C49BC4832079AF1C005A71A0 /* SpeechSynthesizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechSynthesizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49BC4862079AF1C005A71A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C49BC4882079AF1C005A71A0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,7 +23,6 @@
 		C49BC48D2079AF1E005A71A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C49BC48F2079AF1E005A71A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49BC4902079AF1E005A71A0 /* SpeechSynthesizer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeechSynthesizer.entitlements; sourceTree = "<group>"; };
-		C49BC4972079B15D005A71A0 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49BC4A42079B172005A71A0 /* AudioKit.framework in Frameworks */,
+				C42367C020A5264300507E72 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +40,7 @@
 		C49BC47A2079AF1C005A71A0 = {
 			isa = PBXGroup;
 			children = (
-				C49BC4972079B15D005A71A0 /* AudioKit For macOS.xcodeproj */,
+				C42367BE20A5264300507E72 /* AudioKit.framework */,
 				C49BC4852079AF1C005A71A0 /* SpeechSynthesizer */,
 				C49BC4842079AF1C005A71A0 /* Products */,
 				C49BC4A12079B172005A71A0 /* Frameworks */,
@@ -83,15 +66,6 @@
 				C49BC4902079AF1E005A71A0 /* SpeechSynthesizer.entitlements */,
 			);
 			path = SpeechSynthesizer;
-			sourceTree = "<group>";
-		};
-		C49BC4982079B15D005A71A0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C49BC49D2079B15D005A71A0 /* AudioKit.framework */,
-				C49BC49F2079B15D005A71A0 /* AudioKitUI.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		C49BC4A12079B172005A71A0 /* Frameworks */ = {
@@ -147,35 +121,12 @@
 			mainGroup = C49BC47A2079AF1C005A71A0;
 			productRefGroup = C49BC4842079AF1C005A71A0 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C49BC4982079B15D005A71A0 /* Products */;
-					ProjectRef = C49BC4972079B15D005A71A0 /* AudioKit For macOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C49BC4822079AF1C005A71A0 /* SpeechSynthesizer */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C49BC49D2079B15D005A71A0 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = C49BC49C2079B15D005A71A0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C49BC49F2079B15D005A71A0 /* AudioKitUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKitUI.framework;
-			remoteRef = C49BC49E2079B15D005A71A0 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C49BC4812079AF1C005A71A0 /* Resources */ = {
@@ -250,6 +201,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -311,6 +263,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -25,7 +25,6 @@ import AudioKit
 
  */
 
-
 class ViewController: UIViewController {
 
     var metronome = AKSamplerMetronome()
@@ -71,11 +70,11 @@ class ViewController: UIViewController {
 
     func setUpAudio() {
 
-        do{
+        do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setActive(true)
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord,
-                                         with:[.defaultToSpeaker, .mixWithOthers])
+                                         with: [.defaultToSpeaker, .mixWithOthers])
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
             // It's a must if you want accurate recordings.  It turns of the os input processing.
@@ -95,7 +94,7 @@ class ViewController: UIViewController {
 
         // Set up recorders
         loopBackRecorder = AKClipRecorder(node: AudioKit.engine.inputNode)
-        directRecorder = AKClipRecorder(node:metronome)
+        directRecorder = AKClipRecorder(node: metronome)
 
         // Calling start on the engine seems to avoid the bugs around AudioKit.start()
         do { try AudioKit.engine.start() } catch {
@@ -107,12 +106,11 @@ class ViewController: UIViewController {
         metronome.startNote(1, withVelocity: 60, onChannel: 0)
     }
 
-
     @objc func buttonAction(button: UIButton, event: UIEvent) {
 
         // Not needed for this demo, just demonstrating how to get a touch event time
         // into a valid AVAudioTime - Just in case it helps ;)
-        let _ = AVAudioTime(hostTime: UInt64(event.timestamp * secondsToTicks))
+        _ = AVAudioTime(hostTime: UInt64(event.timestamp * secondsToTicks))
 
         // This gives us a reference time in the very near past to work with, and it gets right in to
         // what complicates ios audio io. The sampleTime of the input render timestamp (mic), and the sampleTime
@@ -122,8 +120,8 @@ class ViewController: UIViewController {
 
         let audioSession = AVAudioSession.sharedInstance()
         let bufferDurationTicks = UInt64(audioSession.ioBufferDuration * secondsToTicks)
-        let outputLatencyTicks =  UInt64(audioSession.outputLatency * secondsToTicks)
-        let inputLatencyTicks  =  UInt64(audioSession.inputLatency * secondsToTicks)
+        let outputLatencyTicks = UInt64(audioSession.outputLatency * secondsToTicks)
+        let inputLatencyTicks = UInt64(audioSession.inputLatency * secondsToTicks)
 
         // We have to schedule the audio to play on the next render, since we missed the last one.
         let nextRenderHostTime = lastRenderHostTime + bufferDurationTicks
@@ -150,8 +148,6 @@ class ViewController: UIViewController {
         loopBackRecorder?.currentTime = 0
         directRecorder?.currentTime = 0
 
-
-
         // MeasurementMode is really quiet.  AKClipRecorder.recordClip takes an optional tap where you can
         // read and write to the data before it's written to file.  We'll use that to boost if in MeasurementMode.
         let tap = audioSession.mode != AVAudioSessionModeMeasurement ? nil : { (buffer: AVAudioPCMBuffer, time: AVAudioTime) in
@@ -176,7 +172,7 @@ class ViewController: UIViewController {
             case .clip(let clip):
                 print("loopback.duration \(clip.duration)")
                 print("loopback.StartTime \(clip.startTime)")
-                do{
+                do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("loopback").appendingPathExtension(clip.url.pathExtension)
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
                     print("loopback saved at " + urlInDocs.path)
@@ -187,7 +183,6 @@ class ViewController: UIViewController {
                                                                        time: Double(i) * targetDuration,
                                                                        offset: 0,
                                                                        duration: targetDuration) })
-
 
                     // let another targetDuration go by, then start player in sync.
                     let twoDurationsIn = targetDuration * 2
@@ -221,7 +216,7 @@ class ViewController: UIViewController {
             case .clip(let clip):
                 print("direct.duration \(clip.duration)")
                 print("direct.StartTime \(clip.startTime)")
-                do{
+                do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("direct").appendingPathExtension(clip.url.pathExtension)
                     referenceURL = urlInDocs
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
@@ -263,7 +258,6 @@ class ViewController: UIViewController {
 
 }
 
-
 // Utility to convert between hostTime (ticks) and seconds.
 private let secondsToTicks: Double = {
     var tinfo = mach_timebase_info()
@@ -288,4 +282,3 @@ extension FileManager {
         }
     }
 }
-

@@ -93,7 +93,7 @@ public class AKADSRView: NSView {
                          sustainLevel: CGFloat = 0.583,
                          maxADFraction: CGFloat = 0.75) {
         //// General Declarations
-        let _ = NSGraphicsContext.current?.cgContext
+        _ = NSGraphicsContext.current?.cgContext
 
         //// Color Declarations
         let attackColor = #colorLiteral(red: 0.767, green: 0, blue: 0, alpha: 1)
@@ -118,7 +118,7 @@ public class AKADSRView: NSView {
                                y: size.height)
         let endMax = NSPoint(x: min(endPoint.x, size.width), y: buffer)
         let releaseAxis = NSPoint(x: releasePoint.x, y: endPoint.y)
-        let releaseMax = NSPoint(x: releasePoint.x, y:buffer)
+        let releaseMax = NSPoint(x: releasePoint.x, y: buffer)
         let highPoint = NSPoint(x: attackClickRoom +
             min(oneSecond * maxADFraction, attackDurationMS / 1_000.0 * oneSecond),
                                 y: buffer)

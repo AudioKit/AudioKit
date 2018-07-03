@@ -38,29 +38,29 @@ class ViewController: NSViewController {
         AUAudioUnit.registerSubclass(AKMorphingOscillatorBankAudioUnit.self, as: AKMorphingOscillatorBank.ComponentDescription, name: "AudioKit: Morphing Oscillator Bank", version: UINT32_MAX)
         AUAudioUnit.registerSubclass(AKPhaseDistortionOscillatorBankAudioUnit.self, as: AKPhaseDistortionOscillatorBank.ComponentDescription, name: "AudioKit: Phase Distortion Oscillator Bank", version: UINT32_MAX)
         AUAudioUnit.registerSubclass(AKOscillatorBankAudioUnit.self, as: AKOscillatorBank.ComponentDescription, name: "AudioKit: Oscillator Bank", version: UINT32_MAX)
-        AVAudioUnit.instantiate(with: AKBooster.ComponentDescription, options: []) { _, error in
+        AVAudioUnit.instantiate(with: AKBooster.ComponentDescription, options: []) { _, _ in
             NSLog("GOT HERE")
             self.logView.stringValue += "Instantiated AKBooster\n"
         }
-        AVAudioUnit.instantiate(with: AKChowningReverb.ComponentDescription, options: []) { _, error in
+        AVAudioUnit.instantiate(with: AKChowningReverb.ComponentDescription, options: []) { _, _ in
             self.logView.stringValue += "Instantiated AKChowningReverb\n"
 
         }
-        AVAudioUnit.instantiate(with: AKTanhDistortion.ComponentDescription, options: []) { _, error in
+        AVAudioUnit.instantiate(with: AKTanhDistortion.ComponentDescription, options: []) { _, _ in
             self.logView.stringValue += "Instantiated AKTanhDistortion\n"
 
         }
         AVAudioUnit.instantiate(with: AKMorphingOscillatorBank.ComponentDescription, options: []) {
-            _, error in
+            _, _ in
             self.logView.stringValue += "Instantiated AKMorphingOscillatorBank\n"
 
             }
         AVAudioUnit.instantiate(with: AKPhaseDistortionOscillatorBank.ComponentDescription, options: []) {
-            _, error in
+            _, _ in
             self.logView.stringValue += "Instantiated AKPhaseDistortionOscillatorBank\n"
 
             }
-        AVAudioUnit.instantiate(with: AKOscillatorBank.ComponentDescription, options: []) { _, error in
+        AVAudioUnit.instantiate(with: AKOscillatorBank.ComponentDescription, options: []) { _, _ in
             self.logView.stringValue += "Instantiated AKOscillatorBank\n"
 
         }

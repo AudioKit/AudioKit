@@ -38,7 +38,7 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Attack Duration",
                          value: peakLimiter.attackDuration,
                          range: 0.001 ... 0.03,
-                         format:  "%0.3f s"
+                         format: "%0.3f s"
         ) { sliderValue in
             peakLimiter.attackDuration = sliderValue
         })
@@ -46,7 +46,7 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Decay Duration",
                          value: peakLimiter.decayDuration,
                          range: 0.001 ... 0.03,
-                         format:  "%0.3f s"
+                         format: "%0.3f s"
         ) { sliderValue in
             peakLimiter.decayDuration = sliderValue
         })
@@ -54,7 +54,7 @@ class LiveView: AKLiveViewController {
         addView(AKSlider(property: "Pre-gain",
                          value: peakLimiter.preGain,
                          range: -40 ... 40,
-                         format:  "%0.1f dB"
+                         format: "%0.1f dB"
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
         })
