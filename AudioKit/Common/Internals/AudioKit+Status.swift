@@ -13,7 +13,7 @@ extension AudioKit {
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    @objc open static var format = AKSettings.audioFormat
+    @objc public static var format = AKSettings.audioFormat
 
     @objc static var shouldBeRunning = false
 

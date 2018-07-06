@@ -45,7 +45,7 @@ extension AVAudioTime {
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
-    open static func now() -> AVAudioTime {
+    public static func now() -> AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 

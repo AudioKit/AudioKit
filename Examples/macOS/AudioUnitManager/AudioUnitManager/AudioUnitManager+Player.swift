@@ -74,7 +74,7 @@ extension AudioUnitManager {
 
     func handleAudioComplete() {
         guard let player = player else { return }
-        // Swift.print("handleAudioComplete()")
+        // AKLog("handleAudioComplete()")
 
         handlePlay(state: false)
         player.startTime = 0
@@ -125,7 +125,7 @@ extension AudioUnitManager {
     func close() {
         fileField.stringValue = ""
         waveform?.dispose()
-        player?.disconnect()
+        player?.detach()
         player = nil
         audioEnabled = false
     }
@@ -148,7 +148,7 @@ extension AudioUnitManager {
 
     @objc private func updateWaveformDisplay() {
         guard let player = player else { return }
-        // Swift.print("\(player.currentTime)")
+        // AKLog("\(player.currentTime)")
         waveform?.position = player.currentTime
         updateTimeDisplay(player.currentTime)
     }

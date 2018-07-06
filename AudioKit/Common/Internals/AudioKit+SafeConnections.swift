@@ -65,7 +65,7 @@ extension AudioKit {
         return dummy
     }
 
-    @objc open static func connect(_ sourceNode: AVAudioNode,
+    @objc public static func connect(_ sourceNode: AVAudioNode,
                                    to destNodes: [AVAudioConnectionPoint],
                                    fromBus sourceBus: AVAudioNodeBus,
                                    format: AVAudioFormat?) {
@@ -79,7 +79,7 @@ extension AudioKit {
         dummyNode?.disconnectOutput()
     }
 
-    @objc open static func connect(_ node1: AVAudioNode,
+    @objc public static func connect(_ node1: AVAudioNode,
                                    to node2: AVAudioNode,
                                    fromBus bus1: AVAudioNodeBus,
                                    toBus bus2: AVAudioNodeBus,
@@ -92,12 +92,12 @@ extension AudioKit {
         dummyNode?.disconnectOutput()
     }
 
-    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+    @objc public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
 
     //Convenience
-    @objc open static func detach(nodes: [AVAudioNode]) {
+    @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             engine.detach(node)
         }
@@ -111,7 +111,7 @@ extension AudioKit {
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc open static func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
+    @objc public static func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
         try engine.renderToFile(audioFile, duration: duration, prerender: prerender)
     }
 

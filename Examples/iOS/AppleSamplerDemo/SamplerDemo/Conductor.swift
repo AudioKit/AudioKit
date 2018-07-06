@@ -42,7 +42,7 @@ class Conductor {
             useSound(.saw, synthesizer: .bass)
             try drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
         } catch {
-            print("A file was not found.")
+            AKLog("A file was not found.")
         }
         do {
             try AudioKit.start()
@@ -125,7 +125,7 @@ class Conductor {
                 try bassSynthesizer.loadEXS24(path)
             }
         } catch {
-            print("Could not load EXS24")
+            AKLog("Could not load EXS24")
         }
     }
 

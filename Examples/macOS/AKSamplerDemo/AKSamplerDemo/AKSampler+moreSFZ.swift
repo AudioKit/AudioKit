@@ -78,7 +78,7 @@
 
                     if sample != "" {
                         let noteFreq = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: MIDINoteNumber(pitch)))
-                        print("load \(pitch) \(noteFreq) Hz range \(lokey)-\(hikey) vel \(lovel)-\(hivel) \(sample)")
+                        AKLog("load \(pitch) \(noteFreq) Hz range \(lokey)-\(hikey) vel \(lovel)-\(hivel) \(sample)")
 
                         let sd = AKSampleDescriptor(noteNumber: pitch,
                                                     noteFrequency: noteFreq,
@@ -110,7 +110,7 @@
                     }
                 }
             } catch {
-                print(error)
+                AKLog(error)
             }
 
             buildKeyMap()

@@ -72,7 +72,7 @@ class Conductor {
 //                                          bLoop: true, fLoopStart: 0.0, fLoopEnd: 1.0, fStart: 0.0, fEnd: 0.0)
 //            sampler.loadAKAudioFile(sd: desc, file: file)
 //        } catch {
-//            print("\(error.localizedDescription)")
+//            AKLog("\(error.localizedDescription)")
 //        }
 //        sampler.setLoop(thruRelease: true)
 //        sampler.buildSimpleKeyMap()
@@ -131,7 +131,7 @@ class Conductor {
         sampler.betterLoadUsingSfzFile(folderPath: folderPath, sfzFileName: sfzFileName)
 
         let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
+        AKLog("Time to load samples \(elapsedTime) seconds")
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
@@ -246,6 +246,6 @@ extension Conductor {
         sampler.buildKeyMap()
 
         let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
+        AKLog("Time to load samples \(elapsedTime) seconds")
     }
 }

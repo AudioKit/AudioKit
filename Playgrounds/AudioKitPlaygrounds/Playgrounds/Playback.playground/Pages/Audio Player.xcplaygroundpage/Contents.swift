@@ -9,7 +9,7 @@ var player: AKPlayer!
 
 if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
     player = AKPlayer(audioFile: mixloop)
-    player.completionHandler = { Swift.print("completion callback has been triggered!") }
+    player.completionHandler = { AKLog("completion callback has been triggered!") }
     player.isLooping = true
     player.buffering = .always
     AudioKit.output = player
