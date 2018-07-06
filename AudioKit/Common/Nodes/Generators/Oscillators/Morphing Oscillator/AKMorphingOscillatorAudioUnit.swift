@@ -122,6 +122,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         detuningMultiplier.value = Float(AKMorphingOscillator.defaultDetuningMultiplier)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

@@ -55,7 +55,7 @@ var sequence = try threeTimesLoop.appendedBy(file: fixedLoop)
 for i in 0..<16 {
     let newSampleIndex = (0..<samplesBox.count).randomElement()
     let newSound = samplesBox[newSampleIndex]
-    print("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
+    AKLog("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
     var newFile = try sequence.appendedBy(file: newSound)
     sequence = newFile
 }

@@ -289,7 +289,7 @@ class ParticleLab: MTKView {
         guard let drawable = currentDrawable else {
             commandEncoder.endEncoding()
 
-            print("metalLayer.nextDrawable() returned nil")
+            AKLog("metalLayer.nextDrawable() returned nil")
 
             return
         }

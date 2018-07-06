@@ -1,4 +1,4 @@
-AudioKit V4.2
+AudioKit V4.3
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -7,6 +7,8 @@ AudioKit V4.2
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 <img src="https://img.shields.io/badge/in-swift4.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
+[![Backers on Open Collective](https://opencollective.com/AudioKit/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/AudioKit/sponsors/badge.svg)](#sponsors)
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
@@ -27,7 +29,7 @@ Installation details are found in the [Frameworks README file](https://github.co
 
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
-    pod 'AudioKit', '~> 4.0'`
+    pod 'AudioKit', '~> 4.0'
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
@@ -71,7 +73,7 @@ Check out the [AudioKit tutorial on the Ray Wenderlich site](https://www.raywend
 
 Here are three methods for getting support which are roughly listed in order of what you should try first:
 
-1. Post your problem to [https://stackoverflow.com/questions/tagged/audiokit(StackOverflow with the #AudioKit hashtag).
+1. Post your problem to [StackOverflow with the #AudioKit hashtag](https://stackoverflow.com/questions/tagged/audiokit).
 
 2. If you don't have a problem that you can post to StackOverflow, you may post to our [Google Group](https://groups.google.com/forum/#!forum/audiokit), but it is a moderated list and prepare to be rejected if the moderator believes your question is better suited for StackOverflow (most are).
 
@@ -86,7 +88,7 @@ When you want to modify AudioKit, check out the [develop](https://github.com/aud
 
 ## About Us
 
-AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.  
+AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
 
 But, there are many other important people in our family:
 
@@ -96,3 +98,10 @@ But, there are many other important people in our family:
 |[Slack](https://audiokit.slack.com)                                     | Pro-level developer chat group, contact a core team member for an in invitation. |
 |[Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors)| A list of all people who have submitted code to AudioKit.|
 |[Google Group](https://groups.google.com/forum/#!forum/audiokit)        | App Announcements and mailing list for all users. |
+
+### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
+
+
