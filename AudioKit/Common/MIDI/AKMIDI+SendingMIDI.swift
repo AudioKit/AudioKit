@@ -78,9 +78,9 @@ extension AKMIDI {
     /// Destination name (string) can be empty for some hardware device;
     /// So optional string is better for checking and targeting the device.
     ///
-    /// - parameter namedOutput: String containing the name of the MIDI Input
+    /// - parameter outputName: String containing the name of the MIDI Input
     ///
-    public func openOutput(_ namedOutput: String? = nil) {
+    public func openOutput(_ outputName: String? = nil) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
             AKLog("Unable to create MIDIOutputPort")
             return
@@ -88,13 +88,13 @@ extension AKMIDI {
         outputPort = tempPort
 
         // To get all endpoints; and set in endpoints array (mapping without condition)
-        if namedOutput == nil {
+        if outputName == nil {
             _ = zip(destinationNames, MIDIDestinations()).map {
                 endpoints[$0] = $1
             }
         } else {
-            // To get only  endpoint with name provided in namedOutput (conditional mapping)
-            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in namedOutput! == name }.map {
+            // To get only  endpoint with name provided in output (conditional mapping)
+            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in outputName! == name }.map {
                 endpoints[$0] = $1
             }
         }
