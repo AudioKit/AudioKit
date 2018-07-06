@@ -1,4 +1,4 @@
-AudioKit V4.2
+AudioKit V4.3
 ===
 
 [![Build Status](https://travis-ci.org/AudioKit/AudioKit.svg)](https://travis-ci.org/AudioKit/AudioKit)
@@ -7,8 +7,8 @@ AudioKit V4.2
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 <img src="https://img.shields.io/badge/in-swift4.0-orange.svg">
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
-[![Backers on Open Collective](https://opencollective.com/AudioKit/backers/badge.svg)](#backers) 
-[![Sponsors on Open Collective](https://opencollective.com/AudioKit/sponsors/badge.svg)](#sponsors) 
+[![Backers on Open Collective](https://opencollective.com/AudioKit/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/AudioKit/sponsors/badge.svg)](#sponsors)
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit websites:
 
@@ -29,7 +29,7 @@ Installation details are found in the [Frameworks README file](https://github.co
 
 AudioKit is also available via [CocoaPods](https://cocoapods.org/pods/AudioKit). Place the following in your `Podfile`:
 
-    pod 'AudioKit', '~> 4.0'`
+    pod 'AudioKit', '~> 4.0'
 
 ## Example Code
 There are three Hello World projects, one for each of the Apple platforms: iOS, macOS, and tvOS. They play oscillators and display waveforms. The examples rely on AudioKit's frameworks so you can either download precompiled frameworks or [build them yourself](https://github.com/audiokit/AudioKit/blob/master/Frameworks/README.md)    .
@@ -88,7 +88,7 @@ When you want to modify AudioKit, check out the [develop](https://github.com/aud
 
 ## About Us
 
-AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.  
+AudioKit was created by [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!  [Matthew Fecher](https://github.com/swiftcodex) manages all of AudioKit's web sites and [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
 
 But, there are many other important people in our family:
 
@@ -102,29 +102,6 @@ But, there are many other important people in our family:
 ### Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
-
-
-### Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/AudioKit#backer)]
-
-<a href="https://opencollective.com/AudioKit#backers" target="_blank"><img src="https://opencollective.com/AudioKit/backers.svg?width=890"></a>
-
-
-### Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/AudioKit#sponsor)]
-
-<a href="https://opencollective.com/AudioKit/sponsor/0/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/1/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/2/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/3/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/4/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/5/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/6/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/7/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/8/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/AudioKit/sponsor/9/website" target="_blank"><img src="https://opencollective.com/AudioKit/sponsor/9/avatar.svg"></a>
+<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
 
