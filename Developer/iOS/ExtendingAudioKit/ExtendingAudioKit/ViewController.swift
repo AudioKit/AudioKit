@@ -50,7 +50,7 @@ extension ViewController: AKMIDIListener {
 
     // MIDI Controller input
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        AKLog("Channel: \(channel+1) controller: \(controller) value: \(value)")
+        AKLog("Channel: \(channel + 1) controller: \(controller) value: \(value)")
         conductor.controller(controller, value: value)
     }
 
