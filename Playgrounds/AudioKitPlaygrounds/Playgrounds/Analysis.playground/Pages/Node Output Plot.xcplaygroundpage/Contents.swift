@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 var player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var delay = AKDelay(player)
 

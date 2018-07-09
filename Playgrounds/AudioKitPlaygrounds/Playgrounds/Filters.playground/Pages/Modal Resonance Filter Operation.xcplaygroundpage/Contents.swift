@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1_200)
 
