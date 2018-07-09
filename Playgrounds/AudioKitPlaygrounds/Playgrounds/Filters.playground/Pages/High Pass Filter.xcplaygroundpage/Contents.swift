@@ -10,6 +10,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var filter = AKHighPassFilter(player)
 filter.cutoffFrequency = 6_900 // Hz
