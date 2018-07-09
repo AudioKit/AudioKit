@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 filter.reverbDuration = 1

@@ -14,6 +14,7 @@ do {
     AudioKit.output = AKMixer(reverb, rhino)
     try try AudioKit.start()
     player.isLooping = true
+player.buffering = .always
     player.start()
 } catch let error as NSError {
     AKLog(error.localizedDescription)
