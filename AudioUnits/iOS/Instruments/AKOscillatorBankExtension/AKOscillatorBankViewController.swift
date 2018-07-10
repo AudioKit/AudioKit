@@ -8,12 +8,41 @@
 
 import CoreAudioKit
 import AudioKit
+import AudioKitUI
 
 public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactory {
     var audioUnit: AKOscillatorBankAudioUnit?
 
+    @IBOutlet var slider: AKSlider!
+    @IBOutlet var adsr: AKADSRView!
+
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        slider.callback = { value in
+            guard let au = self.audioUnit,
+                let index1 = au.parameterTree?.parameter(withAddress:5),
+                let index2 = au.parameterTree?.parameter(withAddress:6)
+                else { return }
+            index1.value = Float(value) * 40
+            index2.value = Float(value)
+        }
+
+        adsr.backgroundColor = UIColor.black
+        adsr.bgColor = UIColor.black
+
+        adsr.callback = { att, dec, sus, rel in
+            guard let au = self.audioUnit,
+                let attP = au.parameterTree?.parameter(withAddress:0),
+                let decP = au.parameterTree?.parameter(withAddress:1),
+                let susP = au.parameterTree?.parameter(withAddress:2),
+                let relP = au.parameterTree?.parameter(withAddress:3)
+                else { return }
+            attP.value = Float(att)
+            decP.value = Float(dec)
+            susP.value = Float(sus)
+            relP.value = Float(rel)
+        }
 
         if audioUnit == nil {
             return
@@ -39,14 +68,4 @@ public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactor
             audioUnit?.setWaveformValue(sample, at: UInt32(i))
         }
     }
-
-    @IBAction func sliderSlid(_ sender: UISlider) {
-        guard let au = audioUnit,
-            let index1 = au.parameterTree?.parameter(withAddress:5),
-            let index2 = au.parameterTree?.parameter(withAddress:6)
-            else { return }
-        index1.value = sender.value * 40
-        index2.value = sender.value
-    }
-
 }
