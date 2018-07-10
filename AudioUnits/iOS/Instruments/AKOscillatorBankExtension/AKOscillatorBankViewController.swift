@@ -9,7 +9,7 @@
 import CoreAudioKit
 import AudioKit
 
-public class AudioUnitViewController: AUViewController, AUAudioUnitFactory {
+public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactory {
     var audioUnit: AKOscillatorBankAudioUnit?
 
     public override func viewDidLoad() {
