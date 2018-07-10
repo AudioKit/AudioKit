@@ -13,19 +13,54 @@ import AudioKitUI
 public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactory {
     var audioUnit: AKOscillatorBankAudioUnit?
 
-    @IBOutlet var slider: AKSlider!
+    @IBOutlet var vibratoDepthSlider: AKSlider!
+    @IBOutlet var vibratoRateSlider: AKSlider!
+    @IBOutlet var waveformButton: AKButton!
     @IBOutlet var adsr: AKADSRView!
+
+    var waveformIndex = 0
+    let waveformNames = ["Sine",
+                         "Square",
+                         "Triangle",
+                         "Sawtooth",
+                         "Reverse Sawtooth"]
+    let waveforms = [AKTable(.sine),
+                     AKTable(.square),
+                     AKTable(.triangle),
+                     AKTable(.sawtooth),
+                     AKTable(.reverseSawtooth)]
 
     public override func viewDidLoad() {
         super.viewDidLoad()
 
-        slider.callback = { value in
+        AKStylist.sharedInstance.theme = .midnight
+
+        vibratoDepthSlider.textColor = UIColor.black
+        vibratoDepthSlider.property = "Depth"
+        vibratoDepthSlider.range = 0 ... 12
+        vibratoDepthSlider.value = 0
+        vibratoDepthSlider.callback = { value in
             guard let au = self.audioUnit,
-                let index1 = au.parameterTree?.parameter(withAddress:5),
-                let index2 = au.parameterTree?.parameter(withAddress:6)
+                let vibratoDepth = au.parameterTree?.parameter(withAddress: 5)
                 else { return }
-            index1.value = Float(value) * 40
-            index2.value = Float(value)
+            vibratoDepth.value = Float(value)
+        }
+
+        vibratoRateSlider.textColor = UIColor.white
+        vibratoRateSlider.property = "Rate"
+        vibratoRateSlider.range = 0 ... 10
+        vibratoRateSlider.value = 0
+        vibratoRateSlider.callback = { value in
+            guard let au = self.audioUnit,
+                let vibratoRate = au.parameterTree?.parameter(withAddress: 6)
+                else { return }
+            vibratoRate.value = Float(value)
+        }
+
+        waveformButton.title = waveformNames[waveformIndex]
+        waveformButton.callback = { button in
+            self.nextWaveform()
+            button.title = self.waveformNames[self.waveformIndex]
         }
 
         adsr.backgroundColor = UIColor.black
@@ -54,7 +89,7 @@ public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactor
     public func createAudioUnit(with componentDescription: AudioComponentDescription) throws -> AUAudioUnit {
         audioUnit = try AKOscillatorBankAudioUnit(componentDescription: componentDescription, options: [])
 
-        let waveform = AKTable(.square)
+        let waveform = waveforms[waveformIndex]
         audioUnit?.setupWaveform(Int32(waveform.count))
 
         for (i, sample) in waveform.enumerated() {
@@ -62,8 +97,10 @@ public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactor
         }
         return audioUnit!
     }
-    @IBAction func buttonPressed(_ sender: Any) {
-        let waveform = AKTable(.sine)
+    func nextWaveform() {
+        waveformIndex += 1
+        waveformIndex %= waveforms.count
+        let waveform =  waveforms[waveformIndex]
         for (i, sample) in waveform.enumerated() {
             audioUnit?.setWaveformValue(sample, at: UInt32(i))
         }
