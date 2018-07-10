@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
@@ -837,7 +837,7 @@ IA
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                             <box fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E8H-Q8-BWY" userLabel="Time">
-                                <rect key="frame" x="155" y="222" width="86" height="18"/>
+                                <rect key="frame" x="155" y="224" width="86" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="NYn-zo-yxK">
                                     <rect key="frame" x="1" y="1" width="84" height="16"/>
@@ -855,7 +855,7 @@ IA
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <color key="fillColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="1" green="1" blue="1" alpha="0.896484375" colorSpace="custom" customColorSpace="sRGB"/>
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                         </subviews>

@@ -71,6 +71,6 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

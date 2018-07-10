@@ -72,7 +72,7 @@ struct AKParameterRamp : AKParameterRampBase {
 
     // Function returns gain value 0.0 - 1.0 according index / range ratio
     // and -1.0 if type is invalid
-    // See enum above for explanation of each
+    // See enum above for explanation of each, not currently using all of these but they might be useful later
     double calculateGain(uint64_t index, uint64_t range, int type) {
         double result = 0.0;
 

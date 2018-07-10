@@ -203,10 +203,10 @@ open class AKClipRecorder {
                 var adjustedBuffer = buffer
                 var adjustedAudioTme = audioTime
                 if clip.audioTimeStart == nil {
-                    print("clip.startTime \(clip.startTime)")
-                    print("timeIn \(timeIn)")
+                    AKLog("clip.startTime \(clip.startTime)")
+                    AKLog("timeIn \(timeIn)")
                     clip.startTime = max(clip.startTime, timeIn)
-                    print("= ip.startTime \(clip.startTime)")
+                    AKLog("= ip.startTime \(clip.startTime)")
 
                     guard let audioTimeStart = timing.audioTime(at: clip.startTime) else {
                         finalize(clip: clip, error: ClipRecordingError.timingError)

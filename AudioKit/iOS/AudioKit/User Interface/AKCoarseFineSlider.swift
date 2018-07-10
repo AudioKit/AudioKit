@@ -53,7 +53,7 @@ import Foundation
         }
     }
     public var callback: (Double) -> Void = {val in
-        print(val)
+        AKLog(val)
     }
     public func reset(to value: Double) {
         setStable(value: value)

@@ -70,15 +70,15 @@ namespace AudioKitCore
             if (segment == kSilence)    // end of quick-damp prior to restart
             {
                 segment = kAttack;
-                ramper.init(0.0f, 1.0, pParams->attackSamples);
+                ramper.init(0.0f, 1.01f, pParams->attackSamples);
                 return 0.0f;
             }
             
             if (segment == kAttack)      // end of attack segment
             {
                 segment = kDecay;
-                ramper.init(1.0f, pParams->sustainFraction, pParams->decaySamples);
-                return 1.0f;
+                ramper.init(1.01f, pParams->sustainFraction, pParams->decaySamples);
+                return 1.01f;
             }
             
             if (segment == kDecay)  // end of decay segment

@@ -22,18 +22,18 @@ player.play()
 //: If export succeeded, no error will be set (error = nil) and the exported file is returned as an AKAudioFile.
 //: The callback will print some information and replace the file being played with the exported file.
 func callback(processedFile: AKAudioFile?, error: NSError?) {
-    print("Export completed!")
+    AKLog("Export completed!")
 
     // Check if processed file is valid (different from nil)
     if let converted = processedFile {
-        print("Export succeeded, converted file: \(converted.fileNamePlusExtension)")
+        AKLog("Export succeeded, converted file: \(converted.fileNamePlusExtension)")
         // Print the exported file's duration
-        print("Exported File Duration: \(converted.duration) seconds")
+        AKLog("Exported File Duration: \(converted.duration) seconds")
         // Replace the file being played
         try? player.replace(file: converted)
     } else {
         // An error occurred. So, print the Error
-        print("Error: \(error?.localizedDescription)")
+        AKLog("Error: \(error?.localizedDescription)")
     }
 }
 //: Next export the mixloop into a compressed .mp4 file :

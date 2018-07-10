@@ -103,7 +103,7 @@ class Conductor {
         sampler.loadSFZ(path: folderURL.path, fileName: sfzFiles[byIndex])
 
         let elapsedTime = info.systemUptime - begin
-        print("Time to load samples \(elapsedTime) seconds")
+        AKLog("Time to load samples \(elapsedTime) seconds")
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {

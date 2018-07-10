@@ -28,7 +28,7 @@ AKPlaygroundLoop(every: pulse) {
     var note = scale.randomElement()
     let octave = [3, 4, 5, 6, 7].randomElement() * 12
     if random(in: 0...10) < 1.0 { note += 1 }
-    if !scale.contains(note % 12) { print("ACCIDENT!") }
+    if !scale.contains(note % 12) { AKLog("ACCIDENT!") }
     if random(in: 0...6) > 1.0 { sampler.play(noteNumber: MIDINoteNumber(note + octave)) }
 }
 

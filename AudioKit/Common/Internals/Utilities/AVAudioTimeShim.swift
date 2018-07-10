@@ -45,7 +45,7 @@ extension AVAudioTime {
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
-    open static func now() -> AVAudioTime {
+    public static func now() -> AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
@@ -90,7 +90,7 @@ extension AVAudioTime {
         return AVAudioTime.seconds(forHostTime: self.hostTime - time)
     }
 
-    // Convert seconds to AVAudioTime with a hostTime reference
+    /// Convert seconds to AVAudioTime with a hostTime reference -- time must be > 0
     open class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
