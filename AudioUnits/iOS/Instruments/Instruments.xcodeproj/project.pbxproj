@@ -12,9 +12,9 @@
 		C46D586F20F419530052B9CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D586D20F419530052B9CF /* Main.storyboard */; };
 		C46D587120F419540052B9CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46D587020F419540052B9CF /* Assets.xcassets */; };
 		C46D587420F419540052B9CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D587220F419540052B9CF /* LaunchScreen.storyboard */; };
-		C46D588520F419F30052B9CF /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D588420F419F30052B9CF /* AudioUnitViewController.swift */; };
+		C46D588520F419F30052B9CF /* AKOscillatorBankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */; };
 		C46D588820F419F30052B9CF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D588620F419F30052B9CF /* MainInterface.storyboard */; };
-		C46D588D20F419F30052B9CF /* AKOscillator.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C46D587F20F419F30052B9CF /* AKOscillator.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C46D588D20F419F30052B9CF /* AKOscillatorBankExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4F3B19120F423960072FFF4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
 		C4F3B19220F423960072FFF4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
 		C4F3B19320F423960072FFF4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B19020F423960072FFF4 /* AudioKit.framework */; };
@@ -38,7 +38,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C46D588D20F419F30052B9CF /* AKOscillator.appex in Embed App Extensions */,
+				C46D588D20F419F30052B9CF /* AKOscillatorBankExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,8 +53,8 @@
 		C46D587020F419540052B9CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46D587320F419540052B9CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C46D587520F419540052B9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46D587F20F419F30052B9CF /* AKOscillator.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AKOscillator.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		C46D588420F419F30052B9CF /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
+		C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AKOscillatorBankExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKOscillatorBankViewController.swift; sourceTree = "<group>"; };
 		C46D588720F419F30052B9CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		C46D588920F419F30052B9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 				C4F3B19020F423960072FFF4 /* AudioKit.framework */,
 				C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */,
 				C46D586820F419530052B9CF /* Instruments */,
-				C46D588020F419F30052B9CF /* AKOscillator */,
+				C46D588020F419F30052B9CF /* AKOscillatorBankExtension */,
 				C46D586720F419530052B9CF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				C46D586620F419530052B9CF /* Instruments.app */,
-				C46D587F20F419F30052B9CF /* AKOscillator.appex */,
+				C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,14 +116,14 @@
 			path = Instruments;
 			sourceTree = "<group>";
 		};
-		C46D588020F419F30052B9CF /* AKOscillator */ = {
+		C46D588020F419F30052B9CF /* AKOscillatorBankExtension */ = {
 			isa = PBXGroup;
 			children = (
-				C46D588420F419F30052B9CF /* AudioUnitViewController.swift */,
+				C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */,
 				C46D588620F419F30052B9CF /* MainInterface.storyboard */,
 				C46D588920F419F30052B9CF /* Info.plist */,
 			);
-			path = AKOscillator;
+			path = AKOscillatorBankExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,9 +148,9 @@
 			productReference = C46D586620F419530052B9CF /* Instruments.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C46D587E20F419F30052B9CF /* AKOscillator */ = {
+		C46D587E20F419F30052B9CF /* AKOscillatorBankExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C46D588E20F419F30052B9CF /* Build configuration list for PBXNativeTarget "AKOscillator" */;
+			buildConfigurationList = C46D588E20F419F30052B9CF /* Build configuration list for PBXNativeTarget "AKOscillatorBankExtension" */;
 			buildPhases = (
 				C46D587B20F419F30052B9CF /* Sources */,
 				C46D587C20F419F30052B9CF /* Frameworks */,
@@ -160,9 +160,9 @@
 			);
 			dependencies = (
 			);
-			name = AKOscillator;
+			name = AKOscillatorBankExtension;
 			productName = AKOscillator;
-			productReference = C46D587F20F419F30052B9CF /* AKOscillator.appex */;
+			productReference = C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -197,7 +197,7 @@
 			projectRoot = "";
 			targets = (
 				C46D586520F419530052B9CF /* Instruments */,
-				C46D587E20F419F30052B9CF /* AKOscillator */,
+				C46D587E20F419F30052B9CF /* AKOscillatorBankExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -237,7 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46D588520F419F30052B9CF /* AudioUnitViewController.swift in Sources */,
+				C46D588520F419F30052B9CF /* AKOscillatorBankViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 /* Begin PBXTargetDependency section */
 		C46D588C20F419F30052B9CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C46D587E20F419F30052B9CF /* AKOscillator */;
+			target = C46D587E20F419F30052B9CF /* AKOscillatorBankExtension */;
 			targetProxy = C46D588B20F419F30052B9CF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -442,7 +442,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W69ZP8S5F;
-				INFOPLIST_FILE = AKOscillator/Info.plist;
+				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +462,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9W69ZP8S5F;
-				INFOPLIST_FILE = AKOscillator/Info.plist;
+				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -498,7 +498,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C46D588E20F419F30052B9CF /* Build configuration list for PBXNativeTarget "AKOscillator" */ = {
+		C46D588E20F419F30052B9CF /* Build configuration list for PBXNativeTarget "AKOscillatorBankExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C46D588F20F419F30052B9CF /* Debug */,
