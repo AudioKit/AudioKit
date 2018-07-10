@@ -13,7 +13,7 @@
 		C46D587120F419540052B9CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46D587020F419540052B9CF /* Assets.xcassets */; };
 		C46D587420F419540052B9CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D587220F419540052B9CF /* LaunchScreen.storyboard */; };
 		C46D588520F419F30052B9CF /* AKOscillatorBankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */; };
-		C46D588820F419F30052B9CF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D588620F419F30052B9CF /* MainInterface.storyboard */; };
+		C46D588820F419F30052B9CF /* AKOscillatorBank.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C46D588620F419F30052B9CF /* AKOscillatorBank.storyboard */; };
 		C46D588D20F419F30052B9CF /* AKOscillatorBankExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C4F3B19120F423960072FFF4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
 		C4F3B19220F423960072FFF4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
@@ -55,7 +55,7 @@
 		C46D587520F419540052B9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C46D587F20F419F30052B9CF /* AKOscillatorBankExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AKOscillatorBankExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKOscillatorBankViewController.swift; sourceTree = "<group>"; };
-		C46D588720F419F30052B9CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		C46D588720F419F30052B9CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AKOscillatorBank.storyboard; sourceTree = "<group>"; };
 		C46D588920F419F30052B9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C4F3B19020F423960072FFF4 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				C46D588420F419F30052B9CF /* AKOscillatorBankViewController.swift */,
-				C46D588620F419F30052B9CF /* MainInterface.storyboard */,
+				C46D588620F419F30052B9CF /* AKOscillatorBank.storyboard */,
 				C46D588920F419F30052B9CF /* Info.plist */,
 			);
 			path = AKOscillatorBankExtension;
@@ -217,7 +217,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C46D588820F419F30052B9CF /* MainInterface.storyboard in Resources */,
+				C46D588820F419F30052B9CF /* AKOscillatorBank.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,12 +268,12 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		C46D588620F419F30052B9CF /* MainInterface.storyboard */ = {
+		C46D588620F419F30052B9CF /* AKOscillatorBank.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C46D588720F419F30052B9CF /* Base */,
 			);
-			name = MainInterface.storyboard;
+			name = AKOscillatorBank.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

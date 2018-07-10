@@ -51,7 +51,7 @@
 			</array>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
+		<string>AKOscillatorBank</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.AudioUnit-UI</string>
 	</dict>
