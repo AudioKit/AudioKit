@@ -214,7 +214,7 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// Amplification Factor, in the range of 0.0002 to 2
+    /// Amplification Factor, in the range of 0.0002 to ~
     public var gain: Double {
         get {
             return fade.maximumGain
