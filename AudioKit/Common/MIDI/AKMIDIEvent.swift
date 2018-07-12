@@ -269,6 +269,9 @@ public struct AKMIDIEvent {
                                        channel: MIDIChannel,
                                        byte1: MIDIByte,
                                        byte2: MIDIByte) {
+        if internalData.count < 3 {
+            internalData = [0, 0, 0]
+        }
         internalData[0] = MIDIByte(status.rawValue << 4) | MIDIByte(channel.lowbit())
         internalData[1] = byte1.lower7bits()
         internalData[2] = byte2.lower7bits()
@@ -301,10 +304,16 @@ public struct AKMIDIEvent {
             AKLog("sysex")
             break
         case .songPosition:
+            while internalData.count < 3 {
+                internalData.append(0)
+            }
             internalData[1] = byte1.lower7bits()
             internalData[2] = byte2.lower7bits()
             setLength(3)
         case .songSelect:
+            while internalData.count < 2 {
+                internalData.append(0)
+            }
             internalData[1] = byte1.lower7bits()
             setLength(2)
         default:
