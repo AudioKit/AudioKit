@@ -143,7 +143,7 @@ Here are some resources that we use to develop our coding choices and core philo
 
 ## Avoid code smell
 
-* [Code Smell in Swift](http://www.bartjacobs.com/five-code-smells-in-swift-and-objective-c/)
+* [Code Smell in Swift](https://cocoacasts.com/five-signs-of-code-smell-in-swift/)
 * [Code Smell in Objective-C](http://qualitycoding.org/objective-c-code-smells/)
 * [Code Smell of the Preprocessor](http://qualitycoding.org/preprocessor/)
 
