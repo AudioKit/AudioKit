@@ -39,11 +39,13 @@ public typealias DeviceID = String
         super.init()
     }
 
+    #if os(macOS)
     public convenience init(ezAudioDevice: EZAudioDevice) {
         self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
         self.nInputChannels = ezAudioDevice.inputChannelCount
         self.nOutputChannels = ezAudioDevice.outputChannelCount
     }
+    #endif
 
     /// Printable device description
     override open var description: String {
