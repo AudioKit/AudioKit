@@ -49,13 +49,19 @@ public typealias AKCallback = () -> Void
         }
     }
 
+    #if os(macOS)
+    /// Enumerate the list of available devices.
+    @objc public static var devices: [AKDevice]? {
+        EZAudioUtilities.setShouldExitOnCheckResultFail(false)
+        return EZAudioDevice.devices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
+    }
+    #endif
+
     /// Enumerate the list of available input devices.
     @objc public static var inputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.inputDevices().map {
-                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
-            }
+            return EZAudioDevice.inputDevices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
         #else
             var returnDevices = [AKDevice]()
             if let devices = AVAudioSession.sharedInstance().availableInputs {
@@ -79,9 +85,7 @@ public typealias AKCallback = () -> Void
     @objc public static var outputDevices: [AKDevice]? {
         #if os(macOS)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.outputDevices().map {
-                AKDevice(name: ($0 as AnyObject).name, deviceID: ($0 as AnyObject).deviceID)
-            }
+            return EZAudioDevice.outputDevices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
         #else
             let devs = AVAudioSession.sharedInstance().currentRoute.outputs
             if devs.isNotEmpty {
