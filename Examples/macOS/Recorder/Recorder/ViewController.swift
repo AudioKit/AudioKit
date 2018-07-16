@@ -79,7 +79,7 @@ class ViewController: NSViewController {
 
     func playingEnded() {
         DispatchQueue.main.async {
-            Swift.print("Playing Ended")
+            AKLog("Playing Ended")
         }
         inputPlot.node = mic
     }
@@ -88,7 +88,7 @@ class ViewController: NSViewController {
         inputPlot.node = mic
         do {
             try recorder.record()
-        } catch { print("Errored recording.") }
+        } catch { AKLog("Errored recording.") }
     }
 
     func play() {
@@ -109,9 +109,9 @@ class ViewController: NSViewController {
                                       baseDir: .documents,
                                       exportFormat: .m4a) {_, exportError in
                                         if let error = exportError {
-                                            print("Export Failed \(error)")
+                                            AKLog("Export Failed \(error)")
                                         } else {
-                                            print("Export succeeded")
+                                            AKLog("Export succeeded")
                                         }
             }
         }

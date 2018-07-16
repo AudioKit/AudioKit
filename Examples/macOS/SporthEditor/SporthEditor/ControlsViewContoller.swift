@@ -21,22 +21,18 @@ class ControlsViewContoller: NSViewController {
         // Do view setup here.
     }
     @IBAction func trigger1(_ sender: NSButton) {
-        print("triggering 1")
         vc.brain.generator?.trigger(0)
     }
 
     @IBAction func trigger2(_ sender: NSButton) {
-        print("triggering 2")
         vc.brain.generator?.trigger(1)
     }
 
     @IBAction func trigger3(_ sender: NSButton) {
-        print("triggering 3")
         vc.brain.generator?.trigger(2)
     }
 
     @IBAction func trigger4(_ sender: NSButton) {
-        print("triggering 4")
         vc.brain.generator?.trigger(3)
     }
 
@@ -54,19 +50,15 @@ class ControlsViewContoller: NSViewController {
     }
 
     @IBAction func updateParameter1(_ sender: NSSlider) {
-        print("value 1 = \(sender.doubleValue)")
         vc.brain.generator?.parameters[0] = Double(sender.doubleValue)
     }
     @IBAction func updateParameter2(_ sender: NSSlider) {
-        print("value 2 = \(sender.doubleValue)")
         vc.brain.generator?.parameters[1] = Double(sender.doubleValue)
     }
     @IBAction func updateParameter3(_ sender: NSSlider) {
-        print("value 3 = \(sender.doubleValue)")
         vc.brain.generator?.parameters[2] = Double(sender.doubleValue)
     }
     @IBAction func updateParameter4(_ sender: NSSlider) {
-        print("value 4 = \(sender.doubleValue)")
         vc.brain.generator?.parameters[3] = Double(sender.doubleValue)
     }
 }

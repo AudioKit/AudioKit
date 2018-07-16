@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         do {
             try AudioKit.stop()
         } catch {
-            print("Problem in AudioKit.stop()")
+            AKLog("Problem in AudioKit.stop()")
         }
     }
 

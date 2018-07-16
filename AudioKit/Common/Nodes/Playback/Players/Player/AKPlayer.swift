@@ -71,7 +71,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.0002
+        public static var minimumGain: Double = 0.000_2
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -214,7 +214,7 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// Amplification Factor, in the range of 0.0002 to 2
+    /// Amplification Factor, in the range of 0.0002 to ~
     public var gain: Double {
         get {
             return fade.maximumGain
