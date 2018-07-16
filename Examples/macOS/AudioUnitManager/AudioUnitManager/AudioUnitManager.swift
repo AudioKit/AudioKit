@@ -178,7 +178,7 @@ class AudioUnitManager: NSViewController {
         guard let player = player else { return }
         guard let waveform = waveform else { return }
 
-        Swift.print("handleReversedButton() \(sender.state == .on)")
+        AKLog("handleReversedButton() \(sender.state == .on)")
         let wasPlaying = player.isPlaying
         if wasPlaying {
             handlePlay(state: false)

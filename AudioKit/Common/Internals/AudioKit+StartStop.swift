@@ -96,7 +96,7 @@ extension AudioKit {
     // and restart the audio engine if it stops and should be playing
     @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         // Notifications aren't guaranteed to be on the main thread
-        let checkRestart = {
+        let attemptRestart = {
             do {
                 // By checking the notification sender in this block rather than during observer configuration we avoid needing to create a new observer if the engine somehow changes
                 guard let notifyingEngine = notification.object as? AVAudioEngine, notifyingEngine == engine else {
@@ -131,9 +131,9 @@ extension AudioKit {
             }
         }
         if Thread.isMainThread {
-            checkRestart()
+            attemptRestart()
         } else {
-            DispatchQueue.main.async(execute: checkRestart)
+            DispatchQueue.main.async(execute: attemptRestart)
         }
     }
 
@@ -141,7 +141,7 @@ extension AudioKit {
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         // Notifications aren't guaranteed to come in on the main thread
 
-        let checkRestart = {
+        let attemptRestart = {
 
             if AKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
                 do {
@@ -171,9 +171,9 @@ extension AudioKit {
             }
         }
         if Thread.isMainThread {
-            checkRestart()
+            attemptRestart()
         } else {
-            DispatchQueue.main.async(execute: checkRestart)
+            DispatchQueue.main.async(execute: attemptRestart)
         }
     }
 }

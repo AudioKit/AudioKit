@@ -15,6 +15,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
