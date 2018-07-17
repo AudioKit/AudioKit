@@ -150,4 +150,3 @@ AudioKit was created by the following team whose contributions are fully chronic
 * **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
 * **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
-
