@@ -219,7 +219,7 @@ extension AKAudioFile {
 
     /// Process the current AKAudioFile in background to return an AKAudioFile with an extracted range of audio data.
     ///
-    /// if "toSample" parameter is set to zero, it will be set to be the number of samples of the file, 
+    /// if "toSample" parameter is set to zero, it will be set to be the number of samples of the file,
     /// so extraction will go from fromSample value to the end of file.
     ///
     /// Completion Handler is function with an AKAudioFile.AsyncProcessCallback signature:
