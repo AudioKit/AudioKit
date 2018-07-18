@@ -3,7 +3,7 @@
 //  MetronomeSamplerSync
 //
 //  Created by David O'Neill, revision history on Githbub.
-//  Copyright © 2017 O'Neill. All rights reserved.
+//  Copyright © 2017 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     var mixer = AKMixer()
     var views = [UIView]()
     var tapTempo = TapTempo(timeOut: 2.0, minimumTaps: 3)
-    let tempoAKSlider = AKSlider(property: "Tempo")
+    let tempoSlider = AKSlider(property: "Tempo")
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
                 let now = AVAudioTime(hostTime: mach_absolute_time())
                 otherMet.setTempo(newTempo, at: now)
                 met.setTempo(newTempo, at: now)
-                self?.tempoAKSlider.value = newTempo
+                self?.tempoSlider.value = newTempo
             }
         }
 
@@ -96,20 +96,20 @@ class ViewController: UIViewController {
                          callback: startStopAction(met: metronome2, otherMet: metronome1)))
 
         
-        addView(tempoAKSlider)
-        tempoAKSlider.callback = { [weak self] tempo in
+        addView(tempoSlider)
+        tempoSlider.callback = { [weak self] tempo in
             
             let now = AVAudioTime(hostTime: mach_absolute_time())
             self?.metronome1.setTempo(tempo, at: now)
             self?.metronome2.setTempo(tempo, at: now)
             
         }
-        tempoAKSlider.range = 30 ... 4_000
-        tempoAKSlider.taper = 1
-        tempoAKSlider.format = "%0.0f"
-        tempoAKSlider.color = .blue
-        tempoAKSlider.frame = CGRect()
-        tempoAKSlider.value = metronome1.tempo
+        tempoSlider.range = 30 ... 4_000
+        tempoSlider.taper = 1
+        tempoSlider.format = "%0.0f"
+        tempoSlider.color = .blue
+        tempoSlider.frame = CGRect()
+        tempoSlider.value = metronome1.tempo
 
         addView(AKSlider(property: "Down Beat Volume",
                          value: 1.0,
