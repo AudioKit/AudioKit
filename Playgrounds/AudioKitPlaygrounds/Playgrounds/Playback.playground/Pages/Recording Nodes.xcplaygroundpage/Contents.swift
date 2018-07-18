@@ -39,8 +39,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    var recordLabel: Label!
-    var playLabel: Label!
+    var recordLabel: AKLabel!
+    var playLabel: AKLabel!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
@@ -50,11 +50,11 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         addView(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
-                self.recordLabel.text = "Stopped. (\(dur) recorded)"
+                self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
                 recorder.stop()
                 button.title = "Record"
             } else {
-                self.recordLabel.text = "Recording..."
+                self.recordLabel.stringValue = "Recording..."
                 do {
                     try recorder.record()
                 } catch {
@@ -73,7 +73,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
 
         addView(AKButton(title: "Reset Recording") { button in
-            self.recordLabel.text = "Tape Cleared!"
+            self.recordLabel.stringValue = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
@@ -86,7 +86,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
         addView(AKButton(title: "Play") { button in
             if player.isPlaying {
-                self.playLabel.text = "Stopped playback!"
+                self.playLabel.stringValue = "Stopped playback!"
                 player.stop()
                 button.title = "Play"
             } else {
@@ -96,12 +96,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     AKLog("Couldn't reload file.")
                 }
                 // If the tape is not empty, we can play it !...
-                if player.audioFile.duration ?? 0 > 0 {
-                    self.playLabel.text = "Playing..."
+                if player.audioFile.duration > 0 {
+                    self.playLabel.stringValue = "Playing..."
                     player.completionHandler = self.callback
                     player.play()
                 } else {
-                    self.playLabel.text = "Tape is empty!..."
+                    self.playLabel.stringValue = "Tape is empty!..."
                 }
                 button.title = "Stop"
             }
@@ -115,7 +115,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
         DispatchQueue.main.async {
-            self.playLabel.text = "Finished playing!"
+            self.playLabel.stringValue = "Finished playing!"
         }
     }
 
