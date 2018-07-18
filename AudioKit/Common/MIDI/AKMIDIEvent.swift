@@ -153,13 +153,14 @@ public struct AKMIDIEvent {
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     internalData += midiBytes
-                    if midiBytes.contains(247) {
-//                        print("SYSEX DONE")
-//                        AudioKit.midi.isReceivingSysex = false
+                    if let sysexEndIndex = midiBytes.index(of: 247) {
+                        setLength(sysexEndIndex)
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                        setLength(0)
                     }
-                    setLength(midiBytes.count) //dis bad
                 }
-
             } else {
                 if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
