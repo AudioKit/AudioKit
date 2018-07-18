@@ -26,13 +26,14 @@ let player = try AKAudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
 let mixer = AKMixer(player, reverb)
-AudioKit.output = mixer
-
-try AudioKit.start()
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
+let recorder = try AKNodeRecorder(node: mixer)
+
+AudioKit.output = mixer
+
+try AudioKit.start()
 
 //: Build our User interface
 import AudioKitUI
@@ -65,7 +66,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
 
         addView(AKButton(title: "Save") { button in
-            tape.exportAsynchronously(name: "test",
+            recorder.audioFile?.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] _, _ in
             }
