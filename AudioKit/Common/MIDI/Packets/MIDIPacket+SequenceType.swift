@@ -86,6 +86,8 @@ extension MIDIPacket: Sequence {
                 default:
                     return AKMIDIEvent(packet: self)
                 }
+            } else if AudioKit.midi.isReceivingSysex {
+                return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
             } else {
                 return nil
             }

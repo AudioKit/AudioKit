@@ -147,26 +147,18 @@ public struct AKMIDIEvent {
                          byte2: packet.data.2)
             }
         } else {
-
             if packet.isSysex {
                 internalData = [] //reset internalData
-                var computedLength = 0
                 //voodoo
-                let mirrorData = Mirror(reflecting: packet.data)
-                for (_, value) in mirrorData.children {
-                    if computedLength < 255 {
-                        computedLength += 1
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if midiBytes.contains(247) {
+//                        print("SYSEX DONE")
+//                        AudioKit.midi.isReceivingSysex = false
                     }
-                    guard let byte = value as? MIDIByte else {
-                        AKLog("unable to create sysex midi byte")
-                        return
-                    }
-                    internalData.append(byte)
-                    if byte == 247 {
-                        break
-                    }
+                    setLength(midiBytes.count) //dis bad
                 }
-                setLength(computedLength)
 
             } else {
                 if let cmd = packet.command {
@@ -421,5 +413,33 @@ public struct AKMIDIEvent {
     private mutating func setLength(_ newLength: Int) {
         length = newLength
         internalData = Array(internalData[0..<length])
+    }
+
+    static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
+        if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+            AudioKit.midi.incomingSysex += midiBytes
+            if midiBytes.contains(247) {
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
+                AudioKit.midi.stopReceivingSysex()
+                return sysexEvent
+            }
+        }
+        return nil
+    }
+    static func decode(packet: MIDIPacket) -> [MIDIByte]? {
+        var outBytes = [MIDIByte]()
+        var computedLength = 0
+        let mirrorData = Mirror(reflecting: packet.data)
+        for (_, value) in mirrorData.children {
+            if computedLength < 256 {
+                computedLength += 1
+            }
+            guard let byte = value as? MIDIByte else {
+                AKLog("unable to create sysex midi byte")
+                return nil
+            }
+            outBytes.append(byte)
+        }
+        return outBytes
     }
 }
