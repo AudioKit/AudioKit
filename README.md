@@ -102,4 +102,18 @@ But, there are many other important people in our family:
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
 
+<<<<<<< HEAD
 
+=======
+AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
+
+* **[Adam Nemecek](https://github.com/adamnemecek)**: Lives by the motto "No code is better than no code" and tries to apply that to AudioKit.
+* **[Aurelius Prochazka](https://github.com/aure)**: Primary programmer of AudioKit. Lives for this stuff. Your life line if you need help.
+* **[Brandon Barber](https://github.com/roecrew/)**: Deep diver.  Contributed a lot of great pull requests.
+* **[Jeff Cooper](https://github.com/eljeff)**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
+* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Creator of the AKAudioFile, AKAudioPlayer, and recording nodes.
+* **[Matthew Fecher](https://github.com/swiftcodex)**:  Synth examples including AudioKit Synth One & Analog Synth X, both websites, evangelist.
+* **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
+* **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
+* **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
+>>>>>>> master
