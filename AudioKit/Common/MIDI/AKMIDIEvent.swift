@@ -236,7 +236,11 @@ public struct AKMIDIEvent {
     ///   - data:  [MIDIByte] bluetooth packet
     ///
     public init(data: [MIDIByte]) {
-        if let command = AKMIDISystemCommand(rawValue: data[0]) {
+        if AudioKit.midi.isReceivingSysex {
+            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+                internalData = Array(data[0...sysexEndIndex])
+            }
+        } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
             // is sys command
             if command == .sysex {
