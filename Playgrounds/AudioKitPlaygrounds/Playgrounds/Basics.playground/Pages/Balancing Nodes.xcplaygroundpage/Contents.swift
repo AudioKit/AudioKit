@@ -2,49 +2,39 @@
 //:
 //: ---
 //:
-//: ## Balancing Nodes
-//: Sometimes you want to ensure that an audio signal that you're processing
-//: remains at a volume similar to where it started.
-//: Such an application is perfect for the AKBalancer node.
+//: ## Connecting Nodes
+//: Playing audio is great, but now let's process that audio.
+//: Now that you're up and running, let's take it a step further by
+//: loading up an audio file and processing it. We're going to do this
+//: by connecting nodes together. A node is simply an object that will
+//: take in audio input, process it, and pass the processed audio to
+//: another node, or to the Digital-Analog Converter (speaker).
 import AudioKitPlaygrounds
 import AudioKit
-import AudioKitUI
 
-//: This section prepares the players
 let file = try AKAudioFile(readFileName: "drumloop.wav")
-var source = AKPlayer(audioFile: file)
-source.isLooping = true
 
-let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
-let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
+//: Set up a player to the loop the file's playback
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
-//: At this point you don't have much signal left, so you balance it against the original signal!
-let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
+//: Next we'll connect the audio player to a delay effect
+var delay = AKDelay(player)
 
-AudioKit.output = rebalancedWithSource
+//: Set the parameters of the delay here
+delay.time = 0.1 // seconds
+delay.feedback = 0.5 // Normalized Value 0 - 1
+delay.dryWetMix = 0.2 // Normalized Value 0 - 1
+
+//: Continue adding more nodes as you wish, for example, reverb:
+let reverb = AKReverb(delay)
+reverb.loadFactoryPreset(.cathedral)
+
+AudioKit.output = reverb
 try AudioKit.start()
-source.play()
 
-//: User Interface Set up
-
-class LiveView: AKLiveViewController {
-
-    override func viewDidLoad() {
-        addTitle("Balancing Nodes")
-
-        addLabel("Listen to the difference in volume:")
-
-        addView(AKButton(title: "Balancing") { button in
-            let node = rebalancedWithSource
-            node.isStarted ? node.stop() : node.play()
-            button.title = node.isStarted ? "Balancing" : "Bypassed"
-        })
-    }
-
-}
+player.play()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = LiveView()
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
