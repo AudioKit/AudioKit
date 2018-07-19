@@ -1,9 +1,9 @@
 //
 //  AKCostelloReverbPresets.swift
-//  AudioKit 
+//  AudioKit
 //
 //  Created by Nicholas Arner, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Preset for the AKCostelloReverb

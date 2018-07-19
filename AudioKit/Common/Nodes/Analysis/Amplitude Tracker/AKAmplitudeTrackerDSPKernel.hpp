@@ -3,19 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 class AKAmplitudeTrackerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -25,11 +18,14 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        sp_rms_create(&rms);
-        rms->ihp = halfPowerPoint;
-        sp_rms_init(sp, rms);
+        sp_rms_create(&leftRMS);
+        sp_rms_create(&rightRMS);
+        leftRMS->ihp = halfPowerPoint;
+        rightRMS->ihp = halfPowerPoint;
+        sp_rms_init(sp, leftRMS);
+        sp_rms_init(sp, rightRMS);
     }
-    
+
     void setThreshold(float value) {
         threshold = value;
     }
@@ -43,29 +39,29 @@ public:
     }
 
     void destroy() {
-        //printf("AKAmplitudeTrackerDSPKernel.destroy() \n");
         AKSoundpipeKernel::destroy();
-        sp_rms_destroy(&rms);
+        sp_rms_destroy(&leftRMS);
+        sp_rms_destroy(&rightRMS);
     }
 
     void reset() {
     }
-    
+
     void setHalfPowerPoint(float value) {
         halfPowerPoint = value;
     }
-    
-//    void setSmoothness(float value) {
-//        smoothness = value;
-//    } //in development
+
+    //    void setSmoothness(float value) {
+    //        smoothness = value;
+    //    } //in development
 
     void setParameter(AUParameterAddress address, AUValue value) {
     }
-    
+
     AUValue getParameter(AUParameterAddress address) {
         return 0.0f;
     }
-    
+
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
     }
 
@@ -79,40 +75,51 @@ public:
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float temp = *in;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (started) {
-                    sp_rms_compute(sp, rms, in, out);
-                    trackedAmplitude = *out;
+                if (channel == 0) {
+                    if (started) {
+                        sp_rms_compute(sp, leftRMS, in, out);
+                        leftAmplitude = *out;
+                    } else {
+                        leftAmplitude = 0;
+                    }
                 } else {
-                    trackedAmplitude = 0;
+                    if (started) {
+                        sp_rms_compute(sp, rightRMS, in, out);
+                        rightAmplitude = *out;
+                    } else {
+                        rightAmplitude = 0;
+                    }
                 }
                 *out = temp;
             }
         }
-        
+
         bool wasAboveThreshold = isAboveThreshold;
-        
-        if (trackedAmplitude > threshold && !wasAboveThreshold) {
+
+        if ((leftAmplitude + rightAmplitude) / 2.0  > threshold * 1.05 && !wasAboveThreshold) {
             isAboveThreshold = true;
             thresholdCallback(true);
         }
-        if (wasAboveThreshold && trackedAmplitude < threshold) {
+        if (wasAboveThreshold && (leftAmplitude + rightAmplitude) / 2.0 < threshold * 0.95) {
             isAboveThreshold = false;
             thresholdCallback(false);
         }
-        
+
     }
 
     // MARK: Member Variables
 
 private:
 
-    sp_rms *rms;
+    sp_rms *leftRMS;
+    sp_rms *rightRMS;
     float threshold = 1.0;
     float halfPowerPoint = 10;
 public:
     bool started = true;
     bool resetted = false;
-    float trackedAmplitude = 0.0;
+    float leftAmplitude = 0.0;
+    float rightAmplitude = 0.0;
     bool isAboveThreshold = false;
     //float smoothness = 0.05; //in development
     AKThresholdCallback thresholdCallback = nullptr;

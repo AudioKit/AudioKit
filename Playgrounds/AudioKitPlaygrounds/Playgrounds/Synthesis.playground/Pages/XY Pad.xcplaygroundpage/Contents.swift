@@ -12,13 +12,13 @@ delay.time = 0.1
 let reverb = AKCostelloReverb(delay)
 let mix = AKDryWetMixer(delay, reverb, balance: 0.5)
 AudioKit.output = mix
-AudioKit.start()
+try AudioKit.start()
 
 class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())
 
     override func draw(_ dirtyRect: NSRect) {
-        guard let contextPtr = NSGraphicsContext.current()?.graphicsPort else {
+        guard let contextPtr = NSGraphicsContext.current?.graphicsPort else {
             return
         }
         let context = unsafeBitCast(contextPtr, to: CGContext.self)

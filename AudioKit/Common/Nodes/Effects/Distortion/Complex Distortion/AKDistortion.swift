@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class AKDistortion: AKNode, AKToggleable, AUEffect {
+open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 
@@ -19,7 +19,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 0.5
 
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
-    open dynamic var delay: Double = 0.1 {
+    @objc open dynamic var delay: Double = 0.1 {
         didSet {
             delay = (0.1...500).clamp(delay)
             au[kDistortionParam_Delay] = delay
@@ -27,7 +27,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
-    open dynamic var decay: Double = 1.0 {
+    @objc open dynamic var decay: Double = 1.0 {
         didSet {
             decay = (0.1...50).clamp(decay)
             au[kDistortionParam_Decay] = decay
@@ -35,7 +35,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Delay Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var delayMix: Double = 0.5 {
+    @objc open dynamic var delayMix: Double = 0.5 {
         didSet {
             delayMix = (0...1).clamp(delayMix)
             au[kDistortionParam_DelayMix] = delayMix * 100
@@ -43,7 +43,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var decimation: Double = 0.5 {
+    @objc open dynamic var decimation: Double = 0.5 {
         didSet {
             decimation = (0...1).clamp(decimation)
             au[kDistortionParam_Decimation] = decimation * 100
@@ -51,7 +51,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-    open dynamic var rounding: Double = 0.0 {
+    @objc open dynamic var rounding: Double = 0.0 {
         didSet {
             rounding = (0...1).clamp(rounding)
             au[kDistortionParam_Rounding] = rounding * 100
@@ -59,7 +59,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Decimation Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var decimationMix: Double = 0.5 {
+    @objc open dynamic var decimationMix: Double = 0.5 {
         didSet {
             decimationMix = (0...1).clamp(decimationMix)
             au[kDistortionParam_DecimationMix] = decimationMix * 100
@@ -67,7 +67,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Linear Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var linearTerm: Double = 0.5 {
+    @objc open dynamic var linearTerm: Double = 0.5 {
         didSet {
             linearTerm = (0...1).clamp(linearTerm)
             au[kDistortionParam_LinearTerm] = linearTerm * 100
@@ -75,7 +75,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Squared Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var squaredTerm: Double = 0.5 {
+    @objc open dynamic var squaredTerm: Double = 0.5 {
         didSet {
             squaredTerm = (0...1).clamp(squaredTerm)
             au[kDistortionParam_SquaredTerm] = squaredTerm * 100
@@ -83,7 +83,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Cubic Term (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var cubicTerm: Double = 0.5 {
+    @objc open dynamic var cubicTerm: Double = 0.5 {
         didSet {
             cubicTerm = (0...1).clamp(cubicTerm)
             au[kDistortionParam_CubicTerm] = cubicTerm * 100
@@ -91,7 +91,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Polynomial Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var polynomialMix: Double = 0.5 {
+    @objc open dynamic var polynomialMix: Double = 0.5 {
         didSet {
             polynomialMix = (0...1).clamp(polynomialMix)
             au[kDistortionParam_PolynomialMix] = polynomialMix * 100
@@ -99,7 +99,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open dynamic var ringModFreq1: Double = 100 {
+    @objc open dynamic var ringModFreq1: Double = 100 {
         didSet {
             ringModFreq1 = (0.5...8_000).clamp(ringModFreq1)
             au[kDistortionParam_RingModFreq1] = ringModFreq1
@@ -107,7 +107,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open dynamic var ringModFreq2: Double = 100 {
+    @objc open dynamic var ringModFreq2: Double = 100 {
         didSet {
             ringModFreq2 = (0.5...8_000).clamp(ringModFreq2)
             au[kDistortionParam_RingModFreq2] = ringModFreq2
@@ -115,7 +115,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var ringModBalance: Double = 0.5 {
+    @objc open dynamic var ringModBalance: Double = 0.5 {
         didSet {
             ringModBalance = (0...1).clamp(ringModBalance)
             au[kDistortionParam_RingModBalance] = ringModBalance * 100
@@ -123,7 +123,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Mix (Normalized Value) ranges from 0 to 1 (Default: 0.0)
-    open dynamic var ringModMix: Double = 0.0 {
+    @objc open dynamic var ringModMix: Double = 0.0 {
         didSet {
             ringModMix = (0...1).clamp(ringModMix)
             au[kDistortionParam_RingModMix] = ringModMix * 100
@@ -131,7 +131,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
-    open dynamic var softClipGain: Double = -6 {
+    @objc open dynamic var softClipGain: Double = -6 {
         didSet {
             softClipGain = (-80...20).clamp(softClipGain)
             au[kDistortionParam_SoftClipGain] = softClipGain
@@ -139,7 +139,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var finalMix: Double = 0.5 {
+    @objc open dynamic var finalMix: Double = 0.5 {
         didSet {
             finalMix = (0...1).clamp(finalMix)
             au[kDistortionParam_FinalMix] = finalMix * 100
@@ -147,7 +147,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     // MARK: - Initialization
 
@@ -172,8 +172,8 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     ///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         delay: Double = 0.1,
         decay: Double = 1.0,
         delayMix: Double = 0.5,
@@ -191,52 +191,52 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
         softClipGain: Double = -6,
         finalMix: Double = 0.5) {
 
-            self.delay = delay
-            self.decay = decay
-            self.delayMix = delayMix
-            self.decimation = decimation
-            self.rounding = rounding
-            self.decimationMix = decimationMix
-            self.linearTerm = linearTerm
-            self.squaredTerm = squaredTerm
-            self.cubicTerm = cubicTerm
-            self.polynomialMix = polynomialMix
-            self.ringModFreq1 = ringModFreq1
-            self.ringModFreq2 = ringModFreq2
-            self.ringModBalance = ringModBalance
-            self.ringModMix = ringModMix
-            self.softClipGain = softClipGain
-            self.finalMix = finalMix
+        self.delay = delay
+        self.decay = decay
+        self.delayMix = delayMix
+        self.decimation = decimation
+        self.rounding = rounding
+        self.decimationMix = decimationMix
+        self.linearTerm = linearTerm
+        self.squaredTerm = squaredTerm
+        self.cubicTerm = cubicTerm
+        self.polynomialMix = polynomialMix
+        self.ringModFreq1 = ringModFreq1
+        self.ringModFreq2 = ringModFreq2
+        self.ringModBalance = ringModBalance
+        self.ringModMix = ringModMix
+        self.softClipGain = softClipGain
+        self.finalMix = finalMix
 
-            let effect = _Self.effect
-            au = AUWrapper(effect)
+        let effect = _Self.effect
+        au = AUWrapper(effect)
 
-            super.init(avAudioNode: effect, attach: true)
+        super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+        input?.connect(to: self)
 
-            au[kDistortionParam_Delay] = delay
-            au[kDistortionParam_Decay] = decay
-            au[kDistortionParam_DelayMix] = delayMix * 100
-            au[kDistortionParam_Decimation] = decimation * 100
-            au[kDistortionParam_Rounding] = rounding * 100
-            au[kDistortionParam_DecimationMix] = decimationMix * 100
-            au[kDistortionParam_LinearTerm] = linearTerm * 100
-            au[kDistortionParam_SquaredTerm] = squaredTerm * 100
-            au[kDistortionParam_CubicTerm] = cubicTerm * 100
-            au[kDistortionParam_PolynomialMix] = polynomialMix * 100
-            au[kDistortionParam_RingModFreq1] = ringModFreq1
-            au[kDistortionParam_RingModFreq2] = ringModFreq2
-            au[kDistortionParam_RingModBalance] = ringModBalance * 100
-            au[kDistortionParam_RingModMix] = ringModMix * 100
-            au[kDistortionParam_SoftClipGain] = softClipGain
-            au[kDistortionParam_FinalMix] = finalMix * 100
+        au[kDistortionParam_Delay] = delay
+        au[kDistortionParam_Decay] = decay
+        au[kDistortionParam_DelayMix] = delayMix * 100
+        au[kDistortionParam_Decimation] = decimation * 100
+        au[kDistortionParam_Rounding] = rounding * 100
+        au[kDistortionParam_DecimationMix] = decimationMix * 100
+        au[kDistortionParam_LinearTerm] = linearTerm * 100
+        au[kDistortionParam_SquaredTerm] = squaredTerm * 100
+        au[kDistortionParam_CubicTerm] = cubicTerm * 100
+        au[kDistortionParam_PolynomialMix] = polynomialMix * 100
+        au[kDistortionParam_RingModFreq1] = ringModFreq1
+        au[kDistortionParam_RingModFreq2] = ringModFreq2
+        au[kDistortionParam_RingModBalance] = ringModBalance * 100
+        au[kDistortionParam_RingModMix] = ringModMix * 100
+        au[kDistortionParam_SoftClipGain] = softClipGain
+        au[kDistortionParam_FinalMix] = finalMix * 100
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             finalMix = lastKnownMix
             isStarted = true
@@ -244,7 +244,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = finalMix
             finalMix = 0
@@ -255,6 +255,6 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect {
     /// Disconnect the node
     override open func disconnect() {
         stop()
-        disconnect(nodes: [self.avAudioNode])
+        AudioKit.detach(nodes: [self.avAudioNode])
     }
 }

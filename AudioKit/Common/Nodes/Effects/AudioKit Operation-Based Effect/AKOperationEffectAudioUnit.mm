@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKOperationEffectAudioUnit.h"
@@ -22,7 +22,7 @@
 @synthesize parameterTree = _parameterTree;
 
 - (void)setSporth:(NSString *)sporth {
-    _kernel.setSporth((char *)[sporth UTF8String]);
+    _kernel.setSporth((char *)[sporth UTF8String], (int)sporth.length + 1);
 }
 
 - (NSArray *)parameters {

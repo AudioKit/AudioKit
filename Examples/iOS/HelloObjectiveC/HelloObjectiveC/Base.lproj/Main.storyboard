@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E27e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,22 +19,22 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-bw-gc2">
-                                <rect key="frame" x="122" y="101" width="357" height="397"/>
+                                <rect key="frame" x="29" y="102" width="357" height="532"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3R-GO-WiA">
-                                <rect key="frame" x="20" y="490" width="560" height="90"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="20" y="626" width="374" height="90"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="yqP-w4-Jdb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Play Sine Wave">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <variation key="heightClass=regular-widthClass=regular">
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
@@ -39,22 +43,12 @@
                                     <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FPo-Ob-AQb"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="int-Kr-iJa" customClass="AKOutputWaveformPlot" customModule="AudioKit">
-                                <rect key="frame" x="20" y="20" width="560" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="jzs-l9-1oa"/>
-                                </constraints>
-                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="G3R-GO-WiA" secondAttribute="leading" id="CaV-AK-thT"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="int-Kr-iJa" secondAttribute="leading" id="MrC-OO-csU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="G3R-GO-WiA" secondAttribute="trailing" id="S2h-nY-O04"/>
                             <constraint firstItem="G3R-GO-WiA" firstAttribute="centerX" secondItem="g7X-bw-gc2" secondAttribute="centerX" id="V9g-nn-kG1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="int-Kr-iJa" secondAttribute="trailing" id="XyS-6v-mQ5"/>
-                            <constraint firstItem="int-Kr-iJa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="f94-GG-CFY"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="G3R-GO-WiA" secondAttribute="bottom" constant="20" id="iRT-lK-8Yw"/>
                             <constraint firstItem="g7X-bw-gc2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p3b-gw-UPZ"/>
                             <constraint firstItem="G3R-GO-WiA" firstAttribute="top" secondItem="g7X-bw-gc2" secondAttribute="bottom" constant="-8" id="ri9-Tm-fxB"/>

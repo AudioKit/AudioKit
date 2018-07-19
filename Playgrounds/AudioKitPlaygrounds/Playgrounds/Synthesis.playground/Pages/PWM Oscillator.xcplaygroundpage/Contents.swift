@@ -2,65 +2,56 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKPWMOscillator()
 oscillator.pulseWidth = 0.5
 
 var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.1
-var currentRampTime = 0.0
+var currentRampDuration = 0.0
 
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("PWM Oscillator")
 
-        addSubview(AKPropertySlider(
-            property: "Amplitude",
-            format: "%0.3f",
-            value: currentAmplitude,
-            color: AKColor.purple
-        ) { amplitude in
-            currentAmplitude = amplitude
+        addView(AKSlider(property: "Amplitude", value: currentAmplitude) { sliderValue in
+            currentAmplitude = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Pulse Width",
-            value: oscillator.pulseWidth,
-            color: AKColor.red
-        ) { amount in
-            oscillator.pulseWidth = amount
+        addView(AKSlider(property: "Pulse Width", value: oscillator.pulseWidth) { sliderValue in
+            oscillator.pulseWidth = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Ramp Time",
-            format: "%0.3f s",
-            value: currentRampTime, maximum: 2,
-            color: AKColor.orange
-        ) { time in
-            currentRampTime = time
+        addView(AKSlider(property: "Ramp Duration",
+                         value: currentRampDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
+        ) { sliderValue in
+            currentRampDuration = sliderValue
         })
 
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {
         currentMIDINote = note
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.rampTime = 0
+            oscillator.rampDuration = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
 
-        // Still use rampTime for volume
-        oscillator.rampTime = currentRampTime
+        // Still use rampDuration for volume
+        oscillator.rampDuration = currentRampDuration
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
@@ -74,4 +65,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

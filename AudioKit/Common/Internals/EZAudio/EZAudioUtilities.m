@@ -2,7 +2,7 @@
 //  EZAudioUtilities.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 6/23/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -84,7 +84,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
         bufferSize = sizeof(float) * frames;
         channelsPerBuffer = 1;
     }
-    
+
     AudioBufferList *audioBufferList = (AudioBufferList *)malloc(sizeof(AudioBufferList) + sizeof(AudioBuffer) * (channels-1));
     audioBufferList->mNumberBuffers = nBuffers;
     for(unsigned i = 0; i < nBuffers; i++)
@@ -177,7 +177,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
     asbd.mFormatID          = kAudioFormatiLBC;
     asbd.mChannelsPerFrame  = 1;
     asbd.mSampleRate        = sampleRate;
-    
+
     // Fill in the rest of the descriptions using the Audio Format API
     UInt32 propSize = sizeof(asbd);
     [EZAudioUtilities checkResult:AudioFormatGetProperty(kAudioFormatProperty_FormatInfo,
@@ -186,7 +186,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
                                                          &propSize,
                                                          &asbd)
                         operation:"Failed to fill out the rest of the iLBC AudioStreamBasicDescription"];
-    
+
     return asbd;
 }
 
@@ -218,7 +218,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
     asbd.mFormatID          = kAudioFormatMPEG4AAC;
     asbd.mChannelsPerFrame  = channels;
     asbd.mSampleRate        = sampleRate;
-    
+
     // Fill in the rest of the descriptions using the Audio Format API
     UInt32 propSize = sizeof(asbd);
     [EZAudioUtilities checkResult:AudioFormatGetProperty(kAudioFormatProperty_FormatInfo,
@@ -227,7 +227,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
                                                          &propSize,
                                                          &asbd)
                         operation:"Failed to fill out the rest of the m4a AudioStreamBasicDescription"];
-    
+
     return asbd;
 }
 
@@ -403,7 +403,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
                                numberOfChannels:(UInt32)nChannels
                                     interleaved:(BOOL)interleaved
 {
-    
+
     asbd->mFormatID = kAudioFormatLinearPCM;
 #if TARGET_OS_IPHONE
     int sampleSize = sizeof(float);
@@ -579,7 +579,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
         // Create the history buffer
         *scrollHistory = (float *)calloc(8192, floatByteSize);
     }
-    
+
     //
     if(!*isChanging)
     {
@@ -681,7 +681,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
     {
         return;
     }
-    
+
     //
     // Update the scroll history datasource
     //
@@ -713,9 +713,9 @@ BOOL __shouldExitOnCheckResultFail = YES;
     //    free(historyInfo->buffer);
     //    free(historyInfo);
     //    TPCircularBufferCleanup(&historyInfo->circularBuffer);
-    
+
     // I believe the order should be:
-    
+
     free(historyInfo->buffer);
     TPCircularBufferCleanup(&historyInfo->circularBuffer);
     free(historyInfo);
@@ -733,7 +733,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
     historyInfo->bufferSize = defaultLength;
     historyInfo->buffer = calloc(maximumLength, sizeof(float));
     TPCircularBufferInit(&historyInfo->circularBuffer, maximumLength);
-    
+
     //
     // Zero out circular buffer
     //
@@ -742,7 +742,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
     TPCircularBufferProduceBytes(&historyInfo->circularBuffer,
                                  emptyBuffer,
                                  (int32_t)sizeof(emptyBuffer));
-    
+
     return historyInfo;
 }
 

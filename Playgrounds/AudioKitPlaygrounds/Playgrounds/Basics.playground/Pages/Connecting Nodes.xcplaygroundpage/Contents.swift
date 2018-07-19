@@ -12,18 +12,18 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 //: Set up a player to the loop the file's playback
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: Next we'll connect the audio player to a delay effect
 var delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds
-delay.feedback = 0.8 // Normalized Value 0 - 1
+delay.feedback = 0.5 // Normalized Value 0 - 1
 delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
 //: Continue adding more nodes as you wish, for example, reverb:
@@ -31,7 +31,7 @@ let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.cathedral)
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

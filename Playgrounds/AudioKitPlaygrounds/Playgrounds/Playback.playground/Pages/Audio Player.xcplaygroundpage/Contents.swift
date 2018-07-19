@@ -2,115 +2,112 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
+import PlaygroundSupport
 
-let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
+var player: AKPlayer!
 
-let player = try AKAudioPlayer(file: mixloop) {
-    print("completion callback has been triggered!")
+if let mixloop = try? AKAudioFile(readFileName: "mixloop.wav") {
+    player = AKPlayer(audioFile: mixloop)
+    player.completionHandler = { Swift.print("completion callback has been triggered!") }
+    player.isLooping = true
+    player.buffering = .always
+    AudioKit.output = player
+    try AudioKit.start()
 }
-
-AudioKit.output = player
-AudioKit.start()
-player.looping = true
-
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var inPositionSlider: AKPropertySlider?
-    var outPositionSlider: AKPropertySlider?
-    var playingPositionSlider: AKPropertySlider?
-    var fadeInSlider: AKPropertySlider?
-    var fadeOutSlider: AKPropertySlider?
+    var inPositionSlider: AKSlider!
+    var outPositionSlider: AKSlider!
+    var playingPositionSlider: AKSlider!
+    var fadeInSlider: AKSlider!
+    var fadeOutSlider: AKSlider!
 
-    override func setup() {
-
-        AKPlaygroundLoop(every: 1 / 60.0) {
+    override func viewDidLoad() {
+        AKPlaygroundLoop(every: 1 / 10.0) {
             if player.duration > 0 {
-                self.playingPositionSlider?.value = player.playhead
+                self.playingPositionSlider?.value = player.currentTime
             }
-
         }
         addTitle("Audio Player")
 
-        addSubview(AKResourcesAudioFileLoaderView(
+        addView(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
 
-        addSubview(AKButton(title: "Disable Looping") {
-            player.looping = !player.looping
-            if player.looping {
-                return "Disable Looping"
-            } else {
-                return "Enable Looping"
-            }
+        addView(AKButton(title: "Disable Looping") { button in
+            player.isLooping = !player.isLooping
+            button.title = player.isLooping ? "Disable Looping" : "Enable Looping"
         })
 
-        addSubview(AKButton(title: "Direction: ➡️") {
-            if player.isPlaying {
-                player.stop()
-            }
-            player.reversed = !player.reversed
-            if player.reversed {
-                return "Direction: ⬅️"
-            } else {
-                return "Direction: ➡️"
-            }
+        addView(AKButton(title: "Normal →") { button in
+            let wasPlaying = player.isPlaying
+            if wasPlaying { player.stop() }
+            player.isReversed = !player.isReversed
+            button.title = player.isReversed ? "Reversed ←" : "Normal →"
+            if wasPlaying { player.play(from: 0) }
         })
 
-        fadeInSlider = AKPropertySlider(
-            property: "Fade In",
-            format: "%0.2f s",
-            value: player.fadeInTime, maximum: 2,
-            color: AKColor.brown
+        fadeInSlider = AKSlider(property: "Fade In",
+                                value: player.fade.inTime,
+                                range: 0 ... 2,
+                                format: "%0.3f s"
         ) { sliderValue in
-            player.fadeInTime = sliderValue
-        }
-        addSubview(fadeInSlider)
+            let wasPlaying = player.isPlaying
+            if wasPlaying { player.stop() }
+            player.fade.inTime = sliderValue
 
-        fadeOutSlider = AKPropertySlider(
-            property: "Fade Out",
-            format: "%0.2f s",
-            value: player.fadeOutTime, maximum: 2,
-            color: AKColor.brown
-        ) { sliderValue in
-            player.fadeOutTime = sliderValue
         }
-        addSubview(fadeOutSlider)
+        addView(fadeInSlider)
 
-        inPositionSlider = AKPropertySlider(
-            property: "In Position",
-            format: "%0.2f s",
-            value: player.startTime, maximum: 3.428,
-            color: AKColor.green
+        fadeOutSlider = AKSlider(property: "Fade Out",
+                                 value: player.fade.outTime,
+                                 range: 0 ... 2,
+                                 format: "%0.3f s"
         ) { sliderValue in
+            let wasPlaying = player.isPlaying
+            if wasPlaying { player.stop() }
+            player.fade.outTime = sliderValue
+        }
+        addView(fadeOutSlider)
+
+        inPositionSlider = AKSlider(property: "In Position",
+                                    value: 0,
+                                    range: 0 ... 3.429,
+                                    format: "%0.3f s"
+        ) { sliderValue  in
+            let wasPlaying = player.isPlaying
+            if wasPlaying { player.stop() }
             player.startTime = sliderValue
+            player.loop.start = sliderValue
         }
-        addSubview(inPositionSlider)
+        addView(inPositionSlider)
 
-        outPositionSlider = AKPropertySlider(
-            property: "Out Position",
-            format: "%0.2f s",
-            value: player.endTime, maximum: 3.428
+        outPositionSlider = AKSlider(property: "Out Position",
+                                     value: 3.429,
+                                     range: 0 ... 3.429,
+                                     format: "%0.3f s"
         ) { sliderValue in
+            let wasPlaying = player.isPlaying
+            if wasPlaying { player.stop() }
             player.endTime = sliderValue
+            player.loop.end = sliderValue
         }
-        addSubview(outPositionSlider)
+        addView(outPositionSlider)
 
-        playingPositionSlider = AKPropertySlider(
-            property: "Position",
-            format: "%0.2f s",
-            value: player.playhead, maximum: 3.428,
-            color: AKColor.yellow
+        playingPositionSlider = AKSlider(property: "Position",
+                                         value: player.currentTime,
+                                         range: 0 ... player.duration,
+                                         format: "%0.3f s"
         ) { _ in
-            // Can't do player.playhead = sliderValue
+            // Can't do player.currentTime = sliderValue
         }
-        addSubview(playingPositionSlider)
+        addView(playingPositionSlider)
     }
 }
-
-import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

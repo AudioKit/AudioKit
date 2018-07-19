@@ -3,16 +3,16 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
-open class AKStereoInput: AKNode, AKToggleable {
+@objc open class AKStereoInput: AKNode, AKToggleable {
 
     internal let mixer = AVAudioMixerNode()
 
     /// Output Volume (Default 1)
-    open dynamic var volume: Double = 1.0 {
+    @objc open dynamic var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
@@ -24,20 +24,18 @@ open class AKStereoInput: AKNode, AKToggleable {
     fileprivate var lastKnownVolume: Double = 1.0
 
     /// Determine if the microphone is currently on.
-    open dynamic var isStarted: Bool {
+    @objc open dynamic var isStarted: Bool {
         return volume != 0.0
     }
 
     /// Initialize the microphone
     override public init() {
+        super.init()
         #if !os(tvOS)
-            super.init()
             self.avAudioNode = mixer
             AKSettings.audioInputEnabled = true
             AudioKit.engine.attach(mixer)
-            if let inputNode = AudioKit.engine.inputNode {
-                AudioKit.engine.connect(inputNode, to: self.avAudioNode, format: nil)
-            }
+            AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: nil)
         #endif
     }
 
@@ -46,14 +44,14 @@ open class AKStereoInput: AKNode, AKToggleable {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0

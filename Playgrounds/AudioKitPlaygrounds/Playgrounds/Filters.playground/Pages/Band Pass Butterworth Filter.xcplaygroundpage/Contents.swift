@@ -7,48 +7,48 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: Next, we'll connect the audio sources to a band pass filter
 var filter = AKBandPassButterworthFilter(player)
 filter.centerFrequency = 5_000 // Hz
 filter.bandwidth = 600 // Cents
-filter.rampTime = 1.0
+filter.rampDuration = 1.0
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Band Pass Butterworth Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: filter))
+        addView(AKButton(title: "Stop") { button in
+            filter.isStarted ? filter.stop() : filter.play()
+            button.title = filter.isStarted ? "Stop" : "Start"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Center Frequency",
-            format: "%0.1f Hz",
-            value: filter.centerFrequency, minimum: 20, maximum: 22_050,
-            color: AKColor.green
+        addView(AKSlider(property: "Center Frequency",
+                         value: filter.centerFrequency,
+                         range: 20 ... 10_000,
+                         taper: 5,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.centerFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Bandwidth",
-            format: "%0.1f Hz",
-            value: filter.bandwidth, minimum: 100, maximum: 1_200,
-            color: AKColor.red
+        addView(AKSlider(property: "Bandwidth",
+                         value: filter.bandwidth,
+                         range: 100 ... 1_200,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             filter.bandwidth = sliderValue
         })
@@ -57,4 +57,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

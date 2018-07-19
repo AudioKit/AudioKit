@@ -6,19 +6,20 @@ import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
 AudioKit.output = generator
-AudioKit.start()
+try AudioKit.start()
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    var p0Slider: AKPropertySlider!
-    var p1Slider: AKPropertySlider!
-    var p2Slider: AKPropertySlider!
-    var p3Slider: AKPropertySlider!
+    var p0Slider: AKSlider!
+    var p1Slider: AKSlider!
+    var p2Slider: AKSlider!
+    var p3Slider: AKSlider!
     var keyboard: AKKeyboardView!
     var currentMIDINote: MIDINoteNumber = 0
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Sporth Generators")
 
         addLabel("Choose one of the Sporth files:")
@@ -31,18 +32,18 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "kLtz",
                            "Scheale",
                            "Simple Keyboard"]
-        addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
+        addView(AKPresetLoaderView(presets: sporthFiles) { filename in
             guard
                 let filePath = Bundle.main.path(forResource: filename, ofType: "sp"),
                 let contentData = FileManager.default.contents(atPath: filePath),
                 let sporth = String(data: contentData, encoding: .utf8) else {
-                return
+                    return
             }
 
             Swift.print("\n\n\n\n\n\n\(sporth)")
             generator.sporth = sporth
 
-            let sliders: [AKPropertySlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
+            let sliders: [AKSlider] = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
             // Reset UI Eleements
             self.keyboard.isHidden = true
@@ -65,7 +66,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    print("Regular expression failed")
+                    Swift.print("Regular expression failed")
                 }
 
                 let value = regex.stringByReplacingMatches(in: line,
@@ -79,7 +80,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     regex = try NSRegularExpression(pattern: pattern,
                                                     options: .dotMatchesLineSeparators)
                 } catch {
-                    print("Regular expression failed")
+                    Swift.print("Regular expression failed")
                 }
                 let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                         options: .reportCompletion,
@@ -87,10 +88,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                                                                        length: line.characters.count),
                                                                         withTemplate: "$1")
                 let title = regex.stringByReplacingMatches(in: line,
-                                                       options: .reportCompletion,
-                                                       range: NSRange(location: 0,
-                                                                      length: line.characters.count),
-                                                       withTemplate: "$2")
+                                                           options: .reportCompletion,
+                                                           range: NSRange(location: 0,
+                                                                          length: line.characters.count),
+                                                           withTemplate: "$2")
 
                 if title != line {
                     currentControl = (Int(currentControlText) ?? 0) - 1
@@ -99,7 +100,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 }
                 if value != line {
                     if let doubleValue = Double(value) {
-                        print("GOt here")
                         generator.parameters[currentControl] = doubleValue
                         sliders[currentControl].value = doubleValue
                     }
@@ -109,44 +109,32 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
         addLabel("Open up the console view to see the Sporth code.")
 
-        p0Slider = AKPropertySlider(
-            property: "Parameter 0",
-            value: generator.parameters[0],
-            color: AKColor.orange) { sliderValue in
-                generator.parameters[0] = sliderValue
+        p0Slider = AKSlider(property: "Parameter 0", value: generator.parameters[0]) { sliderValue in
+            generator.parameters[0] = sliderValue
         }
         p0Slider?.isHidden = true
-        addSubview(p0Slider)
-        p1Slider = AKPropertySlider(
-            property: "Parameter 1",
-            value: generator.parameters[1],
-        color: AKColor.cyan) { sliderValue in
+        addView(p0Slider)
+        p1Slider = AKSlider(property: "Parameter 1", value: generator.parameters[1]) { sliderValue in
             generator.parameters[1] = sliderValue
         }
         p1Slider?.isHidden = true
-        addSubview(p1Slider)
-        p2Slider = AKPropertySlider(
-            property: "Parameter 2",
-            value: generator.parameters[2],
-        color: AKColor.magenta) { sliderValue in
+        addView(p1Slider)
+        p2Slider = AKSlider(property: "Parameter 2", value: generator.parameters[2]) { sliderValue in
             generator.parameters[2] = sliderValue
         }
         p2Slider?.isHidden = true
-        addSubview(p2Slider)
-        p3Slider = AKPropertySlider(
-            property: "Parameter 3",
-        value: generator.parameters[3],
-        color: AKColor.yellow) { sliderValue in
+        addView(p2Slider)
+        p3Slider = AKSlider(property: "Parameter 3", value: generator.parameters[3]) { sliderValue in
             generator.parameters[3] = sliderValue
         }
         p3Slider?.isHidden = true
-        addSubview(p3Slider)
+        addView(p3Slider)
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         keyboard.isHidden = true
-        addSubview(keyboard)
+        addView(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -165,4 +153,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

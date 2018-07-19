@@ -2,7 +2,7 @@
 //  EZAudioPlayer.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 1/16/14.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2014 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -111,7 +111,7 @@ FOUNDATION_EXPORT NSString * const EZAudioPlayerDidSeekNotification;
 
 
 /**
- Triggered by EZAudioPlayer's internal EZAudioFile's EZAudioFileDelegate callback and notifies the delegate that the end of the file has been reached. 
+ Triggered by EZAudioPlayer's internal EZAudioFile's EZAudioFileDelegate callback and notifies the delegate that the end of the file has been reached.
  @param audioPlayer The instance of the EZAudioPlayer that triggered the event
  @param audioFile   The instance of the EZAudioFile that the event was triggered from
  */
@@ -341,7 +341,7 @@ reachedEndOfAudioFile:(EZAudioFile *)audioFile;
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the seek positon) within the audio file being used for playback. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the seek position) within the audio file being used for playback. This can be helpful when seeking through the audio file.
  @return An SInt64 representing the current frame index within the audio file used for playback.
  */
 @property (readonly) SInt64 frameIndex;

@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is primarily for the telephone page in the Synthesis playground
@@ -35,7 +35,7 @@ open class AKTelephoneView: UIView {
 
             if currentKey != "" {
                 callback(currentKey, "down")
-                if currentKey.characters.count == 1 {
+                if currentKey.count == 1 {
                     last10Presses.removeFirst()
                     last10Presses.append(currentKey)
                 }
@@ -55,8 +55,8 @@ open class AKTelephoneView: UIView {
     }
 
     /// Initialize the telephone view
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
-                callback: @escaping (String, String) -> Void) {
+    @objc public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+                      callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
     }
@@ -195,9 +195,9 @@ open class AKTelephoneView: UIView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: UIFont.labelFontSize),
-                                      NSForegroundColorAttributeName: UIColor.white,
-                                      NSParagraphStyleAttributeName: busyTextStyle]
+        let busyTextFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: UIFont.labelFontSize),
+                                      NSAttributedStringKey.foregroundColor: UIColor.white,
+                                      NSAttributedStringKey.paragraphStyle: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
             with: CGSize(width: busyTextRect.width, height: CGFloat.infinity),
@@ -219,9 +219,9 @@ open class AKTelephoneView: UIView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 48),
-                                     NSForegroundColorAttributeName: UIColor.black,
-                                     NSParagraphStyleAttributeName: readoutStyle]
+        let readoutFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
+                                     NSAttributedStringKey.foregroundColor: UIColor.black,
+                                     NSAttributedStringKey.paragraphStyle: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
             with: CGSize(width: readoutRect.width, height: CGFloat.infinity),
@@ -266,9 +266,9 @@ open class AKTelephoneView: UIView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 11),
-                                     NSForegroundColorAttributeName: textColor,
-                                     NSParagraphStyleAttributeName: lettersStyle]
+        let lettersFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 11),
+                                     NSAttributedStringKey.foregroundColor: textColor,
+                                     NSAttributedStringKey.paragraphStyle: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
             with: CGSize(width: lettersRect.width, height: CGFloat.infinity),
@@ -289,9 +289,9 @@ open class AKTelephoneView: UIView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 48),
-                                    NSForegroundColorAttributeName: textColor,
-                                    NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
+                                    NSAttributedStringKey.foregroundColor: textColor,
+                                    NSAttributedStringKey.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: CGSize(width: numberRect.width, height: CGFloat.infinity),
@@ -336,9 +336,9 @@ open class AKTelephoneView: UIView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 48),
-                                    NSForegroundColorAttributeName: textColor,
-                                    NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
+                                    NSAttributedStringKey.foregroundColor: textColor,
+                                    NSAttributedStringKey.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: CGSize(width: numberRect.width, height: CGFloat.infinity),

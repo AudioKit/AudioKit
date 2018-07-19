@@ -5,11 +5,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: Next, we'll connect the audio sources to a decimator
 var decimator = AKDecimator(player)
@@ -18,41 +17,28 @@ decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
 
 AudioKit.output = decimator
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Decimator")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Decimation",
-            value: decimator.decimation,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Decimation", value: decimator.decimation) { sliderValue in
             decimator.decimation = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Rounding",
-            value: decimator.rounding,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Rounding", value: decimator.rounding) { sliderValue in
             decimator.rounding = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Mix",
-            value: decimator.mix,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Mix", value: decimator.mix) { sliderValue in
             decimator.mix = sliderValue
         })
 
@@ -61,4 +47,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

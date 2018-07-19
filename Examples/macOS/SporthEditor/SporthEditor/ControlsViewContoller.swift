@@ -2,14 +2,14 @@
 //  ControlsViewContoller.swift
 //  SporthEditor
 //
-//  Created by Kanstantsin Linou on 7/14/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
 
 class ControlsViewContoller: NSViewController {
-    let vc = NSApplication.shared().windows.first!.contentViewController as! ViewController
+    let vc = NSApplication.shared.windows.first!.contentViewController as! ViewController
 
     @IBOutlet private var slider1: NSSlider!
     @IBOutlet private var slider2: NSSlider!
@@ -41,10 +41,11 @@ class ControlsViewContoller: NSViewController {
     }
 
     @IBAction func toggleGate(_ sender: NSButton) {
-        guard let identifier = sender.identifier, let index = Int(identifier) else {
+        guard let identifier = sender.identifier, let index = Int(identifier.rawValue) else {
             NSLog(Constants.Error.Identifier)
             return
         }
+
         if vc.brain.generator?.parameters[index] != 1 {
             vc.brain.generator?.parameters[index] = 1
         } else if vc.brain.generator?.parameters[index] != 0 {

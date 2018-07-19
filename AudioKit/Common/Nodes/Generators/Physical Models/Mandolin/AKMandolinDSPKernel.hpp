@@ -3,149 +3,60 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-#include "Mandolin.h"
-
-enum {
-    detuneAddress = 0,
-    bodySizeAddress = 1,
-};
-
-static inline double noteToHz(int noteNumber)
-{
-    return 440. * exp2((noteNumber - 69)/12.);
-}
-
 class AKMandolinDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
+    enum {
+        detuneAddress = 0,
+        bodySizeAddress = 1,
+    };
     
-    AKMandolinDSPKernel() {}
+    AKMandolinDSPKernel();
     
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
+    ~AKMandolinDSPKernel();
 
-        // iOS Hack
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        for (int i=0; i <= 3; i++) mandolins[i] = new stk::Mandolin(100);
-        stk::Stk::setSampleRate(sampleRate);
-    }
-    
-    void destroy() {
-        for (int i=0; i <= 3; i++) delete mandolins[i];
-    }
-    
-    void reset() {
-        resetted = true;
-    }
-    
-    void setDetune(float value) {
-        detune = clamp(value, 0.0f, 10.0f);
-        detuneRamper.setImmediate(detune);
-    }
+    void init(int _channels, double _sampleRate) override;
 
-    void setBodySize(float value) {
-        bodySize = clamp(value, 0.0f, 3.0f);
-        bodySizeRamper.setImmediate(bodySize);
-    }
-    
-    void setFrequency(float frequency, int course) {
-        mandolins[course]->setFrequency(frequency);
-    }
-    void pluck(int course, float position, int velocity) {
-        started = true;
-        mandolins[course]->pluck((float)velocity/127.0, position);
-    }
-    void mute(int course) {
-        // How to stop?
-    }
-    
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-            case detuneAddress:
-                detuneRamper.setUIValue(clamp(value, 0.0f, 10.0f));
-                break;
+    void destroy();
 
-            case bodySizeAddress:
-                bodySizeRamper.setUIValue(clamp(value, 0.0f, 3.0f));
-                break;
-        }
-    }
+    void reset();
+
+    void setDetune(float value);
+
+    void setBodySize(float value);
+
+    void setFrequency(float frequency, int course);
     
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case detuneAddress:
-                return detuneRamper.getUIValue();
-                
-            case bodySizeAddress:
-                return bodySizeRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
+    void pluck(int course, float position, int velocity);
     
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case detuneAddress:
-                detuneRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
-                break;
-                
-            case bodySizeAddress:
-                bodySizeRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
-                break;
-        }
-    }
+    void mute(int course);
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
-            int frameOffset = int(frameIndex + bufferOffset);
-            
-            detune = detuneRamper.getAndStep();
-            bodySize = bodySizeRamper.getAndStep();
+    void setParameter(AUParameterAddress address, AUValue value);
+    AUValue getParameter(AUParameterAddress address);
 
-            for (auto & mandolin : mandolins) {
-              mandolin->setDetune(detune);
-              mandolin->setBodySize(1 / bodySize);
-            }
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 
-            for (int channel = 0; channel < channels; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (started) {
-                    *out = mandolins[0]->tick();
-                    *out += mandolins[1]->tick();
-                    *out += mandolins[2]->tick();
-                    *out += mandolins[3]->tick();
-                } else {
-                    *out = 0.0;
-                }
-            }
-        }
-    }
-    
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+
     // MARK: Member Variables
-    
-private:
 
-    stk::Mandolin *mandolins[4];
-    float detune = 1;
-    float bodySize = 1;
+private:
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
     
 public:
     bool started = false;
     bool resetted = false;
-    
+
     ParameterRamper detuneRamper = 1;
     ParameterRamper bodySizeRamper = 1;
 };

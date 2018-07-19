@@ -2,10 +2,10 @@
 //  Audiobus.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 2/06/16.
-//  Updated for AudioKit 3 by Aurelius Prochazka.
+//  Created by Daniel Clelland, revision history on Githbub.
+//  Updated for AudioKit by Aurelius Prochazka.
 //
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -53,7 +53,7 @@ class Audiobus {
         self.controller = ABAudiobusController(apiKey: apiKey)
 
         var myDict: NSDictionary?
-        if let path = Bundle.main.path(forResource:"Info", ofType: "plist") {
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
@@ -101,7 +101,7 @@ class Audiobus {
 
         startObservingInterAppAudioConnections()
         startObservingAudiobusConnections()
-        
+
         controller.enableReceivingCoreMIDIBlock = { _ in return }
     }
 
@@ -130,7 +130,7 @@ class Audiobus {
             self.updateConnections()
         }
 
-        audioUnit.add(listener: audioUnitPropertyListener, toProperty: kAudioUnitProperty_IsInterAppConnected)
+        try! audioUnit.add(listener: audioUnitPropertyListener, toProperty: kAudioUnitProperty_IsInterAppConnected)
     }
 
     private func stopObservingInterAppAudioConnections() {
@@ -138,7 +138,7 @@ class Audiobus {
     }
 
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
+        _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
                                                        object: nil,
                                                        queue: nil,
                                                        using: { _ in self.updateConnections() })
@@ -169,7 +169,7 @@ private extension ABAudiobusController {
             return false
         }
 
-        return connectedPorts.flatMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
+        return connectedPorts.compactMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
     }
 
 }
@@ -177,12 +177,12 @@ private extension ABAudiobusController {
 private extension AudioUnit {
 
     var isConnectedToInterAppAudio: Bool {
-        let value: UInt32 = getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
+        let value: UInt32 = try! getValue(forProperty: kAudioUnitProperty_IsInterAppConnected)
         return value != 0
     }
 
     func isConnectedToInterAppAudio(nodeOfType type: OSType) -> Bool {
-        let value: AudioComponentDescription = getValue(forProperty: kAudioOutputUnitProperty_NodeComponentDescription)
+        let value: AudioComponentDescription = try! getValue(forProperty: kAudioOutputUnitProperty_NodeComponentDescription)
         return value.componentType == type
     }
 

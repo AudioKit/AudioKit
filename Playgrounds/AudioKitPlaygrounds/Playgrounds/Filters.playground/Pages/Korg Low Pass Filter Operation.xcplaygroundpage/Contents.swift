@@ -1,4 +1,4 @@
-//: ## Low Pass Filter Operation
+//: ## Korg Low Pass Filter Operation
 //:
 import AudioKitPlaygrounds
 import AudioKit
@@ -15,8 +15,8 @@ let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
                            baseDir: .resources)
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 let filteredPlayer = AKOperationEffect(player) { player, _ in
     let cutoff = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return player.korgLowPassFilter(cutoffFrequency: cutoff, resonance: 1, saturation: 1)
@@ -25,7 +25,7 @@ let filteredPlayer = AKOperationEffect(player) { player, _ in
 //: Mixdown and playback
 let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 
 whiteNoise.start()
 player.play()

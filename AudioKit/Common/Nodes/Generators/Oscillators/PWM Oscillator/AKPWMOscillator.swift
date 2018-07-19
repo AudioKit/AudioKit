@@ -3,10 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Pulse-Width Modulating Oscillator
+/// Casio-style phase distortion with "pivot point" on the X axis This module is
+/// designed to emulate the classic phase distortion synthesis technique. From
+/// the mid 90's. The technique reads the first and second halves of the ftbl at
+/// different rates in order to warp the waveform. For example, pdhalf can
+/// smoothly transition a sinewave into something approximating a sawtooth wave.
 ///
 open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorAudioUnit
@@ -24,99 +28,101 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
-    /// In cycles per second, or Hz.
-    open dynamic var frequency: Double = 440 {
+    /// Frequency in cycles per second
+    @objc open dynamic var frequency: Double = 440 {
         willSet {
-            if frequency != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.frequency = Float(newValue)
+            if frequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
-    /// Output amplitude
-    open dynamic var amplitude: Double = 1.0 {
+    /// Output Amplitude.
+    @objc open dynamic var amplitude: Double = 1 {
         willSet {
-            if amplitude != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.amplitude = Float(newValue)
+            if amplitude == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
+        }
+    }
+
+    /// Duty Cycle Width 0 - 1
+    @objc open dynamic var pulseWidth: Double = 0.5 {
+        willSet {
+            if pulseWidth == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
+                }
+            }
+            internalAU?.setParameterImmediately(.pulseWidth, value: newValue)
         }
     }
 
     /// Frequency offset in Hz.
-    open dynamic var detuningOffset: Double = 0 {
+    @objc open dynamic var detuningOffset: Double = 0 {
         willSet {
-            if detuningOffset != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detuningOffset = Float(newValue)
+            if detuningOffset == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
 
     /// Frequency detuning multiplier
-    open dynamic var detuningMultiplier: Double = 1 {
+    @objc open dynamic var detuningMultiplier: Double = 1 {
         willSet {
-            if detuningMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detuningMultiplier = Float(newValue)
+            if detuningMultiplier == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
-        }
-    }
-
-    /// Duty cycle width (range 0-1).
-    open dynamic var pulseWidth: Double = 0.5 {
-        willSet {
-            if pulseWidth != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.pulseWidth = Float(newValue)
-                }
-            }
+            internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    ///
-    /// - parameter frequency: In cycles per second, or Hz.
-    ///
     public convenience override init() {
         self.init(frequency: 440)
     }
@@ -130,7 +136,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    public init(
+    @objc public init(
         frequency: Double,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,
@@ -147,12 +153,16 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -162,36 +172,31 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.frequencyParameter?.address {
-                    self?.frequency = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                } else if address == self?.pulseWidthParameter?.address {
-                    self?.pulseWidth = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
-        internalAU?.pulseWidth = Float(pulseWidth)
-        internalAU?.detuningOffset = Float(detuningOffset)
-        internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
+        internalAU?.setParameterImmediately(.pulseWidth, value: pulseWidth)
+        internalAU?.setParameterImmediately(.detuningOffset, value: detuningOffset)
+        internalAU?.setParameterImmediately(.detuningMultiplier, value: detuningMultiplier)
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

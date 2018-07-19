@@ -9,10 +9,10 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let metronome = AKMetronome()
+let view = LiveView()
 
 metronome.callback = {
-    view.beatFlasher.value = 1.0
-    view.beatFlasher.property = "Beat \(metronome.currentBeat)"
+    view.beatFlasher.color = .white
 
     DispatchQueue.main.async {
         view.beatFlasher.needsDisplay = true
@@ -20,81 +20,56 @@ metronome.callback = {
 
     let deadlineTime = DispatchTime.now() + (60 / metronome.tempo) / 10.0
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-        view.beatFlasher.value = 0.0
+        view.beatFlasher.color = .red
     }
 }
 
 AudioKit.output = metronome
-AudioKit.start()
+try AudioKit.start()
 metronome.start()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    var beatFlasher: AKPropertySlider!
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    var beatFlasher: AKButton!
+
+    override func viewDidLoad() {
         addTitle("Metronome")
 
-        beatFlasher = AKPropertySlider(
-            property: "",
-            value: 0,
-            color: AKColor.yellow
-        ) { _ in
-            // Nothing
+        beatFlasher = AKButton(title: "Stop", color: AKColor.red) { button in
+            if metronome.isPlaying {
+                button.title = "Start"
+                button.color = #colorLiteral(red: 0, green: 0.5859588462, blue: 0, alpha: 1)
+                metronome.stop()
+                metronome.reset()
+            } else {
+                button.title = "Stop"
+                button.color = .red
+                metronome.reset()
+                metronome.restart()
+            }
         }
-        addSubview(beatFlasher)
 
-        addSubview(AKButton(title: "Stop", color: AKColor.red) {
-            metronome.stop()
-            metronome.reset()
-            return ""
-        })
+        addView(beatFlasher)
 
-        addSubview(AKButton(title: "Start") {
-            metronome.reset()
-            metronome.restart()
-            return ""
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Sudivision",
-            format: "%0.0f",
-            value: 4, minimum: 1, maximum: 10,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Subdivision", value: 4, range: 1 ... 10, format: "%0.0f") { sliderValue in
             metronome.subdivision = Int(round(sliderValue))
         })
 
-        addSubview(AKPropertySlider(
-            property: "Tempo",
-            format: "%0.2f BPM",
-            value: 60, minimum: 40, maximum: 240,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Tempo", value: 60, range: 40 ... 240, format: "%0.1f BPM") { sliderValue in
             metronome.tempo = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 1",
-            format: "%0.1f Hz",
-            value: 2_000, minimum: 200, maximum: 4_000,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Frequency 1", value: 2_000, range: 200 ... 4_000, format: "%0.0f Hz") { sliderValue in
             metronome.frequency1 = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 2",
-            format: "%0.1f Hz",
-            value: 1_000, minimum: 200, maximum: 4_000,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Frequency 2", value: 1_000, range: 200 ... 4_000, format: "%0.0f Hz") { sliderValue in
             metronome.frequency2 = sliderValue
         })
     }
 }
-
-let view = PlaygroundView()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true

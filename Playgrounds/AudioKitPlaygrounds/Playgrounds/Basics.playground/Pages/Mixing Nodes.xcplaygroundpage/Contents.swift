@@ -7,30 +7,27 @@
 //: feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This section prepares the players
-let drumFile = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
-let bassFile = try AKAudioFile(readFileName: "bassloop.wav", baseDir: .resources)
+let drumFile = try AKAudioFile(readFileName: "drumloop.wav")
+let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
+let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav")
+let leadFile = try AKAudioFile(readFileName: "leadloop.wav")
 
-let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .resources)
+var drums = AKPlayer(audioFile: drumFile)
+var bass = AKPlayer(audioFile: bassFile)
+var guitar = AKPlayer(audioFile: guitarFile)
+var lead = AKPlayer(audioFile: leadFile)
 
-let leadFile = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
-
-var drums = try AKAudioPlayer(file: drumFile)
-var bass = try AKAudioPlayer(file: bassFile)
-var guitar = try AKAudioPlayer(file: guitarFile)
-var lead = try AKAudioPlayer(file: leadFile)
-
-drums.looping = true
-bass.looping = true
-guitar.looping = true
-lead.looping = true
+drums.isLooping = true
+bass.isLooping = true
+guitar.isLooping = true
+lead.isLooping = true
 
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)
 
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 
 drums.play()
 bass.play()
@@ -49,81 +46,51 @@ guitar.pan = 0.2
 lead.pan   = -0.2
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Mixer")
 
-        addSubview(AKButton(title: "Stop All") {
+        addView(AKButton(title: "Stop All") { button in
             drums.isPlaying  ? drums.stop()  : drums.play()
             bass.isPlaying   ? bass.stop()   : bass.play()
             guitar.isPlaying ? guitar.stop() : guitar.play()
             lead.isPlaying   ? lead.stop()   : lead.play()
 
             if drums.isPlaying {
-                return "Stop All"
+                button.title = "Stop All"
+            } else {
+                button.title = "Start All"
             }
-            return "Start All"
         })
 
-        addSubview(AKPropertySlider(
-            property: "Drums Volume",
-            value: drums.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Drums Volume", value: drums.volume) { sliderValue in
             drums.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Drums Pan",
-            value: drums.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Drums Pan", value: drums.pan, range: -1 ... 1) { sliderValue in
             drums.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Bass Volume",
-            value: bass.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Bass Volume", value: bass.volume) { sliderValue in
             bass.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Bass Pan",
-            value: bass.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Bass Pan", value: bass.pan, range: -1 ... 1) { sliderValue in
             bass.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Guitar Volume",
-            value: guitar.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Guitar Volume", value: guitar.volume) { sliderValue in
             guitar.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Guitar Pan",
-            value: guitar.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Guitar Pan", value: guitar.pan, range: -1 ... 1) { sliderValue in
             guitar.pan = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Lead Volume",
-            value: lead.volume,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Lead Volume", value: lead.volume) { sliderValue in
             lead.volume = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Lead Pan",
-            value: lead.pan, minimum: -1, maximum: 1,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
             lead.pan = sliderValue
         })
     }
@@ -131,5 +98,5 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

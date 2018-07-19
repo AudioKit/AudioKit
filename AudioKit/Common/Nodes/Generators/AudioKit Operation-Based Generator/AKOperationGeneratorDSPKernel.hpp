@@ -3,14 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
 #import <vector>
 
-#import "DSPKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -34,30 +34,40 @@ public:
 
         plumber_register(&pd);
         plumber_init(&pd);
-        addUgensToFTable(&pd);
+        if (customUgens.size() > 0) {
+            addUgensToFTable(&pd);
+        }
         pd.sp = sp;
         if (sporthCode != nil) {
             plumber_parse_string(&pd, sporthCode);
             plumber_compute(&pd, PLUMBER_INIT);
         }
-        
+
     }
-    
-    void setSporth(char *sporth) {
-        sporthCode = sporth;
+
+    void setSporth(char *sporth, int length) {
+        if (sporthCode) {
+            free(sporthCode);
+            sporthCode = NULL;
+        }
+        if (length) {
+            sporthCode = (char *)malloc(length);
+            memcpy(sporthCode, sporth, length);
+        }
         plumber_recompile_string_v2(&pd, sporthCode, this, &addUgensToKernel);
     }
 
     void addUgensToFTable(plumber_data *pd) {
-      for (auto info : customUgens) {
-        plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
-      }
+        for (auto info : customUgens) {
+            info.name = "triggerFunction"; // This should stored and freed like sporthCode instead of being a constant
+            plumber_ftmap_add_function(pd, info.name, info.func, info.userData);
+        }
     }
-    
+
     void trigger(int trigger) {
         internalTriggers[trigger] = 1;
     }
-    
+
     void setParameters(float params[]) {
         for (int i = 0; i < 14; i++) {
             parameters[i] = params[i];
@@ -71,17 +81,20 @@ public:
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
-    
+
 
     void destroy() {
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
+        if (sporthCode) {
+            free(sporthCode);
+        }
     }
-    
+
     void reset() {
     }
 
@@ -107,7 +120,7 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            
+
             for (int i = 0; i < 14; i++) {
                 if (internalTriggers[i] == 1) {
                     pd.p[i] = 1.0;
@@ -129,7 +142,7 @@ public:
                 }
             }
         }
-        
+
         for (int i = 0; i < 14; i++) {
             if (internalTriggers[i] == 1) {
                 pd.p[i] = 0.0;
@@ -155,7 +168,7 @@ public:
 };
 
 static int addUgensToKernel(plumber_data *pd, void *ud) {
-  auto kernel = (AKOperationGeneratorDSPKernel *)ud;
-  kernel->addUgensToFTable(pd);
-  return PLUMBER_OK;
+    auto kernel = (AKOperationGeneratorDSPKernel *)ud;
+    kernel->addUgensToFTable(pd);
+    return PLUMBER_OK;
 }

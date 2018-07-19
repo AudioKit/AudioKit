@@ -1,20 +1,21 @@
 //
 //  AKSamplePlayer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
-//  Created by Jeff Cooper on 5/20/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+/// An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that 
+/// doesn't rely on an as much Apple AV foundation/engine code as the others.
+/// As any other Sampler, it plays a part of a given sound file at a specified rate 
+/// with specified volume. Changing the rate plays it faster and therefore sounds 
+/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
+/// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
-/// A Sample type, just a UInt32
-public typealias Sample = UInt32
-
-/// Callback function that can be called from C
-public typealias AKCCallback = @convention(block) () -> Void
-
 /// Audio player that loads a sample into memory
+@available(*, deprecated, message: "AKSamplePlayer is now AKWaveTable")
 open class AKSamplePlayer: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKSamplePlayerAudioUnit
@@ -28,52 +29,60 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
+    fileprivate var loopStartPointParameter: AUParameter?
+    fileprivate var loopEndPointParameter: AUParameter?
     fileprivate var rateParameter: AUParameter?
     fileprivate var volumeParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// startPoint in samples - where to start playing the sample from
-    open dynamic var startPoint: Sample = 0 {
+    @objc open dynamic var startPoint: Sample = 0 {
         willSet {
             if startPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        startPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.startPoint = Float(safeSample(newValue))
-                }
+                internalAU?.startPoint = Float(safeSample(newValue))
             }
         }
     }
 
-    /// endPoint - this is where the sample will play to before stopping. 
+    /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
-    open dynamic var endPoint: Sample = 0 {
+    @objc open dynamic var endPoint: Sample = 0 {
         willSet {
             if endPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        endPointParameter?.setValue(Float(safeSample(newValue)), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.endPoint = Float(safeSample(newValue))
-                }
+                internalAU?.endPoint = Float(safeSample(newValue))
+            }
+        }
+    }
+
+    /// loopStartPoint in samples - where to start playing the sample from
+    @objc open dynamic var loopStartPoint: Sample = 0 {
+        willSet {
+            if loopStartPoint != newValue {
+                internalAU?.loopStartPoint = Float(safeSample(newValue))
+            }
+        }
+    }
+
+    /// loopEndPoint - this is where the sample will play to before stopping.
+    @objc open dynamic var loopEndPoint: Sample = 0 {
+        willSet {
+            if endPoint != newValue {
+                internalAU?.loopEndPoint = Float(safeSample(newValue))
             }
         }
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-    open dynamic var rate: Double = 1 {
+    @objc open dynamic var rate: Double = 1 {
         willSet {
             if rate != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         rateParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -85,10 +94,10 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Volume - amplitude adjustment
-    open dynamic var volume: Double = 1 {
+    @objc open dynamic var volume: Double = 1 {
         willSet {
             if volume != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         volumeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -101,20 +110,29 @@ open class AKSamplePlayer: AKNode, AKComponent {
 
     /// Loop Enabled - if enabled, the sample will loop back to the startpoint when the endpoint is reached.
     /// When disabled, the sample will play through once from startPoint to endPoint
-    open dynamic var loopEnabled: Bool = false {
+    @objc open dynamic var loopEnabled: Bool = false {
         willSet {
             internalAU?.loop = newValue
         }
     }
 
-    /// Number of sample in the audio stored in memory
+    /// Number of samples in the audio stored in memory
     open var size: Sample {
-        return Sample(avAudiofile.samplesCount)
+        if avAudiofile != nil {
+            return Sample(avAudiofile!.samplesCount)
+        }
+        return Sample(maximumSamples)
+    }
+
+    /// originalSampleRate
+    open var originalSampleRate: Double? {
+        return avAudiofile?.sampleRate
     }
 
     /// Position in the audio file from 0 - 1
     open var normalizedPosition: Double {
-        return Double(internalAU!.position())
+        guard let internalAU = internalAU else { return 0 }
+        return Double(internalAU.position())
     }
 
     /// Position in the audio in samples, but represented as a double since
@@ -124,203 +142,181 @@ open class AKSamplePlayer: AKNode, AKComponent {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
-    fileprivate var avAudiofile: AVAudioFile
+    fileprivate var avAudiofile: AVAudioFile?
+    fileprivate var maximumSamples: Int = 0
+
+    open var loadCompletionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.loadCompletionHandler = newValue
+        }
+    }
+    open var completionHandler: AKCallback = {} {
+        willSet {
+            internalAU?.completionHandler = newValue
+        }
+    }
 
     // MARK: - Initialization
 
     /// Initialize this SamplePlayer node
     ///
-    public init(
-        file: AVAudioFile,
-        startPoint: Sample = 0,
-        endPoint: Sample = 0,
-        rate: Double = 1,
-        volume: Double = 1,
-        completionHandler: @escaping AKCCallback = { }) {
+    /// - Parameters:
+    ///   - file: Initial file to load (defining maximum size unless maximum samples are also set
+    ///   - startPoint: Point in samples from which to start playback
+    ///   - endPoint: Point in samples at which to stop playback
+    ///   - rate: Multiplication factor from original speed (Default: 1)
+    ///   - volume: Multiplication factor of the overall amplitude (Default: 1)
+    ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
+    ///   - completionHandler: Callback to run when the sample playback is completed
+    ///
+    @objc public init(file: AKAudioFile? = nil,
+                      startPoint: Sample = 0,
+                      endPoint: Sample = 0,
+                      rate: Double = 1,
+                      volume: Double = 1,
+                      maximumSamples: Int = 0,
+                      completionHandler: @escaping AKCCallback = {},
+                      loadCompletionHandler: @escaping AKCCallback = {}) {
 
         self.startPoint = startPoint
         self.rate = rate
         self.volume = volume
-        self.avAudiofile = file
-        self.endPoint = Sample(avAudiofile.samplesCount)
+        self.endPoint = endPoint
+        if file != nil {
+            self.avAudiofile = file!
+            self.endPoint = Sample(avAudiofile!.samplesCount)
+        }
+        self.maximumSamples = maximumSamples
+        self.completionHandler = completionHandler
+        self.loadCompletionHandler = loadCompletionHandler
+
         _Self.register()
 
         super.init()
 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            self!.internalAU!.completionHandler = completionHandler
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            strongSelf.internalAU!.completionHandler = completionHandler
+            strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
         startPointParameter = tree["startPoint"]
         endPointParameter = tree["endPoint"]
+        loopStartPointParameter = tree["startPoint"]
+        loopEndPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.startPointParameter?.address {
-                    self?.startPoint = Sample(value)
-                } else if address == self?.endPointParameter?.address {
-                    self?.endPoint = Sample(value)
-                } else if address == self?.rateParameter?.address {
-                    self?.rate = Double(value)
-                } else if address == self?.volumeParameter?.address {
-                    self?.volume = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
+        internalAU?.loopStartPoint = Float(startPoint)
+        internalAU?.loopEndPoint = Float(self.endPoint)
         internalAU?.rate = Float(rate)
         internalAU?.volume = Float(volume)
 
-        load(file: self.avAudiofile)
+        if maximumSamples != 0 {
+            internalAU?.setupAudioFileTable(UInt32(maximumSamples) * 2)
+        }
+        if file != nil {
+            load(file: file!)
+        }
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
+        internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
+        internalAU?.loopEndPoint = Float(safeSample(loopEndPoint))
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 
     /// Play from a certain sample
-    open func play(from: Sample = 0) {
-        startPoint = from
+    open func play() {
+        start()
+    }
+
+    /// Play from a certain sample
+    open func play(from: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
         start()
     }
 
     /// Play from a certain sample for a certain number of samples
-    open func play(from: Sample = 0, length: Sample = 0) {
-        startPoint = from
-        endPoint = startPoint + length
+    open func play(from: Sample, length: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(from + length))
         start()
     }
 
     /// Play from a certain sample to an end sample
-    open func play(from: Sample = 0, to: Sample = 0) {
-        startPoint = from
-        endPoint = to
+    open func play(from: Sample, to: Sample) {
+        internalAU?.tempStartPoint = Float(safeSample(from))
+        internalAU?.tempEndPoint = Float(safeSample(to))
         start()
     }
 
     func safeSample(_ point: Sample) -> Sample {
         if point > size { return size }
-        //if point < 0 { return 0 } doesnt work cause we're using uint32 for sample
+        // if point < 0 { return 0 } doesn't work cause we're using uint32 for sample
         return point
     }
 
     /// Load a new audio file into memory
-    open func loadSound(file: AVAudioFile) {
-        load(file: file)
-    }
-
-    func load(file: AVAudioFile) {
-        Exit: do {
-            var err: OSStatus = noErr
-            var theFileLengthInFrames: Int64 = 0
-            var theFileFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-            var thePropertySize: UInt32 = UInt32(MemoryLayout.stride(ofValue: theFileFormat))
-            var extRef: ExtAudioFileRef?
-            var theData: UnsafeMutablePointer<CChar>?
-            var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
-            err = ExtAudioFileOpenURL(file.url as CFURL, &extRef)
-            if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
-            // Get the audio data format
-            guard let externalAudioFileRef = extRef else {
-                break Exit
-            }
-            err = ExtAudioFileGetProperty(externalAudioFileRef,
-                                          kExtAudioFileProperty_FileDataFormat,
-                                          &thePropertySize,
-                                          &theFileFormat)
-            if err != 0 {
-                AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)")
-                break Exit
-            }
-            if theFileFormat.mChannelsPerFrame > 2 {
-                AKLog("Unsupported Format, channel count is greater than stereo")
-                break Exit
-            }
-
-            theOutputFormat.mSampleRate = AKSettings.sampleRate
-            theOutputFormat.mFormatID = kAudioFormatLinearPCM
-            theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
-            theOutputFormat.mBitsPerChannel = UInt32(MemoryLayout<Float>.stride) * 8
-            theOutputFormat.mChannelsPerFrame = 2
-            theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(MemoryLayout<Float>.stride)
-            theOutputFormat.mFramesPerPacket = 1
-            theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
-
-            // Set the desired client (output) data format
-            err = ExtAudioFileSetProperty(externalAudioFileRef,
-                                          kExtAudioFileProperty_ClientDataFormat,
-                                          UInt32(MemoryLayout.stride(ofValue: theOutputFormat)),
-                                          &theOutputFormat)
-            if err != 0 {
-                AKLog("ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) FAILED, Error = \(err)")
-                break Exit
-            }
-
-            // Get the total frame count
-            thePropertySize = UInt32(MemoryLayout.stride(ofValue: theFileLengthInFrames))
-            err = ExtAudioFileGetProperty(externalAudioFileRef,
-                                          kExtAudioFileProperty_FileLengthFrames,
-                                          &thePropertySize,
-                                          &theFileLengthInFrames)
-            if err != 0 {
-                AKLog("ExtAudioFileGetProperty(kExtAudioFileProperty_FileLengthFrames) FAILED, Error = \(err)")
-                break Exit
-            }
-
-            // Read all the data into memory
-            let dataSize = UInt32(theFileLengthInFrames) * theOutputFormat.mBytesPerFrame
-            theData = UnsafeMutablePointer.allocate(capacity: Int(dataSize))
-            if theData != nil {
-                var bufferList: AudioBufferList = AudioBufferList()
-                bufferList.mNumberBuffers = 1
-                bufferList.mBuffers.mDataByteSize = dataSize
-                bufferList.mBuffers.mNumberChannels = theOutputFormat.mChannelsPerFrame
-                bufferList.mBuffers.mData = UnsafeMutableRawPointer(theData)
-
-                // Read the data into an AudioBufferList
-                var ioNumberFrames: UInt32 = UInt32(theFileLengthInFrames)
-                err = ExtAudioFileRead(externalAudioFileRef, &ioNumberFrames, &bufferList)
-                if err == noErr {
-                    // success
-                    let data = UnsafeMutablePointer<Float>(
-                        bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
-                    )
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames * 2)
-                    self.avAudiofile = file
-                    self.startPoint = 0
-                    self.endPoint = Sample(file.samplesCount)
-                } else {
-                    // failure
-                    theData?.deallocate(capacity: Int(dataSize))
-                    theData = nil // make sure to return NULL
-                    AKLog("Error = \(err)"); break Exit
-                }
-            }
+    open func load(file: AKAudioFile) {
+        if file.channelCount > 2 || file.channelCount < 1 {
+            AKLog("AKSamplePlayer currently only supports mono or stereo samples")
+            return
         }
+        let sizeToUse = UInt32(file.samplesCount * 2)
+        if maximumSamples == 0 {
+            maximumSamples = Int(file.samplesCount)
+            internalAU?.setupAudioFileTable(sizeToUse)
+        }
+        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
+        try! file.read(into: buf!)
+        let data = buf!.floatChannelData
+        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
+
+        avAudiofile = file
+        startPoint = 0
+        endPoint = Sample(file.samplesCount)
+        loopStartPoint = 0
+        loopEndPoint = Sample(file.samplesCount)
     }
+    //todo open func loadSound()
+
 }

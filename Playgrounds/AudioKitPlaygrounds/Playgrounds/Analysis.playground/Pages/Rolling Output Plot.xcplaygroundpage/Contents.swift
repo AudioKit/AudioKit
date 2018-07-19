@@ -5,38 +5,34 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0
 
 AudioKit.output = variSpeed
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Playback Speed")
 
-        addSubview(AKPropertySlider(
-            property: "Rate",
-            format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Rate", value: variSpeed.rate, range: 0.312_5 ... 5) { sliderValue in
             variSpeed.rate = sliderValue
         })
 
-        addSubview(AKRollingOutputPlot.createView())
+        addView(AKRollingOutputPlot.createView())
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

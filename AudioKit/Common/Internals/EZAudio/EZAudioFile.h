@@ -2,7 +2,7 @@
 //  EZAudioFile.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 12/1/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -67,7 +67,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Occurs when the audio file's internal seek position has been updated by the EZAudioFile functions `readFrames:audioBufferList:bufferSize:eof:` or `audioFile:updatedPosition:`. As of 0.8.0 this is the preferred method of listening for position updates on the audio file since a user may want the pull the currentTime, formattedCurrentTime, or the frame index from the EZAudioFile instance provided.
- @param audioFile The instance of the EZAudio in which the change occured.
+ @param audioFile The instance of the EZAudio in which the change occurred.
  */
 - (void)audioFileUpdatedPosition:(EZAudioFile *)audioFile;
 
@@ -75,7 +75,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Occurs when the audio file's internal seek position has been updated by the EZAudioFile functions `readFrames:audioBufferList:bufferSize:eof:` or `audioFile:updatedPosition:`.
- @param audioFile     The instance of the EZAudio in which the change occured
+ @param audioFile     The instance of the EZAudio in which the change occurred
  @param framePosition The new frame index as a 64-bit signed integer
  @deprecated This property is deprecated starting in version 0.8.0.
  @note Please use `audioFileUpdatedPosition:` property instead.
@@ -169,7 +169,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
  Class method that creates a new instance of the EZAudioFile using a file path URL with a delegate conforming to the EZAudioFileDelegate protocol and a client format.
  @param url The file path reference of the audio file as an NSURL.
  @param delegate The audio file delegate that receives events specified by the EZAudioFileDelegate protocol
- @param clientFormat An AudioStreamBasicDescription that will be used as the client format on the audio file. For instance, the audio file might be in a 22.5 kHz sample rate, interleaved MP3 file format, but your app wants to read linear PCM samples at a sample rate of 44.1 kHz so it can be read in the context of other components sharing a common stream format (like a audio processing graph). If this initializer is not used then the `defaultClientFormat` will be used as teh default value for the client format.
+ @param clientFormat An AudioStreamBasicDescription that will be used as the client format on the audio file. For instance, the audio file might be in a 22.5 kHz sample rate, interleaved MP3 file format, but your app wants to read linear PCM samples at a sample rate of 44.1 kHz so it can be read in the context of other components sharing a common stream format (like a audio processing graph). If this initializer is not used then the `defaultClientFormat` will be used as the default value for the client format.
  @return The newly created EZAudioFile instance.
  */
 + (instancetype)audioFileWithURL:(NSURL *)url
@@ -253,7 +253,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 //------------------------------------------------------------------------------
 
 /**
- Provides the current offset in the audio file as an NSTimeInterval (i.e. in seconds).  When setting this it will determine the correct frame offset and perform a `seekToFrame` to the new time offset. 
+ Provides the current offset in the audio file as an NSTimeInterval (i.e. in seconds).  When setting this it will determine the correct frame offset and perform a `seekToFrame` to the new time offset.
  @warning Make sure the new current time offset is less than the `duration` or you will receive an invalid seek assertion.
  */
 @property (nonatomic, readwrite) NSTimeInterval currentTime;
@@ -290,7 +290,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 //------------------------------------------------------------------------------
 
 /**
- Provides the frame index (a.k.a the seek positon) within the audio file as SInt64. This can be helpful when seeking through the audio file.
+ Provides the frame index (a.k.a the seek position) within the audio file as SInt64. This can be helpful when seeking through the audio file.
  @return The current frame index within the audio file as a SInt64.
  */
 @property (readonly) SInt64 frameIndex;
@@ -309,7 +309,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
  A list of markers associated with the audio file. These are typically embedded within WAVE or AIFF files only.
  @return A NSArray containing the markers in the file. Will be NULL if no markers.
  */
-@property (readonly) NSArray *markers;
+@property (readwrite) NSArray *markers;
 
 //------------------------------------------------------------------------------
 
@@ -357,7 +357,6 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float **waveformData, int len
 
 /**
  Synchronously pulls the waveform amplitude data into a float array for the receiver. This returns a waveform with a default resolution of 1024, meaning there are 1024 data points to plot the waveform.
- @param numberOfPoints A UInt32 representing the number of data points you need. The higher the number of points the more detailed the waveform will be.
  @return A EZAudioFloatData instance containing the audio data for all channels of the audio.
  */
 - (EZAudioFloatData *)getWaveformData;

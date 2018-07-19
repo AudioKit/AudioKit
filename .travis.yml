@@ -1,11 +1,22 @@
 language: objective-c
-osx_image: xcode8.3
+osx_image: xcode9.3
 env:
 - LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
 before_install:
 - pod repo update
+- brew install gnu-sed s3cmd
 - gem install xcpretty -N
 script: "./Tests/travis.sh"
 notifications:
   slack:
     secure: Bgfiib7NP2/98fjJvW+PraQQFnj5X23+Zmvy9XqIe9NetzyNqWVN6URRFdcjvSnpah1kg2gGhIdkT5gvBT8HcP8OS6x/2lMFQsOhuA0mMoJ3tK3vhve10s3Mt8JvWqnEI3OmnDF/Yx7FN0sGiTskLYvi7jCzLY1QNqdg52VTsNI=
+deploy:
+  provider: releases
+  api_key:
+    secure: a7osq2mGo9nnc/tb5SuWpB+CXmeWUqH3TIAyxWooe17KCcKJ4cFRZi5W7MORySSfi7IzSsJ3igWRbXx+P3cwk+/AEqDA1Gmv2ZiIBE7m4fee/wnuA1eIOrzpaBevcEO+s9ooS2Dlq4S3UUSsBB+2slRXZQOcIG2n5imHs9ckGWM=
+  file_glob: true
+  skip_cleanup: true
+  file: Frameworks/packages/*.zip
+  on:
+    repo: AudioKit/AudioKit
+    tags: true

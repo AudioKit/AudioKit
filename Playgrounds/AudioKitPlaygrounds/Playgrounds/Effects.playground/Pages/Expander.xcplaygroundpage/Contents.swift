@@ -2,63 +2,66 @@
 //: ##
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var expander = AKExpander(player)
 
 AudioKit.output = expander
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Expander")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: expander))
-        addSubview(AKPropertySlider(
-            property: "Ratio",
-            format: "%0.2f",
-            value: expander.expansionRatio, minimum: 1, maximum: 50
+        addView(AKButton(title: "Stop Expander") { button in
+            let node = expander
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Expander" : "Start Expander"
+        })
+
+        addView(AKSlider(property: "Ratio",
+                         value: expander.expansionRatio,
+                         range: 1 ... 50,
+                         format: "%0.2f"
         ) { sliderValue in
             expander.expansionRatio = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Threshold",
-            format: "%0.2f",
-            value: expander.expansionThreshold, minimum: 1, maximum: 50
+        addView(AKSlider(property: "Threshold",
+                         value: expander.expansionThreshold,
+                         range: 1 ... 50,
+                         format: "%0.2f"
         ) { sliderValue in
             expander.expansionThreshold = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Attack Time",
-            format: "%0.4f s",
-            value: expander.attackTime, minimum: 0.001, maximum: 0.2
+        addView(AKSlider(property: "Attack Duration",
+                         value: expander.attackDuration,
+                         range: 0.001 ... 0.2,
+                         format: "%0.4f s"
         ) { sliderValue in
-            expander.attackTime = sliderValue
+            expander.attackDuration = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Release Time",
-            format: "%0.3f s",
-            value: expander.releaseTime, minimum: 0.01, maximum: 3
+        addView(AKSlider(property: "Release Duration",
+                         value: expander.releaseDuration,
+                         range: 0.01 ... 3,
+                         format: "%0.3f s"
         ) { sliderValue in
-            expander.releaseTime = sliderValue
+            expander.releaseDuration = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Master Gain",
-            format: "%0.2f dB",
-            value: expander.masterGain, minimum: -40, maximum: 40
+        addView(AKSlider(property: "Master Gain",
+                         value: expander.masterGain,
+                         range: -40 ... 40,
+                         format: "%0.2f dB"
         ) { sliderValue in
             expander.masterGain = sliderValue
         })
@@ -68,4 +71,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

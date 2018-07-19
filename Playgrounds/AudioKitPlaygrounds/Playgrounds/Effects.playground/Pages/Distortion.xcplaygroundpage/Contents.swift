@@ -4,11 +4,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var distortion = AKDistortion(player)
 distortion.delay = 0.1
@@ -22,129 +21,87 @@ distortion.softClipGain = -6
 distortion.finalMix = 0.5
 
 AudioKit.output = AKBooster(distortion, gain: 0.1)
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var delaySlider: AKPropertySlider?
-    var decaySlider: AKPropertySlider?
-    var delayMixSlider: AKPropertySlider?
-    var linearTermSlider: AKPropertySlider?
-    var squaredTermSlider: AKPropertySlider?
-    var cubicTermSlider: AKPropertySlider?
-    var polynomialMixSlider: AKPropertySlider?
-    var softClipGainSlider: AKPropertySlider?
-    var finalMixSlider: AKPropertySlider?
+    var delaySlider: AKSlider?
+    var decaySlider: AKSlider?
+    var delayMixSlider: AKSlider?
+    var linearTermSlider: AKSlider?
+    var squaredTermSlider: AKSlider?
+    var cubicTermSlider: AKSlider?
+    var polynomialMixSlider: AKSlider?
+    var softClipGainSlider: AKSlider?
+    var finalMixSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Distortion")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: distortion))
+        addView(AKButton(title: "Stop Distortion") { button in
+            let node = distortion
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Distortion" : "Start Distortion"
+        })
 
-        delaySlider = AKPropertySlider(
-            property: "Delay",
-            format: "%0.3f ms",
-            value: distortion.delay, minimum: 0.1, maximum: 500,
-            color: AKColor.green
+        delaySlider = AKSlider(property: "Delay",
+                               value: distortion.delay,
+                               range: 0.1 ... 500,
+                               format: "%0.3f ms"
         ) { sliderValue in
             distortion.delay = sliderValue
         }
-        addSubview(delaySlider)
+        addView(delaySlider)
 
-        decaySlider = AKPropertySlider(
-            property: "Decay Rate",
-            value: distortion.decay, minimum: 0.1, maximum: 50,
-            color: AKColor.green
+        decaySlider = AKSlider(property: "Decay Rate",
+                               value: distortion.decay,
+                               range: 0.1 ... 50
         ) { sliderValue in
             distortion.decay = sliderValue
         }
-        addSubview(decaySlider)
+        addView(decaySlider)
 
-        delayMixSlider = AKPropertySlider(
-            property: "Delay Mix",
-            value: distortion.delayMix,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Delay Mix", value: distortion.delayMix) { sliderValue in
             distortion.delayMix = sliderValue
-        }
-        addSubview(delayMixSlider)
+        })
 
-        linearTermSlider = AKPropertySlider(
-            property: "Linear Term",
-            value: distortion.linearTerm,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Linear Term", value: distortion.linearTerm) { sliderValue in
             distortion.linearTerm = sliderValue
-        }
-        addSubview(linearTermSlider)
+        })
 
-        squaredTermSlider = AKPropertySlider(
-            property: "Squared Term",
-            value: distortion.squaredTerm,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Squared Term", value: distortion.squaredTerm) { sliderValue in
             distortion.squaredTerm = sliderValue
-        }
-        addSubview(squaredTermSlider)
+        })
 
-        cubicTermSlider = AKPropertySlider(
-            property: "Cubic Term",
-            value: distortion.cubicTerm,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Cubic Term", value: distortion.cubicTerm) { sliderValue in
             distortion.cubicTerm = sliderValue
-        }
-        addSubview(cubicTermSlider)
+        })
 
-        polynomialMixSlider = AKPropertySlider(
-            property: "Polynomial Mix",
-            value: distortion.polynomialMix,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Polynomial Mix", value: distortion.polynomialMix) { sliderValue in
             distortion.polynomialMix = sliderValue
-        }
-        addSubview(polynomialMixSlider)
+        })
 
-        softClipGainSlider = AKPropertySlider(
-            property: "Soft Clip Gain",
-            format: "%0.3f dB",
-            value: distortion.softClipGain, minimum: -80, maximum: 20,
-            color: AKColor.green
+        softClipGainSlider = AKSlider(property: "Soft Clip Gain",
+                                      value: distortion.softClipGain,
+                                      range: -80 ... 20,
+                                      format: "%0.3f dB"
         ) { sliderValue in
             distortion.softClipGain = sliderValue
         }
-        addSubview(softClipGainSlider)
+        addView(softClipGainSlider)
 
-        finalMixSlider = AKPropertySlider(
-            property: "Final Mix",
-            value: distortion.finalMix,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Final Mix", value: distortion.finalMix) { sliderValue in
             distortion.finalMix = sliderValue
-        }
-        addSubview(finalMixSlider)
-    }
-
-    func updateUI() {
-        delaySlider?.value = distortion.delay
-        decaySlider?.value = distortion.decay
-        delayMixSlider?.value = distortion.delayMix
-        linearTermSlider?.value = distortion.linearTerm
-        squaredTermSlider?.value = distortion.squaredTerm
-        cubicTermSlider?.value = distortion.cubicTerm
-        polynomialMixSlider?.value = distortion.polynomialMix
-        softClipGainSlider?.value = distortion.softClipGain
-        finalMixSlider?.value = distortion.finalMix
+        })
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

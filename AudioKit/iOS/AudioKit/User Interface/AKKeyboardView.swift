@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 import UIKit
 
 /// Delegate for keyboard events
-public protocol AKKeyboardDelegate: class {
+@objc public protocol AKKeyboardDelegate: class {
     /// Note on evenets
     func noteOn(note: MIDINoteNumber)
     /// Note off events
@@ -21,7 +21,7 @@ public protocol AKKeyboardDelegate: class {
     /// Number of octaves displayed at once
     @IBInspectable open var octaveCount: Int = 2
 
-    /// Lowest octave dispayed
+    /// Lowest octave displayed
     @IBInspectable open var firstOctave: Int = 4
 
     /// Relative measure of the height of the black keys
@@ -47,7 +47,7 @@ public protocol AKKeyboardDelegate: class {
     var onKeys = Set<MIDINoteNumber>()
 
     /// Allows multiple notes to play concurrently
-    open var polyphonicMode = false {
+    @objc open var polyphonicMode = false {
         didSet {
             for note in onKeys {
                 delegate?.noteOff(note: note)
@@ -56,6 +56,8 @@ public protocol AKKeyboardDelegate: class {
             setNeedsDisplay()
         }
     }
+
+    let baseMIDINote = 24 // MIDINote 24 is C0
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -70,14 +72,17 @@ public protocol AKKeyboardDelegate: class {
     // MARK: - Initialization
 
     /// Initialize the keyboard with default info
-    public override init(frame: CGRect) {
+    @objc public override init(frame: CGRect) {
         super.init(frame: frame)
         isMultipleTouchEnabled = true
     }
 
     /// Initialize the keyboard
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
-                polyphonic: Bool = false) {
+    @objc public init(width: Int,
+                      height: Int,
+                      firstOctave: Int = 4,
+                      octaveCount: Int = 3,
+                      polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -215,11 +220,11 @@ public protocol AKKeyboardDelegate: class {
         if y > oneOctaveSize.height * topKeyHeightRatio {
             let octNum = Int(x / oneOctaveSize.width)
             let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
-            note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
+            note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))] + baseMIDINote
         } else {
             let octNum = Int(x / oneOctaveSize.width)
             let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
-            note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
+            note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))] + baseMIDINote
         }
         if note >= 0 {
             return MIDINoteNumber(note)
@@ -262,10 +267,10 @@ public protocol AKKeyboardDelegate: class {
             if let key = noteFromTouchLocation(touch.location(in: self)),
                 key != noteFromTouchLocation(touch.previousLocation(in: self)) {
                 pressAdded(key)
+                setNeedsDisplay()
             }
         }
         verifyTouches(event?.allTouches)
-        setNeedsDisplay()
     }
 
     /// Handle stopped touches
@@ -337,14 +342,14 @@ public protocol AKKeyboardDelegate: class {
 
     func whiteKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
         return onKeys.contains(
-            MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n])
+            MIDINoteNumber((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n] + baseMIDINote)
             ) ? keyOnColor : whiteKeyOff
     }
 
     func topKeyColor(_ n: Int, octaveNumber: Int) -> UIColor {
         if notesWithSharps[topKeyNotes[n]].range(of: "#") != nil {
             return onKeys.contains(
-                MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n])
+                MIDINoteNumber((firstOctave + octaveNumber) * 12 + topKeyNotes[n] + baseMIDINote)
                 ) ? keyOnColor : blackKeyOff
         }
         return #colorLiteral(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)

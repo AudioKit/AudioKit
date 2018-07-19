@@ -34,8 +34,8 @@
 //: * [Morphing Oscillator](Morphing%20Oscillator)
 //: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
 //: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
-//: 
-//: New in AudioKit 3.7 is Microtonality capability:
+//:
+//: Microtonal Functionality:
 //:
 //: * [Microtonality](Microtonality)
 //:
@@ -44,7 +44,7 @@
 //: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Filter Envelope](Filter%20Envelope)
 //:
-//: There are also oscillator banks which are a collection of oscillators 
+//: There are also oscillator banks which are a collection of oscillators
 //: that allow you to play several notes at once (polyphony).
 //:
 //: * [Oscillator Bank](Oscillator%20Bank)
@@ -55,7 +55,7 @@
 //:
 //: ### Noise Generators
 //:
-//: There are two noise "colors" to start off with, pink and white, 
+//: There are two noise "colors" to start off with, pink and white,
 //: but we aim to have a much larger spectrum soon.
 //:
 //: * [Noise Generators](Noise%20Generators)
@@ -71,6 +71,7 @@
 //: * [Flute](Flute)
 //: * [Mandolin](Mandolin)
 //: * [Plucked String](Plucked%20String)
+//: * [Tubular Bells](Tubular%20Bells)
 //: * [Vocal Tract](Vocal%20Tract)
 //: * [Vocal Tract Operation](Vocal%20Tract%20Operation)
 //:

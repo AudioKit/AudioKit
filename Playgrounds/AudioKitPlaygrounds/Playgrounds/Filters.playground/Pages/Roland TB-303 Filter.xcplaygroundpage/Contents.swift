@@ -3,18 +3,17 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var filter = AKRolandTB303Filter(player)
 filter.cutoffFrequency = 1_350
 filter.resonance = 0.8
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 var time = 0.0

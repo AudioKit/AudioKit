@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Phase Distortion Oscillator Bank
@@ -11,7 +11,7 @@
 open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseDistortionOscillatorBankAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "phdb")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "phdb")
 
     // MARK: - Properties
 
@@ -25,21 +25,22 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var decayDurationParameter: AUParameter?
     fileprivate var sustainLevelParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
-    fileprivate var detuningOffsetParameter: AUParameter?
-    fileprivate var detuningMultiplierParameter: AUParameter?
+    fileprivate var pitchBendParameter: AUParameter?
+    fileprivate var vibratoDepthParameter: AUParameter?
+    fileprivate var vibratoRateParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Duty cycle width (range -1 - 1).
-    open dynamic var phaseDistortion: Double = 0.0 {
+    @objc open dynamic var phaseDistortion: Double = 0.0 {
         willSet {
             if phaseDistortion != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         phaseDistortionParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -50,11 +51,11 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Attack time
-    open dynamic var attackDuration: Double = 0.1 {
+    /// Attack duration in seconds
+    @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -64,11 +65,11 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    /// Decay time
-    open dynamic var decayDuration: Double = 0.1 {
+    /// Decay duration in seconds
+    @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -79,10 +80,10 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
     /// Sustain Level
-    open dynamic var sustainLevel: Double = 1.0 {
+    @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
             if sustainLevel != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -92,11 +93,11 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    /// Release time
-    open dynamic var releaseDuration: Double = 0.1 {
+    /// Release duration in seconds
+    @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
-                if internalAU?.isSetUp() ?? false {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
                         releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     }
@@ -107,31 +108,46 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Frequency offset in Hz.
-    open dynamic var detuningOffset: Double = 0 {
+    /// Pitch Bend as number of semitones
+    @objc open dynamic var pitchBend: Double = 0 {
         willSet {
-            if detuningOffset != newValue {
-                if internalAU?.isSetUp() ?? false {
+            if pitchBend != newValue {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
-                        detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
+                        pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.detuningOffset = Float(newValue)
+                    internalAU?.pitchBend = Float(newValue)
                 }
             }
         }
     }
 
-    /// Frequency detuning multiplier
-    open dynamic var detuningMultiplier: Double = 1 {
+    /// Vibrato Depth in semitones
+    @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
-            if detuningMultiplier != newValue {
-                if internalAU?.isSetUp() ?? false {
+            if vibratoDepth != newValue {
+                if internalAU?.isSetUp ?? false {
                     if let existingToken = token {
-                        detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
+                        vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.detuningMultiplier = Float(newValue)
+                    internalAU?.vibratoDepth = Float(newValue)
+                }
+            }
+        }
+    }
+
+    /// Vibrato Rate in Hz
+    @objc open dynamic var vibratoRate: Double = 0 {
+        willSet {
+            if vibratoRate != newValue {
+                if internalAU?.isSetUp ?? false {
+                    if let existingToken = token {
+                        vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
+                    }
+                } else {
+                    internalAU?.vibratoRate = Float(newValue)
                 }
             }
         }
@@ -149,22 +165,25 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     /// - Parameters:
     ///   - waveform:  The waveform of oscillation
     ///   - phaseDistortion: Phase distortion amount (range -1 - 1).
-    ///   - attackDuration: Attack time
-    ///   - decayDuration: Decay time
+    ///   - attackDuration: Attack duration in seconds
+    ///   - decayDuration: Decay duration in seconds
     ///   - sustainLevel: Sustain Level
-    ///   - releaseDuration: Release time
-    ///   - detuningOffset: Frequency offset in Hz.
-    ///   - detuningMultiplier: Frequency detuning multiplier
+    ///   - releaseDuration: Release duration in seconds
+    ///   - pitchBend: Change of pitch in semitones
+    ///   - vibratoDepth: Vibrato size in semitones
+    ///   - vibratoRate: Frequency of vibrato in Hz
+
     ///
-    public init(
+    @objc public init(
         waveform: AKTable,
         phaseDistortion: Double = 0.0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,
         releaseDuration: Double = 0.1,
-        detuningOffset: Double = 0,
-        detuningMultiplier: Double = 1) {
+        pitchBend: Double = 0,
+        vibratoDepth: Double = 0,
+        vibratoRate: Double = 0) {
 
         self.waveform = waveform
         self.phaseDistortion = phaseDistortion
@@ -173,8 +192,9 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         self.decayDuration = decayDuration
         self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
-        self.detuningOffset = detuningOffset
-        self.detuningMultiplier = detuningMultiplier
+        self.pitchBend = pitchBend
+        self.vibratoDepth = vibratoDepth
+        self.vibratoRate = vibratoRate
 
         _Self.register()
 
@@ -182,6 +202,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioNode = avAudioUnit
+            self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             self?.internalAU?.setupWaveform(Int32(waveform.count))
@@ -191,6 +212,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -200,27 +222,19 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
-        detuningOffsetParameter = tree["detuningOffset"]
-        detuningMultiplierParameter = tree["detuningMultiplier"]
+        pitchBendParameter = tree["pitchBend"]
+        vibratoDepthParameter = tree["vibratoDepth"]
+        vibratoRateParameter = tree["vibratoRate"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.phaseDistortionParameter?.address {
-                    self?.phaseDistortion = Double(value)
-                } else if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.decayDurationParameter?.address {
-                    self?.decayDuration = Double(value)
-                } else if address == self?.sustainLevelParameter?.address {
-                    self?.sustainLevel = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                } else if address == self?.detuningOffsetParameter?.address {
-                    self?.detuningOffset = Double(value)
-                } else if address == self?.detuningMultiplierParameter?.address {
-                    self?.detuningMultiplier = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
@@ -230,8 +244,9 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)
         internalAU?.releaseDuration = Float(releaseDuration)
-        internalAU?.detuningOffset = Float(detuningOffset)
-        internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        internalAU?.pitchBend = Float(pitchBend)
+        internalAU?.vibratoDepth = Float(vibratoDepth)
+        internalAU?.vibratoRate = Float(vibratoRate)
     }
 
     // MARK: - AKPolyphonic

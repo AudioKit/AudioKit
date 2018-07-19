@@ -2,7 +2,7 @@
 //  EZAudioPlot.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 9/2/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#import "AudioKit/EZAudio.h"
 #import "EZAudioPlot.h"
 
 //------------------------------------------------------------------------------
@@ -118,19 +119,19 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.plotType = EZPlotTypeBuffer;
     self.shouldMirror = NO;
     self.shouldFill = NO;
-    
+
     // Setup history window
     [self resetHistoryBuffers];
-    
+
     self.waveformLayer = [EZAudioPlotWaveformLayer layer];
     self.waveformLayer.frame = self.bounds;
     self.waveformLayer.lineWidth = 1.0f;
     self.waveformLayer.fillColor = nil;
     self.waveformLayer.backgroundColor = nil;
     self.waveformLayer.opaque = YES;
-    
+
 #if TARGET_OS_IPHONE
-    self.color = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0]; 
+    self.color = [UIColor colorWithHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
 #elif TARGET_OS_MAC
     self.color = [NSColor colorWithCalibratedHue:0 saturation:1.0 brightness:1.0 alpha:1.0];
     self.wantsLayer = YES;
@@ -140,12 +141,12 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.backgroundColor = nil;
     self.fadeout = false;
     [self.layer insertSublayer:self.waveformLayer atIndex:0];
-    
+
     //
     // Allow subclass to initialize plot
     //
     [self setupPlot];
-    
+
     self.points = calloc(EZAudioPlotDefaultMaxHistoryBufferLength, sizeof(CGPoint));
     self.pointCount = [self initialPointCount];
     [self redraw];
@@ -173,7 +174,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     {
         [EZAudioUtilities freeHistoryInfo:self.historyInfo];
     }
-    
+
     self.historyInfo = [EZAudioUtilities historyInfoWithDefaultLength:[self defaultRollingHistoryLength]
                                                         maximumLength:[self maximumRollingHistoryLength]];
 }
@@ -346,7 +347,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     [EZAudioUtilities appendBufferRMS:buffer
                        withBufferSize:bufferSize
                         toHistoryInfo:self.historyInfo];
-    
+
     // copy samples
     switch (self.plotType)
     {
@@ -355,14 +356,14 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
                          length:bufferSize];
             break;
         case EZPlotTypeRolling:
-            
+
             [self setSampleData:self.historyInfo->buffer
                          length:self.historyInfo->bufferSize];
             break;
         default:
             break;
     }
-    
+
     // update drawing
     if (!self.shouldOptimizeForRealtimePlot)
     {

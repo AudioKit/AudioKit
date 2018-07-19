@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension NSError {
@@ -65,7 +65,7 @@ extension AKAudioFile {
     ///
     public convenience init(writeIn baseDir: BaseDirectory = .temp,
                             name: String? = nil,
-                            settings: [String : Any] = AKSettings.audioFormat.settings)
+                            settings: [String: Any] = AKSettings.audioFormat.settings)
         throws {
             let extPath: String = "\(name ?? UUID().uuidString).caf"
             let filePath: String = try baseDir.create(file: extPath, write: true)
@@ -84,8 +84,7 @@ extension AKAudioFile {
             do {
                 try self.init(forWriting: fileURL, settings: fixedSettings)
             } catch let error as NSError {
-                AKLog("ERROR AKAudioFile: Couldn't create an AKAudioFile...")
-                AKLog("Error: \(error)")
+                AKLog("ERROR: Couldn't create an AKAudioFile", error)
                 throw NSError.fileCreateError
             }
     }
@@ -118,26 +117,26 @@ extension AKAudioFile {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
                                    channels: AVAudioChannelCount(channels))
 
-        let buffer = AVAudioPCMBuffer(pcmFormat: format,
-                                      frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
+        let buffer = AVAudioPCMBuffer(pcmFormat: format!,
+                                      frameCapacity: AVAudioFrameCount(floatsArrays[0].count))
 
         // Fill the buffers
 
         for channel in 0..<channels {
-            let channelNData = buffer.floatChannelData?[channel]
-            for f in 0..<Int(buffer.frameCapacity) {
+            let channelNData = buffer?.floatChannelData?[channel]
+            for f in 0..<Int(buffer?.frameCapacity ?? 0) {
                 channelNData?[f] = floatsArrays[channel][f]
             }
         }
 
         // set the buffer frameLength
-        buffer.frameLength = buffer.frameCapacity
+        buffer?.frameLength = (buffer?.frameCapacity)!
 
         // Write the buffer in file
         do {
-            try self.write(from: buffer)
+            try self.write(from: buffer!)
         } catch let error as NSError {
-            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
+            AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
             throw error
         }
 

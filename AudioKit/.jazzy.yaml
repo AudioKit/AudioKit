@@ -12,27 +12,43 @@ custom_categories:
     children:
     - AudioKit
     - AKAudioFile
+    - AKComponent
+    - AKCustomUgen
     - AKDevice
+    - AKInput
+    - AKLog(fullname:file:line:_:)
     - AKMicrophoneTracker
     - AKNodeRecorder
+    - AKOutput
+    - AKPeriodicFunction
     - AKSettings
     - AKTable
     - AKTableType
     - AKTester
+    - AKTiming
+    - AKTry(_:)
+    - AKTuningTable
+    - CheckError(_:)
+    - fourCC(_:)
+    - ">>>(_:_:)"
 
   - name: MIDI
     children:
     - AKMIDI
-    - AKMIDIEvent
+    - AKMIDICallback
     - AKMIDIControl
+    - AKMIDIEvent
     - AKMIDIInstrument
     - AKMIDIListener
     - AKMIDINode
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
+    - AKMIDITransformer
+    - AKRawMIDIPacket
     - MIDIPacket
     - MIDIPacketList
+    - AKBluetoothMIDIButton
     - AKCallbackInstrument
 
   - name: Sequencer
@@ -58,20 +74,27 @@ custom_categories:
     children:
     - AKDelay
     - AKVariableDelay
+    - AKVariableDelayAudioUnit
 
   - name: Distortion Nodes
     children:
     - AKBitCrusher
+    - AKBitCrusherAudioUnit
     - AKClipper
+    - AKClipperAudioUnit
     - AKDecimator
     - AKDistortion
     - AKRingModulator
     - AKTanhDistortion
+    - AKTanhDistortionAudioUnit
 
   - name: Dynamics Nodes
     children:
     - AKCompressor
     - AKDynamicsProcessor
+    - AKDynamicRangeCompressor
+    - AKDynaRageCompressor
+    - AKDynamicRangeCompressorAudioUnit
     - AKExpander
     - AKPeakLimiter
 
@@ -79,77 +102,136 @@ custom_categories:
     children:
     - AKOperationEffect
     - AKPitchShifter
+    - AKPitchShifterAudioUnit
+    - AKRhinoGuitarProcessor
+  
+  - name: Modulation Effect Nodes
+    children:
+    - AKChorus
+    - AKChorusAudioUnit
+    - AKFlanger
+    - AKFlangerAudioUnit
+    - AKPhaser
+    - AKPhaserAudioUnit
 
   - name: Envelopes
     children:
-    - AKAmplitudeEnvelope
+    - AKAmplitudeEnvelope 
+    - AKAmplitudeEnvelopeAudioUnit
     - AKTremolo
+    - AKTremoloAudioUnit
 
   - name: Filter Nodes
     children:
     - AKAutoWah
+    - AKAutoWahAudioUnit
     - AKBandPassButterworthFilter
+    - AKBandPassButterworthFilterAudioUnit
     - AKBandRejectButterworthFilter
+    - AKBandRejectButterworthFilterAudioUnit
     - AKCombFilterReverb
+    - AKCombFilterReverbAudioUnit
     - AKDCBlock
+    - AKDCBlockAudioUnit
     - AKEqualizerFilter
+    - AKEqualizerFilterAudioUnit
     - AKFormantFilter
+    - AKFormantFilterAudioUnit
     - AKHighPassButterworthFilter
+    - AKHighPassButterworthFilterAudioUnit
     - AKHighPassFilter
     - AKHighShelfFilter
     - AKHighShelfParametricEqualizerFilter
+    - AKHighShelfParametricEqualizerFilterAudioUnit
     - AKKorgLowPassFilter
+    - AKKorgLowPassFilterAudioUnit
     - AKLowPassButterworthFilter
+    - AKLowPassButterworthFilterAudioUnit
     - AKLowPassFilter
     - AKLowShelfFilter
     - AKLowShelfParametricEqualizerFilter
+    - AKLowShelfParametricEqualizerFilterAudioUnit
     - AKModalResonanceFilter
+    - AKModalResonanceFilterAudioUnit
     - AKMoogLadder
+    - AKMoogLadderAudioUnit
     - AKPeakingParametricEqualizerFilter
+    - AKPeakingParametricEqualizerFilterAudioUnit
     - AKResonantFilter
+    - AKResonantFilterAudioUnit
     - AKRolandTB303Filter
+    - AKRolandTB303FilterAudioUnit
     - AKStringResonator
+    - AKStringResonatorAudioUnit
     - AKThreePoleLowpassFilter
+    - AKThreePoleLowpassFilterAudioUnit
     - AKToneFilter
+    - AKToneFilterAudioUnit
     - AKToneComplementFilter
+    - AKToneComplementFilterAudioUnit
 
   - name: Reverb Nodes
     children:
     - AKChowningReverb
+    - AKChowningReverbAudioUnit
     - AKCostelloReverb
+    - AKCostelloReverbAudioUnit
     - AKConvolution
     - AKFlatFrequencyResponseReverb
+    - AKFlatFrequencyResponseReverbAudioUnit
     - AKReverb
     - AKReverb2
+    - AKZitaReverb
+    - AKZitaReverbAudioUnit
 
   - name: Noise Generator Nodes
     children:
+    - AKBrownianNoise
+    - AKBrownianNoiseAudioUnit
     - AKPinkNoise
+    - AKPinkNoiseAudioUnit
     - AKWhiteNoise
+    - AKWhiteNoiseAudioUnit
 
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
+    - AKFMOscillatorAudioUnit
     - AKFMOscillatorBank
     - AKMorphingOscillator
+    - AKMorphingOscillatorAudioUnit
     - AKMorphingOscillatorBank
     - AKOscillator
+    - AKOscillatorAudioUnit
     - AKOscillatorBank
     - AKPhaseDistortionOscillator
+    - AKPhaseDistortionOscillatorAudioUnit
     - AKPhaseDistortionOscillatorBank
     - AKPWMOscillator
+    - AKPWMOscillatorAudioUnit
     - AKPWMOscillatorBank
 
   - name: Physical Models
     children:
     - AKClarinet
+    - AKClarinetAudioUnit
     - AKDrip
+    - AKDripAudioUnit
     - AKFlute
+    - AKFluteAudioUnit
     - AKMandolin
     - AKMetalBar
+    - AKMetalBarAudioUnit
     - AKPluckedString
+    - AKPluckedStringAudioUnit
+    - AKRhodesPiano
+    - AKShaker
+    - AKShakerType
     - AKSynthKick
     - AKSynthSnare
+    - AKTubularBells
+    - AKVocalTract
+    - AKVocalTractAudioUnit
 
   - name: Input Node
     children:
@@ -161,18 +243,36 @@ custom_categories:
     - AK3DPanner
     - AKBalancer
     - AKBooster
+    - AKBoosterAudioUnit
     - AKDryWetMixer
     - AKMixer
     - AKPanner
+    - AKStereoFieldLimiter
 
   - name: Playback Nodes
     children:
-    - AKAudioPlayer
+
+    - AKAppleSampler
+    - AKClip
+    - AKClipMerger
+    - AKClipPlayer
+    - AKClipRecorder
+    - AKFileClip
+    - AKFileClipSequence
+    - AKMetronome
     - AKPhaseLockedVocoder
-    - AKSamplePlayer
+    - AKPlayer
+    - AKRecordingResult
     - AKSampler
+    - AKSamplePlayer
     - AKTimePitch
     - AKVariSpeed
+    - ClipMergeDelegate
+    - ClipMergerError
+    - ClipRecordingError
+    - FileClip
+    - Sample
+    - SampleTriggerModer
 
   - name: Operations
     children:
@@ -197,16 +297,8 @@ custom_categories:
     - "*(_:_:)"
     - "+(_:_:)"
     - "-(_:_:)"
+    - "-(_:)"
     - "/(_:_:)"
-    - "==(_:_:)"
-    - "!=(_:_:)"
-    - "<(_:_:)"
-    - "<=(_:_:)"
-    - ">(_:_:)"
-    - ">=(_:_:)"
-    - "%(_:_:)"
-    - "+=(_:_:)"
-    - "-=(_:_:)"
 
   - name: Random Number Generators
     children:
@@ -236,4 +328,18 @@ custom_categories:
     - AKPresetLoaderView
     - AKPropertySlider
     - AKResourcesAudioFileLoaderView
+    - AKStepper
     - AKTelephoneView
+    - MultitouchGestureRecognizer
+
+  - name: Apple Extensions
+    children:
+    - AVAudioCommonFormat
+    - AVAudioEngine
+    - AVAudioFile
+    - AVAudioNode
+    - AVAudioPCMBuffer
+    - AVAudioTime
+    - AVAudioUnit
+    - AudioComponentDescription
+    - AudioUnit

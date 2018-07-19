@@ -3,48 +3,54 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A complement to the AKLowPassFilter.
 ///
-open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
+open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKToneComplementFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "aton")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Half Power Point
+    public static let halfPowerPointRange = 12.0 ... 20_000.0
+
+    /// Initial value for Half Power Point
+    public static let defaultHalfPowerPoint = 1_000.0
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    open dynamic var halfPowerPoint: Double = 1_000.0 {
+    @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
-            if halfPowerPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.halfPowerPoint = Float(newValue)
+            if halfPowerPoint == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.halfPowerPoint, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -55,9 +61,10 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
-    public init(
-        _ input: AKNode?,
-        halfPowerPoint: Double = 1_000.0) {
+    @objc public init(
+        _ input: AKNode? = nil,
+        halfPowerPoint: Double = defaultHalfPowerPoint
+        ) {
 
         self.halfPowerPoint = halfPowerPoint
 
@@ -65,40 +72,46 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.addConnectionPoint(self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
         halfPowerPointParameter = tree["halfPowerPoint"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.halfPowerPointParameter?.address {
-                    self?.halfPowerPoint = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
-        internalAU?.halfPowerPoint = Float(halfPowerPoint)
+        internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

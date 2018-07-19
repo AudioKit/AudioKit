@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Function type for MIDI callbacks
@@ -19,12 +19,12 @@ open class AKCallbackInstrument: AKMIDIInstrument {
 
     /// Initialize the callback instrument
     ///
+    /// - parameter midiInputName: Name of the instrument's MIDI input
     /// - parameter callback: Initial callback
     ///
-    public init(callback: AKMIDICallback? = nil) {
-        super.init()
-        let midi = AKMIDI()
-        self.enableMIDI(midi.client, name: "callback midi in")
+    public init(midiInputName: String = "AudioKit Callback Instrument", callback: AKMIDICallback? = nil) {
+        super.init(midiInputName: midiInputName)
+        self.name = midiInputName
         self.callback = callback
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attach(self.avAudioNode)
@@ -53,7 +53,6 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number being stopped
-    ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {

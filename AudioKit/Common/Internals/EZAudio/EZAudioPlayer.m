@@ -2,7 +2,7 @@
 //  EZAudioPlayer.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 1/16/14.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2014 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -327,12 +327,12 @@ NSString * const EZAudioPlayerDidSeekNotification = @"EZAudioPlayerDidSeekNotifi
     // stop playing anything that might currently be playing
     //
     [self pause];
-    
+
     //
     // set new stream
     //
     self.audioFile = audioFile;
-    
+
     //
     // begin playback
     //
@@ -372,7 +372,7 @@ NSString * const EZAudioPlayerDidSeekNotification = @"EZAudioPlayerDidSeekNotifi
                    audioBufferList:audioBufferList
                         bufferSize:&bufferSize
                                eof:&eof];
-        if (eof && [self.delegate respondsToSelector:@selector(audioPlayer:reachedEndOfAudioFile:)]) 
+        if (eof && [self.delegate respondsToSelector:@selector(audioPlayer:reachedEndOfAudioFile:)])
         {
             [self.delegate audioPlayer:self reachedEndOfAudioFile:self.audioFile];
         }

@@ -3,11 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { player, _ in
     let frequency = AKOperation.sineWave(frequency: 0.5).scale(minimum: 2_000, maximum: 5_000)
@@ -17,7 +16,7 @@ let effect = AKOperationEffect(player) { player, _ in
 }
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

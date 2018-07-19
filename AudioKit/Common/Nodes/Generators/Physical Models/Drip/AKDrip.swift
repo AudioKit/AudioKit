@@ -3,13 +3,13 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///
-open class AKDrip: AKNode, AKComponent {
+open class AKDrip: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKDripAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
@@ -27,93 +27,170 @@ open class AKDrip: AKNode, AKComponent {
     fileprivate var secondResonantFrequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Intensity
+    public static let intensityRange = 0.0 ... 100.0
+
+    /// Lower and upper bounds for Damping Factor
+    public static let dampingFactorRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Energy Return
+    public static let energyReturnRange = 0.0 ... 100.0
+
+    /// Lower and upper bounds for Main Resonant Frequency
+    public static let mainResonantFrequencyRange = 0.0 ... 22_000.0
+
+    /// Lower and upper bounds for First Resonant Frequency
+    public static let firstResonantFrequencyRange = 0.0 ... 22_000.0
+
+    /// Lower and upper bounds for Second Resonant Frequency
+    public static let secondResonantFrequencyRange = 0.0 ... 22_000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 1.0
+
+    /// Initial value for Intensity
+    public static let defaultIntensity = 10.0
+
+    /// Initial value for Damping Factor
+    public static let defaultDampingFactor = 0.2
+
+    /// Initial value for Energy Return
+    public static let defaultEnergyReturn = 0.0
+
+    /// Initial value for Main Resonant Frequency
+    public static let defaultMainResonantFrequency = 450.0
+
+    /// Initial value for First Resonant Frequency
+    public static let defaultFirstResonantFrequency = 600.0
+
+    /// Initial value for Second Resonant Frequency
+    public static let defaultSecondResonantFrequency = 750.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 0.3
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// The intensity of the dripping sound.
-    open dynamic var intensity: Double = 10 {
+    @objc open dynamic var intensity: Double = defaultIntensity {
         willSet {
-            if intensity != newValue {
+            if intensity == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     intensityParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.intensity, value: newValue)
         }
     }
 
     /// The damping factor. Maximum value is 2.0.
-    open dynamic var dampingFactor: Double = 0.2 {
+    @objc open dynamic var dampingFactor: Double = defaultDampingFactor {
         willSet {
-            if dampingFactor != newValue {
+            if dampingFactor == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     dampingFactorParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.dampingFactor, value: newValue)
         }
     }
 
     /// The amount of energy to add back into the system.
-    open dynamic var energyReturn: Double = 0 {
+    @objc open dynamic var energyReturn: Double = defaultEnergyReturn {
         willSet {
-            if energyReturn != newValue {
+            if energyReturn == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     energyReturnParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.energyReturn, value: newValue)
         }
     }
 
     /// Main resonant frequency.
-    open dynamic var mainResonantFrequency: Double = 450 {
+    @objc open dynamic var mainResonantFrequency: Double = defaultMainResonantFrequency {
         willSet {
-            if mainResonantFrequency != newValue {
+            if mainResonantFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     mainResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.mainResonantFrequency, value: newValue)
         }
     }
 
     /// The first resonant frequency.
-    open dynamic var firstResonantFrequency: Double = 600 {
+    @objc open dynamic var firstResonantFrequency: Double = defaultFirstResonantFrequency {
         willSet {
-            if firstResonantFrequency != newValue {
+            if firstResonantFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     firstResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.firstResonantFrequency, value: newValue)
         }
     }
 
     /// The second resonant frequency.
-    open dynamic var secondResonantFrequency: Double = 750 {
+    @objc open dynamic var secondResonantFrequency: Double = defaultSecondResonantFrequency {
         willSet {
-            if secondResonantFrequency != newValue {
+            if secondResonantFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     secondResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.secondResonantFrequency, value: newValue)
         }
     }
 
     /// Amplitude.
-    open dynamic var amplitude: Double = 0.3 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude != newValue {
+            if amplitude == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -134,14 +211,14 @@ open class AKDrip: AKNode, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
-    public init(
+    @objc public init(
         intensity: Double,
-        dampingFactor: Double = 0.2,
-        energyReturn: Double = 0,
-        mainResonantFrequency: Double = 450,
-        firstResonantFrequency: Double = 600,
-        secondResonantFrequency: Double = 750,
-        amplitude: Double = 0.3) {
+        dampingFactor: Double = defaultDampingFactor,
+        energyReturn: Double = defaultEnergyReturn,
+        mainResonantFrequency: Double = defaultMainResonantFrequency,
+        firstResonantFrequency: Double = defaultFirstResonantFrequency,
+        secondResonantFrequency: Double = defaultSecondResonantFrequency,
+        amplitude: Double = defaultAmplitude) {
 
         self.intensity = intensity
         self.dampingFactor = dampingFactor
@@ -155,12 +232,16 @@ open class AKDrip: AKNode, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -172,33 +253,24 @@ open class AKDrip: AKNode, AKComponent {
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.intensityParameter?.address {
-                    self?.intensity = Double(value)
-                } else if address == self?.dampingFactorParameter?.address {
-                    self?.dampingFactor = Double(value)
-                } else if address == self?.energyReturnParameter?.address {
-                    self?.energyReturn = Double(value)
-                } else if address == self?.mainResonantFrequencyParameter?.address {
-                    self?.mainResonantFrequency = Double(value)
-                } else if address == self?.firstResonantFrequencyParameter?.address {
-                    self?.firstResonantFrequency = Double(value)
-                } else if address == self?.secondResonantFrequencyParameter?.address {
-                    self?.secondResonantFrequency = Double(value)
-                } else if address == self?.amplitudeParameter?.address {
-                    self?.amplitude = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.intensity = Float(intensity)
-        internalAU?.dampingFactor = Float(dampingFactor)
-        internalAU?.energyReturn = Float(energyReturn)
-        internalAU?.mainResonantFrequency = Float(mainResonantFrequency)
-        internalAU?.firstResonantFrequency = Float(firstResonantFrequency)
-        internalAU?.secondResonantFrequency = Float(secondResonantFrequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.setParameterImmediately(.intensity, value: intensity)
+        internalAU?.setParameterImmediately(.dampingFactor, value: dampingFactor)
+        internalAU?.setParameterImmediately(.energyReturn, value: energyReturn)
+        internalAU?.setParameterImmediately(.mainResonantFrequency, value: mainResonantFrequency)
+        internalAU?.setParameterImmediately(.firstResonantFrequency, value: firstResonantFrequency)
+        internalAU?.setParameterImmediately(.secondResonantFrequency, value: secondResonantFrequency)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
     // MARK: - Control
@@ -211,12 +283,12 @@ open class AKDrip: AKNode, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

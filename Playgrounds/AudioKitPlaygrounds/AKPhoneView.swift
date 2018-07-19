@@ -2,9 +2,11 @@
 //  AKPhoneView.swift
 //  AudioKit Playgrounds (macOS)
 //
-//  Created by Aurelius Prochazka on 7/31/16.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+
+import AudioKitUI
 
 /// This is primarily for the telephone page in the Synthesis playground
 public class AKPhoneView: NSView {
@@ -30,7 +32,7 @@ public class AKPhoneView: NSView {
         if busyCirclePath.contains(touchLocation) { currentKey = "BUSY" }
         if currentKey != "" {
             callback(currentKey, "down")
-            if currentKey.characters.count == 1 {
+            if currentKey.count == 1 {
                 last10Presses.removeFirst()
                 last10Presses.append(currentKey)
             }
@@ -59,7 +61,7 @@ public class AKPhoneView: NSView {
     func setupKeyDrawing(context: CGContext?, x: Int, y: Int) -> CGRect {
         let keyRect = NSRect(x: x, y: y, width: 82, height: 82)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(keyRect)
+        keyRect.clip()
         context?.translateBy(x: keyRect.origin.x, y: keyRect.origin.y)
         context?.scaleBy(x: keyRect.size.width / 100, y: keyRect.size.height / 100)
         return keyRect
@@ -67,7 +69,7 @@ public class AKPhoneView: NSView {
 
     override public func draw(_ rect: CGRect) {
         //// General Declarations
-        let context = NSGraphicsContext.current()?.cgContext
+        let context = NSGraphicsContext.current?.cgContext
 
         //// Color Declarations
         let color = #colorLiteral(red: 0.306, green: 0.851, blue: 0.392, alpha: 1)
@@ -184,13 +186,13 @@ public class AKPhoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 17)!,
-                                      NSForegroundColorAttributeName: NSColor.white,
-                                      NSParagraphStyleAttributeName: busyTextStyle]
+        let busyTextFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 17)!,
+                                      NSAttributedStringKey.foregroundColor: NSColor.white,
+                                      NSAttributedStringKey.paragraphStyle: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
             with: NSSize(width: busyTextRect.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: busyTextFontAttributes).size.height
         let busyTextTextRect: NSRect = NSRect(
             x: busyTextRect.minX,
@@ -198,7 +200,7 @@ public class AKPhoneView: NSView {
             width: busyTextRect.width,
             height: busyTextTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(busyTextRect)
+        busyTextRect.clip()
         busyTextTextContent.draw(in: busyTextTextRect.offsetBy(dx: 0, dy: 5), withAttributes: busyTextFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
@@ -208,13 +210,13 @@ public class AKPhoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
-                                     NSForegroundColorAttributeName: NSColor.black,
-                                     NSParagraphStyleAttributeName: readoutStyle]
+        let readoutFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                     NSAttributedStringKey.foregroundColor: NSColor.black,
+                                     NSAttributedStringKey.paragraphStyle: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
             with: NSSize(width: readoutRect.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: readoutFontAttributes).size.height
         let readoutTextRect: NSRect = NSRect(
             x: readoutRect.minX,
@@ -222,14 +224,14 @@ public class AKPhoneView: NSView {
             width: readoutRect.width,
             height: readoutTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(readoutRect)
+        readoutRect.clip()
         readoutTextContent.draw(in: readoutTextRect.offsetBy(dx: 0, dy: 0), withAttributes: readoutFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 
     public class func drawKey(text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()?.cgContext
+        _ = NSGraphicsContext.current?.cgContext
 
         //// Color Declarations
         let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
@@ -254,13 +256,13 @@ public class AKPhoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 11)!,
-                                     NSForegroundColorAttributeName: textColor,
-                                     NSParagraphStyleAttributeName: lettersStyle]
+        let lettersFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 11)!,
+                                     NSAttributedStringKey.foregroundColor: textColor,
+                                     NSAttributedStringKey.paragraphStyle: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
             with: NSSize(width: lettersRect.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: lettersFontAttributes).size.height
         let lettersTextRect: NSRect = NSRect(
             x: lettersRect.minX,
@@ -268,7 +270,7 @@ public class AKPhoneView: NSView {
             width: lettersRect.width,
             height: lettersTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(lettersRect)
+        lettersRect.clip()
         NSString(string: text).draw(in: lettersTextRect.offsetBy(dx: 0, dy: 2), withAttributes: lettersFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
 
@@ -277,13 +279,13 @@ public class AKPhoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
-                                    NSForegroundColorAttributeName: textColor,
-                                    NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSAttributedStringKey.foregroundColor: textColor,
+                                    NSAttributedStringKey.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: NSSize(width: numberRect.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: numberFontAttributes).size.height
         let numberTextRect: NSRect = NSRect(
             x: numberRect.minX,
@@ -291,14 +293,14 @@ public class AKPhoneView: NSView {
             width: numberRect.width,
             height: numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(numberRect)
+        numberRect.clip()
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }
 
     public class func drawCenteredKey(numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let _ = NSGraphicsContext.current()?.cgContext
+        _ = NSGraphicsContext.current?.cgContext
 
         //// Color Declarations
         let pressedKeyColor = #colorLiteral(red: 0.655, green: 0.745, blue: 0.804, alpha: 1)
@@ -323,13 +325,13 @@ public class AKPhoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSFontAttributeName: NSFont(name: "HelveticaNeue", size: 48)!,
-                                    NSForegroundColorAttributeName: textColor,
-                                    NSParagraphStyleAttributeName: numberStyle]
+        let numberFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSAttributedStringKey.foregroundColor: textColor,
+                                    NSAttributedStringKey.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: NSSize(width: numberRect.width, height: CGFloat.infinity),
-            options: NSStringDrawingOptions.usesLineFragmentOrigin,
+            options: NSString.DrawingOptions.usesLineFragmentOrigin,
             attributes: numberFontAttributes).size.height
         let numberTextRect: NSRect = NSRect(
             x: numberRect.minX,
@@ -337,7 +339,7 @@ public class AKPhoneView: NSView {
             width: numberRect.width,
             height: numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
-        NSRectClip(numberRect)
+        numberRect.clip()
         NSString(string: numeral).draw(in: numberTextRect.offsetBy(dx: 0, dy: 0), withAttributes: numberFontAttributes)
         NSGraphicsContext.restoreGraphicsState()
     }

@@ -20,14 +20,18 @@ import AudioKit
 //: just write:
 let oscillator = AKOscillator()
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 //: But if you did the same type of thing in a project:
 class BadAudioEngine {
     init() {
         let oscillator = AKOscillator()
         AudioKit.output = oscillator
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start")
+        }
     }
 }
 
@@ -39,7 +43,7 @@ class AudioEngine {
     init() {
         oscillator = AKOscillator()
         AudioKit.output = oscillator
-        AudioKit.start()
+        try AudioKit.start()
     }
 }
 
@@ -47,14 +51,14 @@ class AudioEngine {
 //:
 //: In AudioKit playgrounds, failable initializers are just one line:
 let file = try AKAudioFile()
-var player = try AKAudioPlayer(file: file)
+try AudioKit.start()
 
 //: In production code, this would need to be wrapped in a do-catch block
 do {
-    let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
-    player = try AKAudioPlayer(file: file)
+    let file = try AKAudioFile(readFileName: "drumloop.wav")
+    try AudioKit.start()
 } catch {
-    AKLog("File Not Found")
+    AKLog("File Not Found or AudioKit did not start")
 }
 
 //: ---

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='rendered'>
+<playground version='6.0' target-platform='macos' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='AutoPan Operation'/>
@@ -7,6 +7,7 @@
         <page name='Auto Wah Wah'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
+        <page name='Chorus'/>
         <page name='Clipper'/>
         <page name='Comb Filter Reverb'/>
         <page name='Compressor'/>
@@ -17,18 +18,22 @@
         <page name='Delay'/>
         <page name='Distortion'/>
         <page name='Dynamics Processor'/>
+        <page name='DynaRage Tube Compressor'/>
         <page name='Expander'/>
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
+        <page name='Flanger'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Flat Frequency Response Reverb Operation'/>
         <page name='Graphic Equalizer'/>
         <page name='Multi-tap Delay'/>
         <page name='MultiDelay Example'/>
         <page name='Peak Limiter'/>
+        <page name='Phaser'/>
         <page name='Pitch Shifter'/>
         <page name='Pitch Shift Operation'/>
         <page name='Reverb'/>
+        <page name='Rhino Guitar Processor'/>
         <page name='Ring Modulator'/>
         <page name='Smooth Delay Operation'/>
         <page name='Sporth Based Effect'/>

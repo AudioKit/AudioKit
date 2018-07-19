@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fK6-aW-d0K">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fK6-aW-d0K">
     <device id="ipad12_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNextCondensed.ttc">
+            <string>AvenirNextCondensed-Regular</string>
+        </array>
+        <array key="CourierNew.ttf">
+            <string>CourierNewPSMT</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="a68-Xs-MSa">
@@ -127,50 +135,50 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eY2-EF-YMa" userLabel="Sliders Stack View">
                                                 <rect key="frame" x="0.0" y="0.0" width="668" height="220"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5c-hy-qek" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5c-hy-qek" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="0.0" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="0.67351551549999999" green="1" blue="0.64190926100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.16076219081878662" green="0.16079705953598022" blue="0.16075998544692993" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSD-1a-JTN" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSD-1a-JTN" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="56" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="0.67351551549999999" green="1" blue="0.64190926100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.16076219080000001" green="0.16079705950000001" blue="0.1607599854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bo-1W-eO1" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bo-1W-eO1" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="112" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="0.67351551549999999" green="1" blue="0.64190926100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.16076219080000001" green="0.16079705950000001" blue="0.1607599854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIB-wC-0B6" customClass="AKPropertySlider" customModule="AudioKit">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIB-wC-0B6" customClass="AKSlider" customModule="AudioKitUI">
                                                         <rect key="frame" x="0.0" y="168" width="668" height="52"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="textColor">
                                                                 <color key="value" red="0.67351551549999999" green="1" blue="0.64190926100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
                                                                 <color key="value" red="0.16076219080000001" green="0.16079705950000001" blue="0.1607599854" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
@@ -178,19 +186,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tps-4D-kDx" customClass="AKOutputWaveformPlot" customModule="AudioKit">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tps-4D-kDx" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
                                                 <rect key="frame" x="678" y="0.0" width="668" height="220"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                                 </accessibility>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="octaveCount">
-                                                        <integer key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="firstOctave">
-                                                        <integer key="value" value="3"/>
-                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                                         <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </userDefinedRuntimeAttribute>
@@ -203,7 +205,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bh2-Lf-k29" customClass="AKKeyboardView" customModule="AudioKit">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bh2-Lf-k29" customClass="AKKeyboardView" customModule="AudioKitUI">
                                         <rect key="frame" x="0.0" y="804" width="1346" height="200"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -242,6 +244,7 @@
                     <connections>
                         <outlet property="codeEditorTextView" destination="KRV-Kj-ufW" id="ZLJ-PT-YR7"/>
                         <outlet property="keyboard" destination="Bh2-Lf-k29" id="vzv-bz-4zi"/>
+                        <outlet property="plot" destination="Tps-4D-kDx" id="JbZ-rf-fFi"/>
                         <outlet property="runButton" destination="aYn-Jm-ewa" id="8ki-5p-WEc"/>
                         <outlet property="slider1" destination="s5c-hy-qek" id="ybZ-gV-vWJ"/>
                         <outlet property="slider2" destination="cSD-1a-JTN" id="Pc6-4M-wB9"/>

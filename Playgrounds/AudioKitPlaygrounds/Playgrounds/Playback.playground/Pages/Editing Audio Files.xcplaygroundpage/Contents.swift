@@ -5,7 +5,7 @@ import AudioKit
 
 //: First load the drumloop
 
-let loop = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let loop = try AKAudioFile(readFileName: "drumloop.wav")
 
 //: You may have noticed that the drumloop doesn't loop so well. Let's fix this...
 let fixedLoop = try loop.extracted(fromSample: 0, toSample: Int64(3.42 * 44_100))
@@ -68,7 +68,7 @@ let sequencePlayer = try AKAudioPlayer(file: sequence)
 sequencePlayer.looping = true
 
 AudioKit.output = sequencePlayer
-AudioKit.start()
+try AudioKit.start()
 sequencePlayer.play()
 
 import PlaygroundSupport

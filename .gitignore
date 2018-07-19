@@ -18,6 +18,7 @@ Playgrounds/iOS/
 # Cocoapods
 Pods/
 Podfile.lock
+*.podspec*
 
 # osx noise
 .DS_Store
@@ -30,3 +31,6 @@ output/
 dev/
 
 Dev.playground
+
+# During Development
+AudioUnits

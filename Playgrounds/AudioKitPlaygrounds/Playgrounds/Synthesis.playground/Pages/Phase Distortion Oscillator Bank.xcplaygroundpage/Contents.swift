@@ -1,86 +1,83 @@
 //: ## Phase Distortion Oscillator Bank
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
+let bank = AKPhaseDistortionOscillatorBank(waveform: AKTable(.square))
 
-AudioKit.output = osc
-AudioKit.start()
+AudioKit.output = bank
+try AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Phase Distortion Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Phase Distortion",
-            value: osc.phaseDistortion,
-            color: AKColor.red
-        ) { amount in
-            osc.phaseDistortion = amount
+        addView(AKSlider(property: "Phase Distortion", value: bank.phaseDistortion) { sliderValue in
+            bank.phaseDistortion = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            osc.attackDuration = duration
+        let adsrView = AKADSRView { att, dec, sus, rel in
+            bank.attackDuration = att
+            bank.decayDuration = dec
+            bank.sustainLevel = sus
+            bank.releaseDuration = rel
+        }
+        adsrView.attackDuration = bank.attackDuration
+        adsrView.decayDuration = bank.decayDuration
+        adsrView.releaseDuration = bank.releaseDuration
+        adsrView.sustainLevel = bank.sustainLevel
+        addView(adsrView)
+
+        addView(AKSlider(property: "Pitch Bend",
+                         value: bank.pitchBend,
+                         range: -12 ... 12,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Release",
-            format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            osc.releaseDuration = duration
+        addView(AKSlider(property: "Vibrato Depth",
+                         value: bank.vibratoDepth,
+                         range: 0 ... 2,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            bank.vibratoDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
-        ) { offset in
-            osc.detuningOffset = offset
+        addView(AKSlider(property: "Vibrato Rate",
+                         value: bank.vibratoRate,
+                         range: 0 ... 10,
+                         format: "%0.2f Hz"
+        ) { sliderValue in
+            bank.vibratoRate = sliderValue
         })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
-        ) { multiplier in
-            osc.detuningMultiplier = multiplier
-        })
-
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") {
+        addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
+                button.title = "Go Monophonic"
             } else {
-                return "Go Polyphonic"
+                button.title = "Go Polyphonic"
             }
         })
     }
 
     func noteOn(note: MIDINoteNumber) {
-        osc.play(noteNumber: note, velocity: 80)
+        bank.play(noteNumber: note, velocity: 80)
     }
 
     func noteOff(note: MIDINoteNumber) {
-        osc.stop(noteNumber: note)
+        bank.stop(noteNumber: note)
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

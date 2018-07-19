@@ -3,20 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
-
+#import "AKSoundpipeKernel.hpp"
 
 class AKFrequencyTrackerDSPKernel : public AKSoundpipeKernel, public AKBuffered {
 public:
@@ -29,11 +21,11 @@ public:
         sp_ptrack_create(&ptrack);
         sp_ptrack_init(sp, ptrack, hopSize, peakCount);
     }
-    
+
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
@@ -42,7 +34,7 @@ public:
         sp_ptrack_destroy(&ptrack);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
     }
 
@@ -88,15 +80,13 @@ public:
     // MARK: Member Variables
 
 private:
-    
-    int hopSize = 4096;
-    int peakCount = 20;
-
     sp_ptrack *ptrack = nullptr;
 
 public:
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;
+    int hopSize = 4096;
+    int peakCount = 20;
     bool started = true;
 };
 

@@ -3,12 +3,12 @@
 //: but it could also be for modeling.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let bundle = Bundle.main
 
@@ -31,35 +31,25 @@ mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
 dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
-AudioKit.start()
+try AudioKit.start()
 
 stairwellConvolution.start()
 dishConvolution.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Convolution")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Dry Audio to Convolved",
-            value: dryWetMixer.balance,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Dry Audio to Convolved", value: dryWetMixer.balance) { sliderValue in
             dryWetMixer.balance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Stairwell to Dish",
-            value: mixer.balance,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Stairwell to Dish", value: mixer.balance) { sliderValue in
             mixer.balance = sliderValue
         })
     }
@@ -67,4 +57,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

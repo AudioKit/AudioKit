@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKTubularBellsAudioUnit.h"
@@ -16,7 +16,7 @@
 @implementation AKTubularBellsAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKTubularBellsDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -38,16 +38,16 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(TubularBells)
+    standardGeneratorSetup(TubularBells)
 
     // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter = [AUParameter frequency:@"frequency"
                                                           name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
-                                                       address:frequencyAddress];
+                                                       address:AKTubularBellsDSPKernel::frequencyAddress];
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter = [AUParameter parameter:@"amplitude"
                                                           name:@"Amplitude"
-                                                       address:amplitudeAddress
+                                                       address:AKTubularBellsDSPKernel::amplitudeAddress
                                                            min:0
                                                            max:1
                                                           unit:kAudioUnitParameterUnit_Generic];
@@ -56,16 +56,16 @@ standardKernelPassthroughs()
     frequencyAUParameter.value = 110;
     amplitudeAUParameter.value = 0.5;
 
-    _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
+    _kernel.setParameter(AKTubularBellsDSPKernel::frequencyAddress,       frequencyAUParameter.value);
+    _kernel.setParameter(AKTubularBellsDSPKernel::amplitudeAddress,       amplitudeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter,
-        amplitudeAUParameter
-    ]];
+                                                               frequencyAUParameter,
+                                                               amplitudeAUParameter
+                                                               ]];
 
-	parameterTreeBlock(TubularBells)
+    parameterTreeBlock(TubularBells)
 }
 
 AUAudioUnitGeneratorOverrides(TubularBells)

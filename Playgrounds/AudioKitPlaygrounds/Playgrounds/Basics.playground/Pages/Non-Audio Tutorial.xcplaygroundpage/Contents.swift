@@ -11,18 +11,17 @@
 //: AudioKit's functionality to the playground.
 import AudioKitPlaygrounds
 import AudioKit
-//: ALERT: This is also the line that most commonly shows an error "No such module" 
-//: This just means you haven't built the framework yet, in which case pressing Cmd-B or
-//: accessing the "Product" menu and choosing "Build".  
 
-//:
-//: This main bundle line just helps the playground find the files (such as audio clips)
-//: it will be able to play and process.
-let bundle = Bundle.main
+//: If you intend to use some of the user interface elements provided by the optional AudioKitUI
+//: framework, you will also need to import it.
+import AudioKitUI
 
-//: To reference a file, you use the bundle from about and the `pathForResource`
-//: method that includes the name with the extension given in the `ofType` parameter.
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
+//: ALERT: This is also the line that most commonly shows an error "No such module"
+//: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
+//: accessing the "Product" menu and choosing "Build".
+
+//: To use a file, copy it intot playground's "Resources" folder and refer to it by name:
+let file = try AKAudioFile(readFileName: "mixloop.wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
 //: we encourage you to drag your own sound files to the Resources folder.
@@ -38,10 +37,10 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .resources)
 //: on them and looking at the Quick Help Inspector.  Or, you can also option-click
 //: on any class, method, or variable name to show information about that element.
 //: Try it with the lines below:
-let player = try AKAudioPlayer(file: file)
+let player = AKPlayer(audioFile: file)
 let effect = AKMoogLadder(player)
 
-//: The following line keeps a playground executing even after the last line is
+//: The following lines keep a playground executing even after the last line is
 //: run so that the audio elements that were started have time to play and make
 //: sounds for us to listen to.
 import PlaygroundSupport

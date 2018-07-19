@@ -3,14 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
 #import <vector>
 
-#import "DSPKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
@@ -29,12 +29,11 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-
         plumber_register(&pd);
         plumber_init(&pd);
 
         for (auto info : customUgens) {
-          plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
+            plumber_ftmap_add_function(&pd, info.name, info.func, info.userData);
         }
 
         pd.sp = sp;
@@ -42,13 +41,20 @@ public:
             plumber_parse_string(&pd, sporthCode);
             plumber_compute(&pd, PLUMBER_INIT);
         }
-        
+
     }
-    
-    void setSporth(char *sporth) {
-        sporthCode = sporth;
+
+    void setSporth(char *sporth, int length) {
+        if (sporthCode) {
+            free(sporthCode);
+            sporthCode = NULL;
+        }
+        if (length) {
+            sporthCode = (char *)malloc(length);
+            memcpy(sporthCode, sporth, length);
+        }
     }
-    
+
     void setParameters(float params[]) {
         for (int i = 0; i < 14; i++) {
             parameters[i] = params[i];
@@ -62,7 +68,7 @@ public:
     void start() {
         started = true;
     }
-    
+
     void stop() {
         started = false;
     }
@@ -71,7 +77,7 @@ public:
         plumber_clean(&pd);
         AKSoundpipeKernel::destroy();
     }
-    
+
     void reset() {
     }
 
@@ -92,7 +98,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         if (!started) {
             outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
             outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
@@ -102,25 +108,25 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 if (channel < 2) {
                     pd.p[channel+14] = *in;
                 }
             }
-            
+
             for (int i = 0; i < 14; i++) {
                 pd.p[i] = parameters[i];
             }
-            
+
             plumber_compute(&pd, PLUMBER_COMPUTE);
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
             }
-            
+
             for (int i = 0; i < 14; i++) {
                 parameters[i] = pd.p[i];
             }

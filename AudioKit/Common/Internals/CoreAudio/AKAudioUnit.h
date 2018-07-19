@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 
@@ -17,14 +17,15 @@
 @interface AKAudioUnit : AUAudioUnit<AKKernelUnit>
 @property AUAudioUnitBus *outputBus;
 @property AUAudioUnitBusArray *inputBusArray;
+@property AUAudioUnitBusArray *outputBusArray;
 @property AVAudioFormat *defaultFormat;
 
 - (void)start;
 - (void)stop;
-- (BOOL)isPlaying;
-- (BOOL)isSetUp;
+@property (readonly) BOOL isPlaying;
+@property (readonly) BOOL isSetUp;
 
-@property double rampTime;
+@property double rampDuration;
 
 -(AUImplementorValueProvider)getter;
 -(AUImplementorValueObserver)setter;
@@ -70,17 +71,34 @@
 - (void)start { _kernel.start(); } \
 - (void)stop { _kernel.stop(); } \
 - (BOOL)isPlaying { return _kernel.started; } \
-- (BOOL)isSetUp { return _kernel.resetted; }
+- (BOOL)isSetUp { return _kernel.resetted; } \
+- (void)setShouldBypassEffect:(BOOL)shouldBypassEffect { \
+    if (shouldBypassEffect) {\
+        _kernel.stop();\
+    } else {\
+        _kernel.start();\
+    }\
+}\
 
 #define standardSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
-                                                                        channels:AKSettings.numberOfChannels]; \
+                                                                        channels:AKSettings.channelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
     _inputBus.init(self.defaultFormat, 8); \
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self \
                                                                 busType:AUAudioUnitBusTypeInput \
                                                                  busses:@[_inputBus.bus]];
+#define standardGeneratorSetup(str) \
+    self.rampDuration = AKSettings.rampDuration; \
+    self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
+                                                                        channels:AKSettings.channelCount]; \
+    _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
+    _outputBusBuffer.init(self.defaultFormat, 2); \
+    self.outputBus = _outputBusBuffer.bus; \
+    self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self \
+                                                                busType:AUAudioUnitBusTypeOutput \
+                                                                 busses:@[self.outputBus]];
 #define parameterTreeBlock(str) \
     __block AK##str##DSPKernel *blockKernel = &_kernel; \
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) { \
@@ -152,21 +170,19 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) { \
         return NO; \
     } \
-    _inputBus.allocateRenderResources(self.maximumFramesToRender); \
+    _outputBusBuffer.allocateRenderResources(self.maximumFramesToRender); \
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate); \
     _kernel.reset(); \
     return YES; \
 } \
 \
 - (void)deallocateRenderResources { \
+    _outputBusBuffer.deallocateRenderResources(); \
     [super deallocateRenderResources]; \
-    _kernel.destroy(); \
-    _inputBus.deallocateRenderResources(); \
 } \
 \
 - (AUInternalRenderBlock)internalRenderBlock { \
     __block AK##str##DSPKernel *state = &_kernel; \
-    __block BufferedInputBus *input = &_inputBus; \
     return ^AUAudioUnitStatus( \
                               AudioUnitRenderActionFlags *actionFlags, \
                               const AudioTimeStamp       *timestamp, \
@@ -175,14 +191,8 @@
                               AudioBufferList            *outputData, \
                               const AURenderEvent        *realtimeEventListHead, \
                               AURenderPullInputBlock      pullInputBlock) { \
-        AudioBufferList *inAudioBufferList = input->mutableAudioBufferList; \
-        AudioBufferList *outAudioBufferList = outputData; \
-        if (outAudioBufferList->mBuffers[0].mData == nullptr) { \
-            for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) { \
-                outAudioBufferList->mBuffers[i].mData = inAudioBufferList->mBuffers[i].mData; \
-            } \
-        } \
-        state->setBuffer(outAudioBufferList); \
+        _outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true); \
+        state->setBuffer(outputData); \
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead); \
         return noErr; \
     }; \

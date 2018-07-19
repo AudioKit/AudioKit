@@ -2,24 +2,28 @@
 //  AKTuningTable+Scala.swift
 //  AudioKit
 //
-//  Created by Marcus W. Hobbs on 4/28/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Marcus W. Hobbs, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKTuningTable {
 
-    /// Use a Scala file to write the tuning table
-    public func scalaFile(_ filePath: String) {
+    /// Use a Scala file to write the tuning table. Returns notes per octave or nil when file couldn't be read.
+    public func scalaFile(_ filePath: String) -> Int? {
         guard
             let contentData = FileManager.default.contents(atPath: filePath),
             let contentStr = String(data: contentData, encoding: .utf8) else {
                 AKLog("can't read filePath: \(filePath)")
-                return
+                return nil
         }
 
         if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
-            tuningTable(fromFrequencies: scalaFrequencies)
+            let npo = tuningTable(fromFrequencies: scalaFrequencies)
+            return npo
         }
+
+        // error
+        return nil
     }
 
     fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
@@ -28,21 +32,21 @@ extension AKTuningTable {
         }
 
         let leadingTrailingWhiteSpacesPattern = "(?:^\\s+)|(?:\\s+$)"
-        var regex: NSRegularExpression?
+        let regex: NSRegularExpression
 
         do {
             try regex = NSRegularExpression(pattern: leadingTrailingWhiteSpacesPattern,
-                                            options: NSRegularExpression.Options.caseInsensitive)
+                                            options: .caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: create regex: \(error)")
             return nil
         }
 
-        let stringRange = NSRange(location: 0, length: string.characters.count)
-        let trimmedString = regex?.stringByReplacingMatches(in: string,
-                                                            options: NSRegularExpression.MatchingOptions.reportProgress,
-                                                            range: stringRange,
-                                                            withTemplate: "$1")
+        let stringRange = NSRange(location: 0, length: string.count)
+        let trimmedString = regex.stringByReplacingMatches(in: string,
+                                                           options: .reportProgress,
+                                                           range: stringRange,
+                                                           withTemplate: "$1")
 
         return trimmedString
     }
@@ -60,7 +64,7 @@ extension AKTuningTable {
 
         var parsedScala = true
         var parsedFirstCommentLine = false
-        let values = inputStr.components(separatedBy: NSCharacterSet.newlines)
+        let values = inputStr.components(separatedBy: .newlines)
         var parsedFirstNonCommentLine = false
         var parsedAllFrequencies = false
 
@@ -68,10 +72,10 @@ extension AKTuningTable {
         //              (RATIO      |CENTS                                  )
         //              (  a   /  b |-   a   .  b |-   .  b |-   a   .|-   a )
         let regexStr = "(\\d+\\/\\d+|-?\\d+\\.\\d+|-?\\.\\d+|-?\\d+\\.|-?\\d+)"
-        var regex: NSRegularExpression?
+        let regex: NSRegularExpression
         do {
             regex = try NSRegularExpression(pattern: regexStr,
-                                            options: NSRegularExpression.Options.caseInsensitive)
+                                            options: .caseInsensitive)
         } catch let error as NSError {
             AKLog("ERROR: cannot parse scala file: \(error)")
             return scalaFrequencies
@@ -80,7 +84,7 @@ extension AKTuningTable {
         for rawLineStr in values {
             var lineStr = stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(rawLineStr) ?? rawLineStr
 
-            if lineStr.characters.isEmpty { continue }
+            if lineStr.isEmpty { continue }
 
             if lineStr.hasPrefix("!") {
                 if ❗️parsedFirstCommentLine {
@@ -127,10 +131,10 @@ extension AKTuningTable {
             /* The first note of 1/1 or 0.0 cents is implicit and not in the files.*/
 
             // REGEX defined above this loop
-            let rangeOfFirstMatch = regex?.rangeOfFirstMatch(
+            let rangeOfFirstMatch = regex.rangeOfFirstMatch(
                 in: lineStr,
-                options: NSRegularExpression.MatchingOptions.anchored,
-                range: NSRange(location: 0, length: lineStr.characters.count)) ?? NSRange(location: 0, length: 0)
+                options: .anchored,
+                range: NSRange(location: 0, length: lineStr.count))
 
             if ❗️NSEqualRanges(rangeOfFirstMatch, NSRange(location: NSNotFound, length: 0)) {
                 let nsLineStr = lineStr as NSString?
@@ -149,8 +153,8 @@ extension AKTuningTable {
                         }
                     }
                 } else {
-                    if (substringForFirstMatch.range(of: "/").length) != 0 {
-                        if (substringForFirstMatch.range(of: "-").length) != 0 {
+                    if substringForFirstMatch.range(of: "/").length != 0 {
+                        if substringForFirstMatch.range(of: "-").length != 0 {
                             AKLog("ERROR: invalid ratio: \(substringForFirstMatch)")
                             parsedScala = false
                             break

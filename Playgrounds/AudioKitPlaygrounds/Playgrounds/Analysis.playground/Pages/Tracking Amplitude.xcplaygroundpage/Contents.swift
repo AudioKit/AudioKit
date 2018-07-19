@@ -8,7 +8,7 @@ import AudioKit
 //: First lets set up sound source to track
 let oscillatorNode = AKOperationGenerator { _ in
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And lets make the frequency move around to make sure it doesn't affect the amplitude tracking
     let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
@@ -19,16 +19,17 @@ let oscillatorNode = AKOperationGenerator { _ in
 
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 AudioKit.output = trackedAmplitude
-AudioKit.start()
+try AudioKit.start()
 oscillatorNode.start()
 
 //: User Interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKPropertySlider?
+    var trackedAmplitudeSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = trackedAmplitude.amplitude
@@ -36,22 +37,17 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking Amplitude")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.55,
-            color: AKColor.green
-        ) { _ in
+        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider)
+        addView(trackedAmplitudeSlider)
 
-        addSubview(AKRollingOutputPlot.createView())
+        addView(AKRollingOutputPlot.createView())
     }
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: This keeps the playground running so that audio can play for a long time
 PlaygroundPage.current.needsIndefiniteExecution = true

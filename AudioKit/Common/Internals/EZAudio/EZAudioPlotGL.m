@@ -2,7 +2,7 @@
 //  EZAudioPlotGL.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 11/22/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#import "AudioKit/EZAudio.h"
 #import "EZAudioPlotGL.h"
 #import "EZAudioDisplayLink.h"
 #import "EZAudioUtilities.h"
@@ -151,25 +152,25 @@ typedef struct
     //
     self.info = (EZAudioPlotGLInfo *)malloc(sizeof(EZAudioPlotGLInfo));
     memset(self.info, 0, sizeof(EZAudioPlotGLInfo));
-    
+
     //
     // Create points array
     //
     UInt32 pointCount = [self maximumRollingHistoryLength];
     self.info->points = (EZAudioPlotGLPoint *)calloc(sizeof(EZAudioPlotGLPoint), pointCount);
     self.info->pointCount = pointCount;
-    
+
     //
     // Create the history data structure to hold the rolling data
     //
     self.info->historyInfo = [EZAudioUtilities historyInfoWithDefaultLength:[self defaultRollingHistoryLength]
                                                               maximumLength:[self maximumRollingHistoryLength]];
-    
+
     //
     // Setup OpenGL specific stuff
     //
     [self setupOpenGL];
-    
+
     //
     // Setup view properties
     //
@@ -181,12 +182,12 @@ typedef struct
     self.backgroundColor = [NSColor colorWithCalibratedRed:0.569f green:0.82f blue:0.478f alpha:1.0f];
     self.color = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0f];
 #endif
-    
+
     //
     // Allow subclass to initialize plot
     //
     [self setupPlot];
-    
+
     //
     // Create the display link
     //

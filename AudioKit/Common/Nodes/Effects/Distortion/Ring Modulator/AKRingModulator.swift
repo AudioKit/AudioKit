@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit
 ///
-open class AKRingModulator: AKNode, AKToggleable, AUEffect {
+open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
 
     // MARK: - Properties
 
@@ -18,7 +18,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     private var lastKnownMix: Double = 1
 
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open dynamic var frequency1: Double = 100 {
+    @objc open dynamic var frequency1: Double = 100 {
         didSet {
             frequency1 = (0.5...8_000).clamp(frequency1)
             au[kDistortionParam_RingModFreq1] = frequency1
@@ -26,7 +26,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    open dynamic var frequency2: Double = 100 {
+    @objc open dynamic var frequency2: Double = 100 {
         didSet {
             frequency2 = (0.5...8_000).clamp(frequency2)
             au[kDistortionParam_RingModFreq2] = frequency2
@@ -34,7 +34,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Ring Mod Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var balance: Double = 0.5 {
+    @objc open dynamic var balance: Double = 0.5 {
         didSet {
             balance = (0...1).clamp(balance)
             au[kDistortionParam_RingModBalance] = balance * 100
@@ -42,7 +42,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
-    open dynamic var mix: Double = 1 {
+    @objc open dynamic var mix: Double = 1 {
         didSet {
             mix = (0...1).clamp(mix)
             au[kDistortionParam_FinalMix] = mix * 100
@@ -50,7 +50,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     // MARK: - Initialization
 
@@ -63,37 +63,37 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         frequency1: Double = 100,
         frequency2: Double = 100,
         balance: Double = 0.5,
         mix: Double = 1) {
 
-            self.frequency1 = frequency1
-            self.frequency2 = frequency2
-            self.balance = balance
-            self.mix = mix
+        self.frequency1 = frequency1
+        self.frequency2 = frequency2
+        self.balance = balance
+        self.mix = mix
 
-            let effect = _Self.effect
-            au = AUWrapper(effect)
+        let effect = _Self.effect
+        au = AUWrapper(effect)
 
-            super.init(avAudioNode: effect, attach: true)
+        super.init(avAudioNode: effect, attach: true)
 
-            input?.addConnectionPoint(self)
+        input?.connect(to: self)
 
-            // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
-            au[kDistortionParam_RingModMix] = 100
-            au[kDistortionParam_RingModFreq1] = frequency1
-            au[kDistortionParam_RingModFreq2] = frequency2
-            au[kDistortionParam_RingModBalance] = balance * 100
-            au[kDistortionParam_FinalMix] = mix * 100
+        // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
+        au[kDistortionParam_RingModMix] = 100
+        au[kDistortionParam_RingModFreq1] = frequency1
+        au[kDistortionParam_RingModFreq2] = frequency2
+        au[kDistortionParam_RingModBalance] = balance * 100
+        au[kDistortionParam_FinalMix] = mix * 100
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -101,7 +101,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0
@@ -112,6 +112,6 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect {
     /// Disconnect the node
     override open func disconnect() {
         stop()
-        disconnect(nodes: [self.avAudioNode])
+        AudioKit.detach(nodes: [self.avAudioNode])
     }
 }

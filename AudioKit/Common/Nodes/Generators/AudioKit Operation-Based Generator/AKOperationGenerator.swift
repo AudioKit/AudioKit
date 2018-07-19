@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Operation-based generator
@@ -17,19 +17,19 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     fileprivate var internalAU: AKAudioUnitType?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     /// Sporth language snippet
-    open dynamic var sporth: String = "" {
+    @objc open dynamic var sporth: String = "" {
         didSet {
             restart()
         }
     }
 
     /// Parameters for changing internal operations
-    open dynamic var parameters: [Double] {
+    @objc open dynamic var parameters: [Double] {
         get {
             var result: [Double] = []
             if let floatParameters = internalAU?.parameters as? [NSNumber] {
@@ -74,15 +74,15 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
-    ///   - operations:       Array of operations [left, right]
+    ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(numberOfChannels: Int, operations: ([AKOperation]) -> [AKOperation]) {
+    public convenience init(channelCount: Int, operations: ([AKOperation]) -> [AKOperation]) {
 
         let computedParameters = operations(AKOperation.parameters)
         let left = computedParameters[0]
 
-        if numberOfChannels == 2 {
+        if channelCount == 2 {
             let right = computedParameters[1]
             self.init(sporth: "\(right.sporth) \(left.sporth)")
         } else {
@@ -94,7 +94,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(sporth: String, customUgens: [AKCustomUgen] = []) {
+    @objc public init(sporth: String, customUgens: [AKCustomUgen] = []) {
         self.sporth = sporth
         self.customUgens = customUgens
 
@@ -106,7 +106,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             for ugen in self?.customUgens ?? [] {
-              self?.internalAU?.add(ugen)
+                self?.internalAU?.add(ugen)
             }
             self?.internalAU?.setSporth(sporth)
         }
@@ -119,12 +119,12 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 

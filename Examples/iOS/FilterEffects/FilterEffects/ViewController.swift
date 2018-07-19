@@ -2,11 +2,12 @@
 //  ViewController.swift
 //  FilterEffects
 //
-//  Created by Aurelius Prochazka on 10/8/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         delay = AKVariableDelay(input)
-        delay.rampTime = 0.5 // Allows for some cool effects
+        delay.rampDuration = 0.5 // Allows for some cool effects
         delayMixer = AKDryWetMixer(input, delay)
 
         reverb = AKCostelloReverb(delayMixer)
@@ -32,7 +33,11 @@ class ViewController: UIViewController {
         booster = AKBooster(reverbMixer)
 
         AudioKit.output = booster
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         Audiobus.start()
 
         setupUI()
@@ -46,51 +51,48 @@ class ViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Delay Time",
-            format: "%0.2f s",
-            value: self.delay.time, minimum: 0, maximum: 1,
-            color: UIColor.green) { sliderValue in
+            value: self.delay.time,
+            format: "%0.2f s") { sliderValue in
                 self.delay.time = sliderValue
         })
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Delay Feedback",
-            format: "%0.2f",
-            value: self.delay.feedback, minimum: 0, maximum: 0.99,
-            color: UIColor.green) { sliderValue in
+            value: self.delay.feedback,
+            range: 0 ... 0.99,
+            format: "%0.2f") { sliderValue in
                 self.delay.feedback = sliderValue
         })
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Delay Mix",
-            format: "%0.2f",
-            value: self.delayMixer.balance, minimum: 0, maximum: 1,
-            color: UIColor.green) { sliderValue in
+            value: self.delayMixer.balance,
+            format: "%0.2f") { sliderValue in
                 self.delayMixer.balance = sliderValue
         })
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Reverb Feedback",
-            format: "%0.2f",
-            value: self.reverb.feedback, minimum: 0, maximum: 0.99,
-            color: UIColor.red) { sliderValue in
+            value: self.reverb.feedback,
+            range: 0 ... 0.99,
+            format: "%0.2f") { sliderValue in
                 self.reverb.feedback = sliderValue
         })
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Reverb Mix",
-            format: "%0.2f",
-            value: self.reverbMixer.balance, minimum: 0, maximum: 1,
-            color: UIColor.red) { sliderValue in
+            value: self.reverbMixer.balance,
+            format: "%0.2f") { sliderValue in
                 self.reverbMixer.balance = sliderValue
         })
 
-        stackView.addArrangedSubview(AKPropertySlider(
+        stackView.addArrangedSubview(AKSlider(
             property: "Output Volume",
-            format: "%0.2f",
-            value: self.booster.gain, minimum: 0, maximum: 2,
-            color: UIColor.yellow) { sliderValue in
+            value: self.booster.gain,
+            range: 0 ... 2,
+            format: "%0.2f") { sliderValue in
                 self.booster.gain = sliderValue
         })
 

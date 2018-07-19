@@ -2,25 +2,29 @@
 //  ViewController.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet private var plot: AKNodeOutputPlot!
+
     var oscillator = AKOscillator()
 
-    @IBOutlet private var plot: AKOutputWaveformPlot!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
         AudioKit.output = oscillator
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {
@@ -28,8 +32,8 @@ class ViewController: UIViewController {
             oscillator.stop()
             sender.setTitle("Play Sine Wave", for: UIControlState())
         } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
+            oscillator.amplitude = random(in: 0.5 ... 1)
+            oscillator.frequency = random(in: 220 ... 880)
             oscillator.start()
             sender.setTitle("Stop Sine Wave at \(Int(oscillator.frequency))Hz", for: .normal)
         }

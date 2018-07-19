@@ -2,7 +2,7 @@
 //  EZAudioFile.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 12/1/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -222,12 +222,12 @@ typedef struct
     {
         return success;
     }
-    
+
     //
     // Set the client format
     //
     self.clientFormat = self.info->clientFormat;
-    
+
     return YES;
 }
 
@@ -241,14 +241,14 @@ typedef struct
     // Need a source url
     //
     NSAssert(self.info->sourceURL, @"EZAudioFile cannot be created without a source url!");
-    
+
     //
     // Determine if the file actually exists
     //
     CFURLRef url = self.info->sourceURL;
     NSURL *fileURL = (__bridge NSURL *)(url);
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:fileURL.path];
-    
+
     //
     // Create an ExtAudioFileRef for the file handle
     //
@@ -261,7 +261,7 @@ typedef struct
     {
         return NO;
     }
-    
+
     //
     // Get the underlying AudioFileID
     //
@@ -271,7 +271,7 @@ typedef struct
                                                           &propSize,
                                                           &self.info->audioFileID)
                         operation:"Failed to get underlying AudioFileID"];
-    
+
     //
     // Store the file format
     //
@@ -281,7 +281,7 @@ typedef struct
                                                           &propSize,
                                                           &self.info->fileFormat)
                         operation:"Failed to get file audio format on existing audio file"];
-    
+
     //
     // Get the total frames and duration
     //
@@ -292,7 +292,7 @@ typedef struct
                                                           &self.info->frames)
                         operation:"Failed to get total frames"];
     self.info->duration = (NSTimeInterval) self.info->frames / self.info->fileFormat.mSampleRate;
-    
+
     return YES;
 }
 
@@ -314,7 +314,7 @@ typedef struct
                             operation:"Failed to read audio data from file"];
         *bufferSize = frames;
         *eof = frames == 0;
-        
+
         //
         // Notify delegate
         //
@@ -322,7 +322,7 @@ typedef struct
         {
             [self.delegate audioFileUpdatedPosition:self];
         }
-        
+
         //
         // Deprecated, but supported until 1.0
         //
@@ -333,14 +333,14 @@ typedef struct
             [self.delegate audioFile:self updatedPosition:[self frameIndex]];
         }
 #pragma GCC diagnostic pop
-        
+
         if ([self.delegate respondsToSelector:@selector(audioFile:readAudio:withBufferSize:withNumberOfChannels:)])
         {
             // convert into float data
             [self.floatConverter convertDataFromAudioBufferList:audioBufferList
                                              withNumberOfFrames:*bufferSize
                                                  toFloatBuffers:self.floatData];
-            
+
             // notify delegate
             UInt32 channels = self.clientFormat.mChannelsPerFrame;
             [self.delegate audioFile:self
@@ -348,9 +348,9 @@ typedef struct
                       withBufferSize:*bufferSize
                 withNumberOfChannels:channels];
         }
-        
+
         pthread_mutex_unlock(&_lock);
-        
+
     }
 }
 
@@ -365,7 +365,7 @@ typedef struct
                    operation:"Failed to seek frame position within audio file"];
 
         pthread_mutex_unlock(&_lock);
-        
+
         //
         // Notify delegate
         //
@@ -373,7 +373,7 @@ typedef struct
         {
             [self.delegate audioFileUpdatedPosition:self];
         }
-        
+
         //
         // Deprecated, but supported until 1.0
         //
@@ -425,21 +425,21 @@ typedef struct
         {
             data[i] = (float *)malloc( sizeof(float) * numberOfPoints );
         }
-        
+
         // seek to 0
         [EZAudioUtilities checkResult:ExtAudioFileSeek(self.info->extAudioFileRef,
                                                        0)
                             operation:"Failed to seek frame position within audio file"];
-        
+
         // calculate the required number of frames per buffer
         SInt64 framesPerBuffer = ((SInt64) self.totalClientFrames / numberOfPoints);
         SInt64 framesPerChannel = framesPerBuffer / channels;
-        
+
         // allocate an audio buffer list
         AudioBufferList *audioBufferList = [EZAudioUtilities audioBufferListWithNumberOfFrames:(UInt32)framesPerBuffer
                                                                               numberOfChannels:self.info->clientFormat.mChannelsPerFrame
                                                                                    interleaved:interleaved];
-        
+
         // read through file and calculate rms at each point
         for (SInt64 i = 0; i < numberOfPoints; i++)
         {
@@ -472,21 +472,21 @@ typedef struct
                 }
             }
         }
-        
+
         // clean up
         [EZAudioUtilities freeBufferList:audioBufferList];
-        
+
         // seek back to previous position
         [EZAudioUtilities checkResult:ExtAudioFileSeek(self.info->extAudioFileRef,
                                                        currentFrame)
                             operation:"Failed to seek frame position within audio file"];
-        
+
         pthread_mutex_unlock(&_lock);
-        
+
         waveformData = [EZAudioFloatData dataWithNumberOfChannels:channels
                                                           buffers:(float **)data
                                                        bufferSize:numberOfPoints];
-        
+
         // cleanup
         for (int i = 0; i < channels; i++)
         {
@@ -594,70 +594,73 @@ typedef struct
                                                            &propSize,
                                                            &writable)
                         operation:"Failed to get the size of the metadata dictionary"];
-    
+
     // pull metadata
     [EZAudioUtilities checkResult:AudioFileGetProperty(self.info->audioFileID,
                                                        kAudioFilePropertyInfoDictionary,
                                                        &propSize,
                                                        &metadata)
                         operation:"Failed to get metadata dictionary"];
-    
+
     // cast to NSDictionary
     return (__bridge NSDictionary*)metadata;
 }
 
 //------------------------------------------------------------------------------
 
+/// return the markers in this file. This will be a NSArray of EZAudioFileMarkers
 - (NSArray *)markers
 {
     // get size of markers property (dictionary)
     UInt32          propSize;
     UInt32          writable;
-    
+
     [EZAudioUtilities checkResult:AudioFileGetPropertyInfo( self.audioFileID,
                                                            kAudioFilePropertyMarkerList,
                                                            &propSize,
                                                            &writable)
                         operation:"Failed to get the size of the marker list"];
-    
+
     size_t length = NumBytesToNumAudioFileMarkers( propSize );
-    
+
     // allocate enough space for the markers.
-    AudioFileMarkerList markers[ length ];
-    
-    if ( length > 0 ) {
+    AudioFileMarkerList markerList[ length ];
+
+    if (length > 0) {
         // pull marker list
         [EZAudioUtilities checkResult:AudioFileGetProperty( self.audioFileID,
                                                            kAudioFilePropertyMarkerList,
                                                            &propSize,
-                                                           &markers)
+                                                           &markerList)
                             operation:"Failed to get the markers list"];
-        
+
     } else {
         return NULL;
     }
-    
     //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
-    
+
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markers->mNumberMarkers];
-    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:markerList->mNumberMarkers];
+
     int i;
-    for (i=0; i < markers->mNumberMarkers; i++) {
+    for (i=0; i < markerList->mNumberMarkers; i++) {
         EZAudioFileMarker *afm = [[EZAudioFileMarker alloc] init];
+
+        afm.framePosition = [[NSNumber alloc] initWithDouble:(markerList->mMarkers[i].mFramePosition)];
+        afm.markerID = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mMarkerID)];
+        afm.type = [[NSNumber alloc] initWithInt:(markerList->mMarkers[i].mType)];
+
+        // create a default value in the case of missing names
+        afm.name = [NSString stringWithFormat:@"Marker %d", i+1];
         
-        afm.framePosition = [[NSNumber alloc] initWithDouble:(markers->mMarkers[i].mFramePosition)];
-        afm.markerID = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mMarkerID)];
-        afm.type = [[NSNumber alloc] initWithInt:(markers->mMarkers[i].mType)];
-        afm.name = (__bridge NSString *)(markers->mMarkers[i].mName);
-        
+        if (markerList->mMarkers[i].mName != NULL) {
+            afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
+        }
         //NSLog(@"%@\n", afm.name );
-        
         [array addObject:afm];
     }
     // cast to an immutable one
     NSArray *nmArray = [array copy];
-    
     return nmArray;
 }
 
@@ -717,17 +720,17 @@ typedef struct
     {
         self.floatData = nil;
     }
-    
+
     //
     // Client format can only be linear PCM!
     //
     NSAssert([EZAudioUtilities isLinearPCM:clientFormat], @"Client format must be linear PCM");
-    
+
     //
     // Store the client format
     //
     self.info->clientFormat = clientFormat;
-    
+
     //
     // Set the client format on the ExtAudioFileRef
     //
@@ -736,12 +739,12 @@ typedef struct
                                                           sizeof(clientFormat),
                                                           &clientFormat)
                         operation:"Couldn't set client data format on file"];
-    
+
     //
     // Create a new float converter using the client format as the input format
     //
     self.floatConverter = [EZAudioFloatConverter converterWithInputFormat:clientFormat];
-    
+
     //
     // Determine how big our float buffers need to be to hold a buffer of float
     // data for the audio received callback.
@@ -753,7 +756,7 @@ typedef struct
                                                           &propSize,
                                                           &maxPacketSize)
                         operation:"Failed to get max packet size"];
-    
+
     self.floatData = [EZAudioUtilities floatBuffersWithNumberOfFrames:1024
                                                      numberOfChannels:self.clientFormat.mChannelsPerFrame];
 }
@@ -769,6 +772,52 @@ typedef struct
                                 rightMin:0.0f
                                 rightMax:[self totalFrames]];
     [self seekToFrame:frame];
+}
+
+//------------------------------------------------------------------------------
+
+/// add an Array of EZAudioFileMarkers into this file
+- (void) setMarkers:(NSArray *)markerArray {
+
+    AudioFileMarkerList editedMarkerList[markerArray.count];
+
+    editedMarkerList->mNumberMarkers = (UInt32)markerArray.count;
+
+    for (int i=0; i < markerArray.count; i++) {
+        EZAudioFileMarker *ezafm = (EZAudioFileMarker *) [markerArray objectAtIndex:(i)];
+
+        AudioFileMarker afm;
+        afm.mName = (__bridge CFStringRef _Nullable)(ezafm.name);
+        afm.mFramePosition = [ezafm.framePosition doubleValue];
+        afm.mMarkerID = [ezafm.markerID intValue];
+        afm.mType = [ezafm.type intValue];
+
+        editedMarkerList->mMarkers[i] = afm;
+
+        NSLog(@"Adding marker: %@\n", ezafm.name );
+    }
+
+    UInt32 propSize = (UInt32)NumAudioFileMarkersToNumBytes(markerArray.count);
+
+    OSStatus err = noErr;
+    AudioFileID fileID  = nil;
+
+    err = AudioFileOpenURL( (__bridge CFURLRef _Nonnull)(self.url), kAudioFileReadWritePermission, 0, &fileID );
+
+    if ( err != noErr ) {
+        NSLog( @"AudioFileOpenURL failed" );
+        return;
+    }
+
+    err = AudioFileSetProperty( fileID,
+                               kAudioFilePropertyMarkerList,
+                               propSize,
+                               &editedMarkerList);
+
+    if ( err != noErr ) {
+        NSLog(@"AudioFileSetProperty failed err: %d\n", (int)err );
+    }
+
 }
 
 //------------------------------------------------------------------------------

@@ -9,45 +9,40 @@
 //: rather interesting digital distortion effects.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3_333
 
 AudioKit.output = bitcrusher
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Bit Crusher")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Bit Depth",
-            format: "%0.2f",
-            value: bitcrusher.bitDepth, minimum: 1, maximum: 24,
-            color: AKColor.green
+        addView(AKSlider(property: "Bit Depth",
+                         value: bitcrusher.bitDepth,
+                         range: 1 ... 24
         ) { sliderValue in
             bitcrusher.bitDepth = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Sample Rate",
-            format: "%0.1f Hz",
-            value: bitcrusher.sampleRate, maximum: 16_000,
-            color: AKColor.red
+        addView(AKSlider(property: "Sample Rate",
+                         value: bitcrusher.sampleRate,
+                         range: 1 ... 16_000,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             bitcrusher.sampleRate = sliderValue
         })
@@ -56,4 +51,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

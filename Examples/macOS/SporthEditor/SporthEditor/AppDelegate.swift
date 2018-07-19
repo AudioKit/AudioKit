@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  SporthEditor
 //
-//  Created by Kanstantsin Linou on 7/14/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
@@ -11,9 +11,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var controlsWindowController: NSWindowController? = {
-        let storyboard = NSStoryboard(name: Constants.Name.storyboard, bundle: nil)
+        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: Constants.Name.storyboard), bundle: nil)
         let controlsWindowController = storyboard.instantiateController(
-            withIdentifier: Constants.Identifier.controlsController) as! NSWindowController
+            withIdentifier: NSStoryboard.SceneIdentifier(rawValue: Constants.Identifier.controlsController)) as! NSWindowController
         return controlsWindowController
     }()
 
@@ -26,12 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.allowsMultipleSelection = false
         panel.allowedFileTypes = [FileUtilities.fileExtension]
 
-        if panel.runModal() == NSModalResponseCancel {
+        if panel.runModal() == NSApplication.ModalResponse.cancel {
             return
         }
 
         if let path = panel.url?.path {
-            guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+            guard let vc = NSApplication.shared.windows.first!.contentViewController as? ViewController else {
                 return
             }
             vc.brain.stop()
@@ -44,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func saveDocument(_ sender: AnyObject?) {
-        guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+        guard let vc = NSApplication.shared.windows.first!.contentViewController as? ViewController else {
             return
         }
 
@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func saveDocumentAs(_ sender: AnyObject?) {
-        guard let vc = NSApplication.shared().windows.first!.contentViewController as? ViewController else {
+        guard let vc = NSApplication.shared.windows.first!.contentViewController as? ViewController else {
             return
         }
 
@@ -79,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         savePanel.message = Constants.Message.save
         savePanel.allowedFileTypes = [FileUtilities.fileExtension]
 
-        if savePanel.runModal() == NSModalResponseCancel {
+        if savePanel.runModal() == NSApplication.ModalResponse.cancel {
             return
         }
 

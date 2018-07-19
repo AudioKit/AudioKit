@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKPhaseLockedVocoderAudioUnit.h"
@@ -16,7 +16,7 @@
 @implementation AKPhaseLockedVocoderAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKPhaseLockedVocoderDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -38,7 +38,7 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardSetup(PhaseLockedVocoder)
+    standardGeneratorSetup(PhaseLockedVocoder)
 
     // Create a parameter object for the position.
     AUParameter *positionAUParameter = [AUParameter parameter:@"position"
@@ -74,12 +74,12 @@ standardKernelPassthroughs()
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[
-        positionAUParameter,
-        amplitudeAUParameter,
-        pitchRatioAUParameter
-    ]];
+                                             positionAUParameter,
+                                             amplitudeAUParameter,
+                                             pitchRatioAUParameter
+                                             ]];
 
-	parameterTreeBlock(PhaseLockedVocoder)
+    parameterTreeBlock(PhaseLockedVocoder)
 }
 
 AUAudioUnitGeneratorOverrides(PhaseLockedVocoder)

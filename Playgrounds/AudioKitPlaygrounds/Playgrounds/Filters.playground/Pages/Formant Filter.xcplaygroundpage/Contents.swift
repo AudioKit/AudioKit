@@ -9,31 +9,22 @@ osc.pulseWidth = 0.1
 var filter = AKFormantFilter(osc)
 
 AudioKit.output = filter
-AudioKit.start()
+try AudioKit.start()
 osc.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Formant Filter")
 
-        addSubview(AKPropertySlider(
-            property: "x",
-            format: "%0.3f",
-            value: filter.x,
-            color: AKColor.yellow
-        ) { sliderValue in
+        addView(AKSlider(property: "x", format: "%0.3f", value: filter.x) { sliderValue in
             filter.x = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "y",
-            format: "%0.3f",
-            value: filter.y,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "y", format: "%0.3f", value: filter.y) { sliderValue in
             filter.y = sliderValue
         })
     }
@@ -41,4 +32,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

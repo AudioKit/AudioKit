@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKOperation {
@@ -21,7 +21,7 @@ extension AKOperation {
         amplitude: AKParameter = 1.0,
         pulseWidth: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation(module: "blsquare",
-                               inputs: frequency, amplitude, pulseWidth)
+        return AKOperation(module: "blsquare",
+                           inputs: frequency, amplitude, pulseWidth)
     }
 }

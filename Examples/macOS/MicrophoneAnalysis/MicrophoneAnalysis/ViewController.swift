@@ -2,11 +2,12 @@
 //  ViewController.swift
 //  MicrophoneAnalysis
 //
-//  Created by Kanstantsin Linou on 6/14/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
+import AudioKitUI
 import Cocoa
 
 class ViewController: NSViewController {
@@ -31,7 +32,7 @@ class ViewController: NSViewController {
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = NSColor.blue
-        plot.autoresizingMask = .viewWidthSizable
+        plot.autoresizingMask = NSView.AutoresizingMask.width
         audioInputPlot.addSubview(plot)
     }
 
@@ -46,7 +47,11 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         AudioKit.output = silence
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setupPlot()
         Timer.scheduledTimer(timeInterval: 0.1,
                              target: self,
@@ -61,7 +66,7 @@ class ViewController: NSViewController {
         }
     }
 
-    func updateUI() {
+    @objc func updateUI() {
         if tracker.amplitude > 0.1 {
             frequencyLabel.stringValue = String(format: "%0.1f", tracker.frequency)
 

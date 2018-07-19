@@ -2,8 +2,11 @@
 import AudioKit
 
 let oscillator = AKOscillator()
-AudioKit.output = oscillator
-AudioKit.start()
+
+var gainer = AKBooster(oscillator)
+
+AudioKit.output = gainer
+try AudioKit.start()
 
 oscillator.start()
-sleep(1)
+sleep(4)

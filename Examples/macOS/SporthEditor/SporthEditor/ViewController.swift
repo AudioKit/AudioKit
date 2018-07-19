@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  SporthEditor
 //
-//  Created by Aurelius Prochazka on 7/10/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
@@ -12,7 +12,7 @@ class ViewController: NSViewController {
     @IBOutlet private var codeEditorTextView: NSTextView!
 
     var display: String {
-        get { return codeEditorTextView.string ?? "" }
+        get { return codeEditorTextView.string }
         set { codeEditorTextView?.string = newValue }
     }
 
@@ -30,7 +30,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let appDelegate = NSApplication.shared().delegate as? AppDelegate else {
+        guard let appDelegate = NSApplication.shared.delegate as? AppDelegate else {
             return
         }
         appDelegate.openControlsWindow(nil)

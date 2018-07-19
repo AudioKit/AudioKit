@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -24,7 +24,7 @@ open class AKPlaygroundView: UIView {
     /// Initialize the playground view
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        self.backgroundColor = .white
+        self.backgroundColor = AKStylist.sharedInstance.bgColor
         setup()
     }
 
@@ -40,6 +40,7 @@ open class AKPlaygroundView: UIView {
     open func addTitle(_ text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.textAlignment = .center
         newLabel.font = UIFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
@@ -52,7 +53,8 @@ open class AKPlaygroundView: UIView {
         let newLabel = UILabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
-        newLabel.font = UIFont.systemFont(ofSize: 18)
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
+        newLabel.font = UIFont.boldSystemFont(ofSize: 20)
         self.addSubview(newLabel)
 
         return newLabel
@@ -61,6 +63,7 @@ open class AKPlaygroundView: UIView {
     /// Add the subview, and move the Y Position down
     open override func addSubview(_ potentialView: UIView?) {
         guard let view = potentialView else {
+            AKLog("Unable to create view in addSubview")
             return
         }
         view.frame.origin.y = CGFloat(yPosition)

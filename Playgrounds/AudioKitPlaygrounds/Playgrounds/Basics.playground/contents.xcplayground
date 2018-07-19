@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' display-mode='rendered' last-migration='0800'>
+<playground version='6.0' target-platform='macos' display-mode='raw' executeOnSourceChanges='false' last-migration='0800'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Introduction and Hello World'/>
@@ -11,7 +11,8 @@
         <page name='Dry Wet Mixer'/>
         <page name='Balancing Nodes'/>
         <page name='Stereo Panning'/>
-        <page name='Parameter Ramp Time'/>
+        <page name='Parameter Ramp Duration'/>
+        <page name='Tables'/>
         <page name='Metronome'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Using Functions'/>

@@ -11,45 +11,42 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6
 
 AudioKit.output = moogLadder
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 
 //: User Interface Set up
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
         addTitle("Moog Ladder Filter")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Cutoff Frequency",
-            format: "%0.1f Hz",
-            value: moogLadder.cutoffFrequency, maximum: 5_000,
-            color: AKColor.green
+        addView(AKSlider(property: "Cutoff Frequency",
+                         value: moogLadder.cutoffFrequency,
+                         range: 40 ... 5_000,
+                         taper: 4,
+                         format: "%0.1f Hz"
         ) { sliderValue in
             moogLadder.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Resonance",
-            format: "%0.2f",
-            value: moogLadder.resonance,
-            color: AKColor.red
+        addView(AKSlider(property: "Resonance",
+                         value: moogLadder.resonance,
+                         range: 0 ... 0.98
         ) { sliderValue in
             moogLadder.resonance = sliderValue
         })
@@ -58,4 +55,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

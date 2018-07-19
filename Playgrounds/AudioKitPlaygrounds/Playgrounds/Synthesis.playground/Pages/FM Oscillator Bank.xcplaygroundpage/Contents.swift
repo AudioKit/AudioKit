@@ -4,75 +4,88 @@
 
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let fmBank = AKFMOscillatorBank()
 
 AudioKit.output = fmBank
-AudioKit.start()
+try AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("FM Oscillator Bank")
 
-        addSubview(AKPropertySlider(
-            property: "Carrier Multiplier",
-            format: "%0.3f",
-            value: fmBank.carrierMultiplier, maximum: 2,
-            color: AKColor.red
+        addView(AKSlider(property: "Carrier Multiplier",
+                         value: fmBank.carrierMultiplier,
+                         range: 0 ... 2
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(
-            property: "Modulating Multiplier",
-            format: "%0.3f",
-            value: fmBank.modulatingMultiplier, maximum: 2,
-            color: AKColor.green
+        addView(AKSlider(property: "Modulating Multiplier",
+                         value: fmBank.modulatingMultiplier,
+                         range: 0 ... 2
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
         })
 
-        addSubview(AKPropertySlider(
-            property: "Modulation Index",
-            format: "%0.3f",
-            value: fmBank.modulationIndex, maximum: 20,
-            color: AKColor.cyan
+        addView(AKSlider(property: "Modulation Index",
+                         value: fmBank.modulationIndex,
+                         range: 0 ... 20
         ) { index in
             fmBank.modulationIndex = index
         })
 
-        addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f",
-            value: fmBank.attackDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            fmBank.attackDuration = duration
+        let adsrView = AKADSRView { att, dec, sus, rel in
+            fmBank.attackDuration = att
+            fmBank.decayDuration = dec
+            fmBank.sustainLevel = sus
+            fmBank.releaseDuration = rel
+        }
+        adsrView.attackDuration = fmBank.attackDuration
+        adsrView.decayDuration = fmBank.decayDuration
+        adsrView.releaseDuration = fmBank.releaseDuration
+        adsrView.sustainLevel = fmBank.sustainLevel
+        addView(adsrView)
+
+        addView(AKSlider(property: "Pitch Bend",
+                         value: fmBank.pitchBend,
+                         range: -12 ... 12,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            fmBank.pitchBend = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Release",
-            format: "%0.3f",
-            value: fmBank.releaseDuration, maximum: 2,
-            color: AKColor.green
-        ) { duration in
-            fmBank.releaseDuration = duration
+        addView(AKSlider(property: "Vibrato Depth",
+                         value: fmBank.vibratoDepth,
+                         range: 0 ... 2,
+                         format: "%0.2f semitones"
+        ) { sliderValue in
+            fmBank.vibratoDepth = sliderValue
+        })
+
+        addView(AKSlider(property: "Vibrato Rate",
+                         value: fmBank.vibratoRate,
+                         range: 0 ... 10,
+                         format: "%0.2f Hz"
+        ) { sliderValue in
+            fmBank.vibratoRate = sliderValue
         })
 
         keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
-        addSubview(keyboard)
+        addView(keyboard)
 
-        addSubview(AKButton(title: "Go Polyphonic") {
+        addView(AKButton(title: "Go Polyphonic") { button in
             self.keyboard.polyphonicMode = !self.keyboard.polyphonicMode
             if self.keyboard.polyphonicMode {
-                return "Go Monophonic"
+                button.title = "Go Monophonic"
             } else {
-                return "Go Polyphonic"
+                button.title = "Go Polyphonic"
             }
         })
     }
@@ -88,4 +101,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

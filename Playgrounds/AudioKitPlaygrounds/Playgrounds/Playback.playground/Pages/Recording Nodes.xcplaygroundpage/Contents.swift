@@ -7,7 +7,7 @@ import AudioKit
 //: Set up a source to be recorded
 var oscillator = AKOscillator(waveform: AKTable(.sawtooth))
 var currentAmplitude = 0.1
-var currentRampTime = 0.2
+var currentRampDuration = 0.2
 
 //: Pass our Oscillator thru a mixer. It fixes a problem with raw oscillator
 //: nodes that can only be recorded once they passed thru an AKMixer.
@@ -26,68 +26,70 @@ let player = try AKAudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
 let mixer = AKMixer(player, reverb)
-AudioKit.output = mixer
-
-AudioKit.start()
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
+let recorder = try AKNodeRecorder(node: mixer)
+
+AudioKit.output = mixer
+
+try AudioKit.start()
 
 //: Build our User interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    var recordLabel: Label!
-    var playLabel: Label!
+    var recordLabel: AKLabel!
+    var playLabel: AKLabel!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addSubview(AKButton(title: "Record", color: AKColor.red) {
+        addView(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
-                self.recordLabel.text = "Stopped. (\(dur) recorded)"
+                self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
                 recorder.stop()
-                return "Record"
+                button.title = "Record"
             } else {
-                self.recordLabel.text = "Recording..."
+                self.recordLabel.stringValue = "Recording..."
                 do {
                     try recorder.record()
                 } catch {
                     AKLog("Couldn't record")
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
-        addSubview(AKButton(title: "Save") {
-            tape.exportAsynchronously(name: "test",
+        addView(AKButton(title: "Save") { button in
+            recorder.audioFile?.exportAsynchronously(name: "test",
                                       baseDir: .documents,
-                                      exportFormat: .caf) { [weak self] exportedFile, error in
+                                      exportFormat: .caf) { [weak self] _, _ in
             }
-            return "Saved"
+            button.title = "Saved"
         })
 
-        addSubview(AKButton(title: "Reset Recording", color: AKColor.red) {
-            self.recordLabel.text = "Tape Cleared!"
+        addView(AKButton(title: "Reset Recording") { button in
+            self.recordLabel.stringValue = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
                 AKLog("Couldn't reset.")
             }
-            return "Reset Recording"
+            button.title = "Reset Recording"
         })
 
         playLabel = addLabel("Press Play to playback...")
 
-        addSubview(AKButton(title: "Play") {
+        addView(AKButton(title: "Play") { button in
             if player.isPlaying {
-                self.playLabel.text = "Stopped playback!"
+                self.playLabel.stringValue = "Stopped playback!"
                 player.stop()
-                return "Play"
+                button.title = "Play"
             } else {
                 do {
                     try player.reloadFile()
@@ -95,26 +97,26 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     AKLog("Couldn't reload file.")
                 }
                 // If the tape is not empty, we can play it !...
-                if player.audioFile.duration ?? 0 > 0 {
-                    self.playLabel.text = "Playing..."
+                if player.audioFile.duration > 0 {
+                    self.playLabel.stringValue = "Playing..."
                     player.completionHandler = self.callback
                     player.play()
                 } else {
-                    self.playLabel.text = "Tape is empty!..."
+                    self.playLabel.stringValue = "Tape is empty!..."
                 }
-                return "Stop"
+                button.title = "Stop"
             }
         })
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        self.addView(keyboard)
     }
 
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
         DispatchQueue.main.async {
-            self.playLabel.text = "Finished playing!"
+            self.playLabel.stringValue = "Finished playing!"
         }
     }
 
@@ -122,12 +124,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.rampTime = 0
+            oscillator.rampDuration = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
 
-        // Still use rampTime for volume
-        oscillator.rampTime = currentRampTime
+        // Still use rampDuration for volume
+        oscillator.rampDuration = currentRampDuration
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
@@ -139,4 +141,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

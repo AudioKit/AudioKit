@@ -2,8 +2,8 @@
 //  AudioUnit+Helpers.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 25/06/16.
-//  Updated for AudioKit 3 by Aurelius Prochazka.
+//  Created by Daniel Clelland, revision history on GitHub.
+//  Updated for AudioKit by Aurelius Prochazka.
 //
 //  Copyright © 2017 Daniel Clelland. All rights reserved.
 //
@@ -18,23 +18,24 @@ public extension AudioUnit {
     //swiftlint:disable force_try
 
     /// Get value for a property
-    func getValue<T>(forProperty property: AudioUnitPropertyID) -> T {
-        let (dataSize, _) = try! getPropertyInfo(propertyID: property)
-        return try! getProperty(propertyID: property, dataSize: dataSize)
+    func getValue<T>(forProperty property: AudioUnitPropertyID) throws -> T {
+        let (dataSize, _) = try getPropertyInfo(propertyID: property)
+        return try getProperty(propertyID: property, dataSize: dataSize)
     }
 
     /// Set value for a property
-    func setValue<T>(value: T, forProperty property: AudioUnitPropertyID) {
-        let (dataSize, _) = try! getPropertyInfo(propertyID: property)
-        return try! setProperty(propertyID: property, dataSize: dataSize, data: value)
+    func setValue<T>(value: T, forProperty property: AudioUnitPropertyID) throws {
+        let (dataSize, _) = try getPropertyInfo(propertyID: property)
+        return try setProperty(propertyID: property, dataSize: dataSize, data: value)
     }
 
     /// Add a listener to a property
-    func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) {
+    func add(listener: AudioUnitPropertyListener, toProperty property: AudioUnitPropertyID) throws {
         do {
             try addPropertyListener(listener: listener, toProperty: property)
         } catch {
             AKLog("Error Adding Property Listener")
+            throw error
         }
     }
 
@@ -97,7 +98,7 @@ public extension AudioUnit {
         var dataSize = dataSize
         var data = UnsafeMutablePointer<T>.allocate(capacity: Int(dataSize))
         defer {
-            data.deallocate(capacity: Int(dataSize))
+            data.deallocate()
         }
 
         try AudioUnitGetProperty(self, propertyID, kAudioUnitScope_Global, 0, data, &dataSize).check()
@@ -129,7 +130,7 @@ public extension AudioUnit {
 /// Extension to add a check function
 public extension OSStatus {
 
-    /// Check for and throw an error 
+    /// Check for and throw an error
     func check() throws {
         if self != noErr {
             throw NSError(domain: NSOSStatusErrorDomain, code: Int(self), userInfo: nil)

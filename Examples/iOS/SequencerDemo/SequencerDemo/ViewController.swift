@@ -2,11 +2,12 @@
 //  ViewController.swift
 //  SequencerDemo
 //
-//  Created by Kanstantsin Linou on 6/30/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
+import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
@@ -14,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet private var bassButton: UIButton!
     @IBOutlet private var snareButton: UIButton!
     @IBOutlet private var tempoLabel: UILabel!
-    @IBOutlet private var tempoSlider: AKPropertySlider!
+    @IBOutlet private var tempoSlider: AKSlider!
 
     let conductor = Conductor()
 
@@ -24,8 +25,7 @@ class ViewController: UIViewController {
             $0?.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         })
         tempoSlider.callback = updateTempo
-        tempoSlider.minimum = 40
-        tempoSlider.maximum = 200
+        tempoSlider.range = 40 ... 200
         tempoSlider.value = 110
         tempoSlider.format = "%0.1f BPM"
     }

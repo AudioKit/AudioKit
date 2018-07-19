@@ -3,18 +3,17 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 ///
-open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
+open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKThreePoleLowpassFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -22,61 +21,82 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Distortion
+    public static let distortionRange = 0.0 ... 2.0
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Resonance
+    public static let resonanceRange = 0.0 ... 2.0
+
+    /// Initial value for Distortion
+    public static let defaultDistortion = 0.5
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 1_500.0
+
+    /// Initial value for Resonance
+    public static let defaultResonance = 0.5
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
-    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the
-    /// filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    open dynamic var distortion: Double = 0.5 {
+    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
-            if distortion != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        distortionParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.distortion = Float(newValue)
+            if distortion == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.distortion, value: newValue)
         }
     }
+
     /// Filter cutoff frequency in Hertz.
-    open dynamic var cutoffFrequency: Double = 1_500 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            if cutoffFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
-    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency.
-    /// Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    open dynamic var resonance: Double = 0.5 {
+
+    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.resonance = Float(newValue)
+            if resonance == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -85,19 +105,16 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion
-    ///                 controlled by the filter parameters, in such a way that both low cutoff and high resonance
-    ///                 increase the distortion amount.
+    ///   - distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     ///   - cutoffFrequency: Filter cutoff frequency in Hertz.
-    ///   - resonance: Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency.
-    ///                Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive”
-    ///                effect.
+    ///   - resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     ///
-    public init(
-        _ input: AKNode?,
-        distortion: Double = 0.5,
-        cutoffFrequency: Double = 1_500,
-        resonance: Double = 0.5) {
+    @objc public init(
+        _ input: AKNode? = nil,
+        distortion: Double = defaultDistortion,
+        cutoffFrequency: Double = defaultCutoffFrequency,
+        resonance: Double = defaultResonance
+        ) {
 
         self.distortion = distortion
         self.cutoffFrequency = cutoffFrequency
@@ -107,14 +124,17 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.addConnectionPoint(self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
@@ -122,33 +142,32 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent {
         cutoffFrequencyParameter = tree["cutoffFrequency"]
         resonanceParameter = tree["resonance"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.distortionParameter?.address {
-                    self?.distortion = Double(value)
-                } else if address == self?.cutoffFrequencyParameter?.address {
-                    self?.cutoffFrequency = Double(value)
-                } else if address == self?.resonanceParameter?.address {
-                    self?.resonance = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
-        internalAU?.distortion = Float(distortion)
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
-        internalAU?.resonance = Float(resonance)
+        internalAU?.setParameterImmediately(.distortion, value: distortion)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
+        internalAU?.setParameterImmediately(.resonance, value: resonance)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

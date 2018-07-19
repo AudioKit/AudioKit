@@ -8,11 +8,12 @@
 //: Such an application is perfect for the AKBalancer node.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: This section prepares the players
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
-var source = try AKAudioPlayer(file: file)
-source.looping = true
+let file = try AKAudioFile(readFileName: "drumloop.wav")
+var source = AKPlayer(audioFile: file)
+source.isLooping = true
 
 let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
 let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
@@ -21,24 +22,29 @@ let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
 
 AudioKit.output = rebalancedWithSource
-AudioKit.start()
+try AudioKit.start()
 source.play()
 
 //: User Interface Set up
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Balancing Nodes")
 
         addLabel("Listen to the difference in volume:")
-        addSubview(AKBypassButton(node: rebalancedWithSource))
+
+        addView(AKButton(title: "Balancing") { button in
+            let node = rebalancedWithSource
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Balancing" : "Bypassed"
+        })
     }
 
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -23,66 +23,61 @@ let performance = AKPeriodicFunction(frequency: playRate) {
     var note1: MIDINoteNumber = scale.randomElement()
     let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
     let course1 = [1, 2, 3, 4].randomElement()
-    if random(0, 10) < 1.0 { note1 += 1 }
+    if random(in: 0...10) < 1.0 { note1 += 1 }
 
     var note2: MIDINoteNumber = scale.randomElement()
     let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
     let course2 = [1, 2, 3, 4].randomElement()
-    if random(0, 10) < 1.0 { note2 += 1 }
+    if random(in: 0...10) < 1.0 { note2 += 1 }
 
-    if random(0, 6) > 1.0 {
+    if random(in: 0...6) > 1.0 {
         mandolin.fret(noteNumber: note1 + octave1, course: course1 - 1)
         mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
     }
-    if random(0, 6) > 3.0 {
+    if random(in: 0...6) > 3.0 {
         mandolin.fret(noteNumber: note2 + octave2, course: course2 - 1)
         mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
     }
 }
 
 AudioKit.output = reverb
-AudioKit.start(withPeriodicFunctions: performance)
+try AudioKit.start(withPeriodicFunctions: performance)
 performance.start()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    var detuneSlider: AKPropertySlider!
-    var bodySizeSlider: AKPropertySlider!
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    var detuneSlider: AKSlider!
+    var bodySizeSlider: AKSlider!
+
+    override func viewDidLoad() {
         addTitle("Mandolin")
 
-        detuneSlider = AKPropertySlider(
-            property: "Detune",
-            format: "%0.2f",
-            value: mandolin.detune, minimum: 0.5, maximum: 2,
-            color: AKColor.magenta
+        detuneSlider = AKSlider(property: "Detune",
+                                value: mandolin.detune,
+                                range: 0.5 ... 2,
+                                format: "%0.2f"
         ) { detune in
             mandolin.detune = detune
         }
-        addSubview(detuneSlider)
+        addView(detuneSlider)
 
-        bodySizeSlider = AKPropertySlider(
-            property: "Body Size",
-            format: "%0.2f",
-            value: mandolin.bodySize, minimum: 0.2, maximum: 3,
-            color: AKColor.cyan
+        bodySizeSlider = AKSlider(property: "Body Size",
+                                  value: mandolin.bodySize,
+                                  range: 0.2 ... 3,
+                                  format: "%0.2f"
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
-        addSubview(bodySizeSlider)
+        addView(bodySizeSlider)
 
-        addSubview(AKPropertySlider(
-            property: "Pluck Position",
-            format: "%0.2f",
-            value: pluckPosition,
-            color: AKColor.red
-        ) { position in
+        addView(AKSlider(property: "Pluck Position", value: pluckPosition, format: "%0.2f") { position in
             pluckPosition = position
         })
 
         let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Large, Resonant":
                 mandolin.presetLargeResonantMandolin()
@@ -105,5 +100,5 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 import PlaygroundSupport
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 PlaygroundPage.current.needsIndefiniteExecution = true

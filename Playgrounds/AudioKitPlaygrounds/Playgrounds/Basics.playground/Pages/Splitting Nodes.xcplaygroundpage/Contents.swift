@@ -10,10 +10,10 @@ import AudioKitPlaygrounds
 import AudioKit
 
 //: Prepare the source audio player
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: The following nodes are both acting on the original player node
 var ringMod = AKRingModulator(player)
@@ -29,7 +29,7 @@ delay.dryWetMix = 1
 let mixer = AKMixer(player, delay)
 
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

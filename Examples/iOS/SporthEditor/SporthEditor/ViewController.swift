@@ -2,28 +2,30 @@
 //  ViewController.swift
 //  SporthEditor
 //
-//  Created by Aurelius Prochazka on 7/10/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit
+import AudioKitUI
 import AudioKit
 
 class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate {
     @IBOutlet private var codeEditorTextView: UITextView!
     @IBOutlet private weak var keyboard: AKKeyboardView!
+    @IBOutlet private weak var plot: AKOutputWaveformPlot!
     @IBOutlet private weak var status: UILabel!
     @IBOutlet private weak var runButton: RoundedButton!
 
-    @IBOutlet private var slider1: AKPropertySlider!
-    @IBOutlet private var slider2: AKPropertySlider!
-    @IBOutlet private var slider3: AKPropertySlider!
-    @IBOutlet private var slider4: AKPropertySlider!
+    @IBOutlet private var slider1: AKSlider!
+    @IBOutlet private var slider2: AKSlider!
+    @IBOutlet private var slider3: AKSlider!
+    @IBOutlet private var slider4: AKSlider!
 
     var brain = SporthEditorBrain()
     var sporthDictionary = [String: URL]()
     var currentMIDINote: MIDINoteNumber = 0
-    var sliders: [AKPropertySlider] = []
+    var sliders: [AKSlider] = []
 
     @IBAction func run() {
         if let started = brain.generator?.isStarted {
@@ -153,7 +155,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             let value = regex.stringByReplacingMatches(in: line,
                                                        options: .reportCompletion,
                                                        range: NSRange(location: 0,
-                                                                      length: line.characters.count),
+                                                                      length: line.count),
                                                        withTemplate: "$1")
 
             pattern = "##: - Control ([1-4]): ([^\n]+)"
@@ -166,12 +168,12 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
             let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                           options: .reportCompletion,
                                                                           range: NSRange(location: 0,
-                                                                                         length: line.characters.count),
+                                                                                         length: line.count),
                                                                           withTemplate: "$1")
             title = regex.stringByReplacingMatches(in: line,
                                                    options: .reportCompletion,
                                                    range: NSRange(location: 0,
-                                                                  length: line.characters.count),
+                                                                  length: line.count),
                                                    withTemplate: "$2")
 
             if title != line {

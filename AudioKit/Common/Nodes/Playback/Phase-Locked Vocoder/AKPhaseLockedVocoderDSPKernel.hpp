@@ -3,18 +3,11 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-
-#import <AudioKit/AudioKit-Swift.h>
-
-extern "C" {
-#include "soundpipe.h"
-}
+#import "AKSoundpipeKernel.hpp"
 
 enum {
     positionAddress = 0,
@@ -49,7 +42,7 @@ public:
     void stop() {
         started = false;
     }
-    
+
     void setUpTable(float *table, UInt32 size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
@@ -57,6 +50,7 @@ public:
     }
 
     void destroy() {
+        sp_ftbl_destroy(&ftbl);
         sp_mincer_destroy(&mincer);
         AKSoundpipeKernel::destroy();
     }
@@ -138,7 +132,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-            
+
             position = double(positionRamper.getAndStep());
             amplitude = double(amplitudeRamper.getAndStep());
             pitchRatio = double(pitchRatioRamper.getAndStep());
@@ -147,17 +141,17 @@ public:
             mincer->amp = amplitude;
             mincer->pitch = pitchRatio;
 
-//            for (int channel = 0; channel < channels; ++channel) {
-                float *outL = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
-                float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
-                if (started) {
-                    sp_mincer_compute(sp, mincer, NULL, outL);
-                    *outR = *outL;
-                } else {
-                    *outL = 0;
-                    *outR = 0;
-                }
-//            }
+            //            for (int channel = 0; channel < channels; ++channel) {
+            float *outL = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
+            float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
+            if (started) {
+                sp_mincer_compute(sp, mincer, NULL, outL);
+                *outR = *outL;
+            } else {
+                *outL = 0;
+                *outR = 0;
+            }
+            //            }
         }
     }
 

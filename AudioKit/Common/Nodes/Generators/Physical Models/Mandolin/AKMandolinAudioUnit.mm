@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKMandolinAudioUnit.h"
@@ -16,7 +16,7 @@
 @implementation AKMandolinAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKMandolinDSPKernel _kernel;
-    BufferedInputBus _inputBus;
+    BufferedOutputBus _outputBusBuffer;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -44,19 +44,19 @@
 
 - (void)createParameters {
 
-    standardSetup(Mandolin)
+    standardGeneratorSetup(Mandolin)
 
     // Create a parameter object for the detune.
     AUParameter *detuneAUParameter = [AUParameter parameter:@"detune"
                                                        name:@"Detune"
-                                                    address:detuneAddress
+                                                    address:AKMandolinDSPKernel::detuneAddress
                                                         min:0.0001
                                                         max:100.0
                                                        unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the body size.
     AUParameter *bodySizeAUParameter = [AUParameter parameter:@"bodySize"
                                                          name:@"Body size"
-                                                      address:bodySizeAddress
+                                                      address:AKMandolinDSPKernel::bodySizeAddress
                                                           min:0
                                                           max:10
                                                          unit:kAudioUnitParameterUnit_Generic];
@@ -66,16 +66,16 @@
     bodySizeAUParameter.value = 1.0;
 
 
-    _kernel.setParameter(detuneAddress,        detuneAUParameter.value);
-    _kernel.setParameter(bodySizeAddress,      bodySizeAUParameter.value);
+    _kernel.setParameter(AKMandolinDSPKernel::detuneAddress,        detuneAUParameter.value);
+    _kernel.setParameter(AKMandolinDSPKernel::bodySizeAddress,      bodySizeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        detuneAUParameter,
-        bodySizeAUParameter
-    ]];
+                                                               detuneAUParameter,
+                                                               bodySizeAUParameter
+                                                               ]];
 
-	parameterTreeBlock(Mandolin)
+    parameterTreeBlock(Mandolin)
 }
 
 AUAudioUnitGeneratorOverrides(Mandolin)

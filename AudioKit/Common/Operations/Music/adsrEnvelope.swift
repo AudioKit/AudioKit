@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKOperation {
@@ -12,9 +12,9 @@ extension AKOperation {
     ///
     /// - Parameters:
     ///   - gate: 1 for on and 0 for off
-    ///   - attack: Attack time, in seconds. (Default: 0.1)
-    ///   - hold: Hold time, in seconds. (Default: 0.3)
-    ///   - release: Release time, in seconds. (Default: 0.2)
+    ///   - attack: Attack duration, in seconds. (Default: 0.1)
+    ///   - hold: Hold duration, in seconds. (Default: 0.3)
+    ///   - release: Release duration, in seconds. (Default: 0.2)
     ///
     public func gatedADSREnvelope(
         gate: AKParameter,
@@ -23,6 +23,6 @@ extension AKOperation {
         sustain: AKParameter = 1,
         release: AKParameter = 0.2
         ) -> AKOperation {
-        return AKOperation(module:  "adsr *", inputs: toMono(), gate, attack, decay, sustain, release)
+        return AKOperation(module: "adsr *", inputs: toMono(), gate, attack, decay, sustain, release)
     }
 }

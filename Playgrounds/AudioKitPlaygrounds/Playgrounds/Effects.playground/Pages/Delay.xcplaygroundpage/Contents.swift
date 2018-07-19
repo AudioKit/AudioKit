@@ -3,12 +3,12 @@
 //: varying length delay times and feedback amounts
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var delay = AKDelay(player)
 delay.time = 0.01 // seconds
@@ -16,61 +16,46 @@ delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var timeSlider: AKPropertySlider?
-    var feedbackSlider: AKPropertySlider?
-    var lowPassCutoffFrequencySlider: AKPropertySlider?
-    var dryWetMixSlider: AKPropertySlider?
+    var timeSlider: AKSlider?
+    var feedbackSlider: AKSlider?
+    var lowPassCutoffFrequencySlider: AKSlider?
+    var dryWetMixSlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Delay")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        timeSlider = AKPropertySlider(
-            property: "Time",
-            value: delay.time,
-            color: AKColor.green
-        ) { sliderValue in
+        timeSlider = AKSlider(property: "Time", value: delay.time) { sliderValue in
             delay.time = sliderValue
         }
-        addSubview(timeSlider)
+        addView(timeSlider)
 
-        feedbackSlider = AKPropertySlider(
-            property: "Feedback",
-            value: delay.feedback,
-            color: AKColor.red
-        ) { sliderValue in
+        feedbackSlider = AKSlider(property: "Feedback", value: delay.feedback) { sliderValue in
             delay.feedback = sliderValue
         }
-        addSubview(feedbackSlider)
+        addView(feedbackSlider)
 
-        lowPassCutoffFrequencySlider = AKPropertySlider(
-            property: "Low Pass Cutoff",
-            value: delay.lowPassCutoff, maximum: 22_050,
-            color: AKColor.magenta
+        lowPassCutoffFrequencySlider = AKSlider(property: "Low Pass Cutoff",
+                                                value: delay.lowPassCutoff,
+                                                range: 0 ... 22_050
         ) { sliderValue in
             delay.lowPassCutoff = sliderValue
         }
-        addSubview(lowPassCutoffFrequencySlider)
+        addView(lowPassCutoffFrequencySlider)
 
-        dryWetMixSlider = AKPropertySlider(
-            property: "Mix",
-            value: delay.dryWetMix,
-            color: AKColor.cyan
-        ) { sliderValue in
+        dryWetMixSlider = AKSlider(property: "Mix", value: delay.dryWetMix) { sliderValue in
             delay.dryWetMix = sliderValue
         }
-        addSubview(dryWetMixSlider)
+        addView(dryWetMixSlider)
 
         let presets = ["Short", "Dense Long", "Electric Circuits"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Short":
                 delay.presetShortDelay()
@@ -96,4 +81,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

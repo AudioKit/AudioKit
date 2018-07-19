@@ -3,14 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 public typealias BPM = Double
 
 /// Container for the notion of time in sequencing
-public struct AKDuration: CustomStringConvertible {
-    let secondsPerMinute = 60
+public struct AKDuration: CustomStringConvertible, Comparable {
+    static let secondsPerMinute = 60
 
     /// Duration in beats
     public var beats: Double
@@ -24,16 +24,16 @@ public struct AKDuration: CustomStringConvertible {
     /// While samples is the most accurate, they blow up too fast, so using beat as standard
     public var samples: Int {
         get {
-            let doubleSamples = beats / tempo * secondsPerMinute * sampleRate
+            let doubleSamples = beats / tempo * AKDuration.secondsPerMinute * sampleRate
             if doubleSamples <= Double(Int.max) {
                 return Int(doubleSamples)
             } else {
                 AKLog("Warning: Samples exceeds the maximum number.")
-                return Int.max
+                return .max
             }
         }
         set {
-            beats = (newValue / sampleRate) / secondsPerMinute * tempo
+            beats = (newValue / sampleRate) / AKDuration.secondsPerMinute * tempo
         }
     }
 
@@ -64,7 +64,7 @@ public struct AKDuration: CustomStringConvertible {
     ///   - sampleRate: Sample rate in samples per second
     ///
     public init(samples: Int, sampleRate: Double = 44_100, tempo: BPM = 60) {
-        self.beats = tempo * (samples / sampleRate) / secondsPerMinute
+        self.beats = tempo * (samples / sampleRate) / AKDuration.secondsPerMinute
         self.sampleRate = sampleRate
         self.tempo = tempo
     }
@@ -89,7 +89,76 @@ public struct AKDuration: CustomStringConvertible {
     public init(seconds: Double, sampleRate: Double = 44_100, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
-        self.beats = tempo * (seconds / secondsPerMinute)
+        self.beats = tempo * (seconds / AKDuration.secondsPerMinute)
+    }
+
+    /// Add to a duration
+    ///
+    /// - parameter lhs: Starting duration
+    /// - parameter rhs: Amount to add
+    ///
+    public static func += (lhs: inout AKDuration, rhs: AKDuration) {
+        lhs.beats += rhs.beats
+    }
+
+    /// Subtract from a duration
+    ///
+    /// - parameter lhs: Starting duration
+    /// - parameter rhs: Amount to subtract
+    ///
+    public static func -= (lhs: inout AKDuration, rhs: AKDuration) {
+        lhs.beats -= rhs.beats
+    }
+
+    /// Duration equality
+    ///
+    /// - parameter lhs: One duration
+    /// - parameter rhs: Another duration
+    ///
+    public static func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+        return lhs.beats == rhs.beats
+    }
+
+    /// Duration less than
+    ///
+    /// - parameter lhs: One duration
+    /// - parameter rhs: Another duration
+    ///
+    public static func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
+        return lhs.beats < rhs.beats
+    }
+
+    /// Adding durations
+    ///
+    /// - parameter lhs: One duration
+    /// - parameter rhs: Another duration
+    ///
+    public static func + (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+        var newDuration = lhs
+        newDuration.beats += rhs.beats
+        return newDuration
+    }
+
+    /// Subtracting durations
+    ///
+    /// - parameter lhs: One duration
+    /// - parameter rhs: Another duration
+    ///
+    public static func - (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+        var newDuration = lhs
+        newDuration.beats -= rhs.beats
+        return newDuration
+    }
+
+    /// Modulus of the duration's beats
+    ///
+    /// - parameter lhs: One duration
+    /// - parameter rhs: Another duration
+    ///
+    public static func % (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+        var copy = lhs
+        copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
+        return copy
     }
 }
 
@@ -100,110 +169,5 @@ public struct AKDuration: CustomStringConvertible {
 public func ceil(_ duration: AKDuration) -> AKDuration {
     var copy = duration
     copy.beats = ceil(copy.beats)
-    return copy
-}
-
-/// Add to a duration
-///
-/// - parameter lhs: Starting duration
-/// - parameter rhs: Amount to add
-///
-public func += (lhs: inout AKDuration, rhs: AKDuration) {
-    lhs.beats += rhs.beats
-}
-
-/// Subtract from a duration
-///
-/// - parameter lhs: Starting duration
-/// - parameter rhs: Amount to subtract
-///
-public func -= (lhs: inout AKDuration, rhs: AKDuration) {
-    lhs.beats -= rhs.beats
-}
-
-/// Duration equality
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func == (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats == rhs.beats
-}
-
-/// Duration inequality
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func != (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats != rhs.beats
-}
-
-/// Duration greater than or equal to
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func >= (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats >= rhs.beats
-}
-
-/// Duration less than or equal to
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func <= (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats <= rhs.beats
-}
-
-/// Duration less than
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func < (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats < rhs.beats
-}
-
-/// Duration greater than
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func > (lhs: AKDuration, rhs: AKDuration) -> Bool {
-    return lhs.beats > rhs.beats
-}
-
-/// Adding durations
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func + (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
-    var newDuration = lhs
-    newDuration.beats += rhs.beats
-    return newDuration
-}
-
-/// Subtracting durations
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func - (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
-    var newDuration = lhs
-    newDuration.beats -= rhs.beats
-    return newDuration
-}
-
-/// Modulus of the duration's beats
-///
-/// - parameter lhs: One duration
-/// - parameter rhs: Another duration
-///
-public func % (lhs: AKDuration, rhs: AKDuration) -> AKDuration {
-    var copy = lhs
-    copy.beats = lhs.beats.truncatingRemainder(dividingBy: rhs.beats)
     return copy
 }

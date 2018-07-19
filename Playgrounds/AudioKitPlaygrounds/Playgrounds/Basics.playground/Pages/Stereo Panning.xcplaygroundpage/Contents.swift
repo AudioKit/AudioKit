@@ -9,10 +9,10 @@ import AudioKitPlaygrounds
 import AudioKit
 
 //: Set up the audio player
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav")
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 //: Route the audio player through the panner
 var panner = AKPanner(player)
@@ -26,7 +26,7 @@ let timer = AKPeriodicFunction(every: timeStep) {
 }
 
 AudioKit.output = panner
-AudioKit.start(withPeriodicFunctions: timer)
+try AudioKit.start(withPeriodicFunctions: timer)
 
 player.play()
 timer.start()

@@ -3,34 +3,37 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let player = try AKPlayer(audioFile: file)
+player.isLooping = true
 
 var delay = AKVariableDelay(player)
-delay.rampTime = 0.2
-AudioKit.output = delay
+delay.rampDuration = 0.2
+AudioKit.output = AKMixer(player, delay)
 
-var time = 0.0
-let timeStep = 0.1
+try AudioKit.start()
 
-let modulation = AKPeriodicFunction(every: timeStep) {
+import AudioKitUI
 
-    // Vary the delay time between 0.0 and 0.2 in a sinusoid at 2 hz
-    let delayModulationHz = 0.1
-    let delayModulation = (1.0 - cos(2 * 3.14 * delayModulationHz * time)) * 0.1
-    delay.time = delayModulation
+class LiveView: AKLiveViewController {
 
-    let feedbackModulationHz = 0.21
-    let feedbackModulation = (1.0 - sin(2 * 3.14 * feedbackModulationHz * time)) * 0.5
-    delay.feedback = feedbackModulation
-    time += timeStep
+    override func viewDidLoad() {
+        addTitle("Variable Delay")
+
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
+
+        addView(AKSlider(property: "Time", value: delay.time) { sliderValue in
+            delay.time = sliderValue
+        })
+        addView(AKSlider(property: "Feedback", value: delay.feedback) { sliderValue in
+            delay.feedback = sliderValue
+        })
+        addView(AKButton(title: "Clear") { _ in
+            delay.clear()
+        })
+    }
 }
-
-AudioKit.start(withPeriodicFunctions: modulation)
-player.play()
-modulation.start()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = LiveView()

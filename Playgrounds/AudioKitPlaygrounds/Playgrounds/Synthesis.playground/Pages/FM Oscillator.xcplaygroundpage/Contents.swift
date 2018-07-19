@@ -4,30 +4,34 @@
 
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1
-oscillator.rampTime = 0.1
+oscillator.rampDuration = 0.1
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var frequencySlider: AKPropertySlider!
-    var carrierMultiplierSlider: AKPropertySlider!
-    var modulatingMultiplierSlider: AKPropertySlider!
-    var modulationIndexSlider: AKPropertySlider!
-    var amplitudeSlider: AKPropertySlider!
-    var rampTimeSlider: AKPropertySlider!
+    var frequencySlider: AKSlider!
+    var carrierMultiplierSlider: AKSlider!
+    var modulatingMultiplierSlider: AKSlider!
+    var modulationIndexSlider: AKSlider!
+    var amplitudeSlider: AKSlider!
+    var rampDurationSlider: AKSlider!
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("FM Oscillator")
 
-        addSubview(AKBypassButton(node: oscillator))
+        addView(AKButton(title: "Start FM Oscillator") { button in
+            oscillator.isStarted ? oscillator.stop() : oscillator.play()
+            button.title = oscillator.isStarted ? "Stop FM Oscillator" : "Start FM Oscillator"
+        })
 
         let presets = ["Stun Ray", "Wobble", "Fog Horn", "Buzzer", "Spiral"]
-        addSubview(AKPresetLoaderView(presets: presets) { preset in
+        addView(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
             case "Stun Ray":
                 oscillator.presetStunRay()
@@ -52,79 +56,65 @@ class PlaygroundView: AKPlaygroundView {
             self.modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
             self.modulationIndexSlider?.value = oscillator.modulationIndex
             self.amplitudeSlider?.value = oscillator.amplitude
-            self.rampTimeSlider?.value = oscillator.rampTime
+            self.rampDurationSlider?.value = oscillator.rampDuration
         })
 
-        addSubview(AKButton(title: "Randomize") {
+        addView(AKButton(title: "Randomize") { _ in
             oscillator.baseFrequency = self.frequencySlider.randomize()
             oscillator.carrierMultiplier = self.carrierMultiplierSlider.randomize()
             oscillator.modulatingMultiplier = self.modulatingMultiplierSlider.randomize()
             oscillator.modulationIndex = self.modulationIndexSlider.randomize()
-            return ""
         })
 
-        frequencySlider = AKPropertySlider(
-            property: "Frequency",
-            format: "%0.2f Hz",
-            value: oscillator.baseFrequency, maximum: 800,
-            color: AKColor.yellow
+        frequencySlider = AKSlider(property: "Frequency",
+                                   value: oscillator.baseFrequency,
+                                   range: 0 ... 800,
+                                   format: "%0.2f Hz"
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
-        addSubview(frequencySlider)
+        addView(frequencySlider)
 
-        carrierMultiplierSlider = AKPropertySlider(
-            property: "Carrier Multiplier",
-            format: "%0.3f",
-            value: oscillator.carrierMultiplier, maximum: 20,
-            color: AKColor.red
+        carrierMultiplierSlider = AKSlider(property: "Carrier Multiplier",
+                                           value: oscillator.carrierMultiplier,
+                                           range: 0 ... 20
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
-        addSubview(carrierMultiplierSlider)
+        addView(carrierMultiplierSlider)
 
-        modulatingMultiplierSlider = AKPropertySlider(
-            property: "Modulating Multiplier",
-            format: "%0.3f",
-            value: oscillator.modulatingMultiplier, maximum: 20,
-            color: AKColor.green
+        modulatingMultiplierSlider = AKSlider(property: "Modulating Multiplier",
+                                              value: oscillator.modulatingMultiplier,
+                                              range: 0 ... 20
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
-        addSubview(modulatingMultiplierSlider)
+        addView(modulatingMultiplierSlider)
 
-        modulationIndexSlider = AKPropertySlider(
-            property: "Modulation Index",
-            format: "%0.3f",
-            value: oscillator.modulationIndex, maximum: 100,
-            color: AKColor.cyan
+        modulationIndexSlider = AKSlider(property: "Modulation Index",
+                                         value: oscillator.modulationIndex,
+                                         range: 0 ... 100
         ) { index in
             oscillator.modulationIndex = index
         }
-        addSubview(modulationIndexSlider)
+        addView(modulationIndexSlider)
 
-        amplitudeSlider = AKPropertySlider(
-            property: "Amplitude",
-            format: "%0.3f",
-            value: oscillator.amplitude,
-            color: AKColor.purple
-        ) { amplitude in
+        amplitudeSlider = AKSlider(property: "Amplitude", value: oscillator.amplitude) { amplitude in
             oscillator.amplitude = amplitude
         }
-        addSubview(amplitudeSlider)
+        addView(amplitudeSlider)
 
-        rampTimeSlider = AKPropertySlider(
-            property: "Ramp Time",
-            format: "%0.3f s",
-            value: oscillator.rampTime, maximum: 10,
-            color: AKColor.orange
+        rampDurationSlider = AKSlider(property: "Ramp Duration",
+                                  value: oscillator.rampDuration,
+                                  range: 0 ... 10,
+                                  format: "%0.3f s"
         ) { time in
-            oscillator.rampTime = time
+            oscillator.rampDuration = time
         }
-        addSubview(rampTimeSlider)
+        addView(rampDurationSlider)
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

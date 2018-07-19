@@ -2,7 +2,6 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This first section sets up parameter naming in such a way
 //: to make the operation code easier to read below.
 
@@ -22,45 +21,34 @@ extension AKOperationEffect {
 
 //: Use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { input, parameters in
-    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex],
-                                          amplitude: parameters[depthIndex])
+    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex], amplitude: parameters[depthIndex])
     return input.pan(oscillator)
 }
 
 effect.parameters = [10, 1]
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
         addTitle("AutoPan")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Speed",
-            value: effect.speed, minimum: 0.1, maximum: 25,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Speed", value: effect.speed, range: 0.1 ... 25) { sliderValue in
             effect.speed = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Depth",
-            value: effect.depth,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Depth", value: effect.depth) { sliderValue in
             effect.depth = sliderValue
         })
     }
@@ -68,4 +56,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

@@ -3,11 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 // Filter Properties
 var cutoffFrequency = 1_100
@@ -24,7 +23,7 @@ let filterSectionEffect = AKOperationEffect(player) { player, _ in
                                    resonance: resonance)
 }
 AudioKit.output = filterSectionEffect
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

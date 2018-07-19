@@ -2,6 +2,7 @@
 //: AudioKit is great for sound design. This playground creates canonical telephone sounds.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies
@@ -66,22 +67,22 @@ let keypad = AKOperationGenerator { parameters in
         AKOperation.sineWave(frequency: AKOperation.parameters[2])
 
     let momentaryPress = keyPressTone.triggeredWithEnvelope(
-        trigger:AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
+        trigger: AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
     return momentaryPress * 0.4
 }
 
 AudioKit.output = AKMixer(dialTone, ringing, busy, keypad)
-AudioKit.start()
+try AudioKit.start()
 dialTone.start()
 
 keypad.start()
 
 //: User Interface Set up
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Telephone")
-        addSubview(AKPhoneView { key, state in
+        addView(AKPhoneView { key, state in
             switch key {
             case "CALL":
                 if state == "down" {
@@ -125,4 +126,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

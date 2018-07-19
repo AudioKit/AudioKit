@@ -3,11 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var delays = [AKVariableDelay]()
 var counter = 0
@@ -31,18 +30,18 @@ let input = player
 
 //: Delay Definition
 let leftDelay = multitapDelay(input,
-    times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
-    gains: gains)
+                              times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
+                              gains: gains)
 let rightDelay = multitapDelay(input,
-    times: [1.0, 2.0, 3.0].map { t -> Double in t * delayTime },
-    gains: gains)
+                               times: [1.0, 2.0, 3.0].map { t -> Double in t * delayTime },
+                               gains: gains)
 let delayPannedLeft = AKPanner(leftDelay, pan: -1)
 let delayPannedRight = AKPanner(rightDelay, pan: 1)
 
 let mix = AKMixer(delayPannedLeft, delayPannedRight)
 
 AudioKit.output = mix
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

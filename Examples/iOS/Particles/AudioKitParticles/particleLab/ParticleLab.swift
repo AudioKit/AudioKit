@@ -2,7 +2,7 @@
 //  ParticleLab.swift
 //  MetalParticles
 //
-//  Created by Simon Gladman on 04/04/2015.
+//  Created by Simon Gladman, revision history on Githbub.
 //  Copyright (c) 2015 Simon Gladman. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
@@ -131,10 +131,10 @@ class ParticleLab: MTKView {
     }
 
     func resetGravityWells() {
-        setGravityWellProperties(gravityWell: .one)
-        setGravityWellProperties(gravityWell: .two)
-        setGravityWellProperties(gravityWell: .three)
-        setGravityWellProperties(gravityWell: .four)
+        setGravityWellProperties(gravityWellIndex: 1)
+        setGravityWellProperties(gravityWellIndex: 2)
+        setGravityWellProperties(gravityWellIndex: 3)
+        setGravityWellProperties(gravityWellIndex: 4)
     }
 
     func resetParticles(_ edgesOnly: Bool) {

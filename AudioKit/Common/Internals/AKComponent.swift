@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Helpful in reducing repetitive code in AudioKit
@@ -84,4 +84,10 @@ extension AudioComponentDescription {
     public init(generator subType: String) {
         self.init(type: kAudioUnitType_Generator, subType: fourCC(subType))
     }
+
+    /// Initialize as an instrument with a sub-type string
+    public init(instrument subType: String) {
+        self.init(type: kAudioUnitType_MusicDevice, subType: fourCC(subType))
+    }
+
 }

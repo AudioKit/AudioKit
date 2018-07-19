@@ -3,131 +3,57 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-#include "Shakers.h"
-
-enum {
-    amplitudeAddress = 0
-};
-
 class AKShakerDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
+
+    enum {
+        amplitudeAddress = 0
+    };
+    
     // MARK: Member Functions
 
-    AKShakerDSPKernel() {}
+    AKShakerDSPKernel();
+    ~AKShakerDSPKernel();
 
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
-        // iOS Hack
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
-        stk::Stk::setSampleRate(sampleRate);
-        shaker = new stk::Shakers(0);
-    }
+    void init(int _channels, double _sampleRate) override;
 
-    void start() {
-        started = true;
-    }
+    void start();
 
-    void stop() {
-        started = false;
-    }
+    void stop();
 
-    void destroy() {
-        delete shaker;
-    }
+    void destroy();
 
-    void reset() {
-        resetted = true;
-    }
-    
-    void setType(UInt8 typ) {
-        type = typ;
-    }
+    void reset();
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
-    }
+    void setType(UInt8 typ);
 
-    void trigger() {
-        internalTrigger = 1;
-    }
+    void setAmplitude(float amp);
 
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-                
-            case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
-                break;
+    void trigger();
 
-        }
-    }
+    void setParameter(AUParameterAddress address, AUValue value);
 
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case amplitudeAddress:
-                return amplitudeRamper.getUIValue();
+    AUValue getParameter(AUParameterAddress address);
 
-            default: return 0.0f;
-        }
-    }
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
-                break;
-
-        }
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            amplitude = amplitudeRamper.getAndStep();
-
-            for (int channel = 0; channel < channels; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (started) {
-                    if (internalTrigger == 1) {
-                        shaker->noteOn(type, amplitude);
-                    }
-                } else {
-                    *out = 0.0;
-                }
-                *out = shaker->tick();
-            }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
-    }
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables
 
 private:
-
-    float internalTrigger = 0;
-
-    stk::Shakers *shaker;
-    
-    UInt8 type = 0;
-    float amplitude = 0.5;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
     bool started = false;

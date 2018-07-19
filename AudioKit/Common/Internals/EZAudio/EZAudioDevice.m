@@ -2,7 +2,7 @@
 //  EZAudioDevice.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 6/25/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -109,14 +109,14 @@
     {
         return;
     }
-    
+
     NSArray *inputs = [[AVAudioSession sharedInstance] availableInputs];
     if (inputs == nil)
     {
         NSLog(@"Audio session is not active! In order to enumerate the audio devices you must set the category and set active the audio session for your iOS app before calling this function.");
         return;
     }
-    
+
     BOOL stop;
     for (AVAudioSessionPortDescription *inputDevicePortDescription in inputs)
     {
@@ -149,10 +149,10 @@
     {
         return;
     }
-    
+
     AVAudioSessionRouteDescription *currentRoute = [[AVAudioSession sharedInstance] currentRoute];
     NSArray *portDescriptions = [currentRoute outputs];
-    
+
     BOOL stop;
     for (AVAudioSessionPortDescription *outputDevicePortDescription in portDescriptions)
     {
@@ -229,7 +229,7 @@
     {
         return;
     }
-    
+
     // get the present system devices
     AudioObjectPropertyAddress address = [self addressForPropertySelector:kAudioHardwarePropertyDevices];
     UInt32 devicesDataSize;
@@ -239,11 +239,11 @@
                                                                  NULL,
                                                                  &devicesDataSize)
                         operation:"Failed to get data size"];
-    
+
     // enumerate devices
     NSInteger count = devicesDataSize / sizeof(AudioDeviceID);
     AudioDeviceID *deviceIDs = (AudioDeviceID *)malloc(devicesDataSize);
-    
+
     // fill in the devices
     [EZAudioUtilities checkResult:AudioObjectGetPropertyData(kAudioObjectSystemObject,
                                                              &address,
@@ -270,7 +270,7 @@
             break;
         }
     }
-    
+
     free(deviceIDs);
 }
 
@@ -395,7 +395,7 @@
     address.mScope = scope;
     address.mElement = kAudioObjectPropertyElementMaster;
     address.mSelector = kAudioDevicePropertyStreamConfiguration;
-    
+
     UInt32 dataSize = 0;
     [EZAudioUtilities checkResult:AudioObjectGetPropertyDataSize(deviceID,
                                                                  &address,
@@ -403,7 +403,7 @@
                                                                  NULL,
                                                                  &dataSize)
                         operation:"Failed to get buffer size"];
-    
+
     AudioBufferList *bufferList = (AudioBufferList *)(malloc(dataSize));
 
     [EZAudioUtilities checkResult:AudioObjectGetPropertyData(deviceID,
@@ -413,17 +413,18 @@
                                                  &dataSize,
                                                  bufferList)
                         operation:"Failed to get buffer list"];
-    
+
     UInt32 numBuffers = bufferList->mNumberBuffers;
-    
+
     NSInteger channelCount = 0;
     for (NSInteger i = 0; i < numBuffers; i++)
     {
         channelCount += bufferList->mBuffers[i].mNumberChannels;
     }
-    
-    free(bufferList), bufferList = NULL;
-    
+
+    free(bufferList);
+    bufferList = NULL;
+
     return channelCount;
 }
 

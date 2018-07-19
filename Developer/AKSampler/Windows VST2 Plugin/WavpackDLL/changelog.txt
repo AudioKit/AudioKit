@@ -1,0 +1,692 @@
+                      --------------------------------
+                      Release 5.1.0 - January 18, 2017
+                      --------------------------------
+
+ WavPack Library Source Code - 5.1.0
+ wavpack.exe (command-line encoder) - 5.1.0
+ wvunpack.exe (command-line decoder) - 5.1.0
+ wvgain.exe (command-line ReplayGain scanner) - 5.1.0
+ wvtag.exe (command-line tagging utility) - 5.1.0
+ ----------------------------------------------------
+  added: all new command-line tagging utility (wvtag)
+  added: option to import ID3v2.3 tags from Sony DSF files
+  fixed: fuzz test failures from AFL reported on SourceForge
+  improved: DSD decimation filter (less HF rolloff & CPU use)
+  fixed: non-byte audio depths (12-bit, 20-bit) not showing
+  fixed: rare case of noise-shaping triggering a lossy mute
+  fixed: recognize UTF-8 BOM when reading text files
+  fixed: a few portability issues
+
+ in_wv.dll (winamp plugin) - 2.8.0.3
+ CoreWavPack DirectShow Filters - 1.5.1.0
+ AmioWavpack.amio (Adobe Audition Plugins) - 2.1
+ cool_wv4.flt (Cool Edit / Audition filter) - 3.1
+ ------------------------------------------------
+  updated: see 5.1.0 library changes
+
+
+                      --------------------------------
+                      Release 5.0.0 - December 6, 2016
+                      --------------------------------
+
+ WavPack Library Source Code - 5.0.0
+ wavpack.exe (command-line encoder) - 5.0.0
+ wvunpack.exe (command-line decoder) - 5.0.0
+ wvgain.exe (command-line ReplayGain scanner) - 5.0.0
+ ----------------------------------------------------
+  added: multiple input formats, including RF64, Wave64, and CAF
+  added: lossless DSD audio in Philips DSDIFF and Sony DSF files
+  fixed: seeking in > 2GB WavPack files (new stream reader)
+  fixed: accept > 4GB source audio files (all formats)
+  improved: increase maximum samples from 2^32 to 2^40
+  added: block checksums for robustness to corruption
+  added: support for non-standard channel identities
+  removed: support for legacy WavPack files (< 4.0)
+  added: block decoder for streaming applications
+  fixed: many small fixes and improvements
+  added: all new pdf documentation
+
+ AmioWavpack.amio (Adobe Audition Plugins) - 2.0
+ -----------------------------------------------
+  improved: all new dialog for WavPack settings
+  fixed: handle unlimited audio file size
+  fixed: save all Amio channel identities
+  added: save/restore APEv2 tags
+
+ in_wv.dll (winamp plugin) - 2.8.0.2
+ CoreWavPack DirectShow Filters - 1.5.0.0
+ cool_wv4.flt (Cool Edit / Audition filter) - 3.0
+ ------------------------------------------------
+  updated: see 5.0.0 library changes
+
+
+                      -------------------------------
+                      Release 4.80.0 - March 28, 2016
+                      -------------------------------
+
+ WavPack Library Source Code - 4.80.0
+ wavpack.exe (command-line encoder) - 4.80.0
+ wvunpack.exe (command-line decoder) - 4.80.0
+ wvgain.exe (command-line ReplayGain scanner) - 4.80.0
+ -----------------------------------------------------
+  added: full Unicode support on Windows platform
+  added: new option --pre-quantize to truncate high-resolution files
+         to a reasonable depth (e.g., 20-bit) for better compression
+  fixed: Debian bug #793320 (executable stack)
+  fixed: LargeAddressAware problem reported on HA
+  fixed: several "fuzz test" failures reported on GitHub
+  fixed: repack blocks after possible arithmetic overflows
+  improved: faster assembly code for mono packing
+  improved: portability for various platforms
+
+ wvtest.exe (command-line libwavpack test suite) - 4.80.0
+ --------------------------------------------------------
+  added: exhaustive test for WavpackSeekSample() API
+
+ in_wv.dll (winamp plugin) - 2.8.0.1
+ CoreWavPack DirectShow Filters - 1.3.0.0
+ AmioWavpack.amio (Adobe Audition Plugins) - 1.5
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.14
+ ------------------------------------------------
+  updated: see 4.80.0 library changes
+
+
+                      --------------------------------
+                      Release 4.75.2 - October 1, 2015
+                      --------------------------------
+
+ WavPack Library Source Code - 4.75.2
+ ------------------------------------
+  fixed: corrupt mono or multichannel files created with assembly code (rare)
+  fixed: building on Clang systems like Darwin and FreeBSD (req. Clang 3.5+)
+  fixed: explicitly sign-extend audio data (< 4-byte) to avoid corrupt files
+  fixed: rare decoding errors due to integer overflow (ARM assembly code)
+  added: assembly optimizations for "extra" mode on mono or multichannel
+
+ wvtest.exe (command-line libwavpack test suite) - 4.75.2
+ --------------------------------------------------------
+  all new program to stress-test libwavpack (requires Pthreads)
+
+ wavpack.exe (command-line encoder) - 4.75.2
+ wvunpack.exe (command-line decoder) - 4.75.2
+ wvgain.exe (command-line ReplayGain scanner) - 4.75.2
+ -----------------------------------------------------
+  fixed: corrupt mono or multichannel files created with assembly code (rare)
+  added: assembly optimizations for "extra" mode on mono or multichannel
+  improved: flush stderr after all writes
+
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.13
+ AmioWavpack.amio (Adobe Audition Plugins) - 1.4
+ ------------------------------------------------
+  fixed: corrupt mono or multichannel files (rare)
+
+
+                      -----------------------------
+                      Release 4.75.0 - May 25, 2015
+                      -----------------------------
+
+ WavPack Library Source Code - 4.75.0
+ ------------------------------------
+  improved: reorganization for modularity and to improve linking
+  added: assembly optimizations for encode/decode on x86 and x64
+  added: assembly optimizations for decoding on ARMv7 (Linux)
+  improved: several minor speed optimizations using intrinsics
+  fixed: wavpack.pc.in not working correctly on some Linux distros
+  fixed: memcpy() issue causing abort() on OpenBSD
+
+ wavpack.exe (command-line encoder) - 4.75.0
+ wvunpack.exe (command-line decoder) - 4.75.0
+ wvgain.exe (command-line ReplayGain scanner) - 4.75.0
+ -----------------------------------------------------
+  changed: writing to console title default is off (Linux only, -z1 to enable)
+  fixed: wvgain crashes on bad file arguments (Debian bug #716478)
+
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.12
+ ------------------------------------------------
+  improved: performance (from assembly optimizations)
+
+
+                          -------------------------
+                          Update - December 7, 2013
+                          -------------------------
+
+ CoreWavPack DirectShow Filters - 1.2.0.2
+ ----------------------------------------
+  imported: latest filter sources from Christophe Paris and CoreCodec
+  updated: port to VS 2008 and add 64-bit build platform with installer
+  added: decode streams with full headers (tested with LAV splitter)
+  fixed: issues with 7.1 and non-standard channel configurations
+  fixed: problems with 12-bit, 20-bit, and 32-bit integer audio
+  fixed: crashing bug related to hybrid files with DNS
+  fixed: custom sampling rates being ignored
+
+  
+                      ---------------------------------
+                      Release 4.70.0 - October 19, 2013
+                      ---------------------------------
+
+ wavpack.exe (command-line encoder) - 4.70.0
+ -------------------------------------------
+  added: transcoding from existing WavPack files (with tag copy)
+  added: option to verify WavPack file integrity on creation (-v)
+  added: use temporary files for safer overwriting
+  added: detect UTF-16LE encoding for tag text files (mostly a Windows thing)
+  added: --version command to write machine-parsable value
+  added: option to allow up to 16 MB APEv2 tag data (--allow-huge-tags)
+  added: allow channel-order specification on WAV files with zeroed channel mask
+  added: several Windows features to Linux (clean ^C handling, console title)
+  added: 4GB file support on 32-bit Linux targets
+
+ WavPack Library Source Code - 4.70.0
+ ------------------------------------
+  fixed: seeking to last block failure (after finishing file)
+  fixed: memcpy() not always used correctly (Linux targets)
+  fixed: unsigned char issue (ARM targets)
+  fixed: add binary tag functions to Windows DLL exports (forgot on 4.60)
+  added: read-only access to APEv2 tags that come at the beginning of files 
+  improved: switched to Microsoft Visual Studio 2008 (win32 only)
+
+ wvunpack.exe (command-line decoder) - 4.70.0
+ --------------------------------------------
+  added: use temporary files for safer overwriting
+  added: --version command to write machine-parsable value
+  added: new command (-f) for getting machine-parsable WavPack file info
+  added: option (-n) to suppress audio decoding (useful for extracting only tags)
+
+ wvgain.exe (command-line ReplayGain scanner) - 4.70.0
+ -----------------------------------------------------
+  fixed: the -q (quiet) option would cause the -c (clean) option to fail
+  added: version command (-v) to write machine-parsable value
+
+ in_wv.dll (winamp plugin) - 2.8
+ -------------------------------
+  fixed: settings could not be saved on newer Windows versions (7 & 8)
+  fixed: installation issue caused by including manifest in build
+  added: dialog to installer suggesting "Winamp Essentials Pack"
+
+ AmioWavpack.amio (Adobe Audition Plugin) - 1.0
+ ----------------------------------------------
+  all new plugin for Audition 4.0 (CS5.5) and later (including Audition CC)
+
+
+                          --------------------------
+                          Update - December 23, 2009
+                          --------------------------
+
+ in_wv.dll (winamp plugin) - 2.8a
+ --------------------------------
+  fixed: crashes in winamp 5.57 when playing tracks that have "genre" tag
+
+
+                      ----------------------------------
+                      Release 4.60.1 - November 29, 2009
+                      ----------------------------------
+
+ WavPack Library Source Code - 4.60.1
+ ------------------------------------
+  fixed: filename specs in tag extractions failed in batch operations
+  fixed: prevent creation of APEv2 tags > 1 MB (which we can't read)
+  fixed: crash when decoding old WavPack files (pre version 4.0)
+  added: man pages to build system and updated with newer options
+  added: versioning info to Windows DLL
+  improved: build compatibility (eliminated uchar, ushort types)
+
+ wavpack.exe (command-line encoder) - 4.60.1
+ -------------------------------------------
+  fixed: don't allow user to attempt to place over 1 MB into APEv2 tags
+
+ in_wv.dll (winamp plugin) - 2.7
+ -------------------------------
+  added: read-only support for displaying cover art (thanks Benski!)
+
+ wvunpack.exe (command-line decoder) - 4.60.1
+ wvgain.exe (command-line ReplayGain scanner) - 4.60.1
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.11
+ -----------------------------------------------------
+  (see library changes)
+
+
+                       ---------------------------------
+                       Release 4.60 - September 27, 2009
+                       ---------------------------------
+
+ WavPack Library Source Code - 4.60
+ ----------------------------------
+  added: API for reading & writing binary fields in APEv2 tags
+  fixed: recognize APEv2 tags with footers but no headers
+  fixed: playback of files with 8 streams (15-16 channels)
+  fixed: playback and seeking failed on certain rare correction files
+  fixed: handle case where library makes RIFF header but app adds RIFF trailer
+  improved: channel count limit now virtually unlimited (tested to 256)
+  improved: move all tag functions into new module (tags.c)
+
+ wavpack.exe (command-line encoder) - 4.60
+ -----------------------------------------
+  added: --write-binary-tag command for embedded cover art
+  added: --no-utf8-convert command to skip Unicode character conversions
+  added: --raw-pcm command to specify raw PCM data (samplerate, bitdepth, num chans)
+  added: --channel-order accepts "..." to specify unassigned channels
+  added: --pair-unassigned-chans command to put unassigned channels into stereo pairs
+
+ wvunpack.exe (command-line decoder) - 4.60
+ ------------------------------------------
+  added: -x (and -xx) commands for extracting arbitrary tag fields to stdout (and files)
+  added: --no-utf8-convert command to skip Unicode character conversions
+  changed: -ss command no longer dumps multiline tags (use -x instead)
+  improved: formatting of -ss command, also shows information on binary tags
+
+ wvgain.exe (command-line ReplayGain scanner) - 4.60
+ ---------------------------------------------------
+  added: -n option for processing new files only (those without ReplayGain info)
+  improved: increase maximum gain value generated from +24 to +64 dB
+
+ in_wv.dll (winamp plugin) - 2.6
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.10
+ ------------------------------------------------
+  (see library changes)
+
+
+                        -------------------------
+                        Update - January 23, 2009
+                        -------------------------
+
+ in_wv.dll (winamp plugin) - 2.6b
+ --------------------------------
+  added: "lossless" and "category" to metadata keywords that we handle in winamp plugin
+  added: internationalization support to facilitate inclusion in Winamp Essentials Pack
+
+
+                       -----------------------------
+                       Release 4.50.1 - July 3, 2008
+                       -----------------------------
+
+ WavPack Library Source Code - 4.50.1
+ ------------------------------------
+  fixed: alignment fault when manipulating APEv2 tags (non-x86 only)
+  fixed: build on UNIX via elimination of non-standard strnlen()
+
+ wavpack.exe (command-line encoder) - 4.50.1
+ wvunpack.exe (command-line decoder) - 4.50.1
+ --------------------------------------------
+  fixed: checking return value of iconv_open() prevents core dump on Solaris
+
+
+                       ----------------------------
+                       Release 4.50 - June 13, 2008
+                       ----------------------------
+
+ WavPack Library Source Code - 4.50
+ ----------------------------------
+  added: dynamic noise shaping for improved hybrid quality
+  added: option to merge blocks of similar redundancy
+  added: ability to store and retrieve extra mode level
+  fixed: alignment fault on some big-endian machines
+  fixed: compiling with enable-mmx on gcc 4.3.x (thanks Joachim)
+  improved: allow bitrate to be calculated for files down to 1/10 second
+  improved: decoding of corrupt files (prevents heap overrun crashes)
+
+ wavpack.exe (command-line encoder) - 4.50
+ -----------------------------------------
+  added: dynamic noise shaping for improved hybrid quality
+  added: --channel-order option to reorder nonconforming multichannel files
+  added: --merge-blocks option to optimize storage of LossyWAV output files
+  added: ignore -o on Windows for compatibility with Linux version
+  fixed: alignment fault on some big-endian machines
+  improved: reformatted and expanded --help display
+
+ wvunpack.exe (command-line decoder) - 4.50
+ ------------------------------------------
+  fixed: don't ignore fractions of seconds in --skip option
+  added: show extra level and dns status for newer files (-s command)
+  added: ignore -o on Windows for compatibility with Linux version
+  improved: decoding of corrupt files (prevents heap overrun crashes)
+  improved: display bitrate for files down to 1/10 second
+
+ in_wv.dll (winamp plugin) - 2.5
+ -------------------------------
+  added: transcoding API (allows CD burning, format conversion, ReplayGain calc, etc.)
+  added: metadata writing API (for Auto-Tag, etc.)
+  added: full Unicode support for info box (older Winamps) and media library
+  added: standard Winamp metadata display & edit for newer Winamps
+  added: option to pass multichannel audio
+  added: option to pass all audio as 16-bit (for better compatibility)
+  added: option to output 24-bit audio when ReplayGain is active
+  added: genre display to info box (older Winamps)
+  fixed: seek bar sometimes vacillates when moved
+  fixed: crash when winamp is opened with files in playlist moved or deleted
+  improved: hi-res audio now output as 24-bit (not 32-bit) for better compatibility (EQ, etc.)
+  improved: performance of adding tracks to library, especially from network drives
+  improved: decoding of corrupt files (prevents heap overrun crashes)
+
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.9
+ -----------------------------------------------
+  added: about box
+  added: dynamic noise shaping for improved hybrid quality
+  improved: display bitrate for files as short as 1/10 second
+  improved: decoding of corrupt files (prevents heap overrun crashes)
+  improved: replace "extra processing" switch with a slider (0-6)
+
+
+                       --------------------------
+                       Release 4.41 - May 6, 2007
+                       --------------------------
+
+ WavPack Library Source Code - 4.41
+ ----------------------------------
+  added: create wavpackdll.dll for Windows (not used yet)
+  fixed: corrupt floating-point audio on big-endian machines
+  fixed: put MSVC projects in their own subdir (fixed build problems)
+  fixed: limit RIFF data buffering to 16 MB to prevent out-of-memory crash
+  improved: attempt to mute errors when decoding corrupt legacy WavPack files
+  improved: overall performance enhancements of 10% to 30% (depending on mode)
+  added: MMX intrinsics for 24-bit (and higher) stereo encoding (thanks to
+         Joachim Henke)
+
+ wavpack.exe (command-line encoder) - 4.41
+ -----------------------------------------
+  fixed: corrupt floating-point audio on big-endian machines
+  improved: refuse to encode WAV files over 4 GB or with over 16 MB RIFF data
+  improved: overall performance enhancements of 10% to 30% (depending on mode)
+  added: MMX intrinsics for 24-bit (and higher) stereo encoding (thanks to
+         Joachim Henke)
+
+ wvunpack.exe (command-line decoder) - 4.41
+ ------------------------------------------
+  fixed: corrupt floating-point audio on big-endian machines
+  fixed: restore files mistakenly encoded with huge RIFF chunks
+  improved: attempt to mute errors when decoding corrupt legacy WavPack files
+  improved: overall performance enhancements of 10% to 30% (depending on mode)
+  added: --skip and --until commands to unpack specified range of audio data
+  added: MMX intrinsics for 24-bit (and higher) stereo encoding (thanks to
+         Joachim Henke)
+
+ wvgain.exe (command-line ReplayGain scanner) - 4.41
+ ---------------------------------------------------
+  improved: overall performance enhancements of 10% to 30% (depending on mode)
+  added: MMX intrinsics for 24-bit (and higher) stereo encoding (thanks to
+         Joachim Henke)
+
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.8
+ -----------------------------------------------
+  fixed: read all RIFF metadata from files created in other applications
+  improved: attempt to mute errors when decoding corrupt legacy WavPack files
+  improved: overall performance enhancements of 10% to 30% (depending on mode)
+  added: MMX intrinsics for 24-bit (and higher) stereo encoding (thanks to
+         Joachim Henke)
+
+
+                     -------------------------------
+                     Release 4.40 - December 3, 2006
+                     -------------------------------
+
+ WavPack Library Source Code - 4.40
+ ----------------------------------
+  added: new hardware-friendly "high" mode that compresses almost as well as
+         old "high" mode but decodes significantly faster; old "high" mode
+         now available as "very high"
+  added: option added to improve compression of mono material in stereo files
+         (requires at least version 4.3 decoder)
+  added: function to obtain channel mapping information on decoding
+  added: function to get trailing wrapper info (RIFF) without decoding file
+  improved: "extra" mode levels 1-3 completely revamped, fast enough for use
+  improved: reorganized to create a standard library that should more easily
+            integrate into other applications; eliminated namespace issues
+  improved: more robust handling of corrupt files
+
+ wavpack.exe (command-line encoder) - 4.40
+ -----------------------------------------
+  added: accepts long option names including --help for full usage info
+  added: new hardware-friendly "high" mode that compresses almost as well as
+         old "high" mode but decodes significantly faster; old "high" mode
+         now available as "very high" (-hh)
+  added: --optimize-mono option added to improve compression of mono material
+         in stereo files (requires at least version 4.3 decoder)
+  improved: "extra" mode levels 1-3 completely revamped, fast enough for use
+  improved: switched to Microsoft Visual Studio 2005 (win32 only)
+  removed: support for Windows 95
+
+ wvunpack.exe (command-line decoder) - 4.40
+ ------------------------------------------
+  added: cuesheet extraction (to .cue file or stdout)
+  added: wav header generation on decode for files with missing RIFF
+         information, or forced with -w option
+  added: more summary info (wrapper info + channel assignments)
+  improved: more robust handling of corrupt files
+  improved: separate options for raw (-r) and blind stream decoding (-b)
+  improved: switched to Microsoft Visual Studio 2005 (win32 only)
+  removed: support for Windows 95
+
+ wvgain.exe (command-line ReplayGain scanner) - 4.40
+ ---------------------------------------------------
+  improved: switched to Microsoft Visual Studio 2005 (win32 only)
+  removed: support for Windows 95
+
+ wvselfx.exe (self-extraction stub) - 4.40
+ ------------------------------------------
+  added: automatic cuesheet extraction (if present in APEv2 tag)
+
+ in_wv.dll (winamp plugin) - 2.4
+ -------------------------------
+  fixed: quietly skips deleted files in playlist
+  improved: more robust handling of corrupt files
+  improved: APEv2 tags are read even if followed by ID3v1 tag
+
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.7
+ -----------------------------------------------
+  added: new hardware-friendly "high" mode that compresses almost as well as
+         old "high" mode but decodes significantly faster; old "high" mode
+         now available as "v. high"
+  improved: more robust handling of corrupt files
+  
+  
+                        ----------------------
+                        Update - April 5, 2006
+                        ----------------------
+
+ WavPack Library Source Code - 4.32
+ wavpack.exe (command-line encoder) - 4.32
+ -----------------------------------------
+  fixed: generating RIFF headers on big-endian machines caused crash
+
+
+                        --------------------------
+                        Update - December 10, 2005
+                        --------------------------
+
+ wavpack.exe (command-line encoder) - 4.31
+ wvunpack.exe (command-line decoder) - 4.31
+ ------------------------------------------
+  fixed: detect debug mode in all cases (win32 only)
+  improved: use latest service pack and SDK for building (win32 only)
+  improved: better directory choice for logging file (win32 only)
+  improved: allow shell to expand wildcards (*nix only)
+  added: option (-o) to specify output directory or path (*nix only)
+  added: option (-t) to copy timestamp (*nix only)
+
+ wvgain.exe (command-line ReplayGain scanner) - 4.31
+ ---------------------------------------------------
+  new
+
+ WavPack Library Source Code - 4.31
+ ----------------------------------
+  fixed: failing seek with some files that had been played to the end
+  fixed: small memory leak when opening hybrid lossless files
+  improved: signed characters no longer must be default
+  improved: APEv2 tags are read even if followed by ID3v1 tag
+  improved: limited APEv2 tag editing capability
+
+
+                      ------------------------------
+                      Release 4.3 - November 1, 2005
+                      ------------------------------
+
+ wavpack.exe (command-line encoder) - 4.3
+ ----------------------------------------
+  fixed: bug causing termination error with very wide screen widths
+  added: command-line option (-l) to use low priority for batch operation
+  added: command-line option (-r) to generate a fresh RIFF header
+  added: debug mode (rename to wavpack_debug.exe)
+  added: automatically detect lower resolution data even without -x1
+  added: src and dst dirs are searched also for tag source files (handy for EAC)
+  added: wildcard accepted for tag source files (handy for EAC)
+  added: handle non-standard sampling rates
+  improved: returns error status for any error
+  improved: use longer blocks in multichannel files (better "high" compression)
+
+ wvunpack.exe (command-line decoder) - 4.3
+ -----------------------------------------
+  fixed: very rare decoding bug causing overflow with hi-res files
+  fixed: bug causing termination error with very wide screen widths
+  fixed: formatting error in duration display
+  added: command-line option (-ss) to include tags in summary dump
+  added: command-line option (-l) to use low priority for batch operation
+  added: debug mode (rename to wvunpack_debug.exe)
+  improved: returns error status for any error
+  improved: more robust decoding of damaged (or invalid) files
+
+ in_wv.dll (winamp plugin) - 2.3
+ nxWavPack.dll (Nero plugin) - 1.2
+ WavPack_Apollo.dll (Apollo plugin) - 1.3
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.6
+ -----------------------------------------------
+  fixed: very rare decoding bug causing overflow with hi-res files
+  improved: handle ID3v1.1 tags (now includes track number)
+  improved: more robust decoding of damaged (or invalid) files
+  added: handle non-standard sampling rates
+
+ foo_wavpack.dll (foobar plugin) - 2.3
+ -----------------------------------------------
+  fixed: any error during WavPack file open caused crash if wvc file present
+  fixed: very rare decoding bug causing overflow with hi-res files
+  improved: more robust decoding of damaged (or invalid) files
+  added: handle non-standard sampling rates
+
+ WavPack Library Source Code - 4.3
+ ---------------------------------
+  fixed: very rare decoding bug causing overflow with hi-res files
+  added: automatic generation of RIFF wav header during encoding
+  added: new functions to access tags by index (instead of item name)
+  added: automatically detect lower resolution data during encoding
+  added: handle non-standard sampling rates
+  improved: more robust decoding of damaged (or invalid) files
+  improved: use longer blocks in multichannel files (better "high" compression)
+  improved: two structures renamed to avoid namespace conflict
+  removed: legacy code for Borland compiler
+
+
+                        --------------------------
+                        Update - September 1, 2005
+                        --------------------------
+
+ wavpack.exe (command-line encoder) - 4.22
+ cool_wv4.flt (CoolEdit / Audition filter) - 2.5
+ -----------------------------------------------
+  fixed: possible corrupt files written (24 or 32-bit + "extra" mode)
+
+
+                       ---------------------------
+                       Release 4.2 - April 2, 2005
+                       ---------------------------
+
+ wavpack.exe (command-line encoder) - 4.2
+ ----------------------------------------
+  fixed: handling of wav files larger than 2 gig
+  improved: stereo lossless encoding speed (including "extra" mode)
+  added: -i option to ignore length specified in wav header
+  added: -w option to write APEv2 tags directly from command line
+
+ wvunpack.exe (command-line decoder) - 4.2
+ -----------------------------------------
+  improved: decoding speed
+
+ in_wv.dll (winamp plugin) - 2.2
+ -------------------------------
+  added: winamp media library support
+  improved: decoding speed
+
+ foo_wavpack.dll (foobar plugin) - 2.2
+ -------------------------------------
+  improved: decoding speed
+
+ nxWavPack.dll (Nero plugin) - 1.1
+ Cool_wv4.flt (CoolEdit / Audition filter) - 2.4
+ -----------------------------------------------
+  fixed: handling of wav files larger than 2 gig
+  improved: encoding and decoding speed
+
+ WavPack Library Source Code - 4.2
+ ---------------------------------
+  improved: encoding and decoding speed
+  fixed: works correctly with 64-bit compilers
+  added: mode bit to open files in "streaming" mode
+
+
+                        --------------------------
+                        Update - December 12, 2004
+                        --------------------------
+
+ WavPack_Apollo.dll (Apollo plugin) - 1.2
+ ----------------------------------------
+  fixed: crash when Apollo opened and WavPack plugin can't find config file
+
+
+                     --------------------------------
+                     Release 4.1 - September 14, 2004
+                     --------------------------------
+
+ wavpack.exe (command-line encoder) - 4.1
+ ----------------------------------------
+  fixed: hybrid mode + "extra" mode + very low bitrates making corrupt files
+  fixed: mono or multichannel files causing crash (no corruption possible)
+  added: third name specification for "correction" file (EAC specific)
+  added: -t option to preserve timestamps
+  added: error summary for batch mode
+
+ wvunpack.exe (command-line decoder) - 4.1
+ -----------------------------------------
+  fixed: hybrid mode decoding bugs (very obscure situations)
+  added: -s option to dump file summary to stdout
+  added: -t option to preserve timestamps
+  added: error summary for batch mode
+
+ wvselfx.exe (self-extraction stub) - 4.1
+ ----------------------------------------
+  fixed: hybrid mode decoding bugs (very obscure situations)
+
+ in_wv.dll (winamp plugin) - 2.1
+ -------------------------------
+  fixed: international characters in tags display properly (UTF-8 to Ansi)
+  added: maximum tag data field width changed from 64 chars to 128 chars
+  added: new infobox items including encoder version & modes, track #, md5
+
+ foo_wavpack.dll (foobar plugin) - 2.1
+ -------------------------------------
+  added: new database items including encoder version & modes and md5
+
+ WavPack_Apollo.dll (Apollo plugin) - 1.1
+ ----------------------------------------
+  fixed: international characters in tags display properly (UTF-8 to Ansi)
+
+ Cool_wv4.flt (CoolEdit / Audition filter) - 2.2
+ -----------------------------------------------
+  fixed: hybrid mode + "extra" mode + very low bitrates making corrupt files
+  fixed: saving mono file causing crash (no corruption possible)
+  fixed: hybrid mode decoding bugs (very obscure situations)
+  fixed: partial saves (with "Cancel") have incorrect RIFF header if unpacked
+
+ nxWavPack.dll (Nero plugin) - 1.0
+ ---------------------------------
+  new
+
+ WavPack Library Source Code - 4.1
+ ---------------------------------
+  fixed: hybrid mode + "extra" mode + very low bitrates making corrupt files
+  fixed: mono or multichannel files causing crash (no corruption possible)
+  fixed: hybrid mode decoding bugs (very obscure situations)
+  added: mode bits for determining additional encode info (extra, sfx)
+  added: function to return total compressed file length (including wvc)
+  added: function to return encoder version (1, 2, 3, or 4)
+  added: ability to obtain MD5 sum before decoding file (requires seek to end)
+  added: mode bit for determining tag type (for proper character translation)
+  added: ability to encode WavPack files without knowing length in advance
+  added: option for small "information only" version of library

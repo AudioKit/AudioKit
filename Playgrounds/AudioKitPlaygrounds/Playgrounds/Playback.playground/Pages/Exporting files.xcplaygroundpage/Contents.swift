@@ -10,8 +10,7 @@ let mixloop = try AKAudioFile(readFileName: "mixloop.wav")
 
 let player = try AKAudioPlayer(file: mixloop)
 AudioKit.output = player
-AudioKit.start()
-player.looping = false
+try AudioKit.start()
 player.play()
 
 //: You need a callback that will be triggered as soon as Export has been completed.
@@ -19,7 +18,7 @@ player.play()
 //:
 //: ```func callback(processedFile: AKAudioFile?, error: NSError?)```
 //:
-//: If export failed, "processedFile" will be nil.  The error being thrown is given in the "error" parameter. 
+//: If export failed, "processedFile" will be nil.  The error being thrown is given in the "error" parameter.
 //: If export succeeded, no error will be set (error = nil) and the exported file is returned as an AKAudioFile.
 //: The callback will print some information and replace the file being played with the exported file.
 func callback(processedFile: AKAudioFile?, error: NSError?) {
@@ -33,11 +32,10 @@ func callback(processedFile: AKAudioFile?, error: NSError?) {
         // Replace the file being played
         try? player.replace(file: converted)
     } else {
-        // An error occured. So, print the Error
+        // An error occurred. So, print the Error
         print("Error: \(error?.localizedDescription)")
     }
 }
-
 //: Next export the mixloop into a compressed .mp4 file :
 mixloop.exportAsynchronously(name: "test", baseDir: .documents, exportFormat: .mp4, callback: callback)
 
@@ -64,7 +62,7 @@ drumloop.exportAsynchronously(name: "test3",
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-//: Be aware that PCM format files can be converted to PCM or compressed formats. But compressed m4a or mp4 audiofiles 
-//: cannot be converted to PCM files (.wav or .aif). For converting from any format compressed format to PCM, you can 
-//: use AKAudioFile.extract or AKAudioFile.extractAsynchronously() methods (will convert to .CAF PCM). The resulting 
+//: Be aware that PCM format files can be converted to PCM or compressed formats. But compressed m4a or mp4 audiofiles
+//: cannot be converted to PCM files (.wav or .aif). For converting from any format compressed format to PCM, you can
+//: use AKAudioFile.extract or AKAudioFile.extractAsynchronously() methods (will convert to .CAF PCM). The resulting
 //: file can then be exported to .mp4, m4a, .wav, or .aif.

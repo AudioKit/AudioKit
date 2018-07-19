@@ -11,11 +11,10 @@
 //: AKDryWetMixer to blend your signals.
 import AudioKitPlaygrounds
 import AudioKit
-
 //: This section prepares the players
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .resources)
-var drums = try AKAudioPlayer(file: file)
-drums.looping = true
+let file = try AKAudioFile(readFileName: "drumloop.wav")
+var drums = AKPlayer(audioFile: file)
+drums.isLooping = true
 
 //: Build an effects chain:
 
@@ -30,25 +29,23 @@ reverb.loadFactoryPreset(.largeChamber)
 let mixture = AKDryWetMixer(drums, reverb, balance: 0.5)
 
 AudioKit.output = mixture
-AudioKit.start()
+try AudioKit.start()
 drums.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var balanceLabel: Label?
-
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Dry Wet Mix")
 
-        addSubview(AKBypassButton(node: drums))
+        addView(AKButton(title: "Bypass") { button in
+            drums.isPlaying ? drums.stop() : drums.play()
+            button.title = drums.isPlaying ? "Stop" : "Start"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Balance",
-            value: mixture.balance,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Balance", value: mixture.balance) { sliderValue in
             mixture.balance = sliderValue
         })
     }
@@ -56,6 +53,6 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

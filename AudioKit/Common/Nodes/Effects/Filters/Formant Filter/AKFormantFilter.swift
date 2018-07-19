@@ -3,65 +3,102 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// When fed with a pulse train, it will generate a series of overlapping
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
+open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKFormantFilterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var xParameter: AUParameter?
-    fileprivate var yParameter: AUParameter?
+    fileprivate var centerFrequencyParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var decayDurationParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Center Frequency
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Attack Duration
+    public static let attackDurationRange = 0.0 ... 0.1
+
+    /// Lower and upper bounds for Decay Duration
+    public static let decayDurationRange = 0.0 ... 0.1
+
+    /// Initial value for Center Frequency
+    public static let defaultCenterFrequency = 1_000.0
+
+    /// Initial value for Attack Duration
+    public static let defaultAttackDuration = 0.007
+
+    /// Initial value for Decay Duration
+    public static let defaultDecayDuration = 0.04
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Center frequency.
-    open dynamic var x: Double = 0 {
+    @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if x != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        xParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.x = Float(newValue)
+            if centerFrequency == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
-    /// Impulse response attack time (in seconds).
-    open dynamic var y: Double = 0 {
+
+    /// Impulse response attack duration (in seconds).
+    @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if y != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        yParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.y = Float(newValue)
+            if attackDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
+        }
+    }
+
+    /// Impulse reponse decay duration (in seconds)
+    @objc open dynamic var decayDuration: Double = defaultDecayDuration {
+        willSet {
+            if decayDuration == newValue {
+                return
+            }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
+                }
+            }
+            internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+    @objc open dynamic var isStarted: Bool {
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -71,59 +108,68 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - centerFrequency: Center frequency.
-    ///   - attackDuration: Impulse response attack time (in seconds).
-    ///   - decayDuration: Impulse reponse decay time (in seconds)
+    ///   - attackDuration: Impulse response attack duration (in seconds).
+    ///   - decayDuration: Impulse reponse decay duration (in seconds)
     ///
-    public init(
-        _ input: AKNode?,
-        x: Double = 0,
-        y: Double = 0) {
+    @objc public init(
+        _ input: AKNode? = nil,
+        centerFrequency: Double = defaultCenterFrequency,
+        attackDuration: Double = defaultAttackDuration,
+        decayDuration: Double = defaultDecayDuration
+        ) {
 
-        self.x = x
-        self.y = y
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
 
         _Self.register()
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.addConnectionPoint(self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
+            AKLog("Parameter Tree Failed")
             return
         }
 
-        xParameter = tree["x"]
-        yParameter = tree["y"]
+        centerFrequencyParameter = tree["centerFrequency"]
+        attackDurationParameter = tree["attackDuration"]
+        decayDurationParameter = tree["decayDuration"]
 
-        token = tree.token (byAddingParameterObserver: { [weak self] address, value in
+        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
+            guard let _ = self else {
+                AKLog("Unable to create strong reference to self")
+                return
+            } // Replace _ with strongSelf if needed
             DispatchQueue.main.async {
-                if address == self?.xParameter?.address {
-                    self?.x = Double(value)
-                } else if address == self?.yParameter?.address {
-                    self?.y = Double(value)
-                }
+                // This node does not change its own values so we won't add any
+                // value observing, but if you need to, this is where that goes.
             }
         })
 
-        internalAU?.x = Float(x)
-        internalAU?.y = Float(y)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
     }
 
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

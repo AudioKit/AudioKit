@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -28,21 +28,23 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// Initialize the MIDI node
     ///
     /// - parameter node: A polyphonic node that will be triggered via MIDI
+    /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    public init(node: AKPolyphonicNode) {
+    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
+      enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
-    /// This is not in the init function because it must be called AFTER you start audiokit
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the midi client
+    ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
+                         name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)

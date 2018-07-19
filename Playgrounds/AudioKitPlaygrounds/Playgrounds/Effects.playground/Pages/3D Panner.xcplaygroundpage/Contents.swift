@@ -3,49 +3,35 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let panner = AK3DPanner(player)
 
 AudioKit.output = panner
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("3D Panner")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "X",
-            value: panner.x, minimum: -10, maximum: 10,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "X", value: panner.x, range: -10 ... 10) { sliderValue in
             panner.x = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Y",
-            value: panner.y, minimum: -10, maximum: 10,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Y", value: panner.y, range: -10 ... 10) { sliderValue in
             panner.y = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Z",
-            value: panner.z, minimum: -10, maximum: 10,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Z", value: panner.z, range: -10 ... 10) { sliderValue in
             panner.z = sliderValue
         })
     }
@@ -53,4 +39,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

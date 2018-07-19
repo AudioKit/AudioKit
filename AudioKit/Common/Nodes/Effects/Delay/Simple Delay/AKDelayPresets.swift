@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Nicholas Arner, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Preset for the AKDelay
@@ -33,7 +33,7 @@ public extension AKDelay {
         dryWetMix = 0.747
     }
 
-    /// Print out current values in case you want to save it as a preset 
+    /// Print out current values in case you want to save it as a preset
     public func printCurrentValuesAsPreset() {
         AKLog("public func presetSomeNewDelay() {")
         AKLog("    time = \(String(format: "%0.3f", time))")

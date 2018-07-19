@@ -2,57 +2,54 @@
 //: Oscillator with four different waveforms built in.
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
-var morph = AKMorphingOscillator(waveformArray:
-    [AKTable(.sine), AKTable(.triangle), AKTable(.sawtooth), AKTable(.square)])
+var morph = AKMorphingOscillator(waveformArray: [AKTable(.sine),
+                                                 AKTable(.triangle),
+                                                 AKTable(.sawtooth),
+                                                 AKTable(.square)])
 morph.frequency = 400
 morph.amplitude = 0.1
 morph.index = 0.8
 
 AudioKit.output = morph
-AudioKit.start()
+try AudioKit.start()
 morph.start()
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-    var morphIndexLabel: Label?
+    var frequencyLabel: AKLabel?
+    var amplitudeLabel: AKLabel?
+    var morphIndexLabel: AKLabel?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         addTitle("Morphing Oscillator")
 
-        addSubview(AKBypassButton(node: morph))
+        addView(AKButton(title: "Stop Oscillator") { button in
+            morph.isStarted ? morph.stop() : morph.play()
+            button.title = morph.isStarted ? "Stop Oscillator" : "Start Oscillator"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency",
-            format: "%0.2f Hz",
-            value: morph.frequency, minimum: 220, maximum: 880,
-            color: AKColor.yellow
+        addView(AKSlider(property: "Frequency",
+                         value: morph.frequency,
+                         range: 220 ... 880,
+                         format: "%0.2f Hz"
         ) { frequency in
             morph.frequency = frequency
         })
 
-        addSubview(AKPropertySlider(
-            property: "Amplitude",
-            value: morph.amplitude,
-            color: AKColor.magenta
-        ) { amplitude in
+        addView(AKSlider(property: "Amplitude", value: morph.amplitude) { amplitude in
             morph.amplitude = amplitude
         })
 
         addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
 
-        addSubview(AKPropertySlider(
-            property: "Morph Index",
-            value: morph.index, maximum: 3,
-            color: AKColor.red
-        ) { index in
+        addView(AKSlider(property: "Morph Index", value: morph.index, range: 0 ... 3) { index in
             morph.index = index
         })
 
-        addSubview(AKOutputWaveformPlot.createView(width: 440, height: 400))
+        addView(AKOutputWaveformPlot.createView(width: 440, height: 400))
     }
 
     func start() {
@@ -65,4 +62,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

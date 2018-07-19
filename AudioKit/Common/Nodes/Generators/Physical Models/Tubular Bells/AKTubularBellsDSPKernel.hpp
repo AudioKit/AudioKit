@@ -3,144 +3,58 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 #import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-#include "TubeBell.h"
-
-enum {
-    frequencyAddress = 0,
-    amplitudeAddress = 1
-};
-
 class AKTubularBellsDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
+    
+    enum {
+        frequencyAddress = 0,
+        amplitudeAddress = 1
+    };
+    
     // MARK: Member Functions
 
-    AKTubularBellsDSPKernel() {}
+    AKTubularBellsDSPKernel();
+    ~AKTubularBellsDSPKernel();
 
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
-        
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[AKOscillator class]];
-        NSString *resourcePath = [frameworkBundle resourcePath];
-        stk::Stk::setRawwavePath([resourcePath cStringUsingEncoding:NSUTF8StringEncoding]);
-        
-        stk::Stk::setSampleRate(sampleRate);
-        tubularBells = new stk::TubeBell();
-    }
+    void init(int _channels, double _sampleRate) override;
 
-    void start() {
-        started = true;
-    }
+    void start();
 
-    void stop() {
-        started = false;
-    }
+    void stop();
 
-    void destroy() {
-        delete tubularBells;
-    }
+    void destroy();
 
-    void reset() {
-        resetted = true;
-    }
+    void reset();
 
-    void setFrequency(float freq) {
-        frequency = freq;
-        frequencyRamper.setImmediate(freq);
-    }
+    void setFrequency(float freq);
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
-    }
+    void setAmplitude(float amp);
 
-    void trigger() {
-        internalTrigger = 1;
-    }
+    void trigger();
 
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-            case frequencyAddress:
-                frequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
-                break;
+    void setParameter(AUParameterAddress address, AUValue value);
 
-            case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
-                break;
+    AUValue getParameter(AUParameterAddress address);
 
-        }
-    }
-
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-            case frequencyAddress:
-                return frequencyRamper.getUIValue();
-
-            case amplitudeAddress:
-                return amplitudeRamper.getUIValue();
-
-            default: return 0.0f;
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-            case frequencyAddress:
-                frequencyRamper.startRamp(clamp(value, (float)0, (float)22000), duration);
-                break;
-
-            case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
-                break;
-
-        }
-    }
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            frequency = frequencyRamper.getAndStep();
-            amplitude = amplitudeRamper.getAndStep();
-
-            for (int channel = 0; channel < channels; ++channel) {
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (started) {
-                    if (internalTrigger == 1) {
-                        tubularBells->noteOn(frequency, amplitude);
-                    }
-                } else {
-                    *out = 0.0;
-                }
-                *out = tubularBells->tick();
-            }
-        }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
-        }
-    }
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
+    
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 
     // MARK: Member Variables
 
 private:
-
-    float internalTrigger = 0;
-
-    stk::TubeBell *tubularBells;
-    
-    float frequency = 110;
-    float amplitude = 0.5;
+    struct _Internal;
+    std::unique_ptr<_Internal> _private;
 
 public:
     bool started = false;

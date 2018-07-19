@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AVAudioConnectionPoint {
@@ -18,43 +18,46 @@ extension AVAudioConnectionPoint {
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
 
-    /// An array of all connections
-    internal var connectionPoints = [AVAudioConnectionPoint]()
-
     /// Create the node
     override public init() {
         self.avAudioNode = AVAudioNode()
     }
 
     /// Initialize the node
-    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
-      self.avAudioNode = avAudioNode
-      if attach {
-        AudioKit.engine.attach(avAudioNode)
-      }
+    @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+        self.avAudioNode = avAudioNode
+        if attach {
+            AudioKit.engine.attach(avAudioNode)
+        }
+    }
+    //Subclasses should override to detach all internal nodes
+    open func detach() {
+        AudioKit.detach(nodes: [avAudioNode])
+    }
+}
+
+extension AKNode: AKOutput {
+    public var outputNode: AVAudioNode {
+        return avAudioNode
     }
 
-    /// Connect this node to another
+    @available(*, deprecated, renamed: "connect(to:bus:)")
     open func addConnectionPoint(_ node: AKNode, bus: Int = 0) {
         connectionPoints.append(AVAudioConnectionPoint(node, to: bus))
-        AudioKit.engine.connect(avAudioNode,
-                                to: connectionPoints,
-                                fromBus: 0,
-                                format: AudioKit.format)
     }
+}
 
-    /// Disconnect the node
+//Deprecated
+extension AKNode {
+
+    @objc @available(*, deprecated, renamed: "detach")
     open func disconnect() {
-        disconnect(nodes: [self.avAudioNode])
+        detach()
     }
 
-    /// Disconnect an array of nodes
+    @available(*, deprecated, message: "Use AudioKit.dettach(nodes:) instead")
     open func disconnect(nodes: [AVAudioNode]) {
-        for node in nodes {
-            AudioKit.engine.disconnectNodeInput(node)
-            AudioKit.engine.disconnectNodeOutput(node)
-            AudioKit.engine.detach(node)
-        }
+        AudioKit.detach(nodes: nodes)
     }
 }
 
@@ -88,7 +91,8 @@ public protocol AKPolyphonic {
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
-    open static var tuningTable = AKTuningTable()
+    @objc open static var tuningTable = AKTuningTable()
+    open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
@@ -97,7 +101,7 @@ public protocol AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
     ///
-    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+    @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         AKLog("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), override in subclass")
     }
 
@@ -107,12 +111,12 @@ public protocol AKPolyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///
-    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
 
         // MARK: Microtonal pitch lookup
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-//        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
+        //        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
         self.play(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
     }
 
@@ -120,13 +124,13 @@ public protocol AKPolyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    open func stop(noteNumber: MIDINoteNumber) {
+    @objc open func stop(noteNumber: MIDINoteNumber) {
         AKLog("Stopping note \(noteNumber), override in subclass")
     }
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
-public protocol AKToggleable {
+@objc public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 

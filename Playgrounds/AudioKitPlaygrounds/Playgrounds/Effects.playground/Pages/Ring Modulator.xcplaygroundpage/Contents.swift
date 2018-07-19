@@ -3,11 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var ringModulator = AKRingModulator(player)
 ringModulator.frequency1 = 440 // Hz
@@ -16,53 +15,46 @@ ringModulator.balance = 0.5
 ringModulator.mix = 0.5
 
 AudioKit.output = ringModulator
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Ring Modulator")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: ringModulator))
+        addView(AKButton(title: "Stop Ring Modulator") { button in
+            let node = ringModulator
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Ring Modulator" : "Start Ring Modulator"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 1",
-            format: "%0.2f Hz",
-            value: ringModulator.frequency1, minimum: 0.5, maximum: 8_000,
-            color: AKColor.green
+        addView(AKSlider(property: "Frequency 1",
+                         value: ringModulator.frequency1,
+                         range: 0.5 ... 8_000,
+                         format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency1 = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Frequency 2",
-            format: "%0.2f Hz",
-            value: ringModulator.frequency2, minimum: 0.5, maximum: 8_000,
-            color: AKColor.green
+        addView(AKSlider(property: "Frequency 2",
+                         value: ringModulator.frequency2,
+                         range: 0.5 ... 8_000,
+                         format: "%0.2f Hz"
         ) { sliderValue in
             ringModulator.frequency2 = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Balance",
-            value: ringModulator.balance,
-            color: AKColor.red
-        ) { sliderValue in
+        addView(AKSlider(property: "Balance", value: ringModulator.balance) { sliderValue in
             ringModulator.balance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Mix",
-            value: ringModulator.mix,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Mix", value: ringModulator.mix) { sliderValue in
             ringModulator.mix = sliderValue
         })
     }
@@ -70,4 +62,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

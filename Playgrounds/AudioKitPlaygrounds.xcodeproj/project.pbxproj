@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */; };
 		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; };
-		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
 		C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */; };
 /* End PBXBuildFile section */
@@ -22,18 +22,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundUgens.swift; sourceTree = "<group>"; };
 		C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneView.swift; sourceTree = "<group>"; };
 		C4F1DB441E94F5ED000D5022 /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
@@ -49,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */,
 				C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +63,7 @@
 				C4F1DB431E94F5ED000D5022 /* Playgrounds */,
 				C46EDA521E94F04D0099E238 /* AudioKitPlaygrounds */,
 				C46EDA511E94F04D0099E238 /* Products */,
+				EAC9C5A01F5015B400B01FF7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,7 +78,6 @@
 		C46EDA521E94F04D0099E238 /* AudioKitPlaygrounds */ = {
 			isa = PBXGroup;
 			children = (
-				C46EDA611E94F0BF0099E238 /* AudioKit.framework */,
 				C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */,
 				C46EDA541E94F04D0099E238 /* Info.plist */,
 				C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */,
@@ -98,6 +99,15 @@
 			);
 			name = Playgrounds;
 			path = AudioKitPlaygrounds/Playgrounds;
+			sourceTree = "<group>";
+		};
+		EAC9C5A01F5015B400B01FF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */,
+				C46EDA611E94F0BF0099E238 /* AudioKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,12 +149,12 @@
 		C46EDA471E94F04D0099E238 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C46EDA4F1E94F04D0099E238 = {
 						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -200,15 +210,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -218,6 +236,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -253,15 +272,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -271,6 +298,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "../Frameworks/AudioKit-macOS";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -301,17 +329,20 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioKitPlaygrounds",
-					"../Frameworks/AudioKit-macOS",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -328,16 +359,19 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AudioKitPlaygrounds",
-					"../Frameworks/AudioKit-macOS",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

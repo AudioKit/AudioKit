@@ -2,7 +2,7 @@
 //  AKPlaygroundView.swift
 //  AudioKit for macOS
 //
-//  Created by Aurelius Prochazka on 7/31/16.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
@@ -44,8 +44,9 @@ open class AKPlaygroundView: NSView {
     open func setup() {}
 
     override open func draw(_ dirtyRect: NSRect) {
-        NSColor.white.setFill()
-        NSRectFill(dirtyRect)
+        let backgroundColor = AKStylist.sharedInstance.bgColor
+        backgroundColor.setFill()
+        __NSRectFill(dirtyRect)
         super.draw(dirtyRect)
     }
 
@@ -57,6 +58,7 @@ open class AKPlaygroundView: NSView {
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
         newLabel.alignment = .center
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         return newLabel
@@ -69,6 +71,7 @@ open class AKPlaygroundView: NSView {
         newLabel.isEditable = false
         newLabel.drawsBackground = false
         newLabel.isBezeled = false
+        newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = NSFont.systemFont(ofSize: 18)
         self.addSubview(newLabel)
         return newLabel

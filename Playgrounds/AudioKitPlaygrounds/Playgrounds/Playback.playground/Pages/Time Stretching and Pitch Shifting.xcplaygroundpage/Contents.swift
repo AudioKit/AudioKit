@@ -5,11 +5,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var timePitch = AKTimePitch(player)
 timePitch.rate = 2.0
@@ -17,47 +16,40 @@ timePitch.pitch = -400.0
 timePitch.overlap = 8.0
 
 AudioKit.output = timePitch
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Time/Pitch")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
         addLabel("Time/Pitch Parameters")
 
-        addSubview(AKBypassButton(node: timePitch))
+        addView(AKButton(title: "Stop Stretching") { button in
+            let node = timePitch
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Stretching" : "Start Stretching"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Rate",
-            format: "%0.3f",
-            value: timePitch.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Rate", value: timePitch.rate, range: 0.312_5 ... 5) { sliderValue in
             timePitch.rate = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Pitch",
-            format: "%0.3f Cents",
-            value: timePitch.pitch, minimum: -2_400, maximum: 2_400,
-            color: AKColor.red
+        addView(AKSlider(property: "Pitch",
+                         value: timePitch.pitch,
+                         range: -2_400 ... 2_400,
+                         format: "%0.3f Cents"
         ) { sliderValue in
             timePitch.pitch = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "Overlap",
-            value: timePitch.overlap, minimum: 3, maximum: 32,
-            color: AKColor.cyan
-        ) { sliderValue in
+        addView(AKSlider(property: "Overlap", value: timePitch.overlap, range: 3 ... 32) { sliderValue in
             timePitch.overlap = sliderValue
         })
     }
@@ -65,4 +57,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

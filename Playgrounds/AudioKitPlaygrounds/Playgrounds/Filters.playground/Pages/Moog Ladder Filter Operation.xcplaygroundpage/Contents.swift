@@ -3,22 +3,20 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { player, _ in
     let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 500, maximum: 1_000)
     let resonance = abs(AKOperation.sineWave(frequency: 0.3)) * 0.95
 
-    return player.moogLadderFilter(cutoffFrequency: frequency,
-                                   resonance: resonance) * 3
+    return player.moogLadderFilter(cutoffFrequency: frequency, resonance: resonance) * 3
 }
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

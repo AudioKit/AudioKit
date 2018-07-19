@@ -3,25 +3,26 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav")
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let tracker = AKFrequencyTracker(player)
 
 AudioKit.output = tracker
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKPropertySlider?
-    var trackedFrequencySlider: AKPropertySlider?
+    var trackedAmplitudeSlider: AKSlider?
+    var trackedFrequencySlider: AKSlider?
 
-    override func setup() {
+    override func viewDidLoad() {
 
         AKPlaygroundLoop(every: 0.1) {
             self.trackedAmplitudeSlider?.value = tracker.amplitude
@@ -30,30 +31,23 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("Tracking An Audio File")
 
-        trackedAmplitudeSlider = AKPropertySlider(
-            property: "Tracked Amplitude",
-            format: "%0.3f",
-            value: 0, maximum: 0.55,
-            color: AKColor.green
+        trackedAmplitudeSlider = AKSlider(property: "Tracked Amplitude", range: 0 ... 0.55) { _ in
+            // Do nothing, just for display
+        }
+        addView(trackedAmplitudeSlider)
+
+        trackedFrequencySlider = AKSlider(property: "Tracked Frequency",
+                                          range: 0 ... 1_000,
+                                          format: "%0.3f Hz"
         ) { _ in
             // Do nothing, just for display
         }
-        addSubview(trackedAmplitudeSlider)
+        addView(trackedFrequencySlider)
 
-        trackedFrequencySlider = AKPropertySlider(
-            property: "Tracked Frequency",
-            format: "%0.3f",
-            value: 0, maximum: 1_000,
-            color: AKColor.red
-        ) { _ in
-            // Do nothing, just for display
-        }
-        addSubview(trackedFrequencySlider)
-
-        addSubview(AKRollingOutputPlot.createView())
+        addView(AKRollingOutputPlot.createView())
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

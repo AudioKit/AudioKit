@@ -2,8 +2,8 @@
 //  SporthEditorBrain.swift
 //  SporthEditor
 //
-//  Created by Kanstantsin Linou on 7/12/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -28,12 +28,20 @@ class SporthEditorBrain {
 
     func run(_ code: String) {
         generator?.stop()
-        AudioKit.stop()
+        do {
+            try AudioKit.stop()
+        } catch {
+            AKLog("AudioKit did not stop!")
+        }
         generator = AKOperationGenerator { _ in
             return AKOperation(code)
         }
         AudioKit.output = generator
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         generator?.start()
     }
 

@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,46 +22,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="AKOutputWaveformPlot" customModule="AudioKit">
-                                <rect key="frame" x="20" y="20" width="1880" height="1040"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
+                                <rect key="frame" x="110" y="80" width="1700" height="920"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                        <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="gain">
+                                        <real key="value" value="0.80000000000000004"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
-                                <rect key="frame" x="791" y="539" width="338" height="86"/>
-                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                <state key="normal" title="Play Sine Wave"/>
-                                <connections>
-                                    <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="H2C-g8-5Y6"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
-                                <rect key="frame" x="702" y="72" width="516" height="440"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="QoR-rS-84i" secondAttribute="height" multiplier="169:144" id="v4j-2y-Xgy"/>
-                                </constraints>
-                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="JIJ-BH-zxc">
+                                <rect key="frame" x="0.0" y="60" width="1920" height="960"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
+                                        <rect key="frame" x="0.0" y="0.0" width="1920" height="774"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
+                                        <rect key="frame" x="0.0" y="774" width="1920" height="186"/>
+                                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                        <state key="normal" title="Play Sine Wave"/>
+                                        <connections>
+                                            <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="H2C-g8-5Y6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="a9R-38-Wi4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="6Tl-lb-agT"/>
-                            <constraint firstItem="nzf-8O-zZG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ey6-8B-wFh"/>
-                            <constraint firstItem="QoR-rS-84i" firstAttribute="width" secondItem="nzf-8O-zZG" secondAttribute="width" id="Pkq-MX-WRa"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nzf-8O-zZG" secondAttribute="bottom" constant="455" id="TSd-on-OHs"/>
+                            <constraint firstItem="JIJ-BH-zxc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6gp-FS-bTT"/>
+                            <constraint firstItem="JIJ-BH-zxc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="czd-KB-h5a"/>
+                            <constraint firstAttribute="trailing" secondItem="JIJ-BH-zxc" secondAttribute="trailing" id="eNl-VZ-ApG"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JIJ-BH-zxc" secondAttribute="bottom" id="f1n-EB-Q5v"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a9R-38-Wi4" secondAttribute="bottom" constant="20" id="kti-yt-pN8"/>
                             <constraint firstAttribute="leadingMargin" secondItem="a9R-38-Wi4" secondAttribute="leading" id="qDw-ee-VpS"/>
-                            <constraint firstItem="QoR-rS-84i" firstAttribute="centerX" secondItem="nzf-8O-zZG" secondAttribute="centerX" id="sY5-ud-fOB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="a9R-38-Wi4" secondAttribute="trailing" id="uDs-Zk-Qwr"/>
-                            <constraint firstItem="nzf-8O-zZG" firstAttribute="top" secondItem="QoR-rS-84i" secondAttribute="bottom" constant="27" id="zp9-Pg-Fhw"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="plot" destination="a9R-38-Wi4" id="ehJ-zM-UBd"/>
+                        <outlet property="plot" destination="a9R-38-Wi4" id="L9z-9v-cjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

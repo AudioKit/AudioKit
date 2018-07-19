@@ -5,37 +5,34 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0
 
 AudioKit.output = variSpeed
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Playback Speed")
 
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKBypassButton(node: variSpeed))
+        addView(AKButton(title: "Stop Effect") { button in
+            let node = variSpeed
+            node.isStarted ? node.stop() : node.play()
+            button.title = node.isStarted ? "Stop Effect" : "Start Effect"
+        })
 
-        addSubview(AKPropertySlider(
-            property: "Rate",
-            format: "%0.3f",
-            value: variSpeed.rate, minimum: 0.312_5, maximum: 5,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "Rate", value: variSpeed.rate, range: 0.312_5 ... 5) { sliderValue in
             variSpeed.rate = sliderValue
         })
     }
@@ -43,4 +40,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

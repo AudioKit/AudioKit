@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-open class AKReverb2: AKNode, AKToggleable {
+open class AKReverb2: AKNode, AKToggleable, AKInput {
 
     fileprivate let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -23,7 +23,7 @@ open class AKReverb2: AKNode, AKToggleable {
     fileprivate var lastKnownMix: Double = 50
 
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
-    open dynamic var dryWetMix: Double = 0.5 {
+    @objc open dynamic var dryWetMix: Double = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -41,7 +41,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Gain (Decibels) ranges from -20 to 20 (Default: 0)
-    open dynamic var gain: Double = 0 {
+    @objc open dynamic var gain: Double = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -59,7 +59,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-    open dynamic var minDelayTime: Double = 0.008 {
+    @objc open dynamic var minDelayTime: Double = 0.008 {
         didSet {
             if minDelayTime < 0.000_1 {
                 minDelayTime = 0.000_1
@@ -77,7 +77,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-    open dynamic var maxDelayTime: Double = 0.050 {
+    @objc open dynamic var maxDelayTime: Double = 0.050 {
         didSet {
             if maxDelayTime < 0.000_1 {
                 maxDelayTime = 0.000_1
@@ -95,7 +95,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-    open dynamic var decayTimeAt0Hz: Double = 1.0 {
+    @objc open dynamic var decayTimeAt0Hz: Double = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
@@ -113,7 +113,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-    open dynamic var decayTimeAtNyquist: Double = 0.5 {
+    @objc open dynamic var decayTimeAtNyquist: Double = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
@@ -131,7 +131,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
-    open dynamic var randomizeReflections: Double = 1 {
+    @objc open dynamic var randomizeReflections: Double = 1 {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
@@ -149,7 +149,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    open dynamic var isStarted = true
+    @objc open dynamic var isStarted = true
 
     /// Initialize the reverb2 node
     ///
@@ -163,8 +163,8 @@ open class AKReverb2: AKNode, AKToggleable {
     ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
-    public init(
-        _ input: AKNode?,
+    @objc public init(
+        _ input: AKNode? = nil,
         dryWetMix: Double = 0.5,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
@@ -186,7 +186,7 @@ open class AKReverb2: AKNode, AKToggleable {
             super.init()
             self.avAudioNode = internalEffect
             AudioKit.engine.attach(self.avAudioNode)
-            input?.addConnectionPoint(self)
+            input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 
             if let audioUnit = internalAU {
@@ -238,7 +238,7 @@ open class AKReverb2: AKNode, AKToggleable {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -246,7 +246,7 @@ open class AKReverb2: AKNode, AKToggleable {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

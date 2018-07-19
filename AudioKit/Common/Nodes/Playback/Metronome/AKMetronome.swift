@@ -2,13 +2,13 @@
 //  AKMetronome.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 6/4/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Metronome Callback Ugen
 public let callbackUgen =
-    AKCustomUgen(name: "callback", argTypes: "f") { _, stack, userData in
+    AKCustomUgen(name: "triggerFunction", argTypes: "f") { _, stack, userData in
         let trigger = stack.popFloat()
         if trigger != 0 {
             if let callback = userData as? AKCallback {
@@ -47,10 +47,10 @@ public class AKMetronome: AKOperationGenerator {
     }
 
     /// Initialize the metronome
-    public init() {
+    @objc public init() {
 
-        let sporth = "(0 p) bpm2rate metro (_callback f) dup 0.001 0.01 0.001 tenvx swap (1 p) 0 count dup 2 pset 0 eq (3 p) (4 p) branch 0.4 sine * dup"
-        callback = { _ in return }
+        let sporth = "(0 p) bpm2rate metro (_triggerFunction fe) dup 0.001 0.01 0.001 tenvx swap (1 p) 0 count dup 2 pset 0 eq (4 p) (3 p) branch 0.4 sine * dup"
+        callback = { return }
         super.init(sporth: sporth, customUgens: [callbackUgen])
         parameters = [tempo, Double(subdivision), -1, frequency1, frequency2]
     }

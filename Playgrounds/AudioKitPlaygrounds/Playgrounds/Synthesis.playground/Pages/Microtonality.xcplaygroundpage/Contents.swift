@@ -120,121 +120,90 @@ let sequencerFunction = AKPeriodicFunction(frequency: playRate) {
 
 // Start Audio
 AudioKit.output = mixer
-AudioKit.start(withPeriodicFunctions: sequencerFunction)
+try AudioKit.start(withPeriodicFunctions: sequencerFunction)
 sequencerFunction.start()
 
-class PlaygroundView: AKPlaygroundView {
+import AudioKitUI
 
-    override func setup() {
+class LiveView: AKLiveViewController {
+
+    override func viewDidLoad() {
         addTitle("Microtonal Morphing Oscillator")
 
-        addSubview(AKPresetLoaderView(presets: presetArray) { preset in
+        addView(AKPresetLoaderView(presets: presetArray) { preset in
             presetDictionary[preset]?()
         })
 
-        addSubview(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
+        addView(AKPresetLoaderView(presets: sequencerPatternPresets) { preset in
             osc.reset()
             sequencerPattern = sequencerPatterns[preset]!
         })
 
-        addSubview(AKPropertySlider(
-            property: "MIDI Transposition",
-            format: "%.0f",
-            value: Double(transposition), minimum: -16, maximum: 16,
-            color: AKColor.blue
+        addView(AKSlider(property: "MIDI Transposition",
+                         value: Double(transposition),
+                         range: -16 ... 16,
+                         format: "%.0f"
         ) { sliderValue in
             transposition = Int(sliderValue)
             osc.reset()
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Morph Index",
-            value: osc.index, minimum: 0, maximum: 3,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "OSC Morph Index", value: osc.index, range: 0 ... 3) { sliderValue in
             osc.index = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Gain",
-            format: "%0.3f",
-            value: generatorBooster.gain, minimum: 0, maximum:4,
-            color: AKColor.green
-        ) { sliderValue in
+        addView(AKSlider(property: "OSC Gain", value: generatorBooster.gain, range: 0 ... 4) { sliderValue in
             generatorBooster.gain = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Cutoff",
-            value: filter.cutoffFrequency, minimum: 1, maximum: 12_000,
-            color: AKColor.red
+        addView(AKSlider(property: "FILTER Frequency Cutoff",
+                         value: filter.cutoffFrequency,
+                         range: 1 ... 12_000
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "FILTER Frequency Resonance",
-            value: filter.resonance, minimum: 0, maximum: 4,
-            color: AKColor.red
+        addView(AKSlider(property: "FILTER Frequency Resonance",
+                         value: filter.resonance,
+                         range: 0 ... 4
         ) { sliderValue in
             filter.resonance = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Attack",
-            format: "%0.3f s",
-            value: osc.attackDuration, maximum: 2,
-            color: AKColor.green
+        addView(AKSlider(property: "OSC Amp Attack",
+                         value: osc.attackDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.attackDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Decay",
-            format: "%0.3f s",
-            value: osc.decayDuration, maximum: 2,
-            color: AKColor.green
+        addView(AKSlider(property: "OSC Amp Decay",
+                         value: osc.decayDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.decayDuration = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Sustain",
-            format: "%0.3f s",
-            value: osc.sustainLevel, maximum: 2,
-            color: AKColor.green
+        addView(AKSlider(property: "OSC Amp Sustain",
+                         value: osc.sustainLevel,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.sustainLevel = sliderValue
         })
 
-        addSubview(AKPropertySlider(
-            property: "OSC Amp Release",
-            format: "%0.3f s",
-            value: osc.releaseDuration, maximum: 2,
-            color: AKColor.green
+        addView(AKSlider(property: "OSC Amp Release",
+                         value: osc.releaseDuration,
+                         range: 0 ... 2,
+                         format: "%0.3f s"
         ) { sliderValue in
             osc.releaseDuration = sliderValue
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Offset",
-            format: "%0.1f Cents",
-            value:  osc.detuningOffset, minimum: -1_200, maximum: 1_200,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.detuningOffset = sliderValue
-        })
-
-        addSubview(AKPropertySlider(
-            property: "Detuning Multiplier",
-            value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
-            color: AKColor.green
-        ) { sliderValue in
-            osc.detuningMultiplier = sliderValue
         })
     }
 }
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()

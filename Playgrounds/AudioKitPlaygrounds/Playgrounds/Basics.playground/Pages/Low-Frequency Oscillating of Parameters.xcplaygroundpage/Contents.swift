@@ -22,12 +22,12 @@ let generator = AKOperationGenerator { _ in
         baseFrequency: frequencyLFO,
         carrierMultiplier: carrierLFO,
         modulatingMultiplier: modulatingMultiplierLFO,
-        modulationIndex:  modulatingIndexLFO,
+        modulationIndex: modulatingIndexLFO,
         amplitude: 0.2)
 }
 
 AudioKit.output = generator
-AudioKit.start()
+try AudioKit.start()
 
 generator.start()
 

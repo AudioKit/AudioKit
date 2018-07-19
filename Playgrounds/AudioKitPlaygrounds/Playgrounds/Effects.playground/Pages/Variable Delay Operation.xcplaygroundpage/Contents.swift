@@ -3,11 +3,10 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let file = try AKAudioFile(readFileName: playgroundAudioFiles[0],
-                           baseDir: .resources)
+let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = AKPlayer(audioFile: file)
+player.isLooping = true
 
 let effect = AKOperationEffect(player) { player, parameters in
     let time = AKOperation.sineWave(frequency: parameters[1])
@@ -21,35 +20,35 @@ let effect = AKOperationEffect(player) { player, parameters in
 effect.parameters = [0.2, 0.3, 0.21]
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface
+import AudioKitUI
 
-class PlaygroundView: AKPlaygroundView {
+class LiveView: AKLiveViewController {
 
-    override func setup() {
+    override func viewDidLoad() {
         addTitle("Variable Delay Operation")
-        addSubview(AKResourcesAudioFileLoaderView(
-            player: player,
-            filenames: playgroundAudioFiles))
+        addView(AKResourcesAudioFileLoaderView(player: player, filenames: playgroundAudioFiles))
 
-        addSubview(AKPropertySlider(
-            property: "Maximum Delay",
-            format: "%0.3f s",
-            value: effect.parameters[0], maximum: 0.3) { sliderValue in
+        addView(AKSlider(property: "Maximum Delay",
+                         value: effect.parameters[0],
+                         range: 0 ... 0.3,
+                         format: "%0.3f s"
+        ) { sliderValue in
             effect.parameters[0] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Delay Frequency",
-            format: "%0.3f Hz",
-            value: effect.parameters[1]) { sliderValue in
+        addView(AKSlider(property: "Delay Frequency",
+                         value: effect.parameters[1],
+                         format: "%0.3f Hz"
+        ) { sliderValue in
             effect.parameters[1] = sliderValue
         })
-        addSubview(AKPropertySlider(
-            property: "Feedback Frequency",
-            format: "%0.3f Hz",
-            value: effect.parameters[2]) { sliderValue in
+        addView(AKSlider(property: "Feedback Frequency",
+                         value: effect.parameters[2],
+                         format: "%0.3f Hz"
+        ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
     }
@@ -57,4 +56,4 @@ class PlaygroundView: AKPlaygroundView {
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
-PlaygroundPage.current.liveView = PlaygroundView()
+PlaygroundPage.current.liveView = LiveView()
