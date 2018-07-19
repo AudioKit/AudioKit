@@ -64,8 +64,11 @@ public struct AKMIDIEvent {
 
     /// Status
     public var status: AKMIDIStatus? {
-        let status = internalData[0] >> 4
-        return AKMIDIStatus(rawValue: Int(status))
+        if let statusByte = internalData.first {
+            let status = statusByte >> 4
+            return AKMIDIStatus(rawValue: Int(status))
+        }
+        return nil
     }
 
     /// System Command
