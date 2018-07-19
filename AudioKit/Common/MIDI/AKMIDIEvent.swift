@@ -78,11 +78,14 @@ public struct AKMIDIEvent {
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        let status = internalData[0] >> 4
-        if status < 15 {
-            return .none
+        if let statusByte = internalData.first{
+            let status = statusByte >> 4
+            if status < 15 {
+                return .none
+            }
+            return AKMIDISystemCommand(rawValue: statusByte)
         }
-        return AKMIDISystemCommand(rawValue: internalData[0])
+        return nil
     }
 
     /// MIDI Channel
