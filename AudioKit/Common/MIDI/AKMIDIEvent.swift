@@ -147,27 +147,20 @@ public struct AKMIDIEvent {
                          byte2: packet.data.2)
             }
         } else {
-
             if packet.isSysex {
                 internalData = [] //reset internalData
-                var computedLength = 0
                 //voodoo
-                let mirrorData = Mirror(reflecting: packet.data)
-                for (_, value) in mirrorData.children {
-                    if computedLength < 255 {
-                        computedLength += 1
-                    }
-                    guard let byte = value as? MIDIByte else {
-                        AKLog("unable to create sysex midi byte")
-                        return
-                    }
-                    internalData.append(byte)
-                    if byte == 247 {
-                        break
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if let sysexEndIndex = midiBytes.index(of: 247) {
+                        setLength(sysexEndIndex)
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                        setLength(0)
                     }
                 }
-                setLength(computedLength)
-
             } else {
                 if let cmd = packet.command {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
@@ -269,6 +262,9 @@ public struct AKMIDIEvent {
                                        channel: MIDIChannel,
                                        byte1: MIDIByte,
                                        byte2: MIDIByte) {
+        if internalData.count < 3 {
+            internalData = [0, 0, 0]
+        }
         internalData[0] = MIDIByte(status.rawValue << 4) | MIDIByte(channel.lowbit())
         internalData[1] = byte1.lower7bits()
         internalData[2] = byte2.lower7bits()
@@ -301,10 +297,16 @@ public struct AKMIDIEvent {
             AKLog("sysex")
             break
         case .songPosition:
+            while internalData.count < 3 {
+                internalData.append(0)
+            }
             internalData[1] = byte1.lower7bits()
             internalData[2] = byte2.lower7bits()
             setLength(3)
         case .songSelect:
+            while internalData.count < 2 {
+                internalData.append(0)
+            }
             internalData[1] = byte1.lower7bits()
             setLength(2)
         default:
@@ -412,5 +414,33 @@ public struct AKMIDIEvent {
     private mutating func setLength(_ newLength: Int) {
         length = newLength
         internalData = Array(internalData[0..<length])
+    }
+
+    static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
+        if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+            AudioKit.midi.incomingSysex += midiBytes
+            if midiBytes.contains(247) {
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
+                AudioKit.midi.stopReceivingSysex()
+                return sysexEvent
+            }
+        }
+        return nil
+    }
+    static func decode(packet: MIDIPacket) -> [MIDIByte]? {
+        var outBytes = [MIDIByte]()
+        var computedLength = 0
+        let mirrorData = Mirror(reflecting: packet.data)
+        for (_, value) in mirrorData.children {
+            if computedLength < 256 {
+                computedLength += 1
+            }
+            guard let byte = value as? MIDIByte else {
+                AKLog("unable to create sysex midi byte")
+                return nil
+            }
+            outBytes.append(byte)
+        }
+        return outBytes
     }
 }

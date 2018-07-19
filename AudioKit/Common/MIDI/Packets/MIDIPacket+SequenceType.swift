@@ -49,7 +49,6 @@ extension MIDIPacket: Sequence {
 
                 case .noteOff, .noteOn, .polyphonicAftertouch, .controllerChange, .pitchWheel:
                     data1 = pop(); data2 = pop()
-
                     if mstat == .noteOn && data2 == 0 {
                         // turn noteOn with velocity 0 to noteOff
                         mstat = .noteOff
@@ -66,26 +65,24 @@ extension MIDIPacket: Sequence {
                     }
                     switch  cmd {
                     case .sysex:
-                        // sysex - guaranteed by Core MIDI to be the entire packet
                         index = self.length
                         return AKMIDIEvent(packet: self)
                     case .songPosition:
                         //the remaining event generators need to be tested and tweaked to the specific messages
                         data1 = pop()
                         data2 = pop()
-
                         return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
                     case .songSelect:
                         data1 = pop()
-
                         return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
                     default:
                         return AKMIDIEvent(packet: self)
                     }
-
                 default:
                     return AKMIDIEvent(packet: self)
                 }
+            } else if AudioKit.midi.isReceivingSysex {
+                return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
             } else {
                 return nil
             }
@@ -93,7 +90,6 @@ extension MIDIPacket: Sequence {
     }
 }
 
-/// Temporary hack for Xcode 7.3.1 - Appreciate improvements to this if you want to make a go of it!
 typealias AKRawMIDIPacket = (
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte,
     MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte, MIDIByte,
