@@ -91,8 +91,7 @@ public struct AKMIDIEvent {
     /// MIDI Channel
     public var channel: MIDIChannel? {
         if let statusByte = internalData.first{
-            let status = statusByte >> 4
-            if status < 16, let channel = internalData.first?.lowbit() {
+            if let channel = channelFrom(rawByte: statusByte) {
                 return channel
             }
         }
@@ -103,12 +102,12 @@ public struct AKMIDIEvent {
         return AKMIDIStatus(rawValue: Int(rawByte >> 4))
     }
 
-    func channelFrom(rawByte: MIDIByte) -> MIDIChannel {
+    func channelFrom(rawByte: MIDIByte) -> MIDIChannel? {
         let status = rawByte >> 4
         if status < 16 {
             return MIDIChannel(rawByte.lowbit())
         }
-        return 0
+        return nil
     }
 
     /// MIDI Note Number
@@ -259,7 +258,7 @@ public struct AKMIDIEvent {
         } else if let status = statusFrom(rawByte: data[0]) {
             // is regular MIDI status
             let channel = channelFrom(rawByte: data[0])
-            fillData(status: status, channel: channel, byte1: data[1], byte2: data[2])
+            fillData(status: status, channel: channel ?? 0, byte1: data[1], byte2: data[2])
         }
     }
 
