@@ -90,9 +90,11 @@ public struct AKMIDIEvent {
 
     /// MIDI Channel
     public var channel: MIDIChannel? {
-        let status = internalData[0] >> 4
-        if status < 16 {
-            return internalData[0].lowbit()
+        if let statusByte = internalData.first{
+            let status = statusByte >> 4
+            if status < 16, let channel = internalData.first?.lowbit() {
+                return channel
+            }
         }
         return nil
     }
