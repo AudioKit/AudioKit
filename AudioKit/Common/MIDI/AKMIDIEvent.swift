@@ -153,7 +153,7 @@ public struct AKMIDIEvent {
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     internalData += midiBytes
-                    if let sysexEndIndex = midiBytes.index(of: 247) {
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                         setLength(sysexEndIndex)
                         AudioKit.midi.stopReceivingSysex()
                     } else {
@@ -419,7 +419,7 @@ public struct AKMIDIEvent {
     static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AudioKit.midi.incomingSysex += midiBytes
-            if midiBytes.contains(247) {
+            if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
                 let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
                 AudioKit.midi.stopReceivingSysex()
                 return sysexEvent
