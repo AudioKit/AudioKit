@@ -66,7 +66,12 @@ public struct AKMIDIEvent {
     public var status: AKMIDIStatus? {
         if let statusByte = internalData.first {
             let status = statusByte >> 4
-            return AKMIDIStatus(rawValue: Int(status))
+            if statusByte == AKMIDISystemCommand.sysex.rawValue,
+                !internalData.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
+                return nil //incomplete sysex
+            } else {
+                return AKMIDIStatus(rawValue: Int(status))
+            }
         }
         return nil
     }
@@ -157,7 +162,7 @@ public struct AKMIDIEvent {
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     internalData += midiBytes
                     if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                        setLength(sysexEndIndex)
+                        setLength(sysexEndIndex + 1)
                         AudioKit.midi.stopReceivingSysex()
                     } else {
                         internalData.removeAll()
