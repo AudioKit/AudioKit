@@ -38,7 +38,9 @@ extension MIDIPacket: Sequence {
                 return byte
             }
             let status = pop()
-            if AKMIDIEvent.isStatusByte(status) {
+            if AudioKit.midi.isReceivingSysex {
+                return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
+            } else if AKMIDIEvent.isStatusByte(status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
                 var mstat = AKMIDIEvent.statusFromValue(status)
@@ -81,8 +83,6 @@ extension MIDIPacket: Sequence {
                 default:
                     return AKMIDIEvent(packet: self)
                 }
-            } else if AudioKit.midi.isReceivingSysex {
-                return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
             } else {
                 return nil
             }
