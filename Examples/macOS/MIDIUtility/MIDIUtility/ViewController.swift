@@ -22,12 +22,15 @@ class ViewController: NSViewController, AKMIDIListener {
         midi.addListener(self)
 
         sourcePopUpButton.removeAllItems()
+        sourcePopUpButton.addItem(withTitle: "(select input)")
         sourcePopUpButton.addItems(withTitles: midi.inputNames)
     }
 
     @IBAction func sourceChanged(_ sender: NSPopUpButton) {
-        midi.closeAllInputs()
-        midi.openInput(midi.inputNames[sender.indexOfSelectedItem])
+        if sender.indexOfSelectedItem > 0 {
+            midi.closeAllInputs()
+            midi.openInput(midi.inputNames[sender.indexOfSelectedItem - 1])
+        }
     }
 
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {

@@ -64,24 +64,36 @@ public struct AKMIDIEvent {
 
     /// Status
     public var status: AKMIDIStatus? {
-        let status = internalData[0] >> 4
-        return AKMIDIStatus(rawValue: Int(status))
+        if let statusByte = internalData.first {
+            let status = statusByte >> 4
+            if statusByte == AKMIDISystemCommand.sysex.rawValue,
+                !internalData.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
+                return nil //incomplete sysex
+            } else {
+                return AKMIDIStatus(rawValue: Int(status))
+            }
+        }
+        return nil
     }
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        let status = internalData[0] >> 4
-        if status < 15 {
-            return .none
+        if let statusByte = internalData.first{
+            let status = statusByte >> 4
+            if status < 15 {
+                return .none
+            }
+            return AKMIDISystemCommand(rawValue: statusByte)
         }
-        return AKMIDISystemCommand(rawValue: internalData[0])
+        return nil
     }
 
     /// MIDI Channel
     public var channel: MIDIChannel? {
-        let status = internalData[0] >> 4
-        if status < 16 {
-            return internalData[0].lowbit()
+        if let statusByte = internalData.first{
+            if let channel = channelFrom(rawByte: statusByte) {
+                return channel
+            }
         }
         return nil
     }
@@ -90,12 +102,12 @@ public struct AKMIDIEvent {
         return AKMIDIStatus(rawValue: Int(rawByte >> 4))
     }
 
-    func channelFrom(rawByte: MIDIByte) -> MIDIChannel {
+    func channelFrom(rawByte: MIDIByte) -> MIDIChannel? {
         let status = rawByte >> 4
         if status < 16 {
             return MIDIChannel(rawByte.lowbit())
         }
-        return 0
+        return nil
     }
 
     /// MIDI Note Number
@@ -153,8 +165,8 @@ public struct AKMIDIEvent {
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     internalData += midiBytes
-                    if let sysexEndIndex = midiBytes.index(of: 247) {
-                        setLength(sysexEndIndex)
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+                        setLength(sysexEndIndex + 1)
                         AudioKit.midi.stopReceivingSysex()
                     } else {
                         internalData.removeAll()
@@ -228,7 +240,11 @@ public struct AKMIDIEvent {
     ///   - data:  [MIDIByte] bluetooth packet
     ///
     public init(data: [MIDIByte]) {
-        if let command = AKMIDISystemCommand(rawValue: data[0]) {
+        if AudioKit.midi.isReceivingSysex {
+            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+                internalData = Array(data[0...sysexEndIndex])
+            }
+        } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
             internalData = []
             // is sys command
             if command == .sysex {
@@ -242,7 +258,7 @@ public struct AKMIDIEvent {
         } else if let status = statusFrom(rawByte: data[0]) {
             // is regular MIDI status
             let channel = channelFrom(rawByte: data[0])
-            fillData(status: status, channel: channel, byte1: data[1], byte2: data[2])
+            fillData(status: status, channel: channel ?? 0, byte1: data[1], byte2: data[2])
         }
     }
 
@@ -419,7 +435,7 @@ public struct AKMIDIEvent {
     static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AudioKit.midi.incomingSysex += midiBytes
-            if midiBytes.contains(247) {
+            if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
                 let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
                 AudioKit.midi.stopReceivingSysex()
                 return sysexEvent
