@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		179B4B1220FEAF43008A7117 /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B4B1120FEAF42008A7117 /* TapTempo.swift */; };
 		555CCCD21F587D5D00614D5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555CCCD11F587D5D00614D5F /* AppDelegate.swift */; };
 		555CCCD41F587D5D00614D5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555CCCD31F587D5D00614D5F /* ViewController.swift */; };
 		555CCCD71F587D5D00614D5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCD51F587D5D00614D5F /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		179B4B1120FEAF42008A7117 /* TapTempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
 		555CCCCE1F587D5D00614D5F /* MetronomeSamplerSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetronomeSamplerSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		555CCCD11F587D5D00614D5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		555CCCD31F587D5D00614D5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				555CCCD11F587D5D00614D5F /* AppDelegate.swift */,
 				555CCCD31F587D5D00614D5F /* ViewController.swift */,
+				179B4B1120FEAF42008A7117 /* TapTempo.swift */,
 				5585D4901F58DED20071A702 /* cheeb-ch.wav */,
 				5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */,
 				555CCCD51F587D5D00614D5F /* Main.storyboard */,
@@ -169,6 +172,7 @@
 			files = (
 				555CCCD41F587D5D00614D5F /* ViewController.swift in Sources */,
 				555CCCD21F587D5D00614D5F /* AppDelegate.swift in Sources */,
+				179B4B1220FEAF43008A7117 /* TapTempo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
