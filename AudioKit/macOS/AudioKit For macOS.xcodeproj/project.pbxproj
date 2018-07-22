@@ -1108,6 +1108,7 @@
 		FE72B227208AA9F700D861BC /* AudioKit+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B222208AA9F500D861BC /* AudioKit+Status.swift */; };
 		FE72B228208AA9F700D861BC /* AudioKit+SafeConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B223208AA9F600D861BC /* AudioKit+SafeConnections.swift */; };
 		FE72B229208AA9F700D861BC /* AVAudioEngine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B224208AA9F600D861BC /* AVAudioEngine+Extensions.swift */; };
+		FE8E009B20FD1A7D000F0ADC /* AKMusicTrack+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E009A20FD1A7D000F0ADC /* AKMusicTrack+Load.swift */; };
 		FE8FE9BC20E4246700F15B7E /* dr_wav.h in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9BA20E4246700F15B7E /* dr_wav.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE8FE9BD20E4246700F15B7E /* dr_wav.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9BB20E4246700F15B7E /* dr_wav.c */; };
 		FE8FE9C620E424FC00F15B7E /* wavin.c in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9C520E424FC00F15B7E /* wavin.c */; };
@@ -2297,6 +2298,7 @@
 		FE72B222208AA9F500D861BC /* AudioKit+Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioKit+Status.swift"; sourceTree = "<group>"; };
 		FE72B223208AA9F600D861BC /* AudioKit+SafeConnections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioKit+SafeConnections.swift"; sourceTree = "<group>"; };
 		FE72B224208AA9F600D861BC /* AVAudioEngine+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Extensions.swift"; sourceTree = "<group>"; };
+		FE8E009A20FD1A7D000F0ADC /* AKMusicTrack+Load.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Load.swift"; sourceTree = "<group>"; };
 		FE8FE9BA20E4246700F15B7E /* dr_wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dr_wav.h; sourceTree = "<group>"; };
 		FE8FE9BB20E4246700F15B7E /* dr_wav.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dr_wav.c; sourceTree = "<group>"; };
 		FE8FE9C520E424FC00F15B7E /* wavin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wavin.c; sourceTree = "<group>"; };
@@ -2876,6 +2878,7 @@
 				C45664E81D448D7E00D26565 /* AKDuration.swift */,
 				C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */,
 				C45664E91D448D7E00D26565 /* AKMusicTrack.swift */,
+				FE8E009A20FD1A7D000F0ADC /* AKMusicTrack+Load.swift */,
 				C4C378FE1F0C55640085F876 /* AKSequencer.swift */,
 				C42371F020A7F65A00507E72 /* AKTimeSignature.swift */,
 			);
@@ -5912,6 +5915,7 @@
 				C4812AF72028550100D4AFB1 /* AKPeakingParametricEqualizerFilterDSP.mm in Sources */,
 				C49B1B88204A0C48009C7C8E /* Fir.cpp in Sources */,
 				C49B18CB204A0AD1009C7C8E /* butbr.c in Sources */,
+				FE8E009B20FD1A7D000F0ADC /* AKMusicTrack+Load.swift in Sources */,
 				C49B1865204A0AD0009C7C8E /* noise.c in Sources */,
 				C45666A21D448D7E00D26565 /* AKAudioFile+Processing.swift in Sources */,
 				C458BFEA202FE6CE006428C9 /* AKWhiteNoiseDSP.mm in Sources */,
