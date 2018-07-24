@@ -163,4 +163,14 @@ open class AKMIDI {
         }
         return false
     }
+
+    internal var isReceivingSysex: Bool = false
+    func startReceivingSysex(with midiBytes: [MIDIByte]) {
+        isReceivingSysex = true
+        incomingSysex = midiBytes
+    }
+    func stopReceivingSysex() {
+        isReceivingSysex = false
+    }
+    var incomingSysex = [MIDIByte]()
 }
