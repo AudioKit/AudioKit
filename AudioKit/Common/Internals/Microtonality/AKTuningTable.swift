@@ -205,4 +205,10 @@
         }
         //AKLog("etnn dictionary:\(etNNDictionary)")
     }
+    
+    /// Renders and returns the masterSet values as an array of cents
+    @objc public func masterSetInCents() -> [Cents] {
+        let cents = masterSet.map({log2($0) * 1200})
+        return cents
+    }
 }

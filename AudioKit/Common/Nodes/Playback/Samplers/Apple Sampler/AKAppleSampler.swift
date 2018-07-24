@@ -179,13 +179,16 @@ open class AKAppleSampler: AKNode {
 
     // MARK: - Playback
 
-    /// Play a MIDI Note
+    /// Play a MIDI Note or trigger a sample
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number to play
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
+    /// NB: when using an audio file, noteNumber 60 will play back the file at normal
+    /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
+    /// half speed (1 octave lower) and so on
     @objc open func play(noteNumber: MIDINoteNumber = 60,
                          velocity: MIDIVelocity = 127,
                          channel: MIDIChannel = 0) throws {

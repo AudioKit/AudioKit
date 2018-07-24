@@ -75,7 +75,7 @@
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
-                                                settings: existingFile.processingFormat.settings)
+                                                settings: existingFile.fileFormat.settings)
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot write to \(existingFile.fileNamePlusExtension)")
             throw error
