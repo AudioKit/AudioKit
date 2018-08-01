@@ -56,12 +56,12 @@
     }
     return self;
 }
+
 -(instancetype)initWithSound:(NSURL *)soundURL{
     return [self initWithSound:soundURL downBeatSound:nil];
 }
 
 -(AKTimelineBlock)timlineBlock {
-
     AudioUnit sampler = self.audioUnit;
     double *triggers = _triggers;
     int *triggerCount = &_beatCount;
@@ -84,12 +84,17 @@
         for (int i = 0; i < *triggerCount; i++) {
             double trigger = triggers[i];
             if(startSample <= trigger && trigger < endSample) {
-                MusicDeviceMIDIEvent(sampler,NOTEON, i == 0, i == 0 ? *downBeatVolume : *beatVolume, trigger - startSample + offset);
+                MusicDeviceMIDIEvent(sampler,
+                                     NOTEON,
+                                     i == 0,
+                                     i == 0 ? *downBeatVolume : *beatVolume,
+                                     trigger - startSample + offset);
             }
         }
     };
 }
--(void)setTempo:(double)bpm andbeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
+
+-(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
 
     //Store the last beatsPerSample before updating, needed to maintain current beat is running.
     double lastBeatsPerSample = _beatsPerSample;
@@ -131,27 +136,33 @@
     // Timeline is running so we need to get use the reference time to make
     // sure we pick up where we left off.
     AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, timeStamp);
-
 }
+
 -(BOOL)isPlaying {
     return AKTimelineIsStarted(tap.timeline);
 }
+
 -(void)setBeatCount:(int)beatCount {
     [self setBeatCount:beatCount atTime:nil];
 }
+
 -(int)beatCount {
     return _beatCount;
 }
+
 -(void)setTempo:(double)bpm {
     [self setTempo:bpm atTime:nil];
 }
+
 -(double)tempo {
     double beatsPerSecond = _beatsPerSample * _sampleRate;
     return beatsPerSecond * 60.0;
 }
+
 -(void)play {
     [self playAt:nil];
 }
+
 -(void)playAt:(AVAudioTime *)audioTime {
     if (audioTime) {
         AKTimelineStartAtTime(tap.timeline, audioTime.audioTimeStamp);
@@ -159,12 +170,15 @@
         AKTimelineStart(tap.timeline);
     }
 }
+
 -(double)beatTime {
     return [self beatTimeAtTime:nil];
 }
+
 -(void)setBeatTime:(double)beatTime {
     [self setBeatTime:beatTime atTime:nil];
 }
+
 -(void)setBeatTime:(double)beatTime atTime:(AVAudioTime *)audioTime {
     if (audioTime) {
         AKTimelineSetTimeAtTime(tap.timeline, beatTime / _beatsPerSample, audioTime.audioTimeStamp);
@@ -172,6 +186,7 @@
         AKTimelineSetTime(tap.timeline, beatTime / _beatsPerSample);
     }
 }
+
 -(double)beatTimeAtTime:(AVAudioTime *)audioTime {
     AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
     return AKTimelineTimeAtTime(tap.timeline, timestamp) * _beatsPerSample;
@@ -179,7 +194,7 @@
 
 -(void)setTempo:(double)tempo atTime:(AVAudioTime *)audioTime{
     AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:tempo andbeats:_beatCount atTime:timestamp];
+    [self setTempo:tempo andBeats:_beatCount atTime:timestamp];
 }
 
 -(void)setBeatCount:(int)beatCount atTime:(AVAudioTime *)audioTime{
@@ -188,12 +203,13 @@
         return;
     }
     AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:self.tempo andbeats:beatCount atTime:timestamp];
+    [self setTempo:self.tempo andBeats:beatCount atTime:timestamp];
 }
 
 -(void)stop {
     AKTimelineStop(tap.timeline);
 }
+
 -(void)setSound:(NSURL *)soundURL {
     _soundURL = soundURL;
     if (![NSFileManager.defaultManager fileExistsAtPath:soundURL.path]) {
@@ -201,9 +217,11 @@
     }
     [self setPresetWithSound:_soundURL andDownBeatSound:_downBeatSoundURL];
 }
+
 -(NSURL *)sound {
     return _soundURL;
 }
+
 -(void)setDownBeatSound:(NSURL *)downBeatSoundURL {
     _downBeatSoundURL = downBeatSoundURL;
     if (![NSFileManager.defaultManager fileExistsAtPath:downBeatSoundURL.path]) {
@@ -211,21 +229,27 @@
     }
     [self setPresetWithSound:_soundURL andDownBeatSound:_downBeatSoundURL];
 }
+
 -(NSURL *)downBeatSound {
     return _downBeatSoundURL;
 }
+
 -(void)setBeatVolume:(float)beatVolume {
     _beatVolume = UINT8_MAX * beatVolume;
 }
+
 -(float)beatVolume {
     return _beatVolume / UINT8_MAX;
 }
+
 -(void)setDownBeatVolume:(float)beatVolume {
     _downBeatVolume = UINT8_MAX * beatVolume;
 }
+
 -(float)downBeatVolume {
     return _downBeatVolume / UINT8_MAX;
 }
+
 // Will use the valid sound for both sounds if one is invalid.
 -(BOOL)setPresetWithSound:(NSURL *)soundURL andDownBeatSound:(NSURL *)downBeatSoundURL {
     BOOL soundValid = soundURL && [NSFileManager.defaultManager fileExistsAtPath:soundURL.path];
@@ -244,6 +268,7 @@
 
     return true;
 }
+
 static float releasecurve(float scaler) {
     return -1 * scaler * (scaler - 2.f);
 }
@@ -257,7 +282,10 @@ static float releasecurve(float scaler) {
     int frames = (a + s + r) * samplerate;
 
     AVAudioFormat *format = [[AVAudioFormat alloc]initStandardFormatWithSampleRate:44100 channels:1];
-    AVAudioFormat *fileFormat = [[AVAudioFormat alloc]initWithCommonFormat:format.commonFormat sampleRate:format.sampleRate channels:format.channelCount interleaved:true];
+    AVAudioFormat *fileFormat = [[AVAudioFormat alloc]initWithCommonFormat:format.commonFormat
+                                                                sampleRate:format.sampleRate
+                                                                  channels:format.channelCount
+                                                               interleaved:true];
 
     AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc]initWithPCMFormat:format frameCapacity:frames];
 
