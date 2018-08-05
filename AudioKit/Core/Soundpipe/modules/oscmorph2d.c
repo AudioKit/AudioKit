@@ -2,6 +2,29 @@
 #include <math.h>
 #include "soundpipe.h"
 
+#if 0
+#define SP_FT_MAXLEN 0x1000000L
+#define SP_FT_PHMASK 0x0FFFFFFL
+typedef struct sp_ftbl{
+    size_t size;
+    uint32_t lobits;
+    uint32_t lomask;
+    SPFLOAT lodiv;
+    SPFLOAT sicvt;
+    SPFLOAT *tbl;
+    char del;
+}sp_ftbl;
+
+typedef struct {
+    SPFLOAT freq, amp, iphs;
+    int32_t lphs;
+    sp_ftbl **tbl;
+    int inc;
+    SPFLOAT wtpos;
+    int nft;
+} sp_oscmorph2d;
+#endif
+
 int sp_oscmorph2d_create(sp_oscmorph2d **p)
 {
     *p = malloc(sizeof(sp_oscmorph2d));
