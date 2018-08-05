@@ -38,6 +38,8 @@
     /// Reversed sawtooth waveform from 0-1
     case positiveReverseSawtooth
 
+    /// Zeros
+    case zero
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
@@ -49,7 +51,7 @@
 
     // MARK: - Properties    /// Values stored in the table
 
-    private var content = [Element]()
+    internal var content = [Element]()
 
     /// Phase of the table
     public var phase: Float {
@@ -131,6 +133,8 @@
             self.positiveReverseSawtoothWave()
         case .positiveSquare:
             self.positiveSquareWave()
+        case .zero:
+            self.zero()
         }
     }
 
@@ -239,6 +243,13 @@
     func positiveSineWave() {
         for i in indices {
             content[i] = Float(0.5 + 0.5 * sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+        }
+    }
+
+    /// Instantiate the table with zero values
+    func zero() {
+        for i in indices {
+            content[i] = 0
         }
     }
 }

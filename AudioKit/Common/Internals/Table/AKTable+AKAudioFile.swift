@@ -1,16 +1,17 @@
 //
 //  AKTable+AKAudioFile.swift
-//  MOS10
 //
 //  Created by Marcus W. Hobbs on 4/8/17.
-//
 //
 
 import Foundation
 
 public extension AKTable {
-    
-    // intended for oscillator waveforms, not for huge samples
+
+    /// Create an AKTable with the contents of a pcmFormatFloat32 file.
+    /// This method is intended for wavetables (i.e., 2048 or 4096 samples), not large audio files.
+    /// Parameters:
+    ///   - url: URL to the file
     public static func fromAudioFile(_ url:URL) -> AKTable? {
         var retVal:AKTable? = nil
         do {
@@ -30,5 +31,15 @@ public extension AKTable {
         }
         
         return retVal
+    }
+
+    public func write(_ fileName: String) throws {
+        do {
+            // We initialize AKAudioFile for writing (and check that we can write to)
+            let _ = try AKAudioFile(createFileFromFloats:[content], baseDir:.temp, name:fileName)
+        } catch let error as NSError {
+            AKLog("cannot write to \(fileName)")
+            throw error
+        }
     }
 }
