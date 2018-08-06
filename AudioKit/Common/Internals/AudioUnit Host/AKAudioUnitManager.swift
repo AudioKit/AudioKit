@@ -326,7 +326,7 @@ open class AKAudioUnitManager: NSObject {
     /// called from client to hook the chain together
     /// firstNode would be something like a player, and last something like a mixer that's headed
     /// to the output.
-    public func connectEffects(firstNode: AKNode? = nil, lastNode: AKNode? = nil) {
+    open func connectEffects(firstNode: AKNode? = nil, lastNode: AKNode? = nil) {
         if firstNode != nil {
             input = firstNode
         }
@@ -350,7 +350,7 @@ open class AKAudioUnitManager: NSObject {
         let outputAV = output.avAudioNode
 
         let processingFormat = inputAV.outputFormat(forBus: 0)
-        // AKLog("\(effects.count) to connect... chain source format: \(processingFormat)")
+        AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
             AudioKit.connect(inputAV, to: outputAV, format: processingFormat)
