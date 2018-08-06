@@ -8,7 +8,6 @@
 
 /// Utility methods for common tasks related to Audio Units
 extension AKAudioUnitManager {
-
     /// Internal audio units not including the Apple ones, only the custom ones
     public internal(set) static var internalAudioUnits = ["AKVariableDelay",
                                                           "AKChorus",
@@ -92,11 +91,7 @@ extension AKAudioUnitManager {
     /// supplied completion handler when the operation is complete.
     public static func createEffectAudioUnit(_ componentDescription: AudioComponentDescription,
                                              completionHandler: @escaping AKEffectCallback) {
-
-        let loadOptions: AudioComponentInstantiationOptions = canLoadInProcess(componentDescription: componentDescription) ?
-            .loadInProcess : .loadOutOfProcess
-        
-        AVAudioUnitEffect.instantiate(with: componentDescription, options: loadOptions) { avAudioUnit, _ in
+        AVAudioUnitEffect.instantiate(with: componentDescription, options: .loadOutOfProcess) { avAudioUnit, _ in
             completionHandler(avAudioUnit)
         }
     }
@@ -105,12 +100,8 @@ extension AKAudioUnitManager {
     /// supplied completion handler when the operation is complete.
     public static func createInstrumentAudioUnit(_ componentDescription: AudioComponentDescription,
                                                  completionHandler: @escaping AKInstrumentCallback) {
-
-        let loadOptions: AudioComponentInstantiationOptions = canLoadInProcess(componentDescription: componentDescription) ?
-            .loadInProcess : .loadOutOfProcess
-
         AVAudioUnitMIDIInstrument.instantiate(with: componentDescription,
-                                              options: loadOptions) { avAudioUnit, _ in
+                                              options: .loadOutOfProcess) { avAudioUnit, _ in
             completionHandler(avAudioUnit as? AVAudioUnitMIDIInstrument)
         }
     }
@@ -221,5 +212,4 @@ extension AKAudioUnitManager {
         (node as? AKToggleable)?.start()
         return node?.avAudioNode as? AVAudioUnit
     }
-
 }

@@ -134,7 +134,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Initialization
+
     // ------------------------------------------
 
     /// Initialize the manager with arbritary amount of inserts
@@ -154,7 +156,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Observation
+
     // ------------------------------------------
 
     private func addObservors() {
@@ -192,7 +196,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Requesting Effects and Instruments
+
     // ------------------------------------------
 
     /// requests a list of Effects, and caches the results
@@ -237,11 +243,12 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Effects Chain management
+
     // ------------------------------------------
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
-
         if let au = _effectsChain[index] {
             AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
@@ -372,7 +379,6 @@ open class AKAudioUnitManager: NSObject {
 
         // AKLog("Connecting \(au.name) to output: \(outputAV),  with format \(processingFormat)")
         AudioKit.connect(au, to: outputAV, format: processingFormat)
-
     }
 
     /// Clear all linked units previous processing state. IE, Panic button.
@@ -383,7 +389,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Dispose
+
     // ------------------------------------------
 
     public func dispose() {
