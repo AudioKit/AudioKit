@@ -33,7 +33,7 @@ extension AudioUnitManager {
             }
 
             // then attach the effects chain if needed
-            if internalManager.input != (player as AKNode) {
+            if internalManager.input != player {
                 internalManager.connectEffects(firstNode: player, lastNode: mixer)
             }
             startEngine(completionHandler: {
