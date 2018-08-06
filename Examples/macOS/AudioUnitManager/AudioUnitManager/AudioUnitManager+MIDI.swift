@@ -96,7 +96,6 @@ extension AudioUnitManager: AKMIDIListener {
         } else {
             fmOscillator.stop()
         }
-
     }
 
     @objc func randomFM() {
