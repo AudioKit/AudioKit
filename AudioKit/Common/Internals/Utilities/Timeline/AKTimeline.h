@@ -11,8 +11,6 @@
 #include <CoreAudio/CoreAudioTypes.h>
 #include "TPCircularBuffer+Unit.h"
 
-
-
 /**
  @brief Provides synchcronization conversion from render time to "player time".
 
