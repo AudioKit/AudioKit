@@ -8,7 +8,6 @@
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
-
     /// Initialize the audio unit instrument
     ///
     /// - parameter audioUnit: AVAudioUnitMIDIInstrument to wrap
@@ -48,6 +47,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func stop(noteNumber: MIDINoteNumber) {
         self.stop(noteNumber: noteNumber, channel: 0)
     }
+
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -55,5 +55,4 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         }
         midiInstrument.stopNote(noteNumber, onChannel: channel)
     }
-
 }
