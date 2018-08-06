@@ -10,7 +10,6 @@ import AudioKit
 import Cocoa
 
 extension AudioUnitManager {
-
     internal func handlePlay(state: Bool) {
         guard let player = player else { return }
         // stop
@@ -44,14 +43,12 @@ extension AudioUnitManager {
                 self.startAudioTimer()
             })
         } else {
-
             if AudioKit.engine.isRunning {
                 // just turns off reverb tails or delay lines etc
                 internalManager.reset()
             }
             stopAudioTimer()
         }
-
     }
 
     func handleRewind() {
