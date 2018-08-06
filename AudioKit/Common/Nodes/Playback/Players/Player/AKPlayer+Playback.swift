@@ -9,12 +9,12 @@
 extension AKPlayer {
 
     /// Play entire file right now
-    public func play() {
+    @objc public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
     /// Play segments of a file
-    public func play(from startingTime: Double, to endingTime: Double = 0) {
+    @objc public func play(from startingTime: Double, to endingTime: Double = 0) {
         var to = endingTime
         if to == 0 {
             to = endTime
@@ -23,7 +23,7 @@ extension AKPlayer {
     }
 
     /// Play file using previously set startTime and endTime at some point in the future
-    public func play(at audioTime: AVAudioTime?) {
+    @objc public func play(at audioTime: AVAudioTime?) {
         play(at: audioTime, hostTime: nil)
     }
 
@@ -47,12 +47,12 @@ extension AKPlayer {
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
-    public func pause() {
+    @objc public func pause() {
         pauseTime = currentTime
         stop()
     }
 
-    public func resume() {
+    @objc public func resume() {
         guard let pauseTime = pauseTime else {
             play()
             return
@@ -63,7 +63,7 @@ extension AKPlayer {
         AKLog("Resuming at \(pauseTime)")
     }
     /// Stop playback and cancel any pending scheduled playback or completion events
-    public func stop() {
+    @objc public func stop() {
         playerNode.stop()
         faderNode?.stop()
         completionTimer?.invalidate()

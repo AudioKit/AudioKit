@@ -186,6 +186,7 @@ open class AKClipPlayer: AKNode {
         set { playerNode.pan = newValue }
     }
 }
+
 extension AKClipPlayer: AKTiming {
 
     public var isStarted: Bool {

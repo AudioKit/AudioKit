@@ -117,8 +117,8 @@
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.0
                                                                                   channels:2];
 
-    _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
-                                         channelCount:defaultFormat.channelCount];
+    _kernel = (AKDSPBase *)[self initDSPWithSampleRate:defaultFormat.sampleRate
+                                          channelCount:defaultFormat.channelCount];
 
     // Create the output bus.
     _outputBusBuffer.init(defaultFormat, 2);
