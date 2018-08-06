@@ -47,11 +47,19 @@ create_universal_framework()
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
 		DYNAMIC=true
 	fi
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM"; then
+		DYNAMIC_UI=true
+	fi
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test "$DYNAMIC" = true;
 	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
+		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR/"
 		cp -v fix-framework.sh "${DIR}/${PROJECT_NAME}.framework/"
+	fi
+	if test "$DYNAMIC_UI" = true;
+	then
+		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
+		cp -v fix-framework.sh "${DIR}/${PROJECT_UI_NAME}.framework/"
 	fi
 	
 	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
@@ -77,20 +85,28 @@ create_universal_framework()
 			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" || exit 4
 		if test "$DYNAMIC" = true;
 		then
-			mkdir -p "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps" "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps"
+			mkdir -p "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps"
 			# Doesn't seem to have a way to tell which bcsymbolmap belogs to which framework
 			cp -av "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps/"
-			UIBC=`fgrep -Hn AudioKitUI "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap|awk -F: '{print $1}'|uniq`
-			cp -av $UIBC "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps/"
 			# Merge the dSYM files
 			lipo -create -output "${DIR}/${PROJECT_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_NAME}" \
 				"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_NAME}" \
 				"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_NAME}" || exit 5
+		else # Strip debug symbols from static library
+			strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}"
+		fi
+		if test "$DYNAMIC_UI" = true;
+		then
+			mkdir -p "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps"
+			# Doesn't seem to have a way to tell which bcsymbolmap belogs to which framework
+			UIBC=`fgrep -Hn AudioKitUI "${BUILD_DIR}/${CONFIGURATION}-$3"/*.bcsymbolmap|awk -F: '{print $1}'|uniq`
+			cp -av $UIBC "${DIR}/${PROJECT_UI_NAME}.framework/BCSymbolMaps/"
+			# Merge the dSYM files
 			lipo -create -output "${DIR}/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" \
 				"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" \
 				"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework.dSYM/Contents/Resources/DWARF/${PROJECT_UI_NAME}" || exit 5
 		else # Strip debug symbols from static library
-			strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+			strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
 		fi
 	fi
 }
@@ -106,9 +122,15 @@ create_macos_framework()
 	cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM";
 	then
-		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
+		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework.dSYM" "$DIR/"
 	else
-		strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+		strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}"
+	fi
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM";
+	then
+		cp -av "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
+	else
+		strip -S "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
 	fi
 }
 
