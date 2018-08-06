@@ -15,6 +15,10 @@ extension AudioUnitManager {
         internalManager.delegate = self
 
         internalManager.requestEffects(completionHandler: { audioUnits in
+            // only allow stereo units right now...
+            let audioUnits = audioUnits.filter {
+                $0.supportsNumberInputChannels(2, outputChannels: 2)
+            }
             self.updateEffectsUI(audioUnits: audioUnits)
         })
 
