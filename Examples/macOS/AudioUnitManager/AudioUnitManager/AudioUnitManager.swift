@@ -71,10 +71,10 @@ class AudioUnitManager: NSViewController {
     }
 
     // MARK: - init
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-
     }
 
     @objc func handleApplicationInit() {
@@ -92,9 +92,7 @@ class AudioUnitManager: NSViewController {
 
         initManager()
         initMIDI()
-        initUI()
         audioEnabled = false
-
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
@@ -323,10 +321,7 @@ extension AudioUnitManager: NSWindowDelegate {
                         b.state = .off
                     }
                 }
-
             }
-
         }
     }
-
 }
