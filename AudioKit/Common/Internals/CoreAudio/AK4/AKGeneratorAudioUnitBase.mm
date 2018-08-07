@@ -159,6 +159,8 @@
 
 - (void)deallocateRenderResources {
     _outputBusBuffer.deallocateRenderResources();
+    _kernel->deinit();
+    delete _kernel;
     [super deallocateRenderResources];
 }
 
