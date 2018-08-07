@@ -30,7 +30,6 @@ private:
  
 public:
     AKClipperDSP();
-    ~AKClipperDSP();
 
     float limitLowerBound = 0.0;
     float limitUpperBound = 1.0;
