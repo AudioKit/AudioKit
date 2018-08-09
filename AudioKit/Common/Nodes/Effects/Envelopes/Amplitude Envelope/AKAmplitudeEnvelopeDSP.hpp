@@ -110,9 +110,8 @@ public:
         _playing = false;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_adsr_destroy(&_adsr);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void reset() override {

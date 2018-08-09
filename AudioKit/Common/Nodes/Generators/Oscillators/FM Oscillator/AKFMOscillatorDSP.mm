@@ -98,9 +98,8 @@ void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     _private->_fosc->amp = defaultAmplitude;
 }
 
-void AKFMOscillatorDSP::destroy() {
+void AKFMOscillatorDSP::deinit() {
     sp_fosc_destroy(&_private->_fosc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {

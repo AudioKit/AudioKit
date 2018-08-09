@@ -81,10 +81,9 @@ void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_wpkorg351->saturation = defaultSaturation;
 }
 
-void AKKorgLowPassFilterDSP::destroy() {
+void AKKorgLowPassFilterDSP::deinit() {
     sp_wpkorg35_destroy(&_private->_wpkorg350);
     sp_wpkorg35_destroy(&_private->_wpkorg351);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
