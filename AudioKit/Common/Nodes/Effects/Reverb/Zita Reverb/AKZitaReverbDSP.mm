@@ -145,9 +145,8 @@ void AKZitaReverbDSP::init(int _channels, double _sampleRate) {
     *_private->_zitarev->mix = defaultDryWetMix;
 }
 
-void AKZitaReverbDSP::destroy() {
+void AKZitaReverbDSP::deinit() {
     sp_zitarev_destroy(&_private->_zitarev);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
