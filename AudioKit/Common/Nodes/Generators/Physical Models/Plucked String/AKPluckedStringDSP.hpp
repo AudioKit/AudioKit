@@ -80,7 +80,7 @@ public:
         _pluck->amp = 0.5;
     }
 
-    void deinit() {
+    void deinit() override {
         sp_pluck_destroy(&_pluck);
     }
 
