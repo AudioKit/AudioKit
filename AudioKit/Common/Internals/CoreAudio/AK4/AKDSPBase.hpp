@@ -34,7 +34,10 @@ protected:
     int64_t _now = 0;  // current time in samples
 
 public:
-
+    
+    /// Virtual destructor allows child classes to be deleted with only AKDSPBase* pointer
+    virtual ~AKDSPBase() {}
+    
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
