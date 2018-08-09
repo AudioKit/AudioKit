@@ -55,9 +55,8 @@ void AKWhiteNoiseDSP::init(int _channels, double _sampleRate) {
     _private->_noise->amp = defaultAmplitude;
 }
 
-void AKWhiteNoiseDSP::destroy() {
+void AKWhiteNoiseDSP::deinit() {
     sp_noise_destroy(&_private->_noise);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

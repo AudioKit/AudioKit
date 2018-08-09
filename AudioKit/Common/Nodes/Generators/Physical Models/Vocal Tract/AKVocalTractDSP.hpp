@@ -113,9 +113,8 @@ public:
         _vocwrapper->nasal = 0.0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_vocwrapper_destroy(&_vocwrapper);
-        AKSoundpipeDSPBase::destroy();
     }
 
 

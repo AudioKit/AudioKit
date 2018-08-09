@@ -92,9 +92,8 @@ void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     sp_oscmorph_create(&_private->_oscmorph);
 }
 
-void AKMorphingOscillatorDSP::destroy() {
+void AKMorphingOscillatorDSP::deinit() {
     sp_oscmorph_destroy(&_private->_oscmorph);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void  AKMorphingOscillatorDSP::reset() {
