@@ -30,7 +30,6 @@ private:
  
 public:
     AKToneFilterDSP();
-    ~AKToneFilterDSP();
 
     float halfPowerPointLowerBound = 12.0;
     float halfPowerPointUpperBound = 20000.0;
@@ -47,7 +46,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

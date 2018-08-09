@@ -70,10 +70,9 @@ void AKMoogLadderDSP::init(int _channels, double _sampleRate) {
     _private->_moogladder1->res = defaultResonance;
 }
 
-void AKMoogLadderDSP::destroy() {
+void AKMoogLadderDSP::deinit() {
     sp_moogladder_destroy(&_private->_moogladder0);
     sp_moogladder_destroy(&_private->_moogladder1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

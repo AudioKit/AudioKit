@@ -113,9 +113,8 @@ public:
         *_blsquare->width = 0.5;
    }
 
-    void destroy() {
+    void deinit() override {
         sp_blsquare_destroy(&_blsquare);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
