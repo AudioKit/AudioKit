@@ -59,10 +59,9 @@ void AKClipperDSP::init(int _channels, double _sampleRate) {
     _private->_clip1->lim = defaultLimit;
 }
 
-void AKClipperDSP::destroy() {
+void AKClipperDSP::deinit() {
     sp_clip_destroy(&_private->_clip0);
     sp_clip_destroy(&_private->_clip1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
