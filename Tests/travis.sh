@@ -83,8 +83,8 @@ xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk ipho
 echo "Building iOS SporthEditor"
 xcodebuild -project Examples/iOS/SporthEditor/SporthEditor.xcodeproj -sdk iphonesimulator -scheme SporthEditor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 20
 
-echo "Building macOS AKSamplerDemo"
-xcodebuild -project Examples/macOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -scheme AKSamplerDemo ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
+# echo "Building macOS AKSamplerDemo"
+# xcodebuild -project Examples/macOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -scheme AKSamplerDemo ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
 
 echo "Building macOS AudioUnitManager"
 xcodebuild -project Examples/macOS/AudioUnitManager/AudioUnitManager.xcodeproj -scheme AudioUnitManager	ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
