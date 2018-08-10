@@ -44,8 +44,8 @@ echo "Skipping tvOS HelloWorld (on develop branch)"
 
 echo "Building More Advanced Examples"
 
-echo "Building iOS AKSamplerDemo"
-xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
+# echo "Building iOS AKSamplerDemo"
+# xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
 
 echo "Building iOS AppleSamplerDemo"
 xcodebuild -project Examples/iOS/AppleSamplerDemo/SamplerDemo.xcodeproj -sdk iphonesimulator -scheme SamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 9
