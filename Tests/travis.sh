@@ -44,9 +44,6 @@ echo "Skipping tvOS HelloWorld (on develop branch)"
 
 echo "Building More Advanced Examples"
 
-# echo "Building iOS AKSamplerDemo"
-# xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
-
 echo "Building iOS AppleSamplerDemo"
 xcodebuild -project Examples/iOS/AppleSamplerDemo/SamplerDemo.xcodeproj -sdk iphonesimulator -scheme SamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 9
 
@@ -83,9 +80,6 @@ xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk ipho
 echo "Building iOS SporthEditor"
 xcodebuild -project Examples/iOS/SporthEditor/SporthEditor.xcodeproj -sdk iphonesimulator -scheme SporthEditor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 20
 
-# echo "Building macOS AKSamplerDemo"
-# xcodebuild -project Examples/macOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -scheme AKSamplerDemo ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
-
 echo "Building macOS AudioUnitManager"
 xcodebuild -project Examples/macOS/AudioUnitManager/AudioUnitManager.xcodeproj -scheme AudioUnitManager	ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
 
@@ -115,9 +109,6 @@ xcodebuild -project Examples/macOS/SpeechSynthesizer/SpeechSynthesizer.xcodeproj
 
 echo "Building macOS SporthEditor"
 xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 29
-
-echo "Skipping Particles - requires hardware"
-#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 30
 
 echo "Building iOS AudiobusMIDISender"
 cd Examples/iOS/AudiobusMIDISender; pod install; cd ../../..
