@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 extension AKTable {
 
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.

@@ -42,6 +42,7 @@
     case zero
 }
 
+
 /// A table of values accessible as a waveform or lookup mechanism
 @objc public class AKTable: NSObject, MutableCollection {
     public typealias Index = Int

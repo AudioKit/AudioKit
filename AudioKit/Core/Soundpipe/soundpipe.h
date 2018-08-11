@@ -78,6 +78,7 @@ typedef struct {
 
 typedef struct kiss_fft_state* kiss_fft_cfg;
 typedef struct kiss_fftr_state* kiss_fftr_cfg;
+
 #define SP_FT_MAXLEN 0x1000000L
 #define SP_FT_PHMASK 0x0FFFFFFL
 
@@ -881,12 +882,13 @@ typedef struct {
     sp_ftbl **tbl;
     int inc;
     SPFLOAT wtpos;
-    int nft;
+    int nft; // number of waveforms
+    int nbl; // number of bandlimited tables per waveform
 } sp_oscmorph2d;
 
 int sp_oscmorph2d_create(sp_oscmorph2d **p);
 int sp_oscmorph2d_destroy(sp_oscmorph2d **p);
-int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, SPFLOAT iphs);
+int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, int nbl, SPFLOAT iphs);
 int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *p, SPFLOAT *in, SPFLOAT *out);
 
 typedef struct {
