@@ -6,6 +6,7 @@
 
 import Foundation
 
+
 public extension AKTable {
 
     /// Create an AKTable with the contents of a pcmFormatFloat32 file.
