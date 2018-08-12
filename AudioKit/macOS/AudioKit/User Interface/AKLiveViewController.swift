@@ -9,20 +9,7 @@
 import Cocoa
 
 public typealias AKLabel = NSTextField
-
-extension NSView {
-    var backgroundColor: NSColor? {
-        get {
-            guard let color = layer?.backgroundColor else { return nil }
-            return NSColor(cgColor: color)
-        }
-        set {
-            wantsLayer = true
-            layer?.backgroundColor = newValue?.cgColor
-        }
-    }
-}
-
+	
 open class AKLiveViewController: NSViewController {
 
     var stackView: NSStackView!
@@ -33,7 +20,7 @@ open class AKLiveViewController: NSViewController {
         stackView.alignment = .centerX
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-        stackView.backgroundColor = NSColor.black
+        stackView.layer?.backgroundColor = NSColor.black.cgColor
         stackView.translatesAutoresizingMaskIntoConstraints = false
         self.view = stackView
 
