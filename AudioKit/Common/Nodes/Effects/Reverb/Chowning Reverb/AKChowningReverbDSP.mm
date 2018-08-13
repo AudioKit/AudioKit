@@ -30,10 +30,9 @@ void AKChowningReverbDSP::init(int _channels, double _sampleRate) {
     sp_jcrev_init(_sp, _private->_jcrev1);
 }
 
-void AKChowningReverbDSP::destroy() {
+void AKChowningReverbDSP::deinit() {
     sp_jcrev_destroy(&_private->_jcrev0);
     sp_jcrev_destroy(&_private->_jcrev1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

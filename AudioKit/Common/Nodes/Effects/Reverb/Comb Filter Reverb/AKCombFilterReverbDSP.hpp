@@ -77,10 +77,9 @@ public:
         _comb1->revtime = 1.0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_comb_destroy(&_comb0);
         sp_comb_destroy(&_comb1);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {

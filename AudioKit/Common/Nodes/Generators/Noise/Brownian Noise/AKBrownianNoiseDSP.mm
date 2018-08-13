@@ -54,9 +54,8 @@ void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
     sp_brown_init(_sp, _private->_brown);
 }
 
-void AKBrownianNoiseDSP::destroy() {
+void AKBrownianNoiseDSP::deinit() {
     sp_brown_destroy(&_private->_brown);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

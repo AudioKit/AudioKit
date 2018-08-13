@@ -33,7 +33,6 @@ private:
  
 public:
     AKDynamicRangeCompressorDSP();
-    ~AKDynamicRangeCompressorDSP();
 
     float ratioLowerBound = 0.01;
     float ratioUpperBound = 100.0;
@@ -59,7 +58,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -8,7 +8,6 @@
 
 /// Utility methods for common tasks related to Audio Units
 extension AKAudioUnitManager {
-
     /// Internal audio units not including the Apple ones, only the custom ones
     public internal(set) static var internalAudioUnits = ["AKVariableDelay",
                                                           "AKChorus",
@@ -92,12 +91,7 @@ extension AKAudioUnitManager {
     /// supplied completion handler when the operation is complete.
     public static func createEffectAudioUnit(_ componentDescription: AudioComponentDescription,
                                              completionHandler: @escaping AKEffectCallback) {
-
         AVAudioUnitEffect.instantiate(with: componentDescription, options: .loadOutOfProcess) { avAudioUnit, _ in
-            guard let avAudioUnit = avAudioUnit else {
-                completionHandler(nil)
-                return
-            }
             completionHandler(avAudioUnit)
         }
     }
@@ -108,12 +102,13 @@ extension AKAudioUnitManager {
                                                  completionHandler: @escaping AKInstrumentCallback) {
         AVAudioUnitMIDIInstrument.instantiate(with: componentDescription,
                                               options: .loadOutOfProcess) { avAudioUnit, _ in
-            guard let avAudioUnit = avAudioUnit else {
-                completionHandler(nil)
-                return
-            }
             completionHandler(avAudioUnit as? AVAudioUnitMIDIInstrument)
         }
+    }
+
+    public static func canLoadInProcess(componentDescription: AudioComponentDescription) -> Bool {
+        let flags = AudioComponentFlags(rawValue: componentDescription.componentFlags)
+        return flags.contains(AudioComponentFlags.canLoadInProcess)
     }
 
     // Create an instance of an AudioKit internal effect based on a class name
@@ -217,5 +212,4 @@ extension AKAudioUnitManager {
         (node as? AKToggleable)?.start()
         return node?.avAudioNode as? AVAudioUnit
     }
-
 }

@@ -70,10 +70,9 @@ void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_butbr1->bw = defaultBandwidth;
 }
 
-void AKBandRejectButterworthFilterDSP::destroy() {
+void AKBandRejectButterworthFilterDSP::deinit() {
     sp_butbr_destroy(&_private->_butbr0);
     sp_butbr_destroy(&_private->_butbr1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -11,7 +11,7 @@ import Cocoa
 
 class AudioUnitGenericWindow: NSWindowController {
     @IBOutlet var scrollView: NSScrollView!
-    @IBOutlet var toolbar: AudioUnitToolbar!
+    public let toolbar = AudioUnitToolbarController(nibName: NSNib.Name(rawValue: "AudioUnitToolbarController"), bundle: Bundle.main)
 
     private var audioUnit: AVAudioUnit?
 
@@ -19,11 +19,11 @@ class AudioUnitGenericWindow: NSWindowController {
         self.init(windowNibName: NSNib.Name(rawValue: "AudioUnitGenericWindow"))
         contentViewController?.view.wantsLayer = true
         self.audioUnit = audioUnit
+        toolbar.audioUnit = audioUnit
     }
 
     override func windowDidLoad() {
         super.windowDidLoad()
-
-        toolbar?.audioUnit = audioUnit
+        window?.addTitlebarAccessoryViewController(toolbar)
     }
 }
