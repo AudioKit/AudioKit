@@ -76,6 +76,8 @@ public class AKDynamicPlayer: AKPlayer {
     internal override func connectNodes() {
         guard let processingFormat = processingFormat else { return }
 
+        AKLog(processingFormat)
+
         if let timePitchNode = timePitchNode, let faderNode = faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: processingFormat)

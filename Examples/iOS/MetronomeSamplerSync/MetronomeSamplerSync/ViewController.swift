@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var views = [UIView]()
     var tapTempo = TapTempo(timeOut: 2.0, minimumTaps: 3)
     let tempoSlider = AKSlider(property: "Tempo")
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

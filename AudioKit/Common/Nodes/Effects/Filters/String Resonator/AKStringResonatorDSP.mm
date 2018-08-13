@@ -70,10 +70,9 @@ void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
     _private->_streson1->fdbgain = defaultFeedback;
 }
 
-void AKStringResonatorDSP::destroy() {
+void AKStringResonatorDSP::deinit() {
     sp_streson_destroy(&_private->_streson0);
     sp_streson_destroy(&_private->_streson1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

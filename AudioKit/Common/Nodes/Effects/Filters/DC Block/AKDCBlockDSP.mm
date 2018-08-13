@@ -30,10 +30,9 @@ void AKDCBlockDSP::init(int _channels, double _sampleRate) {
     sp_dcblock_init(_sp, _private->_dcblock1);
 }
 
-void AKDCBlockDSP::destroy() {
+void AKDCBlockDSP::deinit() {
     sp_dcblock_destroy(&_private->_dcblock0);
     sp_dcblock_destroy(&_private->_dcblock1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -86,9 +86,8 @@ void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     _private->_osc->amp = defaultAmplitude;
 }
 
-void AKOscillatorDSP::destroy() {
+void AKOscillatorDSP::deinit() {
     sp_osc_destroy(&_private->_osc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
