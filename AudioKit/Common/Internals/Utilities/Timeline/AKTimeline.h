@@ -19,7 +19,7 @@
  the progression of a time in the context of a timeline.  The AudioTimeStamp
  retrieved from the audio thread is constantly incrementing. AKTimeline sets
  a base time that acts as time-zero, giving a reference point with which to
- syncronize with other sources of audio that exibit this behavior.  The timeline
+ synchronize with other sources of audio that exibit this behavior.  The timeline
  supports loop start, and loop duration.  In order to use it, instantiate it with
  function pointer to an AKTimelineCallback function. Then, within an audio render
  callback, or a render notify callback, call AKTimelineRender once per render.

@@ -8,7 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-/// A Simple Metronome that can be syncronized precisely.
+/// A Simple Metronome that can be synchronized precisely.
 @interface AKSamplerMetronome : AVAudioUnitSampler
 
 /// Tempo in Beats Per Minute
