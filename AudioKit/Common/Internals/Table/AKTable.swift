@@ -196,6 +196,7 @@
         }
     }
 
+    
     /// Instantiate the table as a sine wave
     func standardSineWave() {
         for i in indices {
