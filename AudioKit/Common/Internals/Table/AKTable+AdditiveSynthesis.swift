@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension AKTable {
 
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.
@@ -26,11 +25,20 @@ extension AKTable {
         while rootFrequency * pow(2, octave) < nyquist {
             var harmonic = 1
             var maxHarmonic = 1
-            let frequency = rootFrequency * pow(2, octave)
+            var frequency = rootFrequency * pow(2, octave)
             octave += octaveStepSize
             while harmonic * frequency < nyquist {
                 maxHarmonic = harmonic
                 harmonic += 1
+            }
+            if maxHarmonic == 1 {
+                frequency = nyquist
+                if let lastVal = retVal.last {
+                    // don't append duplicates
+                    if lastVal.0 == nyquist && lastVal.1 == maxHarmonic {
+                        continue
+                    }
+                }
             }
             retVal.append((frequency, maxHarmonic))
         }
@@ -56,10 +64,19 @@ extension AKTable {
         for i in 0..<wavetableCount {
             var harmonic = 1
             var maxHarmonic = 1
-            let frequency = f0 + (f1 - f0) * i / (wavetableCount - 1)
+            var frequency = f0 + (f1 - f0) * i / (wavetableCount - 1)
             while harmonic * frequency < nyquist {
                 maxHarmonic = harmonic
                 harmonic += 1
+            }
+            if maxHarmonic == 1 {
+                frequency = nyquist
+                if let lastVal = retVal.last {
+                    // don't append duplicates
+                    if lastVal.0 == nyquist && lastVal.1 == maxHarmonic {
+                        continue
+                    }
+                }
             }
             retVal.append((frequency, maxHarmonic))
         }

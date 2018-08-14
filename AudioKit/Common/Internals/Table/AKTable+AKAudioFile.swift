@@ -6,7 +6,6 @@
 
 import Foundation
 
-
 public extension AKTable {
 
     /// Create an AKTable with the contents of a pcmFormatFloat32 file.
@@ -34,7 +33,10 @@ public extension AKTable {
         return retVal
     }
 
-    public func write(_ fileName: String) throws {
+    /// Will write to CAF in temporary directory
+    /// Parameters:
+    ///   - fileName: String name of file
+    public func writeToAudioFile(_ fileName: String) throws {
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             let _ = try AKAudioFile(createFileFromFloats:[content], baseDir:.temp, name:fileName)
