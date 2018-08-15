@@ -333,6 +333,12 @@ public extension AVAudioUnit {
     }
 }
 
+extension AVAudioNode {
+    func inputConnections() -> [AVAudioConnectionPoint] {
+        return (0..<numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+    }
+}
+
 extension AUParameter {
     @nonobjc
     convenience init(_ identifier: String,

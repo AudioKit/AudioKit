@@ -115,4 +115,48 @@ extension AudioKit {
         try engine.renderToFile(audioFile, duration: duration, prerender: prerender)
     }
 
+    @available(iOS 11.0, *)
+    public static func printConnections() {
+
+        let nodes: [AVAudioNode] = {
+            var nodes = Set<AVAudioNode>()
+            func addInputs(_ node: AVAudioNode) {
+                nodes.insert(node)
+                node.inputConnections().filter { $0.node != nil }.forEach { addInputs($0.node!) }
+            }
+            addInputs(engine.outputNode)
+            return Array(nodes)
+        }()
+
+        func nodeDescription(_ id: Int, _ node: AVAudioNode) -> String {
+            return "(\(id)]\(node.auAudioUnit.audioUnitName ?? String(describing: node))"
+        }
+
+        func formatDescription(_ format: AVAudioFormat) -> String {
+            guard let description = format.description.components(separatedBy: ":  ").dropFirst().first else { return format.description }
+            return "<" + description
+        }
+
+        let padLength = nodes.reduce(0) { max($0, nodeDescription(nodes.count, $1).count) }
+        func padded(_ string: String) -> String {
+            return string.count >= padLength ? string : string + String(repeating: " ", count: padLength - string.count)
+        }
+
+        nodes.enumerated().forEach { (id, node) in
+
+            let outputs: [(id: Int, node: AVAudioNode, bus: Int)] = node.connectionPoints.compactMap {
+                guard let node = $0.node, let id = nodes.index(of: node) else { return nil}
+                return (id, node, $0.bus)
+            }
+
+            let srcDescritption = padded(nodeDescription(id, node))
+            let format = formatDescription(node.outputFormat(forBus: 0))
+
+            outputs.forEach {
+                let dstDescription = nodeDescription($0.id, $0.node)
+                print("\(srcDescritption) \(format) -> \(dstDescription)) bus: \($0.bus)")
+            }
+        }
+    }
+
 }
