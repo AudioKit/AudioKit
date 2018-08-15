@@ -2,63 +2,6 @@
 #include <math.h>
 #include "soundpipe.h"
 
-#if 0
-#define SP_FT_MAXLEN 0x1000000L
-#define SP_FT_PHMASK 0x0FFFFFFL
-typedef struct sp_ftbl{
-    size_t size;
-    uint32_t lobits;
-    uint32_t lomask;
-    SPFLOAT lodiv;
-    SPFLOAT sicvt;
-    SPFLOAT *tbl;
-    char del;
-}sp_ftbl;
-
-#define tpd360  0.0174532925199433
-
-/* initialize constants in ftable */
-int sp_ftbl_init(sp_data *sp, sp_ftbl *ft, size_t size)
-{
-    ft->size = size;
-    ft->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr; // max length of table in samples divided by sample rate in samples
-    ft->lobits = log2(SP_FT_MAXLEN / size); // slack to paul...assuming 2^x size for tables because return value is int
-    ft->lomask = (1<<ft->lobits) - 1;
-    ft->lodiv = 1.0 / (1<<ft->lobits);
-    ft->del = 1;
-    return SP_OK;
-}
-
-int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
-{
-    *ft = malloc(sizeof(sp_ftbl));
-    sp_ftbl *ftp = *ft;
-    ftp->tbl = malloc(sizeof(SPFLOAT) * (size + 1));
-    memset(ftp->tbl, 0, sizeof(SPFLOAT) * (size + 1));
-
-    sp_ftbl_init(sp, ftp, size);
-    return SP_OK;
-}
-
-int sp_ftbl_destroy(sp_ftbl **ft)
-{
-    sp_ftbl *ftp = *ft;
-    if(ftp->del) free(ftp->tbl);
-    free(*ft);
-    return SP_OK;
-}
-
-typedef struct {
-    SPFLOAT freq, amp, iphs;
-    int32_t lphs;
-    sp_ftbl **tbl;
-    int inc;
-    SPFLOAT wtpos;
-    int nft; // number of waveforms
-    int nbl; // number of bandlimited tables per waveform
-} sp_oscmorph2d;
-#endif
-
 int sp_oscmorph2d_create(sp_oscmorph2d **p)
 {
     *p = malloc(sizeof(sp_oscmorph2d));
@@ -71,27 +14,41 @@ int sp_oscmorph2d_destroy(sp_oscmorph2d **p)
     return SP_OK;
 }
 
-//    sp_oscmorph2d_init(kernel->spp(), oscmorph1,          kernel->ft_array, S1_NUM_WAVEFORMS, S1_NUM_BANDLIMITED_FTABLES, 0);
-int sp_oscmorph2d_init(sp_data *sp,   sp_oscmorph2d *osc,     sp_ftbl **ft,          int nft,                    int nbl, SPFLOAT iphs)
+int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, int nbl, float *fbls, SPFLOAT iphs)
 {
     int i;
     osc->freq = 440.0;
     osc->amp = 0.2;
     osc->tbl = ft;
-    osc->iphs = fabs(iphs);
+    osc->iphs = fabs(iphs); //iphs: initial phase
     osc->inc = 0;
-    osc->lphs = ((int32_t)(osc->iphs * SP_FT_MAXLEN)) & SP_FT_PHMASK;
+    osc->lphs = ((int32_t)(osc->iphs * SP_FT_MAXLEN)) & SP_FT_PHMASK; //lphs: last phase (this is an incremental value, so it is used to create the current phase)
     osc->wtpos = 0.0;
-    osc->nft = nft;
-    osc->nbl = nbl;
+    osc->nft = nft; // number of waveforms 4
+    osc->nbl = nbl; // number of bandlimits 13
+
     uint32_t prev = (uint32_t)ft[0]->size;
-    for(i = 0; i < nft; i++) {
+    for(i = 0; i < nft * nbl; i++) {
         if(prev != ft[i]->size) {
-            fprintf(stderr, "sp_oscmorph2: size mismatch\n");
+            fprintf(stderr, "sp_oscmorph2d: size mismatch\n");
             return SP_NOT_OK;
         }
         prev = (uint32_t)ft[i]->size;
     }
+
+    osc->fbl = fbls;
+    float fblMin = fbls[0];
+    for(i = 0; i < nbl - 1; i++) {
+        if(fblMin > fbls[i + 1]) {
+            fprintf(stderr, "sp_oscmorph2d: fbl must be in increasing order: %f, %f\n",fblMin,fbls[i + 1]);
+            return SP_NOT_OK;
+        }
+        fblMin = fbls[i];
+    }
+
+    osc->enableBandlimit = 0;
+    osc->bandlimitIndexOverride = -1;
+
     return SP_OK;
 }
 
@@ -101,17 +58,37 @@ int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *osc, SPFLOAT *in, SPFLOAT 
     SPFLOAT amp, cps, fract, v1, v2;
     SPFLOAT *ft1, *ft2;
     int32_t phs, lobits, pos;
-    SPFLOAT sicvt = osc->tbl[0]->sicvt;
+    SPFLOAT sicvt = osc->tbl[0]->sicvt; // sicvt: this stands for Sampling Increment ConVert
+    const int enableBandlimit = osc->enableBandlimit;
+    int bandlimitIndexOverride = osc->bandlimitIndexOverride;
 
-    /* Use only the fractional part of the position or 1 */ /* if? why not while? */
+    /* enableBandlimit = true: default is nyquist 1 harmonic.  False = no bandlimit (production) */
+    int32_t bandlimitIndex = enableBandlimit > 0 ? osc->nbl - 1 : 0;
+
+    if (enableBandlimit > 0) {
+        /* do not use override */
+        if (bandlimitIndexOverride == -1) {
+            for(int i = 1; i < osc->nbl; i++) {
+                if(osc->freq <= osc->fbl[i]) {
+                    bandlimitIndex = i;
+                    break;
+                }
+            }
+        } else {
+            /* the override is the index */
+            bandlimitIndex = floor(bandlimitIndexOverride);
+        }
+    }
+
+    /* Use only the fractional part of the position or 1 */
     if (osc->wtpos > 1.0) {
         osc->wtpos -= (int)osc->wtpos;
     }
-    SPFLOAT findex = osc->wtpos * (osc->nft - 1);
-    int index = floor(findex);
-    SPFLOAT wtfrac = findex - index;
+    const SPFLOAT findex = (bandlimitIndex * osc->nft) + osc->wtpos * (osc->nft - 1);
+    const int index = floor(findex);
+    const SPFLOAT wtfrac = findex - index;
 
-    lobits = osc->tbl[0]->lobits;
+    lobits = osc->tbl[0]->lobits; // ??
     amp = osc->amp;
     cps = osc->freq;
     phs = osc->lphs;
