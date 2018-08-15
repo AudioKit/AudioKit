@@ -115,7 +115,7 @@ extension AudioKit {
         try engine.renderToFile(audioFile, duration: duration, prerender: prerender)
     }
 
-    @available(iOS 11.0, *)
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
     public static func printConnections() {
 
         let nodes: [AVAudioNode] = {
