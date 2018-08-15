@@ -29,11 +29,10 @@ private:
  
 public:
     AKChowningReverbDSP();
-    ~AKChowningReverbDSP();
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

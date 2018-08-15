@@ -81,10 +81,9 @@ void AKEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     _private->_eqfil1->gain = defaultGain;
 }
 
-void AKEqualizerFilterDSP::destroy() {
+void AKEqualizerFilterDSP::deinit() {
     sp_eqfil_destroy(&_private->_eqfil0);
     sp_eqfil_destroy(&_private->_eqfil1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

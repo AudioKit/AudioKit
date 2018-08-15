@@ -33,7 +33,7 @@ static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp a
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
 static double ticksToSeconds(void);
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
-void AKTimelineSyncronize(AKTimeline *timeline);
+void AKTimelineSynchronize(AKTimeline *timeline);
 
 
 
@@ -72,7 +72,7 @@ void AKTimelineSetLoop(AKTimeline *timeline, Float64 start, Float64 duration) {
     assert(start >= 0 && duration >= 0);
     timeline->loopStart = start;
     timeline->loopEnd = timeline->loopStart + duration;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
 
 Float64 AKTimelineTimeAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
@@ -104,10 +104,10 @@ void AKTimelineStop(AKTimeline *timeline) {
     timeline->idleTime = AKTimelineTimeAtTime(timeline, AudioTimeNow());
     timeline->baseTime = AudioTimeZero;
     timeline->waitStart = AudioTimeZero;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
 
-void AKTimelineSyncronize(AKTimeline *timeline) {
+void AKTimelineSynchronize(AKTimeline *timeline) {
     AKTimelineSendMessage(timeline, (AKTimelineMessage) {
         .loopStart = timeline->loopStart,
         .loopEnd = timeline->loopEnd,
@@ -142,7 +142,7 @@ void AKTimelineSetState(AKTimeline *timeline, SInt64 sampleTime, UInt32 loopSamp
     timeline->baseTime = audioTime;
     timeline->loopStart = loopSampleStart;
     timeline->loopEnd = loopSampleEnd;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
 
 void AKTimelineSetRenderState(AKTimeline *timeline, Float64 sampleTime, Float64 loopStart, Float64 loopEnd, AudioTimeStamp audioTime) {

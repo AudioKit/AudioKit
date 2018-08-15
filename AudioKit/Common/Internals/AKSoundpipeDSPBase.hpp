@@ -46,10 +46,6 @@ public:
     virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
     virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
 
-    void destroy() {
-        //printf("AKSoundpipeKernel.destroy(), &sp is %p\n", (void *)sp);
-    }
-
     virtual void processSample(int channel, float* in, float* out) {
         *out = *in;
     }
