@@ -17,7 +17,8 @@ extension AKTable {
     ///   - rootFrequency: the lowest frequency wavetable.  8.17579891564375 corresponds to C0, or nn = 0
     ///   - octaveStepSize: fractions of an octave (i.e., 1).
     ///
-    /// Example Output: [(8.1757989156437496, 2696), (16.351597831287499, 1348), (32.703195662574998, 674), (65.406391325149997, 337), (130.81278265029999, 168), (261.62556530059999, 84), (523.25113060119997, 42), (1046.5022612023999, 21), (2093.0045224047999, 10), (4186.0090448095998, 5), (8372.0180896191996, 2), (16744.036179238399, 1)]
+    /// Example Output: [(8.1787833827893177, 2696), (16.357566765578635, 1348), (32.715133531157271, 674), (65.430267062314542, 337), (131.25, 168), (262.5, 84), (525.0, 42), (1050.0, 21), (2205.0, 10), (4410.0, 5), (11025.0, 2), (22050.0, 1)]
+
     public class func harmonicPitchRange(rootFrequency: Double = 8.17579891564375, octaveStepSize: Double = 1) -> [(Double, Int)] {
         let nyquist = 22_050.0
         var octave = 0.0
@@ -31,11 +32,11 @@ extension AKTable {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
+            frequency = nyquist/Double(maxHarmonic)
             if maxHarmonic == 1 {
-                frequency = nyquist
                 if let lastVal = retVal.last {
                     // don't append duplicates
-                    if lastVal.0 == nyquist && lastVal.1 == maxHarmonic {
+                    if lastVal.1 == maxHarmonic {
                         continue
                     }
                 }
@@ -69,11 +70,11 @@ extension AKTable {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
+            frequency = nyquist/Double(maxHarmonic)
             if maxHarmonic == 1 {
-                frequency = nyquist
                 if let lastVal = retVal.last {
                     // don't append duplicates
-                    if lastVal.0 == nyquist && lastVal.1 == maxHarmonic {
+                    if lastVal.1 == maxHarmonic {
                         continue
                     }
                 }
