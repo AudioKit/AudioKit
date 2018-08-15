@@ -92,10 +92,9 @@ void AKRolandTB303FilterDSP::init(int _channels, double _sampleRate) {
     _private->_tbvcf1->asym = defaultResonanceAsymmetry;
 }
 
-void AKRolandTB303FilterDSP::destroy() {
+void AKRolandTB303FilterDSP::deinit() {
     sp_tbvcf_destroy(&_private->_tbvcf0);
     sp_tbvcf_destroy(&_private->_tbvcf1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -70,10 +70,9 @@ void AKBitCrusherDSP::init(int _channels, double _sampleRate) {
     _private->_bitcrush1->srate = defaultSampleRate;
 }
 
-void AKBitCrusherDSP::destroy() {
+void AKBitCrusherDSP::deinit() {
     sp_bitcrush_destroy(&_private->_bitcrush0);
     sp_bitcrush_destroy(&_private->_bitcrush1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

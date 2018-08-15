@@ -115,9 +115,8 @@ void AKMetalBarDSP::init(int _channels, double _sampleRate) {
     _private->_bar->wid = defaultStrikeWidth;
 }
 
-void AKMetalBarDSP::destroy() {
+void AKMetalBarDSP::deinit() {
     sp_bar_destroy(&_private->_bar);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKMetalBarDSP::trigger() {

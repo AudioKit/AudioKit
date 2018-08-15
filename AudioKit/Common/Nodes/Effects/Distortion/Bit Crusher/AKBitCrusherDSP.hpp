@@ -31,7 +31,6 @@ private:
  
 public:
     AKBitCrusherDSP();
-    ~AKBitCrusherDSP();
 
     float bitDepthLowerBound = 1;
     float bitDepthUpperBound = 24;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
