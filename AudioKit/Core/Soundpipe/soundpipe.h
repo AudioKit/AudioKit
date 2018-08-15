@@ -884,12 +884,16 @@ typedef struct {
     SPFLOAT wtpos;
     int nft; // number of waveforms
     int nbl; // number of bandlimited tables per waveform
+    float *fbl; // array of frequencies per bandlimited waveform
+    int enableBandlimit; // if 0 use index 0, if 1 select index based on freq
+    int bandlimitIndexOverride; // temporary
 } sp_oscmorph2d;
 
 int sp_oscmorph2d_create(sp_oscmorph2d **p);
 int sp_oscmorph2d_destroy(sp_oscmorph2d **p);
-int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, int nbl, SPFLOAT iphs);
+int sp_oscmorph2d_init(sp_data *sp, sp_oscmorph2d *osc, sp_ftbl **ft, int nft, int nbl, float *fbls, SPFLOAT iphs);
 int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *p, SPFLOAT *in, SPFLOAT *out);
+
 
 typedef struct {
     SPFLOAT pan;
