@@ -121,6 +121,9 @@ extension AKAudioUnitManager {
         //            }
         //        }
 
+        // currently, the auAudioUnit.audioUnitName comes with "Local" on the front
+        let name = name.replacingOccurrences(of: "Local AK", with: "AK")
+
         switch name {
         case "AKVariableDelay":
             node = AKVariableDelay()
