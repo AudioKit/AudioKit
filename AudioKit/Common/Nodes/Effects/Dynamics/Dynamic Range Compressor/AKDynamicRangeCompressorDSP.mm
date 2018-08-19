@@ -92,10 +92,9 @@ void AKDynamicRangeCompressorDSP::init(int _channels, double _sampleRate) {
     *_private->_compressor1->rel = defaultReleaseDuration;
 }
 
-void AKDynamicRangeCompressorDSP::destroy() {
+void AKDynamicRangeCompressorDSP::deinit() {
     sp_compressor_destroy(&_private->_compressor0);
     sp_compressor_destroy(&_private->_compressor1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

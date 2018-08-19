@@ -70,10 +70,9 @@ void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
     _private->_vdelay1->feedback = defaultFeedback;
 }
 
-void AKVariableDelayDSP::destroy() {
+void AKVariableDelayDSP::deinit() {
     sp_vdelay_destroy(&_private->_vdelay0);
     sp_vdelay_destroy(&_private->_vdelay1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

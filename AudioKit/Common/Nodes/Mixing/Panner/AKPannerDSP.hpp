@@ -69,9 +69,8 @@ public:
         _panst->pan = 0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_panst_destroy(&_panst);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {

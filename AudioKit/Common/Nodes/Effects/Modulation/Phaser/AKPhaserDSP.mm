@@ -135,9 +135,8 @@ void AKPhaserDSP::init(int _channels, double _sampleRate) {
     *_private->_phaser->lfobpm = defaultLfoBPM;
 }
 
-void AKPhaserDSP::destroy() {
+void AKPhaserDSP::deinit() {
     sp_phaser_destroy(&_private->_phaser);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

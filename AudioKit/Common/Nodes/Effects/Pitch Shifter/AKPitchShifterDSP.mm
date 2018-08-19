@@ -81,10 +81,9 @@ void AKPitchShifterDSP::init(int _channels, double _sampleRate) {
     *_private->_pshift1->xfade = defaultCrossfade;
 }
 
-void AKPitchShifterDSP::destroy() {
+void AKPitchShifterDSP::deinit() {
     sp_pshift_destroy(&_private->_pshift0);
     sp_pshift_destroy(&_private->_pshift1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

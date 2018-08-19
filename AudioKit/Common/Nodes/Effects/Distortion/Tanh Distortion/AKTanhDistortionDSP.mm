@@ -92,10 +92,9 @@ void AKTanhDistortionDSP::init(int _channels, double _sampleRate) {
     _private->_dist1->shape2 = defaultNegativeShapeParameter;
 }
 
-void AKTanhDistortionDSP::destroy() {
+void AKTanhDistortionDSP::deinit() {
     sp_dist_destroy(&_private->_dist0);
     sp_dist_destroy(&_private->_dist1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

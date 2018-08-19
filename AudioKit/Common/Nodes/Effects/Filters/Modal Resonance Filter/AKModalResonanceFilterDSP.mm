@@ -70,10 +70,9 @@ void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
     _private->_mode1->q = defaultQualityFactor;
 }
 
-void AKModalResonanceFilterDSP::destroy() {
+void AKModalResonanceFilterDSP::deinit() {
     sp_mode_destroy(&_private->_mode0);
     sp_mode_destroy(&_private->_mode1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -59,10 +59,9 @@ void AKToneComplementFilterDSP::init(int _channels, double _sampleRate) {
     _private->_atone1->hp = defaultHalfPowerPoint;
 }
 
-void AKToneComplementFilterDSP::destroy() {
+void AKToneComplementFilterDSP::deinit() {
     sp_atone_destroy(&_private->_atone0);
     sp_atone_destroy(&_private->_atone1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

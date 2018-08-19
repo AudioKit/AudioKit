@@ -418,12 +418,12 @@ public class AKPlayer: AKNode {
     // MARK: - Loading
 
     /// Replace the contents of the player with this url
-    public func load(url: URL) throws {
+    @objc public func load(url: URL) throws {
         let file = try AVAudioFile(forReading: url)
         load(audioFile: file)
     }
 
-    public func load(audioFile: AVAudioFile) {
+    @objc public func load(audioFile: AVAudioFile) {
         self.audioFile = audioFile
         initialize()
         // will reset the stored start / end times or update the buffer
@@ -432,7 +432,7 @@ public class AKPlayer: AKNode {
 
     /// Mostly applicable to buffered players, this loads the buffer and gets it ready to play.
     /// Otherwise it just sets the startTime and endTime
-    public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
+    @objc public func preroll(from startingTime: Double = 0, to endingTime: Double = 0) {
         var from = startingTime
         var to = endingTime
 

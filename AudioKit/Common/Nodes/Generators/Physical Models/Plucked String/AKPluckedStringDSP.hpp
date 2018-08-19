@@ -80,9 +80,8 @@ public:
         _pluck->amp = 0.5;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_pluck_destroy(&_pluck);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void trigger() override {

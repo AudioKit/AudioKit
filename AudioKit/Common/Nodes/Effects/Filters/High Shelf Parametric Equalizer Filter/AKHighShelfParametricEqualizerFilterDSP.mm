@@ -83,10 +83,9 @@ void AKHighShelfParametricEqualizerFilterDSP::init(int _channels, double _sample
     _private->_pareq1->mode = 2;
 }
 
-void AKHighShelfParametricEqualizerFilterDSP::destroy() {
+void AKHighShelfParametricEqualizerFilterDSP::deinit() {
     sp_pareq_destroy(&_private->_pareq0);
     sp_pareq_destroy(&_private->_pareq1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

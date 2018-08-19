@@ -134,7 +134,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Initialization
+
     // ------------------------------------------
 
     /// Initialize the manager with arbritary amount of inserts
@@ -154,7 +156,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Observation
+
     // ------------------------------------------
 
     private func addObservors() {
@@ -192,7 +196,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Requesting Effects and Instruments
+
     // ------------------------------------------
 
     /// requests a list of Effects, and caches the results
@@ -224,24 +230,55 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    /// Create an instrument with a name and a completion handler
-    public func createInstrument(name: String, completionHandler: ((AVAudioUnitMIDIInstrument?) -> Void)? = nil) {
+    /// Create an instrument by name. The Audio Unit will be returned in the callback.
+    public func createInstrument(name: String, completionHandler: @escaping AKInstrumentCallback) {
         guard let desc = (availableInstruments.first { $0.name == name })?.audioComponentDescription else { return }
         AKAudioUnitManager.createInstrumentAudioUnit(desc) { audioUnit in
             guard let audioUnit = audioUnit else {
                 AKLog("Unable to create audioUnit")
+                completionHandler(nil)
                 return
             }
-            completionHandler?(audioUnit)
+            completionHandler(audioUnit)
+        }
+    }
+
+    /// Create an effect by name. The Audio Unit will be returned in the callback.
+    public func createEffect(name: String, completionHandler: @escaping AKEffectCallback) {
+        guard availableEffects.isNotEmpty else {
+            AKLog("You must call requestEffects before using this function. availableEffects is empty")
+            completionHandler(nil)
+            return
+        }
+
+        if let component = (availableEffects.first { $0.name == name }) {
+            let acd = component.audioComponentDescription
+            // AKLog("\(index) \(name) -- \(acd)")
+
+            AKAudioUnitManager.createEffectAudioUnit(acd) { audioUnit in
+                guard let audioUnit = audioUnit else {
+                    AKLog("Unable to create audioUnit")
+                    return
+                }
+                completionHandler(audioUnit)
+            }
+
+        } else if let audioUnit = AKAudioUnitManager.createInternalEffect(name: name) {
+            completionHandler(audioUnit)
+
+        } else {
+            AKLog("Error: Unable to find ", name, "in availableEffects.")
+            completionHandler(nil)
         }
     }
 
     // ------------------------------------------
+
     // MARK: - Effects Chain management
+
     // ------------------------------------------
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
-
         if let au = _effectsChain[index] {
             AKLog("removeEffect: \(au.auAudioUnit.audioUnitName ?? "")")
 
@@ -326,7 +363,7 @@ open class AKAudioUnitManager: NSObject {
     /// called from client to hook the chain together
     /// firstNode would be something like a player, and last something like a mixer that's headed
     /// to the output.
-    public func connectEffects(firstNode: AKNode? = nil, lastNode: AKNode? = nil) {
+    open func connectEffects(firstNode: AKNode? = nil, lastNode: AKNode? = nil) {
         if firstNode != nil {
             input = firstNode
         }
@@ -350,7 +387,7 @@ open class AKAudioUnitManager: NSObject {
         let outputAV = output.avAudioNode
 
         let processingFormat = inputAV.outputFormat(forBus: 0)
-        // AKLog("\(effects.count) to connect... chain source format: \(processingFormat)")
+        AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
             AudioKit.connect(inputAV, to: outputAV, format: processingFormat)
@@ -372,7 +409,6 @@ open class AKAudioUnitManager: NSObject {
 
         // AKLog("Connecting \(au.name) to output: \(outputAV),  with format \(processingFormat)")
         AudioKit.connect(au, to: outputAV, format: processingFormat)
-
     }
 
     /// Clear all linked units previous processing state. IE, Panic button.
@@ -383,7 +419,9 @@ open class AKAudioUnitManager: NSObject {
     }
 
     // ------------------------------------------
+
     // MARK: - Dispose
+
     // ------------------------------------------
 
     public func dispose() {

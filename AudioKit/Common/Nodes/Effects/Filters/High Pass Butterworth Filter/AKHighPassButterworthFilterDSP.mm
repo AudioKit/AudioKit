@@ -59,10 +59,9 @@ void AKHighPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_buthp1->freq = defaultCutoffFrequency;
 }
 
-void AKHighPassButterworthFilterDSP::destroy() {
+void AKHighPassButterworthFilterDSP::deinit() {
     sp_buthp_destroy(&_private->_buthp0);
     sp_buthp_destroy(&_private->_buthp1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

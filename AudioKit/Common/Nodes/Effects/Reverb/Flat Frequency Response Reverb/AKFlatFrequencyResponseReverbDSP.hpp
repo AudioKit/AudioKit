@@ -30,7 +30,6 @@ private:
  
 public:
     AKFlatFrequencyResponseReverbDSP();
-    ~AKFlatFrequencyResponseReverbDSP();
 
     float reverbDurationLowerBound = 0;
     float reverbDurationUpperBound = 10;
@@ -49,7 +48,7 @@ public:
 
     void initializeConstant(float duration) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -85,7 +85,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     public lazy private(set) var touches = [UITouch]()
 
     /// The current gesture recognizer state, as it pertains to the `sustain` setting.
-    public enum State {
+    public enum MultitouchState {
 
         /// All touches are ended, and none are being sustained.
         case ready
@@ -99,7 +99,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     }
 
     /// The current multitouch gesture recognizer state.
-    public var multitouchState: State {
+    public var multitouchState: MultitouchState {
         if touches.isEmpty {
             return .ready
         } else if touches.filter({ $0.phase != .ended }).isNotEmpty {

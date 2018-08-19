@@ -38,7 +38,6 @@ private:
  
 public:
     AKPhaserDSP();
-    ~AKPhaserDSP();
 
     float notchMinimumFrequencyLowerBound = 20;
     float notchMinimumFrequencyUpperBound = 5000;
@@ -79,7 +78,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

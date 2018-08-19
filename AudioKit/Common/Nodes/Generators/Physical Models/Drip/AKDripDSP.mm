@@ -115,9 +115,8 @@ void AKDripDSP::init(int _channels, double _sampleRate) {
     _private->_drip->amp = defaultAmplitude;
 }
 
-void AKDripDSP::destroy() {
+void AKDripDSP::deinit() {
     sp_drip_destroy(&_private->_drip);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKDripDSP::trigger() {
