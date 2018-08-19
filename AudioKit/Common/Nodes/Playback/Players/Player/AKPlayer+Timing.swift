@@ -7,7 +7,7 @@
 //
 
 extension AKPlayer: AKTiming {
-    public func start(at audioTime: AVAudioTime?) {
+    @objc public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
     }
 
@@ -15,7 +15,7 @@ extension AKPlayer: AKTiming {
         return isPlaying
     }
 
-    public func setPosition(_ position: Double) {
+    @objc public func setPosition(_ position: Double) {
         startTime = position
         if isPlaying {
             stop()
@@ -23,14 +23,14 @@ extension AKPlayer: AKTiming {
         }
     }
 
-    public func position(at audioTime: AVAudioTime?) -> Double {
+    @objc public func position(at audioTime: AVAudioTime?) -> Double {
         guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
             return startTime
         }
         return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
     }
 
-    public func audioTime(at position: Double) -> AVAudioTime? {
+    @objc public func audioTime(at position: Double) -> AVAudioTime? {
         let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
         let sampleTime = (position - startTime) * sampleRate
         let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)

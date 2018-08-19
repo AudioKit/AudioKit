@@ -73,7 +73,7 @@ extension AKTiming {
     }
 
     /**
-     Starts playback with position syncronized to an already running node.
+     Starts playback with position synchronized to an already running node.
      - Parameter other: An already started AKTiming that position will be synchronized with.
      - Parameter audioTime: Future time in the audio render context that playback should begin.
      */

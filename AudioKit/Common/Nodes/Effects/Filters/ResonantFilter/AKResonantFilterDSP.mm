@@ -70,10 +70,9 @@ void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
     _private->_reson1->bw = defaultBandwidth;
 }
 
-void AKResonantFilterDSP::destroy() {
+void AKResonantFilterDSP::deinit() {
     sp_reson_destroy(&_private->_reson0);
     sp_reson_destroy(&_private->_reson1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

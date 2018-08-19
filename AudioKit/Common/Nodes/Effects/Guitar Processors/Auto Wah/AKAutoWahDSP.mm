@@ -81,10 +81,9 @@ void AKAutoWahDSP::init(int _channels, double _sampleRate) {
     *_private->_autowah1->level = defaultAmplitude;
 }
 
-void AKAutoWahDSP::destroy() {
+void AKAutoWahDSP::deinit() {
     sp_autowah_destroy(&_private->_autowah0);
     sp_autowah_destroy(&_private->_autowah1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

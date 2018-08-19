@@ -33,7 +33,6 @@ private:
  
 public:
     AKOscillatorDSP();
-    ~AKOscillatorDSP();
 
     float frequencyLowerBound = 0.0;
     float frequencyUpperBound = 20000.0;
@@ -59,7 +58,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

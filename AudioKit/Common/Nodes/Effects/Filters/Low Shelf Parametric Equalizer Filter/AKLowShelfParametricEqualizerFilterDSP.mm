@@ -83,10 +83,9 @@ void AKLowShelfParametricEqualizerFilterDSP::init(int _channels, double _sampleR
     _private->_pareq1->mode = 1;
 }
 
-void AKLowShelfParametricEqualizerFilterDSP::destroy() {
+void AKLowShelfParametricEqualizerFilterDSP::deinit() {
     sp_pareq_destroy(&_private->_pareq0);
     sp_pareq_destroy(&_private->_pareq1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

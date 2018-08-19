@@ -65,9 +65,8 @@ void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
     _private->_revsc->lpfreq = defaultCutoffFrequency;
 }
 
-void AKCostelloReverbDSP::destroy() {
+void AKCostelloReverbDSP::deinit() {
     sp_revsc_destroy(&_private->_revsc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

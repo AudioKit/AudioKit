@@ -55,9 +55,8 @@ void AKPinkNoiseDSP::init(int _channels, double _sampleRate) {
     _private->_pinknoise->amp = defaultAmplitude;
 }
 
-void AKPinkNoiseDSP::destroy() {
+void AKPinkNoiseDSP::deinit() {
     sp_pinknoise_destroy(&_private->_pinknoise);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

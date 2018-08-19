@@ -31,7 +31,6 @@ private:
  
 public:
     AKVariableDelayDSP();
-    ~AKVariableDelayDSP();
 
     float timeLowerBound = 0;
     float timeUpperBound = 10;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -81,10 +81,9 @@ void AKFormantFilterDSP::init(int _channels, double _sampleRate) {
     _private->_fofilt1->dec = defaultDecayDuration;
 }
 
-void AKFormantFilterDSP::destroy() {
+void AKFormantFilterDSP::deinit() {
     sp_fofilt_destroy(&_private->_fofilt0);
     sp_fofilt_destroy(&_private->_fofilt1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

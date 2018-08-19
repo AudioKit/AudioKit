@@ -122,9 +122,8 @@ public:
         _pdhalf->amount = 0;
    }
 
-    void destroy() {
+    void deinit() override {
         sp_pdhalf_destroy(&_pdhalf);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void setupWaveform(uint32_t size) override {

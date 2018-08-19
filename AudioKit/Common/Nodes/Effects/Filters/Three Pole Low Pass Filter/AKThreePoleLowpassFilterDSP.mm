@@ -81,10 +81,9 @@ void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_lpf181->res = defaultResonance;
 }
 
-void AKThreePoleLowpassFilterDSP::destroy() {
+void AKThreePoleLowpassFilterDSP::deinit() {
     sp_lpf18_destroy(&_private->_lpf180);
     sp_lpf18_destroy(&_private->_lpf181);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

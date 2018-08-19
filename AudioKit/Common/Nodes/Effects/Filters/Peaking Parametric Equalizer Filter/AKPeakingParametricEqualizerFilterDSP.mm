@@ -83,10 +83,9 @@ void AKPeakingParametricEqualizerFilterDSP::init(int _channels, double _sampleRa
     _private->_pareq1->mode = 0;
 }
 
-void AKPeakingParametricEqualizerFilterDSP::destroy() {
+void AKPeakingParametricEqualizerFilterDSP::deinit() {
     sp_pareq_destroy(&_private->_pareq0);
     sp_pareq_destroy(&_private->_pareq1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

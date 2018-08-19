@@ -40,7 +40,6 @@
 		B1468E3C20D070450030BA66 /* AKPlayer+Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3620D070430030BA66 /* AKPlayer+Playback.swift */; };
 		B1468E3D20D070450030BA66 /* AKPlayer+Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3720D070430030BA66 /* AKPlayer+Fader.swift */; };
 		B1468E3E20D070450030BA66 /* AKPlayer+Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3820D070440030BA66 /* AKPlayer+Timing.swift */; };
-		B1468E3F20D070450030BA66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B1468E3920D070440030BA66 /* README.md */; };
 		B1468E4020D070450030BA66 /* AKPlayer+Buffering.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3A20D070440030BA66 /* AKPlayer+Buffering.swift */; };
 		B1468E4120D070450030BA66 /* AKDynamicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E3B20D070440030BA66 /* AKDynamicPlayer.swift */; };
 		B157704A2093C8E700830A3E /* AKParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B15770492093C8E700830A3E /* AKParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5264,7 +5263,6 @@
 			files = (
 				C49B1DDE204A0CFA009C7C8E /* COPYING in Resources */,
 				C49B1DD8204A0CFA009C7C8E /* LICENSE.txt in Resources */,
-				B1468E3F20D070450030BA66 /* README.md in Resources */,
 				C44EA26F201870EC0072399F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
