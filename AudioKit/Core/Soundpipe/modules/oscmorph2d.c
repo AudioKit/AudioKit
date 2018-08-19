@@ -58,16 +58,17 @@ int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *osc, SPFLOAT *in, SPFLOAT 
     SPFLOAT amp, cps, fract, v1, v2;
     SPFLOAT *ft1, *ft2;
     int32_t phs, lobits, pos;
-    SPFLOAT sicvt = osc->tbl[0]->sicvt; // sicvt: this stands for Sampling Increment ConVert
+    SPFLOAT sicvt = osc->tbl[0]->sicvt; /* sicvt: this stands for Sampling Increment ConVert */
     const int enableBandlimit = osc->enableBandlimit;
     int bandlimitIndexOverride = osc->bandlimitIndexOverride;
 
-    /* enableBandlimit = true: default is nyquist 1 harmonic.  False = no bandlimit (production) */
-    int32_t bandlimitIndex = enableBandlimit > 0 ? osc->nbl - 1 : 0;
+    int32_t bandlimitIndex = 0;
+    if (enableBandlimit > 0)
+        bandlimitIndex = osc->nbl - 1;
 
     if (enableBandlimit > 0) {
-        /* do not use override */
-        if (bandlimitIndexOverride == -1) {
+        if (bandlimitIndexOverride < 0) {
+            /* do not use override */
             for(int i = 1; i < osc->nbl; i++) {
                 if(osc->freq <= osc->fbl[i]) {
                     bandlimitIndex = i;
@@ -77,14 +78,20 @@ int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *osc, SPFLOAT *in, SPFLOAT 
         } else {
             /* the override is the index */
             bandlimitIndex = floor(bandlimitIndexOverride);
+            if (bandlimitIndex < 0)
+                bandlimitIndex = 0;
         }
+    } else {
+        /* hard-code the "non-bandlimited" row of wavetables */
+        bandlimitIndex = 0;
     }
 
     /* Use only the fractional part of the position or 1 */
     if (osc->wtpos > 1.0) {
         osc->wtpos -= (int)osc->wtpos;
     }
-    const SPFLOAT findex = (bandlimitIndex * osc->nft) + osc->wtpos * (osc->nft - 1);
+    
+    const SPFLOAT findex = (bandlimitIndex + osc->wtpos) * osc->nft;
     const int index = floor(findex);
     const SPFLOAT wtfrac = findex - index;
 
