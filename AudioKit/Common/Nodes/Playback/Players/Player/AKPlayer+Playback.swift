@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-
     /// Play entire file right now
     @objc public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
@@ -62,6 +61,7 @@ extension AKPlayer {
         play(from: pauseTime)
         AKLog("Resuming at \(pauseTime)")
     }
+
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public func stop() {
         playerNode.stop()
