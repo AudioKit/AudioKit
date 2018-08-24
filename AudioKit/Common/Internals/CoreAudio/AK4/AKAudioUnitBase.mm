@@ -165,7 +165,6 @@
 - (void)deallocateRenderResources {
     _inputBus.deallocateRenderResources();
     _kernel->deinit();
-    delete _kernel;
     [super deallocateRenderResources];
 }
 
@@ -236,7 +235,8 @@
 
 // ----- END UNMODIFIED COPY FROM APPLE CODE -----
 
-
-
+- (void)dealloc {
+    delete _kernel;
+}
 
 @end
