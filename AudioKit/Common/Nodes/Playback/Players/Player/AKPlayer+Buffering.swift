@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
         if !isBuffered { return }
@@ -129,5 +128,4 @@ extension AKPlayer {
             AKLog("Faded Buffer")
         }
     }
-
 }

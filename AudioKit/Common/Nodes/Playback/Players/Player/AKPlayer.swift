@@ -44,7 +44,6 @@ import AVFoundation
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
 public class AKPlayer: AKNode {
-
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
@@ -59,11 +58,13 @@ public class AKPlayer: AKNode {
                 if newValue != start { needsUpdate = true }
             }
         }
+
         public var end: Double = 0 {
             willSet {
                 if newValue != end { needsUpdate = true }
             }
         }
+
         var needsUpdate: Bool = false
     }
 
@@ -71,7 +72,7 @@ public class AKPlayer: AKNode {
         public init() {}
 
         /// a constant
-        public static var minimumGain: Double = 0.000_2
+        public static var minimumGain: Double = 0.0002
 
         /// the value that the booster should fade to, settable
         public var maximumGain: Double = 1
@@ -310,6 +311,7 @@ public class AKPlayer: AKNode {
     }
 
     // MARK: - Public Options
+
     /// true if the player is buffering audio rather than playing from disk
     public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
@@ -348,6 +350,7 @@ public class AKPlayer: AKNode {
     }
 
     // MARK: - Initialization
+
     public override init() {
         super.init(avAudioNode: mixer, attach: false)
     }
