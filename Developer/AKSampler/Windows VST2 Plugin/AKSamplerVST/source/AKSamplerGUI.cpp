@@ -168,6 +168,36 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
 	case WM_COMMAND:
         switch (LOWORD(wParam))
         {
+        case IDC_LOOPTHRU_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_LOOPTHRU_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kLoopThruRelease, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
+        case IDC_MONO_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_MONO_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kMonophonic, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
+        case IDC_LEGATO_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_LEGATO_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kLegato, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
         case IDC_FILTER_ENABLE_CHECK:
             if (HIWORD(wParam) == BN_CLICKED)
             {
@@ -177,6 +207,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 enableFilterControls(v > 0.0f);
                 return (INT_PTR)TRUE;
             }
+            break;
 
         case IDC_PRESETCB:
             if (HIWORD(wParam) == CBN_SELCHANGE)
@@ -280,6 +311,18 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
         SendDlgItemMessage(hwnd, IDC_FILTER_RELEASE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_FILTER_RELEASE_READOUT, text);
         break;
+    case kLoopThruRelease:
+        SendDlgItemMessage(hwnd, IDC_LOOPTHRU_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kLoopThruRelease) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
+    case kMonophonic:
+        SendDlgItemMessage(hwnd, IDC_MONO_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kMonophonic) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
+    case kLegato:
+        SendDlgItemMessage(hwnd, IDC_LEGATO_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kLegato) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
     }
 }
 
@@ -363,6 +406,18 @@ void AKSamplerGUI::updateAllParameters()
     SendDlgItemMessage(hwnd, IDC_FILTER_RELEASE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
     pVst->getParamString(kFilterSustainLevel, text);
     SetDlgItemText(hwnd, IDC_FILTER_RELEASE_READOUT, text);
+
+    bool loopThruRel = pVst->getParameter(kLoopThruRelease) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_LOOPTHRU_CHECK, BM_SETCHECK,
+        loopThruRel ? BST_CHECKED : BST_UNCHECKED, 0);
+
+    bool monophonic = pVst->getParameter(kMonophonic) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_MONO_CHECK, BM_SETCHECK,
+        monophonic ? BST_CHECKED : BST_UNCHECKED, 0);
+
+    bool legato = pVst->getParameter(kLegato) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_LEGATO_CHECK, BM_SETCHECK,
+        legato ? BST_CHECKED : BST_UNCHECKED, 0);
 }
 
 void AKSamplerGUI::populatePresetsComboBox()
