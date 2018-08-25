@@ -7,7 +7,6 @@
 //
 
 #include "SustainPedalLogic.hpp"
-#include "../AKSamplerVST/source/TRACE.h"
 
 namespace AudioKitCore
 {
