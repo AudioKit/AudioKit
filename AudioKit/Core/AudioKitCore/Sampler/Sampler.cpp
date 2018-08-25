@@ -208,9 +208,6 @@ namespace AudioKitCore {
         }
     }
 
-#include "../AKSamplerVST/source/TRACE.h"
-#define printf TRACE
-    
     void Sampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency, bool anotherKeyWasDown)
     {
         if (stoppingAllVoices) return;
