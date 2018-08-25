@@ -9,7 +9,7 @@ enum
     // simple parameters
     kAmpAttackTime, kAmpDecayTime, kAmpSustainLevel, kAmpReleaseTime,
     kFilterAttackTime, kFilterDecayTime, kFilterSustainLevel, kFilterReleaseTime,
-    kFilterEnable,
+    kFilterEnable, kLoopThruRelease, kMonophonic, kLegato,
 
     kNumParams
 };
