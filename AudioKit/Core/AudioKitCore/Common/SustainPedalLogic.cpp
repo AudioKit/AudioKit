@@ -55,15 +55,7 @@ namespace AudioKitCore
 
     bool SustainPedalLogic::isAnyKeyDown()
     {
-        //for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return true;
-        for (int i = 0; i < kMidiNoteNumbers; i++)
-        {
-            if (keyDown[i])
-            {
-                TRACE("isAnyKeyDown: key %d\n", i);
-                return true;
-            }
-        }
+        for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return true;
         return false;
     }
 

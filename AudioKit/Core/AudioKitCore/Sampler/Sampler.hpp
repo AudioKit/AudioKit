@@ -73,7 +73,7 @@ namespace AudioKitCore
         ADSREnvelopeParameters filterEnvelopeParameters;
         
         // performance parameters
-        float masterVolume, pitchOffset, vibratoDepth;
+        float masterVolume, pitchOffset, vibratoDepth, glideRate;
 
         // parameters for mono-mode only
         bool isMonophonic;      // default false

@@ -18,6 +18,7 @@ namespace AudioKitCore {
     , masterVolume(1.0f)
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
+    , glideRate(0.0f)   // 0 sec/octave means "no glide"
     , isMonophonic(false)
     , isLegato(false)
     , portamentoRate(1.0f)
@@ -27,10 +28,13 @@ namespace AudioKitCore {
     , loopThruRelease(false)
     , stoppingAllVoices(false)
     {
-        for (int i=0; i < MAX_POLYPHONY; i++)
+        SamplerVoice* pVoice = voice;
+        for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
         {
-            voice[i].adsrEnvelope.pParams = &adsrEnvelopeParameters;
-            voice[i].filterEnvelope.pParams = &filterEnvelopeParameters;
+            pVoice->adsrEnvelope.pParams = &adsrEnvelopeParameters;
+            pVoice->filterEnvelope.pParams = &filterEnvelopeParameters;
+            pVoice->noteFrequency = 0.0f;
+            pVoice->glideSecPerOctave = &glideRate;
         }
     }
     
@@ -223,7 +227,7 @@ namespace AudioKitCore {
                 SamplerVoice* pVoice = &voice[0];
                 if (pVoice->noteNumber >= 0)
                 {
-                    printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
+                    //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
                     pVoice->restart(noteNumber, sampleRate, noteFrequency);
                 }
                 else
@@ -352,7 +356,8 @@ namespace AudioKitCore {
             if (nn >= 0)
             {
                 if (stoppingAllVoices ||
-                    pVoice->prepToGetSamples(masterVolume, pitchDev, cutoffMul, cutoffEnvelopeStrength, linearResonance) ||
+                    pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul,
+                                             cutoffEnvelopeStrength, linearResonance) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

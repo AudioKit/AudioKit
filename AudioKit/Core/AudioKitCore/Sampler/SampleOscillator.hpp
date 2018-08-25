@@ -17,10 +17,10 @@ namespace AudioKitCore
 
     struct SampleOscillator
     {
-        bool isLooping;      // true until note released
-        double indexPoint;      // use double so we don't lose precision when indexPoint becomes much larger than increment
-        double increment;  // 1.0 = play at original speed
-        double multiplier;     // multiplier applied to increment for pitch bend, vibrato
+        bool isLooping;     // true until note released
+        double indexPoint;  // use double so we don't lose precision when indexPoint becomes much larger than increment
+        double increment;   // 1.0 = play at original speed
+        double multiplier;  // multiplier applied to increment for pitch bend, vibrato
         
         void setPitchOffsetSemitones(double semitones) { multiplier = pow(2.0, semitones/12.0); }
         
