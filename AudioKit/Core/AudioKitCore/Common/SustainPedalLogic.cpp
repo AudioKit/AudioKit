@@ -7,6 +7,7 @@
 //
 
 #include "SustainPedalLogic.hpp"
+#include "../AKSamplerVST/source/TRACE.h"
 
 namespace AudioKitCore
 {
@@ -52,4 +53,23 @@ namespace AudioKitCore
         return isPlaying[noteNumber] && !keyDown[noteNumber];
     }
 
+    bool SustainPedalLogic::isAnyKeyDown()
+    {
+        //for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return true;
+        for (int i = 0; i < kMidiNoteNumbers; i++)
+        {
+            if (keyDown[i])
+            {
+                TRACE("isAnyKeyDown: key %d\n", i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int SustainPedalLogic::firstKeyDown()
+    {
+        for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return i;
+        return -1;
+    }
 }

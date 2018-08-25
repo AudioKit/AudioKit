@@ -39,6 +39,7 @@ namespace AudioKitCore
         void init(double sampleRate);
         
         void start(unsigned noteNumber, float sampleRate, float frequency, float volume, SampleBuffer* sampleBuffer);
+        void restart(unsigned noteNumber, float sampleRate, float frequency);
         void restart(float volume, SampleBuffer* sampleBuffer);
         void release(bool loopThruRelease);
         void stop();

@@ -39,6 +39,14 @@ namespace AudioKitCore
         noteNumber = note;
     }
     
+    void SamplerVoice::restart(unsigned note, float sampleRate, float frequency)
+    {
+        oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
+        //oscillator.multiplier = 1.0;
+        noteFrequency = frequency;
+        noteNumber = note;
+    }
+
     void SamplerVoice::restart(float volume, SampleBuffer* buffer)
     {
         tempNoteVolume = noteVolume;

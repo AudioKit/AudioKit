@@ -18,6 +18,9 @@ namespace AudioKitCore {
     , masterVolume(1.0f)
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
+    , isMonophonic(false)
+    , isLegato(false)
+    , portamentoRate(1.0f)
     , cutoffMultiple(4.0f)
     , cutoffEnvelopeStrength(20.0f)
     , linearResonance(1.0f)
@@ -165,7 +168,7 @@ namespace AudioKitCore {
         isKeyMapValid = true;
     }
     
-    SamplerVoice* Sampler::voicePlayingNote(unsigned int noteNumber)
+    SamplerVoice* Sampler::voicePlayingNote(unsigned noteNumber)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
@@ -177,10 +180,9 @@ namespace AudioKitCore {
 
     void Sampler::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
+        bool anotherKeyWasDown = pedalLogic.isAnyKeyDown();
         pedalLogic.keyDownAction(noteNumber);
-        //if (pedalLogic.keyDownAction(noteNumber))
-        //    stop(noteNumber, false);
-        play(noteNumber, velocity, noteFrequency);
+        play(noteNumber, velocity, noteFrequency, anotherKeyWasDown);
     }
     
     void Sampler::stopNote(unsigned noteNumber, bool immediate)
@@ -201,44 +203,86 @@ namespace AudioKitCore {
             pedalLogic.pedalUp();
         }
     }
+
+#include "../AKSamplerVST/source/TRACE.h"
+#define printf TRACE
     
-    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
+    void Sampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency, bool anotherKeyWasDown)
     {
         if (stoppingAllVoices) return;
 
         //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
         // sanity check: ensure we are initialized with at least one buffer
         if (!isKeyMapValid || sampleBufferList.size() == 0) return;
-        
-        // is any voice already playing this note?
-        SamplerVoice* pVoice = voicePlayingNote(noteNumber);
-        if (pVoice)
+
+        if (isMonophonic)
         {
-            // re-start the note
-            pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
-            //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
-            return;
-        }
-        
-        // find a free voice (with noteNumber < 0) to play the note
-        for (int i=0; i < MAX_POLYPHONY; i++)
-        {
-            SamplerVoice* pVoice = &voice[i];
-            if (pVoice->noteNumber < 0)
+            if (isLegato && anotherKeyWasDown)
             {
-                // found a free voice: assign it to play this note
+                // is our one and only voice playing some note?
+                SamplerVoice* pVoice = &voice[0];
+                if (pVoice->noteNumber >= 0)
+                {
+                    printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
+                    pVoice->restart(noteNumber, sampleRate, noteFrequency);
+                }
+                else
+                {
+                    KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                    if (pBuf == 0) return;  // don't crash if someone forgets to build map
+                    pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                }
+                lastPlayedNoteNumber = noteNumber;
+                return;
+            }
+            else
+            {
+                // monophonic but not legato: always start a new note
+                SamplerVoice* pVoice = &voice[0];
                 KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
-                //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
-                //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
+                lastPlayedNoteNumber = noteNumber;
                 return;
             }
         }
-        
-        // all oscillators in use; do nothing
-        //printf("All oscillators in use!\n");
+
+        else // polyphonic
+        {
+            // is any voice already playing this note?
+            SamplerVoice* pVoice = voicePlayingNote(noteNumber);
+            if (pVoice)
+            {
+                // re-start the note
+                pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
+                //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
+                return;
+            }
+
+            // find a free voice (with noteNumber < 0) to play the note
+            int polyphony = isMonophonic ? 1 : MAX_POLYPHONY;
+            for (int i = 0; i < polyphony; i++)
+            {
+                SamplerVoice* pVoice = &voice[i];
+                if (pVoice->noteNumber < 0)
+                {
+                    // found a free voice: assign it to play this note
+                    KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                    if (pBuf == 0) return;  // don't crash if someone forgets to build map
+                    pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                    lastPlayedNoteNumber = noteNumber;
+                    //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
+                    //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
+                    return;
+                }
+            }
+
+            // all oscillators in use; do nothing
+            //printf("All oscillators in use!\n");
+        }
     }
+
+#define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
     
     void Sampler::stop(unsigned noteNumber, bool immediate)
     {
@@ -251,6 +295,19 @@ namespace AudioKitCore {
         {
             pVoice->stop();
             //printf("Stop note %d immediate\n", noteNumber);
+        }
+        else if (isMonophonic)
+        {
+            int key = pedalLogic.firstKeyDown();
+            if (key < 0) pVoice->release(loopThruRelease);
+            else if (isLegato) pVoice->restart((unsigned)key, sampleRate, NOTE_HZ(key));
+            else
+            {
+                unsigned velocity = 100;
+                KeyMappedSampleBuffer* pBuf = lookupSample(key, velocity);
+                if (pBuf == 0) return;  // don't crash if someone forgets to build map
+                pVoice->start(key, sampleRate, NOTE_HZ(key), velocity / 127.0f, pBuf);
+            }
         }
         else
         {
