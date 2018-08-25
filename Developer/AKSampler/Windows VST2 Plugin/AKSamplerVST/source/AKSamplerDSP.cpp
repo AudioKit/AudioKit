@@ -653,6 +653,9 @@ void AKSamplerDSP::getParameterName (VstInt32 index, char* label)
         case kLegato:
             vst_strncpy(label, "Legato", kVstMaxParamStrLen);
             break;
+        case kGlideRate:
+            vst_strncpy(label, "Glide", kVstMaxParamStrLen);
+            break;
     }
 }
 
@@ -727,6 +730,9 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
             else
                 vst_strncpy(text, "NO", kVstMaxParamStrLen);
             break;
+        case kGlideRate:
+            float2string(glideRate, text, kVstMaxParamStrLen);
+            break;
     }
 }
 
@@ -789,6 +795,9 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
     case kLegato:
         sprintf(text, "%s", isLegato ? "legato" : "normal");
         break;
+    case kGlideRate:
+        sprintf(text, "%.2f sec/octave", glideRate);
+        break;
     }
 }
 
@@ -850,6 +859,9 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         break;
     case kLegato:
         isLegato = value > 0.5f;
+        break;
+    case kGlideRate:
+        glideRate = value * 10.0f;
         break;
     }
 }
@@ -919,6 +931,9 @@ float AKSamplerDSP::getParameter (VstInt32 index)
         case kLegato:
             value = isLegato ? 1.0f : 0.0f;
             break;
+        case kGlideRate:
+            value = glideRate / 10.0f;
+            break;
     }
 	return value;
 }
@@ -963,6 +978,8 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
         return isMonophonic ? 1.0f : 0.0f;
     case kLegato:
         return isLegato ? 1.0f : 0.0f;
+    case kGlideRate:
+        return glideRate / 10.0f;
     }
     return 0.0f;
 }

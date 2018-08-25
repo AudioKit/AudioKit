@@ -5,6 +5,7 @@ enum
     // ramped parameters
     kMasterVolume, kPitchBend, kVibratoDepth,
     kFilterCutoff, kFilterEgStrength, kFilterResonance,
+    kGlideRate,
 
     // simple parameters
     kAmpAttackTime, kAmpDecayTime, kAmpSustainLevel, kAmpReleaseTime,
