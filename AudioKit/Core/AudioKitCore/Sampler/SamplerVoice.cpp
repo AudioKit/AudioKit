@@ -110,12 +110,12 @@ namespace AudioKitCore
             float semitones = 12.0f * seconds / *glideSecPerOctave;
             if (glideSemitones < 0.0f)
             {
-                glideSemitones += 12.0f * semitones;
+                glideSemitones += semitones;
                 if (glideSemitones > 0.0f) glideSemitones = 0.0f;
             }
             else
             {
-                glideSemitones -= 12.0f * semitones;
+                glideSemitones -= semitones;
                 if (glideSemitones < 0.0f) glideSemitones = 0.0f;
             }
         }
