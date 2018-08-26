@@ -44,6 +44,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterResonance, value: filterResonance) }
     }
 
+    var glideRate: Double = 0.0 {
+        didSet { setParameter(.glideRate, value: glideRate) }
+    }
+
     var rampDuration: Double = 0.0 {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
@@ -82,6 +86,18 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
     var filterEnable: Double = 0.0 {
         didSet { setParameter(.filterEnable, value: filterEnable) }
+    }
+
+    var loopThruRelease: Double = 0.0 {
+        didSet { setParameter(.loopThruRelease, value: loopThruRelease) }
+    }
+
+    var isMonophonic: Double = 0.0 {
+        didSet { setParameter(.monophonic, value: isMonophonic) }
+    }
+
+    var isLegato: Double = 0.0 {
+        didSet { setParameter(.legato, value: isLegato) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -143,6 +159,15 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    address: AUParameterAddress(paramAddress),
                                                                    min: -20.0, max: 20.0,
                                                                    unit: .decibels, unitName: nil,
+                                                                   flags: rampFlags,
+                                                                   valueStrings: nil, dependentParameters: nil)
+
+        paramAddress += 1
+        let glideRateParam = AUParameterTree.createParameter(withIdentifier: "glideRate",
+                                                                   name: "Glide rate (sec/octave))",
+                                                                   address: AUParameterAddress(paramAddress),
+                                                                   min: 0.0, max: 10.0,
+                                                                   unit: .seconds, unitName: nil,
                                                                    flags: rampFlags,
                                                                    valueStrings: nil, dependentParameters: nil)
 
@@ -218,20 +243,47 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                 unit: .boolean, unitName: nil,
                                                                 flags: nonRampFlags,
                                                                 valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let loopThruReleaseParam = AUParameterTree.createParameter(withIdentifier: "loopThruRelease",
+                                                                name: "Loop Thru Release",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .boolean, unitName: nil,
+                                                                flags: nonRampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let monophonicParam = AUParameterTree.createParameter(withIdentifier: "monophonic",
+                                                                name: "Monophonic Mode",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .boolean, unitName: nil,
+                                                                flags: nonRampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
+        paramAddress += 1
+        let legatoParam = AUParameterTree.createParameter(withIdentifier: "legato",
+                                                                name: "Legato Mode",
+                                                                address: AUParameterAddress(paramAddress),
+                                                                min: 0.0, max: 1.0,
+                                                                unit: .boolean, unitName: nil,
+                                                                flags: nonRampFlags,
+                                                                valueStrings: nil, dependentParameters: nil)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParam, pitchBendParam, vibratoDepthParam,
                                                                    filterCutoffParam, filterEgStrengthParam, filterResonanceParam,
+                                                                   glideRateParam,
                                                                    attackDurationParam, decayDurationParam,
                                                                    sustainLevelParam, releaseDurationParam,
                                                                    filterAttackDurationParam, filterDecayDurationParam,
                                                                    filterSustainLevelParam, filterReleaseDurationParam,
-                                                                   filterEnableParam ]))
+                                                                   filterEnableParam,
+                                                                   loopThruReleaseParam, monophonicParam, legatoParam ]))
         masterVolumeParam.value = 1.0
         pitchBendParam.value = 0.0
         vibratoDepthParam.value = 0.0
         filterCutoffParam.value = 4.0
         filterEgStrengthParam.value = 20.0
         filterResonanceParam.value = 0.0
+        glideRateParam.value = 0.0
         attackDurationParam.value = 0.0
         decayDurationParam.value = 0.0
         sustainLevelParam.value = 1.0
@@ -241,6 +293,9 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         filterSustainLevelParam.value = 1.0
         filterReleaseDurationParam.value = 0.0
         filterEnableParam.value = 0.0
+        loopThruReleaseParam.value = 0.0
+        monophonicParam.value = 0.0
+        legatoParam.value = 0.0
     }
 
     public override var canProcessInPlace: Bool { return true }
