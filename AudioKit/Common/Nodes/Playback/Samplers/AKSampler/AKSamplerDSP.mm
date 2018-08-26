@@ -104,6 +104,7 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
     filterCutoffRamp.setTarget(4, true);
     filterEgStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
+    glideRateRamp.setTarget(0.0, true);
 }
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
@@ -127,6 +128,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             filterCutoffRamp.setRampDuration(value, _sampleRate);
             filterEgStrengthRamp.setRampDuration(value, _sampleRate);
             filterResonanceRamp.setRampDuration(value, _sampleRate);
+            glideRateRamp.setRampDuration(value, _sampleRate);
             break;
 
         case AKSamplerParameterMasterVolume:
@@ -146,6 +148,9 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             break;
         case AKSamplerParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
+            break;
+        case AKSamplerParameterGlideRate:
+            glideRateRamp.setTarget(value, immediate);
             break;
 
         case AKSamplerParameterAttackDuration:
@@ -176,6 +181,15 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
             break;
+        case AKSamplerParameterLoopThruRelease:
+            loopThruRelease = value > 0.5f;
+            break;
+        case AKSamplerParameterMonophonic:
+            isMonophonic = value > 0.5f;
+            break;
+        case AKSamplerParameterLegato:
+            isLegato = value > 0.5f;
+            break;
     }
 }
 
@@ -197,6 +211,8 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return filterEgStrengthRamp.getTarget();
         case AKSamplerParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
+        case AKSamplerParameterGlideRate:
+            return glideRateRamp.getTarget();
 
         case AKSamplerParameterAttackDuration:
             return adsrEnvelopeParameters.getAttackTimeSeconds();
@@ -217,6 +233,12 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return filterEnvelopeParameters.getReleaseTimeSeconds();
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
+        case AKSamplerParameterLoopThruRelease:
+            return loopThruRelease ? 1.0f : 0.0f;
+        case AKSamplerParameterMonophonic:
+            return isMonophonic ? 1.0f : 0.0f;
+        case AKSamplerParameterLegato:
+            return isLegato ? 1.0f : 0.0f;
     }
     return 0;
 }
@@ -242,6 +264,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         cutoffEnvelopeStrength = (float)filterEgStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(_now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
+        glideRateRamp.advanceTo(_now + frameOffset);
+        glideRate = (float)glideRateRamp.getValue();
 
         // get data
         float *outBuffers[2];
