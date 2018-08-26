@@ -34,7 +34,7 @@
  */
 
 /**
- A callback with a timeStamp who's mSampleTime represents time in the context
+ A callback with a timeStamp whose mSampleTime represents time in the context
  of the timeline.
  @param refCon User data passed to AKTimeline on init.
  @param timeStamp AudioTimeStamp where mSampleTime reflects the current sample in the
@@ -56,12 +56,10 @@ typedef struct{
     AudioTimeStamp  baseTime;
     AudioTimeStamp  waitStart;
 
-
     UInt32          _loopStart;
     UInt32          _loopEnd;
     AudioTimeStamp  _baseTime;
     AudioTimeStamp  _waitStart;
-
 
     AudioStreamBasicDescription format;
 
