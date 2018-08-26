@@ -19,35 +19,38 @@ namespace AudioKitCore
 
     struct SamplerVoice
     {
-        SampleOscillator oscillator;      // every voice has 1 oscillator,
-        SampleBuffer* sampleBuffer;      // a pointer to the sample buffer for that oscillator,
-        ResonantLowPassFilter leftFilter, rightFilter;     // two filters (left/right),
+        float samplingRate;
+        SampleOscillator oscillator;    // every voice has 1 oscillator,
+        SampleBuffer* sampleBuffer;     // a pointer to the sample buffer for that oscillator,
+        ResonantLowPassFilter leftFilter, rightFilter;  // two filters (left/right),
         ADSREnvelope adsrEnvelope, filterEnvelope;
+        float* glideSecPerOctave;       // common glide rate, seconds per octave
         
-        int noteNumber;     // MIDI note number, or -1 if not playing any note
-        float noteFrequency;// note frequency in Hz
-        float noteVolume;      // fraction 0.0 - 1.0, based on MIDI velocity
+        int noteNumber;         // MIDI note number, or -1 if not playing any note
+        float noteFrequency;    // (target) note frequency in Hz
+        float glideSemitones;   // will reduce to zero during glide
+        float noteVolume;       // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables
-        float tempNoteVolume;  // holds previous note volume while damping note before restarting
-        SampleBuffer* newSampleBuffer; // holds next sample buffer to use at restart
-        float tempGain;     // product of global volume, note volume, and amp EG
-        bool isFilterEnabled;  // true if filter should be used
+        float tempNoteVolume;   // holds previous note volume while damping note before restarting
+        SampleBuffer* newSampleBuffer;  // holds next sample buffer to use at restart
+        float tempGain;         // product of global volume, note volume, and amp EG
+        bool isFilterEnabled;   // true if filter should be used
         
         SamplerVoice() : noteNumber(-1) {}
 
         void init(double sampleRate);
         
         void start(unsigned noteNumber, float sampleRate, float frequency, float volume, SampleBuffer* sampleBuffer);
+        void restart(unsigned noteNumber, float sampleRate, float frequency);
         void restart(float volume, SampleBuffer* sampleBuffer);
         void release(bool loopThruRelease);
         void stop();
         
         // return true if amp envelope is finished
-        bool prepToGetSamples(float masterVolume, float pitchOffset,
+        bool prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
                               float cutoffMultiple, float cutoffEnvelopeStrength, float resLinear);
 
-        bool getSamples(int sampleCount, float* output);
         bool getSamples(int sampleCount, float* leftOutput, float* rightOutput);
     };
 
