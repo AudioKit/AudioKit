@@ -63,9 +63,6 @@ int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *osc, SPFLOAT *in, SPFLOAT 
     int bandlimitIndexOverride = osc->bandlimitIndexOverride;
 
     int32_t bandlimitIndex = 0;
-    if (enableBandlimit > 0)
-        bandlimitIndex = osc->nbl - 1;
-
     if (enableBandlimit > 0) {
         if (bandlimitIndexOverride < 0) {
             /* do not use override */
@@ -91,24 +88,24 @@ int sp_oscmorph2d_compute(sp_data *sp, sp_oscmorph2d *osc, SPFLOAT *in, SPFLOAT 
         osc->wtpos -= (int)osc->wtpos;
     }
     
-    const SPFLOAT findex = (bandlimitIndex + osc->wtpos) * osc->nft;
+    const SPFLOAT findex = (bandlimitIndex * osc->nft) + osc->wtpos * (osc->nft - 1);
     const int index = floor(findex);
     const SPFLOAT wtfrac = findex - index;
 
-    lobits = osc->tbl[0]->lobits; // ??
+    lobits = osc->tbl[index]->lobits;
     amp = osc->amp;
     cps = osc->freq;
     phs = osc->lphs;
     ftp1 = osc->tbl[index];
     ft1 = osc->tbl[index]->tbl;
 
-    if(index >= osc->nft - 1) {
+    if(index >= (bandlimitIndex * osc->nft) + (osc->nft - 1)) {
         ft2 = ft1;
     } else {
         ft2 = osc->tbl[index + 1]->tbl;
     }
     
-    osc->inc = (int32_t)lrintf(cps * sicvt);
+    osc->inc = (int32_t)lrintf(cps * sicvt);  
 
     fract = ((phs) & ftp1->lomask) * ftp1->lodiv;
 

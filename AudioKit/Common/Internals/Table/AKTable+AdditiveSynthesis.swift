@@ -161,7 +161,7 @@ extension AKTable {
 
         for h in 1...harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count) ) )
             }
         }
     }
@@ -256,19 +256,6 @@ extension AKTable {
     public func invert() {
         for i in indices {
             self[i] = -self[i]
-        }
-    }
-
-    /// In-place phase offset
-    /// Parameters:
-    ///   - offset: phase on [0, 1]
-    public func phase(offset: Float = 0) {
-        let p = Int(indices.count * offset)
-        for i in indices {
-            let j = (i + p) % indices.count
-            let tmp = self[i]
-            self[i] = self[j]
-            self[j] = tmp
         }
     }
 
