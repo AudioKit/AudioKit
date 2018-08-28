@@ -19,6 +19,8 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterCutoff,
     AKSamplerParameterFilterEgStrength,
     AKSamplerParameterFilterResonance,
+    AKSamplerParameterGlideRate,
+
     // simple parameters
     AKSamplerParameterAttackDuration,
     AKSamplerParameterDecayDuration,
@@ -29,6 +31,9 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterSustainLevel,
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
+    AKSamplerParameterLoopThruRelease,
+    AKSamplerParameterMonophonic,
+    AKSamplerParameterLegato,
     
     // ensure this is always last in the list, to simplify parameter addressing
     AKSamplerParameterRampDuration,
@@ -66,6 +71,7 @@ struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterEgStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
+    AKLinearParameterRamp glideRateRamp;
     
     AKSamplerDSP();
     void init(int nChannels, double sampleRate) override;

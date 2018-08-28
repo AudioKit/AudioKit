@@ -82,7 +82,9 @@ extension AudioKit {
         do {
             NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
             NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-            try AVAudioSession.sharedInstance().setActive(false)
+            if !AKSettings.disableAudioSessionDeactivationOnStop {
+                try AVAudioSession.sharedInstance().setActive(false)
+            }
         } catch {
             AKLog("couldn't stop session \(error)")
             throw error
