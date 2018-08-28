@@ -18,7 +18,11 @@
     IBOutlet NSTextField *pitchOffsetText;
     IBOutlet NSSlider *vibratoDepthSlider;
     IBOutlet NSTextField *vibratoDepthText;
-
+    IBOutlet NSButton *monoCheckbox;
+    IBOutlet NSButton *legatoCheckbox;
+    IBOutlet NSSlider *glideRateSlider;
+    IBOutlet NSTextField *glideRateText;
+    
     IBOutlet NSSlider *ampAttackSlider;
     IBOutlet NSTextField *ampAttackText;
     IBOutlet NSSlider *ampDecaySlider;

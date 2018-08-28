@@ -47,7 +47,7 @@
         if (![self setPresetWithSound:soundURL andDownBeatSound:downBeatSoundURL]) {
             [self loadDefaultSounds];
         }
-        tap = [[AKTimelineTap alloc]initWithNode:self timelineBlock:[self timlineBlock]];
+        tap = [[AKTimelineTap alloc]initWithNode:self timelineBlock:[self timelineBlock]];
         tap.preRender = true;
         _beatCount = 4;
         _beatVolume = UINT8_MAX;
@@ -61,7 +61,7 @@
     return [self initWithSound:soundURL downBeatSound:nil];
 }
 
--(AKTimelineBlock)timlineBlock {
+-(AKTimelineBlock)timelineBlock {
     AudioUnit sampler = self.audioUnit;
     double *triggers = _triggers;
     int *triggerCount = &_beatCount;
@@ -126,7 +126,7 @@
         _triggers[i] = (double)i / _beatsPerSample;
     }
 
-    // If timeline is stopped, no need to syncronize with previous timing.
+    // If timeline is stopped, no need to synchronize with previous timing.
     if (!AKTimelineIsStarted(tap.timeline)) {
         AKTimelineSetTime(tap.timeline, newSampleTime);
         AKTimelineSetLoop(tap.timeline, 0, newLoopEnd);
