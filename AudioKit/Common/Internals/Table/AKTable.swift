@@ -7,7 +7,7 @@
 //
 
 /// Supported default table types
-@objc public enum AKTableType: Int {
+@objc public enum AKTableType: Int, Codable {
     /// Standard sine waveform
     case sine
 
@@ -44,7 +44,7 @@
 
 
 /// A table of values accessible as a waveform or lookup mechanism
-@objc public class AKTable: NSObject, MutableCollection {
+@objc public class AKTable: NSObject, MutableCollection, Codable {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = Float
