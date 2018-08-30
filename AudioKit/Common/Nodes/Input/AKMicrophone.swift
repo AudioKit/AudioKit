@@ -91,14 +91,9 @@ open class AKMicrophone: AKNode, AKToggleable {
             let inPortType = AVAudioSession.sharedInstance().currentRoute.inputs.first?.portType, inPortType == AVAudioSessionPortBuiltInMic,
             let outPortType = AVAudioSession.sharedInstance().currentRoute.outputs.first?.portType,
             outPortType == AVAudioSessionPortBuiltInSpeaker || outPortType == AVAudioSessionPortBuiltInReceiver
-            {
+        {
             desiredFS = 48000.0
-            print("desired fs is \(desiredFS)")
-            do {
-                try AVAudioSession.sharedInstance().setPreferredSampleRate(desiredFS)
-            } catch {
-                print("\(error)")
-            }
+            AKSettings.sampleRate = 48000.0
         }
         return AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 2)
     }
