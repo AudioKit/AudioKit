@@ -58,7 +58,15 @@
     }
 
     /// The sample rate in Hertz
-    @objc public static var sampleRate: Double = 44_100
+    @objc public static var sampleRate: Double = 44_100 {
+        didSet {
+            do {
+                try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
+            } catch {
+                print(error)
+            }
+        }
+    }
 
     /// Number of audio channels: 2 for stereo, 1 for mono
     @objc public static var channelCount: UInt32 = 2
