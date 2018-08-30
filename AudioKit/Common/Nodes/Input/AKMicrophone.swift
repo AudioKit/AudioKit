@@ -87,7 +87,11 @@ open class AKMicrophone: AKNode, AKToggleable {
         let typeString = getIphoneType()
         var desiredFS = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
         let stringArray = typeString.components(separatedBy: CharacterSet.decimalDigits.inverted)
-        if let firstNumber = stringArray.first(where: { Int($0) != nil }), let number = Int(firstNumber), number > 7 {
+        if let firstNumber = stringArray.first(where: { Int($0) != nil }), let number = Int(firstNumber), number > 7,
+            let inPortType = AVAudioSession.sharedInstance().currentRoute.inputs.first?.portType, inPortType == AVAudioSessionPortBuiltInMic,
+            let outPortType = AVAudioSession.sharedInstance().currentRoute.outputs.first?.portType,
+            outPortType == AVAudioSessionPortBuiltInSpeaker || outPortType == AVAudioSessionPortBuiltInReceiver
+            {
             desiredFS = 48000.0
             print("desired fs is \(desiredFS)")
             do {
