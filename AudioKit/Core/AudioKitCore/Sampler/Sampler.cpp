@@ -31,8 +31,8 @@ namespace AudioKitCore {
         SamplerVoice* pVoice = voice;
         for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
         {
-            pVoice->adsrEnvelope.pParams = &adsrEnvelopeParameters;
-            pVoice->filterEnvelope.pParams = &filterEnvelopeParameters;
+            pVoice->adsrEnvelope.pParameters = &adsrEnvelopeParameters;
+            pVoice->filterEnvelope.pParameters = &filterEnvelopeParameters;
             pVoice->noteFrequency = 0.0f;
             pVoice->glideSecPerOctave = &glideRate;
         }

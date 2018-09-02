@@ -34,11 +34,11 @@
 }
 
 - (void)setParameters:(NSArray *)parameters {
-    float params[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float temporaryParameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     for (int i = 0; i < parameters.count; i++) {
-        params[i] =[parameters[i] floatValue];
+        temporaryParameters[i] = [parameters[i] floatValue];
     }
-    _kernel.setParameters(params);
+    _kernel.setParameters(temporaryParameters);
 }
 
 - (void)addCustomUgen:(AKCustomUgen *)ugen {
