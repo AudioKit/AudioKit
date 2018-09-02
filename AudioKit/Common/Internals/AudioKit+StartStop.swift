@@ -62,8 +62,7 @@ extension AudioKit {
 
         #if os(iOS)
         let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory,
-                                  with: sessionOptions)
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
         #elseif os(tvOS)
         try AKSettings.setSession(category: sessionCategory)
         #endif
