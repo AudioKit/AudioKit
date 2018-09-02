@@ -68,9 +68,9 @@ public:
         internalTriggers[trigger] = 1;
     }
 
-    void setParameters(float params[]) {
+    void setParameters(float temporaryParameters[]) {
         for (int i = 0; i < 14; i++) {
-            parameters[i] = params[i];
+            parameters[i] = temporaryParameters[i];
         }
     };
 

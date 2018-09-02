@@ -41,7 +41,7 @@ Float64 const EZOutputDefaultSampleRate     = 44100.0f;
 
 typedef struct
 {
-    // stream format params
+    // stream format Parameters
     AudioStreamBasicDescription inputFormat;
     AudioStreamBasicDescription clientFormat;
 
