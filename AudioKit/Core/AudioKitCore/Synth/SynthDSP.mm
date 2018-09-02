@@ -76,16 +76,16 @@ void SynthDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
-        case ampAttackDurationParameter:
+        case attackDurationParameter:
             ampEGParameters.setAttackDurationSeconds(value);
             break;
-        case ampDecayDurationParameter:
+        case decayDurationParameter:
             ampEGParameters.setDecayDurationSeconds(value);
             break;
-        case ampSustainLevelParameter:
+        case sustainLevelParameter:
             ampEGParameters.sustainFraction = value;
             break;
-        case ampReleaseDurationParameter:
+        case releaseDurationParameter:
             ampEGParameters.setReleaseDurationSeconds(value);
             break;
 
@@ -121,13 +121,13 @@ float SynthDSP::getParameter(uint64_t address)
         case filterResonanceParameter:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
-        case ampAttackDurationParameter:
+        case attackDurationParameter:
             return ampEGParameters.getAttackDurationSeconds();
-        case ampDecayDurationParameter:
+        case decayDurationParameter:
             return ampEGParameters.getDecayDurationSeconds();
-        case ampSustainLevelParameter:
+        case sustainLevelParameter:
             return ampEGParameters.sustainFraction;
-        case ampReleaseDurationParameter:
+        case releaseDurationParameter:
             return ampEGParameters.getReleaseDurationSeconds();
 
         case filterAttackDurationParameter:

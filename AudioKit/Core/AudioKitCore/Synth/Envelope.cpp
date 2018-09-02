@@ -1,6 +1,6 @@
 //
 //  Envelope.cpp
-//  ExtendingAudioKit
+//  AudioKit
 //
 //  Created by Shane Dunne on 2018-04-06.
 //  Copyright © 2018 AudioKit. All rights reserved.

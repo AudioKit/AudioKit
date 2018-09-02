@@ -1,6 +1,6 @@
 //
 //  SynthDSP.hpp
-//  ExtendingAudioKit
+//  AudioKit
 //
 //  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
@@ -13,11 +13,24 @@
 typedef NS_ENUM(int64_t, SynthParameter)
 {
     // ramped parameters
-    masterVolumeParameter, pitchBendParameter, vibratoDepthParameter,
-    filterCutoffParameter, filterResonanceParameter,
+    
+    masterVolumeParameter,
+    pitchBendParameter,
+    vibratoDepthParameter,
+    filterCutoffParameter,
+    filterResonanceParameter,
+
     // simple parameters
-    ampAttackDurationParameter, ampDecayDurationParameter, ampSustainLevelParameter, ampReleaseDurationParameter,
-    filterAttackDurationParameter, filterDecayDurationParameter, filterSustainLevelParameter, filterReleaseDurationParameter,
+
+    attackDurationParameter,
+    decayDurationParameter,
+    sustainLevelParameter,
+    releaseDurationParameter,
+
+    filterAttackDurationParameter,
+    filterDecayDurationParameter,
+    filterSustainLevelParameter,
+    filterReleaseDurationParameter,
     
     // ensure this is always last in the list, to simplify parameter addressing
     rampDurationParameter,
