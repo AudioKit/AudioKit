@@ -42,7 +42,6 @@
     case zero
 }
 
-
 /// A table of values accessible as a waveform or lookup mechanism
 @objc public class AKTable: NSObject, MutableCollection, Codable {
     public typealias Index = Int
@@ -196,7 +195,6 @@
         }
     }
 
-    
     /// Instantiate the table as a sine wave
     func standardSineWave() {
         for i in indices {
