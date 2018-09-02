@@ -25,12 +25,12 @@ namespace AudioKitCore
         void init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
         void updateSampleRate(float newSampleRateHz);
         
-        void setAttackTimeSeconds(float attackSeconds) { attackSamples = attackSeconds * sampleRateHz; }
-        float getAttackTimeSeconds() { return attackSamples / sampleRateHz; }
-        void setDecayTimeSeconds(float decaySeconds) { decaySamples = decaySeconds * sampleRateHz; }
-        float getDecayTimeSeconds() { return decaySamples / sampleRateHz; }
-        void setReleaseTimeSeconds(float releaseSeconds) { releaseSamples = releaseSeconds * sampleRateHz; }
-        float getReleaseTimeSeconds() { return releaseSamples / sampleRateHz; }
+        void setAttackDurationSeconds(float attackSeconds) { attackSamples = attackSeconds * sampleRateHz; }
+        float getAttackDurationSeconds() { return attackSamples / sampleRateHz; }
+        void setDecayDurationSeconds(float decaySeconds) { decaySamples = decaySeconds * sampleRateHz; }
+        float getDecayDurationSeconds() { return decaySamples / sampleRateHz; }
+        void setReleaseDurationSeconds(float releaseSeconds) { releaseSamples = releaseSeconds * sampleRateHz; }
+        float getReleaseDurationSeconds() { return releaseSamples / sampleRateHz; }
     };
     
     struct ADSREnvelope

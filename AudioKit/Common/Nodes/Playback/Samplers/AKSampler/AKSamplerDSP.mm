@@ -154,29 +154,29 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             break;
 
         case AKSamplerParameterAttackDuration:
-            adsrEnvelopeParameters.setAttackTimeSeconds(value);
+            adsrEnvelopeParameters.setAttackDurationSeconds(value);
             break;
         case AKSamplerParameterDecayDuration:
-            adsrEnvelopeParameters.setDecayTimeSeconds(value);
+            adsrEnvelopeParameters.setDecayDurationSeconds(value);
             break;
         case AKSamplerParameterSustainLevel:
             adsrEnvelopeParameters.sustainFraction = value;
             break;
         case AKSamplerParameterReleaseDuration:
-            adsrEnvelopeParameters.setReleaseTimeSeconds(value);
+            adsrEnvelopeParameters.setReleaseDurationSeconds(value);
             break;
 
         case AKSamplerParameterFilterAttackDuration:
-            filterEnvelopeParameters.setAttackTimeSeconds(value);
+            filterEnvelopeParameters.setAttackDurationSeconds(value);
             break;
         case AKSamplerParameterFilterDecayDuration:
-            filterEnvelopeParameters.setDecayTimeSeconds(value);
+            filterEnvelopeParameters.setDecayDurationSeconds(value);
             break;
         case AKSamplerParameterFilterSustainLevel:
             filterEnvelopeParameters.sustainFraction = value;
             break;
         case AKSamplerParameterFilterReleaseDuration:
-            filterEnvelopeParameters.setReleaseTimeSeconds(value);
+            filterEnvelopeParameters.setReleaseDurationSeconds(value);
             break;
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
@@ -215,22 +215,22 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return glideRateRamp.getTarget();
 
         case AKSamplerParameterAttackDuration:
-            return adsrEnvelopeParameters.getAttackTimeSeconds();
+            return adsrEnvelopeParameters.getAttackDurationSeconds();
         case AKSamplerParameterDecayDuration:
-            return adsrEnvelopeParameters.getDecayTimeSeconds();
+            return adsrEnvelopeParameters.getDecayDurationSeconds();
         case AKSamplerParameterSustainLevel:
             return adsrEnvelopeParameters.sustainFraction;
         case AKSamplerParameterReleaseDuration:
-            return adsrEnvelopeParameters.getReleaseTimeSeconds();
+            return adsrEnvelopeParameters.getReleaseDurationSeconds();
 
         case AKSamplerParameterFilterAttackDuration:
-            return filterEnvelopeParameters.getAttackTimeSeconds();
+            return filterEnvelopeParameters.getAttackDurationSeconds();
         case AKSamplerParameterFilterDecayDuration:
-            return filterEnvelopeParameters.getDecayTimeSeconds();
+            return filterEnvelopeParameters.getDecayDurationSeconds();
         case AKSamplerParameterFilterSustainLevel:
             return filterEnvelopeParameters.sustainFraction;
         case AKSamplerParameterFilterReleaseDuration:
-            return filterEnvelopeParameters.getReleaseTimeSeconds();
+            return filterEnvelopeParameters.getReleaseDurationSeconds();
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
         case AKSamplerParameterLoopThruRelease:
