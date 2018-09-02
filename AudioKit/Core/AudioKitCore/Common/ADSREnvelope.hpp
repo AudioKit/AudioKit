@@ -35,7 +35,7 @@ namespace AudioKitCore
     
     struct ADSREnvelope
     {
-        ADSREnvelopeParameters* pParams; // many ADSREnvelopes can share a common set of parameters
+        ADSREnvelopeParameters* pParameters; // many ADSREnvelopes can share a common set of parameters
         
         LinearRamper ramper;
         
@@ -63,29 +63,29 @@ namespace AudioKitCore
         {
             if (segment == kIdle) { return 0.0f; }
             
-            if (segment == kSustain) return pParams->sustainFraction;
+            if (segment == kSustain) return pParameters->sustainFraction;
             
             if (ramper.isRamping()) return float(ramper.getNextValue());
 
             if (segment == kSilence)    // end of quick-damp prior to restart
             {
                 segment = kAttack;
-                ramper.init(0.0f, 1.01f, pParams->attackSamples);
+                ramper.init(0.0f, 1.01f, pParameters->attackSamples);
                 return 0.0f;
             }
             
             if (segment == kAttack)      // end of attack segment
             {
                 segment = kDecay;
-                ramper.init(1.01f, pParams->sustainFraction, pParams->decaySamples);
+                ramper.init(1.01f, pParameters->sustainFraction, pParameters->decaySamples);
                 return 1.01f;
             }
             
             if (segment == kDecay)  // end of decay segment
             {
                 segment = kSustain;
-                ramper.init(pParams->sustainFraction);
-                return pParams->sustainFraction;
+                ramper.init(pParameters->sustainFraction);
+                return pParameters->sustainFraction;
             }
             
             // end of release or silence segment

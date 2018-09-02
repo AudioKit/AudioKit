@@ -200,7 +200,7 @@ public class AKPlayer: AKNode {
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
-    /// Looping params
+    /// Looping Parameters
     public var loop = Loop()
 
     /// Volume 0.0 -> 1.0, default 1.0

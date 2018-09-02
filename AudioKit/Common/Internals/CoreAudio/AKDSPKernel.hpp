@@ -71,7 +71,7 @@ public:
     }
 };
 
-class AKDSPKernelWithParams : AKDSPKernel, AKParametricKernel {
+class AKDSPKernelWithParameters : AKDSPKernel, AKParametricKernel {
 public:
     void start() {}
     void stop() {}
