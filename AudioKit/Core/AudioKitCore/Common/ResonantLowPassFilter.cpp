@@ -13,7 +13,7 @@
 
 namespace AudioKitCore
 {
-    // To avoid having to call sin() and cos() in setParams() (whenever filter parameters
+    // To avoid having to call sin() and cos() in setParameters() (whenever filter parameters
     // are changed), we maintain this static sine lookup table.
     static FunctionTable sineTable;
     static float Sine(float phase) { return sineTable.interp_cyclic(phase); }
@@ -41,7 +41,7 @@ namespace AudioKitCore
         mLastCutoffHz = mLastResLinear = -1.0;  // force recalc of coefficients
     }
     
-    void ResonantLowPassFilter::setParams(double newCutoffHz, double newResLinear)
+    void ResonantLowPassFilter::setParameters(double newCutoffHz, double newResLinear)
     {
         // only calculate the filter coefficients if the parameters have changed from last time
         if (newCutoffHz == mLastCutoffHz && newResLinear == mLastResLinear) return;

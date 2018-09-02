@@ -130,8 +130,8 @@ namespace AudioKitCore
         {
             isFilterEnabled = true;
             double cutoffHz = noteFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * filterEnvelope.getSample());
-            leftFilter.setParams(cutoffHz, resLinear);
-            rightFilter.setParams(cutoffHz, resLinear);
+            leftFilter.setParameters(cutoffHz, resLinear);
+            rightFilter.setParameters(cutoffHz, resLinear);
         }
         
         return false;
