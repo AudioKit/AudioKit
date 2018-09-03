@@ -36,15 +36,15 @@ namespace AudioKitCore {
     
     int Synth::init(double sampleRate)
     {
-        FunctionTable waveForm;
+        FunctionTable waveform;
         int length = 1 << WaveStack::maxBits;
-        waveForm.init(length);
-        waveForm.sawtooth(0.2f);
-        waveForm1.initStack(waveForm.pWaveTable);
-        waveForm.square(0.4f, 0.01f);
-        waveForm2.initStack(waveForm.pWaveTable);
-        waveForm.triangle(0.5f);
-        waveForm3.initStack(waveForm.pWaveTable);
+        waveform.init(length);
+        waveform.sawtooth(0.2f);
+        waveform1.initStack(waveform.pWaveTable);
+        waveform.square(0.4f, 0.01f);
+        waveform2.initStack(waveform.pWaveTable);
+        waveform.triangle(0.5f);
+        waveform3.initStack(waveform.pWaveTable);
 
         ampEGParameters.updateSampleRate((float)(sampleRate/CHUNKSIZE));
         filterEGParameters.updateSampleRate((float)(sampleRate/CHUNKSIZE));
@@ -107,7 +107,7 @@ namespace AudioKitCore {
 
         for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
-            voice[i].init(sampleRate, &waveForm1, &waveForm2, &waveForm3, &voiceParameters, &envParameters);
+            voice[i].init(sampleRate, &waveform1, &waveform2, &waveform3, &voiceParameters, &envParameters);
         }
 
         return 0;   // no error
