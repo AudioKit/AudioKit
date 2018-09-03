@@ -21,7 +21,7 @@ namespace AudioKitCore {
     , cutoffEgStrength(20.0f)
     , resLinear(1.0f)
     {
-        for (int i=0; i < MAX_POLYPHONY; i++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
             voice[i].event = 0;
             voice[i].noteNumber = -1;
@@ -105,7 +105,7 @@ namespace AudioKitCore {
 
         envParameters.init((float)(sampleRate/CHUNKSIZE), 6, segParameters, 3, 0, 5);
 
-        for (int i=0; i<MAX_POLYPHONY; i++)
+        for (int i=0; i<MAX_VOICE_COUNT; i++)
         {
             voice[i].init(sampleRate, &waveForm1, &waveForm2, &waveForm3, &voiceParameters, &envParameters);
         }
@@ -148,7 +148,7 @@ namespace AudioKitCore {
     SynthVoice* Synth::voicePlayingNote(unsigned noteNumber)
     {
         SynthVoice* pVoice = voice;
-        for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
         {
             if (pVoice->noteNumber == noteNumber) return pVoice;
         }
@@ -170,7 +170,7 @@ namespace AudioKitCore {
         }
         
         // find a free voice (with noteNumber < 0) to play the note
-        for (int i=0; i < MAX_POLYPHONY; i++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
             SynthVoice* pVoice = &voice[i];
             if (pVoice->noteNumber < 0)
@@ -187,7 +187,7 @@ namespace AudioKitCore {
         SynthVoice* pStalestVoiceOfAll = 0;
         unsigned greatestDiffInRelease = 0;
         SynthVoice* pStalestVoiceInRelease = 0;
-        for (int i=0; i < MAX_POLYPHONY; i++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
             SynthVoice* pVoice = &voice[i];
             unsigned diff = eventCounter - pVoice->event;
@@ -246,7 +246,7 @@ namespace AudioKitCore {
         float phaseDeltaMul = pow(2.0f, pitchDev / 12.0);
 
         SynthVoice* pVoice = &voice[0];
-        for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
         {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
