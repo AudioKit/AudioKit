@@ -90,17 +90,17 @@
 }
 +(NSDictionary *)presetWithZones:(NSArray <AKPresetZone *> *)presetZones oneShot:(BOOL)oneShot{
     NSMutableDictionary *preset = mutableSkeleton();
-    NSDictionary *waveFormIds = waveformsPathIndexed(presetZones);
-    if(!waveFormIds)return NULL;
-    for (NSString *path in waveFormIds.allKeys) {
-        NSNumber *waveFormId = waveFormIds[path];
-        NSString *sampleKey = [FILEREFPREFIX stringByAppendingString:waveFormId.stringValue];
+    NSDictionary *waveformIds = waveformsPathIndexed(presetZones);
+    if(!waveformIds)return NULL;
+    for (NSString *path in waveformIds.allKeys) {
+        NSNumber *waveformId = waveformIds[path];
+        NSString *sampleKey = [FILEREFPREFIX stringByAppendingString:waveformId.stringValue];
         preset.fileReferences[sampleKey] = path;
     }
     int ID = 1;
     for (AKPresetZone *presetZone in presetZones) {
         presetZone.ID = @(ID);
-        presetZone.waveform = waveFormIds[presetZone.filePath];
+        presetZone.waveform = waveformIds[presetZone.filePath];
         [preset.zones addObject:presetZone.asDictionary];
     }
     preset.oneShot = oneShot;

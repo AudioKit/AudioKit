@@ -44,7 +44,7 @@ namespace AudioKitCore
         /// "event" counter for voice-stealing (reallocation)
         unsigned eventCounter;
 
-        WaveStack waveForm1, waveForm2, waveForm3;      // WaveStacks are shared by all voice oscillators
+        WaveStack waveform1, waveform2, waveform3;      // WaveStacks are shared by all voice oscillators
         FunctionTableOscillator vibratoLFO;             // one vibrato LFO shared by all voices
         SustainPedalLogic pedalLogic;
         
