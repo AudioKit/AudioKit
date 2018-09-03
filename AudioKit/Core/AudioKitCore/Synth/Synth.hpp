@@ -24,9 +24,12 @@ namespace AudioKitCore
     public:
         Synth();
         ~Synth();
-        
-        int init(double sampleRate);    // returns system error code, nonzero only if a problem occurs
-        void deinit();                  // call this to un-load all samples and clear the keymap
+
+        /// returns system error code, nonzero only if a problem occurs
+        int init(double sampleRate);
+
+        /// call this to un-load all samples and clear the keymap
+        void deinit();
         
         void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
         void stopNote(unsigned noteNumber, bool immediate);
