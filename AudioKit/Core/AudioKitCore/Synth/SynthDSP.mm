@@ -9,21 +9,21 @@
 #import "SynthDSP.hpp"
 #include <math.h>
 
-extern "C" void* createSynthDSP(int nChannels, double sampleRate) {
+extern "C" void *createSynthDSP(int nChannels, double sampleRate) {
     return new SynthDSP();
 }
 
-extern "C" void doSynthPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
+extern "C" void doSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
 {
     ((SynthDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
 }
 
-extern "C" void doSynthStopNote(void* pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void doSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
 {
     ((SynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doSynthSustainPedal(void* pDSP, bool pedalDown)
+extern "C" void doSynthSustainPedal(void *pDSP, bool pedalDown)
 {
     ((SynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
@@ -164,8 +164,8 @@ void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOff
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float*)_outBufferListPtr->mBuffers[1].mData + frameOffset;
+        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
         AudioKitCore::Synth::Render(channelCount, chunkSize, outBuffers);
     }

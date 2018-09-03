@@ -55,7 +55,7 @@ namespace AudioKitCore
     }
     
     void ModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
-                                float* inBuffers[], float *outBuffers[])
+                                float *inBuffers[], float *outBuffers[])
     {
         float *pInLeft   = inBuffers[0];
         float *pInRight  = inBuffers[1];

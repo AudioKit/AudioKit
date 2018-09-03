@@ -12,7 +12,7 @@
 namespace AudioKitCore
 {
 
-    void SynthVoice::init(double sampleRate, WaveStack *pOsc1Stack, WaveStack* pOsc2Stack, WaveStack* pOsc3Stack, SynthVoiceParameters *pParams, EnvelopeParameters* pEnvParameters)
+    void SynthVoice::init(double sampleRate, WaveStack *pOsc1Stack, WaveStack *pOsc2Stack, WaveStack *pOsc3Stack, SynthVoiceParameters *pParams, EnvelopeParameters *pEnvParameters)
     {
         pParameters = pParams;
         event = 0;
@@ -141,7 +141,7 @@ namespace AudioKitCore
         return false;
     }
     
-    bool SynthVoice::getSamples(int nSamples, float* pOutLeft, float* pOutRight)
+    bool SynthVoice::getSamples(int nSamples, float *pOutLeft, float *pOutRight)
     {
         for (int i=0; i < nSamples; i++)
         {

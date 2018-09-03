@@ -25,7 +25,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaserParameter) {
 
 #ifndef __cplusplus
 
-void* createPhaserDSP(int nChannels, double sampleRate);
+void *createPhaserDSP(int nChannels, double sampleRate);
 
 #else
 

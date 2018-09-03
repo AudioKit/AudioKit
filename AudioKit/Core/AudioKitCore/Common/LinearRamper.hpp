@@ -76,7 +76,7 @@ namespace AudioKitCore
             return (constantValue == flagValue) ? value : constantValue;
         }
         
-        inline void getValues(int count, float* pOut)
+        inline void getValues(int count, float *pOut)
         {
             for (int i=0; i < count; i++) *pOut++ = getNextValue();
         }

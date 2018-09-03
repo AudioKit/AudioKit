@@ -38,10 +38,10 @@ typedef NS_ENUM(int64_t, SynthParameter)
 
 #ifndef __cplusplus
 
-void* createSynthDSP(int nChannels, double sampleRate);
-void doSynthPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
-void doSynthStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
-void doSynthSustainPedal(void* pDSP, bool pedalDown);
+void *createSynthDSP(int nChannels, double sampleRate);
+void doSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
+void doSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
+void doSynthSustainPedal(void *pDSP, bool pedalDown);
 
 #else
 

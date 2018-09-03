@@ -90,7 +90,7 @@ namespace AudioKitCore
         float f = readIndex - ri;
         int rj = ri + 1; if (rj >= nTableSize) rj -= nTableSize;
 
-        float* pWaveTable = pData[octave];
+        float *pWaveTable = pData[octave];
         float si = pWaveTable[ri];
         float sj = pWaveTable[rj];
         return (float)((1.0 - f) * si + f * sj);

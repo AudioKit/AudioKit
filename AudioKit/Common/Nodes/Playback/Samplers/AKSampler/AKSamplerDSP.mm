@@ -10,15 +10,15 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" void* createAKSamplerDSP(int nChannels, double sampleRate) {
+extern "C" void *createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD) {
+extern "C" void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor* pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD)
+extern "C" void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor* pSFD)
 {
     char errMsg[100];
     WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -43,8 +43,8 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
         // convert samples to floating-point
         int bps = WavpackGetBitsPerSample(wpc);
         float scale = 1.0f / (1 << (bps - 1));
-        float* pf = sdd.data;
-        int32_t* pi = (int32_t*)pf;
+        float *pf = sdd.data;
+        int32_t *pi = (int32_t*)pf;
         for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
@@ -53,44 +53,44 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
     delete[] sdd.data;
 }
 
-extern "C" void doAKSamplerUnloadAllSamples(void* pDSP)
+extern "C" void doAKSamplerUnloadAllSamples(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->deinit();
 }
 
-extern "C" void doAKSamplerBuildSimpleKeyMap(void* pDSP) {
+extern "C" void doAKSamplerBuildSimpleKeyMap(void *pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
 
-extern "C" void doAKSamplerBuildKeyMap(void* pDSP) {
+extern "C" void doAKSamplerBuildKeyMap(void *pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
-extern "C" void doAKSamplerSetLoopThruRelease(void* pDSP, bool value) {
+extern "C" void doAKSamplerSetLoopThruRelease(void *pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-extern "C" void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+extern "C" void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-extern "C" void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doAKSamplerStopAllVoices(void* pDSP)
+extern "C" void doAKSamplerStopAllVoices(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->stopAllVoices();
 }
 
-extern "C" void doAKSamplerRestartVoices(void* pDSP)
+extern "C" void doAKSamplerRestartVoices(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->restartVoices();
 }
 
-extern "C" void doAKSamplerSustainPedal(void* pDSP, bool pedalDown)
+extern "C" void doAKSamplerSustainPedal(void *pDSP, bool pedalDown)
 {
     ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);
 }
@@ -269,8 +269,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float*)_outBufferListPtr->mBuffers[1].mData + frameOffset;
+        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
         AudioKitCore::Sampler::render(channelCount, chunkSize, outBuffers);
     }

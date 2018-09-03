@@ -73,7 +73,7 @@ namespace AudioKitCore
         void play(unsigned noteNumber, unsigned velocity, float noteHz);
         void stop(unsigned noteNumber, bool immediate);
 
-        SynthVoice* voicePlayingNote(unsigned noteNumber);
+        SynthVoice *voicePlayingNote(unsigned noteNumber);
     };
 }
 

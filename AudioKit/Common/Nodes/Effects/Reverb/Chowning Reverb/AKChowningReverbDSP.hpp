@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKChowningReverbParameter) {
 
 #ifndef __cplusplus
 
-void* createChowningReverbDSP(int nChannels, double sampleRate);
+void *createChowningReverbDSP(int nChannels, double sampleRate);
 
 #else
 

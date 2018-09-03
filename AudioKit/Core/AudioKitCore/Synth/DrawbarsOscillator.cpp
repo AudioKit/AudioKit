@@ -13,7 +13,7 @@
 namespace AudioKitCore
 {
 
-    void DrawbarsOscillator::init(double sampleRate, WaveStack* pStack)
+    void DrawbarsOscillator::init(double sampleRate, WaveStack *pStack)
     {
         sampleRateHz = sampleRate;
         pWaveStack = pStack;
@@ -79,7 +79,7 @@ namespace AudioKitCore
         return sample;
     }
 
-    void DrawbarsOscillator::getSamples(float* pLeft, float* pRight, float gain)
+    void DrawbarsOscillator::getSamples(float *pLeft, float *pRight, float gain)
     {
         if (gain == 0.0f) return;
         float sample = gain * getSample();
