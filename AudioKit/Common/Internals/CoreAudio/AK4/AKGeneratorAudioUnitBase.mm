@@ -11,13 +11,13 @@
 
 @interface AKGeneratorAudioUnitBase ()
 
-@property AKDSPBase* kernel;
+@property AKDSPBase *kernel;
 
 @end
 
 @implementation AKGeneratorAudioUnitBase {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKDSPBase* _kernel;
+    AKDSPBase *_kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 

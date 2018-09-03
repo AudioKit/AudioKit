@@ -25,14 +25,14 @@ namespace AudioKitCore
         float sampleRateHz;
 
         int nSegments;                  // number of segments
-        EnvelopeSegmentParameters* pSeg;    // points to an array of nSegments elements
+        EnvelopeSegmentParameters *pSeg;    // points to an array of nSegments elements
 
         int attackSegmentIndex;         // start() begins at this segment
         int sustainSegmentIndex;        // index of first sustain segment (-1 if none)
         int releaseSegmentIndex;        // release() jumps to this segment
 
         EnvelopeParameters();
-        void init(float newSampleRateHz, int nSegs, EnvelopeSegmentParameters* pSegParameters,
+        void init(float newSampleRateHz, int nSegs, EnvelopeSegmentParameters *pSegParameters,
                   int susSegIndex=-1, int attackSegIndex=0, int releaseSegIndex=-1);
         void updateSampleRate(float newSampleRateHz);
     };

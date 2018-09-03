@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKFormantFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createFormantFilterDSP(int nChannels, double sampleRate);
+void *createFormantFilterDSP(int nChannels, double sampleRate);
 
 #else
 

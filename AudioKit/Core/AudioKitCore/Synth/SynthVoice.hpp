@@ -42,7 +42,7 @@ namespace AudioKitCore
 
     struct SynthVoice
     {
-        SynthVoiceParameters* pParameters;
+        SynthVoiceParameters *pParameters;
 
         EnsembleOscillator osc1, osc2;
         DrawbarsOscillator osc3;
@@ -62,7 +62,7 @@ namespace AudioKitCore
 
         SynthVoice() : noteNumber(-1) {}
 
-        void init(double sampleRate, WaveStack *pOsc1Stack, WaveStack* pOsc2Stack, WaveStack* pOsc3Stack, SynthVoiceParameters *pParameters, EnvelopeParameters* pEnvParameters);
+        void init(double sampleRate, WaveStack *pOsc1Stack, WaveStack *pOsc2Stack, WaveStack *pOsc3Stack, SynthVoiceParameters *pParameters, EnvelopeParameters *pEnvParameters);
         
         void start(unsigned evt, unsigned noteNum, float freqHz, float volume);
         void restart(unsigned evt, float volume);
@@ -73,7 +73,7 @@ namespace AudioKitCore
         // return true if amp envelope is finished
         bool prepToGetSamples(float masterVol, float phaseDeltaMul,
                               float cutoffMultiple, float cutoffEgStrength, float resLinear);
-        bool getSamples(int nSamples, float* pOutLeft, float* pOutRight);
+        bool getSamples(int nSamples, float *pOutLeft, float *pOutRight);
     };
 
 }

@@ -420,7 +420,7 @@ typedef struct
             pthread_mutex_unlock(&_lock);
             return nil;
         }
-        float **data = (float **)malloc( sizeof(float*) * channels );
+        float **data = (float **)malloc( sizeof(float *) * channels );
         for (int i = 0; i < channels; i++)
         {
             data[i] = (float *)malloc( sizeof(float) * numberOfPoints );

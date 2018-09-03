@@ -9,8 +9,8 @@
 #include "AKDripDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createDripDSP(int nChannels, double sampleRate) {
-    AKDripDSP* dsp = new AKDripDSP();
+extern "C" void *createDripDSP(int nChannels, double sampleRate) {
+    AKDripDSP *dsp = new AKDripDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -149,7 +149,7 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

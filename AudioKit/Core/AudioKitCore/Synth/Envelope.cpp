@@ -20,7 +20,7 @@ namespace AudioKitCore
 
     void EnvelopeParameters::init(float newSampleRateHz,
                                   int nSegs,
-                                  EnvelopeSegmentParameters* pSegParameters,
+                                  EnvelopeSegmentParameters *pSegParameters,
                                   int susSegIndex,
                                   int attackSegIndex,
                                   int releaseSegIndex)

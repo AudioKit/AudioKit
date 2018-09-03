@@ -105,7 +105,7 @@ namespace AudioKitCore {
 
         envParameters.init((float)(sampleRate/CHUNKSIZE), 6, segParameters, 3, 0, 5);
 
-        for (int i=0; i<MAX_VOICE_COUNT; i++)
+        for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
             voice[i].init(sampleRate, &waveForm1, &waveForm2, &waveForm3, &voiceParameters, &envParameters);
         }
@@ -145,9 +145,9 @@ namespace AudioKitCore {
         }
     }
 
-    SynthVoice* Synth::voicePlayingNote(unsigned noteNumber)
+    SynthVoice *Synth::voicePlayingNote(unsigned noteNumber)
     {
-        SynthVoice* pVoice = voice;
+        SynthVoice *pVoice = voice;
         for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
         {
             if (pVoice->noteNumber == noteNumber) return pVoice;
@@ -160,7 +160,7 @@ namespace AudioKitCore {
         //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
 
         // is any voice already playing this note?
-        SynthVoice* pVoice = voicePlayingNote(noteNumber);
+        SynthVoice *pVoice = voicePlayingNote(noteNumber);
         if (pVoice)
         {
             // re-start the note
@@ -172,7 +172,7 @@ namespace AudioKitCore {
         // find a free voice (with noteNumber < 0) to play the note
         for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
-            SynthVoice* pVoice = &voice[i];
+            SynthVoice *pVoice = &voice[i];
             if (pVoice->noteNumber < 0)
             {
                 // found a free voice: assign it to play this note
@@ -184,12 +184,12 @@ namespace AudioKitCore {
         
         // all oscillators in use: find "stalest" voice to steal
         unsigned greatestDiffOfAll = 0;
-        SynthVoice* pStalestVoiceOfAll = 0;
+        SynthVoice *pStalestVoiceOfAll = 0;
         unsigned greatestDiffInRelease = 0;
-        SynthVoice* pStalestVoiceInRelease = 0;
+        SynthVoice *pStalestVoiceInRelease = 0;
         for (int i=0; i < MAX_VOICE_COUNT; i++)
         {
-            SynthVoice* pVoice = &voice[i];
+            SynthVoice *pVoice = &voice[i];
             unsigned diff = eventCounter - pVoice->event;
             if (pVoice->ampEG.isReleasing())
             {
@@ -221,7 +221,7 @@ namespace AudioKitCore {
     void Synth::stop(unsigned noteNumber, bool immediate)
     {
         //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
-        SynthVoice* pVoice = voicePlayingNote(noteNumber);
+        SynthVoice *pVoice = voicePlayingNote(noteNumber);
         if (pVoice == 0) return;
         //printf("stopNote pVoice is %p\n", pVoice);
         
@@ -239,13 +239,13 @@ namespace AudioKitCore {
     
     void Synth::Render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
     {
-        float* pOutLeft = outBuffers[0];
-        float* pOutRight = outBuffers[1];
+        float *pOutLeft = outBuffers[0];
+        float *pOutRight = outBuffers[1];
         
         float pitchDev = pitchOffset + vibratoDepth * vibratoLFO.getSample();
         float phaseDeltaMul = pow(2.0f, pitchDev / 12.0);
 
-        SynthVoice* pVoice = &voice[0];
+        SynthVoice *pVoice = &voice[0];
         for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
         {
             int nn = pVoice->noteNumber;
