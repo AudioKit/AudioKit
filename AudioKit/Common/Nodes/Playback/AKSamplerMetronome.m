@@ -264,7 +264,7 @@
     soundURL = soundValid ? soundURL : downBeatSoundURL;
     downBeatSoundURL = downBeatValid ? downBeatSoundURL : soundURL;
 
-    self.preset = [AKPresetManager presetWithFilePaths:@[soundURL.path ,downBeatSoundURL.path] oneShot:true];
+    self.preset = [AKPresetManager presetWithFilePaths:@[soundURL.path, downBeatSoundURL.path] oneShot:true];
 
     return true;
 }

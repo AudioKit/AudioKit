@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -14,17 +14,17 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="AKSampler_UIView">
-            <rect key="frame" x="0.0" y="0.0" width="556" height="495"/>
+            <rect key="frame" x="0.0" y="0.0" width="556" height="536"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <stackView distribution="equalSpacing" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xbw-aw-rn4">
-                    <rect key="frame" x="10" y="10" width="536" height="475"/>
+                    <rect key="frame" x="10" y="10" width="536" height="516"/>
                     <subviews>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ENu-hg-tvZ" userLabel="Primary controls">
-                            <rect key="frame" x="0.0" y="408" width="536" height="67"/>
+                            <rect key="frame" x="0.0" y="402" width="536" height="114"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6oO-PF-1xd" userLabel="Master Volume">
-                                    <rect key="frame" x="0.0" y="50" width="536" height="17"/>
+                                    <rect key="frame" x="0.0" y="97" width="536" height="17"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Diw-9O-BVi" userLabel="Label">
                                             <rect key="frame" x="-2" y="0.0" width="144" height="17"/>
@@ -72,7 +72,7 @@
                                     </customSpacing>
                                 </stackView>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ELS-6c-w9O" userLabel="Pitch Offset">
-                                    <rect key="frame" x="0.0" y="25" width="536" height="17"/>
+                                    <rect key="frame" x="0.0" y="72" width="536" height="17"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AsV-xO-Hrs" userLabel="Label">
                                             <rect key="frame" x="-2" y="0.0" width="144" height="17"/>
@@ -120,7 +120,7 @@
                                     </customSpacing>
                                 </stackView>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vlz-Rp-ARl" userLabel="Vibrato Depth">
-                                    <rect key="frame" x="0.0" y="0.0" width="536" height="17"/>
+                                    <rect key="frame" x="0.0" y="47" width="536" height="17"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="q4N-SG-pUz" userLabel="Label">
                                             <rect key="frame" x="-2" y="0.0" width="144" height="17"/>
@@ -167,8 +167,94 @@
                                         <real value="3.4028234663852886e+38"/>
                                     </customSpacing>
                                 </stackView>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tbj-QO-uT7" userLabel="Mono controls">
+                                    <rect key="frame" x="0.0" y="25" width="352" height="14"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ep1-ql-X5Z">
+                                            <rect key="frame" x="-2" y="-2" width="284" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="280" id="ydG-Ky-Eg8"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="check" title="Monophonic" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="SvV-Nn-9dP">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="onMonoCheckbox:" target="c22-O7-iKe" id="85N-gs-arI"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JcY-XF-wb3">
+                                            <rect key="frame" x="290" y="-2" width="64" height="18"/>
+                                            <buttonCell key="cell" type="check" title="Legato" bezelStyle="regularSquare" imagePosition="right" alignment="right" state="on" inset="2" id="UnR-xO-XA9">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="onLegatoCheckbox:" target="c22-O7-iKe" id="Ufa-XJ-qFd"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
+                                <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9s0-Se-5Pd" userLabel="Glide Rate">
+                                    <rect key="frame" x="0.0" y="0.0" width="536" height="17"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8tc-Nf-RpM" userLabel="Label">
+                                            <rect key="frame" x="-2" y="0.0" width="144" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="140" id="434-sR-sAW"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Glide Rate" id="uA7-OG-lQZ">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gkE-dU-VhF">
+                                            <rect key="frame" x="146" y="-2" width="304" height="19"/>
+                                            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" tickMarkPosition="above" sliderType="linear" id="TJ6-a6-ueq"/>
+                                            <connections>
+                                                <action selector="onGlideRateSlider:" target="c22-O7-iKe" id="4k3-tU-Lb7"/>
+                                            </connections>
+                                        </slider>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JYb-TL-i4g" userLabel="Readout">
+                                            <rect key="frame" x="454" y="0.0" width="84" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="80" id="7XO-cd-ktE"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="A5w-r6-0eg">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="JYb-TL-i4g" firstAttribute="baseline" secondItem="8tc-Nf-RpM" secondAttribute="baseline" id="AAN-4s-03L"/>
+                                        <constraint firstItem="gkE-dU-VhF" firstAttribute="baseline" secondItem="8tc-Nf-RpM" secondAttribute="baseline" id="yU8-ts-zMl"/>
+                                    </constraints>
+                                    <visibilityPriorities>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                        <integer value="1000"/>
+                                    </visibilityPriorities>
+                                    <customSpacing>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                        <real value="3.4028234663852886e+38"/>
+                                    </customSpacing>
+                                </stackView>
                             </subviews>
                             <visibilityPriorities>
+                                <integer value="1000"/>
+                                <integer value="1000"/>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
                                 <integer value="1000"/>
@@ -177,10 +263,12 @@
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
                                 <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
+                                <real value="3.4028234663852886e+38"/>
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hA2-GM-XM0" userLabel="Amp EG controls">
-                            <rect key="frame" x="0.0" y="288" width="536" height="92"/>
+                            <rect key="frame" x="0.0" y="283" width="536" height="92"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEW-gT-wPg" userLabel="Amp Attack">
                                     <rect key="frame" x="0.0" y="75" width="536" height="17"/>
@@ -389,7 +477,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oJ4-ap-wij" userLabel="Filter controls">
-                            <rect key="frame" x="0.0" y="170" width="536" height="89"/>
+                            <rect key="frame" x="0.0" y="167" width="536" height="89"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eoH-63-eDf">
                                     <rect key="frame" x="-2" y="73" width="164" height="18"/>
@@ -563,7 +651,7 @@
                             </customSpacing>
                         </stackView>
                         <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-iE-4d8" userLabel="Filter EG controls">
-                            <rect key="frame" x="0.0" y="50" width="536" height="92"/>
+                            <rect key="frame" x="0.0" y="48" width="536" height="92"/>
                             <subviews>
                                 <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPW-Pp-hqG" userLabel="Filter Attack">
                                     <rect key="frame" x="0.0" y="75" width="536" height="17"/>
@@ -823,8 +911,11 @@
                         </stackView>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="oLt-iE-4d8" secondAttribute="trailing" id="BLg-kb-TrA"/>
+                        <constraint firstAttribute="trailing" secondItem="ENu-hg-tvZ" secondAttribute="trailing" id="Sc9-m1-EED"/>
                         <constraint firstAttribute="trailing" secondItem="oJ4-ap-wij" secondAttribute="trailing" id="VpR-PX-3cU"/>
                         <constraint firstAttribute="trailing" secondItem="wFe-cU-0Dd" secondAttribute="trailing" id="fGu-gb-elT"/>
+                        <constraint firstAttribute="trailing" secondItem="hA2-GM-XM0" secondAttribute="trailing" id="rfl-2r-AEu"/>
                     </constraints>
                     <visibilityPriorities>
                         <integer value="1000"/>
@@ -872,6 +963,10 @@
                 <outlet property="filterResonanceText" destination="xRN-N4-ImA" id="Yx8-yV-U9T"/>
                 <outlet property="filterSustainSlider" destination="6RU-GL-Zlv" id="Q77-Cn-q2S"/>
                 <outlet property="filterSustainText" destination="PhS-0g-sz0" id="xC2-6t-VCl"/>
+                <outlet property="glideRateSlider" destination="gkE-dU-VhF" id="L1a-7y-4se"/>
+                <outlet property="glideRateText" destination="JYb-TL-i4g" id="vCS-Kn-41P"/>
+                <outlet property="legatoCheckbox" destination="JcY-XF-wb3" id="TX6-ua-Dfp"/>
+                <outlet property="monoCheckbox" destination="ep1-ql-X5Z" id="Zk2-vc-saO"/>
                 <outlet property="pitchOffsetSlider" destination="qVf-YL-PbG" id="bbS-gc-hJv"/>
                 <outlet property="pitchOffsetText" destination="U0P-Ut-eXr" id="gqn-MR-1GW"/>
                 <outlet property="presetPopup" destination="mlj-Gi-WwS" id="IMa-jl-beI"/>
@@ -880,7 +975,7 @@
                 <outlet property="volumeSlider" destination="Yrt-mh-chR" id="umb-qx-01E"/>
                 <outlet property="volumeText" destination="BF2-i5-2QS" id="cvb-Id-8KX"/>
             </connections>
-            <point key="canvasLocation" x="132" y="276.5"/>
+            <point key="canvasLocation" x="132" y="256"/>
         </customView>
     </objects>
 </document>

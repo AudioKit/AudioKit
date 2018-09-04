@@ -26,6 +26,10 @@ AudioUnitParameter parameter[] = {
     { 0, kFilterEgDecayTimeSeconds, kAudioUnitScope_Global, 0 },
     { 0, kFilterEgSustainFraction, kAudioUnitScope_Global, 0 },
     { 0, kFilterEgReleaseTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kLoopThruRelease, kAudioUnitScope_Global, 0 },
+    { 0, kMonophonic, kAudioUnitScope_Global, 0 },
+    { 0, kLegato, kAudioUnitScope_Global, 0 },
+    { 0, kGlideRate, kAudioUnitScope_Global, 0 },
 };
 
 
@@ -85,6 +89,25 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [vibratoDepthText setFloatValue: inValue];
     NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kVibratoDepthSemitones], (Float32)inValue, 0) == noErr,
              @"[AKSampler_UIView onVibratoDepthSlider:] AUParameterSet()");
+}
+
+- (IBAction)onMonoCheckbox:(NSButton *)sender {
+    bool enable = ([sender state] == NSOnState);
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kMonophonic], (Float32)(enable ? 1 : 0), 0) == noErr,
+             @"[AKSampler_UIView onMonoCheckbox:] AUParameterSet()");
+}
+
+- (IBAction)onLegatoCheckbox:(NSButton *)sender {
+    bool enable = ([sender state] == NSOnState);
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kLegato], (Float32)(enable ? 1 : 0), 0) == noErr,
+             @"[AKSampler_UIView onLegatoCheckbox:] AUParameterSet()");
+}
+
+- (IBAction)onGlideRateSlider:(NSSlider *)sender {
+    float inValue = [sender floatValue];
+    [glideRateText setFloatValue: inValue];
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kGlideRate], (Float32)inValue, 0) == noErr,
+             @"[AKSampler_UIView onGlideRateSlider:] AUParameterSet()");
 }
 
 - (IBAction)onAmpAttackSlider:(NSSlider *)sender {
@@ -285,6 +308,16 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         case kVibratoDepthSemitones:
             [vibratoDepthSlider setFloatValue: inValue];
             [vibratoDepthText setFloatValue: inValue];
+            break;
+        case kMonophonic:
+            [monoCheckbox setState: inValue != 0.0 ? NSOnState : NSOffState];
+            break;
+        case kLegato:
+            [legatoCheckbox setState: inValue != 0.0 ? NSOnState : NSOffState];
+            break;
+        case kGlideRate:
+            [glideRateSlider setFloatValue: inValue];
+            [glideRateText setFloatValue: inValue];
             break;
         case kAmpEgAttackTimeSeconds:
             [ampAttackSlider setFloatValue: inValue];

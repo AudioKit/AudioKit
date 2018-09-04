@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
 
 #ifndef __cplusplus
 
-void* createStringResonatorDSP(int nChannels, double sampleRate);
+void *createStringResonatorDSP(int nChannels, double sampleRate);
 
 #else
 

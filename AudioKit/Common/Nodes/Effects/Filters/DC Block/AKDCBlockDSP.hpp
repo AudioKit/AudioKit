@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKDCBlockParameter) {
 
 #ifndef __cplusplus
 
-void* createDCBlockDSP(int nChannels, double sampleRate);
+void *createDCBlockDSP(int nChannels, double sampleRate);
 
 #else
 

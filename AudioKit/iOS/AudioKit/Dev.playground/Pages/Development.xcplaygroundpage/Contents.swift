@@ -70,8 +70,7 @@ let numTunings = presetArray.count
 
 // SELECT A TUNING
 func selectTuning(_ index: Int) {
-    let i = index % numTunings
-    let key = presetArray[i]
+    let key = presetArray[index % numTunings]
     presetDictionary[key]?()
 }
 

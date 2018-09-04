@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKResonantFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createResonantFilterDSP(int nChannels, double sampleRate);
+void *createResonantFilterDSP(int nChannels, double sampleRate);
 
 #else
 

@@ -39,6 +39,6 @@ typedef struct
 {
     AKSampleDescriptor sampleDescriptor;
     
-    const char* path;
+    const char *path;
     
 } AKSampleFileDescriptor;

@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKFlatFrequencyResponseReverbParameter) {
 
 #ifndef __cplusplus
 
-void* createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate);
+void *createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate);
 
 #else
 
