@@ -644,6 +644,18 @@ void AKSamplerDSP::getParameterName (VstInt32 index, char* label)
         case kFilterReleaseTime:
             vst_strncpy(label, "Flt.Rel", kVstMaxParamStrLen);
             break;
+        case kLoopThruRelease:
+            vst_strncpy(label, "Loop.Rel", kVstMaxParamStrLen);
+            break;
+        case kMonophonic:
+            vst_strncpy(label, "Mono", kVstMaxParamStrLen);
+            break;
+        case kLegato:
+            vst_strncpy(label, "Legato", kVstMaxParamStrLen);
+            break;
+        case kGlideRate:
+            vst_strncpy(label, "Glide", kVstMaxParamStrLen);
+            break;
     }
 }
 
@@ -700,6 +712,27 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
         case kFilterReleaseTime:
             float2string(filterEnvelopeParameters.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
             break;
+        case kLoopThruRelease:
+            if (loopThruRelease)
+                vst_strncpy(text, "YES", kVstMaxParamStrLen);
+            else
+                vst_strncpy(text, "NO", kVstMaxParamStrLen);
+            break;
+        case kMonophonic:
+            if (isMonophonic)
+                vst_strncpy(text, "YES", kVstMaxParamStrLen);
+            else
+                vst_strncpy(text, "NO", kVstMaxParamStrLen);
+            break;
+        case kLegato:
+            if (isLegato)
+                vst_strncpy(text, "YES", kVstMaxParamStrLen);
+            else
+                vst_strncpy(text, "NO", kVstMaxParamStrLen);
+            break;
+        case kGlideRate:
+            float2string(glideRate, text, kVstMaxParamStrLen);
+            break;
     }
 }
 
@@ -753,6 +786,18 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
     case kFilterReleaseTime:
         sprintf(text, "%.2f sec", filterEnvelopeParameters.getReleaseTimeSeconds());
         break;
+    case kLoopThruRelease:
+        sprintf(text, "%s", loopThruRelease ? "yes" : "no");
+        break;
+    case kMonophonic:
+        sprintf(text, "%s", isMonophonic ? "mono" : "poly");
+        break;
+    case kLegato:
+        sprintf(text, "%s", isLegato ? "legato" : "normal");
+        break;
+    case kGlideRate:
+        sprintf(text, "%.2f sec/octave", glideRate);
+        break;
     }
 }
 
@@ -805,6 +850,18 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         break;
     case kFilterReleaseTime:
         filterEnvelopeParameters.setReleaseTimeSeconds(value * 10.0f);
+        break;
+    case kLoopThruRelease:
+        loopThruRelease = value > 0.5f;
+        break;
+    case kMonophonic:
+        isMonophonic = value > 0.5f;
+        break;
+    case kLegato:
+        isLegato = value > 0.5f;
+        break;
+    case kGlideRate:
+        glideRate = value * 10.0f;
         break;
     }
 }
@@ -865,6 +922,18 @@ float AKSamplerDSP::getParameter (VstInt32 index)
         case kFilterReleaseTime:
             value = filterEnvelopeParameters.getReleaseTimeSeconds() / 10.0f;
             break;
+        case kLoopThruRelease:
+            value = loopThruRelease ? 1.0f : 0.0f;
+            break;
+        case kMonophonic:
+            value = isMonophonic ? 1.0f : 0.0f;
+            break;
+        case kLegato:
+            value = isLegato ? 1.0f : 0.0f;
+            break;
+        case kGlideRate:
+            value = glideRate / 10.0f;
+            break;
     }
 	return value;
 }
@@ -903,6 +972,14 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
         return filterEnvelopeParameters.sustainFraction;
     case kFilterReleaseTime:
         return filterEnvelopeParameters.getReleaseTimeSeconds();
+    case kLoopThruRelease:
+        return loopThruRelease ? 1.0f : 0.0f;
+    case kMonophonic:
+        return isMonophonic ? 1.0f : 0.0f;
+    case kLegato:
+        return isLegato ? 1.0f : 0.0f;
+    case kGlideRate:
+        return glideRate / 10.0f;
     }
     return 0.0f;
 }

@@ -11,7 +11,7 @@
 
 @interface AKTesterAudioUnit : AKAudioUnit
 
-@property (readonly) NSString* md5;
+@property (readonly) NSString *md5;
 @property int samples;
 
 @end

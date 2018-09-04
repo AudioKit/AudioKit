@@ -164,7 +164,7 @@
 @implementation AUParameterTree(Ext)
 
 +(instancetype)tree:(NSArray<AUParameterNode *> *)children {
-    AUParameterTree* tree = [AUParameterTree createTreeWithChildren:children];
+    AUParameterTree *tree = [AUParameterTree createTreeWithChildren:children];
     if (tree == nil) {
         return nil;
     }

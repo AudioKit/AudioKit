@@ -27,10 +27,10 @@ public:
     // Override to handle MIDI events.
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
-    void processWithEvents(AudioTimeStamp const* timestamp, AUAudioFrameCount frameCount, AURenderEvent const* events);
+    void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount, AURenderEvent const *events);
 
 private:
-    void handleOneEvent(AURenderEvent const* event);
+    void handleOneEvent(AURenderEvent const *event);
     void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);
 };
 

@@ -90,32 +90,32 @@
 }
 +(NSDictionary *)presetWithZones:(NSArray <AKPresetZone *> *)presetZones oneShot:(BOOL)oneShot{
     NSMutableDictionary *preset = mutableSkeleton();
-    NSDictionary *waveFormIds = waveformsPathIndexed(presetZones);
-    if(!waveFormIds)return NULL;
-    for (NSString *path in waveFormIds.allKeys) {
-        NSNumber *waveFormId = waveFormIds[path];
-        NSString *sampleKey = [FILEREFPREFIX stringByAppendingString:waveFormId.stringValue];
+    NSDictionary *waveformIDs = waveformsPathIndexed(presetZones);
+    if(!waveformIDs)return NULL;
+    for (NSString *path in waveformIDs.allKeys) {
+        NSNumber *waveformID = waveformIDs[path];
+        NSString *sampleKey = [FILEREFPREFIX stringByAppendingString:waveformID.stringValue];
         preset.fileReferences[sampleKey] = path;
     }
     int ID = 1;
     for (AKPresetZone *presetZone in presetZones) {
         presetZone.ID = @(ID);
-        presetZone.waveform = waveFormIds[presetZone.filePath];
+        presetZone.waveform = waveformIDs[presetZone.filePath];
         [preset.zones addObject:presetZone.asDictionary];
     }
     preset.oneShot = oneShot;
     return preset;
 }
 +(NSDictionary *)samplerPreset:(AudioUnit)samplerUnit{
-    CFPropertyListRef presetPlist;
-    UInt32 presetPlistSize;
-    AudioUnitGetProperty(samplerUnit, kAudioUnitProperty_ClassInfo, kAudioUnitScope_Global, 0, &presetPlist, &presetPlistSize);
-    NSDictionary *presetDict = (__bridge_transfer NSDictionary *)presetPlist;
+    CFPropertyListRef presetPList;
+    UInt32 presetPListSize;
+    AudioUnitGetProperty(samplerUnit, kAudioUnitProperty_ClassInfo, kAudioUnitScope_Global, 0, &presetPList, &presetPListSize);
+    NSDictionary *presetDict = (__bridge_transfer NSDictionary *)presetPList;
     return presetDict;
 }
 +(BOOL)setPreset:(NSDictionary *)preset forSampler:(AudioUnit)sampler error:(NSError **)outError{
-    CFPropertyListRef presetPlist = (__bridge CFPropertyListRef)preset;
-    OSStatus status = AudioUnitSetProperty(sampler,kAudioUnitProperty_ClassInfo,kAudioUnitScope_Global,0,&presetPlist,sizeof(presetPlist));
+    CFPropertyListRef presetPList = (__bridge CFPropertyListRef)preset;
+    OSStatus status = AudioUnitSetProperty(sampler,kAudioUnitProperty_ClassInfo,kAudioUnitScope_Global,0,&presetPList,sizeof(presetPList));
     if (status) {
         if (outError) {
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
@@ -132,10 +132,10 @@
 NSDictionary *waveformsPathIndexed(NSArray <AKPresetZone *> *presetZones) {
     NSSet *filePaths = [NSSet setWithArray:[presetZones valueForKey:@"filePath"]];
     NSMutableDictionary *waveformsPathIndexed = [[NSMutableDictionary alloc]init];
-    int nextWaveformId = STARTINGWAVEFORMID;
+    int nextWaveformID = STARTINGWAVEFORMID;
     for (NSString *path in filePaths) {
-        waveformsPathIndexed[path] = @(nextWaveformId);
-        nextWaveformId++;
+        waveformsPathIndexed[path] = @(nextWaveformID);
+        nextWaveformID++;
     }
     return waveformsPathIndexed;
 }

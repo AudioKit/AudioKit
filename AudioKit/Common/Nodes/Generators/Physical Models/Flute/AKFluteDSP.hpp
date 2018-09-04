@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
 
 #ifndef __cplusplus
 
-void* createFluteDSP(int nChannels, double sampleRate);
+void *createFluteDSP(int nChannels, double sampleRate);
 
 #else
 

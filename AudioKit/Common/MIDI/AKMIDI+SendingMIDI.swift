@@ -191,7 +191,7 @@ extension AKMIDI {
         let message: [MIDIByte] = [pitchCommand, byte1, byte2]
         self.sendMessage(message)
     }
-    
+
     // MARK: -
     // MARK: - Expand api to include MIDITimeStamp
     // MARK: -
@@ -202,11 +202,9 @@ extension AKMIDI {
                                           time: MIDITimeStamp = 0) {
         let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
         let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
-        self.sendMessageWithTime(message, time:time)
+        self.sendMessageWithTime(message, time: time)
     }
-    
-    
-    
+
     /// Send a Note Off Message
     public func sendNoteOffMessageWithTime(noteNumber: MIDINoteNumber,
                                            velocity: MIDIVelocity,
@@ -214,28 +212,26 @@ extension AKMIDI {
                                            time: MIDITimeStamp = 0) {
         let noteCommand: UInt8 = UInt8(0x80) + UInt8(channel)
         let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
-        self.sendMessageWithTime(message, time:time)
+        self.sendMessageWithTime(message, time: time)
     }
-    
-    
-    
+
     /// Send Message with data
-    public func sendMessageWithTime(_ data: [UInt8], time:MIDITimeStamp) {
+    public func sendMessageWithTime(_ data: [UInt8], time: MIDITimeStamp) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
-        
-        var packet: UnsafeMutablePointer<MIDIPacket>? = nil
+
+        var packet: UnsafeMutablePointer<MIDIPacket>?
         packet = MIDIPacketListInit(packetListPointer)
-        packet = MIDIPacketListAdd(packetListPointer, 1024, packet!, time, data.count, data)
+        packet = MIDIPacketListAdd(packetListPointer, 1_024, packet!, time, data.count, data)
         for endpoint in endpoints.values {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
                 AKLog("error sending midi : \(result)")
             }
         }
-        
+
         if virtualOutput != 0 {
             MIDIReceived(virtualOutput, packetListPointer)
         }
     }
-    
+
 }

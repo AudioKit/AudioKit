@@ -73,7 +73,15 @@ namespace AudioKitCore
         ADSREnvelopeParameters filterEnvelopeParameters;
         
         // performance parameters
-        float masterVolume, pitchOffset, vibratoDepth;
+        float masterVolume, pitchOffset, vibratoDepth, glideRate;
+
+        // parameters for mono-mode only
+        bool isMonophonic;      // default false
+        bool isLegato;          // true if notes shouldn't retrigger in mono mode
+        float portamentoRate;   // semitones/sec
+        // mono-mode state
+        unsigned lastPlayedNoteNumber;
+        float lastPlayedNoteFrequency;
 
         // per-voice filter parameters
         float cutoffMultiple;   // multiple of note frequency - 1.0 means cutoff at fundamental
@@ -87,9 +95,9 @@ namespace AudioKitCore
         bool stoppingAllVoices;
         
         // helper functions
-        SamplerVoice* voicePlayingNote(unsigned noteNumber);
-        KeyMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
-        void play(unsigned noteNumber, unsigned velocity, float noteFrequency);
+        SamplerVoice *voicePlayingNote(unsigned noteNumber);
+        KeyMappedSampleBuffer *lookupSample(unsigned noteNumber, unsigned velocity);
+        void play(unsigned noteNumber, unsigned velocity, float noteFrequency, bool anotherKeyWasDown);
         void stop(unsigned noteNumber, bool immediate);
     };
 }

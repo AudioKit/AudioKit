@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
 
 #ifndef __cplusplus
 
-void* createCombFilterReverbDSP(int nChannels, double sampleRate);
+void *createCombFilterReverbDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -97,8 +97,8 @@ public:
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel < 2) {
                     tmpin[channel] = in;
