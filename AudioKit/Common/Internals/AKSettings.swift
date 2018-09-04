@@ -60,11 +60,15 @@
     /// The sample rate in Hertz
     @objc public static var sampleRate: Double = 44_100 {
         didSet {
+            #if !os(macOS)
             do {
                 try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
             } catch {
                 print(error)
             }
+            #else
+            //nothing for macOS
+            #endif
         }
     }
 
