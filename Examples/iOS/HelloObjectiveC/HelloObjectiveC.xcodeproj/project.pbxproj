@@ -14,7 +14,8 @@
 		C40A79F71C59616900CD8CB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40A79F61C59616900CD8CB0 /* Assets.xcassets */; };
 		C40A79FA1C59616900CD8CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A79F81C59616900CD8CB0 /* LaunchScreen.storyboard */; };
 		C4338E791C59A4DA00296845 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4338E781C59A4DA00296845 /* AudioKit.framework */; };
-		C49523191F64FCBC00C77E02 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49523181F64FCB700C77E02 /* AudioKitUI.framework */; };
+		EAC40A92213E96DB00B1BABE /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C49523181F64FCB700C77E02 /* AudioKitUI.framework */; };
+		EAC40A93213E96DB00B1BABE /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C49523181F64FCB700C77E02 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EAC40A93213E96DB00B1BABE /* AudioKitUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49523191F64FCBC00C77E02 /* AudioKitUI.framework in Frameworks */,
+				EAC40A92213E96DB00B1BABE /* AudioKitUI.framework in Frameworks */,
 				C4338E791C59A4DA00296845 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
