@@ -1,5 +1,5 @@
 //
-//  SynthDSP.hpp
+//  AKSynthDSP.hpp
 //  AudioKit
 //
 //  Created by Shane Dunne, revision history on Github.
@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(int64_t, SynthParameter)
+typedef NS_ENUM(int64_t, AKSynthParameter)
 {
     // ramped parameters
     
@@ -38,10 +38,10 @@ typedef NS_ENUM(int64_t, SynthParameter)
 
 #ifndef __cplusplus
 
-void *createSynthDSP(int nChannels, double sampleRate);
-void doSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
-void doSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
-void doSynthSustainPedal(void *pDSP, bool pedalDown);
+void *AKSynthCreateDSP(int nChannels, double sampleRate);
+void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
+void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
+void AKSynthSustainPedal(void *pDSP, bool pedalDown);
 
 #else
 
@@ -49,7 +49,7 @@ void doSynthSustainPedal(void *pDSP, bool pedalDown);
 #include "Synth.hpp"
 #include "AKLinearParameterRamp.hpp"
 
-struct SynthDSP : AKDSPBase, AudioKitCore::Synth
+struct AKSynthDSP : AKDSPBase, AudioKitCore::Synth
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
@@ -58,7 +58,7 @@ struct SynthDSP : AKDSPBase, AudioKitCore::Synth
     AKLinearParameterRamp filterCutoffRamp;
     AKLinearParameterRamp filterResonanceRamp;
     
-    SynthDSP();
+    AKSynthDSP();
     void init(int nChannels, double sampleRate) override;
     void deinit() override;
 
