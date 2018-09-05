@@ -1,35 +1,35 @@
 //
-//  SynthDSP.cpp
+//  AKSynthDSP.cpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#import "SynthDSP.hpp"
+#import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *createSynthDSP(int nChannels, double sampleRate) {
-    return new SynthDSP();
+extern "C" void *AKSynthCreateDSP(int nChannels, double sampleRate) {
+    return new AKSynthDSP();
 }
 
-extern "C" void doSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
+extern "C" void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
 {
-    ((SynthDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
+    ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
 }
 
-extern "C" void doSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
 {
-    ((SynthDSP*)pDSP)->stopNote(noteNumber, immediate);
+    ((AKSynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doSynthSustainPedal(void *pDSP, bool pedalDown)
+extern "C" void AKSynthSustainPedal(void *pDSP, bool pedalDown)
 {
-    ((SynthDSP*)pDSP)->sustainPedal(pedalDown);
+    ((AKSynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
 
 
-SynthDSP::SynthDSP() : AudioKitCore::Synth()
+AKSynthDSP::AKSynthDSP() : AudioKitCore::Synth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -38,18 +38,18 @@ SynthDSP::SynthDSP() : AudioKitCore::Synth()
     filterResonanceRamp.setTarget(1.0, true);
 }
 
-void SynthDSP::init(int nChannels, double sampleRate)
+void AKSynthDSP::init(int nChannels, double sampleRate)
 {
     AKDSPBase::init(nChannels, sampleRate);
     AudioKitCore::Synth::init(sampleRate);
 }
 
-void SynthDSP::deinit()
+void AKSynthDSP::deinit()
 {
     AudioKitCore::Synth::deinit();
 }
 
-void SynthDSP::setParameter(uint64_t address, float value, bool immediate)
+void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
         case rampDurationParameter:
@@ -104,7 +104,7 @@ void SynthDSP::setParameter(uint64_t address, float value, bool immediate)
     }
 }
 
-float SynthDSP::getParameter(uint64_t address)
+float AKSynthDSP::getParameter(uint64_t address)
 {
     switch (address) {
         case rampDurationParameter:
@@ -142,7 +142,7 @@ float SynthDSP::getParameter(uint64_t address)
     return 0;
 }
 
-void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
+void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     // process in chunks of maximum length CHUNKSIZE
     for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
