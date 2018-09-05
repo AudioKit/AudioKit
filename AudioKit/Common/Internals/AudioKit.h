@@ -174,4 +174,4 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKInterop.h"
 
 // Synth
-#import "SynthDSP.hpp"
+#import "AKSynthDSP.hpp"
