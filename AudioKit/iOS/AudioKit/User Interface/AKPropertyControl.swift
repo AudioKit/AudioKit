@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 @IBDesignable open class AKPropertyControl: UIView {
 

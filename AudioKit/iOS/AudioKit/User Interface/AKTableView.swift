@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 /// Displays the values in the table into a nice graph
 public class AKTableView: UIView {
