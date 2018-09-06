@@ -107,6 +107,7 @@
 				C417027D1C11954900AB689C /* Frameworks */,
 				C417027E1C11954900AB689C /* Resources */,
 				EAD65AD8213F4B8A0063221D /* Embed Frameworks */,
+				EAD65AED21413C810063221D /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -163,6 +164,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAD65AED21413C810063221D /* Fix AudioKitUI slices */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix AudioKitUI slices";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C417027C1C11954900AB689C /* Sources */ = {
