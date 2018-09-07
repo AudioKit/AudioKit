@@ -13,7 +13,8 @@
 		C4486EF31D42AE4700FE135F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */; };
 		C4486EF41D42AE4700FE135F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EED1D42AE4700FE135F /* Main.storyboard */; };
 		C4486EF61D42AE4700FE135F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4486EF01D42AE4700FE135F /* ViewController.swift */; };
-		EA10E1661F4F9B7A003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1651F4F9B7A003F0CA9 /* AudioKitUI.framework */; };
+		EAD0DED22142080600DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1651F4F9B7A003F0CA9 /* AudioKitUI.framework */; };
+		EAD0DED32142080600DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1651F4F9B7A003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EAD0DED32142080600DCE36F /* AudioKitUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA10E1661F4F9B7A003F0CA9 /* AudioKitUI.framework in Frameworks */,
+				EAD0DED22142080600DCE36F /* AudioKitUI.framework in Frameworks */,
 				7814CAE81D463C30004EA355 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +114,7 @@
 				8DAD9EDA1D3E4A3400CD3B0A /* Frameworks */,
 				8DAD9EDB1D3E4A3400CD3B0A /* Resources */,
 				C43147211D42AF0A005F18AB /* Embed Frameworks */,
+				EAD0DED42142082600DCE36F /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -169,6 +172,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAD0DED42142082600DCE36F /* Fix AudioKitUI slices */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix AudioKitUI slices";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DAD9ED91D3E4A3400CD3B0A /* Sources */ = {
