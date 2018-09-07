@@ -1089,6 +1089,7 @@
 		EA03BFEA202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA03C02C2024606300E8BE2C /* ParameterRamper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA03C02B2024606200E8BE2C /* ParameterRamper.cpp */; };
 		EAB4E0532026A0A400171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */; };
+		EAD0DEE821426B9400DCE36F /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD0DEE721426B9400DCE36F /* libstdc++.tbd */; };
 		EAD65AE021408AE10063221D /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAD65ADE21408AE10063221D /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAD65AE121408AE10063221D /* AKSynthDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAD65ADF21408AE10063221D /* AKSynthDSP.mm */; };
 		EAF71D8020248B3F0018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7E20248B3F0018946B /* AKDSPKernel.mm */; };
@@ -2316,6 +2317,7 @@
 		EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA03C02B2024606200E8BE2C /* ParameterRamper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterRamper.cpp; sourceTree = "<group>"; };
 		EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
+		EAD0DEE721426B9400DCE36F /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EAD65ADE21408AE10063221D /* AKSynthDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynthDSP.hpp; sourceTree = "<group>"; };
 		EAD65ADF21408AE10063221D /* AKSynthDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSynthDSP.mm; sourceTree = "<group>"; };
 		EAF71D7D20248B3E0018946B /* AudioUnit+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AudioUnit+Helpers.swift"; sourceTree = "<group>"; };
@@ -2352,6 +2354,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD0DEE821426B9400DCE36F /* libstdc++.tbd in Frameworks */,
 				EAFECEDC1F4EBE6600A2B046 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5094,6 +5097,7 @@
 		EAFECEDB1F4EBE6600A2B046 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAD0DEE721426B9400DCE36F /* libstdc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
