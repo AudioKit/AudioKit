@@ -25,7 +25,7 @@ namespace AudioKitCore
         void setPitchOffsetSemitones(double semitones) { multiplier = pow(2.0, semitones/12.0); }
         
         // return true if we run out of samples
-        inline bool getSample(SampleBuffer* sampleBuffer, int sampleCount, float* output, float gain)
+        inline bool getSample(SampleBuffer *sampleBuffer, int sampleCount, float *output, float gain)
         {
             if (sampleBuffer == NULL || indexPoint > sampleBuffer->endPoint) return true;
             *output = sampleBuffer->interp(indexPoint, gain);
@@ -40,7 +40,7 @@ namespace AudioKitCore
         }
         
         // return true if we run out of samples
-        inline bool getSamplePair(SampleBuffer* sampleBuffer, int sampleCount, float* leftOutput, float* rightOutput, float gain)
+        inline bool getSamplePair(SampleBuffer *sampleBuffer, int sampleCount, float *leftOutput, float *rightOutput, float gain)
         {
             if (sampleBuffer == NULL || indexPoint > sampleBuffer->endPoint) return true;
             sampleBuffer->interp(indexPoint, leftOutput, rightOutput, gain);

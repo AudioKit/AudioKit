@@ -19,9 +19,9 @@ class AKPhaseDistortionOscillatorBankDSPKernel : public AKBankDSPKernel, public 
 public:
     // MARK: Types
     struct NoteState {
-        NoteState* next;
-        NoteState* prev;
-        AKPhaseDistortionOscillatorBankDSPKernel* kernel;
+        NoteState *next;
+        NoteState *prev;
+        AKPhaseDistortionOscillatorBankDSPKernel *kernel;
 
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
@@ -101,7 +101,7 @@ public:
         }
 
 
-        void run(int frameCount, float* outL, float* outR)
+        void run(int frameCount, float *outL, float *outR)
         {
             float originalFrequency = phs->freq;
             phs->freq *= powf(2, kernel->pitchBend / 12.0);
@@ -210,13 +210,13 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         phaseDistortion = double(phaseDistortionRamper.getAndStep());
         standardBankGetAndSteps()
 
-        NoteState* noteState = playingNotes;
+        NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -240,7 +240,7 @@ private:
     float phaseDistortion = 0.0;
 
 public:
-    NoteState* playingNotes = nullptr;
+    NoteState *playingNotes = nullptr;
 
     ParameterRamper phaseDistortionRamper = 0.0;
 };

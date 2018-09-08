@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKFMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void* createFMOscillatorDSP(int nChannels, double sampleRate);
+void *createFMOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 

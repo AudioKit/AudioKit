@@ -28,7 +28,7 @@ namespace AudioKitCore {
     , loopThruRelease(false)
     , stoppingAllVoices(false)
     {
-        SamplerVoice* pVoice = voice;
+        SamplerVoice *pVoice = voice;
         for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
         {
             pVoice->adsrEnvelope.pParameters = &adsrEnvelopeParameters;
@@ -58,14 +58,14 @@ namespace AudioKitCore {
     void Sampler::deinit()
     {
         isKeyMapValid = false;
-        for (KeyMappedSampleBuffer* pBuf : sampleBufferList) delete pBuf;
+        for (KeyMappedSampleBuffer *pBuf : sampleBufferList) delete pBuf;
         sampleBufferList.clear();
         for (int i=0; i < MIDI_NOTENUMBERS; i++) keyMap[i].clear();
     }
     
     void Sampler::loadSampleData(AKSampleDataDescriptor& sdd)
     {
-        KeyMappedSampleBuffer* pBuf = new KeyMappedSampleBuffer();
+        KeyMappedSampleBuffer *pBuf = new KeyMappedSampleBuffer();
         pBuf->minimumNoteNumber = sdd.sampleDescriptor.minimumNoteNumber;
         pBuf->maximumNoteNumber = sdd.sampleDescriptor.maximumNoteNumber;
         pBuf->minimumVelocity = sdd.sampleDescriptor.minimumVelocity;
@@ -73,7 +73,7 @@ namespace AudioKitCore {
         sampleBufferList.push_back(pBuf);
         
         pBuf->init(sdd.sampleRate, sdd.channelCount, sdd.sampleCount);
-        float* pData = sdd.data;
+        float *pData = sdd.data;
         if (sdd.isInterleaved) for (int i=0; i < sdd.sampleCount; i++)
         {
             pBuf->setData(i, *pData++);
@@ -101,13 +101,13 @@ namespace AudioKitCore {
         }
     }
     
-    KeyMappedSampleBuffer* Sampler::lookupSample(unsigned noteNumber, unsigned velocity)
+    KeyMappedSampleBuffer *Sampler::lookupSample(unsigned noteNumber, unsigned velocity)
     {
         // common case: only one sample mapped to this note - return it immediately
         if (keyMap[noteNumber].size() == 1) return keyMap[noteNumber].front();
         
         // search samples mapped to this note for best choice based on velocity
-        for (KeyMappedSampleBuffer* pBuf : keyMap[noteNumber])
+        for (KeyMappedSampleBuffer *pBuf : keyMap[noteNumber])
         {
             // if sample does not have velocity range, accept it trivially
             if (pBuf->minimumVelocity < 0 || pBuf->maximumVelocity < 0) return pBuf;
@@ -132,7 +132,7 @@ namespace AudioKitCore {
         {
             // scan loaded samples to find the minimum distance to note nn
             int minDistance = MIDI_NOTENUMBERS;
-            for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
+            for (KeyMappedSampleBuffer *pBuf : sampleBufferList)
             {
                 int distance = abs(pBuf->noteNumber - nn);
                 if (distance < minDistance)
@@ -142,7 +142,7 @@ namespace AudioKitCore {
             }
             
             // scan again to add only samples at this distance to the list for note nn
-            for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
+            for (KeyMappedSampleBuffer *pBuf : sampleBufferList)
             {
                 int distance = abs(pBuf->noteNumber - nn);
                 if (distance == minDistance)
@@ -163,7 +163,7 @@ namespace AudioKitCore {
 
         for (int nn=0; nn < MIDI_NOTENUMBERS; nn++)
         {
-            for (KeyMappedSampleBuffer* pBuf : sampleBufferList)
+            for (KeyMappedSampleBuffer *pBuf : sampleBufferList)
             {
                 if (nn >= pBuf->minimumNoteNumber && nn <= pBuf->maximumNoteNumber)
                     keyMap[nn].push_back(pBuf);
@@ -172,11 +172,11 @@ namespace AudioKitCore {
         isKeyMapValid = true;
     }
     
-    SamplerVoice* Sampler::voicePlayingNote(unsigned noteNumber)
+    SamplerVoice *Sampler::voicePlayingNote(unsigned noteNumber)
     {
         for (int i=0; i < MAX_POLYPHONY; i++)
         {
-            SamplerVoice* pVoice = &voice[i];
+            SamplerVoice *pVoice = &voice[i];
             if (pVoice->noteNumber == noteNumber) return pVoice;
         }
         return 0;
@@ -221,7 +221,7 @@ namespace AudioKitCore {
             if (isLegato && anotherKeyWasDown)
             {
                 // is our one and only voice playing some note?
-                SamplerVoice* pVoice = &voice[0];
+                SamplerVoice *pVoice = &voice[0];
                 if (pVoice->noteNumber >= 0)
                 {
                     //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
@@ -229,7 +229,7 @@ namespace AudioKitCore {
                 }
                 else
                 {
-                    KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                    KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
                     if (pBuf == 0) return;  // don't crash if someone forgets to build map
                     pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 }
@@ -239,8 +239,8 @@ namespace AudioKitCore {
             else
             {
                 // monophonic but not legato: always start a new note
-                SamplerVoice* pVoice = &voice[0];
-                KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                SamplerVoice *pVoice = &voice[0];
+                KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 lastPlayedNoteNumber = noteNumber;
@@ -251,7 +251,7 @@ namespace AudioKitCore {
         else // polyphonic
         {
             // is any voice already playing this note?
-            SamplerVoice* pVoice = voicePlayingNote(noteNumber);
+            SamplerVoice *pVoice = voicePlayingNote(noteNumber);
             if (pVoice)
             {
                 // re-start the note
@@ -264,11 +264,11 @@ namespace AudioKitCore {
             int polyphony = isMonophonic ? 1 : MAX_POLYPHONY;
             for (int i = 0; i < polyphony; i++)
             {
-                SamplerVoice* pVoice = &voice[i];
+                SamplerVoice *pVoice = &voice[i];
                 if (pVoice->noteNumber < 0)
                 {
                     // found a free voice: assign it to play this note
-                    KeyMappedSampleBuffer* pBuf = lookupSample(noteNumber, velocity);
+                    KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
                     if (pBuf == 0) return;  // don't crash if someone forgets to build map
                     pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
                     lastPlayedNoteNumber = noteNumber;
@@ -288,7 +288,7 @@ namespace AudioKitCore {
     void Sampler::stop(unsigned noteNumber, bool immediate)
     {
         //printf("stopNote nn=%d %s\n", noteNumber, immediate ? "immediate" : "release");
-        SamplerVoice* pVoice = voicePlayingNote(noteNumber);
+        SamplerVoice *pVoice = voicePlayingNote(noteNumber);
         if (pVoice == 0) return;
         //printf("stopNote pVoice is %p\n", pVoice);
         
@@ -305,7 +305,7 @@ namespace AudioKitCore {
             else
             {
                 unsigned velocity = 100;
-                KeyMappedSampleBuffer* pBuf = lookupSample(key, velocity);
+                KeyMappedSampleBuffer *pBuf = lookupSample(key, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
                 pVoice->start(key, sampleRate, NOTE_HZ(key), velocity / 127.0f, pBuf);
             }
@@ -340,13 +340,13 @@ namespace AudioKitCore {
     
     void Sampler::render(unsigned channelCount, unsigned sampleCount, float *outBuffers[])
     {
-        float* pOutLeft = outBuffers[0];
-        float* pOutRight = outBuffers[1];
+        float *pOutLeft = outBuffers[0];
+        float *pOutRight = outBuffers[1];
         
         float pitchDev = this->pitchOffset + vibratoDepth * vibratoLFO.getSample();
         float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
         
-        SamplerVoice* pVoice = &voice[0];
+        SamplerVoice *pVoice = &voice[0];
         for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
         {
             int nn = pVoice->noteNumber;

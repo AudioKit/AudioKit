@@ -12,24 +12,23 @@ public extension AKTable {
     /// This method is intended for wavetables (i.e., 2048 or 4096 samples), not large audio files.
     /// Parameters:
     ///   - url: URL to the file
-    public static func fromAudioFile(_ url:URL) -> AKTable? {
-        var retVal:AKTable? = nil
+    public static func fromAudioFile(_ url: URL) -> AKTable? {
+        var retVal: AKTable?
         do {
             let sample = try AKAudioFile(forReading: url)
             if let d = sample.floatChannelData?[0] {
-                retVal = AKTable(count:AKTable.IndexDistance(sample.samplesCount))
+                retVal = AKTable(count: AKTable.IndexDistance(sample.samplesCount))
                 for i in 0..<sample.samplesCount {
                     let f = d[Int(i)]
                     retVal?[Int(i)] = f
                 }
                 //AKLog("sample name: \(url), count: \(sample.samplesCount)")
             }
-        }
-        catch {
+        } catch {
             AKLog("\(error)")
             return nil
         }
-        
+
         return retVal
     }
 
@@ -39,7 +38,7 @@ public extension AKTable {
     public func writeToAudioFile(_ fileName: String) throws {
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
-            let _ = try AKAudioFile(createFileFromFloats:[content], baseDir:.temp, name:fileName)
+            _ = try AKAudioFile(createFileFromFloats: [content], baseDir: .temp, name: fileName)
         } catch let error as NSError {
             AKLog("cannot write to \(fileName)")
             throw error

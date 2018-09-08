@@ -43,18 +43,18 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 
 #include "AKSampler_Typedefs.h"
 
-void* createAKSamplerDSP(int nChannels, double sampleRate);
-void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD);
-void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD);
-void doAKSamplerUnloadAllSamples(void* pDSP);
-void doAKSamplerBuildSimpleKeyMap(void* pDSP);
-void doAKSamplerBuildKeyMap(void* pDSP);
-void doAKSamplerSetLoopThruRelease(void* pDSP, bool value);
-void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
-void doAKSamplerStopAllVoices(void* pDSP);
-void doAKSamplerRestartVoices(void* pDSP);
-void doAKSamplerSustainPedal(void* pDSP, bool pedalDown);
+void *createAKSamplerDSP(int nChannels, double sampleRate);
+void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor *pSDD);
+void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor *pSFD);
+void doAKSamplerUnloadAllSamples(void *pDSP);
+void doAKSamplerBuildSimpleKeyMap(void *pDSP);
+void doAKSamplerBuildKeyMap(void *pDSP);
+void doAKSamplerSetLoopThruRelease(void *pDSP, bool value);
+void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
+void doAKSamplerStopAllVoices(void *pDSP);
+void doAKSamplerRestartVoices(void *pDSP);
+void doAKSamplerSustainPedal(void *pDSP, bool pedalDown);
 
 #else
 

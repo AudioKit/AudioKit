@@ -9,8 +9,8 @@
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
-    AKFlatFrequencyResponseReverbDSP* dsp = new AKFlatFrequencyResponseReverbDSP();
+extern "C" void *createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
+    AKFlatFrequencyResponseReverbDSP *dsp = new AKFlatFrequencyResponseReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }

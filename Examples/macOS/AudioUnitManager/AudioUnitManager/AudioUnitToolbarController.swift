@@ -29,5 +29,4 @@ class AudioUnitToolbarController: NSTitlebarAccessoryViewController {
         audioUnit.auAudioUnit.shouldBypassEffect = buttonState
     }
 
-    
 }

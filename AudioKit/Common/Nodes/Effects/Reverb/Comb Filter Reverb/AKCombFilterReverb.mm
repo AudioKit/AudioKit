@@ -10,8 +10,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void* createCombFilterReverbDSP(int nChannels, double sampleRate) {
-    AKCombFilterReverbDSP* dsp = new AKCombFilterReverbDSP();
+extern "C" void *createCombFilterReverbDSP(int nChannels, double sampleRate) {
+    AKCombFilterReverbDSP *dsp = new AKCombFilterReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }

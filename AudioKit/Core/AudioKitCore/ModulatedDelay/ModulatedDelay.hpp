@@ -31,7 +31,7 @@ namespace AudioKitCore
         void setModDepthFraction(float fraction) { modDepthFraction = fraction; }
         float getModDepthFraction() { return modDepthFraction; }
         
-        void Render(unsigned channelCount, unsigned sampleCount, float* inBuffers[], float *outBuffers[]);
+        void Render(unsigned channelCount, unsigned sampleCount, float *inBuffers[], float *outBuffers[]);
         
     protected:
         float minDelayMs, maxDelayMs, midDelayMs, delayRangeMs;
