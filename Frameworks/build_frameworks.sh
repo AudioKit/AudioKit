@@ -44,22 +44,23 @@ create_universal_framework()
 	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
 	mkdir -p "$DIR"
 	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
-		DYNAMIC=true
-	fi
-	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM"; then
-		DYNAMIC_UI=true
-	fi
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
-	if test "$DYNAMIC" = true;
-	then
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
+		echo "Building dynamic framework for AudioKit"
+		DYNAMIC=true
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR/"
 		cp -v fix-framework.sh "${DIR}/${PROJECT_NAME}.framework/"
+	else
+		echo "Building static framework for AudioKit"
 	fi
-	if test "$DYNAMIC_UI" = true;
-	then
+	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM"; then
+		echo "Building dynamic framework for AudioKitUI"
+		DYNAMIC_UI=true
 		cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework.dSYM" "$DIR/"
 		cp -v fix-framework.sh "${DIR}/${PROJECT_UI_NAME}.framework/"
+	else
+		echo "Building static framework for AudioKitUI"
+		ls -l "${BUILD_DIR}/${CONFIGURATION}-$2/"
 	fi
 	
 	if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";

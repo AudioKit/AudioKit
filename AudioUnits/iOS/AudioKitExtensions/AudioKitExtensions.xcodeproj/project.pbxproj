@@ -21,7 +21,6 @@
 		C45546CA1F09CC100084CE2D /* AKMorphingOscillatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45546C91F09CC100084CE2D /* AKMorphingOscillatorViewController.swift */; };
 		C45546CD1F09CC100084CE2D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C45546CB1F09CC100084CE2D /* MainInterface.storyboard */; };
 		C45546D21F09CC100084CE2D /* Morphing Synth.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C45546C41F09CC100084CE2D /* Morphing Synth.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C4C4EC57201E66C7007FE651 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
 		C4C4EC58201E66C7007FE651 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
 		C4C4EC59201E66C7007FE651 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
 		C4C4EC5A201E66C7007FE651 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
@@ -29,6 +28,8 @@
 		C4C4EC5C201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
 		C4C4EC5D201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
 		C4C4EC5E201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
+		EAD0DEDE21420D3300DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
+		EAD0DEDF21420D3300DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,17 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EAD0DEE021420D3300DCE36F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAD0DEDF21420D3300DCE36F /* AudioKitUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -100,8 +112,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD0DEDE21420D3300DCE36F /* AudioKitUI.framework in Frameworks */,
 				C4C4EC5B201E66C7007FE651 /* AudioKit.framework in Frameworks */,
-				C4C4EC57201E66C7007FE651 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +233,7 @@
 				C40C0D8A1F08619B00E6D30F /* Frameworks */,
 				C40C0D8B1F08619B00E6D30F /* Resources */,
 				C40C0DB81F08622900E6D30F /* Embed App Extensions */,
+				EAD0DEE021420D3300DCE36F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -297,24 +310,20 @@
 				TargetAttributes = {
 					C40C0D8C1F08619B00E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					C40C0DA51F08622800E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					C45546AC1F09C67B0084CE2D = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0920;
 					};
 					C45546C31F09CC100084CE2D = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = W22K9JG3J6;
 						LastSwiftMigration = 0920;
 					};
 				};
@@ -594,7 +603,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -614,7 +623,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -631,7 +640,7 @@
 		C40C0DB61F08622900E6D30F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -651,7 +660,7 @@
 		C40C0DB71F08622900E6D30F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -678,7 +687,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "PWM Synth/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -704,7 +713,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "PWM Synth/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -730,7 +739,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Morphing Synth/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -756,7 +765,7 @@
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = W22K9JG3J6;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "Morphing Synth/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;

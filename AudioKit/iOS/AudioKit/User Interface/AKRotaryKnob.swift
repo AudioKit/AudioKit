@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 /// Style of knob to use
 public enum AKRotaryKnobStyle {

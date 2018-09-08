@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 import UIKit
+import AudioKit
 
 /// Delegate for keyboard events
 @objc public protocol AKKeyboardDelegate: class {
