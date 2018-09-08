@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AudioKit
 
 @IBDesignable open class AKNudger: AKStepper {
     open var linear = true

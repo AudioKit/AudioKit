@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AudioKit
+
 public typealias Label = UILabel
 
 /// UIView for playgrounds allowing live views to be generated easily
