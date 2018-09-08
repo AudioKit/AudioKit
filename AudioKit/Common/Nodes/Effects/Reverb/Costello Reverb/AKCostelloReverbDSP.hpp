@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
 
 #ifndef __cplusplus
 
-void* createCostelloReverbDSP(int nChannels, double sampleRate);
+void *createCostelloReverbDSP(int nChannels, double sampleRate);
 
 #else
 

@@ -23,7 +23,7 @@ namespace AudioKitCore
     struct EnsembleOscillator
     {
         double sampleRateHz;            // current output sample rate
-        WaveStack* pWaveStack;          // pointer to shared WaveStack
+        WaveStack *pWaveStack;          // pointer to shared WaveStack
 
         int phases;                     // number of unison/ensemble phases
         float freqSpread;               // frequency difference between phases, cents
@@ -40,14 +40,14 @@ namespace AudioKitCore
         float phaseDeltaMul;            // phaseDelta multiplier for pitchbend, vibrato
 
         EnsembleOscillator() : phases(1), freqSpread(0.0f) {}
-        void init(double sampleRate, WaveStack* pStack);
+        void init(double sampleRate, WaveStack *pStack);
         void setPhases(int nPhases);
         void setFreqSpread(float fSpread) { freqSpread = fSpread; }
         void setPanSpread(float fSpread);   // arg is a fraction: 0 = no spread, 1 = max spread
         void setFrequency(float frequency);
 
         float getSample();
-        void getSamples(float* pLeft, float* pRight, float gain);
+        void getSamples(float *pLeft, float *pRight, float gain);
     };
 
 }

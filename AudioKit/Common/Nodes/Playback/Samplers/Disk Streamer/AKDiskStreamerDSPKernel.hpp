@@ -47,7 +47,7 @@ public:
         useTempEndPoint = false;
     }
 
-    void loadFile(const char* filename) {
+    void loadFile(const char *filename) {
         sp_wavin_init(sp, wavin, filename);
         sourceSampleRate = wavin->wav.sampleRate;
         current_size = wavin->wav.totalSampleCount / wavin->wav.channels;

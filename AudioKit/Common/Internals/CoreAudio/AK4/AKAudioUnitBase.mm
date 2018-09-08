@@ -13,14 +13,14 @@
 
 @interface AKAudioUnitBase ()
 
-@property AKDSPBase* kernel;
+@property AKDSPBase *kernel;
 
 @end
 
 @implementation AKAudioUnitBase {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     BufferedInputBus _inputBus;
-    AKDSPBase* _kernel;
+    AKDSPBase *_kernel;
 }
 
 @synthesize parameterTree = _parameterTree;

@@ -18,7 +18,7 @@ namespace AudioKitCore
     static std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dis(0.0f, 1.0f);
     
-    void EnsembleOscillator::init(double sampleRate, WaveStack* pStack)
+    void EnsembleOscillator::init(double sampleRate, WaveStack *pStack)
     {
         sampleRateHz = sampleRate;
         pWaveStack = pStack;
@@ -131,7 +131,7 @@ namespace AudioKitCore
     }
 
     // Stereo output: with panning. Outputs are summed into caller-supplied variables.
-    void EnsembleOscillator::getSamples(float* pLeft, float* pRight, float gain)
+    void EnsembleOscillator::getSamples(float *pLeft, float *pRight, float gain)
     {
         float leftSample = 0.0f;
         float rightSample = 0.0f;

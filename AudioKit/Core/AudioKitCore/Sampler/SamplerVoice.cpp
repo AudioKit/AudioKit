@@ -20,7 +20,7 @@ namespace AudioKitCore
         filterEnvelope.init();
     }
     
-    void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer* buffer)
+    void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
     {
         sampleBuffer = buffer;
         oscillator.indexPoint = buffer->startPoint;
@@ -61,7 +61,7 @@ namespace AudioKitCore
         noteNumber = note;
     }
 
-    void SamplerVoice::restart(float volume, SampleBuffer* buffer)
+    void SamplerVoice::restart(float volume, SampleBuffer *buffer)
     {
         tempNoteVolume = noteVolume;
         newSampleBuffer = buffer;
@@ -137,7 +137,7 @@ namespace AudioKitCore
         return false;
     }
     
-    bool SamplerVoice::getSamples(int sampleCount, float* leftOutput, float* rightOutput)
+    bool SamplerVoice::getSamples(int sampleCount, float *leftOutput, float *rightOutput)
     {
         for (int i=0; i < sampleCount; i++)
         {

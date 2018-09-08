@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import AudioKit
 
 /// View to choose from audio files to use in playgrounds
 @IBDesignable open class AKResourcesAudioFileLoaderView: UIView {

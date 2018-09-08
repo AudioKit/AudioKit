@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
 
 #ifndef __cplusplus
 
-void* createAutoWahDSP(int nChannels, double sampleRate);
+void *createAutoWahDSP(int nChannels, double sampleRate);
 
 #else
 

@@ -95,8 +95,8 @@ namespace AudioKitCore
         bool stoppingAllVoices;
         
         // helper functions
-        SamplerVoice* voicePlayingNote(unsigned noteNumber);
-        KeyMappedSampleBuffer* lookupSample(unsigned noteNumber, unsigned velocity);
+        SamplerVoice *voicePlayingNote(unsigned noteNumber);
+        KeyMappedSampleBuffer *lookupSample(unsigned noteNumber, unsigned velocity);
         void play(unsigned noteNumber, unsigned velocity, float noteFrequency, bool anotherKeyWasDown);
         void stop(unsigned noteNumber, bool immediate);
     };

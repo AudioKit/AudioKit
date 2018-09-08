@@ -21,7 +21,7 @@ namespace AudioKitCore
     struct DrawbarsOscillator
     {
         double sampleRateHz;            // current output sample rate
-        WaveStack* pWaveStack;          // pointer to shared WaveStack
+        WaveStack *pWaveStack;          // pointer to shared WaveStack
 
         // per-phase variables
         static constexpr int numPhases = 16;
@@ -38,7 +38,7 @@ namespace AudioKitCore
         void setFrequency(float frequency);
 
         float getSample();
-        void getSamples(float* pLeft, float* pRight, float gain);
+        void getSamples(float *pLeft, float *pRight, float gain);
     };
 
 }
