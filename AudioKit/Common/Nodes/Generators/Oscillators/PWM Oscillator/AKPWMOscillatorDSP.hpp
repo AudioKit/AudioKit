@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPWMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void* createPWMOscillatorDSP(int nChannels, double sampleRate);
+void *createPWMOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -141,7 +141,7 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {

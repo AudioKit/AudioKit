@@ -8,6 +8,7 @@
 
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
+import AudioKit
 
 /// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to
 /// individual touches. The `delegate` property can be set to a class

@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKDripParameter) {
 
 #ifndef __cplusplus
 
-void* createDripDSP(int nChannels, double sampleRate);
+void *createDripDSP(int nChannels, double sampleRate);
 
 #else
 

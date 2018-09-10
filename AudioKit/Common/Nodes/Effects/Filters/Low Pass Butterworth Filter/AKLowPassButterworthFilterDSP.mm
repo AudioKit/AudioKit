@@ -9,8 +9,8 @@
 #include "AKLowPassButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createLowPassButterworthFilterDSP(int nChannels, double sampleRate) {
-    AKLowPassButterworthFilterDSP* dsp = new AKLowPassButterworthFilterDSP();
+extern "C" void *createLowPassButterworthFilterDSP(int nChannels, double sampleRate) {
+    AKLowPassButterworthFilterDSP *dsp = new AKLowPassButterworthFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -80,8 +80,8 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

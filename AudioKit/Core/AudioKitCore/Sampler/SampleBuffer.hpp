@@ -46,7 +46,7 @@ namespace AudioKitCore
             return (float)(gain * ((1.0 - f) * si + f * sj));
         }
         
-        inline void interp(double fIndex, float* leftOutput, float* rightOutput, float gain)
+        inline void interp(double fIndex, float *leftOutput, float *rightOutput, float gain)
         {
             if (samples == 0 || sampleCount == 0)
             {

@@ -19,7 +19,7 @@ extension AKTable {
     ///
     /// Example Output: [(8.1787833827893177, 2696), (16.357566765578635, 1348), (32.715133531157271, 674), (65.430267062314542, 337), (131.25, 168), (262.5, 84), (525.0, 42), (1050.0, 21), (2205.0, 10), (4410.0, 5), (11025.0, 2), (22050.0, 1)]
 
-    public class func harmonicPitchRange(rootFrequency: Double = 8.17579891564375, octaveStepSize: Double = 1) -> [(Double, Int)] {
+    public class func harmonicPitchRange(rootFrequency: Double = 8.175_798_915_643_75, octaveStepSize: Double = 1) -> [(Double, Int)] {
         let nyquist = 22_050.0
         var octave = 0.0
         var retVal = [(Double, Int)]()
@@ -32,7 +32,7 @@ extension AKTable {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
-            frequency = nyquist/Double(maxHarmonic)
+            frequency = nyquist / Double(maxHarmonic)
             if maxHarmonic == 1 {
                 if let lastVal = retVal.last {
                     // don't append duplicates
@@ -59,7 +59,7 @@ extension AKTable {
     ///
     ///   - wavetableCount: The number of wavetables from which to interpolate from f0 to f1
     ///
-    public class func harmonicFrequencyRange(f0: Double = 130.8127826503, f1: Double = 2093.0045224048, wavetableCount: Int = 12) -> [(Double, Int)] {
+    public class func harmonicFrequencyRange(f0: Double = 130.812_782_650_3, f1: Double = 2_093.004_522_404_8, wavetableCount: Int = 12) -> [(Double, Int)] {
         let nyquist = 22_050.0
         var retVal = [(Double, Int)]()
         for i in 0..<wavetableCount {
@@ -70,7 +70,7 @@ extension AKTable {
                 maxHarmonic = harmonic
                 harmonic += 1
             }
-            frequency = nyquist/Double(maxHarmonic)
+            frequency = nyquist / Double(maxHarmonic)
             if maxHarmonic == 1 {
                 if let lastVal = retVal.last {
                     // don't append duplicates
@@ -161,7 +161,7 @@ extension AKTable {
 
         for h in 1...harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(h * 2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count) ) )
             }
         }
     }
@@ -209,8 +209,8 @@ extension AKTable {
 
     /// returns a tuple with min, max, absMax
     public func minMax() -> (min: Float, max: Float, absMax: Float) {
-        var min: Float = 999999
-        var max: Float = -999999
+        var min: Float = 999_999
+        var max: Float = -999_999
         var absMax: Float = -1
 
         for i in indices {
@@ -244,7 +244,7 @@ extension AKTable {
 
     /// In-place reverse samples
     public func reverse() {
-        for i in 0..<indices.count/2 {
+        for i in 0..<indices.count / 2 {
             let j = indices.count - 1 - i
             let tmp = self[i]
             self[i] = self[j]
@@ -256,19 +256,6 @@ extension AKTable {
     public func invert() {
         for i in indices {
             self[i] = -self[i]
-        }
-    }
-
-    /// In-place phase offset
-    /// Parameters:
-    ///   - offset: phase on [0, 1]
-    public func phase(offset: Float = 0) {
-        let p = Int(indices.count * offset)
-        for i in indices {
-            let j = (i + p) % indices.count
-            let tmp = self[i]
-            self[i] = self[j]
-            self[j] = tmp
         }
     }
 

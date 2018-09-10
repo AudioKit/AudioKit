@@ -79,7 +79,7 @@ class ViewController: UIViewController {
                 button.title = met.isPlaying ? "Stop" : "Play"
             }
         }
-        
+
         func tapTempoAction(met: AKSamplerMetronome, otherMet: AKSamplerMetronome) -> (AKButton) -> Void {
             return { [weak self] button in
                 guard let newTempo = self?.tapTempo.addTap() else { return }
@@ -96,14 +96,13 @@ class ViewController: UIViewController {
         addView(AKButton(title: "Play",
                          callback: startStopAction(met: metronome2, otherMet: metronome1)))
 
-        
         addView(tempoSlider)
         tempoSlider.callback = { [weak self] tempo in
-            
+
             let now = AVAudioTime(hostTime: mach_absolute_time())
             self?.metronome1.setTempo(tempo, at: now)
             self?.metronome2.setTempo(tempo, at: now)
-            
+
         }
         tempoSlider.range = 30 ... 4_000
         tempoSlider.taper = 1
@@ -144,7 +143,7 @@ class ViewController: UIViewController {
         beatsSelector.addTarget(self, action: #selector(beatsSelected(segmentedControl:)), for: .valueChanged)
         beatsSelector.selectedSegmentIndex = 3
         addView(beatsSelector)
-        
+
         addView(AKButton(title: "Tap Tempo (3x)",
                          callback: tapTempoAction(met: metronome2, otherMet: metronome1)))
 

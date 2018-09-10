@@ -196,7 +196,7 @@ public:
             case 0xB0 : { \
                 uint8_t num = midiEvent.data[1]; \
                 if (num == 123) { \
-                    NoteState* noteState = playingNotes; \
+                    NoteState *noteState = playingNotes; \
                     while (noteState) { \
                         noteState->clear(); \
                         noteState = noteState->next; \

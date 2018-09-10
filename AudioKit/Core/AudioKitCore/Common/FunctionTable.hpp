@@ -107,7 +107,7 @@ namespace AudioKitCore
         // For stereo modulation, we need to get two samples at a time: an "in-phase"
         // sample which is the same as what getSample() above would return, plus a
         // "quadrature" sample which is 90 degrees out-of-phase with the first one.
-        inline void getSamples(float* pInPhase, float* pQuadrature)
+        inline void getSamples(float *pInPhase, float *pQuadrature)
         {
             *pInPhase = waveTable.interp_cyclic(phase);
             *pQuadrature = waveTable.interp_cyclic(phase + 0.25f);

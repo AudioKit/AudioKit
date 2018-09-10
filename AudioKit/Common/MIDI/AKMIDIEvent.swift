@@ -78,7 +78,7 @@ public struct AKMIDIEvent {
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        if let statusByte = internalData.first{
+        if let statusByte = internalData.first {
             let status = statusByte >> 4
             if status < 15 {
                 return .none
@@ -90,7 +90,7 @@ public struct AKMIDIEvent {
 
     /// MIDI Channel
     public var channel: MIDIChannel? {
-        if let statusByte = internalData.first{
+        if let statusByte = internalData.first {
             if let channel = channelFrom(rawByte: statusByte) {
                 return channel
             }

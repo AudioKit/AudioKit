@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTanhDistortionParameter) {
 
 #ifndef __cplusplus
 
-void* createTanhDistortionDSP(int nChannels, double sampleRate);
+void *createTanhDistortionDSP(int nChannels, double sampleRate);
 
 #else
 

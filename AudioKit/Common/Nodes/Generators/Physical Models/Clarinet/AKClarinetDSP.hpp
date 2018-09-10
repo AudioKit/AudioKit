@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKClarinetParameter) {
 
 #ifndef __cplusplus
 
-void* createClarinetDSP(int nChannels, double sampleRate);
+void *createClarinetDSP(int nChannels, double sampleRate);
 
 #else
 
