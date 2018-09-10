@@ -100,7 +100,7 @@ extension AKPlayer {
         }
     }
 
-    private func fadeOutWithTime(_ time: Double) {
+    @objc internal func fadeOutWithTime(_ time: Double) {
         guard let faderNode = faderNode else { return }
 
         if time > 0 {
