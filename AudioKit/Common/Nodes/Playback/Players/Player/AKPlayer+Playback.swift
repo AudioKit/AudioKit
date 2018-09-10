@@ -64,6 +64,21 @@ extension AKPlayer {
 
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public func stop() {
+        guard stopEnvelopeTime > 0 else {
+            stopCompletion()
+            return
+        }
+
+        fadeOutWithTime(stopEnvelopeTime)
+        self.faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+                                                 target: self,
+                                                 selector: #selector(self.stopCompletion),
+                                                 userInfo: nil,
+                                                 repeats: false)
+        
+    }
+
+    @objc private func stopCompletion() {
         playerNode.stop()
         faderNode?.stop()
         completionTimer?.invalidate()

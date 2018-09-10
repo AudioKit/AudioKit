@@ -121,6 +121,14 @@ public class AKPlayer: AKNode {
     /// Holds characteristics about the fade options.
     public var fade = Fade()
 
+    public var stopEnvelopeTime: Double = 0 {
+        didSet {
+            if faderNode == nil {
+                createFader()
+            }
+        }
+    }
+
     // MARK: - Nodes
 
     /// The underlying player node
