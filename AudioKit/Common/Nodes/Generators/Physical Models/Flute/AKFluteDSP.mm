@@ -12,8 +12,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void* createFluteDSP(int nChannels, double sampleRate) {
-    AKFluteDSP* dsp = new AKFluteDSP();
+extern "C" void *createFluteDSP(int nChannels, double sampleRate) {
+    AKFluteDSP *dsp = new AKFluteDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -106,7 +106,7 @@ void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         float amplitude = _private->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (_private->internalTrigger == 1) {

@@ -42,12 +42,18 @@ extension AudioKit {
         // Subscribe to route changes that may affect our engine
         // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
         NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterRouteChange), name: .AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(restartEngineAfterRouteChange),
+                                               name: .AVAudioSessionRouteChange,
+                                               object: nil)
 
         // Subscribe to session/configuration changes to our engine
         // Automatic handling of this change can be disabled via AKSettings.enableCategoryChangeHandling
         NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterConfigurationChange), name: .AVAudioEngineConfigurationChange, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(restartEngineAfterConfigurationChange),
+                                               name: .AVAudioEngineConfigurationChange,
+                                               object: nil)
         #endif
 
         try AKTry {
@@ -62,8 +68,7 @@ extension AudioKit {
 
         #if os(iOS)
         let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory,
-                                  with: sessionOptions)
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
         #elseif os(tvOS)
         try AKSettings.setSession(category: sessionCategory)
         #endif
@@ -100,7 +105,8 @@ extension AudioKit {
         // Notifications aren't guaranteed to be on the main thread
         let attemptRestart = {
             do {
-                // By checking the notification sender in this block rather than during observer configuration we avoid needing to create a new observer if the engine somehow changes
+                // By checking the notification sender in this block rather than during observer configuration
+                // we avoid needing to create a new observer if the engine somehow changes
                 guard let notifyingEngine = notification.object as? AVAudioEngine, notifyingEngine == engine else {
                     return
                 }

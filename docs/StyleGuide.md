@@ -55,9 +55,10 @@ Examples: 'isLooping' not 'loop' and 'isFilterEnabled' not 'filterEnable'
 
 Ideally, our code would not need comments because it would be so clear to read the code directly, but this often impossible so commenting is important.
 
-### Comments should documentation generating
+### Comments should be documentation generating
 
-### Comments should appear on the line prior to the code
+This requires you to use triple slash commenting usually on the lines above the item being commented on.
 
 ### Folders should contain a README.md
 
+The README.md file should attempt to describe the contents of the folder, including files and sub folders.

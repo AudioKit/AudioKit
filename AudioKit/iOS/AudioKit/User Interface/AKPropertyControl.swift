@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 @IBDesignable open class AKPropertyControl: UIView {
 
@@ -16,10 +17,10 @@ import UIKit
         var index = 0
         var minimum: Double = 1_000_000
 
-        for i in 0 ..< discreteValues.count {
-            if abs(discreteValues[i] - userValue) < minimum {
-                minimum = abs(discreteValues[i] - userValue)
-                index = i
+        for discreteValueIndex in 0 ..< discreteValues.count {
+            if abs(discreteValues[discreteValueIndex] - userValue) < minimum {
+                minimum = abs(discreteValues[discreteValueIndex] - userValue)
+                index = discreteValueIndex
             }
         }
         return discreteValues[index]

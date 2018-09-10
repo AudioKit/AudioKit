@@ -31,6 +31,11 @@ enum
     kFilterEgSustainFraction,
     kFilterEgReleaseTimeSeconds,
 
+    kLoopThruRelease,
+    kMonophonic,
+    kLegato,
+    kGlideRate,
+
     kNumberOfParams
 };
 

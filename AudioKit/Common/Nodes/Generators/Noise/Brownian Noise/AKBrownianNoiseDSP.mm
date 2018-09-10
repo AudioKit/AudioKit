@@ -9,8 +9,8 @@
 #include "AKBrownianNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBrownianNoiseDSP(int nChannels, double sampleRate) {
-    AKBrownianNoiseDSP* dsp = new AKBrownianNoiseDSP();
+extern "C" void *createBrownianNoiseDSP(int nChannels, double sampleRate) {
+    AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -70,7 +70,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

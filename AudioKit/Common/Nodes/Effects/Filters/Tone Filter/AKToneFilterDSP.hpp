@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKToneFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createToneFilterDSP(int nChannels, double sampleRate);
+void *createToneFilterDSP(int nChannels, double sampleRate);
 
 #else
 

@@ -68,10 +68,10 @@ public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactor
 
         adsr.callback = { att, dec, sus, rel in
             guard let au = self.audioUnit,
-                let attP = au.parameterTree?.parameter(withAddress:0),
-                let decP = au.parameterTree?.parameter(withAddress:1),
-                let susP = au.parameterTree?.parameter(withAddress:2),
-                let relP = au.parameterTree?.parameter(withAddress:3)
+                let attP = au.parameterTree?.parameter(withAddress: 0),
+                let decP = au.parameterTree?.parameter(withAddress: 1),
+                let susP = au.parameterTree?.parameter(withAddress: 2),
+                let relP = au.parameterTree?.parameter(withAddress: 3)
                 else { return }
             attP.value = Float(att)
             decP.value = Float(dec)
@@ -100,7 +100,7 @@ public class AKOscillatorBankViewController: AUViewController, AUAudioUnitFactor
     func nextWaveform() {
         waveformIndex += 1
         waveformIndex %= waveforms.count
-        let waveform =  waveforms[waveformIndex]
+        let waveform = waveforms[waveformIndex]
         for (i, sample) in waveform.enumerated() {
             audioUnit?.setWaveformValue(sample, at: UInt32(i))
         }
