@@ -13,7 +13,7 @@
 namespace AudioKitCore
 {
 
-    // many ADSREnvelopes can share a common set of parameters
+    /// many ADSREnvelopes can share a common set of parameters
     struct ADSREnvelopeParameters
     {
         float sampleRateHz;
