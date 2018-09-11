@@ -27,24 +27,24 @@ namespace AudioKitCore
         WaveStack *pWaveStack;
 
         // per-phase variables
-        static constexpr int numPhases = 16;
+        static constexpr int phaseCount = 16;
 
         // WaveStack octave used by this phase
-        int octave[numPhases];
+        int octave[phaseCount];
 
         // Fraction of the way through waveform
-        float phase[numPhases];
+        float phase[phaseCount];
 
         // normalized frequency: cycles per sample
-        float phaseDelta[numPhases];
+        float phaseDelta[phaseCount];
 
         // relative level of this phase (fraction)
-        float level[numPhases];
+        float level[phaseCount];
 
         // performance variables
 
         // phaseDelta multiplier for pitchbend, vibrato
-        float phaseDeltaMul;
+        float phaseDeltaMultiplier;
 
         void init(double sampleRate, WaveStack* pStack);
         void setDrawbars(float levels[]);

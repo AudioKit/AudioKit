@@ -31,7 +31,7 @@ namespace AudioKitCore
         /// call this to un-load all samples and clear the keymap
         void deinit();
         
-        void playNote(unsigned noteNumber, unsigned velocity, float noteHz);
+        void playNote(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stopNote(unsigned noteNumber, bool immediate);
         void sustainPedal(bool down);
         
@@ -70,7 +70,7 @@ namespace AudioKitCore
         /// resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         float resLinear;
 
-        void play(unsigned noteNumber, unsigned velocity, float noteHz);
+        void play(unsigned noteNumber, unsigned velocity, float noteFrequency);
         void stop(unsigned noteNumber, bool immediate);
 
         SynthVoice *voicePlayingNote(unsigned noteNumber);
