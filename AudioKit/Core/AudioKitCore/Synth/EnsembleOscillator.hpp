@@ -30,7 +30,7 @@ namespace AudioKitCore
         /// number of unison/ensemble phases
         int phaseCount;
         /// frequency difference between phases, cents
-        float freqSpread;
+        float frequencySpread;
 
         // per-phase variables
 
@@ -51,12 +51,12 @@ namespace AudioKitCore
         // performance variables
 
         /// phaseDelta multiplier for pitchbend, vibrato
-        float phaseDeltaMul;
+        float phaseDeltaMultiplier;
 
-        EnsembleOscillator() : phaseCount(1), freqSpread(0.0f) {}
+        EnsembleOscillator() : phaseCount(1), frequencySpread(0.0f) {}
         void init(double sampleRate, WaveStack *pStack);
         void setPhases(int nPhases);
-        void setFreqSpread(float fSpread) { freqSpread = fSpread; }
+        void setFreqSpread(float fSpread) { frequencySpread = fSpread; }
 
         /// argument is a fraction: 0 = no spread, 1 = max spread
         void setPanSpread(float fSpread);

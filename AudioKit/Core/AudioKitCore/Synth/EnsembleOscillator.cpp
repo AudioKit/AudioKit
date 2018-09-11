@@ -23,8 +23,8 @@ namespace AudioKitCore
         sampleRateHz = sampleRate;
         pWaveStack = pStack;
         phaseCount = 1;
-        freqSpread = 0.0f;
-        phaseDeltaMul = 1.0f;
+        frequencySpread = 0.0f;
+        phaseDeltaMultiplier = 1.0f;
         for (int i=0; i < maxPhases; i++)
         {
             phase[i] = dis(gen);
@@ -90,9 +90,9 @@ namespace AudioKitCore
         }
 
         // Multiplier for full step between adjacent phases
-        double deltaMultiplier = pow(2.0, (double(freqSpread) / (phaseCount-1)) / 1200.0);
+        double deltaMultiplier = pow(2.0, (double(frequencySpread) / (phaseCount-1)) / 1200.0);
         // And also a multiplier to go in half-steps
-        double halfDeltaMultiplier = pow(2.0, (double(freqSpread) / (phaseCount-1)) / 2400.0);
+        double halfDeltaMultiplier = pow(2.0, (double(frequencySpread) / (phaseCount-1)) / 2400.0);
 
         // multi-phase case: step down to lowest voice (phases-1 half-steps)
         for (int i=0; i < (phaseCount-1); i++)
@@ -124,7 +124,7 @@ namespace AudioKitCore
         for (int i=0; i < phaseCount; i++)
         {
             sample += gain * pWaveStack->interp(octave[i], phase[i]);
-            phase[i] += phaseDeltaMul * phaseDelta[i];
+            phase[i] += phaseDeltaMultiplier * phaseDelta[i];
             if (phase[i] >= 1.0f) phase[i] -= 1.0f;
         }
         return sample;
@@ -139,7 +139,7 @@ namespace AudioKitCore
         for (int i=0; i < phaseCount; i++)
         {
             float sample = pWaveStack->interp(octave[i], phase[i]);
-            phase[i] += phaseDeltaMul * phaseDelta[i];
+            phase[i] += phaseDeltaMultiplier * phaseDelta[i];
             if (phase[i] >= 1.0f) phase[i] -= 1.0f;
 
             leftSample += gain * leftGain[i] * sample;
