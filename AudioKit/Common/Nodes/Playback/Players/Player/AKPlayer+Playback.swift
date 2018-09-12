@@ -43,6 +43,8 @@ extension AKPlayer {
                      hostTime: UInt64? = nil) {
         let refTime = hostTime ?? mach_absolute_time()
         let avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+
+        // Note, final play command is in AKPlayer.swift for subclass override
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 

@@ -474,6 +474,9 @@ public class AKPlayer: AKNode {
     /// Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
+
+        faderTimer?.invalidate()
+
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
