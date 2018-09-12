@@ -7,7 +7,6 @@
 //
 
 extension AKPlayer {
-
     /// Play entire file right now
     @objc public func play() {
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
@@ -44,6 +43,8 @@ extension AKPlayer {
                      hostTime: UInt64? = nil) {
         let refTime = hostTime ?? mach_absolute_time()
         let avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+
+        // Note, final play command is in AKPlayer.swift for subclass override
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
@@ -62,8 +63,23 @@ extension AKPlayer {
         play(from: pauseTime)
         AKLog("Resuming at \(pauseTime)")
     }
+
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public func stop() {
+        guard stopEnvelopeTime > 0 else {
+            stopCompletion()
+            return
+        }
+
+        fadeOutWithTime(stopEnvelopeTime)
+        faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+                                          target: self,
+                                          selector: #selector(stopCompletion),
+                                          userInfo: nil,
+                                          repeats: false)
+    }
+
+    @objc private func stopCompletion() {
         playerNode.stop()
         faderNode?.stop()
         completionTimer?.invalidate()
