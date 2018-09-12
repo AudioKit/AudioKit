@@ -386,11 +386,11 @@ public class AKPlayer: AKNode {
         self.audioFile = audioFile
         loop.start = 0
         loop.end = duration
-        initialize()
+        initialize(restartIfPlaying: false)
     }
 
-    internal func initialize() {
-        let wasPlaying = isPlaying
+    internal func initialize(restartIfPlaying: Bool = true) {
+        let wasPlaying = isPlaying && restartIfPlaying
         if wasPlaying {
             pause()
         }
@@ -437,8 +437,10 @@ public class AKPlayer: AKNode {
     }
 
     @objc public func load(audioFile: AVAudioFile) {
+        faderTimer?.invalidate()
+        
         self.audioFile = audioFile
-        initialize()
+        initialize(restartIfPlaying: false)
         // will reset the stored start / end times or update the buffer
         preroll()
     }
