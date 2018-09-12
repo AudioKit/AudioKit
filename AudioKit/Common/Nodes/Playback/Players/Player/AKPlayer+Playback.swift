@@ -72,12 +72,11 @@ extension AKPlayer {
         }
 
         fadeOutWithTime(stopEnvelopeTime)
-        self.faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
-                                                 target: self,
-                                                 selector: #selector(self.stopCompletion),
-                                                 userInfo: nil,
-                                                 repeats: false)
-        
+        faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+                                          target: self,
+                                          selector: #selector(stopCompletion),
+                                          userInfo: nil,
+                                          repeats: false)
     }
 
     @objc private func stopCompletion() {
