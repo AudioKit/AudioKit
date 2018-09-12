@@ -121,6 +121,8 @@ public class AKPlayer: AKNode {
     /// Holds characteristics about the fade options.
     public var fade = Fade()
 
+    /// Optional Auto-Fade to audio on stop(). Useful for eliminating clicks with a short 0.1 second fade.
+    /// Default is 0, or off.
     public var stopEnvelopeTime: Double = 0 {
         didSet {
             if faderNode == nil {
