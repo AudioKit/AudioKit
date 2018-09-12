@@ -17,8 +17,8 @@ namespace AudioKitCore
     {
         sampleRateHz = sampleRate;
         pWaveStack = pStack;
-        phaseDeltaMul = 1.0f;
-        for (int i=0; i < numPhases; i++)
+        phaseDeltaMultiplier = 1.0f;
+        for (int i=0; i < phaseCount; i++)
         {
             phase[i] = phaseDelta[i] = 0.0f;
             level[i] = 0.0f;
@@ -31,7 +31,7 @@ namespace AudioKitCore
         double normalizedFrequency = double(frequency) / sampleRateHz;
 
         // set each phase's normalized frequency
-        for (int i=0; i < numPhases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             octave[i] = 0;
             phaseDelta[i] = (i + 1) * (float)normalizedFrequency;
@@ -55,12 +55,12 @@ namespace AudioKitCore
     void DrawbarsOscillator::setDrawbars(float levels[])
     {
         float totalLevel = 0.0f;
-        for (int i=0; i < numPhases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             totalLevel += levels[i];
             level[i] = levels[i];
         }
-        for (int i=0; i < numPhases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             level[i] /= totalLevel;
         }
@@ -69,11 +69,11 @@ namespace AudioKitCore
     float DrawbarsOscillator::getSample()
     {
         float sample = 0.0f;
-        for (int i=0; i < numPhases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             if (level[i] == 0.0f) continue;
             sample += level[i] * pWaveStack->interp(octave[i], phase[i]);
-            phase[i] += phaseDeltaMul * phaseDelta[i];
+            phase[i] += phaseDeltaMultiplier * phaseDelta[i];
             if (phase[i] >= 1.0f) phase[i] -= 1.0f;
         }
         return sample;

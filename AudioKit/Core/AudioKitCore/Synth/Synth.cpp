@@ -53,13 +53,13 @@ namespace AudioKitCore {
         vibratoLFO.init(sampleRate/CHUNKSIZE, 5.0f);
 
         voiceParameters.osc1.phases = 4;
-        voiceParameters.osc1.freqSpread = 25.0f;
+        voiceParameters.osc1.frequencySpread = 25.0f;
         voiceParameters.osc1.panSpread = 0.95f;
         voiceParameters.osc1.pitchOffset = 0.0f;
         voiceParameters.osc1.mixLevel = 0.7f;
 
         voiceParameters.osc2.phases = 2;
-        voiceParameters.osc2.freqSpread = 15.0f;
+        voiceParameters.osc2.frequencySpread = 15.0f;
         voiceParameters.osc2.panSpread = 1.0f;
         voiceParameters.osc2.pitchOffset = -12.0f;
         voiceParameters.osc2.mixLevel = 0.6f;
@@ -117,11 +117,11 @@ namespace AudioKitCore {
     {
     }
 
-    void Synth::playNote(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Synth::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
         eventCounter++;
         pedalLogic.keyDownAction(noteNumber);
-        play(noteNumber, velocity, noteHz);
+        play(noteNumber, velocity, noteFrequency);
     }
     
     void Synth::stopNote(unsigned noteNumber, bool immediate)
@@ -155,9 +155,9 @@ namespace AudioKitCore {
         return 0;
     }
     
-    void Synth::play(unsigned noteNumber, unsigned velocity, float noteHz)
+    void Synth::play(unsigned noteNumber, unsigned velocity, float noteFrequency)
     {
-        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteHz);
+        //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
 
         // is any voice already playing this note?
         SynthVoice *pVoice = voicePlayingNote(noteNumber);
@@ -176,8 +176,8 @@ namespace AudioKitCore {
             if (pVoice->noteNumber < 0)
             {
                 // found a free voice: assign it to play this note
-                pVoice->start(eventCounter, noteNumber, noteHz, velocity / 127.0f);
-                //printf("Play note %d (%.2f Hz) vel %d\n", noteNumber, noteHz, velocity);
+                pVoice->start(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
+                //printf("Play note %d (%.2f Hz) vel %d\n", noteNumber, noteFrequency, velocity);
                 return;
             }
         }
@@ -209,12 +209,12 @@ namespace AudioKitCore {
         if (pStalestVoiceInRelease != 0)
         {
             // We have a stalest note in its release phase: restart that one
-            pStalestVoiceInRelease->restart(eventCounter, noteNumber, noteHz, velocity / 127.0f);
+            pStalestVoiceInRelease->restart(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
         }
         else
         {
             // No notes in release phase: restart the "stalest" one we could find
-            pStalestVoiceOfAll->restart(eventCounter, noteNumber, noteHz, velocity / 127.0f);
+            pStalestVoiceOfAll->restart(eventCounter, noteNumber, noteFrequency, velocity / 127.0f);
         }
     }
     
@@ -243,7 +243,7 @@ namespace AudioKitCore {
         float *pOutRight = outBuffers[1];
         
         float pitchDev = pitchOffset + vibratoDepth * vibratoLFO.getSample();
-        float phaseDeltaMul = pow(2.0f, pitchDev / 12.0);
+        float phaseDeltaMultiplier = pow(2.0f, pitchDev / 12.0);
 
         SynthVoice *pVoice = &voice[0];
         for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
@@ -251,7 +251,7 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, phaseDeltaMul, cutoffMultiple, cutoffEgStrength, resLinear) ||
+                if (pVoice->prepToGetSamples(masterVolume, phaseDeltaMultiplier, cutoffMultiple, cutoffEgStrength, resLinear) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

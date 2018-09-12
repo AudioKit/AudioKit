@@ -39,7 +39,7 @@ typedef NS_ENUM(int64_t, AKSynthParameter)
 #ifndef __cplusplus
 
 void *AKSynthCreateDSP(int nChannels, double sampleRate);
-void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz);
+void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
 void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
 void AKSynthSustainPedal(void *pDSP, bool pedalDown);
 
