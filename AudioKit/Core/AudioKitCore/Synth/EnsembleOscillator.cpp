@@ -22,9 +22,9 @@ namespace AudioKitCore
     {
         sampleRateHz = sampleRate;
         pWaveStack = pStack;
-        phases = 1;
-        freqSpread = 0.0f;
-        phaseDeltaMul = 1.0f;
+        phaseCount = 1;
+        frequencySpread = 0.0f;
+        phaseDeltaMultiplier = 1.0f;
         for (int i=0; i < maxPhases; i++)
         {
             phase[i] = dis(gen);
@@ -37,19 +37,19 @@ namespace AudioKitCore
     {
         if (nPhases < 0) nPhases = 0;
         if (nPhases > maxPhases) nPhases = maxPhases;
-        phases = nPhases;
+        phaseCount = nPhases;
     }
 
     void EnsembleOscillator::setPanSpread(float panSpread)
     {
-        if (phases == 0) return;
+        if (phaseCount == 0) return;
 
         if (panSpread < 0.0f) panSpread = 0.0f;
         if (panSpread > 1.0f) panSpread = 1.0f;
 
         // compute left and right gains (incorporating overall 1/phases scale factor)
-        float baseGain = 1.0f / phases;
-        if (phases == 1)
+        float baseGain = 1.0f / phaseCount;
+        if (phaseCount == 1)
         {
             // single-phase case: no panning
             leftGain[0] = rightGain[0] = 0.5f * baseGain;
@@ -58,8 +58,8 @@ namespace AudioKitCore
 
         // multi-phase case: with panning
         float pan = -panSpread;  // -1 = full left, 0 = balanced, +1 = full right
-        float deltaPan = 2.0f * panSpread / (phases - 1);
-        for (int i=0; i < phases; i++)
+        float deltaPan = 2.0f * panSpread / (phaseCount - 1);
+        for (int i=0; i < phaseCount; i++)
         {
             float rightFrac = 0.5f * (pan + 1.0f);
             rightGain[i] = baseGain * rightFrac;
@@ -70,11 +70,11 @@ namespace AudioKitCore
     
     void EnsembleOscillator::setFrequency(float frequency)
     {
-        if (phases == 0) return;
+        if (phaseCount == 0) return;
 
         // First, compute the normalized center frequency (all we need for one phase)
         double normalizedFrequency = double(frequency) / sampleRateHz;
-        if (phases == 1)
+        if (phaseCount == 1)
         {
             // single phase case: just set normalized center frequency
             octave[0] = 0;
@@ -90,15 +90,15 @@ namespace AudioKitCore
         }
 
         // Multiplier for full step between adjacent phases
-        double deltaMultiplier = pow(2.0, (double(freqSpread) / (phases-1)) / 1200.0);
+        double deltaMultiplier = pow(2.0, (double(frequencySpread) / (phaseCount-1)) / 1200.0);
         // And also a multiplier to go in half-steps
-        double halfDeltaMultiplier = pow(2.0, (double(freqSpread) / (phases-1)) / 2400.0);
+        double halfDeltaMultiplier = pow(2.0, (double(frequencySpread) / (phaseCount-1)) / 2400.0);
 
         // multi-phase case: step down to lowest voice (phases-1 half-steps)
-        for (int i=0; i < (phases-1); i++)
+        for (int i=0; i < (phaseCount-1); i++)
             normalizedFrequency /= halfDeltaMultiplier;
         // set each phase's normalized frequency, stepping up by full steps
-        for (int i=0; i < phases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             octave[i] = 0;
             phaseDelta[i] = (float)normalizedFrequency;
@@ -116,15 +116,15 @@ namespace AudioKitCore
     // Mono output: no panning
     float EnsembleOscillator::getSample()
     {
-        if (phases == 0) return 0.0f;
+        if (phaseCount == 0) return 0.0f;
 
-        float gain = 1.0f / phases;
+        float gain = 1.0f / phaseCount;
         float sample = 0.0f;
 
-        for (int i=0; i < phases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             sample += gain * pWaveStack->interp(octave[i], phase[i]);
-            phase[i] += phaseDeltaMul * phaseDelta[i];
+            phase[i] += phaseDeltaMultiplier * phaseDelta[i];
             if (phase[i] >= 1.0f) phase[i] -= 1.0f;
         }
         return sample;
@@ -136,10 +136,10 @@ namespace AudioKitCore
         float leftSample = 0.0f;
         float rightSample = 0.0f;
 
-        for (int i=0; i < phases; i++)
+        for (int i=0; i < phaseCount; i++)
         {
             float sample = pWaveStack->interp(octave[i], phase[i]);
-            phase[i] += phaseDeltaMul * phaseDelta[i];
+            phase[i] += phaseDeltaMultiplier * phaseDelta[i];
             if (phase[i] >= 1.0f) phase[i] -= 1.0f;
 
             leftSample += gain * leftGain[i] * sample;

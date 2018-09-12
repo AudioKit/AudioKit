@@ -13,9 +13,9 @@ extern "C" void *AKSynthCreateDSP(int nChannels, double sampleRate) {
     return new AKSynthDSP();
 }
 
-extern "C" void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteHz)
+extern "C" void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
-    ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteHz);
+    ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
 extern "C" void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)

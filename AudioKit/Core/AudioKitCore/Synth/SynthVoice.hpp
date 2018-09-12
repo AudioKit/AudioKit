@@ -21,7 +21,7 @@ namespace AudioKitCore
     struct SynthOscParameters
     {
         int phases;             // 1 to 10, or 0 to disable oscillator
-        float freqSpread;       // cents
+        float frequencySpread;  // cents
         float panSpread;        // fraction 0 = no spread, 1 = max spread
         float pitchOffset;      // semitones, relative to MIDI note
         float mixLevel;         // fraction
@@ -29,7 +29,7 @@ namespace AudioKitCore
 
     struct OrganParameters
     {
-        float drawbars[DrawbarsOscillator::numPhases];
+        float drawbars[DrawbarsOscillator::phaseCount];
         float mixLevel;
     };
 
@@ -37,7 +37,8 @@ namespace AudioKitCore
     {
         SynthOscParameters osc1, osc2;
         OrganParameters osc3;
-        int filterStages;       // 1 to 4, or 0 to disable filter
+        /// 1 to 4, or 0 to disable filter
+        int filterStages;
     };
 
     struct SynthVoice
@@ -46,13 +47,13 @@ namespace AudioKitCore
 
         EnsembleOscillator osc1, osc2;
         DrawbarsOscillator osc3;
-        MultiStageFilter fltL, fltR;            // two filters (left/right)
+        MultiStageFilter leftFilter, rightFilter;            // two filters (left/right)
         ADSREnvelope ampEG, filterEG;
         Envelope pumpEG;
 
         unsigned event;     // last "event number" associated with this voice
         int noteNumber;     // MIDI note number, or -1 if not playing any note
-        float noteHz;       // note frequency in Hz
+        float noteFrequency;// note frequency in Hz
         float noteVol;      // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables
@@ -62,18 +63,26 @@ namespace AudioKitCore
 
         SynthVoice() : noteNumber(-1) {}
 
-        void init(double sampleRate, WaveStack *pOsc1Stack, WaveStack *pOsc2Stack, WaveStack *pOsc3Stack, SynthVoiceParameters *pParameters, EnvelopeParameters *pEnvParameters);
+        void init(double sampleRate,
+                  WaveStack *pOsc1Stack,
+                  WaveStack *pOsc2Stack,
+                  WaveStack *pOsc3Stack,
+                  SynthVoiceParameters *pParameters,
+                  EnvelopeParameters *pEnvParameters);
         
-        void start(unsigned evt, unsigned noteNum, float freqHz, float volume);
+        void start(unsigned evt, unsigned noteNumber, float frequency, float volume);
         void restart(unsigned evt, float volume);
-        void restart(unsigned evt, unsigned noteNum, float freqHz, float volume);
+        void restart(unsigned evt, unsigned noteNumber, float frequency, float volume);
         void release(unsigned evt);
         void stop(unsigned evt);
         
         // return true if amp envelope is finished
-        bool prepToGetSamples(float masterVol, float phaseDeltaMul,
-                              float cutoffMultiple, float cutoffEgStrength, float resLinear);
-        bool getSamples(int nSamples, float *pOutLeft, float *pOutRight);
+        bool prepToGetSamples(float masterVol,
+                              float phaseDeltaMultiplier,
+                              float cutoffMultiple,
+                              float cutoffEgStrength,
+                              float resLinear);
+        bool getSamples(int sampleCount, float *leftOuput, float *rightOutput);
     };
 
 }
