@@ -7,7 +7,6 @@
 //
 
 public class AKDynamicPlayer: AKPlayer {
-
     /// The time pitch node - disabled by default
     public private(set) var timePitchNode: AKTimePitch?
 
@@ -18,6 +17,10 @@ public class AKDynamicPlayer: AKPlayer {
         }
 
         set {
+            if newValue == rate {
+                return
+            }
+
             // timePitch is only installed if it is requested. This saves resources.
             if timePitchNode != nil && newValue == 1 {
                 removeTimePitch()
@@ -42,6 +45,9 @@ public class AKDynamicPlayer: AKPlayer {
         }
 
         set {
+            if newValue == pitch {
+                return
+            }
             // timePitch is only installed if it is requested. This saves resources.
             if timePitchNode != nil && newValue == 0 {
                 removeTimePitch()
@@ -76,25 +82,28 @@ public class AKDynamicPlayer: AKPlayer {
     internal override func connectNodes() {
         guard let processingFormat = processingFormat else { return }
 
-        AKLog(processingFormat)
-
         if let timePitchNode = timePitchNode, let faderNode = faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
             timePitchNode.bypass() // bypass timePitch by default to save CPU
+            AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch and fader")
 
         } else if let timePitchNode = timePitchNode, faderNode == nil {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
             AudioKit.connect(timePitchNode.avAudioNode, to: mixer, format: processingFormat)
             timePitchNode.bypass()
+            AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch")
 
         } else if let faderNode = faderNode {
             // if the timePitchNode isn't created connect the player directly to the faderNode
             AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
             AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+            AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting fader")
+
         } else {
             AudioKit.connect(playerNode, to: mixer, format: processingFormat)
+            AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting player to mixer")
         }
     }
 

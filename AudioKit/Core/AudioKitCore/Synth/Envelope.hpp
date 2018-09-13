@@ -15,25 +15,42 @@ namespace AudioKitCore
 
     struct EnvelopeSegmentParameters
     {
-        float initialLevel;             // where this segment starts
-        float finalLevel;               // where it ends
-        float seconds;                  // how long it takes to get there
+        // where this segment starts
+        float initialLevel;
+
+        // where it ends
+        float finalLevel;
+
+        // how long it takes to get there
+        float seconds;
     };
 
     struct EnvelopeParameters
     {
         float sampleRateHz;
 
-        int nSegments;                  // number of segments
-        EnvelopeSegmentParameters *pSeg;    // points to an array of nSegments elements
+        // number of segments
+        int nSegments;
 
-        int attackSegmentIndex;         // start() begins at this segment
-        int sustainSegmentIndex;        // index of first sustain segment (-1 if none)
-        int releaseSegmentIndex;        // release() jumps to this segment
+        // points to an array of nSegments elements
+        EnvelopeSegmentParameters *pSeg;
+
+        // start() begins at this segment
+        int attackSegmentIndex;
+
+        // index of first sustain segment (-1 if none)
+        int sustainSegmentIndex;
+
+        // release() jumps to this segment
+        int releaseSegmentIndex;
 
         EnvelopeParameters();
-        void init(float newSampleRateHz, int nSegs, EnvelopeSegmentParameters *pSegParameters,
-                  int susSegIndex=-1, int attackSegIndex=0, int releaseSegIndex=-1);
+        void init(float newSampleRateHz,
+                  int nSegs,
+                  EnvelopeSegmentParameters *pSegParameters,
+                  int susSegIndex = -1,
+                  int attackSegIndex = 0,
+                  int releaseSegIndex = -1);
         void updateSampleRate(float newSampleRateHz);
     };
 
@@ -45,10 +62,17 @@ namespace AudioKitCore
 
         void init(EnvelopeParameters *pParameters);
 
-        void start();       // begin attack segment
-        void restart();     // go to segment 0
-        void release();     // go to release segment
-        void reset();       // reset to idle state
+        // begin attack segment
+        void start();
+
+        // go to segment 0
+        void restart();
+
+        // go to release segment
+        void release();
+
+        // reset to idle state
+        void reset();
         bool isIdle() { return currentSegmentIndex < 0; }
         bool isReleasing() { return currentSegmentIndex >= pParameters->releaseSegmentIndex; }
 

@@ -20,18 +20,31 @@ namespace AudioKitCore
 
     struct DrawbarsOscillator
     {
-        double sampleRateHz;            // current output sample rate
-        WaveStack *pWaveStack;          // pointer to shared WaveStack
+        // current output sample rate
+        double sampleRateHz;
+
+        // pointer to shared WaveStack
+        WaveStack *pWaveStack;
 
         // per-phase variables
-        static constexpr int numPhases = 16;
-        int octave[numPhases];          // WaveStack octave used by this phase
-        float phase[numPhases];         // Fraction of the way through waveform
-        float phaseDelta[numPhases];    // normalized frequency: cycles per sample
-        float level[numPhases];         // relative level of this phase (fraction)
+        static constexpr int phaseCount = 16;
+
+        // WaveStack octave used by this phase
+        int octave[phaseCount];
+
+        // Fraction of the way through waveform
+        float phase[phaseCount];
+
+        // normalized frequency: cycles per sample
+        float phaseDelta[phaseCount];
+
+        // relative level of this phase (fraction)
+        float level[phaseCount];
 
         // performance variables
-        float phaseDeltaMul;            // phaseDelta multiplier for pitchbend, vibrato
+
+        // phaseDelta multiplier for pitchbend, vibrato
+        float phaseDeltaMultiplier;
 
         void init(double sampleRate, WaveStack* pStack);
         void setDrawbars(float levels[]);

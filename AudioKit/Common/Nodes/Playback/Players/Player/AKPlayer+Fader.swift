@@ -6,8 +6,8 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+/// The Fader is also used for the gain stage of the player
 extension AKPlayer {
-
     internal func createFader() {
         // AKLog("Creating fader AKBooster")
         faderNode = AKBooster()
@@ -40,7 +40,6 @@ extension AKPlayer {
                                                    userInfo: nil,
                                                    repeats: false)
         }
-
     }
 
     internal func resetFader(_ state: Bool) {
@@ -101,7 +100,7 @@ extension AKPlayer {
         }
     }
 
-    private func fadeOutWithTime(_ time: Double) {
+    @objc internal func fadeOutWithTime(_ time: Double) {
         guard let faderNode = faderNode else { return }
 
         if time > 0 {
@@ -112,5 +111,4 @@ extension AKPlayer {
             // AKLog("Fading out to", Fade.minimumGain, ", shape:", fade.outRampType.rawValue)
         }
     }
-
 }
