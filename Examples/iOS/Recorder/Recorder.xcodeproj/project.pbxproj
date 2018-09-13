@@ -342,7 +342,7 @@
 				INFOPLIST_FILE = Recorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 4.0;
@@ -359,7 +359,7 @@
 				INFOPLIST_FILE = Recorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 4.0;

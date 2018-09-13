@@ -1067,6 +1067,7 @@
 		EA03BFE2201F315C00E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE1201F315C00E8BE2C /* AKShakerDSPKernel.mm */; };
 		EA03BFE820206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE720206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA03C028202430D500E8BE2C /* ParameterRamper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA03C027202430D500E8BE2C /* ParameterRamper.cpp */; };
+		EA08A99E214A018500115D67 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA08A99D214A018500115D67 /* libc++.tbd */; };
 		EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E11C59A9FC0035B5DF /* AKSettings.swift */; };
 		EA7D070C1F4E63EB00707706 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		EA7D070D1F4E63F400707706 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BA9811C5E24AE00BBD469 /* AKView.swift */; };
@@ -1096,7 +1097,6 @@
 		EA7D07261F4E655200707706 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C41331C40E3A5009D870B /* EZAudioDisplayLink.m */; };
 		EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
-		EAD0DEE621426B3000DCE36F /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F6ED32014B17000B68497 /* libstdc++.tbd */; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
 		EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF71D8B20249A880018946B /* AKAudioEffect.h */; };
 		EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D8C20249A880018946B /* AKAudioEffect.mm */; };
@@ -2315,6 +2315,7 @@
 		EA03BFE1201F315C00E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFE720206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA03C027202430D500E8BE2C /* ParameterRamper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterRamper.cpp; sourceTree = "<group>"; };
+		EA08A99D214A018500115D67 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EA6949E11C59A9FC0035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA7D07011F4E63C200707706 /* AudioKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7D07031F4E63C200707706 /* AudioKitUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitUI.h; sourceTree = "<group>"; };
@@ -2389,7 +2390,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DEE621426B3000DCE36F /* libstdc++.tbd in Frameworks */,
+				EA08A99E214A018500115D67 /* libc++.tbd in Frameworks */,
 				EA7D070C1F4E63EB00707706 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5105,6 +5106,7 @@
 		EA7D070B1F4E63EB00707706 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA08A99D214A018500115D67 /* libc++.tbd */,
 				EA8F6ED32014B17000B68497 /* libstdc++.tbd */,
 				EAC4FC051F56A596003B692B /* Foundation.framework */,
 				EAC4FC031F56A4E3003B692B /* UIKit.framework */,
@@ -6612,7 +6614,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -6644,7 +6646,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
