@@ -1088,8 +1088,8 @@
 		EA03BFE6201F334400E8BE2C /* AKShakerDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE5201F334400E8BE2C /* AKShakerDSPKernel.mm */; };
 		EA03BFEA202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
 		EA03C02C2024606300E8BE2C /* ParameterRamper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA03C02B2024606200E8BE2C /* ParameterRamper.cpp */; };
+		EA08A9A0214A01AA00115D67 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA08A99F214A01AA00115D67 /* libc++.tbd */; };
 		EAB4E0532026A0A400171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */; };
-		EAD0DEE821426B9400DCE36F /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD0DEE721426B9400DCE36F /* libstdc++.tbd */; };
 		EAD65AE021408AE10063221D /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAD65ADE21408AE10063221D /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAD65AE121408AE10063221D /* AKSynthDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAD65ADF21408AE10063221D /* AKSynthDSP.mm */; };
 		EAF71D8020248B3F0018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7E20248B3F0018946B /* AKDSPKernel.mm */; };
@@ -2316,6 +2316,7 @@
 		EA03BFE5201F334400E8BE2C /* AKShakerDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKShakerDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
 		EA03C02B2024606200E8BE2C /* ParameterRamper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterRamper.cpp; sourceTree = "<group>"; };
+		EA08A99F214A01AA00115D67 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
 		EAD0DEE721426B9400DCE36F /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EAD65ADE21408AE10063221D /* AKSynthDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynthDSP.hpp; sourceTree = "<group>"; };
@@ -2354,7 +2355,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DEE821426B9400DCE36F /* libstdc++.tbd in Frameworks */,
+				EA08A9A0214A01AA00115D67 /* libc++.tbd in Frameworks */,
 				EAFECEDC1F4EBE6600A2B046 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5097,6 +5098,7 @@
 		EAFECEDB1F4EBE6600A2B046 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA08A99F214A01AA00115D67 /* libc++.tbd */,
 				EAD0DEE721426B9400DCE36F /* libstdc++.tbd */,
 			);
 			name = Frameworks;
@@ -5527,7 +5529,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6522,7 +6524,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -6552,7 +6554,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -6625,7 +6627,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
