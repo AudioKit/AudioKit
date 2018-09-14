@@ -25,7 +25,7 @@ then
 		ACTIVE_ARCH=NO
 		XCSUFFIX=""
 		VERSION="${VERSION}-beta"
-	elif "$TRAVIS_TAG" != ""; then  # Release build
+	elif test "$TRAVIS_TAG" != ""; then  # Release build
 		ACTIVE_ARCH=NO
 		XCSUFFIX=""
 	else # Test build
