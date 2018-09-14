@@ -24,7 +24,7 @@ then
 	if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH"; then # Staging build
 		ACTIVE_ARCH=NO
 		XCSUFFIX=""
-		VERSION="${VERSION}-beta"
+		VERSION="${VERSION}.b1"
 	elif test "$TRAVIS_TAG" != ""; then  # Release build
 		ACTIVE_ARCH=NO
 		XCSUFFIX=""
