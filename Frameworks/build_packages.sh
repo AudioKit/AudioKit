@@ -12,7 +12,7 @@ VERSION=$(cat ../VERSION)
 
 if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH";
 then
-	VERSION="${VERSION}-beta"
+	VERSION="${VERSION}.b1"
 fi
 
 if ! which gsed > /dev/null 2>&1;
