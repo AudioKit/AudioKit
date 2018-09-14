@@ -144,7 +144,7 @@ create_macos_framework()
 	fi
 }
 
-echo "Building frameworks for platforms: $PLATFORMS"
+echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
