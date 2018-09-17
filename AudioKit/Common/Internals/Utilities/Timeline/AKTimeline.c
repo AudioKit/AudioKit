@@ -238,7 +238,7 @@ void AKTimelineRender(AKTimeline            *timeline,
         return;
     }
 
-    if (!SampleAndHostTimeValid(timeline->_baseTime)) {
+    if (!SampleAndHostTimeValid(timeline->_baseTime) && SampleAndHostTimeValid(*inTimeStamp)) {
         timeline->_baseTime = extrapolateTime(timeline->_baseTime, *inTimeStamp, timeline->format.mSampleRate);
     }
 
