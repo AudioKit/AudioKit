@@ -83,6 +83,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
 // Effects / Modulation
+#import "AKModulatedDelay_Typedefs.h"
+#import "AKModulatedDelay.hpp"
 #import "AKModulatedDelayDSP.hpp"
 #import "AKPhaserDSP.hpp"
 
