@@ -102,7 +102,7 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
     filterCutoffRamp.setTarget(4, true);
-    filterEgStrengthRamp.setTarget(20.0f, true);
+    filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
     glideRateRamp.setTarget(0.0, true);
 }
@@ -126,7 +126,7 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             pitchBendRamp.setRampDuration(value, _sampleRate);
             vibratoDepthRamp.setRampDuration(value, _sampleRate);
             filterCutoffRamp.setRampDuration(value, _sampleRate);
-            filterEgStrengthRamp.setRampDuration(value, _sampleRate);
+            filterStrengthRamp.setRampDuration(value, _sampleRate);
             filterResonanceRamp.setRampDuration(value, _sampleRate);
             glideRateRamp.setRampDuration(value, _sampleRate);
             break;
@@ -143,8 +143,8 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
             break;
-        case AKSamplerParameterFilterEgStrength:
-            filterEgStrengthRamp.setTarget(value, immediate);
+        case AKSamplerParameterFilterStrength:
+            filterStrengthRamp.setTarget(value, immediate);
             break;
         case AKSamplerParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
@@ -207,8 +207,8 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return vibratoDepthRamp.getTarget();
         case AKSamplerParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
-        case AKSamplerParameterFilterEgStrength:
-            return filterEgStrengthRamp.getTarget();
+        case AKSamplerParameterFilterStrength:
+            return filterStrengthRamp.getTarget();
         case AKSamplerParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
         case AKSamplerParameterGlideRate:
@@ -260,8 +260,8 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterEgStrengthRamp.advanceTo(_now + frameOffset);
-        cutoffEnvelopeStrength = (float)filterEgStrengthRamp.getValue();
+        filterStrengthRamp.advanceTo(_now + frameOffset);
+        cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(_now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
         glideRateRamp.advanceTo(_now + frameOffset);

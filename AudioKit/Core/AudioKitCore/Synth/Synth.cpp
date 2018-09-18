@@ -18,7 +18,7 @@ namespace AudioKitCore {
     , pitchOffset(0.0f)
     , vibratoDepth(0.0f)
     , cutoffMultiple(4.0f)
-    , cutoffEgStrength(20.0f)
+    , cutoffStrength(20.0f)
     , resLinear(1.0f)
     {
         for (int i=0; i < MAX_VOICE_COUNT; i++)
@@ -251,7 +251,7 @@ namespace AudioKitCore {
             int nn = pVoice->noteNumber;
             if (nn >= 0)
             {
-                if (pVoice->prepToGetSamples(masterVolume, phaseDeltaMultiplier, cutoffMultiple, cutoffEgStrength, resLinear) ||
+                if (pVoice->prepToGetSamples(masterVolume, phaseDeltaMultiplier, cutoffMultiple, cutoffStrength, resLinear) ||
                     pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
                 {
                     stopNote(nn, true);

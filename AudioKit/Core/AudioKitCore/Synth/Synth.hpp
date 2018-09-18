@@ -65,7 +65,7 @@ namespace AudioKitCore
         float cutoffMultiple;
 
         /// how much filter EG adds on top of cutoffMultiple
-        float cutoffEgStrength;
+        float cutoffStrength;
 
         /// resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
         float resLinear;
