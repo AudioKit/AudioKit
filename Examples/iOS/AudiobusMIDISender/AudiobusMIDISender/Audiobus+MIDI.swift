@@ -14,7 +14,7 @@ extension Audiobus {
     // MARK: - Preparations
     class func addMIDISenderPort(_ port: ABMIDISenderPort) {
         guard let client = client else {
-            print("need to start Audiobus")
+            AKLog("need to start Audiobus")
             return
         }
 
@@ -23,7 +23,7 @@ extension Audiobus {
 
     class func setUpEnableCoreMIDIBlock(block: ((Bool) -> Void)!) {
         guard let client = client else {
-            print("need to start Audiobus")
+            AKLog("need to start Audiobus")
             return
         }
 
@@ -33,7 +33,7 @@ extension Audiobus {
     // MARK: - Triggers
     class func addTrigger(_ trigger: ABTrigger) {
         guard let client = client else {
-            print("need to start Audiobus")
+            AKLog("need to start Audiobus")
             return
         }
         client.controller.add(trigger)

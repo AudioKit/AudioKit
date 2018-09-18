@@ -9,8 +9,8 @@
 #include "AKModalResonanceFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createModalResonanceFilterDSP(int nChannels, double sampleRate) {
-    AKModalResonanceFilterDSP* dsp = new AKModalResonanceFilterDSP();
+extern "C" void *createModalResonanceFilterDSP(int nChannels, double sampleRate) {
+    AKModalResonanceFilterDSP *dsp = new AKModalResonanceFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -70,10 +70,9 @@ void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
     _private->_mode1->q = defaultQualityFactor;
 }
 
-void AKModalResonanceFilterDSP::destroy() {
+void AKModalResonanceFilterDSP::deinit() {
     sp_mode_destroy(&_private->_mode0);
     sp_mode_destroy(&_private->_mode1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,8 +94,8 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

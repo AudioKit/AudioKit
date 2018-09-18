@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
 
 #ifndef __cplusplus
 
-void* createPluckedStringDSP(int nChannels, double sampleRate);
+void *createPluckedStringDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -80,9 +80,8 @@ public:
         _pluck->amp = 0.5;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_pluck_destroy(&_pluck);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void trigger() override {
@@ -112,7 +111,7 @@ public:
             _pluck->amp = amplitude;
 
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {

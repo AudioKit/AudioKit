@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKWhiteNoiseParameter) {
 
 #ifndef __cplusplus
 
-void* createWhiteNoiseDSP(int nChannels, double sampleRate);
+void *createWhiteNoiseDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -30,7 +30,6 @@ private:
  
 public:
     AKWhiteNoiseDSP();
-    ~AKWhiteNoiseDSP();
 
     float amplitudeLowerBound = 0.0;
     float amplitudeUpperBound = 1.0;
@@ -47,7 +46,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

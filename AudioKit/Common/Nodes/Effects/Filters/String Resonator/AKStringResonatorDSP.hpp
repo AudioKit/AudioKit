@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
 
 #ifndef __cplusplus
 
-void* createStringResonatorDSP(int nChannels, double sampleRate);
+void *createStringResonatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKStringResonatorDSP();
-    ~AKStringResonatorDSP();
 
     float fundamentalFrequencyLowerBound = 12.0;
     float fundamentalFrequencyUpperBound = 10000.0;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

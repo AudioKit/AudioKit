@@ -1,6 +1,6 @@
 //
 //  AKSamplerDSP.hpp
-//  ExtendingAudioKit
+//  AudioKit
 //
 //  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
@@ -17,8 +17,10 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterPitchBend,
     AKSamplerParameterVibratoDepth,
     AKSamplerParameterFilterCutoff,
-    AKSamplerParameterFilterEgStrength,
+    AKSamplerParameterFilterStrength,
     AKSamplerParameterFilterResonance,
+    AKSamplerParameterGlideRate,
+
     // simple parameters
     AKSamplerParameterAttackDuration,
     AKSamplerParameterDecayDuration,
@@ -29,6 +31,9 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterFilterSustainLevel,
     AKSamplerParameterFilterReleaseDuration,
     AKSamplerParameterFilterEnable,
+    AKSamplerParameterLoopThruRelease,
+    AKSamplerParameterMonophonic,
+    AKSamplerParameterLegato,
     
     // ensure this is always last in the list, to simplify parameter addressing
     AKSamplerParameterRampDuration,
@@ -38,34 +43,35 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 
 #include "AKSampler_Typedefs.h"
 
-void* createAKSamplerDSP(int nChannels, double sampleRate);
-void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD);
-void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD);
-void doAKSamplerUnloadAllSamples(void* pDSP);
-void doAKSamplerBuildSimpleKeyMap(void* pDSP);
-void doAKSamplerBuildKeyMap(void* pDSP);
-void doAKSamplerSetLoopThruRelease(void* pDSP, bool value);
-void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate);
-void doAKSamplerStopAllVoices(void* pDSP);
-void doAKSamplerRestartVoices(void* pDSP);
-void doAKSamplerSustainPedal(void* pDSP, bool pedalDown);
+void *createAKSamplerDSP(int nChannels, double sampleRate);
+void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor *pSDD);
+void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor *pSFD);
+void doAKSamplerUnloadAllSamples(void *pDSP);
+void doAKSamplerBuildSimpleKeyMap(void *pDSP);
+void doAKSamplerBuildKeyMap(void *pDSP);
+void doAKSamplerSetLoopThruRelease(void *pDSP, bool value);
+void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
+void doAKSamplerStopAllVoices(void *pDSP);
+void doAKSamplerRestartVoices(void *pDSP);
+void doAKSamplerSustainPedal(void *pDSP, bool pedalDown);
 
 #else
 
 #import "AKDSPBase.hpp"
-#include "Sampler.hpp"
+#include "AKCoreSampler.hpp"
 #include "AKLinearParameterRamp.hpp"
 
-struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
+struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
     AKLinearParameterRamp filterCutoffRamp;
-    AKLinearParameterRamp filterEgStrengthRamp;
+    AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
+    AKLinearParameterRamp glideRateRamp;
     
     AKSamplerDSP();
     void init(int nChannels, double sampleRate) override;

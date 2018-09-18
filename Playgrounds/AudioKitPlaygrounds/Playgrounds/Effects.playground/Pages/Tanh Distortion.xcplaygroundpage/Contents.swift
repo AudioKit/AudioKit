@@ -7,6 +7,7 @@ import AudioKit
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var distortion = AKTanhDistortion(player)
 distortion.pregain = 1.0

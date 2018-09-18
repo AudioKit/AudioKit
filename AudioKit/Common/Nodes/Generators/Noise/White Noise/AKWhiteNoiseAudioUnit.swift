@@ -54,6 +54,6 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = Float(AKWhiteNoise.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

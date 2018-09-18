@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 import UIKit
+import AudioKit
 
 /// Delegate for keyboard events
 @objc public protocol AKKeyboardDelegate: class {
@@ -40,7 +41,7 @@ import UIKit
     @IBInspectable open var  keyOnColor: UIColor = #colorLiteral(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
 
     /// Class to handle user actions
-    open weak var delegate: AKKeyboardDelegate?
+    @objc open weak var delegate: AKKeyboardDelegate?
 
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
@@ -133,8 +134,8 @@ import UIKit
         oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)),
                                height: Double(height))
 
-        for i in 0 ..< octaveCount {
-            drawOctaveCanvas(i)
+        for index in 0 ..< octaveCount {
+            drawOctaveCanvas(index)
         }
 
         let tempWidth = CGFloat(width) - CGFloat((octaveCount * 7) - 1) * whiteKeySize.width - 1
@@ -170,28 +171,28 @@ import UIKit
 
         var whiteKeysPaths = [UIBezierPath]()
 
-        for i in 0 ..< 7 {
+        for index in 0 ..< 7 {
             whiteKeysPaths.append(
-                UIBezierPath(rect: CGRect(x: whiteKeyX(i, octaveNumber: octaveNumber),
+                UIBezierPath(rect: CGRect(x: whiteKeyX(index, octaveNumber: octaveNumber),
                                           y: 1,
                                           width: whiteKeySize.width - 1,
                                           height: whiteKeySize.height))
             )
-            whiteKeyColor(i, octaveNumber: octaveNumber).setFill()
-            whiteKeysPaths[i].fill()
+            whiteKeyColor(index, octaveNumber: octaveNumber).setFill()
+            whiteKeysPaths[index].fill()
         }
 
         var topKeyPaths = [UIBezierPath]()
 
-        for i in 0 ..< 28 {
+        for index in 0 ..< 28 {
             topKeyPaths.append(
-                UIBezierPath(rect: CGRect(x: topKeyX(i, octaveNumber: octaveNumber),
+                UIBezierPath(rect: CGRect(x: topKeyX(index, octaveNumber: octaveNumber),
                                           y: 1,
                                           width: topKeySize.width,
                                           height: topKeySize.height))
             )
-            topKeyColor(i, octaveNumber: octaveNumber).setFill()
-            topKeyPaths[i].fill()
+            topKeyColor(index, octaveNumber: octaveNumber).setFill()
+            topKeyPaths[index].fill()
         }
     }
 
@@ -212,18 +213,18 @@ import UIKit
             return nil
         }
 
-        let x = location.x - xOffset
-        let y = location.y
+        let xPoint = location.x - xOffset
+        let yPoint = location.y
 
         var note = 0
 
-        if y > oneOctaveSize.height * topKeyHeightRatio {
-            let octNum = Int(x / oneOctaveSize.width)
-            let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
+        if yPoint > oneOctaveSize.height * topKeyHeightRatio {
+            let octNum = Int(xPoint / oneOctaveSize.width)
+            let scaledX = xPoint - CGFloat(octNum) * oneOctaveSize.width
             note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))] + baseMIDINote
         } else {
-            let octNum = Int(x / oneOctaveSize.width)
-            let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
+            let octNum = Int(xPoint / oneOctaveSize.width)
+            let scaledX = xPoint - CGFloat(octNum) * oneOctaveSize.width
             note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))] + baseMIDINote
         }
         if note >= 0 {

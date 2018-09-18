@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKResonantFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createResonantFilterDSP(int nChannels, double sampleRate);
+void *createResonantFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKResonantFilterDSP();
-    ~AKResonantFilterDSP();
 
     float frequencyLowerBound = 100.0;
     float frequencyUpperBound = 20000.0;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

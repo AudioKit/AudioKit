@@ -55,9 +55,9 @@ public:
         }
     }
 
-    void setParameters(float params[]) {
+    void setParameters(float temporaryParameters[]) {
         for (int i = 0; i < 14; i++) {
-            parameters[i] = params[i];
+            parameters[i] = temporaryParameters[i];
         }
     };
 

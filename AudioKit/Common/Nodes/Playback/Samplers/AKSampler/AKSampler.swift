@@ -22,8 +22,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var filterCutoffParameter: AUParameter?
-    fileprivate var filterEgStrengthParameter: AUParameter?
+    fileprivate var filterStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
+    fileprivate var glideRateParameter: AUParameter?
 
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -36,6 +37,9 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var filterReleaseDurationParameter: AUParameter?
 
     fileprivate var filterEnableParameter: AUParameter?
+    fileprivate var loopThruReleaseParameter: AUParameter?
+    fileprivate var monophonicParameter: AUParameter?
+    fileprivate var legatoParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -117,20 +121,20 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Filter EG strength (harmonic ratio)
-    @objc open dynamic var filterEgStrength: Double = 20.0 {
+    @objc open dynamic var filterStrength: Double = 20.0 {
         willSet {
-            if filterEgStrength == newValue {
+            if filterStrength == newValue {
                 return
             }
 
             if internalAU?.isSetUp ?? false {
-                if token != nil && filterEgStrengthParameter != nil {
-                    filterEgStrengthParameter?.setValue(Float(newValue), originator: token!)
+                if token != nil && filterStrengthParameter != nil {
+                    filterStrengthParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
 
-            internalAU?.filterEgStrength = newValue
+            internalAU?.filterStrength = newValue
         }
     }
 
@@ -149,6 +153,24 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
             }
 
             internalAU?.filterResonance = newValue
+        }
+    }
+
+    /// Glide rate (seconds per octave)
+    @objc open dynamic var glideRate: Double = 0.0 {
+        willSet {
+            if glideRate == newValue {
+                return
+            }
+
+            if internalAU?.isSetUp ?? false {
+                if token != nil && glideRateParameter != nil {
+                    glideRateParameter?.setValue(Float(newValue), originator: token!)
+                    return
+                }
+            }
+
+            internalAU?.glideRate = newValue
         }
     }
 
@@ -233,6 +255,33 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         }
     }
 
+    /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
+    @objc open dynamic var loopThruRelease: Bool = false {
+        willSet {
+            if loopThruRelease != newValue {
+                internalAU?.loopThruRelease = newValue ? 1.0 : 0.0
+            }
+        }
+    }
+
+    /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
+    @objc open dynamic var isMonophonic: Bool = false {
+        willSet {
+            if isMonophonic != newValue {
+                internalAU?.isMonophonic = newValue ? 1.0 : 0.0
+            }
+        }
+    }
+
+    /// isLegato (boolean, 0.0 for false or 1.0 for true)
+    @objc open dynamic var isLegato: Bool = false {
+        willSet {
+            if isLegato != newValue {
+                internalAU?.isLegato = newValue ? 1.0 : 0.0
+            }
+        }
+    }
+
     // MARK: - Initialization
 
     /// Initialize this sampler node
@@ -243,7 +292,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
-    ///   - filterEgStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
+    ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - attackDuration: seconds, 0.0 - 10.0
     ///   - decayDuration: seconds, 0.0 - 10.0
@@ -254,6 +303,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - filterDecayDuration: seconds, 0.0 - 10.0
     ///   - filterSustainLevel: 0.0 - 1.0
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
+    ///   - glideRate: seconds/octave, 0.0 - 10.0
+    ///   - loopThruRelease: if true, sample will continue looping after key release
+    ///   - isMonophonic: true for mono, false for polyphonic
+    ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
     ///
     @objc public init(
         _ input: AKNode? = nil,
@@ -261,7 +314,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         filterCutoff: Double = 4.0,
-        filterEgStrength: Double = 20.0,
+        filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         attackDuration: Double = 0.0,
         decayDuration: Double = 0.0,
@@ -271,13 +324,17 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         filterAttackDuration: Double = 0.0,
         filterDecayDuration: Double = 0.0,
         filterSustainLevel: Double = 1.0,
-        filterReleaseDuration: Double = 0.0) {
+        filterReleaseDuration: Double = 0.0,
+        glideRate: Double = 0.0,
+        loopThruRelease: Bool = true,
+        isMonophonic: Bool = false,
+        isLegato: Bool = false  ) {
 
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.filterCutoff = filterCutoff
-        self.filterEgStrength = filterEgStrength
+        self.filterStrength = filterStrength
         self.filterResonance = filterResonance
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -288,6 +345,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterDecayDuration = filterDecayDuration
         self.filterSustainLevel = filterSustainLevel
         self.filterReleaseDuration = filterReleaseDuration
+        self.glideRate = glideRate
+        self.loopThruRelease = loopThruRelease
+        self.isMonophonic = isMonophonic
+        self.isLegato = isLegato
 
         _Self.register()
 
@@ -312,7 +373,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
         self.filterCutoffParameter = tree["filterCutoff"]
-        self.filterEgStrengthParameter = tree["filterEgStrength"]
+        self.filterStrengthParameter = tree["filterStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
         self.attackDurationParameter = tree["attackDuration"]
         self.decayDurationParameter = tree["decayDuration"]
@@ -323,6 +384,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.filterSustainLevelParameter = tree["filterSustainLevel"]
         self.filterReleaseDurationParameter = tree["filterReleaseDuration"]
         self.filterEnableParameter = tree["filterEnable"]
+        self.glideRateParameter = tree["glideRate"]
+        self.loopThruReleaseParameter = tree["loopThruRelease"]
+        self.monophonicParameter = tree["monophonic"]
+        self.legatoParameter = tree["legato"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -340,7 +405,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.pitchBend, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepth, value: vibratoDepth)
         self.internalAU?.setParameterImmediately(.filterCutoff, value: filterCutoff)
-        self.internalAU?.setParameterImmediately(.filterEgStrength, value: filterEgStrength)
+        self.internalAU?.setParameterImmediately(.filterStrength, value: filterStrength)
         self.internalAU?.setParameterImmediately(.filterResonance, value: filterResonance)
         self.internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
         self.internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
@@ -351,6 +416,10 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.filterSustainLevel, value: filterSustainLevel)
         self.internalAU?.setParameterImmediately(.filterReleaseDuration, value: filterReleaseDuration)
         self.internalAU?.setParameterImmediately(.filterEnable, value: filterEnable ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.glideRate, value: glideRate)
+        self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
     }
 
     open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {

@@ -6,6 +6,7 @@ import AudioKit
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var filter = AKLowShelfFilter(player)
 filter.cutoffFrequency = 80 // Hz

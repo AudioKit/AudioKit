@@ -54,6 +54,6 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = Float(AKPinkNoise.defaultAmplitude)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

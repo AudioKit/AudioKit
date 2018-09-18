@@ -70,6 +70,6 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = 0.5
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

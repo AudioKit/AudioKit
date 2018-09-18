@@ -38,12 +38,17 @@ open class AKMicrophone: AKNode, AKToggleable {
     /// Initialize the microphone
     override public init() {
         super.init()
-        #if !os(tvOS)
-            self.avAudioNode = mixer
-            AKSettings.audioInputEnabled = true
-            AudioKit.engine.attach(mixer)
-            AKLog("Mixer inputs", mixer.numberOfInputs)
-            AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: nil)
+        self.avAudioNode = mixer
+
+        AKSettings.audioInputEnabled = true
+
+        // Manually doing the connection since .connect(to:) doesn't support format arguments yet
+        #if os(iOS)
+        let format = setFormatForDevice()
+        AudioKit.engine.attach(self.avAudioNode)
+        AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format!)
+        #elseif !os(tvOS)
+        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
         #endif
     }
 
@@ -64,5 +69,38 @@ open class AKMicrophone: AKNode, AKToggleable {
             lastKnownVolume = volume
             volume = 0
         }
+    }
+
+    // Iphone 6s and up have the hardware mic locked at 48k. This causes issues because AudioKit natively wants to run at 44.1k
+    // Here we detect the type of device, so we can set the entire session to 48k if needed
+    private func getIphoneType() -> String {
+            var systemInfo = utsname()
+            uname(&systemInfo)
+            let machineMirror = Mirror(reflecting: systemInfo.machine)
+            let identifier = machineMirror.children.reduce("") { identifier, element in
+                guard let value = element.value as? Int8, value != 0 else { return identifier }
+                return identifier + String(UnicodeScalar(UInt8(value)))
+            }
+        return identifier
+    }
+
+    // Here is where we actually check the device type and make the settings, if needed
+    private func setFormatForDevice() -> AVAudioFormat? {
+        #if os(iOS)
+        var desiredFS = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+        let typeString = getIphoneType()
+        let stringArray = typeString.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        if let firstNumber = stringArray.first(where: { Int($0) != nil }), let number = Int(firstNumber), number > 7,
+            let inPortType = AVAudioSession.sharedInstance().currentRoute.inputs.first?.portType, inPortType == AVAudioSessionPortBuiltInMic,
+            let outPortType = AVAudioSession.sharedInstance().currentRoute.outputs.first?.portType,
+            outPortType == AVAudioSessionPortBuiltInSpeaker || outPortType == AVAudioSessionPortBuiltInReceiver
+        {
+            desiredFS = 48000.0
+            AKSettings.sampleRate = 48000.0
+        }
+        #else
+        let desiredFS = AKSettings.sampleRate
+        #endif
+        return AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 2)
     }
 }

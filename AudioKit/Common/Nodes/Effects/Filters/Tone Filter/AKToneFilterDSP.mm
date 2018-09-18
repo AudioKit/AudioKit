@@ -9,8 +9,8 @@
 #include "AKToneFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createToneFilterDSP(int nChannels, double sampleRate) {
-    AKToneFilterDSP* dsp = new AKToneFilterDSP();
+extern "C" void *createToneFilterDSP(int nChannels, double sampleRate) {
+    AKToneFilterDSP *dsp = new AKToneFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -59,10 +59,9 @@ void AKToneFilterDSP::init(int _channels, double _sampleRate) {
     _private->_tone1->hp = defaultHalfPowerPoint;
 }
 
-void AKToneFilterDSP::destroy() {
+void AKToneFilterDSP::deinit() {
     sp_tone_destroy(&_private->_tone0);
     sp_tone_destroy(&_private->_tone1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,8 +80,8 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

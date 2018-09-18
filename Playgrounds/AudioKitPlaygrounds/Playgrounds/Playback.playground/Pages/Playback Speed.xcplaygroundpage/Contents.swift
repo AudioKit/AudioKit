@@ -8,6 +8,7 @@ import AudioKit
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0

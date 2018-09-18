@@ -9,8 +9,8 @@
 #include "AKPitchShifterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createPitchShifterDSP(int nChannels, double sampleRate) {
-    AKPitchShifterDSP* dsp = new AKPitchShifterDSP();
+extern "C" void *createPitchShifterDSP(int nChannels, double sampleRate) {
+    AKPitchShifterDSP *dsp = new AKPitchShifterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -81,10 +81,9 @@ void AKPitchShifterDSP::init(int _channels, double _sampleRate) {
     *_private->_pshift1->xfade = defaultCrossfade;
 }
 
-void AKPitchShifterDSP::destroy() {
+void AKPitchShifterDSP::deinit() {
     sp_pshift_destroy(&_private->_pshift0);
     sp_pshift_destroy(&_private->_pshift1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,8 +108,8 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

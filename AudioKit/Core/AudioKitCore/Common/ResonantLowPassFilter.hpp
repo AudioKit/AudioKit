@@ -32,9 +32,9 @@ namespace AudioKitCore
         void init(double sampleRateHz);
         void updateSampleRate(double sampleRateHz) { this->sampleRateHz = sampleRateHz; }
         
-        void setParams(double newCutoffHz, double newResLinear);
-        void setCutoff(double newCutoffHz) { setParams(newCutoffHz, mLastResLinear); }
-        void setResonance(double newResLinear) { setParams(mLastCutoffHz, newResLinear); }
+        void setParameters(double newCutoffHz, double newResLinear);
+        void setCutoff(double newCutoffHz) { setParameters(newCutoffHz, mLastResLinear); }
+        void setResonance(double newResLinear) { setParameters(mLastCutoffHz, newResLinear); }
         
         void process(const float *inSourceP, float *inDestP, int inFramesToProcess);
 

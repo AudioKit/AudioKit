@@ -9,8 +9,8 @@
 #include "AKMetalBarDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createMetalBarDSP(int nChannels, double sampleRate) {
-    AKMetalBarDSP* dsp = new AKMetalBarDSP();
+extern "C" void *createMetalBarDSP(int nChannels, double sampleRate) {
+    AKMetalBarDSP *dsp = new AKMetalBarDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -115,9 +115,8 @@ void AKMetalBarDSP::init(int _channels, double _sampleRate) {
     _private->_bar->wid = defaultStrikeWidth;
 }
 
-void AKMetalBarDSP::destroy() {
+void AKMetalBarDSP::deinit() {
     sp_bar_destroy(&_private->_bar);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKMetalBarDSP::trigger() {
@@ -150,7 +149,7 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

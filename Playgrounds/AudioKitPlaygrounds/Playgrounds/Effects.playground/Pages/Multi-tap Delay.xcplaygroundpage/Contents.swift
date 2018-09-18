@@ -12,6 +12,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 var player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 //: In AudioKit, you can create a multitap easily through creating a function
 //: that mixes together several delays and gains.

@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		179B4B1220FEAF43008A7117 /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179B4B1120FEAF42008A7117 /* TapTempo.swift */; };
 		555CCCD21F587D5D00614D5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555CCCD11F587D5D00614D5F /* AppDelegate.swift */; };
 		555CCCD41F587D5D00614D5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555CCCD31F587D5D00614D5F /* ViewController.swift */; };
 		555CCCD71F587D5D00614D5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCD51F587D5D00614D5F /* Main.storyboard */; };
 		555CCCD91F587D5D00614D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCD81F587D5D00614D5F /* Assets.xcassets */; };
 		555CCCDC1F587D5D00614D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 555CCCDA1F587D5D00614D5F /* LaunchScreen.storyboard */; };
 		5585D4891F58DC9A0071A702 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D4881F58DC9A0071A702 /* AudioKit.framework */; };
-		5585D48C1F58DCA20071A702 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D48B1F58DCA20071A702 /* AudioKitUI.framework */; };
 		5585D48F1F58DE930071A702 /* closed_hi_hat_F#1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */; };
 		5585D4911F58DED20071A702 /* cheeb-ch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5585D4901F58DED20071A702 /* cheeb-ch.wav */; };
+		EAD0DECF2142079A00DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D48B1F58DCA20071A702 /* AudioKitUI.framework */; };
+		EAD0DED02142079A00DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5585D48B1F58DCA20071A702 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EAD0DED02142079A00DCE36F /* AudioKitUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,6 +35,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		179B4B1120FEAF42008A7117 /* TapTempo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
 		555CCCCE1F587D5D00614D5F /* MetronomeSamplerSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetronomeSamplerSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		555CCCD11F587D5D00614D5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		555CCCD31F587D5D00614D5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5585D48C1F58DCA20071A702 /* AudioKitUI.framework in Frameworks */,
+				EAD0DECF2142079A00DCE36F /* AudioKitUI.framework in Frameworks */,
 				5585D4891F58DC9A0071A702 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +85,7 @@
 			children = (
 				555CCCD11F587D5D00614D5F /* AppDelegate.swift */,
 				555CCCD31F587D5D00614D5F /* ViewController.swift */,
+				179B4B1120FEAF42008A7117 /* TapTempo.swift */,
 				5585D4901F58DED20071A702 /* cheeb-ch.wav */,
 				5585D48E1F58DE930071A702 /* closed_hi_hat_F#1.wav */,
 				555CCCD51F587D5D00614D5F /* Main.storyboard */,
@@ -102,6 +107,7 @@
 				555CCCCB1F587D5D00614D5F /* Frameworks */,
 				555CCCCC1F587D5D00614D5F /* Resources */,
 				5585D47F1F58C3D00071A702 /* Embed Frameworks */,
+				EAD0DED1214207AC00DCE36F /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -162,6 +168,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		EAD0DED1214207AC00DCE36F /* Fix AudioKitUI slices */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix AudioKitUI slices";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		555CCCCA1F587D5D00614D5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -169,6 +192,7 @@
 			files = (
 				555CCCD41F587D5D00614D5F /* ViewController.swift in Sources */,
 				555CCCD21F587D5D00614D5F /* AppDelegate.swift in Sources */,
+				179B4B1220FEAF43008A7117 /* TapTempo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +339,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MetronomeSamplerSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MetronomeSamplerSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -330,7 +354,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MetronomeSamplerSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MetronomeSamplerSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

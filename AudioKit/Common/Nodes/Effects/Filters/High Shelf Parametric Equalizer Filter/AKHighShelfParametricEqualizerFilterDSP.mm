@@ -9,8 +9,8 @@
 #include "AKHighShelfParametricEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createHighShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
-    AKHighShelfParametricEqualizerFilterDSP* dsp = new AKHighShelfParametricEqualizerFilterDSP();
+extern "C" void *createHighShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
+    AKHighShelfParametricEqualizerFilterDSP *dsp = new AKHighShelfParametricEqualizerFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -83,10 +83,9 @@ void AKHighShelfParametricEqualizerFilterDSP::init(int _channels, double _sample
     _private->_pareq1->mode = 2;
 }
 
-void AKHighShelfParametricEqualizerFilterDSP::destroy() {
+void AKHighShelfParametricEqualizerFilterDSP::deinit() {
     sp_pareq_destroy(&_private->_pareq0);
     sp_pareq_destroy(&_private->_pareq1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -111,8 +110,8 @@ void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCou
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

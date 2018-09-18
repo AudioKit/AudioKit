@@ -267,7 +267,7 @@ extension ClosedRange {
     /// - parameter value: Value to clamp
     ///
     public func clamp(_ value: Bound) -> Bound {
-        return min(max(value, lowerBound), upperBound)
+        return Swift.min(Swift.max(value, lowerBound), upperBound)
     }
 }
 
@@ -330,6 +330,12 @@ public extension AVAudioUnit {
                 callback($0)
             }
         }
+    }
+}
+
+extension AVAudioNode {
+    func inputConnections() -> [AVAudioConnectionPoint] {
+        return (0..<numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
     }
 }
 

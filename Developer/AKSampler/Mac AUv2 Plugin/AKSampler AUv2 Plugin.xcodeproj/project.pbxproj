@@ -30,7 +30,7 @@
 		343E5EA82049C9FC0007B2DF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 343E5EA72049C9FB0007B2DF /* AudioToolbox.framework */; };
 		343E5EAB2049CAFA0007B2DF /* AKSampler_UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 343E5EAA2049CAFA0007B2DF /* AKSampler_UIView.m */; };
 		343E5EAE2049CB960007B2DF /* AKSampler_UIView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 343E5EAD2049CB960007B2DF /* AKSampler_UIView.xib */; };
-		343E5EB42049D03F0007B2DF /* AKSamplerUI.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 343E5E9D2049C9B20007B2DF /* AKSamplerUI.bundle */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		343E5EB42049D03F0007B2DF /* AKSamplerUI.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 343E5E9D2049C9B20007B2DF /* AKSamplerUI.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		343E5EB72049D2220007B2DF /* AKSampler.component in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D01CCD20486CAD60068D4B7 /* AKSampler.component */; };
 		3455F8342044743300A6BC71 /* CADebugger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3455F7E32044743300A6BC71 /* CADebugger.h */; };
 		3455F8352044743300A6BC71 /* CAGuard.h in Headers */ = {isa = PBXBuildFile; fileRef = 3455F7E42044743300A6BC71 /* CAGuard.h */; };
@@ -741,7 +741,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				TargetAttributes = {
 					343E5E9C2049C9B20007B2DF = {
 						CreatedOnToolsVersion = 9.2;
@@ -902,6 +902,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -960,6 +961,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -997,11 +999,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;

@@ -9,8 +9,8 @@
 #include "AKMoogLadderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createMoogLadderDSP(int nChannels, double sampleRate) {
-    AKMoogLadderDSP* dsp = new AKMoogLadderDSP();
+extern "C" void *createMoogLadderDSP(int nChannels, double sampleRate) {
+    AKMoogLadderDSP *dsp = new AKMoogLadderDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -70,10 +70,9 @@ void AKMoogLadderDSP::init(int _channels, double _sampleRate) {
     _private->_moogladder1->res = defaultResonance;
 }
 
-void AKMoogLadderDSP::destroy() {
+void AKMoogLadderDSP::deinit() {
     sp_moogladder_destroy(&_private->_moogladder0);
     sp_moogladder_destroy(&_private->_moogladder1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,8 +94,8 @@ void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

@@ -9,8 +9,8 @@
 #include "AKResonantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createResonantFilterDSP(int nChannels, double sampleRate) {
-    AKResonantFilterDSP* dsp = new AKResonantFilterDSP();
+extern "C" void *createResonantFilterDSP(int nChannels, double sampleRate) {
+    AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -70,10 +70,9 @@ void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
     _private->_reson1->bw = defaultBandwidth;
 }
 
-void AKResonantFilterDSP::destroy() {
+void AKResonantFilterDSP::deinit() {
     sp_reson_destroy(&_private->_reson0);
     sp_reson_destroy(&_private->_reson1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,8 +94,8 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

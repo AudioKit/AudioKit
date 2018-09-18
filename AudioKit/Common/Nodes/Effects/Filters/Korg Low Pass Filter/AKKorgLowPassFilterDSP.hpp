@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKKorgLowPassFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createKorgLowPassFilterDSP(int nChannels, double sampleRate);
+void *createKorgLowPassFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKKorgLowPassFilterDSP();
-    ~AKKorgLowPassFilterDSP();
 
     float cutoffFrequencyLowerBound = 0.0;
     float cutoffFrequencyUpperBound = 22050.0;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -27,13 +27,13 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 do {
     let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav")
 } catch let error as NSError {
-    print("There's an error: \(error)")
+    AKLog("There's an error: \(error)")
 }
 
 //: So it's a good idea to check that the AKAudioFile is valid before using it.
 //: Let's display some info about drumloop :
-print("drumloop.sampleRate: \(drumloop.sampleRate)")
-print("drumloop.duration: \(drumloop.duration)")
+AKLog("drumloop.sampleRate: \(drumloop.sampleRate)")
+AKLog("drumloop.duration: \(drumloop.duration)")
 // and so on...
 
 //: AKAudioFile can easily be trimmed and exported and you can set a
@@ -46,14 +46,14 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
                                   exportFormat: .m4a,
                                   fromSample: 44_100,
                                   toSample: 2 * 44_100) { exportedFile, error in
-    print("myExportCallBack has been triggered. It means that export ended")
+    AKLog("myExportCallBack has been triggered. It means that export ended")
     if error == nil {
-        print("Export succeeded")
+        AKLog("Export succeeded")
 
         // If it is valid, we can play it :
         if let successfulFile = exportedFile {
 
-            print(successfulFile.fileNamePlusExtension)
+            AKLog(successfulFile.fileNamePlusExtension)
             let player = try? AKAudioPlayer(file: successfulFile)
             AudioKit.output = player
             try AudioKit.start()
@@ -61,8 +61,8 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
         }
 
     } else {
-        print(drumloop.fileNamePlusExtension)
-        print("Export failed: \(error)")
+        AKLog(drumloop.fileNamePlusExtension)
+        AKLog("Export failed: \(error)")
     }
 }
 

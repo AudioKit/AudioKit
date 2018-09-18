@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
 
 #ifndef __cplusplus
 
-void* createMoogLadderDSP(int nChannels, double sampleRate);
+void *createMoogLadderDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKMoogLadderDSP();
-    ~AKMoogLadderDSP();
 
     float cutoffFrequencyLowerBound = 12.0;
     float cutoffFrequencyUpperBound = 20000.0;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

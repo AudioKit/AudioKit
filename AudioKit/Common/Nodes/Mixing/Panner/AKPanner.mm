@@ -10,8 +10,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void* createPannerDSP(int nChannels, double sampleRate) {
-    AKPannerDSP* dsp = new AKPannerDSP();
+extern "C" void *createPannerDSP(int nChannels, double sampleRate) {
+    AKPannerDSP *dsp = new AKPannerDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }

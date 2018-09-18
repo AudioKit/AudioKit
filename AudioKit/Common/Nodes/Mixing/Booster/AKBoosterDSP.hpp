@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKBoosterParameter) {
 
 #ifndef __cplusplus
 
-void* createBoosterDSP(int nChannels, double sampleRate);
+void *createBoosterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -42,7 +42,6 @@ private:
 
 public:
     AKBoosterDSP();
-    ~AKBoosterDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;

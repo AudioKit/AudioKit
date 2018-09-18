@@ -9,8 +9,8 @@
 #include "AKKorgLowPassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
-    AKKorgLowPassFilterDSP* dsp = new AKKorgLowPassFilterDSP();
+extern "C" void *createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
+    AKKorgLowPassFilterDSP *dsp = new AKKorgLowPassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -81,10 +81,9 @@ void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_wpkorg351->saturation = defaultSaturation;
 }
 
-void AKKorgLowPassFilterDSP::destroy() {
+void AKKorgLowPassFilterDSP::deinit() {
     sp_wpkorg35_destroy(&_private->_wpkorg350);
     sp_wpkorg35_destroy(&_private->_wpkorg351);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,8 +108,8 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

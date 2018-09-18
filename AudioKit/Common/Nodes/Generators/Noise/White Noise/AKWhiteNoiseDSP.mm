@@ -9,8 +9,8 @@
 #include "AKWhiteNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createWhiteNoiseDSP(int nChannels, double sampleRate) {
-    AKWhiteNoiseDSP* dsp = new AKWhiteNoiseDSP();
+extern "C" void *createWhiteNoiseDSP(int nChannels, double sampleRate) {
+    AKWhiteNoiseDSP *dsp = new AKWhiteNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -55,9 +55,8 @@ void AKWhiteNoiseDSP::init(int _channels, double _sampleRate) {
     _private->_noise->amp = defaultAmplitude;
 }
 
-void AKWhiteNoiseDSP::destroy() {
+void AKWhiteNoiseDSP::deinit() {
     sp_noise_destroy(&_private->_noise);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,7 +73,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

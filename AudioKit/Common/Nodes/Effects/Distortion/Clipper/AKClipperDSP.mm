@@ -9,8 +9,8 @@
 #include "AKClipperDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createClipperDSP(int nChannels, double sampleRate) {
-    AKClipperDSP* dsp = new AKClipperDSP();
+extern "C" void *createClipperDSP(int nChannels, double sampleRate) {
+    AKClipperDSP *dsp = new AKClipperDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -59,10 +59,9 @@ void AKClipperDSP::init(int _channels, double _sampleRate) {
     _private->_clip1->lim = defaultLimit;
 }
 
-void AKClipperDSP::destroy() {
+void AKClipperDSP::deinit() {
     sp_clip_destroy(&_private->_clip0);
     sp_clip_destroy(&_private->_clip1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,8 +80,8 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

@@ -9,8 +9,8 @@
 #include "AKAutoWahDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createAutoWahDSP(int nChannels, double sampleRate) {
-    AKAutoWahDSP* dsp = new AKAutoWahDSP();
+extern "C" void *createAutoWahDSP(int nChannels, double sampleRate) {
+    AKAutoWahDSP *dsp = new AKAutoWahDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -81,10 +81,9 @@ void AKAutoWahDSP::init(int _channels, double _sampleRate) {
     *_private->_autowah1->level = defaultAmplitude;
 }
 
-void AKAutoWahDSP::destroy() {
+void AKAutoWahDSP::deinit() {
     sp_autowah_destroy(&_private->_autowah0);
     sp_autowah_destroy(&_private->_autowah1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,8 +108,8 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

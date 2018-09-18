@@ -6,6 +6,7 @@ import AudioKit
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 var player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var limitedOutput = AKStereoFieldLimiter(player)
 

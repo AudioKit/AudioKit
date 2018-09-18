@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 #ifndef __cplusplus
 
-void* createTremoloDSP(int nChannels, double sampleRate);
+void *createTremoloDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -91,9 +91,8 @@ public:
         _tbl->tbl[index] = value;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_osc_destroy(&_trem);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -111,8 +110,8 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     sp_osc_compute(_sp, _trem, NULL, &temp);

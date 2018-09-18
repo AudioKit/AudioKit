@@ -167,15 +167,15 @@ class ViewController: UIViewController {
 
             switch result {
             case .error(let error):
-                print(error)
+                AKLog(error)
                 return
             case .clip(let clip):
-                print("loopback.duration \(clip.duration)")
-                print("loopback.StartTime \(clip.startTime)")
+                AKLog("loopback.duration \(clip.duration)")
+                AKLog("loopback.StartTime \(clip.startTime)")
                 do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("loopback").appendingPathExtension(clip.url.pathExtension)
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
-                    print("loopback saved at " + urlInDocs.path)
+                    AKLog("loopback saved at " + urlInDocs.path)
 
                     // Schedule 30 loops of the recorderd audio to play
                     let audioFile = try AKAudioFile(forReading: urlInDocs)
@@ -201,7 +201,7 @@ class ViewController: UIViewController {
                     })
 
                 } catch {
-                    print(error)
+                    AKLog(error)
                 }
             }
 
@@ -211,18 +211,18 @@ class ViewController: UIViewController {
         try? directRecorder?.recordClip(time: 0, duration: targetDuration, tap: nil) { result in
             switch result {
             case .error(let error):
-                print(error)
+                AKLog(error)
                 return
             case .clip(let clip):
-                print("direct.duration \(clip.duration)")
-                print("direct.StartTime \(clip.startTime)")
+                AKLog("direct.duration \(clip.duration)")
+                AKLog("direct.StartTime \(clip.startTime)")
                 do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("direct").appendingPathExtension(clip.url.pathExtension)
                     referenceURL = urlInDocs
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
-                    print("Direct saved at " + urlInDocs.path)
+                    AKLog("Direct saved at " + urlInDocs.path)
                 } catch {
-                    print(error)
+                    AKLog(error)
                 }
             }
         }
@@ -278,7 +278,7 @@ extension FileManager {
                 try fileManager.removeItem(at: docs.appendingPathComponent(fileName))
             }
         } catch {
-            print(error)
+            AKLog(error)
         }
     }
 }

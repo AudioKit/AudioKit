@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKToneComplementFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createToneComplementFilterDSP(int nChannels, double sampleRate);
+void *createToneComplementFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -30,7 +30,6 @@ private:
  
 public:
     AKToneComplementFilterDSP();
-    ~AKToneComplementFilterDSP();
 
     float halfPowerPointLowerBound = 12.0;
     float halfPowerPointUpperBound = 20000.0;
@@ -47,7 +46,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

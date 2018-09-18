@@ -9,8 +9,8 @@
 #include "AKThreePoleLowpassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
-    AKThreePoleLowpassFilterDSP* dsp = new AKThreePoleLowpassFilterDSP();
+extern "C" void *createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
+    AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -81,10 +81,9 @@ void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_lpf181->res = defaultResonance;
 }
 
-void AKThreePoleLowpassFilterDSP::destroy() {
+void AKThreePoleLowpassFilterDSP::deinit() {
     sp_lpf18_destroy(&_private->_lpf180);
     sp_lpf18_destroy(&_private->_lpf181);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,8 +108,8 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

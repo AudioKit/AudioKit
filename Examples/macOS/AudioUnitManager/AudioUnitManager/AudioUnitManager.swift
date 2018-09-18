@@ -71,10 +71,10 @@ class AudioUnitManager: NSViewController {
     }
 
     // MARK: - init
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialize()
-
     }
 
     @objc func handleApplicationInit() {
@@ -92,9 +92,7 @@ class AudioUnitManager: NSViewController {
 
         initManager()
         initMIDI()
-        initUI()
         audioEnabled = false
-
     }
 
     internal func startEngine(completionHandler: AKCallback? = nil) {
@@ -178,7 +176,7 @@ class AudioUnitManager: NSViewController {
         guard let player = player else { return }
         guard let waveform = waveform else { return }
 
-        Swift.print("handleReversedButton() \(sender.state == .on)")
+        AKLog("handleReversedButton() \(sender.state == .on)")
         let wasPlaying = player.isPlaying
         if wasPlaying {
             handlePlay(state: false)
@@ -323,10 +321,7 @@ extension AudioUnitManager: NSWindowDelegate {
                         b.state = .off
                     }
                 }
-
             }
-
         }
     }
-
 }

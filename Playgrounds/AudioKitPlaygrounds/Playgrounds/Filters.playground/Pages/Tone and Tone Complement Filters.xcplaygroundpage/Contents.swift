@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var toneFilter = AKToneFilter(player)
 var toneComplement = AKToneComplementFilter(toneFilter)

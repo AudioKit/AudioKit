@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKFMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void* createFMOscillatorDSP(int nChannels, double sampleRate);
+void *createFMOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -34,7 +34,6 @@ private:
  
 public:
     AKFMOscillatorDSP();
-    ~AKFMOscillatorDSP();
 
     float baseFrequencyLowerBound = 0.0;
     float baseFrequencyUpperBound = 20000.0;
@@ -63,7 +62,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

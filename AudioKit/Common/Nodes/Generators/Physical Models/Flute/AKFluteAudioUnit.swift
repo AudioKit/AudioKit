@@ -69,6 +69,6 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
         amplitude.value = 1
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

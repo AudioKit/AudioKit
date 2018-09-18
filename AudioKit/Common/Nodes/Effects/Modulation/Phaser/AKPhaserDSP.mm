@@ -9,8 +9,8 @@
 #include "AKPhaserDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createPhaserDSP(int nChannels, double sampleRate) {
-    AKPhaserDSP* dsp = new AKPhaserDSP();
+extern "C" void *createPhaserDSP(int nChannels, double sampleRate) {
+    AKPhaserDSP *dsp = new AKPhaserDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -135,9 +135,8 @@ void AKPhaserDSP::init(int _channels, double _sampleRate) {
     *_private->_phaser->lfobpm = defaultLfoBPM;
 }
 
-void AKPhaserDSP::destroy() {
+void AKPhaserDSP::deinit() {
     sp_phaser_destroy(&_private->_phaser);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -171,8 +170,8 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

@@ -52,7 +52,7 @@ class ViewController: NSViewController {
         self.manager.requestEffects(completionHandler: { audioUnits in
             AKLog("Installed Audio Units:")
             for test in audioUnits {
-                Swift.print(test.name)
+                AKLog(test.name)
             }
 
             // We've decided ahead of time we're looking for the AUDelay unit...

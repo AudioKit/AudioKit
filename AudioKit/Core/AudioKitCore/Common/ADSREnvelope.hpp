@@ -13,7 +13,7 @@
 namespace AudioKitCore
 {
 
-    // many ADSREnvelopes can share a common set of parameters
+    /// many ADSREnvelopes can share a common set of parameters
     struct ADSREnvelopeParameters
     {
         float sampleRateHz;
@@ -25,17 +25,17 @@ namespace AudioKitCore
         void init(float attackSeconds, float decaySeconds, float susFraction, float releaseSeconds);
         void updateSampleRate(float newSampleRateHz);
         
-        void setAttackTimeSeconds(float attackSeconds) { attackSamples = attackSeconds * sampleRateHz; }
-        float getAttackTimeSeconds() { return attackSamples / sampleRateHz; }
-        void setDecayTimeSeconds(float decaySeconds) { decaySamples = decaySeconds * sampleRateHz; }
-        float getDecayTimeSeconds() { return decaySamples / sampleRateHz; }
-        void setReleaseTimeSeconds(float releaseSeconds) { releaseSamples = releaseSeconds * sampleRateHz; }
-        float getReleaseTimeSeconds() { return releaseSamples / sampleRateHz; }
+        void setAttackDurationSeconds(float attackSeconds) { attackSamples = attackSeconds * sampleRateHz; }
+        float getAttackDurationSeconds() { return attackSamples / sampleRateHz; }
+        void setDecayDurationSeconds(float decaySeconds) { decaySamples = decaySeconds * sampleRateHz; }
+        float getDecayDurationSeconds() { return decaySamples / sampleRateHz; }
+        void setReleaseDurationSeconds(float releaseSeconds) { releaseSamples = releaseSeconds * sampleRateHz; }
+        float getReleaseDurationSeconds() { return releaseSamples / sampleRateHz; }
     };
     
     struct ADSREnvelope
     {
-        ADSREnvelopeParameters* pParams; // many ADSREnvelopes can share a common set of parameters
+        ADSREnvelopeParameters* pParameters; // many ADSREnvelopes can share a common set of parameters
         
         LinearRamper ramper;
         
@@ -63,29 +63,29 @@ namespace AudioKitCore
         {
             if (segment == kIdle) { return 0.0f; }
             
-            if (segment == kSustain) return pParams->sustainFraction;
+            if (segment == kSustain) return pParameters->sustainFraction;
             
             if (ramper.isRamping()) return float(ramper.getNextValue());
 
             if (segment == kSilence)    // end of quick-damp prior to restart
             {
                 segment = kAttack;
-                ramper.init(0.0f, 1.0, pParams->attackSamples);
+                ramper.init(0.0f, 1.01f, pParameters->attackSamples);
                 return 0.0f;
             }
             
             if (segment == kAttack)      // end of attack segment
             {
                 segment = kDecay;
-                ramper.init(1.0f, pParams->sustainFraction, pParams->decaySamples);
-                return 1.0f;
+                ramper.init(1.01f, pParameters->sustainFraction, pParameters->decaySamples);
+                return 1.01f;
             }
             
             if (segment == kDecay)  // end of decay segment
             {
                 segment = kSustain;
-                ramper.init(pParams->sustainFraction);
-                return pParams->sustainFraction;
+                ramper.init(pParameters->sustainFraction);
+                return pParameters->sustainFraction;
             }
             
             // end of release or silence segment
