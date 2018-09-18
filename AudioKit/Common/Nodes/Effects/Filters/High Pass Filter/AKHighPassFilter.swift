@@ -118,7 +118,7 @@ open class AKHighPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
 
         AudioKit.detach(nodes: [inputMixer.avAudioNode,

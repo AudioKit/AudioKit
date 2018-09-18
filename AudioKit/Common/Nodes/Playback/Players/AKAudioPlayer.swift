@@ -694,7 +694,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     // Disconnect the node
-    open override func disconnect() {
+    open override func detach() {
         AudioKit.detach(nodes: [self.avAudioNode])
         AudioKit.engine.detach(internalPlayer)
     }
