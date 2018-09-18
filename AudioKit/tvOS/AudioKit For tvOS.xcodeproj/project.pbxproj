@@ -1000,8 +1000,6 @@
 		EA13F160207231960090288E /* SampleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA13F157207231960090288E /* SampleBuffer.cpp */; };
 		EA13F161207231960090288E /* SampleBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA13F158207231960090288E /* SampleBuffer.hpp */; };
 		EA13F162207231960090288E /* SampleOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA13F159207231960090288E /* SampleOscillator.hpp */; };
-		EA13F163207231960090288E /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA13F15A207231960090288E /* Sampler.cpp */; };
-		EA13F164207231960090288E /* Sampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA13F15B207231960090288E /* Sampler.hpp */; };
 		EA13F165207231960090288E /* SamplerVoice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EA13F15C207231960090288E /* SamplerVoice.cpp */; };
 		EA13F166207231960090288E /* SamplerVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EA13F15D207231960090288E /* SamplerVoice.hpp */; };
 		EA13F188207232530090288E /* common_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = EA13F168207232530090288E /* common_utils.c */; };
@@ -1043,6 +1041,8 @@
 		EAD65AE72140B0EE0063221D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD65AE62140B0EE0063221D /* libc++.tbd */; };
 		EADFC42821506452003E5191 /* AKModulatedDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC42621506451003E5191 /* AKModulatedDelay.cpp */; };
 		EADFC42921506452003E5191 /* AKModulatedDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC42721506452003E5191 /* AKModulatedDelay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EADFC4302150F414003E5191 /* AKCoreSampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC42E2150F413003E5191 /* AKCoreSampler.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EADFC4312150F414003E5191 /* AKCoreSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC42F2150F413003E5191 /* AKCoreSampler.cpp */; };
 		EAF0067C1C4C7A5200ECD392 /* AKMorphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */; };
 		EAF006911C4DB8DA00ECD392 /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006901C4DB8DA00ECD392 /* segment.swift */; };
 		EAF71D8520248B650018946B /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D8120248B640018946B /* CheckError.swift */; };
@@ -2164,8 +2164,6 @@
 		EA13F157207231960090288E /* SampleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleBuffer.cpp; sourceTree = "<group>"; };
 		EA13F158207231960090288E /* SampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SampleBuffer.hpp; sourceTree = "<group>"; };
 		EA13F159207231960090288E /* SampleOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SampleOscillator.hpp; sourceTree = "<group>"; };
-		EA13F15A207231960090288E /* Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
-		EA13F15B207231960090288E /* Sampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
 		EA13F15C207231960090288E /* SamplerVoice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerVoice.cpp; sourceTree = "<group>"; };
 		EA13F15D207231960090288E /* SamplerVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SamplerVoice.hpp; sourceTree = "<group>"; };
 		EA13F168207232530090288E /* common_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = common_utils.c; sourceTree = "<group>"; };
@@ -2209,6 +2207,8 @@
 		EAD65AE62140B0EE0063221D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EADFC42621506451003E5191 /* AKModulatedDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKModulatedDelay.cpp; sourceTree = "<group>"; };
 		EADFC42721506452003E5191 /* AKModulatedDelay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKModulatedDelay.hpp; sourceTree = "<group>"; };
+		EADFC42E2150F413003E5191 /* AKCoreSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCoreSampler.hpp; sourceTree = "<group>"; };
+		EADFC42F2150F413003E5191 /* AKCoreSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKCoreSampler.cpp; sourceTree = "<group>"; };
 		EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMorphingOscillator.swift; sourceTree = "<group>"; };
 		EAF006901C4DB8DA00ECD392 /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		EAF71D8120248B640018946B /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
@@ -4781,10 +4781,10 @@
 				EA13F157207231960090288E /* SampleBuffer.cpp */,
 				EA13F158207231960090288E /* SampleBuffer.hpp */,
 				EA13F159207231960090288E /* SampleOscillator.hpp */,
-				EA13F15A207231960090288E /* Sampler.cpp */,
-				EA13F15B207231960090288E /* Sampler.hpp */,
 				EA13F15C207231960090288E /* SamplerVoice.cpp */,
 				EA13F15D207231960090288E /* SamplerVoice.hpp */,
+				EADFC42F2150F413003E5191 /* AKCoreSampler.cpp */,
+				EADFC42E2150F413003E5191 /* AKCoreSampler.hpp */,
 			);
 			path = Sampler;
 			sourceTree = "<group>";
@@ -5070,7 +5070,6 @@
 				C49B20D9204A0D57009C7C8E /* FileWrite.h in Headers */,
 				C40C42341C40E5C2009D870B /* EZRecorder.h in Headers */,
 				C4E375A41D13575C00FDB70D /* AKMandolinDSPKernel.hpp in Headers */,
-				EA13F164207231960090288E /* Sampler.hpp in Headers */,
 				C470D02D20174A24003D1AFA /* AKZitaReverbDSP.hpp in Headers */,
 				34F5A399205ED22D00290001 /* AdjustableDelayLine.hpp in Headers */,
 				EA13F15E207231960090288E /* AKSampler_Typedefs.h in Headers */,
@@ -5188,6 +5187,7 @@
 				C49B213A204A0D57009C7C8E /* sinewave_raw.h in Headers */,
 				EAFECF101F4EC4C000A2B046 /* AKOfflineRenderAudioUnit.h in Headers */,
 				C470D06420174AED003D1AFA /* AKFluteDSP.hpp in Headers */,
+				EADFC4302150F414003E5191 /* AKCoreSampler.hpp in Headers */,
 				C49B1E7F204A0CFA009C7C8E /* DynArray.hpp in Headers */,
 				C40C42261C40E5C2009D870B /* EZAudioPlayer.h in Headers */,
 				C49B20CB204A0D57009C7C8E /* MidiFileIn.h in Headers */,
@@ -5556,7 +5556,6 @@
 				C49B1EDA204A0CFB009C7C8E /* fosc.c in Sources */,
 				C410F15320305345002EA801 /* AKMorphingOscillatorAudioUnit.swift in Sources */,
 				EAD65AE521408B6A0063221D /* AKSynthDSP.mm in Sources */,
-				EA13F163207231960090288E /* Sampler.cpp in Sources */,
 				C46B27B62029AE4300EC0E87 /* AKDCBlockDSP.mm in Sources */,
 				C49B1EC3204A0CFB009C7C8E /* line.c in Sources */,
 				C484438A1C311C4F007BE794 /* triggeredWithEnvelope.swift in Sources */,
@@ -5977,6 +5976,7 @@
 				C49B1EFA204A0CFB009C7C8E /* gen_sinesum.c in Sources */,
 				C49B1E5C204A0CFA009C7C8E /* in.c in Sources */,
 				C49B1EB7204A0CFB009C7C8E /* hilbert.c in Sources */,
+				EADFC4312150F414003E5191 /* AKCoreSampler.cpp in Sources */,
 				EA13F193207232530090288E /* pack.c in Sources */,
 				C4A916971C25083A006C1A15 /* periodicTrigger.swift in Sources */,
 				C49B1ECC204A0CFB009C7C8E /* v.c in Sources */,

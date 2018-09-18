@@ -145,6 +145,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKWaveTableAudioUnit.h"
 #import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"
+#import "AKSampler_Typedefs.h"
+#import "AKCoreSampler.hpp"
 #import "AKSamplerDSP.hpp"
 
 // Testing
