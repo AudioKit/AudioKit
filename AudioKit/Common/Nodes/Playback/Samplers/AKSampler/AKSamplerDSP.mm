@@ -96,7 +96,7 @@ extern "C" void doAKSamplerSustainPedal(void *pDSP, bool pedalDown)
 }
 
 
-AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
+AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -110,12 +110,12 @@ AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
 void AKSamplerDSP::init(int nChannels, double sampleRate)
 {
     AKDSPBase::init(nChannels, sampleRate);
-    AudioKitCore::Sampler::init(sampleRate);
+    AKCoreSampler::init(sampleRate);
 }
 
 void AKSamplerDSP::deinit()
 {
-    AudioKitCore::Sampler::deinit();
+    AKCoreSampler::deinit();
 }
 
 void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -154,29 +154,29 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             break;
 
         case AKSamplerParameterAttackDuration:
-            adsrEnvelopeParameters.setAttackDurationSeconds(value);
+            setADSRAttackDurationSeconds(value);
             break;
         case AKSamplerParameterDecayDuration:
-            adsrEnvelopeParameters.setDecayDurationSeconds(value);
+            setADSRDecayDurationSeconds(value);
             break;
         case AKSamplerParameterSustainLevel:
-            adsrEnvelopeParameters.sustainFraction = value;
+            setADSRSustainFraction(value);
             break;
         case AKSamplerParameterReleaseDuration:
-            adsrEnvelopeParameters.setReleaseDurationSeconds(value);
+            setADSRReleaseDurationSeconds(value);
             break;
 
         case AKSamplerParameterFilterAttackDuration:
-            filterEnvelopeParameters.setAttackDurationSeconds(value);
+            setFilterAttackDurationSeconds(value);
             break;
         case AKSamplerParameterFilterDecayDuration:
-            filterEnvelopeParameters.setDecayDurationSeconds(value);
+            setFilterDecayDurationSeconds(value);
             break;
         case AKSamplerParameterFilterSustainLevel:
-            filterEnvelopeParameters.sustainFraction = value;
+            setFilterSustainFraction(value);
             break;
         case AKSamplerParameterFilterReleaseDuration:
-            filterEnvelopeParameters.setReleaseDurationSeconds(value);
+            setFilterReleaseDurationSeconds(value);
             break;
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
@@ -215,22 +215,22 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return glideRateRamp.getTarget();
 
         case AKSamplerParameterAttackDuration:
-            return adsrEnvelopeParameters.getAttackDurationSeconds();
+            return getADSRAttackDurationSeconds();
         case AKSamplerParameterDecayDuration:
-            return adsrEnvelopeParameters.getDecayDurationSeconds();
+            return getADSRDecayDurationSeconds();
         case AKSamplerParameterSustainLevel:
-            return adsrEnvelopeParameters.sustainFraction;
+            return getADSRSustainFraction();
         case AKSamplerParameterReleaseDuration:
-            return adsrEnvelopeParameters.getReleaseDurationSeconds();
+            return getADSRReleaseDurationSeconds();
 
         case AKSamplerParameterFilterAttackDuration:
-            return filterEnvelopeParameters.getAttackDurationSeconds();
+            return getFilterAttackDurationSeconds();
         case AKSamplerParameterFilterDecayDuration:
-            return filterEnvelopeParameters.getDecayDurationSeconds();
+            return getFilterDecayDurationSeconds();
         case AKSamplerParameterFilterSustainLevel:
-            return filterEnvelopeParameters.sustainFraction;
+            return getFilterSustainFraction();
         case AKSamplerParameterFilterReleaseDuration:
-            return filterEnvelopeParameters.getReleaseDurationSeconds();
+            return getFilterReleaseDurationSeconds();
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
         case AKSamplerParameterLoopThruRelease:
@@ -245,11 +245,11 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
 
 void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
-    // process in chunks of maximum length CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
+    // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKCORESAMPLER_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
-        if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
+        if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
         
         // ramp parameters
         masterVolumeRamp.advanceTo(_now + frameOffset);
@@ -272,6 +272,6 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
-        AudioKitCore::Sampler::render(channelCount, chunkSize, outBuffers);
+        AKCoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }

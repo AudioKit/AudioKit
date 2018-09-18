@@ -59,10 +59,10 @@ void doAKSamplerSustainPedal(void *pDSP, bool pedalDown);
 #else
 
 #import "AKDSPBase.hpp"
-#include "Sampler.hpp"
+#include "AKCoreSampler.hpp"
 #include "AKLinearParameterRamp.hpp"
 
-struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
+struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;

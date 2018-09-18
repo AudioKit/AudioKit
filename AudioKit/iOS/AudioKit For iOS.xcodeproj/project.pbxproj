@@ -23,9 +23,9 @@
 		3404A7A420507B1600A2C9E4 /* SampleBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79020507B1500A2C9E4 /* SampleBuffer.hpp */; };
 		3404A7A520507B1600A2C9E4 /* AKSampler_Typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79120507B1500A2C9E4 /* AKSampler_Typedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3404A7A620507B1600A2C9E4 /* SampleOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79220507B1500A2C9E4 /* SampleOscillator.hpp */; };
-		3404A7A720507B1600A2C9E4 /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A79320507B1500A2C9E4 /* Sampler.cpp */; };
+		3404A7A720507B1600A2C9E4 /* AKCoreSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A79320507B1500A2C9E4 /* AKCoreSampler.cpp */; };
 		3404A7A820507B1600A2C9E4 /* SampleBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3404A79420507B1500A2C9E4 /* SampleBuffer.cpp */; };
-		3404A7AA20507B1600A2C9E4 /* Sampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79620507B1500A2C9E4 /* Sampler.hpp */; };
+		3404A7AA20507B1600A2C9E4 /* AKCoreSampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79620507B1500A2C9E4 /* AKCoreSampler.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		3404A7AB20507B1600A2C9E4 /* SamplerVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A79720507B1500A2C9E4 /* SamplerVoice.hpp */; };
 		3404A7C620507BEB00A2C9E4 /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A7C020507BEB00A2C9E4 /* AKSampler.swift */; };
 		3404A7C720507BEB00A2C9E4 /* AKSampler+SFZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404A7C120507BEB00A2C9E4 /* AKSampler+SFZ.swift */; };
@@ -1179,10 +1179,10 @@
 		3404A79020507B1500A2C9E4 /* SampleBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SampleBuffer.hpp; sourceTree = "<group>"; };
 		3404A79120507B1500A2C9E4 /* AKSampler_Typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSampler_Typedefs.h; sourceTree = "<group>"; };
 		3404A79220507B1500A2C9E4 /* SampleOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SampleOscillator.hpp; sourceTree = "<group>"; };
-		3404A79320507B1500A2C9E4 /* Sampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
+		3404A79320507B1500A2C9E4 /* AKCoreSampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKCoreSampler.cpp; sourceTree = "<group>"; };
 		3404A79420507B1500A2C9E4 /* SampleBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SampleBuffer.cpp; sourceTree = "<group>"; };
 		3404A79520507B1500A2C9E4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3404A79620507B1500A2C9E4 /* Sampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sampler.hpp; sourceTree = "<group>"; };
+		3404A79620507B1500A2C9E4 /* AKCoreSampler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCoreSampler.hpp; sourceTree = "<group>"; };
 		3404A79720507B1500A2C9E4 /* SamplerVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SamplerVoice.hpp; sourceTree = "<group>"; };
 		3404A7C020507BEB00A2C9E4 /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSampler.swift; sourceTree = "<group>"; };
 		3404A7C120507BEB00A2C9E4 /* AKSampler+SFZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+SFZ.swift"; sourceTree = "<group>"; };
@@ -2435,8 +2435,8 @@
 				3404A79220507B1500A2C9E4 /* SampleOscillator.hpp */,
 				3404A79720507B1500A2C9E4 /* SamplerVoice.hpp */,
 				3404A78F20507B1500A2C9E4 /* SamplerVoice.cpp */,
-				3404A79320507B1500A2C9E4 /* Sampler.cpp */,
-				3404A79620507B1500A2C9E4 /* Sampler.hpp */,
+				3404A79320507B1500A2C9E4 /* AKCoreSampler.cpp */,
+				3404A79620507B1500A2C9E4 /* AKCoreSampler.hpp */,
 				3404A79520507B1500A2C9E4 /* README.md */,
 			);
 			path = Sampler;
@@ -5440,7 +5440,7 @@
 				C49B1585204A06B8009C7C8E /* Clarinet.h in Headers */,
 				C457CBEF213C6D6500AFDEBC /* Envelope.hpp in Headers */,
 				C4AA7BFF1FD2A7C000040720 /* AKTimelineTap.h in Headers */,
-				3404A7AA20507B1600A2C9E4 /* Sampler.hpp in Headers */,
+				3404A7AA20507B1600A2C9E4 /* AKCoreSampler.hpp in Headers */,
 				C49B142B204A06B7009C7C8E /* FFTRealSelect.hpp in Headers */,
 				C49B1399204A06B7009C7C8E /* _kiss_fft_guts.h in Headers */,
 				C49D69781D1F1DE300BF018A /* AKOscillatorBankDSPKernel.hpp in Headers */,
@@ -5874,7 +5874,7 @@
 				34BB673D205AC238000E5450 /* open_legacy.c in Sources */,
 				C453800C1C3A4CCE00A51738 /* AKReverb.swift in Sources */,
 				C4537F331C39D2A300A51738 /* AKTanhDistortion.swift in Sources */,
-				3404A7A720507B1600A2C9E4 /* Sampler.cpp in Sources */,
+				3404A7A720507B1600A2C9E4 /* AKCoreSampler.cpp in Sources */,
 				C4BC74FA2030245800062B11 /* AKDripAudioUnit.swift in Sources */,
 				C49B1397204A06B7009C7C8E /* kiss_fft.c in Sources */,
 				EA03BFD6201DE52D00E8BE2C /* AKRhodesPianoDSPKernel.mm in Sources */,
