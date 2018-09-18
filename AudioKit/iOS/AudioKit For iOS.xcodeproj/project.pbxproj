@@ -331,11 +331,11 @@
 		C457CBED213C6D6500AFDEBC /* SynthVoice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBDD213C6D6500AFDEBC /* SynthVoice.hpp */; };
 		C457CBEE213C6D6500AFDEBC /* DrawbarsOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBDE213C6D6500AFDEBC /* DrawbarsOscillator.hpp */; };
 		C457CBEF213C6D6500AFDEBC /* Envelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBDF213C6D6500AFDEBC /* Envelope.hpp */; };
-		C457CBF0213C6D6500AFDEBC /* Synth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE0213C6D6500AFDEBC /* Synth.hpp */; };
+		C457CBF0213C6D6500AFDEBC /* AKSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE0213C6D6500AFDEBC /* AKSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C457CBF1213C6D6500AFDEBC /* MultiStageFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE1213C6D6500AFDEBC /* MultiStageFilter.hpp */; };
 		C457CBF2213C6D6500AFDEBC /* WaveStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C457CBE2213C6D6500AFDEBC /* WaveStack.cpp */; };
 		C457CBF3213C6D6500AFDEBC /* EnsembleOscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C457CBE3213C6D6500AFDEBC /* EnsembleOscillator.cpp */; };
-		C457CBF4213C6D6500AFDEBC /* Synth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C457CBE4213C6D6500AFDEBC /* Synth.cpp */; };
+		C457CBF4213C6D6500AFDEBC /* AKSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C457CBE4213C6D6500AFDEBC /* AKSynth.cpp */; };
 		C457CBF5213C6D6500AFDEBC /* MultiStageFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C457CBE5213C6D6500AFDEBC /* MultiStageFilter.cpp */; };
 		C457CBF6213C6D6500AFDEBC /* WaveStack.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE6213C6D6500AFDEBC /* WaveStack.hpp */; };
 		C457CBF7213C6D6500AFDEBC /* EnsembleOscillator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C457CBE7213C6D6500AFDEBC /* EnsembleOscillator.hpp */; };
@@ -1513,11 +1513,11 @@
 		C457CBDD213C6D6500AFDEBC /* SynthVoice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SynthVoice.hpp; sourceTree = "<group>"; };
 		C457CBDE213C6D6500AFDEBC /* DrawbarsOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DrawbarsOscillator.hpp; sourceTree = "<group>"; };
 		C457CBDF213C6D6500AFDEBC /* Envelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Envelope.hpp; sourceTree = "<group>"; };
-		C457CBE0213C6D6500AFDEBC /* Synth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Synth.hpp; sourceTree = "<group>"; };
+		C457CBE0213C6D6500AFDEBC /* AKSynth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynth.hpp; sourceTree = "<group>"; };
 		C457CBE1213C6D6500AFDEBC /* MultiStageFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MultiStageFilter.hpp; sourceTree = "<group>"; };
 		C457CBE2213C6D6500AFDEBC /* WaveStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaveStack.cpp; sourceTree = "<group>"; };
 		C457CBE3213C6D6500AFDEBC /* EnsembleOscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnsembleOscillator.cpp; sourceTree = "<group>"; };
-		C457CBE4213C6D6500AFDEBC /* Synth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Synth.cpp; sourceTree = "<group>"; };
+		C457CBE4213C6D6500AFDEBC /* AKSynth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKSynth.cpp; sourceTree = "<group>"; };
 		C457CBE5213C6D6500AFDEBC /* MultiStageFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiStageFilter.cpp; sourceTree = "<group>"; };
 		C457CBE6213C6D6500AFDEBC /* WaveStack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WaveStack.hpp; sourceTree = "<group>"; };
 		C457CBE7213C6D6500AFDEBC /* EnsembleOscillator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EnsembleOscillator.hpp; sourceTree = "<group>"; };
@@ -3677,8 +3677,8 @@
 				C457CBDF213C6D6500AFDEBC /* Envelope.hpp */,
 				C457CBE5213C6D6500AFDEBC /* MultiStageFilter.cpp */,
 				C457CBE1213C6D6500AFDEBC /* MultiStageFilter.hpp */,
-				C457CBE4213C6D6500AFDEBC /* Synth.cpp */,
-				C457CBE0213C6D6500AFDEBC /* Synth.hpp */,
+				C457CBE4213C6D6500AFDEBC /* AKSynth.cpp */,
+				C457CBE0213C6D6500AFDEBC /* AKSynth.hpp */,
 				C457CBE8213C6D6500AFDEBC /* SynthVoice.cpp */,
 				C457CBDD213C6D6500AFDEBC /* SynthVoice.hpp */,
 				C457CBE2213C6D6500AFDEBC /* WaveStack.cpp */,
@@ -5213,7 +5213,7 @@
 				C4E13D2D1C42360C008F0A3C /* AKPhaseLockedVocoderAudioUnit.h in Headers */,
 				C4AC4EC8200AEA7C0095694F /* AKPhaseDistortionOscillatorDSP.hpp in Headers */,
 				C49B1567204A06B8009C7C8E /* Mandolin.h in Headers */,
-				C457CBF0213C6D6500AFDEBC /* Synth.hpp in Headers */,
+				C457CBF0213C6D6500AFDEBC /* AKSynth.hpp in Headers */,
 				FE2C8B2520DAC67500009BAC /* AKDiskStreamerAudioUnit.h in Headers */,
 				C49B156B204A06B8009C7C8E /* FileWvOut.h in Headers */,
 				C4AC0B3A1FC944E400EDA024 /* AKAudioUnitBase.h in Headers */,
@@ -6236,7 +6236,7 @@
 				C49B1402204A06B7009C7C8E /* slice.c in Sources */,
 				C468D0621E9CD4B3005FACFA /* AKPeriodicFunction.swift in Sources */,
 				34BB673F205AC238000E5450 /* pack_utils.c in Sources */,
-				C457CBF4213C6D6500AFDEBC /* Synth.cpp in Sources */,
+				C457CBF4213C6D6500AFDEBC /* AKSynth.cpp in Sources */,
 				C46302851C20E7A7009B44D9 /* highPassButterworthFilter.swift in Sources */,
 				C464078A20105D5500299119 /* AKPluckedStringDSP.mm in Sources */,
 				C45357892041550300C5C7CC /* AKAutoWahAudioUnit.swift in Sources */,

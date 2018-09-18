@@ -46,10 +46,10 @@ void AKSynthSustainPedal(void *pDSP, bool pedalDown);
 #else
 
 #import "AKDSPBase.hpp"
-#include "Synth.hpp"
+#include "AKSynth.hpp"
 #include "AKLinearParameterRamp.hpp"
 
-struct AKSynthDSP : AKDSPBase, AudioKitCore::Synth
+struct AKSynthDSP : AKDSPBase, AKSynth
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
