@@ -9,8 +9,8 @@
 #include "AKFormantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFormantFilterDSP(int nChannels, double sampleRate) {
-    AKFormantFilterDSP* dsp = new AKFormantFilterDSP();
+extern "C" void *createFormantFilterDSP(int nChannels, double sampleRate) {
+    AKFormantFilterDSP *dsp = new AKFormantFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -81,10 +81,9 @@ void AKFormantFilterDSP::init(int _channels, double _sampleRate) {
     _private->_fofilt1->dec = defaultDecayDuration;
 }
 
-void AKFormantFilterDSP::destroy() {
+void AKFormantFilterDSP::deinit() {
     sp_fofilt_destroy(&_private->_fofilt0);
     sp_fofilt_destroy(&_private->_fofilt1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,8 +108,8 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

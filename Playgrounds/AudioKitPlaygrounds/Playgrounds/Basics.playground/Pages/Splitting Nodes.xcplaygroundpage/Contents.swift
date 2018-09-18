@@ -14,6 +14,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 //: The following nodes are both acting on the original player node
 var ringMod = AKRingModulator(player)

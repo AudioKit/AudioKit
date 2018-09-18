@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
 
 #ifndef __cplusplus
 
-void* createVocalTractDSP(int nChannels, double sampleRate);
+void *createVocalTractDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -113,9 +113,8 @@ public:
         _vocwrapper->nasal = 0.0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_vocwrapper_destroy(&_vocwrapper);
-        AKSoundpipeDSPBase::destroy();
     }
 
 
@@ -145,7 +144,7 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {

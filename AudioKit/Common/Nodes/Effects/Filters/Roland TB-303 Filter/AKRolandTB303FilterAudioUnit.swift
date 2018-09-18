@@ -105,6 +105,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
         resonanceAsymmetry.value = Float(AKRolandTB303Filter.defaultResonanceAsymmetry)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

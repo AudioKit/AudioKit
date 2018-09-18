@@ -13,7 +13,7 @@ extension AudioKit {
     // MARK: - Testing
 
     /// Testing AKNode
-    @objc open static var tester: AKTester?
+    @objc public static var tester: AKTester?
 
     /// Test the output of a given node
     ///
@@ -21,7 +21,7 @@ extension AudioKit {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    @objc open static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
+    @objc public static func test(node: AKNode, duration: Double, afterStart: () -> Void = {}) throws {
         #if swift(>=3.2)
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             let samples = Int(duration * AKSettings.sampleRate)
@@ -75,7 +75,7 @@ extension AudioKit {
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    @objc open static func auditionTest(node: AKNode, duration: Double) throws {
+    @objc public static func auditionTest(node: AKNode, duration: Double) throws {
         output = node
         try start()
         if let playableNode = node as? AKToggleable {

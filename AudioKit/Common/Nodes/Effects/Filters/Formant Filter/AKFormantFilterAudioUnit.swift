@@ -88,6 +88,6 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         decayDuration.value = Float(AKFormantFilter.defaultDecayDuration)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

@@ -69,7 +69,11 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    #if TARGET_OS_IPHONE
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+    #elif TARGET_OS_MAC
+    #endif
     [EZAudioUtilities checkResult:AudioUnitUninitialize(self.info->audioUnit)
                         operation:"Failed to unintialize audio unit for microphone"];
     [EZAudioUtilities freeBufferList:self.info->audioBufferList];
@@ -299,6 +303,8 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
 
 - (void)microphoneWasInterrupted:(NSNotification *)notification
 {
+
+
     AVAudioSessionInterruptionType type = [notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
     switch (type)
     {

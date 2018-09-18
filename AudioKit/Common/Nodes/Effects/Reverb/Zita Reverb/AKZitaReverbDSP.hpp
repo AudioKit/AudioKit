@@ -26,7 +26,7 @@ typedef NS_ENUM(AUParameterAddress, AKZitaReverbParameter) {
 
 #ifndef __cplusplus
 
-void* createZitaReverbDSP(int nChannels, double sampleRate);
+void *createZitaReverbDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -39,7 +39,6 @@ private:
  
 public:
     AKZitaReverbDSP();
-    ~AKZitaReverbDSP();
 
     float predelayLowerBound = 0.0;
     float predelayUpperBound = 200.0;
@@ -83,7 +82,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

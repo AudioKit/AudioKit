@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoWahParameter) {
 
 #ifndef __cplusplus
 
-void* createAutoWahDSP(int nChannels, double sampleRate);
+void *createAutoWahDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKAutoWahDSP();
-    ~AKAutoWahDSP();
 
     float wahLowerBound = 0.0;
     float wahUpperBound = 1.0;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

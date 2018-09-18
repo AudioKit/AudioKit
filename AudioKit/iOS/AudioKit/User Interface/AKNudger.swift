@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import AudioKit
 
-@IBDesignable open class AKNugder: AKStepper {
+@IBDesignable open class AKNudger: AKStepper {
     open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {

@@ -9,6 +9,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var timePitch = AKTimePitch(player)
 timePitch.rate = 2.0

@@ -16,6 +16,8 @@ public typealias DeviceID = String
 @objc open class AKDevice: NSObject {
     /// The human-readable name for the device.
     open var name: String
+    open var nInputChannels: Int?
+    open var nOutputChannels: Int?
 
     /// The device identifier.
     open fileprivate(set) var deviceID: DeviceID
@@ -36,6 +38,14 @@ public typealias DeviceID = String
         #endif
         super.init()
     }
+
+    #if os(macOS)
+    public convenience init(ezAudioDevice: EZAudioDevice) {
+        self.init(name: ezAudioDevice.name, deviceID: ezAudioDevice.deviceID)
+        self.nInputChannels = ezAudioDevice.inputChannelCount
+        self.nOutputChannels = ezAudioDevice.outputChannelCount
+    }
+    #endif
 
     /// Printable device description
     override open var description: String {

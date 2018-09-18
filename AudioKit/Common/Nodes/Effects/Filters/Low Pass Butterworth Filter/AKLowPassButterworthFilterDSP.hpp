@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKLowPassButterworthFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createLowPassButterworthFilterDSP(int nChannels, double sampleRate);
+void *createLowPassButterworthFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -30,7 +30,6 @@ private:
  
 public:
     AKLowPassButterworthFilterDSP();
-    ~AKLowPassButterworthFilterDSP();
 
     float cutoffFrequencyLowerBound = 12.0;
     float cutoffFrequencyUpperBound = 20000.0;
@@ -47,7 +46,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

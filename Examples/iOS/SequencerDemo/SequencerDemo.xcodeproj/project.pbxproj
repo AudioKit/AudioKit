@@ -15,7 +15,8 @@
 		78ADAA271D2564210095C0C7 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA261D2564210095C0C7 /* Conductor.swift */; };
 		78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA281D2569810095C0C7 /* Sequence.swift */; };
 		C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B130841F4D4430009D9008 /* AudioKit.framework */; };
-		EA10E16F1F4FA117003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; };
+		EAD0DECB214206C200DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; };
+		EAD0DECC214206C200DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EAD0DECC214206C200DCE36F /* AudioKitUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA10E16F1F4FA117003F0CA9 /* AudioKitUI.framework in Frameworks */,
+				EAD0DECB214206C200DCE36F /* AudioKitUI.framework in Frameworks */,
 				C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +114,7 @@
 				78ADA9FE1D255FB90095C0C7 /* Frameworks */,
 				78ADA9FF1D255FB90095C0C7 /* Resources */,
 				78ADAA1B1D2560710095C0C7 /* Embed Frameworks */,
+				EAD0DECD214206CF00DCE36F /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -174,6 +177,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAD0DECD214206CF00DCE36F /* Fix AudioKitUI slices */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix AudioKitUI slices";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		78ADA9FD1D255FB90095C0C7 /* Sources */ = {
@@ -334,7 +354,7 @@
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -357,7 +377,7 @@
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -85,7 +85,7 @@ class AudioUnitParamSlider: NSView {
         guard let key = key else { return }
 
         if let p = getParam(withAddress: key) {
-            // Swift.print("p: \(p)")
+            // AKLog("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
                 field.stringValue = "\(round2(slider.floatValue, decimalPlaces: 3))"

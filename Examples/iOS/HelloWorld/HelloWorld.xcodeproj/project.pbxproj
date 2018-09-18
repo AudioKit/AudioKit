@@ -13,8 +13,22 @@
 		C417028B1C11954900AB689C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C417028A1C11954900AB689C /* Assets.xcassets */; };
 		C417028E1C11954900AB689C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C417028C1C11954900AB689C /* LaunchScreen.storyboard */; };
 		EA8F6ED52014B5FC00B68497 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B3F41D4554D8000AEFCA /* AudioKit.framework */; };
-		EA8F6ED62014B5FC00B68497 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E076431F57676300AD8664 /* AudioKitUI.framework */; };
+		EAD65AD7213F4B8A0063221D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4E076431F57676300AD8664 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EAD65AD8213F4B8A0063221D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAD65AD7213F4B8A0063221D /* AudioKitUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C41702801C11954900AB689C /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,7 +49,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8F6ED52014B5FC00B68497 /* AudioKit.framework in Frameworks */,
-				EA8F6ED62014B5FC00B68497 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +106,8 @@
 				C417027C1C11954900AB689C /* Sources */,
 				C417027D1C11954900AB689C /* Frameworks */,
 				C417027E1C11954900AB689C /* Resources */,
+				EAD65AD8213F4B8A0063221D /* Embed Frameworks */,
+				EAD65AED21413C810063221D /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -149,6 +164,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EAD65AED21413C810063221D /* Fix AudioKitUI slices */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fix AudioKitUI slices";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C417027C1C11954900AB689C /* Sources */ = {
@@ -303,7 +335,7 @@
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -320,7 +352,7 @@
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

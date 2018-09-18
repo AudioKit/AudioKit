@@ -105,6 +105,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         releaseDuration.value = Float(AKDynamicRangeCompressor.defaultReleaseDuration)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

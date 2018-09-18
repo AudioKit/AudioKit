@@ -9,8 +9,8 @@
 #include "AKOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createOscillatorDSP(int nChannels, double sampleRate) {
-    AKOscillatorDSP* dsp = new AKOscillatorDSP();
+extern "C" void *createOscillatorDSP(int nChannels, double sampleRate) {
+    AKOscillatorDSP *dsp = new AKOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -86,9 +86,8 @@ void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     _private->_osc->amp = defaultAmplitude;
 }
 
-void AKOscillatorDSP::destroy() {
+void AKOscillatorDSP::deinit() {
     sp_osc_destroy(&_private->_osc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
@@ -117,7 +116,7 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

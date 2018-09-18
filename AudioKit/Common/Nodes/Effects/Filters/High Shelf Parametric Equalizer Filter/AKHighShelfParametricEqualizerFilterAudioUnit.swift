@@ -88,6 +88,6 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         q.value = Float(AKHighShelfParametricEqualizerFilter.defaultQ)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void* createPhaseDistortionOscillatorDSP(int nChannels, double sampleRate);
+void *createPhaseDistortionOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -122,9 +122,8 @@ public:
         _pdhalf->amount = 0;
    }
 
-    void destroy() {
+    void deinit() override {
         sp_pdhalf_destroy(&_pdhalf);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void setupWaveform(uint32_t size) override {
@@ -162,7 +161,7 @@ public:
             float ph = 0;
 
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {

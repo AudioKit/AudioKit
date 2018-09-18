@@ -15,7 +15,7 @@
         void setOutputAttenuation_dB(float fAttendB);
 
         // NEED TO OVERRIDE
-        bool processAudio(float* pInput, float* pOutput);
+        bool processAudio(float *pInput, float *pOutput);
 */
 
 #pragma once

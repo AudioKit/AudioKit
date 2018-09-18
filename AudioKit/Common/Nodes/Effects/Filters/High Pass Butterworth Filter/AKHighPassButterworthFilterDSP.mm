@@ -9,8 +9,8 @@
 #include "AKHighPassButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createHighPassButterworthFilterDSP(int nChannels, double sampleRate) {
-    AKHighPassButterworthFilterDSP* dsp = new AKHighPassButterworthFilterDSP();
+extern "C" void *createHighPassButterworthFilterDSP(int nChannels, double sampleRate) {
+    AKHighPassButterworthFilterDSP *dsp = new AKHighPassButterworthFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -59,10 +59,9 @@ void AKHighPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_buthp1->freq = defaultCutoffFrequency;
 }
 
-void AKHighPassButterworthFilterDSP::destroy() {
+void AKHighPassButterworthFilterDSP::deinit() {
     sp_buthp_destroy(&_private->_buthp0);
     sp_buthp_destroy(&_private->_buthp1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,8 +80,8 @@ void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAud
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

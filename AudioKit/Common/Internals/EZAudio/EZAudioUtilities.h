@@ -324,9 +324,9 @@ typedef NSRect EZRect;
  @param scrollHistory       The target history buffer in which to append the values
  @param scrollHistoryLength The length of the target history buffer
  */
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength;
 
 //------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ typedef NSRect EZRect;
  @param scrollHistoryLength The length of the target history buffer
  */
 +(void)    appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength;
 
 //------------------------------------------------------------------------------
@@ -366,7 +366,7 @@ typedef NSRect EZRect;
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+ (float)RMS:(float*)buffer length:(int)bufferSize;
++ (float)RMS:(float *)buffer length:(int)bufferSize;
 
 //------------------------------------------------------------------------------
 

@@ -100,7 +100,7 @@ class Conductor {
         guard i >= 0 && i <= 3 else { return }
         if (i != waveformIndex) {
             waveformIndex = i
-            print("Change waveform to \(getWaveformName())")
+            AKLog("Change waveform to \(getWaveformName())")
             oscillator.waveform = waveforms[i]
         }
     }

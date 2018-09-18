@@ -113,7 +113,7 @@ class ViewController: UIViewController {
             }
             do {
                 try recorder.record()
-            } catch { print("Errored recording.") }
+            } catch { AKLog("Errored recording.") }
 
         case .recording :
             // Microphone monitoring is muted
@@ -127,9 +127,9 @@ class ViewController: UIViewController {
                                           baseDir: .documents,
                                           exportFormat: .m4a) {_, exportError in
                     if let error = exportError {
-                        print("Export Failed \(error)")
+                        AKLog("Export Failed \(error)")
                     } else {
-                        print("Export succeeded")
+                        AKLog("Export succeeded")
                     }
                 }
                 setupUIForPlaying()
@@ -208,7 +208,7 @@ class ViewController: UIViewController {
         plot?.node = mic
         do {
             try recorder.reset()
-        } catch { print("Errored resetting.") }
+        } catch { AKLog("Errored resetting.") }
 
         //try? player.replaceFile((recorder.audioFile)!)
         setupUIForRecording()

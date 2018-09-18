@@ -9,8 +9,8 @@
 #include "AKBandRejectButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBandRejectButterworthFilterDSP(int nChannels, double sampleRate) {
-    AKBandRejectButterworthFilterDSP* dsp = new AKBandRejectButterworthFilterDSP();
+extern "C" void *createBandRejectButterworthFilterDSP(int nChannels, double sampleRate) {
+    AKBandRejectButterworthFilterDSP *dsp = new AKBandRejectButterworthFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -70,10 +70,9 @@ void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_butbr1->bw = defaultBandwidth;
 }
 
-void AKBandRejectButterworthFilterDSP::destroy() {
+void AKBandRejectButterworthFilterDSP::deinit() {
     sp_butbr_destroy(&_private->_butbr0);
     sp_butbr_destroy(&_private->_butbr1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,8 +94,8 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

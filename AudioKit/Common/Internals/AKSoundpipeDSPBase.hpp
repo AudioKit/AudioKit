@@ -24,7 +24,7 @@ extern "C" {
 
 class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
-    sp_data* _sp = nullptr;
+    sp_data *_sp = nullptr;
 public:
 
     void init(int _channels, double _sampleRate) override {
@@ -46,11 +46,7 @@ public:
     virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}
     virtual AUValue getParameter(AUParameterAddress address) override { return 0.0f; }
 
-    void destroy() {
-        //printf("AKSoundpipeKernel.destroy(), &sp is %p\n", (void *)sp);
-    }
-
-    virtual void processSample(int channel, float* in, float* out) {
+    virtual void processSample(int channel, float *in, float *out) {
         *out = *in;
     }
 

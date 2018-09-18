@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKDripParameter) {
 
 #ifndef __cplusplus
 
-void* createDripDSP(int nChannels, double sampleRate);
+void *createDripDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -37,7 +37,6 @@ private:
 
 public:
     AKDripDSP();
-    ~AKDripDSP();
 
     float intensityLowerBound = 0;
     float intensityUpperBound = 100;
@@ -72,7 +71,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

@@ -8,6 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var clipper = AKClipper(player)
 clipper.limit = 0.1

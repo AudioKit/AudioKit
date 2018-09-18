@@ -420,7 +420,7 @@ typedef struct
             pthread_mutex_unlock(&_lock);
             return nil;
         }
-        float **data = (float **)malloc( sizeof(float*) * channels );
+        float **data = (float **)malloc( sizeof(float *) * channels );
         for (int i = 0; i < channels; i++)
         {
             data[i] = (float *)malloc( sizeof(float) * numberOfPoints );
@@ -637,7 +637,7 @@ typedef struct
     } else {
         return NULL;
     }
-    //NSLog(@"# of markers: %d\n", markers->mNumberMarkers );
+    // NSLog(@"# of markers: %d\n", markerList->mNumberMarkers );
 
     // the native C structs aren't so friendly with Swift, so we'll load up an array instead
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:markerList->mNumberMarkers];
@@ -656,7 +656,7 @@ typedef struct
         if (markerList->mMarkers[i].mName != NULL) {
             afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
         }
-        //NSLog(@"%@\n", afm.name );
+        // NSLog(@"%@\n", afm.name );
         [array addObject:afm];
     }
     // cast to an immutable one

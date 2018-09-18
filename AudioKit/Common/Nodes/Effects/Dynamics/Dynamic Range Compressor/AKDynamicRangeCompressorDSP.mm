@@ -9,8 +9,8 @@
 #include "AKDynamicRangeCompressorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createDynamicRangeCompressorDSP(int nChannels, double sampleRate) {
-    AKDynamicRangeCompressorDSP* dsp = new AKDynamicRangeCompressorDSP();
+extern "C" void *createDynamicRangeCompressorDSP(int nChannels, double sampleRate) {
+    AKDynamicRangeCompressorDSP *dsp = new AKDynamicRangeCompressorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -92,10 +92,9 @@ void AKDynamicRangeCompressorDSP::init(int _channels, double _sampleRate) {
     *_private->_compressor1->rel = defaultReleaseDuration;
 }
 
-void AKDynamicRangeCompressorDSP::destroy() {
+void AKDynamicRangeCompressorDSP::deinit() {
     sp_compressor_destroy(&_private->_compressor0);
     sp_compressor_destroy(&_private->_compressor1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -123,8 +122,8 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

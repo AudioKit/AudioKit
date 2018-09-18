@@ -60,7 +60,7 @@ open class AKAUPresetBuilder {
     ///   - attack:         Attack duration in seconds
     ///   - release:        Release duration in seconds
     ///
-    static open func createAUPreset(dict: [NSMutableDictionary],
+    public static func createAUPreset(dict: [NSMutableDictionary],
                                     path: String,
                                     instrumentName: String,
                                     attack: Double? = 0,
@@ -241,7 +241,7 @@ open class AKAUPresetBuilder {
     ///   - startNote: First note in range
     ///   - endNote:   Last note in range
     ///
-    open static func generateDictionary(
+    public static func generateDictionary(
         rootNote: Int,
         filename: String,
         startNote: Int,
@@ -275,7 +275,7 @@ open class AKAUPresetBuilder {
     ///   - filerefs:    File references XML
     ///   - layers:      Combined xml
     ///
-    static open func buildInstrument(name: String = "Coded Instrument Name",
+    public static func buildInstrument(name: String = "Coded Instrument Name",
                                      connections: String = "",
                                      envelopes: String = "",
                                      filter: String = "",

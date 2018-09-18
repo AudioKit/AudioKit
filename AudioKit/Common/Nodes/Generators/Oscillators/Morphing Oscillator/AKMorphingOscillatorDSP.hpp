@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void* createMorphingOscillatorDSP(int nChannels, double sampleRate);
+void *createMorphingOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -34,7 +34,6 @@ private:
  
 public:
     AKMorphingOscillatorDSP();
-    ~AKMorphingOscillatorDSP();
 
     float frequencyLowerBound = 0.0;
     float frequencyUpperBound = 22050.0;
@@ -63,7 +62,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
     void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;

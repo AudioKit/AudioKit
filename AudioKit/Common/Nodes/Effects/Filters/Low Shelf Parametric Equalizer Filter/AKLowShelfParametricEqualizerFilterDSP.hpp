@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKLowShelfParametricEqualizerFilterParameter
 
 #ifndef __cplusplus
 
-void* createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate);
+void *createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKLowShelfParametricEqualizerFilterDSP();
-    ~AKLowShelfParametricEqualizerFilterDSP();
 
     float cornerFrequencyLowerBound = 12.0;
     float cornerFrequencyUpperBound = 20000.0;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
 
 #ifndef __cplusplus
 
-void* createPannerDSP(int nChannels, double sampleRate);
+void *createPannerDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -69,9 +69,8 @@ public:
         _panst->pan = 0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_panst_destroy(&_panst);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -88,8 +87,8 @@ public:
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel < 2) {
                     tmpin[channel] = in;

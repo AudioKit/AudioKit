@@ -88,6 +88,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         crossfade.value = Float(AKPitchShifter.defaultCrossfade)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

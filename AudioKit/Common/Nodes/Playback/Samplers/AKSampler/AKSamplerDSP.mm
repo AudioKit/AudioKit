@@ -10,15 +10,15 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" void* createAKSamplerDSP(int nChannels, double sampleRate) {
+extern "C" void *createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(void* pDSP, AKSampleDataDescriptor* pSDD) {
+extern "C" void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor* pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor* pSFD)
+extern "C" void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor* pSFD)
 {
     char errMsg[100];
     WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -43,8 +43,8 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
         // convert samples to floating-point
         int bps = WavpackGetBitsPerSample(wpc);
         float scale = 1.0f / (1 << (bps - 1));
-        float* pf = sdd.data;
-        int32_t* pi = (int32_t*)pf;
+        float *pf = sdd.data;
+        int32_t *pi = (int32_t*)pf;
         for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
@@ -53,68 +53,69 @@ extern "C" void doAKSamplerLoadCompressedFile(void* pDSP, AKSampleFileDescriptor
     delete[] sdd.data;
 }
 
-extern "C" void doAKSamplerUnloadAllSamples(void* pDSP)
+extern "C" void doAKSamplerUnloadAllSamples(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->deinit();
 }
 
-extern "C" void doAKSamplerBuildSimpleKeyMap(void* pDSP) {
+extern "C" void doAKSamplerBuildSimpleKeyMap(void *pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
 
-extern "C" void doAKSamplerBuildKeyMap(void* pDSP) {
+extern "C" void doAKSamplerBuildKeyMap(void *pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
-extern "C" void doAKSamplerSetLoopThruRelease(void* pDSP, bool value) {
+extern "C" void doAKSamplerSetLoopThruRelease(void *pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-extern "C" void doAKSamplerPlayNote(void* pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+extern "C" void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-extern "C" void doAKSamplerStopNote(void* pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doAKSamplerStopAllVoices(void* pDSP)
+extern "C" void doAKSamplerStopAllVoices(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->stopAllVoices();
 }
 
-extern "C" void doAKSamplerRestartVoices(void* pDSP)
+extern "C" void doAKSamplerRestartVoices(void *pDSP)
 {
     ((AKSamplerDSP*)pDSP)->restartVoices();
 }
 
-extern "C" void doAKSamplerSustainPedal(void* pDSP, bool pedalDown)
+extern "C" void doAKSamplerSustainPedal(void *pDSP, bool pedalDown)
 {
     ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);
 }
 
 
-AKSamplerDSP::AKSamplerDSP() : AudioKitCore::Sampler()
+AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
     filterCutoffRamp.setTarget(4, true);
-    filterEgStrengthRamp.setTarget(20.0f, true);
+    filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
+    glideRateRamp.setTarget(0.0, true);
 }
 
 void AKSamplerDSP::init(int nChannels, double sampleRate)
 {
     AKDSPBase::init(nChannels, sampleRate);
-    AudioKitCore::Sampler::init(sampleRate);
+    AKCoreSampler::init(sampleRate);
 }
 
 void AKSamplerDSP::deinit()
 {
-    AudioKitCore::Sampler::deinit();
+    AKCoreSampler::deinit();
 }
 
 void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -125,8 +126,9 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
             pitchBendRamp.setRampDuration(value, _sampleRate);
             vibratoDepthRamp.setRampDuration(value, _sampleRate);
             filterCutoffRamp.setRampDuration(value, _sampleRate);
-            filterEgStrengthRamp.setRampDuration(value, _sampleRate);
+            filterStrengthRamp.setRampDuration(value, _sampleRate);
             filterResonanceRamp.setRampDuration(value, _sampleRate);
+            glideRateRamp.setRampDuration(value, _sampleRate);
             break;
 
         case AKSamplerParameterMasterVolume:
@@ -141,40 +143,52 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
             break;
-        case AKSamplerParameterFilterEgStrength:
-            filterEgStrengthRamp.setTarget(value, immediate);
+        case AKSamplerParameterFilterStrength:
+            filterStrengthRamp.setTarget(value, immediate);
             break;
         case AKSamplerParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
+        case AKSamplerParameterGlideRate:
+            glideRateRamp.setTarget(value, immediate);
+            break;
 
         case AKSamplerParameterAttackDuration:
-            adsrEnvelopeParameters.setAttackTimeSeconds(value);
+            setADSRAttackDurationSeconds(value);
             break;
         case AKSamplerParameterDecayDuration:
-            adsrEnvelopeParameters.setDecayTimeSeconds(value);
+            setADSRDecayDurationSeconds(value);
             break;
         case AKSamplerParameterSustainLevel:
-            adsrEnvelopeParameters.sustainFraction = value;
+            setADSRSustainFraction(value);
             break;
         case AKSamplerParameterReleaseDuration:
-            adsrEnvelopeParameters.setReleaseTimeSeconds(value);
+            setADSRReleaseDurationSeconds(value);
             break;
 
         case AKSamplerParameterFilterAttackDuration:
-            filterEnvelopeParameters.setAttackTimeSeconds(value);
+            setFilterAttackDurationSeconds(value);
             break;
         case AKSamplerParameterFilterDecayDuration:
-            filterEnvelopeParameters.setDecayTimeSeconds(value);
+            setFilterDecayDurationSeconds(value);
             break;
         case AKSamplerParameterFilterSustainLevel:
-            filterEnvelopeParameters.sustainFraction = value;
+            setFilterSustainFraction(value);
             break;
         case AKSamplerParameterFilterReleaseDuration:
-            filterEnvelopeParameters.setReleaseTimeSeconds(value);
+            setFilterReleaseDurationSeconds(value);
             break;
         case AKSamplerParameterFilterEnable:
             isFilterEnabled = value > 0.5f;
+            break;
+        case AKSamplerParameterLoopThruRelease:
+            loopThruRelease = value > 0.5f;
+            break;
+        case AKSamplerParameterMonophonic:
+            isMonophonic = value > 0.5f;
+            break;
+        case AKSamplerParameterLegato:
+            isLegato = value > 0.5f;
             break;
     }
 }
@@ -193,41 +207,49 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return vibratoDepthRamp.getTarget();
         case AKSamplerParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
-        case AKSamplerParameterFilterEgStrength:
-            return filterEgStrengthRamp.getTarget();
+        case AKSamplerParameterFilterStrength:
+            return filterStrengthRamp.getTarget();
         case AKSamplerParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
+        case AKSamplerParameterGlideRate:
+            return glideRateRamp.getTarget();
 
         case AKSamplerParameterAttackDuration:
-            return adsrEnvelopeParameters.getAttackTimeSeconds();
+            return getADSRAttackDurationSeconds();
         case AKSamplerParameterDecayDuration:
-            return adsrEnvelopeParameters.getDecayTimeSeconds();
+            return getADSRDecayDurationSeconds();
         case AKSamplerParameterSustainLevel:
-            return adsrEnvelopeParameters.sustainFraction;
+            return getADSRSustainFraction();
         case AKSamplerParameterReleaseDuration:
-            return adsrEnvelopeParameters.getReleaseTimeSeconds();
+            return getADSRReleaseDurationSeconds();
 
         case AKSamplerParameterFilterAttackDuration:
-            return filterEnvelopeParameters.getAttackTimeSeconds();
+            return getFilterAttackDurationSeconds();
         case AKSamplerParameterFilterDecayDuration:
-            return filterEnvelopeParameters.getDecayTimeSeconds();
+            return getFilterDecayDurationSeconds();
         case AKSamplerParameterFilterSustainLevel:
-            return filterEnvelopeParameters.sustainFraction;
+            return getFilterSustainFraction();
         case AKSamplerParameterFilterReleaseDuration:
-            return filterEnvelopeParameters.getReleaseTimeSeconds();
+            return getFilterReleaseDurationSeconds();
         case AKSamplerParameterFilterEnable:
             return isFilterEnabled ? 1.0f : 0.0f;
+        case AKSamplerParameterLoopThruRelease:
+            return loopThruRelease ? 1.0f : 0.0f;
+        case AKSamplerParameterMonophonic:
+            return isMonophonic ? 1.0f : 0.0f;
+        case AKSamplerParameterLegato:
+            return isLegato ? 1.0f : 0.0f;
     }
     return 0;
 }
 
 void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
-    // process in chunks of maximum length CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
+    // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKCORESAMPLER_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
-        if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
+        if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
         
         // ramp parameters
         masterVolumeRamp.advanceTo(_now + frameOffset);
@@ -238,16 +260,18 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(_now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterEgStrengthRamp.advanceTo(_now + frameOffset);
-        cutoffEnvelopeStrength = (float)filterEgStrengthRamp.getValue();
+        filterStrengthRamp.advanceTo(_now + frameOffset);
+        cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(_now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
+        glideRateRamp.advanceTo(_now + frameOffset);
+        glideRate = (float)glideRateRamp.getValue();
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float*)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float*)_outBufferListPtr->mBuffers[1].mData + frameOffset;
+        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
-        AudioKitCore::Sampler::render(channelCount, chunkSize, outBuffers);
+        AKCoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }

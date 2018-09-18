@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKThreePoleLowpassFilterParameter) {
 
 #ifndef __cplusplus
 
-void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
+void *createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKThreePoleLowpassFilterDSP();
-    ~AKThreePoleLowpassFilterDSP();
 
     float distortionLowerBound = 0.0;
     float distortionUpperBound = 2.0;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 var player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 let effect = AKOperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(

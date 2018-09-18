@@ -88,6 +88,6 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
         saturation.value = Float(AKKorgLowPassFilter.defaultSaturation)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

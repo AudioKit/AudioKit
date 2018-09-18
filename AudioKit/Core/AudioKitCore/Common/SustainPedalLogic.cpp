@@ -52,4 +52,15 @@ namespace AudioKitCore
         return isPlaying[noteNumber] && !keyDown[noteNumber];
     }
 
+    bool SustainPedalLogic::isAnyKeyDown()
+    {
+        for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return true;
+        return false;
+    }
+
+    int SustainPedalLogic::firstKeyDown()
+    {
+        for (int i = 0; i < kMidiNoteNumbers; i++) if (keyDown[i]) return i;
+        return -1;
+    }
 }

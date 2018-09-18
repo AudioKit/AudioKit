@@ -149,7 +149,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                 regex = try NSRegularExpression(pattern: pattern,
                                                 options: .dotMatchesLineSeparators)
             } catch {
-                print("Regular expression failed")
+                AKLog("Regular expression failed")
             }
 
             let value = regex.stringByReplacingMatches(in: line,
@@ -163,7 +163,7 @@ class ViewController: UIViewController, UITextFieldDelegate, AKKeyboardDelegate 
                 regex = try NSRegularExpression(pattern: pattern,
                                                 options: .dotMatchesLineSeparators)
             } catch {
-                print("Regular expression failed")
+                AKLog("Regular expression failed")
             }
             let currentControlText = regex.stringByReplacingMatches(in: line,
                                                                           options: .reportCompletion,

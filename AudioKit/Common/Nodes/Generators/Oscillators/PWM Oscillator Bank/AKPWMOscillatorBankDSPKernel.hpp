@@ -21,9 +21,9 @@ public:
     };
     
     struct NoteState {
-        NoteState* next;
-        NoteState* prev;
-        AKPWMOscillatorBankDSPKernel* kernel;
+        NoteState *next;
+        NoteState *prev;
+        AKPWMOscillatorBankDSPKernel *kernel;
 
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
@@ -92,7 +92,7 @@ public:
         }
 
 
-        void run(int frameCount, float* outL, float* outR)
+        void run(int frameCount, float *outL, float *outR)
         {
             float originalFrequency = *blsquare->freq;
             *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
@@ -189,13 +189,13 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         pulseWidth = double(pulseWidthRamper.getAndStep());
         standardBankGetAndSteps()
 
-        NoteState* noteState = playingNotes;
+        NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -216,7 +216,7 @@ private:
     float pulseWidth = 0.5;
 
 public:
-    NoteState* playingNotes = nullptr;
+    NoteState *playingNotes = nullptr;
 
     ParameterRamper pulseWidthRamper = 0.5;
 };

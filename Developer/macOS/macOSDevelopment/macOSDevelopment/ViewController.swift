@@ -210,8 +210,9 @@ class ViewController: NSViewController {
 
     @IBAction func handleUpdateParam(_ sender: NSSlider) {
         if sender == slider1 {
-            booster.gain = slider1.doubleValue
-            slider1Value.stringValue = String(describing: roundTo(booster.gain, decimalPlaces: 3))
+            booster.dB = slider1.doubleValue
+            let plus = booster.dB > 0 ? "+" : ""
+            slider1Value.stringValue = "\(plus)\(roundTo(booster.dB, decimalPlaces: 1)) dB"
 
         } else if sender == slider2 {
             booster.rampDuration = slider2.doubleValue

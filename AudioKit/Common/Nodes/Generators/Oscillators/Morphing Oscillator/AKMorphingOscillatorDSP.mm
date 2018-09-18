@@ -9,8 +9,8 @@
 #include "AKMorphingOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createMorphingOscillatorDSP(int nChannels, double sampleRate) {
-    AKMorphingOscillatorDSP* dsp = new AKMorphingOscillatorDSP();
+extern "C" void *createMorphingOscillatorDSP(int nChannels, double sampleRate) {
+    AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -92,9 +92,8 @@ void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     sp_oscmorph_create(&_private->_oscmorph);
 }
 
-void AKMorphingOscillatorDSP::destroy() {
+void AKMorphingOscillatorDSP::deinit() {
     sp_oscmorph_destroy(&_private->_oscmorph);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void  AKMorphingOscillatorDSP::reset() {
@@ -133,7 +132,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

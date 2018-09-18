@@ -16,7 +16,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation AKAudioEffect {
-    AKDSPKernelWithParams* _kernel;
+    AKDSPKernelWithParameters *_kernel;
     BufferedInputBus _inputBus;
 }
 

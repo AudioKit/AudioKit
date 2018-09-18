@@ -205,4 +205,3 @@ private:
 public:
     NoteState* playingNotes = nullptr;
 };
-

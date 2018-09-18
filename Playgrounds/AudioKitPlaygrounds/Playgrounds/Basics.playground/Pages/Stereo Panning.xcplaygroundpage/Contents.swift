@@ -13,6 +13,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav")
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 //: Route the audio player through the panner
 var panner = AKPanner(player)

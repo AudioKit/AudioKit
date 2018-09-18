@@ -9,8 +9,8 @@
 #include "AKFMOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFMOscillatorDSP(int nChannels, double sampleRate) {
-    AKFMOscillatorDSP* dsp = new AKFMOscillatorDSP();
+extern "C" void *createFMOscillatorDSP(int nChannels, double sampleRate) {
+    AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -98,9 +98,8 @@ void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     _private->_fosc->amp = defaultAmplitude;
 }
 
-void AKFMOscillatorDSP::destroy() {
+void AKFMOscillatorDSP::deinit() {
     sp_fosc_destroy(&_private->_fosc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
@@ -133,7 +132,7 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

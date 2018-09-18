@@ -9,8 +9,8 @@
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
-    AKFlatFrequencyResponseReverbDSP* dsp = new AKFlatFrequencyResponseReverbDSP();
+extern "C" void *createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
+    AKFlatFrequencyResponseReverbDSP *dsp = new AKFlatFrequencyResponseReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -66,10 +66,9 @@ void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
 
 }
 
-void AKFlatFrequencyResponseReverbDSP::destroy() {
+void AKFlatFrequencyResponseReverbDSP::deinit() {
     sp_allpass_destroy(&_private->_allpass0);
     sp_allpass_destroy(&_private->_allpass1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

@@ -71,6 +71,6 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
         feedback.value = Float(AKStringResonator.defaultFeedback)
     }
 
-    public override var canProcessInPlace: Bool { return true } 
+    public override var canProcessInPlace: Bool { return true }
 
 }

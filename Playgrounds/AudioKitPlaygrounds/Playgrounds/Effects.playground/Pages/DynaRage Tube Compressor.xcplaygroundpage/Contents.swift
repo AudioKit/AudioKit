@@ -7,6 +7,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = try AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 var effect = AKDynaRageCompressor(player)
 

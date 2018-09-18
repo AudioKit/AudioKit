@@ -8,6 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
 let player = AKPlayer(audioFile: file)
 player.isLooping = true
+player.buffering = .always
 
 let effect = AKOperationEffect(player) { input, parameters in
     let baseSampleRate = parameters[0]

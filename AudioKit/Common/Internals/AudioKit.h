@@ -83,6 +83,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
 // Effects / Modulation
+#import "AKModulatedDelay_Typedefs.h"
+#import "AKModulatedDelay.hpp"
 #import "AKModulatedDelayDSP.hpp"
 #import "AKPhaserDSP.hpp"
 
@@ -141,7 +143,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPhaseLockedVocoderAudioUnit.h"
 #import "AKSamplePlayerAudioUnit.h"
 #import "AKWaveTableAudioUnit.h"
+#import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"
+#import "AKSampler_Typedefs.h"
+#import "AKCoreSampler.hpp"
 #import "AKSamplerDSP.hpp"
 
 // Testing
@@ -171,3 +176,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
+
+// Synth
+#import "AKSynth.hpp"
+#import "AKSynthDSP.hpp"
