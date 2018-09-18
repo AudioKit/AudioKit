@@ -18,24 +18,36 @@ class AKOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffere
 public:
     // MARK: Types
     struct NoteState {
-        NoteState *next;
-        NoteState *prev;
-        AKOscillatorBankDSPKernel *kernel;
+        NoteState* next;
+        NoteState* prev;
+        AKOscillatorBankDSPKernel* kernel;
 
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
 
         float internalGate = 0;
         float amp = 0;
+        float filter = 0;
 
         sp_adsr *adsr;
+        sp_adsr *fadsr;
+
         sp_osc *osc;
+
+        sp_crossfade *filterCrossFade;
+        sp_moogladder *lowPass;
 
         void init() {
             sp_adsr_create(&adsr);
+            sp_adsr_create(&fadsr);
             sp_osc_create(&osc);
+            sp_crossfade_create(&filterCrossFade);
+            sp_moogladder_create(&lowPass);
             sp_adsr_init(kernel->sp, adsr);
+            sp_adsr_init(kernel->sp, fadsr);
             sp_osc_init(kernel->sp, osc, kernel->ftbl, 0);
+            sp_crossfade_init(kernel->sp, filterCrossFade);
+            sp_moogladder_init(kernel->sp, lowPass);
             osc->freq = 0;
             osc->amp = 0;
         }
@@ -44,6 +56,7 @@ public:
         void clear() {
             stage = stageOff;
             amp = 0;
+            filter = 0;
         }
 
         // linked list management
@@ -58,6 +71,7 @@ public:
             --kernel->playingNotesCount;
 
             sp_osc_destroy(&osc);
+            sp_adsr_destroy(&fadsr);
             sp_adsr_destroy(&adsr);
         }
 
@@ -92,9 +106,12 @@ public:
         }
 
 
-        void run(int frameCount, float *outL, float *outR)
+        void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
+
+            float filterCutoffFreq = 11050.0f;
+            filterCrossFade->pos = 1.0;
 
             osc->freq *= powf(2, kernel->pitchBend / 12.0);
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
@@ -105,6 +122,10 @@ public:
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
 
+            fadsr->atk = (float)kernel->attackDuration;
+            fadsr->dec = (float)kernel->decayDuration;
+            fadsr->sus = (float)kernel->sustainLevel;
+            fadsr->rel = (float)kernel->releaseDuration;
 
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
@@ -113,10 +134,27 @@ public:
                 osc->freq = bentFrequency * powf(2, depth * variation);
 
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
-                sp_osc_compute(kernel->sp, osc, nil, &x);
-                *outL++ += amp * x;
-                *outR++ += amp * x;
 
+                lowPass->res = 0.1;
+
+                sp_adsr_compute(kernel->sp, fadsr, &internalGate, &filter);
+
+                filterCutoffFreq *= amp;
+                filterCutoffFreq = clamp(filterCutoffFreq, 0.0f, 22050.0f);
+                lowPass->freq = filterCutoffFreq;
+
+                sp_osc_compute(kernel->sp, osc, nil, &x);
+
+                float oscOut = amp * x;
+
+                float filterOut = 0.0f;
+                sp_moogladder_compute(kernel->sp, lowPass, &oscOut, &filterOut);
+
+                float finalOut = 0.0f;
+                sp_crossfade_compute(kernel->sp, filterCrossFade, &oscOut, &filterOut, &finalOut);
+
+                *outL++ += finalOut;
+                *outR++ += finalOut;
             }
             osc->freq = originalFrequency;
             if (stage == stageRelease && amp < 0.00001) {
@@ -176,12 +214,12 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
 
-        NoteState *noteState = playingNotes;
+        NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -203,6 +241,5 @@ private:
     UInt32 ftbl_size = 4096;
 
 public:
-    NoteState *playingNotes = nullptr;
+    NoteState* playingNotes = nullptr;
 };
-

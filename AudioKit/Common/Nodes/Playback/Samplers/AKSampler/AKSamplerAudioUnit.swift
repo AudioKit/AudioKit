@@ -36,8 +36,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         didSet { setParameter(.filterCutoff, value: filterCutoff) }
     }
     
-    var filterEgStrength: Double = 20.0 {
-        didSet { setParameter(.filterEgStrength, value: filterCutoff) }
+    var filterStrength: Double = 20.0 {
+        didSet { setParameter(.filterStrength, value: filterCutoff) }
     }
     
     var filterResonance: Double = 0.0 {
@@ -146,7 +146,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                     flags: rampFlags,
                                                                     valueStrings: nil, dependentParameters: nil)
         parameterAddress += 1
-        let filterEgStrengthParameter = AUParameterTree.createParameter(withIdentifier: "filterEgStrength",
+        let filterStrengthParameter = AUParameterTree.createParameter(withIdentifier: "filterStrength",
                                                                         name: "Filter EG strength",
                                                                         address: AUParameterAddress(parameterAddress),
                                                                         min: 0.0, max: 1_000.0,
@@ -269,7 +269,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                               valueStrings: nil, dependentParameters: nil)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter, pitchBendParameter, vibratoDepthParameter,
-                                                                   filterCutoffParameter, filterEgStrengthParameter, filterResonanceParameter,
+                                                                   filterCutoffParameter, filterStrengthParameter, filterResonanceParameter,
                                                                    glideRateParameter,
                                                                    attackDurationParameter, decayDurationParameter,
                                                                    sustainLevelParameter, releaseDurationParameter,
@@ -281,7 +281,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
         filterCutoffParameter.value = 4.0
-        filterEgStrengthParameter.value = 20.0
+        filterStrengthParameter.value = 20.0
         filterResonanceParameter.value = 0.0
         glideRateParameter.value = 0.0
         attackDurationParameter.value = 0.0
