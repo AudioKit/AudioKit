@@ -169,7 +169,7 @@ open class AKExpander: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
 
         AudioKit.detach(nodes: [inputGain.avAudioNode, effectGain.avAudioNode, mixer.avAudioNode])
