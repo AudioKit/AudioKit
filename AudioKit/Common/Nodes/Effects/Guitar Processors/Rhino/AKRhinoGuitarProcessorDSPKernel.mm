@@ -260,21 +260,26 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
         
         _private->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -_private->highGain, false);
         _private->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -_private->highGain, false);
-        
-        float *in  = (float *)inBufferListPtr->mBuffers[0].mData  + frameOffset;
-        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
-        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
-        
-        if (started) {
+
+        float *tmpin[2];
+        float *tmpout[2];
+        for (int channel = 0; channel < 2; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            if (channel < 2) {
+                tmpin[channel] = in;
+                tmpout[channel] = out;
+            }
+            if (!started) {
+                *out = *in;
+                continue;
+            }
+
             *in = *in * (_private->preGain);
             const float r_Sig = _private->_leftRageProcessor->doRage(*in, _private->distortion * 2, _private->distortion * 2);
             const float e_Sig = _private->_leftEqLo->filter(_private->_leftEqMi->filter(_private->_leftEqHi->filter(r_Sig))) *
-                            (1 / (_private->distortion*0.8));
-            *outL = e_Sig * _private->postGain;
-            *outR = e_Sig * _private->postGain;
-        } else {
-            *outL = *in;
-            *outR = *in;
+            (1 / (_private->distortion*0.8));
+            *out = e_Sig * _private->postGain;
         }
     }
 }
