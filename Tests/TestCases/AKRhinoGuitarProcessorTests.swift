@@ -13,37 +13,37 @@ class AKRhinoGuitarProcessorTests: AKTestCase {
 
     func testDefault() {
         output = AKRhinoGuitarProcessor(input)
-        AKTestMD5("b7a79af92c91dec9a8ea705f449e6a4a")
+        AKTestMD5("5a0a09660ce124b9fc2d7bb7090fd630")
     }
 
     func testDistortion() {
         output = AKRhinoGuitarProcessor(input, distortion: 3)
-        AKTestMD5("47e5fd119e13e0661d190f00b981b594")
+        AKTestMD5("597bcc216f933f6b168e6013e0c52675")
     }
 
     func testHighGain() {
         output = AKRhinoGuitarProcessor(input, highGain: 0.55)
-        AKTestMD5("d89eca3f6c8fc3f298c8eb583eb5ee0a")
+        AKTestMD5("87900b5fad7fcbe2729d5826d012fc3c")
     }
 
     func testLowGain() {
         output = AKRhinoGuitarProcessor(input, lowGain: 0.66)
-        AKTestMD5("fb296724945d97eb066132760f398855")
+        AKTestMD5("613e9723b684628fd11e9356e9dc90bb")
     }
 
     func testMidGain() {
         output = AKRhinoGuitarProcessor(input, midGain: 0.44)
-        AKTestMD5("4546b5e4081ab44908c5e2c639dfd48c")
+        AKTestMD5("6ad619875029395035207487ac9b340b")
     }
 
     func testPostGain() {
         output = AKRhinoGuitarProcessor(input, postGain: 2.2)
-        AKTestMD5("c3bef3fa0978b5d55d6577e3683880f7")
+        AKTestMD5("2936e5f03b9d864edc4f1fde4a6d078c")
     }
 
     func testPreGain() {
         output = AKRhinoGuitarProcessor(input, preGain: 2.2)
-        AKTestMD5("4bdfa2afc5f63ed79ad5f19ed0a69ced")
+        AKTestMD5("906770d6b1463fafe8ea23e51e6c9050")
     }
 
 }
