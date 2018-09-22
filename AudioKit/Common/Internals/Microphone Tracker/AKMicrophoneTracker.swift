@@ -47,7 +47,7 @@ extension AKMicrophoneTracker: AKToggleable {
         microphone.start()
         tracker.start()
     }
-    
+
     public func stop() {
         microphone.stop()
         tracker.stop()
