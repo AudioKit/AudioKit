@@ -57,22 +57,27 @@ namespace AudioKitCore
     
     void ADSREnvelope::release()
     {
-        segment = kRelease;
-        if (ramper.value != 0.0f)
+        if (ramper.value == 0.0f) init();
+        else
+        {
+            segment = kRelease;
             ramper.reinit(0.0f, pParameters->releaseSamples);
+        }
     }
 
     void ADSREnvelope::restart()
     {
-        segment = kSilence;
-        if (ramper.value != 0.0f)
-            ramper.reinit(0.0f, pParameters->releaseSamples);
+        if (ramper.value == 0.0f) init();
+        else
+        {
+            segment = kSilence;
+            ramper.reinit(0.0f, 0.01f * pParameters->sampleRateHz); // always silence in 10 ms
+        }
     }
 
     void ADSREnvelope::reset()
     {
-        ramper.init(0.0f);
-        segment = kIdle;
+        init();
     }
 
 }
