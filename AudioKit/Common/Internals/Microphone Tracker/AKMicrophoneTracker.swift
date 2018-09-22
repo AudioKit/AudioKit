@@ -9,32 +9,48 @@
 /// An easy to use class to do usual microphone tracking
 public class AKMicrophoneTracker {
 
-    var engine: AKMicrophoneTrackerEngine
+    private let microphone: AKMicrophone
+    private let tracker: AKFrequencyTracker
 
     /// Tracked amplitude
     public var amplitude: Double {
-        return Double(engine.amplitude)
+        return tracker.amplitude
     }
 
     /// Tracked frquency
     public var frequency: Double {
-        return Double(engine.frequency)
-    }
-
-    /// Start the analysis
-    public func start() {
-        engine.start()
-    }
-
-    /// Stop the analysis
-    public func stop() {
-        engine.stop()
+        return tracker.frequency
     }
 
     /// Initialize the tracker
     @objc public init(hopSize: Int = 4_096, peakCount: Int = 20) {
-        engine = AKMicrophoneTrackerEngine(hopSize: UInt32(hopSize), peakCount: UInt32(peakCount))
-        // Could automatically start the tracker here, but elected not to at BlackBox/Ryan McLeod's request
-        // Subclass and change this if you like
+        tracker = AKFrequencyTracker(hopSize: hopSize, peakCount: peakCount)
+        microphone = AKMicrophone()
+        microphone.connect(to: tracker)
     }
+}
+
+extension AKMicrophoneTracker: AKOutput {
+
+    public var outputNode: AVAudioNode {
+        return tracker.avAudioNode
+    }
+}
+
+extension AKMicrophoneTracker: AKToggleable {
+
+    public var isStarted: Bool {
+        return microphone.isStarted && tracker.isStarted
+    }
+
+    public func start() {
+        microphone.start()
+        tracker.start()
+    }
+    
+    public func stop() {
+        microphone.stop()
+        tracker.stop()
+    }
+
 }
