@@ -41,7 +41,7 @@ namespace AudioKitCore
         releaseSamples *= scaleFactor;
     }
     
-
+    
     void ADSREnvelope::init()
     {
         segment = kIdle;
@@ -50,7 +50,18 @@ namespace AudioKitCore
     
     void ADSREnvelope::start()
     {
-        // have to make attack go above 1.0, or decay won't work if sustain is 1.0
+//        if (segment == kIdle)
+//        {
+//            // start new attack segment from zero
+//            ramper.init(0.0f, 1.0f, pParameters->attackSamples);
+//        }
+//        else
+//        {
+//            // envelope has been retriggered; start new attack from where we are
+//            ramper.reinit(1.0f, pParameters->attackSamples);
+//        }
+
+        // SD have to make attack go above 1.0, or decay won't work if sustain is 1.0
         ramper.init(0.0f, 1.01f, pParameters->attackSamples);
         segment = kAttack;
     }
@@ -58,8 +69,7 @@ namespace AudioKitCore
     void ADSREnvelope::release()
     {
         segment = kRelease;
-        if (ramper.value != 0.0f)
-            ramper.reinit(0.0f, pParameters->releaseSamples);
+        ramper.reinit(0.0f, pParameters->releaseSamples);
     }
 
     void ADSREnvelope::restart()
