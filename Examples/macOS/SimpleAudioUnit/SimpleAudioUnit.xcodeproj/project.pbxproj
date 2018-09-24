@@ -13,8 +13,23 @@
 		B1F827C4209CDAD4006DE336 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C3209CDAD4006DE336 /* Assets.xcassets */; };
 		B1F827C7209CDAD4006DE336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C5209CDAD4006DE336 /* Main.storyboard */; };
 		B1F827D1209CDAFA006DE336 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827CF209CDAFA006DE336 /* AudioKit.framework */; };
-		B1F827D2209CDAFA006DE336 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; };
+		EAD4DD1321588BA1003EFB80 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; };
+		EAD4DD1421588BA1003EFB80 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EAD4DD1521588BA1003EFB80 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAD4DD1421588BA1003EFB80 /* AudioKitUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B1631211209CFC2100904F79 /* Organ.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Organ.wav; path = ../../../Common/Organ.wav; sourceTree = "<group>"; };
@@ -34,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1F827D2209CDAFA006DE336 /* AudioKitUI.framework in Frameworks */,
+				EAD4DD1321588BA1003EFB80 /* AudioKitUI.framework in Frameworks */,
 				B1F827D1209CDAFA006DE336 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +99,7 @@
 				B1F827B8209CDAD2006DE336 /* Sources */,
 				B1F827B9209CDAD2006DE336 /* Frameworks */,
 				B1F827BA209CDAD2006DE336 /* Resources */,
+				EAD4DD1521588BA1003EFB80 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
