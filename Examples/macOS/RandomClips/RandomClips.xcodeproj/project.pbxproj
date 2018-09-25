@@ -15,23 +15,8 @@
 		55C731D21F62D9A100611001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D11F62D9A100611001 /* Assets.xcassets */; };
 		55C731D51F62D9A100611001 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D31F62D9A100611001 /* Main.storyboard */; };
 		C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C472CD121F6533D100C5FF8E /* AudioKit.framework */; };
-		EAD4DD0F21588B55003EFB80 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
-		EAD4DD1021588B55003EFB80 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5568ADEC1F62D9DB00FFB5BE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD4DD1021588B55003EFB80 /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		55A3AD541F62DD77001C22E3 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
@@ -53,8 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD4DD0F21588B55003EFB80 /* AudioKitUI.framework in Frameworks */,
 				C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */,
+				EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +53,7 @@
 				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 				55C731CC1F62D9A100611001 /* RandomClips */,
 				55C731CB1F62D9A100611001 /* Products */,
+				EA2FA542215AFC88001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +81,13 @@
 			path = RandomClips;
 			sourceTree = "<group>";
 		};
+		EA2FA542215AFC88001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -105,7 +98,6 @@
 				55C731C61F62D9A100611001 /* Sources */,
 				55C731C71F62D9A100611001 /* Frameworks */,
 				55C731C81F62D9A100611001 /* Resources */,
-				5568ADEC1F62D9DB00FFB5BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -304,7 +296,6 @@
 		55C731DB1F62D9A100611001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -323,7 +314,6 @@
 		55C731DC1F62D9A100611001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
