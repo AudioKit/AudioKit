@@ -26,23 +26,8 @@
 		B1D2A7A61FDBB8400067DC39 /* AudioUnitManager+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */; };
 		B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */; };
 		C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC95421F6654FC00BABA8E /* AudioKit.framework */; };
-		EAD4DD0921588A51003EFB80 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
-		EAD4DD0A21588A51003EFB80 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B123121B1F19419A00888115 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD4DD0A21588A51003EFB80 /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+MIDI.swift"; sourceTree = "<group>"; };
@@ -74,8 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD4DD0921588A51003EFB80 /* AudioKitUI.framework in Frameworks */,
 				C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */,
+				EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +84,7 @@
 				B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */,
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
 				B12311FC1F193EA100888115 /* Products */,
+				EA2FA53E215AFB01001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +136,13 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		EA2FA53E215AFB01001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -160,7 +153,6 @@
 				B12311F71F193EA100888115 /* Sources */,
 				B12311F81F193EA100888115 /* Frameworks */,
 				B12311F91F193EA100888115 /* Resources */,
-				B123121B1F19419A00888115 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
