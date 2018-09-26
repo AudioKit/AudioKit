@@ -32,7 +32,6 @@ private:
 
 public:
     SDBoosterDSP();
-    ~SDBoosterDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;
