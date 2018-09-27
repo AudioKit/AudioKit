@@ -17,23 +17,7 @@
 		C4EDA0F01DA8C36A008C1827 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4EDA0EF1DA8C36A008C1827 /* Audiobus.swift */; };
 		C4EDA0F21DA8C91A008C1827 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4EDA0F11DA8C91A008C1827 /* Audiobus.txt */; };
 		C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3ADC41DD3B346009AF0BE /* AudioKit.framework */; };
-		EAD65AF4214143BC0063221D /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */; };
-		EAD65AF5214143BC0063221D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1691F4FA073003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C4F3ADE51DD43073009AF0BE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD65AF5214143BC0063221D /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8DABD8232B53FA839B3DB3C5 /* Pods-SenderSynth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenderSynth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SenderSynth/Pods-SenderSynth.debug.xcconfig"; sourceTree = "<group>"; };
@@ -61,7 +45,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD65AF4214143BC0063221D /* AudioKitUI.framework in Frameworks */,
 				C4F3ADE31DD43073009AF0BE /* AudioKit.framework in Frameworks */,
 				C4EDA0E91DA88F2E008C1827 /* AudioToolbox.framework in Frameworks */,
 				071CAF41B49BFAA9F991F5F6 /* Pods_SenderSynth.framework in Frameworks */,
@@ -138,8 +121,6 @@
 				C4C5F7EF1DA8759500C1017F /* Sources */,
 				C4C5F7F01DA8759500C1017F /* Frameworks */,
 				C4C5F7F11DA8759500C1017F /* Resources */,
-				C4F3ADE51DD43073009AF0BE /* Embed Frameworks */,
-				EAD65AF6214143CC0063221D /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -225,20 +206,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		EAD65AF6214143CC0063221D /* Fix AudioKitUI slices */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix AudioKitUI slices";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

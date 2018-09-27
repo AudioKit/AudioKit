@@ -145,6 +145,7 @@
 				TargetAttributes = {
 					1F9F2B25206B65A2009E1296 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -373,7 +374,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -391,7 +392,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

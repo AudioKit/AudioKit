@@ -203,9 +203,9 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSAttributedStringKey.font: font,
-                                   NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                   NSAttributedStringKey.paragraphStyle: labelStyle]
+        let labelFontAttributes = [NSAttributedString.Key.font: font,
+                                   NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                   NSAttributedString.Key.paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(

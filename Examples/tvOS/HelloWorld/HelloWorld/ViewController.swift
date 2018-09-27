@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func toggleSound(_ sender: UIButton) {
         if oscillator.isPlaying {
             oscillator.stop()
-            sender.setTitle("Play Sine Wave", for: UIControlState())
+            sender.setTitle("Play Sine Wave", for: UIControl.State())
         } else {
             oscillator.amplitude = random(in: 0.5 ... 1)
             oscillator.frequency = random(in: 220 ... 880)

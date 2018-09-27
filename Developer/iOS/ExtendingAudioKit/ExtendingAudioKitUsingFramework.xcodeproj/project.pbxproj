@@ -19,23 +19,8 @@
 		C4E24A0B2031953600A020D7 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A072031953600A020D7 /* SDBooster.swift */; };
 		C4E24A0C2031953600A020D7 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A082031953600A020D7 /* SDBoosterAudioUnit.swift */; };
 		C4E24A0D2031953600A020D7 /* SDBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A0A2031953600A020D7 /* SDBoosterDSP.mm */; };
-		EAD0DEDC21420BC400DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; };
-		EAD0DEDD21420BC400DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA549215B7598001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3429F9A5201A275F00300166 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD0DEDD21420BC400DCE36F /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3429F97F201A25AB00300166 /* ExtendingAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExtendingAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DEDC21420BC400DCE36F /* AudioKitUI.framework in Frameworks */,
 				C47FDEF1201C5BF700A31D48 /* AudioKit.framework in Frameworks */,
+				EA2FA549215B7598001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +63,7 @@
 				C4E24A062031953600A020D7 /* SDBooster */,
 				3429F981201A25AB00300166 /* ExtendingAudioKit */,
 				3429F980201A25AB00300166 /* Products */,
+				EA2FA548215B7598001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +102,13 @@
 			path = ../../Common/SDBooster;
 			sourceTree = "<group>";
 		};
+		EA2FA548215B7598001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,7 +119,6 @@
 				3429F97B201A25AB00300166 /* Sources */,
 				3429F97C201A25AB00300166 /* Frameworks */,
 				3429F97D201A25AB00300166 /* Resources */,
-				3429F9A5201A275F00300166 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +141,7 @@
 				TargetAttributes = {
 					3429F97E201A25AB00300166 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -339,7 +332,6 @@
 		3429F992201A25AB00300166 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -354,7 +346,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -362,7 +354,6 @@
 		3429F993201A25AB00300166 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -377,7 +368,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

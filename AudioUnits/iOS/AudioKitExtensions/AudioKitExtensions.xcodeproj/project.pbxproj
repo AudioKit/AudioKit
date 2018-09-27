@@ -28,8 +28,7 @@
 		C4C4EC5C201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
 		C4C4EC5D201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
 		C4C4EC5E201E66C7007FE651 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC56201E66C7007FE651 /* AudioKit.framework */; };
-		EAD0DEDE21420D3300DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
-		EAD0DEDF21420D3300DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA54D215B77EE001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4C4EC55201E66C6007FE651 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,17 +69,6 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EAD0DEE021420D3300DCE36F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD0DEDF21420D3300DCE36F /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -112,8 +100,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DEDE21420D3300DCE36F /* AudioKitUI.framework in Frameworks */,
 				C4C4EC5B201E66C7007FE651 /* AudioKit.framework in Frameworks */,
+				EA2FA54D215B77EE001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +221,6 @@
 				C40C0D8A1F08619B00E6D30F /* Frameworks */,
 				C40C0D8B1F08619B00E6D30F /* Resources */,
 				C40C0DB81F08622900E6D30F /* Embed App Extensions */,
-				EAD0DEE021420D3300DCE36F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,21 +297,21 @@
 				TargetAttributes = {
 					C40C0D8C1F08619B00E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					C40C0DA51F08622800E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					C45546AC1F09C67B0084CE2D = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 					};
 					C45546C31F09CC100084CE2D = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -612,8 +599,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitExtensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -632,8 +618,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitExtensions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -651,8 +636,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -670,8 +654,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -694,8 +677,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -719,8 +701,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -744,8 +725,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -769,8 +749,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

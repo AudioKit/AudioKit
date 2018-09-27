@@ -15,24 +15,8 @@
 		78524B891D2C3D3500804C0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B871D2C3D3500804C0B /* LaunchScreen.storyboard */; };
 		78524B911D2C3D6100804C0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78524B901D2C3D6100804C0B /* Main.storyboard */; };
 		78524B941D2C3D7B00804C0B /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78524B921D2C3D7B00804C0B /* Conductor.swift */; };
-		EAD65AF1214140B50063221D /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3A4C541F4EE39C003D9C16 /* AudioKitUI.framework */; };
-		EAD65AF2214140B50063221D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA3A4C541F4EE39C003D9C16 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FEE35C3C1F0EAA7E00EE1A85 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEE35C3A1F0EAA7400EE1A85 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		78524B9F1D2C3F0B00804C0B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD65AF2214140B50063221D /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7816C88A1D2CCE950030374D /* seqDemo.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = seqDemo.mid; sourceTree = "<group>"; };
@@ -55,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD65AF1214140B50063221D /* AudioKitUI.framework in Frameworks */,
 				FEE35C3C1F0EAA7E00EE1A85 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -125,8 +108,6 @@
 				78524B771D2C3D3500804C0B /* Sources */,
 				78524B781D2C3D3500804C0B /* Frameworks */,
 				78524B791D2C3D3500804C0B /* Resources */,
-				78524B9F1D2C3F0B00804C0B /* Embed Frameworks */,
-				EAD65AF3214140C00063221D /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -149,7 +130,7 @@
 				TargetAttributes = {
 					78524B7A1D2C3D3500804C0B = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -191,23 +172,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EAD65AF3214140C00063221D /* Fix AudioKitUI slices */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix AudioKitUI slices";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		78524B771D2C3D3500804C0B /* Sources */ = {
@@ -347,7 +311,6 @@
 		78524B8E1D2C3D3500804C0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -359,14 +322,13 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SamplerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		78524B8F1D2C3D3500804C0B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -378,7 +340,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SamplerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

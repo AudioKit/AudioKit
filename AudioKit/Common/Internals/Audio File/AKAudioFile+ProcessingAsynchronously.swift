@@ -406,9 +406,9 @@ extension AKAudioFile {
             // Sets the output file encoding (avoid .wav encoded as m4a...)
             internalExportSession.outputFileType = AVFileType(rawValue: exportFormat.UTI as String as String)
 
-            let startTime = CMTimeMake(inFrame, Int32(sampleRate))
-            let stopTime = CMTimeMake(outFrame, Int32(sampleRate))
-            let timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+            let startTime = CMTimeMake(value: inFrame, timescale: Int32(sampleRate))
+            let stopTime = CMTimeMake(value: outFrame, timescale: Int32(sampleRate))
+            let timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
             internalExportSession.timeRange = timeRange
 
             let session = ExportSession(AVAssetExportSession: internalExportSession, callback: callback)
@@ -692,9 +692,9 @@ extension AKAudioFile {
 
             if let session = exportSessions[currentExportProcessID] {
                 switch session.avAssetExportSession.status {
-                case  AVAssetExportSessionStatus.failed:
+                case  AVAssetExportSession.Status.failed:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
-                case AVAssetExportSessionStatus.cancelled:
+                case AVAssetExportSession.Status.cancelled:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
                 default :
                     if  let outputURL = session.avAssetExportSession.outputURL {

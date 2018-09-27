@@ -18,11 +18,11 @@
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
         "osx": "10.11",
-        "ios": "9.0",
-        "tvos": "9.0"
+        "ios": "10.0",
+        "tvos": "10.0"
     },
-    "swift_version": "4.1",
-    "cocoapods_version": ">= 1.4.0",
+    "swift_version": "4.2",
+    "cocoapods_version": ">= 1.5.0",
     "frameworks": [
 	"AVFoundation"
     ],
@@ -73,6 +73,7 @@
       },
       {
         "name": "UI",
+        "dependencies": { "AudioKit/Core" : [] },
         "osx": {
             "source_files": [
 		"macOS/AudioKitUI.framework/Versions/A/Headers/*.h"

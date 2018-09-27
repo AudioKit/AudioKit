@@ -1,29 +1,15 @@
 # AudioKit Frameworks
 
-AudioKit is distributed as a couple of universal frameworks with minimal dependencies on all supported platforms. This makes AudioKit easy to integrate within your own projects.
-
-The main AudioKit framework is built as a static framework, which allows the linker to optimize away the parts of AudioKit you do not use in your app, and also doesn't need to be separately signed.
-
-The secondary *AudioKitUI* framework, on the other hand, is now built as a dynamic framework. It is a much smaller framework containing only a few utility classes for user interface elements. Making it dynamic allows its UI elements to be referenced in Interface Builder more easily, however it slightly complicates your project setup when submitting your app to the App Store as it needs to be processed separately from your app.
+AudioKit is distributed as a couple of universal static frameworks with minimal dependencies on all supported platforms. This makes AudioKit easy to integrate within your own projects.
 
 AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your deployment target needs to be set to at least one of these versions to link with AudioKit.
-
-## Important notes when using AudioKitUI in your project
-
-If you link with the AudioKitUI framework, you need to add a new Run Script build phase to your target with the following script:
-
-`"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh"`
-
-Make sure this script is run **after** the existing **Embed Frameworks** build phase. This script strips the simulator slices from the binary framework, which would otherwise get rejected by Apple when submitting your binary.
-
-For your app to load properly, you also need to add `AudioKitUI.framework` to the list of **Embedded Binaries** in your target. There is no need to do this for the regular `AudioKit.framework`.
 
 ## Using the compiled frameworks in your projects
 
 * Select the target in your Xcode project that will link with AudioKit.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
 * When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
-* Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. Important: you also need to add AudioKitUI.framework in the list of **Embedded Binaries** for your target.
+* Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
 * Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
 * For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`

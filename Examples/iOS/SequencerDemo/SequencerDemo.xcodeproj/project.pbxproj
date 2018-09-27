@@ -15,23 +15,7 @@
 		78ADAA271D2564210095C0C7 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA261D2564210095C0C7 /* Conductor.swift */; };
 		78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA281D2569810095C0C7 /* Sequence.swift */; };
 		C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B130841F4D4430009D9008 /* AudioKit.framework */; };
-		EAD0DECB214206C200DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; };
-		EAD0DECC214206C200DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E16E1F4FA117003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		78ADAA1B1D2560710095C0C7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD0DECC214206C200DCE36F /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		78ADAA011D255FB90095C0C7 /* SequencerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SequencerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,7 +37,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DECB214206C200DCE36F /* AudioKitUI.framework in Frameworks */,
 				C4B130851F4D443C009D9008 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,8 +96,6 @@
 				78ADA9FD1D255FB90095C0C7 /* Sources */,
 				78ADA9FE1D255FB90095C0C7 /* Frameworks */,
 				78ADA9FF1D255FB90095C0C7 /* Resources */,
-				78ADAA1B1D2560710095C0C7 /* Embed Frameworks */,
-				EAD0DECD214206CF00DCE36F /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -137,7 +118,7 @@
 				TargetAttributes = {
 					78ADAA001D255FB90095C0C7 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -177,23 +158,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EAD0DECD214206CF00DCE36F /* Fix AudioKitUI slices */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix AudioKitUI slices";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		78ADA9FD1D255FB90095C0C7 /* Sources */ = {
@@ -277,7 +241,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -329,7 +293,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -342,7 +306,6 @@
 		78ADAA141D255FB90095C0C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -352,20 +315,19 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		78ADAA151D255FB90095C0C7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -375,13 +337,13 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SequencerDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SequencerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

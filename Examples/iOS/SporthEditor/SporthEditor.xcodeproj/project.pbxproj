@@ -19,23 +19,7 @@
 		C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C6401D337759007D1BFD /* LaunchScreen.storyboard */; };
 		C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */ = {isa = PBXBuildFile; fileRef = C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */; };
 		C4CC1E371DFEA15100285202 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC1E361DFEA15100285202 /* AudioKit.framework */; };
-		EAD65AF7214144A50063221D /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1731F4FA225003F0CA9 /* AudioKitUI.framework */; };
-		EAD65AF8214144A50063221D /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1731F4FA225003F0CA9 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		78FFF99E1D36A91A009B2E07 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD65AF8214144A50063221D /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		783F1E701D340B3300DD1B58 /* FileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilities.swift; sourceTree = "<group>"; };
@@ -60,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD65AF7214144A50063221D /* AudioKitUI.framework in Frameworks */,
 				C4CC1E371DFEA15100285202 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,8 +130,6 @@
 				C485C6301D337759007D1BFD /* Sources */,
 				C485C6311D337759007D1BFD /* Frameworks */,
 				C485C6321D337759007D1BFD /* Resources */,
-				78FFF99E1D36A91A009B2E07 /* Embed Frameworks */,
-				EAD65AF9214144B60063221D /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -171,7 +152,7 @@
 				TargetAttributes = {
 					C485C6331D337759007D1BFD = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -207,23 +188,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EAD65AF9214144B60063221D /* Fix AudioKitUI slices */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix AudioKitUI slices";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C485C6301D337759007D1BFD /* Sources */ = {
@@ -375,7 +339,6 @@
 		C485C6471D337759007D1BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -391,15 +354,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		C485C6481D337759007D1BFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -415,8 +376,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
