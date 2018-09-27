@@ -27,11 +27,6 @@ extension Collection {
         let offset = Int(arc4random_uniform(UInt32(Int64(count))))
         return index(startIndex, offsetBy: offset)
     }
-
-    /// Retrieve a random element from the collection
-    public func randomElement() -> Iterator.Element {
-        return self[randomIndex]
-    }
 }
 
 /// Helper function to convert codes for Audio Units
