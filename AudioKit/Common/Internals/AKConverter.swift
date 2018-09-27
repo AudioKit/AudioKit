@@ -261,7 +261,7 @@ open class AKConverter: NSObject {
             return
         }
 
-        writer.startSession(atSourceTime: kCMTimeZero)
+        writer.startSession(atSourceTime: CMTime.zero)
         reader.startReading()
 
         let queue = DispatchQueue(label: "io.audiokit.AKConverter.start", qos: .utility)
