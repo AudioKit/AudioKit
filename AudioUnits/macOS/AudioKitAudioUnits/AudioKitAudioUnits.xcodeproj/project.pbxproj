@@ -551,43 +551,37 @@
 				TargetAttributes = {
 					C404FA8D1F0620270059441B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C40C0D2E1F06ECA900E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C40C0D6B1F0728C400E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F92ED1F024C6F0024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F938D1F0259FE0024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F93A61F025B850024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C436101B1F06577B003AF56B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -836,7 +830,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKMorphingOscillatorBank/AKMorphingOscillatorBank.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -857,7 +851,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKMorphingOscillatorBank/AKMorphingOscillatorBank.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -878,7 +872,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKOscillatorBankExtension/AKOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -899,7 +893,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKOscillatorBankExtension/AKOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -920,7 +914,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKTanhDistortion/AKTanhDistortion.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -941,7 +935,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKTanhDistortion/AKTanhDistortion.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1118,7 +1112,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKChowningReverb/AKChowningReverb.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1139,7 +1133,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKChowningReverb/AKChowningReverb.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1160,7 +1154,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKBooster/AKBooster.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1181,7 +1175,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKBooster/AKBooster.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1202,7 +1196,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKPhaseDistortionOscillatorBankExtension/AKPhaseDistortionOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1223,7 +1217,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKPhaseDistortionOscillatorBankExtension/AKPhaseDistortionOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
