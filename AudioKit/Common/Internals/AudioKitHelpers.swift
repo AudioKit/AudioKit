@@ -387,7 +387,7 @@ extension Dictionary: Occupiable { }
 extension Set: Occupiable { }
 
 #if !os(macOS)
-extension AVAudioSessionCategoryOptions: Occupiable { }
+extension AVAudioSession.CategoryOptions: Occupiable { }
 #endif
 
 prefix operator ❗️

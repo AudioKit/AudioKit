@@ -238,9 +238,9 @@ public enum AKSliderStyle {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: labelFont,
-                                       NSAttributedStringKey.foregroundColor: themeTextColor,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: labelFont,
+                                       NSAttributedString.Key.foregroundColor: themeTextColor,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
@@ -319,9 +319,9 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: bubbleFont,
-                                            NSAttributedStringKey.foregroundColor: themeTextColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes = [NSAttributedString.Key.font: bubbleFont,
+                                            NSAttributedString.Key.foregroundColor: themeTextColor,
+                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
@@ -368,9 +368,9 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .right
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: valueFont,
-                                            NSAttributedStringKey.foregroundColor: themeTextColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes = [NSAttributedString.Key.font: valueFont,
+                                            NSAttributedString.Key.foregroundColor: themeTextColor,
+                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: 0)
             let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
