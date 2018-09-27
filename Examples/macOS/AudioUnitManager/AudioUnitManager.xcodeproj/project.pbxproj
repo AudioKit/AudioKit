@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,27 +20,14 @@
 		B1535FB81F87E8000028CC26 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB71F87E7FF0028CC26 /* MenuButton.swift */; };
 		B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */; };
 		B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18484731FD9A13400F65DA6 /* AKWaveform.swift */; };
-		B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
 		B186CF551F884FC40063CDB9 /* AudioUnitManager+Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B186CF541F884FC40063CDB9 /* AudioUnitManager+Effects.swift */; };
 		B1B1B7EE2117F62700C5E395 /* AudioUnitToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B1B7EC2117F62700C5E395 /* AudioUnitToolbarController.swift */; };
 		B1B1B7EF2117F62700C5E395 /* AudioUnitToolbarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */; };
 		B1D2A7A61FDBB8400067DC39 /* AudioUnitManager+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */; };
 		B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */; };
 		C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC95421F6654FC00BABA8E /* AudioKit.framework */; };
+		EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B123121B1F19419A00888115 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+MIDI.swift"; sourceTree = "<group>"; };
@@ -72,8 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */,
 				C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */,
+				EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +84,7 @@
 				B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */,
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
 				B12311FC1F193EA100888115 /* Products */,
+				EA2FA53E215AFB01001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +136,13 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		EA2FA53E215AFB01001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,7 +153,6 @@
 				B12311F71F193EA100888115 /* Sources */,
 				B12311F81F193EA100888115 /* Frameworks */,
 				B12311F91F193EA100888115 /* Resources */,
-				B123121B1F19419A00888115 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -181,13 +175,13 @@
 				TargetAttributes = {
 					B12311FA1F193EA100888115 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManager" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -360,7 +354,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -374,13 +369,16 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -394,13 +392,16 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

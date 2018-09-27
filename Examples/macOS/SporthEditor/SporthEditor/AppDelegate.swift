@@ -11,9 +11,9 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     lazy var controlsWindowController: NSWindowController? = {
-        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: Constants.Name.storyboard), bundle: nil)
+        let storyboard = NSStoryboard(name: Constants.Name.storyboard, bundle: nil)
         let controlsWindowController = storyboard.instantiateController(
-            withIdentifier: NSStoryboard.SceneIdentifier(rawValue: Constants.Identifier.controlsController)) as! NSWindowController
+            withIdentifier: Constants.Identifier.controlsController) as! NSWindowController
         return controlsWindowController
     }()
 

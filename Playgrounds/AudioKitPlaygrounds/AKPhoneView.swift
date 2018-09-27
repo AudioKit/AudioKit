@@ -186,9 +186,9 @@ public class AKPhoneView: NSView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 17)!,
-                                      NSAttributedStringKey.foregroundColor: NSColor.white,
-                                      NSAttributedStringKey.paragraphStyle: busyTextStyle]
+        let busyTextFontAttributes = [NSAttributedString.Key.font: NSFont(name: "HelveticaNeue", size: 17)!,
+                                      NSAttributedString.Key.foregroundColor: NSColor.white,
+                                      NSAttributedString.Key.paragraphStyle: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
             with: NSSize(width: busyTextRect.width, height: CGFloat.infinity),
@@ -210,9 +210,9 @@ public class AKPhoneView: NSView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
-                                     NSAttributedStringKey.foregroundColor: NSColor.black,
-                                     NSAttributedStringKey.paragraphStyle: readoutStyle]
+        let readoutFontAttributes = [NSAttributedString.Key.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                     NSAttributedString.Key.foregroundColor: NSColor.black,
+                                     NSAttributedString.Key.paragraphStyle: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
             with: NSSize(width: readoutRect.width, height: CGFloat.infinity),
@@ -256,9 +256,9 @@ public class AKPhoneView: NSView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 11)!,
-                                     NSAttributedStringKey.foregroundColor: textColor,
-                                     NSAttributedStringKey.paragraphStyle: lettersStyle]
+        let lettersFontAttributes = [NSAttributedString.Key.font: NSFont(name: "HelveticaNeue", size: 11)!,
+                                     NSAttributedString.Key.foregroundColor: textColor,
+                                     NSAttributedString.Key.paragraphStyle: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
             with: NSSize(width: lettersRect.width, height: CGFloat.infinity),
@@ -279,9 +279,9 @@ public class AKPhoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
-                                    NSAttributedStringKey.foregroundColor: textColor,
-                                    NSAttributedStringKey.paragraphStyle: numberStyle]
+        let numberFontAttributes = [NSAttributedString.Key.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSAttributedString.Key.foregroundColor: textColor,
+                                    NSAttributedString.Key.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: NSSize(width: numberRect.width, height: CGFloat.infinity),
@@ -325,9 +325,9 @@ public class AKPhoneView: NSView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSAttributedStringKey.font: NSFont(name: "HelveticaNeue", size: 48)!,
-                                    NSAttributedStringKey.foregroundColor: textColor,
-                                    NSAttributedStringKey.paragraphStyle: numberStyle]
+        let numberFontAttributes = [NSAttributedString.Key.font: NSFont(name: "HelveticaNeue", size: 48)!,
+                                    NSAttributedString.Key.foregroundColor: textColor,
+                                    NSAttributedString.Key.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: NSSize(width: numberRect.width, height: CGFloat.infinity),

@@ -195,9 +195,9 @@ open class AKTelephoneView: UIView {
         let busyTextStyle = NSMutableParagraphStyle()
         busyTextStyle.alignment = .center
 
-        let busyTextFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: UIFont.labelFontSize),
-                                      NSAttributedStringKey.foregroundColor: UIColor.white,
-                                      NSAttributedStringKey.paragraphStyle: busyTextStyle]
+        let busyTextFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: UIFont.labelFontSize),
+                                      NSAttributedString.Key.foregroundColor: UIColor.white,
+                                      NSAttributedString.Key.paragraphStyle: busyTextStyle]
 
         let busyTextTextHeight: CGFloat = busyTextTextContent.boundingRect(
             with: CGSize(width: busyTextRect.width, height: CGFloat.infinity),
@@ -219,9 +219,9 @@ open class AKTelephoneView: UIView {
         let readoutStyle = NSMutableParagraphStyle()
         readoutStyle.alignment = .center
 
-        let readoutFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
-                                     NSAttributedStringKey.foregroundColor: UIColor.black,
-                                     NSAttributedStringKey.paragraphStyle: readoutStyle]
+        let readoutFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 48),
+                                     NSAttributedString.Key.foregroundColor: UIColor.black,
+                                     NSAttributedString.Key.paragraphStyle: readoutStyle]
 
         let readoutTextHeight: CGFloat = readoutTextContent.boundingRect(
             with: CGSize(width: readoutRect.width, height: CGFloat.infinity),
@@ -266,9 +266,9 @@ open class AKTelephoneView: UIView {
         let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .center
 
-        let lettersFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 11),
-                                     NSAttributedStringKey.foregroundColor: textColor,
-                                     NSAttributedStringKey.paragraphStyle: lettersStyle]
+        let lettersFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11),
+                                     NSAttributedString.Key.foregroundColor: textColor,
+                                     NSAttributedString.Key.paragraphStyle: lettersStyle]
 
         let lettersTextHeight: CGFloat = NSString(string: text).boundingRect(
             with: CGSize(width: lettersRect.width, height: CGFloat.infinity),
@@ -289,9 +289,9 @@ open class AKTelephoneView: UIView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
-                                    NSAttributedStringKey.foregroundColor: textColor,
-                                    NSAttributedStringKey.paragraphStyle: numberStyle]
+        let numberFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 48),
+                                    NSAttributedString.Key.foregroundColor: textColor,
+                                    NSAttributedString.Key.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: CGSize(width: numberRect.width, height: CGFloat.infinity),
@@ -336,9 +336,9 @@ open class AKTelephoneView: UIView {
         let numberStyle = NSMutableParagraphStyle()
         numberStyle.alignment = .center
 
-        let numberFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 48),
-                                    NSAttributedStringKey.foregroundColor: textColor,
-                                    NSAttributedStringKey.paragraphStyle: numberStyle]
+        let numberFontAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 48),
+                                    NSAttributedString.Key.foregroundColor: textColor,
+                                    NSAttributedString.Key.paragraphStyle: numberStyle]
 
         let numberTextHeight: CGFloat = NSString(string: numeral).boundingRect(
             with: CGSize(width: numberRect.width, height: CGFloat.infinity),

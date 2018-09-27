@@ -18,8 +18,7 @@
 		C4F3B19220F423960072FFF4 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
 		C4F3B19320F423960072FFF4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B19020F423960072FFF4 /* AudioKit.framework */; };
 		C4F3B19420F423960072FFF4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B19020F423960072FFF4 /* AudioKit.framework */; };
-		EAD0DEE121420D9400DCE36F /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
-		EAD0DEE221420D9400DCE36F /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA54C215B775E001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,17 +41,6 @@
 				C46D588D20F419F30052B9CF /* AKOscillatorBankExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EAD0DEE321420D9400DCE36F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAD0DEE221420D9400DCE36F /* AudioKitUI.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -78,8 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAD0DEE121420D9400DCE36F /* AudioKitUI.framework in Frameworks */,
 				C4F3B19320F423960072FFF4 /* AudioKit.framework in Frameworks */,
+				EA2FA54C215B775E001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +91,7 @@
 				C46D586820F419530052B9CF /* Instruments */,
 				C46D588020F419F30052B9CF /* AKOscillatorBankExtension */,
 				C46D586720F419530052B9CF /* Products */,
+				EA2FA54B215B775E001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +127,13 @@
 			path = AKOscillatorBankExtension;
 			sourceTree = "<group>";
 		};
+		EA2FA54B215B775E001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,8 +145,6 @@
 				C46D586320F419530052B9CF /* Frameworks */,
 				C46D586420F419530052B9CF /* Resources */,
 				C46D589120F419F30052B9CF /* Embed App Extensions */,
-				EAD0DEE321420D9400DCE36F /* Embed Frameworks */,
-				EAD0DEE421420DC500DCE36F /* Fix AudioKitUI slices */,
 			);
 			buildRules = (
 			);
@@ -191,9 +185,11 @@
 				TargetAttributes = {
 					C46D586520F419530052B9CF = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1000;
 					};
 					C46D587E20F419F30052B9CF = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -236,23 +232,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		EAD0DEE421420DC500DCE36F /* Fix AudioKitUI slices */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Fix AudioKitUI slices";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKitUI.framework/fix-framework.sh\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C46D586220F419530052B9CF /* Sources */ = {
@@ -444,7 +423,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.Instruments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -463,7 +442,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.Instruments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -472,7 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -483,7 +462,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -492,7 +471,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -503,7 +482,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
