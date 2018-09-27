@@ -5,7 +5,7 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKPlayer(audioFile: file)
+let player = AKPlayer(audioFile: file)
 player.isLooping = true
 player.buffering = .always
 
@@ -64,11 +64,11 @@ class LiveView: AKLiveViewController {
         })
 
         addView(AKSlider(property: "Rage Amount",
-                         value: effect.rageAmount,
+                         value: effect.rage,
                          range: 1 ... 20,
                          format: "%0.2f"
         ) { sliderValue in
-            effect.rageAmount = sliderValue
+            effect.rage = sliderValue
         })
 
         addView(AKButton(title: "Rage Off") { button in
