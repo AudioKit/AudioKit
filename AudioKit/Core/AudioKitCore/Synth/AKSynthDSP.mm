@@ -29,7 +29,7 @@ extern "C" void AKSynthSustainPedal(void *pDSP, bool pedalDown)
 }
 
 
-AKSynthDSP::AKSynthDSP() : AudioKitCore::Synth()
+AKSynthDSP::AKSynthDSP() : AKSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -41,12 +41,12 @@ AKSynthDSP::AKSynthDSP() : AudioKitCore::Synth()
 void AKSynthDSP::init(int nChannels, double sampleRate)
 {
     AKDSPBase::init(nChannels, sampleRate);
-    AudioKitCore::Synth::init(sampleRate);
+    AKSynth::init(sampleRate);
 }
 
 void AKSynthDSP::deinit()
 {
-    AudioKitCore::Synth::deinit();
+    AKSynth::deinit();
 }
 
 void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
@@ -77,29 +77,29 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
             break;
 
         case attackDurationParameter:
-            ampEGParameters.setAttackDurationSeconds(value);
+            setAmpAttackDurationSeconds(value);
             break;
         case decayDurationParameter:
-            ampEGParameters.setDecayDurationSeconds(value);
+            setAmpDecayDurationSeconds(value);
             break;
         case sustainLevelParameter:
-            ampEGParameters.sustainFraction = value;
+            setAmpSustainFraction(value);
             break;
         case releaseDurationParameter:
-            ampEGParameters.setReleaseDurationSeconds(value);
+            setAmpReleaseDurationSeconds(value);
             break;
 
         case filterAttackDurationParameter:
-            filterEGParameters.setAttackDurationSeconds(value);
+            setFilterAttackDurationSeconds(value);
             break;
         case filterDecayDurationParameter:
-            filterEGParameters.setDecayDurationSeconds(value);
+            setFilterDecayDurationSeconds(value);
             break;
         case filterSustainLevelParameter:
-            filterEGParameters.sustainFraction = value;
+            setFilterSustainFraction(value);
             break;
         case filterReleaseDurationParameter:
-            filterEGParameters.setReleaseDurationSeconds(value);
+            setFilterReleaseDurationSeconds(value);
             break;
     }
 }
@@ -122,22 +122,22 @@ float AKSynthDSP::getParameter(uint64_t address)
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
         case attackDurationParameter:
-            return ampEGParameters.getAttackDurationSeconds();
+            return getAmpAttackDurationSeconds();
         case decayDurationParameter:
-            return ampEGParameters.getDecayDurationSeconds();
+            return getAmpDecayDurationSeconds();
         case sustainLevelParameter:
-            return ampEGParameters.sustainFraction;
+            return getAmpSustainFraction();
         case releaseDurationParameter:
-            return ampEGParameters.getReleaseDurationSeconds();
+            return getAmpReleaseDurationSeconds();
 
         case filterAttackDurationParameter:
-            return filterEGParameters.getAttackDurationSeconds();
+            return getFilterAttackDurationSeconds();
         case filterDecayDurationParameter:
-            return filterEGParameters.getDecayDurationSeconds();
+            return getFilterDecayDurationSeconds();
         case filterSustainLevelParameter:
-            return filterEGParameters.sustainFraction;
+            return getFilterSustainFraction();
         case filterReleaseDurationParameter:
-            return filterEGParameters.getReleaseDurationSeconds();
+            return getFilterReleaseDurationSeconds();
     }
     return 0;
 }
@@ -145,10 +145,10 @@ float AKSynthDSP::getParameter(uint64_t address)
 void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     // process in chunks of maximum length CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE) {
+    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += AKSYNTH_CHUNKSIZE) {
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
-        if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
+        if (chunkSize > AKSYNTH_CHUNKSIZE) chunkSize = AKSYNTH_CHUNKSIZE;
         
         // ramp parameters
         masterVolumeRamp.advanceTo(_now + frameOffset);
@@ -167,6 +167,6 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = _outBufferListPtr->mNumberBuffers;
-        AudioKitCore::Synth::Render(channelCount, chunkSize, outBuffers);
+        AKSynth::render(channelCount, chunkSize, outBuffers);
     }
 }

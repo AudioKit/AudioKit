@@ -153,9 +153,9 @@ class ViewController: UIViewController {
     }
 
     func setupButtonNames() {
-        resetButton.setTitle(Constants.empty, for: UIControlState.disabled)
-        mainButton.setTitle(Constants.empty, for: UIControlState.disabled)
-        loopButton.setTitle(Constants.empty, for: UIControlState.disabled)
+        resetButton.setTitle(Constants.empty, for: UIControl.State.disabled)
+        mainButton.setTitle(Constants.empty, for: UIControl.State.disabled)
+        loopButton.setTitle(Constants.empty, for: UIControl.State.disabled)
     }
 
     func setupUIForRecording () {

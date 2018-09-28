@@ -22,10 +22,10 @@ player.play()
 
 class LiveView: AKLiveViewController {
 
-    var timeSlider: AKSlider?
-    var feedbackSlider: AKSlider?
-    var lowPassCutoffFrequencySlider: AKSlider?
-    var dryWetMixSlider: AKSlider?
+    var timeSlider: AKSlider!
+    var feedbackSlider: AKSlider!
+    var lowPassCutoffFrequencySlider: AKSlider!
+    var dryWetMixSlider: AKSlider!
 
     override func viewDidLoad() {
         addTitle("Delay")

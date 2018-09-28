@@ -18,9 +18,9 @@ class AKOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffere
 public:
     // MARK: Types
     struct NoteState {
-        NoteState *next;
-        NoteState *prev;
-        AKOscillatorBankDSPKernel *kernel;
+        NoteState* next;
+        NoteState* prev;
+        AKOscillatorBankDSPKernel* kernel;
 
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
@@ -92,7 +92,7 @@ public:
         }
 
 
-        void run(int frameCount, float *outL, float *outR)
+        void run(int frameCount, float* outL, float* outR)
         {
             float originalFrequency = osc->freq;
 
@@ -176,12 +176,12 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps()
 
-        NoteState *noteState = playingNotes;
+        NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -203,6 +203,5 @@ private:
     UInt32 ftbl_size = 4096;
 
 public:
-    NoteState *playingNotes = nullptr;
+    NoteState* playingNotes = nullptr;
 };
-

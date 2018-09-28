@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterPitchBend,
     AKSamplerParameterVibratoDepth,
     AKSamplerParameterFilterCutoff,
-    AKSamplerParameterFilterEgStrength,
+    AKSamplerParameterFilterStrength,
     AKSamplerParameterFilterResonance,
     AKSamplerParameterGlideRate,
 
@@ -59,17 +59,17 @@ void doAKSamplerSustainPedal(void *pDSP, bool pedalDown);
 #else
 
 #import "AKDSPBase.hpp"
-#include "Sampler.hpp"
+#include "AKCoreSampler.hpp"
 #include "AKLinearParameterRamp.hpp"
 
-struct AKSamplerDSP : AKDSPBase, AudioKitCore::Sampler
+struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 {
     // ramped parameters
     AKLinearParameterRamp masterVolumeRamp;
     AKLinearParameterRamp pitchBendRamp;
     AKLinearParameterRamp vibratoDepthRamp;
     AKLinearParameterRamp filterCutoffRamp;
-    AKLinearParameterRamp filterEgStrengthRamp;
+    AKLinearParameterRamp filterStrengthRamp;
     AKLinearParameterRamp filterResonanceRamp;
     AKLinearParameterRamp glideRateRamp;
     

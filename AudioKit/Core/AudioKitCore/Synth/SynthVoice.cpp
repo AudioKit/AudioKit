@@ -49,7 +49,7 @@ namespace AudioKitCore
     void SynthVoice::start(unsigned evt, unsigned noteNumber, float frequency, float volume)
     {
         event = evt;
-        noteVol = volume;
+        noteVolume = volume;
         osc1.setFrequency(frequency * pow(2.0f, pParameters->osc1.pitchOffset / 12.0f));
         osc2.setFrequency(frequency * pow(2.0f, pParameters->osc2.pitchOffset / 12.0f));
         osc3.setFrequency(frequency);
@@ -97,10 +97,10 @@ namespace AudioKitCore
         pumpEG.reset();
     }
     
-    bool SynthVoice::prepToGetSamples(float masterVol,
+    bool SynthVoice::prepToGetSamples(float masterVolume,
                                       float phaseDeltaMultiplier,
                                       float cutoffMultiple,
-                                      float cutoffEgStrength,
+                                      float cutoffStrength,
                                       float resLinear)
     {
         if (ampEG.isIdle()) return true;
@@ -108,11 +108,11 @@ namespace AudioKitCore
         if (ampEG.isPreStarting())
         {
             float ampeg = ampEG.getSample();
-            tempGain = masterVol * noteVol * ampeg;
+            tempGain = masterVolume * noteVolume * ampeg;
             if (!ampEG.isPreStarting())
             {
-                noteVol = newNoteVol;
-                tempGain = masterVol * noteVol * ampeg;
+                noteVolume = newNoteVol;
+                tempGain = masterVolume * noteVolume * ampeg;
 
                 if (newNoteNumber >= 0)
                 {
@@ -128,15 +128,15 @@ namespace AudioKitCore
             }
         }
         else
-            tempGain = masterVol * noteVol * ampEG.getSample();
+            tempGain = masterVolume * noteVolume * ampEG.getSample();
 
 #if 0
         // pumping effect using multi-segment EG
         float pump = pumpEG.getSample();
-        double cutoffFrequency = noteFrequency * (1.0f + cutoffMultiple + cutoffEgStrength * pump);
+        double cutoffFrequency = noteFrequency * (1.0f + cutoffMultiple + cutoffStrength * pump);
 #else
         // standard ADSR EG
-        double cutoffFrequency = noteFrequency * (1.0f + cutoffMultiple + cutoffEgStrength * filterEG.getSample());
+        double cutoffFrequency = noteFrequency * (1.0f + cutoffMultiple + cutoffStrength * filterEG.getSample());
 #endif
         leftFilter.setParameters(cutoffFrequency, resLinear);
         rightFilter.setParameters(cutoffFrequency, resLinear);

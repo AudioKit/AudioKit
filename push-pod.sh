@@ -14,6 +14,7 @@ then
 	SOURCE="https://files.audiokit.io/releases/v${VER}/AudioKit.framework.zip"
 elif test $1 = staging;
 then
+	VER="${VER}.b1"
 	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.framework.zip"
 else
 	echo "Invalid parameter: $1"

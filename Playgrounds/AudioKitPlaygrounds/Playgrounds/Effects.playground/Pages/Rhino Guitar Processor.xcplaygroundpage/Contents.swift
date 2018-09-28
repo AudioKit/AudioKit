@@ -12,10 +12,10 @@ do {
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
-    try try AudioKit.start()
+    try AudioKit.start()
     player.isLooping = true
-player.buffering = .always
-    player.start()
+    player.buffering = .always
+    player.play()
 } catch let error as NSError {
     AKLog(error.localizedDescription)
 }
@@ -41,11 +41,11 @@ class LiveView: AKLiveViewController {
         })
 
         addView(AKSlider(property: "Dist. Amount",
-                         value: rhino.distAmount,
+                         value: rhino.distortion,
                          range: 1.0 ... 20.0,
                          format: "%0.1f"
         ) { sliderValue in
-            rhino.distAmount = sliderValue
+            rhino.distortion = sliderValue
         })
 
         addView(AKSlider(property: "Lows",

@@ -41,10 +41,10 @@ extension AudioKit {
 
         // Subscribe to route changes that may affect our engine
         // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
-        NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(restartEngineAfterRouteChange),
-                                               name: .AVAudioSessionRouteChange,
+                                               name: AVAudioSession.routeChangeNotification,
                                                object: nil)
 
         // Subscribe to session/configuration changes to our engine
@@ -85,7 +85,7 @@ extension AudioKit {
 
         #if os(iOS)
         do {
-            NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
             if !AKSettings.disableAudioSessionDeactivationOnStop {
                 try AVAudioSession.sharedInstance().setActive(false)

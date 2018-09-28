@@ -6,7 +6,6 @@
 //
 
 import AudioKit
-import AudioKitUI
 import Cocoa
 
 /// Simple interface to show AKConverter

@@ -145,6 +145,7 @@
 				TargetAttributes = {
 					345BB9402018FF9A00324D55 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -334,7 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -351,7 +352,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

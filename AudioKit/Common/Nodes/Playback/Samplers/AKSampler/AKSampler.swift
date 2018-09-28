@@ -22,7 +22,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var filterCutoffParameter: AUParameter?
-    fileprivate var filterEgStrengthParameter: AUParameter?
+    fileprivate var filterStrengthParameter: AUParameter?
     fileprivate var filterResonanceParameter: AUParameter?
     fileprivate var glideRateParameter: AUParameter?
 
@@ -121,20 +121,20 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     }
 
     /// Filter EG strength (harmonic ratio)
-    @objc open dynamic var filterEgStrength: Double = 20.0 {
+    @objc open dynamic var filterStrength: Double = 20.0 {
         willSet {
-            if filterEgStrength == newValue {
+            if filterStrength == newValue {
                 return
             }
 
             if internalAU?.isSetUp ?? false {
-                if token != nil && filterEgStrengthParameter != nil {
-                    filterEgStrengthParameter?.setValue(Float(newValue), originator: token!)
+                if token != nil && filterStrengthParameter != nil {
+                    filterStrengthParameter?.setValue(Float(newValue), originator: token!)
                     return
                 }
             }
 
-            internalAU?.filterEgStrength = newValue
+            internalAU?.filterStrength = newValue
         }
     }
 
@@ -292,7 +292,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
     ///   - filterCutoff: relative to sample playback pitch, 1.0 = fundamental, 2.0 = 2nd harmonic etc
-    ///   - filterEgStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
+    ///   - filterStrength: same units as filterCutoff; amount filter EG adds to filterCutoff
     ///   - filterResonance: dB, -20.0 - 20.0
     ///   - attackDuration: seconds, 0.0 - 10.0
     ///   - decayDuration: seconds, 0.0 - 10.0
@@ -314,7 +314,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
         filterCutoff: Double = 4.0,
-        filterEgStrength: Double = 20.0,
+        filterStrength: Double = 20.0,
         filterResonance: Double = 0.0,
         attackDuration: Double = 0.0,
         decayDuration: Double = 0.0,
@@ -334,7 +334,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.filterCutoff = filterCutoff
-        self.filterEgStrength = filterEgStrength
+        self.filterStrength = filterStrength
         self.filterResonance = filterResonance
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -373,7 +373,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.pitchBendParameter = tree["pitchBend"]
         self.vibratoDepthParameter = tree["vibratoDepth"]
         self.filterCutoffParameter = tree["filterCutoff"]
-        self.filterEgStrengthParameter = tree["filterEgStrength"]
+        self.filterStrengthParameter = tree["filterStrength"]
         self.filterResonanceParameter = tree["filterResonance"]
         self.attackDurationParameter = tree["attackDuration"]
         self.decayDurationParameter = tree["decayDuration"]
@@ -405,7 +405,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.pitchBend, value: pitchBend)
         self.internalAU?.setParameterImmediately(.vibratoDepth, value: vibratoDepth)
         self.internalAU?.setParameterImmediately(.filterCutoff, value: filterCutoff)
-        self.internalAU?.setParameterImmediately(.filterEgStrength, value: filterEgStrength)
+        self.internalAU?.setParameterImmediately(.filterStrength, value: filterStrength)
         self.internalAU?.setParameterImmediately(.filterResonance, value: filterResonance)
         self.internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
         self.internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
