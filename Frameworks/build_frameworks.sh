@@ -18,13 +18,22 @@ fi
 VERSION=`cat ../VERSION`
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
-if test "$TRAVIS" = true && test "$TRAVIS_TAG" = "" && test "$TRAVIS_BRANCH" != "$STAGING_BRANCH";
+if test "$TRAVIS" = true;
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
-	ACTIVE_ARCH=YES
-	XCSUFFIX="-travis"
-	PLATFORMS="iOS macOS" # Skipping tvOS?
-else
+	if test "$TRAVIS_BRANCH" = "$STAGING_BRANCH"; then # Staging build
+		ACTIVE_ARCH=NO
+		XCSUFFIX=""
+		VERSION="${VERSION}.b1"
+	elif test "$TRAVIS_TAG" != ""; then  # Release build
+		ACTIVE_ARCH=NO
+		XCSUFFIX=""
+	else # Test build
+		ACTIVE_ARCH=YES
+		XCSUFFIX="-travis"
+		PLATFORMS="iOS macOS" # Skipping tvOS?
+	fi
+else # Regular command-line assumed
 	ACTIVE_ARCH=NO
 	XCSUFFIX=""
 fi
@@ -135,7 +144,7 @@ create_macos_framework()
 	fi
 }
 
-echo "Building frameworks for platforms: $PLATFORMS"
+echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then

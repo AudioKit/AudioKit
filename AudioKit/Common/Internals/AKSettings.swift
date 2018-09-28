@@ -5,6 +5,8 @@
 //  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import Foundation
+import AVFoundation
 
 /// Global settings for AudioKit
 @objc open class AKSettings: NSObject {
@@ -94,7 +96,7 @@
 
     #if !os(macOS)
     /// Additional control over the options to use for bluetooth
-    @objc public static var bluetoothOptions: AVAudioSessionCategoryOptions = []
+    @objc public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
     #endif
 
     /// Whether AirPlay is enabled when audio input is enabled
@@ -218,17 +220,17 @@ extension AKSettings {
 
     /// Convenience method accessible from Objective-C
     @objc public static func setSession(category: SessionCategory, options: UInt) throws {
-        try setSession(category: category, with: AVAudioSessionCategoryOptions(rawValue: options))
+        try setSession(category: category, with: AVAudioSession.CategoryOptions(rawValue: options))
     }
 
     /// Set the audio session type
     @objc public static func setSession(category: SessionCategory,
-                                        with options: AVAudioSessionCategoryOptions = []) throws {
+                                        with options: AVAudioSession.CategoryOptions = []) throws {
 
         if ❗️AKSettings.disableAVAudioSessionCategoryManagement {
             do {
                 try AKTry {
-                    try session.setCategory("\(category)", with: options)
+                    try session.setCategory(category.avCategory, mode: .default, options: options)
                 }
             } catch let error as NSError {
                 AKLog("Error: \(error) Cannot set AVAudioSession Category to \(category) with options: \(options)")
@@ -269,9 +271,9 @@ extension AKSettings {
         }
     }
 
-    @objc public static func computedSessionOptions() -> AVAudioSessionCategoryOptions {
+    @objc public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
 
-        var options: AVAudioSessionCategoryOptions = [.mixWithOthers]
+        var options: AVAudioSession.CategoryOptions = [.mixWithOthers]
 
         if AKSettings.audioInputEnabled {
 
@@ -286,7 +288,7 @@ extension AKSettings {
                 // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
                 // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
                 // priority for routing.
-                if AKSettings.bluetoothOptions.isNotEmpty {
+                if !AKSettings.bluetoothOptions.isEmpty {
                     options = options.union(AKSettings.bluetoothOptions)
                 } else if AKSettings.useBluetooth {
                     // If bluetoothOptions aren't specified
@@ -299,7 +301,7 @@ extension AKSettings {
                 if AKSettings.allowAirPlay {
                     options = options.union(.allowAirPlay)
                 }
-            } else if AKSettings.bluetoothOptions.isNotEmpty ||
+            } else if !AKSettings.bluetoothOptions.isEmpty ||
                 AKSettings.useBluetooth ||
                 AKSettings.allowAirPlay {
                 AKLog("Some of the specified AKSettings are not supported by iOS 9 and were ignored.")
@@ -318,10 +320,9 @@ extension AKSettings {
     /// Checks if headphones are connected
     /// Returns true if headPhones are connected, otherwise return false
     @objc public static var headPhonesPlugged: Bool {
+        let headphonePortTypes: [AVAudioSession.Port] =
+                    [.headphones, .bluetoothHFP, .bluetoothA2DP]
         return session.currentRoute.outputs.contains {
-            let headphonePortTypes = [AVAudioSessionPortHeadphones,
-                                      AVAudioSessionPortBluetoothHFP,
-                                      AVAudioSessionPortBluetoothA2DP]
             return headphonePortTypes.contains($0.portType)
         }
     }
@@ -339,33 +340,55 @@ extension AKSettings {
         /// Audio is not silenced by silent switch and screen lock - audio is non mixable.
         /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case playAndRecord
-        /// Disables playback and recording; deprecated in iOS 10
+        #if !os(tvOS)
+        /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
         case audioProcessing
+        #endif
         /// Use to multi-route audio. May be used on input, output, or both.
         case multiRoute
 
         public var description: String {
             switch self {
             case .ambient:
-                return AVAudioSessionCategoryAmbient
+                return AVAudioSession.Category.ambient.rawValue
             case .soloAmbient:
-                return AVAudioSessionCategorySoloAmbient
+                return AVAudioSession.Category.soloAmbient.rawValue
             case .playback:
-                return AVAudioSessionCategoryPlayback
+                return AVAudioSession.Category.playback.rawValue
             case .record:
-                return AVAudioSessionCategoryRecord
+                return AVAudioSession.Category.record.rawValue
             case .playAndRecord:
-                return AVAudioSessionCategoryPlayAndRecord
+                return AVAudioSession.Category.playAndRecord.rawValue
             case .multiRoute:
-                return AVAudioSessionCategoryMultiRoute
+                return AVAudioSession.Category.multiRoute.rawValue
+            #if !os(tvOS)
             case .audioProcessing:
-                #if !os(tvOS)
-                return AVAudioSessionCategoryAudioProcessing
-                #else
-                return "AVAudioSessionCategoryAudioProcessing"
-                #endif
+                return AVAudioSession.Category.audioProcessing.rawValue
+            #endif
+            }
+        }
+        
+        public var avCategory: AVAudioSession.Category {
+            switch self {
+            case .ambient:
+                return .ambient
+            case .soloAmbient:
+                return .soloAmbient
+            case .playback:
+                return .playback
+            case .record:
+                return .record
+            case .playAndRecord:
+                return .playAndRecord
+            case .multiRoute:
+                return .multiRoute
+            #if !os(tvOS)
+            case .audioProcessing:
+                return .audioProcessing
+            #endif
             }
         }
     }
 }
+
 #endif

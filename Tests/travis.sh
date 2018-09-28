@@ -18,14 +18,14 @@ if test "$TRAVIS_TAG" != "" || test "$TRAVIS_BRANCH" = "staging"; then
    if test "$TRAVIS_TAG" != ""; then
    	echo "Deploying for release tagged $TRAVIS_TAG ..."
    else
-   	echo "Deploying staging release build for v$VERSION..."
+   	echo "Deploying staging release build for v${VERSION}.b1 ..."
    fi
    ./build_packages.sh || exit 1
    echo "Uploading CocoaPods archive to S3 ..."
    if test "$TRAVIS_TAG" != ""; then
    	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
    else
-   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/v${VERSION}/AudioKit.framework.zip
+   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/v${VERSION}.b1/AudioKit.framework.zip
    fi
    exit
 else

@@ -6,6 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+#import <AudioToolbox/AudioToolbox.h>
+#import <AudioUnit/AudioUnit.h>
+#import <AVFoundation/AVFoundation.h>
+#include <math.h>
+
 #include "AKModulatedDelayDSP.hpp"
 
 extern "C" void *createChorusDSP(int nChannels, double sampleRate)
@@ -48,7 +53,7 @@ const float kAKFlanger_MinDryWetMix = kFlangerMinDryWetMix;
 const float kAKFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
-    : AudioKitCore::ModulatedDelay(type)
+    : AKModulatedDelay(type)
     , AKDSPBase()
 {
     depthRamp.setTarget(0.0f, true);
@@ -73,12 +78,12 @@ AKModulatedDelayDSP::AKModulatedDelayDSP(AKModulatedDelayType type)
 void AKModulatedDelayDSP::init(int channels, double sampleRate)
 {
     AKDSPBase::init(channels, sampleRate);
-    AudioKitCore::ModulatedDelay::init(channels, sampleRate);
+    AKModulatedDelay::init(channels, sampleRate);
 }
 
 void AKModulatedDelayDSP::deinit()
 {
-    AudioKitCore::ModulatedDelay::deinit();
+    AKModulatedDelay::deinit();
 }
 
 void AKModulatedDelayDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -155,11 +160,11 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         dryWetMixRamp.advanceTo(_now + frameOffset);
         
         // apply changes
-        modOscillator.setFrequency(frequencyRamp.getValue());
+        setModFrequencyHz(frequencyRamp.getValue());
         modDepthFraction = depthRamp.getValue();
         float fb = feedbackRamp.getValue();
-        leftDelayLine.setFeedback(fb);
-        rightDelayLine.setFeedback(fb);
+        setLeftFeedback(fb);
+        setRightFeedback(fb);
         dryWetMix = dryWetMixRamp.getValue();
 
         // process
