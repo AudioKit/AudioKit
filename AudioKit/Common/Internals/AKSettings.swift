@@ -361,10 +361,8 @@ extension AKSettings {
                 return AVAudioSession.Category.playAndRecord.rawValue
             case .multiRoute:
                 return AVAudioSession.Category.multiRoute.rawValue
-            #if !os(tvOS)
-            case .audioProcessing:
-                return AVAudioSession.Category.audioProcessing.rawValue
-            #endif
+            default :
+                return AVAudioSession.Category.soloAmbient.rawValue
             }
         }
         
@@ -382,10 +380,8 @@ extension AKSettings {
                 return .playAndRecord
             case .multiRoute:
                 return .multiRoute
-            #if !os(tvOS)
-            case .audioProcessing:
-                return .audioProcessing
-            #endif
+            default:
+                return .soloAmbient
             }
         }
     }
