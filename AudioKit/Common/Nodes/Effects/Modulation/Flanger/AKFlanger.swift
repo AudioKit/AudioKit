@@ -94,7 +94,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Dry Wet Mix (fraction)
+    /// Dry Wet Mix - Traditionally 50% for a flanger, avoid changing this value
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             if dryWetMix == newValue {
@@ -126,7 +126,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - frequency: modulation frequency Hz
     ///   - depth: depth of modulation (fraction)
     ///   - feedback: feedback fraction
-    ///   - dryWetMix: fraction of wet signal in mix
+    ///   - dryWetMix: fraction of wet signal in mix  - traditionally 50%, avoid changing this value
     ///
     @objc public init(
         _ input: AKNode? = nil,

@@ -1,5 +1,7 @@
 //: ## Processing Audio File Asynchronously
 //: Processing some audio files in background
+fatalError("NOTE: Known broken playground as of AudioKit 4.5")
+
 import AudioKitPlaygrounds
 import AudioKit
 
