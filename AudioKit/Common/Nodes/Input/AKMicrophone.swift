@@ -39,10 +39,8 @@ open class AKMicrophone: AKNode, AKToggleable {
     override public init() {
         super.init()
         self.avAudioNode = mixer
-
         AKSettings.audioInputEnabled = true
 
-        // Manually doing the connection since .connect(to:) doesn't support format arguments yet
         #if os(iOS)
         let format = setFormatForDevice()
         AudioKit.engine.attach(self.avAudioNode)
@@ -87,6 +85,7 @@ open class AKMicrophone: AKNode, AKToggleable {
     // Here is where we actually check the device type and make the settings, if needed
     private func setFormatForDevice() -> AVAudioFormat? {
         #if os(iOS) && !targetEnvironment(simulator)
+        let numChannels = AudioKit.engine.inputNode.inputFormat(forBus: 0).channelCount
         var desiredFS = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
         let typeString = getIphoneType()
         let stringArray = typeString.components(separatedBy: CharacterSet.decimalDigits.inverted)
@@ -102,6 +101,6 @@ open class AKMicrophone: AKNode, AKToggleable {
         #else
         let desiredFS = AKSettings.sampleRate
         #endif
-        return AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 2)
+        return AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: numChannels)
     }
 }
