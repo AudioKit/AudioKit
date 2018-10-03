@@ -1,6 +1,8 @@
 //: ## Recording Nodes
 //: AKNodeRecorder allows you to record the output of a specific node.
 //: Let's record a sawtooth solo.
+fatalError("NOTE: Known broken playground as of AudioKit 4.5")
+
 import AudioKitPlaygrounds
 import AudioKit
 

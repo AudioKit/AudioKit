@@ -1,6 +1,8 @@
 //: ## Convolution
 //: Allows you to create a large variety of effects, usually reverbs or environments,
 //: but it could also be for modeling.
+fatalError("NOTE: Known broken playground as of AudioKit 4.5")
+
 import AudioKitPlaygrounds
 import AudioKit
 import AudioKitUI

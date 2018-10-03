@@ -1,6 +1,8 @@
 //: ## Reading and Writing Audio Files
 //:
 //: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile
+fatalError("NOTE: Known broken playground as of AudioKit 4.5")
+
 import AudioKitPlaygrounds
 import AudioKit
 
