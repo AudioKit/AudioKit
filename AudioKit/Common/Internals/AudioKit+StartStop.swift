@@ -96,6 +96,13 @@ extension AudioKit {
         }
         #endif
     }
+    
+    @objc public static func shutdown() throws {
+        engine = AVAudioEngine()
+        finalMixer = AKMixer()
+        output = nil
+        shouldBeRunning = false
+    }
 
     // MARK: - Configuration Change Response
 
