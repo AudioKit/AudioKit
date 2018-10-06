@@ -455,8 +455,6 @@ public class AKPlayer: AKNode {
             to = duration
         }
 
-        // AKLog(from, to)
-
         if from > to {
             from = 0
         }
