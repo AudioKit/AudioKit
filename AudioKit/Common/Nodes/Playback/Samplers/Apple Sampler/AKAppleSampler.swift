@@ -26,7 +26,16 @@ open class AKAppleSampler: AKNode {
     private var _audioFiles: [AKAudioFile] = []
 
     public var audioFiles: [AKAudioFile] {
-        return _audioFiles
+        get {
+            return _audioFiles
+        }
+        set(newValue) {
+            do {
+                try loadAudioFiles(newValue)
+            } catch {
+                AKLog("Could not load audio files")
+            }
+        }
     }
 
     fileprivate var token: AUParameterObserverToken?
