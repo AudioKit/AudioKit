@@ -11,7 +11,7 @@ public class AKDynamicPlayer: AKPlayer {
     public private(set) var timePitchNode: AKTimePitch?
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0 and disabled)
-    public override var rate: Double {
+    public var rate: Double {
         get {
             return timePitchNode?.rate ?? 1
         }
@@ -36,6 +36,10 @@ public class AKDynamicPlayer: AKPlayer {
                 timePitchNode.start()
             }
         }
+    }
+
+    override internal var _rate: Double {
+        return rate
     }
 
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0 and disabled)

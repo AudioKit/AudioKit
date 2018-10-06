@@ -177,7 +177,9 @@ public class AKPlayer: AKNode {
     private var _startTime: Double = 0
     private var _endTime: Double = 0
 
-    public var rate: Double = 1
+    internal var _rate: Double {
+        return 1.0
+    }
 
     // MARK: - Public Properties
 
