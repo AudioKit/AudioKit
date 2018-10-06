@@ -30,6 +30,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                            "Distant Intelligence",
                            "Influx",
                            "kLtz",
+                           "Scheale",
                            "Simple Keyboard"]
         addView(AKPresetLoaderView(presets: sporthFiles) { filename in
             guard
