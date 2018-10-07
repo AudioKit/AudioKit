@@ -25,7 +25,7 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs.
 //: Notice that an error message is printed in the debug area, and an error is thrown...
 do {
-    let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav")
+    let _ = try AKAudioFile(readFileName: "nonExistent.wav")
 } catch let error as NSError {
     AKLog("There's an error: \(error)")
 }
@@ -41,7 +41,7 @@ AKLog("drumloop.duration: \(drumloop.duration)")
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be
 //: written in documents directory. If the destination file exists, it will be overwritten.
-try drumloop.exportAsynchronously(name: "exported.m4a",
+drumloop.exportAsynchronously(name: "exported.m4a",
                                   baseDir: .documents,
                                   exportFormat: .m4a,
                                   fromSample: 44_100,
@@ -54,15 +54,15 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
         if let successfulFile = exportedFile {
 
             AKLog(successfulFile.fileNamePlusExtension)
-            let player = try? AKAudioPlayer(file: successfulFile)
+            let player = try! AKAudioPlayer(file: successfulFile)
             AudioKit.output = player
-            try AudioKit.start()
-            player?.play()
+            try! AudioKit.start()
+            player.play()
         }
 
     } else {
         AKLog(drumloop.fileNamePlusExtension)
-        AKLog("Export failed: \(error)")
+        AKLog("Export failed")
     }
 }
 
@@ -75,8 +75,8 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
 //:
 //: The simplest way to create such a file is like this:
 if let myWorkingFile = try? AKAudioFile(), let mySecondWorkingFile = try? AKAudioFile() {
-    let myWorkingFileName1 = myWorkingFile.fileNamePlusExtension
-    let mySecondWorkingFileName = mySecondWorkingFile.fileNamePlusExtension
+    let _ = myWorkingFile.fileNamePlusExtension
+    let _ = mySecondWorkingFile.fileNamePlusExtension
 }
 
 //: But the benefits of using AKAudioFile instead of AVAudioFile, is that you can normalize,

@@ -624,9 +624,44 @@ open class AKMusicTrack {
         }
     }
 
-    /// Debug by showing the track pointer.
+    /// Debug by using an iterator - the apple CAShow has quit working
     open func debug() {
-        CAShow(trackPointer)
+        guard let track = internalMusicTrack else {
+            print("debug failed - track doesn't exist")
+            return
+        }
+
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafeRawPointer?
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        var iterator: MusicEventIterator!
+        NewMusicEventIterator(track, &iterator)
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+
+        while hasNextEvent.boolValue {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+
+            if eventType == kMusicEventType_MIDINoteMessage {
+                let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
+                guard let channel = data?.pointee.channel,
+                    let note = data?.pointee.note,
+                    let velocity = data?.pointee.velocity,
+                    let dur = data?.pointee.duration else {
+                        AKLog("Problem with raw midi note message")
+                        return
+                }
+                print("debug: note @ \(eventTime) - note: \(note) - vel: \(velocity) - dur: \(dur) - channel: \(channel)")
+            } else {
+                //generic print for other events
+                print("debug: event @ \(eventTime) - type: \(eventType)")
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        DisposeMusicEventIterator(iterator)
     }
 
     open func debugInitTrack() {
