@@ -422,7 +422,7 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
     }
 
-    open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
+    @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
         let sampleRate = Float(file.sampleRate)
         let sampleCount = Int32(file.samplesCount)
         let channelCount = Int32(file.channelCount)
@@ -436,51 +436,51 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
                                                                 data: data) )
     }
 
-    open func stopAllVoices() {
+    @objc open func stopAllVoices() {
         internalAU?.stopAllVoices()
     }
 
-    open func restartVoices() {
+    @objc open func restartVoices() {
         internalAU?.restartVoices()
     }
 
-    open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
+    @objc open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         internalAU?.loadSampleData(from: sampleDataDescriptor)
     }
 
-    open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
+    @objc open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
     }
 
-    open func unloadAllSamples() {
+    @objc open func unloadAllSamples() {
         internalAU?.unloadAllSamples()
     }
 
-    open func buildSimpleKeyMap() {
+    @objc open func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
 
-    open func buildKeyMap() {
+    @objc open func buildKeyMap() {
         internalAU?.buildKeyMap()
     }
 
-    open func setLoop(thruRelease: Bool) {
+    @objc open func setLoop(thruRelease: Bool) {
         internalAU?.setLoop(thruRelease: thruRelease)
     }
 
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+    @objc open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
     }
 
-    open override func stop(noteNumber: MIDINoteNumber) {
+    @objc open override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
-    open func silence(noteNumber: MIDINoteNumber) {
+    @objc open func silence(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
-    open func sustainPedal(pedalDown: Bool) {
+    @objc open func sustainPedal(pedalDown: Bool) {
         internalAU?.sustainPedal(down: pedalDown)
     }
 }
