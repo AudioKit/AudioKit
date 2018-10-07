@@ -8,13 +8,12 @@ var rhino: AKRhinoGuitarProcessor!
 do {
     let guitarFile = try AKAudioFile(readFileName: "guitar.wav")
 
-    let player = AKPlayer(audioFile: guitarFile)
+    let player = try AKAudioPlayer(file: guitarFile)
+    player.looping = true
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
     try AudioKit.start()
-    player.isLooping = true
-    player.buffering = .always
     player.play()
 } catch let error as NSError {
     AKLog(error.localizedDescription)

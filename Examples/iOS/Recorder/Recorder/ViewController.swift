@@ -59,7 +59,8 @@ class ViewController: UIViewController {
         AKSettings.defaultToSpeaker = true
 
         // Patching
-        micMixer = AKMixer(mic)
+        let monoToStereo = AKStereoFieldLimiter(mic, amount: 1)
+        micMixer = AKMixer(monoToStereo)
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
