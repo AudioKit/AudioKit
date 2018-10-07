@@ -52,7 +52,7 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event) {
             break;
         }
         case AURenderEventMIDI:
-            // handleMIDIEvent(event->MIDI);
+            handleMIDIEvent(event->MIDI);
             break;
         default:
             break;
