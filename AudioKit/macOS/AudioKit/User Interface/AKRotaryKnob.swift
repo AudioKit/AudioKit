@@ -216,7 +216,9 @@ public enum AKRotaryKnobStyle {
         let knobPath: NSBezierPath = {
             switch self.knobStyle {
             case .round:
-                return NSBezierPath(roundedRect: knobRect, xRadius: knobDiameter / 2.0, yRadius: knobDiameter / 2.0)
+                return NSBezierPath(roundedRect: knobRect,
+                                    xRadius: knobDiameter / 2.0,
+                                    yRadius: knobDiameter / 2.0)
             case .polygon (let numberOfSides, let curvature):
                 return bezierPathWithPolygonInRect(
                     knobRect,
