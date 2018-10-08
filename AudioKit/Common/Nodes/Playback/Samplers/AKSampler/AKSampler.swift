@@ -8,14 +8,14 @@
 
 /// Stereo Chorus
 ///
-open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
+@objc open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "AKss")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
 
     // MARK: - Properties
 
-    private var internalAU: AKAudioUnitType?
+    @objc public var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var masterVolumeParameter: AUParameter?
@@ -353,12 +353,14 @@ open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
         _Self.register()
 
         super.init()
+
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")
                 return
             }
             strongSelf.avAudioNode = avAudioUnit
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: self!)
