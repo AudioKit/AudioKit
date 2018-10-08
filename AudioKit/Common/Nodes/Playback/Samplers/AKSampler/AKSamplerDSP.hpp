@@ -79,7 +79,8 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 
     void setParameter(uint64_t address, float value, bool immediate) override;
     float getParameter(uint64_t address) override;
-    
+
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 
