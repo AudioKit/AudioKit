@@ -16,16 +16,19 @@ extension AVAudioConnectionPoint {
 @objc open class AKNode: NSObject {
 
     /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
+    @objc open var avAudioNode: AVAudioNode
+    @objc open var avAudioUnit: AVAudioUnit
 
     /// Create the node
     override public init() {
         self.avAudioNode = AVAudioNode()
+        self.avAudioUnit = AVAudioUnit()
     }
 
     /// Initialize the node
     @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
+        self.avAudioUnit = AVAudioUnit()
         if attach {
             AudioKit.engine.attach(avAudioNode)
         }
