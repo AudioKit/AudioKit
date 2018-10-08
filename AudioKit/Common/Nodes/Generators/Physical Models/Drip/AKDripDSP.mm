@@ -154,6 +154,7 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
             if (_playing) {
                 if (channel == 0) {
                     sp_drip_compute(_sp, _private->_drip, &internalTrigger, &temp);
+                    internalTrigger = 0.0;
                 }
                 *out = temp;
             } else {
