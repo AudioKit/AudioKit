@@ -113,11 +113,15 @@ public class AKDynamicPlayer: AKPlayer {
 
     private func removeTimePitch() {
         guard let timePitchNode = timePitchNode else { return }
+        let wasPlaying = isPlaying
         stop()
         timePitchNode.disconnectOutput()
         AudioKit.detach(nodes: [timePitchNode.avAudioNode])
         self.timePitchNode = nil
         initialize()
+        if wasPlaying {
+            play()
+        }
     }
 
     public override func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
