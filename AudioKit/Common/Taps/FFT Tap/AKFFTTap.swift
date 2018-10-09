@@ -29,15 +29,15 @@
             bufferSize: bufferSize,
             format: AudioKit.format) { [weak self] (buffer, _) -> Void in
                 guard let strongSelf = self else {
-                                            AKLog("Unable to create strong reference to self")
-                                            return
-                                        }
-                                        buffer.frameLength = strongSelf.bufferSize
-                                        let offset = Int(buffer.frameCapacity - buffer.frameLength)
-                                        if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
-                                            existingFFT.computeFFT(withBuffer: &tail[offset],
-                                                                   withBufferSize: strongSelf.bufferSize)
-                                        }
+                    AKLog("Unable to create strong reference to self")
+                    return
+                }
+                buffer.frameLength = strongSelf.bufferSize
+                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                if let tail = buffer.floatChannelData?[0], let existingFFT = strongSelf.fft {
+                    existingFFT.computeFFT(withBuffer: &tail[offset],
+                                           withBufferSize: strongSelf.bufferSize)
+                }
         }
     }
 
