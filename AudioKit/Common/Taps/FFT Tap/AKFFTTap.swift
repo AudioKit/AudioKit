@@ -24,10 +24,11 @@
         fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                          sampleRate: Float(AKSettings.sampleRate),
                          delegate: self)
-        input.avAudioNode.installTap(onBus: 0,
-                                     bufferSize: bufferSize,
-                                     format: AudioKit.format) { [weak self] (buffer, _) -> Void in
-                                        guard let strongSelf = self else {
+        input.avAudioUnitOrNode.installTap(
+            onBus: 0,
+            bufferSize: bufferSize,
+            format: AudioKit.format) { [weak self] (buffer, _) -> Void in
+                guard let strongSelf = self else {
                                             AKLog("Unable to create strong reference to self")
                                             return
                                         }

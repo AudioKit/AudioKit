@@ -20,7 +20,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(_ input: AKNode?) {
         if !isConnected {
-            input?.avAudioNode.installTap(
+            input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
                 bufferSize: bufferSize,
                 format: nil) { [weak self] (buffer, _) in
@@ -47,7 +47,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
 
     @objc open func pause() {
         if isConnected {
-            node?.avAudioNode.removeTap(onBus: 0)
+            node?.avAudioUnitOrNode.removeTap(onBus: 0)
             isConnected = false
         }
     }
@@ -80,7 +80,7 @@ open class AKNodeOutputPlot: EZAudioPlot {
     }
 
     deinit {
-        node?.avAudioNode.removeTap(onBus: 0)
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Required coder-based initialization (for use with Interface Builder)
