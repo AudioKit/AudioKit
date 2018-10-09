@@ -66,7 +66,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
 
         let effect = _Self.effect
         au = AUWrapper(effect)
-        super.init(avAudioNode: effect, attach: true)
+        super.init(avAudioUnit: effect, attach: true)
 
         input?.connect(to: self)
 
