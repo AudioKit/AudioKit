@@ -38,7 +38,7 @@ open class AKDryWetMixer: AKNode, AKInput {
         self.balance = balance
 
         super.init()
-        avAudioNode = mixer.avAudioNode
+        avAudioUnit = mixer.avAudioUnit
 
         dry?.connect(to: dryGain)
         dryGain.volume = 1 - balance

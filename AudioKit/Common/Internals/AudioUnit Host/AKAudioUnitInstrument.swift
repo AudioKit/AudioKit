@@ -19,7 +19,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         AudioKit.engine.attach(audioUnit)
 
         // assign the output to the mixer
-        self.avAudioNode = audioUnit
+        self.avAudioUnit = audioUnit
         self.name = audioUnit.name
     }
 

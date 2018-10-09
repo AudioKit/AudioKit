@@ -110,7 +110,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
-            self?.avAudioNode = avAudioUnit
+            self?.avAudioUnit = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
