@@ -203,7 +203,7 @@ open class AKSamplePlayer: AKNode, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
-            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU!.completionHandler = completionHandler
             strongSelf.internalAU!.loadCompletionHandler = loadCompletionHandler

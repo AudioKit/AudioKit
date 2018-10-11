@@ -73,7 +73,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
         self.lowPassCutoff = lowPassCutoff
         self.dryWetMix = dryWetMix
 
-        super.init(avAudioNode: delayAU, attach: true)
+        super.init(avAudioUnit: delayAU, attach: true)
         input?.connect(to: self)
 
         delayAU.delayTime = self.time

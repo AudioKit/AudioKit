@@ -1,8 +1,6 @@
 //: ## Dripping Sounds
 //: Physical model of a water drop letting hitting a pool.
 //: What's this good for?  We don't know, but hey it's cool. :)
-fatalError("NOTE: Known broken playground as of AudioKit 4.5")
-
 import AudioKitPlaygrounds
 import AudioKit
 import AudioKitUI

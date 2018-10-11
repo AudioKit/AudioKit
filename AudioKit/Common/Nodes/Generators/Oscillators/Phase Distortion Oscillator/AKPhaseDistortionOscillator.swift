@@ -162,7 +162,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
-            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
             for (i, sample) in waveform.enumerated() {

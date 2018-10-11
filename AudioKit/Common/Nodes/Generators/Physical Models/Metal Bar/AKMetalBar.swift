@@ -242,7 +242,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
-            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 

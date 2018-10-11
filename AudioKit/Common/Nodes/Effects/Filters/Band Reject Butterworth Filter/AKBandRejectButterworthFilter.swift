@@ -103,7 +103,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
                 AKLog("Error: self is nil")
                 return
             }
-            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }
