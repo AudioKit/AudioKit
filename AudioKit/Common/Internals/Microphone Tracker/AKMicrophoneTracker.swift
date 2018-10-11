@@ -16,7 +16,7 @@ public class AKMicrophoneTracker {
         return Double(engine.amplitude)
     }
 
-    /// Tracked frquency
+    /// Tracked frequency
     public var frequency: Double {
         return Double(engine.frequency)
     }

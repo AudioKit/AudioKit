@@ -401,6 +401,10 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     open func play() {
         play(from: startTime, to: endTime, avTime: nil)
     }
+    /// Play from startTime to endTime
+    @objc open func play(from startTime: Double) {
+        play(from: startTime, to: duration, avTime: nil)
+    }
 
     /// Play from startTime to endTime
     @objc open func play(from startTime: Double, to endTime: Double) {

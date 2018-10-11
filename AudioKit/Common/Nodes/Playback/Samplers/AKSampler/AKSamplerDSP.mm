@@ -243,6 +243,35 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
     return 0;
 }
 
+void AKSamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
+{
+    if (midiEvent.length != 3) return;
+    uint8_t status = midiEvent.data[0] & 0xF0;
+    //uint8_t channel = midiEvent.data[0] & 0x0F; // works in omni mode.
+    switch (status) {
+        case 0x80 : { // note off
+            uint8_t note = midiEvent.data[1];
+            if (note > 127) break;
+            stopNote(note, false);
+            break;
+        }
+        case 0x90 : { // note on
+            uint8_t note = midiEvent.data[1];
+            uint8_t veloc = midiEvent.data[2];
+            if (note > 127 || veloc > 127) break;
+            playNote(note, veloc, 440. * exp2((note - 69)/12.));
+            break;
+        }
+        case 0xB0 : { // control
+            uint8_t num = midiEvent.data[1];
+            if (num == 123) { // all notes off
+                stopAllVoices();
+            }
+            break;
+        }
+    }
+}
+
 void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE

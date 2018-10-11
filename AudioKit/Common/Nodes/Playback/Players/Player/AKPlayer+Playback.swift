@@ -234,8 +234,14 @@ extension AKPlayer {
                 self.pauseTime = nil
                 return
             }
-            if self.currentFrame >= self.frameCount {
-                self.handleComplete()
+            do {
+                try AKTry {
+                    if self.currentFrame >= self.frameCount {
+                        self.handleComplete()
+                    }
+                }
+            } catch let error {
+                AKLog("Failed to check currentFrame and call completion handler: \(error)... Possible Media Service Reset?")
             }
         }
     }

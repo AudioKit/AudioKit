@@ -1,17 +1,14 @@
 //: ## Convolution
 //: Allows you to create a large variety of effects, usually reverbs or environments,
 //: but it could also be for modeling.
-fatalError("NOTE: Known broken playground as of AudioKit 4.5")
-
 import AudioKitPlaygrounds
 import AudioKit
 import AudioKitUI
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
-player.buffering = .always
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 let bundle = Bundle.main
 
