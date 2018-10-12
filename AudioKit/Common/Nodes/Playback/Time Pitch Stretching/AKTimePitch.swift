@@ -60,8 +60,8 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         self.overlap = overlap
 
         super.init()
-        self.avAudioUnit = timePitchAU
-        AudioKit.engine.attach(self.avAudioNode)
+        avAudioUnit = timePitchAU
+        AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 
