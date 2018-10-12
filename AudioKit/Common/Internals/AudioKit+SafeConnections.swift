@@ -105,6 +105,9 @@ extension AudioKit {
 
     /// Render output to an AVAudioFile for a duration.
     ///
+    /// NOTE: This will NOT render AKSequencer content;
+    /// MIDI content will need to be recorded in real time
+    ///
     ///     - Parameters:
     ///         - audioFile: An file initialized for writing
     ///         - duration: Duration to render, in seconds
