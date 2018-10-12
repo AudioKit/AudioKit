@@ -38,8 +38,8 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
         lastKnownRate = rate
 
         super.init()
-        self.avAudioUnit = variSpeedAU
-        AudioKit.engine.attach(self.avAudioNode)
+        avAudioUnit = variSpeedAU
+        AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 
