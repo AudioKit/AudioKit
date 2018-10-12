@@ -34,7 +34,7 @@ extension AVAudioConnectionPoint {
     /// Initialize the node from an AVAudioUnit
     @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
-        avAudioNode = AVAudioNode()
+        avAudioNode = avAudioUnit
         if attach {
             AudioKit.engine.attach(avAudioUnit)
         }
