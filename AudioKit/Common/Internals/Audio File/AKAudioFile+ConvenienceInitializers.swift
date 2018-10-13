@@ -114,7 +114,7 @@ extension AKAudioFile {
         try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
+        let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate,
                                    channels: AVAudioChannelCount(channels))
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format!,
