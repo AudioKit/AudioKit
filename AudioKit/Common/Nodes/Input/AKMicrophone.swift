@@ -43,7 +43,7 @@ open class AKMicrophone: AKNode, AKToggleable {
 
         #if os(iOS)
         let format = setFormatForDevice()
-        AudioKit.engine.attach(self.avAudioNode)
+        AudioKit.engine.attach(avAudioUnitOrNode)
         AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format!)
         #elseif !os(tvOS)
         AudioKit.engine.inputNode.connect(to: self.avAudioNode)

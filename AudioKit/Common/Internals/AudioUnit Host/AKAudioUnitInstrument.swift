@@ -14,13 +14,13 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///
     public init?(audioUnit: AVAudioUnitMIDIInstrument) {
         super.init()
-        self.midiInstrument = audioUnit
+        midiInstrument = audioUnit
 
         AudioKit.engine.attach(audioUnit)
 
         // assign the output to the mixer
-        self.avAudioUnit = audioUnit
-        self.name = audioUnit.name
+        avAudioUnit = audioUnit
+        name = audioUnit.name
     }
 
     /// Send MIDI Note On information to the audio unit
