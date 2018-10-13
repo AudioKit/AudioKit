@@ -2480,7 +2480,7 @@
 			path = Wavpack;
 			sourceTree = "<group>";
 		};
-		3404A7BF20507BEB00A2C9E4 /* AKSampler */ = {
+		3404A7BF20507BEB00A2C9E4 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
 				3404A7C020507BEB00A2C9E4 /* AKSampler.swift */,
@@ -2490,7 +2490,7 @@
 				3404A7C520507BEB00A2C9E4 /* AKSamplerDSP.mm */,
 				3404A7C420507BEB00A2C9E4 /* README.md */,
 			);
-			path = AKSampler;
+			path = Sampler;
 			sourceTree = "<group>";
 		};
 		34F5A355205ECBE300290001 /* ModulatedDelay */ = {
@@ -2755,10 +2755,10 @@
 		C40C42AE1C420C1D009D870B /* Samplers */ = {
 			isa = PBXGroup;
 			children = (
-				FE2C8B2020DAC67400009BAC /* Disk Streamer */,
-				3404A7BF20507BEB00A2C9E4 /* AKSampler */,
-				FE1F57A4209235F8006B34CF /* Wave Table */,
 				C49B215B204A28F3009C7C8E /* Apple Sampler */,
+				FE2C8B2020DAC67400009BAC /* Disk Streamer */,
+				3404A7BF20507BEB00A2C9E4 /* Sampler */,
+				FE1F57A4209235F8006B34CF /* Wave Table */,
 			);
 			path = Samplers;
 			sourceTree = "<group>";
