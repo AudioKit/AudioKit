@@ -51,6 +51,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 return
             }
             strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
             strongSelf.internalAU?.setPartitionLength(Int32(partitionLength))

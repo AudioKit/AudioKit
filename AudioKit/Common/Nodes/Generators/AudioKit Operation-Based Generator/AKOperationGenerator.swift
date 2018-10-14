@@ -104,6 +104,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
             self?.avAudioUnit = avAudioUnit
+            self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             for ugen in self?.customUgens ?? [] {
                 self?.internalAU?.add(ugen)

@@ -89,6 +89,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
                 return
             }
             strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
