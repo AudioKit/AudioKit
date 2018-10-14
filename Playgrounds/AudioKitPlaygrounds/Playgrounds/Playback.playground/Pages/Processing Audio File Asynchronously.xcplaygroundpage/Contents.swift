@@ -1,7 +1,5 @@
 //: ## Processing Audio File Asynchronously
 //: Processing some audio files in background
-fatalError("NOTE: Known broken playground as of AudioKit 4.5")
-
 import AudioKitPlaygrounds
 import AudioKit
 
@@ -13,7 +11,6 @@ AKAudioFile.cleanTempDirectory()
 var piano = try AKAudioFile(readFileName: "poney.mp3")
 let player = try AKAudioPlayer(file: piano)
 player.looping = true
-player.buffering = .always
 
 AudioKit.output = player
 try AudioKit.start()

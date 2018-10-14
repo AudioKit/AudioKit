@@ -107,6 +107,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -146,5 +147,9 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
+    }
+
+    @objc open func clear() {
+        internalAU?.clear()
     }
 }

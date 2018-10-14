@@ -34,6 +34,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
+        avAudioUnit = internalNode.avAudioUnit
       enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 

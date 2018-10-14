@@ -8,7 +8,7 @@
 
 extension AVAudioConnectionPoint {
     convenience init(_ node: AKNode, to bus: Int) {
-        self.init(node: node.avAudioNode, bus: bus)
+        self.init(node: node.avAudioUnitOrNode, bus: bus)
     }
 }
 
@@ -16,29 +16,47 @@ extension AVAudioConnectionPoint {
 @objc open class AKNode: NSObject {
 
     /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
+    @objc open var avAudioNode: AVAudioNode
+
+    /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
+    @objc open var avAudioUnit: AVAudioUnit?
+
+    /// Returns either the avAudioUnit (preferred
+    @objc open var avAudioUnitOrNode: AVAudioNode {
+        return avAudioUnit ?? avAudioNode
+    }
 
     /// Create the node
     override public init() {
         self.avAudioNode = AVAudioNode()
     }
 
-    /// Initialize the node
+    /// Initialize the node from an AVAudioUnit
+    @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+        self.avAudioUnit = avAudioUnit
+        avAudioNode = avAudioUnit
+        if attach {
+            AudioKit.engine.attach(avAudioUnit)
+        }
+    }
+
+    /// Initialize the node from an AVAudioNode
     @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
             AudioKit.engine.attach(avAudioNode)
         }
     }
+
     //Subclasses should override to detach all internal nodes
     open func detach() {
-        AudioKit.detach(nodes: [avAudioNode])
+        AudioKit.detach(nodes: [avAudioUnitOrNode])
     }
 }
 
 extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
-        return avAudioNode
+        return avAudioUnitOrNode
     }
 
     @available(*, deprecated, renamed: "connect(to:bus:)")

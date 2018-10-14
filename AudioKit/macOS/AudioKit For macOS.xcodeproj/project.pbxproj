@@ -2312,7 +2312,6 @@
 		EA03C02B2024606200E8BE2C /* ParameterRamper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParameterRamper.cpp; sourceTree = "<group>"; };
 		EA08A99F214A01AA00115D67 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EAB4E0522026A0A300171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
-		EAD0DEE721426B9400DCE36F /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EAD65ADE21408AE10063221D /* AKSynthDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynthDSP.hpp; sourceTree = "<group>"; };
 		EAD65ADF21408AE10063221D /* AKSynthDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSynthDSP.mm; sourceTree = "<group>"; };
 		EADFC42A2150654C003E5191 /* AKModulatedDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKModulatedDelay.cpp; sourceTree = "<group>"; };
@@ -2434,7 +2433,7 @@
 			path = Wavpack;
 			sourceTree = "<group>";
 		};
-		3404A75D204F4CFA00A2C9E4 /* AKSampler */ = {
+		3404A75D204F4CFA00A2C9E4 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
 				3404A761204F515400A2C9E4 /* AKSampler.swift */,
@@ -2444,7 +2443,7 @@
 				3404A75F204F515400A2C9E4 /* AKSamplerDSP.mm */,
 				3404A762204F515400A2C9E4 /* README.md */,
 			);
-			path = AKSampler;
+			path = Sampler;
 			sourceTree = "<group>";
 		};
 		3404A77E205064FD00A2C9E4 /* AudioKitCore */ = {
@@ -4899,9 +4898,9 @@
 		C49B217F204A2AE7009C7C8E /* Samplers */ = {
 			isa = PBXGroup;
 			children = (
-				3404A75D204F4CFA00A2C9E4 /* AKSampler */,
 				C49B2180204A2AE7009C7C8E /* Apple Sampler */,
 				FE8FE9D020E42BFD00F15B7E /* Disk Streamer */,
+				3404A75D204F4CFA00A2C9E4 /* Sampler */,
 				C47C52842093066200A6FB3C /* Wave Table */,
 			);
 			path = Samplers;
@@ -5099,7 +5098,6 @@
 			isa = PBXGroup;
 			children = (
 				EA08A99F214A01AA00115D67 /* libc++.tbd */,
-				EAD0DEE721426B9400DCE36F /* libstdc++.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5529,7 +5527,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6623,7 +6621,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,

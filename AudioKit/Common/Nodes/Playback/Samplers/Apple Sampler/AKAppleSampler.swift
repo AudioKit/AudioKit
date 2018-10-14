@@ -23,6 +23,21 @@ open class AKAppleSampler: AKNode {
     /// Internal audio unit
     private var internalAU: AUAudioUnit?
 
+    private var _audioFiles: [AKAudioFile] = []
+
+    public var audioFiles: [AKAudioFile] {
+        get {
+            return _audioFiles
+        }
+        set(newValue) {
+            do {
+                try loadAudioFiles(newValue)
+            } catch {
+                AKLog("Could not load audio files")
+            }
+        }
+    }
+
     fileprivate var token: AUParameterObserverToken?
 
     /// Sampler AV Audio Unit
@@ -45,9 +60,10 @@ open class AKAppleSampler: AKNode {
     /// Initialize the sampler node
     override public init() {
         super.init()
+        avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AudioKit.engine.attach(self.avAudioNode)
+        AudioKit.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
 
@@ -93,6 +109,8 @@ open class AKAppleSampler: AKNode {
     /// - parameter file: an AKAudioFile
     ///
     @objc open func loadAudioFile(_ file: AKAudioFile) throws {
+        _audioFiles = [file]
+        
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [file.url])
@@ -111,6 +129,7 @@ open class AKAppleSampler: AKNode {
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
     @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+        _audioFiles = files
         let urls = files.map { $0.url }
         do {
             try AKTry {

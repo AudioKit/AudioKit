@@ -177,7 +177,9 @@ public class AKPlayer: AKNode {
     private var _startTime: Double = 0
     private var _endTime: Double = 0
 
-    public var rate: Double = 1
+    internal var _rate: Double {
+        return 1.0
+    }
 
     // MARK: - Public Properties
 
@@ -406,8 +408,8 @@ public class AKPlayer: AKNode {
         }
 
         if let faderNode = faderNode {
-            if faderNode.avAudioNode.engine == nil {
-                AudioKit.engine.attach(faderNode.avAudioNode)
+            if faderNode.avAudioUnitOrNode.engine == nil {
+                AudioKit.engine.attach(faderNode.avAudioUnitOrNode)
             } else {
                 faderNode.disconnectOutput()
             }
@@ -421,8 +423,8 @@ public class AKPlayer: AKNode {
     internal func connectNodes() {
         guard let processingFormat = processingFormat else { return }
         if let faderNode = faderNode {
-            AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
-            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+            AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
+            AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
         } else {
             AudioKit.connect(playerNode, to: mixer, format: processingFormat)
         }
@@ -452,8 +454,6 @@ public class AKPlayer: AKNode {
         if to == 0 {
             to = duration
         }
-
-        // AKLog(from, to)
 
         if from > to {
             from = 0
@@ -501,7 +501,7 @@ public class AKPlayer: AKNode {
         AudioKit.detach(nodes: [mixer, playerNode])
 
         if let faderNode = faderNode {
-            AudioKit.detach(nodes: [faderNode.avAudioNode])
+            AudioKit.detach(nodes: [faderNode.avAudioUnitOrNode])
         }
         faderNode = nil
     }

@@ -13,7 +13,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKPlayer?
+    var player: AKAudioPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
@@ -47,7 +47,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKPlayer,
+    public convenience init(player: AKAudioPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)
@@ -64,7 +64,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if stopOuterPath.contains(touchLocation) {
-            //player?.stop()
+            player.stop()
             return
         }
         if playOuterPath.contains(touchLocation) {
@@ -90,7 +90,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                 AKLog("Unable to load file: \(filename)")
                 return
             }
-            player.load(audioFile: file)
+            try! player.replace(file: file)
             if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true

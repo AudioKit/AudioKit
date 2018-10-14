@@ -29,7 +29,7 @@ extension AKPlayer {
             startFade()
             return
         }
-        triggerTime /= rate
+        triggerTime /= _rate
         // AKLog("starting fade in", triggerTime, "seconds")
 
         DispatchQueue.main.async {
@@ -64,7 +64,7 @@ extension AKPlayer {
 
         if inTime > 0 {
             faderNode.gain = Fade.minimumGain
-            faderNode.rampDuration = inTime / rate
+            faderNode.rampDuration = inTime / _rate
         }
         // set target gain and begin ramping
         faderNode.gain = fade.maximumGain
@@ -81,7 +81,7 @@ extension AKPlayer {
             fadeOutWithTime(midFadeDuration)
         } else {
             var when = (duration - startTime) - (duration - endTime) - fade.outTime
-            when /= rate
+            when /= _rate
 
             DispatchQueue.main.async {
                 self.faderTimer?.invalidate()
@@ -106,7 +106,7 @@ extension AKPlayer {
         if time > 0 {
             // at this point init the faderNode with the correct settings for fade out
             faderNode.rampType = fade.outRampType
-            faderNode.rampDuration = time / rate
+            faderNode.rampDuration = time / _rate
             faderNode.gain = Fade.minimumGain
             // AKLog("Fading out to", Fade.minimumGain, ", shape:", fade.outRampType.rawValue)
         }
