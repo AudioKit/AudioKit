@@ -58,11 +58,13 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     private func setAVSessionSampleRate(sampleRate: Double) {
+        #if !os(macOS)
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         } catch {
             AKLog(error)
         }
+        #endif
     }
 
     /// Function to start, play, or activate the node, all do the same thing
