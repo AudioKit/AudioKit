@@ -28,7 +28,7 @@ open class AKSynthKick: AKMIDIInstrument {
         filter.resonance = 0.00
 
         super.init(midiInputName: midiInputName)
-        avAudioNode = filter.avAudioNode
+        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 
@@ -70,7 +70,7 @@ open class AKSynthSnare: AKMIDIInstrument {
         filter.cutoffFrequency = 1_666
 
         super.init()
-        avAudioNode = filter.avAudioNode
+        avAudioUnit = filter.avAudioUnit
         generator.start()
     }
 

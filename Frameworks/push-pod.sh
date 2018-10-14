@@ -27,8 +27,8 @@ then
 	pod repo add ak-specs git@github.com:AudioKit/Specs.git
 fi
 
-cat AudioKit.podspec.json.tmpl | sed "s/__AK_VERSION__/$VER/" | sed "s|__AK_SOURCE__|$SOURCE|" > AudioKit.podspec.json
-
+cat AudioKit.podspec.json.tmpl | sed "s/__AK_VERSION__/$VER/" | sed "s|__AK_SOURCE__|$SOURCE|" > ../AudioKit.podspec.json
+cd ..
 if test $1 = release;
 then
 	pod trunk push AudioKit.podspec.json --verbose

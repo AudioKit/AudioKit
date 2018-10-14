@@ -1,8 +1,6 @@
 //: ## Node FFT Plot
 //: An FFT plot displays a signal as relative amplitudes across the frequency spectrum.
 //: This playground uses the microphone input to perform the FFT on and displays the plot in the playground's timeline view.
-fatalError("NOTE: Known broken playground as of AudioKit 4.5")
-
 import AudioKitPlaygrounds
 import AudioKit
 

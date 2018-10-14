@@ -50,6 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
+    void clear() override;
     void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;

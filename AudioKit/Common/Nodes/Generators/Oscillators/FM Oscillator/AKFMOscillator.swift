@@ -188,6 +188,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU?.setupWaveform(Int32(waveform.count))

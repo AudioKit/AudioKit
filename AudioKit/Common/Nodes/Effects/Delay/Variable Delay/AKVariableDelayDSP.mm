@@ -75,6 +75,11 @@ void AKVariableDelayDSP::deinit() {
     sp_vdelay_destroy(&_private->_vdelay1);
 }
 
+void AKVariableDelayDSP::clear() {
+    sp_vdelay_reset(_sp, _private->_vdelay0);
+    sp_vdelay_reset(_sp, _private->_vdelay1);
+}
+
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {

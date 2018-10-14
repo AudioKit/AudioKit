@@ -59,7 +59,8 @@ class ViewController: UIViewController {
         AKSettings.defaultToSpeaker = true
 
         // Patching
-        micMixer = AKMixer(mic)
+        let monoToStereo = AKStereoFieldLimiter(mic, amount: 1)
+        micMixer = AKMixer(monoToStereo)
         micBooster = AKBooster(micMixer)
 
         // Will set the level of microphone monitoring
@@ -176,6 +177,7 @@ class ViewController: UIViewController {
         resetButton.isHidden = false
         resetButton.isEnabled = true
         setSliders(active: true)
+        moogLadder.cutoffFrequency = frequencySlider.range.upperBound
         frequencySlider.value = moogLadder.cutoffFrequency
         resonanceSlider.value = moogLadder.resonance
     }
@@ -187,7 +189,8 @@ class ViewController: UIViewController {
         frequencySlider.isHidden = !active
         resonanceSlider.callback = updateResonance
         resonanceSlider.isHidden = !active
-        frequencySlider.range = 10 ... 2_000
+        frequencySlider.range = 10 ... 20_000
+        frequencySlider.taper = 3
         moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 

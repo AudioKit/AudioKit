@@ -102,7 +102,7 @@
         isRecording = true
 
         AKLog("AKNodeRecorder: recording")
-        node.avAudioNode.installTap(
+        node.avAudioUnitOrNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
             format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
@@ -141,7 +141,7 @@
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node?.avAudioNode.removeTap(onBus: 0)
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Reset the AKAudioFile to clear previous recordings
