@@ -155,10 +155,10 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
-        AKOscillator.register()
+        _Self.register()
 
         super.init()
-        AVAudioUnit._instantiate(with: AKOscillator.ComponentDescription) { [weak self] avAudioUnit in
+        AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")
                 return
