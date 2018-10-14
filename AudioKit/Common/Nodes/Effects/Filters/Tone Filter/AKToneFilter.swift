@@ -77,6 +77,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 return
             }
             strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }

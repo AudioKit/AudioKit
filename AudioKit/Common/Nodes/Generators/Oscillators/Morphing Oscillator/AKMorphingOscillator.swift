@@ -198,6 +198,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
                 return
             }
             strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             for (i, waveform) in waveformArray.enumerated() {

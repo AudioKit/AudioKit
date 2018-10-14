@@ -20,6 +20,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
 
         // assign the output to the mixer
         avAudioUnit = audioUnit
+        avAudioNode = audioUnit
         name = audioUnit.name
     }
 

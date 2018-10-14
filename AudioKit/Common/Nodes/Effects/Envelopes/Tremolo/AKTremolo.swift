@@ -96,6 +96,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
                 return
             }
             strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
             strongSelf.internalAU?.setupWaveform(Int32(waveform.count))

@@ -35,6 +35,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
         super.init()
 
         avAudioUnit = reverbAU
+        avAudioNode = reverbAU
         AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
 
