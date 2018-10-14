@@ -42,9 +42,12 @@ open class AKMicrophone: AKNode, AKToggleable {
         AKSettings.audioInputEnabled = true
 
         #if os(iOS)
-        let format = setFormatForDevice()
+        let format = getFormatForDevice()
+        // we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
+        setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
         AudioKit.engine.attach(avAudioUnitOrNode)
         AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format!)
+        setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
         #elseif !os(tvOS)
         AudioKit.engine.inputNode.connect(to: self.avAudioNode)
         #endif
@@ -52,6 +55,16 @@ open class AKMicrophone: AKNode, AKToggleable {
 
     deinit {
         AKSettings.audioInputEnabled = false
+    }
+
+    private func setAVSessionSampleRate(sampleRate: Double) {
+        #if !os(macOS)
+        do {
+            try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
+        } catch {
+            AKLog(error)
+        }
+        #endif
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -70,13 +83,11 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     // Here is where we actually check the device type and make the settings, if needed
-    private func setFormatForDevice() -> AVAudioFormat? {
+    private func getFormatForDevice() -> AVAudioFormat? {
         var channelCount: UInt32 = 2
         #if os(iOS) && !targetEnvironment(simulator)
         channelCount = AudioKit.engine.inputNode.inputFormat(forBus: 0).channelCount
-        var desiredFS = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
-        desiredFS = AudioKit.deviceSampleRate
-        AKSettings.sampleRate = AudioKit.deviceSampleRate
+        let desiredFS = AudioKit.deviceSampleRate
         #else
         let desiredFS = AKSettings.sampleRate
         #endif
