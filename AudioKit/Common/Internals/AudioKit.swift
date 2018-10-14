@@ -20,7 +20,11 @@ public typealias AKCallback = () -> Void
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
+    #if !os(macOS)
     static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+    #else
+    static let deviceSampleRate: Double = 44_100
+    #endif
 
     // MARK: - Internal audio engine mechanics
 
