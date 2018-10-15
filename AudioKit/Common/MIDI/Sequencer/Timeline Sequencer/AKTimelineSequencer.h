@@ -9,6 +9,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioKit/AudioKit-Swift.h>
 
+@class AKNode;
+
 /// A Sequencer that can be synchronized precisely.
 @interface AKTimelineSequencer : NSObject
 
