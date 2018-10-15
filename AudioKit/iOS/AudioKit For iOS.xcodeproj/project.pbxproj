@@ -2883,8 +2883,8 @@
 				C44EA27C201872C10072399F /* README.md */,
 				C49B1148204A06B5009C7C8E /* Core */,
 				C42F350D1C057F4C000E937C /* Internals */,
-				C42F353F1C057F4C000E937C /* MIDI */,
 				C42F35421C057F4C000E937C /* Nodes */,
+				C42F353F1C057F4C000E937C /* MIDI */,
 				C417025E1C11626500AB689C /* Operations */,
 				C4299C491CE14002007A3CBB /* Taps */,
 				C40869661C192C5E00EF9DED /* User Interface */,
@@ -5194,11 +5194,11 @@
 		FEC7946D217438D000587D5A /* Timeline Sequencer */ = {
 			isa = PBXGroup;
 			children = (
+				FEC79472217438D000587D5A /* AKTimelineSequencer.h */,
+				FEC79470217438D000587D5A /* AKTimelineSequencer.m */,
 				FEC7946F217438D000587D5A /* AKInstrumentSequencer.swift */,
 				FEC7946E217438D000587D5A /* AKSequenceable.swift */,
 				FEC79471217438D000587D5A /* AKSequencerTrack.swift */,
-				FEC79472217438D000587D5A /* AKTimelineSequencer.h */,
-				FEC79470217438D000587D5A /* AKTimelineSequencer.m */,
 			);
 			path = "Timeline Sequencer";
 			sourceTree = "<group>";
