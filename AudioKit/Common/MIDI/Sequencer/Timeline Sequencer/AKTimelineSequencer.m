@@ -1,5 +1,5 @@
 //
-//  AKSamplerSequencer.m
+//  AKTimelineSequencer.m
 //  SuperSequencer
 //
 //  Created by Aurelius Prochazka on 8/11/18.

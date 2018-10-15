@@ -1,5 +1,5 @@
 //
-//  AKSamplerSequencer.h
+//  AKTimelineSequencer.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
