@@ -28,8 +28,8 @@ extension AKMusicTrack {
                         let statusData = data?.pointee.status else {
                             break
                     }
-                    let status = statusData & 0xF0
-                    if Int(status) / 16 == AKMIDIStatus.programChange.rawValue {
+                    let status = statusData >> 4
+                    if Int(status) == AKMIDIStatus.programChange.rawValue {
                         let pgmEvent = MIDIProgramChangeEvent(time: event.time, number: data1)
                         pgmEvents.append(pgmEvent)
                     }
@@ -72,8 +72,8 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi channel message")
                         return
                 }
-                let status = statusData & 0xF0
-                switch Int(status) / 16 {
+                let status = statusData >> 4
+                switch Int(status) {
                 case AKMIDIStatus.programChange.rawValue:
                     print("MIDI Program Change @ \(event.time) - program: \(data1)")
                 default:
