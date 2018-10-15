@@ -43,6 +43,8 @@ public struct AKMIDIEvent {
 
     // MARK: - Properties
 
+    public var position: AKDuration?
+
     /// Internal data
     public var internalData = [MIDIByte](zeros: 256)
 
