@@ -7,7 +7,6 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
-#import <AudioKit/AudioKit-Swift.h>
 
 @class AKNode;
 
