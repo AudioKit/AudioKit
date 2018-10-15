@@ -16,3 +16,8 @@ open class AKSequencerTrack {
         self.target = target
     }
 }
+
+public protocol AKSequenceEvent {
+    var time: AKDuration { get set }
+    func trigger()
+}
