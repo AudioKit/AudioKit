@@ -216,6 +216,6 @@ extension AKAudioUnitManager {
             return nil
         }
         (node as? AKToggleable)?.start()
-        return node?.avAudioNode as? AVAudioUnit
+        return node?.avAudioUnit
     }
 }

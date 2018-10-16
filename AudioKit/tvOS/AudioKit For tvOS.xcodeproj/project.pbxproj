@@ -4159,9 +4159,9 @@
 		C49B216C204A2A84009C7C8E /* Samplers */ = {
 			isa = PBXGroup;
 			children = (
-				EA13F14720722C770090288E /* AKSampler */,
 				C49B216D204A2A84009C7C8E /* Apple Sampler */,
 				FE8FE9C720E42BBC00F15B7E /* Disk Streamer */,
+				EA13F14720722C770090288E /* Sampler */,
 				C47C528D2093069600A6FB3C /* Wave Table */,
 			);
 			path = Samplers;
@@ -4760,7 +4760,7 @@
 			path = Convolution;
 			sourceTree = "<group>";
 		};
-		EA13F14720722C770090288E /* AKSampler */ = {
+		EA13F14720722C770090288E /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
 				EA13F14820722C770090288E /* AKSampler+SFZ.swift */,
@@ -4770,7 +4770,7 @@
 				EA13F14C20722C770090288E /* AKSamplerDSP.mm */,
 				EA13F14D20722C770090288E /* README.md */,
 			);
-			path = AKSampler;
+			path = Sampler;
 			sourceTree = "<group>";
 		};
 		EA13F154207231960090288E /* Sampler */ = {
