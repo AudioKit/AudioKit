@@ -382,9 +382,9 @@ open class AKAudioUnitManager: NSObject {
         }
 
         // it's an effects sandwich
-        let inputAV = input.avAudioNode
+        let inputAV = input.avAudioUnitOrNode
         let effects = linkedEffects
-        let outputAV = output.avAudioNode
+        let outputAV = output.avAudioUnitOrNode
 
         let processingFormat = inputAV.outputFormat(forBus: 0)
         AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")

@@ -7,7 +7,7 @@ then
 	exit 1
 fi
 
-VER=$(cat VERSION)
+VER=$(cat ../VERSION)
 
 if test $1 = release;
 then

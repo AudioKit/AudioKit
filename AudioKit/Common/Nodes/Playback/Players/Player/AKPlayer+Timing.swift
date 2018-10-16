@@ -6,12 +6,12 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-extension AKPlayer: AKTiming {
+@objc extension AKPlayer: AKTiming {
     @objc public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
     }
 
-    public var isStarted: Bool {
+    @objc public var isStarted: Bool {
         return isPlaying
     }
 
@@ -37,7 +37,7 @@ extension AKPlayer: AKTiming {
         return playerNode.nodeTime(forPlayerTime: playerTime)
     }
 
-    open func prepare() {
+    @objc open func prepare() {
         preroll(from: startTime, to: endTime)
     }
 }

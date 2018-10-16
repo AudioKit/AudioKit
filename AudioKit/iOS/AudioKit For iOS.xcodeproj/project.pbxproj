@@ -1142,6 +1142,7 @@
 		FE72B21B208AA62600D861BC /* AVAudioEngine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */; };
 		FE72B21D208AA6C600D861BC /* AudioKit+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21C208AA6C600D861BC /* AudioKit+Testing.swift */; };
 		FE72B21F208AA72C00D861BC /* AudioKit+StartStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21E208AA72B00D861BC /* AudioKit+StartStop.swift */; };
+		FE940913216EA06300F02A35 /* AKMusicTrack+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */; };
 		FEAEDA5920F04AF8007E1EF6 /* AKMusicTrack+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAEDA5820F04AF8007E1EF6 /* AKMusicTrack+Load.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 		FED92BE31ED1331D00E93264 /* AKSamplePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */; };
@@ -2369,6 +2370,7 @@
 		FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Extensions.swift"; sourceTree = "<group>"; };
 		FE72B21C208AA6C600D861BC /* AudioKit+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+Testing.swift"; sourceTree = "<group>"; };
 		FE72B21E208AA72B00D861BC /* AudioKit+StartStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+StartStop.swift"; sourceTree = "<group>"; };
+		FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Events.swift"; sourceTree = "<group>"; };
 		FEAEDA5820F04AF8007E1EF6 /* AKMusicTrack+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Load.swift"; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSamplePlayer.swift; sourceTree = "<group>"; };
@@ -2480,7 +2482,7 @@
 			path = Wavpack;
 			sourceTree = "<group>";
 		};
-		3404A7BF20507BEB00A2C9E4 /* AKSampler */ = {
+		3404A7BF20507BEB00A2C9E4 /* Sampler */ = {
 			isa = PBXGroup;
 			children = (
 				3404A7C020507BEB00A2C9E4 /* AKSampler.swift */,
@@ -2490,7 +2492,7 @@
 				3404A7C520507BEB00A2C9E4 /* AKSamplerDSP.mm */,
 				3404A7C420507BEB00A2C9E4 /* README.md */,
 			);
-			path = AKSampler;
+			path = Sampler;
 			sourceTree = "<group>";
 		};
 		34F5A355205ECBE300290001 /* ModulatedDelay */ = {
@@ -2755,10 +2757,10 @@
 		C40C42AE1C420C1D009D870B /* Samplers */ = {
 			isa = PBXGroup;
 			children = (
-				FE2C8B2020DAC67400009BAC /* Disk Streamer */,
-				3404A7BF20507BEB00A2C9E4 /* AKSampler */,
-				FE1F57A4209235F8006B34CF /* Wave Table */,
 				C49B215B204A28F3009C7C8E /* Apple Sampler */,
+				FE2C8B2020DAC67400009BAC /* Disk Streamer */,
+				3404A7BF20507BEB00A2C9E4 /* Sampler */,
+				FE1F57A4209235F8006B34CF /* Wave Table */,
 			);
 			path = Samplers;
 			sourceTree = "<group>";
@@ -4024,6 +4026,7 @@
 			children = (
 				C49E9DF31D2B1F9100E5E8BF /* AKDuration.swift */,
 				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
+				FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */,
 				FEAEDA5820F04AF8007E1EF6 /* AKMusicTrack+Load.swift */,
 				1F2DAD7320845EC700F1C9E3 /* AKMIDINoteData.swift */,
 				C49E9DF51D2B1F9100E5E8BF /* AKSequencer.swift */,
@@ -6321,6 +6324,7 @@
 				C49B13F5204A06B7009C7C8E /* reverse.c in Sources */,
 				C49B216A204A28F3009C7C8E /* AKAUPresetBuilder.swift in Sources */,
 				F4CA85831EB666260066BE5C /* AKTuningTable+Scala.swift in Sources */,
+				FE940913216EA06300F02A35 /* AKMusicTrack+Events.swift in Sources */,
 				C49B1394204A06B7009C7C8E /* ini.c in Sources */,
 				FE1F57AA209235F8006B34CF /* AKWaveTableAudioUnit.mm in Sources */,
 				C49B14D3204A06B8009C7C8E /* crossfade.c in Sources */,
