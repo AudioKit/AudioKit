@@ -23,7 +23,7 @@ struct Note {
 
 @implementation AKTimelineSequencer {
     AKTimelineTap *tap;
-    struct Note _notes[32];
+    struct Note _notes[256];
     int _noteCount;
     double _lastTriggerTime;
     double _beatsPerSample;
@@ -33,7 +33,7 @@ struct Note {
     int _maximumPlays;
     BOOL _hasSound;
     AudioUnit _audioUnit;
-    double _startOffset;
+    Float64 _startOffset;
 }
 
 @synthesize maximumPlayCount = _maximumPlays;
@@ -50,6 +50,7 @@ struct Note {
         _playCount = 0;
         _maximumPlays = 0;
         _noteCount = 0;
+        [self resetStartOffset];
 
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
@@ -66,6 +67,7 @@ struct Note {
     int *maximumPlays = &_maximumPlays;
     int *noteCount = &_noteCount;
     double *lastTriggerTime = &_lastTriggerTime;
+    __block Float64 *startOffset = &_startOffset;
 
     return ^(AKTimeline         *timeline,
              AudioTimeStamp     *timeStamp,
@@ -73,7 +75,14 @@ struct Note {
              UInt32             inNumberFrames,
              AudioBufferList    *ioData) {
 
-        if (timeStamp->mSampleTime > *lastTriggerTime) { //Hack
+        if (*startOffset < 0) {
+            *startOffset = timeStamp->mSampleTime;
+        }
+
+        Float64 startSample = timeStamp->mSampleTime - *startOffset;
+        Float64 endSample = startSample + inNumberFrames;
+
+        if (startSample > *lastTriggerTime) { //Hack
             *playCount += 1;
         }
 
@@ -82,14 +91,11 @@ struct Note {
             return;
         }
 
-        Float64 startSample = timeStamp->mSampleTime;
-        Float64 endSample = startSample + inNumberFrames;
-
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = notes[i].sampleTime;
 
-            if((startSample <= triggerTime && triggerTime < endSample)) {
-
+            if(((startSample <= triggerTime && triggerTime < endSample)))
+            {
                 MusicDeviceMIDIEvent(instrument,
                                      notes[i].velocity == 0 ? NOTEOFF : NOTEON,
                                      notes[i].noteNumber,
@@ -192,7 +198,6 @@ struct Note {
     _playCount = 0;
 }
 -(void)play {
-    //_startOffset = something;
     _playCount = 0;
     [self playAt: nil];
 }
@@ -225,7 +230,7 @@ struct Note {
 }
 
 -(double)beatTimeAtTime:(AVAudioTime *)audioTime {
-//    AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow(); HACK
+    //    AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow(); HACK
     return AKTimelineTimeAtTime(tap.timeline, AudioTimeNow()) * _beatsPerSample; // HACK
 }
 
@@ -244,13 +249,24 @@ struct Note {
 }
 
 -(void)stop {
-    // Attempt to do midi panic
-//    MusicDeviceMIDIEvent(self.audioUnit, 0xB0, 0, 0,0.0);
-
+    [self resetStartOffset];
+    [self panic];
     _playCount = 0;
     AKTimelineStop(tap.timeline);
 }
 
+- (void)panic {
+    // Ideally this would work
+    //    MusicDeviceMIDIEvent(_sampler.avAudioUnit.audioUnit, 0xB0, 123, 0b0, 0);
+    // For now, we'll do it manually
+    for(int i=0; i<=127; i++) {
+        MusicDeviceMIDIEvent(_audioUnit, NOTEOFF, i, 0, 0);
+    }
+}
+
+-(void)resetStartOffset {
+    _startOffset = -1.f;
+}
 
 static AudioTimeStamp AudioTimeNow(void) {
     return (AudioTimeStamp) {
