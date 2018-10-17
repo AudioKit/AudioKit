@@ -250,12 +250,12 @@ struct Note {
 
 -(void)stop {
     [self resetStartOffset];
-    [self panic];
+    [self stopAllNotes];
     _playCount = 0;
     AKTimelineStop(tap.timeline);
 }
 
-- (void)panic {
+- (void)stopAllNotes {
     // Ideally this would work
     //    MusicDeviceMIDIEvent(_sampler.avAudioUnit.audioUnit, 0xB0, 123, 0b0, 0);
     // For now, we'll do it manually
