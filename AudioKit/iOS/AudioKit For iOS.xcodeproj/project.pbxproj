@@ -1615,6 +1615,8 @@
 		C4811A65202832950071E280 /* AKToneFilterDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKToneFilterDSP.hpp; sourceTree = "<group>"; };
 		C4811A6A202834BB0071E280 /* AKBandPassButterworthFilterDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBandPassButterworthFilterDSP.mm; sourceTree = "<group>"; };
 		C483F63A1D65502E00374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trackedAmplitude.swift; sourceTree = "<group>"; };
+		C48407FD217599FD000A4E18 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C48407FE21759A09000A4E18 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C48444E61C36FB2C007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
 		C48444E81C36FD7F007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444EA1C36FE14007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
@@ -4891,6 +4893,7 @@
 		C4AA7BF01FD2A7BE00040720 /* Render Tap */ = {
 			isa = PBXGroup;
 			children = (
+				C48407FE21759A09000A4E18 /* README.md */,
 				C4AA7BF11FD2A7BE00040720 /* AKRenderTap.h */,
 				C4AA7BF21FD2A7BE00040720 /* AKRenderTap.m */,
 			);
@@ -4917,6 +4920,7 @@
 		C4AA7BF81FD2A7C000040720 /* Lazy Tap */ = {
 			isa = PBXGroup;
 			children = (
+				C48407FD217599FD000A4E18 /* README.md */,
 				C4AA7BF91FD2A7C000040720 /* AKLazyTap.h */,
 				C4AA7BFA1FD2A7C000040720 /* AKLazyTap.m */,
 			);
