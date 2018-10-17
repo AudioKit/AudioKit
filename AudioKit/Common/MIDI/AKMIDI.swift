@@ -114,6 +114,7 @@ open class AKMIDI {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
             AKLog("Error Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)")
+            CheckError(result)
         }
     }
 
@@ -127,6 +128,7 @@ open class AKMIDI {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
         } else {
             AKLog("Error Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)")
+            CheckError(result)
         }
     }
 
