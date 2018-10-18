@@ -1,12 +1,12 @@
 //
-//  AKTimelineSequencer.m
+//  AKSequencerTrack
 //  SuperSequencer
 //
-//  Created by Aurelius Prochazka on 8/11/18.
+//  Created by Aurelius Prochazka on 8/11/18. Jeff Cooper remix 201810
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#import "AKTimelineSequencer.h"
+#import "AKSequencerTrack.h"
 #import <AudioKit/AudioKit-Swift.h>
 #import "AKTimelineTap.h"
 #import <mach/mach_time.h>
@@ -21,7 +21,7 @@ struct Note {
     double beat;
 };
 
-@implementation AKTimelineSequencer {
+@implementation AKSequencerTrack {
     AKTimelineTap *tap;
     struct Note _notes[256];
     int _noteCount;
@@ -102,7 +102,7 @@ struct Note {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
-                printf("note @ %f on track %i \n", timeStamp->mSampleTime, *trackIndex);
+                printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
                 MusicDeviceMIDIEvent(instrument,
                                      notes[i].velocity == 0 ? NOTEOFF : NOTEON,
                                      notes[i].noteNumber,
@@ -176,6 +176,13 @@ struct Note {
 -(double)tempo {
     double beatsPerSecond = _beatsPerSample * _sampleRate;
     return beatsPerSecond * 60.0;
+}
+
+
+-(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration {
+    [self addNote:noteNumber velocity:velocity at:beat];
+    [self addNote:noteNumber velocity:0 at:beat + duration];
+    return _noteCount;
 }
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
