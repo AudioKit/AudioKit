@@ -38,6 +38,7 @@ struct Note {
 
 @synthesize maximumPlayCount = _maximumPlays;
 @synthesize trackIndex = _trackIndex;
+@synthesize multiplier = _multiplier;
 
 -(instancetype)init {
     return [self initWithNode:nil];
@@ -56,6 +57,7 @@ struct Note {
         _maximumPlays = 0;
         _noteCount = 0;
         _trackIndex = index;
+        _multiplier = 1;
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
@@ -72,6 +74,7 @@ struct Note {
     int *maximumPlays = &_maximumPlays;
     int *noteCount = &_noteCount;
     int *trackIndex = &_trackIndex;
+    double *multiplier = &_multiplier;
     double *lastTriggerTime = &_lastTriggerTime;
     __block Float64 *startOffset = &_startOffset;
 
@@ -98,7 +101,7 @@ struct Note {
         }
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = notes[i].sampleTime;
+            double triggerTime = notes[i].sampleTime * *multiplier;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {

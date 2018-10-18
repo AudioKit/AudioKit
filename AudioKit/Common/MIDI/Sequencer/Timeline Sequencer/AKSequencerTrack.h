@@ -24,6 +24,7 @@
 
 @property int maximumPlayCount;
 @property int trackIndex;
+@property double multiplier;
 
 /// Is metronome playing.
 @property (readonly) BOOL isPlaying;
