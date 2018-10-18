@@ -34,6 +34,7 @@ struct Note {
     BOOL _hasSound;
     AudioUnit _audioUnit;
     Float64 _startOffset;
+    int _index;
 }
 
 @synthesize maximumPlayCount = _maximumPlays;
@@ -42,7 +43,11 @@ struct Note {
     return [self initWithNode:nil];
 }
 
-- (instancetype)initWithNode:(AKNode *)node {
+- (instancetype)initWithNode:(AKNode *)node{
+    return [self initWithNode:node index:0];
+}
+
+- (instancetype)initWithNode:(AKNode *)node index:(int)index{
     self = [super init];
     if (self) {
         _sampleRate = 44100;
@@ -50,8 +55,8 @@ struct Note {
         _playCount = 0;
         _maximumPlays = 0;
         _noteCount = 0;
+        _index = index;
         [self resetStartOffset];
-
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
         _beatCount = 4;
@@ -96,6 +101,7 @@ struct Note {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
+                printf("note @ %f on track %i \n", timeStamp->mSampleTime, _index);
                 MusicDeviceMIDIEvent(instrument,
                                      notes[i].velocity == 0 ? NOTEOFF : NOTEON,
                                      notes[i].noteNumber,
@@ -197,6 +203,7 @@ struct Note {
     _noteCount = 0;
     _playCount = 0;
 }
+
 -(void)play {
     _playCount = 0;
     [self playAt: nil];
