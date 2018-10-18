@@ -1148,10 +1148,8 @@
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 		FEC79455217433ED00587D5A /* AKPolyphonicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC79454217433ED00587D5A /* AKPolyphonicNode.swift */; };
 		FEC79473217438D000587D5A /* AKSequenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC7946E217438D000587D5A /* AKSequenceable.swift */; };
-		FEC79474217438D000587D5A /* AKInstrumentSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC7946F217438D000587D5A /* AKInstrumentSequencer.swift */; };
-		FEC79475217438D000587D5A /* AKTimelineSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC79470217438D000587D5A /* AKTimelineSequencer.m */; };
-		FEC79476217438D000587D5A /* AKSequencerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC79471217438D000587D5A /* AKSequencerTrack.swift */; };
-		FEC79477217438D000587D5A /* AKTimelineSequencer.h in Headers */ = {isa = PBXBuildFile; fileRef = FEC79472217438D000587D5A /* AKTimelineSequencer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEC79475217438D000587D5A /* AKSequencerTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = FEC79470217438D000587D5A /* AKSequencerTrack.m */; };
+		FEC79477217438D000587D5A /* AKSequencerTrack.h in Headers */ = {isa = PBXBuildFile; fileRef = FEC79472217438D000587D5A /* AKSequencerTrack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FED92BE31ED1331D00E93264 /* AKSamplePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */; };
 		FED92BE41ED1331D00E93264 /* AKSamplePlayerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = FED92BE01ED1331D00E93264 /* AKSamplePlayerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FED92BE51ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */; };
@@ -2385,10 +2383,8 @@
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 		FEC79454217433ED00587D5A /* AKPolyphonicNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPolyphonicNode.swift; sourceTree = "<group>"; };
 		FEC7946E217438D000587D5A /* AKSequenceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequenceable.swift; sourceTree = "<group>"; };
-		FEC7946F217438D000587D5A /* AKInstrumentSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInstrumentSequencer.swift; sourceTree = "<group>"; };
-		FEC79470217438D000587D5A /* AKTimelineSequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTimelineSequencer.m; sourceTree = "<group>"; };
-		FEC79471217438D000587D5A /* AKSequencerTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrack.swift; sourceTree = "<group>"; };
-		FEC79472217438D000587D5A /* AKTimelineSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimelineSequencer.h; sourceTree = "<group>"; };
+		FEC79470217438D000587D5A /* AKSequencerTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSequencerTrack.m; sourceTree = "<group>"; };
+		FEC79472217438D000587D5A /* AKSequencerTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequencerTrack.h; sourceTree = "<group>"; };
 		FED92BDF1ED1331D00E93264 /* AKSamplePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSamplePlayer.swift; sourceTree = "<group>"; };
 		FED92BE01ED1331D00E93264 /* AKSamplePlayerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSamplePlayerAudioUnit.h; sourceTree = "<group>"; };
 		FED92BE11ED1331D00E93264 /* AKSamplePlayerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSamplePlayerAudioUnit.mm; sourceTree = "<group>"; };
@@ -5200,11 +5196,9 @@
 		FEC7946D217438D000587D5A /* Timeline Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				FEC79472217438D000587D5A /* AKTimelineSequencer.h */,
-				FEC79470217438D000587D5A /* AKTimelineSequencer.m */,
-				FEC7946F217438D000587D5A /* AKInstrumentSequencer.swift */,
+				FEC79472217438D000587D5A /* AKSequencerTrack.h */,
+				FEC79470217438D000587D5A /* AKSequencerTrack.m */,
 				FEC7946E217438D000587D5A /* AKSequenceable.swift */,
-				FEC79471217438D000587D5A /* AKSequencerTrack.swift */,
 				FE55216421781DD700A53DEA /* AKSeq.swift */,
 			);
 			path = "Timeline Sequencer";
@@ -5405,7 +5399,7 @@
 				C41910302009A8540067B5E0 /* AKStereoFieldLimiterDSP.hpp in Headers */,
 				C49B155B204A06B8009C7C8E /* Whistle.h in Headers */,
 				C457CBF6213C6D6500AFDEBC /* WaveStack.hpp in Headers */,
-				FEC79477217438D000587D5A /* AKTimelineSequencer.h in Headers */,
+				FEC79477217438D000587D5A /* AKSequencerTrack.h in Headers */,
 				C44A816A200AF6B300D1CCC2 /* AKPWMOscillatorDSP.hpp in Headers */,
 				C45380551C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				C4077BEF2009875200E5923C /* AKFlatFrequencyResponseReverbDSP.hpp in Headers */,
@@ -5806,7 +5800,7 @@
 				F4CA857F1EB666260066BE5C /* AKTuningTable+CombinationProductSet.swift in Sources */,
 				C49B147A204A06B8009C7C8E /* pluck.c in Sources */,
 				C49B1404204A06B7009C7C8E /* bar.c in Sources */,
-				FEC79475217438D000587D5A /* AKTimelineSequencer.m in Sources */,
+				FEC79475217438D000587D5A /* AKSequencerTrack.m in Sources */,
 				C4775855202FDC2600159BA7 /* AKFMOscillatorDSP.mm in Sources */,
 				C4A43290200618410005BFE4 /* AKCostelloReverbAudioUnit.swift in Sources */,
 				EA03BFC8201DD29000E8BE2C /* AKDSPBase.mm in Sources */,
@@ -6267,7 +6261,6 @@
 				C4077BE82009873D00E5923C /* AKCombFilterReverb.mm in Sources */,
 				34BB6754205AC238000E5450 /* pack_dsd.c in Sources */,
 				C49B1454204A06B7009C7C8E /* osc.c in Sources */,
-				FEC79476217438D000587D5A /* AKSequencerTrack.swift in Sources */,
 				C49B1455204A06B7009C7C8E /* butbr.c in Sources */,
 				C4171899202837320060BC00 /* AKLowPassButterworthFilterDSP.mm in Sources */,
 				C4537FD31C3A438D00A51738 /* AKLowPassFilter.swift in Sources */,
@@ -6398,7 +6391,6 @@
 				C4537FCB1C3A438D00A51738 /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4EF3D10201490D7001D890F /* AKAmplitudeEnvelope.swift in Sources */,
 				C4CC34121D1DF4D30066DDCC /* AKMIDINode.swift in Sources */,
-				FEC79474217438D000587D5A /* AKInstrumentSequencer.swift in Sources */,
 				C49B13DE204A06B7009C7C8E /* random.c in Sources */,
 				C4077B32200878AD00E5923C /* AKPeakingParametricEqualizerFilterAudioUnit.swift in Sources */,
 				C4537FC11C3A438D00A51738 /* AKFormantFilter.swift in Sources */,

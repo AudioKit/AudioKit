@@ -10,14 +10,13 @@ import Foundation
 
 open class AKSeq {
     
-    public var tracks = [AKTimelineSequencer]()
+    public var tracks = [AKSequencerTrack]()
     var timeline = AKTimeline()
 
     public func play() {
         for track in tracks {
             track.play()
         }
-        print("playing \(tracks.count) tracks")
     }
     
     public func stop() {
@@ -40,9 +39,8 @@ open class AKSeq {
     public init(nodes: [AKNode]) {
         var i = 0
         for node in nodes {
-            tracks.append(AKTimelineSequencer(node: node, index: Int32(i)))
+            tracks.append(AKSequencerTrack(node: node, index: Int32(i)))
             i += 1
         }
-        print("initin w \(i) nodes")
     }
 }

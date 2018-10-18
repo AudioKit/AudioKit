@@ -1,5 +1,5 @@
 //
-//  AKTimelineSequencer.h
+//  AKSequencerTrack.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
@@ -11,7 +11,7 @@
 @class AKNode;
 
 /// A Sequencer that can be synchronized precisely.
-@interface AKTimelineSequencer : NSObject
+@interface AKSequencerTrack : NSObject
 
 /// Tempo in Beats Per Minute
 @property double tempo;
@@ -46,6 +46,7 @@
 
 /// Add a note to be sequenced
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;
+-(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration;
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;
 
 /**
