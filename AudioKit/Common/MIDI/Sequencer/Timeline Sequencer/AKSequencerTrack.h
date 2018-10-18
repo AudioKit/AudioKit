@@ -25,6 +25,7 @@
 @property int maximumPlayCount;
 @property int trackIndex;
 @property double multiplier;
+@property int noteOffset;
 
 /// Is metronome playing.
 @property (readonly) BOOL isPlaying;
@@ -86,5 +87,6 @@
  @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
  */
 -(double)beatTimeAtTime:(AVAudioTime * _Nullable)audioTime;
+-(void)stopAllNotes;
 
 @end

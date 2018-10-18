@@ -39,6 +39,7 @@ struct Note {
 @synthesize maximumPlayCount = _maximumPlays;
 @synthesize trackIndex = _trackIndex;
 @synthesize multiplier = _multiplier;
+@synthesize noteOffset = _noteOffset;
 
 -(instancetype)init {
     return [self initWithNode:nil];
@@ -58,6 +59,7 @@ struct Note {
         _noteCount = 0;
         _trackIndex = index;
         _multiplier = 1;
+        _noteOffset = 0;
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
@@ -74,6 +76,7 @@ struct Note {
     int *maximumPlays = &_maximumPlays;
     int *noteCount = &_noteCount;
     int *trackIndex = &_trackIndex;
+    int *noteOffset = &_noteOffset;
     double *multiplier = &_multiplier;
     double *lastTriggerTime = &_lastTriggerTime;
     __block Float64 *startOffset = &_startOffset;
@@ -105,10 +108,10 @@ struct Note {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
-                printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
+                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
                 MusicDeviceMIDIEvent(instrument,
                                      notes[i].velocity == 0 ? NOTEOFF : NOTEON,
-                                     notes[i].noteNumber,
+                                     notes[i].noteNumber + *noteOffset,
                                      notes[i].velocity,
                                      triggerTime - startSample + offset);
             }
