@@ -27,7 +27,7 @@ open class AKSeq {
 
     public func seek(to beat: Double, at time: AVAudioTime) {
         for track in tracks {
-            track.setBeatTime(beat, at: time)
+            track.seek(to: beat, at: time)
         }
     }
     
@@ -39,7 +39,7 @@ open class AKSeq {
     public init(nodes: [AKNode]) {
         var i = 0
         for node in nodes {
-            tracks.append(AKSequencerTrack(node: node, index: Int32(i)))
+            tracks.append(AKSequencerTrack(target: node, index: i))
             i += 1
         }
     }

@@ -1,8 +1,8 @@
 //
-//  AKSequencerTrack.h
+//  AKSequencerTrackEngine.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Created by Aurelius Prochazka, Jeff Cooper remix 20181018 revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 @class AKNode;
 
 /// A Sequencer that can be synchronized precisely.
-@interface AKSequencerTrack : NSObject
+@interface AKSequencerTrackEngine : NSObject
 
 /// Tempo in Beats Per Minute
 @property double tempo;
