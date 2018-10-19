@@ -380,6 +380,8 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
     float pitchDev = this->pitchOffset + vibratoDepth * _private->vibratoLFO.getSample();
     float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
     
+    bool allowSampleRunout = !(isMonophonic && isLegato);
+
     AudioKitCore::SamplerVoice *pVoice = &_private->voice[0];
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
     {
@@ -389,7 +391,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
             if (stoppingAllVoices ||
                 pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul,
                                          cutoffEnvelopeStrength, linearResonance) ||
-                pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
+                (pVoice->getSamples(sampleCount, pOutLeft, pOutRight) && allowSampleRunout))
             {
                 stopNote(nn, true);
             }

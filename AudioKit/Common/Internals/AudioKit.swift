@@ -20,10 +20,26 @@ public typealias AKCallback = () -> Void
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
+    #if !os(macOS)
+    static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+    #else
+    static let deviceSampleRate: Double = 44_100
+    #endif
+
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc public static let engine = AVAudioEngine()
+    @objc public static internal(set) var engine: AVAudioEngine {
+        get {
+            _ = AudioKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
+            return _engine
+        }
+        set {
+            _engine = newValue
+        }
+    }
+
+    static internal(set) var _engine = AVAudioEngine()
 
     /// Reference to singleton MIDI
 

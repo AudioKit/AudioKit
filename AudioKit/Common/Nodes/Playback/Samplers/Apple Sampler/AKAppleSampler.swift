@@ -60,9 +60,10 @@ open class AKAppleSampler: AKNode {
     /// Initialize the sampler node
     override public init() {
         super.init()
+        avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AudioKit.engine.attach(self.avAudioNode)
+        AudioKit.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
 
