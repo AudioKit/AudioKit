@@ -88,8 +88,8 @@ public class AKDynamicPlayer: AKPlayer {
 
         if let timePitchNode = timePitchNode, let faderNode = faderNode {
             AudioKit.connect(playerNode, to: timePitchNode.avAudioNode, format: processingFormat)
-            AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioNode, format: processingFormat)
-            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+            AudioKit.connect(timePitchNode.avAudioNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
+            AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
             timePitchNode.bypass() // bypass timePitch by default to save CPU
             AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting timePitch and fader")
 
@@ -101,8 +101,8 @@ public class AKDynamicPlayer: AKPlayer {
 
         } else if let faderNode = faderNode {
             // if the timePitchNode isn't created connect the player directly to the faderNode
-            AudioKit.connect(playerNode, to: faderNode.avAudioNode, format: processingFormat)
-            AudioKit.connect(faderNode.avAudioNode, to: mixer, format: processingFormat)
+            AudioKit.connect(playerNode, to: faderNode.avAudioUnitOrNode, format: processingFormat)
+            AudioKit.connect(faderNode.avAudioUnitOrNode, to: mixer, format: processingFormat)
             AKLog(audioFile?.url.lastPathComponent ?? "URL is nil", processingFormat, "Connecting fader")
 
         } else {
@@ -113,11 +113,15 @@ public class AKDynamicPlayer: AKPlayer {
 
     private func removeTimePitch() {
         guard let timePitchNode = timePitchNode else { return }
+        let wasPlaying = isPlaying
         stop()
         timePitchNode.disconnectOutput()
         AudioKit.detach(nodes: [timePitchNode.avAudioNode])
         self.timePitchNode = nil
         initialize()
+        if wasPlaying {
+            play()
+        }
     }
 
     public override func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {

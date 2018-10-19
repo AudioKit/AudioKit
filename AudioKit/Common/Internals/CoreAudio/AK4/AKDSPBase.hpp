@@ -92,7 +92,7 @@ public:
     virtual bool isPlaying() { return _playing; }
     virtual bool isSetup() { return _initialized; }
 
-
+    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
