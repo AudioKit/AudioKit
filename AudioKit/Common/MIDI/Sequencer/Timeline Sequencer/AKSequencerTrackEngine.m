@@ -1,12 +1,12 @@
 //
-//  AKSequencerTrack
+//  AKSequencerInternalTrack
 //  SuperSequencer
 //
 //  Created by Aurelius Prochazka on 8/11/18. Jeff Cooper remix 201810
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#import "AKSequencerTrack.h"
+#import "AKSequencerTrackEngine.h"
 #import <AudioKit/AudioKit-Swift.h>
 #import "AKTimelineTap.h"
 #import <mach/mach_time.h>
@@ -21,7 +21,7 @@ struct Note {
     double beat;
 };
 
-@implementation AKSequencerTrack {
+@implementation AKSequencerTrackEngine {
     AKTimelineTap *tap;
     struct Note _notes[256];
     int _noteCount;
