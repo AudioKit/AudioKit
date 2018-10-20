@@ -133,44 +133,13 @@ struct MIDINote {
 }
 
 -(void)setLengthInBeats:(double)lengthInBeats atTime:(AVAudioTime *)audioTime{
-    AudioTimeStamp timeStamp = [self getValidTimestamp:audioTime];
-    _lengthInBeats = lengthInBeats;
 
     //Store the last beatsPerSample before updating, needed to maintain current beat is running.
     double lastBeatsPerSample = _beatsPerSample;
 
-    Float64 newLoopEnd = _lengthInBeats / _beatsPerSample;
-
-    // Get the current sampleTime in the timeline.
-    Float64 lastSampleTime = AKTimelineTimeAtTime(tap.timeline, AudioTimeNow());
-
-    //Manually roll loop if beat change puts us past loop end.
-    if (lastSampleTime > newLoopEnd) {
-        lastSampleTime -= newLoopEnd;
-    }
-
-    // Calculate the beat of sample time at the last tempo.
-    double lastBeat = lastSampleTime * lastBeatsPerSample;
-
-    // Calculate the new sample time for last beat.
-    double newSampleTime = lastBeat / _beatsPerSample;
-
-    // This data will be read from the render thread, so there is a posibility of
-    // misfires because we are not writing to it on the main thread.
-    for (int i = 0; i < _noteCount; i++) {
-        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
-    }
-
-    // If timeline is stopped, no need to synchronize with previous timing.
-    if (!AKTimelineIsStarted(tap.timeline)) {
-        AKTimelineSetTime(tap.timeline, newSampleTime);
-        AKTimelineSetLoop(tap.timeline, 0, newLoopEnd);
-        return;
-    }
-
-    // Timeline is running so we need to get use the reference time to make
-    // sure we pick up where we left off.
-    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, timeStamp);
+    AudioTimeStamp timeStamp = [self getValidTimestamp:audioTime];
+    _lengthInBeats = lengthInBeats;
+    [self resetTimeLine:lastBeatsPerSample atTime:timeStamp];
 }
 
 -(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
@@ -182,39 +151,7 @@ struct MIDINote {
     double beatsPerSecond = bpm / 60.0;
     _beatsPerSample = beatsPerSecond / _sampleRate;
     _lengthInBeats = beats;
-
-    Float64 newLoopEnd = _lengthInBeats / _beatsPerSample;
-
-    // Get the current sampleTime in the timeline.
-    Float64 lastSampleTime = AKTimelineTimeAtTime(tap.timeline, timeStamp);
-
-    //Manually roll loop if beat change puts us past loop end.
-    if (lastSampleTime > newLoopEnd) {
-        lastSampleTime -= newLoopEnd;
-    }
-
-    // Calculate the beat of sample time at the last tempo.
-    double lastBeat = lastSampleTime * lastBeatsPerSample;
-
-    // Calculate the new sample time for last beat.
-    double newSampleTime = lastBeat / _beatsPerSample;
-
-    // This data will be read from the render thread, so there is a posibility of
-    // misfires because we are not writing to it on the main thread.
-    for (int i = 0; i < _noteCount; i++) {
-        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
-    }
-
-    // If timeline is stopped, no need to synchronize with previous timing.
-    if (!AKTimelineIsStarted(tap.timeline)) {
-        AKTimelineSetTime(tap.timeline, newSampleTime);
-        AKTimelineSetLoop(tap.timeline, 0, newLoopEnd);
-        return;
-    }
-
-    // Timeline is running so we need to get use the reference time to make
-    // sure we pick up where we left off.
-    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, timeStamp);
+    [self resetTimeLine:lastBeatsPerSample atTime:timeStamp];
 }
 
 -(BOOL)isPlaying {
@@ -241,7 +178,6 @@ struct MIDINote {
     double beatsPerSecond = _beatsPerSample * _sampleRate;
     return beatsPerSecond * 60.0;
 }
-
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration {
     [self addNote:noteNumber velocity:velocity at:beat];
@@ -322,6 +258,7 @@ struct MIDINote {
 -(AudioTimeStamp)getValidTimestamp:(AVAudioTime *)audioTime{
     return audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
 }
+
 -(void)setBeatCount:(double)length atTime:(AVAudioTime *)audioTime{
     if (length > 32) {
         NSLog(@"Beats must be <= 32");
@@ -350,6 +287,42 @@ struct MIDINote {
 
 -(void)resetStartOffset {
     _startOffset = -1.f;
+}
+
+-(void)resetTimeLine:(double)lastBeatsPerSample atTime:(AudioTimeStamp)timeStamp {
+
+    Float64 newLoopEnd = _lengthInBeats / _beatsPerSample;
+
+    // Get the current sampleTime in the timeline.
+    Float64 lastSampleTime = AKTimelineTimeAtTime(tap.timeline, AudioTimeNow());
+
+    //Manually roll loop if beat change puts us past loop end.
+    if (lastSampleTime > newLoopEnd) {
+        lastSampleTime -= newLoopEnd;
+    }
+
+    // Calculate the beat of sample time at the last tempo.
+    double lastBeat = lastSampleTime * lastBeatsPerSample;
+
+    // Calculate the new sample time for last beat.
+    double newSampleTime = lastBeat / _beatsPerSample;
+
+    // This data will be read from the render thread, so there is a posibility of
+    // misfires because we are not writing to it on the main thread.
+    for (int i = 0; i < _noteCount; i++) {
+        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
+    }
+
+    // If timeline is stopped, no need to synchronize with previous timing.
+    if (!AKTimelineIsStarted(tap.timeline)) {
+        AKTimelineSetTime(tap.timeline, newSampleTime);
+        AKTimelineSetLoop(tap.timeline, 0, newLoopEnd);
+        return;
+    }
+
+    // Timeline is running so we need to get use the reference time to make
+    // sure we pick up where we left off.
+    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, timeStamp);
 }
 
 static AudioTimeStamp AudioTimeNow(void) {
