@@ -46,19 +46,20 @@ struct MIDINote {
 @synthesize maximumPlayCount = _maximumPlayCount;
 @synthesize trackIndex = _trackIndex;
 @synthesize timeMultiplier = _timeMultiplier;
-@synthesize noteOffset = _noteOffset;
 @synthesize lengthInBeats = _lengthInBeats;
 @synthesize tempo = _tempo;
+@synthesize noteOffset = _noteOffset;
+@synthesize velocityScaling = _velocityScaling;
 
 -(instancetype)init {
-    return [self initWithNode:nil];
+    return [self initWith:nil];
 }
 
-- (instancetype)initWithNode:(AKNode *)node{
-    return [self initWithNode:node index:arc4random_uniform(333)];
+- (instancetype)initWith:(AKNode *)node{
+    return [self initWith:node index:arc4random_uniform(333)];
 }
 
-- (instancetype)initWithNode:(AKNode *)node index:(int)index{
+- (instancetype)initWith:(AKNode *)node index:(int)index{
     self = [super init];
     if (self) {
         _sampleRate = 44100;
@@ -69,6 +70,7 @@ struct MIDINote {
         _trackIndex = index;
         _timeMultiplier = 1;
         _noteOffset = 0;
+        _velocityScaling = 1.0;
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
@@ -84,9 +86,10 @@ struct MIDINote {
     int *playCount = &_playCount;
     int *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
-    int *trackIndex = &_trackIndex;
+//    int *trackIndex = &_trackIndex;
     __block Float64 *lastStartSample = &_lastStartSample;
     int *noteOffset = &_noteOffset;
+    double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
     __block Float64 *startOffset = &_startOffset;
 
@@ -115,7 +118,9 @@ struct MIDINote {
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
                 MusicDeviceMIDIEvent(instrument,
-                                     events[i].status, events[i].data1, events[i].data2,
+                                     events[i].status,
+                                     events[i].data1 + *noteOffset,
+                                     events[i].data2 * *velocityScaling,
                                      triggerTime - startSample + offset);
             }
         }
