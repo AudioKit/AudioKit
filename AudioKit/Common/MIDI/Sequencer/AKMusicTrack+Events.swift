@@ -25,13 +25,15 @@ extension AKMusicTrack {
                 if event.type == kMusicEventType_MIDIChannelMessage {
                     let data = UnsafePointer<MIDIChannelMessage>(event.data?.assumingMemoryBound(to: MIDIChannelMessage.self))
                     guard let data1 = data?.pointee.data1,
-                        let statusData = data?.pointee.status else {
+                        let statusData: MIDIByte = data?.pointee.status else {
                             break
                     }
-                    let status = statusData & 0xF0
-                    if Int(status) / 16 == AKMIDIStatus.programChange.rawValue {
-                        let pgmEvent = MIDIProgramChangeEvent(time: event.time, number: data1)
-                        pgmEvents.append(pgmEvent)
+                    if let status = statusData.status,
+                        let channel = statusData.channel {
+                        if status == .programChange {
+                            let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
+                            pgmEvents.append(pgmEvent)
+                        }
                     }
                 }
             }
@@ -72,12 +74,14 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi channel message")
                         return
                 }
-                let status = statusData & 0xF0
-                switch Int(status) / 16 {
-                case AKMIDIStatus.programChange.rawValue:
-                    print("MIDI Program Change @ \(event.time) - program: \(data1)")
-                default:
-                    print("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(status)")
+                if let status = statusData.status,
+                    let channel = statusData.channel {
+                    switch status {
+                    case .programChange:
+                        print("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(channel)")
+                    default:
+                        print("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(status)")
+                    }
                 }
             default:
                 print("MIDI Event @ \(event.time)")
@@ -128,5 +132,6 @@ public struct AppleMIDIEvent {
 
 public struct MIDIProgramChangeEvent {
     var time: MusicTimeStamp
-    var number: UInt8
+    var channel: MIDIChannel
+    var number: MIDIByte
 }
