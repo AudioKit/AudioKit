@@ -106,12 +106,6 @@ struct MIDINote {
         Float64 startSample = timeStamp->mSampleTime - *startOffset;
         Float64 endSample = startSample + inNumberFrames;
 
-        if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
-            //lastStartSample = startSample;
-            [self stop];
-            return;
-        }
-
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = _events[i].sampleTime * *timeMultiplier;
 
@@ -124,8 +118,12 @@ struct MIDINote {
                                      triggerTime - startSample + offset);
             }
         }
-        if (startSample < *lastStartSample) { //Hack
+        if (startSample < *lastStartSample) { //should loop
             *playCount += 1;
+            if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
+                [self stop];
+                return;
+            }
         }
         *lastStartSample = startSample;
     };
