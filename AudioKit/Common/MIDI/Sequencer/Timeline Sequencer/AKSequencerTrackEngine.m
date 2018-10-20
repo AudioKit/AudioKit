@@ -14,13 +14,6 @@
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
-struct Note {
-    double sampleTime;
-    uint8_t noteNumber;
-    uint8_t velocity;
-    double beat;
-};
-
 struct MIDIEvent {
     double sampleTime;
     uint8_t status;
@@ -28,6 +21,12 @@ struct MIDIEvent {
     uint8_t data2;
     double beat;
 };
+
+struct MIDINote {
+    struct MIDIEvent noteOn;
+    struct MIDIEvent noteOff;
+};
+
 
 @implementation AKSequencerTrackEngine {
     AKTimelineTap *tap;
