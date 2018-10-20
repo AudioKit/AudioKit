@@ -11,7 +11,7 @@ import Foundation
 public class AKSequencerTrack {
 
     var engine: AKSequencerTrackEngine!
-    var lengthInBeats: Double = 1 {
+    var lengthInBeats: Double = 4 {
         didSet {
             engine.lengthInBeats = lengthInBeats
         }
@@ -47,8 +47,8 @@ public class AKSequencerTrack {
         }
     }
 
-    init(target node: AKNode, index: Int = 0) {
-        engine = AKSequencerTrackEngine(node: node, index: Int32(index))
+    init(_ node: AKNode, index: Int = 0) {
+        engine = AKSequencerTrackEngine(node, index: Int32(index))
     }
 
     public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, at: Double, duration: Double){
