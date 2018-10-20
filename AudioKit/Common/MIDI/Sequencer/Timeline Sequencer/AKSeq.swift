@@ -44,17 +44,10 @@ open class AKSeq {
     public func seek(to beat: Double, at time: AVAudioTime) {
         tracks.forEach { $0.seek(to: beat, at: time) }
     }
-    
-    public convenience init(node: AKNode) {
-        let nodes = [AKNode]([node])
-        self.init(nodes: nodes)
-    }
 
-    public init(nodes: [AKNode]) {
-        var i = 0
-        for node in nodes {
-            tracks.append(AKSequencerTrack(target: node, index: i))
-            i += 1
+    public init(_ nodes: AKNode...) {
+        for (index, node) in nodes.enumerated() {
+            tracks.append(AKSequencerTrack(node, index: index))
         }
     }
 }
