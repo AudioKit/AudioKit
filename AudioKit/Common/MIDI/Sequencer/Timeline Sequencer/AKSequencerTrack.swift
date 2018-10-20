@@ -21,6 +21,11 @@ public class AKSequencerTrack {
             engine.tempo = tempo
         }
     }
+    var loopEnabled: Bool = true {
+        didSet {
+            engine.maximumPlayCount = loopEnabled ? 0 : 1
+        }
+    }
     public var trackID: Int = 0
     public var events: [AKMIDIEvent] {
         return _events

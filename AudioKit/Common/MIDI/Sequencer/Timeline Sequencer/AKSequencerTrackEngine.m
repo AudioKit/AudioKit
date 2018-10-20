@@ -37,13 +37,14 @@ struct MIDINote {
     double _sampleRate;
     double _lengthInBeats;
     int _playCount;
-    int _maximumPlays;
+    int _maximumPlayCount;
     BOOL _hasSound;
     AudioUnit _audioUnit;
     Float64 _startOffset;
+    Float64 _lastStartSample;
 }
 
-@synthesize maximumPlayCount = _maximumPlays;
+@synthesize maximumPlayCount = _maximumPlayCount;
 @synthesize trackIndex = _trackIndex;
 @synthesize timeMultiplier = _timeMultiplier;
 @synthesize noteOffset = _noteOffset;
@@ -64,7 +65,7 @@ struct MIDINote {
         _sampleRate = 44100;
         _audioUnit = [[node avAudioUnit] audioUnit];
         _playCount = 0;
-        _maximumPlays = 0;
+        _maximumPlayCount = 0;
         _noteCount = 0;
         _trackIndex = index;
         _timeMultiplier = 1;
@@ -76,6 +77,61 @@ struct MIDINote {
         [self setTempo:120];
     }
     return self;
+}
+
+-(AKTimelineBlock)timelineBlock {
+    AudioUnit instrument = _audioUnit;
+    struct MIDIEvent *events = _events;
+    int *playCount = &_playCount;
+    int *maximumPlayCount = &_maximumPlayCount;
+    int *noteCount = &_noteCount;
+    int *trackIndex = &_trackIndex;
+    __block Float64 *lastStartSample = &_lastStartSample;
+    int *noteOffset = &_noteOffset;
+    double *timeMultiplier = &_timeMultiplier;
+    double *lastTriggerTime = &_lastTriggerTime;
+    __block Float64 *startOffset = &_startOffset;
+
+    return ^(AKTimeline         *timeline,
+             AudioTimeStamp     *timeStamp,
+             UInt32             offset,
+             UInt32             inNumberFrames,
+             AudioBufferList    *ioData) {
+
+        if (*startOffset < 0) {
+            *startOffset = timeStamp->mSampleTime;
+        }
+
+        Float64 startSample = timeStamp->mSampleTime - *startOffset;
+        Float64 endSample = startSample + inNumberFrames;
+
+        if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
+            //lastStartSample = startSample;
+            [self stop];
+            return;
+        }
+
+        for (int i = 0; i < *noteCount; i++) {
+            double triggerTime = _events[i].sampleTime * *timeMultiplier;
+
+            if(((startSample <= triggerTime && triggerTime < endSample)))
+            {
+//                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
+//                MusicDeviceMIDIEvent(instrument,
+//                                     events[i].velocity == 0 ? NOTEOFF : NOTEON,
+//                                     notes[i].noteNumber + *noteOffset,
+//                                     notes[i].velocity,
+//                                     triggerTime - startSample + offset);
+                MusicDeviceMIDIEvent(instrument,
+                                     events[i].status, events[i].data1, events[i].data2,
+                                     triggerTime - startSample + offset);
+            }
+        }
+        if (startSample < *lastStartSample) { //Hack
+            *playCount += 1;
+        }
+        *lastStartSample = startSample;
+    };
 }
 
 -(void)setLengthInBeats:(double)lengthInBeats {
@@ -116,59 +172,6 @@ struct MIDINote {
     // Timeline is running so we need to get use the reference time to make
     // sure we pick up where we left off.
     AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, AudioTimeNow());
-}
-
--(AKTimelineBlock)timelineBlock {
-    AudioUnit instrument = _audioUnit;
-    struct MIDIEvent *events = _events;
-    int *playCount = &_playCount;
-    int *maximumPlays = &_maximumPlays;
-    int *noteCount = &_noteCount;
-    int *trackIndex = &_trackIndex;
-    int *noteOffset = &_noteOffset;
-    double *timeMultiplier = &_timeMultiplier;
-    double *lastTriggerTime = &_lastTriggerTime;
-    __block Float64 *startOffset = &_startOffset;
-
-    return ^(AKTimeline         *timeline,
-             AudioTimeStamp     *timeStamp,
-             UInt32             offset,
-             UInt32             inNumberFrames,
-             AudioBufferList    *ioData) {
-
-        if (*startOffset < 0) {
-            *startOffset = timeStamp->mSampleTime;
-        }
-
-        Float64 startSample = timeStamp->mSampleTime - *startOffset;
-        Float64 endSample = startSample + inNumberFrames;
-
-        if (startSample > *lastTriggerTime) { //Hack
-            *playCount += 1;
-        }
-
-        if (*maximumPlays != 0 && *playCount >= *maximumPlays) {
-            [self stop];
-            return;
-        }
-
-        for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = _events[i].sampleTime * *timeMultiplier;
-
-            if(((startSample <= triggerTime && triggerTime < endSample)))
-            {
-//                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
-//                MusicDeviceMIDIEvent(instrument,
-//                                     events[i].velocity == 0 ? NOTEOFF : NOTEON,
-//                                     notes[i].noteNumber + *noteOffset,
-//                                     notes[i].velocity,
-//                                     triggerTime - startSample + offset);
-                MusicDeviceMIDIEvent(instrument,
-                                     events[i].status, events[i].data1, events[i].data2,
-                                     triggerTime - startSample + offset);
-            }
-        }
-    };
 }
 
 -(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
@@ -326,6 +329,7 @@ struct MIDINote {
     [self resetStartOffset];
     [self stopAllNotes];
     _playCount = 0;
+    _lastStartSample = 0;
     AKTimelineStop(tap.timeline);
 }
 
