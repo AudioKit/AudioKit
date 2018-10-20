@@ -16,6 +16,11 @@ open class AKSeq {
             tracks.forEach { $0.lengthInBeats = lengthInBeats }
         }
     }
+    public var tempo: Double = 120.0 {
+        didSet {
+            tracks.forEach { $0.tempo = tempo }
+        }
+    }
     
     var timeline = AKTimeline()
 
