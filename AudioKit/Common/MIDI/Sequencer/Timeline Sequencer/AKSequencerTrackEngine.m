@@ -124,7 +124,7 @@ struct MIDINote {
                                      scaledData1,
                                      scaledData2,
                                      triggerTime - startSample + offset);
-                printf("playing event %u data1:%u data2: %u \n", scaledChannelStatus, scaledData1, scaledData2);
+                //[self debugToConsole:scaledChannelStatus data1:scaledData1 data2:scaledData2];
             }
         }
         if (startSample < *lastStartSample) { //should loop
@@ -136,6 +136,10 @@ struct MIDINote {
         }
         *lastStartSample = startSample;
     };
+}
+
+-(void)debugToConsole:(UInt8)status data1:(UInt8)data1 data2:(UInt8)data2 {
+    printf("playing event %u data1:%u data2: %u \n", status, data1, data2);
 }
 
 -(double)lengthInBeats {
