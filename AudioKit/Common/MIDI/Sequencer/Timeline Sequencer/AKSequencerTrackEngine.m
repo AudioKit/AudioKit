@@ -47,19 +47,20 @@ struct MIDINote {
 @synthesize maximumPlayCount = _maximumPlayCount;
 @synthesize trackIndex = _trackIndex;
 @synthesize timeMultiplier = _timeMultiplier;
-@synthesize noteOffset = _noteOffset;
 @synthesize lengthInBeats = _lengthInBeats;
 @synthesize tempo = _tempo;
+@synthesize noteOffset = _noteOffset;
+@synthesize velocityScaling = _velocityScaling;
 
 -(instancetype)init {
-    return [self initWithNode:nil];
+    return [self initWith:nil];
 }
 
-- (instancetype)initWithNode:(AKNode *)node{
-    return [self initWithNode:node index:arc4random_uniform(333)];
+- (instancetype)initWith:(AKNode *)node{
+    return [self initWith:node index:arc4random_uniform(333)];
 }
 
-- (instancetype)initWithNode:(AKNode *)node index:(int)index{
+- (instancetype)initWith:(AKNode *)node index:(int)index{
     self = [super init];
     if (self) {
         _sampleRate = 44100;

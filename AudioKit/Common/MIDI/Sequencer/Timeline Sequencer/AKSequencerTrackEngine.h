@@ -35,8 +35,8 @@
 @property NSURL * _Nullable sound;
 @property NSURL * _Nullable melodicSound;
 
--(instancetype _Nonnull )initWithNode:(AKNode * _Nullable)node;
--(instancetype _Nonnull )initWithNode:(AKNode * _Nullable)node index:(int)index;
+-(instancetype _Nonnull )initWith:(AKNode * _Nullable)node;
+-(instancetype _Nonnull )initWith:(AKNode * _Nullable)node index:(int)index;
 
 /// Starts playback
 -(void)play;
