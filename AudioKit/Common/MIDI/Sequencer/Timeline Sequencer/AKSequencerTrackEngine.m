@@ -48,6 +48,7 @@ struct MIDINote {
 @synthesize timeMultiplier = _timeMultiplier;
 @synthesize lengthInBeats = _lengthInBeats;
 @synthesize tempo = _tempo;
+@synthesize channelOffset = _channelOffset;
 @synthesize noteOffset = _noteOffset;
 @synthesize velocityScaling = _velocityScaling;
 
@@ -69,6 +70,7 @@ struct MIDINote {
         _noteCount = 0;
         _trackIndex = index;
         _timeMultiplier = 1;
+        _channelOffset = 0;
         _noteOffset = 0;
         _velocityScaling = 1.0;
         [self resetStartOffset];
@@ -88,6 +90,7 @@ struct MIDINote {
     int *noteCount = &_noteCount;
 //    int *trackIndex = &_trackIndex;
     __block Float64 *lastStartSample = &_lastStartSample;
+    int *channelOffset = &_channelOffset;
     int *noteOffset = &_noteOffset;
     double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
@@ -111,13 +114,17 @@ struct MIDINote {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
+                UInt8 statusChannelMin = events[i].status & 0xF0;
+                UInt8 statusChannelMax = (events[i].status & 0xF0) + 16;
+                UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
                 UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
                 UInt8 scaledData2 = MIN(MAX(events[i].data2 + *velocityScaling, 0), 127);
                 MusicDeviceMIDIEvent(instrument,
-                                     events[i].status,
+                                     scaledChannelStatus,
                                      scaledData1,
                                      scaledData2,
                                      triggerTime - startSample + offset);
+                printf("playing event %u data1:%u data2: %u \n", scaledChannelStatus, scaledData1, scaledData2);
             }
         }
         if (startSample < *lastStartSample) { //should loop

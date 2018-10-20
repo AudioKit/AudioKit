@@ -27,6 +27,9 @@
 @property double timeMultiplier;
 @property double gateMultiplier;
 
+/// scale channel of note messages
+@property int channelOffset;
+
 /// Quick way to do transposition
 @property int noteOffset;
 
