@@ -63,6 +63,13 @@
 -(void)playAt:(AVAudioTime * _Nullable)audioTime;
 
 /**
+ Sets the length in beats, if audioTime is not nil and isPlaying, change will take place at audioTime.
+
+ @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
+ */
+-(void)setLengthInBeats:(double)lengthInBeats atTime:(AVAudioTime * _Nullable)audioTime;
+
+/**
  Sets the tempo, if audioTime is not nil and isPlaying, change will take place at audioTime.
 
  @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.

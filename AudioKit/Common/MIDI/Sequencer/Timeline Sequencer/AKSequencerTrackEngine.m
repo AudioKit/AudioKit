@@ -73,7 +73,7 @@ struct MIDINote {
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
-        _lengthInBeats = 4;
+        [self setLengthInBeats:4.0];
         [self setTempo:120];
     }
     return self;
@@ -116,12 +116,6 @@ struct MIDINote {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
-//                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
-//                MusicDeviceMIDIEvent(instrument,
-//                                     events[i].velocity == 0 ? NOTEOFF : NOTEON,
-//                                     notes[i].noteNumber + *noteOffset,
-//                                     notes[i].velocity,
-//                                     triggerTime - startSample + offset);
                 MusicDeviceMIDIEvent(instrument,
                                      events[i].status, events[i].data1, events[i].data2,
                                      triggerTime - startSample + offset);
@@ -134,7 +128,12 @@ struct MIDINote {
     };
 }
 
--(void)setLengthInBeats:(double)lengthInBeats {
+-(double)lengthInBeats {
+    return _lengthInBeats;
+}
+
+-(void)setLengthInBeats:(double)lengthInBeats atTime:(AVAudioTime *)audioTime{
+    AudioTimeStamp timeStamp = [self getValidTimestamp:audioTime];
     _lengthInBeats = lengthInBeats;
 
     //Store the last beatsPerSample before updating, needed to maintain current beat is running.
@@ -171,7 +170,7 @@ struct MIDINote {
 
     // Timeline is running so we need to get use the reference time to make
     // sure we pick up where we left off.
-    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, AudioTimeNow());
+    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, timeStamp);
 }
 
 -(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
@@ -232,6 +231,10 @@ struct MIDINote {
 
 -(void)setTempo:(double)bpm {
     [self setTempo:bpm atTime:nil];
+}
+
+-(void)setLengthInBeats:(double)length {
+    [self setLengthInBeats:length atTime:nil];
 }
 
 -(double)tempo {
@@ -312,10 +315,13 @@ struct MIDINote {
 }
 
 -(void)setTempo:(double)tempo atTime:(AVAudioTime *)audioTime{
-    AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
+    AudioTimeStamp timestamp = [self getValidTimestamp:audioTime];
     [self setTempo:tempo andBeats:_lengthInBeats atTime:timestamp];
 }
 
+-(AudioTimeStamp)getValidTimestamp:(AVAudioTime *)audioTime{
+    return audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
+}
 -(void)setBeatCount:(double)length atTime:(AVAudioTime *)audioTime{
     if (length > 32) {
         NSLog(@"Beats must be <= 32");
