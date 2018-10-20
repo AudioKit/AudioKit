@@ -31,6 +31,9 @@ public class AKSequencerTrack {
             engine.timeMultiplier = timeMultiplier
         }
     }
+    public var gateMultiplier: Double = 1 {
+        didSet {
+            engine.gateMultiplier = gateMultiplier
         }
     }
 
