@@ -53,6 +53,7 @@
 -(void)clear;
 
 /// Add a note to be sequenced
+-(int)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 at:(double)beat;
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration;
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;

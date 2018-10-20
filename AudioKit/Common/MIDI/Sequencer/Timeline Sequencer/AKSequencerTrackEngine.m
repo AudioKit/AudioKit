@@ -182,6 +182,18 @@ struct MIDINote {
     return beatsPerSecond * 60.0;
 }
 
+
+-(int)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 at:(double)beat{
+    _events[_noteCount].status = status;
+    _events[_noteCount].data1 = data1;
+    _events[_noteCount].data2 = data2;
+    _events[_noteCount].beat = beat;
+    _events[_noteCount].sampleTime = beat / _beatsPerSample;
+
+    _noteCount += 1;
+    return _noteCount - 1;
+}
+
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration {
     [self addNote:noteNumber velocity:velocity at:beat];
     [self addNote:noteNumber velocity:0 at:beat + duration];
@@ -189,14 +201,9 @@ struct MIDINote {
 }
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
-    _events[_noteCount].status = velocity == 0 ? NOTEOFF : NOTEON;
-    _events[_noteCount].data1 = noteNumber;
-    _events[_noteCount].data2 = velocity;
-    _events[_noteCount].beat = beat;
-    _events[_noteCount].sampleTime = beat / _beatsPerSample;
-
-    _noteCount += 1;
-    return _noteCount - 1;
+    return [self addMIDIEvent:velocity == 0 ? NOTEOFF : NOTEON
+                        data1:noteNumber data2:velocity
+                        at:beat];
 }
 
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {

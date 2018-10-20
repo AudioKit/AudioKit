@@ -51,6 +51,11 @@ public class AKSequencerTrack {
         engine = AKSequencerTrackEngine(node, index: Int32(index))
     }
 
+    public func add(event: AKMIDIEvent, at position: Double) {
+        if let status = event.status {
+            engine.addMIDIEvent(UInt8(status.rawValue), data1: event.data1, data2: event.data2, at: position)
+        }
+    }
     public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, at: Double, duration: Double){
         engine.addNote(noteNumber, velocity: velocity, at: at, duration: duration)
     }
