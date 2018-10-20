@@ -48,6 +48,7 @@ struct MIDINote {
 @synthesize timeMultiplier = _timeMultiplier;
 @synthesize noteOffset = _noteOffset;
 @synthesize lengthInBeats = _lengthInBeats;
+@synthesize tempo = _tempo;
 
 -(instancetype)init {
     return [self initWithNode:nil];

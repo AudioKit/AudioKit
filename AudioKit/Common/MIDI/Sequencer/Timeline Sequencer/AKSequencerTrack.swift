@@ -18,7 +18,7 @@ public class AKSequencerTrack {
     }
     var tempo: Double = 120 {
         didSet {
-            
+            engine.tempo = tempo
         }
     }
     public var trackID: Int = 0
