@@ -16,8 +16,8 @@
 /// Tempo in Beats Per Minute
 @property double tempo;
 
-/// The number of beats in the sequence.
-@property int beatCount;
+/// The length of the sequence.
+@property double lengthInBeats;
 
 /// The current playback position of the sequence, in beats.
 @property double beatTime;
@@ -73,7 +73,7 @@
 
  @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
  */
--(void)setBeatCount:(int)beatCount atTime:(AVAudioTime * _Nullable)audioTime;
+-(void)setBeatCount:(double)beatCount atTime:(AVAudioTime * _Nullable)audioTime;
 
 /** Sets the beatTime, if audioTime is not nil and isPlaying, change will take place at audioTime.
 
