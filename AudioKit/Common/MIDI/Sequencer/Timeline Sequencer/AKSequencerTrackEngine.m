@@ -32,7 +32,6 @@ struct MIDINote {
     AKTimelineTap *tap;
     struct MIDIEvent _events[256];
     int _noteCount;
-    double _lastTriggerTime;
     double _beatsPerSample;
     double _sampleRate;
     double _lengthInBeats;
@@ -89,7 +88,6 @@ struct MIDINote {
     __block Float64 *lastStartSample = &_lastStartSample;
     int *noteOffset = &_noteOffset;
     double *timeMultiplier = &_timeMultiplier;
-    double *lastTriggerTime = &_lastTriggerTime;
     __block Float64 *startOffset = &_startOffset;
 
     return ^(AKTimeline         *timeline,
@@ -193,11 +191,6 @@ struct MIDINote {
     _events[_noteCount].sampleTime = beat / _beatsPerSample;
 
     _noteCount += 1;
-
-    _lastTriggerTime = 0.0;
-    for (int i = 0; i < _noteCount; i++) {
-        if (_events[i].sampleTime > _lastTriggerTime) _lastTriggerTime = _events[i].sampleTime;
-    }
     return _noteCount - 1;
 }
 
