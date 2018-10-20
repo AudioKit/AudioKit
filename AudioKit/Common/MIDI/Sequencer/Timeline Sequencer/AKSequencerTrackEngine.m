@@ -21,9 +21,17 @@ struct Note {
     double beat;
 };
 
+struct MIDIEvent {
+    double sampleTime;
+    uint8_t status;
+    uint8_t data1;
+    uint8_t data2;
+    double beat;
+};
+
 @implementation AKSequencerTrackEngine {
     AKTimelineTap *tap;
-    struct Note _notes[256];
+    struct MIDIEvent _events[256];
     int _noteCount;
     double _lastTriggerTime;
     double _beatsPerSample;
@@ -71,7 +79,7 @@ struct Note {
 
 -(AKTimelineBlock)timelineBlock {
     AudioUnit instrument = _audioUnit;
-    struct Note *notes = _notes;
+    struct MIDIEvent *events = _events;
     int *playCount = &_playCount;
     int *maximumPlays = &_maximumPlays;
     int *noteCount = &_noteCount;
@@ -104,15 +112,18 @@ struct Note {
         }
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = notes[i].sampleTime * *multiplier;
+            double triggerTime = _events[i].sampleTime * *multiplier;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
-                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
+//                //printf("note @ %llu on track %i \n", mach_absolute_time(), *trackIndex);
+//                MusicDeviceMIDIEvent(instrument,
+//                                     events[i].velocity == 0 ? NOTEOFF : NOTEON,
+//                                     notes[i].noteNumber + *noteOffset,
+//                                     notes[i].velocity,
+//                                     triggerTime - startSample + offset);
                 MusicDeviceMIDIEvent(instrument,
-                                     notes[i].velocity == 0 ? NOTEOFF : NOTEON,
-                                     notes[i].noteNumber + *noteOffset,
-                                     notes[i].velocity,
+                                     events[i].status, events[i].data1, events[i].data2,
                                      triggerTime - startSample + offset);
             }
         }
@@ -148,7 +159,7 @@ struct Note {
     // This data will be read from the render thread, so there is a posibility of
     // misfires because we are not writing to it on the main thread.
     for (int i = 0; i < _noteCount; i++) {
-        _notes[i].sampleTime = (double)_notes[i].beat / _beatsPerSample;
+        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
     }
 
     // If timeline is stopped, no need to synchronize with previous timing.
@@ -192,25 +203,26 @@ struct Note {
 }
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
-    _notes[_noteCount].noteNumber = noteNumber;
-    _notes[_noteCount].velocity = velocity;
-    _notes[_noteCount].beat = beat;
-    _notes[_noteCount].sampleTime = beat / _beatsPerSample;
+    _events[_noteCount].status = velocity == 0 ? NOTEOFF : NOTEON;
+    _events[_noteCount].data1 = noteNumber;
+    _events[_noteCount].data2 = velocity;
+    _events[_noteCount].beat = beat;
+    _events[_noteCount].sampleTime = beat / _beatsPerSample;
 
     _noteCount += 1;
 
     _lastTriggerTime = 0.0;
     for (int i = 0; i < _noteCount; i++) {
-        if (_notes[i].sampleTime > _lastTriggerTime) _lastTriggerTime = _notes[i].sampleTime;
+        if (_events[i].sampleTime > _lastTriggerTime) _lastTriggerTime = _events[i].sampleTime;
     }
     return _noteCount - 1;
 }
 
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
-    _notes[index].noteNumber = noteNumber;
-    _notes[index].velocity = velocity;
-    _notes[index].beat = beat;
-    _notes[index].sampleTime = beat / _beatsPerSample;
+    _events[index].data1 = noteNumber;
+    _events[index].data2 = velocity;
+    _events[index].beat = beat;
+    _events[index].sampleTime = beat / _beatsPerSample;
 }
 
 - (void)clear {
