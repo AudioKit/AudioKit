@@ -111,10 +111,12 @@ struct MIDINote {
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
+                UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
+                UInt8 scaledData2 = MIN(MAX(events[i].data2 + *velocityScaling, 0), 127);
                 MusicDeviceMIDIEvent(instrument,
                                      events[i].status,
-                                     events[i].data1 + *noteOffset,
-                                     events[i].data2 * *velocityScaling,
+                                     scaledData1,
+                                     scaledData2,
                                      triggerTime - startSample + offset);
             }
         }
