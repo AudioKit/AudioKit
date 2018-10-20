@@ -12,7 +12,10 @@ public class AKSequencerTrack {
 
     var engine: AKSequencerTrackEngine!
     public var trackID: Int = 0
-    public var events = [AKMIDIEvent]()
+    public var events: [AKMIDIEvent] {
+        return _events
+    }
+    var _events = [AKMIDIEvent]()
     public var noteOffset: Int = 0 {
         didSet {
             engine.noteOffset = Int32(noteOffset)
