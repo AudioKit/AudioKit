@@ -46,7 +46,7 @@ struct MIDIEvent {
 
 @synthesize maximumPlayCount = _maximumPlays;
 @synthesize trackIndex = _trackIndex;
-@synthesize multiplier = _multiplier;
+@synthesize timeMultiplier = _timeMultiplier;
 @synthesize noteOffset = _noteOffset;
 @synthesize lengthInBeats = _lengthInBeats;
 
@@ -67,7 +67,7 @@ struct MIDIEvent {
         _maximumPlays = 0;
         _noteCount = 0;
         _trackIndex = index;
-        _multiplier = 1;
+        _timeMultiplier = 1;
         _noteOffset = 0;
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
@@ -126,7 +126,7 @@ struct MIDIEvent {
     int *noteCount = &_noteCount;
     int *trackIndex = &_trackIndex;
     int *noteOffset = &_noteOffset;
-    double *multiplier = &_multiplier;
+    double *timeMultiplier = &_timeMultiplier;
     double *lastTriggerTime = &_lastTriggerTime;
     __block Float64 *startOffset = &_startOffset;
 
@@ -153,7 +153,7 @@ struct MIDIEvent {
         }
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = _events[i].sampleTime * *multiplier;
+            double triggerTime = _events[i].sampleTime * *timeMultiplier;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {

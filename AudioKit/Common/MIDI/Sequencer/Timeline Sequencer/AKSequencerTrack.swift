@@ -28,7 +28,9 @@ public class AKSequencerTrack {
     }
     public var timeMultiplier: Double = 1 {
         didSet {
-            engine.multiplier = timeMultiplier
+            engine.timeMultiplier = timeMultiplier
+        }
+    }
         }
     }
 

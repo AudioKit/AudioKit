@@ -24,7 +24,7 @@
 
 @property int maximumPlayCount;
 @property int trackIndex;
-@property double multiplier;
+@property double timeMultiplier;
 @property int noteOffset;
 
 /// Is metronome playing.
