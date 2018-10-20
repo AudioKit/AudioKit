@@ -21,6 +21,11 @@ open class AKSeq {
             tracks.forEach { $0.tempo = tempo }
         }
     }
+    public var loopEnabled: Bool = true{
+        didSet {
+            tracks.forEach { $0.loopEnabled = loopEnabled }
+        }
+    }
     
     var timeline = AKTimeline()
 
