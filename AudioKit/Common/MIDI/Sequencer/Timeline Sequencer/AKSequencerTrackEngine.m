@@ -36,7 +36,7 @@ struct MIDIEvent {
     double _lastTriggerTime;
     double _beatsPerSample;
     double _sampleRate;
-    int _beatCount;
+    double _lengthInBeats;
     int _playCount;
     int _maximumPlays;
     BOOL _hasSound;
@@ -48,6 +48,7 @@ struct MIDIEvent {
 @synthesize trackIndex = _trackIndex;
 @synthesize multiplier = _multiplier;
 @synthesize noteOffset = _noteOffset;
+@synthesize lengthInBeats = _lengthInBeats;
 
 -(instancetype)init {
     return [self initWithNode:nil];
@@ -71,10 +72,50 @@ struct MIDIEvent {
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
-        _beatCount = 4;
+        _lengthInBeats = 4;
         [self setTempo:120];
     }
     return self;
+}
+
+-(void)setLengthInBeats:(double)lengthInBeats {
+    _lengthInBeats = lengthInBeats;
+
+    //Store the last beatsPerSample before updating, needed to maintain current beat is running.
+    double lastBeatsPerSample = _beatsPerSample;
+
+    Float64 newLoopEnd = _lengthInBeats / _beatsPerSample;
+
+    // Get the current sampleTime in the timeline.
+    Float64 lastSampleTime = AKTimelineTimeAtTime(tap.timeline, AudioTimeNow());
+
+    //Manually roll loop if beat change puts us past loop end.
+    if (lastSampleTime > newLoopEnd) {
+        lastSampleTime -= newLoopEnd;
+    }
+
+    // Calculate the beat of sample time at the last tempo.
+    double lastBeat = lastSampleTime * lastBeatsPerSample;
+
+    // Calculate the new sample time for last beat.
+    double newSampleTime = lastBeat / _beatsPerSample;
+
+    // This data will be read from the render thread, so there is a posibility of
+    // misfires because we are not writing to it on the main thread.
+    for (int i = 0; i < _noteCount; i++) {
+        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
+    }
+
+    // If timeline is stopped, no need to synchronize with previous timing.
+    if (!AKTimelineIsStarted(tap.timeline)) {
+        AKTimelineSetTime(tap.timeline, newSampleTime);
+        AKTimelineSetLoop(tap.timeline, 0, newLoopEnd);
+        return;
+    }
+
+    // Timeline is running so we need to get use the reference time to make
+    // sure we pick up where we left off.
+    AKTimelineSetState(tap.timeline, newSampleTime, 0, newLoopEnd, AudioTimeNow());
 }
 
 -(AKTimelineBlock)timelineBlock {
@@ -138,9 +179,9 @@ struct MIDIEvent {
     //Update new tempo, stored as beatsPerSample.
     double beatsPerSecond = bpm / 60.0;
     _beatsPerSample = beatsPerSecond / _sampleRate;
-    _beatCount = beats;
+    _lengthInBeats = beats;
 
-    Float64 newLoopEnd = _beatCount / _beatsPerSample;
+    Float64 newLoopEnd = _lengthInBeats / _beatsPerSample;
 
     // Get the current sampleTime in the timeline.
     Float64 lastSampleTime = AKTimelineTimeAtTime(tap.timeline, timeStamp);
@@ -178,12 +219,12 @@ struct MIDIEvent {
     return AKTimelineIsStarted(tap.timeline);
 }
 
--(void)setBeatCount:(int)beatCount {
-    [self setBeatCount:beatCount atTime:nil];
+-(void)setBeatCount:(double)length {
+    [self setBeatCount:length atTime:nil];
 }
 
--(int)beatCount {
-    return _beatCount;
+-(double)length {
+    return _lengthInBeats;
 }
 
 -(void)setTempo:(double)bpm {
@@ -269,16 +310,16 @@ struct MIDIEvent {
 
 -(void)setTempo:(double)tempo atTime:(AVAudioTime *)audioTime{
     AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:tempo andBeats:_beatCount atTime:timestamp];
+    [self setTempo:tempo andBeats:_lengthInBeats atTime:timestamp];
 }
 
--(void)setBeatCount:(int)beatCount atTime:(AVAudioTime *)audioTime{
-    if (beatCount > 32) {
+-(void)setBeatCount:(double)length atTime:(AVAudioTime *)audioTime{
+    if (length > 32) {
         NSLog(@"Beats must be <= 32");
         return;
     }
     AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:self.tempo andBeats:beatCount atTime:timestamp];
+    [self setTempo:self.tempo andBeats:length atTime:timestamp];
 }
 
 -(void)stop {

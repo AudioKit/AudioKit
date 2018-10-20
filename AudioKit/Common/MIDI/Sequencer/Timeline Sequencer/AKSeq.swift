@@ -11,6 +11,12 @@ import Foundation
 open class AKSeq {
     
     public var tracks = [AKSequencerTrack]()
+    public var lengthInBeats: Double = 1.0 {
+        didSet {
+            tracks.forEach { $0.lengthInBeats = lengthInBeats }
+        }
+    }
+    
     var timeline = AKTimeline()
 
     public func play() {

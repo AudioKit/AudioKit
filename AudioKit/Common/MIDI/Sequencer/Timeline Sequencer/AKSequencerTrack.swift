@@ -11,6 +11,11 @@ import Foundation
 public class AKSequencerTrack {
 
     var engine: AKSequencerTrackEngine!
+    var lengthInBeats: Double = 1 {
+        didSet {
+            engine.lengthInBeats = lengthInBeats
+        }
+    }
     public var trackID: Int = 0
     public var events: [AKMIDIEvent] {
         return _events
