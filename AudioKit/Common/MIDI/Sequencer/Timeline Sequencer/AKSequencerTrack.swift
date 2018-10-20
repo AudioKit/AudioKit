@@ -16,6 +16,11 @@ public class AKSequencerTrack {
             engine.lengthInBeats = lengthInBeats
         }
     }
+    var tempo: Double = 120 {
+        didSet {
+            
+        }
+    }
     public var trackID: Int = 0
     public var events: [AKMIDIEvent] {
         return _events
