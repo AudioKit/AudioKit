@@ -36,6 +36,9 @@ public class AKSequencerTrack {
             engine.noteOffset = Int32(noteOffset)
         }
     }
+    public var channelOffset: Int = 0 {
+        didSet { engine.channelOffset = Int32(channelOffset) }
+    }
     public var timeMultiplier: Double = 1 {
         didSet {
             engine.timeMultiplier = timeMultiplier
