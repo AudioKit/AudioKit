@@ -71,6 +71,7 @@ struct MIDINote {
         _trackIndex = index;
         _timeMultiplier = 1;
         _noteOffset = 0;
+        _velocityScaling = 1.0;
         [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
@@ -86,11 +87,12 @@ struct MIDINote {
     int *playCount = &_playCount;
     int *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
-    int *trackIndex = &_trackIndex;
+//    int *trackIndex = &_trackIndex;
     __block Float64 *lastStartSample = &_lastStartSample;
     int *noteOffset = &_noteOffset;
+    double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
-    double *lastTriggerTime = &_lastTriggerTime;
+//    double *lastTriggerTime = &_lastTriggerTime;
     __block Float64 *startOffset = &_startOffset;
 
     return ^(AKTimeline         *timeline,
@@ -118,7 +120,9 @@ struct MIDINote {
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
                 MusicDeviceMIDIEvent(instrument,
-                                     events[i].status, events[i].data1, events[i].data2,
+                                     events[i].status,
+                                     events[i].data1 + *noteOffset,
+                                     events[i].data2 * *velocityScaling,
                                      triggerTime - startSample + offset);
             }
         }

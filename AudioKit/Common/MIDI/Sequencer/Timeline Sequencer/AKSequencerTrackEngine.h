@@ -26,7 +26,12 @@
 @property int trackIndex;
 @property double timeMultiplier;
 @property double gateMultiplier;
+
+/// Quick way to do transposition
 @property int noteOffset;
+
+/// Quick way to make all the velocities relatively greater or less
+@property double velocityScaling;
 
 /// Is metronome playing.
 @property (readonly) BOOL isPlaying;
