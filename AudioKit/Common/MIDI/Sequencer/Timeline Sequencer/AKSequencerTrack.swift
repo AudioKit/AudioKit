@@ -46,6 +46,7 @@ public class AKSequencerTrack {
 
     public func stop() {
         engine.stop()
+        engine.stopAllNotes()
     }
 
     public func seek(to time: Double, at position: AVAudioTime? = nil) {

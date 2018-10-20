@@ -19,22 +19,20 @@ open class AKSeq {
     
     var timeline = AKTimeline()
 
+    public func stopAllNotes() {
+        tracks.forEach { $0.stopAllNotes() }
+    }
+
     public func play() {
-        for track in tracks {
-            track.play()
-        }
+        tracks.forEach { $0.play() }
     }
     
     public func stop() {
-        for track in tracks {
-            track.stop()
-        }
+        tracks.forEach { $0.stop() }
     }
 
     public func seek(to beat: Double, at time: AVAudioTime) {
-        for track in tracks {
-            track.seek(to: beat, at: time)
-        }
+        tracks.forEach { $0.seek(to: beat, at: time) }
     }
     
     public convenience init(node: AKNode) {
