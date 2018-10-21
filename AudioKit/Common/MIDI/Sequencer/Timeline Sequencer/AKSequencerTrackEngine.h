@@ -24,7 +24,6 @@
 
 @property int maximumPlayCount;
 @property int trackIndex;
-@property double timeMultiplier;
 @property double gateMultiplier;
 
 /// scale channel of note messages
