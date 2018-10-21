@@ -26,6 +26,10 @@ public class AKSequencerTrack {
         engine = AKSequencerTrackEngine(node, index: Int32(index))
     }
 
+    init(midi:AKMIDI, node: AKNode, index: Int = 0) {
+        engine = AKSequencerTrackEngine(midi.outputPort, midiEndpoint: midi.endpoints.first!.value, node: node, index: Int32(index))
+    }
+
     public func add(event: AKMIDIEvent, at position: Double) {
         if let status = event.status {
             engine.addMIDIEvent(UInt8(status.rawValue), data1: event.data1, data2: event.data2, at: position)

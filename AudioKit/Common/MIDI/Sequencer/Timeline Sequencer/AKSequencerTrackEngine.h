@@ -45,7 +45,7 @@
 
 -(instancetype _Nonnull )initWith:(AKNode * _Nullable)node;
 -(instancetype _Nonnull )initWith:(AKNode * _Nullable)node index:(int)index;
--(instancetype _Nonnull )initWith:(MIDIPortRef)midiPort midiEndpoint:(MIDIEndpointRef)midiEndpoint index:(int)index;
+-(instancetype _Nonnull )initWith:(MIDIPortRef)midiPort midiEndpoint:(MIDIEndpointRef)midiEndpoint node:(AKNode * _Nullable)node index:(int)index;
 
 /// Starts playback
 -(void)play;

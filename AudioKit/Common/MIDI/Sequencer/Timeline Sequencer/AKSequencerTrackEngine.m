@@ -30,6 +30,8 @@ struct MIDINote {
 
 @implementation AKSequencerTrackEngine {
     AKTimelineTap *tap;
+    MIDIPortRef _midiPort;
+    MIDIEndpointRef _midiEndpoint;
     struct MIDIEvent _events[256];
     int _noteCount;
     double _beatsPerSample;
@@ -74,10 +76,11 @@ struct MIDINote {
     return self;
 }
 
--(instancetype)initWith:(MIDIPortRef)midiPort midiEndpoint:(MIDIEndpointRef)midiEndpoint index:(int)index {
-    self = [super init];
+-(instancetype)initWith:(MIDIPortRef)midiPort midiEndpoint:(MIDIEndpointRef)midiEndpoint node:(AKNode *)node index:(int)index {
+    self = [self initWith:node index:index];
     if (self) {
-
+        _midiPort = midiPort;
+        _midiEndpoint = midiEndpoint;
     }
     return self;
 }
