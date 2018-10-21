@@ -45,7 +45,6 @@ struct MIDINote {
 
 @synthesize maximumPlayCount = _maximumPlayCount;
 @synthesize trackIndex = _trackIndex;
-@synthesize timeMultiplier = _timeMultiplier;
 @synthesize lengthInBeats = _lengthInBeats;
 @synthesize tempo = _tempo;
 @synthesize channelOffset = _channelOffset;
@@ -69,7 +68,6 @@ struct MIDINote {
         _maximumPlayCount = 0;
         _noteCount = 0;
         _trackIndex = index;
-        _timeMultiplier = 1;
         _channelOffset = 0;
         _noteOffset = 0;
         _velocityScaling = 1.0;
@@ -93,7 +91,7 @@ struct MIDINote {
     int *channelOffset = &_channelOffset;
     int *noteOffset = &_noteOffset;
     double *velocityScaling = &_velocityScaling;
-    double *timeMultiplier = &_timeMultiplier;
+
     __block Float64 *startOffset = &_startOffset;
 
     return ^(AKTimeline         *timeline,
@@ -110,7 +108,7 @@ struct MIDINote {
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = events[i].sampleTime * *timeMultiplier;
+            double triggerTime = events[i].sampleTime;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {

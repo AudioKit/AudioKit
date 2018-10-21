@@ -19,7 +19,6 @@ public class AKSequencerTrack {
     public var loopEnabled: Bool = true {  didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
     public var noteOffset: Int = 0 {  didSet { engine.noteOffset = Int32(noteOffset) } }
     public var channelOffset: Int = 0 { didSet { engine.channelOffset = Int32(channelOffset) } }
-    public var timeMultiplier: Double = 1 {  didSet { engine.timeMultiplier = timeMultiplier } }
     public var gateMultiplier: Double = 1 {  didSet { engine.gateMultiplier = gateMultiplier } }
 
     init(_ node: AKNode, index: Int = 0) {
