@@ -110,7 +110,7 @@ struct MIDINote {
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = _events[i].sampleTime * *timeMultiplier;
+            double triggerTime = events[i].sampleTime * *timeMultiplier;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
