@@ -63,25 +63,28 @@ struct MIDINote {
 - (instancetype)initWith:(AKNode *)node index:(int)index{
     self = [super init];
     if (self) {
-        _sampleRate = 44100;
+        [self initDefaults:index];
         _audioUnit = [[node avAudioUnit] audioUnit];
-        _playCount = 0;
-        _maximumPlayCount = 0;
-        _noteCount = 0;
-        _trackIndex = index;
-        _timeMultiplier = 1;
-        _channelOffset = 0;
-        _noteOffset = 0;
-        _velocityScaling = 1.0;
-        [self resetStartOffset];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
+        [self resetStartOffset];
         [self setLengthInBeats:4.0];
         [self setTempo:120];
     }
     return self;
 }
 
+-(void)initDefaults:(int)index {
+    _sampleRate = 44100;
+    _playCount = 0;
+    _maximumPlayCount = 0;
+    _noteCount = 0;
+    _trackIndex = index;
+    _timeMultiplier = 1;
+    _channelOffset = 0;
+    _noteOffset = 0;
+    _velocityScaling = 1.0;
+}
 -(AKTimelineBlock)timelineBlock {
     AudioUnit instrument = _audioUnit;
     struct MIDIEvent *events = _events;
