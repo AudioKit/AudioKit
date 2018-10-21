@@ -26,7 +26,7 @@ open class AKSeq {
             for track in tracks { track.loopEnabled = loopEnabled }
         }
     }
-    
+
     var timeline = AKTimeline()
 
     public func stopAllNotes() {
@@ -34,9 +34,12 @@ open class AKSeq {
     }
 
     public func play() {
-        for track in tracks { track.play() }
+        for track in tracks {
+            track.engine.setBeatTime(0, at: nil)
+            track.play()
+        }
     }
-    
+
     public func stop() {
         for track in tracks { track.stop() }
     }
