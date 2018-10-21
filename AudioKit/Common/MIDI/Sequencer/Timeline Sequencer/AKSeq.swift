@@ -13,36 +13,39 @@ open class AKSeq {
     public var tracks = [AKSequencerTrack]()
     public var lengthInBeats: Double = 1.0 {
         didSet {
-            tracks.forEach { $0.lengthInBeats = lengthInBeats }
+            for track in tracks { track.lengthInBeats = lengthInBeats }
         }
     }
     public var tempo: Double = 120.0 {
         didSet {
-            tracks.forEach { $0.tempo = tempo }
+            for track in tracks { track.tempo = tempo }
         }
     }
     public var loopEnabled: Bool = true{
         didSet {
-            tracks.forEach { $0.loopEnabled = loopEnabled }
+            for track in tracks { track.loopEnabled = loopEnabled }
         }
     }
-    
+
     var timeline = AKTimeline()
 
     public func stopAllNotes() {
-        tracks.forEach { $0.stopAllNotes() }
+        for track in tracks { track.stopAllNotes() }
     }
 
     public func play() {
-        tracks.forEach { $0.play() }
+        for track in tracks {
+            track.engine.setBeatTime(0, at: nil)
+            track.play()
+        }
     }
-    
+
     public func stop() {
-        tracks.forEach { $0.stop() }
+        for track in tracks { track.stop() }
     }
 
     public func seek(to beat: Double, at time: AVAudioTime) {
-        tracks.forEach { $0.seek(to: beat, at: time) }
+        for track in tracks { track.seek(to: beat, at: time) }
     }
 
     public init(_ nodes: AKNode...) {
