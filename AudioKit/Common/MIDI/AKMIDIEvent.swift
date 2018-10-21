@@ -18,6 +18,14 @@ extension MIDIByte {
     func lowbit() -> MIDIByte {
         return self & 0xF
     }
+
+    var status: AKMIDIStatus? {
+        return AKMIDIStatus(rawValue: Int(self) >> 4)
+    }
+
+    var channel: MIDIChannel? {
+        return self & 0x0F
+    }
 }
 
 extension MIDIPacket {
@@ -26,7 +34,7 @@ extension MIDIPacket {
     }
 
     var status: AKMIDIStatus? {
-        return AKMIDIStatus(rawValue: Int(data.0) >> 4)
+        return data.0.status
     }
 
     var channel: MIDIChannel {
@@ -42,6 +50,8 @@ extension MIDIPacket {
 public struct AKMIDIEvent {
 
     // MARK: - Properties
+
+    public var position: AKDuration?
 
     /// Internal data
     public var internalData = [MIDIByte](zeros: 256)
