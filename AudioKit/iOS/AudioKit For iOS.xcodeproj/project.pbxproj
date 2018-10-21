@@ -5198,11 +5198,11 @@
 		FEC7946D217438D000587D5A /* Timeline Sequencer */ = {
 			isa = PBXGroup;
 			children = (
+				FE55216421781DD700A53DEA /* AKSeq.swift */,
+				FEC7946E217438D000587D5A /* AKSequenceable.swift */,
 				FE14055B217985F00043B6D3 /* AKSequencerTrack.swift */,
 				FEC79472217438D000587D5A /* AKSequencerTrackEngine.h */,
 				FEC79470217438D000587D5A /* AKSequencerTrackEngine.m */,
-				FEC7946E217438D000587D5A /* AKSequenceable.swift */,
-				FE55216421781DD700A53DEA /* AKSeq.swift */,
 			);
 			path = "Timeline Sequencer";
 			sourceTree = "<group>";
