@@ -74,6 +74,14 @@ struct MIDINote {
     return self;
 }
 
+-(instancetype)initWith:(MIDIPortRef)midiPort midiEndpoint:(MIDIEndpointRef)midiEndpoint index:(int)index {
+    self = [super init];
+    if (self) {
+
+    }
+    return self;
+}
+
 -(void)initDefaults:(int)index {
     _sampleRate = 44100;
     _playCount = 0;
@@ -85,6 +93,7 @@ struct MIDINote {
     _noteOffset = 0;
     _velocityScaling = 1.0;
 }
+
 -(AKTimelineBlock)timelineBlock {
     AudioUnit instrument = _audioUnit;
     struct MIDIEvent *events = _events;
