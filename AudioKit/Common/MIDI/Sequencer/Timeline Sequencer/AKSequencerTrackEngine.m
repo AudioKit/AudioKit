@@ -1,5 +1,5 @@
 //
-//  AKSequencerInternalTrack
+//  AKSequencerTrackEngine.m
 //  SuperSequencer
 //
 //  Created by Aurelius Prochazka on 8/11/18. Jeff Cooper remix 201810
@@ -118,7 +118,7 @@ struct MIDINote {
                 UInt8 statusChannelMax = (events[i].status & 0xF0) + 16;
                 UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
                 UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
-                UInt8 scaledData2 = MIN(MAX(events[i].data2 + *velocityScaling, 0), 127);
+                UInt8 scaledData2 = MIN(MAX((UInt8)((double)events[i].data2 * *velocityScaling), 0), 127);
                 MusicDeviceMIDIEvent(instrument,
                                      scaledChannelStatus,
                                      scaledData1,
