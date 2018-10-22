@@ -136,27 +136,9 @@ struct MIDINote {
                 UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
                 UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
                 UInt8 scaledData2 = MIN(MAX((UInt8)((double)events[i].data2 * *velocityScaling), 0), 127);
-                bool hasMIDITrack = *midiPort != 0 && *midiEndpoint != 0;
-                if (!hasMIDITrack) {
-                MusicDeviceMIDIEvent(instrument,
-                                     scaledChannelStatus,
-                                     scaledData1,
-                                     scaledData2,
-                                     triggerTime - startSample + offset);
-                }
-                if (hasMIDITrack) {
-                    printf("send midi %i \n", arc4random());
-                    MIDIPacketList packetList;
-                    packetList.numPackets = 1;
-                    MIDIPacket* firstPacket = &packetList.packet[0];
-                    firstPacket->timeStamp = 0;    // send immediately
-                    firstPacket->length = 3;
-                    firstPacket->data[0] = scaledChannelStatus;
-                    firstPacket->data[1] = scaledData1;
-                    firstPacket->data[2] = scaledData2;
-                    MIDISend(*midiPort, *midiEndpoint, &packetList);
-                }
-                //[self debugToConsole:scaledChannelStatus data1:scaledData1 data2:scaledData2];
+
+                sendMidiData(instrument, *midiPort, *midiEndpoint,
+                             scaledChannelStatus, scaledData1, scaledData2);
             }
         }
         if (startSample < *lastStartSample) { //should loop
@@ -168,6 +150,22 @@ struct MIDINote {
         }
         *lastStartSample = startSample;
     };
+}
+
+void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2) {
+    if (midiPort == 0 || midiEndpoint == 0) {
+        MusicDeviceMIDIEvent(audioUnit, status, data1, data2, 0);
+    } else {
+        MIDIPacketList packetList;
+        packetList.numPackets = 1;
+        MIDIPacket* firstPacket = &packetList.packet[0];
+        firstPacket->length = 3;
+        firstPacket->data[0] = status;
+        firstPacket->data[1] = data1;
+        firstPacket->data[2] = data2;
+        firstPacket->timeStamp = 0;    // send immediately
+        MIDISend(midiPort, midiEndpoint, &packetList);
+    }
 }
 
 -(void)debugToConsole:(UInt8)status data1:(UInt8)data1 data2:(UInt8)data2 {
@@ -324,12 +322,15 @@ struct MIDINote {
     AKTimelineStop(tap.timeline);
 }
 
+-(void)sendMidiData:(UInt8)status data1:(UInt8)data1 data2:(UInt8)data2 {
+    sendMidiData(_audioUnit, _midiPort, _midiEndpoint, status, data1, data2);
+}
 - (void)stopAllNotes {
     // Ideally this would work
     //    MusicDeviceMIDIEvent(_sampler.avAudioUnit.audioUnit, 0xB0, 123, 0b0, 0);
     // For now, we'll do it manually
     for(int i=0; i<=127; i++) {
-        MusicDeviceMIDIEvent(_audioUnit, NOTEOFF, i, 0, 0);
+        [self sendMidiData:NOTEOFF data1:i data2:0];
     }
 }
 
