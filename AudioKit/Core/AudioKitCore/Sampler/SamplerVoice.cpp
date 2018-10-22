@@ -19,6 +19,12 @@ namespace AudioKitCore
         adsrEnvelope.init();
         filterEnvelope.init();
     }
+
+    void SamplerVoice::updateAdsrParameters()
+    {
+        adsrEnvelope.init();
+        filterEnvelope.init();
+    }
     
     void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
     {
@@ -67,7 +73,7 @@ namespace AudioKitCore
         newSampleBuffer = buffer;
         adsrEnvelope.restart();
         noteVolume = volume;
-        filterEnvelope.start();
+        filterEnvelope.restart();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
