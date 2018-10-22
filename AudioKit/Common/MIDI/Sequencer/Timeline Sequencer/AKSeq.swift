@@ -60,9 +60,9 @@ open class AKSeq {
         return id
     }
 
-    @discardableResult public func add(midi: AKMIDI, node: AKNode) -> Int {
+    @discardableResult public func add(midiPort: MIDIPortRef, midiEndpoint: MIDIEndpointRef, node: AKNode) -> Int {
         let id = tracks.count
-        tracks.append(AKSequencerTrack(midi: midi, node: node, index: tracks.count))
+        tracks.append(AKSequencerTrack(midiPort: midiPort, midiEndpoint: midiEndpoint, node: node, index: tracks.count))
         return id
     }
 }

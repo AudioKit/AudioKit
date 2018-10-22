@@ -26,8 +26,8 @@ public class AKSequencerTrack {
         engine = AKSequencerTrackEngine(node, index: Int32(index))
     }
 
-    init(midi:AKMIDI, node: AKNode, index: Int = 0) {
-        engine = AKSequencerTrackEngine(midi.outputPort, midiEndpoint: midi.endpoints.first!.value, node: node, index: Int32(index))
+    init(midiPort: MIDIPortRef, midiEndpoint: MIDIEndpointRef, node: AKNode, index: Int = 0) {
+        engine = AKSequencerTrackEngine(midiPort, midiEndpoint: midiEndpoint, node: node, index: Int32(index))
     }
 
     public func add(event: AKMIDIEvent, at position: Double) {
