@@ -53,4 +53,16 @@ open class AKSeq {
             tracks.append(AKSequencerTrack(node, index: index))
         }
     }
+    
+    @discardableResult public func add(node: AKNode) -> Int {
+        let id = tracks.count
+        tracks.append(AKSequencerTrack(node, index: id))
+        return id
+    }
+
+    @discardableResult public func add(midi: AKMIDI, node: AKNode) -> Int {
+        let id = tracks.count
+        tracks.append(AKSequencerTrack(midi: midi, node: node, index: tracks.count))
+        return id
+    }
 }
