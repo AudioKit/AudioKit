@@ -136,15 +136,16 @@ struct MIDINote {
                 UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
                 UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
                 UInt8 scaledData2 = MIN(MAX((UInt8)((double)events[i].data2 * *velocityScaling), 0), 127);
-                if (*midiPort == 0 || *midiEndpoint == 0) {
-                    printf("send note\n");
-                    MusicDeviceMIDIEvent(instrument,
-                                         scaledChannelStatus,
-                                         scaledData1,
-                                         scaledData2,
-                                         triggerTime - startSample + offset);
-                } else {
-                    printf("send midi\n");
+                bool hasMIDITrack = *midiPort != 0 && *midiEndpoint != 0;
+                if (!hasMIDITrack) {
+                MusicDeviceMIDIEvent(instrument,
+                                     scaledChannelStatus,
+                                     scaledData1,
+                                     scaledData2,
+                                     triggerTime - startSample + offset);
+                }
+                if (hasMIDITrack) {
+                    printf("send midi %i \n", arc4random());
                     MIDIPacketList packetList;
                     packetList.numPackets = 1;
                     MIDIPacket* firstPacket = &packetList.packet[0];
