@@ -109,6 +109,8 @@ struct MIDINote {
     int *noteOffset = &_noteOffset;
     double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
+    MIDIPortRef *midiPort = &_midiPort;
+    MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
     __block Float64 *startOffset = &_startOffset;
 
     return ^(AKTimeline         *timeline,
@@ -134,11 +136,25 @@ struct MIDINote {
                 UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
                 UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
                 UInt8 scaledData2 = MIN(MAX((UInt8)((double)events[i].data2 * *velocityScaling), 0), 127);
-                MusicDeviceMIDIEvent(instrument,
-                                     scaledChannelStatus,
-                                     scaledData1,
-                                     scaledData2,
-                                     triggerTime - startSample + offset);
+                if (*midiPort == 0 || *midiEndpoint == 0) {
+                    printf("send note\n");
+                    MusicDeviceMIDIEvent(instrument,
+                                         scaledChannelStatus,
+                                         scaledData1,
+                                         scaledData2,
+                                         triggerTime - startSample + offset);
+                } else {
+                    printf("send midi\n");
+                    MIDIPacketList packetList;
+                    packetList.numPackets = 1;
+                    MIDIPacket* firstPacket = &packetList.packet[0];
+                    firstPacket->timeStamp = 0;    // send immediately
+                    firstPacket->length = 3;
+                    firstPacket->data[0] = scaledChannelStatus;
+                    firstPacket->data[1] = scaledData1;
+                    firstPacket->data[2] = scaledData2;
+                    MIDISend(*midiPort, *midiEndpoint, &packetList);
+                }
                 //[self debugToConsole:scaledChannelStatus data1:scaledData1 data2:scaledData2];
             }
         }
