@@ -11,7 +11,7 @@
 
 #include "EnsembleOscillator.hpp"
 #include "DrawbarsOscillator.hpp"
-#include "ADSREnvelope.hpp"
+#include "ADSREnvelope.h"
 #include "Envelope.hpp"
 #include "MultiStageFilter.hpp"
 
@@ -70,6 +70,8 @@ namespace AudioKitCore
                   SynthVoiceParameters *pParameters,
                   EnvelopeParameters *pEnvParameters);
         
+        void updateAdsrParameters();
+
         void start(unsigned evt, unsigned noteNumber, float frequency, float volume);
         void restart(unsigned evt, float volume);
         void restart(unsigned evt, unsigned noteNumber, float frequency, float volume);
