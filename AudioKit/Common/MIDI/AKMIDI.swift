@@ -40,7 +40,7 @@ open class AKMIDI {
     internal let inputPortName: CFString = "MIDI In Port" as CFString
 
     /// MIDI Out Port Reference
-    internal var outputPort = MIDIPortRef()
+    public var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
     open var virtualOutput = MIDIPortRef()
