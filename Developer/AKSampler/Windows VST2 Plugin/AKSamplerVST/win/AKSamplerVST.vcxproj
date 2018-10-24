@@ -172,7 +172,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.hpp" />
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.h" />
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.h" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\LinearRamper.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.hpp" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\SustainPedalLogic.cpp" />
