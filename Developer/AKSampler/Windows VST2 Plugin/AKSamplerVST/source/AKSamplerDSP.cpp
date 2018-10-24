@@ -67,9 +67,9 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     setADSRSustainFraction(0.8f);
     setADSRReleaseDurationSeconds(0.5f);
 
-    isFilterEnabled = false;
-    cutoffMultiple = 1000.0f;
-    linearResonance = 1.0f;
+    isFilterEnabled = true;
+    cutoffMultiple = 0.0f;
+    linearResonance = 0.5f;
     setFilterAttackDurationSeconds(2.0f);
     setFilterDecayDurationSeconds(2.0f);
     setFilterSustainFraction(0.1f);

@@ -11,7 +11,7 @@
 
 #include "SampleBuffer.hpp"
 #include "SampleOscillator.hpp"
-#include "ADSREnvelope.hpp"
+#include "ADSREnvelope.h"
 #include "ResonantLowPassFilter.hpp"
 
 namespace AudioKitCore
@@ -62,6 +62,8 @@ namespace AudioKitCore
         SamplerVoice() : noteNumber(-1) {}
 
         void init(double sampleRate);
+
+        void updateAdsrParameters();
         
         void start(unsigned noteNumber,
                    float sampleRate,
