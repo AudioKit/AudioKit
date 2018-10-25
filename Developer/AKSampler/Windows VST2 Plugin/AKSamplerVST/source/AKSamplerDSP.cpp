@@ -842,10 +842,10 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         vibratoDepth = -2.0f + value * 4.0f;
         break;
     case kFilterCutoff:
-        cutoffMultiple = value * 1000.0f;
+        cutoffMultiple = value * 100.0f;
         break;
     case kFilterEgStrength:
-        cutoffEnvelopeStrength = value * 1000.0f;
+        cutoffEnvelopeStrength = value * 100.0f;
         break;
     case kFilterResonance:
         linearResonance = pow(10.0f, -0.5f * value);
@@ -913,10 +913,10 @@ float AKSamplerDSP::getParameter (VstInt32 index)
             value = (vibratoDepth + 2.0f) / 4.0f;
             break;
         case kFilterCutoff:
-            value = cutoffMultiple / 1000.0f;
+            value = cutoffMultiple / 100.0f;
             break;
         case kFilterEgStrength:
-            value = cutoffEnvelopeStrength / 1000.0f;
+            value = cutoffEnvelopeStrength / 100.0f;
             break;
         case kFilterResonance:
             value = -20.0f * log10(linearResonance);
