@@ -43,7 +43,6 @@ struct MIDINote {
     BOOL _hasSound;
     AudioUnit _audioUnit;
     Float64 _startOffset;
-    Float64 _lastStartSample;
 }
 
 @synthesize maximumPlayCount = _maximumPlayCount;
@@ -107,7 +106,6 @@ struct MIDINote {
     int *playCount = &_playCount;
     int *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
-    __block Float64 *lastStartSample = &_lastStartSample;
     int *channelOffset = &_channelOffset;
     int *noteOffset = &_noteOffset;
     double *beatsPerSample = &_beatsPerSample;
@@ -124,11 +122,12 @@ struct MIDINote {
              UInt32             inNumberFrames,
              AudioBufferList    *ioData) {
 
-        if (*startOffset < 0) {
+        if (*startOffset < 0 || timeStamp->mSampleTime == 0) {
             *startOffset = timeStamp->mSampleTime;
         }
 
         Float64 startSample = timeStamp->mSampleTime - *startOffset;
+        printf("Start sample is %f\n", startSample);
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
@@ -148,6 +147,10 @@ struct MIDINote {
                 // Add note off time to array
                 noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration) / *beatsPerSample;
 
+                // We've played our last note of the sequence
+                if (i == *noteCount - 1) {
+                    *playCount += 1;
+                }
             }
         }
 
@@ -160,14 +163,12 @@ struct MIDINote {
             }
         }
 
-        if (startSample < *lastStartSample) { //should loop
-            *playCount += 1;
-            if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
-                [self stop];
-                return;
-            }
+
+        if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
+            [self stop];
+            return;
         }
-        *lastStartSample = startSample;
+
     };
 }
 
@@ -340,7 +341,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     [self resetStartOffset];
     [self stopAllNotes];
     _playCount = 0;
-    _lastStartSample = 0;
     AKTimelineStop(tap.timeline);
 }
 
