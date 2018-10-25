@@ -148,8 +148,6 @@ struct MIDINote {
                 // Add note off time to array
                 noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration) / *beatsPerSample;
 
-                // This is bad but should be okay
-                _callback( (int) floor(events[i].beat * 2.0));
             }
         }
 
