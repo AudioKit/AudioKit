@@ -51,6 +51,7 @@ namespace AudioKitCore
         };
 
         void init(CurvatureType curvatureType = kAnalogLike);
+        void updateParams();
 
         void start();       // called for note-on
         void restart();     // quickly dampen note then start again

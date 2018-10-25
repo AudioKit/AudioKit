@@ -77,6 +77,19 @@ namespace AudioKitCore
         env.reset(&envDesc);
     }
 
+    void ADSREnvelope::updateParams()
+    {
+        if (envDesc.size() < 6) return;
+        double sustainFraction = double(pParameters->sustainFraction);
+
+        envDesc[kAttack].lengthSamples = int(pParameters->attackSamples);
+        envDesc[kDecay].finalValue = sustainFraction;
+        envDesc[kDecay].lengthSamples = int(pParameters->decaySamples);
+        envDesc[kSustain].initialValue = envDesc[kSustain].finalValue = sustainFraction;
+        envDesc[kRelease].initialValue = sustainFraction;
+        envDesc[kRelease].lengthSamples = int(pParameters->releaseSamples);
+    }
+
     void ADSREnvelope::start()
     {
         env.advanceToSegment(kAttack);
