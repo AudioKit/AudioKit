@@ -351,7 +351,9 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     //    MusicDeviceMIDIEvent(_sampler.avAudioUnit.audioUnit, 0xB0, 123, 0b0, 0);
     // For now, we'll do it manually
     for(int i=0; i<=127; i++) {
-        [self sendMidiData:NOTEOFF data1:i data2:0];
+        if !(_noteOffBeats[i] < 0) {
+            [self sendMidiData:NOTEOFF data1:i data2:0];
+        }
     }
 }
 
