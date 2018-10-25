@@ -4237,10 +4237,10 @@
 		C47C52842093066200A6FB3C /* Wave Table */ = {
 			isa = PBXGroup;
 			children = (
+				C47C52882093066200A6FB3C /* AKWaveTable.swift */,
 				C47C52852093066200A6FB3C /* AKWaveTableAudioUnit.h */,
 				C47C52862093066200A6FB3C /* AKWaveTableAudioUnit.mm */,
 				C47C52872093066200A6FB3C /* AKWaveTableDSPKernel.hpp */,
-				C47C52882093066200A6FB3C /* AKWaveTable.swift */,
 			);
 			path = "Wave Table";
 			sourceTree = "<group>";
