@@ -127,7 +127,6 @@ struct MIDINote {
         }
 
         Float64 startSample = timeStamp->mSampleTime - *startOffset;
-        printf("Start sample is %f\n", startSample);
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
