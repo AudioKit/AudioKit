@@ -15,11 +15,11 @@
 #define NOTEOFF 0x80
 
 struct MIDIEvent {
-    double sampleTime;
     uint8_t status;
     uint8_t data1;
     uint8_t data2;
     double beat;
+    double duration;
 };
 
 struct MIDINote {
@@ -32,7 +32,8 @@ struct MIDINote {
     AKTimelineTap *tap;
     MIDIPortRef _midiPort;
     MIDIEndpointRef _midiEndpoint;
-    struct MIDIEvent _events[256];
+    struct MIDIEvent _events[512];
+    double _noteOffBeats[127];
     int _noteCount;
     double _beatsPerSample;
     double _sampleRate;
@@ -95,6 +96,9 @@ struct MIDINote {
     _channelOffset = 0;
     _noteOffset = 0;
     _velocityScaling = 1.0;
+    for (int i = 0; i < 128; i++) {
+        _noteOffBeats[i] = -1.0;
+    }
 }
 
 -(AKTimelineBlock)timelineBlock {
@@ -103,10 +107,11 @@ struct MIDINote {
     int *playCount = &_playCount;
     int *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
-//    int *trackIndex = &_trackIndex;
     __block Float64 *lastStartSample = &_lastStartSample;
     int *channelOffset = &_channelOffset;
     int *noteOffset = &_noteOffset;
+    double *beatsPerSample = &_beatsPerSample;
+    double *noteOffBeats = _noteOffBeats;
     double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
     MIDIPortRef *midiPort = &_midiPort;
@@ -127,7 +132,7 @@ struct MIDINote {
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = _events[i].sampleTime * *timeMultiplier;
+            double triggerTime = events[i].beat / *beatsPerSample * *timeMultiplier;
 
             if(((startSample <= triggerTime && triggerTime < endSample)))
             {
@@ -139,8 +144,24 @@ struct MIDINote {
 
                 sendMidiData(instrument, *midiPort, *midiEndpoint,
                              scaledChannelStatus, scaledData1, scaledData2);
+
+                // Add note off time to array
+                noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration) / *beatsPerSample;
+
+                // This is bad but should be okay
+                _callback( (int) floor(events[i].beat * 2.0));
             }
         }
+
+        // Loop through playing notes and see if they need to be stopped
+        for (int noteNumber = 0; noteNumber < 128; noteNumber++) {
+            double offTriggerTime = noteOffBeats[noteNumber];
+            if(((startSample <= offTriggerTime && offTriggerTime < endSample))) {
+                sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0);
+                noteOffBeats[noteNumber] = -1.0;
+            }
+        }
+
         if (startSample < *lastStartSample) { //should loop
             *playCount += 1;
             if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
@@ -229,29 +250,32 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     _events[_noteCount].data1 = data1;
     _events[_noteCount].data2 = data2;
     _events[_noteCount].beat = beat;
-    _events[_noteCount].sampleTime = beat / _beatsPerSample;
 
     _noteCount += 1;
     return _noteCount - 1;
 }
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration {
-    [self addNote:noteNumber velocity:velocity at:beat];
-    [self addNote:noteNumber velocity:0 at:beat + duration];
+    _events[_noteCount].status = velocity == 0 ? NOTEOFF : NOTEON;
+    _events[_noteCount].data1 = noteNumber;
+    _events[_noteCount].data2 = velocity;
+    _events[_noteCount].beat = beat;
+    _events[_noteCount].duration = duration;
+    _noteCount += 1;
+
     return _noteCount;
 }
 
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
     return [self addMIDIEvent:velocity == 0 ? NOTEOFF : NOTEON
                         data1:noteNumber data2:velocity
-                        at:beat];
+                           at:beat];
 }
 
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat {
     _events[index].data1 = noteNumber;
     _events[index].data2 = velocity;
     _events[index].beat = beat;
-    _events[index].sampleTime = beat / _beatsPerSample;
 }
 
 - (void)clear {
@@ -355,12 +379,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 
     // Calculate the new sample time for last beat.
     double newSampleTime = lastBeat / _beatsPerSample;
-
-    // This data will be read from the render thread, so there is a posibility of
-    // misfires because we are not writing to it on the main thread.
-    for (int i = 0; i < _noteCount; i++) {
-        _events[i].sampleTime = (double)_events[i].beat / _beatsPerSample;
-    }
 
     // If timeline is stopped, no need to synchronize with previous timing.
     if (!AKTimelineIsStarted(tap.timeline)) {
