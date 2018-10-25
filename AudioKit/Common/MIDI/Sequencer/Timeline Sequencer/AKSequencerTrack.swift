@@ -40,12 +40,14 @@ public class AKSequencerTrack {
     }
 
     public func play() {
+        engine.setBeatTime(0, at: nil)
         engine.play()
     }
 
     public func stop() {
         engine.stop()
         engine.stopAllNotes()
+        engine.setBeatTime(0, at: nil)
     }
 
     public func seek(to time: Double, at position: AVAudioTime? = nil) {
