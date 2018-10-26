@@ -113,7 +113,7 @@ struct MIDINote {
     double *noteOffBeats = _noteOffBeats;
     double *velocityScaling = &_velocityScaling;
     double *timeMultiplier = &_timeMultiplier;
-    bool *stoppedPlayingNewNotes = &_stoppedPlayingNewNotes;
+    BOOL *stoppedPlayingNewNotes = &_stoppedPlayingNewNotes;
     MIDIPortRef *midiPort = &_midiPort;
     MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
     __block Float64 *startOffset = &_startOffset;
@@ -134,7 +134,7 @@ struct MIDINote {
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = events[i].beat / *beatsPerSample * *timeMultiplier;
 
-            if(((startSample <= triggerTime && triggerTime < endSample)) && !stoppedPlayingNewNotes)
+            if(((startSample <= triggerTime && triggerTime < endSample)) && *stoppedPlayingNewNotes == false)
             {
                 UInt8 statusChannelMin = events[i].status & 0xF0;
                 UInt8 statusChannelMax = (events[i].status & 0xF0) + 16;
@@ -163,11 +163,11 @@ struct MIDINote {
                 sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0);
                 noteOffBeats[noteNumber] = -1.0;
             }
-            bool isDone = true;
+            BOOL isDone = true;
             for (int i = 0; i < 128; i++) {
                 if (noteOffBeats[i] != -1.0) isDone = false;
             }
-            if (isDone && stoppedPlayingNewNotes) {
+            if (isDone && *stoppedPlayingNewNotes) {
                 [self stop];
             }
         }
