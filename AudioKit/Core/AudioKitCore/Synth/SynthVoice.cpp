@@ -46,12 +46,6 @@ namespace AudioKitCore
         pumpEG.init(pEnvParameters);
     }
 
-    void SynthVoice::updateAdsrParameters()
-    {
-        ampEG.init();
-        filterEG.init();
-    }
-
     void SynthVoice::start(unsigned evt, unsigned noteNumber, float frequency, float volume)
     {
         event = evt;

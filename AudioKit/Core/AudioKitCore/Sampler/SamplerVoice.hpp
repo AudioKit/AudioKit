@@ -63,7 +63,8 @@ namespace AudioKitCore
 
         void init(double sampleRate);
 
-        void updateAdsrParameters();
+        void updateAmpAdsrParameters() { adsrEnvelope.updateParams(); }
+        void updateFilterAdsrParameters() { filterEnvelope.updateParams(); }
         
         void start(unsigned noteNumber,
                    float sampleRate,
