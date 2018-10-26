@@ -67,12 +67,12 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open func start() {
         internalAU?.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
     }
-    
+
     private func readAudioFile() {
         Exit: do {
             var err: OSStatus = noErr
