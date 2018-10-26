@@ -62,4 +62,8 @@ public class AKSequencerTrack {
         engine.stopAllNotes()
     }
 
+    public func stopAfterCurrentNotes() {
+        engine.stopAfterCurrentNotes()
+    }
+
 }
