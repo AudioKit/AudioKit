@@ -33,7 +33,7 @@ struct MIDINote {
     MIDIPortRef _midiPort;
     MIDIEndpointRef _midiEndpoint;
     struct MIDIEvent _events[512];
-    double _noteOffBeats[127];
+    double _noteOffBeats[128];
     int _noteCount;
     double _beatsPerSample;
     double _sampleRate;
