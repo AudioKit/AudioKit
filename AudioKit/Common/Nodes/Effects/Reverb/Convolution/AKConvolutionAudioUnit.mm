@@ -27,6 +27,11 @@
 - (void)setPartitionLength:(int)partitionLength {
     _kernel.setPartitionLength(partitionLength);
 }
+
+- (void)initConvolutionEngine {
+    _kernel.initConvolutionEngine();
+}
+
 standardKernelPassthroughs()
 
 - (void)createParameters {
