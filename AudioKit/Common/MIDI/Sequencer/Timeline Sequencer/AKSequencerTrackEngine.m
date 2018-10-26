@@ -354,7 +354,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     AKTimelineStop(tap.timeline);
 }
 
--(void)stopAfterCurrentlyPlayingNotes {
+-(void)stopAfterCurrentNotes {
     _stoppedPlayingNewNotes = true;
 }
 
