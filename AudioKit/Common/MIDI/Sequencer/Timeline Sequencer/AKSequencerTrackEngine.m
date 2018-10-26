@@ -27,7 +27,6 @@ struct MIDINote {
     struct MIDIEvent noteOff;
 };
 
-
 @implementation AKSequencerTrackEngine {
     AKTimelineTap *tap;
     MIDIPortRef _midiPort;
@@ -47,12 +46,8 @@ struct MIDINote {
 
 @synthesize maximumPlayCount = _maximumPlayCount;
 @synthesize trackIndex = _trackIndex;
-@synthesize timeMultiplier = _timeMultiplier;
 @synthesize lengthInBeats = _lengthInBeats;
 @synthesize tempo = _tempo;
-@synthesize channelOffset = _channelOffset;
-@synthesize noteOffset = _noteOffset;
-@synthesize velocityScaling = _velocityScaling;
 
 -(instancetype)init {
     return [self initWith:nil];
@@ -91,10 +86,6 @@ struct MIDINote {
     _maximumPlayCount = 0;
     _noteCount = 0;
     _trackIndex = index;
-    _timeMultiplier = 1;
-    _channelOffset = 0;
-    _noteOffset = 0;
-    _velocityScaling = 1.0;
     _stoppedPlayingNewNotes = false;
     for (int i = 0; i < 128; i++) {
         _noteOffBeats[i] = -1.0;
@@ -107,12 +98,8 @@ struct MIDINote {
     int *playCount = &_playCount;
     int *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
-    int *channelOffset = &_channelOffset;
-    int *noteOffset = &_noteOffset;
     double *beatsPerSample = &_beatsPerSample;
     double *noteOffBeats = _noteOffBeats;
-    double *velocityScaling = &_velocityScaling;
-    double *timeMultiplier = &_timeMultiplier;
     BOOL *stoppedPlayingNewNotes = &_stoppedPlayingNewNotes;
     MIDIPortRef *midiPort = &_midiPort;
     MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
@@ -132,19 +119,12 @@ struct MIDINote {
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
-            double triggerTime = events[i].beat / *beatsPerSample * *timeMultiplier;
+            double triggerTime = events[i].beat / *beatsPerSample;
 
             if(((startSample <= triggerTime && triggerTime < endSample)) && *stoppedPlayingNewNotes == false)
             {
-                UInt8 statusChannelMin = events[i].status & 0xF0;
-                UInt8 statusChannelMax = (events[i].status & 0xF0) + 16;
-                UInt8 scaledChannelStatus = MIN(MAX(events[i].status + *channelOffset, statusChannelMin), statusChannelMax);
-                UInt8 scaledData1 = MIN(MAX(events[i].data1 + *noteOffset, 0), 127);
-                UInt8 scaledData2 = MIN(MAX((UInt8)((double)events[i].data2 * *velocityScaling), 0), 127);
-
-
                 sendMidiData(instrument, *midiPort, *midiEndpoint,
-                             scaledChannelStatus, scaledData1, scaledData2);
+                             events[i].status, events[i].data1, events[i].data2);
 
                 // Add note off time to array
                 noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration) / *beatsPerSample;
@@ -172,12 +152,10 @@ struct MIDINote {
             }
         }
 
-
         if (*maximumPlayCount != 0 && *playCount >= *maximumPlayCount) {
             [self stop];
             return;
         }
-
     };
 }
 

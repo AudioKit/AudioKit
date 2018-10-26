@@ -24,17 +24,6 @@
 
 @property int maximumPlayCount;
 @property int trackIndex;
-@property double timeMultiplier;
-@property double gateMultiplier;
-
-/// scale channel of note messages
-@property int channelOffset;
-
-/// Quick way to do transposition
-@property int noteOffset;
-
-/// Quick way to make all the velocities relatively greater or less
-@property double velocityScaling;
 
 /// Is metronome playing.
 @property (readonly) BOOL isPlaying;
@@ -107,6 +96,5 @@
  @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
  */
 -(double)beatTimeAtTime:(AVAudioTime * _Nullable)audioTime;
-
 
 @end
