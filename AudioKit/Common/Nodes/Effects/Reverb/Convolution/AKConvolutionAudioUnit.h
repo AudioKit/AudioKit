@@ -12,5 +12,6 @@
 @interface AKConvolutionAudioUnit : AKAudioUnit
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
+- (void)initConvolutionEngine;
 @end
 

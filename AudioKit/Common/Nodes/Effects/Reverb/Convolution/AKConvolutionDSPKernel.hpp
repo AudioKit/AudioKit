@@ -18,9 +18,6 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
-        sp_conv_create(&conv0);
-        sp_conv_create(&conv1);
-
     }
 
     void setPartitionLength(int partLength) {
@@ -29,8 +26,6 @@ public:
 
     void start() {
         started = true;
-        sp_conv_init(sp, conv0, ftbl, (float)partitionLength);
-        sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
     void stop() {
@@ -41,6 +36,13 @@ public:
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
         ftbl->tbl = table;
+    }
+    
+    void initConvolutionEngine() {
+        sp_conv_create(&conv0);
+        sp_conv_create(&conv1);
+        sp_conv_init(sp, conv0, ftbl, (float)partitionLength);
+        sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
     void destroy() {
@@ -105,7 +107,7 @@ private:
     UInt32 ftbl_size = 4096;
 
 public:
-    bool started = true;
+    bool started = false;
     bool resetted = true;
 };
 
