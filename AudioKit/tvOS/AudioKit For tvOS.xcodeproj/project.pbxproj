@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		34F5A381205ED22D00290001 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A365205ED22C00290001 /* ADSREnvelope.hpp */; };
+		344E88EE217E8C7900D58551 /* ADSREnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 344E88EB217E8C7800D58551 /* ADSREnvelope.h */; };
+		344E88EF217E8C7900D58551 /* EnvelopeGeneratorBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344E88EC217E8C7800D58551 /* EnvelopeGeneratorBase.cpp */; };
+		344E88F0217E8C7900D58551 /* EnvelopeGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 344E88ED217E8C7800D58551 /* EnvelopeGeneratorBase.h */; };
 		34F5A382205ED22D00290001 /* ResonantLowPassFilter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A366205ED22C00290001 /* ResonantLowPassFilter.hpp */; };
 		34F5A383205ED22D00290001 /* SustainPedalLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A367205ED22C00290001 /* SustainPedalLogic.cpp */; };
 		34F5A384205ED22D00290001 /* FunctionTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A368205ED22C00290001 /* FunctionTable.cpp */; };
@@ -1098,8 +1100,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		344E88EB217E8C7800D58551 /* ADSREnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSREnvelope.h; sourceTree = "<group>"; };
+		344E88EC217E8C7800D58551 /* EnvelopeGeneratorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnvelopeGeneratorBase.cpp; sourceTree = "<group>"; };
+		344E88ED217E8C7800D58551 /* EnvelopeGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvelopeGeneratorBase.h; sourceTree = "<group>"; };
 		34F5A363205ED22C00290001 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		34F5A365205ED22C00290001 /* ADSREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADSREnvelope.hpp; sourceTree = "<group>"; };
 		34F5A366205ED22C00290001 /* ResonantLowPassFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ResonantLowPassFilter.hpp; sourceTree = "<group>"; };
 		34F5A367205ED22C00290001 /* SustainPedalLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SustainPedalLogic.cpp; sourceTree = "<group>"; };
 		34F5A368205ED22C00290001 /* FunctionTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionTable.cpp; sourceTree = "<group>"; };
@@ -2277,12 +2281,14 @@
 			isa = PBXGroup;
 			children = (
 				34F5A369205ED22C00290001 /* README.md */,
-				34F5A365205ED22C00290001 /* ADSREnvelope.hpp */,
 				34F5A366205ED22C00290001 /* ResonantLowPassFilter.hpp */,
 				34F5A367205ED22C00290001 /* SustainPedalLogic.cpp */,
 				34F5A368205ED22C00290001 /* FunctionTable.cpp */,
 				34F5A36A205ED22C00290001 /* FunctionTable.hpp */,
 				34F5A36B205ED22C00290001 /* LinearRamper.hpp */,
+				344E88ED217E8C7800D58551 /* EnvelopeGeneratorBase.h */,
+				344E88EC217E8C7800D58551 /* EnvelopeGeneratorBase.cpp */,
+				344E88EB217E8C7800D58551 /* ADSREnvelope.h */,
 				34F5A36C205ED22C00290001 /* ADSREnvelope.cpp */,
 				34F5A36D205ED22C00290001 /* SustainPedalLogic.hpp */,
 				34F5A36E205ED22C00290001 /* ResonantLowPassFilter.cpp */,
@@ -4911,7 +4917,6 @@
 			files = (
 				B12B88A9201C1B65008F196D /* AKExponentialParameterRamp.hpp in Headers */,
 				B157704A2093C8E700830A3E /* AKParameterRamp.hpp in Headers */,
-				34F5A381205ED22D00290001 /* ADSREnvelope.hpp in Headers */,
 				C470D05E20174AD6003D1AFA /* AKClarinetDSP.hpp in Headers */,
 				C4AC0B151FC9419900EDA024 /* AKDSPBase.hpp in Headers */,
 				C49B1E7B204A0CFA009C7C8E /* OnePoleLPF.h in Headers */,
@@ -5043,6 +5048,7 @@
 				C470D020201749FF003D1AFA /* AKCombFilterReverbDSP.hpp in Headers */,
 				C45F3F7F1ED157AB00A75143 /* AKSamplePlayerAudioUnit.h in Headers */,
 				C49DCD5E1D2100BF00BF018A /* AKOscillatorBankAudioUnit.h in Headers */,
+				344E88F0217E8C7900D58551 /* EnvelopeGeneratorBase.h in Headers */,
 				C470CF95201747E7003D1AFA /* AKTremoloDSP.hpp in Headers */,
 				C49B20D4204A0D57009C7C8E /* FileLoop.h in Headers */,
 				C49B20F0204A0D57009C7C8E /* DelayL.h in Headers */,
@@ -5200,6 +5206,7 @@
 				C49B210E204A0D57009C7C8E /* LentPitShift.h in Headers */,
 				C49B20D3204A0D57009C7C8E /* StifKarp.h in Headers */,
 				C4775853202FD6BD00159BA7 /* AKDynaRageCompressorDSPKernel.hpp in Headers */,
+				344E88EE217E8C7900D58551 /* ADSREnvelope.h in Headers */,
 				C470D07920174B84003D1AFA /* AKBoosterDSP.hpp in Headers */,
 				C410F15A203053BF002EA801 /* AKMetalBarDSP.hpp in Headers */,
 				C470D04C20174A93003D1AFA /* AKOscillatorDSP.hpp in Headers */,
@@ -5873,6 +5880,7 @@
 				C49B1E8D204A0CFA009C7C8E /* maygate.c in Sources */,
 				C49B1E1A204A0CFA009C7C8E /* jitter.c in Sources */,
 				C49B214E204A0D57009C7C8E /* Mandolin.cpp in Sources */,
+				344E88EF217E8C7900D58551 /* EnvelopeGeneratorBase.cpp in Sources */,
 				C40C422D1C40E5C2009D870B /* EZAudioUtilities.m in Sources */,
 				C410F159203053BF002EA801 /* AKMetalBarDSP.mm in Sources */,
 				C49B1F12204A0CFB009C7C8E /* p.c in Sources */,
