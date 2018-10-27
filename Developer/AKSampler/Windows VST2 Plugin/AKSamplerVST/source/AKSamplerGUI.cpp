@@ -117,7 +117,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 return (INT_PTR)TRUE;
             case IDC_FILTER_EGSTRENGTH_SLIDER:
                 pVst->setParamFraction(kFilterEgStrength, fv);
-                pVst->getParamString(kFilterResonance, text);
+                pVst->getParamString(kFilterEgStrength, text);
                 SetDlgItemText(hwnd, IDC_FILTER_EGSTRENGTH_READOUT, text);
                 return (INT_PTR)TRUE;
 

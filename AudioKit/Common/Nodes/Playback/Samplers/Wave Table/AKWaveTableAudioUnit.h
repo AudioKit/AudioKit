@@ -29,6 +29,7 @@ typedef void (^AKCCallback)(void);
 - (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels;
 - (int)size;
 - (double)position;
+- (void)destroy;
 
 @end
 
