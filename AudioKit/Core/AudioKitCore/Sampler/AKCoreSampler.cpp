@@ -52,7 +52,7 @@ AKCoreSampler::AKCoreSampler()
 , portamentoRate(1.0f)
 , cutoffMultiple(4.0f)
 , cutoffEnvelopeStrength(20.0f)
-, linearResonance(1.0f)
+, linearResonance(0.5f)
 , loopThruRelease(false)
 , stoppingAllVoices(false)
 , _private(new _Internal)
@@ -380,6 +380,8 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
     float pitchDev = this->pitchOffset + vibratoDepth * _private->vibratoLFO.getSample();
     float cutoffMul = isFilterEnabled ? cutoffMultiple : -1.0f;
     
+    bool allowSampleRunout = !(isMonophonic && isLegato);
+
     AudioKitCore::SamplerVoice *pVoice = &_private->voice[0];
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)
     {
@@ -389,7 +391,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
             if (stoppingAllVoices ||
                 pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul,
                                          cutoffEnvelopeStrength, linearResonance) ||
-                pVoice->getSamples(sampleCount, pOutLeft, pOutRight))
+                (pVoice->getSamples(sampleCount, pOutLeft, pOutRight) && allowSampleRunout))
             {
                 stopNote(nn, true);
             }
@@ -400,6 +402,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
 void  AKCoreSampler::setADSRAttackDurationSeconds(float value)
 {
     _private->adsrEnvelopeParameters.setAttackDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRAttackDurationSeconds(void)
@@ -410,6 +413,7 @@ float AKCoreSampler::getADSRAttackDurationSeconds(void)
 void  AKCoreSampler::setADSRDecayDurationSeconds(float value)
 {
     _private->adsrEnvelopeParameters.setDecayDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRDecayDurationSeconds(void)
@@ -420,6 +424,7 @@ float AKCoreSampler::getADSRDecayDurationSeconds(void)
 void  AKCoreSampler::setADSRSustainFraction(float value)
 {
     _private->adsrEnvelopeParameters.sustainFraction = value;
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRSustainFraction(void)
@@ -430,6 +435,7 @@ float AKCoreSampler::getADSRSustainFraction(void)
 void  AKCoreSampler::setADSRReleaseDurationSeconds(float value)
 {
     _private->adsrEnvelopeParameters.setReleaseDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 
 float AKCoreSampler::getADSRReleaseDurationSeconds(void)
@@ -440,6 +446,7 @@ float AKCoreSampler::getADSRReleaseDurationSeconds(void)
 void  AKCoreSampler::setFilterAttackDurationSeconds(float value)
 {
     _private->filterEnvelopeParameters.setAttackDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 
 float AKCoreSampler::getFilterAttackDurationSeconds(void)
@@ -450,6 +457,7 @@ float AKCoreSampler::getFilterAttackDurationSeconds(void)
 void  AKCoreSampler::setFilterDecayDurationSeconds(float value)
 {
     _private->filterEnvelopeParameters.setDecayDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 
 float AKCoreSampler::getFilterDecayDurationSeconds(void)
@@ -460,6 +468,7 @@ float AKCoreSampler::getFilterDecayDurationSeconds(void)
 void  AKCoreSampler::setFilterSustainFraction(float value)
 {
     _private->filterEnvelopeParameters.sustainFraction = value;
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 
 float AKCoreSampler::getFilterSustainFraction(void)
@@ -470,6 +479,7 @@ float AKCoreSampler::getFilterSustainFraction(void)
 void  AKCoreSampler::setFilterReleaseDurationSeconds(float value)
 {
     _private->filterEnvelopeParameters.setReleaseDurationSeconds(value);
+    for (int i = 0; i < MAX_POLYPHONY; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 
 float AKCoreSampler::getFilterReleaseDurationSeconds(void)

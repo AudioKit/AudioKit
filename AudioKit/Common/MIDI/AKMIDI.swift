@@ -40,7 +40,7 @@ open class AKMIDI {
     internal let inputPortName: CFString = "MIDI In Port" as CFString
 
     /// MIDI Out Port Reference
-    internal var outputPort = MIDIPortRef()
+    public var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
     open var virtualOutput = MIDIPortRef()
@@ -114,6 +114,7 @@ open class AKMIDI {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
         } else {
             AKLog("Error Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)")
+            CheckError(result)
         }
     }
 
@@ -127,6 +128,7 @@ open class AKMIDI {
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
         } else {
             AKLog("Error Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)")
+            CheckError(result)
         }
     }
 

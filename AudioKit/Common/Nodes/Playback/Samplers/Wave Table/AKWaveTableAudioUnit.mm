@@ -68,6 +68,11 @@
     float normalized = (_kernel.position - _kernel.startPointViaRate()) / (_kernel.endPointViaRate() - _kernel.startPointViaRate());
     return _kernel.rate > 0 ? normalized : 1 - normalized;
 }
+
+- (void)destroy {
+    _kernel.destroy();
+}
+
 standardKernelPassthroughs()
 
 - (void)createParameters {

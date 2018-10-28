@@ -43,7 +43,7 @@ import AVFoundation
 
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
-public class AKPlayer: AKNode {
+@objc public class AKPlayer: AKNode {
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
@@ -134,13 +134,13 @@ public class AKPlayer: AKNode {
     // MARK: - Nodes
 
     /// The underlying player node
-    public let playerNode = AVAudioPlayerNode()
+    @objc public let playerNode = AVAudioPlayerNode()
 
     /// The main output
-    public let mixer = AVAudioMixerNode()
+    @objc public let mixer = AVAudioMixerNode()
 
     /// The underlying gain booster which controls fades as well. Created on demand.
-    public var faderNode: AKBooster?
+    @objc public var faderNode: AKBooster?
 
     // MARK: - Private Parts
 
@@ -185,10 +185,10 @@ public class AKPlayer: AKNode {
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
     /// stop() is called while playing or when looping from a buffer.
-    public var completionHandler: AKCallback?
+    @objc public var completionHandler: AKCallback?
 
     /// Used with buffering players
-    public var buffer: AVAudioPCMBuffer?
+    @objc public var buffer: AVAudioPCMBuffer?
 
     /// Sets if the player should buffer dynamically (as needed) or always.
     /// Not buffering means streaming from disk (best for long files),
@@ -205,10 +205,10 @@ public class AKPlayer: AKNode {
     }
 
     /// The internal audio file
-    public private(set) var audioFile: AVAudioFile?
+    @objc public private(set) var audioFile: AVAudioFile?
 
     /// The duration of the loaded audio file
-    public var duration: Double {
+    @objc public var duration: Double {
         guard let audioFile = audioFile else { return 0 }
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
@@ -217,7 +217,7 @@ public class AKPlayer: AKNode {
     public var loop = Loop()
 
     /// Volume 0.0 -> 1.0, default 1.0
-    public var volume: Double {
+    @objc public var volume: Double {
         get {
             return Double(playerNode.volume)
         }
@@ -228,7 +228,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Amplification Factor, in the range of 0.0002 to ~
-    public var gain: Double {
+    @objc public var gain: Double {
         get {
             return fade.maximumGain
         }
@@ -246,7 +246,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Left/Right balance -1.0 -> 1.0, default 0.0
-    public var pan: Double {
+    @objc public var pan: Double {
         get {
             return Double(playerNode.pan)
         }
@@ -256,7 +256,7 @@ public class AKPlayer: AKNode {
     }
 
     // convenience for setting both in and out fade ramp types
-    public var rampType: AKSettings.RampType = .exponential {
+    @objc public var rampType: AKSettings.RampType = .exponential {
         didSet {
             fade.inRampType = rampType
             fade.outRampType = rampType
@@ -264,7 +264,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Get or set the start time of the player.
-    public var startTime: Double {
+    @objc public var startTime: Double {
         get {
             // return max(0, _startTime)
             return _startTime
@@ -278,7 +278,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Get or set the end time of the player.
-    public var endTime: Double {
+    @objc public var endTime: Double {
         get {
             return isLooping ? loop.end : _endTime
         }
@@ -297,10 +297,10 @@ public class AKPlayer: AKNode {
     /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
-    public internal(set) var frameCount: AVAudioFrameCount = 0
+    @objc public internal(set) var frameCount: AVAudioFrameCount = 0
 
     /// - Returns: The current frame while playing
-    public var currentFrame: AVAudioFramePosition {
+    @objc public var currentFrame: AVAudioFramePosition {
         if let nodeTime = playerNode.lastRenderTime,
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return playerTime.sampleTime
@@ -309,14 +309,14 @@ public class AKPlayer: AKNode {
     }
 
     /// - Returns: Current time of the player in seconds while playing.
-    public var currentTime: Double {
+    @objc public var currentTime: Double {
         let current = startTime + playerTime.truncatingRemainder(dividingBy: (endTime - startTime))
         return current
     }
 
     public var pauseTime: Double?
 
-    public var processingFormat: AVAudioFormat? {
+    @objc public var processingFormat: AVAudioFormat? {
         guard let audioFile = audioFile else { return nil }
         return AVAudioFormat(standardFormatWithSampleRate: audioFile.fileFormat.sampleRate,
                              channels: audioFile.fileFormat.channelCount)
@@ -325,25 +325,25 @@ public class AKPlayer: AKNode {
     // MARK: - Public Options
 
     /// true if the player is buffering audio rather than playing from disk
-    public var isBuffered: Bool {
+    @objc public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
     }
 
     /// Will automatically normalize on buffer updates if enabled
-    public var isNormalized: Bool = false {
+    @objc public var isNormalized: Bool = false {
         didSet {
             updateBuffer(force: true)
         }
     }
 
-    public var isLooping: Bool = false
+    @objc public var isLooping: Bool = false
 
-    public var isPaused: Bool {
+    @objc public var isPaused: Bool {
         return pauseTime != nil
     }
 
     /// Reversing the audio will set the player to buffering
-    public var isReversed: Bool = false {
+    @objc public var isReversed: Bool = false {
         didSet {
             if isPlaying {
                 stop()
@@ -352,23 +352,23 @@ public class AKPlayer: AKNode {
         }
     }
 
-    public var isPlaying: Bool {
+    @objc public var isPlaying: Bool {
         return playerNode.isPlaying
     }
 
     /// true if any fades have been set
-    public var isFaded: Bool {
+    @objc public var isFaded: Bool {
         return fade.inTime > 0 || fade.outTime > 0
     }
 
     // MARK: - Initialization
 
-    public override init() {
+    @objc public override init() {
         super.init(avAudioNode: mixer, attach: false)
     }
 
     /// Create a player from a URL
-    public convenience init?(url: URL) {
+    @objc public convenience init?(url: URL) {
         if !FileManager.default.fileExists(atPath: url.path) {
             return nil
         }
@@ -383,7 +383,7 @@ public class AKPlayer: AKNode {
     }
 
     /// Create a player from an AVAudioFile (or AKAudioFile)
-    public convenience init(audioFile: AVAudioFile) {
+    @objc public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
         loop.start = 0
@@ -494,7 +494,7 @@ public class AKPlayer: AKNode {
     // MARK: - Deinit
 
     /// Disconnect the node and release resources
-    public override func detach() {
+    @objc public override func detach() {
         stop()
         audioFile = nil
         buffer = nil
@@ -506,7 +506,45 @@ public class AKPlayer: AKNode {
         faderNode = nil
     }
 
-    deinit {
+    @objc deinit {
         AKLog("* deinit AKPlayer")
+    }
+}
+
+// This used to be in a separate file but this broke setPosition
+
+@objc extension AKPlayer: AKTiming {
+    @objc public func start(at audioTime: AVAudioTime?) {
+        play(at: audioTime)
+    }
+
+    @objc public var isStarted: Bool {
+        return isPlaying
+    }
+
+    @objc public func setPosition(_ position: Double) {
+        startTime = position
+        if isPlaying {
+            stop()
+            play()
+        }
+    }
+
+    @objc public func position(at audioTime: AVAudioTime?) -> Double {
+        guard let playerTime = playerNode.playerTime(forNodeTime: audioTime ?? AVAudioTime.now()) else {
+            return startTime
+        }
+        return startTime + Double(playerTime.sampleTime) / playerTime.sampleRate
+    }
+
+    @objc public func audioTime(at position: Double) -> AVAudioTime? {
+        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
+        let sampleTime = (position - startTime) * sampleRate
+        let playerTime = AVAudioTime(sampleTime: AVAudioFramePosition(sampleTime), atRate: sampleRate)
+        return playerNode.nodeTime(forPlayerTime: playerTime)
+    }
+
+    @objc open func prepare() {
+        preroll(from: startTime, to: endTime)
     }
 }
