@@ -8,7 +8,7 @@
 
 /// Stereo Chorus
 ///
-@objc open class AKSampler: AKPolyphonicNode, AKComponent, AKInput {
+@objc open class AKSampler: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
@@ -287,7 +287,6 @@
     /// Initialize this sampler node
     ///
     /// - Parameters:
-    ///   - input: AKNode whose output will be processed (not used)
     ///   - masterVolume: 0.0 - 1.0
     ///   - pitchBend: semitones, signed
     ///   - vibratoDepth: semitones, typically less than 1.0
@@ -309,7 +308,6 @@
     ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
     ///
     @objc public init(
-        _ input: AKNode? = nil,
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,
@@ -362,8 +360,6 @@
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
         }
 
         guard let tree = internalAU?.parameterTree else {

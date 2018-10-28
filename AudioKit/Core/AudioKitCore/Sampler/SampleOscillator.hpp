@@ -10,7 +10,6 @@
 #include <math.h>
 
 #include "SampleBuffer.hpp"
-#include "ADSREnvelope.hpp"
 
 namespace AudioKitCore
 {
