@@ -121,14 +121,14 @@ struct MIDINote {
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = events[i].beat / *beatsPerSample;
 
-            if(((startSample <= triggerTime && triggerTime < endSample)) && *stoppedPlayingNewNotes == false)
+            if (((startSample <= triggerTime && triggerTime < endSample)) && *stoppedPlayingNewNotes == false)
             {
                 sendMidiData(instrument, *midiPort, *midiEndpoint,
                              events[i].status, events[i].data1, events[i].data2,
                              triggerTime - startSample + offset);
 
                 // Add note off time to array
-                noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration) / *beatsPerSample;
+                noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration);
 
                 // We've played our last note of the sequence
                 if (i == *noteCount - 1) {
@@ -139,9 +139,10 @@ struct MIDINote {
 
         // Loop through playing notes and see if they need to be stopped
         for (int noteNumber = 0; noteNumber < 128; noteNumber++) {
-            double offTriggerTime = noteOffBeats[noteNumber];
-            if(((startSample <= offTriggerTime && offTriggerTime < endSample))) {
-                sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0, offTriggerTime - startSample + offset);
+            double offTriggerTime = noteOffBeats[noteNumber] / *beatsPerSample;
+            if (offTriggerTime < endSample) {
+                double delay = MAX(0, offTriggerTime - startSample + offset);
+                sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0, delay);
                 noteOffBeats[noteNumber] = -1.0;
             }
             BOOL isDone = true;
@@ -336,7 +337,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 -(void)stopAfterCurrentNotes {
     _stoppedPlayingNewNotes = true;
 }
-
 
 -(void)sendMidiData:(UInt8)status data1:(UInt8)data1 data2:(UInt8)data2 {
     sendMidiData(_audioUnit, _midiPort, _midiEndpoint, status, data1, data2, 0);
