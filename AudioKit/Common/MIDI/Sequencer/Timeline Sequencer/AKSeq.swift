@@ -11,23 +11,35 @@ import Foundation
 open class AKSeq {
     
     public var tracks = [AKSequencerTrack]()
+    var timeline = AKTimeline()
+
     public var lengthInBeats: Double = 1.0 {
         didSet {
             for track in tracks { track.lengthInBeats = lengthInBeats }
         }
     }
+
     public var tempo: Double = 120.0 {
         didSet {
             for track in tracks { track.tempo = tempo }
         }
     }
+
     public var loopEnabled: Bool = true{
         didSet {
             for track in tracks { track.loopEnabled = loopEnabled }
         }
     }
 
-    var timeline = AKTimeline()
+    public init(_ nodes: AKNode...) {
+        for (index, node) in nodes.enumerated() {
+            tracks.append(AKSequencerTrack(node, index: index))
+        }
+    }
+
+    public func getTrackFor(node: AKNode) -> AKSequencerTrack? {
+        return tracks.first(where: { $0.targetNode == node })
+    }
 
     public func stopAllNotes() {
         for track in tracks { track.stopAllNotes() }
@@ -46,12 +58,6 @@ open class AKSeq {
 
     public func seek(to beat: Double, at time: AVAudioTime) {
         for track in tracks { track.seek(to: beat, at: time) }
-    }
-
-    public init(_ nodes: AKNode...) {
-        for (index, node) in nodes.enumerated() {
-            tracks.append(AKSequencerTrack(node, index: index))
-        }
     }
     
     @discardableResult public func add(node: AKNode) -> Int {
