@@ -17,13 +17,16 @@ public class AKSequencerTrack {
     public var lengthInBeats: Double = 4 { didSet { engine.lengthInBeats = lengthInBeats } }
     public var tempo: Double = 120 { didSet { engine.tempo = tempo } }
     public var loopEnabled: Bool = true { didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
+    public var targetNode: AKNode
 
     init(_ node: AKNode, index: Int = 0) {
         engine = AKSequencerTrackEngine(node, index: Int32(index))
+        targetNode = node
     }
 
     init(midiPort: MIDIPortRef, midiEndpoint: MIDIEndpointRef, node: AKNode, index: Int = 0) {
         engine = AKSequencerTrackEngine(midiPort, midiEndpoint: midiEndpoint, node: node, index: Int32(index))
+        targetNode = node
     }
 
     public func add(event: AKMIDIEvent, at position: Double) {
