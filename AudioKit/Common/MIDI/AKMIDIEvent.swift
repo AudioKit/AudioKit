@@ -20,7 +20,7 @@ extension MIDIByte {
     }
 
     var status: AKMIDIStatus? {
-        return AKMIDIStatus(rawValue: Int(self) >> 4)
+        return AKMIDIStatus.statusFrom(byte: self)
     }
 
     var channel: MIDIChannel? {
