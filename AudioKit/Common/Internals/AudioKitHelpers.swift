@@ -9,12 +9,6 @@
 import AudioToolbox
 import CoreAudio
 
-public typealias MIDIByte = UInt8
-public typealias MIDIWord = UInt16
-public typealias MIDINoteNumber = UInt8
-public typealias MIDIVelocity = UInt8
-public typealias MIDIChannel = UInt8
-
 /// A Sample type, just a UInt32
 public typealias Sample = UInt32
 
