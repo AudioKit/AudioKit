@@ -50,4 +50,12 @@ public enum AKMIDIStatus: Int {
     /// System commands differ from system to system
     case systemCommand = 15
 
+    func with(channel: UInt8) -> UInt8 {
+        return UInt8(self.rawValue << 4) + channel
+    }
+
+    static func statusFrom(byte: MIDIByte) -> AKMIDIStatus? {
+        return AKMIDIStatus(rawValue: Int(byte >> 4))
+    }
+    
 }
