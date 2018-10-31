@@ -38,7 +38,7 @@ public class AKSequencerTrack {
         engine.addNote(noteNumber, velocity: velocity, at: at, duration: duration)
     }
     public func add(controller: UInt8, value: UInt8, at: Double, channel: UInt8) {
-        let status = AKMIDIStatus.controllerChange.statusWith(channel: channel)
+        let status = AKMIDIStatus.controllerChange.with(channel: channel)
         engine.addMIDIEvent(status, data1: controller, data2: value, at: at)
     }
 
