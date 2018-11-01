@@ -231,6 +231,8 @@ public struct AKMIDIEvent {
             // is regular MIDI status
             let channel = channelFrom(rawByte: data[0])
             fillData(status: status, channel: channel ?? 0, byte1: data[1], byte2: data[2])
+        } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
+            print("is meta event \(metaType.description)")
         }
     }
 

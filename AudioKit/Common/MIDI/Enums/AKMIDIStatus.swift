@@ -57,5 +57,15 @@ public enum AKMIDIStatus: Int {
     static func statusFrom(byte: MIDIByte) -> AKMIDIStatus? {
         return AKMIDIStatus(rawValue: Int(byte >> 4))
     }
-    
+
+    var length: Int? {
+        switch self {
+        case .programChange, .channelAftertouch:
+            return 2
+        case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
+            return 3
+        case .systemCommand, .nothing:
+            return nil
+        }
+    }
 }
