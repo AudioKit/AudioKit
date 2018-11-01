@@ -51,3 +51,17 @@ extension MIDIPacket {
         return AKMIDISystemCommand(rawValue: data.0)
     }
 }
+
+enum MIDITimeFormat: Int {
+    case ticksPerBeat = 0
+    case framesPerSecond = 1
+
+    var description: String {
+        switch self {
+        case .ticksPerBeat:
+            return "TicksPerBeat"
+        case .framesPerSecond:
+            return "FramesPerSecond"
+        }
+    }
+}
