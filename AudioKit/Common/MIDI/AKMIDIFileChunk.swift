@@ -106,14 +106,14 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if byte == 0xFF { //MetaEvent
                     isParsingMetaEvent = true
                 } else {
-                    if let _ = AKMIDIStatus.statusFrom(byte: byte) {
+                    if let _ = AKMIDIStatusType.statusFrom(byte: byte) {
                         currentTypeByte = byte
                         runningStatus = byte
                     } else if AKMIDISystemCommand(rawValue: byte) != nil {
                         currentTypeByte = byte
                     } else if AKMIDIMetaEventType(rawValue: byte) != nil {
                         currentTypeByte = byte
-                    } else if let statusByte = runningStatus, let status = AKMIDIStatus.statusFrom(byte: statusByte) {
+                    } else if let statusByte = runningStatus, let status = AKMIDIStatusType.statusFrom(byte: statusByte) {
                         let length = MIDIByte(status.length ?? AKMIDISystemCommand(rawValue: statusByte)?.length ?? 0)
                         currentTypeByte = statusByte
                         currentEventData.append(statusByte)
@@ -139,7 +139,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                             } else {
                                 currentLengthByte = MIDIByte(command.length)
                             }
-                        } else if let status = AKMIDIStatus.statusFrom(byte: type) {
+                        } else if let status = AKMIDIStatusType.statusFrom(byte: type) {
                             if let length = status.length {
                                 currentLengthByte = MIDIByte(length)
                             } else {

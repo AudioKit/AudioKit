@@ -43,7 +43,7 @@ extension MIDIPacket: Sequence {
             } else if AKMIDIEvent.isStatusByte(status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
-                guard var mstat = AKMIDIStatus.statusFrom(byte: status) else {
+                guard var mstat = AKMIDIStatusType.statusFrom(byte: status) else {
                     return AKMIDIEvent(packet: self)
                 }
 
