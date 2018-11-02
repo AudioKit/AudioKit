@@ -325,15 +325,6 @@ public struct AKMIDIEvent {
         return (byte & AKMIDIEvent.statusBit) == 0
     }
 
-    /// Convert a byte into a MIDI Status
-    ///
-    /// - parameter byte: Byte to convert
-    ///
-    static func statusFromValue(_ byte: MIDIByte) -> AKMIDIStatus {
-        let status = byte >> 4
-        return AKMIDIStatus(rawValue: Int(status)) ?? .nothing
-    }
-
     /// Create note on event
     ///
     /// - Parameters:
