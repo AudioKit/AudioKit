@@ -90,20 +90,25 @@ open class AKSeq {
             var sizeIndex = 0
             var dataLength = 0
             var dataIndex = 0
-            var chunks = [MIDIFileChunk]()
-            var currentChunk = MIDIFileChunk()
+            var chunks = [AKMIDIFileChunk]()
+            var currentTypeChunk: [UInt8] = Array(repeating: 0, count: 4)
+            var currentLengthChunk: [UInt8] = Array(repeating: 0, count: 4)
+            var currentDataChunk: [UInt8] = []
             var newChunk = true
             var isParsingType = false
             var isParsingLength = false
+            var isParsingHeader = true
             for i in 0..<dataSize {
                 if newChunk {
                     isParsingType = true
                     isParsingLength = false
                     newChunk = false
-                    currentChunk = MIDIFileChunk()
+                    currentTypeChunk = Array(repeating: 0, count: 4)
+                    currentLengthChunk = Array(repeating: 0, count: 4)
+                    currentDataChunk = []
                 }
                 if isParsingType { //get chunk type
-                    currentChunk.typeData[typeIndex] = midiData[i]
+                    currentTypeChunk[typeIndex] = midiData[i]
                     typeIndex += 1
                     if typeIndex == typeLength {
                         isParsingType = false
@@ -111,45 +116,43 @@ open class AKSeq {
                         typeIndex = 0
                     }
                 } else if isParsingLength { //get chunk length
-                    currentChunk.lengthData[sizeIndex] = midiData[i]
+                    currentLengthChunk[sizeIndex] = midiData[i]
                     sizeIndex += 1
                     if sizeIndex == sizeLength {
                         isParsingLength = false
                         sizeIndex = 0
+                        dataLength = Int(currentLengthChunk.map(String.init).joined()) ?? 0
                     }
                 } else { //get chunk data
-                    currentChunk.data.append(midiData[i])
-                    if currentChunk.data.count == currentChunk.length {
+                    var tempChunk: AKMIDIFileChunk
+                    currentDataChunk.append(midiData[i])
+                    if UInt8(currentDataChunk.count) == dataLength {
+                        if isParsingHeader {
+                            tempChunk = MIDIFileHeaderChunk(typeData: currentTypeChunk,
+                                                            lengthData: currentLengthChunk, data: currentDataChunk)
+                        } else {
+                            tempChunk = MIDIFileTrackChunk(typeData: currentTypeChunk,
+                                                           lengthData: currentLengthChunk, data: currentDataChunk)
+                        }
                         newChunk = true
-                        chunks.append(currentChunk)
+                        isParsingHeader = false
+                        chunks.append(tempChunk)
                     }
                 }
-                let letter = Character(UnicodeScalar(midiData[i]))
-                print("byte \(i) : \(midiData[i]) - \(letter)")
             }
-            dump(chunks)
-            print(chunks.map({$0.type}))
-            print(chunks.map({$0.length}))
+            for chunk in chunks {
+                if let trackChunk = chunk as? MIDIFileTrackChunk {
+                    let events = trackChunk.events
+                    print("track chunk w \(events.count) events")
+                } else {
+                    print("header chunk")
+                }
+            }
         }
         return nil
     }
 }
 
-struct MIDIFileChunk {
-
-    var typeData: [UInt8] = Array(repeating: 0, count: 4)
-    var lengthData: [UInt8] = Array(repeating: 0, count: 4)
-    var data = [UInt8]()
-    var length: Int? {
-        return lengthData.count == 4 ? Int(self.lengthData.map(String.init).joined()) : nil
-    }
-    var type: String? {
-        return typeData.count == 4 ? String(self.typeData.map({ Character(UnicodeScalar($0)) })) : nil
-    }
-
-    static let headerString = "MThd"
-    static let trackString = "MTrk"
-}
 /* functions from aksequencer to implement
 
  public convenience init(fromURL fileURL: URL) {
