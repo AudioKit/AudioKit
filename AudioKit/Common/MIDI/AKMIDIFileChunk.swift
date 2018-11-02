@@ -73,35 +73,110 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
 
     var events: [AKMIDIEvent] {
         var events = [AKMIDIEvent]()
-
-        return events
-    }
-
-    private func parseData() {
-        var events = [AKMIDIEvent]()
-        var currentTimeByte: MIDIByte?
+        var currentTimeByte: Int?
         var currentTypeByte: MIDIByte?
         var currentLengthByte: MIDIByte?
         var currentEventData = [MIDIByte]()
+        var isParsingMetaEvent = false
+        var isParsingVariableTime = false
+        var isParsingSysex = false
+        var runningStatus: MIDIByte?
+        var variableBits = [MIDIByte]()
         for byte in data {
-            if UInt8(currentEventData.count) == currentLengthByte {
-                let typeAndLength = [currentTypeByte!, currentLengthByte!]
-                let event = AKMIDIEvent(data: typeAndLength + currentEventData)
-                currentTimeByte = nil
-                currentTypeByte = nil
-                currentLengthByte = nil
-                currentEventData.removeAll()
-            }
             if currentTimeByte == nil {
-                currentTimeByte = byte
+                if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
+                    isParsingVariableTime = true
+                    variableBits.append(byte)
+                } else {
+                    if isParsingVariableTime {
+                        variableBits.append(byte)
+                        var time: UInt16 = 0
+                        for variable in variableBits {
+                            let shifted: UInt16 = UInt16(time << 7)
+                            let masked: MIDIByte = variable & 0x7f
+                            time = shifted + UInt16(masked)
+                        }
+                        currentTimeByte = Int(time)
+                        isParsingVariableTime = false
+                    } else {
+                        currentTimeByte = Int(byte)
+                    }
+                }
             } else if currentTypeByte == nil {
-                currentTypeByte = byte
+                if byte == 0xFF { //MetaEvent
+                    isParsingMetaEvent = true
+                } else {
+                    if let _ = AKMIDIStatus.statusFrom(byte: byte) {
+                        currentTypeByte = byte
+                        runningStatus = byte
+                    } else if AKMIDISystemCommand(rawValue: byte) != nil {
+                        currentTypeByte = byte
+                    } else if AKMIDIMetaEventType(rawValue: byte) != nil {
+                        currentTypeByte = byte
+                    } else if let statusByte = runningStatus, let status = AKMIDIStatus.statusFrom(byte: statusByte) {
+                        let length = MIDIByte(status.length ?? AKMIDISystemCommand(rawValue: statusByte)?.length ?? 0)
+                        currentTypeByte = statusByte
+                        currentEventData.append(statusByte)
+                        currentLengthByte = length
+                    }
+                }
+                if let command = AKMIDISystemCommand(rawValue: byte), command == .sysex || command == .sysexEnd {
+                    isParsingSysex = true
+                    runningStatus = nil
+                    currentTypeByte = byte
+                }
+                if !isParsingMetaEvent && !isParsingSysex {
+                    currentEventData.append(byte)
+                }
             } else if currentLengthByte == nil {
-                currentLengthByte = byte
+                if isParsingMetaEvent {
+                    currentLengthByte = byte
+                } else {
+                    if let type = currentTypeByte {
+                        if let command = AKMIDISystemCommand(rawValue: type) {
+                            if command == .sysexEnd || command == .sysex {
+                                currentLengthByte = byte
+                            } else {
+                                currentLengthByte = MIDIByte(command.length)
+                            }
+                        } else if let status = AKMIDIStatus.statusFrom(byte: type) {
+                            if let length = status.length {
+                                currentLengthByte = MIDIByte(length)
+                            } else {
+                                AKLog(("bad midi data - is system command, but not parsed as system command"))
+                                fatalError("bad midi data")
+                            }
+                        } else {
+                            print("time is \(currentTimeByte!) type is \(currentTypeByte!)")
+                            AKLog(("bad midi data - could not determine length of event"))
+                            fatalError("bad midi data")
+                        }
+                    } else {
+                        AKLog(("bad midi data - could not determine type"))
+                        fatalError("bad midi data")
+                    }
+                    if !isParsingSysex {
+                        currentEventData.append(byte)
+                    }
+                }
             } else {
                 currentEventData.append(byte)
             }
+            if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
+                UInt8(currentEventData.count) == currentLengthByte {
+                let chunkEvent = AKMIDIFileChunkEvent(time: time, type: type, length: length, data: currentEventData)
+                let event = AKMIDIEvent(fileEvent: chunkEvent)
+                events.append(event)
+                currentTimeByte = nil
+                currentTypeByte = nil
+                currentLengthByte = nil
+                isParsingMetaEvent = false
+                isParsingSysex = false
+                currentEventData.removeAll()
+                variableBits.removeAll()
+            }
         }
+        return events
     }
 }
 
@@ -168,4 +243,11 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
         return (UInt16(msb) << 8) | UInt16(lsb)
     }
 
+}
+
+public struct AKMIDIFileChunkEvent {
+    var time: Int
+    var type: MIDIByte
+    var length: MIDIByte
+    var data: [MIDIByte]
 }
