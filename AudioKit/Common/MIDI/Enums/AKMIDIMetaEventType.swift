@@ -9,21 +9,21 @@
 import Foundation
 
 public enum AKMIDIMetaEventType : MIDIByte {
-    case sequenceNumber = 0
-    case textEvent = 01
-    case copyright = 02
-    case trackName = 03
-    case instrumentName = 04
-    case lyric = 05
-    case marker = 06
-    case cuePoint = 07
+    case sequenceNumber = 0x00
+    case textEvent = 0x01
+    case copyright = 0x02
+    case trackName = 0x03
+    case instrumentName = 0x04
+    case lyric = 0x05
+    case marker = 0x06
+    case cuePoint = 0x07
     case channelPrefix = 0x20
-    case endOfTrack = 0x2f
+    case endOfTrack = 0x2F
     case setTempo = 0x51
     case smtpeOffset = 0x54
     case timeSignature = 0x58
     case keySignature = 0x59
-    case sequencerSpecificMetaEvent = 0x7f
+    case sequencerSpecificMetaEvent = 0x7F
 
     static func with(type: UInt8) -> AKMIDIMetaEventType? {
         return AKMIDIMetaEventType(rawValue: type)
