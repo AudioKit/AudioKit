@@ -27,8 +27,6 @@
 ///    differ from system to system
 ///
 public enum AKMIDIStatus: Int {
-    /// Default empty status
-    case nothing = 0
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -64,8 +62,29 @@ public enum AKMIDIStatus: Int {
             return 2
         case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
             return 3
-        case .systemCommand, .nothing:
+        case .systemCommand:
             return nil
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .noteOff:
+            return "Note Off"
+        case .noteOn:
+            return "Note On"
+        case .polyphonicAftertouch:
+            return "Polyphonic Aftertouch / Pressure"
+        case .controllerChange:
+            return "Control Change"
+        case .programChange:
+            return "Program Change"
+        case .channelAftertouch:
+            return "Channel Aftertouch / Pressure"
+        case .pitchWheel:
+            return "Pitch Wheel"
+        case .systemCommand:
+            return "System Command"
         }
     }
 }

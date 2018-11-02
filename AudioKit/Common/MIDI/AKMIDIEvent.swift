@@ -206,6 +206,19 @@ public struct AKMIDIEvent {
         return midiEvents
     }
 
+    public init(fileEvent event: AKMIDIFileChunkEvent) {
+        print("initing from AKMIDIFileChunkEvent - len: \(event.length) - time: \(event.time) - type:\(event.type) - \(event.data)")
+        if let command = AKMIDISystemCommand.init(rawValue: event.type) {
+            print(command.description)
+        } else if let status = AKMIDIStatus.statusFrom(byte: event.type) {
+            print(status.description)
+        } else if let metaType = AKMIDIMetaEventType.init(rawValue: event.type){
+            print(metaType.description)
+        } else {
+            fatalError("bad AKMIDIFile chunk - no type for \(event.type)")
+        }
+    }
+    
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
     ///
     /// - Parameters:
@@ -323,15 +336,6 @@ public struct AKMIDIEvent {
     ///
     static func isDataByte(_ byte: MIDIByte) -> Bool {
         return (byte & AKMIDIEvent.statusBit) == 0
-    }
-
-    /// Convert a byte into a MIDI Status
-    ///
-    /// - parameter byte: Byte to convert
-    ///
-    static func statusFromValue(_ byte: MIDIByte) -> AKMIDIStatus {
-        let status = byte >> 4
-        return AKMIDIStatus(rawValue: Int(status)) ?? .nothing
     }
 
     /// Create note on event
