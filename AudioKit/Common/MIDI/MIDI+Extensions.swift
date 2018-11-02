@@ -21,16 +21,12 @@ extension MIDIByte {
     }
 
     /// This limits the range to be from 0 to 16
-    func lowbit() -> MIDIByte {
+    var lowBit: MIDIByte {
         return self & 0xF
     }
 
-    var status: AKMIDIStatusType? {
-        return AKMIDIStatusType.statusFrom(byte: self)
-    }
-
-    var channel: MIDIChannel? {
-        return self & 0x0F
+    var highBit: MIDIByte {
+        return self >> 4
     }
 }
 
@@ -40,11 +36,11 @@ extension MIDIPacket {
     }
 
     var status: AKMIDIStatusType? {
-        return data.0.status
+        return AKMIDIStatusType(rawValue: Int(data.0.highBit))
     }
 
     var channel: MIDIChannel {
-        return data.0.lowbit()
+        return data.0.lowBit
     }
 
     var command: AKMIDISystemCommand? {
