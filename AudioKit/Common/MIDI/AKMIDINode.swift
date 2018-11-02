@@ -65,11 +65,11 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
 
-        if status == AKMIDIStatus.noteOn.rawValue && velocity > 0 {
+        if status == AKMIDIStatusType.noteOn.rawValue && velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity)
-        } else if status == AKMIDIStatus.noteOn.rawValue && velocity == 0 {
+        } else if status == AKMIDIStatusType.noteOn.rawValue && velocity == 0 {
             internalNode.stop(noteNumber: noteNumber)
-        } else if status == AKMIDIStatus.noteOff.rawValue {
+        } else if status == AKMIDIStatusType.noteOff.rawValue {
             internalNode.stop(noteNumber: noteNumber)
         }
     }

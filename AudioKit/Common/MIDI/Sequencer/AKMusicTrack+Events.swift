@@ -28,12 +28,11 @@ extension AKMusicTrack {
                         let statusData: MIDIByte = data?.pointee.status else {
                             break
                     }
-                    if let status = statusData.status,
-                        let channel = statusData.channel {
-                        if status == .programChange {
-                            let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
-                            pgmEvents.append(pgmEvent)
-                        }
+                    let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit))
+                    let channel = statusData.lowBit
+                    if statusType == .programChange {
+                        let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
+                        pgmEvents.append(pgmEvent)
                     }
                 }
             }
@@ -74,13 +73,12 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi channel message")
                         return
                 }
-                if let status = statusData.status,
-                    let channel = statusData.channel {
-                    switch status {
+                if let statusType = AKMIDIStatusType(rawValue: Int(statusData.highBit)) {
+                    switch statusType {
                     case .programChange:
-                        print("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(channel)")
+                        print("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
                     default:
-                        print("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(status)")
+                        print("MIDI Channel Message @ \(event.time) - data1: \(data1) - data2: \(data2) - status: \(statusType)")
                     }
                 }
             default:

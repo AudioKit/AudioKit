@@ -7,7 +7,7 @@
 //
 
 /// Function type for MIDI callbacks
-public typealias AKMIDICallback = (AKMIDIStatus, MIDINoteNumber, MIDIVelocity) -> Void
+public typealias AKMIDICallback = (AKMIDIStatusType, MIDINoteNumber, MIDIVelocity) -> Void
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 open class AKCallbackInstrument: AKMIDIInstrument {
@@ -30,7 +30,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         AudioKit.engine.attach(self.avAudioNode)
     }
 
-    fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
+    fileprivate func triggerCallbacks(_ status: AKMIDIStatusType,
                                       noteNumber: MIDINoteNumber,
                                       velocity: MIDIVelocity) {
         _ = callback.map { $0(status, noteNumber, velocity) }

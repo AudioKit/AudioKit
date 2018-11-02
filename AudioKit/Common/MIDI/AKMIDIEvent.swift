@@ -35,14 +35,14 @@ public struct AKMIDIEvent {
     var length: Int = 0
 
     /// Status
-    public var status: AKMIDIStatus? {
+    public var status: AKMIDIStatusType? {
         if let statusByte = internalData.first {
             let status = statusByte >> 4
             if statusByte == AKMIDISystemCommand.sysex.rawValue,
                 !internalData.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
                 return nil //incomplete sysex
             } else {
-                return AKMIDIStatus(rawValue: Int(status))
+                return AKMIDIStatusType(rawValue: Int(status))
             }
         }
         return nil
@@ -63,17 +63,7 @@ public struct AKMIDIEvent {
     /// MIDI Channel
     public var channel: MIDIChannel? {
         if let statusByte = internalData.first {
-            if let channel = channelFrom(rawByte: statusByte) {
-                return channel
-            }
-        }
-        return nil
-    }
-
-    func channelFrom(rawByte: MIDIByte) -> MIDIChannel? {
-        let status = rawByte >> 4
-        if status < 16 {
-            return MIDIChannel(rawByte.lowbit())
+            return statusByte.lowBit
         }
         return nil
     }
@@ -119,6 +109,7 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
+        // FIXME: we currently assume this is one midi event could be any number of events
         if packet.data.0 < 0xF0 {
             if let status = packet.status {
                 fillData(status: status,
@@ -207,8 +198,8 @@ public struct AKMIDIEvent {
             event.type == AKMIDISystemCommand.sysexEnd.rawValue {
             let data = [AKMIDISystemCommand.sysex.rawValue] + event.data
             self = AKMIDIEvent(data: data)
-        } else if let _ = AKMIDIStatus.statusFrom(byte: event.type) {
-            print("initing status \(AKMIDIStatus.statusFrom(byte: event.type)!.description)")
+        } else if let _ = AKMIDIStatusType.from(byte: event.type) {
+            print("initing status \(AKMIDIStatusType.from(byte: event.type)!.description)")
             self = AKMIDIEvent(data: event.data)
         } else if let metaType = AKMIDIMetaEventType.init(rawValue: event.type){
             print(metaType.description)
@@ -238,9 +229,9 @@ public struct AKMIDIEvent {
             } else {
                 fillData(command: command, byte1: data[1], byte2: data[2])
             }
-        } else if let status = AKMIDIStatus.statusFrom(byte: data[0]) {
+        } else if let status = AKMIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
-            let channel = channelFrom(rawByte: data[0])
+            let channel = data[0].lowBit
             fillData(status: status, channel: channel ?? 0, bytes: Array(data.dropFirst()))
         } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
             print("is meta event \(metaType.description)")
@@ -255,12 +246,12 @@ public struct AKMIDIEvent {
     ///   - byte1:   First data byte
     ///   - byte2:   Second data byte
     ///
-    init(status: AKMIDIStatus, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
+    init(status: AKMIDIStatusType, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
         let data = [byte1, byte2]
         fillData(status: status, channel: channel, bytes: data)
     }
 
-    fileprivate mutating func fillData(status: AKMIDIStatus,
+    fileprivate mutating func fillData(status: AKMIDIStatusType,
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
         internalData = []
