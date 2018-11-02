@@ -34,9 +34,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.hpp">
-      <Filter>Core Sampler\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp">
       <Filter>Core Sampler\Common</Filter>
     </ClInclude>
@@ -94,6 +91,12 @@
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.hpp">
       <Filter>Core Sampler\Sampler</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.h">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.h">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.cpp">
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.cpp">
       <Filter>Core Sampler\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.cpp">
+      <Filter>Core Sampler\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
