@@ -1,5 +1,5 @@
 //
-//  AKMIDIStatus.swift
+//  AKMIDIStatusType.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -26,7 +26,7 @@
 /// - SystemCommand:
 ///    differ from system to system
 ///
-public enum AKMIDIStatus: Int {
+public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -52,8 +52,8 @@ public enum AKMIDIStatus: Int {
         return UInt8(self.rawValue << 4) + channel
     }
 
-    static func statusFrom(byte: MIDIByte) -> AKMIDIStatus? {
-        return AKMIDIStatus(rawValue: Int(byte >> 4))
+    static func statusFrom(byte: MIDIByte) -> AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte >> 4))
     }
 
     var length: Int? {

@@ -66,17 +66,17 @@ open class AKMIDISampler: AKAppleSampler {
         let status = data1 >> 4
         let channel = data1 & 0xF
 
-        if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0 {
+        if Int(status) == AKMIDIStatusType.noteOn.rawValue && data3 > 0 {
 
             try play(noteNumber: MIDINoteNumber(data2),
                      velocity: MIDIVelocity(data3),
                      channel: MIDIChannel(channel))
 
-        } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
+        } else if Int(status) == AKMIDIStatusType.noteOn.rawValue && data3 == 0 {
 
             try stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
 
-        } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
+        } else if Int(status) == AKMIDIStatusType.controllerChange.rawValue {
 
             midiCC(data2, value: data3, channel: channel)
 

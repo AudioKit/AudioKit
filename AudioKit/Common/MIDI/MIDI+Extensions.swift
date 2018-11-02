@@ -25,8 +25,8 @@ extension MIDIByte {
         return self & 0xF
     }
 
-    var status: AKMIDIStatus? {
-        return AKMIDIStatus.statusFrom(byte: self)
+    var status: AKMIDIStatusType? {
+        return AKMIDIStatusType.statusFrom(byte: self)
     }
 
     var channel: MIDIChannel? {
@@ -39,7 +39,7 @@ extension MIDIPacket {
         return data.0 == AKMIDISystemCommand.sysex.rawValue
     }
 
-    var status: AKMIDIStatus? {
+    var status: AKMIDIStatusType? {
         return data.0.status
     }
 
