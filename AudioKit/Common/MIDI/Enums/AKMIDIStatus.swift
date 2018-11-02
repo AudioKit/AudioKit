@@ -6,6 +6,24 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+struct AKMIDIStatus {
+    var byte: MIDIByte
+    var type: AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte >> 4))
+    }
+    var channel: MIDIChannel? {
+        return byte.lowBit
+    }
+
+    init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
+        byte = MIDIByte(statusType.rawValue) << 4 + channel
+    }
+
+    init(byte: MIDIByte) {
+        self.byte = byte
+    }
+}
+
 /// Potential MIDI Status messages
 ///
 /// - NoteOff:
@@ -52,7 +70,7 @@ public enum AKMIDIStatusType: Int {
         return UInt8(self.rawValue << 4) + channel
     }
 
-    static func statusFrom(byte: MIDIByte) -> AKMIDIStatusType? {
+    static func from(byte: MIDIByte) -> AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte >> 4))
     }
 
