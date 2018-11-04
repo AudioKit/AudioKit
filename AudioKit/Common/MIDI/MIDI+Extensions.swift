@@ -48,6 +48,14 @@ extension MIDIPacket {
     }
 }
 
+extension MIDIWord {
+    init(byte1: MIDIByte, byte2: MIDIByte) {
+        let x = MIDIWord(byte1)
+        let y = MIDIWord(byte2) << 7
+        self = y + x
+    }
+}
+
 enum MIDITimeFormat: Int {
     case ticksPerBeat = 0
     case framesPerSecond = 1
