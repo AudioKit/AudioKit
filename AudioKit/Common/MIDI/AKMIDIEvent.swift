@@ -63,6 +63,16 @@ public struct AKMIDIEvent {
         return nil
     }
 
+    /// Representation of the pitchBend data as a MIDI word 0-16383
+    public var pitchbendAmount: MIDIWord? {
+        if status?.type == .pitchWheel {
+            if internalData.count > 2 {
+                return MIDIWord(byte1: internalData[1], byte2: internalData[2])
+            }
+        }
+        return nil
+    }
+
     /// First data byte
     public var data1: MIDIByte {
         return internalData[1]
@@ -75,18 +85,6 @@ public struct AKMIDIEvent {
 
     var bytes: Data {
         return Data(bytes: internalData.prefix(3))
-    }
-
-    /// Representation of the MIDI data as a MIDI word 0-16383
-    public var pitchbendAmount: MIDIWord? {
-        if status?.type == .pitchWheel {
-            if internalData.count > 2 {
-                let x = MIDIWord(internalData[1])
-                let y = MIDIWord(internalData[2]) << 7
-                return y + x
-            }
-        }
-        return nil
     }
 
     static fileprivate let statusBit: MIDIByte = 0b10000000
