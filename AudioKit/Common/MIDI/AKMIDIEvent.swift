@@ -73,16 +73,6 @@ public struct AKMIDIEvent {
         return nil
     }
 
-    /// First data byte
-    public var data1: MIDIByte {
-        return internalData[1]
-    }
-
-    /// Second data byte
-    public var data2: MIDIByte {
-        return internalData[2]
-    }
-
     var bytes: Data {
         return Data(bytes: internalData.prefix(3))
     }
