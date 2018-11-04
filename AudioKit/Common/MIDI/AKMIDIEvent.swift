@@ -52,10 +52,7 @@ public struct AKMIDIEvent {
 
     /// MIDI Channel
     public var channel: MIDIChannel? {
-        if let statusByte = internalData.first {
-            return statusByte.lowBit
-        }
-        return nil
+        return status?.channel
     }
 
     /// MIDI Note Number
