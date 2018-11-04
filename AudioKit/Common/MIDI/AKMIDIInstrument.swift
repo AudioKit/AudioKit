@@ -49,9 +49,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     }
 
     private func handle(event: AKMIDIEvent) {
-        self.handleMIDI(data1: MIDIByte(event.internalData[0]),
-                        data2: MIDIByte(event.internalData[1]),
-                        data3: MIDIByte(event.internalData[2]))
+        self.handleMIDI(data1: event.internalData[0],
+                        data2: event.internalData[1],
+                        data3: event.internalData[2])
     }
 
     // MARK: - Handling MIDI Data
