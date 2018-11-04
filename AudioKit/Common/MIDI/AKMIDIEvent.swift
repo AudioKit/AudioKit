@@ -35,15 +35,9 @@ public struct AKMIDIEvent {
     var length: Int = 0
 
     /// Status
-    public var status: AKMIDIStatusType? {
+    public var status: AKMIDIStatus? {
         if let statusByte = internalData.first {
-            let status = statusByte >> 4
-            if statusByte == AKMIDISystemCommand.sysex.rawValue,
-                !internalData.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                return nil //incomplete sysex
-            } else {
-                return AKMIDIStatusType(rawValue: Int(status))
-            }
+            return AKMIDIStatus(byte: statusByte)
         }
         return nil
     }
@@ -66,7 +60,7 @@ public struct AKMIDIEvent {
 
     /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
-        if status == .noteOn || status == .noteOff, internalData.count > 1 {
+        if status?.type == .noteOn || status?.type == .noteOff, internalData.count > 1 {
             return MIDINoteNumber(internalData[1])
         }
         return nil

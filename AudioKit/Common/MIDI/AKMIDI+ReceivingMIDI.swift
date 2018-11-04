@@ -137,7 +137,7 @@ extension AKMIDI {
                 AKLog("No channel detected in handleMIDIMessage")
                 return
             }
-            guard let type = event.status else {
+            guard let type = event.status?.type else {
                 AKLog("No status detected in handleMIDIMessage")
                 return
             }
