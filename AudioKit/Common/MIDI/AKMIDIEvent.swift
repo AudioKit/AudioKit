@@ -51,10 +51,6 @@ public struct AKMIDIEvent {
     /// System Command
     public var command: AKMIDISystemCommand? {
         if let statusByte = internalData.first {
-            let status = statusByte >> 4
-            if status < 15 {
-                return .none
-            }
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil
@@ -70,7 +66,7 @@ public struct AKMIDIEvent {
 
     /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
-        if status == .noteOn || status == .noteOff {
+        if status == .noteOn || status == .noteOff, internalData.count > 1 {
             return MIDINoteNumber(internalData[1])
         }
         return nil
@@ -232,7 +228,7 @@ public struct AKMIDIEvent {
         } else if let status = AKMIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
             let channel = data[0].lowBit
-            fillData(status: status, channel: channel ?? 0, bytes: Array(data.dropFirst()))
+            fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
         } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
             print("is meta event \(metaType.description)")
         }
