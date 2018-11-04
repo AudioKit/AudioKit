@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-struct AKMIDIStatus {
+public struct AKMIDIStatus {
     var byte: MIDIByte
     var type: AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte >> 4))
@@ -44,7 +44,7 @@ struct AKMIDIStatus {
 /// - SystemCommand:
 ///    differ from system to system
 ///
-public enum AKMIDIStatusType: Int {
+enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
