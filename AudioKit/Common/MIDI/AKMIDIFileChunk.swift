@@ -77,6 +77,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var currentTypeByte: MIDIByte?
         var currentLengthByte: MIDIByte?
         var currentEventData = [MIDIByte]()
+        var currentAllData = [MIDIByte]()
         var isParsingMetaEvent = false
         var isParsingVariableTime = false
         var isParsingSysex = false
@@ -134,11 +135,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 } else {
                     if let type = currentTypeByte {
                         if let command = AKMIDISystemCommand(rawValue: type) {
-                            if command == .sysexEnd || command == .sysex {
-                                currentLengthByte = byte
-                            } else {
-                                currentLengthByte = MIDIByte(command.length)
-                            }
+                            currentLengthByte = MIDIByte(command.length ?? Int(byte))
                         } else if let status = AKMIDIStatusType.from(byte: type) {
                             if let length = status.length {
                                 currentLengthByte = MIDIByte(length)
@@ -161,9 +158,26 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
             } else {
                 currentEventData.append(byte)
             }
+            currentAllData.append(byte)
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
-                let chunkEvent = AKMIDIFileChunkEvent(time: time, type: type, length: length, data: currentEventData)
+                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData)
+                if chunkEvent.typeByte == nil, let running = runningStatus {
+                    chunkEvent.runningStatus = AKMIDIStatus(byte: running)
+                }
+                if time != chunkEvent.deltaTime {
+                    AKLog("MIDI File Parser time mismatch \(time) \(chunkEvent.deltaTime)")
+                    break
+                }
+                if type != chunkEvent.typeByte {
+                    AKLog("MIDI File Parser type mismatch \(type) \(chunkEvent.typeByte)")
+                    break
+                }
+                if length != chunkEvent.length {
+                    print(type)
+                    AKLog("MIDI File Parser length mismatch \(length) \(chunkEvent.length)")
+                    break
+                }
                 let event = AKMIDIEvent(fileEvent: chunkEvent)
                 events.append(event)
                 currentTimeByte = nil
@@ -173,6 +187,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 isParsingSysex = false
                 currentEventData.removeAll()
                 variableBits.removeAll()
+                currentAllData.removeAll()
             }
         }
         return events
@@ -245,8 +260,67 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
 }
 
 public struct AKMIDIFileChunkEvent {
-    var time: Int
-    var type: MIDIByte
-    var length: MIDIByte
     var data: [MIDIByte]
+    var runningStatus: AKMIDIStatus? = nil
+
+    init(data: [MIDIByte]) {
+        self.data = data
+    }
+
+    var eventData: [MIDIByte] {
+        return Array(data.prefix(timeLength))
+    }
+
+    var deltaTime: Int {
+        let timeBytes = data.prefix(timeLength)
+        var time: UInt16  = 0
+        for byte in timeBytes {
+            let shifted: UInt16 = UInt16(time << 7)
+            let masked: MIDIByte = byte & 0x7f
+            time = shifted + UInt16(masked)
+        }
+        return Int(time)
+    }
+
+    private var timeLength: Int {
+        return (data.firstIndex(where: { $0 < 0x80 }) ?? 0) + 1
+    }
+
+    var typeByte: MIDIByte? {
+        if let index = typeIndex {
+            return data[index]
+        }
+        return runningStatus?.byte
+    }
+
+    private var typeIndex: Int? {
+        if data.count > timeLength {
+            if data[timeLength] == 0xFF,
+                data.count > timeLength + 1 { //is Meta-Event
+                return timeLength + 1
+            } else if let _ = AKMIDIStatus(byte: data[timeLength]) {
+                return timeLength
+            }
+        }
+        return nil
+    }
+
+    var length: Int {
+        if let typeByte = self.typeByte {
+            if let metaEvent = AKMIDIMetaEventType(rawValue: typeByte) {
+                if let length = metaEvent.length {
+                    return length
+                } else if let index = typeIndex {
+                    return Int(data[index + 1])
+                }
+            } else if let status = AKMIDIStatus(byte: typeByte) {
+                if let command = status.command, let index = typeIndex {
+                    return command.length ?? Int(data[index + 1])
+                } else if let type = status.type {
+                    return type.length ?? 0
+                }
+            }
+        }
+        return 0
+    }
 }
