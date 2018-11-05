@@ -29,8 +29,8 @@ extension MIDIPacket {
         return data.0 == AKMIDISystemCommand.sysex.rawValue
     }
 
-    var status: AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(data.0.highBit))
+    var status: AKMIDIStatus? {
+        return AKMIDIStatus(byte: data.0)
     }
 
     var channel: MIDIChannel {
