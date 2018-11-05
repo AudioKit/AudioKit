@@ -159,18 +159,21 @@ public struct AKMIDIEvent {
     }
 
     public init(fileEvent event: AKMIDIFileChunkEvent) {
-        print("initing from AKMIDIFileChunkEvent - len: \(event.length) - time: \(event.time) - type:\(event.type) - \(event.data)")
-        if event.type == AKMIDISystemCommand.sysex.rawValue ||
-            event.type == AKMIDISystemCommand.sysexEnd.rawValue {
-            let data = [AKMIDISystemCommand.sysex.rawValue] + event.data
-            self = AKMIDIEvent(data: data)
-        } else if let _ = AKMIDIStatusType.from(byte: event.type) {
-            print("initing status \(AKMIDIStatusType.from(byte: event.type)!.description)")
-            self = AKMIDIEvent(data: event.data)
-        } else if let metaType = AKMIDIMetaEventType.init(rawValue: event.type){
-            print(metaType.description)
-        } else {
-            fatalError("bad AKMIDIFile chunk - no type for \(event.type)")
+        if let typeByte = event.typeByte {
+            if typeByte == AKMIDISystemCommand.sysex.rawValue ||
+                typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
+                print(AKMIDISystemCommand.sysex.description)
+                let data = [AKMIDISystemCommand.sysex.rawValue] + event.eventData
+                self = AKMIDIEvent(data: data)
+            } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
+                print(statusType.description)
+                self = AKMIDIEvent(data: event.eventData)
+            } else if let metaType = AKMIDIMetaEventType.init(rawValue: typeByte){
+                print(metaType.description)
+            } else {
+                dump(event)
+                fatalError("bad AKMIDIFile chunk - no type for \(event.typeByte)")
+            }
         }
     }
     

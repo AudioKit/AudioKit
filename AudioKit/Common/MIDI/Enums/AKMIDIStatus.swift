@@ -17,8 +17,12 @@ public struct AKMIDIStatus {
         byte = command.rawValue
     }
 
-    init(byte: MIDIByte) {
-        self.byte = byte
+    init?(byte: MIDIByte) {
+        if let _ = AKMIDIStatusType.from(byte: byte) {
+            self.byte = byte
+        } else {
+            return nil
+        }
     }
 
     var type: AKMIDIStatusType? {
