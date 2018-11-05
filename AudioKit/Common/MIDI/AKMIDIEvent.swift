@@ -35,15 +35,9 @@ public struct AKMIDIEvent {
     var length: Int = 0
 
     /// Status
-    public var status: AKMIDIStatusType? {
+    public var status: AKMIDIStatus? {
         if let statusByte = internalData.first {
-            let status = statusByte >> 4
-            if statusByte == AKMIDISystemCommand.sysex.rawValue,
-                !internalData.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                return nil //incomplete sysex
-            } else {
-                return AKMIDIStatusType(rawValue: Int(status))
-            }
+            return AKMIDIStatus(byte: statusByte)
         }
         return nil
     }
@@ -51,10 +45,6 @@ public struct AKMIDIEvent {
     /// System Command
     public var command: AKMIDISystemCommand? {
         if let statusByte = internalData.first {
-            let status = statusByte >> 4
-            if status < 15 {
-                return .none
-            }
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil
@@ -62,38 +52,25 @@ public struct AKMIDIEvent {
 
     /// MIDI Channel
     public var channel: MIDIChannel? {
-        if let statusByte = internalData.first {
-            return statusByte.lowBit
-        }
-        return nil
+        return status?.channel
     }
 
     /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
-        if status == .noteOn || status == .noteOff {
+        if status?.type == .noteOn || status?.type == .noteOff, internalData.count > 1 {
             return MIDINoteNumber(internalData[1])
         }
         return nil
     }
 
-    /// First data byte
-    public var data1: MIDIByte {
-        return internalData[1]
-    }
-
-    /// Second data byte
-    public var data2: MIDIByte {
-        return internalData[2]
-    }
-
-    /// Representation of the MIDI data as a MIDI word 0-16383
-    public var wordData: MIDIWord {
-        if internalData.count < 2 {
-            return 0
+    /// Representation of the pitchBend data as a MIDI word 0-16383
+    public var pitchbendAmount: MIDIWord? {
+        if status?.type == .pitchWheel {
+            if internalData.count > 2 {
+                return MIDIWord(byte1: internalData[1], byte2: internalData[2])
+            }
         }
-        let x = MIDIWord(internalData[1])
-        let y = MIDIWord(internalData[2]) << 7
-        return y + x
+        return nil
     }
 
     var bytes: Data {
@@ -232,7 +209,7 @@ public struct AKMIDIEvent {
         } else if let status = AKMIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
             let channel = data[0].lowBit
-            fillData(status: status, channel: channel ?? 0, bytes: Array(data.dropFirst()))
+            fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
         } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
             print("is meta event \(metaType.description)")
         }
