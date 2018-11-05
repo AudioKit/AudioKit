@@ -8,6 +8,12 @@
 
 import CoreMIDI
 
+public typealias MIDIByte = UInt8
+public typealias MIDIWord = UInt16
+public typealias MIDINoteNumber = UInt8
+public typealias MIDIVelocity = UInt8
+public typealias MIDIChannel = UInt8
+
 /// MIDI input and output handler
 ///
 /// You add MIDI listeners like this:

@@ -8,12 +8,6 @@
 
 import Foundation
 
-public typealias MIDIByte = UInt8
-public typealias MIDIWord = UInt16
-public typealias MIDINoteNumber = UInt8
-public typealias MIDIVelocity = UInt8
-public typealias MIDIChannel = UInt8
-
 extension MIDIByte {
     /// This limits the range to be from 0 to 127
     func lower7bits() -> MIDIByte {
