@@ -15,7 +15,13 @@ public class AKSequencerTrack {
     public var events: [AKMIDIEvent] { return _events }
     public var trackID: Int = 0 { didSet { engine.trackIndex = Int32(trackID) } }
     public var lengthInBeats: Double = 4 { didSet { engine.lengthInBeats = lengthInBeats } }
-    public var tempo: Double = 120 { didSet { engine.tempo = tempo } }
+    public var tempo: Double = 120 {
+        didSet {
+            let now = AVAudioTime(hostTime: mach_absolute_time())
+            engine.setTempo(tempo, at: now)
+        }
+
+    }
     public var loopEnabled: Bool = true { didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
     public var targetNode: AKNode
 
@@ -34,9 +40,14 @@ public class AKSequencerTrack {
             engine.addMIDIEvent(UInt8(status.rawValue), data1: event.data1, data2: event.data2, at: position)
         }
     }
-    
+
     public func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, at: Double, duration: Double) {
         engine.addNote(noteNumber, velocity: velocity, at: at, duration: duration)
+    }
+
+    public func playOnNextBeat(at beatTime: Double = 0) {
+        engine.setBeatTime(-1.0 * beatTime, at: nil)
+        engine.play()
     }
 
     public func add(controller: UInt8, value: UInt8, at: Double, channel: UInt8) {
@@ -51,14 +62,13 @@ public class AKSequencerTrack {
 
     public func stop() {
         engine.stop()
-        engine.stopAllNotes()
         engine.setBeatTime(0, at: nil)
     }
 
     public func seek(to time: Double, at position: AVAudioTime? = nil) {
         engine.setBeatTime(time, at: position)
     }
-    
+
     public func clear() {
         engine.clear()
     }

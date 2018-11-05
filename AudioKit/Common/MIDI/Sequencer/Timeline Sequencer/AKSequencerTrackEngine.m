@@ -121,7 +121,7 @@ struct MIDINote {
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = events[i].beat / *beatsPerSample;
 
-            if (((startSample <= triggerTime && triggerTime < endSample)) && *stoppedPlayingNewNotes == false)
+            if (((startSample <= triggerTime && triggerTime <= endSample)) && *stoppedPlayingNewNotes == false)
             {
                 sendMidiData(instrument, *midiPort, *midiEndpoint,
                              events[i].status, events[i].data1, events[i].data2,
@@ -139,8 +139,9 @@ struct MIDINote {
 
         // Loop through playing notes and see if they need to be stopped
         for (int noteNumber = 0; noteNumber < 128; noteNumber++) {
+            if (noteOffBeats[noteNumber] == -1.0) continue;
             double offTriggerTime = noteOffBeats[noteNumber] / *beatsPerSample;
-            if (offTriggerTime < endSample) {
+            if (offTriggerTime <= endSample) {
                 double delay = MAX(0, offTriggerTime - startSample + offset);
                 sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0, delay);
                 noteOffBeats[noteNumber] = -1.0;
@@ -328,7 +329,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 
 -(void)stop {
     [self resetStartOffset];
-    [self stopAllNotes];
+    [self stopCurrentlyPlayingNotes];
     _playCount = 0;
     _stoppedPlayingNewNotes = false;
     AKTimelineStop(tap.timeline);

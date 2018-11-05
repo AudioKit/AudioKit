@@ -48,6 +48,12 @@ open class AKSeq {
         }
     }
 
+    func playOnNextBeat(at beatTime: Double = 0) {
+        for track in tracks {
+            track.playOnNextBeat(at: beatTime)
+        }
+    }
+
     public func stop() {
         for track in tracks { track.stop() }
     }
