@@ -47,8 +47,6 @@ extension MIDIPacket: Sequence {
                     return AKMIDIEvent(packet: self)
                 }
 
-                let chan = status & 0xF
-
                 switch  mstat {
 
                 case .noteOff, .noteOn, .polyphonicAftertouch, .controllerChange, .pitchWheel:
@@ -57,11 +55,11 @@ extension MIDIPacket: Sequence {
                         // turn noteOn with velocity 0 to noteOff
                         mstat = .noteOff
                     }
-                    return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+                    return AKMIDIEvent(data: [status, data1, data2])
 
                 case .programChange, .channelAftertouch:
                     data1 = pop()
-                    return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+                    return AKMIDIEvent(data: [status, data1])
 
                 case .systemCommand:
                     guard let cmd = AKMIDISystemCommand(rawValue: status) else {
@@ -75,10 +73,10 @@ extension MIDIPacket: Sequence {
                         //the remaining event generators need to be tested and tweaked to the specific messages
                         data1 = pop()
                         data2 = pop()
-                        return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
+                        return AKMIDIEvent(data: [status, data1, data2])
                     case .songSelect:
                         data1 = pop()
-                        return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
+                        return AKMIDIEvent(data: [status, data1])
                     default:
                         return AKMIDIEvent(packet: self)
                     }
