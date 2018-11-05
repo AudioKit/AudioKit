@@ -37,7 +37,10 @@ public class AKSequencerTrack {
 
     public func add(event: AKMIDIEvent, at position: Double) {
         if let status = event.status {
-            engine.addMIDIEvent(UInt8(status.rawValue), data1: event.data1, data2: event.data2, at: position)
+            let statusByte = status.byte
+            let data1 = event.internalData.count > 1 ? event.internalData[1] : 0
+            let data2 = event.internalData.count > 2 ? event.internalData[2] : 0
+            engine.addMIDIEvent(statusByte, data1: data1, data2: data2, at: position)
         }
     }
 
