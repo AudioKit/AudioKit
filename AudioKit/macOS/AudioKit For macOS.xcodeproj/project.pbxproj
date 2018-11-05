@@ -1135,6 +1135,9 @@
 		FE8FE9D620E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */; };
 		FE8FE9D720E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */; };
 		FE8FE9D820E42BFD00F15B7E /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */; };
+		FEB46E5D218FB47B003ED1E3 /* MIDI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB46E5C218FB47B003ED1E3 /* MIDI+Extensions.swift */; };
+		FEB46E5F218FB4A8003ED1E3 /* AKMIDIFileChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB46E5E218FB4A8003ED1E3 /* AKMIDIFileChunk.swift */; };
+		FEB46E61218FB4CD003ED1E3 /* AKMIDIMetaEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB46E60218FB4CC003ED1E3 /* AKMIDIMetaEventType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2344,6 +2347,9 @@
 		FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDiskStreamerDSPKernel.hpp; sourceTree = "<group>"; };
 		FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiskStreamerAudioUnit.mm; sourceTree = "<group>"; };
 		FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
+		FEB46E5C218FB47B003ED1E3 /* MIDI+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDI+Extensions.swift"; sourceTree = "<group>"; };
+		FEB46E5E218FB4A8003ED1E3 /* AKMIDIFileChunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileChunk.swift; sourceTree = "<group>"; };
+		FEB46E60218FB4CC003ED1E3 /* AKMIDIMetaEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMetaEventType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2879,8 +2885,10 @@
 				C45664D71D448D7E00D26565 /* AKMIDI+ReceivingMIDI.swift */,
 				C45664D81D448D7E00D26565 /* AKMIDI+SendingMIDI.swift */,
 				C45664D91D448D7E00D26565 /* AKMIDI.swift */,
+				FEB46E5C218FB47B003ED1E3 /* MIDI+Extensions.swift */,
 				C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */,
 				C45664DA1D448D7E00D26565 /* AKMIDIEvent.swift */,
+				FEB46E5E218FB4A8003ED1E3 /* AKMIDIFileChunk.swift */,
 				C45664DB1D448D7E00D26565 /* AKMIDIInstrument.swift */,
 				C45664DC1D448D7E00D26565 /* AKMIDIListener.swift */,
 				C45664DD1D448D7E00D26565 /* AKMIDINode.swift */,
@@ -2899,6 +2907,7 @@
 			isa = PBXGroup;
 			children = (
 				C45664E01D448D7E00D26565 /* AKMIDIControl.swift */,
+				FEB46E60218FB4CC003ED1E3 /* AKMIDIMetaEventType.swift */,
 				C45664E11D448D7E00D26565 /* AKMIDIStatus.swift */,
 				C45664E21D448D7E00D26565 /* AKMIDISystemCommand.swift */,
 			);
@@ -5534,7 +5543,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -5793,6 +5802,7 @@
 				C46B279D20295F6100EC0E87 /* AKPitchShifterDSP.mm in Sources */,
 				C47047C41E78FA2D00D9906F /* AKShakerAudioUnit.mm in Sources */,
 				C44EA23820186DBF0072399F /* AKPhaserAudioUnit.swift in Sources */,
+				FEB46E61218FB4CD003ED1E3 /* AKMIDIMetaEventType.swift in Sources */,
 				C49B18E7204A0AD1009C7C8E /* ref.c in Sources */,
 				C44A8162200AF1CD00D1CCC2 /* AKPWMOscillatorAudioUnit.swift in Sources */,
 				C49B1B8A204A0C48009C7C8E /* PoleZero.cpp in Sources */,
@@ -5841,6 +5851,7 @@
 				C45669C11D448D7E00D26565 /* clip.swift in Sources */,
 				C49B1939204A0AD1009C7C8E /* atone.c in Sources */,
 				C49B185E204A0AD0009C7C8E /* trand.c in Sources */,
+				FEB46E5D218FB47B003ED1E3 /* MIDI+Extensions.swift in Sources */,
 				C49B18EE204A0AD1009C7C8E /* tseq.c in Sources */,
 				C49B1873204A0AD0009C7C8E /* count.c in Sources */,
 				3404A764204F515500A2C9E4 /* AKSamplerAudioUnit.swift in Sources */,
@@ -6193,6 +6204,7 @@
 				C456699B1D448D7E00D26565 /* AKMandolinPresets.swift in Sources */,
 				C4775835202FD10B00159BA7 /* AKDynaRageCompressor.swift in Sources */,
 				C49B194F204A0AD1009C7C8E /* ftmap.c in Sources */,
+				FEB46E5F218FB4A8003ED1E3 /* AKMIDIFileChunk.swift in Sources */,
 				C49B18F9204A0AD1009C7C8E /* tone.c in Sources */,
 				C483F63D1D666D7A00374B2A /* trackedAmplitude.swift in Sources */,
 				C456690A1D448D7E00D26565 /* AKLowPassButterworthFilter.swift in Sources */,
@@ -6629,7 +6641,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
