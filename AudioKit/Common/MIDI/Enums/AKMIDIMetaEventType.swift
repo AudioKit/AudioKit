@@ -29,6 +29,25 @@ public enum AKMIDIMetaEventType : MIDIByte {
         return AKMIDIMetaEventType(rawValue: type)
     }
 
+    var length: Int? {
+        switch self {
+        case .endOfTrack:
+            return 0
+        case .channelPrefix:
+            return 1
+        case .keySignature:
+            return 2
+        case .setTempo:
+            return 3
+        case .timeSignature:
+            return 4
+        case .smtpeOffset:
+            return 5
+        default:
+            return nil
+        }
+    }
+
     var description: String {
         switch self {
         case .sequenceNumber:
