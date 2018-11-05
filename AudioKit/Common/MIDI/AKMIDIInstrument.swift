@@ -49,9 +49,12 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     }
 
     private func handle(event: AKMIDIEvent) {
-        self.handleMIDI(data1: MIDIByte(event.internalData[0]),
-                        data2: MIDIByte(event.internalData[1]),
-                        data3: MIDIByte(event.internalData[2]))
+        guard event.internalData.count > 2 else {
+            return
+        }
+        self.handleMIDI(data1: event.internalData[0],
+                        data2: event.internalData[1],
+                        data3: event.internalData[2])
     }
 
     // MARK: - Handling MIDI Data
@@ -113,14 +116,16 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        let status = data1 >> 4
-        let channel = data1 & 0xF
-        if Int(status) == AKMIDIStatusType.noteOn.rawValue && data3 > 0 {
-            start(noteNumber: MIDINoteNumber(data2),
-                  velocity: MIDIVelocity(data3),
-                  channel: MIDIChannel(channel))
-        } else if Int(status) == AKMIDIStatusType.noteOn.rawValue && data3 == 0 {
-            stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
+        let status = AKMIDIStatus(byte: data1)
+        let statusType = status.type
+        if let channel = status.channel {
+            if statusType == AKMIDIStatusType.noteOn && data3 > 0  {
+                start(noteNumber: data2,
+                      velocity: data3,
+                      channel: channel)
+            } else if statusType == AKMIDIStatusType.noteOn && data3 == 0 || statusType == AKMIDIStatusType.noteOff {
+                stop(noteNumber: data2, channel: channel)
+            }
         }
     }
 

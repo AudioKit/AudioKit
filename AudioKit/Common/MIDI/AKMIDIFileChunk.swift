@@ -144,16 +144,15 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                                 currentLengthByte = MIDIByte(length)
                             } else {
                                 AKLog(("bad midi data - is system command, but not parsed as system command"))
-                                fatalError("bad midi data")
+                                return events
                             }
                         } else {
-                            print("time is \(currentTimeByte!) type is \(currentTypeByte!)")
                             AKLog(("bad midi data - could not determine length of event"))
-                            fatalError("bad midi data")
+                            return events
                         }
                     } else {
                         AKLog(("bad midi data - could not determine type"))
-                        fatalError("bad midi data")
+                        return events
                     }
                     if !isParsingSysex {
                         currentEventData.append(byte)

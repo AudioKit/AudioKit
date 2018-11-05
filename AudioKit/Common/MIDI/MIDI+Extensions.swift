@@ -8,12 +8,6 @@
 
 import Foundation
 
-public typealias MIDIByte = UInt8
-public typealias MIDIWord = UInt16
-public typealias MIDINoteNumber = UInt8
-public typealias MIDIVelocity = UInt8
-public typealias MIDIChannel = UInt8
-
 extension MIDIByte {
     /// This limits the range to be from 0 to 127
     func lower7bits() -> MIDIByte {
@@ -45,6 +39,14 @@ extension MIDIPacket {
 
     var command: AKMIDISystemCommand? {
         return AKMIDISystemCommand(rawValue: data.0)
+    }
+}
+
+extension MIDIWord {
+    init(byte1: MIDIByte, byte2: MIDIByte) {
+        let x = MIDIWord(byte1)
+        let y = MIDIWord(byte2) << 7
+        self = y + x
     }
 }
 
