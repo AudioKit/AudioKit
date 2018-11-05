@@ -196,7 +196,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     [self resetTimeLine:lastBeatsPerSample atTime:timeStamp];
 }
 
--(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
+-(void)setTempo:(double)bpm andBeats:(double)beats atTime:(AudioTimeStamp)timeStamp{
 
     //Store the last beatsPerSample before updating, needed to maintain current beat is running.
     double lastBeatsPerSample = _beatsPerSample;
@@ -210,10 +210,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 
 -(BOOL)isPlaying {
     return AKTimelineIsStarted(tap.timeline);
-}
-
--(void)setBeatCount:(double)length {
-    [self setBeatCount:length atTime:nil];
 }
 
 -(double)length {
@@ -316,15 +312,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 
 -(AudioTimeStamp)getValidTimestamp:(AVAudioTime *)audioTime{
     return audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-}
-
--(void)setBeatCount:(double)length atTime:(AVAudioTime *)audioTime{
-    if (length > 32) {
-        NSLog(@"Beats must be <= 32");
-        return;
-    }
-    AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:self.tempo andBeats:length atTime:timestamp];
 }
 
 -(void)stop {
