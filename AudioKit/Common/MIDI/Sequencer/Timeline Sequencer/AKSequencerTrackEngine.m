@@ -212,10 +212,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     return AKTimelineIsStarted(tap.timeline);
 }
 
--(void)setBeatCount:(double)length {
-    [self setBeatCount:length atTime:nil];
-}
-
 -(double)length {
     return _lengthInBeats;
 }
@@ -316,15 +312,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 
 -(AudioTimeStamp)getValidTimestamp:(AVAudioTime *)audioTime{
     return audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-}
-
--(void)setBeatCount:(double)length atTime:(AVAudioTime *)audioTime{
-    if (length > 32) {
-        NSLog(@"Beats must be <= 32");
-        return;
-    }
-    AudioTimeStamp timestamp = audioTime ? audioTime.audioTimeStamp : AudioTimeNow();
-    [self setTempo:self.tempo andBeats:length atTime:timestamp];
 }
 
 -(void)stop {

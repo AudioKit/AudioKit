@@ -77,13 +77,6 @@
  */
 -(void)setTempo:(double)tempo atTime:(AVAudioTime * _Nullable)audioTime;
 
-/**
- Sets the beatCount, if audioTime is not nil and isPlaying, change will take place at audioTime.
-
- @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
- */
--(void)setBeatCount:(double)beatCount atTime:(AVAudioTime * _Nullable)audioTime;
-
 /** Sets the beatTime, if audioTime is not nil and isPlaying, change will take place at audioTime.
 
  @param audioTime A time relative the audio render context, host time will be ignnored unless sampleTime is invalid.
