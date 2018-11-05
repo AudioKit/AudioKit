@@ -8,19 +8,32 @@
 
 public struct AKMIDIStatus {
     var byte: MIDIByte
-    var type: AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte >> 4))
-    }
-    var channel: MIDIChannel? {
-        return byte.lowBit
-    }
 
     init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
         byte = MIDIByte(statusType.rawValue) << 4 + channel
     }
 
+    init(command: AKMIDISystemCommand) {
+        byte = command.rawValue
+    }
+
     init(byte: MIDIByte) {
         self.byte = byte
+    }
+
+    var type: AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte.highBit))
+    }
+
+    var command: AKMIDISystemCommand? {
+        return AKMIDISystemCommand(rawValue: byte)
+    }
+    
+    var channel: MIDIChannel? {
+        if type == .systemCommand {
+            return nil
+        }
+        return byte.lowBit
     }
 }
 
