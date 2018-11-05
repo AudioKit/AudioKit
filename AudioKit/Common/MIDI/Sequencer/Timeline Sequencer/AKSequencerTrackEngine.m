@@ -196,7 +196,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     [self resetTimeLine:lastBeatsPerSample atTime:timeStamp];
 }
 
--(void)setTempo:(double)bpm andBeats:(int)beats atTime:(AudioTimeStamp)timeStamp{
+-(void)setTempo:(double)bpm andBeats:(double)beats atTime:(AudioTimeStamp)timeStamp{
 
     //Store the last beatsPerSample before updating, needed to maintain current beat is running.
     double lastBeatsPerSample = _beatsPerSample;
