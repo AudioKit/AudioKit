@@ -58,14 +58,16 @@ public enum AKMIDISystemCommand: MIDIByte {
         }
     }
 
-    var length: Int {
+    var length: Int? {
         switch self {
-        case .sysex, .sysexEnd, .sysReset, .activeSensing, .start, .stop, .continue, .clock, .tuneRequest:
+        case .sysReset, .activeSensing, .start, .stop, .continue, .clock, .tuneRequest:
             return 1
         case .timeCodeQuarterFrame, .songSelect:
             return 2
         case .songPosition:
             return 3
+        case .sysex, .sysexEnd:
+            return nil
         }
     }
 
