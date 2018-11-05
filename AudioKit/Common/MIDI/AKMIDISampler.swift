@@ -63,8 +63,7 @@ open class AKMIDISampler: AKAppleSampler {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
-        let status = AKMIDIStatus(byte: data1)
-        if let channel = status.channel {
+        if let status = AKMIDIStatus(byte: data1), let channel = status.channel {
             if status.type == AKMIDIStatusType.noteOn && data3 > 0 {
                 try play(noteNumber: data2,
                          velocity: data3,

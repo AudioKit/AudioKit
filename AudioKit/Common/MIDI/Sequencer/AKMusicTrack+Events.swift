@@ -73,7 +73,7 @@ extension AKMusicTrack {
                         AKLog("Problem with raw midi channel message")
                         return
                 }
-                if let statusType = AKMIDIStatus(byte: statusData).type {
+                if let statusType = AKMIDIStatus(byte: statusData)?.type {
                     switch statusType {
                     case .programChange:
                         print("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
