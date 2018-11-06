@@ -1,25 +1,19 @@
 //
-//  AKDoNothing.swift
+//  AKCallbackInstrument.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKDoNothing is a player that
-/// doesn't rely on an as much Apple AV foundation/engine code as the others.
-/// As any other Sampler, it plays a part of a given sound file at a specified rate
-/// with specified volume. Changing the rate plays it faster and therefore sounds
-/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.
-/// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class AKDoNothing: AKPolyphonicNode, AKComponent {
+open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
-    public typealias AKAudioUnitType = AKDoNothingAudioUnit
+    public typealias AKAudioUnitType = AKCallbackInstrumentAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "dont")
+    public static let ComponentDescription = AudioComponentDescription(generator: "clbk")
 
     // MARK: - Properties
 
