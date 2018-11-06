@@ -6,9 +6,6 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Function type for MIDI callbacks
-public typealias AKMIDICallback = (AKMIDIStatus, MIDINoteNumber, MIDIVelocity) -> Void
-
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 open class AKCallbackInstrument: AKMIDIInstrument {
 
@@ -30,10 +27,10 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         AudioKit.engine.attach(self.avAudioNode)
     }
 
-    fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
-                                      noteNumber: MIDINoteNumber,
-                                      velocity: MIDIVelocity) {
-        _ = callback.map { $0(status, noteNumber, velocity) }
+    fileprivate func triggerCallbacks(_ status: MIDIByte,
+                                      data1: MIDIByte,
+                                      data2: MIDIByte) {
+        _ = callback.map { $0(status, data1, data2) }
     }
 
     /// Will trigger in response to any noteOn Message
@@ -46,7 +43,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     override open func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel) {
-        triggerCallbacks(.noteOn, noteNumber: noteNumber, velocity: velocity)
+        triggerCallbacks((MIDIByte(AKMIDIStatus.noteOn.rawValue) << 4) + channel, data1: noteNumber, data2: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -56,6 +53,6 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        triggerCallbacks(.noteOff, noteNumber: noteNumber, velocity: 0)
+        triggerCallbacks((MIDIByte(AKMIDIStatus.noteOff.rawValue) << 4) + channel, data1: noteNumber, data2: 0)
     }
 }
