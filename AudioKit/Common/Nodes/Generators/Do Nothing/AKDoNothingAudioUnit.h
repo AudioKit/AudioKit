@@ -13,6 +13,8 @@ typedef void (^AKCCallback)(void);
 
 @interface AKDoNothingAudioUnit : AKAudioUnit
 - (void)destroy;
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
+- (void)stopNote:(uint8_t)note;
 
 @end
 
