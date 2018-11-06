@@ -149,7 +149,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKCoreSampler.hpp"
 #import "AKSamplerDSP.hpp"
 
-#import "AKDoNothingAudioUnit.h"
+#import "AKCallbackInstrumentAudioUnit.h"
 
 // Testing
 #import "AKTesterAudioUnit.h"

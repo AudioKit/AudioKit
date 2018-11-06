@@ -1,5 +1,5 @@
 //
-//  AKDoNothingDSPKernel.hpp
+//  AKCallbackInstrumentDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -9,11 +9,11 @@
 #pragma once
 #import "AKSoundpipeKernel.hpp"
 
-class AKDoNothingDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKCallbackInstrumentDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
-    AKDoNothingDSPKernel() {}
+    AKCallbackInstrumentDSPKernel() {}
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
@@ -22,6 +22,7 @@ public:
     void destroy() {
         AKSoundpipeKernel::destroy();
     }
+    
     void start() {
         started = true;
     }
