@@ -61,11 +61,11 @@ public:
     }
 
     void startNote(int note, int velocity) {
-        printf("starting note %i", note);
+        doCallback(0x90, note, velocity);
     }
 
     void stopNote(int note) {
-        printf("stopping note %i", note);
+        doCallback(0x80, note, 0);
     }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
@@ -74,9 +74,6 @@ public:
         uint8_t data1 = midiEvent.data[1];
         uint8_t data2 = midiEvent.data[2];
         doCallback(status, data1, data2);
-        if ((status & 0xF0) == 0x90) {
-            updateTime = true;
-        }
     }
 
     void doCallback(int status, int data1, int data2) {

@@ -13,7 +13,7 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public typealias AKAudioUnitType = AKCallbackInstrumentAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "clbk")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
     // MARK: - Properties
 
@@ -45,16 +45,12 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     }
 
-    // MARK: - Control
-
-    /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
-        internalAU?.start()
+    override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+        internalAU?.startNote(noteNumber, velocity: velocity)
     }
 
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
+    override open func stop(noteNumber: MIDINoteNumber) {
+        internalAU?.stopNote(noteNumber)
     }
 
     deinit {
