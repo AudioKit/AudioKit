@@ -25,6 +25,11 @@ open class AKDoNothing: AKPolyphonicNode, AKComponent {
 
     private var internalAU: AKAudioUnitType?
 
+    open var callback: AKMIDICallback = { status, data1, data2 in } {
+        willSet {
+            internalAU?.callback = newValue
+        }
+    }
     // MARK: - Initialization
 
     @objc public override init() {

@@ -9,9 +9,10 @@
 #pragma once
 #import "AKAudioUnit.h"
 
-typedef void (^AKCCallback)(void);
+typedef void (^AKCMIDICallback)(uint8_t, uint8_t, uint8_t);
 
 @interface AKDoNothingAudioUnit : AKAudioUnit
+@property (nonatomic) AKCMIDICallback callback;
 - (void)destroy;
 
 @end
