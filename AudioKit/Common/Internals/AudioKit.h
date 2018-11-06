@@ -132,7 +132,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKShakerAudioUnit.h"
 #import "AKTubularBellsAudioUnit.h"
 #import "AKVocalTractDSP.hpp"
-#import "AKDoNothingAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
@@ -149,6 +148,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSampler_Typedefs.h"
 #import "AKCoreSampler.hpp"
 #import "AKSamplerDSP.hpp"
+
+#import "AKCallbackInstrumentAudioUnit.h"
 
 // Testing
 #import "AKTesterAudioUnit.h"

@@ -1,5 +1,5 @@
 //
-//  AKCallbackInstrument.swift
+//  AKMIDICallbackInstrument.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -7,7 +7,7 @@
 //
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
-open class AKCallbackInstrument: AKMIDIInstrument {
+open class AKMIDICallbackInstrument: AKMIDIInstrument {
 
     // MARK: Properties
 

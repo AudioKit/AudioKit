@@ -1,5 +1,5 @@
 //
-//  AKDoNothingAudioUnit.mm
+//  AKCallbackInstrumentAudioUnit.mm
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -7,14 +7,14 @@
 //
 #import <AudioKit/AudioKit-Swift.h>
 
-#import "AKDoNothingAudioUnit.h"
-#import "AKDoNothingDSPKernel.hpp"
+#import "AKCallbackInstrumentAudioUnit.h"
+#import "AKCallbackInstrumentDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
-@implementation AKDoNothingAudioUnit {
+@implementation AKCallbackInstrumentAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKDoNothingDSPKernel _kernel;
+    AKCallbackInstrumentDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -37,15 +37,15 @@ standardKernelPassthroughs()
 
 - (void)createParameters {
 
-    standardGeneratorSetup(DoNothing)
+    standardGeneratorSetup(CallbackInstrument)
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree tree:@[]];
 
-    parameterTreeBlock(DoNothing)
+    parameterTreeBlock(CallbackInstrument)
 }
 
-AUAudioUnitGeneratorOverrides(DoNothing)
+AUAudioUnitGeneratorOverrides(CallbackInstrument)
 
 @end
 
