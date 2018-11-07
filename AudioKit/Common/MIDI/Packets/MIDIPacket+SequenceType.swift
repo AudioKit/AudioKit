@@ -60,26 +60,24 @@ extension MIDIPacket: Sequence {
                 case .programChange, .channelAftertouch:
                     data1 = pop()
                     return AKMIDIEvent(data: [status, data1])
-
-                case .systemCommand:
-                    guard let cmd = AKMIDISystemCommand(rawValue: status) else {
-                        return AKMIDIEvent(packet: self)
-                    }
-                    switch  cmd {
-                    case .sysex:
-                        index = self.length
-                        return AKMIDIEvent(packet: self)
-                    case .songPosition:
-                        //the remaining event generators need to be tested and tweaked to the specific messages
-                        data1 = pop()
-                        data2 = pop()
-                        return AKMIDIEvent(data: [status, data1, data2])
-                    case .songSelect:
-                        data1 = pop()
-                        return AKMIDIEvent(data: [status, data1])
-                    default:
-                        return AKMIDIEvent(packet: self)
-                    }
+                }
+            } else if let command = AKMIDISystemCommand(rawValue: status) {
+                var data1: MIDIByte = 0
+                var data2: MIDIByte = 0
+                switch command {
+                case .sysex:
+                    index = self.length
+                    return AKMIDIEvent(packet: self)
+                case .songPosition:
+                    //the remaining event generators need to be tested and tweaked to the specific messages
+                    data1 = pop()
+                    data2 = pop()
+                    return AKMIDIEvent(data: [status, data1, data2])
+                case .songSelect:
+                    data1 = pop()
+                    return AKMIDIEvent(data: [status, data1])
+                default:
+                    return AKMIDIEvent(packet: self)
                 }
             } else {
                 return nil

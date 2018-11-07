@@ -137,39 +137,40 @@ extension AKMIDI {
                 AKLog("No channel detected in handleMIDIMessage")
                 return
             }
-            guard let type = event.status?.type else {
-                AKLog("No status detected in handleMIDIMessage")
-                return
+            if let type = event.status?.type {
+                switch type {
+                case .controllerChange:
+                    listener.receivedMIDIController(event.internalData[1],
+                                                    value: event.internalData[2],
+                                                    channel: MIDIChannel(eventChannel))
+                case .channelAftertouch:
+                    listener.receivedMIDIAfterTouch(event.internalData[1],
+                                                    channel: MIDIChannel(eventChannel))
+                case .noteOn:
+                    listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
+                                                velocity: MIDIVelocity(event.internalData[2]),
+                                                channel: MIDIChannel(eventChannel))
+                case .noteOff:
+                    listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.internalData[1]),
+                                                 velocity: MIDIVelocity(event.internalData[2]),
+                                                 channel: MIDIChannel(eventChannel))
+                case .pitchWheel:
+                    listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
+                                                    channel: MIDIChannel(eventChannel))
+                case .polyphonicAftertouch:
+                    listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
+                                                    pressure: event.internalData[2],
+                                                    channel: MIDIChannel(eventChannel))
+                case .programChange:
+                    listener.receivedMIDIProgramChange(event.internalData[1],
+                                                       channel: MIDIChannel(eventChannel))
+                }
             }
-            switch type {
-            case .controllerChange:
-                listener.receivedMIDIController(event.internalData[1],
-                                                value: event.internalData[2],
-                                                channel: MIDIChannel(eventChannel))
-            case .channelAftertouch:
-                listener.receivedMIDIAfterTouch(event.internalData[1],
-                                                channel: MIDIChannel(eventChannel))
-            case .noteOn:
-                listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                            velocity: MIDIVelocity(event.internalData[2]),
-                                            channel: MIDIChannel(eventChannel))
-            case .noteOff:
-                listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                             velocity: MIDIVelocity(event.internalData[2]),
-                                             channel: MIDIChannel(eventChannel))
-            case .pitchWheel:
-                listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
-                                                channel: MIDIChannel(eventChannel))
-            case .polyphonicAftertouch:
-                listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                pressure: event.internalData[2],
-                                                channel: MIDIChannel(eventChannel))
-            case .programChange:
-                listener.receivedMIDIProgramChange(event.internalData[1],
-                                                   channel: MIDIChannel(eventChannel))
-            case .systemCommand:
+            if let _ = event.command {
                 listener.receivedMIDISystemCommand(event.internalData)
             }
+            AKLog("No usable status detected in handleMIDIMessage")
+            return
         }
     }
 
