@@ -28,15 +28,8 @@ public struct AKMIDIStatus {
     public var type: AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
-
-    public var command: AKMIDISystemCommand? {
-        return AKMIDISystemCommand(rawValue: byte)
-    }
     
-    public var channel: MIDIChannel? {
-        if type == .systemCommand {
-            return nil
-        }
+    public var channel: MIDIChannel {
         return byte.lowBit
     }
 }
@@ -80,21 +73,17 @@ public enum AKMIDIStatusType: Int {
     /// A pitch wheel is a common keyboard control that allow for a pitch to be
     /// bent up or down a given number of semitones
     case pitchWheel = 14
-    /// System commands differ from system to system
-    case systemCommand = 15
     
     static func from(byte: MIDIByte) -> AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
-    public var length: Int? {
+    public var length: Int {
         switch self {
         case .programChange, .channelAftertouch:
             return 2
         case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
             return 3
-        case .systemCommand:
-            return nil
         }
     }
 
@@ -114,8 +103,6 @@ public enum AKMIDIStatusType: Int {
             return "Channel Aftertouch / Pressure"
         case .pitchWheel:
             return "Pitch Wheel"
-        case .systemCommand:
-            return "System Command"
         }
     }
 }
