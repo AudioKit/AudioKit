@@ -1,7 +1,7 @@
 # AKPlayer
 
 AKPlayer is meant to be a simple yet powerful audio player that just works. It supports
-scheduling of sounds, looping, fading and reversing.
+scheduling of sounds, looping, fading, reversing, time-stretching and pitch-shifting.
 Players can be locked to a common clock as well as video by using hostTime in the various play functions.
 By default the player will buffer audio if needed, otherwise stream from disk. Reversing the audio will cause the
 file to buffer. For seamless looping use buffered ram based playback.

@@ -96,7 +96,6 @@ public class AKWaveform: AKView {
                 plots[i]?.updateBuffer(data.buffers[i], withBufferSize: data.bufferSize)
                 plots[i]?.redraw()
             }
-
         }
     }
 
@@ -208,7 +207,6 @@ public class AKWaveform: AKView {
         super.mouseDown(with: event)
         position = mousePositionToTime(with: event)
         delegate?.waveformSelected(source: self, at: position)
-
     }
 
     public override func mouseUp(with event: NSEvent) {
@@ -235,7 +233,6 @@ public class AKWaveform: AKView {
         plots.removeAll()
         removeFromSuperview()
     }
-
 }
 
 extension AKWaveform: LoopMarkerDelegate {
