@@ -26,8 +26,8 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         self.data = chunk.data
     }
 
-    var events: [AKMIDIEvent] {
-        var events = [AKMIDIEvent]()
+    var chunkEvents: [AKMIDIFileChunkEvent] {
+        var events = [AKMIDIFileChunkEvent]()
         var currentTimeByte: Int?
         var currentTypeByte: MIDIByte?
         var currentLengthByte: MIDIByte?
@@ -133,9 +133,6 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     AKLog("MIDI File Parser length mismatch \(length) vs. \(chunkEvent.length)")
                     break
                 }
-                
-                let event = AKMIDIEvent(fileEvent: chunkEvent)
-                events.append(event)
                 currentTimeByte = nil
                 currentTypeByte = nil
                 currentLengthByte = nil
@@ -144,6 +141,8 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentEventData.removeAll()
                 variableBits.removeAll()
                 currentAllData.removeAll()
+
+                events.append(chunkEvent)
             }
         }
         return events
