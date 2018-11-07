@@ -52,16 +52,19 @@ public class AKDynamicPlayer: AKPlayer {
             if newValue == pitch {
                 return
             }
-            // timePitch is only installed if it is requested. This saves resources.
+            // timePitch is only installed if it is requested. This saves CPU resources.
             if timePitchNode != nil && newValue == 0 {
                 removeTimePitch()
                 return
-            } else if timePitchNode == nil && newValue != 0 {
+            }
+
+            if timePitchNode == nil && newValue != 0 {
                 timePitchNode = AKTimePitch()
                 initialize()
             }
 
             guard let timePitchNode = timePitchNode else { return }
+            
             timePitchNode.pitch = newValue
             if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
                 timePitchNode.start()

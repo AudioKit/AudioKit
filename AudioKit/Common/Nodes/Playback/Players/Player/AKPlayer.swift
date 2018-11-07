@@ -157,14 +157,10 @@ import AVFoundation
     internal var faderTimer: Timer?
 
     // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
-    // if you don't need them, you can disable them off here
+    // if you don't need them, you can disable them here
     internal var useCompletionHandler: Bool {
         return (isLooping && !isBuffered) || completionHandler != nil
     }
-
-    // startTime and endTime may be accessed from multiple thread contexts
-    //    private let startTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.startTimeQueue")
-    //    private let endTimeQueue = DispatchQueue(label: "io.AudioKit.AKPlayer.endTimeQueue")
 
     private var playerTime: Double {
         if let nodeTime = playerNode.lastRenderTime,
@@ -234,12 +230,12 @@ import AVFoundation
         }
 
         set {
-            // this is the value that the fader will fade to
-            fade.maximumGain = newValue
-
             if newValue != 1 && faderNode == nil {
                 createFader()
             }
+            // this is the value that the fader will fade to
+            fade.maximumGain = newValue
+            
             // this is the current value of the fader, set immediately
             faderNode?.gain = newValue
         }
@@ -386,8 +382,6 @@ import AVFoundation
     @objc public convenience init(audioFile: AVAudioFile) {
         self.init()
         self.audioFile = audioFile
-        loop.start = 0
-        loop.end = duration
         initialize(restartIfPlaying: false)
     }
 
@@ -414,6 +408,10 @@ import AVFoundation
                 faderNode.disconnectOutput()
             }
         }
+        loop.start = 0
+        loop.end = duration
+        buffer = nil
+
         connectNodes()
         if wasPlaying {
             resume()
