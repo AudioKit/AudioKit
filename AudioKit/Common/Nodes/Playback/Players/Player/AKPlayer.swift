@@ -235,7 +235,7 @@ import AVFoundation
             }
             // this is the value that the fader will fade to
             fade.maximumGain = newValue
-            
+
             // this is the current value of the fader, set immediately
             faderNode?.gain = newValue
         }
@@ -438,7 +438,7 @@ import AVFoundation
 
     @objc public func load(audioFile: AVAudioFile) {
         faderTimer?.invalidate()
-        
+
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
         // will reset the stored start / end times or update the buffer
