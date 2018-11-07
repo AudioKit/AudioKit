@@ -64,7 +64,7 @@ public class AKDynamicPlayer: AKPlayer {
             }
 
             guard let timePitchNode = timePitchNode else { return }
-            
+
             timePitchNode.pitch = newValue
             if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
                 timePitchNode.start()
