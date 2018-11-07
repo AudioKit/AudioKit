@@ -83,15 +83,15 @@ public enum AKMIDIStatusType: Int {
     /// System commands differ from system to system
     case systemCommand = 15
 
-    func with(channel: UInt8) -> UInt8 {
+    public func with(channel: UInt8) -> UInt8 {
         return UInt8(self.rawValue << 4) + channel
     }
 
     static func from(byte: MIDIByte) -> AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte >> 4))
+        return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
-    var length: Int? {
+    public var length: Int? {
         switch self {
         case .programChange, .channelAftertouch:
             return 2
@@ -102,7 +102,7 @@ public enum AKMIDIStatusType: Int {
         }
     }
 
-    var description: String {
+    public var description: String {
         switch self {
         case .noteOff:
             return "Note Off"
