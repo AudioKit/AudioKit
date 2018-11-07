@@ -18,7 +18,7 @@ public struct AKMIDIStatus {
     }
 
     public init?(byte: MIDIByte) {
-        if let _ = AKMIDIStatusType.from(byte: byte) {
+        if let _ = AKMIDIStatusType(rawValue: Int(byte.highBit)) {
             self.byte = byte
         } else {
             return nil
@@ -82,14 +82,6 @@ public enum AKMIDIStatusType: Int {
     case pitchWheel = 14
     /// System commands differ from system to system
     case systemCommand = 15
-
-    public func with(channel: UInt8) -> UInt8 {
-        return UInt8(self.rawValue << 4) + channel
-    }
-
-    static func from(byte: MIDIByte) -> AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte.highBit))
-    }
 
     public var length: Int? {
         switch self {
