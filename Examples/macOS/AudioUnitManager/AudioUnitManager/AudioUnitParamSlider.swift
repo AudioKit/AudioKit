@@ -9,7 +9,6 @@ import AVFoundation
 import Cocoa
 
 class AudioUnitParamSlider: NSView {
-
     private var audioUnit: AVAudioUnit?
     private var key: AUParameterAddress?
 
@@ -104,5 +103,4 @@ class AudioUnitParamSlider: NSView {
         let decimalValue = pow(10.0, Float(decimalPlaces))
         return round(value * decimalValue) / decimalValue
     }
-
 }
