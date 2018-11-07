@@ -16,7 +16,7 @@ class AudiobusCompatibleSequencer {
     var seq: AKSequencer!
 
     let numTracks = 4
-    var callbackInsts: [AKCallbackInstrument]!
+    var callbackInsts: [AKMIDICallbackInstrument]!
     var tracks: [AKMusicTrack]!
     var ports: [ABMIDISenderPort]!
 
@@ -89,8 +89,8 @@ class AudiobusCompatibleSequencer {
     }
 
     // MARK: - Handling NoteOn and NoteOff Msgs
-    fileprivate func setUpCallBackFunctions(channel: Int) -> AKCallbackInstrument {
-        return  AKCallbackInstrument { [weak self] status, note, velocity in
+    fileprivate func setUpCallBackFunctions(channel: Int) -> AKMIDICallbackInstrument {
+        return  AKMIDICallbackInstrument { [weak self] status, note, velocity in
             guard let this = self else { return }
             switch status {
             case .noteOn:
