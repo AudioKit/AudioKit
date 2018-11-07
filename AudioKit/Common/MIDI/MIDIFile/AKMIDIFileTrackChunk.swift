@@ -133,6 +133,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     AKLog("MIDI File Parser length mismatch \(length) vs. \(chunkEvent.length)")
                     break
                 }
+                
                 let event = AKMIDIEvent(fileEvent: chunkEvent)
                 events.append(event)
                 currentTimeByte = nil
