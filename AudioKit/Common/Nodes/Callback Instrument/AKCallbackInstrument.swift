@@ -8,7 +8,10 @@
 
 import Foundation
 
-/// Audio player that loads a sample into memory
+/// New sample-accurate version of AKCallbackInstrument
+/// Old AKCallbackInstrument renamed to AKMIDICallbackInstrument
+/// If you have used this before, you should be able to simply switch to AKMIDICallbackInstrument
+
 open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
 
     public typealias AKAudioUnitType = AKCallbackInstrumentAudioUnit
