@@ -38,7 +38,7 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    override internal var _rate: Double {
+    internal override var _rate: Double {
         return rate
     }
 
