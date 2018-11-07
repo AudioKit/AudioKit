@@ -1,5 +1,5 @@
 //
-//  AKCallbackInstrument.swift
+//  AKMIDICallbackInstrument
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -7,7 +7,9 @@
 //
 
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
-open class AKCallbackInstrument: AKMIDIInstrument {
+/// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
+/// Another callback instrument, AKCallbackInstrument
+open class AKMIDICallbackInstrument: AKMIDIInstrument {
 
     // MARK: Properties
 
@@ -27,10 +29,10 @@ open class AKCallbackInstrument: AKMIDIInstrument {
         AudioKit.engine.attach(self.avAudioNode)
     }
 
-    fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
+    fileprivate func triggerCallbacks(_ status: MIDIByte,
                                       data1: MIDIByte,
                                       data2: MIDIByte) {
-        _ = callback.map { $0(status.byte, data1, data2) }
+        _ = callback.map { $0(status, data1, data2) }
     }
 
     /// Will trigger in response to any noteOn Message
@@ -43,7 +45,7 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     override open func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel) {
-        triggerCallbacks(AKMIDIStatus(statusType: .noteOn, channel: channel), data1: noteNumber, data2: velocity)
+        triggerCallbacks(AKMIDIStatus(statusType: .noteOn, channel: channel).byte, data1: noteNumber, data2: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -53,6 +55,6 @@ open class AKCallbackInstrument: AKMIDIInstrument {
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        triggerCallbacks(AKMIDIStatus(statusType: .noteOff, channel: channel), data1: noteNumber, data2: 0)
+        triggerCallbacks(AKMIDIStatus(statusType: .noteOff, channel: channel).byte, data1: noteNumber, data2: 0)
     }
 }
