@@ -288,6 +288,7 @@ void AKSynth::render(unsigned channelCount, unsigned sampleCount, float *outBuff
 void AKSynth::setAmpAttackDurationSeconds(float value)
 {
     _private->ampEGParameters.setAttackDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 float AKSynth::getAmpAttackDurationSeconds(void)
 {
@@ -296,6 +297,7 @@ float AKSynth::getAmpAttackDurationSeconds(void)
 void  AKSynth::setAmpDecayDurationSeconds(float value)
 {
     _private->ampEGParameters.setDecayDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 float AKSynth::getAmpDecayDurationSeconds(void)
 {
@@ -304,6 +306,7 @@ float AKSynth::getAmpDecayDurationSeconds(void)
 void  AKSynth::setAmpSustainFraction(float value)
 {
     _private->ampEGParameters.sustainFraction = value;
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateAmpAdsrParameters();
 }
 float AKSynth::getAmpSustainFraction(void)
 {
@@ -312,7 +315,9 @@ float AKSynth::getAmpSustainFraction(void)
 void  AKSynth::setAmpReleaseDurationSeconds(float value)
 {
     _private->ampEGParameters.setReleaseDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateAmpAdsrParameters();
 }
+
 float AKSynth::getAmpReleaseDurationSeconds(void)
 {
     return _private->ampEGParameters.getReleaseDurationSeconds();
@@ -321,6 +326,7 @@ float AKSynth::getAmpReleaseDurationSeconds(void)
 void  AKSynth::setFilterAttackDurationSeconds(float value)
 {
     _private->filterEGParameters.setAttackDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 float AKSynth::getFilterAttackDurationSeconds(void)
 {
@@ -329,6 +335,7 @@ float AKSynth::getFilterAttackDurationSeconds(void)
 void  AKSynth::setFilterDecayDurationSeconds(float value)
 {
     _private->filterEGParameters.setDecayDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 float AKSynth::getFilterDecayDurationSeconds(void)
 {
@@ -337,6 +344,7 @@ float AKSynth::getFilterDecayDurationSeconds(void)
 void  AKSynth::setFilterSustainFraction(float value)
 {
     _private->filterEGParameters.sustainFraction = value;
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 float AKSynth::getFilterSustainFraction(void)
 {
@@ -345,6 +353,7 @@ float AKSynth::getFilterSustainFraction(void)
 void  AKSynth::setFilterReleaseDurationSeconds(float value)
 {
     _private->filterEGParameters.setReleaseDurationSeconds(value);
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) _private->voice[i].updateFilterAdsrParameters();
 }
 float AKSynth::getFilterReleaseDurationSeconds(void)
 {

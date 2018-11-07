@@ -7,17 +7,21 @@
 //
 
 #ifdef __cplusplus
+#ifdef _WIN32
+#include "AKSampler_Typedefs.h"
+#include <memory>
+#else
 #import "AKSampler_Typedefs.h"
-
 #import <memory>
+#endif
 
 // process samples in "chunks" this size
 #define AKCORESAMPLER_CHUNKSIZE 16
 
 
 namespace AudioKitCore {
-    class SamplerVoice;
-    class KeyMappedSampleBuffer;
+    struct SamplerVoice;
+    struct KeyMappedSampleBuffer;
 }
 
 class AKCoreSampler

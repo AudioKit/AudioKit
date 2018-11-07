@@ -62,18 +62,18 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     buildSimpleKeyMap();
     loopThruRelease = true;
 
-    adsrEnvelopeParameters.setAttackTimeSeconds(0.01f);
-    adsrEnvelopeParameters.setDecayTimeSeconds(0.1f);
-    adsrEnvelopeParameters.sustainFraction = 0.8f;
-    adsrEnvelopeParameters.setReleaseTimeSeconds(0.5f);
+    setADSRAttackDurationSeconds(0.01f);
+    setADSRDecayDurationSeconds(0.1f);
+    setADSRSustainFraction(0.8f);
+    setADSRReleaseDurationSeconds(0.5f);
 
     isFilterEnabled = false;
-    cutoffMultiple = 1000.0f;
-    linearResonance = 1.0f;
-    filterEnvelopeParameters.setAttackTimeSeconds(2.0f);
-    filterEnvelopeParameters.setDecayTimeSeconds(2.0f);
-    filterEnvelopeParameters.sustainFraction = 0.1f;
-    filterEnvelopeParameters.setReleaseTimeSeconds(10.0f);
+    cutoffMultiple = 0.0f;
+    linearResonance = 0.5f;
+    setFilterAttackDurationSeconds(2.0f);
+    setFilterDecayDurationSeconds(2.0f);
+    setFilterSustainFraction(0.1f);
+    setFilterReleaseDurationSeconds(10.0f);
 
     // Set up preset folder path
     char baseDir[100];
@@ -164,7 +164,7 @@ void AKSamplerDSP::loadAifDemoSamples()
     char baseDir[100];
     GetDesktopFolderPath(baseDir);
     char pathBuffer[200];
-    const char* samplePrefix = "Sounds\\ROMPlayer Sampler Instruments\\samples\\TX LoTine81z_ms";
+    const char* samplePrefix = "Sounds\\ROMPlayer AKCoreSampler Instruments\\samples\\TX LoTine81z_ms";
 
     AKSampleFileDescriptor sfd;
     sfd.path = pathBuffer;
@@ -404,8 +404,11 @@ bool AKSamplerDSP::loadPreset()
     if (!pfile) return false;
 
     int lokey, hikey, pitch, lovel, hivel;
+    float lorand, hirand;
+    float fStart, fEnd;
     bool bLoop;
     float fLoopStart, fLoopEnd;
+    float fTuneOffsetCents;
     char sampleFileName[100];
     char *p, *pp;
 
@@ -423,6 +426,14 @@ bool AKSamplerDSP::loadPreset()
             lokey = 0;
             hikey = 127;
             pitch = 60;
+
+            pp = strstr(p, "key");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) lokey = hikey = atoi(pp);
+            }
 
             pp = strstr(p, "lokey");
             if (pp)
@@ -453,10 +464,29 @@ bool AKSamplerDSP::loadPreset()
             p += 8;
             lovel = 0;
             hivel = 127;
+            lorand = 0.0f;
+            hirand = 1.0f;
             sampleFileName[0] = 0;
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            fTuneOffsetCents = 0.0f;
+
+            pp = strstr(p, "lorand");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) lorand = float(atof(pp));
+            }
+
+            pp = strstr(p, "hirand");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) hirand = float(atof(pp));
+            }
 
             pp = strstr(p, "lovel");
             if (pp)
@@ -472,6 +502,22 @@ bool AKSamplerDSP::loadPreset()
                 pp = strchr(pp, '=');
                 if (pp) pp++;
                 if (pp) hivel = atoi(pp);
+            }
+
+            pp = strstr(p, "offset");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fStart = (float)atof(pp);
+            }
+
+            pp = strstr(p, "end");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fEnd = (float)atof(pp);
             }
 
             pp = strstr(p, "loop_mode");
@@ -496,6 +542,14 @@ bool AKSamplerDSP::loadPreset()
                 if (pp) fLoopEnd = (float)atof(pp);
             }
 
+            pp = strstr(p, "tune");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fTuneOffsetCents = (float)atof(pp);
+            }
+
             pp = strstr(p, "sample");
             if (pp)
             {
@@ -508,22 +562,29 @@ bool AKSamplerDSP::loadPreset()
                 strcpy(sampleFileName, pp);
             }
 
+            // If there's anything after '.wav' or '.wv', truncate it
+            pp = strstr(sampleFileName, ".wav ");
+            if (pp) pp[4] = 0;
+            pp = strstr(sampleFileName, ".wv ");
+            if (pp) pp[3] = 0;
+
             sprintf(buf, "%s\\%s", presetFolderPath, sampleFileName);
 
             AKSampleFileDescriptor sfd;
             sfd.path = buf;
             sfd.sampleDescriptor.isLooping = bLoop;
-            sfd.sampleDescriptor.startPoint = 0.0;
+            sfd.sampleDescriptor.startPoint = fStart;
             sfd.sampleDescriptor.loopStartPoint = fLoopStart;
             sfd.sampleDescriptor.loopEndPoint = fLoopEnd;
-            sfd.sampleDescriptor.endPoint = 0.0f;
+            sfd.sampleDescriptor.endPoint = fEnd;
             sfd.sampleDescriptor.noteNumber = pitch;
-            sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+            sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber - fTuneOffsetCents/100.0f);
             sfd.sampleDescriptor.minimumNoteNumber = lokey;
             sfd.sampleDescriptor.maximumNoteNumber = hikey;
             sfd.sampleDescriptor.minimumVelocity = lovel;
             sfd.sampleDescriptor.maximumVelocity = hivel;
-            loadSoundFile(sfd);
+
+            if (lorand == 0.0f) loadSoundFile(sfd);
         }
     }
     fclose(pfile);
@@ -689,28 +750,28 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
                 vst_strncpy(text, "OFF", kVstMaxParamStrLen);
             break;
         case kAmpAttackTime:
-            float2string(adsrEnvelopeParameters.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getADSRAttackDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kAmpDecayTime:
-            float2string(adsrEnvelopeParameters.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getADSRDecayDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kAmpSustainLevel:
-            float2string(adsrEnvelopeParameters.sustainFraction, text, kVstMaxParamStrLen);
+            float2string(getADSRSustainFraction(), text, kVstMaxParamStrLen);
             break;
         case kAmpReleaseTime:
-            float2string(adsrEnvelopeParameters.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getADSRReleaseDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterAttackTime:
-            float2string(filterEnvelopeParameters.getAttackTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getFilterAttackDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterDecayTime:
-            float2string(filterEnvelopeParameters.getDecayTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getFilterDecayDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kFilterSustainLevel:
-            float2string(filterEnvelopeParameters.sustainFraction, text, kVstMaxParamStrLen);
+            float2string(getFilterSustainFraction(), text, kVstMaxParamStrLen);
             break;
         case kFilterReleaseTime:
-            float2string(filterEnvelopeParameters.getReleaseTimeSeconds(), text, kVstMaxParamStrLen);
+            float2string(getFilterReleaseDurationSeconds(), text, kVstMaxParamStrLen);
             break;
         case kLoopThruRelease:
             if (loopThruRelease)
@@ -763,28 +824,28 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
         sprintf(text, "%s", isFilterEnabled ? "enabled" : "disabled");
         break;
     case kAmpAttackTime:
-        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getAttackTimeSeconds());
+        sprintf(text, "%.2f sec", getADSRAttackDurationSeconds());
         break;
     case kAmpDecayTime:
-        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getDecayTimeSeconds());
+        sprintf(text, "%.2f sec", getADSRDecayDurationSeconds());
         break;
     case kAmpSustainLevel:
-        sprintf(text, "%.1f %%", 100.0f * adsrEnvelopeParameters.sustainFraction);
+        sprintf(text, "%.1f %%", 100.0f * getADSRSustainFraction());
         break;
     case kAmpReleaseTime:
-        sprintf(text, "%.2f sec", adsrEnvelopeParameters.getReleaseTimeSeconds());
+        sprintf(text, "%.2f sec", getADSRReleaseDurationSeconds());
         break;
     case kFilterAttackTime:
-        sprintf(text, "%.2f sec", filterEnvelopeParameters.getAttackTimeSeconds());
+        sprintf(text, "%.2f sec", getFilterAttackDurationSeconds());
         break;
     case kFilterDecayTime:
-        sprintf(text, "%.2f sec", filterEnvelopeParameters.getDecayTimeSeconds());
+        sprintf(text, "%.2f sec", getFilterDecayDurationSeconds());
         break;
     case kFilterSustainLevel:
-        sprintf(text, "%.1f %%", 100.0f * filterEnvelopeParameters.sustainFraction);
+        sprintf(text, "%.1f %%", 100.0f * getFilterSustainFraction());
         break;
     case kFilterReleaseTime:
-        sprintf(text, "%.2f sec", filterEnvelopeParameters.getReleaseTimeSeconds());
+        sprintf(text, "%.2f sec", getFilterReleaseDurationSeconds());
         break;
     case kLoopThruRelease:
         sprintf(text, "%s", loopThruRelease ? "yes" : "no");
@@ -816,10 +877,10 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         vibratoDepth = -2.0f + value * 4.0f;
         break;
     case kFilterCutoff:
-        cutoffMultiple = value * 1000.0f;
+        cutoffMultiple = value * 100.0f;
         break;
     case kFilterEgStrength:
-        cutoffEnvelopeStrength = value * 1000.0f;
+        cutoffEnvelopeStrength = value * 100.0f;
         break;
     case kFilterResonance:
         linearResonance = pow(10.0f, -0.5f * value);
@@ -828,28 +889,28 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         isFilterEnabled = value > 0.5f;
         break;
     case kAmpAttackTime:
-        adsrEnvelopeParameters.setAttackTimeSeconds(value * 10.0f);
+        setADSRAttackDurationSeconds(value * 10.0f);
         break;
     case kAmpDecayTime:
-        adsrEnvelopeParameters.setDecayTimeSeconds(value * 10.0f);
+        setADSRDecayDurationSeconds(value * 10.0f);
         break;
     case kAmpSustainLevel:
-        adsrEnvelopeParameters.sustainFraction = value;
+        setADSRSustainFraction(value);
         break;
     case kAmpReleaseTime:
-        adsrEnvelopeParameters.setReleaseTimeSeconds(value * 10.0f);
+        setADSRReleaseDurationSeconds(value * 10.0f);
         break;
     case kFilterAttackTime:
-        filterEnvelopeParameters.setAttackTimeSeconds(value * 10.0f);
+        setFilterAttackDurationSeconds(value * 10.0f);
         break;
     case kFilterDecayTime:
-        filterEnvelopeParameters.setDecayTimeSeconds(value * 10.0f);
+        setFilterDecayDurationSeconds(value * 10.0f);
         break;
     case kFilterSustainLevel:
-        filterEnvelopeParameters.sustainFraction = value;
+        setFilterSustainFraction(value);
         break;
     case kFilterReleaseTime:
-        filterEnvelopeParameters.setReleaseTimeSeconds(value * 10.0f);
+        setFilterReleaseDurationSeconds(value * 10.0f);
         break;
     case kLoopThruRelease:
         loopThruRelease = value > 0.5f;
@@ -887,10 +948,10 @@ float AKSamplerDSP::getParameter (VstInt32 index)
             value = (vibratoDepth + 2.0f) / 4.0f;
             break;
         case kFilterCutoff:
-            value = cutoffMultiple / 1000.0f;
+            value = cutoffMultiple / 100.0f;
             break;
         case kFilterEgStrength:
-            value = cutoffEnvelopeStrength / 1000.0f;
+            value = cutoffEnvelopeStrength / 100.0f;
             break;
         case kFilterResonance:
             value = -20.0f * log10(linearResonance);
@@ -899,28 +960,28 @@ float AKSamplerDSP::getParameter (VstInt32 index)
             value = isFilterEnabled ? 1.0f : 0.0f;
             break;
         case kAmpAttackTime:
-            value = adsrEnvelopeParameters.getAttackTimeSeconds() / 10.0f;
+            value = getADSRAttackDurationSeconds() / 10.0f;
             break;
         case kAmpDecayTime:
-            value = adsrEnvelopeParameters.getDecayTimeSeconds() / 10.0f;
+            value = getADSRDecayDurationSeconds() / 10.0f;
             break;
         case kAmpSustainLevel:
-            value = adsrEnvelopeParameters.sustainFraction;
+            value = getADSRSustainFraction();
             break;
         case kAmpReleaseTime:
-            value = adsrEnvelopeParameters.getReleaseTimeSeconds() / 10.0f;
+            value = getADSRReleaseDurationSeconds() / 10.0f;
             break;
         case kFilterAttackTime:
-            value = filterEnvelopeParameters.getAttackTimeSeconds() / 10.0f;
+            value = getFilterAttackDurationSeconds() / 10.0f;
             break;
         case kFilterDecayTime:
-            value = filterEnvelopeParameters.getDecayTimeSeconds() / 10.0f;
+            value = getFilterDecayDurationSeconds() / 10.0f;
             break;
         case kFilterSustainLevel:
-            value = filterEnvelopeParameters.sustainFraction;
+            value = getFilterSustainFraction();
             break;
         case kFilterReleaseTime:
-            value = filterEnvelopeParameters.getReleaseTimeSeconds() / 10.0f;
+            value = getFilterReleaseDurationSeconds() / 10.0f;
             break;
         case kLoopThruRelease:
             value = loopThruRelease ? 1.0f : 0.0f;
@@ -957,21 +1018,21 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
     case kFilterEnable:
         return isFilterEnabled ? 1.0f : 0.0f;
     case kAmpAttackTime:
-        return adsrEnvelopeParameters.getAttackTimeSeconds();
+        return getADSRAttackDurationSeconds();
     case kAmpDecayTime:
-        return adsrEnvelopeParameters.getDecayTimeSeconds();
+        return getADSRDecayDurationSeconds();
     case kAmpSustainLevel:
-        return adsrEnvelopeParameters.sustainFraction;
+        return getADSRSustainFraction();
     case kAmpReleaseTime:
-        return adsrEnvelopeParameters.getReleaseTimeSeconds();
+        return getADSRReleaseDurationSeconds();
     case kFilterAttackTime:
-        return filterEnvelopeParameters.getAttackTimeSeconds();
+        return getFilterAttackDurationSeconds();
     case kFilterDecayTime:
-        return filterEnvelopeParameters.getDecayTimeSeconds();
+        return getFilterDecayDurationSeconds();
     case kFilterSustainLevel:
-        return filterEnvelopeParameters.sustainFraction;
+        return getFilterSustainFraction();
     case kFilterReleaseTime:
-        return filterEnvelopeParameters.getReleaseTimeSeconds();
+        return getFilterReleaseDurationSeconds();
     case kLoopThruRelease:
         return loopThruRelease ? 1.0f : 0.0f;
     case kMonophonic:
@@ -1001,6 +1062,8 @@ enum {
     // lots more to add here...
     kMidiCCAllSoundOff      = 120   // this or anything higher means all notes off
 };
+
+#define MIDI_NOTENUMBERS 128
 
 VstInt32 AKSamplerDSP::processEvents (VstEvents* ev)
 {
@@ -1065,6 +1128,8 @@ VstInt32 AKSamplerDSP::processEvents (VstEvents* ev)
 	return 1;
 }
 
+#define CHUNKSIZE 32
+
 void AKSamplerDSP::processReplacing (float** inputs, float** outputs, VstInt32 nFrames)
 {
     float *outBuffers[2];
@@ -1082,7 +1147,7 @@ void AKSamplerDSP::processReplacing (float** inputs, float** outputs, VstInt32 n
 
         // Any ramping parameters would be updated here...
 
-        AudioKitCore::Sampler::render(2, chunkSize, outBuffers);
+        AKCoreSampler::render(2, chunkSize, outBuffers);
 
         outBuffers[0] += CHUNKSIZE;
         outBuffers[1] += CHUNKSIZE;

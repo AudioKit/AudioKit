@@ -327,6 +327,8 @@ open class AKWaveTable: AKNode, AKComponent {
         internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
                                   sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
     }
-    //todo open func loadSound()
 
+    deinit {
+        internalAU?.destroy()
+    }
 }
