@@ -92,12 +92,13 @@ class AudiobusCompatibleSequencer {
     fileprivate func setUpCallBackFunctions(channel: Int) -> AKMIDICallbackInstrument {
         return  AKMIDICallbackInstrument { [weak self] status, note, velocity in
             guard let this = self else { return }
-            switch Int(status >> 4) {
-            case AKMIDIStatus.noteOn.rawValue:
-                this.noteOn(midiSendPort: this.ports[channel], status: status, note: note, velocity: velocity, channel: MIDIChannel(channel))
+            let midiStatus = AKMIDIStatus(rawValue: Int(status >> 4))
+            switch midiStatus {
+            case .noteOn?:
+                this.noteOn(midiSendPort: this.ports[channel], status: midiStatus, note: note, velocity: velocity, channel: MIDIChannel(channel))
                 this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: true)
-            case AKMIDIStatus.noteOff.rawValue:
-                this.noteOff(midiSendPort: this.ports[channel], status: status, note: note, velocity: velocity, channel: MIDIChannel(channel))
+            case .noteOff?:
+                this.noteOff(midiSendPort: this.ports[channel], status: midiStatus, note: note, velocity: velocity, channel: MIDIChannel(channel))
                 this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: false)
             default:
                 AKLog("other MIDI status msg sent")
