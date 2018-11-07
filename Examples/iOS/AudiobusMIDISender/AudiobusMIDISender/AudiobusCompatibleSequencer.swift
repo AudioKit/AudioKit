@@ -94,11 +94,11 @@ class AudiobusCompatibleSequencer {
             guard let this = self else { return }
             if let midiStatus = AKMIDIStatus(rawValue: Int(status >> 4)) {
                 switch midiStatus {
-                case .noteOn?:
+                case .noteOn:
                     this.noteOn(midiSendPort: this.ports[channel], status: midiStatus,
                                 note: note, velocity: velocity, channel: MIDIChannel(channel))
                     this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: true)
-                case .noteOff?:
+                case .noteOff:
                     this.noteOff(midiSendPort: this.ports[channel], status: midiStatus,
                                  note: note, velocity: velocity, channel: MIDIChannel(channel))
                     this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: false)
