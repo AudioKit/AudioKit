@@ -17,6 +17,9 @@ import Dispatch
 
 public typealias AKCallback = () -> Void
 
+/// Function type for MIDI callbacks
+public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
+
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
 
