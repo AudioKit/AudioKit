@@ -166,16 +166,16 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
                 }
                 if time != chunkEvent.deltaTime {
-                    AKLog("MIDI File Parser time mismatch \(time) \(chunkEvent.deltaTime)")
+                    AKLog("MIDI File Parser time mismatch \(time) vs. \(chunkEvent.deltaTime)")
                     break
                 }
                 if type != chunkEvent.typeByte {
-                    AKLog("MIDI File Parser type mismatch \(type) \(chunkEvent.typeByte)")
+                    AKLog("MIDI File Parser type mismatch \(type) vs. \(String(describing: chunkEvent.typeByte))")
                     break
                 }
                 if length != chunkEvent.length {
                     print(type)
-                    AKLog("MIDI File Parser length mismatch \(length) \(chunkEvent.length)")
+                    AKLog("MIDI File Parser length mismatch \(length) vs. \(chunkEvent.length)")
                     break
                 }
                 let event = AKMIDIEvent(fileEvent: chunkEvent)
