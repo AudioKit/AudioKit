@@ -11,7 +11,7 @@
 
 #include "EnsembleOscillator.hpp"
 #include "DrawbarsOscillator.hpp"
-#include "ADSREnvelope.hpp"
+#include "ADSREnvelope.h"
 #include "Envelope.hpp"
 #include "MultiStageFilter.hpp"
 
@@ -69,6 +69,9 @@ namespace AudioKitCore
                   WaveStack *pOsc3Stack,
                   SynthVoiceParameters *pParameters,
                   EnvelopeParameters *pEnvParameters);
+        
+        void updateAmpAdsrParameters() { ampEG.updateParams(); }
+        void updateFilterAdsrParameters() { filterEG.updateParams(); }
         
         void start(unsigned evt, unsigned noteNumber, float frequency, float volume);
         void restart(unsigned evt, float volume);

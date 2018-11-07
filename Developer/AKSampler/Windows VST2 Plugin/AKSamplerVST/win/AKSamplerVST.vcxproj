@@ -172,15 +172,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.hpp" />
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.h" />
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.h" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\LinearRamper.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\SustainPedalLogic.hpp" />
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKSampler_Typedefs.h" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleOscillator.hpp" />
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.hpp" />
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.hpp" />
     <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffect.h" />
     <ClInclude Include="..\..\VST2_SDK\pluginterfaces\vst2.x\aeffectx.h" />
@@ -195,11 +196,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ResonantLowPassFilter.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\SustainPedalLogic.cpp" />
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.cpp" />
-    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.cpp" />
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.cpp" />
     <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffect.cpp" />
     <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.cpp" />

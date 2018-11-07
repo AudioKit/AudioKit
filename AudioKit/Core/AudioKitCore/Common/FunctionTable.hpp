@@ -55,9 +55,9 @@ namespace AudioKitCore
             return (float)((1.0 - f) * si + f * sj);
         }
         
-        // functions for use by class AKWaveShaper (see comments in .mm file)
-        void exponentialRise(float left, float right);
-        void exponentialFall(float left, float right);
+        // functions for use by class AKWaveShaper (see comments in .cpp file)
+        void exponentialCurve(float left, float right);
+        void powerCurve(float exponent);
         
         inline float interp_bounded(float phase)
         {

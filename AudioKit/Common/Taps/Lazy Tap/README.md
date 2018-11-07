@@ -1,6 +1,6 @@
 # Lazy Tap
 
-Lazxy tap different from a normal tap in that you have to poll it for data, but this method allows for buffer re-use, so you can call it as quickly as you'd like.
+Lazy tap different from a normal tap in that you have to poll it for data, but this method allows for buffer re-use, so you can call it as quickly as you'd like.
 
 Here's an example of using AKLazyTap to get peak:
 
