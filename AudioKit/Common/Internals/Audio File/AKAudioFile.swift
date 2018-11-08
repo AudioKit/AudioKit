@@ -196,7 +196,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             case (.documents, _):
               return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
             case (.resources, false):
-              return try Bundle.main.path(forResource: path, ofType: "") ??
+                return try Bundle(for: AKAudioFile.self).path(forResource: path, ofType: "") ??
                          NSError.fileCreateError
             case (.custom, _):
               AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")

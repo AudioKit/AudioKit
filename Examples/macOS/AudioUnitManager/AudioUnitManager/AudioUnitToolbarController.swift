@@ -7,8 +7,8 @@
 //
 
 import AudioKit
-import Cocoa
 import AVFoundation
+import Cocoa
 
 class AudioUnitToolbarController: NSTitlebarAccessoryViewController {
     @IBOutlet var bypassButton: NSButton!
@@ -28,5 +28,4 @@ class AudioUnitToolbarController: NSTitlebarAccessoryViewController {
 
         audioUnit.auAudioUnit.shouldBypassEffect = buttonState
     }
-
 }
