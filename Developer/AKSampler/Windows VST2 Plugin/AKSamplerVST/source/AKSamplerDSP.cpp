@@ -67,7 +67,7 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     setADSRSustainFraction(0.8f);
     setADSRReleaseDurationSeconds(0.5f);
 
-    isFilterEnabled = true;
+    isFilterEnabled = false;
     cutoffMultiple = 0.0f;
     linearResonance = 0.5f;
     setFilterAttackDurationSeconds(2.0f);
@@ -405,8 +405,10 @@ bool AKSamplerDSP::loadPreset()
 
     int lokey, hikey, pitch, lovel, hivel;
     float lorand, hirand;
+    float fStart, fEnd;
     bool bLoop;
     float fLoopStart, fLoopEnd;
+    float fTuneOffsetCents;
     char sampleFileName[100];
     char *p, *pp;
 
@@ -424,6 +426,14 @@ bool AKSamplerDSP::loadPreset()
             lokey = 0;
             hikey = 127;
             pitch = 60;
+
+            pp = strstr(p, "key");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) lokey = hikey = atoi(pp);
+            }
 
             pp = strstr(p, "lokey");
             if (pp)
@@ -460,13 +470,14 @@ bool AKSamplerDSP::loadPreset()
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            fTuneOffsetCents = 0.0f;
 
             pp = strstr(p, "lorand");
             if (pp)
             {
                 pp = strchr(pp, '=');
                 if (pp) pp++;
-                if (pp) lorand = atof(pp);
+                if (pp) lorand = float(atof(pp));
             }
 
             pp = strstr(p, "hirand");
@@ -474,7 +485,7 @@ bool AKSamplerDSP::loadPreset()
             {
                 pp = strchr(pp, '=');
                 if (pp) pp++;
-                if (pp) hirand = atof(pp);
+                if (pp) hirand = float(atof(pp));
             }
 
             pp = strstr(p, "lovel");
@@ -491,6 +502,22 @@ bool AKSamplerDSP::loadPreset()
                 pp = strchr(pp, '=');
                 if (pp) pp++;
                 if (pp) hivel = atoi(pp);
+            }
+
+            pp = strstr(p, "offset");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fStart = (float)atof(pp);
+            }
+
+            pp = strstr(p, "end");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fEnd = (float)atof(pp);
             }
 
             pp = strstr(p, "loop_mode");
@@ -513,6 +540,14 @@ bool AKSamplerDSP::loadPreset()
                 pp = strchr(pp, '=');
                 if (pp) pp++;
                 if (pp) fLoopEnd = (float)atof(pp);
+            }
+
+            pp = strstr(p, "tune");
+            if (pp)
+            {
+                pp = strchr(pp, '=');
+                if (pp) pp++;
+                if (pp) fTuneOffsetCents = (float)atof(pp);
             }
 
             pp = strstr(p, "sample");
@@ -538,12 +573,12 @@ bool AKSamplerDSP::loadPreset()
             AKSampleFileDescriptor sfd;
             sfd.path = buf;
             sfd.sampleDescriptor.isLooping = bLoop;
-            sfd.sampleDescriptor.startPoint = 0.0;
+            sfd.sampleDescriptor.startPoint = fStart;
             sfd.sampleDescriptor.loopStartPoint = fLoopStart;
             sfd.sampleDescriptor.loopEndPoint = fLoopEnd;
-            sfd.sampleDescriptor.endPoint = 0.0f;
+            sfd.sampleDescriptor.endPoint = fEnd;
             sfd.sampleDescriptor.noteNumber = pitch;
-            sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber);
+            sfd.sampleDescriptor.noteFrequency = NOTE_HZ(sfd.sampleDescriptor.noteNumber - fTuneOffsetCents/100.0f);
             sfd.sampleDescriptor.minimumNoteNumber = lokey;
             sfd.sampleDescriptor.maximumNoteNumber = hikey;
             sfd.sampleDescriptor.minimumVelocity = lovel;

@@ -38,7 +38,7 @@ public class AKDynamicPlayer: AKPlayer {
         }
     }
 
-    override internal var _rate: Double {
+    internal override var _rate: Double {
         return rate
     }
 
@@ -52,16 +52,19 @@ public class AKDynamicPlayer: AKPlayer {
             if newValue == pitch {
                 return
             }
-            // timePitch is only installed if it is requested. This saves resources.
+            // timePitch is only installed if it is requested. This saves CPU resources.
             if timePitchNode != nil && newValue == 0 {
                 removeTimePitch()
                 return
-            } else if timePitchNode == nil && newValue != 0 {
+            }
+
+            if timePitchNode == nil && newValue != 0 {
                 timePitchNode = AKTimePitch()
                 initialize()
             }
 
             guard let timePitchNode = timePitchNode else { return }
+
             timePitchNode.pitch = newValue
             if timePitchNode.isBypassed && timePitchNode.pitch != 0 {
                 timePitchNode.start()
@@ -71,7 +74,7 @@ public class AKDynamicPlayer: AKPlayer {
 
     // MARK: - Initialization
 
-    internal override func initialize() {
+    internal override func initialize(restartIfPlaying: Bool = true) {
         if let timePitchNode = timePitchNode {
             if timePitchNode.avAudioNode.engine == nil {
                 AudioKit.engine.attach(timePitchNode.avAudioNode)
@@ -80,7 +83,7 @@ public class AKDynamicPlayer: AKPlayer {
             }
         }
 
-        super.initialize()
+        super.initialize(restartIfPlaying: restartIfPlaying)
     }
 
     internal override func connectNodes() {
