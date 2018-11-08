@@ -49,6 +49,10 @@ namespace AudioKitCore
     
     void SamplerVoice::restartNewNote(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
     {
+        samplingRate = sampleRate;
+        leftFilter.updateSampleRate(double(samplingRate));
+        rightFilter.updateSampleRate(double(samplingRate));
+
         oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
         glideSemitones = 0.0f;
         if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
@@ -68,6 +72,10 @@ namespace AudioKitCore
 
     void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
     {
+        samplingRate = sampleRate;
+        leftFilter.updateSampleRate(double(samplingRate));
+        rightFilter.updateSampleRate(double(samplingRate));
+
         oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
         glideSemitones = 0.0f;
         if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
@@ -116,6 +124,7 @@ namespace AudioKitCore
             {
                 tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
                 sampleBuffer = newSampleBuffer;
+                oscillator.increment = (sampleBuffer->sampleRate / samplingRate) * (noteFrequency / sampleBuffer->noteFrequency);
                 oscillator.indexPoint = sampleBuffer->startPoint;
                 oscillator.isLooping = sampleBuffer->isLooping;
             }
