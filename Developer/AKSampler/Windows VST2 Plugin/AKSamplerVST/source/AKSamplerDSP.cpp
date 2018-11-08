@@ -475,6 +475,8 @@ bool AKSamplerDSP::loadPreset()
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            fStart = 0.0f;
+            fEnd = 0.0f;
             fTuneOffsetCents = 0.0f;
 
             pp = strstr(p, "lorand");
