@@ -47,7 +47,26 @@ namespace AudioKitCore
         noteNumber = note;
     }
     
-    void SamplerVoice::restart(unsigned note, float sampleRate, float frequency)
+    void SamplerVoice::restartNewNote(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
+    {
+        oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
+        glideSemitones = 0.0f;
+        if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
+        {
+            // prepare to glide
+            glideSemitones = -12.0f * log2f(frequency / noteFrequency);
+            if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
+        }
+        noteFrequency = frequency;
+        noteNumber = note;
+        tempNoteVolume = noteVolume;
+        newSampleBuffer = buffer;
+        adsrEnvelope.restart();
+        noteVolume = volume;
+        filterEnvelope.restart();
+    }
+
+    void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
     {
         oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
         glideSemitones = 0.0f;
@@ -61,7 +80,7 @@ namespace AudioKitCore
         noteNumber = note;
     }
 
-    void SamplerVoice::restart(float volume, SampleBuffer *buffer)
+    void SamplerVoice::restartSameNote(float volume, SampleBuffer *buffer)
     {
         tempNoteVolume = noteVolume;
         newSampleBuffer = buffer;
