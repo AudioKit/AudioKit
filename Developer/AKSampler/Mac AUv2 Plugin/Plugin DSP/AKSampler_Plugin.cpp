@@ -48,7 +48,7 @@ static const CFStringRef paramName[] =
 
 AKSampler_Plugin::AKSampler_Plugin(AudioUnit inComponentInstance)
 	: AUInstrumentBase(inComponentInstance, 0, 1)    // 0 inputs, 1 output
-    , AudioKitCore::Sampler()
+    , AKCoreSampler()
 {
     presetFolderPath = nil;
     presetName = nil;
@@ -74,12 +74,12 @@ void AKSampler_Plugin::initForTesting()
     cutoffMultiple = 4.0f;
     cutoffEnvelopeStrength = 20.0f;
     isFilterEnabled = false;
-    
-    adsrEnvelopeParameters.setAttackTimeSeconds(0.01f);
-    adsrEnvelopeParameters.setDecayTimeSeconds(0.1f);
-    adsrEnvelopeParameters.sustainFraction = 0.8f;
-    adsrEnvelopeParameters.setReleaseTimeSeconds(0.5f);
-    
+
+    setADSRAttackDurationSeconds(0.01f);
+    setADSRDecayDurationSeconds(0.1f);
+    setADSRSustainFraction(0.8f);
+    setADSRReleaseDurationSeconds(0.5f);
+
     //loadDemoSamples();
     
 #if 1
@@ -110,7 +110,7 @@ void AKSampler_Plugin::initForTesting()
 OSStatus AKSampler_Plugin::Initialize()
 {
 	AUInstrumentBase::Initialize();
-    AudioKitCore::Sampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
+    AKCoreSampler::init(GetOutput(0)->GetStreamFormat().mSampleRate);
     printf("AudioKitCore::AKSampler_Plugin::Initialize %f samples/sec\n", GetOutput(0)->GetStreamFormat().mSampleRate);
     
     return noErr;
@@ -118,7 +118,7 @@ OSStatus AKSampler_Plugin::Initialize()
 
 void AKSampler_Plugin::Cleanup()
 {
-    AudioKitCore::Sampler::deinit();
+    AKCoreSampler::deinit();
     printf("AudioKitCore::AKSampler_Plugin::Cleanup\n");
 }
 
@@ -783,35 +783,35 @@ OSStatus AKSampler_Plugin::GetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kAmpEgAttackTimeSeconds:
-            outValue = adsrEnvelopeParameters.getAttackTimeSeconds();
+            outValue = getADSRAttackDurationSeconds();
             break;
             
         case kAmpEgDecayTimeSeconds:
-            outValue = adsrEnvelopeParameters.getDecayTimeSeconds();
+            outValue = getADSRDecayDurationSeconds();
             break;
             
         case kAmpEgSustainFraction:
-            outValue = adsrEnvelopeParameters.sustainFraction;
+            outValue = getADSRSustainFraction();
             break;
             
         case kAmpEgReleaseTimeSeconds:
-            outValue = adsrEnvelopeParameters.getReleaseTimeSeconds();
+            outValue = getADSRReleaseDurationSeconds();
             break;
             
         case kFilterEgAttackTimeSeconds:
-            outValue = filterEnvelopeParameters.getAttackTimeSeconds();
+            outValue = getFilterAttackDurationSeconds();
             break;
             
         case kFilterEgDecayTimeSeconds:
-            outValue = filterEnvelopeParameters.getDecayTimeSeconds();
+            outValue = getFilterDecayDurationSeconds();
             break;
             
         case kFilterEgSustainFraction:
-            outValue = filterEnvelopeParameters.sustainFraction;
+            outValue = getFilterSustainFraction();
             break;
             
         case kFilterEgReleaseTimeSeconds:
-            outValue = filterEnvelopeParameters.getReleaseTimeSeconds();
+            outValue = getFilterReleaseDurationSeconds();
             break;
             
         default:
@@ -877,35 +877,35 @@ OSStatus AKSampler_Plugin::SetParameter(    AudioUnitParameterID        inParame
             break;
             
         case kAmpEgAttackTimeSeconds:
-            adsrEnvelopeParameters.setAttackTimeSeconds(inValue);
+            setADSRAttackDurationSeconds(inValue);
             break;
 
         case kAmpEgDecayTimeSeconds:
-            adsrEnvelopeParameters.setDecayTimeSeconds(inValue);
+            setADSRDecayDurationSeconds(inValue);
             break;
             
         case kAmpEgSustainFraction:
-            adsrEnvelopeParameters.sustainFraction = inValue;
+            setADSRSustainFraction(inValue);
             break;
             
         case kAmpEgReleaseTimeSeconds:
-            adsrEnvelopeParameters.setReleaseTimeSeconds(inValue);
+            setADSRReleaseDurationSeconds(inValue);
             break;
             
         case kFilterEgAttackTimeSeconds:
-            filterEnvelopeParameters.setAttackTimeSeconds(inValue);
+            setFilterAttackDurationSeconds(inValue);
             break;
             
         case kFilterEgDecayTimeSeconds:
-            filterEnvelopeParameters.setDecayTimeSeconds(inValue);
+            setFilterDecayDurationSeconds(inValue);
             break;
             
         case kFilterEgSustainFraction:
-            filterEnvelopeParameters.sustainFraction = inValue;
+            setFilterSustainFraction(inValue);
             break;
             
         case kFilterEgReleaseTimeSeconds:
-            filterEnvelopeParameters.setReleaseTimeSeconds(inValue);
+            setFilterReleaseDurationSeconds(inValue);
             break;
 
         default:
@@ -937,6 +937,7 @@ OSStatus AKSampler_Plugin::RestoreState(CFPropertyListRef inData)
     }
     return noErr;
 }
+#define CHUNKSIZE 16
 
 OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, const AudioTimeStamp &inTimeStamp, UInt32 nFrames)
 {
@@ -958,7 +959,7 @@ OSStatus AKSampler_Plugin::Render(AudioUnitRenderActionFlags &ioActionFlags, con
         // Any ramping parameters would be updated here...
         
         unsigned channelCount = outputBufList.mNumberBuffers;
-        AudioKitCore::Sampler::render(channelCount, chunkSize, outBuffers);
+        AKCoreSampler::render(channelCount, chunkSize, outBuffers);
         
         outBuffers[0] += CHUNKSIZE;
         outBuffers[1] += CHUNKSIZE;
