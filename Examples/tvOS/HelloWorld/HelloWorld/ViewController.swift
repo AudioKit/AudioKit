@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func toggleSound(_ sender: UIButton) {
         if oscillator.isPlaying {
             oscillator.stop()
-            sender.setTitle("Play Sine Wave", for: UIControlState())
+            sender.setTitle("Play Sine Wave", for: UIControl.State())
         } else {
             oscillator.amplitude = random(in: 0.5 ... 1)
             oscillator.frequency = random(in: 220 ... 880)

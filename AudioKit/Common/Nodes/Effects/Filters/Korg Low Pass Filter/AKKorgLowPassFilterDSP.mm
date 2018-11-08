@@ -9,8 +9,8 @@
 #include "AKKorgLowPassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
-    AKKorgLowPassFilterDSP* dsp = new AKKorgLowPassFilterDSP();
+extern "C" void *createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
+    AKKorgLowPassFilterDSP *dsp = new AKKorgLowPassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -25,11 +25,11 @@ struct AKKorgLowPassFilterDSP::_Internal {
 
 AKKorgLowPassFilterDSP::AKKorgLowPassFilterDSP() : _private(new _Internal) {
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->saturationRamp.setTarget(defaultSaturation, true);
-    _private->saturationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->saturationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKKorgLowPassFilterDSP::setParameter(AUParameterAddress address, AUValue va
         case AKKorgLowPassFilterParameterSaturation:
             _private->saturationRamp.setTarget(clamp(value, saturationLowerBound, saturationUpperBound), immediate);
             break;
-        case AKKorgLowPassFilterParameterRampTime:
-            _private->cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->resonanceRamp.setRampTime(value, _sampleRate);
-            _private->saturationRamp.setRampTime(value, _sampleRate);
+        case AKKorgLowPassFilterParameterRampDuration:
+            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->resonanceRamp.setRampDuration(value, _sampleRate);
+            _private->saturationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKKorgLowPassFilterDSP::getParameter(uint64_t address) {
             return _private->resonanceRamp.getTarget();
         case AKKorgLowPassFilterParameterSaturation:
             return _private->saturationRamp.getTarget();
-        case AKKorgLowPassFilterParameterRampTime:
-            return _private->cutoffFrequencyRamp.getRampTime(_sampleRate);
+        case AKKorgLowPassFilterParameterRampDuration:
+            return _private->cutoffFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -81,10 +81,9 @@ void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_wpkorg351->saturation = defaultSaturation;
 }
 
-void AKKorgLowPassFilterDSP::destroy() {
+void AKKorgLowPassFilterDSP::deinit() {
     sp_wpkorg35_destroy(&_private->_wpkorg350);
     sp_wpkorg35_destroy(&_private->_wpkorg351);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,14 +108,15 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

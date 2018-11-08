@@ -13,14 +13,14 @@
 typedef NS_ENUM(AUParameterAddress, AKFluteParameter) {
     AKFluteParameterFrequency,
     AKFluteParameterAmplitude,
-    AKFluteParameterRampTime
+    AKFluteParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
-void* createFluteDSP(int nChannels, double sampleRate);
+void *createFluteDSP(int nChannels, double sampleRate);
 
 #else
 

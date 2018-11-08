@@ -2,8 +2,8 @@
 //  MIDISendVC.swift
 //  MIDIUtility
 //
-//  Created by Jeff Cooper on 9/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 import Foundation
 import AudioKit
@@ -61,20 +61,20 @@ class MIDISenderVC: NSViewController {
 
     @IBAction func sendNotePressed(_ sender: NSButton) {
         if noteToSend != nil && velocityToSend != nil {
-            Swift.print("sending note: \(noteToSend!) - \(velocityToSend!)")
+            AKLog("sending note: \(noteToSend!) - \(velocityToSend!)")
             let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend))
             midiOut.sendEvent(event)
         } else {
-            print("error w note fields")
+            AKLog("error w note fields")
         }
     }
     @IBAction func sendCCPressed(_ sender: NSButton) {
         if ccToSend != nil && ccValToSend != nil {
-            Swift.print("sending cc: \(ccToSend!) - \(ccValToSend!)")
+            AKLog("sending cc: \(ccToSend!) - \(ccValToSend!)")
             let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend))
             midiOut.sendEvent(event)
         } else {
-            print("error w cc fields")
+            AKLog("error w cc fields")
         }
     }
 
@@ -85,15 +85,15 @@ class MIDISenderVC: NSViewController {
                 midiBytes.append(MIDIByte(byte))
             }
             if midiBytes[0] != 240 || midiBytes.last != 247 || midiBytes.count < 2 {
-                Swift.print("bad sysex data - must start with 240 and end with 247")
-                Swift.print("parsed sysex: \(sysexToSend!)")
+                AKLog("bad sysex data - must start with 240 and end with 247")
+                AKLog("parsed sysex: \(sysexToSend!)")
                 return
             }
-            Swift.print("sending sysex \(sysexToSend!)")
+            AKLog("sending \(midiBytes.count) bytes of sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         } else {
-            print("error w sysex field")
+            AKLog("error w sysex field")
         }
     }
 }

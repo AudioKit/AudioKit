@@ -9,8 +9,8 @@
 #include "AKToneFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createToneFilterDSP(int nChannels, double sampleRate) {
-    AKToneFilterDSP* dsp = new AKToneFilterDSP();
+extern "C" void *createToneFilterDSP(int nChannels, double sampleRate) {
+    AKToneFilterDSP *dsp = new AKToneFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -23,7 +23,7 @@ struct AKToneFilterDSP::_Internal {
 
 AKToneFilterDSP::AKToneFilterDSP() : _private(new _Internal) {
     _private->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    _private->halfPowerPointRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -32,8 +32,8 @@ void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKToneFilterParameterHalfPowerPoint:
             _private->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
-        case AKToneFilterParameterRampTime:
-            _private->halfPowerPointRamp.setRampTime(value, _sampleRate);
+        case AKToneFilterParameterRampDuration:
+            _private->halfPowerPointRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -43,8 +43,8 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKToneFilterParameterHalfPowerPoint:
             return _private->halfPowerPointRamp.getTarget();
-        case AKToneFilterParameterRampTime:
-            return _private->halfPowerPointRamp.getRampTime(_sampleRate);
+        case AKToneFilterParameterRampDuration:
+            return _private->halfPowerPointRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -59,10 +59,9 @@ void AKToneFilterDSP::init(int _channels, double _sampleRate) {
     _private->_tone1->hp = defaultHalfPowerPoint;
 }
 
-void AKToneFilterDSP::destroy() {
+void AKToneFilterDSP::deinit() {
     sp_tone_destroy(&_private->_tone0);
     sp_tone_destroy(&_private->_tone1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,14 +80,15 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

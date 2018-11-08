@@ -9,8 +9,8 @@
 #include "AKBitCrusherDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBitCrusherDSP(int nChannels, double sampleRate) {
-    AKBitCrusherDSP* dsp = new AKBitCrusherDSP();
+extern "C" void *createBitCrusherDSP(int nChannels, double sampleRate) {
+    AKBitCrusherDSP *dsp = new AKBitCrusherDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -24,9 +24,9 @@ struct AKBitCrusherDSP::_Internal {
 
 AKBitCrusherDSP::AKBitCrusherDSP() : _private(new _Internal) {
     _private->bitDepthRamp.setTarget(defaultBitDepth, true);
-    _private->bitDepthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bitDepthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->sampleRateRamp.setTarget(defaultSampleRate, true);
-    _private->sampleRateRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->sampleRateRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKBitCrusherDSP::setParameter(AUParameterAddress address, AUValue value, bo
         case AKBitCrusherParameterSampleRate:
             _private->sampleRateRamp.setTarget(clamp(value, sampleRateLowerBound, sampleRateUpperBound), immediate);
             break;
-        case AKBitCrusherParameterRampTime:
-            _private->bitDepthRamp.setRampTime(value, _sampleRate);
-            _private->sampleRateRamp.setRampTime(value, _sampleRate);
+        case AKBitCrusherParameterRampDuration:
+            _private->bitDepthRamp.setRampDuration(value, _sampleRate);
+            _private->sampleRateRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
             return _private->bitDepthRamp.getTarget();
         case AKBitCrusherParameterSampleRate:
             return _private->sampleRateRamp.getTarget();
-        case AKBitCrusherParameterRampTime:
-            return _private->bitDepthRamp.getRampTime(_sampleRate);
+        case AKBitCrusherParameterRampDuration:
+            return _private->bitDepthRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -70,10 +70,9 @@ void AKBitCrusherDSP::init(int _channels, double _sampleRate) {
     _private->_bitcrush1->srate = defaultSampleRate;
 }
 
-void AKBitCrusherDSP::destroy() {
+void AKBitCrusherDSP::deinit() {
     sp_bitcrush_destroy(&_private->_bitcrush0);
     sp_bitcrush_destroy(&_private->_bitcrush1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,14 +94,15 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

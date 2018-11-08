@@ -2,7 +2,7 @@
 //  AKTubularBellsDSPKernel.cpp
 //  AudioKit
 //
-//  Created by Stéphane Peter on 1/28/18.
+//  Created by Stéphane Peter, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -38,8 +38,8 @@ void AKTubularBellsDSPKernel::init(int _channels, double _sampleRate) {
     if ([manager createDirectoryAtURL:directoryURL withIntermediateDirectories:YES attributes:nil error:&error] == YES) {
         NSURL *sineURL = [directoryURL URLByAppendingPathComponent:@"sinewave.raw"];
         if ([manager fileExistsAtPath:sineURL.path] == NO) { // Create files once
-            [[NSData dataWithBytesNoCopy:sinewave length:sinewave_len] writeToURL:sineURL atomically:YES];
-            [[NSData dataWithBytesNoCopy:fwavblnk length:fwavblnk_len] writeToURL:[directoryURL URLByAppendingPathComponent:@"fwavblnk.raw"] atomically:YES];
+            [[NSData dataWithBytesNoCopy:sinewave length:sinewave_len freeWhenDone:NO] writeToURL:sineURL atomically:YES];
+            [[NSData dataWithBytesNoCopy:fwavblnk length:fwavblnk_len freeWhenDone:NO] writeToURL:[directoryURL URLByAppendingPathComponent:@"fwavblnk.raw"] atomically:YES];
         }
     } else {
         NSLog(@"Failed to create temporary directory at path %@ with error %@", directoryURL, error);

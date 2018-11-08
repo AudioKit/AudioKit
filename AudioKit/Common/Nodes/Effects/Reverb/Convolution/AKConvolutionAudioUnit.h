@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -12,5 +12,6 @@
 @interface AKConvolutionAudioUnit : AKAudioUnit
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
+- (void)initConvolutionEngine;
 @end
 

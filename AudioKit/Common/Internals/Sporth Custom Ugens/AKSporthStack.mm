@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Joseph Constantakis, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKSporthStack.h"

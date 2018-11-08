@@ -25,15 +25,15 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs.
 //: Notice that an error message is printed in the debug area, and an error is thrown...
 do {
-    let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav")
+    let _ = try AKAudioFile(readFileName: "nonExistent.wav")
 } catch let error as NSError {
-    print("There's an error: \(error)")
+    AKLog("There's an error: \(error)")
 }
 
 //: So it's a good idea to check that the AKAudioFile is valid before using it.
 //: Let's display some info about drumloop :
-print("drumloop.sampleRate: \(drumloop.sampleRate)")
-print("drumloop.duration: \(drumloop.duration)")
+AKLog("drumloop.sampleRate: \(drumloop.sampleRate)")
+AKLog("drumloop.duration: \(drumloop.duration)")
 // and so on...
 
 //: AKAudioFile can easily be trimmed and exported and you can set a
@@ -41,28 +41,28 @@ print("drumloop.duration: \(drumloop.duration)")
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be
 //: written in documents directory. If the destination file exists, it will be overwritten.
-try drumloop.exportAsynchronously(name: "exported.m4a",
+drumloop.exportAsynchronously(name: "exported.m4a",
                                   baseDir: .documents,
                                   exportFormat: .m4a,
                                   fromSample: 44_100,
                                   toSample: 2 * 44_100) { exportedFile, error in
-    print("myExportCallBack has been triggered. It means that export ended")
+    AKLog("myExportCallBack has been triggered. It means that export ended")
     if error == nil {
-        print("Export succeeded")
+        AKLog("Export succeeded")
 
         // If it is valid, we can play it :
         if let successfulFile = exportedFile {
 
-            print(successfulFile.fileNamePlusExtension)
-            let player = try? AKAudioPlayer(file: successfulFile)
+            AKLog(successfulFile.fileNamePlusExtension)
+            let player = try! AKAudioPlayer(file: successfulFile)
             AudioKit.output = player
-            try AudioKit.start()
-            player?.play()
+            try! AudioKit.start()
+            player.play()
         }
 
     } else {
-        print(drumloop.fileNamePlusExtension)
-        print("Export failed: \(error)")
+        AKLog(drumloop.fileNamePlusExtension)
+        AKLog("Export failed")
     }
 }
 
@@ -75,8 +75,8 @@ try drumloop.exportAsynchronously(name: "exported.m4a",
 //:
 //: The simplest way to create such a file is like this:
 if let myWorkingFile = try? AKAudioFile(), let mySecondWorkingFile = try? AKAudioFile() {
-    let myWorkingFileName1 = myWorkingFile.fileNamePlusExtension
-    let mySecondWorkingFileName = mySecondWorkingFile.fileNamePlusExtension
+    let _ = myWorkingFile.fileNamePlusExtension
+    let _ = mySecondWorkingFile.fileNamePlusExtension
 }
 
 //: But the benefits of using AKAudioFile instead of AVAudioFile, is that you can normalize,

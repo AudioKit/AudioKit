@@ -3,22 +3,25 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import "AKParameterRamp.hpp"
+#import "AKExponentialParameterRamp.hpp" // to be deleted
 
 typedef NS_ENUM(AUParameterAddress, AKBoosterParameter) {
     AKBoosterParameterLeftGain,
     AKBoosterParameterRightGain,
-    AKBoosterParameterRampTime
+    AKBoosterParameterRampDuration,
+    AKBoosterParameterRampType
 };
 
 #ifndef __cplusplus
 
-void* createBoosterDSP(int nChannels, double sampleRate);
+void *createBoosterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -39,7 +42,6 @@ private:
 
 public:
     AKBoosterDSP();
-    ~AKBoosterDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;

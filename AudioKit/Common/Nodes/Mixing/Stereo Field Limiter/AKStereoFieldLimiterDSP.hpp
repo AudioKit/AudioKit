@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Andrew Voelkel, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -12,14 +12,14 @@
 
 typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
     AKStereoFieldLimiterParameterAmount,
-    AKStereoFieldLimiterParameterRampTime
+    AKStereoFieldLimiterParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
-void* createStereoFieldLimiterDSP(int nChannels, double sampleRate);
+void *createStereoFieldLimiterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -45,8 +45,8 @@ public:
             case AKStereoFieldLimiterParameterAmount:
                 amountRamp.setTarget(value, immediate);
                 break;
-            case AKStereoFieldLimiterParameterRampTime:
-                amountRamp.setRampTime(value, _sampleRate);
+            case AKStereoFieldLimiterParameterRampDuration:
+                amountRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -56,8 +56,8 @@ public:
         switch (address) {
             case AKStereoFieldLimiterParameterAmount:
                 return amountRamp.getTarget();
-            case AKStereoFieldLimiterParameterRampTime:
-                return amountRamp.getRampTime(_sampleRate);
+            case AKStereoFieldLimiterParameterRampDuration:
+                return amountRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }

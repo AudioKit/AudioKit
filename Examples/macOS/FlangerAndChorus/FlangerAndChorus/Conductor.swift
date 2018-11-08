@@ -2,7 +2,7 @@
 //  Conductor.swift
 //  AKTest1
 //
-//  Created by Shane Dunne on 2018-01-19.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 Shane Dunne. All rights reserved.
 //
 
@@ -101,11 +101,11 @@ class Conductor {
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        oscillator.play(noteNumber: OffsetNote(note, semitones:semitoneOffset), velocity: velocity)
+        oscillator.play(noteNumber: OffsetNote(note, semitones: semitoneOffset), velocity: velocity)
     }
 
     func stopNote(note: MIDINoteNumber, channel: MIDIChannel) {
-        oscillator.stop(noteNumber: OffsetNote(note, semitones:semitoneOffset))
+        oscillator.stop(noteNumber: OffsetNote(note, semitones: semitoneOffset))
     }
 
     func allNotesOff() {

@@ -2,7 +2,7 @@
 //  ParameterRamper.cpp
 //  AudioKit
 //
-//  Created by Stéphane Peter on 2/1/18.
+//  Created by Stéphane Peter, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

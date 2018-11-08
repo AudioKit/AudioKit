@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's TimePitch Audio Unit
@@ -60,8 +60,9 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         self.overlap = overlap
 
         super.init()
-        self.avAudioNode = timePitchAU
-        AudioKit.engine.attach(self.avAudioNode)
+        avAudioUnit = timePitchAU
+        avAudioNode = timePitchAU
+        AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 

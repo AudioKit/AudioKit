@@ -2,7 +2,7 @@
 //  AudioUnitManager+MIDI.swift
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 12/9/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
@@ -71,8 +71,6 @@ extension AudioUnitManager: AKMIDIListener {
     }
 
     internal func playFM(state: Bool) {
-        guard let internalManager = internalManager else { return }
-
         AKLog("playFM() \(state)")
 
         fmButton.state = state ? .on : .off
@@ -98,7 +96,6 @@ extension AudioUnitManager: AKMIDIListener {
         } else {
             fmOscillator.stop()
         }
-
     }
 
     @objc func randomFM() {
@@ -117,7 +114,6 @@ extension AudioUnitManager: AKMIDIListener {
 
     open func testAUInstrument(state: Bool) {
         AKLog("\(state)")
-        guard let internalManager = internalManager else { return }
         guard let auInstrument = auInstrument else { return }
 
         instrumentPlayButton.state = state ? .on : .off

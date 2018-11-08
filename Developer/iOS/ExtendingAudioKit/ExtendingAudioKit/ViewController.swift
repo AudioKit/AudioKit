@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  ExtendingAudioKit
 //
-//  Created by Shane Dunne on 2018-01-23.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -50,7 +50,7 @@ extension ViewController: AKMIDIListener {
 
     // MIDI Controller input
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        //print("Channel: \(channel+1) controller: \(controller) value: \(value)")
+        AKLog("Channel: \(channel + 1) controller: \(controller) value: \(value)")
         conductor.controller(controller, value: value)
     }
 
@@ -66,7 +66,7 @@ extension ViewController: AKMIDIListener {
 
     // MIDI Setup Change
     func receivedMIDISetupChange() {
-        print("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
+        AKLog("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
         let inputNames = conductor.midi.inputNames
         inputNames.forEach { inputName in
             conductor.midi.openInput(inputName)

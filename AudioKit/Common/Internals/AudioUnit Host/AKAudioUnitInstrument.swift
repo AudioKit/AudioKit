@@ -3,25 +3,25 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
-
     /// Initialize the audio unit instrument
     ///
     /// - parameter audioUnit: AVAudioUnitMIDIInstrument to wrap
     ///
     public init?(audioUnit: AVAudioUnitMIDIInstrument) {
         super.init()
-        self.midiInstrument = audioUnit
+        midiInstrument = audioUnit
 
         AudioKit.engine.attach(audioUnit)
 
         // assign the output to the mixer
-        self.avAudioNode = audioUnit
-        self.name = audioUnit.name
+        avAudioUnit = audioUnit
+        avAudioNode = audioUnit
+        name = audioUnit.name
     }
 
     /// Send MIDI Note On information to the audio unit
@@ -48,6 +48,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func stop(noteNumber: MIDINoteNumber) {
         self.stop(noteNumber: noteNumber, channel: 0)
     }
+
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -55,5 +56,4 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         }
         midiInstrument.stopNote(noteNumber, onChannel: channel)
     }
-
 }

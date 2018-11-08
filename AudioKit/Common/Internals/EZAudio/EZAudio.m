@@ -2,7 +2,7 @@
 //  EZAudio.m
 //  EZAudioCoreGraphicsWaveformExample
 //
-//  Created by Syed Haris Ali on 5/13/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 
@@ -190,9 +190,9 @@
 #pragma mark - Math Utilities
 //------------------------------------------------------------------------------
 
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength
 {
     [EZAudioUtilities appendBufferAndShift:buffer
@@ -204,7 +204,7 @@
 //------------------------------------------------------------------------------
 
 + (void)   appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength
 {
     [EZAudioUtilities appendValue:value

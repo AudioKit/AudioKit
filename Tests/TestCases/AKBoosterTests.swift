@@ -3,7 +3,7 @@
 //  AudioKitTestSuiteTests
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -30,16 +30,16 @@ class AKBoosterTests: AKTestCase {
     func testRamp() {
         let desktop = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
         let url = desktop.appendingPathComponent("TestOutput.aif")
-        let settings: [String : Any] = [AVSampleRateKey: 44_100.0, AVNumberOfChannelsKey: 2]
+        let settings: [String: Any] = [AVSampleRateKey: 44_100.0, AVNumberOfChannelsKey: 2]
         let audioFile = try! AKAudioFile(forWriting: url, settings: settings)
         let osc = AKOscillator()
         let booster = AKBooster(osc, gain: 1.0)
-        booster.rampTime = 1
+        booster.rampDuration = 1
         booster.leftGain = 0.0
         booster.rightGain = 0.0
         osc.connect(to: booster)
         AudioKit.output = booster
-        try! AudioKit.renderToFile(audioFile, seconds: 4, prerender: {
+        try! AudioKit.renderToFile(audioFile, duration: 4, prerender: {
             osc.start()
         })
     }

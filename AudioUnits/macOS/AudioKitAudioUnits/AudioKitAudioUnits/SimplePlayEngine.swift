@@ -333,7 +333,7 @@ public class SimplePlayEngine: NSObject {
 	}
 
     public func selectAudioUnitWithComponentDescription2(_ componentDescription: AudioComponentDescription, completionHandler: @escaping (() -> Void)) {
-		self.selectAudioUnitWithComponentDescription(componentDescription, completionHandler:completionHandler)
+		self.selectAudioUnitWithComponentDescription(componentDescription, completionHandler: completionHandler)
 	}
 
 	/*

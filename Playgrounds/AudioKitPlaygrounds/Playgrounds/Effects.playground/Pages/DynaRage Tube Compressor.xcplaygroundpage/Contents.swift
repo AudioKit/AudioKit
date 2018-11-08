@@ -5,8 +5,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = try AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 var effect = AKDynaRageCompressor(player)
 
@@ -46,28 +46,28 @@ class LiveView: AKLiveViewController {
             effect.ratio = sliderValue
         })
 
-        addView(AKSlider(property: "Attack Time",
-                         value: effect.attackTime,
+        addView(AKSlider(property: "Attack Duration",
+                         value: effect.attackDuration,
                          range: 0.1 ... 500.0,
                          format: "%0.2f ms"
         ) { sliderValue in
-            effect.attackTime = sliderValue
+            effect.attackDuration = sliderValue
         })
 
-        addView(AKSlider(property: "Release Time",
-                         value: effect.releaseTime,
+        addView(AKSlider(property: "Release Duration",
+                         value: effect.releaseDuration,
                          range: 0.01 ... 500.0,
                          format: "%0.2f ms"
         ) { sliderValue in
-            effect.releaseTime = sliderValue
+            effect.releaseDuration = sliderValue
         })
 
         addView(AKSlider(property: "Rage Amount",
-                         value: effect.rageAmount,
+                         value: effect.rage,
                          range: 1 ... 20,
                          format: "%0.2f"
         ) { sliderValue in
-            effect.rageAmount = sliderValue
+            effect.rage = sliderValue
         })
 
         addView(AKButton(title: "Rage Off") { button in

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
@@ -31,11 +31,11 @@
     /// Initialize the microphone
     override public init() {
         super.init()
+        self.avAudioNode = mixer
+
         #if !os(tvOS)
-            self.avAudioNode = mixer
-            AKSettings.audioInputEnabled = true
-            AudioKit.engine.attach(mixer)
-            AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: nil)
+        AKSettings.audioInputEnabled = true
+        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
         #endif
     }
 

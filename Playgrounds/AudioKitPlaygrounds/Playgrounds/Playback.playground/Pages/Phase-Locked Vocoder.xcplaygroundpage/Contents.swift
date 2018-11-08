@@ -1,5 +1,5 @@
 //: ## Phase-Locked Vocoder
-//: A different kind of time and pitch stretching
+//: A different kind of time and pitch stretching. It plays a spectral freeze of the current position in time.
 import AudioKitPlaygrounds
 import AudioKit
 
@@ -19,7 +19,7 @@ import AudioKitUI
 class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var playingPositionSlider: AKSlider?
+    var playingPositionSlider: AKSlider!
 
     override func viewDidLoad() {
 

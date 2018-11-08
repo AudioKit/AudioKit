@@ -15,7 +15,7 @@ var division = 1
 
 var callbacker = AKCallbackInstrument { status, note, _ in
     if status == .noteOn {
-        print("Start Note \(note) at \(sequencer.currentPosition.seconds)")
+        AKLog("Start Note \(note) at \(sequencer.currentPosition.seconds)")
     }
 }
 

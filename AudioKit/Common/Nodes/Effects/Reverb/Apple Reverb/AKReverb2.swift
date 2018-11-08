@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
@@ -184,8 +184,8 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
             super.init()
-            self.avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            avAudioUnit = internalEffect
+            AudioKit.engine.attach(avAudioUnitOrNode)
             input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 

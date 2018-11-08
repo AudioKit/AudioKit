@@ -13,8 +13,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider?
-    var trackedFrequencySlider: AKSlider?
+    var trackedAmplitudeSlider: AKSlider!
+    var trackedFrequencySlider: AKSlider!
 
     override func viewDidLoad() {
 

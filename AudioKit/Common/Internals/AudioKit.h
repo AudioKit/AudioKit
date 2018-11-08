@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 #pragma once
 
@@ -83,6 +83,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
 // Effects / Modulation
+#import "AKModulatedDelay_Typedefs.h"
+#import "AKModulatedDelay.hpp"
 #import "AKModulatedDelayDSP.hpp"
 #import "AKPhaserDSP.hpp"
 
@@ -140,7 +142,16 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
 #import "AKSamplePlayerAudioUnit.h"
+#import "AKWaveTableAudioUnit.h"
+#import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"
+#import "AKSampler_Typedefs.h"
+#import "AKCoreSampler.hpp"
+#import "AKSamplerDSP.hpp"
+
+#if !TARGET_OS_TV
+#import "AKCallbackInstrumentAudioUnit.h"
+#endif
 
 // Testing
 #import "AKTesterAudioUnit.h"
@@ -169,3 +180,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
+
+// Synth
+#import "AKSynth.hpp"
+#import "AKSynthDSP.hpp"

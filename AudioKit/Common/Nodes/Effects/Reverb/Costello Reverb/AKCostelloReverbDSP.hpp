@@ -13,12 +13,12 @@
 typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
     AKCostelloReverbParameterFeedback,
     AKCostelloReverbParameterCutoffFrequency,
-    AKCostelloReverbParameterRampTime
+    AKCostelloReverbParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createCostelloReverbDSP(int nChannels, double sampleRate);
+void *createCostelloReverbDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKCostelloReverbDSP();
-    ~AKCostelloReverbDSP();
 
     float feedbackLowerBound = 0.0;
     float feedbackUpperBound = 1.0;
@@ -41,7 +40,7 @@ public:
     float defaultFeedback = 0.6;
     float defaultCutoffFrequency = 4000.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

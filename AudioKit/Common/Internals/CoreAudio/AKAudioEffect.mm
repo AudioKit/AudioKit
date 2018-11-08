@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Andrew Voelkel, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -16,7 +16,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation AKAudioEffect {
-    AKDSPKernelWithParams* _kernel;
+    AKDSPKernelWithParameters *_kernel;
     BufferedInputBus _inputBus;
 }
 
@@ -26,9 +26,9 @@
 - (BOOL)isSetUp { return (_kernel == NULL) ? false : _kernel->resetted; }
 
 - (void)standardSetup {
-    self.rampTime = AKSettings.rampTime;
+    self.rampDuration = AKSettings.rampDuration;
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                        channels:AKSettings.numberOfChannels];
+                                                                        channels:AKSettings.channelCount];
     //_kernel->init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
     _inputBus.init(self.defaultFormat, 8);
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self

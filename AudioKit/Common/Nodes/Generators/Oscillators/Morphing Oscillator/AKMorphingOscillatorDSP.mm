@@ -9,8 +9,8 @@
 #include "AKMorphingOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createMorphingOscillatorDSP(int nChannels, double sampleRate) {
-    AKMorphingOscillatorDSP* dsp = new AKMorphingOscillatorDSP();
+extern "C" void *createMorphingOscillatorDSP(int nChannels, double sampleRate) {
+    AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -28,15 +28,15 @@ struct AKMorphingOscillatorDSP::_Internal {
 
 AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : _private(new _Internal) {
     _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->indexRamp.setTarget(defaultIndex, true);
-    _private->indexRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->indexRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
-    _private->detuningOffsetRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
-    _private->detuningMultiplierRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -57,12 +57,12 @@ void AKMorphingOscillatorDSP::setParameter(AUParameterAddress address, AUValue v
         case AKMorphingOscillatorParameterDetuningMultiplier:
             _private->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
             break;
-        case AKMorphingOscillatorParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
-            _private->indexRamp.setRampTime(value, _sampleRate);
-            _private->detuningOffsetRamp.setRampTime(value, _sampleRate);
-            _private->detuningMultiplierRamp.setRampTime(value, _sampleRate);
+        case AKMorphingOscillatorParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            _private->indexRamp.setRampDuration(value, _sampleRate);
+            _private->detuningOffsetRamp.setRampDuration(value, _sampleRate);
+            _private->detuningMultiplierRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -80,20 +80,20 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
             return _private->detuningOffsetRamp.getTarget();
         case AKMorphingOscillatorParameterDetuningMultiplier:
             return _private->detuningMultiplierRamp.getTarget();
-        case AKMorphingOscillatorParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKMorphingOscillatorParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    _playing = false;
     sp_oscmorph_create(&_private->_oscmorph);
 }
 
-void AKMorphingOscillatorDSP::destroy() {
+void AKMorphingOscillatorDSP::deinit() {
     sp_oscmorph_destroy(&_private->_oscmorph);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void  AKMorphingOscillatorDSP::reset() {
@@ -132,7 +132,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

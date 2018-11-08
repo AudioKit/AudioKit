@@ -4,7 +4,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let sampler = AKSampler()
+let sampler = AKAppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
 let reverb = AKReverb(sampler)
@@ -133,7 +133,7 @@ class PlaygroundMIDIListener: AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        sampler.play(noteNumber: noteNumber)
+        try! sampler.play(noteNumber: noteNumber)
     }
 }
 

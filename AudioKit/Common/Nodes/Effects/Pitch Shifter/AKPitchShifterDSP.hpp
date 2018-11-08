@@ -14,12 +14,12 @@ typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
     AKPitchShifterParameterShift,
     AKPitchShifterParameterWindowSize,
     AKPitchShifterParameterCrossfade,
-    AKPitchShifterParameterRampTime
+    AKPitchShifterParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createPitchShifterDSP(int nChannels, double sampleRate);
+void *createPitchShifterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKPitchShifterDSP();
-    ~AKPitchShifterDSP();
 
     float shiftLowerBound = -24.0;
     float shiftUpperBound = 24.0;
@@ -45,7 +44,7 @@ public:
     float defaultWindowSize = 1024;
     float defaultCrossfade = 512;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

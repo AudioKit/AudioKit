@@ -1,12 +1,11 @@
 //
 //  FileConverter
 //
-//  Created by Ryan Francesconi on 12/14/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
 import AudioKit
-import AudioKitUI
 import Cocoa
 
 /// Simple interface to show AKConverter
@@ -104,9 +103,9 @@ class FileConverter: NSViewController {
         let converter = AKConverter(inputURL: inputURL, outputURL: outputURL, options: options)
         converter.start(completionHandler: { error in
             if let error = error {
-                Swift.print("Error during convertion: \(error)")
+                AKLog("Error during convertion: \(error)")
             } else {
-                Swift.print("Conversion Complete!")
+                AKLog("Conversion Complete!")
             }
         })
     }

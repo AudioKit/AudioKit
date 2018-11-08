@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is an oscillator with linear interpolation that is capable of morphing
@@ -41,10 +41,10 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoRateParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -63,7 +63,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Attack time
+    /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
@@ -78,7 +78,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-    /// Decay time
+    /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             if decayDuration != newValue {
@@ -106,7 +106,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    /// Release time
+    /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
@@ -178,10 +178,10 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     /// - Parameters:
     ///   - waveformArray:      An array of 4 waveforms
     ///   - index:              Index of the wavetable to use (fractional are okay).
-    ///   - attackDuration:     Attack time
-    ///   - decayDuration:      Decay time
+    ///   - attackDuration:     Attack duration in seconds
+    ///   - decayDuration:      Decay duration in seconds
     ///   - sustainLevel:       Sustain Level
-    ///   - releaseDuration:    Release time
+    ///   - releaseDuration:    Release duration in seconds
     ///   - pitchBend:          Change of pitch in semitones
     ///   - vibratoDepth:       Vibrato size in semitones
     ///   - vibratoRate:        Frequency of vibrato in Hz
@@ -212,6 +212,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType

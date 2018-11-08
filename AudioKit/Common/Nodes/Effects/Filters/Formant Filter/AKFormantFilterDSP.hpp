@@ -14,12 +14,12 @@ typedef NS_ENUM(AUParameterAddress, AKFormantFilterParameter) {
     AKFormantFilterParameterCenterFrequency,
     AKFormantFilterParameterAttackDuration,
     AKFormantFilterParameterDecayDuration,
-    AKFormantFilterParameterRampTime
+    AKFormantFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createFormantFilterDSP(int nChannels, double sampleRate);
+void *createFormantFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKFormantFilterDSP();
-    ~AKFormantFilterDSP();
 
     float centerFrequencyLowerBound = 12.0;
     float centerFrequencyUpperBound = 20000.0;
@@ -45,7 +44,7 @@ public:
     float defaultAttackDuration = 0.007;
     float defaultDecayDuration = 0.04;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

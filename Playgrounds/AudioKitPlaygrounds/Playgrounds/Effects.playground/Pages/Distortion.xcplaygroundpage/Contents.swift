@@ -6,8 +6,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 var distortion = AKDistortion(player)
 distortion.delay = 0.1
@@ -29,15 +29,15 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var delaySlider: AKSlider?
-    var decaySlider: AKSlider?
-    var delayMixSlider: AKSlider?
-    var linearTermSlider: AKSlider?
-    var squaredTermSlider: AKSlider?
-    var cubicTermSlider: AKSlider?
-    var polynomialMixSlider: AKSlider?
-    var softClipGainSlider: AKSlider?
-    var finalMixSlider: AKSlider?
+    var delaySlider: AKSlider!
+    var decaySlider: AKSlider!
+    var delayMixSlider: AKSlider!
+    var linearTermSlider: AKSlider!
+    var squaredTermSlider: AKSlider!
+    var cubicTermSlider: AKSlider!
+    var polynomialMixSlider: AKSlider!
+    var softClipGainSlider: AKSlider!
+    var finalMixSlider: AKSlider!
 
     override func viewDidLoad() {
         addTitle("Distortion")

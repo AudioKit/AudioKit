@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /**
@@ -29,10 +29,10 @@ open class AKConverter: NSObject {
     public typealias AKConverterCallback = (_ error: Error?) -> Void
 
     /** Formats that this class can write */
-    open static let outputFormats = ["wav", "aif", "caf", "m4a"]
+    public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    open static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
+    public static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
 
     /**
      The conversion options, leave nil to adopt the value of the input file
@@ -261,7 +261,7 @@ open class AKConverter: NSObject {
             return
         }
 
-        writer.startSession(atSourceTime: kCMTimeZero)
+        writer.startSession(atSourceTime: CMTime.zero)
         reader.startReading()
 
         let queue = DispatchQueue(label: "io.audiokit.AKConverter.start", qos: .utility)

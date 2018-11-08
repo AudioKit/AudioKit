@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -148,7 +148,7 @@ extension ViewController: AKMIDIListener {
 
     // MIDI Controller input
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        //print("Channel: \(channel+1) controller: \(controller) value: \(value)")
+        //AKLog("Channel: \(channel+1) controller: \(controller) value: \(value)")
         conductor.controller(controller, value: value)
     }
 
@@ -164,7 +164,7 @@ extension ViewController: AKMIDIListener {
 
     // MIDI Setup Change
     func receivedMIDISetupChange() {
-        print("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
+        AKLog("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
         let inputNames = conductor.midi.inputNames
         inputNames.forEach { inputName in
             conductor.midi.openInput(inputName)

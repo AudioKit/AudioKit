@@ -7,7 +7,7 @@ import AudioKit
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1
-oscillator.rampTime = 0.1
+oscillator.rampDuration = 0.1
 AudioKit.output = oscillator
 try AudioKit.start()
 oscillator.start()

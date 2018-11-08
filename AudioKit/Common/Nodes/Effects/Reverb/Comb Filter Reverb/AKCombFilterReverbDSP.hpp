@@ -12,14 +12,14 @@
 
 typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
     AKCombFilterReverbParameterReverbDuration,
-    AKCombFilterReverbParameterRampTime
+    AKCombFilterReverbParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
-void* createCombFilterReverbDSP(int nChannels, double sampleRate);
+void *createCombFilterReverbDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -50,8 +50,8 @@ public:
             case AKCombFilterReverbParameterReverbDuration:
                 reverbDurationRamp.setTarget(value, immediate);
                 break;
-            case AKCombFilterReverbParameterRampTime:
-                reverbDurationRamp.setRampTime(value, _sampleRate);
+            case AKCombFilterReverbParameterRampDuration:
+                reverbDurationRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -61,8 +61,8 @@ public:
         switch (address) {
             case AKCombFilterReverbParameterReverbDuration:
                 return reverbDurationRamp.getTarget();
-            case AKCombFilterReverbParameterRampTime:
-                return reverbDurationRamp.getRampTime(_sampleRate);
+            case AKCombFilterReverbParameterRampDuration:
+                return reverbDurationRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }
@@ -77,10 +77,9 @@ public:
         _comb1->revtime = 1.0;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_comb_destroy(&_comb0);
         sp_comb_destroy(&_comb1);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -98,8 +97,8 @@ public:
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel < 2) {
                     tmpin[channel] = in;
@@ -107,6 +106,7 @@ public:
                 }
                 if (!_playing) {
                     *out = *in;
+                    continue;
                 }
                 if (channel == 0) {
                     sp_comb_compute(_sp, _comb0, in, out);

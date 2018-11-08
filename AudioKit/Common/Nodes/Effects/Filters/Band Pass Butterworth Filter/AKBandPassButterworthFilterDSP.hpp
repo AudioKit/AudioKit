@@ -13,12 +13,12 @@
 typedef NS_ENUM(AUParameterAddress, AKBandPassButterworthFilterParameter) {
     AKBandPassButterworthFilterParameterCenterFrequency,
     AKBandPassButterworthFilterParameterBandwidth,
-    AKBandPassButterworthFilterParameterRampTime
+    AKBandPassButterworthFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createBandPassButterworthFilterDSP(int nChannels, double sampleRate);
+void *createBandPassButterworthFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKBandPassButterworthFilterDSP();
-    ~AKBandPassButterworthFilterDSP();
 
     float centerFrequencyLowerBound = 12.0;
     float centerFrequencyUpperBound = 20000.0;
@@ -41,7 +40,7 @@ public:
     float defaultCenterFrequency = 2000.0;
     float defaultBandwidth = 100.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

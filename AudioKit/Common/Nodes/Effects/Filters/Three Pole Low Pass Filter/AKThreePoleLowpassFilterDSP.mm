@@ -9,8 +9,8 @@
 #include "AKThreePoleLowpassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
-    AKThreePoleLowpassFilterDSP* dsp = new AKThreePoleLowpassFilterDSP();
+extern "C" void *createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
+    AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -25,11 +25,11 @@ struct AKThreePoleLowpassFilterDSP::_Internal {
 
 AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : _private(new _Internal) {
     _private->distortionRamp.setTarget(defaultDistortion, true);
-    _private->distortionRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKThreePoleLowpassFilterDSP::setParameter(AUParameterAddress address, AUVal
         case AKThreePoleLowpassFilterParameterResonance:
             _private->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
-        case AKThreePoleLowpassFilterParameterRampTime:
-            _private->distortionRamp.setRampTime(value, _sampleRate);
-            _private->cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->resonanceRamp.setRampTime(value, _sampleRate);
+        case AKThreePoleLowpassFilterParameterRampDuration:
+            _private->distortionRamp.setRampDuration(value, _sampleRate);
+            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->resonanceRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
             return _private->cutoffFrequencyRamp.getTarget();
         case AKThreePoleLowpassFilterParameterResonance:
             return _private->resonanceRamp.getTarget();
-        case AKThreePoleLowpassFilterParameterRampTime:
-            return _private->distortionRamp.getRampTime(_sampleRate);
+        case AKThreePoleLowpassFilterParameterRampDuration:
+            return _private->distortionRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -81,10 +81,9 @@ void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
     _private->_lpf181->res = defaultResonance;
 }
 
-void AKThreePoleLowpassFilterDSP::destroy() {
+void AKThreePoleLowpassFilterDSP::deinit() {
     sp_lpf18_destroy(&_private->_lpf180);
     sp_lpf18_destroy(&_private->_lpf181);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,14 +108,15 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

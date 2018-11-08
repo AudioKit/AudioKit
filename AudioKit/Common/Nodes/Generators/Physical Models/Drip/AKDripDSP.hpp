@@ -18,12 +18,12 @@ typedef NS_ENUM(AUParameterAddress, AKDripParameter) {
     AKDripParameterFirstResonantFrequency,
     AKDripParameterSecondResonantFrequency,
     AKDripParameterAmplitude,
-    AKDripParameterRampTime
+    AKDripParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createDripDSP(int nChannels, double sampleRate);
+void *createDripDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -37,7 +37,6 @@ private:
 
 public:
     AKDripDSP();
-    ~AKDripDSP();
 
     float intensityLowerBound = 0;
     float intensityUpperBound = 100;
@@ -62,7 +61,7 @@ public:
     float defaultSecondResonantFrequency = 750;
     float defaultAmplitude = 0.3;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -72,7 +71,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

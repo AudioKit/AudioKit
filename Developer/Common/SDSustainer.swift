@@ -2,7 +2,7 @@
 //  Sustainer.swift
 //  ExtendingAudioKit
 //
-//  Created by Shane Dunne on 2018-01-23.
+//  Created by Shane Dunne, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 //  Wraps a reference to any AKPolyphonicNode and interprets play()/stop() as key up/down

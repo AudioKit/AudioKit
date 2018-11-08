@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Andrew Voelkel, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -25,8 +25,8 @@ protected:
 
     int _nChannels;                               /* From Apple Example code */
     double _sampleRate;                           /* From Apple Example code */
-    AudioBufferList* _inBufferListPtr = nullptr;  /* From Apple Example code */
-    AudioBufferList* _outBufferListPtr = nullptr; /* From Apple Example code */
+    AudioBufferList *_inBufferListPtr = nullptr;  /* From Apple Example code */
+    AudioBufferList *_outBufferListPtr = nullptr; /* From Apple Example code */
 
     // To support AKAudioUnit functions
     bool _initialized = true;
@@ -34,7 +34,10 @@ protected:
     int64_t _now = 0;  // current time in samples
 
 public:
-
+    
+    /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
+    virtual ~AKDSPBase() {}
+    
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
@@ -65,12 +68,12 @@ public:
     virtual void trigger() {}
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
 
-    virtual void setBuffers(AudioBufferList* inBufs, AudioBufferList* outBufs) {
+    virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
         _inBufferListPtr = inBufs;
         _outBufferListPtr = outBufs;
     }
 
-    virtual void setBuffer(AudioBufferList* outBufs) {
+    virtual void setBuffer(AudioBufferList *outBufs) {
         _outBufferListPtr = outBufs;
     }
 
@@ -89,7 +92,7 @@ public:
     virtual bool isPlaying() { return _playing; }
     virtual bool isSetup() { return _initialized; }
 
-
+    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code

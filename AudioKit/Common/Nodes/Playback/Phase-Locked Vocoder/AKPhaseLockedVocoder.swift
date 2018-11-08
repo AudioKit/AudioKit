@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is a phase locked vocoder. It has the ability to play back an audio
@@ -24,10 +24,10 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
     fileprivate var pitchRatioParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -110,6 +110,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
 
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
+            self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
@@ -223,7 +224,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                     internalAU?.start()
                 } else {
                     // failure
-                    theData?.deallocate(capacity: Int(dataSize))
+                    theData?.deallocate()
                     theData = nil // make sure to return NULL
                     AKLog("Error = \(err)"); break Exit
                 }

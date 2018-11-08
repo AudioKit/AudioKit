@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -15,28 +15,28 @@ class BitcrushTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(bitDepth: 7)
         }
-        AKTestMD5("c52698781b056e8317465dbce6904523")
+        AKTestMD5("f2a5fed76fdfb7f7e473e9339f24e2a4")
     }
 
     func testDefault() {
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush()
         }
-        AKTestMD5("6f7a0ae3e6f604e1b8c44a41138eb7f4")
+        AKTestMD5("5ce9a59382eb0c16ddaf81438bce967b")
     }
 
     func testParameters() {
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(bitDepth: 7, sampleRate: 4_000)
         }
-        AKTestMD5("bebe7bbf6e1df77cc78595093b4751e0")
+        AKTestMD5("e6cbf0a4030d668f052b9ed5f6565676")
     }
 
     func testSampleRate() {
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush(sampleRate: 4_000)
         }
-        AKTestMD5("4ec24d4f76114f2ce4889f5e8c8fff3e")
+        AKTestMD5("25f95095d33e528267e0d1aba377d621")
     }
 
 }

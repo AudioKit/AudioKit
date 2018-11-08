@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This is based on an algorithm originally created by Miller Puckette.
@@ -24,12 +24,12 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
     @objc open dynamic var amplitude: Double {
-        return Double(internalAU?.amplitude ?? 0) / Double(AKSettings.numberOfChannels)
+        return Double(internalAU?.amplitude ?? 0) / Double(AKSettings.channelCount)
     }
 
     /// Detected frequency
     @objc open dynamic var frequency: Double {
-        return Double(internalAU?.frequency ?? 0) * Double(AKSettings.numberOfChannels)
+        return Double(internalAU?.frequency ?? 0) * Double(AKSettings.channelCount)
     }
 
     // MARK: - Initialization
@@ -42,8 +42,8 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        hopSize: Double = 512,
-        peakCount: Double = 20) {
+        hopSize: Int = 4_096,
+        peakCount: Int = 20) {
 
         _Self.register()
 
@@ -53,11 +53,14 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
             input?.connect(to: strongSelf)
         }
+        internalAU?.setPeakCount(UInt32(peakCount))
+        internalAU?.setHopSize(UInt32(hopSize))
     }
 
     // MARK: - Control

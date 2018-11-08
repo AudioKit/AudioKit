@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -21,9 +21,9 @@ class AKFMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffe
 public:
     // MARK: Types
     struct NoteState {
-        NoteState* next;
-        NoteState* prev;
-        AKFMOscillatorBankDSPKernel* kernel;
+        NoteState *next;
+        NoteState *prev;
+        AKFMOscillatorBankDSPKernel *kernel;
 
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
@@ -95,7 +95,7 @@ public:
         }
 
 
-        void run(int frameCount, float* outL, float* outR)
+        void run(int frameCount, float *outL, float *outR)
         {
             float originalFrequency = fosc->freq;
             fosc->freq *= powf(2, kernel->pitchBend / 12.0);
@@ -232,15 +232,15 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         carrierMultiplier = double(carrierMultiplierRamper.getAndStep());
         modulatingMultiplier = double(modulatingMultiplierRamper.getAndStep());
         modulationIndex = double(modulationIndexRamper.getAndStep());
         standardBankGetAndSteps()
 
-        NoteState* noteState = playingNotes;
+        NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -266,7 +266,7 @@ private:
     float modulationIndex = 1;
 
 public:
-    NoteState* playingNotes = nullptr;
+    NoteState *playingNotes = nullptr;
 
     ParameterRamper carrierMultiplierRamper = 1.0;
     ParameterRamper modulatingMultiplierRamper = 1;

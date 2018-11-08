@@ -3,23 +3,23 @@
 //  AudioKit
 //
 //  Created by Joseph Constantakis, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Custom Sporth Unit Generator (Ugen)
 @objc open class AKCustomUgen: NSObject {
 
     /// Name of the Ugen
-    @objc open let name: String
+    @objc public let name: String
 
     /// String describing the arugments: f for float / s for string, e.g. "fsf"
-    @objc open let argTypes: String
+    @objc public let argTypes: String
 
     /// Custom object that may be passed in
     @objc open var userData: Any?
 
     /// Callback / Closure / Function to be called
-    open let computeFunction: (AKCustomUgen, AKSporthStack, inout Any?) -> Void
+    public let computeFunction: (AKCustomUgen, AKSporthStack, inout Any?) -> Void
 
     /// The sporth stack
     @objc public var stack = AKSporthStack()
@@ -44,7 +44,7 @@
     }
 
     /// Executre the compute function
-    @objc open let callComputeFunction: @convention(c) (AKCustomUgen) -> Void
+    @objc public let callComputeFunction: @convention(c) (AKCustomUgen) -> Void
         = { ugen in
             ugen.computeFunction(ugen, ugen.stack, &(ugen.userData))
     }

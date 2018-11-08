@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -42,7 +42,7 @@ class AKOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         input = AKOscillator(waveform: AKTable(.square))
-        input.rampTime = 0.0
+        input.rampDuration = 0.0
         input.frequency = 400
         input.amplitude = 0.5
         output = input

@@ -14,12 +14,12 @@ typedef NS_ENUM(AUParameterAddress, AKThreePoleLowpassFilterParameter) {
     AKThreePoleLowpassFilterParameterDistortion,
     AKThreePoleLowpassFilterParameterCutoffFrequency,
     AKThreePoleLowpassFilterParameterResonance,
-    AKThreePoleLowpassFilterParameterRampTime
+    AKThreePoleLowpassFilterParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
+void *createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -32,7 +32,6 @@ private:
  
 public:
     AKThreePoleLowpassFilterDSP();
-    ~AKThreePoleLowpassFilterDSP();
 
     float distortionLowerBound = 0.0;
     float distortionUpperBound = 2.0;
@@ -45,7 +44,7 @@ public:
     float defaultCutoffFrequency = 1500;
     float defaultResonance = 0.5;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -55,7 +54,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

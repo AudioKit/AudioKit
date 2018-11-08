@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Distortion Audio Unit
@@ -211,7 +211,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
         let effect = _Self.effect
         au = AUWrapper(effect)
 
-        super.init(avAudioNode: effect, attach: true)
+        super.init(avAudioUnit: effect, attach: true)
 
         input?.connect(to: self)
 
@@ -253,7 +253,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
         AudioKit.detach(nodes: [self.avAudioNode])
     }

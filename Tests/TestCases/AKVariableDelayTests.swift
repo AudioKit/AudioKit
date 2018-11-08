@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -28,7 +28,7 @@ class AKVariableDelayTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let effect = AKVariableDelay(input)
-        effect.rampTime = 0.0
+        effect.rampDuration = 0.0
         effect.time = 0.123_4
         effect.feedback = 0.95
         output = effect

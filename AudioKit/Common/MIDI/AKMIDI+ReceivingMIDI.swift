@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 internal struct MIDISources: Collection {
@@ -60,46 +60,50 @@ extension AKMIDI {
 
     /// Open a MIDI Input port
     ///
-    /// - parameter namedInput: String containing the name of the MIDI Input
+    /// - parameter inputName: String containing the name of the MIDI Input
     ///
-    public func openInput(_ namedInput: String = "") {
+    public func openInput(_ inputName: String = "") {
         for (name, src) in zip(inputNames, MIDISources()) {
-            if namedInput.isEmpty || namedInput == name {
-                inputPorts[namedInput] = MIDIPortRef()
+            if inputName.isEmpty || inputName == name {
+                inputPorts[inputName] = MIDIPortRef()
 
-                var port = inputPorts[namedInput]!
+                var port = inputPorts[inputName]!
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
+                    var packetCount = 1
                     for packet in packetList.pointee {
                         // a CoreMIDI packet may contain multiple MIDI events -
                         // treat it like an array of events that can be transformed
-                        let transformedMIDIEventList = self.transformMIDIEventList([AKMIDIEvent](packet))
-                        for transformedEvent in transformedMIDIEventList {
+                        let events = [AKMIDIEvent](packet) //uses makeiterator
+                        let transformedMIDIEventList = self.transformMIDIEventList(events)
+                        // Note: incomplete sysex packets will not have a status
+                        for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil {
                             self.handleMIDIMessage(transformedEvent)
                         }
+                        packetCount += 1
                     }
                 }
 
-                inputPorts[namedInput] = port
+                inputPorts[inputName] = port
 
                 if result != noErr {
                     AKLog("Error creating MIDI Input Port : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
-                endpoints[namedInput] = src
+                endpoints[inputName] = src
             }
         }
     }
 
     /// Close a MIDI Input port
     ///
-    /// - parameter namedInput: String containing the name of the MIDI Input
+    /// - parameter inputName: String containing the name of the MIDI Input
     ///
-    public func closeInput(_ namedInput: String = "") {
-        AKLog("Closing MIDI Input '\(namedInput)'")
+    public func closeInput(_ inputName: String = "") {
+        AKLog("Closing MIDI Input '\(inputName)'")
         var result = noErr
         for key in inputPorts.keys {
-            if namedInput.isEmpty || key == namedInput {
+            if inputName.isEmpty || key == inputName {
                 if let port = inputPorts[key], let endpoint = endpoints[key] {
 
                     result = MIDIPortDisconnectSource(port, endpoint)

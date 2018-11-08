@@ -3,8 +3,9 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
+import AudioKit
 
 /// Different looks the slider can have
 public enum AKSliderStyle {
@@ -56,6 +57,11 @@ public enum AKSliderStyle {
     /// Bubble font size
     @IBInspectable open var bubbleFontSize: CGFloat = 12
 
+    /// Fonts for display above the slider
+    public var labelFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
+    public var valueFont: UIFont { return UIFont.systemFont(ofSize: fontSize) }
+    public var bubbleFont: UIFont { return UIFont.systemFont(ofSize: bubbleFontSize) }
+
     /// Only integer
     @IBInspectable open var onlyIntegers: Bool = false
 
@@ -105,6 +111,10 @@ public enum AKSliderStyle {
         self.isUserInteractionEnabled = true
         contentMode = .redraw
     }
+    // More required initialization from IB
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
 
     /// Actions to perform to make sure the view is renderable in Interface Builder
     override open func prepareForInterfaceBuilder() {
@@ -120,8 +130,9 @@ public enum AKSliderStyle {
     /// Handle new touches
     override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        touchBeganCallback()
     }
-
+    open var touchBeganCallback: () -> Void = { }
     /// Handle moved touches
     override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -142,7 +153,13 @@ public enum AKSliderStyle {
             isDragging = false
             setNeedsDisplay()
         }
+        touchEndedCallback()
     }
+    open var touchEndedCallback: () -> Void = { }
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchCancelledCallback()
+    }
+    open var touchCancelledCallback: () -> Void = { }
 
     private var indicatorWidth: CGFloat {
         switch sliderStyle {
@@ -221,9 +238,9 @@ public enum AKSliderStyle {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
-                                       NSAttributedStringKey.foregroundColor: themeTextColor,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: labelFont,
+                                       NSAttributedString.Key.foregroundColor: themeTextColor,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
@@ -234,17 +251,18 @@ public enum AKSliderStyle {
 
         // Calculate slider height and other values based on expected label height
         let sliderTextMargin: CGFloat = 5.0
-        let sliderOrigin = nameLabelTextHeight + sliderTextMargin
-        sliderHeight = height - sliderOrigin - sliderTextMargin
+        let labelOrigin = nameLabelTextHeight + sliderTextMargin
+        let sliderOrigin = sliderBorderWidth
+        sliderHeight = height - labelOrigin - sliderTextMargin
         let indicatorSize = CGSize(width: indicatorWidth, height: sliderHeight)
         let sliderCornerRadius = indicatorSize.width / sliderStyle.cornerRadiusFactor
 
         // Draw name label
-        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: sliderCornerRadius, dy: 0)
+        let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
         context.clip(to: nameLabelInset)
         NSString(string: propertyName).draw(
             in: CGRect(x: nameLabelInset.minX,
-                       y: nameLabelInset.minY,
+                       y: nameLabelInset.minY + sliderHeight,
                        width: nameLabelInset.width,
                        height: nameLabelTextHeight),
             withAttributes: nameLabelFontAttributes)
@@ -253,11 +271,13 @@ public enum AKSliderStyle {
         //// Variable Declarations
         let sliderMargin = (indicatorWidth + sliderBorderWidth) / 2.0
         let currentWidth: CGFloat = currentValue < 0 ? sliderMargin :
-            (currentValue < 1 ? currentValue * (width - (sliderMargin * 2.0)) + sliderMargin : width - sliderMargin)
+            (currentValue < 1 ?
+                currentValue * (width - (sliderMargin * 2.0)) + sliderMargin :
+                width - sliderMargin)
 
         //// sliderArea Drawing
         let sliderAreaRect = CGRect(x: sliderBorderWidth / 2.0,
-                                    y: sliderOrigin,
+                                    y: sliderOrigin + sliderBorderWidth / 2.0,
                                     width: width - sliderBorderWidth,
                                     height: sliderHeight)
         let sliderAreaPath = UIBezierPath(roundedRect: sliderAreaRect,
@@ -272,7 +292,7 @@ public enum AKSliderStyle {
         let valueCorners = currentWidth < indicatorSize.width ? UIRectCorner.allCorners : [.topLeft, .bottomLeft]
         let valueAreaRect = CGRect(x: sliderBorderWidth / 2.0,
                                    y: sliderOrigin + sliderBorderWidth / 2.0,
-                                   width: valueWidth,
+                                   width: valueWidth + indicatorSize.width / 2.0,
                                    height: sliderHeight - sliderBorderWidth)
         let valueAreaPath = UIBezierPath(roundedRect: valueAreaRect,
                                          byRoundingCorners: valueCorners,
@@ -286,7 +306,9 @@ public enum AKSliderStyle {
 
         // Indicator view drawing
         let indicatorRect = CGRect(x: currentWidth - indicatorSize.width / 2.0,
-                                   y: sliderOrigin, width: indicatorSize.width, height: indicatorSize.height)
+                                   y: sliderOrigin,
+                                   width: indicatorSize.width,
+                                   height: indicatorSize.height)
         let indicatorPath = UIBezierPath(roundedRect: indicatorRect,
                                          byRoundingCorners: .allCorners,
                                          cornerRadii: CGSize(width: sliderCornerRadius, height: sliderCornerRadius))
@@ -302,9 +324,9 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSAttributedStringKey.foregroundColor: themeTextColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes = [NSAttributedString.Key.font: bubbleFont,
+                                            NSAttributedString.Key.foregroundColor: themeTextColor,
+                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
@@ -351,11 +373,11 @@ public enum AKSliderStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .right
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
-                                            NSAttributedStringKey.foregroundColor: themeTextColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes = [NSAttributedString.Key.font: valueFont,
+                                            NSAttributedString.Key.foregroundColor: themeTextColor,
+                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
-            let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: 0)
+            let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: sliderCornerRadius, dy: sliderOrigin * 2.0)
             let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRect(
                 with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
                 options: NSStringDrawingOptions.usesLineFragmentOrigin,
@@ -365,7 +387,7 @@ public enum AKSliderStyle {
             context.clip(to: valueLabelInset)
             NSString(string: currentValueText).draw(
                 in: CGRect(x: valueLabelInset.minX,
-                           y: valueLabelInset.minY,
+                           y: valueLabelInset.minY + sliderHeight,
                            width: valueLabelInset.width,
                            height: valueLabelTextHeight),
                 withAttributes: valueLabelFontAttributes)

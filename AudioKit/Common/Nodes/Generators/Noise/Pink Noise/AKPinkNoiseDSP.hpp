@@ -12,12 +12,12 @@
 
 typedef NS_ENUM(AUParameterAddress, AKPinkNoiseParameter) {
     AKPinkNoiseParameterAmplitude,
-    AKPinkNoiseParameterRampTime
+    AKPinkNoiseParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createPinkNoiseDSP(int nChannels, double sampleRate);
+void *createPinkNoiseDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -30,14 +30,13 @@ private:
  
 public:
     AKPinkNoiseDSP();
-    ~AKPinkNoiseDSP();
 
     float amplitudeLowerBound = 0.0;
     float amplitudeUpperBound = 1.0;
 
     float defaultAmplitude = 1.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -47,7 +46,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

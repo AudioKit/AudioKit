@@ -9,8 +9,8 @@
 #include "AKLowShelfParametricEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
-    AKLowShelfParametricEqualizerFilterDSP* dsp = new AKLowShelfParametricEqualizerFilterDSP();
+extern "C" void *createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
+    AKLowShelfParametricEqualizerFilterDSP *dsp = new AKLowShelfParametricEqualizerFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -25,11 +25,11 @@ struct AKLowShelfParametricEqualizerFilterDSP::_Internal {
 
 AKLowShelfParametricEqualizerFilterDSP::AKLowShelfParametricEqualizerFilterDSP() : _private(new _Internal) {
     _private->cornerFrequencyRamp.setTarget(defaultCornerFrequency, true);
-    _private->cornerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cornerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->gainRamp.setTarget(defaultGain, true);
-    _private->gainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->gainRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->qRamp.setTarget(defaultQ, true);
-    _private->qRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->qRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKLowShelfParametricEqualizerFilterDSP::setParameter(AUParameterAddress add
         case AKLowShelfParametricEqualizerFilterParameterQ:
             _private->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
             break;
-        case AKLowShelfParametricEqualizerFilterParameterRampTime:
-            _private->cornerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->gainRamp.setRampTime(value, _sampleRate);
-            _private->qRamp.setRampTime(value, _sampleRate);
+        case AKLowShelfParametricEqualizerFilterParameterRampDuration:
+            _private->cornerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->gainRamp.setRampDuration(value, _sampleRate);
+            _private->qRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKLowShelfParametricEqualizerFilterDSP::getParameter(uint64_t address) {
             return _private->gainRamp.getTarget();
         case AKLowShelfParametricEqualizerFilterParameterQ:
             return _private->qRamp.getTarget();
-        case AKLowShelfParametricEqualizerFilterParameterRampTime:
-            return _private->cornerFrequencyRamp.getRampTime(_sampleRate);
+        case AKLowShelfParametricEqualizerFilterParameterRampDuration:
+            return _private->cornerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -83,10 +83,9 @@ void AKLowShelfParametricEqualizerFilterDSP::init(int _channels, double _sampleR
     _private->_pareq1->mode = 1;
 }
 
-void AKLowShelfParametricEqualizerFilterDSP::destroy() {
+void AKLowShelfParametricEqualizerFilterDSP::deinit() {
     sp_pareq_destroy(&_private->_pareq0);
     sp_pareq_destroy(&_private->_pareq1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -111,14 +110,15 @@ void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

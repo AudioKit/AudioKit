@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  SequencerDemo
 //
-//  Created by Kanstantsin Linou on 6/30/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -21,8 +21,8 @@ class ViewController: UIViewController {
 
     func setupUI() {
         [melodyButton, bassButton, snareButton].forEach({
-            $0?.setTitleColor(UIColor.white, for: UIControlState())
-            $0?.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
+            $0?.setTitleColor(UIColor.white, for: UIControl.State())
+            $0?.setTitleColor(UIColor.lightGray, for: UIControl.State.disabled)
         })
         tempoSlider.callback = updateTempo
         tempoSlider.range = 40 ... 200

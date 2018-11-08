@@ -2,15 +2,15 @@
 //  Conductor.swift
 //  Drums
 //
-//  Created by Aurelius Prochazka on 8/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
 
 class Conductor {
     static let sharedInstance = Conductor()
-    let drums = AKSampler()
+    let drums = AKAppleSampler()
 
     init() {
 

@@ -3,7 +3,7 @@
 //  AudioKitTestSuiteTests
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -56,7 +56,7 @@ class AKFMOscillatorBankTests: AKTestCase {
     }
 
     func testModulationIndex() {
-        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulationIndex:  1.3)
+        inputBank = AKFMOscillatorBank(waveform: AKTable(.square), modulationIndex: 1.3)
         output = inputBank
         AKTestMD5("0cdbe4e0546a81e0ac1ab929c71cf864")
     }
@@ -65,7 +65,7 @@ class AKFMOscillatorBankTests: AKTestCase {
         inputBank = AKFMOscillatorBank(waveform: AKTable(.square),
                                        carrierMultiplier: 1.1,
                                        modulatingMultiplier: 1.2,
-                                       modulationIndex:  1.3,
+                                       modulationIndex: 1.3,
                                        attackDuration: 0.123,
                                        decayDuration: 0.234,
                                        sustainLevel: 0.345,

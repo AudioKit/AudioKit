@@ -12,8 +12,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void* createClarinetDSP(int nChannels, double sampleRate) {
-    AKClarinetDSP* dsp = new AKClarinetDSP();
+extern "C" void *createClarinetDSP(int nChannels, double sampleRate) {
+    AKClarinetDSP *dsp = new AKClarinetDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -51,9 +51,9 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
         case AKClarinetParameterAmplitude:
             _private->amplitudeRamp.setTarget(value, immediate);
             break;
-        case AKClarinetParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKClarinetParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -65,8 +65,8 @@ float AKClarinetDSP::getParameter(AUParameterAddress address)  {
             return _private->frequencyRamp.getTarget();
         case AKClarinetParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKClarinetParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKClarinetParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -107,7 +107,7 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
         float amplitude = _private->amplitudeRamp.getValue();
         
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             
             if (_playing) {
                 if (_private->internalTrigger == 1) {

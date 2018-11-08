@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -53,7 +53,7 @@ class AKPhaseDistortionOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.square))
-        oscillator.rampTime = 0.0
+        oscillator.rampDuration = 0.0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.phaseDistortion = 1.234

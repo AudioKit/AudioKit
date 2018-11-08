@@ -9,8 +9,8 @@
 #include "AKStringResonatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createStringResonatorDSP(int nChannels, double sampleRate) {
-    AKStringResonatorDSP* dsp = new AKStringResonatorDSP();
+extern "C" void *createStringResonatorDSP(int nChannels, double sampleRate) {
+    AKStringResonatorDSP *dsp = new AKStringResonatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -24,9 +24,9 @@ struct AKStringResonatorDSP::_Internal {
 
 AKStringResonatorDSP::AKStringResonatorDSP() : _private(new _Internal) {
     _private->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
-    _private->fundamentalFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue valu
         case AKStringResonatorParameterFeedback:
             _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
-        case AKStringResonatorParameterRampTime:
-            _private->fundamentalFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
+        case AKStringResonatorParameterRampDuration:
+            _private->fundamentalFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
             return _private->fundamentalFrequencyRamp.getTarget();
         case AKStringResonatorParameterFeedback:
             return _private->feedbackRamp.getTarget();
-        case AKStringResonatorParameterRampTime:
-            return _private->fundamentalFrequencyRamp.getRampTime(_sampleRate);
+        case AKStringResonatorParameterRampDuration:
+            return _private->fundamentalFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -70,10 +70,9 @@ void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
     _private->_streson1->fdbgain = defaultFeedback;
 }
 
-void AKStringResonatorDSP::destroy() {
+void AKStringResonatorDSP::deinit() {
     sp_streson_destroy(&_private->_streson0);
     sp_streson_destroy(&_private->_streson1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,14 +94,15 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

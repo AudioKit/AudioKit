@@ -2,7 +2,7 @@
 //  EZOutput.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 12/2/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -41,7 +41,7 @@ Float64 const EZOutputDefaultSampleRate     = 44100.0f;
 
 typedef struct
 {
-    // stream format params
+    // stream format Parameters
     AudioStreamBasicDescription inputFormat;
     AudioStreamBasicDescription clientFormat;
 

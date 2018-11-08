@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioToolbox
@@ -15,16 +15,20 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
-extension Collection where IndexDistance == Int {
+/// A Sample type, just a UInt32
+public typealias Sample = UInt32
+
+/// Callback function that can be called from C
+public typealias AKCCallback = @convention(block) () -> Void
+
+/// Callback function that can be called from C
+public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
+
+extension Collection {
     /// Return a random element from the collection
     public var randomIndex: Index {
         let offset = Int(arc4random_uniform(UInt32(Int64(count))))
         return index(startIndex, offsetBy: offset)
-    }
-
-    /// Retrieve a random element from the collection
-    public func randomElement() -> Iterator.Element {
-        return self[randomIndex]
     }
 }
 
@@ -261,7 +265,7 @@ extension ClosedRange {
     /// - parameter value: Value to clamp
     ///
     public func clamp(_ value: Bound) -> Bound {
-        return min(max(value, lowerBound), upperBound)
+        return Swift.min(Swift.max(value, lowerBound), upperBound)
     }
 }
 
@@ -327,6 +331,12 @@ public extension AVAudioUnit {
     }
 }
 
+extension AVAudioNode {
+    func inputConnections() -> [AVAudioConnectionPoint] {
+        return (0..<numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+    }
+}
+
 extension AUParameter {
     @nonobjc
     convenience init(_ identifier: String,
@@ -375,7 +385,7 @@ extension Dictionary: Occupiable { }
 extension Set: Occupiable { }
 
 #if !os(macOS)
-extension AVAudioSessionCategoryOptions: Occupiable { }
+extension AVAudioSession.CategoryOptions: Occupiable { }
 #endif
 
 prefix operator ❗️

@@ -2,7 +2,7 @@
 //  EZAudioUtilities.m
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 6/23/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -427,9 +427,9 @@ BOOL __shouldExitOnCheckResultFail = YES;
 #pragma mark - Math Utilities
 //------------------------------------------------------------------------------
 
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength
 {
     int    shiftLength    = scrollHistoryLength - bufferLength;
@@ -447,7 +447,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
 //------------------------------------------------------------------------------
 
 + (void)   appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength
 {
     float val[1]; val[0] = value;

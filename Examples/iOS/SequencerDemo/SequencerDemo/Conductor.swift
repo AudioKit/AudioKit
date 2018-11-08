@@ -2,8 +2,8 @@
 //  Conductor.swift
 //  SequencerDemo
 //
-//  Created by Kanstantsin Linou on 6/30/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -55,8 +55,8 @@ class Conductor {
         pumper.headRoom = 0.10
         pumper.threshold = -15
         pumper.masterGain = 10
-        pumper.attackTime = 0.01
-        pumper.releaseTime = 0.3
+        pumper.attackDuration = 0.01
+        pumper.releaseDuration = 0.3
 
         [verb, bassDrum, snareDrum, snareGhost, snareVerb] >>> mixer
 
@@ -95,11 +95,11 @@ class Conductor {
         if clear { sequencer.tracks[Sequence.melody.rawValue].clear() }
         sequencer.setLength(sequenceLength)
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
-        //print("steps in sequence: \(numberOfSteps)")
+        //AKLog("steps in sequence: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if arc4random_uniform(17) > 12 {
                 let step = Double(i) * stepSize
-                //print("step is \(step)")
+                //AKLog("step is \(step)")
                 let scale = (minor ? scale2 : scale1)
                 let scaleOffset = arc4random_uniform(UInt32(scale.count) - 1)
                 var octaveOffset = 0
@@ -111,7 +111,7 @@ class Conductor {
                         Float(octaveOffset)
                     )
                 }
-                //print("octave offset is \(octaveOffset)")
+                //AKLog("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
                 sequencer.tracks[Sequence.melody.rawValue].add(noteNumber: MIDINoteNumber(noteToAdd),
                                                                velocity: 100,
@@ -151,7 +151,7 @@ class Conductor {
     func generateSnareDrumGhostSequence(_ stepSize: Float = 1 / 8, clear: Bool = true) {
         if clear { sequencer.tracks[Sequence.snareGhost.rawValue].clear() }
         let numberOfSteps = Int(Float(sequenceLength.beats) / stepSize)
-        //print("steps in sequnce: \(numberOfSteps)")
+        //AKLog("steps in sequnce: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if arc4random_uniform(17) > 14 {
                 let step = Double(i) * stepSize

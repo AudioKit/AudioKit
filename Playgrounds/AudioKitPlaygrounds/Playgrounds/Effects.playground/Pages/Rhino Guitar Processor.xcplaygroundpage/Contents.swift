@@ -8,15 +8,15 @@ var rhino: AKRhinoGuitarProcessor!
 do {
     let guitarFile = try AKAudioFile(readFileName: "guitar.wav")
 
-    let player = AKPlayer(audioFile: guitarFile)
+    let player = try AKAudioPlayer(file: guitarFile)
+    player.looping = true
     rhino = AKRhinoGuitarProcessor(player)
     let reverb = AKReverb(rhino)
     AudioKit.output = AKMixer(reverb, rhino)
-    try try AudioKit.start()
-    player.isLooping = true
-    player.start()
+    try AudioKit.start()
+    player.play()
 } catch let error as NSError {
-    print(error.localizedDescription)
+    AKLog(error.localizedDescription)
 }
 //: User Interface Set up
 import AudioKitUI
@@ -40,11 +40,11 @@ class LiveView: AKLiveViewController {
         })
 
         addView(AKSlider(property: "Dist. Amount",
-                         value: rhino.distAmount,
+                         value: rhino.distortion,
                          range: 1.0 ... 20.0,
                          format: "%0.1f"
         ) { sliderValue in
-            rhino.distAmount = sliderValue
+            rhino.distortion = sliderValue
         })
 
         addView(AKSlider(property: "Lows",

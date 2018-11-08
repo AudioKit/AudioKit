@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Stereo Booster
@@ -21,10 +21,16 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var leftGainParameter: AUParameter?
     fileprivate var rightGainParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
+        }
+    }
+
+    @objc open dynamic var rampType: AKSettings.RampType = .linear {
+        willSet {
+            internalAU?.rampType = newValue.rawValue
         }
     }
 
@@ -37,22 +43,20 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if gain == newValue {
                 return
             }
-            // prevent division by zero in parameter ramper
-            let value = (0.000_2...2).clamp(newValue)
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp ?? false {
                 if let token = token {
-                    leftGainParameter?.setValue(Float(value), originator: token)
-                    rightGainParameter?.setValue(Float(value), originator: token)
+                    leftGainParameter?.setValue(Float(newValue), originator: token)
+                    rightGainParameter?.setValue(Float(newValue), originator: token)
                     return
                 }
             }
 
             // this means it's direct inline
-            internalAU?.setParameterImmediately(.leftGain, value: value)
-            internalAU?.setParameterImmediately(.rightGain, value: value)
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -62,15 +66,13 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if leftGain == newValue {
                 return
             }
-            let value = (0.000_2...2).clamp(newValue)
-
             if internalAU?.isSetUp ?? false {
                 if let token = token {
-                    leftGainParameter?.setValue(Float(value), originator: token)
+                    leftGainParameter?.setValue(Float(newValue), originator: token)
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.leftGain, value: value)
+            internalAU?.setParameterImmediately(.leftGain, value: newValue)
         }
     }
 
@@ -80,15 +82,13 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             if rightGain == newValue {
                 return
             }
-            let value = (0.000_2...2).clamp(newValue)
-
             if internalAU?.isSetUp ?? false {
                 if let token = token {
-                    rightGainParameter?.setValue(Float(value), originator: token)
+                    rightGainParameter?.setValue(Float(newValue), originator: token)
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.rightGain, value: value)
+            internalAU?.setParameterImmediately(.rightGain, value: newValue)
         }
     }
 
@@ -131,6 +131,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
@@ -158,6 +159,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         })
         self.internalAU?.setParameterImmediately(.leftGain, value: gain)
         self.internalAU?.setParameterImmediately(.rightGain, value: gain)
+        self.internalAU?.setParameterImmediately(.rampDuration, value: self.rampDuration)
+        self.internalAU?.rampType = self.rampType.rawValue
     }
 
     // MARK: - Control
