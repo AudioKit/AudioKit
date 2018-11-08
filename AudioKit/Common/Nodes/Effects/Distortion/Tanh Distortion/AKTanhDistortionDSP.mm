@@ -9,8 +9,8 @@
 #include "AKTanhDistortionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createTanhDistortionDSP(int nChannels, double sampleRate) {
-    AKTanhDistortionDSP* dsp = new AKTanhDistortionDSP();
+extern "C" void *createTanhDistortionDSP(int nChannels, double sampleRate) {
+    AKTanhDistortionDSP *dsp = new AKTanhDistortionDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -26,13 +26,13 @@ struct AKTanhDistortionDSP::_Internal {
 
 AKTanhDistortionDSP::AKTanhDistortionDSP() : _private(new _Internal) {
     _private->pregainRamp.setTarget(defaultPregain, true);
-    _private->pregainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->pregainRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->postgainRamp.setTarget(defaultPostgain, true);
-    _private->postgainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->postgainRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->positiveShapeParameterRamp.setTarget(defaultPositiveShapeParameter, true);
-    _private->positiveShapeParameterRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->positiveShapeParameterRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->negativeShapeParameterRamp.setTarget(defaultNegativeShapeParameter, true);
-    _private->negativeShapeParameterRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->negativeShapeParameterRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -50,11 +50,11 @@ void AKTanhDistortionDSP::setParameter(AUParameterAddress address, AUValue value
         case AKTanhDistortionParameterNegativeShapeParameter:
             _private->negativeShapeParameterRamp.setTarget(clamp(value, negativeShapeParameterLowerBound, negativeShapeParameterUpperBound), immediate);
             break;
-        case AKTanhDistortionParameterRampTime:
-            _private->pregainRamp.setRampTime(value, _sampleRate);
-            _private->postgainRamp.setRampTime(value, _sampleRate);
-            _private->positiveShapeParameterRamp.setRampTime(value, _sampleRate);
-            _private->negativeShapeParameterRamp.setRampTime(value, _sampleRate);
+        case AKTanhDistortionParameterRampDuration:
+            _private->pregainRamp.setRampDuration(value, _sampleRate);
+            _private->postgainRamp.setRampDuration(value, _sampleRate);
+            _private->positiveShapeParameterRamp.setRampDuration(value, _sampleRate);
+            _private->negativeShapeParameterRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -70,8 +70,8 @@ float AKTanhDistortionDSP::getParameter(uint64_t address) {
             return _private->positiveShapeParameterRamp.getTarget();
         case AKTanhDistortionParameterNegativeShapeParameter:
             return _private->negativeShapeParameterRamp.getTarget();
-        case AKTanhDistortionParameterRampTime:
-            return _private->pregainRamp.getRampTime(_sampleRate);
+        case AKTanhDistortionParameterRampDuration:
+            return _private->pregainRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -92,10 +92,9 @@ void AKTanhDistortionDSP::init(int _channels, double _sampleRate) {
     _private->_dist1->shape2 = defaultNegativeShapeParameter;
 }
 
-void AKTanhDistortionDSP::destroy() {
+void AKTanhDistortionDSP::deinit() {
     sp_dist_destroy(&_private->_dist0);
     sp_dist_destroy(&_private->_dist1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -123,14 +122,15 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

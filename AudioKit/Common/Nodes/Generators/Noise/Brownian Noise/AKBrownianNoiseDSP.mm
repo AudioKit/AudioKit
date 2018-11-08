@@ -9,8 +9,8 @@
 #include "AKBrownianNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBrownianNoiseDSP(int nChannels, double sampleRate) {
-    AKBrownianNoiseDSP* dsp = new AKBrownianNoiseDSP();
+extern "C" void *createBrownianNoiseDSP(int nChannels, double sampleRate) {
+    AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -22,7 +22,7 @@ struct AKBrownianNoiseDSP::_Internal {
 
 AKBrownianNoiseDSP::AKBrownianNoiseDSP() : _private(new _Internal) {
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -31,8 +31,8 @@ void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value,
         case AKBrownianNoiseParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKBrownianNoiseParameterRampTime:
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKBrownianNoiseParameterRampDuration:
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,8 +42,8 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKBrownianNoiseParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKBrownianNoiseParameterRampTime:
-            return _private->amplitudeRamp.getRampTime(_sampleRate);
+        case AKBrownianNoiseParameterRampDuration:
+            return _private->amplitudeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -54,9 +54,8 @@ void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
     sp_brown_init(_sp, _private->_brown);
 }
 
-void AKBrownianNoiseDSP::destroy() {
+void AKBrownianNoiseDSP::deinit() {
     sp_brown_destroy(&_private->_brown);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -71,7 +70,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -12,7 +12,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    @IBOutlet private var plot: AKOutputWaveformPlot!
+    @IBOutlet private var plot: AKNodeOutputPlot!
 
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
@@ -22,7 +22,8 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         mixer = AKMixer(oscillator1, oscillator2)
-
+        plot.node = mixer
+        
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer

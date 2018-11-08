@@ -15,12 +15,12 @@ typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
     AKOscillatorParameterAmplitude,
     AKOscillatorParameterDetuningOffset,
     AKOscillatorParameterDetuningMultiplier,
-    AKOscillatorParameterRampTime
+    AKOscillatorParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createOscillatorDSP(int nChannels, double sampleRate);
+void *createOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -33,7 +33,6 @@ private:
  
 public:
     AKOscillatorDSP();
-    ~AKOscillatorDSP();
 
     float frequencyLowerBound = 0.0;
     float frequencyUpperBound = 20000.0;
@@ -49,7 +48,7 @@ public:
     float defaultDetuningOffset = 0.0;
     float defaultDetuningMultiplier = 1.0;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -59,7 +58,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #ifdef __cplusplus
@@ -196,7 +196,7 @@ public:
             case 0xB0 : { \
                 uint8_t num = midiEvent.data[1]; \
                 if (num == 123) { \
-                    NoteState* noteState = playingNotes; \
+                    NoteState *noteState = playingNotes; \
                     while (noteState) { \
                         noteState->clear(); \
                         noteState = noteState->next; \

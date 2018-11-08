@@ -9,8 +9,8 @@
 #include "AKVariableDelayDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createVariableDelayDSP(int nChannels, double sampleRate) {
-    AKVariableDelayDSP* dsp = new AKVariableDelayDSP();
+extern "C" void *createVariableDelayDSP(int nChannels, double sampleRate) {
+    AKVariableDelayDSP *dsp = new AKVariableDelayDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -24,9 +24,9 @@ struct AKVariableDelayDSP::_Internal {
 
 AKVariableDelayDSP::AKVariableDelayDSP() : _private(new _Internal) {
     _private->timeRamp.setTarget(defaultTime, true);
-    _private->timeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->timeRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKVariableDelayDSP::setParameter(AUParameterAddress address, AUValue value,
         case AKVariableDelayParameterFeedback:
             _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
-        case AKVariableDelayParameterRampTime:
-            _private->timeRamp.setRampTime(value, _sampleRate);
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
+        case AKVariableDelayParameterRampDuration:
+            _private->timeRamp.setRampDuration(value, _sampleRate);
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
             return _private->timeRamp.getTarget();
         case AKVariableDelayParameterFeedback:
             return _private->feedbackRamp.getTarget();
-        case AKVariableDelayParameterRampTime:
-            return _private->timeRamp.getRampTime(_sampleRate);
+        case AKVariableDelayParameterRampDuration:
+            return _private->timeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -70,10 +70,14 @@ void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
     _private->_vdelay1->feedback = defaultFeedback;
 }
 
-void AKVariableDelayDSP::destroy() {
+void AKVariableDelayDSP::deinit() {
     sp_vdelay_destroy(&_private->_vdelay0);
     sp_vdelay_destroy(&_private->_vdelay1);
-    AKSoundpipeDSPBase::destroy();
+}
+
+void AKVariableDelayDSP::clear() {
+    sp_vdelay_reset(_sp, _private->_vdelay0);
+    sp_vdelay_reset(_sp, _private->_vdelay1);
 }
 
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,14 +99,15 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

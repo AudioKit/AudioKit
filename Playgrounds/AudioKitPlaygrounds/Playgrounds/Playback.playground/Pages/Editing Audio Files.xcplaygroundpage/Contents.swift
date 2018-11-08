@@ -53,9 +53,9 @@ var sequence = try threeTimesLoop.appendedBy(file: fixedLoop)
 //: Next, we append a random sequence of 16 sixteenth of audio to build our random drum solo...
 
 for i in 0..<16 {
-    let newSampleIndex = (0..<samplesBox.count).randomElement()
+    let newSampleIndex = (0..<samplesBox.count).randomElement()!
     let newSound = samplesBox[newSampleIndex]
-    print("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
+    AKLog("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
     var newFile = try sequence.appendedBy(file: newSound)
     sequence = newFile
 }

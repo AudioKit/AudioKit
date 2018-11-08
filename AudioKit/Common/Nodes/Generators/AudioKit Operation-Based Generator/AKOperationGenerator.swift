@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Operation-based generator
@@ -74,15 +74,15 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
-    ///   - operations:       Array of operations [left, right]
+    ///   - channelCount: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations: Array of operations [left, right]
     ///
-    public convenience init(numberOfChannels: Int, operations: ([AKOperation]) -> [AKOperation]) {
+    public convenience init(channelCount: Int, operations: ([AKOperation]) -> [AKOperation]) {
 
         let computedParameters = operations(AKOperation.parameters)
         let left = computedParameters[0]
 
-        if numberOfChannels == 2 {
+        if channelCount == 2 {
             let right = computedParameters[1]
             self.init(sporth: "\(right.sporth) \(left.sporth)")
         } else {
@@ -103,6 +103,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
+            self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             for ugen in self?.customUgens ?? [] {

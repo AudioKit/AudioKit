@@ -4,7 +4,7 @@
 //
 //  https://github.com/michaeltyson/TPCircularBuffer
 //
-//  Created by Michael Tyson on 20/03/2012.
+//  Created by Michael Tyson, revision history on Githbub.
 //
 //  Copyright (C) 2012-2013 A Tasty Pixel
 //

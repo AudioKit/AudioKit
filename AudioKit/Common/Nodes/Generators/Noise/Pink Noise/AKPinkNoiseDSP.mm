@@ -9,8 +9,8 @@
 #include "AKPinkNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createPinkNoiseDSP(int nChannels, double sampleRate) {
-    AKPinkNoiseDSP* dsp = new AKPinkNoiseDSP();
+extern "C" void *createPinkNoiseDSP(int nChannels, double sampleRate) {
+    AKPinkNoiseDSP *dsp = new AKPinkNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -22,7 +22,7 @@ struct AKPinkNoiseDSP::_Internal {
 
 AKPinkNoiseDSP::AKPinkNoiseDSP() : _private(new _Internal) {
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -31,8 +31,8 @@ void AKPinkNoiseDSP::setParameter(AUParameterAddress address, AUValue value, boo
         case AKPinkNoiseParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKPinkNoiseParameterRampTime:
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKPinkNoiseParameterRampDuration:
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,8 +42,8 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKPinkNoiseParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKPinkNoiseParameterRampTime:
-            return _private->amplitudeRamp.getRampTime(_sampleRate);
+        case AKPinkNoiseParameterRampDuration:
+            return _private->amplitudeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -55,9 +55,8 @@ void AKPinkNoiseDSP::init(int _channels, double _sampleRate) {
     _private->_pinknoise->amp = defaultAmplitude;
 }
 
-void AKPinkNoiseDSP::destroy() {
+void AKPinkNoiseDSP::deinit() {
     sp_pinknoise_destroy(&_private->_pinknoise);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,7 +73,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

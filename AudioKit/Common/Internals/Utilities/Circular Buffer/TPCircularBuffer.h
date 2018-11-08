@@ -4,7 +4,7 @@
 //
 //  https://github.com/michaeltyson/TPCircularBuffer
 //
-//  Created by Michael Tyson on 10/12/2011.
+//  Created by Michael Tyson, revision history on Githbub.
 //
 //
 //  This implementation makes use of a virtual memory mapping technique that inserts a virtual copy
@@ -136,7 +136,7 @@ void  TPCircularBufferSetAtomic(TPCircularBuffer *buffer, bool atomic);
  * @param availableBytes On output, the number of bytes ready for reading
  * @return Pointer to the first bytes ready for reading, or NULL if buffer is empty
  */
-static __inline__ __attribute__((always_inline)) void* TPCircularBufferTail(TPCircularBuffer *buffer, int32_t* availableBytes) {
+static __inline__ __attribute__((always_inline)) void *TPCircularBufferTail(TPCircularBuffer *buffer, int32_t *availableBytes) {
     *availableBytes = buffer->fillCount;
     if ( *availableBytes == 0 ) return NULL;
     return (void*)((char*)buffer->buffer + buffer->tail);
@@ -170,7 +170,7 @@ static __inline__ __attribute__((always_inline)) void TPCircularBufferConsume(TP
  * @param availableBytes On output, the number of bytes ready for writing
  * @return Pointer to the first bytes ready for writing, or NULL if buffer is full
  */
-static __inline__ __attribute__((always_inline)) void* TPCircularBufferHead(TPCircularBuffer *buffer, int32_t* availableBytes) {
+static __inline__ __attribute__((always_inline)) void *TPCircularBufferHead(TPCircularBuffer *buffer, int32_t *availableBytes) {
     *availableBytes = (buffer->length - buffer->fillCount);
     if ( *availableBytes == 0 ) return NULL;
     return (void*)((char*)buffer->buffer + buffer->head);
@@ -206,7 +206,7 @@ static __inline__ __attribute__((always_inline)) void TPCircularBufferProduce(TP
  * @param len Number of bytes in source buffer
  * @return true if bytes copied, false if there was insufficient space
  */
-static __inline__ __attribute__((always_inline)) bool TPCircularBufferProduceBytes(TPCircularBuffer *buffer, const void* src, int32_t len) {
+static __inline__ __attribute__((always_inline)) bool TPCircularBufferProduceBytes(TPCircularBuffer *buffer, const void *src, int32_t len) {
     int32_t space;
     void *ptr = TPCircularBufferHead(buffer, &space);
     if ( space < len ) return false;

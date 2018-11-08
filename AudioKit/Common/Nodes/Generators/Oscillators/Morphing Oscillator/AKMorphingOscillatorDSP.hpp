@@ -16,12 +16,12 @@ typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
     AKMorphingOscillatorParameterIndex,
     AKMorphingOscillatorParameterDetuningOffset,
     AKMorphingOscillatorParameterDetuningMultiplier,
-    AKMorphingOscillatorParameterRampTime
+    AKMorphingOscillatorParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createMorphingOscillatorDSP(int nChannels, double sampleRate);
+void *createMorphingOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -34,7 +34,6 @@ private:
  
 public:
     AKMorphingOscillatorDSP();
-    ~AKMorphingOscillatorDSP();
 
     float frequencyLowerBound = 0.0;
     float frequencyUpperBound = 22050.0;
@@ -53,7 +52,7 @@ public:
     float defaultDetuningOffset = 0;
     float defaultDetuningMultiplier = 1;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -63,7 +62,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
     void reset() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;

@@ -2,7 +2,7 @@
 //  AKFlangerAudioUnit.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
+//  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -34,8 +34,8 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.dryWetMix, value: dryWetMix) }
     }
 
-    var rampTime: Double = 0.0 {
-        didSet { setParameter(.rampTime, value: rampTime) }
+    var rampDuration: Double = 0.0 {
+        didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
@@ -105,6 +105,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         dryWetMix.value = Float(AKFlanger.defaultDryWetMix)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

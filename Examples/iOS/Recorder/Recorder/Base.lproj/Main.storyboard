@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,35 +29,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mvh-eW-Whe" customClass="AKNodeOutputPlot" customModule="AudioKitUI">
-                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="92.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Input" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pC-9a-Sim">
-                                                        <rect key="frame" x="8" y="8" width="39" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KgW-Jo-05K" customClass="AKOutputWaveformPlot" customModule="AudioKitUI">
-                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="92.5"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDS-El-WQh">
-                                                        <rect key="frame" x="8" y="8" width="54" height="21"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="92.5"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="KgW-Jo-05K" firstAttribute="width" secondItem="Mvh-eW-Whe" secondAttribute="width" id="zyU-5g-rOy"/>
-                                        </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chg-Xl-bKS">
                                         <rect key="frame" x="0.0" y="92.5" width="375" height="92.5"/>
@@ -192,11 +167,10 @@
                     <connections>
                         <outlet property="frequencySlider" destination="XHS-Jb-A4X" id="aSK-Wr-cwy"/>
                         <outlet property="infoLabel" destination="chg-Xl-bKS" id="DGZ-iF-mlS"/>
-                        <outlet property="inputPlot" destination="Mvh-eW-Whe" id="ur8-J2-iXc"/>
                         <outlet property="loopButton" destination="3mv-Q4-wQx" id="iMS-gz-FLN"/>
                         <outlet property="mainButton" destination="39X-bk-Sha" id="ulE-Od-pFi"/>
                         <outlet property="moogLadderTitle" destination="2d8-rp-3wR" id="Z4K-xn-F5C"/>
-                        <outlet property="outputPlot" destination="KgW-Jo-05K" id="Jet-n2-wje"/>
+                        <outlet property="plot" destination="Mvh-eW-Whe" id="3UQ-sA-9e2"/>
                         <outlet property="resetButton" destination="Vys-ow-YgK" id="Yub-Eg-HLJ"/>
                         <outlet property="resonanceSlider" destination="H1W-4C-cmC" id="arT-gw-CgI"/>
                     </connections>

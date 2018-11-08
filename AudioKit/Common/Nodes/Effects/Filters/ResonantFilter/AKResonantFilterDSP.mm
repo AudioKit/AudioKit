@@ -9,8 +9,8 @@
 #include "AKResonantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createResonantFilterDSP(int nChannels, double sampleRate) {
-    AKResonantFilterDSP* dsp = new AKResonantFilterDSP();
+extern "C" void *createResonantFilterDSP(int nChannels, double sampleRate) {
+    AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -24,9 +24,9 @@ struct AKResonantFilterDSP::_Internal {
 
 AKResonantFilterDSP::AKResonantFilterDSP() : _private(new _Internal) {
     _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value
         case AKResonantFilterParameterBandwidth:
             _private->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
-        case AKResonantFilterParameterRampTime:
-            _private->frequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
+        case AKResonantFilterParameterRampDuration:
+            _private->frequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
             return _private->frequencyRamp.getTarget();
         case AKResonantFilterParameterBandwidth:
             return _private->bandwidthRamp.getTarget();
-        case AKResonantFilterParameterRampTime:
-            return _private->frequencyRamp.getRampTime(_sampleRate);
+        case AKResonantFilterParameterRampDuration:
+            return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -70,10 +70,9 @@ void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
     _private->_reson1->bw = defaultBandwidth;
 }
 
-void AKResonantFilterDSP::destroy() {
+void AKResonantFilterDSP::deinit() {
     sp_reson_destroy(&_private->_reson0);
     sp_reson_destroy(&_private->_reson1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,14 +94,15 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

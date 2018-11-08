@@ -9,8 +9,8 @@
 #include "AKBandRejectButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBandRejectButterworthFilterDSP(int nChannels, double sampleRate) {
-    AKBandRejectButterworthFilterDSP* dsp = new AKBandRejectButterworthFilterDSP();
+extern "C" void *createBandRejectButterworthFilterDSP(int nChannels, double sampleRate) {
+    AKBandRejectButterworthFilterDSP *dsp = new AKBandRejectButterworthFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -24,9 +24,9 @@ struct AKBandRejectButterworthFilterDSP::_Internal {
 
 AKBandRejectButterworthFilterDSP::AKBandRejectButterworthFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,9 +38,9 @@ void AKBandRejectButterworthFilterDSP::setParameter(AUParameterAddress address, 
         case AKBandRejectButterworthFilterParameterBandwidth:
             _private->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
-        case AKBandRejectButterworthFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
+        case AKBandRejectButterworthFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -52,8 +52,8 @@ float AKBandRejectButterworthFilterDSP::getParameter(uint64_t address) {
             return _private->centerFrequencyRamp.getTarget();
         case AKBandRejectButterworthFilterParameterBandwidth:
             return _private->bandwidthRamp.getTarget();
-        case AKBandRejectButterworthFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKBandRejectButterworthFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -70,10 +70,9 @@ void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_butbr1->bw = defaultBandwidth;
 }
 
-void AKBandRejectButterworthFilterDSP::destroy() {
+void AKBandRejectButterworthFilterDSP::deinit() {
     sp_butbr_destroy(&_private->_butbr0);
     sp_butbr_destroy(&_private->_butbr1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -95,14 +94,15 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

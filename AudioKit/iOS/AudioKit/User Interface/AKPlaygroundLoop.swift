@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Class to handle updating via CADisplayLink
@@ -41,7 +41,7 @@ public class AKPlaygroundLoop: NSObject {
         self.perform(#selector(update),
                      with: nil,
                      afterDelay: duration,
-                     inModes: [RunLoopMode.commonModes])
+                     inModes: [RunLoop.Mode.common])
 
     }
 }

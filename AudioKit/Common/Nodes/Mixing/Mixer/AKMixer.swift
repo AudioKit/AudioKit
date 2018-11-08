@@ -3,10 +3,10 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// AudioKit version of Apple's Mixer Node
+/// AudioKit version of Apple's Mixer Node. Mixes a varaiadic list of AKNodes.
 open class AKMixer: AKNode, AKToggleable, AKInput {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
@@ -37,7 +37,7 @@ open class AKMixer: AKNode, AKToggleable, AKInput {
     ///
     //swiftlint:disable force_unwrapping
     public convenience init(_ inputs: AKNode?...) {
-        self.init(inputs.flatMap { $0 })
+        self.init(inputs.compactMap { $0 })
     }
     //swiftlint:enable force_unwrapping
 

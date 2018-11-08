@@ -3,21 +3,20 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #include "AKBoosterDSP.hpp"
-#import "AKExponentialParameterRamp.hpp"
 
-extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
-    AKBoosterDSP* dsp = new AKBoosterDSP();
+extern "C" void *createBoosterDSP(int nChannels, double sampleRate) {
+    AKBoosterDSP *dsp = new AKBoosterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
 
 struct AKBoosterDSP::_Internal {
-    AKExponentialParameterRamp leftGainRamp;
-    AKExponentialParameterRamp rightGainRamp;
+    AKParameterRamp leftGainRamp;
+    AKParameterRamp rightGainRamp;
 };
 
 AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
@@ -36,9 +35,13 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
         case AKBoosterParameterRightGain:
             _private->rightGainRamp.setTarget(value, immediate);
             break;
-        case AKBoosterParameterRampTime:
-            _private->leftGainRamp.setRampTime(value, _sampleRate);
-            _private->rightGainRamp.setRampTime(value, _sampleRate);
+        case AKBoosterParameterRampDuration:
+            _private->leftGainRamp.setRampDuration(value, _sampleRate);
+            _private->rightGainRamp.setRampDuration(value, _sampleRate);
+            break;
+        case AKBoosterParameterRampType:
+            _private->leftGainRamp.setRampType(value);
+            _private->rightGainRamp.setRampType(value);
             break;
     }
 }
@@ -50,8 +53,8 @@ float AKBoosterDSP::getParameter(AUParameterAddress address) {
             return _private->leftGainRamp.getTarget();
         case AKBoosterParameterRightGain:
             return _private->rightGainRamp.getTarget();
-        case AKBoosterParameterRampTime:
-            return _private->leftGainRamp.getRampTime(_sampleRate);
+        case AKBoosterParameterRampDuration:
+            return _private->leftGainRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -68,8 +71,8 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel == 0) {
                 *out = *in * _private->leftGainRamp.getValue();
             } else {

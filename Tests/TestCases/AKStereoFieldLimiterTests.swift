@@ -2,7 +2,7 @@
 //  AKStereoFieldLimiterTests.swift
 //  AudioKitTestSuite
 //
-//  Created by Aurelius Prochazka on 1/12/18.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 

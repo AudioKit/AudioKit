@@ -15,12 +15,12 @@ typedef NS_ENUM(AUParameterAddress, AKRolandTB303FilterParameter) {
     AKRolandTB303FilterParameterResonance,
     AKRolandTB303FilterParameterDistortion,
     AKRolandTB303FilterParameterResonanceAsymmetry,
-    AKRolandTB303FilterParameterRampTime
+    AKRolandTB303FilterParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createRolandTB303FilterDSP(int nChannels, double sampleRate);
+void *createRolandTB303FilterDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -33,7 +33,6 @@ private:
  
 public:
     AKRolandTB303FilterDSP();
-    ~AKRolandTB303FilterDSP();
 
     float cutoffFrequencyLowerBound = 12.0;
     float cutoffFrequencyUpperBound = 20000.0;
@@ -49,7 +48,7 @@ public:
     float defaultDistortion = 2.0;
     float defaultResonanceAsymmetry = 0.5;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -59,7 +58,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

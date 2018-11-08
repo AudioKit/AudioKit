@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek and Brandon Barber, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 ///  Major Revision: Async process objects are now handled by AKAudioFile ProcessFactory singleton.
@@ -325,6 +325,27 @@ extension AKAudioFile {
             }
         }
 
+        // In and OUT times trimming settings
+        let inFrame: Int64
+        let outFrame: Int64
+
+        if toSample == 0 {
+            outFrame = samplesCount
+        } else {
+            outFrame = min(samplesCount, toSample)
+        }
+
+        inFrame = abs(min(samplesCount, fromSample))
+
+        if outFrame <= inFrame {
+            AKLog("ERROR AKAudioFile export: In time must be less than Out time")
+
+            callback(nil,
+                     NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+
+            return
+        }
+
         let asset = url.isFileURL ? AVURLAsset(url: url) : AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             AKLog("internalExportSession session created")
@@ -385,26 +406,9 @@ extension AKAudioFile {
             // Sets the output file encoding (avoid .wav encoded as m4a...)
             internalExportSession.outputFileType = AVFileType(rawValue: exportFormat.UTI as String as String)
 
-            // In and OUT times triming settings
-            let inFrame: Int64
-            let outFrame: Int64
-
-            if toSample == 0 {
-                outFrame = samplesCount
-            } else {
-                outFrame = min(samplesCount, toSample)
-            }
-
-            inFrame = abs(min(samplesCount, fromSample))
-
-            if outFrame <= inFrame {
-                AKLog("ERROR AKAudioFile export: In time must be less than Out time")
-                callback(nil,
-                         NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
-            }
-            let startTime = CMTimeMake(inFrame, Int32(sampleRate))
-            let stopTime = CMTimeMake(outFrame, Int32(sampleRate))
-            let timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+            let startTime = CMTimeMake(value: inFrame, timescale: Int32(sampleRate))
+            let stopTime = CMTimeMake(value: outFrame, timescale: Int32(sampleRate))
+            let timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
             internalExportSession.timeRange = timeRange
 
             let session = ExportSession(AVAssetExportSession: internalExportSession, callback: callback)
@@ -478,7 +482,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -531,7 +535,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -584,7 +588,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -639,7 +643,7 @@ extension AKAudioFile {
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
+                                               userInfo: userInfo as? [String: Any])
 
                     }
                 }
@@ -688,9 +692,9 @@ extension AKAudioFile {
 
             if let session = exportSessions[currentExportProcessID] {
                 switch session.avAssetExportSession.status {
-                case  AVAssetExportSessionStatus.failed:
+                case  AVAssetExportSession.Status.failed:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
-                case AVAssetExportSessionStatus.cancelled:
+                case AVAssetExportSession.Status.cancelled:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
                 default :
                     if  let outputURL = session.avAssetExportSession.outputURL {

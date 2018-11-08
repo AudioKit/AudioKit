@@ -2,10 +2,10 @@
 //  Audiobus.swift
 //  AudioKit
 //
-//  Created by Daniel Clelland on 2/06/16.
+//  Created by Daniel Clelland, revision history on Githbub.
 //  Updated for AudioKit by Aurelius Prochazka.
 //
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -53,7 +53,7 @@ class Audiobus {
         self.controller = ABAudiobusController(apiKey: apiKey)
 
         var myDict: NSDictionary?
-        if let path = Bundle.main.path(forResource:"Info", ofType: "plist") {
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
@@ -138,7 +138,7 @@ class Audiobus {
     }
 
     private func startObservingAudiobusConnections() {
-        let _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
+        _ = NotificationCenter.default.addObserver(forName: NSNotification.Name.ABConnectionsChanged,
                                                        object: nil,
                                                        queue: nil,
                                                        using: { _ in self.updateConnections() })
@@ -169,7 +169,7 @@ private extension ABAudiobusController {
             return false
         }
 
-        return connectedPorts.flatMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
+        return connectedPorts.compactMap { $0 as? ABPort }.filter { $0.type == type }.isEmpty == false
     }
 
 }

@@ -9,8 +9,8 @@
 #include "AKCostelloReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createCostelloReverbDSP(int nChannels, double sampleRate) {
-    AKCostelloReverbDSP* dsp = new AKCostelloReverbDSP();
+extern "C" void *createCostelloReverbDSP(int nChannels, double sampleRate) {
+    AKCostelloReverbDSP *dsp = new AKCostelloReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -23,9 +23,9 @@ struct AKCostelloReverbDSP::_Internal {
 
 AKCostelloReverbDSP::AKCostelloReverbDSP() : _private(new _Internal) {
     _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -37,9 +37,9 @@ void AKCostelloReverbDSP::setParameter(AUParameterAddress address, AUValue value
         case AKCostelloReverbParameterCutoffFrequency:
             _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
-        case AKCostelloReverbParameterRampTime:
-            _private->feedbackRamp.setRampTime(value, _sampleRate);
-            _private->cutoffFrequencyRamp.setRampTime(value, _sampleRate);
+        case AKCostelloReverbParameterRampDuration:
+            _private->feedbackRamp.setRampDuration(value, _sampleRate);
+            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -51,8 +51,8 @@ float AKCostelloReverbDSP::getParameter(uint64_t address) {
             return _private->feedbackRamp.getTarget();
         case AKCostelloReverbParameterCutoffFrequency:
             return _private->cutoffFrequencyRamp.getTarget();
-        case AKCostelloReverbParameterRampTime:
-            return _private->feedbackRamp.getRampTime(_sampleRate);
+        case AKCostelloReverbParameterRampDuration:
+            return _private->feedbackRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -65,9 +65,8 @@ void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
     _private->_revsc->lpfreq = defaultCutoffFrequency;
 }
 
-void AKCostelloReverbDSP::destroy() {
+void AKCostelloReverbDSP::deinit() {
     sp_revsc_destroy(&_private->_revsc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {

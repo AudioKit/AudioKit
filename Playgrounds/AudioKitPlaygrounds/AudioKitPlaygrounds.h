@@ -2,8 +2,8 @@
 //  AudioKitPlaygrounds.h
 //  AudioKitPlaygrounds
 //
-//  Created by Aurelius Prochazka on 4/5/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

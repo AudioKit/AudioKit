@@ -24,10 +24,10 @@ let reverb = AKReverb(delay)
 let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
 let performance = AKPeriodicFunction(frequency: playRate) {
-    var note = scale.randomElement()
-    let octave = [0, 1, 2, 3].randomElement() * 12
+    var note = scale.randomElement()!
+    let octave = [0, 1, 2, 3].randomElement()! * 12
     if random(in: 0...10) < 1.0 { note += 1 }
-    if !scale.contains(note % 12) { print("ACCIDENT!") }
+    if !scale.contains(note % 12) { AKLog("ACCIDENT!") }
 
     if random(in: 0...6) > 1.0 {
         pluckNode.parameters[1] = Double(note + octave)

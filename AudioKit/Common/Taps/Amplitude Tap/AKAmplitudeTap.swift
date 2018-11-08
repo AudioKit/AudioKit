@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Tap to do basic amplitude analysis on any node
@@ -15,7 +15,7 @@ open class AKAmplitudeTap {
     /// - parameter input: Node to analyze
     ///
     @objc public init(_ input: AKNode?) {
-        input?.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { buffer, _ in
+        input?.avAudioUnitOrNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { buffer, _ in
 
             var sum: Float = 0
 

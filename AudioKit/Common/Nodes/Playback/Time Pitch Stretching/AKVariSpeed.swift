@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Eiríkur Orri Ólafsson, revision history on GitHub
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
@@ -38,8 +38,9 @@ open class AKVariSpeed: AKNode, AKToggleable, AKInput {
         lastKnownRate = rate
 
         super.init()
-        self.avAudioNode = variSpeedAU
-        AudioKit.engine.attach(self.avAudioNode)
+        avAudioUnit = variSpeedAU
+        avAudioNode = variSpeedAU
+        AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 

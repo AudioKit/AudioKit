@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Simple audio recorder class
@@ -75,7 +75,7 @@
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
-                                                settings: existingFile.processingFormat.settings)
+                                                settings: existingFile.fileFormat.settings)
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot write to \(existingFile.fileNamePlusExtension)")
             throw error
@@ -102,7 +102,7 @@
         isRecording = true
 
         AKLog("AKNodeRecorder: recording")
-        node.avAudioNode.installTap(
+        node.avAudioUnitOrNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
             format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
@@ -141,7 +141,7 @@
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node?.avAudioNode.removeTap(onBus: 0)
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Reset the AKAudioFile to clear previous recordings

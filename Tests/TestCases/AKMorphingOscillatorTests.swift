@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -20,7 +20,7 @@ class AKMorphingOscillatorTests: AKTestCase {
 
     func testParametersSetAfterInit() {
         let oscillator = AKMorphingOscillator(waveformArray: waveforms)
-        oscillator.rampTime = 0
+        oscillator.rampDuration = 0
         oscillator.frequency = 1_234
         oscillator.amplitude = 0.5
         oscillator.index = 1.234

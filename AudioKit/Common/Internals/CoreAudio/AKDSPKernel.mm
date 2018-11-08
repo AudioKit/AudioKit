@@ -2,7 +2,7 @@
 //  AKDSPKernel.cpp
 //  AudioKit
 //
-//  Created by Stéphane Peter on 2/2/18.
+//  Created by Stéphane Peter, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -10,4 +10,4 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.numberOfChannels, AKSettings.sampleRate) { }
+AKDSPKernel::AKDSPKernel() : AKDSPKernel(AKSettings.channelCount, AKSettings.sampleRate) { }

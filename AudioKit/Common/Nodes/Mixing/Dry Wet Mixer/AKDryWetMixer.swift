@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
@@ -44,24 +44,24 @@ open class AKDryWetMixer: AKNode, AKInput {
         dryGain.volume = 1 - balance
         dryGain.connect(to: mixer)
 
-        wet?.connect(to:wetGain)
+        wet?.connect(to: wetGain)
         wetGain.volume = balance
-        wetGain.connect(to:mixer)
+        wetGain.connect(to: mixer)
     }
     public var inputNode: AVAudioNode {
-        return dryGain.avAudioNode
+        return dryGain.avAudioUnitOrNode
     }
 
     open var dryInput: AVAudioConnectionPoint {
-        return AVAudioConnectionPoint(node: dryGain.avAudioNode, bus: 0)
+        return AVAudioConnectionPoint(node: dryGain.avAudioUnitOrNode, bus: 0)
     }
     open var wetInput: AVAudioConnectionPoint {
-        return AVAudioConnectionPoint(node: wetGain.avAudioNode, bus: 0)
+        return AVAudioConnectionPoint(node: wetGain.avAudioUnitOrNode, bus: 0)
     }
 
     // Disconnect the node
-    override open func disconnect() {
-        AudioKit.detach(nodes: [mixer.avAudioNode, dryGain.avAudioNode, wetGain.avAudioNode])
+    override open func detach() {
+        AudioKit.detach(nodes: [mixer.avAudioUnitOrNode, dryGain.avAudioUnitOrNode, wetGain.avAudioUnitOrNode])
     }
 
 }

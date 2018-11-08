@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import Cocoa
@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         do {
             try AudioKit.stop()
         } catch {
-            print("Problem in AudioKit.stop()")
+            AKLog("Problem in AudioKit.stop()")
         }
     }
 

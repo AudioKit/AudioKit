@@ -9,8 +9,8 @@
 #include "AKLowPassButterworthFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createLowPassButterworthFilterDSP(int nChannels, double sampleRate) {
-    AKLowPassButterworthFilterDSP* dsp = new AKLowPassButterworthFilterDSP();
+extern "C" void *createLowPassButterworthFilterDSP(int nChannels, double sampleRate) {
+    AKLowPassButterworthFilterDSP *dsp = new AKLowPassButterworthFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -23,7 +23,7 @@ struct AKLowPassButterworthFilterDSP::_Internal {
 
 AKLowPassButterworthFilterDSP::AKLowPassButterworthFilterDSP() : _private(new _Internal) {
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -32,8 +32,8 @@ void AKLowPassButterworthFilterDSP::setParameter(AUParameterAddress address, AUV
         case AKLowPassButterworthFilterParameterCutoffFrequency:
             _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
-        case AKLowPassButterworthFilterParameterRampTime:
-            _private->cutoffFrequencyRamp.setRampTime(value, _sampleRate);
+        case AKLowPassButterworthFilterParameterRampDuration:
+            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -43,8 +43,8 @@ float AKLowPassButterworthFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKLowPassButterworthFilterParameterCutoffFrequency:
             return _private->cutoffFrequencyRamp.getTarget();
-        case AKLowPassButterworthFilterParameterRampTime:
-            return _private->cutoffFrequencyRamp.getRampTime(_sampleRate);
+        case AKLowPassButterworthFilterParameterRampDuration:
+            return _private->cutoffFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -59,10 +59,9 @@ void AKLowPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     _private->_butlp1->freq = defaultCutoffFrequency;
 }
 
-void AKLowPassButterworthFilterDSP::destroy() {
+void AKLowPassButterworthFilterDSP::deinit() {
     sp_butlp_destroy(&_private->_butlp0);
     sp_butlp_destroy(&_private->_butlp1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,14 +80,15 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

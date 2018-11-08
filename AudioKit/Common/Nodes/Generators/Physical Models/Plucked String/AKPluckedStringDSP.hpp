@@ -13,14 +13,14 @@
 typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
     AKPluckedStringParameterFrequency,
     AKPluckedStringParameterAmplitude,
-    AKPluckedStringParameterRampTime
+    AKPluckedStringParameterRampDuration
 };
 
 #import "AKLinearParameterRamp.hpp"  // have to put this here to get it included in umbrella header
 
 #ifndef __cplusplus
 
-void* createPluckedStringDSP(int nChannels, double sampleRate);
+void *createPluckedStringDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -51,9 +51,9 @@ public:
             case AKPluckedStringParameterAmplitude:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
-            case AKPluckedStringParameterRampTime:
-                frequencyRamp.setRampTime(value, _sampleRate);
-                amplitudeRamp.setRampTime(value, _sampleRate);
+            case AKPluckedStringParameterRampDuration:
+                frequencyRamp.setRampDuration(value, _sampleRate);
+                amplitudeRamp.setRampDuration(value, _sampleRate);
                 break;
         }
     }
@@ -65,8 +65,8 @@ public:
                 return frequencyRamp.getTarget();
             case AKPluckedStringParameterAmplitude:
                 return amplitudeRamp.getTarget();
-            case AKPluckedStringParameterRampTime:
-                return frequencyRamp.getRampTime(_sampleRate);
+            case AKPluckedStringParameterRampDuration:
+                return frequencyRamp.getRampDuration(_sampleRate);
         }
         return 0;
     }
@@ -80,9 +80,8 @@ public:
         _pluck->amp = 0.5;
     }
 
-    void destroy() {
+    void deinit() override {
         sp_pluck_destroy(&_pluck);
-        AKSoundpipeDSPBase::destroy();
     }
 
     void trigger() override {
@@ -112,7 +111,7 @@ public:
             _pluck->amp = amplitude;
 
             for (int channel = 0; channel < _nChannels; ++channel) {
-                float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {

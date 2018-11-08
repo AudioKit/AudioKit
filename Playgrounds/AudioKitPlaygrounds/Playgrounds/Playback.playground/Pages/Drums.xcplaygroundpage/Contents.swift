@@ -3,7 +3,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-let drums = AKSampler()
+let drums = AKAppleSampler()
 
 AudioKit.output = drums
 try AudioKit.start()
@@ -17,14 +17,14 @@ let midTomFile = try AKAudioFile(readFileName: "Samples/Drums/mid_tom_B1.wav")
 let openHiHatFile = try AKAudioFile(readFileName: "Samples/Drums/open_hi_hat_A#1.wav")
 let snareDrumFile = try AKAudioFile(readFileName: "Samples/Drums/snare_D1.wav")
 
-try drums.loadAudioFiles([bassDrumFile,
-                          clapFile,
-                          closedHiHatFile,
-                          hiTomFile,
-                          loTomFile,
-                          midTomFile,
-                          openHiHatFile,
-                          snareDrumFile])
+try drums.audioFiles = [bassDrumFile,
+                        clapFile,
+                        closedHiHatFile,
+                        hiTomFile,
+                        loTomFile,
+                        midTomFile,
+                        openHiHatFile,
+                        snareDrumFile]
 
 import AudioKitUI
 
@@ -34,30 +34,37 @@ class LiveView: AKLiveViewController {
         addTitle("Drums")
 
         addView(AKButton(title: "Bass Drum") { _ in
-            drums.play(noteNumber: 36 - 12)
+            self.play(noteNumber: 36)
         })
         addView(AKButton(title: "Snare Drum") { _ in
-            drums.play(noteNumber: 38 - 12)
+            self.play(noteNumber: 38)
         })
         addView(AKButton(title: "Closed Hi Hat") { _ in
-            drums.play(noteNumber: 42 - 12)
+            self.play(noteNumber: 42)
         })
         addView(AKButton(title: "Open Hi Hat") { _ in
-            drums.play(noteNumber: 46 - 12)
+            self.play(noteNumber: 46)
         })
         addView(AKButton(title: "Lo Tom") { _ in
-            drums.play(noteNumber: 41 - 12)
+            self.play(noteNumber: 41)
         })
         addView(AKButton(title: "Mid Tom") { _ in
-            drums.play(noteNumber: 47 - 12)
+            self.play(noteNumber: 47)
         })
         addView(AKButton(title: "Hi Tom") { _ in
-            drums.play(noteNumber: 50 - 12)
+            self.play(noteNumber: 50)
         })
-
         addView(AKButton(title: "Clap") { _ in
-            drums.play(noteNumber: 39 - 12)
+            self.play(noteNumber: 39)
         })
+    }
+
+    func play(noteNumber: MIDINoteNumber) {
+        do {
+            try drums.play(noteNumber: noteNumber - 12)
+        } catch {
+            AKLog("Could Not Play")
+        }
     }
 }
 

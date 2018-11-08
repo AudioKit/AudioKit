@@ -11,12 +11,12 @@
 #import <AVFoundation/AVFoundation.h>
 
 typedef NS_ENUM(AUParameterAddress, AKDCBlockParameter) {
-    AKDCBlockParameterRampTime
+    AKDCBlockParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createDCBlockDSP(int nChannels, double sampleRate);
+void *createDCBlockDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -29,13 +29,12 @@ private:
  
 public:
     AKDCBlockDSP();
-    ~AKDCBlockDSP();
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

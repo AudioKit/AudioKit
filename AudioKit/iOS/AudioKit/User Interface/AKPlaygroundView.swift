@@ -3,10 +3,12 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit
+import AudioKit
+
 public typealias Label = UILabel
 
 /// UIView for playgrounds allowing live views to be generated easily

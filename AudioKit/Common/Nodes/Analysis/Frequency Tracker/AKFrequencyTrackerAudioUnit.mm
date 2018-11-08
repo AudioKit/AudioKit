@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -38,6 +38,14 @@
 - (float)frequency {
     return _kernel.trackedFrequency;
 }
+
+- (void)setHopSize:(UInt32)hopSize {
+    _kernel.hopSize = hopSize;
+}
+- (void)setPeakCount:(UInt32)peakCount {
+    _kernel.peakCount = peakCount;
+}
+
 
 - (void)createParameters {
 

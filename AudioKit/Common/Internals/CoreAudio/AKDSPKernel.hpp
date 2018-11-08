@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #ifdef __cplusplus
@@ -71,7 +71,7 @@ public:
     }
 };
 
-class AKDSPKernelWithParams : AKDSPKernel, AKParametricKernel {
+class AKDSPKernelWithParameters : AKDSPKernel, AKParametricKernel {
 public:
     void start() {}
     void stop() {}

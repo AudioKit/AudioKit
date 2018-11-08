@@ -98,7 +98,7 @@ public extension AudioUnit {
         var dataSize = dataSize
         var data = UnsafeMutablePointer<T>.allocate(capacity: Int(dataSize))
         defer {
-            data.deallocate(capacity: Int(dataSize))
+            data.deallocate()
         }
 
         try AudioUnitGetProperty(self, propertyID, kAudioUnitScope_Global, 0, data, &dataSize).check()

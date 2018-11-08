@@ -1,15 +1,14 @@
 //
 //  AUParamSlider.swift
 //
-//  Created by Ryan Francesconi on 6/28/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
 import Cocoa
 
 class AudioUnitParamSlider: NSView {
-
     private var audioUnit: AVAudioUnit?
     private var key: AUParameterAddress?
 
@@ -85,7 +84,7 @@ class AudioUnitParamSlider: NSView {
         guard let key = key else { return }
 
         if let p = getParam(withAddress: key) {
-            // Swift.print("p: \(p)")
+            // AKLog("p: \(p)")
             p.value = slider.floatValue
             if let field = valueField {
                 field.stringValue = "\(round2(slider.floatValue, decimalPlaces: 3))"
@@ -104,5 +103,4 @@ class AudioUnitParamSlider: NSView {
         let decimalValue = pow(10.0, Float(decimalPlaces))
         return round(value * decimalValue) / decimalValue
     }
-
 }

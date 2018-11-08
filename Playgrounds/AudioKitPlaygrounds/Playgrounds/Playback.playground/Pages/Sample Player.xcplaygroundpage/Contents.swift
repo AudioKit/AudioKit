@@ -1,5 +1,5 @@
 //: ## Sample Player
-//: An alternative to AKSampler or AKAudioPlayer, AKSamplePlayer is a player that
+//: An alternative to AKAppleSampler or AKAudioPlayer, AKSamplePlayer is a player that
 //: doesn't rely on an as much Apple AV foundation/engine code as the others.
 import AudioKitPlaygrounds
 import AudioKit
@@ -7,7 +7,7 @@ import AudioKit
 let file = try AKAudioFile(readFileName: "alphabet.mp3")
 
 let samplePlayer = AKSamplePlayer(file: file) {
-    print("Playback completed.")
+    AKLog("Playback completed.")
 }
 
 AudioKit.output = samplePlayer

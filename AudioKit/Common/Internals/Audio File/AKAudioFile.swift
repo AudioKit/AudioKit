@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Adding description property
@@ -196,7 +196,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             case (.documents, _):
               return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + path
             case (.resources, false):
-              return try Bundle.main.path(forResource: path, ofType: "") ??
+                return try Bundle(for: AKAudioFile.self).path(forResource: path, ofType: "") ??
                          NSError.fileCreateError
             case (.custom, _):
               AKLog("ERROR AKAudioFile: custom creation directory not implemented yet")
@@ -342,7 +342,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     /// - returns: An initialized AKAudioFile for writing, or nil if init failed.
     ///
     public override init(forWriting fileURL: URL,
-                         settings: [String : Any],
+                         settings: [String: Any],
                          commonFormat format: AVAudioCommonFormat,
                          interleaved: Bool) throws {
         try super.init(forWriting: fileURL,

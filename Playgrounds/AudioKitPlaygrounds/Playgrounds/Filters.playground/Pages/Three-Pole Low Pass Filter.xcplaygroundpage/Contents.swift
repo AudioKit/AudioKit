@@ -5,13 +5,13 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 var filter = AKThreePoleLowpassFilter(player)
 filter.cutoffFrequency = 300 // Hz
 filter.resonance = 0.6
-filter.rampTime = 0.1
+filter.rampDuration = 0.1
 
 AudioKit.output = filter
 try AudioKit.start()

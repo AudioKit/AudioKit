@@ -9,8 +9,8 @@
 #include "AKChowningReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createChowningReverbDSP(int nChannels, double sampleRate) {
-    AKChowningReverbDSP* dsp = new AKChowningReverbDSP();
+extern "C" void *createChowningReverbDSP(int nChannels, double sampleRate) {
+    AKChowningReverbDSP *dsp = new AKChowningReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -30,10 +30,9 @@ void AKChowningReverbDSP::init(int _channels, double _sampleRate) {
     sp_jcrev_init(_sp, _private->_jcrev1);
 }
 
-void AKChowningReverbDSP::destroy() {
+void AKChowningReverbDSP::deinit() {
     sp_jcrev_destroy(&_private->_jcrev0);
     sp_jcrev_destroy(&_private->_jcrev1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -49,14 +48,15 @@ void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

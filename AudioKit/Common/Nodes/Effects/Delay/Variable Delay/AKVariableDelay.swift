@@ -35,10 +35,10 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initial value for Maximum Delay Time
     public static let defaultMaximumDelayTime = 5.0
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
@@ -107,6 +107,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -146,5 +147,9 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
         internalAU?.stop()
+    }
+
+    @objc open func clear() {
+        internalAU?.clear()
     }
 }

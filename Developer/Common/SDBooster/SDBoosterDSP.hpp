@@ -2,7 +2,7 @@
 //  SDBoosterDSP.hpp
 //  ExtendingAudioKit
 //
-//  Created by Shane Dunne on 1/23/2018
+//  Created by Shane Dunne, revision history on Githbub
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 typedef NS_ENUM(AUParameterAddress, SDBoosterParameter) {
     SDBoosterParameterLeftGain,
     SDBoosterParameterRightGain,
-    SDBoosterParameterRampTime
+    SDBoosterParameterRampDuration
 };
 
 #ifndef __cplusplus
@@ -32,7 +32,6 @@ private:
 
 public:
     SDBoosterDSP();
-    ~SDBoosterDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;

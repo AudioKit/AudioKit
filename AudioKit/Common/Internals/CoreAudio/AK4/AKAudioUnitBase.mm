@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Andrew Voelkel, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKAudioUnitBase.h"
@@ -13,14 +13,14 @@
 
 @interface AKAudioUnitBase ()
 
-@property AKDSPBase* kernel;
+@property AKDSPBase *kernel;
 
 @end
 
 @implementation AKAudioUnitBase {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     BufferedInputBus _inputBus;
-    AKDSPBase* _kernel;
+    AKDSPBase *_kernel;
 }
 
 @synthesize parameterTree = _parameterTree;
@@ -105,7 +105,7 @@
 
     // Initialize a default format for the busses.
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
-                                                                                  channels:AKSettings.numberOfChannels];
+                                                                                  channels:AKSettings.channelCount];
 
     _kernel = (AKDSPBase*)[self initDSPWithSampleRate:defaultFormat.sampleRate
                                          channelCount:defaultFormat.channelCount];
@@ -235,7 +235,8 @@
 
 // ----- END UNMODIFIED COPY FROM APPLE CODE -----
 
-
-
+- (void)dealloc {
+    delete _kernel;
+}
 
 @end

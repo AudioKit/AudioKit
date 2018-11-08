@@ -3,7 +3,7 @@
 //  AudioUnitManager
 //
 //  Created by Ryan Francesconi.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 import Cocoa
 
@@ -27,5 +27,4 @@ class ClosureMenuItem: NSMenuItem {
     @objc func action(_ sender: NSMenuItem) {
         self.actionClosure()
     }
-
 }

@@ -9,8 +9,8 @@
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
-    AKFlatFrequencyResponseReverbDSP* dsp = new AKFlatFrequencyResponseReverbDSP();
+extern "C" void *createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
+    AKFlatFrequencyResponseReverbDSP *dsp = new AKFlatFrequencyResponseReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -29,7 +29,7 @@ void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
 
 AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : _private(new _Internal) {
     _private->reverbDurationRamp.setTarget(defaultReverbDuration, true);
-    _private->reverbDurationRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -38,8 +38,8 @@ void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, 
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
             _private->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
             break;
-        case AKFlatFrequencyResponseReverbParameterRampTime:
-            _private->reverbDurationRamp.setRampTime(value, _sampleRate);
+        case AKFlatFrequencyResponseReverbParameterRampDuration:
+            _private->reverbDurationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -49,8 +49,8 @@ float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
             return _private->reverbDurationRamp.getTarget();
-        case AKFlatFrequencyResponseReverbParameterRampTime:
-            return _private->reverbDurationRamp.getRampTime(_sampleRate);
+        case AKFlatFrequencyResponseReverbParameterRampDuration:
+            return _private->reverbDurationRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -66,10 +66,9 @@ void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
 
 }
 
-void AKFlatFrequencyResponseReverbDSP::destroy() {
+void AKFlatFrequencyResponseReverbDSP::deinit() {
     sp_allpass_destroy(&_private->_allpass0);
     sp_allpass_destroy(&_private->_allpass1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -97,6 +96,7 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
             if (channel == 0) {
                 sp_allpass_compute(_sp, _private->_allpass0, in, out);

@@ -9,8 +9,8 @@
 #include "AKEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createEqualizerFilterDSP(int nChannels, double sampleRate) {
-    AKEqualizerFilterDSP* dsp = new AKEqualizerFilterDSP();
+extern "C" void *createEqualizerFilterDSP(int nChannels, double sampleRate) {
+    AKEqualizerFilterDSP *dsp = new AKEqualizerFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -25,11 +25,11 @@ struct AKEqualizerFilterDSP::_Internal {
 
 AKEqualizerFilterDSP::AKEqualizerFilterDSP() : _private(new _Internal) {
     _private->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
-    _private->centerFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->gainRamp.setTarget(defaultGain, true);
-    _private->gainRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->gainRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -44,10 +44,10 @@ void AKEqualizerFilterDSP::setParameter(AUParameterAddress address, AUValue valu
         case AKEqualizerFilterParameterGain:
             _private->gainRamp.setTarget(clamp(value, gainLowerBound, gainUpperBound), immediate);
             break;
-        case AKEqualizerFilterParameterRampTime:
-            _private->centerFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->bandwidthRamp.setRampTime(value, _sampleRate);
-            _private->gainRamp.setRampTime(value, _sampleRate);
+        case AKEqualizerFilterParameterRampDuration:
+            _private->centerFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
+            _private->gainRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,8 +61,8 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
             return _private->bandwidthRamp.getTarget();
         case AKEqualizerFilterParameterGain:
             return _private->gainRamp.getTarget();
-        case AKEqualizerFilterParameterRampTime:
-            return _private->centerFrequencyRamp.getRampTime(_sampleRate);
+        case AKEqualizerFilterParameterRampDuration:
+            return _private->centerFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -81,10 +81,9 @@ void AKEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     _private->_eqfil1->gain = defaultGain;
 }
 
-void AKEqualizerFilterDSP::destroy() {
+void AKEqualizerFilterDSP::deinit() {
     sp_eqfil_destroy(&_private->_eqfil0);
     sp_eqfil_destroy(&_private->_eqfil1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -109,14 +108,15 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

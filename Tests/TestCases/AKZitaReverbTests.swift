@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -18,12 +18,12 @@ class AKZitaReverbTests: AKTestCase {
 
     func testDefault() {
         output = AKZitaReverb(input)
-        AKTestMD5("647f0ce4e5c5fea58da3a10601c2b43d")
+        AKTestMD5("8910ee130583a9702c5eb27c65ef09a3")
     }
 
     func testParametersSetAfterInit() {
         let effect = AKZitaReverb(input)
-        effect.rampTime = 0
+        effect.rampDuration = 0
         effect.predelay = 10
         effect.crossoverFrequency = 200
         effect.lowReleaseTime = 1.5
@@ -35,7 +35,7 @@ class AKZitaReverbTests: AKTestCase {
         effect.equalizerLevel2 = -1
         effect.dryWetMix = 0.5
         output = effect
-        AKTestMD5("14c0c89623979f31317b8df3b8713466")
+        AKTestMD5("b824be4839f14474fb80eca60da317f7")
     }
 
     func testParametersSetOnInit() {
@@ -51,7 +51,7 @@ class AKZitaReverbTests: AKTestCase {
                               equalizerLevel2: -1,
                               dryWetMix: 0.5)
 
-        AKTestMD5("14c0c89623979f31317b8df3b8713466")
+        AKTestMD5("b824be4839f14474fb80eca60da317f7")
     }
 
 }

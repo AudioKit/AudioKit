@@ -3,7 +3,7 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -30,17 +30,17 @@ open class AKLiveViewController: UIViewController {
         newLabel.textAlignment = .center
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        newLabel.sizeThatFits(CGSize(width:400, height: 80))
+        newLabel.sizeThatFits(CGSize(width: 400, height: 80))
         newLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
         addView(newLabel)
     }
 
     public func addLabel(_ text: String) -> AKLabel {
-        let newLabel = AKLabel(frame: CGRect(x: 0, y: 0, width:400, height: 80))
+        let newLabel = AKLabel(frame: CGRect(x: 0, y: 0, width: 400, height: 80))
         newLabel.text = text
         newLabel.textColor = AKStylist.sharedInstance.fontColor
         newLabel.font = UIFont.systemFont(ofSize: 18)
-        newLabel.sizeThatFits(CGSize(width:400, height: 40))
+        newLabel.sizeThatFits(CGSize(width: 400, height: 40))
         newLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
         addView(newLabel)
         return newLabel

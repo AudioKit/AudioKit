@@ -2,12 +2,13 @@
 //  MultitouchGestureRecognizer.swift
 //  MultitouchGestureRecognizer
 //
-//  Created by Daniel Clelland on 20/11/15.
+//  Created by Daniel Clelland, revision history on Githbub.
 //  Copyright © 2015 Daniel Clelland. All rights reserved.
 //
 
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
+import AudioKit
 
 /// Extension of `UIGestureRecognizerDelegate` which allows the delegate to receive messages relating to
 /// individual touches. The `delegate` property can be set to a class
@@ -85,7 +86,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     public lazy private(set) var touches = [UITouch]()
 
     /// The current gesture recognizer state, as it pertains to the `sustain` setting.
-    public enum State {
+    public enum MultitouchState {
 
         /// All touches are ended, and none are being sustained.
         case ready
@@ -99,7 +100,7 @@ open class MultitouchGestureRecognizer: UIGestureRecognizer {
     }
 
     /// The current multitouch gesture recognizer state.
-    public var multitouchState: State {
+    public var multitouchState: MultitouchState {
         if touches.isEmpty {
             return .ready
         } else if touches.filter({ $0.phase != .ended }).isNotEmpty {

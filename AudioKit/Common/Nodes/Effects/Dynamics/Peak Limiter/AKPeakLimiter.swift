@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
@@ -16,19 +16,19 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     private var au: AUWrapper
     private var mixer: AKMixer
 
-    /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    @objc open dynamic var attackTime: Double = 0.012 {
+    /// Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    @objc open dynamic var attackDuration: Double = 0.012 {
         didSet {
-            attackTime = (0.001...0.03).clamp(attackTime)
-            au[kLimiterParam_AttackTime] = attackTime
+            attackDuration = (0.001...0.03).clamp(attackDuration)
+            au[kLimiterParam_AttackTime] = attackDuration
         }
     }
 
-    /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    @objc open dynamic var decayTime: Double = 0.024 {
+    /// Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    @objc open dynamic var decayDuration: Double = 0.024 {
         didSet {
-            decayTime = (0.001...0.06).clamp(decayTime)
-            au[kLimiterParam_DecayTime] = decayTime
+            decayDuration = (0.001...0.06).clamp(decayDuration)
+            au[kLimiterParam_DecayTime] = decayDuration
         }
     }
 
@@ -64,18 +64,18 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    ///   - attackDuration: Attack Duration (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    ///   - decayDuration: Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        attackTime: Double = 0.012,
-        decayTime: Double = 0.024,
+        attackDuration: Double = 0.012,
+        decayDuration: Double = 0.024,
         preGain: Double = 0) {
 
-        self.attackTime = attackTime
-        self.decayTime = decayTime
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
         self.preGain = preGain
 
         inputGain = AKMixer()
@@ -101,8 +101,8 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
         }
         AudioKit.engine.connect(effect, to: mixer.avAudioNode, format: AudioKit.format)
 
-        au[kLimiterParam_AttackTime] = attackTime
-        au[kLimiterParam_DecayTime] = decayTime
+        au[kLimiterParam_AttackTime] = attackDuration
+        au[kLimiterParam_DecayTime] = decayDuration
         au[kLimiterParam_PreGain] = preGain
     }
 
@@ -129,7 +129,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
 
         AudioKit.detach(nodes: [inputMixer.avAudioNode,

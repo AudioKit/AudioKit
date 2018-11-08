@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit Compressor based on Apple's DynamicsProcessor Audio Unit
@@ -13,8 +13,6 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     public static let ComponentDescription = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     private var au: AUWrapper
-
-    fileprivate var mixer: AKMixer
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     @objc open dynamic var threshold: Double = -20 {
@@ -32,19 +30,19 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    @objc open dynamic var attackTime: Double = 0.001 {
+    /// Attack Duration (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
+    @objc open dynamic var attackDuration: Double = 0.001 {
         didSet {
-            attackTime = (0.000_1...0.2).clamp(attackTime)
-            au[kDynamicsProcessorParam_AttackTime] = attackTime
+            attackDuration = (0.000_1...0.2).clamp(attackDuration)
+            au[kDynamicsProcessorParam_AttackTime] = attackDuration
         }
     }
 
-    /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-    @objc open dynamic var releaseTime: Double = 0.05 {
+    /// Release Duration (seconds) ranges from 0.01 to 3 (Default: 0.05)
+    @objc open dynamic var releaseDuration: Double = 0.05 {
         didSet {
-            releaseTime = (0.01...3).clamp(releaseTime)
-            au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+            releaseDuration = (0.01...3).clamp(releaseDuration)
+            au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         }
     }
 
@@ -76,13 +74,15 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
         didSet {
             dryWetMix = (0...1).clamp(dryWetMix)
             inputGain.volume = 1 - dryWetMix
-            effectGain?.volume = dryWetMix
+            effectGain.volume = dryWetMix
         }
     }
 
-    fileprivate var lastKnownMix: Double = 1
-    fileprivate var inputGain = AKMixer()
-    fileprivate var effectGain: AKMixer?
+    private var lastKnownMix: Double = 1
+    private var mixer = AKMixer()
+    private var inputMixer = AKMixer()
+    private var inputGain = AKMixer()
+    private var effectGain = AKMixer()
 
     // Store the internal effect
     fileprivate var internalEffect: AVAudioUnitEffect
@@ -96,52 +96,50 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - input: Input node to process
     ///   - threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
     ///   - headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
-    ///   - attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    ///   - releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+    ///   - attackDuration: Attack Duration (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+    ///   - releaseDuration: Release Duration (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     @objc public init(
         _ input: AKNode? = nil,
         threshold: Double = -20,
         headRoom: Double = 5,
-        attackTime: Double = 0.001,
-        releaseTime: Double = 0.05,
+        attackDuration: Double = 0.001,
+        releaseDuration: Double = 0.05,
         masterGain: Double = 0) {
 
         self.threshold = threshold
         self.headRoom = headRoom
-        self.attackTime = attackTime
-        self.releaseTime = releaseTime
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
         self.masterGain = masterGain
 
-        input?.connect(to: inputGain)
         inputGain.volume = 0
-        mixer = AKMixer(inputGain)
+        effectGain.volume = 1
 
-        effectGain = AKMixer(input)
-        effectGain?.volume = 1
+        input?.connect(to: inputMixer)
+        inputMixer.connect(to: [inputGain, effectGain])
 
         let effect = _Self.effect
         self.internalEffect = effect
-
         AudioKit.engine.attach(effect)
         au = AUWrapper(effect)
-        if let node = effectGain?.avAudioNode {
-            AudioKit.engine.connect(node, to: effect)
-        }
-        AudioKit.engine.connect(effect, to: mixer.avAudioNode)
+
+        input?.connect(to: inputMixer)
+        inputMixer >>> inputGain >>> mixer
+        inputMixer >>> effectGain >>> effect >>> mixer
 
         super.init(avAudioNode: mixer.avAudioNode)
 
         au[kDynamicsProcessorParam_Threshold] = threshold
         au[kDynamicsProcessorParam_HeadRoom] = headRoom
-        au[kDynamicsProcessorParam_AttackTime] = attackTime
-        au[kDynamicsProcessorParam_ReleaseTime] = releaseTime
+        au[kDynamicsProcessorParam_AttackTime] = attackDuration
+        au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
         au[kDynamicsProcessorParam_MasterGain] = masterGain
     }
 
     public var inputNode: AVAudioNode {
-        return inputGain.avAudioNode
+        return inputMixer.avAudioNode
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -162,10 +160,9 @@ open class AKCompressor: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
-
-        AudioKit.detach(nodes: [inputGain.avAudioNode, effectGain!.avAudioNode, mixer.avAudioNode])
+        AudioKit.detach(nodes: [inputGain.avAudioUnitOrNode, effectGain.avAudioUnitOrNode, mixer.avAudioNode])
         AudioKit.engine.detach(self.internalEffect)
     }
 }

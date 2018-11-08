@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -27,7 +27,7 @@ class AKTremoloTests: AKTestCase {
     }
 
     func testParameters() {
-        output = AKTremolo(input, frequency:20, depth: 0.5)
+        output = AKTremolo(input, frequency: 20, depth: 0.5)
         AKTestMD5("81593bd2f89aa1ee6def976244a4d149")
     }
 

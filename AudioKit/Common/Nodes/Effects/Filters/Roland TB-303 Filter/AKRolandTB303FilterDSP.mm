@@ -9,8 +9,8 @@
 #include "AKRolandTB303FilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createRolandTB303FilterDSP(int nChannels, double sampleRate) {
-    AKRolandTB303FilterDSP* dsp = new AKRolandTB303FilterDSP();
+extern "C" void *createRolandTB303FilterDSP(int nChannels, double sampleRate) {
+    AKRolandTB303FilterDSP *dsp = new AKRolandTB303FilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -26,13 +26,13 @@ struct AKRolandTB303FilterDSP::_Internal {
 
 AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : _private(new _Internal) {
     _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->distortionRamp.setTarget(defaultDistortion, true);
-    _private->distortionRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->resonanceAsymmetryRamp.setTarget(defaultResonanceAsymmetry, true);
-    _private->resonanceAsymmetryRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->resonanceAsymmetryRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -50,11 +50,11 @@ void AKRolandTB303FilterDSP::setParameter(AUParameterAddress address, AUValue va
         case AKRolandTB303FilterParameterResonanceAsymmetry:
             _private->resonanceAsymmetryRamp.setTarget(clamp(value, resonanceAsymmetryLowerBound, resonanceAsymmetryUpperBound), immediate);
             break;
-        case AKRolandTB303FilterParameterRampTime:
-            _private->cutoffFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->resonanceRamp.setRampTime(value, _sampleRate);
-            _private->distortionRamp.setRampTime(value, _sampleRate);
-            _private->resonanceAsymmetryRamp.setRampTime(value, _sampleRate);
+        case AKRolandTB303FilterParameterRampDuration:
+            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->resonanceRamp.setRampDuration(value, _sampleRate);
+            _private->distortionRamp.setRampDuration(value, _sampleRate);
+            _private->resonanceAsymmetryRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -70,8 +70,8 @@ float AKRolandTB303FilterDSP::getParameter(uint64_t address) {
             return _private->distortionRamp.getTarget();
         case AKRolandTB303FilterParameterResonanceAsymmetry:
             return _private->resonanceAsymmetryRamp.getTarget();
-        case AKRolandTB303FilterParameterRampTime:
-            return _private->cutoffFrequencyRamp.getRampTime(_sampleRate);
+        case AKRolandTB303FilterParameterRampDuration:
+            return _private->cutoffFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -92,10 +92,9 @@ void AKRolandTB303FilterDSP::init(int _channels, double _sampleRate) {
     _private->_tbvcf1->asym = defaultResonanceAsymmetry;
 }
 
-void AKRolandTB303FilterDSP::destroy() {
+void AKRolandTB303FilterDSP::deinit() {
     sp_tbvcf_destroy(&_private->_tbvcf0);
     sp_tbvcf_destroy(&_private->_tbvcf1);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -123,14 +122,15 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
         float *tmpin[2];
         float *tmpout[2];
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
             if (!_playing) {
                 *out = *in;
+                continue;
             }
 
             if (channel == 0) {

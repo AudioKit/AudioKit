@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -63,14 +63,19 @@ public:
         }
     }
 
-    void loadAudioData(float *table, UInt32 size, float sampleRate) {
+    void loadAudioData(float *table, UInt32 size, float sampleRate, UInt32 numChannels) {
         sourceSampleRate = sampleRate;
-        current_size = fmin(size / 2, ftbl_size);
+        current_size = size / numChannels;
         for (int i = 0; i < current_size; i++) {
             ftbl1->tbl[i] = table[i];
+            if (numChannels == 1){ //mono - copy chanel to both buffers
+                ftbl2->tbl[i] = table[i];
+            }else if (numChannels == 2){
+                ftbl2->tbl[i] = table[i + current_size]; //stereo - right data comes after left data
+            }
         }
-        for (int i = 0; i < current_size; i++) {
-            ftbl2->tbl[i] = table[i + current_size];
+        if (loadCompletionHandler != nil){
+            loadCompletionHandler();
         }
     }
 
@@ -330,6 +335,7 @@ public:
     ParameterRamper rateRamper = 1;
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
+    AKCCallback loadCompletionHandler = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;

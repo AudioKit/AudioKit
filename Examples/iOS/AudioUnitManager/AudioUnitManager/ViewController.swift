@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  AudioUnitManager
 //
-//  Created by Ryan Francesconi on 8/13/17.
+//  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
 
@@ -56,6 +56,7 @@ class ViewController: UIViewController {
         if let audioFile = try? AKAudioFile(readFileName: "Organ.wav", baseDir: .resources) {
             let player = AKPlayer(audioFile: audioFile)
             player.isLooping = true
+            player.buffering = .always //.dynamic
             player >>> mixer
 
             // setup the initial input/output connections
@@ -114,7 +115,7 @@ class ViewController: UIViewController {
             effectMenus[i]?.direction = .any
             effectMenus[i]?.textFont = UIFont.systemFont(ofSize: 10)
 
-            effectMenus[i]?.selectionAction = { [weak self] (index: Int, name: String) in
+            effectMenus[i]?.selectionAction = { [weak self] (_: Int, name: String) in
                 guard let strongSelf = self else { return }
                 guard let auManager = strongSelf.auManager else { return }
 
@@ -159,10 +160,12 @@ class ViewController: UIViewController {
         }
 
         if player.isPlaying {
+            AKLog("Stop")
             player.stop()
             sender.setTitle("▶️", for: .normal)
 
         } else {
+            AKLog("Play")
             player.play()
             sender.setTitle("⏹", for: .normal)
         }
@@ -202,7 +205,7 @@ class ViewController: UIViewController {
         let au = AudioUnitGenericView(au: audioUnit)
         auContainer.addSubview(au)
         auContainer.contentSize = au.frame.size
-        self.currentAU = au
+        currentAU = au
 
     }
 

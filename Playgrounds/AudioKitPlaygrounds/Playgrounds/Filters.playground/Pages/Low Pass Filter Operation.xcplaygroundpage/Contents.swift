@@ -14,8 +14,8 @@ let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
 //: Music Example
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 let filteredPlayer = AKOperationEffect(player) { player, _ in
     let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12_000, maximum: 100)
     return player.lowPassFilter(halfPowerPoint: halfPower)

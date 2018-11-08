@@ -7,7 +7,7 @@ import AudioKitUI
 var oscillator = AKPhaseDistortionOscillator(waveform: AKTable(.sawtooth))
 oscillator.phaseDistortion = 0.0
 var currentAmplitude = 0.1
-var currentRampTime = 0.0
+var currentRampDuration = 0.0
 
 AudioKit.output = oscillator
 try AudioKit.start()
@@ -27,12 +27,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             oscillator.phaseDistortion = sliderValue
         })
 
-        addView(AKSlider(property: "Ramp Time",
-                         value: currentRampTime,
+        addView(AKSlider(property: "Ramp Duration",
+                         value: currentRampDuration,
                          range: 0 ... 10,
                          format: "%0.3f s"
         ) { time in
-            currentRampTime = time
+            currentRampDuration = time
         })
 
         let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
@@ -44,12 +44,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.rampTime = 0
+            oscillator.rampDuration = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
 
-        // Still use rampTime for volume
-        oscillator.rampTime = currentRampTime
+        // Still use rampDuration for volume
+        oscillator.rampDuration = currentRampDuration
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }

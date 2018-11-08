@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -13,7 +13,7 @@ import CoreAudio
 ///
 /// Be sure to enableMIDI if you want to receive messages
 ///
-open class AKMIDISampler: AKSampler {
+open class AKMIDISampler: AKAppleSampler {
     // MARK: - Properties
 
     /// MIDI Input
@@ -29,6 +29,7 @@ open class AKMIDISampler: AKSampler {
     public init(midiOutputName: String? = nil) {
         super.init()
         enableMIDI(name: midiOutputName ?? name)
+        hideVirtualMIDIPort()
     }
 
     /// Enable MIDI input from a given MIDI client
@@ -112,7 +113,16 @@ open class AKMIDISampler: AKSampler {
 
     // MARK: - MIDI Note Start/Stop
 
-    /// Start a note
+    /// Start a note or trigger a sample
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI note number
+    ///   - velocity: MIDI velocity
+    ///   - channel: MIDI channel
+    ///
+    /// NB: when using an audio file, noteNumber 60 will play back the file at normal
+    /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
+    /// half speed (1 octave lower) and so on
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) throws {
@@ -136,4 +146,10 @@ open class AKMIDISampler: AKSampler {
         }
     }
 
+    func showVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    func hideVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
+    }
 }

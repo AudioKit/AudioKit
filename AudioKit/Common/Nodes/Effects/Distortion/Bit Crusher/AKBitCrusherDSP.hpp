@@ -13,12 +13,12 @@
 typedef NS_ENUM(AUParameterAddress, AKBitCrusherParameter) {
     AKBitCrusherParameterBitDepth,
     AKBitCrusherParameterSampleRate,
-    AKBitCrusherParameterRampTime
+    AKBitCrusherParameterRampDuration
 };
 
 #ifndef __cplusplus
 
-void* createBitCrusherDSP(int nChannels, double sampleRate);
+void *createBitCrusherDSP(int nChannels, double sampleRate);
 
 #else
 
@@ -31,7 +31,6 @@ private:
  
 public:
     AKBitCrusherDSP();
-    ~AKBitCrusherDSP();
 
     float bitDepthLowerBound = 1;
     float bitDepthUpperBound = 24;
@@ -41,7 +40,7 @@ public:
     float defaultBitDepth = 8;
     float defaultSampleRate = 10000;
 
-    int defaultRampTimeSamples = 10000;
+    int defaultRampDurationSamples = 10000;
 
     // Uses the ParameterAddress as a key
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
@@ -51,7 +50,7 @@ public:
     
     void init(int _channels, double _sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -1,24 +1,26 @@
-# AudioKit Core
+# AudioKit
 
-This directory is stores the core code of AudioKit. 
+This directory stores the Apple-centric code of AudioKit (currently most of it).
 
-## Common/
+## Common
 
-This is where all of cross-platform code that is relevant to at least two of the operating systems AudioKit supports, ie. iOS, macOS, and tvOS.
+This is where all of Apple-platform code that is relevant to at least two of the operating systems AudioKit supports, ie. iOS, macOS, and tvOS.
 
-## iOS/
+## Core
 
-This directory contains the "AudioKit for iOS.xcodeproj" which contains all the iOS-compatible components from the common directory as well as user interface elements based on UIKit which is accessible only to iOS.  It contains a "Dev" playground which is only intended for temporary access to playgrounds for AudioKit developers to build playgrounds before they get added to the main AudioKit Playgrounds project.
+This contains the platform-independent code on which AudioKit runs. This includes DSP libraries that we leverage as well as our own custom DSP that we are striving to make cross-platform.
 
-The AudioKit Test Suite for iOS is also kept here.
+## iOS
 
-## macOS/
+This directory contains the "AudioKit for iOS.xcodeproj" which contains all iOS-compatible components from `Common/` and UIKit user interface elements that are only accessible to iOS. `iOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project. The AudioKit Test Suite for iOS is also kept in `iOS/`.
 
-This directory contains the "AudioKit for macOS.xcodeproj" which contains all the macOS-compatible components from the common directory as well as user interface elements based on Cocoa which is accessible only to macOS.  It contains a "Dev" playground which is only intended for temporary access to playgrounds for AudioKit developers to build playgrounds before they get added to the main AudioKit Playgrounds project.
+## macOS
 
-## tvOS/
+This directory contains the "AudioKit for macOS.xcodeproj" which contains all macOS-compatible components from `Common/` as well as Cocoa user interface elements that are only accessible to macOS. `macOS/` contains `Dev.playground/` which gives AudioKit developers temporary access to playgrounds. Access to `Dev.playground/` allows AudioKit developers to build playgrounds before adding them into the main AudioKit Playgrounds project.
 
-The "AudioKit for tvOS.xcodeproj" contains the common elements that work on tvOS.  The most notable ommission from tvOS is any MIDI enabled components of AudioKit, since tvOS does not currently support MIDI.
+## tvOS
+
+The "AudioKit for tvOS.xcodeproj" contains components from `Common/` that work on tvOS.  Since tvOS does not currently support MIDI, AudioKit's MIDI enabled components are omitted.
 
 ## .jazzy.yaml
 

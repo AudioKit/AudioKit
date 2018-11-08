@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Stereo version of AKComputedParameter
@@ -115,7 +115,7 @@ open class AKStereoOperation: AKComputedParameter {
     // MARK: - Initialization
 
     /// Default stereo input to any operation stack
-    open static var input = AKStereoOperation("((14 p) (15 p))")
+    public static var input = AKStereoOperation("((14 p) (15 p))")
 
     /// Initialize the stereo operation with a Sporth string
     ///

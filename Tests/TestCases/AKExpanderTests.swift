@@ -3,7 +3,7 @@
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -13,6 +13,6 @@ class AKExpanderTests: AKTestCase {
 
     func testDefault() {
         output = AKExpander(input)
-        AKTestMD5("b118304cd9c733200b0e2b6f99a41efa")
+        AKTestMD5("025c0a9fdf87f47a13c1e8e97587e499")
     }
 }

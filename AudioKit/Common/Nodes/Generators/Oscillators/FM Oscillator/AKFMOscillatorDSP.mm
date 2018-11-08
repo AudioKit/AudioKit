@@ -9,8 +9,8 @@
 #include "AKFMOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFMOscillatorDSP(int nChannels, double sampleRate) {
-    AKFMOscillatorDSP* dsp = new AKFMOscillatorDSP();
+extern "C" void *createFMOscillatorDSP(int nChannels, double sampleRate) {
+    AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
@@ -28,15 +28,15 @@ struct AKFMOscillatorDSP::_Internal {
 
 AKFMOscillatorDSP::AKFMOscillatorDSP() : _private(new _Internal) {
     _private->baseFrequencyRamp.setTarget(defaultBaseFrequency, true);
-    _private->baseFrequencyRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->baseFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->carrierMultiplierRamp.setTarget(defaultCarrierMultiplier, true);
-    _private->carrierMultiplierRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->carrierMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->modulatingMultiplierRamp.setTarget(defaultModulatingMultiplier, true);
-    _private->modulatingMultiplierRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->modulatingMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->modulationIndexRamp.setTarget(defaultModulationIndex, true);
-    _private->modulationIndexRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->modulationIndexRamp.setDurationInSamples(defaultRampDurationSamples);
     _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampTimeSamples);
+    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
@@ -57,12 +57,12 @@ void AKFMOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, 
         case AKFMOscillatorParameterAmplitude:
             _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
-        case AKFMOscillatorParameterRampTime:
-            _private->baseFrequencyRamp.setRampTime(value, _sampleRate);
-            _private->carrierMultiplierRamp.setRampTime(value, _sampleRate);
-            _private->modulatingMultiplierRamp.setRampTime(value, _sampleRate);
-            _private->modulationIndexRamp.setRampTime(value, _sampleRate);
-            _private->amplitudeRamp.setRampTime(value, _sampleRate);
+        case AKFMOscillatorParameterRampDuration:
+            _private->baseFrequencyRamp.setRampDuration(value, _sampleRate);
+            _private->carrierMultiplierRamp.setRampDuration(value, _sampleRate);
+            _private->modulatingMultiplierRamp.setRampDuration(value, _sampleRate);
+            _private->modulationIndexRamp.setRampDuration(value, _sampleRate);
+            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -80,14 +80,15 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
             return _private->modulationIndexRamp.getTarget();
         case AKFMOscillatorParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKFMOscillatorParameterRampTime:
-            return _private->baseFrequencyRamp.getRampTime(_sampleRate);
+        case AKFMOscillatorParameterRampDuration:
+            return _private->baseFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    _playing = false;
     sp_fosc_create(&_private->_fosc);
     sp_fosc_init(_sp, _private->_fosc, _private->_ftbl);
     _private->_fosc->freq = defaultBaseFrequency;
@@ -97,9 +98,8 @@ void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     _private->_fosc->amp = defaultAmplitude;
 }
 
-void AKFMOscillatorDSP::destroy() {
+void AKFMOscillatorDSP::deinit() {
     sp_fosc_destroy(&_private->_fosc);
-    AKSoundpipeDSPBase::destroy();
 }
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
@@ -132,7 +132,7 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (channel == 0) {

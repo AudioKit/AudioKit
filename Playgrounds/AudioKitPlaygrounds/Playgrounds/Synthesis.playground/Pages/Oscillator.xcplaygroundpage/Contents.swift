@@ -18,8 +18,8 @@ try AudioKit.start()
 
 var currentMIDINote: MIDINoteNumber = 0
 var currentAmplitude = 0.2
-var currentRampTime = 0.05
-oscillator.rampTime = currentRampTime
+var currentRampDuration = 0.05
+oscillator.rampDuration = currentRampDuration
 oscillator.amplitude = currentAmplitude
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
@@ -32,8 +32,8 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             currentAmplitude = amplitude
         })
 
-        addView(AKSlider(property: "Ramp Time", value: currentRampTime) { time in
-            currentRampTime = time
+        addView(AKSlider(property: "Ramp Duration", value: currentRampDuration) { time in
+            currentRampDuration = time
         })
 
         let keyboard = AKKeyboardView(width: 440,
@@ -49,12 +49,12 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         currentMIDINote = note
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.rampTime = 0
+            oscillator.rampDuration = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
 
-        // Still use rampTime for volume
-        oscillator.rampTime = currentRampTime
+        // Still use rampDuration for volume
+        oscillator.rampDuration = currentRampDuration
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
