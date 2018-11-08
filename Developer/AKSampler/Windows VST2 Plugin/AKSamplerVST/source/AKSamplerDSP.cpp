@@ -6,6 +6,8 @@
 #include <ShlObj.h>
 #include <stdlib.h>
 #include "wavpack.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
 
@@ -52,12 +54,15 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
     init(sampleRateHz);
 
     // load one sinewave or sawtooth sample
-    float sine[1024];
-    //for (int i = 0; i < 1024; i++) sine[i] = (float)sin(2 * M_PI * i / 1024.0);   // sine
-    for (int i = 0; i < 1024; i++) sine[i] = 2.0f * i / 1024.0f - 1.0f; // saw
+    float wave[1024];
+#if 1
+    for (int i = 0; i < 1024; i++) wave[i] = (float)sin(2 * M_PI * i / 1024.0);   // sine
+#else
+    for (int i = 0; i < 1024; i++) wave[i] = 2.0f * i / 1024.0f - 1.0f; // saw
+#endif
     AKSampleDataDescriptor sdd = {
         { 29, 44100.0f / 1024, 0, 127, 0, 127, true, 0.0f, 1.0f, 0.0f, 0.0f },
-        44100.0f, false, 1, 1024, sine };
+        44100.0f, false, 1, 1024, wave };
     loadSampleData(sdd);
     buildSimpleKeyMap();
     loopThruRelease = true;
@@ -470,6 +475,8 @@ bool AKSamplerDSP::loadPreset()
             bLoop = false;
             fLoopStart = 0.0f;
             fLoopEnd = 0.0f;
+            fStart = 0.0f;
+            fEnd = 0.0f;
             fTuneOffsetCents = 0.0f;
 
             pp = strstr(p, "lorand");
