@@ -39,8 +39,8 @@ struct MIDINote {
     double _beatsPerSample;
     double _sampleRate;
     double _lengthInBeats;
-    int _playCount;
-    int _maximumPlayCount;
+    uint _playCount;
+    uint _maximumPlayCount;
     BOOL _stoppedPlayingNewNotes;
     AudioUnit _audioUnit;
     Float64 _startOffset;
