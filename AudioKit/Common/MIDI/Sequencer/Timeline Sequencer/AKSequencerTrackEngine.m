@@ -41,7 +41,7 @@ struct MIDINote {
     double _lengthInBeats;
     uint _playCount;
     uint _maximumPlayCount;
-    BOOL _stoppedPlayingNewNotes;
+    BOOL _stopAfterCurrentNotes;
     AudioUnit _audioUnit;
     Float64 _startOffset;
 }
@@ -88,7 +88,7 @@ struct MIDINote {
     _maximumPlayCount = 0;
     _noteCount = 0;
     _trackIndex = index;
-    _stoppedPlayingNewNotes = false;
+    _stopAfterCurrentNotes = false;
     for (int i = 0; i < MIDINOTECOUNT; i++) {
         _noteOffBeats[i] = INITVALUE;
     }
@@ -102,8 +102,7 @@ struct MIDINote {
     int *noteCount = &_noteCount;
     double *beatsPerSample = &_beatsPerSample;
     double *noteOffBeats = _noteOffBeats;
-    BOOL *stoppedPlayingNewNotes = &_stoppedPlayingNewNotes;
-    double *lengthInBeats = &_lengthInBeats;
+    BOOL *stopAfterCurrentNotes = &_stopAfterCurrentNotes;
     MIDIPortRef *midiPort = &_midiPort;
     MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
     __block Float64 *startOffset = &_startOffset;
@@ -124,7 +123,7 @@ struct MIDINote {
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = events[i].beat / *beatsPerSample;
 
-            if (((startSample <= triggerTime && triggerTime <= endSample)) && *stoppedPlayingNewNotes == false)
+            if (((startSample <= triggerTime && triggerTime <= endSample)) && *stopAfterCurrentNotes == false)
             {
                 sendMidiData(instrument, *midiPort, *midiEndpoint,
                              events[i].status, events[i].data1, events[i].data2,
@@ -153,7 +152,7 @@ struct MIDINote {
             for (int i = 0; i < MIDINOTECOUNT; i++) {
                 if (noteOffBeats[i] != INITVALUE) isDone = false;
             }
-            if (isDone && *stoppedPlayingNewNotes) {
+            if (isDone && *stopAfterCurrentNotes) {
                 [self stop];
             }
         }
@@ -322,12 +321,12 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     [self resetStartOffset];
     [self stopCurrentlyPlayingNotes];
     _playCount = 0;
-    _stoppedPlayingNewNotes = false;
+    _stopAfterCurrentNotes = false;
     AKTimelineStop(tap.timeline);
 }
 
 -(void)stopAfterCurrentNotes {
-    _stoppedPlayingNewNotes = true;
+    _stopAfterCurrentNotes = true;
 }
 
 -(void)sendMidiData:(UInt8)status data1:(UInt8)data1 data2:(UInt8)data2 {
