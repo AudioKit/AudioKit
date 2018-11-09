@@ -14,7 +14,7 @@ public class AKSequencerTrack {
     var _events = [AKMIDIEvent]()
     public var events: [AKMIDIEvent] { return _events }
     public var trackID: Int = 0 { didSet { engine.trackIndex = Int32(trackID) } }
-    public var lengthInBeats: Double = 4 { didSet { engine.lengthInBeats = lengthInBeats } }
+    public var lengthInBeats: Double = 4 { didSet { engine.setLengthInBeats(lengthInBeats, at: AVAudioTime.now()) } }
     public var tempo: Double = 120 {
         didSet {
             let now = AVAudioTime(hostTime: mach_absolute_time())
@@ -23,6 +23,7 @@ public class AKSequencerTrack {
 
     }
     public var loopEnabled: Bool = true { didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
+    public var isPlaying: Bool { return engine.isPlaying }
     public var targetNode: AKNode
 
     init(_ node: AKNode, index: Int = 0) {

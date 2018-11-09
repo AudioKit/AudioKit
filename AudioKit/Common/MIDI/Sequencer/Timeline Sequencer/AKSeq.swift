@@ -31,6 +31,15 @@ open class AKSeq {
         }
     }
 
+    public var isPlaying: Bool {
+        for track in tracks {
+            if track.isPlaying {
+                return true
+            }
+        }
+        return false
+    }
+    
     public init(_ nodes: AKNode...) {
         for (index, node) in nodes.enumerated() {
             tracks.append(AKSequencerTrack(node, index: index))

@@ -101,6 +101,7 @@ struct MIDINote {
     double *beatsPerSample = &_beatsPerSample;
     double *noteOffBeats = _noteOffBeats;
     BOOL *stoppedPlayingNewNotes = &_stoppedPlayingNewNotes;
+    double *lengthInBeats = &_lengthInBeats;
     MIDIPortRef *midiPort = &_midiPort;
     MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
     __block Float64 *startOffset = &_startOffset;
@@ -163,6 +164,7 @@ struct MIDINote {
 }
 
 void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset) {
+    printf("deboog: sending %d note: %d vel: %d offset: %f\n", status, data1, data2, offset);
     if (midiPort == 0 || midiEndpoint == 0) {
         MusicDeviceMIDIEvent(audioUnit, status, data1, data2, offset);
     } else {
