@@ -42,8 +42,10 @@ struct MIDINote {
     uint _playCount;
     uint _maximumPlayCount;
     BOOL _stopAfterCurrentNotes;
-    AudioUnit _audioUnit;
     Float64 _startOffset;
+    Float64 _lastStartSample; //Used for detecting sequence loopback
+    bool _isPlaying;
+    AudioUnit _audioUnit;
 }
 
 @synthesize maximumPlayCount = _maximumPlayCount;
@@ -66,7 +68,6 @@ struct MIDINote {
         _audioUnit = [[node avAudioUnit] audioUnit];
         tap = [[AKTimelineTap alloc]initWithNode:node.avAudioNode timelineBlock:[self timelineBlock]];
         tap.preRender = true;
-        [self resetStartOffset];
         [self setLengthInBeats:4.0];
         [self setTempo:120];
     }
@@ -84,12 +85,15 @@ struct MIDINote {
 
 -(void)initDefaults:(int)index {
     _sampleRate = 44100;
-    _playCount = 0;
-    _maximumPlayCount = 0;
     _noteCount = 0;
     _trackIndex = index;
-    _stopAfterCurrentNotes = false;
-    for (int i = 0; i < MIDINOTECOUNT; i++) {
+    _maximumPlayCount = 0; //loop infinitely
+    [self resetPlaybackVariables];
+    [self initNoteOffs];
+}
+
+-(void)initNoteOffs {
+    for (int i = 0; i < 128; i++) {
         _noteOffBeats[i] = INITVALUE;
     }
 }
@@ -103,15 +107,26 @@ struct MIDINote {
     double *beatsPerSample = &_beatsPerSample;
     double *noteOffBeats = _noteOffBeats;
     BOOL *stopAfterCurrentNotes = &_stopAfterCurrentNotes;
+    BOOL *isPlaying = &_isPlaying;
     MIDIPortRef *midiPort = &_midiPort;
     MIDIEndpointRef *midiEndpoint = &_midiEndpoint;
     __block Float64 *startOffset = &_startOffset;
+    __block Float64 *lastStartSample = &_lastStartSample;
 
     return ^(AKTimeline         *timeline,
              AudioTimeStamp     *timeStamp,
              UInt32             offset,
              UInt32             inNumberFrames,
              AudioBufferList    *ioData) {
+
+        if (timeStamp->mSampleTime < *lastStartSample) {
+            *playCount += 1;
+            if (*playCount >= *maximumPlayCount && *maximumPlayCount != 0) {
+                *stopAfterCurrentNotes = true;
+                *isPlaying = false;
+            }
+        }
+        *lastStartSample = timeStamp->mSampleTime;
 
         if (*startOffset < 0 || timeStamp->mSampleTime == 0) {
             *startOffset = timeStamp->mSampleTime;
@@ -131,11 +146,6 @@ struct MIDINote {
 
                 // Add note off time to array
                 noteOffBeats[events[i].data1] = (events[i].beat + events[i].duration);
-
-                // We've played our last note of the sequence
-                if (i == *noteCount - 1) {
-                    *playCount += 1;
-                }
             }
         }
 
@@ -148,11 +158,11 @@ struct MIDINote {
                 sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0, delay);
                 noteOffBeats[noteNumber] = INITVALUE;
             }
-            BOOL isDone = true;
+            BOOL allNotesTurnedOff = true;
             for (int i = 0; i < MIDINOTECOUNT; i++) {
-                if (noteOffBeats[i] != INITVALUE) isDone = false;
+                if (noteOffBeats[i] != INITVALUE) allNotesTurnedOff = false;
             }
-            if (isDone && *stopAfterCurrentNotes) {
+            if (allNotesTurnedOff && *stopAfterCurrentNotes) {
                 [self stop];
             }
         }
@@ -165,7 +175,6 @@ struct MIDINote {
 }
 
 void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset) {
-    printf("deboog: sending %d note: %d vel: %d offset: %f\n", status, data1, data2, offset);
     if (midiPort == 0 || midiEndpoint == 0) {
         MusicDeviceMIDIEvent(audioUnit, status, data1, data2, offset);
     } else {
@@ -212,7 +221,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 }
 
 -(BOOL)isPlaying {
-    return AKTimelineIsStarted(tap.timeline);
+    return _isPlaying;
 }
 
 -(double)length {
@@ -272,7 +281,6 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 }
 
 -(void)play {
-    _playCount = 0;
     [self playAt: nil];
 }
 
@@ -283,6 +291,7 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     } else {
         AKTimelineStart(tap.timeline);
     }
+    _isPlaying = true;
 }
 
 -(double)beatTime {
@@ -318,10 +327,8 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 }
 
 -(void)stop {
-    [self resetStartOffset];
+    [self resetPlaybackVariables];
     [self stopCurrentlyPlayingNotes];
-    _playCount = 0;
-    _stopAfterCurrentNotes = false;
     AKTimelineStop(tap.timeline);
 }
 
@@ -352,8 +359,12 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
     }
 }
 
--(void)resetStartOffset {
-    _startOffset = -1.f;
+-(void)resetPlaybackVariables {
+    _startOffset = INITVALUE;
+    _lastStartSample = INITVALUE;
+    _playCount = 0;
+    _stopAfterCurrentNotes = false;
+    _isPlaying = false;
 }
 
 -(void)resetTimeLine:(double)lastBeatsPerSample atTime:(AudioTimeStamp)timeStamp {

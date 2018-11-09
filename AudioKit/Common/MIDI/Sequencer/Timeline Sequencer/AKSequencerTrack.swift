@@ -23,6 +23,7 @@ public class AKSequencerTrack {
 
     }
     public var loopEnabled: Bool = true { didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
+    public var loopCount: UInt = 0 { didSet { engine.maximumPlayCount = uint(loopCount) } }
     public var isPlaying: Bool { return engine.isPlaying }
     public var targetNode: AKNode
 
