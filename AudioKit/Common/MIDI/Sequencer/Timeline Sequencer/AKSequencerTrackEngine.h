@@ -25,7 +25,7 @@
 @property uint maximumPlayCount;
 @property int trackIndex;
 
-/// Is metronome playing.
+/// Is sequence playing - does not consider noteOffs.
 @property (readonly) BOOL isPlaying;
 
 ///The beat soundfont url.

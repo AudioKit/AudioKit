@@ -25,9 +25,15 @@ open class AKSeq {
         }
     }
 
-    public var loopEnabled: Bool = true{
+    public var loopEnabled: Bool = true {
         didSet {
             for track in tracks { track.loopEnabled = loopEnabled }
+        }
+    }
+
+    public var loopCount: UInt = 0 {
+        didSet {
+            for track in tracks { track.loopCount = loopCount }
         }
     }
 
