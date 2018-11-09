@@ -13,6 +13,8 @@
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
+#define INITVALUE -1.0
+#define MIDINOTECOUNT 128
 
 struct MIDIEvent {
     uint8_t status;
@@ -32,7 +34,7 @@ struct MIDINote {
     MIDIPortRef _midiPort;
     MIDIEndpointRef _midiEndpoint;
     struct MIDIEvent _events[512];
-    double _noteOffBeats[128];
+    double _noteOffBeats[MIDINOTECOUNT];
     int _noteCount;
     double _beatsPerSample;
     double _sampleRate;
@@ -87,8 +89,8 @@ struct MIDINote {
     _noteCount = 0;
     _trackIndex = index;
     _stoppedPlayingNewNotes = false;
-    for (int i = 0; i < 128; i++) {
-        _noteOffBeats[i] = -1.0;
+    for (int i = 0; i < MIDINOTECOUNT; i++) {
+        _noteOffBeats[i] = INITVALUE;
     }
 }
 
@@ -139,17 +141,17 @@ struct MIDINote {
         }
 
         // Loop through playing notes and see if they need to be stopped
-        for (int noteNumber = 0; noteNumber < 128; noteNumber++) {
-            if (noteOffBeats[noteNumber] == -1.0) continue;
+        for (int noteNumber = 0; noteNumber < MIDINOTECOUNT; noteNumber++) {
+            if (noteOffBeats[noteNumber] == INITVALUE) continue;
             double offTriggerTime = noteOffBeats[noteNumber] / *beatsPerSample;
             if (offTriggerTime <= endSample) {
                 double delay = MAX(0, offTriggerTime - startSample + offset);
                 sendMidiData(instrument, *midiPort, *midiEndpoint, NOTEOFF, noteNumber, 0, delay);
-                noteOffBeats[noteNumber] = -1.0;
+                noteOffBeats[noteNumber] = INITVALUE;
             }
             BOOL isDone = true;
-            for (int i = 0; i < 128; i++) {
-                if (noteOffBeats[i] != -1.0) isDone = false;
+            for (int i = 0; i < MIDINOTECOUNT; i++) {
+                if (noteOffBeats[i] != INITVALUE) isDone = false;
             }
             if (isDone && *stoppedPlayingNewNotes) {
                 [self stop];
