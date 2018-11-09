@@ -97,8 +97,8 @@ struct MIDINote {
 -(AKTimelineBlock)timelineBlock {
     AudioUnit instrument = _audioUnit;
     struct MIDIEvent *events = _events;
-    int *playCount = &_playCount;
-    int *maximumPlayCount = &_maximumPlayCount;
+    uint *playCount = &_playCount;
+    uint *maximumPlayCount = &_maximumPlayCount;
     int *noteCount = &_noteCount;
     double *beatsPerSample = &_beatsPerSample;
     double *noteOffBeats = _noteOffBeats;
