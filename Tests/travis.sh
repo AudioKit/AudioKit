@@ -125,5 +125,5 @@ xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk 
 echo "Running iOS Unit Tests"
 xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c || exit 100
 
-echo "Running macOS Unit Tests"
-xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101
+echo "Skipping macOS Unit Tests"
+#xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101
