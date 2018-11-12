@@ -77,7 +77,8 @@ extension AKSampler {
                         }
                     }
 
-                    let noteFrequency = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
+                    let noteFrequency = Float(440.0 * pow(2.0, (Double(pitch) - 69.0)/12.0))
+
                     let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
                     AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
