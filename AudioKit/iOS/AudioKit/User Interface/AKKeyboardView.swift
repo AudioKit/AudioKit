@@ -46,6 +46,7 @@ import AudioKit
     var oneOctaveSize = CGSize.zero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
+    var programmaticOnKeys = Set<MIDINoteNumber>()
 
     /// Allows multiple notes to play concurrently
     @objc open var polyphonicMode = false {
@@ -295,6 +296,26 @@ import AudioKit
 
     }
 
+    // MARK: - Programmatic Key Pushes
+
+    /// Programmatically trigger key press without calling delegate
+    open func programmaticNoteOn(_ note: MIDINoteNumber) {
+        programmaticOnKeys.insert(note)
+        onKeys.insert(note)
+        setNeedsDisplay()
+    }
+
+    /// Programatically remove key press without calling delegate
+    ///
+    /// Note: you can programmatically 'release' a note that has been pressed
+    /// manually, but in such a case, the delegate.noteOff() will not be called
+    /// when the finger is removed
+    open func programmaticNoteOff(_ note: MIDINoteNumber) {
+        programmaticOnKeys.remove(note)
+        onKeys.remove(note)
+        setNeedsDisplay()
+    }
+
     private func pressRemoved(_ note: MIDINoteNumber, touches: Set<UITouch>? = nil) {
         guard onKeys.contains(note) else {
             return
@@ -317,7 +338,9 @@ import AudioKit
         let disjunct = onKeys.subtracting(notes)
         if disjunct.isNotEmpty {
             for note in disjunct {
-                pressRemoved(note)
+                if ❗️programmaticOnKeys.contains(note) {
+                    pressRemoved(note)
+                }
             }
         }
     }
