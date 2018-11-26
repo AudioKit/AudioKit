@@ -53,7 +53,7 @@ class AKVocalTractTests: AKTestCase {
         vocalTract.rampDuration = 0
         vocalTract.tonguePosition = 0.3
         output = vocalTract
-        AKTestMD5("d959f6ad27f11640dab046ed3eca472bx")
+        AKTestMD5("d959f6ad27f11640dab046ed3eca472b")
     }
 
     func testParametersSetAfterInit() {
