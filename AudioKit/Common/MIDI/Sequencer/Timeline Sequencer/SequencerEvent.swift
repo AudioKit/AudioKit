@@ -56,6 +56,9 @@ public struct SequenceNoteEvent: SequenceEvent {
     public var channel: MIDIChannel {
         return status!.channel!
     }
+    mutating func modifyPosition(by amount: Double){
+        positionModifier = amount
+    }
 }
 
 public protocol SequenceEvent {
