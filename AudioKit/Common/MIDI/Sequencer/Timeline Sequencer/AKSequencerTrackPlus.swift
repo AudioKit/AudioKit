@@ -26,6 +26,7 @@ public class AKSequencerTrackPlus: AKSequencerTrack {
     }
 
     public var quantisation: Double = 1/16
+    public var quantisationStrength: Double = 1.0
 
     public var notes: [NoteOnOffEvent] = [] {
         didSet {
@@ -36,7 +37,7 @@ public class AKSequencerTrackPlus: AKSequencerTrack {
     public override func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, at: Double, duration: Double) {
         var noteEvent = NoteOnOffEvent(noteNumber: noteNumber, velocity: velocity, channel: 0,
                                        position: at, duration: duration)
-        noteEvent.quantise(to: quantisation)
+        noteEvent.quantise(to: quantisation, strength: quantisationStrength)
         notes.append(noteEvent)
     }
 
@@ -67,7 +68,7 @@ public struct NoteOnOffEvent {
         return noteOnEvent.position
     }
 
-    mutating func quantise(to amount: Double, preference: QuantisationPreference = .nearest) {
+    mutating func quantise(to amount: Double, strength: Double = 1.0, preference: QuantisationPreference = .nearest) {
         guard amount != 0 else {
             return
         }
@@ -84,7 +85,7 @@ public struct NoteOnOffEvent {
             stepMultiplier = round(positionStep)
         }
         let quantisedStep = stepMultiplier * quantisationIntervals
-        let modifier = quantisedStep - noteOnEvent.basePosition
+        let modifier = (quantisedStep - noteOnEvent.basePosition) * strength
         print("quant result for \(noteOnEvent.basePosition) is \(quantisedStep) modifier is \(modifier)")
         noteOnEvent.positionModifier = modifier
     }
