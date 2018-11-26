@@ -21,6 +21,9 @@ public typealias Sample = UInt32
 /// Callback function that can be called from C
 public typealias AKCCallback = @convention(block) () -> Void
 
+/// Callback function that can be called from C
+public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
+
 extension Collection {
     /// Return a random element from the collection
     public var randomIndex: Index {

@@ -85,6 +85,7 @@ extension AKPlayer {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
+        pauseTime = nil
     }
 
     // MARK: - Scheduling

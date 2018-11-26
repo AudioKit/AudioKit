@@ -27,5 +27,4 @@ class ClosureMenuItem: NSMenuItem {
     @objc func action(_ sender: NSMenuItem) {
         self.actionClosure()
     }
-
 }

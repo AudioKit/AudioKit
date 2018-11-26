@@ -92,5 +92,3 @@ public:
     bool resetted = false;
     AKCMIDICallback callback = nullptr;
 };
-
-

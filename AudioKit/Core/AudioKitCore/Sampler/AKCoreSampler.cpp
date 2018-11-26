@@ -259,7 +259,7 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
             if (pVoice->noteNumber >= 0)
             {
                 //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
-                pVoice->restart(noteNumber, sampleRate, noteFrequency);
+                pVoice->restartNewNoteLegato(noteNumber, sampleRate, noteFrequency);
             }
             else
             {
@@ -276,7 +276,10 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
             AudioKitCore::SamplerVoice *pVoice = &_private->voice[0];
             AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
             if (pBuf == 0) return;  // don't crash if someone forgets to build map
-            pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+            if (pVoice->noteNumber >= 0)
+                pVoice->restartNewNote(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+            else
+                pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
             lastPlayedNoteNumber = noteNumber;
             return;
         }
@@ -289,7 +292,7 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
         if (pVoice)
         {
             // re-start the note
-            pVoice->restart(velocity / 127.0f, lookupSample(noteNumber, velocity));
+            pVoice->restartSameNote(velocity / 127.0f, lookupSample(noteNumber, velocity));
             //printf("Restart note %d as %d\n", noteNumber, pVoice->noteNumber);
             return;
         }
@@ -335,13 +338,16 @@ void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
     {
         int key = _private->pedalLogic.firstKeyDown();
         if (key < 0) pVoice->release(loopThruRelease);
-        else if (isLegato) pVoice->restart((unsigned)key, sampleRate, NOTE_HZ(key));
+        else if (isLegato) pVoice->restartNewNoteLegato((unsigned)key, sampleRate, NOTE_HZ(key));
         else
         {
             unsigned velocity = 100;
             AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(key, velocity);
             if (pBuf == 0) return;  // don't crash if someone forgets to build map
-            pVoice->start(key, sampleRate, NOTE_HZ(key), velocity / 127.0f, pBuf);
+            if (pVoice->noteNumber >= 0)
+                pVoice->restartNewNote(key, sampleRate, NOTE_HZ(key), velocity / 127.0f, pBuf);
+            else
+                pVoice->start(key, sampleRate, NOTE_HZ(key), velocity / 127.0f, pBuf);
         }
     }
     else
