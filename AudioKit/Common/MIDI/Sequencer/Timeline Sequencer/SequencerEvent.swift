@@ -10,29 +10,23 @@ import Foundation
 
 public struct SequenceNoteEvent: SequenceEvent {
 
+    public init(event: AKMIDIEvent, position: Double) {
+        self.event = event
+        self.position = position
+    }
+
     public var event: AKMIDIEvent
-    public var position: AKDuration {
+    public var position: Double {
         get {
             return basePosition + positionModifier
         }
         set {
-            basePosition = position
-            positionModifier = AKDuration(beats: 0)
+            basePosition = newValue
+            positionModifier = 0
         }
     }
-    public var basePosition: AKDuration = AKDuration(beats: 0)
-    public var positionModifier: AKDuration = AKDuration(beats: 0)
-    public var baseDuration: AKDuration = AKDuration(beats: 0)
-    public var duration: AKDuration {
-        get {
-            return baseDuration + durationModifier
-        }
-        set {
-            baseDuration = position
-            durationModifier = AKDuration(beats: 0)
-        }
-    }
-    public var durationModifier: AKDuration = AKDuration(beats: 0)
+    public var basePosition: Double = 0
+    public var positionModifier: Double = 0
     public var baseNoteNumber: MIDINoteNumber {
         return data[1]
     }
@@ -41,7 +35,7 @@ public struct SequenceNoteEvent: SequenceEvent {
             return baseNoteNumber + noteModifier
         }
         set {
-            event.internalData[1] = noteNumber
+            event.internalData[1] = newValue
             noteModifier = 0
         }
     }
@@ -54,7 +48,7 @@ public struct SequenceNoteEvent: SequenceEvent {
             return baseVelocity + velocityModifier
         }
         set {
-            event.internalData[2] = velocity
+            event.internalData[2] = newValue
             velocityModifier = 0
         }
     }
@@ -65,14 +59,14 @@ public struct SequenceNoteEvent: SequenceEvent {
 }
 
 public protocol SequenceEvent {
-    var position: AKDuration { get set }
-    var duration: AKDuration { get set }
+    var position: Double { get set }
     var event: AKMIDIEvent { get set }
     var status: AKMIDIStatus? { get }
     var data: [MIDIByte] { get }
 }
 
 public extension SequenceEvent {
+
     public var status: AKMIDIStatus? {
         return AKMIDIStatus(byte: data[1])
     }
