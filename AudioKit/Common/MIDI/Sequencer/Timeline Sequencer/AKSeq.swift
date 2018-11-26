@@ -38,22 +38,25 @@ open class AKSeq {
     }
 
     public var isPlaying: Bool {
-        for track in tracks {
-            if track.isPlaying {
-                return true
-            }
-        }
-        return false
+        return tracks.contains(where: { $0.isPlaying })
     }
-    
+
+    public var currentPosition: AKDuration {
+        return tracks.first?.currentPosition ?? AKDuration(beats: 0)
+    }
+
+    public func track(for node: AKNode) -> AKSequencerTrack? {
+        return tracks.first(where: { $0.targetNode == node })
+    }
+
+    public func stopAllNotes() {
+        for track in tracks { track.stopAfterCurrentNotes() }
+    }
+
     public init(_ nodes: AKNode...) {
         for (index, node) in nodes.enumerated() {
             tracks.append(AKSequencerTrack(node, index: index))
         }
-    }
-
-    public func getTrackFor(node: AKNode) -> AKSequencerTrack? {
-        return tracks.first(where: { $0.targetNode == node })
     }
 
     public func play() {
@@ -77,10 +80,6 @@ open class AKSeq {
         for track in tracks { track.seek(to: beat, at: time) }
     }
 
-    public func stopAllNotes() {
-        for track in tracks { track.stopAllNotes() }
-    }
-
     @discardableResult public func add(node: AKNode) -> Int {
         let id = tracks.count
         tracks.append(AKSequencerTrack(node, index: id))
@@ -99,6 +98,10 @@ open class AKSeq {
         for track in file.trackChunks {
             let events = track.events
         }
+    }
+
+    public func debugEvents() {
+        for track in tracks { track.debugEvents() }
     }
 }
 

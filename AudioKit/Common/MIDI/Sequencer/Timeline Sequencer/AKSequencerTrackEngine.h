@@ -7,6 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import "AudioKit/AudioKit.h"
 
 @class AKNode;
 
@@ -28,9 +29,8 @@
 /// Is sequence playing - does not consider noteOffs.
 @property (readonly) BOOL isPlaying;
 
-///The beat soundfont url.
-@property NSURL * _Nullable sound;
-@property NSURL * _Nullable melodicSound;
+@property AKCCallback _Nullable loopCallback;
+@property AKCMIDICallback _Nullable eventCallback;
 
 -(instancetype _Nonnull )initWith:(AKNode * _Nullable)node;
 -(instancetype _Nonnull )initWith:(AKNode * _Nullable)node index:(int)index;
@@ -52,6 +52,8 @@
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;
 -(int)addNote:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat duration:(double)duration;
 -(void)changeNoteAtIndex:(int)index note:(uint8_t)noteNumber velocity:(uint8_t)velocity at:(double)beat;
+
+-(void)debugEvents;
 
 /**
  Starts playback so that the metronome's resting beatTime will align with audioTime when started.
