@@ -9,7 +9,7 @@
 import Foundation
 
 /// Bare bones implementation of AKPolyphonic protocol
-@objc open class AKPolyphonicNode: AKNode, AKPolyphonic, AKSequenceable {
+@objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
 
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
