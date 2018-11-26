@@ -7,17 +7,17 @@
 //
 
 public struct AKMIDIStatus {
-    var byte: MIDIByte
+    public var byte: MIDIByte
 
-    init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
+    public init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
         byte = MIDIByte(statusType.rawValue) << 4 + channel
     }
 
-    init(command: AKMIDISystemCommand) {
+    public init(command: AKMIDISystemCommand) {
         byte = command.rawValue
     }
 
-    init?(byte: MIDIByte) {
+    public init?(byte: MIDIByte) {
         if let _ = AKMIDIStatusType.from(byte: byte) {
             self.byte = byte
         } else {
@@ -25,15 +25,15 @@ public struct AKMIDIStatus {
         }
     }
 
-    var type: AKMIDIStatusType? {
+    public var type: AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
-    var command: AKMIDISystemCommand? {
+    public var command: AKMIDISystemCommand? {
         return AKMIDISystemCommand(rawValue: byte)
     }
     
-    var channel: MIDIChannel? {
+    public var channel: MIDIChannel? {
         if type == .systemCommand {
             return nil
         }
@@ -61,7 +61,7 @@ public struct AKMIDIStatus {
 /// - SystemCommand:
 ///    differ from system to system
 ///
-enum AKMIDIStatusType: Int {
+public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
