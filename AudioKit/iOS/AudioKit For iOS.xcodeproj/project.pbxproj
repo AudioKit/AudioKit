@@ -1150,7 +1150,6 @@
 		FE771CF12192162200C7EB7E /* AKCallbackInstrumentDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE771CEC21920F2600C7EB7E /* AKCallbackInstrumentDSPKernel.hpp */; };
 		FE940913216EA06300F02A35 /* AKMusicTrack+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */; };
 		FEA22B6421ABDEAA004E0A11 /* AKPolyphonicNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA22B6321ABDEAA004E0A11 /* AKPolyphonicNode.swift */; };
-		FEA22B6D21ABDECB004E0A11 /* AKSequenceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA22B6821ABDECB004E0A11 /* AKSequenceable.swift */; };
 		FEA22B6E21ABDECB004E0A11 /* AKSequencerTrackEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEA22B6921ABDECB004E0A11 /* AKSequencerTrackEngine.m */; };
 		FEA22B6F21ABDECB004E0A11 /* AKSequencerTrackEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEA22B6A21ABDECB004E0A11 /* AKSequencerTrackEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEA22B7021ABDECB004E0A11 /* AKSequencerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA22B6B21ABDECB004E0A11 /* AKSequencerTrack.swift */; };
@@ -2397,7 +2396,6 @@
 		FE771CED21920F2600C7EB7E /* AKCallbackInstrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKCallbackInstrument.swift; sourceTree = "<group>"; };
 		FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Events.swift"; sourceTree = "<group>"; };
 		FEA22B6321ABDEAA004E0A11 /* AKPolyphonicNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicNode.swift; sourceTree = "<group>"; };
-		FEA22B6821ABDECB004E0A11 /* AKSequenceable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequenceable.swift; sourceTree = "<group>"; };
 		FEA22B6921ABDECB004E0A11 /* AKSequencerTrackEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSequencerTrackEngine.m; sourceTree = "<group>"; };
 		FEA22B6A21ABDECB004E0A11 /* AKSequencerTrackEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequencerTrackEngine.h; sourceTree = "<group>"; };
 		FEA22B6B21ABDECB004E0A11 /* AKSequencerTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrack.swift; sourceTree = "<group>"; };
@@ -5238,7 +5236,6 @@
 		FEA22B6721ABDECB004E0A11 /* Timeline Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				FEA22B6821ABDECB004E0A11 /* AKSequenceable.swift */,
 				FEA22B6921ABDECB004E0A11 /* AKSequencerTrackEngine.m */,
 				FEA22B6A21ABDECB004E0A11 /* AKSequencerTrackEngine.h */,
 				FEA22B6B21ABDECB004E0A11 /* AKSequencerTrack.swift */,
@@ -6109,7 +6106,6 @@
 				EA03BFE820206CBB00E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */,
 				C464078420105D2900299119 /* AKWhiteNoiseAudioUnit.swift in Sources */,
 				B19AE7751F30FC4700F9DC25 /* AKAudioUnitInstrument.swift in Sources */,
-				FEA22B6D21ABDECB004E0A11 /* AKSequenceable.swift in Sources */,
 				C49B14C0204A06B8009C7C8E /* buthp.c in Sources */,
 				C49B13D3204A06B7009C7C8E /* line.c in Sources */,
 				C49B1407204A06B7009C7C8E /* thresh.c in Sources */,
