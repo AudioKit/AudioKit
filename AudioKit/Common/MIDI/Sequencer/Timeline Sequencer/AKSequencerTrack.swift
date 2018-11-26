@@ -22,10 +22,27 @@ public class AKSequencerTrack {
         }
 
     }
+
+    public var currentPosition: AKDuration {
+        var position = AKDuration(beats: 0)
+        position = AKDuration(beats: engine.beatTime, tempo: engine.tempo)
+        return position
+    }
+
     public var loopEnabled: Bool = true { didSet { engine.maximumPlayCount = loopEnabled ? 0 : 1 } }
     public var loopCount: UInt = 0 { didSet { engine.maximumPlayCount = uint(loopCount) } }
     public var isPlaying: Bool { return engine.isPlaying }
     public var targetNode: AKNode
+    public var loopCallback: AKCallback = { }{
+        didSet {
+            engine.loopCallback = loopCallback
+        }
+    }
+    public var eventCallback: AKMIDICallback = {status, data1, data2 in }{
+        didSet {
+            engine.eventCallback = eventCallback
+        }
+    }
 
     init(_ node: AKNode, index: Int = 0) {
         engine = AKSequencerTrackEngine(node, index: Int32(index))
@@ -84,6 +101,10 @@ public class AKSequencerTrack {
 
     public func stopAfterCurrentNotes() {
         engine.stopAfterCurrentNotes()
+    }
+
+    public func debugEvents() {
+        engine.debugEvents()
     }
 
 }
