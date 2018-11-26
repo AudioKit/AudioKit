@@ -13,10 +13,10 @@ public class AKSequencerTrackPlus: AKSequencerTrack {
     public var swing: Double = 0.0 { 
         didSet{
             let beatsPerBar = 4.0
-            let swingIntervals = beatsPerBar / swingInterval
+            let swingInterval = beatsPerBar * quantisation
             for i in 0..<notes.count {
-                if notes[i].position.truncatingRemainder(dividingBy: swingIntervals * 2) == swingIntervals {
-                    let swingAmount = swing * swingIntervals
+                if notes[i].position.truncatingRemainder(dividingBy: swingInterval * 2) == swingInterval {
+                    let swingAmount = swing * swingInterval
                     print("will swing at position \(notes[i].position) by \(swingAmount)")
                     notes[i].noteOnEvent.modifyPosition(by: swingAmount)
                 }
@@ -25,7 +25,7 @@ public class AKSequencerTrackPlus: AKSequencerTrack {
         }
     }
 
-    public var swingInterval: Double = 16
+    public var quantisation: Double = 1/16
 
     public var notes: [NoteOnOffEvent] = [] {
         didSet {
@@ -34,8 +34,9 @@ public class AKSequencerTrackPlus: AKSequencerTrack {
     }
 
     public override func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, at: Double, duration: Double) {
-        let noteEvent = NoteOnOffEvent(noteNumber: noteNumber, velocity: velocity, channel: 0,
+        var noteEvent = NoteOnOffEvent(noteNumber: noteNumber, velocity: velocity, channel: 0,
                                        position: at, duration: duration)
+        noteEvent.quantise(to: quantisation)
         notes.append(noteEvent)
     }
 
@@ -66,9 +67,37 @@ public struct NoteOnOffEvent {
         return noteOnEvent.position
     }
 
+    mutating func quantise(to amount: Double, preference: QuantisationPreference = .nearest) {
+        guard amount != 0 else {
+            return
+        }
+        let beatsPerBar = 4.0
+        let quantisationIntervals = beatsPerBar * amount
+        let positionStep = position / quantisationIntervals
+        var stepMultiplier: Double = 0
+        switch preference {
+        case .higher:
+            stepMultiplier = ceil(positionStep)
+        case .lower:
+            stepMultiplier = floor(positionStep)
+        case .nearest:
+            stepMultiplier = round(positionStep)
+        }
+        let quantisedStep = stepMultiplier * quantisationIntervals
+        let modifier = quantisedStep - noteOnEvent.basePosition
+        print("quant result for \(noteOnEvent.basePosition) is \(quantisedStep) modifier is \(modifier)")
+        noteOnEvent.positionModifier = modifier
+    }
+
     public init(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel, position: Double,
                 duration: Double){
         noteOnEvent = SequenceNoteEvent(event: AKMIDIEvent.init(noteOn: noteNumber, velocity: velocity, channel: channel), position: position)
         self.duration = duration
     }
+}
+
+enum QuantisationPreference {
+    case higher
+    case lower
+    case nearest
 }
