@@ -12,8 +12,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKDSPBase.hpp"
+#import "BufferedAudioUnit.h"
 
-@interface AKAudioUnitBase : AUAudioUnit
+@interface AKAudioUnitBase : BufferedAudioUnit
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
@@ -49,12 +50,6 @@
 
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
-
-// These three properties are what are in the Apple example code.
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
 
 @end
 
