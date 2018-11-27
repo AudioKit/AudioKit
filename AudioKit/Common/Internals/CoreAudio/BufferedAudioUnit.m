@@ -102,7 +102,7 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
              AVAudioFrameCount     frameCount,
              const AURenderEvent   *realtimeEventListHead) {
 
-        if (inBuffer != NULL) {
+        if (inBuffer == NULL) {
             for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
                 memset(outBuffer->mBuffers[i].mData, 0, outBuffer->mBuffers[i].mDataByteSize);
             }
