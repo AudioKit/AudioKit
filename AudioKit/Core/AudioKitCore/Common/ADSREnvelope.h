@@ -61,6 +61,11 @@ namespace AudioKitCore
         bool isPreStarting() { return env.getCurrentSegmentIndex() == kSilence; }
         bool isReleasing() { return env.getCurrentSegmentIndex() == kRelease; }
 
+        inline float getValue()
+        {
+            return env.getValue();
+        }
+        
         inline float getSample()
         {
             float sample;
