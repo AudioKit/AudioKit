@@ -2,7 +2,7 @@
 //  BufferedAudioUnit.m
 //  AudioKit
 //
-//  Created by Dave O'Neill., revision history on Github.
+//  Created by Dave O'Neill, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
@@ -102,8 +102,14 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
              AVAudioFrameCount     frameCount,
              const AURenderEvent   *realtimeEventListHead) {
 
-        for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
-            memcpy(outBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mDataByteSize);
+        if (inBuffer == NULL) {
+            for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
+                memset(outBuffer->mBuffers[i].mData, 0, outBuffer->mBuffers[i].mDataByteSize);
+            }
+        } else {
+            for (int i = 0; i < inBuffer->mNumberBuffers; i++) {
+                memcpy(outBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mData, inBuffer->mBuffers[i].mDataByteSize);
+            }
         }
     };
 }
