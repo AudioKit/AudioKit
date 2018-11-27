@@ -2,7 +2,7 @@
 //  BufferedAudioUnit.m
 //  AudioKit
 //
-//  Created by Dave O'Neill., revision history on Github.
+//  Created by Dave O'Neill, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
