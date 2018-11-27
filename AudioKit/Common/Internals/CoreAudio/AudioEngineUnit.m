@@ -26,9 +26,9 @@
     AVAudioFormat *format = self.outputBusses[0].format;
     NSError *error = NULL;
     BOOL success = [self.audioEngine enableManualRenderingMode:AVAudioEngineManualRenderingModeRealtime
-                                                           format:format
-                                                maximumFrameCount:self.maximumFramesToRender
-                                                            error: &error];
+                                                        format:format
+                                            maximumFrameCount:self.maximumFramesToRender
+                                                        error: &error];
     if (!success) {
         NSLog(@"AudioEngine enableManualRenderingMode failed: %@", error.localizedDescription);
         return false;
@@ -36,7 +36,7 @@
 
     if (self.shouldAllocateInputBus) {
         __unsafe_unretained AudioEngineUnit *welf = self;
-        [self.audioEngine.inputNode setManualRenderingInputPCMFormat:format inputBlock:^const AudioBufferList * _Nullable(AVAudioFrameCount inNumberOfFrames) {
+        [self.audioEngine.inputNode setManualRenderingInputPCMFormat:format inputBlock:^const AudioBufferList *(AVAudioFrameCount _) {
             return welf->inputNodeBufferlist;
         }];
     }
