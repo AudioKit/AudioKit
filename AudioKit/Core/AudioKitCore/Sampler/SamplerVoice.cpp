@@ -18,6 +18,8 @@ namespace AudioKitCore
         rightFilter.init(sampleRate);
         adsrEnvelope.init();
         filterEnvelope.init();
+        volumeRamper.init(0.0f);
+        tempGain = 0.0f;
     }
 
     void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
@@ -30,6 +32,7 @@ namespace AudioKitCore
         
         noteVolume = volume;
         adsrEnvelope.start();
+        volumeRamper.init(0.0f);
         
         samplingRate = sampleRate;
         leftFilter.updateSampleRate(double(samplingRate));
@@ -108,6 +111,7 @@ namespace AudioKitCore
     {
         noteNumber = -1;
         adsrEnvelope.reset();
+        volumeRamper.init(0.0f);
         filterEnvelope.reset();
     }
     
@@ -119,10 +123,12 @@ namespace AudioKitCore
 
         if (adsrEnvelope.isPreStarting())
         {
-            tempGain = masterVolume * tempNoteVolume * adsrEnvelope.getSample();
+            tempGain = masterVolume * tempNoteVolume;
+            volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
             if (!adsrEnvelope.isPreStarting())
             {
-                tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
+                tempGain = masterVolume * noteVolume;
+                volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
                 sampleBuffer = newSampleBuffer;
                 oscillator.increment = (sampleBuffer->sampleRate / samplingRate) * (noteFrequency / sampleBuffer->noteFrequency);
                 oscillator.indexPoint = sampleBuffer->startPoint;
@@ -130,7 +136,10 @@ namespace AudioKitCore
             }
         }
         else
-            tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
+        {
+            tempGain = masterVolume * noteVolume;
+            volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
+        }
 
         if (*glideSecPerOctave != 0.0f && glideSemitones != 0.0f)
         {
@@ -169,8 +178,10 @@ namespace AudioKitCore
     {
         for (int i=0; i < sampleCount; i++)
         {
+            float gain = tempGain * volumeRamper.getNextValue();
             float leftSample, rightSample;
-            if (oscillator.getSamplePair(sampleBuffer, sampleCount, &leftSample, &rightSample, tempGain)) return true;
+            if (oscillator.getSamplePair(sampleBuffer, sampleCount, &leftSample, &rightSample, gain))
+                return true;
             if (isFilterEnabled)
             {
                 *leftOutput++ += leftFilter.process(leftSample);
