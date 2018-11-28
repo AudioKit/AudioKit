@@ -174,6 +174,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "ParameterRamper.hpp"
 #import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
+#import "AudioEngineUnit.h"
 
 // Sequencer
 #import "AKSamplerMetronome.h"

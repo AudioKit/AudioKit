@@ -50,4 +50,11 @@ public enum AKMIDIStatus: Int {
     /// System commands differ from system to system
     case systemCommand = 15
 
+    public init?(statusByte: MIDIByte) {
+        if let status = AKMIDIStatus(rawValue: Int(statusByte >> 4)) {
+            self = status
+        } else {
+            return nil
+        }
+    }
 }
