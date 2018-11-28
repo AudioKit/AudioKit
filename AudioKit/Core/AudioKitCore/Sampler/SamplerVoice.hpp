@@ -13,6 +13,7 @@
 #include "SampleOscillator.hpp"
 #include "ADSREnvelope.h"
 #include "ResonantLowPassFilter.hpp"
+#include "LinearRamper.hpp"
 
 namespace AudioKitCore
 {
@@ -53,8 +54,11 @@ namespace AudioKitCore
         /// Next sample buffer to use at restart
         SampleBuffer *newSampleBuffer;
 
-        /// product of global volume, note volume, and amp EG
+        /// product of global volume, note volume
         float tempGain;
+
+        /// ramper to smooth subsampled output of adsrEnvelope
+        LinearRamper volumeRamper;
 
         /// true if filter should be used
         bool isFilterEnabled;
