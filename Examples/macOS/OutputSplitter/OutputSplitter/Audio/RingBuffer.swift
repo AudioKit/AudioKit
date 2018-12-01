@@ -1,5 +1,5 @@
 //
-//  CARingBuffer.swift
+//  RingBuffer.swift
 //  WaveLabs
 //
 //  Created by Vlad Gorlov on 31.05.16.
@@ -25,13 +25,13 @@ public typealias SampleTime = Int64
 fileprivate let kGeneralRingTimeBoundsQueueSize: UInt32 = 32
 fileprivate let kGeneralRingTimeBoundsQueueMask: Int32 = Int32(kGeneralRingTimeBoundsQueueSize) - 1
 
-fileprivate struct CARingBufferTimeBounds {
+fileprivate struct RingBufferTimeBounds {
     var mStartTime: SampleTime = 0
     var mEndTime: SampleTime = 0
     var mUpdateCounter: UInt32 = 0
 }
 
-public enum CARingBufferError: Int32 {
+public enum RingBufferError: Int32 {
     case noError = 0
     /// Fetch start time is earlier than buffer start time and fetch end time is later than buffer end time
     case tooMuch = 3
@@ -41,9 +41,9 @@ public enum CARingBufferError: Int32 {
 
 // endregion
 
-public final class CARingBuffer<T> {
+public final class RingBuffer<T> {
     
-    fileprivate var mTimeBoundsQueue = ContiguousArray<CARingBufferTimeBounds>(repeating: CARingBufferTimeBounds(),
+    fileprivate var mTimeBoundsQueue = ContiguousArray<RingBufferTimeBounds>(repeating: RingBufferTimeBounds(),
                                                                                count: Int(kGeneralRingTimeBoundsQueueSize))
     fileprivate var mTimeBoundsQueueCurrentIndex: Int32 = 0
     
@@ -90,7 +90,7 @@ public final class CARingBuffer<T> {
     }
 }
 
-extension CARingBuffer {
+extension RingBuffer {
     
     /// Copy framesToWrite of data into the ring buffer at the specified sample time.
     /// The sample time should normally increase sequentially, though gaps
@@ -102,14 +102,14 @@ extension CARingBuffer {
     /// - parameter framesToWrite: Frames to write.
     /// - parameter startWrite: Absolute time.
     /// - returns: Operation status code.
-    public func store(_ abl: UnsafePointer<AudioBufferList>, framesToWrite: UInt32, startWrite: SampleTime) -> CARingBufferError {
+    public func store(_ abl: UnsafePointer<AudioBufferList>, framesToWrite: UInt32, startWrite: SampleTime) -> RingBufferError {
         return store(framesToWrite: framesToWrite, startWrite: startWrite) { [unowned self] srcOffset, destOffset, numberOfBytes in
             self.storeABL(self.mBuffer, destOffset: destOffset, abl: abl, srcOffset: srcOffset, numberOfBytes: numberOfBytes)
         }
     }
     
     public func fetch(_ abl: UnsafeMutablePointer<AudioBufferList>, framesToRead: UInt32,
-                      startRead: SampleTime) -> CARingBufferError {
+                      startRead: SampleTime) -> RingBufferError {
         return fetch(framesToRead: framesToRead, startRead: startRead, zeroProcedure: { destOffset, numberOfBytes in
             zeroABL(abl, destOffset: destOffset, nbytes: numberOfBytes)
         }) { srcOffset, destOffset, numberOfBytes in
@@ -118,7 +118,7 @@ extension CARingBuffer {
     }
 }
 
-extension CARingBuffer {
+extension RingBuffer {
     
     fileprivate typealias StoreProcedure = (_ srcOffset: SampleTime, _ destOffset: SampleTime, _ numberOfBytes: SampleTime) -> Void
     fileprivate typealias FetchProcedure = (_ srcOffset: SampleTime, _ destOffset: SampleTime, _ numberOfBytes: SampleTime) -> Void
@@ -128,7 +128,7 @@ extension CARingBuffer {
         return (frameNumber & SampleTime(mCapacityFramesMask)) * SampleTime(mBytesPerFrame)
     }
     
-    fileprivate func store(framesToWrite: UInt32, startWrite: SampleTime, storeProcedure: StoreProcedure) -> CARingBufferError {
+    fileprivate func store(framesToWrite: UInt32, startWrite: SampleTime, storeProcedure: StoreProcedure) -> RingBufferError {
         if framesToWrite == 0 {
             return .noError
         }
@@ -185,7 +185,7 @@ extension CARingBuffer {
     }
     
     fileprivate func fetch(framesToRead: UInt32, startRead: SampleTime, zeroProcedure: ZeroProcedure,
-                           fetchProcedure: FetchProcedure) -> CARingBufferError {
+                           fetchProcedure: FetchProcedure) -> RingBufferError {
         if framesToRead == 0 {
             return .noError
         }
@@ -337,7 +337,7 @@ extension CARingBuffer {
 }
 
 // region MARK: - Time Bounds Queue
-extension CARingBuffer {
+extension RingBuffer {
     
     fileprivate func setTimeBounds(startTime: SampleTime, endTime: SampleTime) {
         let nextAbsoluteIndex = mTimeBoundsQueueCurrentIndex + 1 // Always increasing
@@ -352,7 +352,7 @@ extension CARingBuffer {
         assert(status)
     }
     
-    public func getTimeBounds(startTime: inout SampleTime, endTime: inout SampleTime) -> CARingBufferError {
+    public func getTimeBounds(startTime: inout SampleTime, endTime: inout SampleTime) -> RingBufferError {
         // Fail after a few tries.
         for _ in 0 ..< 8 {
             let curPtr = mTimeBoundsQueueCurrentIndex
@@ -371,7 +371,7 @@ extension CARingBuffer {
     }
 }
 
-extension CARingBuffer {
+extension RingBuffer {
     
     /// **Note!** Should only be called from Store.
     /// - returns: Start time from the Time bounds queue at current index.
@@ -385,7 +385,7 @@ extension CARingBuffer {
         return mTimeBoundsQueue[Int(mTimeBoundsQueueCurrentIndex & kGeneralRingTimeBoundsQueueMask)].mEndTime
     }
     
-    fileprivate func clipTimeBounds(startRead: inout SampleTime, endRead: inout SampleTime) -> CARingBufferError {
+    fileprivate func clipTimeBounds(startRead: inout SampleTime, endRead: inout SampleTime) -> RingBufferError {
         var startTime: SampleTime = 0
         var endTime: SampleTime = 0
         
