@@ -14,13 +14,14 @@
 		E00118FF21ABDA50004B589F /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = E00118FE21ABDA50004B589F /* mixloop.wav */; };
 		E001190121ABF3AA004B589F /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190021ABF3AA004B589F /* RingBuffer.swift */; };
 		E001190321ABF42D004B589F /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190221ABF42D004B589F /* Engine.swift */; };
-		E001190921ABF5AA004B589F /* InputRenderNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190821ABF5AA004B589F /* InputRenderNotification.swift */; };
-		E001190B21ABF5E2004B589F /* OutputRenderCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190A21ABF5E2004B589F /* OutputRenderCallback.swift */; };
 		E001190E21ABF60A004B589F /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190D21ABF60A004B589F /* Buffer.swift */; };
 		E001191021ABF61A004B589F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001190F21ABF61A004B589F /* Logger.swift */; };
 		E001191221ABF78A004B589F /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001191121ABF78A004B589F /* Application.swift */; };
 		E001191521AE7D09004B589F /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001191421AE7D09004B589F /* Output.swift */; };
 		E001191721AE7E63004B589F /* NumericConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001191621AE7E63004B589F /* NumericConversions.swift */; };
+		E001191D21B07BF5004B589F /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001191C21B07BF5004B589F /* Devices.swift */; };
+		E001192021B1197D004B589F /* EZAudioDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001191F21B1197D004B589F /* EZAudioDevice.swift */; };
+		E001192421B333B0004B589F /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001192321B333B0004B589F /* Time.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,13 +67,14 @@
 		E00118FE21ABDA50004B589F /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = mixloop.wav; sourceTree = "<group>"; };
 		E001190021ABF3AA004B589F /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 		E001190221ABF42D004B589F /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
-		E001190821ABF5AA004B589F /* InputRenderNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputRenderNotification.swift; sourceTree = "<group>"; };
-		E001190A21ABF5E2004B589F /* OutputRenderCallback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputRenderCallback.swift; sourceTree = "<group>"; };
 		E001190D21ABF60A004B589F /* Buffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		E001190F21ABF61A004B589F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		E001191121ABF78A004B589F /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		E001191421AE7D09004B589F /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		E001191621AE7E63004B589F /* NumericConversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericConversions.swift; sourceTree = "<group>"; };
+		E001191C21B07BF5004B589F /* Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
+		E001191F21B1197D004B589F /* EZAudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EZAudioDevice.swift; sourceTree = "<group>"; };
+		E001192321B333B0004B589F /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				E001190621ABF46A004B589F /* Audio */,
 				E001190421ABF43B004B589F /* UI */,
 				E001190C21ABF600004B589F /* Helpers */,
+				E001191E21B1196F004B589F /* Extensions */,
 				E001190521ABF44D004B589F /* Resources */,
 			);
 			path = OutputSplitter;
@@ -148,9 +151,8 @@
 			children = (
 				E001190221ABF42D004B589F /* Engine.swift */,
 				E001190021ABF3AA004B589F /* RingBuffer.swift */,
-				E001190821ABF5AA004B589F /* InputRenderNotification.swift */,
-				E001190A21ABF5E2004B589F /* OutputRenderCallback.swift */,
 				E001191421AE7D09004B589F /* Output.swift */,
+				E001191C21B07BF5004B589F /* Devices.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -171,8 +173,17 @@
 				E001190D21ABF60A004B589F /* Buffer.swift */,
 				E001190F21ABF61A004B589F /* Logger.swift */,
 				E001191621AE7E63004B589F /* NumericConversions.swift */,
+				E001192321B333B0004B589F /* Time.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E001191E21B1196F004B589F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E001191F21B1197D004B589F /* EZAudioDevice.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,13 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E001192421B333B0004B589F /* Time.swift in Sources */,
 				E001191521AE7D09004B589F /* Output.swift in Sources */,
+				E001191D21B07BF5004B589F /* Devices.swift in Sources */,
 				E001191221ABF78A004B589F /* Application.swift in Sources */,
 				E00118E421ABD735004B589F /* ViewController.swift in Sources */,
 				E001191721AE7E63004B589F /* NumericConversions.swift in Sources */,
-				E001190B21ABF5E2004B589F /* OutputRenderCallback.swift in Sources */,
 				E001190E21ABF60A004B589F /* Buffer.swift in Sources */,
-				E001190921ABF5AA004B589F /* InputRenderNotification.swift in Sources */,
+				E001192021B1197D004B589F /* EZAudioDevice.swift in Sources */,
 				E001190321ABF42D004B589F /* Engine.swift in Sources */,
 				E00118E221ABD735004B589F /* AppDelegate.swift in Sources */,
 				E001190121ABF3AA004B589F /* RingBuffer.swift in Sources */,
