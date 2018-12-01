@@ -86,6 +86,7 @@ namespace AudioKitCore
                               float masterVolume,
                               float pitchOffset,
                               float cutoffMultiple,
+                              float keyTracking,
                               float cutoffEnvelopeStrength,
                               float resLinear);
 

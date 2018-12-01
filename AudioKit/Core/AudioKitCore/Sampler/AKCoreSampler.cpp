@@ -51,6 +51,7 @@ AKCoreSampler::AKCoreSampler()
 , isLegato(false)
 , portamentoRate(1.0f)
 , cutoffMultiple(4.0f)
+, keyTracking(1.0f)
 , cutoffEnvelopeStrength(20.0f)
 , linearResonance(0.5f)
 , loopThruRelease(false)
@@ -395,7 +396,7 @@ void AKCoreSampler::render(unsigned channelCount, unsigned sampleCount, float *o
         if (nn >= 0)
         {
             if (stoppingAllVoices ||
-                pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul,
+                pVoice->prepToGetSamples(sampleCount, masterVolume, pitchDev, cutoffMul, keyTracking,
                                          cutoffEnvelopeStrength, linearResonance) ||
                 (pVoice->getSamples(sampleCount, pOutLeft, pOutRight) && allowSampleRunout))
             {
