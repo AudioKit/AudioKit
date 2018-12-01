@@ -4,7 +4,7 @@ enum
 {
     // ramped parameters
     kMasterVolume, kPitchBend, kVibratoDepth,
-    kFilterCutoff, kFilterEgStrength, kFilterResonance,
+    kFilterCutoff, kKeyTracking, kFilterEgStrength, kFilterResonance,
     kGlideRate,
 
     // simple parameters

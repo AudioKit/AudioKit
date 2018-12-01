@@ -9,6 +9,8 @@
 #include "SamplerVoice.hpp"
 #include <stdio.h>
 
+#define MIDDLE_C_HZ 262.626f
+
 namespace AudioKitCore
 {
     void SamplerVoice::init(double sampleRate)
@@ -114,9 +116,9 @@ namespace AudioKitCore
         volumeRamper.init(0.0f);
         filterEnvelope.reset();
     }
-    
+
     bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
-                                        float cutoffMultiple, float cutoffEnvelopeStrength,
+                                        float cutoffMultiple, float keyTracking, float cutoffEnvelopeStrength,
                                         float resLinear)
     {
         if (adsrEnvelope.isIdle()) return true;
@@ -166,7 +168,9 @@ namespace AudioKitCore
         else
         {
             isFilterEnabled = true;
-            double cutoffFrequency = noteFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * filterEnvelope.getSample());
+            noteFrequency *= powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
+            float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteFrequency - MIDDLE_C_HZ);
+            double cutoffFrequency = baseFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * filterEnvelope.getSample());
             leftFilter.setParameters(cutoffFrequency, resLinear);
             rightFilter.setParameters(cutoffFrequency, resLinear);
         }

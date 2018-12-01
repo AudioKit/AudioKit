@@ -112,6 +112,9 @@ protected:
     
     // multiple of note frequency - 1.0 means cutoff at fundamental
     float cutoffMultiple;
+
+    // key tracking factor: 1.0 means perfect key tracking, 0.0 means none; may be e.g. -2.0 to +2.0
+    float keyTracking;
     
     // how much filter EG adds on top of cutoffMultiple
     float cutoffEnvelopeStrength;
