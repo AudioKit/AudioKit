@@ -428,4 +428,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerSustainPedal(pDSP, down)
     }
 
+    override public func shouldClearOutputBuffer() -> Bool {
+        return true;
+    }
+
 }
