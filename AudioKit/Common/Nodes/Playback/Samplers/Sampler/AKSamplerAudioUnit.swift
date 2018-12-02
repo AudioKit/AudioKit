@@ -429,7 +429,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     override public func shouldClearOutputBuffer() -> Bool {
-        return true;
+        return true
     }
 
 }

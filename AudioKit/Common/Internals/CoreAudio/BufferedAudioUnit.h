@@ -27,7 +27,7 @@ typedef void(^ProcessEventsBlock)(AudioBufferList        * _Nullable inBuffer,
 /** If true, an input bus will be allocated, intended for sunclasses to override, defaults to true. */
 -(BOOL)shouldAllocateInputBus;
 
-/** If true, the output buffer samples will be set to zero pre-render, Intended for sunclasses to override, defaults to false */
+/** If true, the output buffer samples will be set to zero pre-render, Intended for subclasses to override, defaults to false */
 -(BOOL)shouldClearOutputBuffer;
 
 @end
