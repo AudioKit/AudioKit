@@ -110,6 +110,11 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 pVst->getParamString(kFilterCutoff, text);
                 SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
                 return (INT_PTR)TRUE;
+            case IDC_FILTER_KEYTRACK_SLIDER:
+                pVst->setParamFraction(kKeyTracking, fv);
+                pVst->getParamString(kKeyTracking, text);
+                SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
+                return (INT_PTR)TRUE;
             case IDC_FILTER_RESONANCE_SLIDER:
                 pVst->setParamFraction(kFilterResonance, fv);
                 pVst->getParamString(kFilterResonance, text);
@@ -240,6 +245,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
 void AKSamplerGUI::enableFilterControls(bool show)
 {
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_CUTOFF_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_KEYTRACK_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_RESONANCE_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_ATTACK_SLIDER), show ? TRUE : FALSE);
@@ -280,6 +286,10 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
     case kFilterCutoff:
         SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+        break;
+    case kKeyTracking:
+        SendDlgItemMessage(hwnd, IDC_FILTER_KEYTRACK_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+        SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
         break;
     case kFilterEgStrength:
         SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
@@ -371,6 +381,11 @@ void AKSamplerGUI::updateAllParameters()
     SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
     pVst->getParamString(kFilterCutoff, text);
     SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+
+    sliderPos = (int)(100.0f * pVst->getParamFraction(kKeyTracking) + 0.5f);
+    SendDlgItemMessage(hwnd, IDC_FILTER_KEYTRACK_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+    pVst->getParamString(kKeyTracking, text);
+    SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
 
     sliderPos = (int)(100.0f * pVst->getParamFraction(kFilterEgStrength) + 0.5f);
     SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
