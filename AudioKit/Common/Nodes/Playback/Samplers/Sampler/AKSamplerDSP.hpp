@@ -83,6 +83,8 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void processWithEvents(const AudioTimeStamp *timestamp, AUAudioFrameCount frameCount, const AURenderEvent *events) override;
+
 };
 
 #endif
