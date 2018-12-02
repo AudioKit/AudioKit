@@ -99,6 +99,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var isLegato: Double = 0.0 {
         didSet { setParameter(.legato, value: isLegato) }
     }
+
+    var keyTrackingFraction: Double = 1.0 {
+        didSet { setParameter(.keyTrackingFraction, value: keyTrackingFraction) }
+    }
     
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
@@ -321,6 +325,17 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             flags: nonRampFlags,
             valueStrings: nil, dependentParameters: nil)
         
+        parameterAddress += 1
+
+        let keyTrackingParameter = AUParameterTree.createParameter(
+            withIdentifier: "keyTracking",
+            name: "Key Tracking",
+            address: AUParameterAddress(parameterAddress),
+            min: -2.0, max: 2.0,
+            unit: .generic, unitName: nil,
+            flags: nonRampFlags,
+            valueStrings: nil, dependentParameters: nil)
+
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
@@ -339,7 +354,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterEnableParameter,
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
-                                                                   legatoParameter]))
+                                                                   legatoParameter,
+                                                                   keyTrackingParameter]))
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
@@ -359,6 +375,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         loopThruReleaseParameter.value = 0.0
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0
+        keyTrackingParameter.value = 1.0
     }
     
     public override var canProcessInPlace: Bool { return true }
