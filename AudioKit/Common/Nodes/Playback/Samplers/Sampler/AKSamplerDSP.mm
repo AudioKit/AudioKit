@@ -190,6 +190,9 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterLegato:
             isLegato = value > 0.5f;
             break;
+        case AKSamplerParameterKeyTrackingFraction:
+            keyTracking = value;
+            break;
     }
 }
 
@@ -239,6 +242,8 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return isMonophonic ? 1.0f : 0.0f;
         case AKSamplerParameterLegato:
             return isLegato ? 1.0f : 0.0f;
+        case AKSamplerParameterKeyTrackingFraction:
+            return keyTracking;
     }
     return 0;
 }
