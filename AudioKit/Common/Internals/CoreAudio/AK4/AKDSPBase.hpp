@@ -97,8 +97,8 @@ public:
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
      */
-    void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                           AURenderEvent const *events);
+    virtual void processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
+                                   AURenderEvent const *events);
 
 private:
 
