@@ -119,6 +119,9 @@ protected:
     // how much filter EG adds on top of cutoffMultiple
     float cutoffEnvelopeStrength;
     
+    /// fraction 0.0 - 1.0, scaling note volume's effect on cutoffEnvelopeStrength
+    float filterEnvelopeVelocityScaling;
+
     // resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
     float linearResonance;
     
