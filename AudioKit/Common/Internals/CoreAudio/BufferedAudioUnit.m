@@ -12,6 +12,7 @@ const int kMaxChannelCount = 16;
 
 // Private AudioBufferList helpers.
 static void    bufferListPrepare(AudioBufferList *audioBufferList, int channelCount, int frameCount);
+static void    bufferListClear(AudioBufferList *audioBufferList);
 static size_t  bufferListByteSize(int channelCount);
 static Boolean bufferListHasNullData(AudioBufferList *bufferList);
 static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, float *buffer);
@@ -23,6 +24,7 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
     AUAudioUnitBusArray *_inputBusArray;
     AUAudioUnitBusArray *_outputBusArray;
     ProcessEventsBlock  _processEventsBlock;
+    BOOL                _shouldClearOutputBuffer;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -42,6 +44,8 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
         _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                                  busType:AUAudioUnitBusTypeOutput
                                                                   busses: @[[[AUAudioUnitBus alloc]initWithFormat:arbitraryFormat error:NULL]]];
+
+        _shouldClearOutputBuffer = [self shouldClearOutputBuffer];
     }
     return self;
 }
@@ -50,6 +54,9 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
     return true;
 }
 
+-(BOOL)shouldClearOutputBuffer {
+    return false;
+}
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
     if (![super allocateRenderResourcesAndReturnError:outError]) {
@@ -153,6 +160,10 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
             bufferListPointChannelDataToBuffer(outputBufferList, buffer);
         }
 
+        if (welf->_shouldClearOutputBuffer) {
+            bufferListClear(outputBufferList);
+        }
+
         welf->_processEventsBlock(inputBufferList, outputBufferList, timestamp, frameCount, realtimeEventListHead);
         return noErr;
     };
@@ -178,6 +189,12 @@ static void bufferListPrepare(AudioBufferList *audioBufferList,
     for (int channelIndex = 0; channelIndex < channelCount; channelIndex++) {
         audioBufferList->mBuffers[channelIndex].mNumberChannels = 1;
         audioBufferList->mBuffers[channelIndex].mDataByteSize = frameCount * sizeof(float);
+    }
+}
+
+static void bufferListClear(AudioBufferList *audioBufferList) {
+    for (int i = 0; i < audioBufferList->mNumberBuffers; i++) {
+        memset(audioBufferList->mBuffers[i].mData, 0, audioBufferList->mBuffers[i].mDataByteSize);
     }
 }
 

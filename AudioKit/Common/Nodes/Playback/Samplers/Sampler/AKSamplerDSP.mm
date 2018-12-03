@@ -277,14 +277,6 @@ void AKSamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
     }
 }
 
-void AKSamplerDSP::processWithEvents(const AudioTimeStamp *timestamp, AUAudioFrameCount frameCount, const AURenderEvent *events)
-{
-    for (int i = 0; i < _outBufferListPtr->mNumberBuffers; i++) {
-        memset(_outBufferListPtr->mBuffers[i].mData, 0, _outBufferListPtr->mBuffers[i].mDataByteSize);
-    }
-    AKDSPBase::processWithEvents(timestamp, frameCount, events);
-}
-
 void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     // process in chunks of maximum length AKCORESAMPLER_CHUNKSIZE
