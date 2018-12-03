@@ -306,7 +306,9 @@ import AVFoundation
 
     /// - Returns: Current time of the player in seconds while playing.
     @objc public var currentTime: Double {
-        let current = startTime + playerTime.truncatingRemainder(dividingBy: (endTime - startTime))
+        let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
+        let current = startTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
+        
         return current
     }
 
