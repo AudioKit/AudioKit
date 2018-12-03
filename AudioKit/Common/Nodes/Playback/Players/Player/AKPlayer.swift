@@ -308,7 +308,7 @@ import AVFoundation
     @objc public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
         let current = startTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
-        
+
         return current
     }
 
