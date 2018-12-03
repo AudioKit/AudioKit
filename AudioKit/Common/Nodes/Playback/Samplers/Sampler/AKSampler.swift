@@ -296,8 +296,8 @@
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
     @objc open dynamic var filterEnvelopeVelocityScaling: Double = 0.0 {
         willSet {
-            if (filterEnvelopeVelocityScaling != newValue) {
-                internalAU?.filterEnvelopeVelocityScaling = newValue;
+            if filterEnvelopeVelocityScaling != newValue {
+                internalAU?.filterEnvelopeVelocityScaling = newValue
             }
         }
     }
