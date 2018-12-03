@@ -447,7 +447,8 @@
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.keyTrackingFraction, value: keyTracking)
-        self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)    }
+        self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)
+    }
 
     @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
         let sampleRate = Float(file.sampleRate)
