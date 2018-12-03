@@ -55,7 +55,7 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
 
     // load one sinewave or sawtooth sample
     float wave[1024];
-#if 1
+#if 0
     for (int i = 0; i < 1024; i++) wave[i] = (float)sin(2 * M_PI * i / 1024.0);   // sine
 #else
     for (int i = 0; i < 1024; i++) wave[i] = 2.0f * i / 1024.0f - 1.0f; // saw
@@ -74,6 +74,7 @@ AKSamplerDSP::AKSamplerDSP (audioMasterCallback audioMaster, VstInt32 numProgram
 
     isFilterEnabled = false;
     cutoffMultiple = 0.0f;
+    keyTracking = 1.0f;
     linearResonance = 0.5f;
     setFilterAttackDurationSeconds(2.0f);
     setFilterDecayDurationSeconds(2.0f);
@@ -679,6 +680,9 @@ void AKSamplerDSP::getParameterName (VstInt32 index, char* label)
         case kFilterCutoff:
             vst_strncpy(label, "F.Cutoff", kVstMaxParamStrLen);
             break;
+        case kKeyTracking:
+            vst_strncpy(label, "F.KeyTrk", kVstMaxParamStrLen);
+            break;
         case kFilterEgStrength:
             vst_strncpy(label, "F.EnvAmt", kVstMaxParamStrLen);
             break;
@@ -743,6 +747,9 @@ void AKSamplerDSP::getParameterDisplay (VstInt32 index, char* text)
             break;
         case kFilterCutoff:
             float2string(cutoffMultiple, text, kVstMaxParamStrLen);
+            break;
+        case kKeyTracking:
+            float2string(keyTracking, text, kVstMaxParamStrLen);
             break;
         case kFilterEgStrength:
             float2string(cutoffEnvelopeStrength, text, kVstMaxParamStrLen);
@@ -821,6 +828,9 @@ void AKSamplerDSP::getParamString(VstInt32 index, char* text)
     case kFilterCutoff:
         sprintf(text, "%.1f", cutoffMultiple);
         break;
+    case kKeyTracking:
+        sprintf(text, "%.1f %%", 100.0f * keyTracking);
+        break;
     case kFilterEgStrength:
         sprintf(text, "%.1f", cutoffEnvelopeStrength);
         break;
@@ -885,6 +895,9 @@ void AKSamplerDSP::setParamFraction(VstInt32 index, float value)
         break;
     case kFilterCutoff:
         cutoffMultiple = value * 100.0f;
+        break;
+    case kKeyTracking:
+        keyTracking = 4.0f * (value - 0.5f);
         break;
     case kFilterEgStrength:
         cutoffEnvelopeStrength = value * 100.0f;
@@ -957,6 +970,9 @@ float AKSamplerDSP::getParameter (VstInt32 index)
         case kFilterCutoff:
             value = cutoffMultiple / 100.0f;
             break;
+        case kKeyTracking:
+            value = 0.5f + keyTracking / 4.0f;
+            break;
         case kFilterEgStrength:
             value = cutoffEnvelopeStrength / 100.0f;
             break;
@@ -1018,6 +1034,8 @@ float AKSamplerDSP::getParamValue(VstInt32 index)
         return vibratoDepth;
     case kFilterCutoff:
         return cutoffMultiple;
+    case kKeyTracking:
+        return keyTracking;
     case kFilterEgStrength:
         return cutoffEnvelopeStrength;
     case kFilterResonance:

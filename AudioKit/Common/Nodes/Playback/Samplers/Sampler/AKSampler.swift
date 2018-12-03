@@ -40,6 +40,7 @@
     fileprivate var loopThruReleaseParameter: AUParameter?
     fileprivate var monophonicParameter: AUParameter?
     fileprivate var legatoParameter: AUParameter?
+    fileprivate var keyTrackingParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -282,6 +283,15 @@
         }
     }
 
+    /// isLegato (boolean, 0.0 for false or 1.0 for true)
+    @objc open dynamic var keyTrackingFraction: Double = 1.0 {
+        willSet {
+            if keyTrackingFraction != newValue {
+                internalAU?.keyTrackingFraction = newValue
+            }
+        }
+    }
+
     // MARK: - Initialization
 
     /// Initialize this sampler node
@@ -306,6 +316,7 @@
     ///   - loopThruRelease: if true, sample will continue looping after key release
     ///   - isMonophonic: true for mono, false for polyphonic
     ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
+    ///   - keyTracking: -2.0 - 2.0, 1.0 means perfect key tracking, 0.0 means none
     ///
     @objc public init(
         masterVolume: Double = 1.0,
@@ -326,7 +337,8 @@
         glideRate: Double = 0.0,
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
-        isLegato: Bool = false  ) {
+        isLegato: Bool = false,
+        keyTracking: Double = 1.0) {
 
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
@@ -347,6 +359,7 @@
         self.loopThruRelease = loopThruRelease
         self.isMonophonic = isMonophonic
         self.isLegato = isLegato
+        self.keyTrackingFraction = keyTracking
 
         AKSampler.register()
 
@@ -386,6 +399,7 @@
         self.loopThruReleaseParameter = tree["loopThruRelease"]
         self.monophonicParameter = tree["monophonic"]
         self.legatoParameter = tree["legato"]
+        self.keyTrackingParameter = tree["keyTracking"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -418,6 +432,7 @@
         self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.keyTrackingFraction, value: keyTracking)
     }
 
     @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
