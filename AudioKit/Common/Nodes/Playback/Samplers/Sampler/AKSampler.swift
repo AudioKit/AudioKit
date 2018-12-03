@@ -41,6 +41,7 @@
     fileprivate var monophonicParameter: AUParameter?
     fileprivate var legatoParameter: AUParameter?
     fileprivate var keyTrackingParameter: AUParameter?
+    fileprivate var filterEnvelopeVelocityScalingParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -283,11 +284,20 @@
         }
     }
 
-    /// isLegato (boolean, 0.0 for false or 1.0 for true)
+    /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
     @objc open dynamic var keyTrackingFraction: Double = 1.0 {
         willSet {
             if keyTrackingFraction != newValue {
                 internalAU?.keyTrackingFraction = newValue
+            }
+        }
+    }
+
+    /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
+    @objc open dynamic var filterEnvelopeVelocityScaling: Double = 0.0 {
+        willSet {
+            if (filterEnvelopeVelocityScaling != newValue) {
+                internalAU?.filterEnvelopeVelocityScaling = newValue;
             }
         }
     }
@@ -317,6 +327,7 @@
     ///   - isMonophonic: true for mono, false for polyphonic
     ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
     ///   - keyTracking: -2.0 - 2.0, 1.0 means perfect key tracking, 0.0 means none
+    ///   - filterEnvelopeVelocityScaling: fraction, 0.0 - 1.0
     ///
     @objc public init(
         masterVolume: Double = 1.0,
@@ -338,7 +349,8 @@
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
         isLegato: Bool = false,
-        keyTracking: Double = 1.0) {
+        keyTracking: Double = 1.0,
+        filterEnvelopeVelocityScaling: Double = 0.0) {
 
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
@@ -360,6 +372,7 @@
         self.isMonophonic = isMonophonic
         self.isLegato = isLegato
         self.keyTrackingFraction = keyTracking
+        self.filterEnvelopeVelocityScaling = filterEnvelopeVelocityScaling
 
         AKSampler.register()
 
@@ -400,6 +413,7 @@
         self.monophonicParameter = tree["monophonic"]
         self.legatoParameter = tree["legato"]
         self.keyTrackingParameter = tree["keyTracking"]
+        self.filterEnvelopeVelocityScalingParameter = tree["filterEnvelopeVelocityScaling"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -433,7 +447,7 @@
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.keyTrackingFraction, value: keyTracking)
-    }
+        self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)    }
 
     @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
         let sampleRate = Float(file.sampleRate)

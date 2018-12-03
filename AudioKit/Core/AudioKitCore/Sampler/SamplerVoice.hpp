@@ -45,7 +45,7 @@ namespace AudioKitCore
 
         /// fraction 0.0 - 1.0, based on MIDI velocity
         float noteVolume;
-        
+
         // temporary holding variables
 
         /// Previous note volume while damping note before restarting
@@ -88,6 +88,7 @@ namespace AudioKitCore
                               float cutoffMultiple,
                               float keyTracking,
                               float cutoffEnvelopeStrength,
+                              float cutoffEnvelopeVelocityScaling,
                               float resLinear);
 
         bool getSamples(int sampleCount, float *leftOutput, float *rightOutput);
