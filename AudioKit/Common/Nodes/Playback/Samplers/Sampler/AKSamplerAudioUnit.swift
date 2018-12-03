@@ -103,6 +103,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var keyTrackingFraction: Double = 1.0 {
         didSet { setParameter(.keyTrackingFraction, value: keyTrackingFraction) }
     }
+
+    var filterEnvelopeVelocityScaling: Double = 0.0 {
+        didSet { setParameter(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling) }
+    }
     
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
@@ -336,6 +340,17 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             flags: nonRampFlags,
             valueStrings: nil, dependentParameters: nil)
 
+        parameterAddress += 1
+
+        let filterEnvelopeVelocityScalingParameter = AUParameterTree.createParameter(
+            withIdentifier: "filterEnvelopeVelocityScaling",
+            name: "Filter Envelope Velocity Scaling",
+            address: AUParameterAddress(parameterAddress),
+            min: 0.0, max: 1.0,
+            unit: .generic, unitName: nil,
+            flags: nonRampFlags,
+            valueStrings: nil, dependentParameters: nil)
+
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
@@ -355,7 +370,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
                                                                    legatoParameter,
-                                                                   keyTrackingParameter]))
+                                                                   keyTrackingParameter,
+                                                                   filterEnvelopeVelocityScalingParameter]))
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
@@ -376,6 +392,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0
         keyTrackingParameter.value = 1.0
+        filterEnvelopeVelocityScalingParameter.value = 0.0
     }
     
     public override var canProcessInPlace: Bool { return true }
