@@ -1103,8 +1103,6 @@
 		EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41321C40E3A5009D870B /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAB4E04F20269F1E00171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E04E20269F1E00171A16 /* AKCostelloReverbDSP.mm */; };
 		EAF71D7C202489E80018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7B202489E80018946B /* AKDSPKernel.mm */; };
-		EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF71D8B20249A880018946B /* AKAudioEffect.h */; };
-		EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D8C20249A880018946B /* AKAudioEffect.mm */; };
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		EAFECEC51F4EBD3900A2B046 /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7D07031F4E63C200707706 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F02767261E79114A0099CA47 /* AKCustomUgen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02767251E79114A0099CA47 /* AKCustomUgen.swift */; };
@@ -2344,8 +2342,6 @@
 		EAC4FC031F56A4E3003B692B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EAC4FC051F56A596003B692B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EAF71D7B202489E80018946B /* AKDSPKernel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
-		EAF71D8B20249A880018946B /* AKAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioEffect.h; sourceTree = "<group>"; };
-		EAF71D8C20249A880018946B /* AKAudioEffect.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAudioEffect.mm; sourceTree = "<group>"; };
 		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		F02767251E79114A0099CA47 /* AKCustomUgen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCustomUgen.swift; path = "Sporth Custom Ugens/AKCustomUgen.swift"; sourceTree = "<group>"; };
 		F027672D1E791A8C0099CA47 /* AKSporthStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSporthStack.h; path = "Sporth Custom Ugens/AKSporthStack.h"; sourceTree = "<group>"; };
@@ -2666,8 +2662,6 @@
 				558FC78621AD0CF5009C05B0 /* AudioEngineUnit.m */,
 				558FC73D21ABA7C6009C05B0 /* BufferedAudioUnit.h */,
 				558FC73E21ABA7C7009C05B0 /* BufferedAudioUnit.m */,
-				EAF71D8B20249A880018946B /* AKAudioEffect.h */,
-				EAF71D8C20249A880018946B /* AKAudioEffect.mm */,
 				C4AC0B351FC944E300EDA024 /* AK4 */,
 				C4AC0B3C1FC944EA00EDA024 /* Apple Code */,
 				C4AC0B451FC944F400EDA024 /* Bank */,
@@ -5545,7 +5539,6 @@
 				C49B1545204A06B8009C7C8E /* FM.h in Headers */,
 				C49B138C204A06B7009C7C8E /* soundpipe.h in Headers */,
 				C49B157B204A06B8009C7C8E /* Effect.h in Headers */,
-				EAF71D8D20249A880018946B /* AKAudioEffect.h in Headers */,
 				C47047AA1E76A25200D9906F /* AKTubularBellsDSPKernel.hpp in Headers */,
 				FED92BE41ED1331D00E93264 /* AKSamplePlayerAudioUnit.h in Headers */,
 				C453804A1C3A59EA00A51738 /* AKOperationEffectAudioUnit.h in Headers */,
@@ -6116,7 +6109,6 @@
 				C49B1417204A06B7009C7C8E /* tenv2.c in Sources */,
 				C4077B5720087B3200E5923C /* AKResonantFilterAudioUnit.swift in Sources */,
 				55F29C091E90654C00A2151F /* AKScheduledAction.swift in Sources */,
-				EAF71D8E20249A880018946B /* AKAudioEffect.mm in Sources */,
 				C49B1406204A06B7009C7C8E /* butlp.c in Sources */,
 				C49B1451204A06B7009C7C8E /* fof.c in Sources */,
 				C49B1477204A06B8009C7C8E /* gen_padsynth.c in Sources */,
