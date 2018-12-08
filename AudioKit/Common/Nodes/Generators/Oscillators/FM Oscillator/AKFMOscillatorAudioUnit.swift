@@ -43,7 +43,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFMOscillatorDSP(Int32(count), sampleRate)
     }
 

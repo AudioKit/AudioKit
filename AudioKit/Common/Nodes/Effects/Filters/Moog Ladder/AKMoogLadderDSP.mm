@@ -9,7 +9,7 @@
 #include "AKMoogLadderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createMoogLadderDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createMoogLadderDSP(int nChannels, double sampleRate) {
     AKMoogLadderDSP *dsp = new AKMoogLadderDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

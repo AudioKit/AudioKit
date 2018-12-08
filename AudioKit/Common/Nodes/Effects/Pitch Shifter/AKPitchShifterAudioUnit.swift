@@ -35,7 +35,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createPitchShifterDSP(Int32(count), sampleRate)
     }
 

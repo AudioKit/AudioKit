@@ -13,6 +13,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKDSPBase.hpp"
 #import "BufferedAudioUnit.h"
+#import "AKInterop.h"
 
 @interface AKAudioUnitBase : BufferedAudioUnit
 
@@ -23,7 +24,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree

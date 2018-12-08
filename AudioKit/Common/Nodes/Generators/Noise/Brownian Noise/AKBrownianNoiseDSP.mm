@@ -9,7 +9,7 @@
 #include "AKBrownianNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createBrownianNoiseDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createBrownianNoiseDSP(int nChannels, double sampleRate) {
     AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

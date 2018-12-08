@@ -10,7 +10,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void *createPWMOscillatorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createPWMOscillatorDSP(int nChannels, double sampleRate) {
     AKPWMOscillatorDSP *dsp = new AKPWMOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
