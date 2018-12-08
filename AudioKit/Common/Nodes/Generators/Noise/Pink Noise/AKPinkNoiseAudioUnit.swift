@@ -27,7 +27,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createPinkNoiseDSP(Int32(count), sampleRate)
     }
 

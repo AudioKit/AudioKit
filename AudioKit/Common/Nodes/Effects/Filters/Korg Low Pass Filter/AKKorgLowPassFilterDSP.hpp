@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKKorgLowPassFilterParameter) {
 
 #ifndef __cplusplus
 
-void *createKorgLowPassFilterDSP(int nChannels, double sampleRate);
+AKDSPRef createKorgLowPassFilterDSP(int nChannels, double sampleRate);
 
 #else
 

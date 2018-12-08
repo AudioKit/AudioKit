@@ -9,7 +9,7 @@
 #include "AKTanhDistortionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createTanhDistortionDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createTanhDistortionDSP(int nChannels, double sampleRate) {
     AKTanhDistortionDSP *dsp = new AKTanhDistortionDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

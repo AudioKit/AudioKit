@@ -10,7 +10,7 @@ import AVFoundation
 
 public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     
-    var pDSP: UnsafeMutableRawPointer?
+    var pDSP: AKDSPRef?
     
     func setParameter(_ address: AKSamplerParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
@@ -109,9 +109,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     }
     
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
-        pDSP = createAKSamplerDSP(Int32(count), sampleRate)
-        return pDSP
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
+        guard let dsp = createAKSamplerDSP(Int32(count), sampleRate) else { fatalError() }
+        pDSP = dsp
+        return dsp
     }
     
     override init(componentDescription: AudioComponentDescription,
