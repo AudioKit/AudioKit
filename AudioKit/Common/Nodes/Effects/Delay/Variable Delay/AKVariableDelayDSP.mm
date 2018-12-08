@@ -9,7 +9,7 @@
 #include "AKVariableDelayDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createVariableDelayDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createVariableDelayDSP(int nChannels, double sampleRate) {
     AKVariableDelayDSP *dsp = new AKVariableDelayDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

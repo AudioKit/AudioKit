@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 #ifndef __cplusplus
 
-void *createTremoloDSP(int nChannels, double sampleRate);
+AKDSPRef createTremoloDSP(int nChannels, double sampleRate);
 
 #else
 

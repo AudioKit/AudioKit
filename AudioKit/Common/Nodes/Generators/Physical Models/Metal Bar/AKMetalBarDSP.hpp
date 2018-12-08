@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKMetalBarParameter) {
 
 #ifndef __cplusplus
 
-void *createMetalBarDSP(int nChannels, double sampleRate);
+AKDSPRef createMetalBarDSP(int nChannels, double sampleRate);
 
 #else
 

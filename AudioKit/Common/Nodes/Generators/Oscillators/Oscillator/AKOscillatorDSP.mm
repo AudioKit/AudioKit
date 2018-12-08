@@ -9,7 +9,7 @@
 #include "AKOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createOscillatorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createOscillatorDSP(int nChannels, double sampleRate) {
     AKOscillatorDSP *dsp = new AKOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

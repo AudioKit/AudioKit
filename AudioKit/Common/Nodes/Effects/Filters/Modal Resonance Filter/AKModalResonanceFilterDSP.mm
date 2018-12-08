@@ -9,7 +9,7 @@
 #include "AKModalResonanceFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createModalResonanceFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createModalResonanceFilterDSP(int nChannels, double sampleRate) {
     AKModalResonanceFilterDSP *dsp = new AKModalResonanceFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

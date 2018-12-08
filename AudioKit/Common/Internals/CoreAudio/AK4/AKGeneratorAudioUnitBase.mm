@@ -62,8 +62,8 @@
  DSP is invalid.
  */
 
-- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
-    return (void*)(_kernel = NULL);
+- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+    return (AKDSPRef)(_kernel = NULL);
 }
 
 /**

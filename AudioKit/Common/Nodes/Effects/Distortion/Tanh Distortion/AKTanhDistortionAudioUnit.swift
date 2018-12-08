@@ -39,7 +39,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createTanhDistortionDSP(Int32(count), sampleRate)
     }
 
