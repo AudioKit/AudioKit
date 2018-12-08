@@ -26,6 +26,11 @@ namespace AudioKitCore
     public:
         void reset(double initialValue, double targetValue, double tco, int segmentLengthSamples);
 
+        inline float getValue()
+        {
+            return float(isHorizontal ? target : output);
+        }
+
         inline bool getSample(float& out)
         {
             if (isHorizontal)

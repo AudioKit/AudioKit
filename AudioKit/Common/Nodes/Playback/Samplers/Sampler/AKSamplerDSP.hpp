@@ -34,6 +34,8 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterLoopThruRelease,
     AKSamplerParameterMonophonic,
     AKSamplerParameterLegato,
+    AKSamplerParameterKeyTrackingFraction,
+    AKSamplerParameterFilterEnvelopeVelocityScaling,
     
     // ensure this is always last in the list, to simplify parameter addressing
     AKSamplerParameterRampDuration,
