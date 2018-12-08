@@ -9,7 +9,7 @@
 #include "AKLowShelfParametricEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate) {
     AKLowShelfParametricEqualizerFilterDSP *dsp = new AKLowShelfParametricEqualizerFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

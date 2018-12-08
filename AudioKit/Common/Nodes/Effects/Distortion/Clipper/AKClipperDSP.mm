@@ -9,7 +9,7 @@
 #include "AKClipperDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createClipperDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createClipperDSP(int nChannels, double sampleRate) {
     AKClipperDSP *dsp = new AKClipperDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

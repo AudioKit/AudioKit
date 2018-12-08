@@ -9,7 +9,7 @@
 #include "AKKorgLowPassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
     AKKorgLowPassFilterDSP *dsp = new AKKorgLowPassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

@@ -9,7 +9,7 @@
 #include "AKStringResonatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createStringResonatorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createStringResonatorDSP(int nChannels, double sampleRate) {
     AKStringResonatorDSP *dsp = new AKStringResonatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
