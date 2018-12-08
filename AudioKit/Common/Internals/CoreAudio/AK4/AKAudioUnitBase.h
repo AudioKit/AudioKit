@@ -17,6 +17,9 @@
 
 @interface AKAudioUnitBase : BufferedAudioUnit
 
+/** Pointer to AKDSPBase subclass. */
+@property (readonly) AKDSPRef dsp;
+
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
  the DSP code. It should also be declared as public in the h file, but that causes problems
