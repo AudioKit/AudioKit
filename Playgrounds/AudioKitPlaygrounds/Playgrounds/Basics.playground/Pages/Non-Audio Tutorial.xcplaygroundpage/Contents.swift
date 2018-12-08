@@ -20,7 +20,7 @@ import AudioKitUI
 //: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
 //: accessing the "Product" menu and choosing "Build".
 
-//: To use a file, copy it intot playground's "Resources" folder and refer to it by name:
+//: To use a file, copy it into the playground's "Resources" folder and refer to it by name:
 let file = try AKAudioFile(readFileName: "mixloop.wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
