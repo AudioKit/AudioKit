@@ -9,7 +9,7 @@
 #include "AKDripDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createDripDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createDripDSP(int nChannels, double sampleRate) {
     AKDripDSP *dsp = new AKDripDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

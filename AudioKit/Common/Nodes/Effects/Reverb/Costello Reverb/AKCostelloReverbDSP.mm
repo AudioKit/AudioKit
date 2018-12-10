@@ -9,7 +9,7 @@
 #include "AKCostelloReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createCostelloReverbDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createCostelloReverbDSP(int nChannels, double sampleRate) {
     AKCostelloReverbDSP *dsp = new AKCostelloReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

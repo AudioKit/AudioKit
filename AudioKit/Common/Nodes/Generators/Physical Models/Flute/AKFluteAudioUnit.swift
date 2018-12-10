@@ -30,7 +30,7 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFluteDSP(Int32(count), sampleRate)
     }
 
