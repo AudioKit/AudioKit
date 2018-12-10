@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
 
 #ifndef __cplusplus
 
-void *createPluckedStringDSP(int nChannels, double sampleRate);
+AKDSPRef createPluckedStringDSP(int nChannels, double sampleRate);
 
 #else
 

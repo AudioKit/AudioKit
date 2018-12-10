@@ -9,7 +9,7 @@
 #include "AKEqualizerFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createEqualizerFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createEqualizerFilterDSP(int nChannels, double sampleRate) {
     AKEqualizerFilterDSP *dsp = new AKEqualizerFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

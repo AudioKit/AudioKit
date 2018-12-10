@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKVocalTractParameter) {
 
 #ifndef __cplusplus
 
-void *createVocalTractDSP(int nChannels, double sampleRate);
+AKDSPRef createVocalTractDSP(int nChannels, double sampleRate);
 
 #else
 

@@ -10,15 +10,15 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" void *createAKSamplerDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor* pSDD) {
+extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor* pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor* pSFD)
+extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor* pSFD)
 {
     char errMsg[100];
     WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
@@ -53,44 +53,44 @@ extern "C" void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor
     delete[] sdd.data;
 }
 
-extern "C" void doAKSamplerUnloadAllSamples(void *pDSP)
+extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->deinit();
 }
 
-extern "C" void doAKSamplerBuildSimpleKeyMap(void *pDSP) {
+extern "C" void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
 
-extern "C" void doAKSamplerBuildKeyMap(void *pDSP) {
+extern "C" void doAKSamplerBuildKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildKeyMap();
 }
 
-extern "C" void doAKSamplerSetLoopThruRelease(void *pDSP, bool value) {
+extern "C" void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-extern "C" void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+extern "C" void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-extern "C" void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void doAKSamplerStopAllVoices(void *pDSP)
+extern "C" void doAKSamplerStopAllVoices(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->stopAllVoices();
 }
 
-extern "C" void doAKSamplerRestartVoices(void *pDSP)
+extern "C" void doAKSamplerRestartVoices(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->restartVoices();
 }
 
-extern "C" void doAKSamplerSustainPedal(void *pDSP, bool pedalDown)
+extern "C" void doAKSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown)
 {
     ((AKSamplerDSP*)pDSP)->sustainPedal(pedalDown);
 }
@@ -190,6 +190,12 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
         case AKSamplerParameterLegato:
             isLegato = value > 0.5f;
             break;
+        case AKSamplerParameterKeyTrackingFraction:
+            keyTracking = value;
+            break;
+        case AKSamplerParameterFilterEnvelopeVelocityScaling:
+            filterEnvelopeVelocityScaling = value;
+            break;
     }
 }
 
@@ -239,6 +245,10 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
             return isMonophonic ? 1.0f : 0.0f;
         case AKSamplerParameterLegato:
             return isLegato ? 1.0f : 0.0f;
+        case AKSamplerParameterKeyTrackingFraction:
+            return keyTracking;
+        case AKSamplerParameterFilterEnvelopeVelocityScaling:
+            return filterEnvelopeVelocityScaling;
     }
     return 0;
 }

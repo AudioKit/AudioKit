@@ -10,7 +10,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void *createVocalTractDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createVocalTractDSP(int nChannels, double sampleRate) {
     AKVocalTractDSP *dsp = new AKVocalTractDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

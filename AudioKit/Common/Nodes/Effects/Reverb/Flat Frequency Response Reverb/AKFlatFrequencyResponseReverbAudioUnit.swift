@@ -27,7 +27,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFlatFrequencyResponseReverbDSP(Int32(count), sampleRate)
     }
 

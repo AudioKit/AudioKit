@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPhaseDistortionOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void *createPhaseDistortionOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createPhaseDistortionOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 

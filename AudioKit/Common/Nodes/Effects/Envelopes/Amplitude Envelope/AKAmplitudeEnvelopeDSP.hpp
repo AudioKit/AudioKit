@@ -22,7 +22,7 @@ typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
 
 #ifndef __cplusplus
 
-void *createAmplitudeEnvelopeDSP(int nChannels, double sampleRate);
+AKDSPRef createAmplitudeEnvelopeDSP(int nChannels, double sampleRate);
 
 #else
 

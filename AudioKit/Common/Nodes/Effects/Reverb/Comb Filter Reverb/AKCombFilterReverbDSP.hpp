@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKCombFilterReverbParameter) {
 
 #ifndef __cplusplus
 
-void *createCombFilterReverbDSP(int nChannels, double sampleRate);
+AKDSPRef createCombFilterReverbDSP(int nChannels, double sampleRate);
 
 #else
 

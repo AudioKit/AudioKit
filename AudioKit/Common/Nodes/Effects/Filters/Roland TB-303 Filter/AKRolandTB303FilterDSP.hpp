@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKRolandTB303FilterParameter) {
 
 #ifndef __cplusplus
 
-void *createRolandTB303FilterDSP(int nChannels, double sampleRate);
+AKDSPRef createRolandTB303FilterDSP(int nChannels, double sampleRate);
 
 #else
 
