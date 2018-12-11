@@ -12,11 +12,13 @@ namespace AudioKitCore
 {
     class AdjustableDelayLine {
         double sampleRateHz;
+        double maxDelayMs;
         float fbFraction;
         float *pBuffer;
         int capacity;
         int writeIndex;
         float readIndex;
+        float output;
         
     public:
         AdjustableDelayLine();
@@ -24,10 +26,15 @@ namespace AudioKitCore
         
         void init(double sampleRate, double maxDelayMs);
         void deinit();
-        
+
+        double getMaxDelayMs() { return maxDelayMs; }
+
         void setDelayMs(double delayMs);
-        void setFeedback(float feedback);
+        void setFeedback(float feedback) { fbFraction = feedback; }
+ 
         float push(float sample);
+
+        float getOutput() { return output; }
     };
     
 }
