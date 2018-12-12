@@ -1,17 +1,11 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-PingPongDelayAudioProcessor::PingPongDelayAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
+AKStereoDelayProcessor::AKStereoDelayProcessor()
     : AudioProcessor(BusesProperties()
-#if ! JucePlugin_IsMidiEffect
-#if ! JucePlugin_IsSynth
         .withInput("Input", AudioChannelSet::stereo(), true)
-#endif
         .withOutput("Output", AudioChannelSet::stereo(), true)
-#endif
     )
-#endif
     , paramTree(*this, nullptr, "PARAMETERS", {
             std::make_unique<AudioParameterBool>("pingpong", "Ping-Pong", false),
             std::make_unique<AudioParameterFloat>("delaySec", "DelaySec", 0.0f, 2.0f, 0.5f),
@@ -25,11 +19,11 @@ PingPongDelayAudioProcessor::PingPongDelayAudioProcessor()
     paramTree.addParameterListener("fxLevel", this);
 }
 
-PingPongDelayAudioProcessor::~PingPongDelayAudioProcessor()
+AKStereoDelayProcessor::~AKStereoDelayProcessor()
 {
 }
 
-void PingPongDelayAudioProcessor::parameterChanged(const String& parameterID, float newValue)
+void AKStereoDelayProcessor::parameterChanged(const String& parameterID, float newValue)
 {
     if (parameterID == "pingpong")
     {
@@ -49,12 +43,12 @@ void PingPongDelayAudioProcessor::parameterChanged(const String& parameterID, fl
     }
 }
 
-const String PingPongDelayAudioProcessor::getName() const
+const String AKStereoDelayProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool PingPongDelayAudioProcessor::acceptsMidi() const
+bool AKStereoDelayProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -63,7 +57,7 @@ bool PingPongDelayAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool PingPongDelayAudioProcessor::producesMidi() const
+bool AKStereoDelayProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -72,7 +66,7 @@ bool PingPongDelayAudioProcessor::producesMidi() const
    #endif
 }
 
-bool PingPongDelayAudioProcessor::isMidiEffect() const
+bool AKStereoDelayProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -81,43 +75,41 @@ bool PingPongDelayAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double PingPongDelayAudioProcessor::getTailLengthSeconds() const
+double AKStereoDelayProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int PingPongDelayAudioProcessor::getNumPrograms()
+int AKStereoDelayProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int PingPongDelayAudioProcessor::getCurrentProgram()
+int AKStereoDelayProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void PingPongDelayAudioProcessor::setCurrentProgram (int /*index*/)
+void AKStereoDelayProcessor::setCurrentProgram (int /*index*/)
 {
 }
 
-const String PingPongDelayAudioProcessor::getProgramName (int /*index*/)
+const String AKStereoDelayProcessor::getProgramName (int /*index*/)
 {
     return {};
 }
 
-void PingPongDelayAudioProcessor::changeProgramName (int /*index*/, const String& /*newName*/)
+void AKStereoDelayProcessor::changeProgramName (int /*index*/, const String& /*newName*/)
 {
 }
 
-void PingPongDelayAudioProcessor::prepareToPlay (double sampleRate, int /*samplesPerBlock*/)
+void AKStereoDelayProcessor::prepareToPlay (double sampleRate, int /*samplesPerBlock*/)
 {
     bool pingPong = *paramTree.getRawParameterValue("pingpong") > 0.5f;
     float delayTimeSeconds = *paramTree.getRawParameterValue("delaySec");
     float feedbackFraction = *paramTree.getRawParameterValue("feedback");
     float effectLevelFraction = *paramTree.getRawParameterValue("fxLevel");
-
-    DBG("prepareToPlay: pingPong is " + String(pingPong ? "TRUE" : "FALSE"));
 
     delay.init(sampleRate, 2000.0);
     delay.setPingPongMode(pingPong);
@@ -126,13 +118,13 @@ void PingPongDelayAudioProcessor::prepareToPlay (double sampleRate, int /*sample
     delay.setEffectLevel(effectLevelFraction);
 }
 
-void PingPongDelayAudioProcessor::releaseResources()
+void AKStereoDelayProcessor::releaseResources()
 {
     delay.deinit();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool PingPongDelayAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool AKStereoDelayProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -155,27 +147,29 @@ bool PingPongDelayAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 }
 #endif
 
-void PingPongDelayAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
+void AKStereoDelayProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
 {
     ScopedNoDenormals noDenormals;
 
     const float *inBuffers[2] = { buffer.getReadPointer(0), buffer.getReadPointer(1) };
     float* outBuffers[2] = { buffer.getWritePointer(0), buffer.getWritePointer(1) };
 
+    
+
     delay.render(buffer.getNumSamples(), inBuffers, outBuffers);
 }
 
-bool PingPongDelayAudioProcessor::hasEditor() const
+bool AKStereoDelayProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* PingPongDelayAudioProcessor::createEditor()
+AudioProcessorEditor* AKStereoDelayProcessor::createEditor()
 {
-    return new PingPongDelayAudioProcessorEditor (*this);
+    return new AKStereoDelayProcessorEditor (*this);
 }
 
-void PingPongDelayAudioProcessor::getStateInformation (MemoryBlock& destData)
+void AKStereoDelayProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -183,7 +177,7 @@ void PingPongDelayAudioProcessor::getStateInformation (MemoryBlock& destData)
     destData.setSize(1);    // make VstHost happy
 }
 
-void PingPongDelayAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
+void AKStereoDelayProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
@@ -191,5 +185,5 @@ void PingPongDelayAudioProcessor::setStateInformation (const void* /*data*/, int
 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new PingPongDelayAudioProcessor();
+    return new AKStereoDelayProcessor();
 }
