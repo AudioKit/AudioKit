@@ -16,11 +16,11 @@
 //==============================================================================
 /**
 */
-class PingPongDelayAudioProcessorEditor  : public AudioProcessorEditor
+class AKStereoDelayProcessorEditor  : public AudioProcessorEditor
 {
 public:
-    PingPongDelayAudioProcessorEditor (PingPongDelayAudioProcessor&);
-    ~PingPongDelayAudioProcessorEditor();
+    AKStereoDelayProcessorEditor (AKStereoDelayProcessor&);
+    ~AKStereoDelayProcessorEditor();
 
     //==============================================================================
     void paint (Graphics&) override;
@@ -29,7 +29,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    PingPongDelayAudioProcessor& processor;
+    AKStereoDelayProcessor& processor;
 
     ComboBox modeCombo;
     Slider delaySecSlider, feedbackSlider, fxLevelSlider;
@@ -40,5 +40,5 @@ private:
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> fxLevelAttachment;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PingPongDelayAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AKStereoDelayProcessorEditor)
 };

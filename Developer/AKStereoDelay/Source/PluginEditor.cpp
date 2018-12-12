@@ -12,7 +12,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-PingPongDelayAudioProcessorEditor::PingPongDelayAudioProcessorEditor (PingPongDelayAudioProcessor& p)
+AKStereoDelayProcessorEditor::AKStereoDelayProcessorEditor (AKStereoDelayProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     modeCombo.addItem("Stereo", 1);
@@ -60,18 +60,18 @@ PingPongDelayAudioProcessorEditor::PingPongDelayAudioProcessorEditor (PingPongDe
     setSize (400, 300);
 }
 
-PingPongDelayAudioProcessorEditor::~PingPongDelayAudioProcessorEditor()
+AKStereoDelayProcessorEditor::~AKStereoDelayProcessorEditor()
 {
 }
 
 //==============================================================================
-void PingPongDelayAudioProcessorEditor::paint (Graphics& g)
+void AKStereoDelayProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 }
 
-void PingPongDelayAudioProcessorEditor::resized()
+void AKStereoDelayProcessorEditor::resized()
 {
     auto bounds = getLocalBounds().reduced(20);
     auto row = bounds.removeFromTop(40);

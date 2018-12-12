@@ -2,12 +2,12 @@
 #include "JuceHeader.h"
 #include "AKStereoDelay.hpp"
 
-class PingPongDelayAudioProcessor : public AudioProcessor,
-                                    public AudioProcessorValueTreeState::Listener
+class AKStereoDelayProcessor :  public AudioProcessor,
+                                public AudioProcessorValueTreeState::Listener
 {
 public:
-    PingPongDelayAudioProcessor();
-    ~PingPongDelayAudioProcessor();
+    AKStereoDelayProcessor();
+    ~AKStereoDelayProcessor();
 
     void parameterChanged(const String &parameterID, float newValue) override;
 
@@ -44,5 +44,5 @@ public:
 private:
     AudioKitCore::AKStereoDelay delay;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PingPongDelayAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AKStereoDelayProcessor)
 };
