@@ -24,7 +24,7 @@ namespace AudioKitCore
         AdjustableDelayLine();
         ~AdjustableDelayLine() { deinit(); }
         
-        void init(double sampleRate, double maxDelayMs);
+        void init(double sampleRate, double maxDelayMilliseconds);
         void deinit();
 
         double getMaxDelayMs() { return maxDelayMs; }
