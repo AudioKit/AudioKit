@@ -14,10 +14,10 @@ namespace AudioKitCore
     {
     }
     
-    void AdjustableDelayLine::init(double sampleRate, double maxDelayMs)
+    void AdjustableDelayLine::init(double sampleRate, double maxDelayMilliseconds)
     {
         sampleRateHz = sampleRate;
-        this->maxDelayMs = maxDelayMs;
+        maxDelayMs = maxDelayMilliseconds;
 
         capacity = int(maxDelayMs * sampleRateHz / 1000.0);
         if (pBuffer) delete[] pBuffer;

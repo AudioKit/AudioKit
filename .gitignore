@@ -34,3 +34,7 @@ Dev.playground
 
 # During Development
 AudioUnits
+
+# JUCE related
+Builds/
+JuceLibraryCode/
