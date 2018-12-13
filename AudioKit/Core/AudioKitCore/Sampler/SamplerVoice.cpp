@@ -169,8 +169,8 @@ namespace AudioKitCore
         else
         {
             isFilterEnabled = true;
-            noteFrequency *= powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
-            float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteFrequency - MIDDLE_C_HZ);
+            float noteHz = noteFrequency * powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
+            float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteHz - MIDDLE_C_HZ);
             float envStrength = ((1.0f - cutoffEnvelopeVelocityScaling) + cutoffEnvelopeVelocityScaling * noteVolume);
             double cutoffFrequency = baseFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * envStrength * filterEnvelope.getSample());
             leftFilter.setParameters(cutoffFrequency, resLinear);
