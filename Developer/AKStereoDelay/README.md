@@ -1,0 +1,4 @@
+# Using AKStereoDelay with JUCE
+The [JUCE framework](https://juce.com/) provides a fairly straightforward way to build standard DAW plug-ins from C++ DSP code (such as that in *AudioKitCore*). JUCE is commercial software, but offers several no-cost options, including very good support for fully open-source project which use the [GPL3](https://www.gnu.org/licenses/gpl-3.0.en.html) or a GPL3-compatible license.
+
+To build this example, you will need to obtain a copy of the JUCE framework, and sign up for a free "Personal" license, which will allow you to make use of the "Projucer" program to open the *AKStereoDelay.jucer* project file. Saving the project will cause the Projucer to generate as many IDE projects as necessary, for the plug-in types you have requested. You can open these in the usual way in e.g. Xcode for macOS/iOS or Visual Studio 2017 for Windows.
