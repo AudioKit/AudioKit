@@ -267,9 +267,7 @@ import AVFoundation
         }
 
         set {
-            // startTimeQueue.sync {
             _startTime = max(0, newValue)
-            // }
         }
     }
 
@@ -284,9 +282,7 @@ import AVFoundation
             if newValue == 0 {
                 newValue = duration
             }
-            // endTimeQueue.sync {
             _endTime = min(newValue, duration)
-            // }
         }
     }
 
