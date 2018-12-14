@@ -1,5 +1,5 @@
 //
-//  AKMIDI+SendingMIDI.swift
+//  AKMIDI+Sending.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.

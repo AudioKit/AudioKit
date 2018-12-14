@@ -9,7 +9,7 @@
 #include "AKWhiteNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createWhiteNoiseDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createWhiteNoiseDSP(int nChannels, double sampleRate) {
     AKWhiteNoiseDSP *dsp = new AKWhiteNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

@@ -134,6 +134,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKVocalTractDSP.hpp"
 
 // Mixing
+#import "AKAutoPannerDSP.hpp"
 #import "AKBalancerAudioUnit.h"
 #import "AKBoosterDSP.hpp"
 #import "AKPannerDSP.hpp"
@@ -148,6 +149,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSampler_Typedefs.h"
 #import "AKCoreSampler.hpp"
 #import "AKSamplerDSP.hpp"
+
+#if !TARGET_OS_TV
+#import "AKCallbackInstrumentAudioUnit.h"
+#endif
 
 // Testing
 #import "AKTesterAudioUnit.h"
@@ -170,6 +175,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "ParameterRamper.hpp"
 #import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
+#import "AudioEngineUnit.h"
 
 // Sequencer
 #import "AKSamplerMetronome.h"

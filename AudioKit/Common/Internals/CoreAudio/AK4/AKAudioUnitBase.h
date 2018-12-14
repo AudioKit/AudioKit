@@ -12,8 +12,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKDSPBase.hpp"
+#import "BufferedAudioUnit.h"
+#import "AKInterop.h"
 
-@interface AKAudioUnitBase : AUAudioUnit
+@interface AKAudioUnitBase : BufferedAudioUnit
+
+/** Pointer to AKDSPBase subclass. */
+@property (readonly) AKDSPRef dsp;
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
@@ -22,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
@@ -49,12 +54,6 @@
 
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
-
-// These three properties are what are in the Apple example code.
-
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
 
 @end
 

@@ -22,5 +22,7 @@
 	<string>Copyright © 2018 AudioKit. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone permission is used to capture Input Device Audio streams.</string>
 </dict>
 </plist>
