@@ -9,9 +9,7 @@
 import AVFoundation
 
 public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
-    
-    var pDSP: UnsafeMutableRawPointer?
-    
+
     func setParameter(_ address: AKSamplerParameter, value: Double) {
         setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
@@ -99,11 +97,18 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var isLegato: Double = 0.0 {
         didSet { setParameter(.legato, value: isLegato) }
     }
+
+    var keyTrackingFraction: Double = 1.0 {
+        didSet { setParameter(.keyTrackingFraction, value: keyTrackingFraction) }
+    }
+
+    var filterEnvelopeVelocityScaling: Double = 0.0 {
+        didSet { setParameter(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling) }
+    }
     
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
-        pDSP = createAKSamplerDSP(Int32(count), sampleRate)
-        return pDSP
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
+        return createAKSamplerDSP(Int32(count), sampleRate)
     }
     
     override init(componentDescription: AudioComponentDescription,
@@ -321,6 +326,28 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             flags: nonRampFlags,
             valueStrings: nil, dependentParameters: nil)
         
+        parameterAddress += 1
+
+        let keyTrackingParameter = AUParameterTree.createParameter(
+            withIdentifier: "keyTracking",
+            name: "Key Tracking",
+            address: AUParameterAddress(parameterAddress),
+            min: -2.0, max: 2.0,
+            unit: .generic, unitName: nil,
+            flags: nonRampFlags,
+            valueStrings: nil, dependentParameters: nil)
+
+        parameterAddress += 1
+
+        let filterEnvelopeVelocityScalingParameter = AUParameterTree.createParameter(
+            withIdentifier: "filterEnvelopeVelocityScaling",
+            name: "Filter Envelope Velocity Scaling",
+            address: AUParameterAddress(parameterAddress),
+            min: 0.0, max: 1.0,
+            unit: .generic, unitName: nil,
+            flags: nonRampFlags,
+            valueStrings: nil, dependentParameters: nil)
+
         setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
@@ -339,7 +366,9 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
                                                                    filterEnableParameter,
                                                                    loopThruReleaseParameter,
                                                                    monophonicParameter,
-                                                                   legatoParameter]))
+                                                                   legatoParameter,
+                                                                   keyTrackingParameter,
+                                                                   filterEnvelopeVelocityScalingParameter]))
         masterVolumeParameter.value = 1.0
         pitchBendParameter.value = 0.0
         vibratoDepthParameter.value = 0.0
@@ -359,56 +388,62 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         loopThruReleaseParameter.value = 0.0
         monophonicParameter.value = 0.0
         legatoParameter.value = 0.0
+        keyTrackingParameter.value = 1.0
+        filterEnvelopeVelocityScalingParameter.value = 0.0
     }
     
     public override var canProcessInPlace: Bool { return true }
     
     public func stopAllVoices() {
-        doAKSamplerStopAllVoices(pDSP)
+        doAKSamplerStopAllVoices(dsp)
     }
     
     public func restartVoices() {
-        doAKSamplerRestartVoices(pDSP)
+        doAKSamplerRestartVoices(dsp)
     }
     
     public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         var copy = sampleDataDescriptor
-        doAKSamplerLoadData(pDSP, &copy)
+        doAKSamplerLoadData(dsp, &copy)
     }
     
     public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         var copy = sampleFileDescriptor
-        doAKSamplerLoadCompressedFile(pDSP, &copy)
+        doAKSamplerLoadCompressedFile(dsp, &copy)
     }
     
     public func unloadAllSamples() {
-        doAKSamplerUnloadAllSamples(pDSP)
+        doAKSamplerUnloadAllSamples(dsp)
     }
     
     public func buildSimpleKeyMap() {
-        doAKSamplerBuildSimpleKeyMap(pDSP)
+        doAKSamplerBuildSimpleKeyMap(dsp)
     }
     
     public func buildKeyMap() {
-        doAKSamplerBuildKeyMap(pDSP)
+        doAKSamplerBuildKeyMap(dsp)
     }
     
     public func setLoop(thruRelease: Bool) {
-        doAKSamplerSetLoopThruRelease(pDSP, thruRelease)
+        doAKSamplerSetLoopThruRelease(dsp, thruRelease)
     }
     
     public func playNote(noteNumber: UInt8,
                          velocity: UInt8,
                          noteFrequency: Float) {
-        doAKSamplerPlayNote(pDSP, noteNumber, velocity, noteFrequency)
+        doAKSamplerPlayNote(dsp, noteNumber, velocity, noteFrequency)
     }
     
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
-        doAKSamplerStopNote(pDSP, noteNumber, immediate)
+        doAKSamplerStopNote(dsp, noteNumber, immediate)
     }
     
     public func sustainPedal(down: Bool) {
-        doAKSamplerSustainPedal(pDSP, down)
+        doAKSamplerSustainPedal(dsp, down)
+    }
+
+    override public func shouldClearOutputBuffer() -> Bool {
+        return true
     }
 
 }

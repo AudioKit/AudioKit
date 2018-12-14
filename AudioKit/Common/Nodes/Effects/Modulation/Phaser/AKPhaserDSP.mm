@@ -9,7 +9,7 @@
 #include "AKPhaserDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createPhaserDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createPhaserDSP(int nChannels, double sampleRate) {
     AKPhaserDSP *dsp = new AKPhaserDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

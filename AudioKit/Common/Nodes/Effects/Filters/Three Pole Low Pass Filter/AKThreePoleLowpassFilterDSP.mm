@@ -9,7 +9,7 @@
 #include "AKThreePoleLowpassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
     AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

@@ -9,7 +9,7 @@
 #include "AKZitaReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createZitaReverbDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createZitaReverbDSP(int nChannels, double sampleRate) {
     AKZitaReverbDSP *dsp = new AKZitaReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

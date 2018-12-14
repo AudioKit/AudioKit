@@ -9,7 +9,7 @@
 #include "AKDCBlockDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createDCBlockDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createDCBlockDSP(int nChannels, double sampleRate) {
     AKDCBlockDSP *dsp = new AKDCBlockDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

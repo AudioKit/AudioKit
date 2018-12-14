@@ -13,8 +13,9 @@ var sequencer = AKSequencer()
 var tempo = 120.0
 var division = 1
 
-var callbacker = AKCallbackInstrument { status, note, _ in
-    if status == .noteOn {
+var callbacker = AKMIDICallbackInstrument { statusByte, note, _ in
+    guard let midiStatus = AKMIDIStatus(statusByte: statusByte) else { return }
+    if midiStatus == .noteOn {
         AKLog("Start Note \(note) at \(sequencer.currentPosition.seconds)")
     }
 }

@@ -9,7 +9,7 @@
 #include "AKMetalBarDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createMetalBarDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createMetalBarDSP(int nChannels, double sampleRate) {
     AKMetalBarDSP *dsp = new AKMetalBarDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

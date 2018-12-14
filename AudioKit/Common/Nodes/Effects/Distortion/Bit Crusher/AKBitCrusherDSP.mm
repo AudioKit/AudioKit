@@ -9,7 +9,7 @@
 #include "AKBitCrusherDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createBitCrusherDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createBitCrusherDSP(int nChannels, double sampleRate) {
     AKBitCrusherDSP *dsp = new AKBitCrusherDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPWMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void *createPWMOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createPWMOscillatorDSP(int nChannels, double sampleRate);
 
 #else
 

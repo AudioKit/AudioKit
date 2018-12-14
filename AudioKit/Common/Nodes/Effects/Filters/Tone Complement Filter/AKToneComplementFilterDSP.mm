@@ -9,7 +9,7 @@
 #include "AKToneComplementFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createToneComplementFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createToneComplementFilterDSP(int nChannels, double sampleRate) {
     AKToneComplementFilterDSP *dsp = new AKToneComplementFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
