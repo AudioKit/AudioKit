@@ -37,6 +37,9 @@ open class AKAudioUnitManager: NSObject {
     /// last node in chain, generally a mixer or some kind of output
     public var output: AKNode?
 
+    /// if true, it will use AKSettings.audioFormat rather than the input source for the internal processing chain
+    public var useSystemAVFormat: Bool = false
+
     // Serializes all access to `availableEffects`.
     private let availableEffectsAccessQueue = DispatchQueue(label:
         "AKAudioUnitManager.availableEffectsAccessQueue")
@@ -386,7 +389,7 @@ open class AKAudioUnitManager: NSObject {
         let effects = linkedEffects
         let outputAV = output.avAudioUnitOrNode
 
-        let processingFormat = inputAV.outputFormat(forBus: 0)
+        let processingFormat = useSystemAVFormat ? AKSettings.audioFormat : inputAV.outputFormat(forBus: 0)
         AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {
