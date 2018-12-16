@@ -32,7 +32,6 @@ public class AKAmplitudeTap: AKToggleable {
         return amp.reduce(0, +) / 2
     }
 
-    // TODO:
     public var leftAmplitude: Float {
         return amp[0]
     }
