@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
 
 #ifndef __cplusplus
 
-void *createPannerDSP(int nChannels, double sampleRate);
+AKDSPRef createPannerDSP(int nChannels, double sampleRate);
 
 #else
 

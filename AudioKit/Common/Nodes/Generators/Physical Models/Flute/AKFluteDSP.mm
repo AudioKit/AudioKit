@@ -12,7 +12,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void *createFluteDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createFluteDSP(int nChannels, double sampleRate) {
     AKFluteDSP *dsp = new AKFluteDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

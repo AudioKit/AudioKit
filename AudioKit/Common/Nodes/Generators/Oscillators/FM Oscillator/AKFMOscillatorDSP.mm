@@ -9,7 +9,7 @@
 #include "AKFMOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createFMOscillatorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createFMOscillatorDSP(int nChannels, double sampleRate) {
     AKFMOscillatorDSP *dsp = new AKFMOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

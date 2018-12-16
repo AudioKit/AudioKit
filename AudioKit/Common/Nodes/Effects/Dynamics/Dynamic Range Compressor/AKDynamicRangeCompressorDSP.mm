@@ -9,7 +9,7 @@
 #include "AKDynamicRangeCompressorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createDynamicRangeCompressorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createDynamicRangeCompressorDSP(int nChannels, double sampleRate) {
     AKDynamicRangeCompressorDSP *dsp = new AKDynamicRangeCompressorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

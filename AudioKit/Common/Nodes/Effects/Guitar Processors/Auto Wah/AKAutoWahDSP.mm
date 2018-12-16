@@ -9,7 +9,7 @@
 #include "AKAutoWahDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createAutoWahDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createAutoWahDSP(int nChannels, double sampleRate) {
     AKAutoWahDSP *dsp = new AKAutoWahDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

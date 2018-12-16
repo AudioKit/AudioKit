@@ -9,7 +9,7 @@
 #include "AKPinkNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createPinkNoiseDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createPinkNoiseDSP(int nChannels, double sampleRate) {
     AKPinkNoiseDSP *dsp = new AKPinkNoiseDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

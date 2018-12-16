@@ -9,7 +9,7 @@
 #include "AKMorphingOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createMorphingOscillatorDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createMorphingOscillatorDSP(int nChannels, double sampleRate) {
     AKMorphingOscillatorDSP *dsp = new AKMorphingOscillatorDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

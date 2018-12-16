@@ -9,7 +9,7 @@
 #include "AKPitchShifterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createPitchShifterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createPitchShifterDSP(int nChannels, double sampleRate) {
     AKPitchShifterDSP *dsp = new AKPitchShifterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
