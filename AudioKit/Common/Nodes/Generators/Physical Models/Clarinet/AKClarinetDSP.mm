@@ -12,7 +12,7 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void *createClarinetDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createClarinetDSP(int nChannels, double sampleRate) {
     AKClarinetDSP *dsp = new AKClarinetDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

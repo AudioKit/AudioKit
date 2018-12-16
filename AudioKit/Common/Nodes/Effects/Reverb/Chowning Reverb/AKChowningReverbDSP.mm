@@ -9,7 +9,7 @@
 #include "AKChowningReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createChowningReverbDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createChowningReverbDSP(int nChannels, double sampleRate) {
     AKChowningReverbDSP *dsp = new AKChowningReverbDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

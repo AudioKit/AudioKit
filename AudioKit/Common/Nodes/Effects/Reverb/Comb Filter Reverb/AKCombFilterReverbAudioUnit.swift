@@ -27,7 +27,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createCombFilterReverbDSP(Int32(count), sampleRate)
     }
 

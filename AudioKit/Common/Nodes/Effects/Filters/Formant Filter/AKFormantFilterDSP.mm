@@ -9,7 +9,7 @@
 #include "AKFormantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createFormantFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createFormantFilterDSP(int nChannels, double sampleRate) {
     AKFormantFilterDSP *dsp = new AKFormantFilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;

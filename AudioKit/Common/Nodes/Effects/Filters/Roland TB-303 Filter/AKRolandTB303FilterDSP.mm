@@ -9,7 +9,7 @@
 #include "AKRolandTB303FilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void *createRolandTB303FilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createRolandTB303FilterDSP(int nChannels, double sampleRate) {
     AKRolandTB303FilterDSP *dsp = new AKRolandTB303FilterDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
