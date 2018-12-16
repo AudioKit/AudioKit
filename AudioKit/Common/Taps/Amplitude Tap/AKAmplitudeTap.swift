@@ -6,23 +6,88 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Tap to do basic amplitude analysis on any node
-open class AKAmplitudeTap {
-    internal let bufferSize: UInt32 = 1_024
+import Accelerate
 
-    /// Intialize the ampltiude tap
-    ///
-    /// - parameter input: Node to analyze
-    ///
-    @objc public init(_ input: AKNode?) {
-        input?.avAudioUnitOrNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) { buffer, _ in
+/// Tap to do return amplitude analysis on any node
+public class AKAmplitudeTap: AKToggleable {
+    private let bufferSize: UInt32 = 2_048
+    private var amp: [Float] = Array(repeating: 0, count: 2)
 
-            var sum: Float = 0
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public private(set) var isStarted: Bool = false
 
-            // do a quick calc from the buffer values
-            for i in 0 ..< Int(self.bufferSize) {
-                sum += pow(Float((buffer.floatChannelData?.pointee[i]) ?? 0.0), 2)
+    /// The bus to install the tap onto
+    public var bus: Int = 0
+
+    public var input: AKNode? {
+        willSet {
+            if isStarted {
+                stop()
+                start()
             }
         }
+    }
+
+    public var amplitude: Float {
+        return amp.reduce(0, +) / 2
+    }
+
+    // TODO:
+    public var leftAmplitude: Float {
+        return amp[0]
+    }
+
+    public var rightAmplitude: Float {
+        return amp[1]
+    }
+
+    /// - parameter input: Node to analyze
+    @objc public init(_ input: AKNode?) {
+        self.input = input
+    }
+
+    /// Enable the tap on input
+    public func start() {
+        isStarted = true
+        input?.avAudioUnitOrNode.installTap(onBus: bus,
+                                            bufferSize: bufferSize,
+                                            format: AudioKit.format,
+                                            block: handleTapBlock(buffer:at:))
+    }
+
+    // AVAudioNodeTapBlock - time is currently unused
+    private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+        guard let floatData = buffer.floatChannelData else { return }
+
+        let channelCount = Int(buffer.format.channelCount)
+        let length = UInt(buffer.frameLength)
+
+        // n is the channel
+        for n in 0 ..< channelCount {
+            let data = floatData[n]
+
+            var rms: Float = 0
+            vDSP_rmsqv(data, 1, &rms, UInt(length))
+            amp[n] = rms
+        }
+    }
+
+    /// Remove the tap on input
+    public func stop() {
+        isStarted = false
+        removeTap()
+        amp[0] = 0
+        amp[1] = 0
+    }
+
+    private func removeTap() {
+        input?.avAudioUnitOrNode.removeTap(onBus: 0)
+    }
+
+    public func dispose() {
+        if isPlaying {
+            removeTap()
+        }
+        input = nil
     }
 }
