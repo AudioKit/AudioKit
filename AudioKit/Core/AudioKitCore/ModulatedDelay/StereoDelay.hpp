@@ -1,5 +1,5 @@
 //
-//  AKStereoDelay.hpp
+//  StereoDelay.hpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
@@ -11,25 +11,29 @@
 
 namespace AudioKitCore
 {
-    class AKStereoDelay {
+    class StereoDelay {
         double sampleRateHz;
         float feedbackFraction;
-        float effectLevelFraction;
+        float dryWetMixFraction;
         bool pingPongMode;
 
         AdjustableDelayLine delayLine1, delayLine2;
         
     public:
-        AKStereoDelay() : feedbackFraction(0.0f), effectLevelFraction(0.5f), pingPongMode(false) {}
-        ~AKStereoDelay() { deinit(); }
+        StereoDelay() : feedbackFraction(0.0f), dryWetMixFraction(0.5f), pingPongMode(false) {}
+        ~StereoDelay() { deinit(); }
         
         void init(double sampleRate, double maxDelayMs);
         void deinit();
         
+        void clear();
+        
         void setPingPongMode(bool pingPong);
         void setDelayMs(double delayMs);
-        void setEffectLevel(float fraction) { effectLevelFraction = fraction; }
         void setFeedback(float fraction);
+        void setDryWetMix(float fraction);
+        
+        bool getPingPongMode() { return pingPongMode; }
 
         void render(int sampleCount, const float *inBuffers[], float *outBuffers[]);
     };
