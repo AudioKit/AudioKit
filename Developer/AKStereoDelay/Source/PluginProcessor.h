@@ -1,6 +1,6 @@
 #pragma once
 #include "JuceHeader.h"
-#include "AKStereoDelay.hpp"
+#include "StereoDelay.hpp"
 
 class AKStereoDelayProcessor :  public AudioProcessor,
                                 public AudioProcessorValueTreeState::Listener
@@ -42,7 +42,7 @@ public:
     AudioProcessorValueTreeState paramTree;
 
 private:
-    AudioKitCore::AKStereoDelay delay;
+    AudioKitCore::StereoDelay delay;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AKStereoDelayProcessor)
 };
