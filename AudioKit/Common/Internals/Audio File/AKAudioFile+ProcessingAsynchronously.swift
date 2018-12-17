@@ -294,6 +294,10 @@ extension AKAudioFile {
                                      fromSample: Int64 = 0,
                                      toSample: Int64 = 0,
                                      callback: @escaping AsyncProcessCallback) {
+
+        // clear this initially
+        currentExportSession = nil
+
         let fromFileExt = fileExt.lowercased()
 
         // Only mp4, m4a, .wav, .aif can be exported...
@@ -349,6 +353,9 @@ extension AKAudioFile {
         let asset = url.isFileURL ? AVURLAsset(url: url) : AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             AKLog("internalExportSession session created")
+
+            // store a reference to the export session so progress can be checked if desired
+            self.currentExportSession = internalExportSession
 
             var filePath: String = ""
             var fileName = name
