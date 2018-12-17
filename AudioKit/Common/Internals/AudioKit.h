@@ -41,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
+#import "AKStereoDelayDSP.hpp"
 
 // Effects / Distortion
 #import "AKBitCrusherDSP.hpp"
