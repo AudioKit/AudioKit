@@ -36,10 +36,10 @@
 		344E88EA217E8C1300D58551 /* EnvelopeGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.h */; };
 		3492772A21C80F7500EB0892 /* StereoDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492772821C80F7500EB0892 /* StereoDelay.hpp */; };
 		3492772B21C80F7500EB0892 /* StereoDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492772921C80F7500EB0892 /* StereoDelay.cpp */; };
-		3492773121C8109F00EB0892 /* AKStereoDelayAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492772D21C8109F00EB0892 /* AKStereoDelayAudioUnit.swift */; };
-		3492773221C8109F00EB0892 /* AKStereoDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492772E21C8109F00EB0892 /* AKStereoDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		3492773321C8109F00EB0892 /* AKStereoDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492772F21C8109F00EB0892 /* AKStereoDelay.swift */; };
-		3492773421C8109F00EB0892 /* AKStereoDelayDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3492773021C8109F00EB0892 /* AKStereoDelayDSP.mm */; };
+		3492775021C8165000EB0892 /* AKStereoDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492774C21C8165000EB0892 /* AKStereoDelay.swift */; };
+		3492775121C8165000EB0892 /* AKStereoDelayDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492774D21C8165000EB0892 /* AKStereoDelayDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3492775221C8165000EB0892 /* AKStereoDelayAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492774E21C8165000EB0892 /* AKStereoDelayAudioUnit.swift */; };
+		3492775321C8165000EB0892 /* AKStereoDelayDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3492774F21C8165000EB0892 /* AKStereoDelayDSP.mm */; };
 		34BB673D205AC238000E5450 /* open_legacy.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB671E205AC22D000E5450 /* open_legacy.c */; };
 		34BB673E205AC238000E5450 /* open_raw.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB671F205AC22E000E5450 /* open_raw.c */; };
 		34BB673F205AC238000E5450 /* pack_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 34BB6720205AC22E000E5450 /* pack_utils.c */; };
@@ -1213,10 +1213,10 @@
 		344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvelopeGeneratorBase.h; sourceTree = "<group>"; };
 		3492772821C80F7500EB0892 /* StereoDelay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StereoDelay.hpp; sourceTree = "<group>"; };
 		3492772921C80F7500EB0892 /* StereoDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StereoDelay.cpp; sourceTree = "<group>"; };
-		3492772D21C8109F00EB0892 /* AKStereoDelayAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKStereoDelayAudioUnit.swift; path = "../Stereo Delay/AKStereoDelayAudioUnit.swift"; sourceTree = "<group>"; };
-		3492772E21C8109F00EB0892 /* AKStereoDelayDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AKStereoDelayDSP.hpp; path = "../Stereo Delay/AKStereoDelayDSP.hpp"; sourceTree = "<group>"; };
-		3492772F21C8109F00EB0892 /* AKStereoDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKStereoDelay.swift; path = "../Stereo Delay/AKStereoDelay.swift"; sourceTree = "<group>"; };
-		3492773021C8109F00EB0892 /* AKStereoDelayDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AKStereoDelayDSP.mm; path = "../Stereo Delay/AKStereoDelayDSP.mm"; sourceTree = "<group>"; };
+		3492774C21C8165000EB0892 /* AKStereoDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoDelay.swift; sourceTree = "<group>"; };
+		3492774D21C8165000EB0892 /* AKStereoDelayDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKStereoDelayDSP.hpp; sourceTree = "<group>"; };
+		3492774E21C8165000EB0892 /* AKStereoDelayAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoDelayAudioUnit.swift; sourceTree = "<group>"; };
+		3492774F21C8165000EB0892 /* AKStereoDelayDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKStereoDelayDSP.mm; sourceTree = "<group>"; };
 		34BB671E205AC22D000E5450 /* open_legacy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = open_legacy.c; sourceTree = "<group>"; };
 		34BB671F205AC22E000E5450 /* open_raw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = open_raw.c; sourceTree = "<group>"; };
 		34BB6720205AC22E000E5450 /* pack_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pack_utils.c; sourceTree = "<group>"; };
@@ -2535,16 +2535,15 @@
 			path = Sampler;
 			sourceTree = "<group>";
 		};
-		3492772C21C80F8E00EB0892 /* Stereo Delay */ = {
+		3492774B21C8165000EB0892 /* Stereo Delay */ = {
 			isa = PBXGroup;
 			children = (
-				3492772F21C8109F00EB0892 /* AKStereoDelay.swift */,
-				3492772D21C8109F00EB0892 /* AKStereoDelayAudioUnit.swift */,
-				3492772E21C8109F00EB0892 /* AKStereoDelayDSP.hpp */,
-				3492773021C8109F00EB0892 /* AKStereoDelayDSP.mm */,
+				3492774C21C8165000EB0892 /* AKStereoDelay.swift */,
+				3492774D21C8165000EB0892 /* AKStereoDelayDSP.hpp */,
+				3492774E21C8165000EB0892 /* AKStereoDelayAudioUnit.swift */,
+				3492774F21C8165000EB0892 /* AKStereoDelayDSP.mm */,
 			);
-			name = "Stereo Delay";
-			path = "New Group1";
+			path = "Stereo Delay";
 			sourceTree = "<group>";
 		};
 		34F5A355205ECBE300290001 /* ModulatedDelay */ = {
@@ -3884,7 +3883,7 @@
 		C46302AC1C20E838009B44D9 /* Delay */ = {
 			isa = PBXGroup;
 			children = (
-				3492772C21C80F8E00EB0892 /* Stereo Delay */,
+				3492774B21C8165000EB0892 /* Stereo Delay */,
 				C4537F071C39D07100A51738 /* Simple Delay */,
 				C4537F0A1C39D0B400A51738 /* Variable Delay */,
 			);
@@ -5538,7 +5537,7 @@
 				C49B1538204A06B8009C7C8E /* SingWave.h in Headers */,
 				C49B1575204A06B8009C7C8E /* Cubic.h in Headers */,
 				C49B143E204A06B7009C7C8E /* CDelay.h in Headers */,
-				3492773221C8109F00EB0892 /* AKStereoDelayDSP.hpp in Headers */,
+				3492775121C8165000EB0892 /* AKStereoDelayDSP.hpp in Headers */,
 				C49B1537204A06B8009C7C8E /* ReedTable.h in Headers */,
 				C49B1565204A06B8009C7C8E /* TwoZero.h in Headers */,
 				C4DE858C200CB8870075C82B /* AKFluteDSP.hpp in Headers */,
@@ -5743,7 +5742,6 @@
 				C49B13BE204A06B7009C7C8E /* gbuzz.c in Sources */,
 				C49B14CC204A06B8009C7C8E /* rspline.c in Sources */,
 				C49B13E6204A06B7009C7C8E /* bal.c in Sources */,
-				3492773121C8109F00EB0892 /* AKStereoDelayAudioUnit.swift in Sources */,
 				C4AA7BFB1FD2A7C000040720 /* AKAmplitudeTap.swift in Sources */,
 				C49B13BF204A06B7009C7C8E /* vdelay.c in Sources */,
 				B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */,
@@ -5859,6 +5857,7 @@
 				C49B13AB204A06B7009C7C8E /* paulstretch.c in Sources */,
 				C42858F21E90B647009B737D /* AKDynamicRangeCompressor.swift in Sources */,
 				C493520D1C3CBA6C00A28D7F /* AKBalancerAudioUnit.mm in Sources */,
+				3492775221C8165000EB0892 /* AKStereoDelayAudioUnit.swift in Sources */,
 				C49B1452204A06B7009C7C8E /* phaser.c in Sources */,
 				C49B143C204A06B7009C7C8E /* CDelay.cpp in Sources */,
 				551AAC261F61F24700A14C0D /* AVAudioTimeShim.swift in Sources */,
@@ -5867,7 +5866,7 @@
 				C49B1404204A06B7009C7C8E /* bar.c in Sources */,
 				C4775855202FDC2600159BA7 /* AKFMOscillatorDSP.mm in Sources */,
 				C4A43290200618410005BFE4 /* AKCostelloReverbAudioUnit.swift in Sources */,
-				3492773421C8109F00EB0892 /* AKStereoDelayDSP.mm in Sources */,
+				3492775321C8165000EB0892 /* AKStereoDelayDSP.mm in Sources */,
 				EA03BFC8201DD29000E8BE2C /* AKDSPBase.mm in Sources */,
 				C49B13B8204A06B7009C7C8E /* comb.c in Sources */,
 				C4AA7BFD1FD2A7C000040720 /* AKRenderTap.m in Sources */,
@@ -6224,7 +6223,6 @@
 				C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */,
 				C4D890C2202844010002A86A /* AKClipperDSP.mm in Sources */,
 				C468096D1CEECB6900ADFC05 /* AKPitchShifter.swift in Sources */,
-				3492773321C8109F00EB0892 /* AKStereoDelay.swift in Sources */,
 				C41863771C23FE6600A06E41 /* jitter.swift in Sources */,
 				C4C136F11C2F94A00026FD7A /* AKStereoOperation.swift in Sources */,
 				C40AD69A1C463B2600B638AF /* AKMIDIEvent.swift in Sources */,
@@ -6463,6 +6461,7 @@
 				C4077B32200878AD00E5923C /* AKPeakingParametricEqualizerFilterAudioUnit.swift in Sources */,
 				C4537FC11C3A438D00A51738 /* AKFormantFilter.swift in Sources */,
 				C4537F2C1C39D2A300A51738 /* AKClipper.swift in Sources */,
+				3492775021C8165000EB0892 /* AKStereoDelay.swift in Sources */,
 				C49B149E204A06B8009C7C8E /* allpass.c in Sources */,
 				C49F29221D162448000A2D2F /* AKFlute.swift in Sources */,
 				C4AC0B3B1FC944E400EDA024 /* AKAudioUnitBase.mm in Sources */,
