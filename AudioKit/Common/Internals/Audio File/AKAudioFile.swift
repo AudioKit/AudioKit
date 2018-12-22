@@ -221,6 +221,9 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         return internalAVAsset
     }
 
+    /// will have a reference to the current export session when exporting async
+    open var currentExportSession: AVAssetExportSession?
+
     // Make our types Human Friendly™
     public typealias FloatChannelData = [[Float]]
 
