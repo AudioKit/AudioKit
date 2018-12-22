@@ -10,12 +10,8 @@
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements()
-};
-
 class AKOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
     struct NoteState  : public AKBankDSPKernel::NoteState {
 
@@ -83,6 +79,7 @@ public:
     };
 
     // MARK: Member Functions
+public:
 
     AKOscillatorBankDSPKernel() {
         noteStates.resize(128);
@@ -100,23 +97,6 @@ public:
 
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
-    }
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-                standardBankSetParameters()
-        }
-    }
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-                standardBankGetParameters()
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-                standardBankStartRamps()
-        }
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
