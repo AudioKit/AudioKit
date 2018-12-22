@@ -28,7 +28,7 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(PWMOscillatorBank)
-    standardBankParameters(AKPWMOscillatorBankDSPKernel)
+    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"

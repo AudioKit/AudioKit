@@ -10,13 +10,8 @@
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements(),
-    phaseDistortionAddress = numberOfBankEnumElements
-};
-
 class AKPhaseDistortionOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
     struct NoteState  : public AKBankDSPKernel::NoteState {
         
@@ -103,7 +98,13 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        phaseDistortionAddress = numberOfBankEnumElements,
+    };
+
     // MARK: Member Functions
+public:
 
     AKPhaseDistortionOscillatorBankDSPKernel() {
         noteStates.resize(128);
@@ -135,12 +136,12 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-
             case phaseDistortionAddress:
                 phaseDistortionRamper.setUIValue(clamp(value, -1.0f, 1.0f));
                 break;
-
-                standardBankSetParameters()
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
@@ -148,17 +149,19 @@ public:
         switch (address) {
             case phaseDistortionAddress:
                 return phaseDistortionRamper.getUIValue();
-                standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
         }
     }
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-
             case phaseDistortionAddress:
                 phaseDistortionRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
                 break;
-                standardBankStartRamps()
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
         }
     }
 
@@ -193,4 +196,3 @@ private:
 public:
     ParameterRamper phaseDistortionRamper = 0.0;
 };
-
