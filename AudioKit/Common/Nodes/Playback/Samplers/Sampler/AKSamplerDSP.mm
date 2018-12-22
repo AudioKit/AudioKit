@@ -58,6 +58,11 @@ extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
     ((AKSamplerDSP*)pDSP)->deinit();
 }
 
+extern "C" void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
+{
+    ((AKSamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
+}
+
 extern "C" void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
     ((AKSamplerDSP*)pDSP)->buildSimpleKeyMap();
 }
