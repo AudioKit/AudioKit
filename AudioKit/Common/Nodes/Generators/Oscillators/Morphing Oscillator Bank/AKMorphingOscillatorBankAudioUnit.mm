@@ -40,7 +40,7 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(MorphingOscillatorBank)
-    standardBankParameters(AKMorphingOscillatorBankDSPKernel)
+    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameter:@"index"

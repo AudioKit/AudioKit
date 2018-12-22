@@ -91,9 +91,21 @@ protected:
         
     };
 
+public:
+    enum BankAddresses {
+        attackDurationAddress = 0,
+        decayDurationAddress,
+        sustainLevelAddress,
+        releaseDurationAddress,
+        pitchBendAddress,
+        vibratoDepthAddress,
+        vibratoRateAddress,
+        numberOfBankEnumElements
+    };
 
 public:
     
+    // MARK: Member Functions
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeKernel::init(_channels, _sampleRate);
 
@@ -229,69 +241,77 @@ public:
         vibratoRate = double(vibratoRateRamper.getAndStep());
     }
 
+    void setParameter(AUParameterAddress address, AUValue value) {
+        switch (address) {
+            case attackDurationAddress:
+                attackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+            case decayDurationAddress:
+                decayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+            case sustainLevelAddress:
+                sustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+            case releaseDurationAddress:
+                releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+            case pitchBendAddress:
+                pitchBendRamper.setUIValue(clamp(value, (float)-24, (float)24));
+                break;
+            case vibratoDepthAddress:
+                vibratoDepthRamper.setUIValue(clamp(value, (float)0, (float)24));
+                break;
+            case vibratoRateAddress:
+                vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600));
+                break;
+        }
+    }
+
+    AUValue getParameter(AUParameterAddress address) {
+        switch (address) {
+            case attackDurationAddress: \
+                return attackDurationRamper.getUIValue(); \
+            case decayDurationAddress: \
+                return decayDurationRamper.getUIValue(); \
+            case sustainLevelAddress: \
+                return sustainLevelRamper.getUIValue(); \
+            case releaseDurationAddress: \
+                return releaseDurationRamper.getUIValue(); \
+            case pitchBendAddress: \
+                return pitchBendRamper.getUIValue(); \
+            case vibratoDepthAddress: \
+                return vibratoDepthRamper.getUIValue(); \
+            case vibratoRateAddress: \
+                return vibratoRateRamper.getUIValue(); \
+            default: return 0.0f;
+        }
+    }
+
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
+        switch (address) {
+            case attackDurationAddress:
+                attackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+            case decayDurationAddress:
+                decayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+            case sustainLevelAddress:
+                sustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+            case releaseDurationAddress:
+                releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+            case pitchBendAddress:
+                pitchBendRamper.startRamp(clamp(value, (float)-24, (float)24), duration);
+                break;
+            case vibratoDepthAddress:
+                vibratoDepthRamper.startRamp(clamp(value, (float)0, (float)24), duration);
+                break;
+            case vibratoRateAddress:
+                vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration);
+                break;
+        }
+    }
 };
-
-#define standardBankSetParameters() \
-    case attackDurationAddress: \
-        attackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f)); \
-        break; \
-    case decayDurationAddress: \
-        decayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f)); \
-        break; \
-    case sustainLevelAddress: \
-        sustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f)); \
-        break; \
-    case releaseDurationAddress: \
-        releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f)); \
-        break; \
-    case pitchBendAddress: \
-        pitchBendRamper.setUIValue(clamp(value, (float)-24, (float)24)); \
-        break; \
-    case vibratoDepthAddress: \
-        vibratoDepthRamper.setUIValue(clamp(value, (float)0, (float)24)); \
-        break; \
-    case vibratoRateAddress: \
-        vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600)); \
-        break;
-
-#define standardBankGetParameters() \
-    case attackDurationAddress: \
-        return attackDurationRamper.getUIValue(); \
-    case decayDurationAddress: \
-        return decayDurationRamper.getUIValue(); \
-    case sustainLevelAddress: \
-        return sustainLevelRamper.getUIValue(); \
-    case releaseDurationAddress: \
-        return releaseDurationRamper.getUIValue(); \
-    case pitchBendAddress: \
-        return pitchBendRamper.getUIValue(); \
-    case vibratoDepthAddress: \
-        return vibratoDepthRamper.getUIValue(); \
-    case vibratoRateAddress: \
-        return vibratoRateRamper.getUIValue(); \
-    default: return 0.0f;
-
-#define standardBankStartRamps() \
-    case attackDurationAddress:\
-        attackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration); \
-        break; \
-    case decayDurationAddress: \
-        decayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration); \
-        break; \
-    case sustainLevelAddress: \
-        sustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration); \
-        break; \
-    case releaseDurationAddress: \
-        releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration); \
-        break; \
-    case pitchBendAddress: \
-        pitchBendRamper.startRamp(clamp(value, (float)-24, (float)24), duration); \
-        break; \
-    case vibratoDepthAddress: \
-        vibratoDepthRamper.startRamp(clamp(value, (float)0, (float)24), duration); \
-        break; \
-    case vibratoRateAddress: \
-        vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration); \
-        break;
 
 #endif  // #ifdef __cplusplus

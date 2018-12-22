@@ -12,13 +12,9 @@
 #import "AKBankDSPKernel.hpp"
 
 class AKMorphingOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
-    enum {
-        standardBankEnumElements(),
-        indexAddress = numberOfBankEnumElements
-    };
-    
+
     struct NoteState  : public AKBankDSPKernel::NoteState {
         
         sp_oscmorph *osc;
@@ -87,7 +83,13 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        indexAddress = numberOfBankEnumElements,
+    };
+
     // MARK: Member Functions
+public:
 
     AKMorphingOscillatorBankDSPKernel() {
         noteStates.resize(128);
@@ -123,7 +125,9 @@ public:
             case indexAddress:
                 indexRamper.setUIValue(clamp(value, 0.0f, 3.0f));
                 break;
-                standardBankSetParameters()
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
@@ -131,7 +135,8 @@ public:
         switch (address) {
             case indexAddress:
                 return indexRamper.getUIValue();
-                standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
         }
     }
 
@@ -140,7 +145,9 @@ public:
             case indexAddress:
                 indexRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
                 break;
-                standardBankStartRamps()
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
         }
     }
 
@@ -177,4 +184,3 @@ public:
 };
 
 #endif
-

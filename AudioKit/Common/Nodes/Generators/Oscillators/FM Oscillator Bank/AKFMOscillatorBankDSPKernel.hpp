@@ -10,15 +10,8 @@
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements(),
-    carrierMultiplierAddress = numberOfBankEnumElements,
-    modulatingMultiplierAddress = numberOfBankEnumElements + 1,
-    modulationIndexAddress = numberOfBankEnumElements + 2
-};
-
 class AKFMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
     struct NoteState : public AKBankDSPKernel::NoteState {
         
@@ -89,7 +82,15 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        carrierMultiplierAddress = numberOfBankEnumElements,
+        modulatingMultiplierAddress,
+        modulationIndexAddress
+    };
+
     // MARK: Member Functions
+public:
 
     AKFMOscillatorBankDSPKernel() {
         noteStates.resize(128);
@@ -125,6 +126,7 @@ public:
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
+
         switch (address) {
 
             case carrierMultiplierAddress:
@@ -139,8 +141,9 @@ public:
                 modulationIndexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
-            standardBankSetParameters()
-
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
@@ -156,7 +159,8 @@ public:
             case modulationIndexAddress:
                 return modulationIndexRamper.getUIValue();
 
-            standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
                 
         }
     }
@@ -176,8 +180,9 @@ public:
                 modulationIndexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
                 
-            
-            standardBankStartRamps()
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
                 
         }
     }

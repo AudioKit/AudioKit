@@ -12,13 +12,8 @@
 #import "AKBankDSPKernel.hpp"
 
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
-    
-    enum {
-        standardBankEnumElements(),
-        pulseWidthAddress = numberOfBankEnumElements
-    };
     
     struct NoteState  : public AKBankDSPKernel::NoteState {
 
@@ -86,7 +81,13 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        pulseWidthAddress = numberOfBankEnumElements,
+    };
+
     // MARK: Member Functions
+public:
 
     AKPWMOscillatorBankDSPKernel() {
         noteStates.resize(128);
@@ -113,33 +114,32 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-
             case pulseWidthAddress:
                 pulseWidthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-                
-            standardBankSetParameters()
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-
             case pulseWidthAddress:
                 return pulseWidthRamper.getUIValue();
-                
-            standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
         }
     }
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-                
-            standardBankStartRamps()
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
         }
     }
 
