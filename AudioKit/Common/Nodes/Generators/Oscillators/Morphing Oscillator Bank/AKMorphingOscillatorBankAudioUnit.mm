@@ -40,7 +40,6 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(MorphingOscillatorBank)
-    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameter:@"index"
@@ -53,13 +52,13 @@ standardBankFunctions()
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
 
+    standardBankKernelSetParameters()
+
     _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-                                                               standardBankAUParameterList(),
-                                                               indexAUParameter
-                                                               ]];
+    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:children];
     parameterTreeBlock(MorphingOscillatorBank)
 }
 

@@ -42,7 +42,6 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(FMOscillatorBank)
-    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
@@ -89,17 +88,18 @@ standardBankFunctions()
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
 
+    standardBankKernelSetParameters()
+
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-                                                               standardBankAUParameterList(),
-                                                               carrierMultiplierAUParameter,
-                                                               modulatingMultiplierAUParameter,
-                                                               modulationIndexAUParameter
-                                                               ]];
+    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
+                                                                                      modulatingMultiplierAUParameter,
+                                                                                      modulationIndexAUParameter]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:children];
+
     parameterTreeBlock(FMOscillatorBank)
 }
 

@@ -28,7 +28,6 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(PWMOscillatorBank)
-    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"
@@ -41,13 +40,13 @@ standardBankFunctions()
     // Initialize the parameter values.
     pulseWidthAUParameter.value = 0.5;
 
+    standardBankKernelSetParameters()
+
     _kernel.setParameter(AKPWMOscillatorBankDSPKernel::pulseWidthAddress, pulseWidthAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-                                                               standardBankAUParameterList(),
-                                                               pulseWidthAUParameter
-                                                               ]];
+    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[pulseWidthAUParameter]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:children];
 
     parameterTreeBlock(PWMOscillatorBank)
 }
