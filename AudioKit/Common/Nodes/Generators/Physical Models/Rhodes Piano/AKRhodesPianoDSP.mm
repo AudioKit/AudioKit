@@ -1,31 +1,31 @@
 //
-//  AKTubularBellsDSP.mm
+//  AKRhodesPianoDSP.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/22/18.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#import "AKTubularBellsDSP.hpp"
+#import "AKRhodesPianoDSP.hpp"
 
-#include "TubeBell.h"
+#include "Rhodey.h"
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate) {
-    AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
+extern "C" AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate) {
+    AKRhodesPianoDSP *dsp = new AKRhodesPianoDSP();
     dsp->init(nChannels, sampleRate);
     return dsp;
 }
 
-// AKTubularBellsDSP method implementations
+// AKRhodesPianoDSP method implementations
 
-struct AKTubularBellsDSP::_Internal
+struct AKRhodesPianoDSP::_Internal
 {
     float internalTrigger = 0;
-    stk::TubeBell *tubularBells;
+    stk::Rhodey *rhodesPiano;
 
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
@@ -33,7 +33,7 @@ struct AKTubularBellsDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKTubularBellsDSP::AKTubularBellsDSP() : _private(new _Internal)
+AKRhodesPianoDSP::AKRhodesPianoDSP() : _private(new _Internal)
 {
     _private->frequencyRamp.setTarget(110, true);
     _private->frequencyRamp.setDurationInSamples(10000);
@@ -41,18 +41,18 @@ AKTubularBellsDSP::AKTubularBellsDSP() : _private(new _Internal)
     _private->amplitudeRamp.setDurationInSamples(10000);
 }
 
-AKTubularBellsDSP::~AKTubularBellsDSP() = default;
+AKRhodesPianoDSP::~AKRhodesPianoDSP() = default;
 
 /** Uses the ParameterAddress as a key */
-void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
+void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
-        case AKTubularBellsParameterFrequency:
+        case AKRhodesPianoParameterFrequency:
             _private->frequencyRamp.setTarget(value, immediate);
             break;
-        case AKTubularBellsParameterAmplitude:
+        case AKRhodesPianoParameterAmplitude:
             _private->amplitudeRamp.setTarget(value, immediate);
             break;
-        case AKTubularBellsParameterRampDuration:
+        case AKRhodesPianoParameterRampDuration:
             _private->frequencyRamp.setRampDuration(value, _sampleRate);
             _private->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
@@ -60,19 +60,19 @@ void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bo
 }
 
 /** Uses the ParameterAddress as a key */
-float AKTubularBellsDSP::getParameter(AUParameterAddress address)  {
+float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
-        case AKTubularBellsParameterFrequency:
+        case AKRhodesPianoParameterFrequency:
             return _private->frequencyRamp.getTarget();
-        case AKTubularBellsParameterAmplitude:
+        case AKRhodesPianoParameterAmplitude:
             return _private->amplitudeRamp.getTarget();
-        case AKTubularBellsParameterRampDuration:
+        case AKRhodesPianoParameterRampDuration:
             return _private->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
-void AKTubularBellsDSP::init(int _channels, double _sampleRate)  {
+void AKRhodesPianoDSP::init(int _channels, double _sampleRate)  {
     AKDSPBase::init(_channels, _sampleRate);
 
     NSError *error = nil;
@@ -94,25 +94,25 @@ void AKTubularBellsDSP::init(int _channels, double _sampleRate)  {
 
 
     stk::Stk::setSampleRate(_sampleRate);
-    _private->tubularBells = new stk::TubeBell();
+    _private->rhodesPiano = new stk::Rhodey();
 }
 
-void AKTubularBellsDSP::trigger() {
+void AKRhodesPianoDSP::trigger() {
     _private->internalTrigger = 1;
 }
 
-void AKTubularBellsDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
+void AKRhodesPianoDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     bool immediate = true;
     _private->frequencyRamp.setTarget(freq, immediate);
     _private->amplitudeRamp.setTarget(amp, immediate);
     trigger();
 }
 
-void AKTubularBellsDSP::destroy() {
-    delete _private->tubularBells;
+void AKRhodesPianoDSP::destroy() {
+    delete _private->rhodesPiano;
 }
 
-void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void AKRhodesPianoDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
@@ -130,9 +130,9 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
             if (_playing) {
                 if (_private->internalTrigger == 1) {
-                    _private->tubularBells->noteOn(frequency, amplitude);
+                    _private->rhodesPiano->noteOn(frequency, amplitude);
                 }
-                *out = _private->tubularBells->tick();
+                *out = _private->rhodesPiano->tick();
             } else {
                 *out = 0.0;
             }
