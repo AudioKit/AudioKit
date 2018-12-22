@@ -128,7 +128,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarDSP.hpp"
-#import "AKRhodesPianoAudioUnit.h"
+#import "AKRhodesPianoDSP.hpp"
 #import "AKPluckedStringDSP.hpp"
 #import "AKShakerAudioUnit.h"
 #import "AKTubularBellsDSP.hpp"
