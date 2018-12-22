@@ -45,6 +45,9 @@ public:
     
     // after loading samples, call one of these to build the key map
     
+    /// call for noteNumber 0-127 to define tuning table (defaults to standard 12-tone equal temperament)
+    void setNoteFrequency(int noteNumber, float noteFrequency);
+    
     /// use this when you have full key mapping data (min/max note, vel)
     void buildKeyMap(void);
     
