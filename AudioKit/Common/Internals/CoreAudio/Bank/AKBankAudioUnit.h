@@ -26,17 +26,6 @@
 
 @end
 
-#define numberOfBankEnumElements 7
-
-#define standardBankEnumElements() \
-    attackDurationAddress = 0, \
-    decayDurationAddress = 1, \
-    sustainLevelAddress = 2, \
-    releaseDurationAddress = 3, \
-    pitchBendAddress = 4, \
-    vibratoDepthAddress = 5, \
-    vibratoRateAddress = 6
-
 #define standardBankAUParameterList() \
     attackDurationAUParameter, \
     decayDurationAUParameter, \

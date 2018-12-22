@@ -42,13 +42,13 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(FMOscillatorBank)
-    standardBankParameters()
+    standardBankParameters(AKBankDSPKernel)
 
     // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
                                               name:@"Carrier Multiplier"
-                                           address:carrierMultiplierAddress
+                                           address:AKFMOscillatorBankDSPKernel::carrierMultiplierAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -61,7 +61,7 @@ standardBankFunctions()
     AUParameter *modulatingMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
                                               name:@"Modulating Multiplier"
-                                           address:modulatingMultiplierAddress
+                                           address:AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -74,7 +74,7 @@ standardBankFunctions()
     AUParameter *modulationIndexAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
                                               name:@"Modulation Index"
-                                           address:modulationIndexAddress
+                                           address:AKFMOscillatorBankDSPKernel::modulationIndexAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -89,9 +89,9 @@ standardBankFunctions()
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
 
-    _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
-    _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
-    _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
+    _kernel.setParameter(AKFMOscillatorBankDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
+    _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
+    _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -106,5 +106,3 @@ standardBankFunctions()
 AUAudioUnitGeneratorOverrides(FMOscillatorBank)
 
 @end
-
-

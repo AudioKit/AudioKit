@@ -51,7 +51,7 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(OscillatorBank)
-    standardBankParameters()
+    standardBankParameters(AKBankDSPKernel)
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
