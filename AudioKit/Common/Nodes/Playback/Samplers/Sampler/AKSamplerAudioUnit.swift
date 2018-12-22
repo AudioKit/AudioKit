@@ -416,6 +416,10 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerUnloadAllSamples(dsp)
     }
     
+    public func setNoteFrequency(noteNumber: Int32, noteFrequency: Float) {
+        doAKSamplerSetNoteFrequency(dsp, noteNumber, noteFrequency)
+    }
+
     public func buildSimpleKeyMap() {
         doAKSamplerBuildSimpleKeyMap(dsp)
     }

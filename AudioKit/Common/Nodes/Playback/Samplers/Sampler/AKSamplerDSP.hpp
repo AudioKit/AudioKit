@@ -49,6 +49,7 @@ AKDSPRef createAKSamplerDSP(int nChannels, double sampleRate);
 void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
 void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
 void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
+void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
 void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
 void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
 void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
