@@ -487,7 +487,7 @@
     @objc open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: Double) {
         internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: Float(frequency))
     }
-    
+
     @objc open func buildSimpleKeyMap() {
         internalAU?.buildSimpleKeyMap()
     }
