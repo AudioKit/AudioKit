@@ -23,8 +23,6 @@
     _kernel.setIndex(index);
 }
 
-standardBankFunctions()
-
 - (void)setupWaveform:(UInt32)waveform size:(int)size {
     _kernel.setupWaveform(waveform, (uint32_t)size);
 }
@@ -52,10 +50,10 @@ standardBankFunctions()
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
 
-    standardBankKernelSetParameters()
-
     _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
 
+    [self setKernelPtr:&_kernel];
+    
     // Create the parameter tree.
     NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
     _parameterTree = [AUParameterTree createTreeWithChildren:children];

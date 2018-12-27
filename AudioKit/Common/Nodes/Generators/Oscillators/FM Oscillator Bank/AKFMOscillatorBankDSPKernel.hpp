@@ -26,8 +26,8 @@ protected:
         }
         
         void init() override {
-            AKFMOscillatorBankDSPKernel* bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
-            
+            AKFMOscillatorBankDSPKernel *bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
+
             sp_adsr_init(kernel->getSpData(), adsr);
             sp_fosc_init(kernel->getSpData(), fosc, bankKernel->ftbl);
             fosc->freq = 0;
@@ -46,7 +46,7 @@ protected:
 
         void run(int frameCount, float *outL, float *outR) override
         {
-            AKFMOscillatorBankDSPKernel* bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
+            AKFMOscillatorBankDSPKernel *bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
             
             float originalFrequency = fosc->freq;
             fosc->freq *= powf(2, kernel->pitchBend / 12.0);

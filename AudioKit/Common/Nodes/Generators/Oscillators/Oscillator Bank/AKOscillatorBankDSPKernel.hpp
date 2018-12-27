@@ -26,7 +26,7 @@ protected:
         }
         
         void init() override {
-            AKOscillatorBankDSPKernel* bankKernel = (AKOscillatorBankDSPKernel*)kernel;
+            AKOscillatorBankDSPKernel *bankKernel = (AKOscillatorBankDSPKernel*)kernel;
             
             sp_adsr_init(kernel->getSpData(), adsr);
             sp_osc_init(kernel->getSpData(), osc, bankKernel->ftbl, 0);
@@ -44,7 +44,7 @@ protected:
             }
         }
 
-        void run(int frameCount, float* outL, float* outR) override
+        void run(int frameCount, float *outL, float *outR) override
         {
             float originalFrequency = osc->freq;
 
@@ -101,12 +101,12 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         standardBankGetAndSteps();
 
-        AKBankDSPKernel::NoteState* noteState = playingNotes;
+        AKBankDSPKernel::NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;

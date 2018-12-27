@@ -20,8 +20,6 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-standardBankFunctions()
-
 - (void)setupWaveform:(int)size {
     _kernel.setupWaveform((uint32_t)size);
 }
@@ -36,7 +34,8 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(OscillatorBank)
-    standardBankKernelSetParameters()
+
+    [self setKernelPtr:&_kernel];
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:[self getStandardParameters]];
