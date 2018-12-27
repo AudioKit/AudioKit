@@ -24,8 +24,6 @@
     _kernel.setPhaseDistortion(phaseDistortion);
 }
 
-standardBankFunctions()
-
 - (void)setupWaveform:(int)size {
     _kernel.setupWaveform((uint32_t)size);
 }
@@ -48,9 +46,9 @@ standardBankFunctions()
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
 
-    standardBankKernelSetParameters()
-
     _kernel.setParameter(AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress, phaseDistortionAUParameter.value);
+
+    [self setKernelPtr:&_kernel];
 
     // Create the parameter tree.
     NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];

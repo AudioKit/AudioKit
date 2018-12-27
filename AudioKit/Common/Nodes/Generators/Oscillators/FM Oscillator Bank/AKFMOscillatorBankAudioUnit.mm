@@ -30,8 +30,6 @@
     _kernel.setModulationIndex(modulationIndex);
 }
 
-standardBankFunctions()
-
 - (void)setupWaveform:(int)size {
     _kernel.setupWaveform((uint32_t)size);
 }
@@ -88,12 +86,11 @@ standardBankFunctions()
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
 
-    standardBankKernelSetParameters()
-
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
     _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
 
+    [self setKernelPtr:&_kernel];
     // Create the parameter tree.
     NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
                                                                                       modulatingMultiplierAUParameter,
@@ -104,5 +101,7 @@ standardBankFunctions()
 }
 
 AUAudioUnitGeneratorOverrides(FMOscillatorBank)
+
+
 
 @end

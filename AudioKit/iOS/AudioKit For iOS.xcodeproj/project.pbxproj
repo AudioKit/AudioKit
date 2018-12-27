@@ -5008,8 +5008,8 @@
 			isa = PBXGroup;
 			children = (
 				C4AC0B461FC944F400EDA024 /* AKBankAudioUnit.h */,
-				C4AC0B471FC944F400EDA024 /* AKBankDSPKernel.hpp */,
 				C4AC0B481FC944F400EDA024 /* AKBankAudioUnit.mm */,
+				C4AC0B471FC944F400EDA024 /* AKBankDSPKernel.hpp */,
 			);
 			path = Bank;
 			sourceTree = "<group>";

@@ -24,8 +24,8 @@ protected:
     struct NoteState {
         
         // linked-list management
-        NoteState* next;
-        NoteState* prev;
+        NoteState *next;
+        NoteState *prev;
         
         void remove() {
             if (prev) prev->next = next;
@@ -43,7 +43,7 @@ protected:
             ++kernel->playingNotesCount;
         }
         
-        AKBankDSPKernel* kernel;
+        AKBankDSPKernel *kernel;
         
         enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
@@ -87,7 +87,7 @@ protected:
             }
         }
         
-        virtual void run(int frameCount, float* outL, float* outR) = 0;
+        virtual void run(int frameCount, float *outL, float *outR) = 0;
         
     };
 
@@ -147,7 +147,7 @@ public:
     UInt64 currentRunningIndex = 0;
 
     std::vector< std::unique_ptr<NoteState> > noteStates;
-    NoteState* playingNotes = nullptr;
+    NoteState *playingNotes = nullptr;
     int playingNotesCount = 0;
     bool resetted = false;
 

@@ -28,7 +28,7 @@ protected:
         }
         
         void init() override {
-            AKMorphingOscillatorBankDSPKernel* bankKernel = (AKMorphingOscillatorBankDSPKernel*)kernel;
+            AKMorphingOscillatorBankDSPKernel *bankKernel = (AKMorphingOscillatorBankDSPKernel*)kernel;
 
             sp_adsr_init(kernel->getSpData(), adsr);
             sp_oscmorph_init(kernel->getSpData(), osc, bankKernel->ft_array, 4, 0);
@@ -49,7 +49,7 @@ protected:
 
         void run(int frameCount, float *outL, float *outR) override
         {
-            AKMorphingOscillatorBankDSPKernel* bankKernel = (AKMorphingOscillatorBankDSPKernel*)kernel;
+            AKMorphingOscillatorBankDSPKernel *bankKernel = (AKMorphingOscillatorBankDSPKernel*)kernel;
             
             float originalFrequency = osc->freq;
             osc->freq *= powf(2, kernel->pitchBend / 12.0);
