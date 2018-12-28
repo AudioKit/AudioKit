@@ -54,7 +54,7 @@ extension AKPlayer {
     }
 
     @objc public func resume() {
-        guard let pauseTime = pauseTime else {
+        guard let pauseTime = self.pauseTime else {
             play()
             return
         }
@@ -62,6 +62,8 @@ extension AKPlayer {
         playerNode.stop()
         play(from: pauseTime)
         AKLog("Resuming at \(pauseTime)")
+
+        self.pauseTime = nil
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
@@ -85,7 +87,6 @@ extension AKPlayer {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
-        pauseTime = nil
     }
 
     // MARK: - Scheduling

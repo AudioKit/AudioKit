@@ -174,8 +174,9 @@ class ViewController: NSViewController {
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
-            // for seamless looping use:
+            // for seamless looping use: .always
             player?.buffering = .dynamic
+
             // can use these to test the internal fader in the player:
 //            player?.fade.inTime = 1
 //            player?.fade.outTime = 1
@@ -195,15 +196,21 @@ class ViewController: NSViewController {
         let state = sender.state == .on
         if node == osc {
             state ? osc.play() : osc.stop()
+
         } else if node == speechSynthesizer {
 //            speechSynthesizer.sayHello()
-        } else if node == player {
-            state ? player?.resume() : player?.pause()
+
+        } else if node == player, let player = player {
+            state ? player.resume() : player.pause()
+
+            AKLog("player.isPaused:", player.isPaused)
+
         }
     }
 
     private func handleAudioComplete() {
-        if !(player?.isLooping ?? false) {
+        guard let player = player else { return }
+        if !player.isLooping {
             playButton?.state = .off
         }
     }
