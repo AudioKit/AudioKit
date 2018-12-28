@@ -1,5 +1,5 @@
 //
-//  AKStereoFieldLimiter.mm
+//  AKStereoFieldLimiterDSP.mm
 //  AudioKit
 //
 //  Created by Andrew Voelkel, revision history on Github.

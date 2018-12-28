@@ -18,8 +18,9 @@ protected:
     float sampleRate;
 public:
     AKDSPKernel(int _channels, float _sampleRate) : channels(_channels), sampleRate(_sampleRate) { }
-
     AKDSPKernel();
+    
+    float getSampleRate() { return sampleRate; }
 
     virtual ~AKDSPKernel() { }
     //

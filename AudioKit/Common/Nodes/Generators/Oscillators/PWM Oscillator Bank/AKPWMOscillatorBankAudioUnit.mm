@@ -19,16 +19,14 @@
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
+
 - (void)setPulseWidth:(float)pulseWidth {
     _kernel.setPulseWidth(pulseWidth);
 }
 
-standardBankFunctions()
-
 - (void)createParameters {
 
     standardGeneratorSetup(PWMOscillatorBank)
-    standardBankParameters(AKPWMOscillatorBankDSPKernel)
 
     // Create a parameter object for the pulseWidth.
     AUParameter *pulseWidthAUParameter = [AUParameter parameter:@"pulseWidth"
@@ -43,11 +41,11 @@ standardBankFunctions()
 
     _kernel.setParameter(AKPWMOscillatorBankDSPKernel::pulseWidthAddress, pulseWidthAUParameter.value);
 
+    [self setKernelPtr:&_kernel];
+    
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-                                                               standardBankAUParameterList(),
-                                                               pulseWidthAUParameter
-                                                               ]];
+    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[pulseWidthAUParameter]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:children];
 
     parameterTreeBlock(PWMOscillatorBank)
 }

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 #include "PluginProcessor.h"
 
 //==============================================================================
@@ -32,13 +32,13 @@ private:
     AKStereoDelayProcessor& processor;
 
     ComboBox modeCombo;
-    Slider delaySecSlider, feedbackSlider, fxLevelSlider;
-    Label modeLabel, delaySecLabel, feedbackLabel, fxLevelLabel;
+    Slider delaySecSlider, feedbackSlider, dryWetMixSlider;
+    Label modeLabel, delaySecLabel, feedbackLabel, dryWetMixLabel;
 
     ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> modeAttachment;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> delaySecAttachment;
     ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> feedbackAttachment;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> fxLevelAttachment;
+    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> dryWetMixAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AKStereoDelayProcessorEditor)
 };

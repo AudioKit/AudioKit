@@ -1,47 +1,58 @@
 //
-//  AKStereoDelay.cpp
+//  StereoDelay.cpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#include "AKStereoDelay.hpp"
+#include "StereoDelay.hpp"
 
 namespace AudioKitCore
 {
-    void AKStereoDelay::init(double sampleRate, double maxDelayMs)
+    void StereoDelay::init(double sampleRate, double maxDelayMs)
     {
         delayLine1.init(sampleRate, maxDelayMs);
         delayLine2.init(sampleRate, maxDelayMs);
     }
     
-    void AKStereoDelay::deinit()
+    void StereoDelay::deinit()
     {
         delayLine1.deinit();
         delayLine2.deinit();
     }
     
-    void AKStereoDelay::setPingPongMode(bool pingPong)
+    void StereoDelay::clear()
+    {
+        delayLine1.clear();
+        delayLine2.clear();
+    }
+    
+    void StereoDelay::setPingPongMode(bool pingPong)
     {
         pingPongMode = pingPong;
         setFeedback(feedbackFraction);
     }
 
-    void AKStereoDelay::setDelayMs(double delayMs)
+    void StereoDelay::setDelayMs(double delayMs)
     {
         delayLine1.setDelayMs(delayMs);
         delayLine2.setDelayMs(delayMs);
     }
 
-    void AKStereoDelay::setFeedback(float fraction)
+    void StereoDelay::setFeedback(float fraction)
     {
         feedbackFraction = fraction;
         delayLine1.setFeedback(pingPongMode ? 0.0f : fraction);
         delayLine2.setFeedback(pingPongMode ? 0.0f : fraction);
     }
     
-    void AKStereoDelay::render(int sampleCount, const float *inBuffers[], float *outBuffers[])
+    void StereoDelay::setDryWetMix(float fraction)
+    {
+        dryWetMixFraction = fraction;
+    }
+
+    void StereoDelay::render(int sampleCount, const float *inBuffers[], float *outBuffers[])
     {
         if (pingPongMode)
         {
@@ -51,8 +62,8 @@ namespace AudioKitCore
                 float leftSample = delayLine1.push(inputSample + feedbackFraction * delayLine2.getOutput());
                 float rightSample = delayLine2.push(leftSample);
 
-                outBuffers[0][i] = effectLevelFraction * leftSample + inBuffers[0][i];
-                outBuffers[1][i] = effectLevelFraction * rightSample + inBuffers[1][i];
+                outBuffers[0][i] = (1.0f - dryWetMixFraction) * leftSample + dryWetMixFraction * inBuffers[0][i];
+                outBuffers[1][i] = (1.0f - dryWetMixFraction) * rightSample + dryWetMixFraction * inBuffers[1][i];
             }
         }
         else
@@ -62,8 +73,8 @@ namespace AudioKitCore
                 float leftSample = delayLine1.push(inBuffers[0][i]);
                 float rightSample = delayLine2.push(inBuffers[1][i]);
 
-                outBuffers[0][i] = effectLevelFraction * leftSample + inBuffers[0][i];
-                outBuffers[1][i] = effectLevelFraction * rightSample + inBuffers[1][i];
+                outBuffers[0][i] = (1.0f - dryWetMixFraction) * leftSample + dryWetMixFraction * inBuffers[0][i];
+                outBuffers[1][i] = (1.0f - dryWetMixFraction) * rightSample + dryWetMixFraction * inBuffers[1][i];
             }
         }
     }
