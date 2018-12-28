@@ -26,6 +26,8 @@ namespace AudioKitCore
         
         void init(double sampleRate, double maxDelayMilliseconds);
         void deinit();
+        
+        void clear();
 
         double getMaxDelayMs() { return maxDelayMs; }
 

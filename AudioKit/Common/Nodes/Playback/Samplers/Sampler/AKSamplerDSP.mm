@@ -14,14 +14,14 @@ extern "C" AKDSPRef createAKSamplerDSP(int nChannels, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor* pSDD) {
+extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor* pSFD)
+extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
 {
     char errMsg[100];
-    WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
+    WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
     if (wpc == 0)
     {
         printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
@@ -56,6 +56,11 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
 extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->deinit();
+}
+
+extern "C" void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
+{
+    ((AKSamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
 }
 
 extern "C" void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {

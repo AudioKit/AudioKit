@@ -41,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
+#import "AKStereoDelayDSP.hpp"
 
 // Effects / Distortion
 #import "AKBitCrusherDSP.hpp"
@@ -127,10 +128,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarDSP.hpp"
-#import "AKRhodesPianoAudioUnit.h"
+#import "AKRhodesPianoDSP.hpp"
 #import "AKPluckedStringDSP.hpp"
 #import "AKShakerAudioUnit.h"
-#import "AKTubularBellsAudioUnit.h"
+#import "AKTubularBellsDSP.hpp"
 #import "AKVocalTractDSP.hpp"
 
 // Mixing
@@ -142,7 +143,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
-#import "AKSamplePlayerAudioUnit.h"
 #import "AKWaveTableAudioUnit.h"
 #import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"

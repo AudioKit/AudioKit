@@ -27,6 +27,8 @@ public:
     //      sp->nchan = _channels;
     //    }
 
+    sp_data *getSpData() { return sp; }
+    
     void init(int _channels, double _sampleRate) override {
         AKDSPKernel::init(_channels, _sampleRate);
         sp_create(&sp);

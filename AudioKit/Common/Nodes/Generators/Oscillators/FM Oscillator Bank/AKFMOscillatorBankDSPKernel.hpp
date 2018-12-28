@@ -10,101 +10,52 @@
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements(),
-    carrierMultiplierAddress = numberOfBankEnumElements,
-    modulatingMultiplierAddress = numberOfBankEnumElements + 1,
-    modulationIndexAddress = numberOfBankEnumElements + 2
-};
-
 class AKFMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
-    struct NoteState {
-        NoteState *next;
-        NoteState *prev;
-        AKFMOscillatorBankDSPKernel *kernel;
-
-        enum { stageOff, stageOn, stageRelease };
-        int stage = stageOff;
-
-        float internalGate = 0;
-        float amp = 0;
-
-        sp_adsr *adsr;
+    struct NoteState : public AKBankDSPKernel::NoteState {
+        
         sp_fosc *fosc;
-
-        void init() {
-            sp_adsr_create(&adsr);
-            sp_adsr_init(kernel->sp, adsr);
+        
+        NoteState() {
             sp_fosc_create(&fosc);
-            sp_fosc_init(kernel->sp, fosc, kernel->ftbl);
+        }
+
+        virtual ~NoteState() {
+            sp_fosc_destroy(&fosc);
+        }
+        
+        void init() override {
+            AKFMOscillatorBankDSPKernel *bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
+
+            sp_adsr_init(kernel->getSpData(), adsr);
+            sp_fosc_init(kernel->getSpData(), fosc, bankKernel->ftbl);
             fosc->freq = 0;
             fosc->amp = 0;
         }
 
-
-        void clear() {
-            stage = stageOff;
-            amp = 0;
-        }
-
-        // linked list management
-        void remove() {
-            if (prev) prev->next = next;
-            else kernel->playingNotes = next;
-
-            if (next) next->prev = prev;
-
-            //prev = next = nullptr; Had to remove due to a click, potentially bad
-
-            --kernel->playingNotesCount;
-
-            sp_fosc_destroy(&fosc);
-            sp_adsr_destroy(&adsr);
-        }
-
-        void add() {
-            init();
-            prev = nullptr;
-            next = kernel->playingNotes;
-            if (next) next->prev = this;
-            kernel->playingNotes = this;
-            ++kernel->playingNotesCount;
-        }
-
-        void noteOn(int noteNumber, int velocity)
+        void noteOn(int noteNumber, int velocity, float frequency) override
         {
-            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
-        }
-
-        void noteOn(int noteNumber, int velocity, float frequency)
-        {
-            if (velocity == 0) {
-                if (stage == stageOn) {
-                    stage = stageRelease;
-                    internalGate = 0;
-                }
-            } else {
-                if (stage == stageOff) { add(); }
+            AKBankDSPKernel::NoteState::noteOn(noteNumber, velocity, frequency);
+            
+            if (velocity != 0) {
                 fosc->freq = frequency;
                 fosc->amp = (float)pow2(velocity / 127.);
-                stage = stageOn;
-                internalGate = 1;
             }
         }
 
-
-        void run(int frameCount, float *outL, float *outR)
+        void run(int frameCount, float *outL, float *outR) override
         {
+            AKFMOscillatorBankDSPKernel *bankKernel = (AKFMOscillatorBankDSPKernel*)kernel;
+            
             float originalFrequency = fosc->freq;
             fosc->freq *= powf(2, kernel->pitchBend / 12.0);
             fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
             float bentFrequency = fosc->freq;
 
-            fosc->car = kernel->carrierMultiplier;
-            fosc->mod = kernel->modulatingMultiplier;
-            fosc->indx = kernel->modulationIndex;
+            fosc->car = bankKernel->carrierMultiplier;
+            fosc->mod = bankKernel->modulatingMultiplier;
+            fosc->indx = bankKernel->modulationIndex;
 
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
@@ -114,10 +65,10 @@ public:
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
-                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
                 fosc->freq = bentFrequency * powf(2, depth * variation);
-                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
-                sp_fosc_compute(kernel->sp, fosc, nil, &x);
+                sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
+                sp_fosc_compute(kernel->getSpData(), fosc, nil, &x);
                 *outL++ += amp * x;
                 *outR++ += amp * x;
 
@@ -131,12 +82,22 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        carrierMultiplierAddress = numberOfBankEnumElements,
+        modulatingMultiplierAddress,
+        modulationIndexAddress
+    };
+
     // MARK: Member Functions
+public:
 
     AKFMOscillatorBankDSPKernel() {
         noteStates.resize(128);
-        for (NoteState& state : noteStates) {
-            state.kernel = this;
+        for (auto& ns : noteStates)
+        {
+            ns.reset(new NoteState);
+            ns->kernel = this;
         }
     }
 
@@ -147,14 +108,6 @@ public:
 
     void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
-    }
-
-    void reset() {
-        for (NoteState& state : noteStates) {
-            state.clear();
-        }
-        playingNotes = nullptr;
-        AKBankDSPKernel::reset();
     }
 
     void setCarrierMultiplier(float value) {
@@ -172,9 +125,8 @@ public:
         modulationIndexRamper.setImmediate(modulationIndex);
     }
 
-    standardBankKernelFunctions()
-
     void setParameter(AUParameterAddress address, AUValue value) {
+
         switch (address) {
 
             case carrierMultiplierAddress:
@@ -189,8 +141,9 @@ public:
                 modulationIndexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
-                standardBankSetParameters()
-
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
@@ -206,7 +159,9 @@ public:
             case modulationIndexAddress:
                 return modulationIndexRamper.getUIValue();
 
-                standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
+                
         }
     }
 
@@ -224,11 +179,13 @@ public:
             case modulationIndexAddress:
                 modulationIndexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
-                standardBankStartRamps()
+                
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
+                
         }
     }
-
-    standardHandleMIDI()
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
@@ -238,9 +195,9 @@ public:
         carrierMultiplier = double(carrierMultiplierRamper.getAndStep());
         modulatingMultiplier = double(modulatingMultiplierRamper.getAndStep());
         modulationIndex = double(modulationIndexRamper.getAndStep());
-        standardBankGetAndSteps()
+        standardBankGetAndSteps();
 
-        NoteState *noteState = playingNotes;
+        AKBankDSPKernel::NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -256,8 +213,6 @@ public:
     // MARK: Member Variables
 
 private:
-    std::vector<NoteState> noteStates;
-
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
@@ -266,10 +221,7 @@ private:
     float modulationIndex = 1;
 
 public:
-    NoteState *playingNotes = nullptr;
-
     ParameterRamper carrierMultiplierRamper = 1.0;
     ParameterRamper modulatingMultiplierRamper = 1;
     ParameterRamper modulationIndexRamper = 1;
-
 };
