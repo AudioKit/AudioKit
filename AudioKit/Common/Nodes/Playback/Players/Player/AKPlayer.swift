@@ -467,10 +467,12 @@ import AVFoundation
         startTime = from
         endTime = to
 
-        if isFaded && faderNode == nil {
+        if isFaded {
             createFader()
+            resetFader(false)
+        } else {
+            resetFader(true)
         }
-        resetFader(false)
 
         guard isBuffered else { return }
         updateBuffer()
@@ -481,9 +483,13 @@ import AVFoundation
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     /// Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
+        AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
 
         faderTimer?.invalidate()
+
+//        if stopEnvelopeTime > 0 && fade.inTime == 0 {
+//            faderNode?.gain = gain
+//        }
 
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)

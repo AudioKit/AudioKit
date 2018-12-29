@@ -9,6 +9,7 @@
 extension AKPlayer {
     /// Play entire file right now
     @objc public func play() {
+        AKLog("PLAY")
         play(from: startTime, to: endTime, at: nil, hostTime: nil)
     }
 
