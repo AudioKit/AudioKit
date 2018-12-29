@@ -69,7 +69,6 @@ class ViewController: NSViewController {
     }
 
     @IBAction func start(_ sender: Any) {
-
         do {
             try AudioKit.start()
         } catch {
@@ -171,19 +170,17 @@ class ViewController: NSViewController {
         inputSourceInfo.stringValue = url.lastPathComponent
 
         if player == nil {
+            AKLog("Creating player...")
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
             // for seamless looping use: .always
-            player?.buffering = .dynamic
+            // player?.buffering = .dynamic
+            player?.stopEnvelopeTime = 0.3
 
-            // can use these to test the internal fader in the player:
-//            player?.fade.inTime = 1
-//            player?.fade.outTime = 1
-//            player?.fade.inRampType = .linear
-//            player?.fade.outRampType = .exponential
         } else {
             do {
+                AKLog("Loading", url.path, "into player")
                 try player?.load(url: url)
             } catch {}
         }
@@ -201,10 +198,17 @@ class ViewController: NSViewController {
 //            speechSynthesizer.sayHello()
 
         } else if node == player, let player = player {
-            state ? player.resume() : player.pause()
+//            if state {
+//                // can use these to test the internal fader in the player:
+//                player.fade.inTime = 2
+//                player.fade.outTime = 2
+//                player.fade.inRampType = .exponential
+//                player.fade.outRampType = .exponential
+//            }
 
-            AKLog("player.isPaused:", player.isPaused)
+            state ? player.play() : player.stop()
 
+            AKLog("player.isPlaying:", player.isPlaying)
         }
     }
 
@@ -252,5 +256,4 @@ class ViewController: NSViewController {
         let decimalValue = pow(10.0, Double(decimalPlaces))
         return round(value * decimalValue) / decimalValue
     }
-
 }
