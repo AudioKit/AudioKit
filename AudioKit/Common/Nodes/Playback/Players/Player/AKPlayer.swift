@@ -368,7 +368,7 @@ import AVFoundation
         }
         do {
             let avfile = try AVAudioFile(forReading: url)
-            self.init(audioFile: avfile)
+            self.init(audioFile: avfile, reopenFile: false)
             return
         } catch {
             AKLog("ERROR loading \(url.path) \(error)")
@@ -376,10 +376,18 @@ import AVFoundation
         return nil
     }
 
-    /// Create a player from an AVAudioFile (or AKAudioFile)
-    @objc public convenience init(audioFile: AVAudioFile) {
+    /// Create a player from an AVAudioFile (or AKAudioFile). If a file has previously
+    /// been opened for writing, you can reset it to readOnly with the reopenFile flag.
+    /// This is necessary in cases where AKMicrophone may of had access to the file.
+    @objc public convenience init(audioFile: AVAudioFile, reopenFile: Bool = true) {
         self.init()
+
         self.audioFile = audioFile
+
+        if reopenFile, let readFile = try? AVAudioFile(forReading: audioFile.url) {
+            self.audioFile = readFile
+        }
+
         initialize(restartIfPlaying: false)
     }
 
