@@ -389,7 +389,8 @@ open class AKAudioUnitManager: NSObject {
         let effects = linkedEffects
         let outputAV = output.avAudioUnitOrNode
 
-        let processingFormat = useSystemAVFormat ? AKSettings.audioFormat : inputAV.outputFormat(forBus: 0)
+        // where to take the processing format from. Can take from the output of the chain's nodes or from the input
+        let processingFormat = useSystemAVFormat ? AKSettings.audioFormat : inputAV.outputFormat(forBus: 0) // outputAV.outputFormat(forBus: 0)
         AKLog("\(effects.count) to connect... chain source format: \(processingFormat), pulled from \(input)")
 
         if effects.isEmpty {

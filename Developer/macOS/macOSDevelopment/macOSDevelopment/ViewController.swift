@@ -69,7 +69,6 @@ class ViewController: NSViewController {
     }
 
     @IBAction func start(_ sender: Any) {
-
         do {
             try AudioKit.start()
         } catch {
@@ -171,18 +170,17 @@ class ViewController: NSViewController {
         inputSourceInfo.stringValue = url.lastPathComponent
 
         if player == nil {
+            AKLog("Creating player...")
             player = AKPlayer(url: url)
             player?.completionHandler = handleAudioComplete
             player?.isLooping = loopButton.state == .on
-            // for seamless looping use:
-            player?.buffering = .dynamic
-            // can use these to test the internal fader in the player:
-//            player?.fade.inTime = 1
-//            player?.fade.outTime = 1
-//            player?.fade.inRampType = .linear
-//            player?.fade.outRampType = .exponential
+            // for seamless looping use: .always
+            // player?.buffering = .dynamic
+            player?.stopEnvelopeTime = 0.3
+
         } else {
             do {
+                AKLog("Loading", url.path, "into player")
                 try player?.load(url: url)
             } catch {}
         }
@@ -195,15 +193,28 @@ class ViewController: NSViewController {
         let state = sender.state == .on
         if node == osc {
             state ? osc.play() : osc.stop()
+
         } else if node == speechSynthesizer {
 //            speechSynthesizer.sayHello()
-        } else if node == player {
-            state ? player?.resume() : player?.pause()
+
+        } else if node == player, let player = player {
+//            if state {
+//                // can use these to test the internal fader in the player:
+//                player.fade.inTime = 2
+//                player.fade.outTime = 2
+//                player.fade.inRampType = .exponential
+//                player.fade.outRampType = .exponential
+//            }
+
+            state ? player.play() : player.stop()
+
+            AKLog("player.isPlaying:", player.isPlaying)
         }
     }
 
     private func handleAudioComplete() {
-        if !(player?.isLooping ?? false) {
+        guard let player = player else { return }
+        if !player.isLooping {
             playButton?.state = .off
         }
     }
@@ -245,5 +256,4 @@ class ViewController: NSViewController {
         let decimalValue = pow(10.0, Double(decimalPlaces))
         return round(value * decimalValue) / decimalValue
     }
-
 }
