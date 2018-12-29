@@ -190,7 +190,7 @@ extension AKPlayer {
 
         let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
-            AKLog("totalFrames to play is \(totalFrames). Bailing.")
+            AKLog("Unable to schedule file. totalFrames to play is \(totalFrames). audioFile.length is", audioFile.length)
             return
         }
 
