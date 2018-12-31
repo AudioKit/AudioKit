@@ -22,25 +22,25 @@ struct AKStringResonatorDSP::_Internal {
     AKLinearParameterRamp feedbackRamp;
 };
 
-AKStringResonatorDSP::AKStringResonatorDSP() : _private(new _Internal) {
-    _private->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
-    _private->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
+AKStringResonatorDSP::AKStringResonatorDSP() : data(new _Internal) {
+    data->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
+    data->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->feedbackRamp.setTarget(defaultFeedback, true);
+    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKStringResonatorParameterFundamentalFrequency:
-            _private->fundamentalFrequencyRamp.setTarget(clamp(value, fundamentalFrequencyLowerBound, fundamentalFrequencyUpperBound), immediate);
+            data->fundamentalFrequencyRamp.setTarget(clamp(value, fundamentalFrequencyLowerBound, fundamentalFrequencyUpperBound), immediate);
             break;
         case AKStringResonatorParameterFeedback:
-            _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
+            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKStringResonatorParameterRampDuration:
-            _private->fundamentalFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->feedbackRamp.setRampDuration(value, _sampleRate);
+            data->fundamentalFrequencyRamp.setRampDuration(value, _sampleRate);
+            data->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -49,30 +49,30 @@ void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue valu
 float AKStringResonatorDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKStringResonatorParameterFundamentalFrequency:
-            return _private->fundamentalFrequencyRamp.getTarget();
+            return data->fundamentalFrequencyRamp.getTarget();
         case AKStringResonatorParameterFeedback:
-            return _private->feedbackRamp.getTarget();
+            return data->feedbackRamp.getTarget();
         case AKStringResonatorParameterRampDuration:
-            return _private->fundamentalFrequencyRamp.getRampDuration(_sampleRate);
+            return data->fundamentalFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_streson_create(&_private->_streson0);
-    sp_streson_init(_sp, _private->_streson0);
-    sp_streson_create(&_private->_streson1);
-    sp_streson_init(_sp, _private->_streson1);
-    _private->_streson0->freq = defaultFundamentalFrequency;
-    _private->_streson1->freq = defaultFundamentalFrequency;
-    _private->_streson0->fdbgain = defaultFeedback;
-    _private->_streson1->fdbgain = defaultFeedback;
+    sp_streson_create(&data->_streson0);
+    sp_streson_init(_sp, data->_streson0);
+    sp_streson_create(&data->_streson1);
+    sp_streson_init(_sp, data->_streson1);
+    data->_streson0->freq = defaultFundamentalFrequency;
+    data->_streson1->freq = defaultFundamentalFrequency;
+    data->_streson0->fdbgain = defaultFeedback;
+    data->_streson1->fdbgain = defaultFeedback;
 }
 
 void AKStringResonatorDSP::deinit() {
-    sp_streson_destroy(&_private->_streson0);
-    sp_streson_destroy(&_private->_streson1);
+    sp_streson_destroy(&data->_streson0);
+    sp_streson_destroy(&data->_streson1);
 }
 
 void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -82,14 +82,14 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->fundamentalFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->feedbackRamp.advanceTo(_now + frameOffset);
+            data->fundamentalFrequencyRamp.advanceTo(_now + frameOffset);
+            data->feedbackRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_streson0->freq = _private->fundamentalFrequencyRamp.getValue();
-        _private->_streson1->freq = _private->fundamentalFrequencyRamp.getValue();
-        _private->_streson0->fdbgain = _private->feedbackRamp.getValue();
-        _private->_streson1->fdbgain = _private->feedbackRamp.getValue();
+        data->_streson0->freq = data->fundamentalFrequencyRamp.getValue();
+        data->_streson1->freq = data->fundamentalFrequencyRamp.getValue();
+        data->_streson0->fdbgain = data->feedbackRamp.getValue();
+        data->_streson1->fdbgain = data->feedbackRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             }
 
             if (channel == 0) {
-                sp_streson_compute(_sp, _private->_streson0, in, out);
+                sp_streson_compute(_sp, data->_streson0, in, out);
             } else {
-                sp_streson_compute(_sp, _private->_streson1, in, out);
+                sp_streson_compute(_sp, data->_streson1, in, out);
             }
         }
     }

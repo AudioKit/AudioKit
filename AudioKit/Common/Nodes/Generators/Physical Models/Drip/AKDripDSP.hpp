@@ -32,7 +32,7 @@ AKDSPRef createDripDSP(int nChannels, double sampleRate);
 class AKDripDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
     float internalTrigger = 0;
 
 public:

@@ -27,7 +27,7 @@ AKDSPRef createCostelloReverbDSP(int nChannels, double sampleRate);
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKCostelloReverbDSP();

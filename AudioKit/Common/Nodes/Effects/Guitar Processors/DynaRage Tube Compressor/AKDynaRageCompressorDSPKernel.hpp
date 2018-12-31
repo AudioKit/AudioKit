@@ -65,7 +65,7 @@ public:
 
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
 
 public:
     bool started = true;

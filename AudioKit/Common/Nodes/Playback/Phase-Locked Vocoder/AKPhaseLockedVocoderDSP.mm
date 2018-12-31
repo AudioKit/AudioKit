@@ -27,31 +27,31 @@ struct AKPhaseLockedVocoderDSP::_Internal {
 
 void AKPhaseLockedVocoderDSP::start() {
     AKSoundpipeDSPBase::start();
-    sp_mincer_init(_sp, _private->mincer, _private->ftbl, 2048);
-    _private->mincer->time = defaultPosition;
-    _private->mincer->amp = defaultAmplitude;
-    _private->mincer->pitch = defaultPitchRatio;
+    sp_mincer_init(_sp, data->mincer, data->ftbl, 2048);
+    data->mincer->time = defaultPosition;
+    data->mincer->amp = defaultAmplitude;
+    data->mincer->pitch = defaultPitchRatio;
 }
 
-AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : _private(new _Internal) {
+AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new _Internal) {
 }
 
 // Uses the ParameterAddress as a key
 void AKPhaseLockedVocoderDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKPhaseLockedVocoderParameterPosition:
-            _private->positionRamp.setTarget(clamp(value, positionLowerBound, positionUpperBound), immediate);
+            data->positionRamp.setTarget(clamp(value, positionLowerBound, positionUpperBound), immediate);
             break;
         case AKPhaseLockedVocoderParameterAmplitude:
-            _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
+            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKPhaseLockedVocoderParameterPitchRatio:
-            _private->pitchRatioRamp.setTarget(clamp(value, pitchRatioLowerBound, pitchRatioUpperBound), immediate);
+            data->pitchRatioRamp.setTarget(clamp(value, pitchRatioLowerBound, pitchRatioUpperBound), immediate);
             break;
         case AKPhaseLockedVocoderParameterRampDuration:
-            _private->positionRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
-            _private->pitchRatioRamp.setRampDuration(value, _sampleRate);
+            data->positionRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->pitchRatioRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -60,31 +60,31 @@ void AKPhaseLockedVocoderDSP::setParameter(AUParameterAddress address, AUValue v
 float AKPhaseLockedVocoderDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKPhaseLockedVocoderParameterPosition:
-            return _private->positionRamp.getTarget();
+            return data->positionRamp.getTarget();
         case AKPhaseLockedVocoderParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKPhaseLockedVocoderParameterPitchRatio:
-            return _private->pitchRatioRamp.getTarget();
+            return data->pitchRatioRamp.getTarget();
         case AKPhaseLockedVocoderParameterRampDuration:
-            return _private->positionRamp.getRampDuration(_sampleRate);
+            return data->positionRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKPhaseLockedVocoderDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_mincer_create(&_private->mincer);
+    sp_mincer_create(&data->mincer);
 }
 
 void AKPhaseLockedVocoderDSP::setUpTable(float *table, UInt32 size) {
-    _private->ftbl_size = size;
-    sp_ftbl_create(_sp, &_private->ftbl, _private->ftbl_size);
-    _private->ftbl->tbl = table;
+    data->ftbl_size = size;
+    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
+    data->ftbl->tbl = table;
 }
 
 void AKPhaseLockedVocoderDSP::deinit() {
-    sp_ftbl_destroy(&_private->ftbl);
-    sp_mincer_destroy(&_private->mincer);
+    sp_ftbl_destroy(&data->ftbl);
+    sp_mincer_destroy(&data->mincer);
 }
 
 void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -94,19 +94,19 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->positionRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
-            _private->pitchRatioRamp.advanceTo(_now + frameOffset);
+            data->positionRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->pitchRatioRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->mincer->time = _private->positionRamp.getValue();
-        _private->mincer->amp = _private->amplitudeRamp.getValue();
-        _private->mincer->pitch = _private->pitchRatioRamp.getValue();
+        data->mincer->time = data->positionRamp.getValue();
+        data->mincer->amp = data->amplitudeRamp.getValue();
+        data->mincer->pitch = data->pitchRatioRamp.getValue();
 
         float *outL = (float *)_outBufferListPtr->mBuffers[0].mData  + frameOffset;
         float *outR = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         if (_playing) {
-            sp_mincer_compute(_sp, _private->mincer, NULL, outL);
+            sp_mincer_compute(_sp, data->mincer, NULL, outL);
             *outR = *outL;
         } else {
             *outL = 0;

@@ -19,19 +19,19 @@ struct AKDCBlockDSP::_Internal {
     sp_dcblock *_dcblock1;
 };
 
-AKDCBlockDSP::AKDCBlockDSP() : _private(new _Internal) {}
+AKDCBlockDSP::AKDCBlockDSP() : data(new _Internal) {}
 
 void AKDCBlockDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_dcblock_create(&_private->_dcblock0);
-    sp_dcblock_init(_sp, _private->_dcblock0);
-    sp_dcblock_create(&_private->_dcblock1);
-    sp_dcblock_init(_sp, _private->_dcblock1);
+    sp_dcblock_create(&data->_dcblock0);
+    sp_dcblock_init(_sp, data->_dcblock0);
+    sp_dcblock_create(&data->_dcblock1);
+    sp_dcblock_init(_sp, data->_dcblock1);
 }
 
 void AKDCBlockDSP::deinit() {
-    sp_dcblock_destroy(&_private->_dcblock0);
-    sp_dcblock_destroy(&_private->_dcblock1);
+    sp_dcblock_destroy(&data->_dcblock0);
+    sp_dcblock_destroy(&data->_dcblock1);
 }
 
 void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -54,9 +54,9 @@ void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_dcblock_compute(_sp, _private->_dcblock0, in, out);
+                sp_dcblock_compute(_sp, data->_dcblock0, in, out);
             } else {
-                sp_dcblock_compute(_sp, _private->_dcblock1, in, out);
+                sp_dcblock_compute(_sp, data->_dcblock1, in, out);
             }
         }
     }

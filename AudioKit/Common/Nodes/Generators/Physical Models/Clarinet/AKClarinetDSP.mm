@@ -31,12 +31,12 @@ struct AKClarinetDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKClarinetDSP::AKClarinetDSP() : _private(new _Internal)
+AKClarinetDSP::AKClarinetDSP() : data(new _Internal)
 {
-    _private->frequencyRamp.setTarget(440, true);
-    _private->frequencyRamp.setDurationInSamples(10000);
-    _private->amplitudeRamp.setTarget(1, true);
-    _private->amplitudeRamp.setDurationInSamples(10000);
+    data->frequencyRamp.setTarget(440, true);
+    data->frequencyRamp.setDurationInSamples(10000);
+    data->amplitudeRamp.setTarget(1, true);
+    data->amplitudeRamp.setDurationInSamples(10000);
 }
 
 AKClarinetDSP::~AKClarinetDSP() = default;
@@ -46,14 +46,14 @@ AKClarinetDSP::~AKClarinetDSP() = default;
 void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKClarinetParameterFrequency:
-            _private->frequencyRamp.setTarget(value, immediate);
+            data->frequencyRamp.setTarget(value, immediate);
             break;
         case AKClarinetParameterAmplitude:
-            _private->amplitudeRamp.setTarget(value, immediate);
+            data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKClarinetParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -62,11 +62,11 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
 float AKClarinetDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKClarinetParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKClarinetParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKClarinetParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -75,22 +75,22 @@ void AKClarinetDSP::init(int _channels, double _sampleRate)  {
     AKDSPBase::init(_channels, _sampleRate);
     
     stk::Stk::setSampleRate(_sampleRate);
-    _private->clarinet = new stk::Clarinet(100);
+    data->clarinet = new stk::Clarinet(100);
 }
 
 void AKClarinetDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKClarinetDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     bool immediate = true;
-    _private->frequencyRamp.setTarget(freq, immediate);
-    _private->amplitudeRamp.setTarget(amp, immediate);
+    data->frequencyRamp.setTarget(freq, immediate);
+    data->amplitudeRamp.setTarget(amp, immediate);
     trigger();
 }
 
 void AKClarinetDSP::destroy() {
-    delete _private->clarinet;
+    delete data->clarinet;
 }
 
 void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -100,26 +100,26 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
         
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
-        float frequency = _private->frequencyRamp.getValue();
-        float amplitude = _private->amplitudeRamp.getValue();
+        float frequency = data->frequencyRamp.getValue();
+        float amplitude = data->amplitudeRamp.getValue();
         
         for (int channel = 0; channel < _nChannels; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             
             if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->clarinet->noteOn(frequency, amplitude);
+                if (data->internalTrigger == 1) {
+                    data->clarinet->noteOn(frequency, amplitude);
                 }
-                *out = _private->clarinet->tick();
+                *out = data->clarinet->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }

@@ -15,7 +15,7 @@
 class ParameterRamper {
 private:
     struct _Internal;
-    struct _Internal *_private;
+    struct _Internal *data;
 
 public:
     ParameterRamper(float value);

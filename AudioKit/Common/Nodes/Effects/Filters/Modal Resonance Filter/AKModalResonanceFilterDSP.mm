@@ -22,25 +22,25 @@ struct AKModalResonanceFilterDSP::_Internal {
     AKLinearParameterRamp qualityFactorRamp;
 };
 
-AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : _private(new _Internal) {
-    _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->qualityFactorRamp.setTarget(defaultQualityFactor, true);
-    _private->qualityFactorRamp.setDurationInSamples(defaultRampDurationSamples);
+AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : data(new _Internal) {
+    data->frequencyRamp.setTarget(defaultFrequency, true);
+    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->qualityFactorRamp.setTarget(defaultQualityFactor, true);
+    data->qualityFactorRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKModalResonanceFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKModalResonanceFilterParameterFrequency:
-            _private->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
+            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
             break;
         case AKModalResonanceFilterParameterQualityFactor:
-            _private->qualityFactorRamp.setTarget(clamp(value, qualityFactorLowerBound, qualityFactorUpperBound), immediate);
+            data->qualityFactorRamp.setTarget(clamp(value, qualityFactorLowerBound, qualityFactorUpperBound), immediate);
             break;
         case AKModalResonanceFilterParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->qualityFactorRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, _sampleRate);
+            data->qualityFactorRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -49,30 +49,30 @@ void AKModalResonanceFilterDSP::setParameter(AUParameterAddress address, AUValue
 float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKModalResonanceFilterParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKModalResonanceFilterParameterQualityFactor:
-            return _private->qualityFactorRamp.getTarget();
+            return data->qualityFactorRamp.getTarget();
         case AKModalResonanceFilterParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_mode_create(&_private->_mode0);
-    sp_mode_init(_sp, _private->_mode0);
-    sp_mode_create(&_private->_mode1);
-    sp_mode_init(_sp, _private->_mode1);
-    _private->_mode0->freq = defaultFrequency;
-    _private->_mode1->freq = defaultFrequency;
-    _private->_mode0->q = defaultQualityFactor;
-    _private->_mode1->q = defaultQualityFactor;
+    sp_mode_create(&data->_mode0);
+    sp_mode_init(_sp, data->_mode0);
+    sp_mode_create(&data->_mode1);
+    sp_mode_init(_sp, data->_mode1);
+    data->_mode0->freq = defaultFrequency;
+    data->_mode1->freq = defaultFrequency;
+    data->_mode0->q = defaultQualityFactor;
+    data->_mode1->q = defaultQualityFactor;
 }
 
 void AKModalResonanceFilterDSP::deinit() {
-    sp_mode_destroy(&_private->_mode0);
-    sp_mode_destroy(&_private->_mode1);
+    sp_mode_destroy(&data->_mode0);
+    sp_mode_destroy(&data->_mode1);
 }
 
 void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -82,14 +82,14 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->qualityFactorRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(_now + frameOffset);
+            data->qualityFactorRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_mode0->freq = _private->frequencyRamp.getValue();
-        _private->_mode1->freq = _private->frequencyRamp.getValue();
-        _private->_mode0->q = _private->qualityFactorRamp.getValue();
-        _private->_mode1->q = _private->qualityFactorRamp.getValue();
+        data->_mode0->freq = data->frequencyRamp.getValue();
+        data->_mode1->freq = data->frequencyRamp.getValue();
+        data->_mode0->q = data->qualityFactorRamp.getValue();
+        data->_mode1->q = data->qualityFactorRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_mode_compute(_sp, _private->_mode0, in, out);
+                sp_mode_compute(_sp, data->_mode0, in, out);
             } else {
-                sp_mode_compute(_sp, _private->_mode1, in, out);
+                sp_mode_compute(_sp, data->_mode1, in, out);
             }
         }
     }

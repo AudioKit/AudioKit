@@ -26,7 +26,7 @@ AKDSPRef createToneComplementFilterDSP(int nChannels, double sampleRate);
 class AKToneComplementFilterDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKToneComplementFilterDSP();

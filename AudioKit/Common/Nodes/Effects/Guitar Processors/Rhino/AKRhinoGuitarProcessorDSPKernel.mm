@@ -41,7 +41,7 @@ struct AKRhinoGuitarProcessorDSPKernel::_Internal {
     float distortion = 1.0;
 };
 
-AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : _private(new _Internal) {}
+AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : data(new _Internal) {}
 
 AKRhinoGuitarProcessorDSPKernel::~AKRhinoGuitarProcessorDSPKernel() = default;
 
@@ -50,35 +50,35 @@ void AKRhinoGuitarProcessorDSPKernel::init(int _channels, double _sampleRate) {
     
     sampleRate = (float)_sampleRate;
     
-    _private->_leftEqLo = new Equalisator();
-    _private->_rightEqLo = new Equalisator();
-    _private->_leftEqGtr = new Equalisator();
-    _private->_rightEqGtr = new Equalisator();
-    _private->_leftEqMi = new Equalisator();
-    _private->_rightEqMi = new Equalisator();
-    _private->_leftEqHi = new Equalisator();
-    _private->_rightEqHi = new Equalisator();
-    _private->_mikeFilterL = new MikeFilter();
-    _private->_mikeFilterR = new MikeFilter();
+    data->_leftEqLo = new Equalisator();
+    data->_rightEqLo = new Equalisator();
+    data->_leftEqGtr = new Equalisator();
+    data->_rightEqGtr = new Equalisator();
+    data->_leftEqMi = new Equalisator();
+    data->_rightEqMi = new Equalisator();
+    data->_leftEqHi = new Equalisator();
+    data->_rightEqHi = new Equalisator();
+    data->_mikeFilterL = new MikeFilter();
+    data->_mikeFilterR = new MikeFilter();
     
-    _private->_leftRageProcessor = new RageProcessor((int)_sampleRate);
-    _private->_rightRageProcessor = new RageProcessor((int)_sampleRate);
+    data->_leftRageProcessor = new RageProcessor((int)_sampleRate);
+    data->_rightRageProcessor = new RageProcessor((int)_sampleRate);
     
-    _private->_leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
-    _private->_rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+    data->_leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+    data->_rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
     
-    _private->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
-    _private->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
+    data->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
+    data->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
     
-    _private->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
-    _private->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
+    data->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
+    data->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
     
-    _private->_mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
-    _private->_mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
+    data->_mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
+    data->_mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
     
-    _private->lowGain = 0.0f;
-    _private->midGain = 0.0f;
-    _private->highGain = 0.0f;
+    data->lowGain = 0.0f;
+    data->midGain = 0.0f;
+    data->highGain = 0.0f;
     
     preGainRamper.init();
     postGainRamper.init();
@@ -112,38 +112,38 @@ void AKRhinoGuitarProcessorDSPKernel::reset() {
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setPreGain(float value) {
-    _private->preGain = clamp(value, 0.0f, 10.0f);
-    preGainRamper.setImmediate(_private->preGain);
+    data->preGain = clamp(value, 0.0f, 10.0f);
+    preGainRamper.setImmediate(data->preGain);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setPostGain(float value) {
-    _private->postGain = clamp(value, 0.0f, 1.0f);
-    postGainRamper.setImmediate(_private->postGain);
+    data->postGain = clamp(value, 0.0f, 1.0f);
+    postGainRamper.setImmediate(data->postGain);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setLowGain(float value) {
-    _private->lowGain = clamp(value, -1.0f, 1.0f);
-    lowGainRamper.setImmediate(_private->lowGain);
+    data->lowGain = clamp(value, -1.0f, 1.0f);
+    lowGainRamper.setImmediate(data->lowGain);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setMidGain(float value) {
-    _private->midGain = clamp(value, -1.0f, 1.0f);
-    midGainRamper.setImmediate(_private->midGain);
+    data->midGain = clamp(value, -1.0f, 1.0f);
+    midGainRamper.setImmediate(data->midGain);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setHighGain(float value) {
-    _private->highGain = clamp(value, -1.0f, 1.0f);
-    highGainRamper.setImmediate(_private->highGain);
+    data->highGain = clamp(value, -1.0f, 1.0f);
+    highGainRamper.setImmediate(data->highGain);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setDistType(float value) {
-    _private->distType = clamp(value, -1.0f, 3.0f);
-    distTypeRamper.setImmediate(_private->distType);
+    data->distType = clamp(value, -1.0f, 3.0f);
+    distTypeRamper.setImmediate(data->distType);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setDistortion(float value) {
-    _private->distortion = clamp(value, 1.0f, 20.0f);
-    distortionRamper.setImmediate(_private->distortion);
+    data->distortion = clamp(value, 1.0f, 20.0f);
+    distortionRamper.setImmediate(data->distortion);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setParameter(AUParameterAddress address, AUValue value) {
@@ -244,22 +244,22 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
         
         int frameOffset = int(frameIndex + bufferOffset);
         
-        _private->preGain = preGainRamper.getAndStep();
-        _private->postGain = postGainRamper.getAndStep();
-        _private->lowGain = lowGainRamper.getAndStep();
-        _private->midGain = midGainRamper.getAndStep();
-        _private->highGain = highGainRamper.getAndStep();
-        _private->distType = distTypeRamper.getAndStep();
-        _private->distortion = distortionRamper.getAndStep();
+        data->preGain = preGainRamper.getAndStep();
+        data->postGain = postGainRamper.getAndStep();
+        data->lowGain = lowGainRamper.getAndStep();
+        data->midGain = midGainRamper.getAndStep();
+        data->highGain = highGainRamper.getAndStep();
+        data->distType = distTypeRamper.getAndStep();
+        data->distortion = distortionRamper.getAndStep();
         
-        _private->_leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -_private->lowGain, false);
-        _private->_rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -_private->lowGain, false);
+        data->_leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
+        data->_rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
         
-        _private->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * _private->midGain, true);
-        _private->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * _private->midGain, true);
+        data->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
+        data->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
         
-        _private->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -_private->highGain, false);
-        _private->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -_private->highGain, false);
+        data->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
+        data->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
 
         float *tmpin[2];
         float *tmpout[2];
@@ -275,11 +275,11 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
                 continue;
             }
 
-            *in = *in * (_private->preGain);
-            const float r_Sig = _private->_leftRageProcessor->doRage(*in, _private->distortion * 2, _private->distortion * 2);
-            const float e_Sig = _private->_leftEqLo->filter(_private->_leftEqMi->filter(_private->_leftEqHi->filter(r_Sig))) *
-            (1 / (_private->distortion*0.8));
-            *out = e_Sig * _private->postGain;
+            *in = *in * (data->preGain);
+            const float r_Sig = data->_leftRageProcessor->doRage(*in, data->distortion * 2, data->distortion * 2);
+            const float e_Sig = data->_leftEqLo->filter(data->_leftEqMi->filter(data->_leftEqHi->filter(r_Sig))) *
+            (1 / (data->distortion*0.8));
+            *out = e_Sig * data->postGain;
         }
     }
 }
