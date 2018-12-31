@@ -16,8 +16,8 @@ extern "C" AKDSPRef createBitCrusherDSP(int nChannels, double sampleRate) {
 }
 
 struct AKBitCrusherDSP::InternalData {
-    sp_bitcrush *_bitcrush0;
-    sp_bitcrush *_bitcrush1;
+    sp_bitcrush *bitcrush0;
+    sp_bitcrush *bitcrush1;
     AKLinearParameterRamp bitDepthRamp;
     AKLinearParameterRamp sampleRateRamp;
 };
@@ -60,19 +60,19 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
 
 void AKBitCrusherDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_bitcrush_create(&data->_bitcrush0);
-    sp_bitcrush_init(_sp, data->_bitcrush0);
-    sp_bitcrush_create(&data->_bitcrush1);
-    sp_bitcrush_init(_sp, data->_bitcrush1);
-    data->_bitcrush0->bitdepth = defaultBitDepth;
-    data->_bitcrush1->bitdepth = defaultBitDepth;
-    data->_bitcrush0->srate = defaultSampleRate;
-    data->_bitcrush1->srate = defaultSampleRate;
+    sp_bitcrush_create(&data->bitcrush0);
+    sp_bitcrush_init(_sp, data->bitcrush0);
+    sp_bitcrush_create(&data->bitcrush1);
+    sp_bitcrush_init(_sp, data->bitcrush1);
+    data->bitcrush0->bitdepth = defaultBitDepth;
+    data->bitcrush1->bitdepth = defaultBitDepth;
+    data->bitcrush0->srate = defaultSampleRate;
+    data->bitcrush1->srate = defaultSampleRate;
 }
 
 void AKBitCrusherDSP::deinit() {
-    sp_bitcrush_destroy(&data->_bitcrush0);
-    sp_bitcrush_destroy(&data->_bitcrush1);
+    sp_bitcrush_destroy(&data->bitcrush0);
+    sp_bitcrush_destroy(&data->bitcrush1);
 }
 
 void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -86,10 +86,10 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->sampleRateRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_bitcrush0->bitdepth = data->bitDepthRamp.getValue();
-        data->_bitcrush1->bitdepth = data->bitDepthRamp.getValue();
-        data->_bitcrush0->srate = data->sampleRateRamp.getValue();
-        data->_bitcrush1->srate = data->sampleRateRamp.getValue();
+        data->bitcrush0->bitdepth = data->bitDepthRamp.getValue();
+        data->bitcrush1->bitdepth = data->bitDepthRamp.getValue();
+        data->bitcrush0->srate = data->sampleRateRamp.getValue();
+        data->bitcrush1->srate = data->sampleRateRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_bitcrush_compute(_sp, data->_bitcrush0, in, out);
+                sp_bitcrush_compute(_sp, data->bitcrush0, in, out);
             } else {
-                sp_bitcrush_compute(_sp, data->_bitcrush1, in, out);
+                sp_bitcrush_compute(_sp, data->bitcrush1, in, out);
             }
         }
     }

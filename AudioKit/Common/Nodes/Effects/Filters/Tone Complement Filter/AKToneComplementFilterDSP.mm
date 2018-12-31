@@ -16,8 +16,8 @@ extern "C" AKDSPRef createToneComplementFilterDSP(int nChannels, double sampleRa
 }
 
 struct AKToneComplementFilterDSP::InternalData {
-    sp_atone *_atone0;
-    sp_atone *_atone1;
+    sp_atone *atone0;
+    sp_atone *atone1;
     AKLinearParameterRamp halfPowerPointRamp;
 };
 
@@ -51,17 +51,17 @@ float AKToneComplementFilterDSP::getParameter(uint64_t address) {
 
 void AKToneComplementFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_atone_create(&data->_atone0);
-    sp_atone_init(_sp, data->_atone0);
-    sp_atone_create(&data->_atone1);
-    sp_atone_init(_sp, data->_atone1);
-    data->_atone0->hp = defaultHalfPowerPoint;
-    data->_atone1->hp = defaultHalfPowerPoint;
+    sp_atone_create(&data->atone0);
+    sp_atone_init(_sp, data->atone0);
+    sp_atone_create(&data->atone1);
+    sp_atone_init(_sp, data->atone1);
+    data->atone0->hp = defaultHalfPowerPoint;
+    data->atone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneComplementFilterDSP::deinit() {
-    sp_atone_destroy(&data->_atone0);
-    sp_atone_destroy(&data->_atone1);
+    sp_atone_destroy(&data->atone0);
+    sp_atone_destroy(&data->atone1);
 }
 
 void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,8 +74,8 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             data->halfPowerPointRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_atone0->hp = data->halfPowerPointRamp.getValue();
-        data->_atone1->hp = data->halfPowerPointRamp.getValue();
+        data->atone0->hp = data->halfPowerPointRamp.getValue();
+        data->atone1->hp = data->halfPowerPointRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_atone_compute(_sp, data->_atone0, in, out);
+                sp_atone_compute(_sp, data->atone0, in, out);
             } else {
-                sp_atone_compute(_sp, data->_atone1, in, out);
+                sp_atone_compute(_sp, data->atone1, in, out);
             }
         }
     }

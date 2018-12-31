@@ -16,8 +16,8 @@ extern "C" AKDSPRef createAutoWahDSP(int nChannels, double sampleRate) {
 }
 
 struct AKAutoWahDSP::InternalData {
-    sp_autowah *_autowah0;
-    sp_autowah *_autowah1;
+    sp_autowah *autowah0;
+    sp_autowah *autowah1;
     AKLinearParameterRamp wahRamp;
     AKLinearParameterRamp mixRamp;
     AKLinearParameterRamp amplitudeRamp;
@@ -69,21 +69,21 @@ float AKAutoWahDSP::getParameter(uint64_t address) {
 
 void AKAutoWahDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_autowah_create(&data->_autowah0);
-    sp_autowah_init(_sp, data->_autowah0);
-    sp_autowah_create(&data->_autowah1);
-    sp_autowah_init(_sp, data->_autowah1);
-    *data->_autowah0->wah = defaultWah;
-    *data->_autowah1->wah = defaultWah;
-    *data->_autowah0->mix = defaultMix;
-    *data->_autowah1->mix = defaultMix;
-    *data->_autowah0->level = defaultAmplitude;
-    *data->_autowah1->level = defaultAmplitude;
+    sp_autowah_create(&data->autowah0);
+    sp_autowah_init(_sp, data->autowah0);
+    sp_autowah_create(&data->autowah1);
+    sp_autowah_init(_sp, data->autowah1);
+    *data->autowah0->wah = defaultWah;
+    *data->autowah1->wah = defaultWah;
+    *data->autowah0->mix = defaultMix;
+    *data->autowah1->mix = defaultMix;
+    *data->autowah0->level = defaultAmplitude;
+    *data->autowah1->level = defaultAmplitude;
 }
 
 void AKAutoWahDSP::deinit() {
-    sp_autowah_destroy(&data->_autowah0);
-    sp_autowah_destroy(&data->_autowah1);
+    sp_autowah_destroy(&data->autowah0);
+    sp_autowah_destroy(&data->autowah1);
 }
 
 void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -98,12 +98,12 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
 
-        *data->_autowah0->wah = data->wahRamp.getValue();
-        *data->_autowah1->wah = data->wahRamp.getValue();
-        *data->_autowah0->mix = data->mixRamp.getValue() * 100;
-        *data->_autowah1->mix = data->mixRamp.getValue() * 100;
-        *data->_autowah0->level = data->amplitudeRamp.getValue();
-        *data->_autowah1->level = data->amplitudeRamp.getValue();
+        *data->autowah0->wah = data->wahRamp.getValue();
+        *data->autowah1->wah = data->wahRamp.getValue();
+        *data->autowah0->mix = data->mixRamp.getValue() * 100;
+        *data->autowah1->mix = data->mixRamp.getValue() * 100;
+        *data->autowah0->level = data->amplitudeRamp.getValue();
+        *data->autowah1->level = data->amplitudeRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -120,9 +120,9 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_autowah_compute(_sp, data->_autowah0, in, out);
+                sp_autowah_compute(_sp, data->autowah0, in, out);
             } else {
-                sp_autowah_compute(_sp, data->_autowah1, in, out);
+                sp_autowah_compute(_sp, data->autowah1, in, out);
             }
         }
     }

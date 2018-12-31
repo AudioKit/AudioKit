@@ -16,7 +16,7 @@ extern "C" AKDSPRef createDripDSP(int nChannels, double sampleRate) {
 }
 
 struct AKDripDSP::InternalData {
-    sp_drip *_drip;
+    sp_drip *drip;
     AKLinearParameterRamp intensityRamp;
     AKLinearParameterRamp dampingFactorRamp;
     AKLinearParameterRamp energyReturnRamp;
@@ -104,19 +104,19 @@ float AKDripDSP::getParameter(uint64_t address) {
 
 void AKDripDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_drip_create(&data->_drip);
-    sp_drip_init(_sp, data->_drip, 0.9);
-    data->_drip->num_tubes = defaultIntensity;
-    data->_drip->damp = defaultDampingFactor;
-    data->_drip->shake_max = defaultEnergyReturn;
-    data->_drip->freq = defaultMainResonantFrequency;
-    data->_drip->freq1 = defaultFirstResonantFrequency;
-    data->_drip->freq2 = defaultSecondResonantFrequency;
-    data->_drip->amp = defaultAmplitude;
+    sp_drip_create(&data->drip);
+    sp_drip_init(_sp, data->drip, 0.9);
+    data->drip->num_tubes = defaultIntensity;
+    data->drip->damp = defaultDampingFactor;
+    data->drip->shake_max = defaultEnergyReturn;
+    data->drip->freq = defaultMainResonantFrequency;
+    data->drip->freq1 = defaultFirstResonantFrequency;
+    data->drip->freq2 = defaultSecondResonantFrequency;
+    data->drip->amp = defaultAmplitude;
 }
 
 void AKDripDSP::deinit() {
-    sp_drip_destroy(&data->_drip);
+    sp_drip_destroy(&data->drip);
 }
 
 void AKDripDSP::trigger() {
@@ -139,13 +139,13 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
             data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_drip->num_tubes = data->intensityRamp.getValue();
-        data->_drip->damp = data->dampingFactorRamp.getValue();
-        data->_drip->shake_max = data->energyReturnRamp.getValue();
-        data->_drip->freq = data->mainResonantFrequencyRamp.getValue();
-        data->_drip->freq1 = data->firstResonantFrequencyRamp.getValue();
-        data->_drip->freq2 = data->secondResonantFrequencyRamp.getValue();
-        data->_drip->amp = data->amplitudeRamp.getValue();
+        data->drip->num_tubes = data->intensityRamp.getValue();
+        data->drip->damp = data->dampingFactorRamp.getValue();
+        data->drip->shake_max = data->energyReturnRamp.getValue();
+        data->drip->freq = data->mainResonantFrequencyRamp.getValue();
+        data->drip->freq1 = data->firstResonantFrequencyRamp.getValue();
+        data->drip->freq2 = data->secondResonantFrequencyRamp.getValue();
+        data->drip->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -153,7 +153,7 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_drip_compute(_sp, data->_drip, &internalTrigger, &temp);
+                    sp_drip_compute(_sp, data->drip, &internalTrigger, &temp);
                     internalTrigger = 0.0;
                 }
                 *out = temp;

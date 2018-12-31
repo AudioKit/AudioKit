@@ -16,7 +16,7 @@ extern "C" AKDSPRef createBrownianNoiseDSP(int nChannels, double sampleRate) {
 }
 
 struct AKBrownianNoiseDSP::InternalData {
-    sp_brown *_brown;
+    sp_brown *brown;
     AKLinearParameterRamp amplitudeRamp;
 };
 
@@ -50,12 +50,12 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
 
 void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_brown_create(&data->_brown);
-    sp_brown_init(_sp, data->_brown);
+    sp_brown_create(&data->brown);
+    sp_brown_init(_sp, data->brown);
 }
 
 void AKBrownianNoiseDSP::deinit() {
-    sp_brown_destroy(&data->_brown);
+    sp_brown_destroy(&data->brown);
 }
 
 void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,7 +74,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_brown_compute(_sp, data->_brown, nil, &temp);
+                    sp_brown_compute(_sp, data->brown, nil, &temp);
                 }
                 *out = temp * data->amplitudeRamp.getValue();
             } else {

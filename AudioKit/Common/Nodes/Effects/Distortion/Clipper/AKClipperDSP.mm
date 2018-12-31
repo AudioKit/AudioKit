@@ -16,8 +16,8 @@ extern "C" AKDSPRef createClipperDSP(int nChannels, double sampleRate) {
 }
 
 struct AKClipperDSP::InternalData {
-    sp_clip *_clip0;
-    sp_clip *_clip1;
+    sp_clip *clip0;
+    sp_clip *clip1;
     AKLinearParameterRamp limitRamp;
 };
 
@@ -51,17 +51,17 @@ float AKClipperDSP::getParameter(uint64_t address) {
 
 void AKClipperDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_clip_create(&data->_clip0);
-    sp_clip_init(_sp, data->_clip0);
-    sp_clip_create(&data->_clip1);
-    sp_clip_init(_sp, data->_clip1);
-    data->_clip0->lim = defaultLimit;
-    data->_clip1->lim = defaultLimit;
+    sp_clip_create(&data->clip0);
+    sp_clip_init(_sp, data->clip0);
+    sp_clip_create(&data->clip1);
+    sp_clip_init(_sp, data->clip1);
+    data->clip0->lim = defaultLimit;
+    data->clip1->lim = defaultLimit;
 }
 
 void AKClipperDSP::deinit() {
-    sp_clip_destroy(&data->_clip0);
-    sp_clip_destroy(&data->_clip1);
+    sp_clip_destroy(&data->clip0);
+    sp_clip_destroy(&data->clip1);
 }
 
 void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,8 +74,8 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             data->limitRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_clip0->lim = data->limitRamp.getValue();
-        data->_clip1->lim = data->limitRamp.getValue();
+        data->clip0->lim = data->limitRamp.getValue();
+        data->clip1->lim = data->limitRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_clip_compute(_sp, data->_clip0, in, out);
+                sp_clip_compute(_sp, data->clip0, in, out);
             } else {
-                sp_clip_compute(_sp, data->_clip1, in, out);
+                sp_clip_compute(_sp, data->clip1, in, out);
             }
         }
     }

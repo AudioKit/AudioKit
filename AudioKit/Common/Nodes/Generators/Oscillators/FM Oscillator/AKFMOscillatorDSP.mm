@@ -16,9 +16,9 @@ extern "C" AKDSPRef createFMOscillatorDSP(int nChannels, double sampleRate) {
 }
 
 struct AKFMOscillatorDSP::InternalData {
-    sp_fosc *_fosc;
-    sp_ftbl *_ftbl;
-    UInt32 _ftbl_size = 4096;
+    sp_fosc *fosc;
+    sp_ftbl *ftbl;
+    UInt32 ftbl_size = 4096;
     AKLinearParameterRamp baseFrequencyRamp;
     AKLinearParameterRamp carrierMultiplierRamp;
     AKLinearParameterRamp modulatingMultiplierRamp;
@@ -89,26 +89,26 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
 void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     _playing = false;
-    sp_fosc_create(&data->_fosc);
-    sp_fosc_init(_sp, data->_fosc, data->_ftbl);
-    data->_fosc->freq = defaultBaseFrequency;
-    data->_fosc->car = defaultCarrierMultiplier;
-    data->_fosc->mod = defaultModulatingMultiplier;
-    data->_fosc->indx = defaultModulationIndex;
-    data->_fosc->amp = defaultAmplitude;
+    sp_fosc_create(&data->fosc);
+    sp_fosc_init(_sp, data->fosc, data->ftbl);
+    data->fosc->freq = defaultBaseFrequency;
+    data->fosc->car = defaultCarrierMultiplier;
+    data->fosc->mod = defaultModulatingMultiplier;
+    data->fosc->indx = defaultModulationIndex;
+    data->fosc->amp = defaultAmplitude;
 }
 
 void AKFMOscillatorDSP::deinit() {
-    sp_fosc_destroy(&data->_fosc);
+    sp_fosc_destroy(&data->fosc);
 }
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
-    data->_ftbl_size = size;
-    sp_ftbl_create(_sp, &data->_ftbl, data->_ftbl_size);
+    data->ftbl_size = size;
+    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
 }
 
 void AKFMOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->_ftbl->tbl[index] = value;
+    data->ftbl->tbl[index] = value;
 }
 void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
@@ -124,11 +124,11 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
             data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_fosc->freq = data->baseFrequencyRamp.getValue();
-        data->_fosc->car = data->carrierMultiplierRamp.getValue();
-        data->_fosc->mod = data->modulatingMultiplierRamp.getValue();
-        data->_fosc->indx = data->modulationIndexRamp.getValue();
-        data->_fosc->amp = data->amplitudeRamp.getValue();
+        data->fosc->freq = data->baseFrequencyRamp.getValue();
+        data->fosc->car = data->carrierMultiplierRamp.getValue();
+        data->fosc->mod = data->modulatingMultiplierRamp.getValue();
+        data->fosc->indx = data->modulationIndexRamp.getValue();
+        data->fosc->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -136,7 +136,7 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_fosc_compute(_sp, data->_fosc, nil, &temp);
+                    sp_fosc_compute(_sp, data->fosc, nil, &temp);
                 }
                 *out = temp;
             } else {

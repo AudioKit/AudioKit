@@ -16,9 +16,9 @@ extern "C" AKDSPRef createMorphingOscillatorDSP(int nChannels, double sampleRate
 }
 
 struct AKMorphingOscillatorDSP::InternalData {
-    sp_oscmorph *_oscmorph;
-    sp_ftbl *_ft_array[4];
-    UInt32 _ftbl_size = 4096;
+    sp_oscmorph *oscmorph;
+    sp_ftbl *ft_array[4];
+    UInt32 ftbl_size = 4096;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp indexRamp;
@@ -89,28 +89,28 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
 void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     _playing = false;
-    sp_oscmorph_create(&data->_oscmorph);
+    sp_oscmorph_create(&data->oscmorph);
 }
 
 void AKMorphingOscillatorDSP::deinit() {
-    sp_oscmorph_destroy(&data->_oscmorph);
+    sp_oscmorph_destroy(&data->oscmorph);
 }
 
 void  AKMorphingOscillatorDSP::reset() {
-    sp_oscmorph_init(_sp, data->_oscmorph, data->_ft_array, 4, 0);
-    data->_oscmorph->freq = defaultFrequency;
-    data->_oscmorph->amp = defaultAmplitude;
-    data->_oscmorph->wtpos = defaultIndex;
+    sp_oscmorph_init(_sp, data->oscmorph, data->ft_array, 4, 0);
+    data->oscmorph->freq = defaultFrequency;
+    data->oscmorph->amp = defaultAmplitude;
+    data->oscmorph->wtpos = defaultIndex;
     AKSoundpipeDSPBase::reset();
 }
 
 void AKMorphingOscillatorDSP::setupIndividualWaveform(uint32_t waveform, uint32_t size) {
-    data->_ftbl_size = size;
-    sp_ftbl_create(_sp, &data->_ft_array[waveform], data->_ftbl_size);
+    data->ftbl_size = size;
+    sp_ftbl_create(_sp, &data->ft_array[waveform], data->ftbl_size);
 }
 
 void AKMorphingOscillatorDSP::setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {
-    data->_ft_array[waveform]->tbl[index] = value;
+    data->ft_array[waveform]->tbl[index] = value;
 }
 void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
@@ -126,9 +126,9 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
             data->detuningMultiplierRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_oscmorph->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
-        data->_oscmorph->amp = data->amplitudeRamp.getValue();
-        data->_oscmorph->wtpos = data->indexRamp.getValue();
+        data->oscmorph->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
+        data->oscmorph->amp = data->amplitudeRamp.getValue();
+        data->oscmorph->wtpos = data->indexRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -136,7 +136,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_oscmorph_compute(_sp, data->_oscmorph, nil, &temp);
+                    sp_oscmorph_compute(_sp, data->oscmorph, nil, &temp);
                 }
                 *out = temp;
             } else {

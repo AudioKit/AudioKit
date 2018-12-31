@@ -16,7 +16,7 @@ extern "C" AKDSPRef createWhiteNoiseDSP(int nChannels, double sampleRate) {
 }
 
 struct AKWhiteNoiseDSP::InternalData {
-    sp_noise *_noise;
+    sp_noise *noise;
     AKLinearParameterRamp amplitudeRamp;
 };
 
@@ -50,13 +50,13 @@ float AKWhiteNoiseDSP::getParameter(uint64_t address) {
 
 void AKWhiteNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_noise_create(&data->_noise);
-    sp_noise_init(_sp, data->_noise);
-    data->_noise->amp = defaultAmplitude;
+    sp_noise_create(&data->noise);
+    sp_noise_init(_sp, data->noise);
+    data->noise->amp = defaultAmplitude;
 }
 
 void AKWhiteNoiseDSP::deinit() {
-    sp_noise_destroy(&data->_noise);
+    sp_noise_destroy(&data->noise);
 }
 
 void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -69,7 +69,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_noise->amp = data->amplitudeRamp.getValue();
+        data->noise->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -77,7 +77,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_noise_compute(_sp, data->_noise, nil, &temp);
+                    sp_noise_compute(_sp, data->noise, nil, &temp);
                 }
                 *out = temp;
             } else {

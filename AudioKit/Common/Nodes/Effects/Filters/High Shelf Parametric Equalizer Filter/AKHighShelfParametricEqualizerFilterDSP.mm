@@ -16,8 +16,8 @@ extern "C" AKDSPRef createHighShelfParametricEqualizerFilterDSP(int nChannels, d
 }
 
 struct AKHighShelfParametricEqualizerFilterDSP::InternalData {
-    sp_pareq *_pareq0;
-    sp_pareq *_pareq1;
+    sp_pareq *pareq0;
+    sp_pareq *pareq1;
     AKLinearParameterRamp centerFrequencyRamp;
     AKLinearParameterRamp gainRamp;
     AKLinearParameterRamp qRamp;
@@ -69,23 +69,23 @@ float AKHighShelfParametricEqualizerFilterDSP::getParameter(uint64_t address) {
 
 void AKHighShelfParametricEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_pareq_create(&data->_pareq0);
-    sp_pareq_init(_sp, data->_pareq0);
-    sp_pareq_create(&data->_pareq1);
-    sp_pareq_init(_sp, data->_pareq1);
-    data->_pareq0->fc = defaultCenterFrequency;
-    data->_pareq1->fc = defaultCenterFrequency;
-    data->_pareq0->v = defaultGain;
-    data->_pareq1->v = defaultGain;
-    data->_pareq0->q = defaultQ;
-    data->_pareq1->q = defaultQ;
-    data->_pareq0->mode = 2;
-    data->_pareq1->mode = 2;
+    sp_pareq_create(&data->pareq0);
+    sp_pareq_init(_sp, data->pareq0);
+    sp_pareq_create(&data->pareq1);
+    sp_pareq_init(_sp, data->pareq1);
+    data->pareq0->fc = defaultCenterFrequency;
+    data->pareq1->fc = defaultCenterFrequency;
+    data->pareq0->v = defaultGain;
+    data->pareq1->v = defaultGain;
+    data->pareq0->q = defaultQ;
+    data->pareq1->q = defaultQ;
+    data->pareq0->mode = 2;
+    data->pareq1->mode = 2;
 }
 
 void AKHighShelfParametricEqualizerFilterDSP::deinit() {
-    sp_pareq_destroy(&data->_pareq0);
-    sp_pareq_destroy(&data->_pareq1);
+    sp_pareq_destroy(&data->pareq0);
+    sp_pareq_destroy(&data->pareq1);
 }
 
 void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -100,12 +100,12 @@ void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCou
             data->qRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_pareq0->fc = data->centerFrequencyRamp.getValue();
-        data->_pareq1->fc = data->centerFrequencyRamp.getValue();
-        data->_pareq0->v = data->gainRamp.getValue();
-        data->_pareq1->v = data->gainRamp.getValue();
-        data->_pareq0->q = data->qRamp.getValue();
-        data->_pareq1->q = data->qRamp.getValue();
+        data->pareq0->fc = data->centerFrequencyRamp.getValue();
+        data->pareq1->fc = data->centerFrequencyRamp.getValue();
+        data->pareq0->v = data->gainRamp.getValue();
+        data->pareq1->v = data->gainRamp.getValue();
+        data->pareq0->q = data->qRamp.getValue();
+        data->pareq1->q = data->qRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -122,9 +122,9 @@ void AKHighShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCou
             }
 
             if (channel == 0) {
-                sp_pareq_compute(_sp, data->_pareq0, in, out);
+                sp_pareq_compute(_sp, data->pareq0, in, out);
             } else {
-                sp_pareq_compute(_sp, data->_pareq1, in, out);
+                sp_pareq_compute(_sp, data->pareq1, in, out);
             }
         }
     }

@@ -16,8 +16,8 @@ extern "C" AKDSPRef createDynamicRangeCompressorDSP(int nChannels, double sample
 }
 
 struct AKDynamicRangeCompressorDSP::InternalData {
-    sp_compressor *_compressor0;
-    sp_compressor *_compressor1;
+    sp_compressor *compressor0;
+    sp_compressor *compressor1;
     AKLinearParameterRamp ratioRamp;
     AKLinearParameterRamp thresholdRamp;
     AKLinearParameterRamp attackDurationRamp;
@@ -78,23 +78,23 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
 
 void AKDynamicRangeCompressorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_compressor_create(&data->_compressor0);
-    sp_compressor_init(_sp, data->_compressor0);
-    sp_compressor_create(&data->_compressor1);
-    sp_compressor_init(_sp, data->_compressor1);
-    *data->_compressor0->ratio = defaultRatio;
-    *data->_compressor1->ratio = defaultRatio;
-    *data->_compressor0->thresh = defaultThreshold;
-    *data->_compressor1->thresh = defaultThreshold;
-    *data->_compressor0->atk = defaultAttackDuration;
-    *data->_compressor1->atk = defaultAttackDuration;
-    *data->_compressor0->rel = defaultReleaseDuration;
-    *data->_compressor1->rel = defaultReleaseDuration;
+    sp_compressor_create(&data->compressor0);
+    sp_compressor_init(_sp, data->compressor0);
+    sp_compressor_create(&data->compressor1);
+    sp_compressor_init(_sp, data->compressor1);
+    *data->compressor0->ratio = defaultRatio;
+    *data->compressor1->ratio = defaultRatio;
+    *data->compressor0->thresh = defaultThreshold;
+    *data->compressor1->thresh = defaultThreshold;
+    *data->compressor0->atk = defaultAttackDuration;
+    *data->compressor1->atk = defaultAttackDuration;
+    *data->compressor0->rel = defaultReleaseDuration;
+    *data->compressor1->rel = defaultReleaseDuration;
 }
 
 void AKDynamicRangeCompressorDSP::deinit() {
-    sp_compressor_destroy(&data->_compressor0);
-    sp_compressor_destroy(&data->_compressor1);
+    sp_compressor_destroy(&data->compressor0);
+    sp_compressor_destroy(&data->compressor1);
 }
 
 void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -110,14 +110,14 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
             data->releaseDurationRamp.advanceTo(_now + frameOffset);
         }
 
-        *data->_compressor0->ratio = data->ratioRamp.getValue();
-        *data->_compressor1->ratio = data->ratioRamp.getValue();
-        *data->_compressor0->thresh = data->thresholdRamp.getValue();
-        *data->_compressor1->thresh = data->thresholdRamp.getValue();
-        *data->_compressor0->atk = data->attackDurationRamp.getValue();
-        *data->_compressor1->atk = data->attackDurationRamp.getValue();
-        *data->_compressor0->rel = data->releaseDurationRamp.getValue();
-        *data->_compressor1->rel = data->releaseDurationRamp.getValue();
+        *data->compressor0->ratio = data->ratioRamp.getValue();
+        *data->compressor1->ratio = data->ratioRamp.getValue();
+        *data->compressor0->thresh = data->thresholdRamp.getValue();
+        *data->compressor1->thresh = data->thresholdRamp.getValue();
+        *data->compressor0->atk = data->attackDurationRamp.getValue();
+        *data->compressor1->atk = data->attackDurationRamp.getValue();
+        *data->compressor0->rel = data->releaseDurationRamp.getValue();
+        *data->compressor1->rel = data->releaseDurationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -134,9 +134,9 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
             }
 
             if (channel == 0) {
-                sp_compressor_compute(_sp, data->_compressor0, in, out);
+                sp_compressor_compute(_sp, data->compressor0, in, out);
             } else {
-                sp_compressor_compute(_sp, data->_compressor1, in, out);
+                sp_compressor_compute(_sp, data->compressor1, in, out);
             }
         }
     }

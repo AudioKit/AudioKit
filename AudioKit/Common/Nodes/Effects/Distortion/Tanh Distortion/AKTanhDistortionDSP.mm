@@ -16,8 +16,8 @@ extern "C" AKDSPRef createTanhDistortionDSP(int nChannels, double sampleRate) {
 }
 
 struct AKTanhDistortionDSP::InternalData {
-    sp_dist *_dist0;
-    sp_dist *_dist1;
+    sp_dist *dist0;
+    sp_dist *dist1;
     AKLinearParameterRamp pregainRamp;
     AKLinearParameterRamp postgainRamp;
     AKLinearParameterRamp positiveShapeParameterRamp;
@@ -78,23 +78,23 @@ float AKTanhDistortionDSP::getParameter(uint64_t address) {
 
 void AKTanhDistortionDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_dist_create(&data->_dist0);
-    sp_dist_init(_sp, data->_dist0);
-    sp_dist_create(&data->_dist1);
-    sp_dist_init(_sp, data->_dist1);
-    data->_dist0->pregain = defaultPregain;
-    data->_dist1->pregain = defaultPregain;
-    data->_dist0->postgain = defaultPostgain;
-    data->_dist1->postgain = defaultPostgain;
-    data->_dist0->shape1 = defaultPositiveShapeParameter;
-    data->_dist1->shape1 = defaultPositiveShapeParameter;
-    data->_dist0->shape2 = defaultNegativeShapeParameter;
-    data->_dist1->shape2 = defaultNegativeShapeParameter;
+    sp_dist_create(&data->dist0);
+    sp_dist_init(_sp, data->dist0);
+    sp_dist_create(&data->dist1);
+    sp_dist_init(_sp, data->dist1);
+    data->dist0->pregain = defaultPregain;
+    data->dist1->pregain = defaultPregain;
+    data->dist0->postgain = defaultPostgain;
+    data->dist1->postgain = defaultPostgain;
+    data->dist0->shape1 = defaultPositiveShapeParameter;
+    data->dist1->shape1 = defaultPositiveShapeParameter;
+    data->dist0->shape2 = defaultNegativeShapeParameter;
+    data->dist1->shape2 = defaultNegativeShapeParameter;
 }
 
 void AKTanhDistortionDSP::deinit() {
-    sp_dist_destroy(&data->_dist0);
-    sp_dist_destroy(&data->_dist1);
+    sp_dist_destroy(&data->dist0);
+    sp_dist_destroy(&data->dist1);
 }
 
 void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -110,14 +110,14 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             data->negativeShapeParameterRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_dist0->pregain = data->pregainRamp.getValue();
-        data->_dist1->pregain = data->pregainRamp.getValue();
-        data->_dist0->postgain = data->postgainRamp.getValue();
-        data->_dist1->postgain = data->postgainRamp.getValue();
-        data->_dist0->shape1 = data->positiveShapeParameterRamp.getValue();
-        data->_dist1->shape1 = data->positiveShapeParameterRamp.getValue();
-        data->_dist0->shape2 = data->negativeShapeParameterRamp.getValue();
-        data->_dist1->shape2 = data->negativeShapeParameterRamp.getValue();
+        data->dist0->pregain = data->pregainRamp.getValue();
+        data->dist1->pregain = data->pregainRamp.getValue();
+        data->dist0->postgain = data->postgainRamp.getValue();
+        data->dist1->postgain = data->postgainRamp.getValue();
+        data->dist0->shape1 = data->positiveShapeParameterRamp.getValue();
+        data->dist1->shape1 = data->positiveShapeParameterRamp.getValue();
+        data->dist0->shape2 = data->negativeShapeParameterRamp.getValue();
+        data->dist1->shape2 = data->negativeShapeParameterRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -134,9 +134,9 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
 
             if (channel == 0) {
-                sp_dist_compute(_sp, data->_dist0, in, out);
+                sp_dist_compute(_sp, data->dist0, in, out);
             } else {
-                sp_dist_compute(_sp, data->_dist1, in, out);
+                sp_dist_compute(_sp, data->dist1, in, out);
             }
         }
     }

@@ -16,8 +16,8 @@ extern "C" AKDSPRef createHighPassButterworthFilterDSP(int nChannels, double sam
 }
 
 struct AKHighPassButterworthFilterDSP::InternalData {
-    sp_buthp *_buthp0;
-    sp_buthp *_buthp1;
+    sp_buthp *buthp0;
+    sp_buthp *buthp1;
     AKLinearParameterRamp cutoffFrequencyRamp;
 };
 
@@ -51,17 +51,17 @@ float AKHighPassButterworthFilterDSP::getParameter(uint64_t address) {
 
 void AKHighPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_buthp_create(&data->_buthp0);
-    sp_buthp_init(_sp, data->_buthp0);
-    sp_buthp_create(&data->_buthp1);
-    sp_buthp_init(_sp, data->_buthp1);
-    data->_buthp0->freq = defaultCutoffFrequency;
-    data->_buthp1->freq = defaultCutoffFrequency;
+    sp_buthp_create(&data->buthp0);
+    sp_buthp_init(_sp, data->buthp0);
+    sp_buthp_create(&data->buthp1);
+    sp_buthp_init(_sp, data->buthp1);
+    data->buthp0->freq = defaultCutoffFrequency;
+    data->buthp1->freq = defaultCutoffFrequency;
 }
 
 void AKHighPassButterworthFilterDSP::deinit() {
-    sp_buthp_destroy(&data->_buthp0);
-    sp_buthp_destroy(&data->_buthp1);
+    sp_buthp_destroy(&data->buthp0);
+    sp_buthp_destroy(&data->buthp1);
 }
 
 void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,8 +74,8 @@ void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAud
             data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_buthp0->freq = data->cutoffFrequencyRamp.getValue();
-        data->_buthp1->freq = data->cutoffFrequencyRamp.getValue();
+        data->buthp0->freq = data->cutoffFrequencyRamp.getValue();
+        data->buthp1->freq = data->cutoffFrequencyRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKHighPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAud
             }
 
             if (channel == 0) {
-                sp_buthp_compute(_sp, data->_buthp0, in, out);
+                sp_buthp_compute(_sp, data->buthp0, in, out);
             } else {
-                sp_buthp_compute(_sp, data->_buthp1, in, out);
+                sp_buthp_compute(_sp, data->buthp1, in, out);
             }
         }
     }

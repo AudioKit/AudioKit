@@ -16,7 +16,7 @@ extern "C" AKDSPRef createPhaserDSP(int nChannels, double sampleRate) {
 }
 
 struct AKPhaserDSP::InternalData {
-    sp_phaser *_phaser;
+    sp_phaser *phaser;
     AKLinearParameterRamp notchMinimumFrequencyRamp;
     AKLinearParameterRamp notchMaximumFrequencyRamp;
     AKLinearParameterRamp notchWidthRamp;
@@ -122,21 +122,21 @@ float AKPhaserDSP::getParameter(uint64_t address) {
 
 void AKPhaserDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_phaser_create(&data->_phaser);
-    sp_phaser_init(_sp, data->_phaser);
-    *data->_phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
-    *data->_phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
-    *data->_phaser->Notch_width = defaultNotchWidth;
-    *data->_phaser->NotchFreq = defaultNotchFrequency;
-    *data->_phaser->VibratoMode = defaultVibratoMode;
-    *data->_phaser->depth = defaultDepth;
-    *data->_phaser->feedback_gain = defaultFeedback;
-    *data->_phaser->invert = defaultInverted;
-    *data->_phaser->lfobpm = defaultLfoBPM;
+    sp_phaser_create(&data->phaser);
+    sp_phaser_init(_sp, data->phaser);
+    *data->phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
+    *data->phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
+    *data->phaser->Notch_width = defaultNotchWidth;
+    *data->phaser->NotchFreq = defaultNotchFrequency;
+    *data->phaser->VibratoMode = defaultVibratoMode;
+    *data->phaser->depth = defaultDepth;
+    *data->phaser->feedback_gain = defaultFeedback;
+    *data->phaser->invert = defaultInverted;
+    *data->phaser->lfobpm = defaultLfoBPM;
 }
 
 void AKPhaserDSP::deinit() {
-    sp_phaser_destroy(&data->_phaser);
+    sp_phaser_destroy(&data->phaser);
 }
 
 void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -157,15 +157,15 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
             data->lfoBPMRamp.advanceTo(_now + frameOffset);
         }
 
-        *data->_phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getValue();
-        *data->_phaser->MaxNotch1Freq = data->notchMaximumFrequencyRamp.getValue();
-        *data->_phaser->Notch_width = data->notchWidthRamp.getValue();
-        *data->_phaser->NotchFreq = data->notchFrequencyRamp.getValue();
-        *data->_phaser->VibratoMode = data->vibratoModeRamp.getValue();
-        *data->_phaser->depth = data->depthRamp.getValue();
-        *data->_phaser->feedback_gain = data->feedbackRamp.getValue();
-        *data->_phaser->invert = data->invertedRamp.getValue();
-        *data->_phaser->lfobpm = data->lfoBPMRamp.getValue();
+        *data->phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getValue();
+        *data->phaser->MaxNotch1Freq = data->notchMaximumFrequencyRamp.getValue();
+        *data->phaser->Notch_width = data->notchWidthRamp.getValue();
+        *data->phaser->NotchFreq = data->notchFrequencyRamp.getValue();
+        *data->phaser->VibratoMode = data->vibratoModeRamp.getValue();
+        *data->phaser->depth = data->depthRamp.getValue();
+        *data->phaser->feedback_gain = data->feedbackRamp.getValue();
+        *data->phaser->invert = data->invertedRamp.getValue();
+        *data->phaser->lfobpm = data->lfoBPMRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -182,7 +182,7 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
             
         }
         if (_playing) {
-            sp_phaser_compute(_sp, data->_phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_phaser_compute(_sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }
