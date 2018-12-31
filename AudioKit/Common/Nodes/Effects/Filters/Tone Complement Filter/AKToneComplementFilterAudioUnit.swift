@@ -40,7 +40,7 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
         let halfPowerPoint = AUParameterTree.createParameter(
             withIdentifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
-            address: AUParameterAddress(0),
+            address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,
             min: Float(AKToneComplementFilter.halfPowerPointRange.lowerBound),
             max: Float(AKToneComplementFilter.halfPowerPointRange.upperBound),
             unit: .hertz,
@@ -49,7 +49,7 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneComplementFilter.defaultHalfPowerPoint)
     }

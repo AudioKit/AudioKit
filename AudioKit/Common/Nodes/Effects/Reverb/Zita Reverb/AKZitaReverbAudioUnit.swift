@@ -76,7 +76,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let predelay = AUParameterTree.createParameter(
             withIdentifier: "predelay",
             name: "Delay in ms before reverberation begins.",
-            address: AUParameterAddress(0),
+            address: AKZitaReverbParameter.predelay.rawValue,
             min: Float(AKZitaReverb.predelayRange.lowerBound),
             max: Float(AKZitaReverb.predelayRange.upperBound),
             unit: .generic,
@@ -88,7 +88,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let crossoverFrequency = AUParameterTree.createParameter(
             withIdentifier: "crossoverFrequency",
             name: "Crossover frequency separating low and middle frequencies (Hz).",
-            address: AUParameterAddress(1),
+            address: AKZitaReverbParameter.crossoverFrequency.rawValue,
             min: Float(AKZitaReverb.crossoverFrequencyRange.lowerBound),
             max: Float(AKZitaReverb.crossoverFrequencyRange.upperBound),
             unit: .hertz,
@@ -100,7 +100,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let lowReleaseTime = AUParameterTree.createParameter(
             withIdentifier: "lowReleaseTime",
             name: "Time (in seconds) to decay 60db in low-frequency band.",
-            address: AUParameterAddress(2),
+            address: AKZitaReverbParameter.lowReleaseTime.rawValue,
             min: Float(AKZitaReverb.lowReleaseTimeRange.lowerBound),
             max: Float(AKZitaReverb.lowReleaseTimeRange.upperBound),
             unit: .seconds,
@@ -112,7 +112,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let midReleaseTime = AUParameterTree.createParameter(
             withIdentifier: "midReleaseTime",
             name: "Time (in seconds) to decay 60db in mid-frequency band.",
-            address: AUParameterAddress(3),
+            address: AKZitaReverbParameter.midReleaseTime.rawValue,
             min: Float(AKZitaReverb.midReleaseTimeRange.lowerBound),
             max: Float(AKZitaReverb.midReleaseTimeRange.upperBound),
             unit: .seconds,
@@ -124,7 +124,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let dampingFrequency = AUParameterTree.createParameter(
             withIdentifier: "dampingFrequency",
             name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
-            address: AUParameterAddress(4),
+            address: AKZitaReverbParameter.dampingFrequency.rawValue,
             min: Float(AKZitaReverb.dampingFrequencyRange.lowerBound),
             max: Float(AKZitaReverb.dampingFrequencyRange.upperBound),
             unit: .hertz,
@@ -136,7 +136,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let equalizerFrequency1 = AUParameterTree.createParameter(
             withIdentifier: "equalizerFrequency1",
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
-            address: AUParameterAddress(5),
+            address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
             min: Float(AKZitaReverb.equalizerFrequency1Range.lowerBound),
             max: Float(AKZitaReverb.equalizerFrequency1Range.upperBound),
             unit: .hertz,
@@ -148,7 +148,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let equalizerLevel1 = AUParameterTree.createParameter(
             withIdentifier: "equalizerLevel1",
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
-            address: AUParameterAddress(6),
+            address: AKZitaReverbParameter.equalizerLevel1.rawValue,
             min: Float(AKZitaReverb.equalizerLevel1Range.lowerBound),
             max: Float(AKZitaReverb.equalizerLevel1Range.upperBound),
             unit: .generic,
@@ -160,7 +160,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let equalizerFrequency2 = AUParameterTree.createParameter(
             withIdentifier: "equalizerFrequency2",
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
-            address: AUParameterAddress(7),
+            address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
             min: Float(AKZitaReverb.equalizerFrequency2Range.lowerBound),
             max: Float(AKZitaReverb.equalizerFrequency2Range.upperBound),
             unit: .hertz,
@@ -172,7 +172,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let equalizerLevel2 = AUParameterTree.createParameter(
             withIdentifier: "equalizerLevel2",
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
-            address: AUParameterAddress(8),
+            address: AKZitaReverbParameter.equalizerLevel2.rawValue,
             min: Float(AKZitaReverb.equalizerLevel2Range.lowerBound),
             max: Float(AKZitaReverb.equalizerLevel2Range.upperBound),
             unit: .generic,
@@ -184,7 +184,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         let dryWetMix = AUParameterTree.createParameter(
             withIdentifier: "dryWetMix",
             name: "0 = all dry, 1 = all wet",
-            address: AUParameterAddress(9),
+            address: AKZitaReverbParameter.dryWetMix.rawValue,
             min: Float(AKZitaReverb.dryWetMixRange.lowerBound),
             max: Float(AKZitaReverb.dryWetMixRange.upperBound),
             unit: .generic,
@@ -193,7 +193,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
         predelay.value = Float(AKZitaReverb.defaultPredelay)
         crossoverFrequency.value = Float(AKZitaReverb.defaultCrossoverFrequency)
