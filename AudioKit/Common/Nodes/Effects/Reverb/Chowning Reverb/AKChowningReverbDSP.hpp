@@ -30,7 +30,7 @@ private:
 public:
     AKChowningReverbDSP();
     
-    void init(int channels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

@@ -30,7 +30,7 @@ AKModulatedDelay::~AKModulatedDelay()
     deinit();
 }
 
-void AKModulatedDelay::init(int channels, double sampleRate)
+void AKModulatedDelay::init(int channelCount, double sampleRate)
 {
     minDelayMs = kChorusMinDelayMs;
     maxDelayMs = kChorusMaxDelayMs;
