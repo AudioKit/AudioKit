@@ -30,6 +30,11 @@
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
 - (void)triggerType:(UInt8)type amplitude:(float)amplitude;
 
+// Convolution and Phase-Locked Vocoder
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size;
+- (void)setPartitionLength:(int)partitionLength;
+- (void)initConvolutionEngine;
+
 @end
 
 
