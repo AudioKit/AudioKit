@@ -85,8 +85,8 @@ protected:
     // current sampling rate, samples/sec
     float sampleRate;
     
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
     
     bool isKeyMapValid;
     

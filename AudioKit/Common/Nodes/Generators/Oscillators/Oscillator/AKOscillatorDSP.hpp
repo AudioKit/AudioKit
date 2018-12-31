@@ -28,8 +28,8 @@ AKDSPRef createOscillatorDSP(int nChannels, double sampleRate);
 
 class AKOscillatorDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKOscillatorDSP();

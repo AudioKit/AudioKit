@@ -22,7 +22,7 @@ extern "C" AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate) {
 
 // AKRhodesPianoDSP method implementations
 
-struct AKRhodesPianoDSP::_Internal
+struct AKRhodesPianoDSP::InternalData
 {
     float internalTrigger = 0;
     stk::Rhodey *rhodesPiano;
@@ -33,7 +33,7 @@ struct AKRhodesPianoDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKRhodesPianoDSP::AKRhodesPianoDSP() : data(new _Internal)
+AKRhodesPianoDSP::AKRhodesPianoDSP() : data(new InternalData)
 {
     data->frequencyRamp.setTarget(110, true);
     data->frequencyRamp.setDurationInSamples(10000);

@@ -14,12 +14,12 @@ extern "C" AKDSPRef createBoosterDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKBoosterDSP::_Internal {
+struct AKBoosterDSP::InternalData {
     AKParameterRamp leftGainRamp;
     AKParameterRamp rightGainRamp;
 };
 
-AKBoosterDSP::AKBoosterDSP() : data(new _Internal) {
+AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {
     data->leftGainRamp.setTarget(1.0, true);
     data->leftGainRamp.setDurationInSamples(10000);
     data->rightGainRamp.setTarget(1.0, true);

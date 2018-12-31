@@ -15,14 +15,14 @@ extern "C" AKDSPRef createBandPassButterworthFilterDSP(int nChannels, double sam
     return dsp;
 }
 
-struct AKBandPassButterworthFilterDSP::_Internal {
+struct AKBandPassButterworthFilterDSP::InternalData {
     sp_butbp *_butbp0;
     sp_butbp *_butbp1;
     AKLinearParameterRamp centerFrequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
 };
 
-AKBandPassButterworthFilterDSP::AKBandPassButterworthFilterDSP() : data(new _Internal) {
+AKBandPassButterworthFilterDSP::AKBandPassButterworthFilterDSP() : data(new InternalData) {
     data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
     data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->bandwidthRamp.setTarget(defaultBandwidth, true);

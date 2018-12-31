@@ -15,7 +15,7 @@ extern "C" AKDSPRef createEqualizerFilterDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKEqualizerFilterDSP::_Internal {
+struct AKEqualizerFilterDSP::InternalData {
     sp_eqfil *_eqfil0;
     sp_eqfil *_eqfil1;
     AKLinearParameterRamp centerFrequencyRamp;
@@ -23,7 +23,7 @@ struct AKEqualizerFilterDSP::_Internal {
     AKLinearParameterRamp gainRamp;
 };
 
-AKEqualizerFilterDSP::AKEqualizerFilterDSP() : data(new _Internal) {
+AKEqualizerFilterDSP::AKEqualizerFilterDSP() : data(new InternalData) {
     data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
     data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->bandwidthRamp.setTarget(defaultBandwidth, true);

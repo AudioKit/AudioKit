@@ -26,8 +26,8 @@ AKDSPRef createBandRejectButterworthFilterDSP(int nChannels, double sampleRate);
 
 class AKBandRejectButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKBandRejectButterworthFilterDSP();

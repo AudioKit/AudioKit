@@ -15,7 +15,7 @@ extern "C" AKDSPRef createKorgLowPassFilterDSP(int nChannels, double sampleRate)
     return dsp;
 }
 
-struct AKKorgLowPassFilterDSP::_Internal {
+struct AKKorgLowPassFilterDSP::InternalData {
     sp_wpkorg35 *_wpkorg350;
     sp_wpkorg35 *_wpkorg351;
     AKLinearParameterRamp cutoffFrequencyRamp;
@@ -23,7 +23,7 @@ struct AKKorgLowPassFilterDSP::_Internal {
     AKLinearParameterRamp saturationRamp;
 };
 
-AKKorgLowPassFilterDSP::AKKorgLowPassFilterDSP() : data(new _Internal) {
+AKKorgLowPassFilterDSP::AKKorgLowPassFilterDSP() : data(new InternalData) {
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
     data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->resonanceRamp.setTarget(defaultResonance, true);

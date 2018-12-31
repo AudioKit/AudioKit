@@ -15,13 +15,13 @@ extern "C" AKDSPRef createCostelloReverbDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKCostelloReverbDSP::_Internal {
+struct AKCostelloReverbDSP::InternalData {
     sp_revsc *_revsc;
     AKLinearParameterRamp feedbackRamp;
     AKLinearParameterRamp cutoffFrequencyRamp;
 };
 
-AKCostelloReverbDSP::AKCostelloReverbDSP() : data(new _Internal) {
+AKCostelloReverbDSP::AKCostelloReverbDSP() : data(new InternalData) {
     data->feedbackRamp.setTarget(defaultFeedback, true);
     data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);

@@ -11,7 +11,7 @@
 #import "Compressor.h"
 #import "RageProcessor.h"
 
-struct AKDynaRageCompressorDSPKernel::_Internal {
+struct AKDynaRageCompressorDSPKernel::InternalData {
     Compressor *left_compressor;
     Compressor *right_compressor;
     
@@ -26,7 +26,7 @@ struct AKDynaRageCompressorDSPKernel::_Internal {
     BOOL rageIsOn = true;
 };
 
-AKDynaRageCompressorDSPKernel::AKDynaRageCompressorDSPKernel() : data(new _Internal) {}
+AKDynaRageCompressorDSPKernel::AKDynaRageCompressorDSPKernel() : data(new InternalData) {}
 AKDynaRageCompressorDSPKernel::~AKDynaRageCompressorDSPKernel() = default;
 
 void AKDynaRageCompressorDSPKernel::init(int _channels, double _sampleRate) {

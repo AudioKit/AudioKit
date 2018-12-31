@@ -16,7 +16,7 @@ extern "C" AKDSPRef createStereoDelayDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKStereoDelayDSP::_Internal {
+struct AKStereoDelayDSP::InternalData {
     AudioKitCore::StereoDelay delay;
 
     AKLinearParameterRamp timeRamp;
@@ -25,7 +25,7 @@ struct AKStereoDelayDSP::_Internal {
     
 };
 
-AKStereoDelayDSP::AKStereoDelayDSP() : data(new _Internal) {
+AKStereoDelayDSP::AKStereoDelayDSP() : data(new InternalData) {
     data->timeRamp.setTarget(defaultTime, true);
     data->timeRamp.setDurationInSamples(defaultRampDurationSamples);
     data->feedbackRamp.setTarget(defaultFeedback, true);

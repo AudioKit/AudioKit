@@ -15,7 +15,7 @@ extern "C" AKDSPRef createThreePoleLowpassFilterDSP(int nChannels, double sample
     return dsp;
 }
 
-struct AKThreePoleLowpassFilterDSP::_Internal {
+struct AKThreePoleLowpassFilterDSP::InternalData {
     sp_lpf18 *_lpf180;
     sp_lpf18 *_lpf181;
     AKLinearParameterRamp distortionRamp;
@@ -23,7 +23,7 @@ struct AKThreePoleLowpassFilterDSP::_Internal {
     AKLinearParameterRamp resonanceRamp;
 };
 
-AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : data(new _Internal) {
+AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : data(new InternalData) {
     data->distortionRamp.setTarget(defaultDistortion, true);
     data->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);

@@ -26,8 +26,8 @@ AKDSPRef createClarinetDSP(int nChannels, double sampleRate);
 
 class AKClarinetDSP : public AKDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
 

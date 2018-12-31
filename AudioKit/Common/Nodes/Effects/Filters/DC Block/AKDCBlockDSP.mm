@@ -14,12 +14,12 @@ extern "C" AKDSPRef createDCBlockDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKDCBlockDSP::_Internal {
+struct AKDCBlockDSP::InternalData {
     sp_dcblock *_dcblock0;
     sp_dcblock *_dcblock1;
 };
 
-AKDCBlockDSP::AKDCBlockDSP() : data(new _Internal) {}
+AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {}
 
 void AKDCBlockDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);

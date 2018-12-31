@@ -15,7 +15,7 @@ extern "C" AKDSPRef createMetalBarDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKMetalBarDSP::_Internal {
+struct AKMetalBarDSP::InternalData {
     sp_bar *_bar;
     AKLinearParameterRamp leftBoundaryConditionRamp;
     AKLinearParameterRamp rightBoundaryConditionRamp;
@@ -26,7 +26,7 @@ struct AKMetalBarDSP::_Internal {
     AKLinearParameterRamp strikeWidthRamp;
 };
 
-AKMetalBarDSP::AKMetalBarDSP() : data(new _Internal) {
+AKMetalBarDSP::AKMetalBarDSP() : data(new InternalData) {
     data->leftBoundaryConditionRamp.setTarget(defaultLeftBoundaryCondition, true);
     data->leftBoundaryConditionRamp.setDurationInSamples(defaultRampDurationSamples);
     data->rightBoundaryConditionRamp.setTarget(defaultRightBoundaryCondition, true);

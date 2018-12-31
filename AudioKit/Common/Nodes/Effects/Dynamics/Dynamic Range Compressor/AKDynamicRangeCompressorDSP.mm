@@ -15,7 +15,7 @@ extern "C" AKDSPRef createDynamicRangeCompressorDSP(int nChannels, double sample
     return dsp;
 }
 
-struct AKDynamicRangeCompressorDSP::_Internal {
+struct AKDynamicRangeCompressorDSP::InternalData {
     sp_compressor *_compressor0;
     sp_compressor *_compressor1;
     AKLinearParameterRamp ratioRamp;
@@ -24,7 +24,7 @@ struct AKDynamicRangeCompressorDSP::_Internal {
     AKLinearParameterRamp releaseDurationRamp;
 };
 
-AKDynamicRangeCompressorDSP::AKDynamicRangeCompressorDSP() : data(new _Internal) {
+AKDynamicRangeCompressorDSP::AKDynamicRangeCompressorDSP() : data(new InternalData) {
     data->ratioRamp.setTarget(defaultRatio, true);
     data->ratioRamp.setDurationInSamples(defaultRampDurationSamples);
     data->thresholdRamp.setTarget(defaultThreshold, true);

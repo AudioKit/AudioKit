@@ -15,7 +15,7 @@ extern "C" AKDSPRef createPhaserDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKPhaserDSP::_Internal {
+struct AKPhaserDSP::InternalData {
     sp_phaser *_phaser;
     AKLinearParameterRamp notchMinimumFrequencyRamp;
     AKLinearParameterRamp notchMaximumFrequencyRamp;
@@ -28,7 +28,7 @@ struct AKPhaserDSP::_Internal {
     AKLinearParameterRamp lfoBPMRamp;
 };
 
-AKPhaserDSP::AKPhaserDSP() : data(new _Internal) {
+AKPhaserDSP::AKPhaserDSP() : data(new InternalData) {
     data->notchMinimumFrequencyRamp.setTarget(defaultNotchMinimumFrequency, true);
     data->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->notchMaximumFrequencyRamp.setTarget(defaultNotchMaximumFrequency, true);

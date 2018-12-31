@@ -15,14 +15,14 @@ extern "C" AKDSPRef createMoogLadderDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKMoogLadderDSP::_Internal {
+struct AKMoogLadderDSP::InternalData {
     sp_moogladder *_moogladder0;
     sp_moogladder *_moogladder1;
     AKLinearParameterRamp cutoffFrequencyRamp;
     AKLinearParameterRamp resonanceRamp;
 };
 
-AKMoogLadderDSP::AKMoogLadderDSP() : data(new _Internal) {
+AKMoogLadderDSP::AKMoogLadderDSP() : data(new InternalData) {
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
     data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->resonanceRamp.setTarget(defaultResonance, true);

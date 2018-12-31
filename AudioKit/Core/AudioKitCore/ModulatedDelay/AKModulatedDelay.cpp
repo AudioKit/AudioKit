@@ -12,7 +12,7 @@
 #include "AdjustableDelayLine.hpp"
 #include "FunctionTable.hpp"
 
-struct AKModulatedDelay::_Internal
+struct AKModulatedDelay::InternalData
 {
     AudioKitCore::AdjustableDelayLine leftDelayLine, rightDelayLine;
     AudioKitCore::FunctionTableOscillator modOscillator;
@@ -21,7 +21,7 @@ struct AKModulatedDelay::_Internal
 AKModulatedDelay::AKModulatedDelay(AKModulatedDelayType type)
 : modFreqHz(1.0f)
 , modDepthFraction(0.0f)
-, effectType(type), data(new _Internal)
+, effectType(type), data(new InternalData)
 {
 }
 

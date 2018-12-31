@@ -25,8 +25,8 @@ AKDSPRef createHighPassButterworthFilterDSP(int nChannels, double sampleRate);
 
 class AKHighPassButterworthFilterDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKHighPassButterworthFilterDSP();

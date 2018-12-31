@@ -15,7 +15,7 @@ extern "C" AKDSPRef createFMOscillatorDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKFMOscillatorDSP::_Internal {
+struct AKFMOscillatorDSP::InternalData {
     sp_fosc *_fosc;
     sp_ftbl *_ftbl;
     UInt32 _ftbl_size = 4096;
@@ -26,7 +26,7 @@ struct AKFMOscillatorDSP::_Internal {
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKFMOscillatorDSP::AKFMOscillatorDSP() : data(new _Internal) {
+AKFMOscillatorDSP::AKFMOscillatorDSP() : data(new InternalData) {
     data->baseFrequencyRamp.setTarget(defaultBaseFrequency, true);
     data->baseFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->carrierMultiplierRamp.setTarget(defaultCarrierMultiplier, true);

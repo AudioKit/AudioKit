@@ -38,8 +38,8 @@ protected:
     float modFreqHz, modDepthFraction, dryWetMix;
     AKModulatedDelayType effectType;
 
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 };
 
 #endif

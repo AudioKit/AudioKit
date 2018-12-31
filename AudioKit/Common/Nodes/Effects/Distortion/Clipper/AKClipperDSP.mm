@@ -15,13 +15,13 @@ extern "C" AKDSPRef createClipperDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKClipperDSP::_Internal {
+struct AKClipperDSP::InternalData {
     sp_clip *_clip0;
     sp_clip *_clip1;
     AKLinearParameterRamp limitRamp;
 };
 
-AKClipperDSP::AKClipperDSP() : data(new _Internal) {
+AKClipperDSP::AKClipperDSP() : data(new InternalData) {
     data->limitRamp.setTarget(defaultLimit, true);
     data->limitRamp.setDurationInSamples(defaultRampDurationSamples);
 }

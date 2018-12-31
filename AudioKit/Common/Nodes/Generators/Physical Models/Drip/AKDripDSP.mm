@@ -15,7 +15,7 @@ extern "C" AKDSPRef createDripDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKDripDSP::_Internal {
+struct AKDripDSP::InternalData {
     sp_drip *_drip;
     AKLinearParameterRamp intensityRamp;
     AKLinearParameterRamp dampingFactorRamp;
@@ -26,7 +26,7 @@ struct AKDripDSP::_Internal {
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKDripDSP::AKDripDSP() : data(new _Internal) {
+AKDripDSP::AKDripDSP() : data(new InternalData) {
     data->intensityRamp.setTarget(defaultIntensity, true);
     data->intensityRamp.setDurationInSamples(defaultRampDurationSamples);
     data->dampingFactorRamp.setTarget(defaultDampingFactor, true);

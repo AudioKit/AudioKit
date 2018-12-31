@@ -18,7 +18,7 @@
 #define MAX_VOICE_COUNT 32      // number of voices
 #define MIDI_NOTENUMBERS 128    // MIDI offers 128 distinct note numbers
 
-struct AKSynth::_Internal
+struct AKSynth::InternalData
 {
     /// array of voice resources
     AudioKitCore::SynthVoice voice[MAX_VOICE_COUNT];
@@ -44,7 +44,7 @@ AKSynth::AKSynth()
 , cutoffMultiple(4.0f)
 , cutoffStrength(20.0f)
 , resLinear(1.0f)
-, data(new _Internal)
+, data(new InternalData)
 {
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {

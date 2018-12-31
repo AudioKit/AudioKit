@@ -26,8 +26,8 @@ AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate);
 
 class AKTubularBellsDSP : public AKDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
 

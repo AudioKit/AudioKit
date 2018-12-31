@@ -15,12 +15,12 @@ extern "C" AKDSPRef createWhiteNoiseDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKWhiteNoiseDSP::_Internal {
+struct AKWhiteNoiseDSP::InternalData {
     sp_noise *_noise;
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKWhiteNoiseDSP::AKWhiteNoiseDSP() : data(new _Internal) {
+AKWhiteNoiseDSP::AKWhiteNoiseDSP() : data(new InternalData) {
     data->amplitudeRamp.setTarget(defaultAmplitude, true);
     data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }

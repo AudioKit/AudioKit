@@ -29,8 +29,8 @@ AKDSPRef createStereoDelayDSP(int _channels, double sampleRate);
 class AKStereoDelayDSP : public AKDSPBase
 {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKStereoDelayDSP();

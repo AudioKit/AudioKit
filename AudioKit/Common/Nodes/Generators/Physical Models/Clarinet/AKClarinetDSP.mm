@@ -20,7 +20,7 @@ extern "C" AKDSPRef createClarinetDSP(int nChannels, double sampleRate) {
 
 // AKClarinetDSP method implementations
 
-struct AKClarinetDSP::_Internal
+struct AKClarinetDSP::InternalData
 {
     float internalTrigger = 0;
     stk::Clarinet *clarinet;
@@ -31,7 +31,7 @@ struct AKClarinetDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKClarinetDSP::AKClarinetDSP() : data(new _Internal)
+AKClarinetDSP::AKClarinetDSP() : data(new InternalData)
 {
     data->frequencyRamp.setTarget(440, true);
     data->frequencyRamp.setDurationInSamples(10000);

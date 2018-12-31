@@ -15,12 +15,12 @@ extern "C" AKDSPRef createBrownianNoiseDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKBrownianNoiseDSP::_Internal {
+struct AKBrownianNoiseDSP::InternalData {
     sp_brown *_brown;
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKBrownianNoiseDSP::AKBrownianNoiseDSP() : data(new _Internal) {
+AKBrownianNoiseDSP::AKBrownianNoiseDSP() : data(new InternalData) {
     data->amplitudeRamp.setTarget(defaultAmplitude, true);
     data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }

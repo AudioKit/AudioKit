@@ -15,7 +15,7 @@ extern "C" AKDSPRef createPitchShifterDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKPitchShifterDSP::_Internal {
+struct AKPitchShifterDSP::InternalData {
     sp_pshift *_pshift0;
     sp_pshift *_pshift1;
     AKLinearParameterRamp shiftRamp;
@@ -23,7 +23,7 @@ struct AKPitchShifterDSP::_Internal {
     AKLinearParameterRamp crossfadeRamp;
 };
 
-AKPitchShifterDSP::AKPitchShifterDSP() : data(new _Internal) {
+AKPitchShifterDSP::AKPitchShifterDSP() : data(new InternalData) {
     data->shiftRamp.setTarget(defaultShift, true);
     data->shiftRamp.setDurationInSamples(defaultRampDurationSamples);
     data->windowSizeRamp.setTarget(defaultWindowSize, true);

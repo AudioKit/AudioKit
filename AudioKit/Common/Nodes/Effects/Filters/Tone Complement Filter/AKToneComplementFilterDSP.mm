@@ -15,13 +15,13 @@ extern "C" AKDSPRef createToneComplementFilterDSP(int nChannels, double sampleRa
     return dsp;
 }
 
-struct AKToneComplementFilterDSP::_Internal {
+struct AKToneComplementFilterDSP::InternalData {
     sp_atone *_atone0;
     sp_atone *_atone1;
     AKLinearParameterRamp halfPowerPointRamp;
 };
 
-AKToneComplementFilterDSP::AKToneComplementFilterDSP() : data(new _Internal) {
+AKToneComplementFilterDSP::AKToneComplementFilterDSP() : data(new InternalData) {
     data->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
     data->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
 }

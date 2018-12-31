@@ -15,7 +15,7 @@ extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP(int nChannels, double s
     return dsp;
 }
 
-struct AKFlatFrequencyResponseReverbDSP::_Internal {
+struct AKFlatFrequencyResponseReverbDSP::InternalData {
     sp_allpass *_allpass0;
     sp_allpass *_allpass1;
     float _loopDuration = 0.1;
@@ -27,7 +27,7 @@ void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
 }
 
 
-AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new _Internal) {
+AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new InternalData) {
     data->reverbDurationRamp.setTarget(defaultReverbDuration, true);
     data->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
