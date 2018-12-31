@@ -72,8 +72,8 @@ float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKRhodesPianoDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKRhodesPianoDSP::init(int channelCount, double _sampleRate)  {
+    AKDSPBase::init(channelCount, _sampleRate);
 
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()

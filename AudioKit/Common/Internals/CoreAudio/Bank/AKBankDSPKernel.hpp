@@ -106,8 +106,8 @@ public:
 public:
     
     // MARK: Member Functions
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, _sampleRate);
 
         attackDurationRamper.init();
         decayDurationRamper.init();

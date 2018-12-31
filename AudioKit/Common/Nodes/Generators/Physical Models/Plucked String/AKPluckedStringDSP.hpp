@@ -71,8 +71,8 @@ public:
         return 0;
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
 
         sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);

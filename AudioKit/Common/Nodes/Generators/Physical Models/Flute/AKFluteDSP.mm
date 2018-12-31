@@ -70,8 +70,8 @@ float AKFluteDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKFluteDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKFluteDSP::init(int channelCount, double _sampleRate)  {
+    AKDSPBase::init(channelCount, _sampleRate);
 
     stk::Stk::setSampleRate(_sampleRate);
     data->flute = new stk::Flute(100);

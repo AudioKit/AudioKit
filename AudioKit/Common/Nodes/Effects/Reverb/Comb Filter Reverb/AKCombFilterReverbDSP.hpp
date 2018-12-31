@@ -67,8 +67,8 @@ public:
         return 0;
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
         sp_comb_create(&comb0);
         sp_comb_create(&comb1);
         sp_comb_init(sp, comb0, loopDuration);

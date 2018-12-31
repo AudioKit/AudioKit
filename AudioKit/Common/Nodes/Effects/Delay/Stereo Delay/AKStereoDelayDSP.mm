@@ -74,7 +74,7 @@ float AKStereoDelayDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKStereoDelayDSP::init(int _channels, double _sampleRate) {
+void AKStereoDelayDSP::init(int channelCount, double _sampleRate) {
     // TODO add something to handle 1 vs 2 channels
     data->delay.init(_sampleRate, timeUpperBound * 1000.0);
 }

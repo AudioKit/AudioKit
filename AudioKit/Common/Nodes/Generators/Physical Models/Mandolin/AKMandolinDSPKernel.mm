@@ -22,8 +22,8 @@ AKMandolinDSPKernel::AKMandolinDSPKernel() : data(new InternalData) { }
 
 AKMandolinDSPKernel::~AKMandolinDSPKernel() = default;
 
-void AKMandolinDSPKernel::init(int _channels, double _sampleRate) {
-    AKDSPKernel::init(_channels, _sampleRate);
+void AKMandolinDSPKernel::init(int channelCount, double _sampleRate) {
+    AKDSPKernel::init(channelCount, _sampleRate);
     
     // Create temporary raw files
     NSError *error = nil;

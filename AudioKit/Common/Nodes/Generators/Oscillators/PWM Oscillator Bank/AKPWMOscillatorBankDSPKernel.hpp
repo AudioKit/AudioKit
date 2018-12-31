@@ -98,8 +98,8 @@ public:
         }
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKBankDSPKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKBankDSPKernel::init(channelCount, _sampleRate);
         pulseWidthRamper.init();
     }
 

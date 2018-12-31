@@ -27,11 +27,11 @@ protected:
     sp_data *sp = nullptr;
 public:
 
-    void init(int _channels, double _sampleRate) override {
-        AKDSPBase::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKDSPBase::init(channelCount, _sampleRate);
         sp_create(&sp);
         sp->sr = _sampleRate;
-        sp->nchan = _channels;
+        sp->nchan = channelCount;
     }
 
     ~AKSoundpipeDSPBase() {

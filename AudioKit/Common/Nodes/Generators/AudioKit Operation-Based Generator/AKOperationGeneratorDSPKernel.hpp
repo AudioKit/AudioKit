@@ -29,8 +29,8 @@ public:
 
     AKOperationGeneratorDSPKernel() {}
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, _sampleRate);
 
         plumber_register(&pd);
         plumber_init(&pd);

@@ -72,8 +72,8 @@ float AKTubularBellsDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKTubularBellsDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKTubularBellsDSP::init(int channelCount, double _sampleRate)  {
+    AKDSPBase::init(channelCount, _sampleRate);
 
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
