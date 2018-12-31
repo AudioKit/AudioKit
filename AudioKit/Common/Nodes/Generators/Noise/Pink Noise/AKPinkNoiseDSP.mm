@@ -9,9 +9,9 @@
 #include "AKPinkNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createPinkNoiseDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createPinkNoiseDSP(int channelCount, double sampleRate) {
     AKPinkNoiseDSP *dsp = new AKPinkNoiseDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -72,7 +72,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
         data->pinknoise->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {

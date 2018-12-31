@@ -22,7 +22,7 @@ typedef NS_ENUM(AUParameterAddress, AKAmplitudeEnvelopeParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createAmplitudeEnvelopeDSP(int nChannels, double sampleRate);
+AKDSPRef createAmplitudeEnvelopeDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -146,7 +146,7 @@ public:
 
             sp_adsr_compute(sp, _adsr, &internalGate, &amp);
 
-            for (int channel = 0; channel < _nChannels; ++channel) {
+            for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = *in * amp;

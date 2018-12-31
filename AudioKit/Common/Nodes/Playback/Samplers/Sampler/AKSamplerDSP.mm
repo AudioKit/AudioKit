@@ -10,7 +10,7 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" AKDSPRef createAKSamplerDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate) {
     return new AKSamplerDSP();
 }
 
@@ -112,9 +112,9 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     glideRateRamp.setTarget(0.0, true);
 }
 
-void AKSamplerDSP::init(int nChannels, double sampleRate)
+void AKSamplerDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(nChannels, sampleRate);
+    AKDSPBase::init(channelCount, sampleRate);
     AKCoreSampler::init(sampleRate);
 }
 

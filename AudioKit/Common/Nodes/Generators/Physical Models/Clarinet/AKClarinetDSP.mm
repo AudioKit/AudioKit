@@ -12,9 +12,9 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createClarinetDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createClarinetDSP(int channelCount, double sampleRate) {
     AKClarinetDSP *dsp = new AKClarinetDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -106,7 +106,7 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
         float frequency = data->frequencyRamp.getValue();
         float amplitude = data->amplitudeRamp.getValue();
         
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             
             if (_playing) {

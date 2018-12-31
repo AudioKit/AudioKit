@@ -26,7 +26,7 @@ typedef NS_ENUM(AUParameterAddress, AKZitaReverbParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createZitaReverbDSP(int nChannels, double sampleRate);
+AKDSPRef createZitaReverbDSP(int channelCount, double sampleRate);
 
 #else
 

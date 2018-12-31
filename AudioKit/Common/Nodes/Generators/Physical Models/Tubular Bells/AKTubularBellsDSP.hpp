@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate);
+AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate);
 
 #else
 

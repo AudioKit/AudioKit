@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKTremoloParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTremoloDSP(int nChannels, double sampleRate);
+AKDSPRef createTremoloDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -109,7 +109,7 @@ public:
             trem->amp = depthRamp.getValue();
 
             float temp = 0;
-            for (int channel = 0; channel < _nChannels; ++channel) {
+            for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 

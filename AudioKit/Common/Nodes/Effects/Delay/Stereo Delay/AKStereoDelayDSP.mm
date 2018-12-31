@@ -10,9 +10,9 @@
 #include "StereoDelay.hpp"
 #include "DSPKernel.hpp" // for clamp()
 
-extern "C" AKDSPRef createStereoDelayDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createStereoDelayDSP(int channelCount, double sampleRate) {
     AKStereoDelayDSP *dsp = new AKStereoDelayDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 

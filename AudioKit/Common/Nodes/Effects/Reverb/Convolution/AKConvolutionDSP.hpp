@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKConvolutionParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createConvolutionDSP(int nChannels, double sampleRate);
+AKDSPRef createConvolutionDSP(int channelCount, double sampleRate);
 
 #else
 

@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKPWMOscillatorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPWMOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createPWMOscillatorDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -140,7 +140,7 @@ public:
             *blsquare->width = pulseWidth;
 
             float temp = 0;
-            for (int channel = 0; channel < _nChannels; ++channel) {
+            for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {

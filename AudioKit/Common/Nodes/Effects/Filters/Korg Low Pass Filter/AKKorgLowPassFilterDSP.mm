@@ -9,9 +9,9 @@
 #include "AKKorgLowPassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createKorgLowPassFilterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createKorgLowPassFilterDSP(int channelCount, double sampleRate) {
     AKKorgLowPassFilterDSP *dsp = new AKKorgLowPassFilterDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -107,7 +107,7 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {

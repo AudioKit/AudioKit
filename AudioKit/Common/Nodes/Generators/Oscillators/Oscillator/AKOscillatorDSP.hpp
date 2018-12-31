@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createOscillatorDSP(int channelCount, double sampleRate);
 
 #else
 
