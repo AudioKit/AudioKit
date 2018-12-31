@@ -70,9 +70,9 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
 void AKEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_eqfil_create(&data->eqfil0);
-    sp_eqfil_init(_sp, data->eqfil0);
+    sp_eqfil_init(sp, data->eqfil0);
     sp_eqfil_create(&data->eqfil1);
-    sp_eqfil_init(_sp, data->eqfil1);
+    sp_eqfil_init(sp, data->eqfil1);
     data->eqfil0->freq = defaultCenterFrequency;
     data->eqfil1->freq = defaultCenterFrequency;
     data->eqfil0->bw = defaultBandwidth;
@@ -120,9 +120,9 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             }
 
             if (channel == 0) {
-                sp_eqfil_compute(_sp, data->eqfil0, in, out);
+                sp_eqfil_compute(sp, data->eqfil0, in, out);
             } else {
-                sp_eqfil_compute(_sp, data->eqfil1, in, out);
+                sp_eqfil_compute(sp, data->eqfil1, in, out);
             }
         }
     }

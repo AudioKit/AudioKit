@@ -51,7 +51,7 @@ float AKWhiteNoiseDSP::getParameter(uint64_t address) {
 void AKWhiteNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_noise_create(&data->noise);
-    sp_noise_init(_sp, data->noise);
+    sp_noise_init(sp, data->noise);
     data->noise->amp = defaultAmplitude;
 }
 
@@ -77,7 +77,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_noise_compute(_sp, data->noise, nil, &temp);
+                    sp_noise_compute(sp, data->noise, nil, &temp);
                 }
                 *out = temp;
             } else {

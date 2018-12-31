@@ -52,9 +52,9 @@ float AKLowPassButterworthFilterDSP::getParameter(uint64_t address) {
 void AKLowPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_butlp_create(&data->butlp0);
-    sp_butlp_init(_sp, data->butlp0);
+    sp_butlp_init(sp, data->butlp0);
     sp_butlp_create(&data->butlp1);
-    sp_butlp_init(_sp, data->butlp1);
+    sp_butlp_init(sp, data->butlp1);
     data->butlp0->freq = defaultCutoffFrequency;
     data->butlp1->freq = defaultCutoffFrequency;
 }
@@ -92,9 +92,9 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
             }
 
             if (channel == 0) {
-                sp_butlp_compute(_sp, data->butlp0, in, out);
+                sp_butlp_compute(sp, data->butlp0, in, out);
             } else {
-                sp_butlp_compute(_sp, data->butlp1, in, out);
+                sp_butlp_compute(sp, data->butlp1, in, out);
             }
         }
     }

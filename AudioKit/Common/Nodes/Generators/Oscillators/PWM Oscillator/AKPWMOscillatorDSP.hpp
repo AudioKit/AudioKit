@@ -31,7 +31,7 @@ AKDSPRef createPWMOscillatorDSP(int nChannels, double sampleRate);
 
 class AKPWMOscillatorDSP : public AKSoundpipeDSPBase {
 
-    sp_blsquare *_blsquare;
+    sp_blsquare *blsquare;
 
 
 private:
@@ -106,15 +106,15 @@ public:
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
         _playing = false;
         
-        sp_blsquare_create(&_blsquare);
-        sp_blsquare_init(_sp, _blsquare);
-        *_blsquare->freq = 440;
-        *_blsquare->amp = 1.0;
-        *_blsquare->width = 0.5;
+        sp_blsquare_create(&blsquare);
+        sp_blsquare_init(sp, blsquare);
+        *blsquare->freq = 440;
+        *blsquare->amp = 1.0;
+        *blsquare->width = 0.5;
    }
 
     void deinit() override {
-        sp_blsquare_destroy(&_blsquare);
+        sp_blsquare_destroy(&blsquare);
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
@@ -135,9 +135,9 @@ public:
             float pulseWidth = pulseWidthRamp.getValue();
             float detuningOffset = detuningOffsetRamp.getValue();
             float detuningMultiplier = detuningMultiplierRamp.getValue();
-            *_blsquare->freq = frequency * detuningMultiplier + detuningOffset;
-            *_blsquare->amp = amplitude;
-            *_blsquare->width = pulseWidth;
+            *blsquare->freq = frequency * detuningMultiplier + detuningOffset;
+            *blsquare->amp = amplitude;
+            *blsquare->width = pulseWidth;
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
@@ -145,7 +145,7 @@ public:
 
                 if (_playing) {
                     if (channel == 0) {
-                        sp_blsquare_compute(_sp, _blsquare, nil, &temp);
+                        sp_blsquare_compute(sp, blsquare, nil, &temp);
                     }
                     *out = temp;
                 } else {

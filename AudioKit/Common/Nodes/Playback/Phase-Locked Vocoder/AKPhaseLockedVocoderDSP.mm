@@ -27,7 +27,7 @@ struct AKPhaseLockedVocoderDSP::InternalData {
 
 void AKPhaseLockedVocoderDSP::start() {
     AKSoundpipeDSPBase::start();
-    sp_mincer_init(_sp, data->mincer, data->ftbl, 2048);
+    sp_mincer_init(sp, data->mincer, data->ftbl, 2048);
     data->mincer->time = defaultPosition;
     data->mincer->amp = defaultAmplitude;
     data->mincer->pitch = defaultPitchRatio;
@@ -78,7 +78,7 @@ void AKPhaseLockedVocoderDSP::init(int _channels, double _sampleRate) {
 
 void AKPhaseLockedVocoderDSP::setUpTable(float *table, UInt32 size) {
     data->ftbl_size = size;
-    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
     data->ftbl->tbl = table;
 }
 
@@ -106,7 +106,7 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
         float *outL = (float *)_outBufferListPtr->mBuffers[0].mData  + frameOffset;
         float *outR = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
         if (_playing) {
-            sp_mincer_compute(_sp, data->mincer, NULL, outL);
+            sp_mincer_compute(sp, data->mincer, NULL, outL);
             *outR = *outL;
         } else {
             *outL = 0;

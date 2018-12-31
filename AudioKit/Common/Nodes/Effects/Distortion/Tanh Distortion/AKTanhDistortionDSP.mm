@@ -79,9 +79,9 @@ float AKTanhDistortionDSP::getParameter(uint64_t address) {
 void AKTanhDistortionDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_dist_create(&data->dist0);
-    sp_dist_init(_sp, data->dist0);
+    sp_dist_init(sp, data->dist0);
     sp_dist_create(&data->dist1);
-    sp_dist_init(_sp, data->dist1);
+    sp_dist_init(sp, data->dist1);
     data->dist0->pregain = defaultPregain;
     data->dist1->pregain = defaultPregain;
     data->dist0->postgain = defaultPostgain;
@@ -134,9 +134,9 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
 
             if (channel == 0) {
-                sp_dist_compute(_sp, data->dist0, in, out);
+                sp_dist_compute(sp, data->dist0, in, out);
             } else {
-                sp_dist_compute(_sp, data->dist1, in, out);
+                sp_dist_compute(sp, data->dist1, in, out);
             }
         }
     }

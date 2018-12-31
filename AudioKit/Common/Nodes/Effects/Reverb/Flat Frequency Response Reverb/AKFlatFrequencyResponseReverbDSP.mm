@@ -59,8 +59,8 @@ void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_allpass_create(&data->allpass0);
     sp_allpass_create(&data->allpass1);
-    sp_allpass_init(_sp, data->allpass0, data->loopDuration);
-    sp_allpass_init(_sp, data->allpass1, data->loopDuration);
+    sp_allpass_init(sp, data->allpass0, data->loopDuration);
+    sp_allpass_init(sp, data->allpass1, data->loopDuration);
     data->allpass0->revtime = defaultReverbDuration;
     data->allpass1->revtime = defaultReverbDuration;
 
@@ -99,9 +99,9 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
                 continue;
             }
             if (channel == 0) {
-                sp_allpass_compute(_sp, data->allpass0, in, out);
+                sp_allpass_compute(sp, data->allpass0, in, out);
             } else {
-                sp_allpass_compute(_sp, data->allpass1, in, out);
+                sp_allpass_compute(sp, data->allpass1, in, out);
             }
         }
 

@@ -27,12 +27,12 @@ AKDSPRef createCombFilterReverbDSP(int nChannels, double sampleRate);
 
 class AKCombFilterReverbDSP : public AKSoundpipeDSPBase {
 
-    sp_comb *_comb0;
-    sp_comb *_comb1;
+    sp_comb *comb0;
+    sp_comb *comb1;
 
 private:
     AKLinearParameterRamp reverbDurationRamp;
-    float _loopDuration = 0.1;
+    float loopDuration = 0.1;
 
 public:
     AKCombFilterReverbDSP() {
@@ -41,7 +41,7 @@ public:
     }
 
     void initializeConstant(float duration) override {
-        _loopDuration = duration;
+        loopDuration = duration;
     }
 
     /** Uses the ParameterAddress as a key */
@@ -69,17 +69,17 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_comb_create(&_comb0);
-        sp_comb_create(&_comb1);
-        sp_comb_init(_sp, _comb0, _loopDuration);
-        sp_comb_init(_sp, _comb1, _loopDuration);
-        _comb0->revtime = 1.0;
-        _comb1->revtime = 1.0;
+        sp_comb_create(&comb0);
+        sp_comb_create(&comb1);
+        sp_comb_init(sp, comb0, loopDuration);
+        sp_comb_init(sp, comb1, loopDuration);
+        comb0->revtime = 1.0;
+        comb1->revtime = 1.0;
     }
 
     void deinit() override {
-        sp_comb_destroy(&_comb0);
-        sp_comb_destroy(&_comb1);
+        sp_comb_destroy(&comb0);
+        sp_comb_destroy(&comb1);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -91,8 +91,8 @@ public:
             if ((frameOffset & 0x7) == 0) {
                 reverbDurationRamp.advanceTo(_now + frameOffset);
             }
-            _comb0->revtime = reverbDurationRamp.getValue();
-            _comb1->revtime = reverbDurationRamp.getValue();            
+            comb0->revtime = reverbDurationRamp.getValue();
+            comb1->revtime = reverbDurationRamp.getValue();            
 
             float *tmpin[2];
             float *tmpout[2];
@@ -109,9 +109,9 @@ public:
                     continue;
                 }
                 if (channel == 0) {
-                    sp_comb_compute(_sp, _comb0, in, out);
+                    sp_comb_compute(sp, comb0, in, out);
                 } else {
-                    sp_comb_compute(_sp, _comb1, in, out);
+                    sp_comb_compute(sp, comb1, in, out);
                 }
             }
             if (_playing) {

@@ -70,9 +70,9 @@ float AKKorgLowPassFilterDSP::getParameter(uint64_t address) {
 void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_wpkorg35_create(&data->wpkorg350);
-    sp_wpkorg35_init(_sp, data->wpkorg350);
+    sp_wpkorg35_init(sp, data->wpkorg350);
     sp_wpkorg35_create(&data->wpkorg351);
-    sp_wpkorg35_init(_sp, data->wpkorg351);
+    sp_wpkorg35_init(sp, data->wpkorg351);
     data->wpkorg350->cutoff = defaultCutoffFrequency;
     data->wpkorg351->cutoff = defaultCutoffFrequency;
     data->wpkorg350->res = defaultResonance;
@@ -120,9 +120,9 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             }
 
             if (channel == 0) {
-                sp_wpkorg35_compute(_sp, data->wpkorg350, in, out);
+                sp_wpkorg35_compute(sp, data->wpkorg350, in, out);
             } else {
-                sp_wpkorg35_compute(_sp, data->wpkorg351, in, out);
+                sp_wpkorg35_compute(sp, data->wpkorg351, in, out);
             }
         }
     }

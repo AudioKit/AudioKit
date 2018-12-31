@@ -27,7 +27,7 @@ AKDSPRef createPannerDSP(int nChannels, double sampleRate);
 
 class AKPannerDSP : public AKSoundpipeDSPBase {
 
-    sp_panst *_panst;
+    sp_panst *panst;
 
 
 private:
@@ -64,13 +64,13 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_panst_create(&_panst);
-        sp_panst_init(_sp, _panst);
-        _panst->pan = 0;
+        sp_panst_create(&panst);
+        sp_panst_init(sp, panst);
+        panst->pan = 0;
     }
 
     void deinit() override {
-        sp_panst_destroy(&_panst);
+        sp_panst_destroy(&panst);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -82,7 +82,7 @@ public:
             if ((frameOffset & 0x7) == 0) {
                 panRamp.advanceTo(_now + frameOffset);
             }
-            _panst->pan = panRamp.getValue();
+            panst->pan = panRamp.getValue();
 
             float *tmpin[2];
             float *tmpout[2];
@@ -99,7 +99,7 @@ public:
                 }
             }
             if (_playing) {
-                sp_panst_compute(_sp, _panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
         }
     }

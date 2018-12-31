@@ -51,7 +51,7 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
 void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_brown_create(&data->brown);
-    sp_brown_init(_sp, data->brown);
+    sp_brown_init(sp, data->brown);
 }
 
 void AKBrownianNoiseDSP::deinit() {
@@ -74,7 +74,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_brown_compute(_sp, data->brown, nil, &temp);
+                    sp_brown_compute(sp, data->brown, nil, &temp);
                 }
                 *out = temp * data->amplitudeRamp.getValue();
             } else {

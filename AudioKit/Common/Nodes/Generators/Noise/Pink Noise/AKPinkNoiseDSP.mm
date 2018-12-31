@@ -51,7 +51,7 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
 void AKPinkNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_pinknoise_create(&data->pinknoise);
-    sp_pinknoise_init(_sp, data->pinknoise);
+    sp_pinknoise_init(sp, data->pinknoise);
     data->pinknoise->amp = defaultAmplitude;
 }
 
@@ -77,7 +77,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_pinknoise_compute(_sp, data->pinknoise, nil, &temp);
+                    sp_pinknoise_compute(sp, data->pinknoise, nil, &temp);
                 }
                 *out = temp;
             } else {

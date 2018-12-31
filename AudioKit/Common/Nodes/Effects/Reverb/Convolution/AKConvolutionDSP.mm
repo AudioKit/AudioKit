@@ -37,7 +37,7 @@ void AKConvolutionDSP::setPartitionLength(int partLength) {
 
 void AKConvolutionDSP::setUpTable(float *table, UInt32 size) {
     data->ftbl_size = size;
-    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
     data->ftbl->tbl = table;
 }
 
@@ -45,8 +45,8 @@ void AKConvolutionDSP::setUpTable(float *table, UInt32 size) {
 void AKConvolutionDSP::initConvolutionEngine() {
     sp_conv_create(&data->conv0);
     sp_conv_create(&data->conv1);
-    sp_conv_init(_sp, data->conv0, data->ftbl, (float)data->partitionLength);
-    sp_conv_init(_sp, data->conv1, data->ftbl, (float)data->partitionLength);
+    sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
+    sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
 }
 
 void AKConvolutionDSP::deinit() {
@@ -74,9 +74,9 @@ void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
             }
 
             if (channel == 0) {
-                sp_conv_compute(_sp, data->conv0, in, out);
+                sp_conv_compute(sp, data->conv0, in, out);
             } else {
-                sp_conv_compute(_sp, data->conv1, in, out);
+                sp_conv_compute(sp, data->conv1, in, out);
             }
             *out = *out * 0.05; // Hack
         }

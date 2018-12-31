@@ -60,7 +60,7 @@ float AKCostelloReverbDSP::getParameter(uint64_t address) {
 void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_revsc_create(&data->revsc);
-    sp_revsc_init(_sp, data->revsc);
+    sp_revsc_init(sp, data->revsc);
     data->revsc->feedback = defaultFeedback;
     data->revsc->lpfreq = defaultCutoffFrequency;
 }
@@ -98,7 +98,7 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
         }
         if (_playing) {
-            sp_revsc_compute(_sp, data->revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_revsc_compute(sp, data->revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

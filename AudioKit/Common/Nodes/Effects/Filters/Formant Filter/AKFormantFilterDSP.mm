@@ -70,9 +70,9 @@ float AKFormantFilterDSP::getParameter(uint64_t address) {
 void AKFormantFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_fofilt_create(&data->fofilt0);
-    sp_fofilt_init(_sp, data->fofilt0);
+    sp_fofilt_init(sp, data->fofilt0);
     sp_fofilt_create(&data->fofilt1);
-    sp_fofilt_init(_sp, data->fofilt1);
+    sp_fofilt_init(sp, data->fofilt1);
     data->fofilt0->freq = defaultCenterFrequency;
     data->fofilt1->freq = defaultCenterFrequency;
     data->fofilt0->atk = defaultAttackDuration;
@@ -120,9 +120,9 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             }
 
             if (channel == 0) {
-                sp_fofilt_compute(_sp, data->fofilt0, in, out);
+                sp_fofilt_compute(sp, data->fofilt0, in, out);
             } else {
-                sp_fofilt_compute(_sp, data->fofilt1, in, out);
+                sp_fofilt_compute(sp, data->fofilt1, in, out);
             }
         }
     }

@@ -52,9 +52,9 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
 void AKToneFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_tone_create(&data->tone0);
-    sp_tone_init(_sp, data->tone0);
+    sp_tone_init(sp, data->tone0);
     sp_tone_create(&data->tone1);
-    sp_tone_init(_sp, data->tone1);
+    sp_tone_init(sp, data->tone1);
     data->tone0->hp = defaultHalfPowerPoint;
     data->tone1->hp = defaultHalfPowerPoint;
 }
@@ -92,9 +92,9 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_tone_compute(_sp, data->tone0, in, out);
+                sp_tone_compute(sp, data->tone0, in, out);
             } else {
-                sp_tone_compute(_sp, data->tone1, in, out);
+                sp_tone_compute(sp, data->tone1, in, out);
             }
         }
     }

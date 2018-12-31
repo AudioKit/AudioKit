@@ -61,9 +61,9 @@ float AKBandRejectButterworthFilterDSP::getParameter(uint64_t address) {
 void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_butbr_create(&data->butbr0);
-    sp_butbr_init(_sp, data->butbr0);
+    sp_butbr_init(sp, data->butbr0);
     sp_butbr_create(&data->butbr1);
-    sp_butbr_init(_sp, data->butbr1);
+    sp_butbr_init(sp, data->butbr1);
     data->butbr0->freq = defaultCenterFrequency;
     data->butbr1->freq = defaultCenterFrequency;
     data->butbr0->bw = defaultBandwidth;
@@ -106,9 +106,9 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
             }
 
             if (channel == 0) {
-                sp_butbr_compute(_sp, data->butbr0, in, out);
+                sp_butbr_compute(sp, data->butbr0, in, out);
             } else {
-                sp_butbr_compute(_sp, data->butbr1, in, out);
+                sp_butbr_compute(sp, data->butbr1, in, out);
             }
         }
     }
