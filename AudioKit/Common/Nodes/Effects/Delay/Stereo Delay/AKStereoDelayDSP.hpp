@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKStereoDelayParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createStereoDelayDSP(int _channels, double sampleRate);
+AKDSPRef createStereoDelayDSP(int channelCount, double sampleRate);
 
 #else
 

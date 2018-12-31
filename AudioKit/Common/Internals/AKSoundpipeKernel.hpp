@@ -19,21 +19,21 @@ class AKSoundpipeKernel: public AKDSPKernel {
 protected:
     sp_data *sp = nullptr;
 public:
-    //    AKSoundpipeKernel(int _channels, float _sampleRate):
-    //        AKDSPKernel(_channels, _sampleRate) {
+    //    AKSoundpipeKernel(int channelCount, float _sampleRate):
+    //        AKDSPKernel(channelCount, _sampleRate) {
     //
     //      sp_create(&sp);
     //      sp->sr = _sampleRate;
-    //      sp->nchan = _channels;
+    //      sp->nchan = channelCount;
     //    }
 
     sp_data *getSpData() { return sp; }
     
-    void init(int _channels, double _sampleRate) override {
-        AKDSPKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKDSPKernel::init(channelCount, _sampleRate);
         sp_create(&sp);
         sp->sr = _sampleRate;
-        sp->nchan = _channels;
+        sp->nchan = channelCount;
     }
 
     ~AKSoundpipeKernel() {

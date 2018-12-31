@@ -29,8 +29,8 @@ struct AKDynaRageCompressorDSPKernel::InternalData {
 AKDynaRageCompressorDSPKernel::AKDynaRageCompressorDSPKernel() : data(new InternalData) {}
 AKDynaRageCompressorDSPKernel::~AKDynaRageCompressorDSPKernel() = default;
 
-void AKDynaRageCompressorDSPKernel::init(int _channels, double _sampleRate) {
-    AKDSPKernel::init(_channels, _sampleRate);
+void AKDynaRageCompressorDSPKernel::init(int channelCount, double _sampleRate) {
+    AKDSPKernel::init(channelCount, _sampleRate);
     data->left_compressor = new Compressor(data->threshold, data->ratio,
                                                data->attackDuration, data->releaseDuration, (int)_sampleRate);
     data->right_compressor = new Compressor(data->threshold, data->ratio, data->attackDuration,

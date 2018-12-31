@@ -106,8 +106,8 @@ public:
         return 0;
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
         isStarted = false;
         
         sp_pdhalf_create(&pdhalf);

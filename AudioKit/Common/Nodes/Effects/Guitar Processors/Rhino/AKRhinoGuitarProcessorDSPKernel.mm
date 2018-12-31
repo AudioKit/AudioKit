@@ -45,8 +45,8 @@ AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : data(new In
 
 AKRhinoGuitarProcessorDSPKernel::~AKRhinoGuitarProcessorDSPKernel() = default;
 
-void AKRhinoGuitarProcessorDSPKernel::init(int _channels, double _sampleRate) {
-    AKDSPKernel::init(_channels, _sampleRate);
+void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double _sampleRate) {
+    AKDSPKernel::init(channelCount, _sampleRate);
     
     sampleRate = (float)_sampleRate;
     

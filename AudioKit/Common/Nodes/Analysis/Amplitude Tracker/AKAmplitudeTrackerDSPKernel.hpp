@@ -16,8 +16,8 @@ public:
 
     AKAmplitudeTrackerDSPKernel() {}
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, _sampleRate);
         sp_rms_create(&leftRMS);
         sp_rms_create(&rightRMS);
         leftRMS->ihp = halfPowerPoint;

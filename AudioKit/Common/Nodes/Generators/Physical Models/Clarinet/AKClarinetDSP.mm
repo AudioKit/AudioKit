@@ -71,8 +71,8 @@ float AKClarinetDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKClarinetDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKClarinetDSP::init(int channelCount, double _sampleRate)  {
+    AKDSPBase::init(channelCount, _sampleRate);
     
     stk::Stk::setSampleRate(_sampleRate);
     data->clarinet = new stk::Clarinet(100);

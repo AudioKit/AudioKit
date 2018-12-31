@@ -16,8 +16,8 @@ public:
 
     AKBalancerDSPKernel() {}
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double _sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, _sampleRate);
 
         sp_bal_create(&bal);
         sp_bal_init(sp, bal);
