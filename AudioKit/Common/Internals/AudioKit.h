@@ -95,7 +95,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Effects / Reverb
 #import "AKChowningReverbDSP.hpp"
 #import "AKCombFilterReverbDSP.hpp"
-#import "AKConvolutionAudioUnit.h"
+#import "AKConvolutionDSP.hpp"
 #import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKZitaReverbDSP.hpp"
@@ -130,7 +130,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMetalBarDSP.hpp"
 #import "AKRhodesPianoDSP.hpp"
 #import "AKPluckedStringDSP.hpp"
-#import "AKShakerAudioUnit.h"
+#import "AKShakerDSP.hpp"
 #import "AKTubularBellsDSP.hpp"
 #import "AKVocalTractDSP.hpp"
 

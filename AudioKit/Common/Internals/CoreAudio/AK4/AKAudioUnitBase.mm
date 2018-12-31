@@ -43,6 +43,16 @@
     self.kernel->setWaveformValue(index, value);
 }
 
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
+    self.kernel->setUpTable(data, size);
+}
+- (void)setPartitionLength:(int)partitionLength {
+    self.kernel->setPartitionLength(partitionLength);
+}
+- (void)initConvolutionEngine {
+    self.kernel->initConvolutionEngine();
+}
+
 /**
  This should be overridden. All the base class does is make sure that the pointer to the
  DSP is invalid.
