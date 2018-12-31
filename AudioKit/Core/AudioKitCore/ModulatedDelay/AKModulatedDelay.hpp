@@ -19,7 +19,7 @@ public:
     AKModulatedDelay(AKModulatedDelayType type);
     ~AKModulatedDelay();
     
-    void init(int _channels, double _sampleRate);
+    void init(int channelCount, double sampleRate);
     void deinit();
     
     void setModFrequencyHz(float freq);

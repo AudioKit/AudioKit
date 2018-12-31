@@ -28,7 +28,7 @@ public:
 
     int defaultRampDurationSamples = 10000;
     
-    void init(int channels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

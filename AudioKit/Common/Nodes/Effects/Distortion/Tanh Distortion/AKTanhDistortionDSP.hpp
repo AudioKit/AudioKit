@@ -56,7 +56,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int channels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 
