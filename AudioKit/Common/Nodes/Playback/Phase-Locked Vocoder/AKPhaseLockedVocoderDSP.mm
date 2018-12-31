@@ -103,8 +103,8 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
         data->mincer->amp = data->amplitudeRamp.getValue();
         data->mincer->pitch = data->pitchRatioRamp.getValue();
 
-        float *outL = (float *)_outBufferListPtr->mBuffers[0].mData  + frameOffset;
-        float *outR = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData  + frameOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
         if (_playing) {
             sp_mincer_compute(sp, data->mincer, NULL, outL);
             *outR = *outL;

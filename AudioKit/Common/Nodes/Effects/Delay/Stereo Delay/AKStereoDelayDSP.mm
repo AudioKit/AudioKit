@@ -93,12 +93,12 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
 {
     const float *inBuffers[2];
     float *outBuffers[2];
-    inBuffers[0]  = (const float *)_inBufferListPtr->mBuffers[0].mData  + bufferOffset;
-    inBuffers[1]  = (const float *)_inBufferListPtr->mBuffers[1].mData  + bufferOffset;
-    outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + bufferOffset;
-    outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + bufferOffset;
-    //unsigned inChannelCount = _inBufferListPtr->mNumberBuffers;
-    //unsigned outChannelCount = _outBufferListPtr->mNumberBuffers;
+    inBuffers[0]  = (const float *)inBufferListPtr->mBuffers[0].mData  + bufferOffset;
+    inBuffers[1]  = (const float *)inBufferListPtr->mBuffers[1].mData  + bufferOffset;
+    outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+    outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+    //unsigned inChannelCount = inBufferListPtr->mNumberBuffers;
+    //unsigned outChannelCount = outBufferListPtr->mNumberBuffers;
 
     if (!_playing)
     {
