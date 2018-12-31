@@ -120,8 +120,8 @@ float AKPhaserDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKPhaserDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKPhaserDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_phaser_create(&data->phaser);
     sp_phaser_init(sp, data->phaser);
     *data->phaser->MinNotch1Freq = defaultNotchMinimumFrequency;

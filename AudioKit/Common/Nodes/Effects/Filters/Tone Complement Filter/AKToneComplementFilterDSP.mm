@@ -49,8 +49,8 @@ float AKToneComplementFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKToneComplementFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKToneComplementFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_atone_create(&data->atone0);
     sp_atone_init(sp, data->atone0);
     sp_atone_create(&data->atone1);

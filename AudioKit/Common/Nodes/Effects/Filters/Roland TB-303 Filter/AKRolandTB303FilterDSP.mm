@@ -76,8 +76,8 @@ float AKRolandTB303FilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKRolandTB303FilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKRolandTB303FilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_tbvcf_create(&data->tbvcf0);
     sp_tbvcf_init(sp, data->tbvcf0);
     sp_tbvcf_create(&data->tbvcf1);

@@ -67,8 +67,8 @@ float AKAutoWahDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKAutoWahDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKAutoWahDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_autowah_create(&data->autowah0);
     sp_autowah_init(sp, data->autowah0);
     sp_autowah_create(&data->autowah1);

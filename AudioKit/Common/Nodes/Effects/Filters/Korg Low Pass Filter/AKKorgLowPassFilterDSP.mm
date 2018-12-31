@@ -67,8 +67,8 @@ float AKKorgLowPassFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKKorgLowPassFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_wpkorg35_create(&data->wpkorg350);
     sp_wpkorg35_init(sp, data->wpkorg350);
     sp_wpkorg35_create(&data->wpkorg351);

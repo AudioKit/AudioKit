@@ -86,8 +86,8 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKFMOscillatorDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     isStarted = false;
     sp_fosc_create(&data->fosc);
     sp_fosc_init(sp, data->fosc, data->ftbl);

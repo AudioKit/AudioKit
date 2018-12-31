@@ -102,8 +102,8 @@ float AKDripDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKDripDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKDripDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_drip_create(&data->drip);
     sp_drip_init(sp, data->drip, 0.9);
     data->drip->num_tubes = defaultIntensity;

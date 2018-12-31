@@ -21,8 +21,8 @@ struct AKDCBlockDSP::InternalData {
 
 AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {}
 
-void AKDCBlockDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKDCBlockDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_dcblock_create(&data->dcblock0);
     sp_dcblock_init(sp, data->dcblock0);
     sp_dcblock_create(&data->dcblock1);

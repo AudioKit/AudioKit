@@ -48,8 +48,8 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKPinkNoiseDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKPinkNoiseDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_pinknoise_create(&data->pinknoise);
     sp_pinknoise_init(sp, data->pinknoise);
     data->pinknoise->amp = defaultAmplitude;

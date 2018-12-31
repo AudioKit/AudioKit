@@ -129,8 +129,8 @@ float AKZitaReverbDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKZitaReverbDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKZitaReverbDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_zitarev_create(&data->zitarev);
     sp_zitarev_init(sp, data->zitarev);
     *data->zitarev->in_delay = defaultPredelay;

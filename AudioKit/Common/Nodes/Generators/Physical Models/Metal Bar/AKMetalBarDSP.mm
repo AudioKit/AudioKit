@@ -102,8 +102,8 @@ float AKMetalBarDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKMetalBarDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKMetalBarDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_bar_create(&data->bar);
     sp_bar_init(sp, data->bar, 3, 0.0001);
     data->bar->bcL = defaultLeftBoundaryCondition;

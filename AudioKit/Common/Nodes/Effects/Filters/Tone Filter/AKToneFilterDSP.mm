@@ -49,8 +49,8 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKToneFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKToneFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_tone_create(&data->tone0);
     sp_tone_init(sp, data->tone0);
     sp_tone_create(&data->tone1);

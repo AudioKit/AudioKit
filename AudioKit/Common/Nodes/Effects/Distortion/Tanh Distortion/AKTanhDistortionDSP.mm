@@ -76,8 +76,8 @@ float AKTanhDistortionDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKTanhDistortionDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKTanhDistortionDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_dist_create(&data->dist0);
     sp_dist_init(sp, data->dist0);
     sp_dist_create(&data->dist1);

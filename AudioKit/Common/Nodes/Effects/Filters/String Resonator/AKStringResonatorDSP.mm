@@ -58,8 +58,8 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKStringResonatorDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_streson_create(&data->streson0);
     sp_streson_init(sp, data->streson0);
     sp_streson_create(&data->streson1);

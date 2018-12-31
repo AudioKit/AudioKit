@@ -58,8 +58,8 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_reson_create(&data->reson0);
     sp_reson_init(sp, data->reson0);
     sp_reson_create(&data->reson1);

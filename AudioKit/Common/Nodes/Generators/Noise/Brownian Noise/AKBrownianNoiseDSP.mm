@@ -48,8 +48,8 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKBrownianNoiseDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_brown_create(&data->brown);
     sp_brown_init(sp, data->brown);
 }

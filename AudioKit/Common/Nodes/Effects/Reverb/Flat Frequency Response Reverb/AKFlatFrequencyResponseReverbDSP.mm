@@ -55,8 +55,8 @@ float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKFlatFrequencyResponseReverbDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_allpass_create(&data->allpass0);
     sp_allpass_create(&data->allpass1);
     sp_allpass_init(sp, data->allpass0, data->loopDuration);

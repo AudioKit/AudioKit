@@ -49,8 +49,8 @@ float AKHighPassButterworthFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKHighPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKHighPassButterworthFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_buthp_create(&data->buthp0);
     sp_buthp_init(sp, data->buthp0);
     sp_buthp_create(&data->buthp1);
