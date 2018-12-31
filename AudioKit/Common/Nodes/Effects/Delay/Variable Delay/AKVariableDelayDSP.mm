@@ -15,14 +15,14 @@ extern "C" AKDSPRef createVariableDelayDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKVariableDelayDSP::_Internal {
+struct AKVariableDelayDSP::InternalData {
     sp_vdelay *_vdelay0;
     sp_vdelay *_vdelay1;
     AKLinearParameterRamp timeRamp;
     AKLinearParameterRamp feedbackRamp;
 };
 
-AKVariableDelayDSP::AKVariableDelayDSP() : data(new _Internal) {
+AKVariableDelayDSP::AKVariableDelayDSP() : data(new InternalData) {
     data->timeRamp.setTarget(defaultTime, true);
     data->timeRamp.setDurationInSamples(defaultRampDurationSamples);
     data->feedbackRamp.setTarget(defaultFeedback, true);

@@ -15,7 +15,7 @@ extern "C" AKDSPRef createPeakingParametricEqualizerFilterDSP(int nChannels, dou
     return dsp;
 }
 
-struct AKPeakingParametricEqualizerFilterDSP::_Internal {
+struct AKPeakingParametricEqualizerFilterDSP::InternalData {
     sp_pareq *_pareq0;
     sp_pareq *_pareq1;
     AKLinearParameterRamp centerFrequencyRamp;
@@ -23,7 +23,7 @@ struct AKPeakingParametricEqualizerFilterDSP::_Internal {
     AKLinearParameterRamp qRamp;
 };
 
-AKPeakingParametricEqualizerFilterDSP::AKPeakingParametricEqualizerFilterDSP() : data(new _Internal) {
+AKPeakingParametricEqualizerFilterDSP::AKPeakingParametricEqualizerFilterDSP() : data(new InternalData) {
     data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
     data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->gainRamp.setTarget(defaultGain, true);

@@ -37,8 +37,8 @@ AKDSPRef createBoosterDSP(int nChannels, double sampleRate);
 struct AKBoosterDSP : AKDSPBase {
 
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
     AKBoosterDSP();

@@ -15,7 +15,7 @@ extern "C" AKDSPRef createTanhDistortionDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKTanhDistortionDSP::_Internal {
+struct AKTanhDistortionDSP::InternalData {
     sp_dist *_dist0;
     sp_dist *_dist1;
     AKLinearParameterRamp pregainRamp;
@@ -24,7 +24,7 @@ struct AKTanhDistortionDSP::_Internal {
     AKLinearParameterRamp negativeShapeParameterRamp;
 };
 
-AKTanhDistortionDSP::AKTanhDistortionDSP() : data(new _Internal) {
+AKTanhDistortionDSP::AKTanhDistortionDSP() : data(new InternalData) {
     data->pregainRamp.setTarget(defaultPregain, true);
     data->pregainRamp.setDurationInSamples(defaultRampDurationSamples);
     data->postgainRamp.setTarget(defaultPostgain, true);

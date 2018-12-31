@@ -20,7 +20,7 @@ extern "C" AKDSPRef createShakerDSP(int nChannels, double sampleRate) {
 
 // AKShakerDSP method implementations
 
-struct AKShakerDSP::_Internal
+struct AKShakerDSP::InternalData
 {
     float internalTrigger = 0;
     UInt8 type = 0;
@@ -28,7 +28,7 @@ struct AKShakerDSP::_Internal
     stk::Shakers *shaker;
 };
 
-AKShakerDSP::AKShakerDSP() : data(new _Internal)
+AKShakerDSP::AKShakerDSP() : data(new InternalData)
 {
 }
 

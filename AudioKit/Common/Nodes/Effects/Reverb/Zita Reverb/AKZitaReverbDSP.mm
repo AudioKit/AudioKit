@@ -15,7 +15,7 @@ extern "C" AKDSPRef createZitaReverbDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKZitaReverbDSP::_Internal {
+struct AKZitaReverbDSP::InternalData {
     sp_zitarev *_zitarev;
     AKLinearParameterRamp predelayRamp;
     AKLinearParameterRamp crossoverFrequencyRamp;
@@ -29,7 +29,7 @@ struct AKZitaReverbDSP::_Internal {
     AKLinearParameterRamp dryWetMixRamp;
 };
 
-AKZitaReverbDSP::AKZitaReverbDSP() : data(new _Internal) {
+AKZitaReverbDSP::AKZitaReverbDSP() : data(new InternalData) {
     data->predelayRamp.setTarget(defaultPredelay, true);
     data->predelayRamp.setDurationInSamples(defaultRampDurationSamples);
     data->crossoverFrequencyRamp.setTarget(defaultCrossoverFrequency, true);

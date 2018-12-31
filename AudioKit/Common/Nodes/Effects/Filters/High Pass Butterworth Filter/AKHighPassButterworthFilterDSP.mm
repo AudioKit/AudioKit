@@ -15,13 +15,13 @@ extern "C" AKDSPRef createHighPassButterworthFilterDSP(int nChannels, double sam
     return dsp;
 }
 
-struct AKHighPassButterworthFilterDSP::_Internal {
+struct AKHighPassButterworthFilterDSP::InternalData {
     sp_buthp *_buthp0;
     sp_buthp *_buthp1;
     AKLinearParameterRamp cutoffFrequencyRamp;
 };
 
-AKHighPassButterworthFilterDSP::AKHighPassButterworthFilterDSP() : data(new _Internal) {
+AKHighPassButterworthFilterDSP::AKHighPassButterworthFilterDSP() : data(new InternalData) {
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
     data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
 }

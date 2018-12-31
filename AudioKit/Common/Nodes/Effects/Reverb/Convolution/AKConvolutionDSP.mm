@@ -15,7 +15,7 @@ extern "C" AKDSPRef createConvolutionDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKConvolutionDSP::_Internal {
+struct AKConvolutionDSP::InternalData {
     sp_conv *conv0;
     sp_conv *conv1;
 
@@ -25,7 +25,7 @@ struct AKConvolutionDSP::_Internal {
     int partitionLength = 2048;
 };
 
-AKConvolutionDSP::AKConvolutionDSP() : data(new _Internal) {}
+AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {}
 
 void AKConvolutionDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);

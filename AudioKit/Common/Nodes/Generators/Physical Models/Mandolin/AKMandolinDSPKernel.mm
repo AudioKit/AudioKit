@@ -11,14 +11,14 @@
 #include "Mandolin.h"
 #include "mand_raw.h"
 
-struct AKMandolinDSPKernel::_Internal
+struct AKMandolinDSPKernel::InternalData
 {
     stk::Mandolin *mandolins[4];
     float detune = 1;
     float bodySize = 1;
 };
 
-AKMandolinDSPKernel::AKMandolinDSPKernel() : data(new _Internal) { }
+AKMandolinDSPKernel::AKMandolinDSPKernel() : data(new InternalData) { }
 
 AKMandolinDSPKernel::~AKMandolinDSPKernel() = default;
 

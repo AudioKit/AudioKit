@@ -24,8 +24,8 @@ AKDSPRef createChowningReverbDSP(int nChannels, double sampleRate);
 
 class AKChowningReverbDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKChowningReverbDSP();

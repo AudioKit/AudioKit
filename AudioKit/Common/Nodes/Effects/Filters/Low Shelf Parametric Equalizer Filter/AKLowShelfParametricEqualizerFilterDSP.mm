@@ -15,7 +15,7 @@ extern "C" AKDSPRef createLowShelfParametricEqualizerFilterDSP(int nChannels, do
     return dsp;
 }
 
-struct AKLowShelfParametricEqualizerFilterDSP::_Internal {
+struct AKLowShelfParametricEqualizerFilterDSP::InternalData {
     sp_pareq *_pareq0;
     sp_pareq *_pareq1;
     AKLinearParameterRamp cornerFrequencyRamp;
@@ -23,7 +23,7 @@ struct AKLowShelfParametricEqualizerFilterDSP::_Internal {
     AKLinearParameterRamp qRamp;
 };
 
-AKLowShelfParametricEqualizerFilterDSP::AKLowShelfParametricEqualizerFilterDSP() : data(new _Internal) {
+AKLowShelfParametricEqualizerFilterDSP::AKLowShelfParametricEqualizerFilterDSP() : data(new InternalData) {
     data->cornerFrequencyRamp.setTarget(defaultCornerFrequency, true);
     data->cornerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->gainRamp.setTarget(defaultGain, true);

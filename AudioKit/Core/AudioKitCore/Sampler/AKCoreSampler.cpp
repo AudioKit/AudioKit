@@ -23,7 +23,7 @@
 // Convert MIDI note to Hz, for 12-tone equal temperament
 #define NOTE_HZ(midiNoteNumber) ( 440.0f * pow(2.0f, ((midiNoteNumber) - 69.0f)/12.0f) )
 
-struct AKCoreSampler::_Internal {
+struct AKCoreSampler::InternalData {
     // list of (pointers to) all loaded samples
     std::list<AudioKitCore::KeyMappedSampleBuffer*> sampleBufferList;
     
@@ -63,7 +63,7 @@ AKCoreSampler::AKCoreSampler()
 , linearResonance(0.5f)
 , loopThruRelease(false)
 , stoppingAllVoices(false)
-, data(new _Internal)
+, data(new InternalData)
 {
     AudioKitCore::SamplerVoice *pVoice = data->voice;
     for (int i=0; i < MAX_POLYPHONY; i++, pVoice++)

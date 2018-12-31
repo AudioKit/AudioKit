@@ -15,14 +15,14 @@ extern "C" AKDSPRef createResonantFilterDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKResonantFilterDSP::_Internal {
+struct AKResonantFilterDSP::InternalData {
     sp_reson *_reson0;
     sp_reson *_reson1;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
 };
 
-AKResonantFilterDSP::AKResonantFilterDSP() : data(new _Internal) {
+AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
     data->frequencyRamp.setTarget(defaultFrequency, true);
     data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->bandwidthRamp.setTarget(defaultBandwidth, true);

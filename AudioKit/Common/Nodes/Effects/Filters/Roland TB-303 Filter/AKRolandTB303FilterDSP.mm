@@ -15,7 +15,7 @@ extern "C" AKDSPRef createRolandTB303FilterDSP(int nChannels, double sampleRate)
     return dsp;
 }
 
-struct AKRolandTB303FilterDSP::_Internal {
+struct AKRolandTB303FilterDSP::InternalData {
     sp_tbvcf *_tbvcf0;
     sp_tbvcf *_tbvcf1;
     AKLinearParameterRamp cutoffFrequencyRamp;
@@ -24,7 +24,7 @@ struct AKRolandTB303FilterDSP::_Internal {
     AKLinearParameterRamp resonanceAsymmetryRamp;
 };
 
-AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : data(new _Internal) {
+AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : data(new InternalData) {
     data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
     data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->resonanceRamp.setTarget(defaultResonance, true);

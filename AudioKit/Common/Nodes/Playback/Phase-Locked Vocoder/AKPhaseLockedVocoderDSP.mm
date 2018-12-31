@@ -15,7 +15,7 @@ extern "C" AKDSPRef createPhaseLockedVocoderDSP(int nChannels, double sampleRate
     return dsp;
 }
 
-struct AKPhaseLockedVocoderDSP::_Internal {
+struct AKPhaseLockedVocoderDSP::InternalData {
     sp_mincer *mincer;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
@@ -33,7 +33,7 @@ void AKPhaseLockedVocoderDSP::start() {
     data->mincer->pitch = defaultPitchRatio;
 }
 
-AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new _Internal) {
+AKPhaseLockedVocoderDSP::AKPhaseLockedVocoderDSP() : data(new InternalData) {
 }
 
 // Uses the ParameterAddress as a key

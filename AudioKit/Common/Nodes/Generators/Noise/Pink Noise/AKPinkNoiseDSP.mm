@@ -15,12 +15,12 @@ extern "C" AKDSPRef createPinkNoiseDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKPinkNoiseDSP::_Internal {
+struct AKPinkNoiseDSP::InternalData {
     sp_pinknoise *_pinknoise;
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKPinkNoiseDSP::AKPinkNoiseDSP() : data(new _Internal) {
+AKPinkNoiseDSP::AKPinkNoiseDSP() : data(new InternalData) {
     data->amplitudeRamp.setTarget(defaultAmplitude, true);
     data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }

@@ -15,14 +15,14 @@ extern "C" AKDSPRef createStringResonatorDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKStringResonatorDSP::_Internal {
+struct AKStringResonatorDSP::InternalData {
     sp_streson *_streson0;
     sp_streson *_streson1;
     AKLinearParameterRamp fundamentalFrequencyRamp;
     AKLinearParameterRamp feedbackRamp;
 };
 
-AKStringResonatorDSP::AKStringResonatorDSP() : data(new _Internal) {
+AKStringResonatorDSP::AKStringResonatorDSP() : data(new InternalData) {
     data->fundamentalFrequencyRamp.setTarget(defaultFundamentalFrequency, true);
     data->fundamentalFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->feedbackRamp.setTarget(defaultFeedback, true);

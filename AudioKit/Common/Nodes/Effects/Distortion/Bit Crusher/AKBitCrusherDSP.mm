@@ -15,14 +15,14 @@ extern "C" AKDSPRef createBitCrusherDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKBitCrusherDSP::_Internal {
+struct AKBitCrusherDSP::InternalData {
     sp_bitcrush *_bitcrush0;
     sp_bitcrush *_bitcrush1;
     AKLinearParameterRamp bitDepthRamp;
     AKLinearParameterRamp sampleRateRamp;
 };
 
-AKBitCrusherDSP::AKBitCrusherDSP() : data(new _Internal) {
+AKBitCrusherDSP::AKBitCrusherDSP() : data(new InternalData) {
     data->bitDepthRamp.setTarget(defaultBitDepth, true);
     data->bitDepthRamp.setDurationInSamples(defaultRampDurationSamples);
     data->sampleRateRamp.setTarget(defaultSampleRate, true);

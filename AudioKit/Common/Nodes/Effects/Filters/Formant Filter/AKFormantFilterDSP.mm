@@ -15,7 +15,7 @@ extern "C" AKDSPRef createFormantFilterDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKFormantFilterDSP::_Internal {
+struct AKFormantFilterDSP::InternalData {
     sp_fofilt *_fofilt0;
     sp_fofilt *_fofilt1;
     AKLinearParameterRamp centerFrequencyRamp;
@@ -23,7 +23,7 @@ struct AKFormantFilterDSP::_Internal {
     AKLinearParameterRamp decayDurationRamp;
 };
 
-AKFormantFilterDSP::AKFormantFilterDSP() : data(new _Internal) {
+AKFormantFilterDSP::AKFormantFilterDSP() : data(new InternalData) {
     data->centerFrequencyRamp.setTarget(defaultCenterFrequency, true);
     data->centerFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->attackDurationRamp.setTarget(defaultAttackDuration, true);

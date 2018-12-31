@@ -22,7 +22,7 @@ extern "C" AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate) {
 
 // AKTubularBellsDSP method implementations
 
-struct AKTubularBellsDSP::_Internal
+struct AKTubularBellsDSP::InternalData
 {
     float internalTrigger = 0;
     stk::TubeBell *tubularBells;
@@ -33,7 +33,7 @@ struct AKTubularBellsDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKTubularBellsDSP::AKTubularBellsDSP() : data(new _Internal)
+AKTubularBellsDSP::AKTubularBellsDSP() : data(new InternalData)
 {
     data->frequencyRamp.setTarget(110, true);
     data->frequencyRamp.setDurationInSamples(10000);

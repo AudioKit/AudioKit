@@ -15,7 +15,7 @@ extern "C" AKDSPRef createAutoWahDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKAutoWahDSP::_Internal {
+struct AKAutoWahDSP::InternalData {
     sp_autowah *_autowah0;
     sp_autowah *_autowah1;
     AKLinearParameterRamp wahRamp;
@@ -23,7 +23,7 @@ struct AKAutoWahDSP::_Internal {
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKAutoWahDSP::AKAutoWahDSP() : data(new _Internal) {
+AKAutoWahDSP::AKAutoWahDSP() : data(new InternalData) {
     data->wahRamp.setTarget(defaultWah, true);
     data->wahRamp.setDurationInSamples(defaultRampDurationSamples);
     data->mixRamp.setTarget(defaultMix, true);

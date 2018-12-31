@@ -13,7 +13,7 @@
 #import <libkern/OSAtomic.h>
 #import <stdatomic.h>
 
-struct ParameterRamper::_Internal
+struct ParameterRamper::InternalData
 {
     float clampLow, clampHigh;
     float _uiValue;
@@ -24,7 +24,7 @@ struct ParameterRamper::_Internal
     int32_t updateCounter = 0;
 };
 
-ParameterRamper::ParameterRamper(float value) : data(new _Internal) {
+ParameterRamper::ParameterRamper(float value) : data(new InternalData) {
     setImmediate(value);
 }
 

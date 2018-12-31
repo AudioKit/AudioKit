@@ -15,7 +15,7 @@ extern "C" AKDSPRef createMorphingOscillatorDSP(int nChannels, double sampleRate
     return dsp;
 }
 
-struct AKMorphingOscillatorDSP::_Internal {
+struct AKMorphingOscillatorDSP::InternalData {
     sp_oscmorph *_oscmorph;
     sp_ftbl *_ft_array[4];
     UInt32 _ftbl_size = 4096;
@@ -26,7 +26,7 @@ struct AKMorphingOscillatorDSP::_Internal {
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : data(new _Internal) {
+AKMorphingOscillatorDSP::AKMorphingOscillatorDSP() : data(new InternalData) {
     data->frequencyRamp.setTarget(defaultFrequency, true);
     data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->amplitudeRamp.setTarget(defaultAmplitude, true);

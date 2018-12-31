@@ -16,7 +16,7 @@
 
 using namespace std;
 
-struct AKRhinoGuitarProcessorDSPKernel::_Internal {
+struct AKRhinoGuitarProcessorDSPKernel::InternalData {
     RageProcessor *_leftRageProcessor;
     RageProcessor *_rightRageProcessor;
     Equalisator *_leftEqLo;
@@ -41,7 +41,7 @@ struct AKRhinoGuitarProcessorDSPKernel::_Internal {
     float distortion = 1.0;
 };
 
-AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : data(new _Internal) {}
+AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : data(new InternalData) {}
 
 AKRhinoGuitarProcessorDSPKernel::~AKRhinoGuitarProcessorDSPKernel() = default;
 

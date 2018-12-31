@@ -64,8 +64,8 @@ public:
     // MARK: Member Variables
 
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> data;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
     bool started = true;

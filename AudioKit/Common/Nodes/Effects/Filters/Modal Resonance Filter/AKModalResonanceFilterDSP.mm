@@ -15,14 +15,14 @@ extern "C" AKDSPRef createModalResonanceFilterDSP(int nChannels, double sampleRa
     return dsp;
 }
 
-struct AKModalResonanceFilterDSP::_Internal {
+struct AKModalResonanceFilterDSP::InternalData {
     sp_mode *_mode0;
     sp_mode *_mode1;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp qualityFactorRamp;
 };
 
-AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : data(new _Internal) {
+AKModalResonanceFilterDSP::AKModalResonanceFilterDSP() : data(new InternalData) {
     data->frequencyRamp.setTarget(defaultFrequency, true);
     data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->qualityFactorRamp.setTarget(defaultQualityFactor, true);

@@ -15,12 +15,12 @@ extern "C" AKDSPRef createChowningReverbDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKChowningReverbDSP::_Internal {
+struct AKChowningReverbDSP::InternalData {
     sp_jcrev *_jcrev0;
     sp_jcrev *_jcrev1;
 };
 
-AKChowningReverbDSP::AKChowningReverbDSP() : data(new _Internal) {}
+AKChowningReverbDSP::AKChowningReverbDSP() : data(new InternalData) {}
 
 void AKChowningReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);

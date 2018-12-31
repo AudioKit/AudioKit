@@ -15,7 +15,7 @@ extern "C" AKDSPRef createOscillatorDSP(int nChannels, double sampleRate) {
     return dsp;
 }
 
-struct AKOscillatorDSP::_Internal {
+struct AKOscillatorDSP::InternalData {
     sp_osc *_osc;
     sp_ftbl *_ftbl;
     UInt32 _ftbl_size = 4096;
@@ -25,7 +25,7 @@ struct AKOscillatorDSP::_Internal {
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKOscillatorDSP::AKOscillatorDSP() : data(new _Internal) {
+AKOscillatorDSP::AKOscillatorDSP() : data(new InternalData) {
     data->frequencyRamp.setTarget(defaultFrequency, true);
     data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
     data->amplitudeRamp.setTarget(defaultAmplitude, true);
