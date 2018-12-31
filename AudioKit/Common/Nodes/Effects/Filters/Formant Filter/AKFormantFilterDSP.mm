@@ -45,9 +45,9 @@ void AKFormantFilterDSP::setParameter(AUParameterAddress address, AUValue value,
             data->decayDurationRamp.setTarget(clamp(value, decayDurationLowerBound, decayDurationUpperBound), immediate);
             break;
         case AKFormantFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->attackDurationRamp.setRampDuration(value, _sampleRate);
-            data->decayDurationRamp.setRampDuration(value, _sampleRate);
+            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
+            data->attackDurationRamp.setRampDuration(value, sampleRate);
+            data->decayDurationRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKFormantFilterDSP::getParameter(uint64_t address) {
         case AKFormantFilterParameterDecayDuration:
             return data->decayDurationRamp.getTarget();
         case AKFormantFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(_sampleRate);
+            return data->centerFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

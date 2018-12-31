@@ -24,7 +24,7 @@ class AKDSPBase {
 protected:
 
     int channelCount;
-    double _sampleRate;
+    double sampleRate;
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
@@ -85,7 +85,7 @@ public:
 
     virtual void init(int channelCount, double sampleRate) {
         this->channelCount = channelCount;
-        this->_sampleRate = sampleRate;
+        this->sampleRate = sampleRate;
     }
     
     /// override this if your DSP kernel allocates memory; free it here

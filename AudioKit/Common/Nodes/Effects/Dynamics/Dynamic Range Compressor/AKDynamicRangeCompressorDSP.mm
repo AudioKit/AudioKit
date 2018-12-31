@@ -51,10 +51,10 @@ void AKDynamicRangeCompressorDSP::setParameter(AUParameterAddress address, AUVal
             data->releaseDurationRamp.setTarget(clamp(value, releaseDurationLowerBound, releaseDurationUpperBound), immediate);
             break;
         case AKDynamicRangeCompressorParameterRampDuration:
-            data->ratioRamp.setRampDuration(value, _sampleRate);
-            data->thresholdRamp.setRampDuration(value, _sampleRate);
-            data->attackDurationRamp.setRampDuration(value, _sampleRate);
-            data->releaseDurationRamp.setRampDuration(value, _sampleRate);
+            data->ratioRamp.setRampDuration(value, sampleRate);
+            data->thresholdRamp.setRampDuration(value, sampleRate);
+            data->attackDurationRamp.setRampDuration(value, sampleRate);
+            data->releaseDurationRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -71,7 +71,7 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
         case AKDynamicRangeCompressorParameterReleaseTime:
             return data->releaseDurationRamp.getTarget();
         case AKDynamicRangeCompressorParameterRampDuration:
-            return data->ratioRamp.getRampDuration(_sampleRate);
+            return data->ratioRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

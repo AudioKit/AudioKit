@@ -33,7 +33,7 @@ void AKToneComplementFilterDSP::setParameter(AUParameterAddress address, AUValue
             data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
         case AKToneComplementFilterParameterRampDuration:
-            data->halfPowerPointRamp.setRampDuration(value, _sampleRate);
+            data->halfPowerPointRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -44,7 +44,7 @@ float AKToneComplementFilterDSP::getParameter(uint64_t address) {
         case AKToneComplementFilterParameterHalfPowerPoint:
             return data->halfPowerPointRamp.getTarget();
         case AKToneComplementFilterParameterRampDuration:
-            return data->halfPowerPointRamp.getRampDuration(_sampleRate);
+            return data->halfPowerPointRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

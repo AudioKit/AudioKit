@@ -45,9 +45,9 @@ void AKKorgLowPassFilterDSP::setParameter(AUParameterAddress address, AUValue va
             data->saturationRamp.setTarget(clamp(value, saturationLowerBound, saturationUpperBound), immediate);
             break;
         case AKKorgLowPassFilterParameterRampDuration:
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->resonanceRamp.setRampDuration(value, _sampleRate);
-            data->saturationRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
+            data->saturationRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKKorgLowPassFilterDSP::getParameter(uint64_t address) {
         case AKKorgLowPassFilterParameterSaturation:
             return data->saturationRamp.getTarget();
         case AKKorgLowPassFilterParameterRampDuration:
-            return data->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

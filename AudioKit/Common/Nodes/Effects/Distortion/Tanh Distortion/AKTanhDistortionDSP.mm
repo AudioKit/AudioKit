@@ -51,10 +51,10 @@ void AKTanhDistortionDSP::setParameter(AUParameterAddress address, AUValue value
             data->negativeShapeParameterRamp.setTarget(clamp(value, negativeShapeParameterLowerBound, negativeShapeParameterUpperBound), immediate);
             break;
         case AKTanhDistortionParameterRampDuration:
-            data->pregainRamp.setRampDuration(value, _sampleRate);
-            data->postgainRamp.setRampDuration(value, _sampleRate);
-            data->positiveShapeParameterRamp.setRampDuration(value, _sampleRate);
-            data->negativeShapeParameterRamp.setRampDuration(value, _sampleRate);
+            data->pregainRamp.setRampDuration(value, sampleRate);
+            data->postgainRamp.setRampDuration(value, sampleRate);
+            data->positiveShapeParameterRamp.setRampDuration(value, sampleRate);
+            data->negativeShapeParameterRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -71,7 +71,7 @@ float AKTanhDistortionDSP::getParameter(uint64_t address) {
         case AKTanhDistortionParameterNegativeShapeParameter:
             return data->negativeShapeParameterRamp.getTarget();
         case AKTanhDistortionParameterRampDuration:
-            return data->pregainRamp.getRampDuration(_sampleRate);
+            return data->pregainRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -27,10 +27,10 @@ protected:
     sp_data *sp = nullptr;
 public:
 
-    void init(int channelCount, double _sampleRate) override {
-        AKDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKDSPBase::init(channelCount, sampleRate);
         sp_create(&sp);
-        sp->sr = _sampleRate;
+        sp->sr = sampleRate;
         sp->nchan = channelCount;
     }
 

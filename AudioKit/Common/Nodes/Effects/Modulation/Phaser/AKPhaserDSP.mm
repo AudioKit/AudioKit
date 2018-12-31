@@ -80,15 +80,15 @@ void AKPhaserDSP::setParameter(AUParameterAddress address, AUValue value, bool i
             data->lfoBPMRamp.setTarget(clamp(value, lfoBPMLowerBound, lfoBPMUpperBound), immediate);
             break;
         case AKPhaserParameterRampDuration:
-            data->notchMinimumFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->notchMaximumFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->notchWidthRamp.setRampDuration(value, _sampleRate);
-            data->notchFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->vibratoModeRamp.setRampDuration(value, _sampleRate);
-            data->depthRamp.setRampDuration(value, _sampleRate);
-            data->feedbackRamp.setRampDuration(value, _sampleRate);
-            data->invertedRamp.setRampDuration(value, _sampleRate);
-            data->lfoBPMRamp.setRampDuration(value, _sampleRate);
+            data->notchMinimumFrequencyRamp.setRampDuration(value, sampleRate);
+            data->notchMaximumFrequencyRamp.setRampDuration(value, sampleRate);
+            data->notchWidthRamp.setRampDuration(value, sampleRate);
+            data->notchFrequencyRamp.setRampDuration(value, sampleRate);
+            data->vibratoModeRamp.setRampDuration(value, sampleRate);
+            data->depthRamp.setRampDuration(value, sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
+            data->invertedRamp.setRampDuration(value, sampleRate);
+            data->lfoBPMRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -115,7 +115,7 @@ float AKPhaserDSP::getParameter(uint64_t address) {
         case AKPhaserParameterLfoBPM:
             return data->lfoBPMRamp.getTarget();
         case AKPhaserParameterRampDuration:
-            return data->notchMinimumFrequencyRamp.getRampDuration(_sampleRate);
+            return data->notchMinimumFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

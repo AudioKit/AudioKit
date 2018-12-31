@@ -52,8 +52,8 @@ public:
                 amplitudeRamp.setTarget(value, immediate);
                 break;
             case AKPluckedStringParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                amplitudeRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                amplitudeRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -66,13 +66,13 @@ public:
             case AKPluckedStringParameterAmplitude:
                 return amplitudeRamp.getTarget();
             case AKPluckedStringParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
 
         sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);

@@ -33,7 +33,7 @@ void AKClipperDSP::setParameter(AUParameterAddress address, AUValue value, bool 
             data->limitRamp.setTarget(clamp(value, limitLowerBound, limitUpperBound), immediate);
             break;
         case AKClipperParameterRampDuration:
-            data->limitRamp.setRampDuration(value, _sampleRate);
+            data->limitRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -44,7 +44,7 @@ float AKClipperDSP::getParameter(uint64_t address) {
         case AKClipperParameterLimit:
             return data->limitRamp.getTarget();
         case AKClipperParameterRampDuration:
-            return data->limitRamp.getRampDuration(_sampleRate);
+            return data->limitRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

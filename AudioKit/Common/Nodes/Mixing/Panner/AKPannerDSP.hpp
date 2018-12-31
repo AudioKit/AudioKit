@@ -46,7 +46,7 @@ public:
                 panRamp.setTarget(value, immediate);
                 break;
             case AKPannerParameterRampDuration:
-                panRamp.setRampDuration(value, _sampleRate);
+                panRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -57,13 +57,13 @@ public:
             case AKPannerParameterPan:
                 return panRamp.getTarget();
             case AKPannerParameterRampDuration:
-                return panRamp.getRampDuration(_sampleRate);
+                return panRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
         panst->pan = 0;

@@ -51,10 +51,10 @@ void AKRolandTB303FilterDSP::setParameter(AUParameterAddress address, AUValue va
             data->resonanceAsymmetryRamp.setTarget(clamp(value, resonanceAsymmetryLowerBound, resonanceAsymmetryUpperBound), immediate);
             break;
         case AKRolandTB303FilterParameterRampDuration:
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->resonanceRamp.setRampDuration(value, _sampleRate);
-            data->distortionRamp.setRampDuration(value, _sampleRate);
-            data->resonanceAsymmetryRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
+            data->distortionRamp.setRampDuration(value, sampleRate);
+            data->resonanceAsymmetryRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -71,7 +71,7 @@ float AKRolandTB303FilterDSP::getParameter(uint64_t address) {
         case AKRolandTB303FilterParameterResonanceAsymmetry:
             return data->resonanceAsymmetryRamp.getTarget();
         case AKRolandTB303FilterParameterRampDuration:
-            return data->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

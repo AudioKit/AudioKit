@@ -39,8 +39,8 @@ void AKMoogLadderDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
         case AKMoogLadderParameterRampDuration:
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->resonanceRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKMoogLadderDSP::getParameter(uint64_t address) {
         case AKMoogLadderParameterResonance:
             return data->resonanceRamp.getTarget();
         case AKMoogLadderParameterRampDuration:
-            return data->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -78,11 +78,11 @@ public:
                 detuningMultiplierRamp.setTarget(value, immediate);
                 break;
             case AKPhaseDistortionOscillatorParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                amplitudeRamp.setRampDuration(value, _sampleRate);
-                phaseDistortionRamp.setRampDuration(value, _sampleRate);
-                detuningOffsetRamp.setRampDuration(value, _sampleRate);
-                detuningMultiplierRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                amplitudeRamp.setRampDuration(value, sampleRate);
+                phaseDistortionRamp.setRampDuration(value, sampleRate);
+                detuningOffsetRamp.setRampDuration(value, sampleRate);
+                detuningMultiplierRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -101,13 +101,13 @@ public:
             case AKPhaseDistortionOscillatorParameterDetuningMultiplier:
                 return detuningMultiplierRamp.getTarget();
             case AKPhaseDistortionOscillatorParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         isStarted = false;
         
         sp_pdhalf_create(&pdhalf);

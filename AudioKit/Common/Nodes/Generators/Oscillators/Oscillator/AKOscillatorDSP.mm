@@ -52,10 +52,10 @@ void AKOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
             break;
         case AKOscillatorParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
-            data->detuningOffsetRamp.setRampDuration(value, _sampleRate);
-            data->detuningMultiplierRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
+            data->detuningOffsetRamp.setRampDuration(value, sampleRate);
+            data->detuningMultiplierRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -72,7 +72,7 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
         case AKOscillatorParameterDetuningMultiplier:
             return data->detuningMultiplierRamp.getTarget();
         case AKOscillatorParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

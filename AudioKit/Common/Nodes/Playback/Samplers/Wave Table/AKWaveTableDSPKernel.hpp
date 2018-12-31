@@ -24,8 +24,8 @@ public:
 
     AKWaveTableDSPKernel() {}
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeKernel::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, sampleRate);
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);

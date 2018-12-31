@@ -51,7 +51,7 @@ public:
                 reverbDurationRamp.setTarget(value, immediate);
                 break;
             case AKCombFilterReverbParameterRampDuration:
-                reverbDurationRamp.setRampDuration(value, _sampleRate);
+                reverbDurationRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -62,13 +62,13 @@ public:
             case AKCombFilterReverbParameterReverbDuration:
                 return reverbDurationRamp.getTarget();
             case AKCombFilterReverbParameterRampDuration:
-                return reverbDurationRamp.getRampDuration(_sampleRate);
+                return reverbDurationRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_comb_create(&comb0);
         sp_comb_create(&comb1);
         sp_comb_init(sp, comb0, loopDuration);

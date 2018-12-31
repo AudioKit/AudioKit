@@ -51,8 +51,8 @@ void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool imme
             data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKFluteParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -65,15 +65,15 @@ float AKFluteDSP::getParameter(AUParameterAddress address)  {
         case AKFluteParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKFluteParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKFluteDSP::init(int channelCount, double _sampleRate)  {
-    AKDSPBase::init(channelCount, _sampleRate);
+void AKFluteDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
-    stk::Stk::setSampleRate(_sampleRate);
+    stk::Stk::setSampleRate(sampleRate);
     data->flute = new stk::Flute(100);
 }
 

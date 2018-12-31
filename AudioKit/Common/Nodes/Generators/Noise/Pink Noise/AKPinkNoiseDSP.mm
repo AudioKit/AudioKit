@@ -32,7 +32,7 @@ void AKPinkNoiseDSP::setParameter(AUParameterAddress address, AUValue value, boo
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKPinkNoiseParameterRampDuration:
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -43,7 +43,7 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
         case AKPinkNoiseParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKPinkNoiseParameterRampDuration:
-            return data->amplitudeRamp.getRampDuration(_sampleRate);
+            return data->amplitudeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

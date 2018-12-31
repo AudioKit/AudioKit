@@ -68,13 +68,13 @@ void AKMetalBarDSP::setParameter(AUParameterAddress address, AUValue value, bool
             data->strikeWidthRamp.setTarget(clamp(value, strikeWidthLowerBound, strikeWidthUpperBound), immediate);
             break;
         case AKMetalBarParameterRampDuration:
-            data->leftBoundaryConditionRamp.setRampDuration(value, _sampleRate);
-            data->rightBoundaryConditionRamp.setRampDuration(value, _sampleRate);
-            data->decayDurationRamp.setRampDuration(value, _sampleRate);
-            data->scanSpeedRamp.setRampDuration(value, _sampleRate);
-            data->positionRamp.setRampDuration(value, _sampleRate);
-            data->strikeVelocityRamp.setRampDuration(value, _sampleRate);
-            data->strikeWidthRamp.setRampDuration(value, _sampleRate);
+            data->leftBoundaryConditionRamp.setRampDuration(value, sampleRate);
+            data->rightBoundaryConditionRamp.setRampDuration(value, sampleRate);
+            data->decayDurationRamp.setRampDuration(value, sampleRate);
+            data->scanSpeedRamp.setRampDuration(value, sampleRate);
+            data->positionRamp.setRampDuration(value, sampleRate);
+            data->strikeVelocityRamp.setRampDuration(value, sampleRate);
+            data->strikeWidthRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -97,7 +97,7 @@ float AKMetalBarDSP::getParameter(uint64_t address) {
         case AKMetalBarParameterStrikeWidth:
             return data->strikeWidthRamp.getTarget();
         case AKMetalBarParameterRampDuration:
-            return data->leftBoundaryConditionRamp.getRampDuration(_sampleRate);
+            return data->leftBoundaryConditionRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

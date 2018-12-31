@@ -68,13 +68,13 @@ void AKDripDSP::setParameter(AUParameterAddress address, AUValue value, bool imm
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKDripParameterRampDuration:
-            data->intensityRamp.setRampDuration(value, _sampleRate);
-            data->dampingFactorRamp.setRampDuration(value, _sampleRate);
-            data->energyReturnRamp.setRampDuration(value, _sampleRate);
-            data->mainResonantFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->firstResonantFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->secondResonantFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->intensityRamp.setRampDuration(value, sampleRate);
+            data->dampingFactorRamp.setRampDuration(value, sampleRate);
+            data->energyReturnRamp.setRampDuration(value, sampleRate);
+            data->mainResonantFrequencyRamp.setRampDuration(value, sampleRate);
+            data->firstResonantFrequencyRamp.setRampDuration(value, sampleRate);
+            data->secondResonantFrequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -97,7 +97,7 @@ float AKDripDSP::getParameter(uint64_t address) {
         case AKDripParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKDripParameterRampDuration:
-            return data->intensityRamp.getRampDuration(_sampleRate);
+            return data->intensityRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

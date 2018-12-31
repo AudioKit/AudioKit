@@ -43,10 +43,10 @@ float AKShakerDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKShakerDSP::init(int channelCount, double _sampleRate)  {
-    AKDSPBase::init(channelCount, _sampleRate);
+void AKShakerDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
-    stk::Stk::setSampleRate(_sampleRate);
+    stk::Stk::setSampleRate(sampleRate);
     data->shaker = new stk::Shakers();
 }
 

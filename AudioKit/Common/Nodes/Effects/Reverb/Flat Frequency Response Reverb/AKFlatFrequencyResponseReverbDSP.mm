@@ -39,7 +39,7 @@ void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, 
             data->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
             break;
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            data->reverbDurationRamp.setRampDuration(value, _sampleRate);
+            data->reverbDurationRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -50,7 +50,7 @@ float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
             return data->reverbDurationRamp.getTarget();
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            return data->reverbDurationRamp.getRampDuration(_sampleRate);
+            return data->reverbDurationRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -50,9 +50,9 @@ void AKStereoDelayDSP::setParameter(AUParameterAddress address, AUValue value, b
             data->delay.setPingPongMode(value > 0.5f);
             break;
         case AKStereoDelayParameterRampDuration:
-            data->timeRamp.setRampDuration(value, _sampleRate);
-            data->feedbackRamp.setRampDuration(value, _sampleRate);
-            data->dryWetMixRamp.setRampDuration(value, _sampleRate);
+            data->timeRamp.setRampDuration(value, sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
+            data->dryWetMixRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -69,14 +69,14 @@ float AKStereoDelayDSP::getParameter(uint64_t address) {
         case AKStereoDelayParameterPingPong:
             return data->delay.getPingPongMode() ? 1.0f : 0.0f;
         case AKStereoDelayParameterRampDuration:
-            return data->timeRamp.getRampDuration(_sampleRate);
+            return data->timeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKStereoDelayDSP::init(int channelCount, double _sampleRate) {
+void AKStereoDelayDSP::init(int channelCount, double sampleRate) {
     // TODO add something to handle 1 vs 2 channels
-    data->delay.init(_sampleRate, timeUpperBound * 1000.0);
+    data->delay.init(sampleRate, timeUpperBound * 1000.0);
 }
 
 void AKStereoDelayDSP::deinit() {
