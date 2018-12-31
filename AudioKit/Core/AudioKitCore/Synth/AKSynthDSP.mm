@@ -164,9 +164,9 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
-        unsigned channelCount = _outBufferListPtr->mNumberBuffers;
+        outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
+        unsigned channelCount = outBufferListPtr->mNumberBuffers;
         AKSynth::render(channelCount, chunkSize, outBuffers);
     }
 }

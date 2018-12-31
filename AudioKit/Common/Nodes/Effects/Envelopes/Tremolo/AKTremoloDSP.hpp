@@ -110,8 +110,8 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     sp_osc_compute(sp, trem, NULL, &temp);

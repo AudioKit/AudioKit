@@ -126,7 +126,7 @@ void AKRhodesPianoDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
         float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
                 if (data->internalTrigger == 1) {

@@ -54,8 +54,8 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             for (int channel = 0; channel <  channelCount; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     processSample(channel, in, out);

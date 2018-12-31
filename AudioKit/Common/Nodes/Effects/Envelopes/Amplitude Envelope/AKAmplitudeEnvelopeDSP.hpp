@@ -147,8 +147,8 @@ public:
             sp_adsr_compute(sp, _adsr, &internalGate, &amp);
 
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = *in * amp;
             }
         }

@@ -23,10 +23,10 @@ class AKDSPBase {
 
 protected:
 
-    int channelCount;                               /* From Apple Example code */
-    double _sampleRate;                           /* From Apple Example code */
-    AudioBufferList *_inBufferListPtr = nullptr;  /* From Apple Example code */
-    AudioBufferList *_outBufferListPtr = nullptr; /* From Apple Example code */
+    int channelCount;
+    double _sampleRate;
+    AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     // To support AKAudioUnit functions
     bool _initialized = true;
@@ -75,12 +75,12 @@ public:
     virtual void initConvolutionEngine() {}
 
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
-        _inBufferListPtr = inBufs;
-        _outBufferListPtr = outBufs;
+        inBufferListPtr = inBufs;
+        outBufferListPtr = outBufs;
     }
 
     virtual void setBuffer(AudioBufferList *outBufs) {
-        _outBufferListPtr = outBufs;
+        outBufferListPtr = outBufs;
     }
 
     virtual void init(int channelCount, double sampleRate) {

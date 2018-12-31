@@ -161,7 +161,7 @@ public:
             float ph = 0;
 
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {
