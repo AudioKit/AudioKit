@@ -48,7 +48,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         let shift = AUParameterTree.createParameter(
             withIdentifier: "shift",
             name: "Pitch shift (in semitones)",
-            address: AUParameterAddress(0),
+            address: AKPitchShifterParameter.shift.rawValue,
             min: Float(AKPitchShifter.shiftRange.lowerBound),
             max: Float(AKPitchShifter.shiftRange.upperBound),
             unit: .relativeSemiTones,
@@ -60,7 +60,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         let windowSize = AUParameterTree.createParameter(
             withIdentifier: "windowSize",
             name: "Window size (in samples)",
-            address: AUParameterAddress(1),
+            address: AKPitchShifterParameter.windowSize.rawValue,
             min: Float(AKPitchShifter.windowSizeRange.lowerBound),
             max: Float(AKPitchShifter.windowSizeRange.upperBound),
             unit: .hertz,
@@ -72,7 +72,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
         let crossfade = AUParameterTree.createParameter(
             withIdentifier: "crossfade",
             name: "Crossfade (in samples)",
-            address: AUParameterAddress(2),
+            address: AKPitchShifterParameter.crossfade.rawValue,
             min: Float(AKPitchShifter.crossfadeRange.lowerBound),
             max: Float(AKPitchShifter.crossfadeRange.upperBound),
             unit: .hertz,
@@ -81,7 +81,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
         shift.value = Float(AKPitchShifter.defaultShift)
         windowSize.value = Float(AKPitchShifter.defaultWindowSize)
