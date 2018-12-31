@@ -26,7 +26,7 @@ AKDSPRef createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate);
 class AKFlatFrequencyResponseReverbDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKFlatFrequencyResponseReverbDSP();

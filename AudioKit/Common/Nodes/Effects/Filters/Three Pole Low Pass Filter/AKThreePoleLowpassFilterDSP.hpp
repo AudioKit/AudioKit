@@ -28,7 +28,7 @@ AKDSPRef createThreePoleLowpassFilterDSP(int nChannels, double sampleRate);
 class AKThreePoleLowpassFilterDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKThreePoleLowpassFilterDSP();

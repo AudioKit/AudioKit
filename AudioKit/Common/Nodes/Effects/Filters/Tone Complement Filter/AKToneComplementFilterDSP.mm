@@ -21,19 +21,19 @@ struct AKToneComplementFilterDSP::_Internal {
     AKLinearParameterRamp halfPowerPointRamp;
 };
 
-AKToneComplementFilterDSP::AKToneComplementFilterDSP() : _private(new _Internal) {
-    _private->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    _private->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
+AKToneComplementFilterDSP::AKToneComplementFilterDSP() : data(new _Internal) {
+    data->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
+    data->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKToneComplementFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKToneComplementFilterParameterHalfPowerPoint:
-            _private->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
+            data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
         case AKToneComplementFilterParameterRampDuration:
-            _private->halfPowerPointRamp.setRampDuration(value, _sampleRate);
+            data->halfPowerPointRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,26 +42,26 @@ void AKToneComplementFilterDSP::setParameter(AUParameterAddress address, AUValue
 float AKToneComplementFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKToneComplementFilterParameterHalfPowerPoint:
-            return _private->halfPowerPointRamp.getTarget();
+            return data->halfPowerPointRamp.getTarget();
         case AKToneComplementFilterParameterRampDuration:
-            return _private->halfPowerPointRamp.getRampDuration(_sampleRate);
+            return data->halfPowerPointRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKToneComplementFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_atone_create(&_private->_atone0);
-    sp_atone_init(_sp, _private->_atone0);
-    sp_atone_create(&_private->_atone1);
-    sp_atone_init(_sp, _private->_atone1);
-    _private->_atone0->hp = defaultHalfPowerPoint;
-    _private->_atone1->hp = defaultHalfPowerPoint;
+    sp_atone_create(&data->_atone0);
+    sp_atone_init(_sp, data->_atone0);
+    sp_atone_create(&data->_atone1);
+    sp_atone_init(_sp, data->_atone1);
+    data->_atone0->hp = defaultHalfPowerPoint;
+    data->_atone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneComplementFilterDSP::deinit() {
-    sp_atone_destroy(&_private->_atone0);
-    sp_atone_destroy(&_private->_atone1);
+    sp_atone_destroy(&data->_atone0);
+    sp_atone_destroy(&data->_atone1);
 }
 
 void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -71,11 +71,11 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->halfPowerPointRamp.advanceTo(_now + frameOffset);
+            data->halfPowerPointRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_atone0->hp = _private->halfPowerPointRamp.getValue();
-        _private->_atone1->hp = _private->halfPowerPointRamp.getValue();
+        data->_atone0->hp = data->halfPowerPointRamp.getValue();
+        data->_atone1->hp = data->halfPowerPointRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_atone_compute(_sp, _private->_atone0, in, out);
+                sp_atone_compute(_sp, data->_atone0, in, out);
             } else {
-                sp_atone_compute(_sp, _private->_atone1, in, out);
+                sp_atone_compute(_sp, data->_atone1, in, out);
             }
         }
     }

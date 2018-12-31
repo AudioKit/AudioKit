@@ -30,7 +30,7 @@ AKDSPRef createFMOscillatorDSP(int nChannels, double sampleRate);
 class AKFMOscillatorDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKFMOscillatorDSP();

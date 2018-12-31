@@ -28,7 +28,7 @@ struct AKShakerDSP::_Internal
     stk::Shakers *shaker;
 };
 
-AKShakerDSP::AKShakerDSP() : _private(new _Internal)
+AKShakerDSP::AKShakerDSP() : data(new _Internal)
 {
 }
 
@@ -47,21 +47,21 @@ void AKShakerDSP::init(int _channels, double _sampleRate)  {
     AKDSPBase::init(_channels, _sampleRate);
 
     stk::Stk::setSampleRate(_sampleRate);
-    _private->shaker = new stk::Shakers();
+    data->shaker = new stk::Shakers();
 }
 
 void AKShakerDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKShakerDSP::triggerTypeAmplitude(AUValue type, AUValue amp)  {
-    _private->type = type;
-    _private->amplitude = amp;
+    data->type = type;
+    data->amplitude = amp;
     trigger();
 }
 
 void AKShakerDSP::destroy() {
-    delete _private->shaker;
+    delete data->shaker;
 }
 
 void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -73,17 +73,17 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->shaker->noteOn(_private->type, _private->amplitude);
+                if (data->internalTrigger == 1) {
+                    data->shaker->noteOn(data->type, data->amplitude);
                 }
-                *out = _private->shaker->tick();
+                *out = data->shaker->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }
 

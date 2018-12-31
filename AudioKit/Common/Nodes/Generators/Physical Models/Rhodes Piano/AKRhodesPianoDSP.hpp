@@ -27,7 +27,7 @@ AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate);
 class AKRhodesPianoDSP : public AKDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
 
 public:
 

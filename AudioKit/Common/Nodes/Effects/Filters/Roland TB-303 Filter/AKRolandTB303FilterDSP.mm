@@ -24,37 +24,37 @@ struct AKRolandTB303FilterDSP::_Internal {
     AKLinearParameterRamp resonanceAsymmetryRamp;
 };
 
-AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : _private(new _Internal) {
-    _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->distortionRamp.setTarget(defaultDistortion, true);
-    _private->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->resonanceAsymmetryRamp.setTarget(defaultResonanceAsymmetry, true);
-    _private->resonanceAsymmetryRamp.setDurationInSamples(defaultRampDurationSamples);
+AKRolandTB303FilterDSP::AKRolandTB303FilterDSP() : data(new _Internal) {
+    data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
+    data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->resonanceRamp.setTarget(defaultResonance, true);
+    data->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->distortionRamp.setTarget(defaultDistortion, true);
+    data->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->resonanceAsymmetryRamp.setTarget(defaultResonanceAsymmetry, true);
+    data->resonanceAsymmetryRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKRolandTB303FilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKRolandTB303FilterParameterCutoffFrequency:
-            _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
+            data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKRolandTB303FilterParameterResonance:
-            _private->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
+            data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
         case AKRolandTB303FilterParameterDistortion:
-            _private->distortionRamp.setTarget(clamp(value, distortionLowerBound, distortionUpperBound), immediate);
+            data->distortionRamp.setTarget(clamp(value, distortionLowerBound, distortionUpperBound), immediate);
             break;
         case AKRolandTB303FilterParameterResonanceAsymmetry:
-            _private->resonanceAsymmetryRamp.setTarget(clamp(value, resonanceAsymmetryLowerBound, resonanceAsymmetryUpperBound), immediate);
+            data->resonanceAsymmetryRamp.setTarget(clamp(value, resonanceAsymmetryLowerBound, resonanceAsymmetryUpperBound), immediate);
             break;
         case AKRolandTB303FilterParameterRampDuration:
-            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->resonanceRamp.setRampDuration(value, _sampleRate);
-            _private->distortionRamp.setRampDuration(value, _sampleRate);
-            _private->resonanceAsymmetryRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            data->resonanceRamp.setRampDuration(value, _sampleRate);
+            data->distortionRamp.setRampDuration(value, _sampleRate);
+            data->resonanceAsymmetryRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -63,38 +63,38 @@ void AKRolandTB303FilterDSP::setParameter(AUParameterAddress address, AUValue va
 float AKRolandTB303FilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKRolandTB303FilterParameterCutoffFrequency:
-            return _private->cutoffFrequencyRamp.getTarget();
+            return data->cutoffFrequencyRamp.getTarget();
         case AKRolandTB303FilterParameterResonance:
-            return _private->resonanceRamp.getTarget();
+            return data->resonanceRamp.getTarget();
         case AKRolandTB303FilterParameterDistortion:
-            return _private->distortionRamp.getTarget();
+            return data->distortionRamp.getTarget();
         case AKRolandTB303FilterParameterResonanceAsymmetry:
-            return _private->resonanceAsymmetryRamp.getTarget();
+            return data->resonanceAsymmetryRamp.getTarget();
         case AKRolandTB303FilterParameterRampDuration:
-            return _private->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKRolandTB303FilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_tbvcf_create(&_private->_tbvcf0);
-    sp_tbvcf_init(_sp, _private->_tbvcf0);
-    sp_tbvcf_create(&_private->_tbvcf1);
-    sp_tbvcf_init(_sp, _private->_tbvcf1);
-    _private->_tbvcf0->fco = defaultCutoffFrequency;
-    _private->_tbvcf1->fco = defaultCutoffFrequency;
-    _private->_tbvcf0->res = defaultResonance;
-    _private->_tbvcf1->res = defaultResonance;
-    _private->_tbvcf0->dist = defaultDistortion;
-    _private->_tbvcf1->dist = defaultDistortion;
-    _private->_tbvcf0->asym = defaultResonanceAsymmetry;
-    _private->_tbvcf1->asym = defaultResonanceAsymmetry;
+    sp_tbvcf_create(&data->_tbvcf0);
+    sp_tbvcf_init(_sp, data->_tbvcf0);
+    sp_tbvcf_create(&data->_tbvcf1);
+    sp_tbvcf_init(_sp, data->_tbvcf1);
+    data->_tbvcf0->fco = defaultCutoffFrequency;
+    data->_tbvcf1->fco = defaultCutoffFrequency;
+    data->_tbvcf0->res = defaultResonance;
+    data->_tbvcf1->res = defaultResonance;
+    data->_tbvcf0->dist = defaultDistortion;
+    data->_tbvcf1->dist = defaultDistortion;
+    data->_tbvcf0->asym = defaultResonanceAsymmetry;
+    data->_tbvcf1->asym = defaultResonanceAsymmetry;
 }
 
 void AKRolandTB303FilterDSP::deinit() {
-    sp_tbvcf_destroy(&_private->_tbvcf0);
-    sp_tbvcf_destroy(&_private->_tbvcf1);
+    sp_tbvcf_destroy(&data->_tbvcf0);
+    sp_tbvcf_destroy(&data->_tbvcf1);
 }
 
 void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -104,20 +104,20 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->resonanceRamp.advanceTo(_now + frameOffset);
-            _private->distortionRamp.advanceTo(_now + frameOffset);
-            _private->resonanceAsymmetryRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
+            data->resonanceRamp.advanceTo(_now + frameOffset);
+            data->distortionRamp.advanceTo(_now + frameOffset);
+            data->resonanceAsymmetryRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_tbvcf0->fco = _private->cutoffFrequencyRamp.getValue();
-        _private->_tbvcf1->fco = _private->cutoffFrequencyRamp.getValue();
-        _private->_tbvcf0->res = _private->resonanceRamp.getValue();
-        _private->_tbvcf1->res = _private->resonanceRamp.getValue();
-        _private->_tbvcf0->dist = _private->distortionRamp.getValue();
-        _private->_tbvcf1->dist = _private->distortionRamp.getValue();
-        _private->_tbvcf0->asym = _private->resonanceAsymmetryRamp.getValue();
-        _private->_tbvcf1->asym = _private->resonanceAsymmetryRamp.getValue();
+        data->_tbvcf0->fco = data->cutoffFrequencyRamp.getValue();
+        data->_tbvcf1->fco = data->cutoffFrequencyRamp.getValue();
+        data->_tbvcf0->res = data->resonanceRamp.getValue();
+        data->_tbvcf1->res = data->resonanceRamp.getValue();
+        data->_tbvcf0->dist = data->distortionRamp.getValue();
+        data->_tbvcf1->dist = data->distortionRamp.getValue();
+        data->_tbvcf0->asym = data->resonanceAsymmetryRamp.getValue();
+        data->_tbvcf1->asym = data->resonanceAsymmetryRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -134,9 +134,9 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             }
 
             if (channel == 0) {
-                sp_tbvcf_compute(_sp, _private->_tbvcf0, in, out);
+                sp_tbvcf_compute(_sp, data->_tbvcf0, in, out);
             } else {
-                sp_tbvcf_compute(_sp, _private->_tbvcf1, in, out);
+                sp_tbvcf_compute(_sp, data->_tbvcf1, in, out);
             }
         }
     }

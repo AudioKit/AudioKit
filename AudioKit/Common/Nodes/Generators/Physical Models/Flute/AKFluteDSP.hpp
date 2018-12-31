@@ -27,7 +27,7 @@ AKDSPRef createFluteDSP(int nChannels, double sampleRate);
 class AKFluteDSP : public AKDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
 
 public:
 

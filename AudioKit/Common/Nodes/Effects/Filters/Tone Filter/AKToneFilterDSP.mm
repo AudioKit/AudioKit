@@ -21,19 +21,19 @@ struct AKToneFilterDSP::_Internal {
     AKLinearParameterRamp halfPowerPointRamp;
 };
 
-AKToneFilterDSP::AKToneFilterDSP() : _private(new _Internal) {
-    _private->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
-    _private->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
+AKToneFilterDSP::AKToneFilterDSP() : data(new _Internal) {
+    data->halfPowerPointRamp.setTarget(defaultHalfPowerPoint, true);
+    data->halfPowerPointRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKToneFilterParameterHalfPowerPoint:
-            _private->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
+            data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
         case AKToneFilterParameterRampDuration:
-            _private->halfPowerPointRamp.setRampDuration(value, _sampleRate);
+            data->halfPowerPointRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,26 +42,26 @@ void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bo
 float AKToneFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKToneFilterParameterHalfPowerPoint:
-            return _private->halfPowerPointRamp.getTarget();
+            return data->halfPowerPointRamp.getTarget();
         case AKToneFilterParameterRampDuration:
-            return _private->halfPowerPointRamp.getRampDuration(_sampleRate);
+            return data->halfPowerPointRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKToneFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_tone_create(&_private->_tone0);
-    sp_tone_init(_sp, _private->_tone0);
-    sp_tone_create(&_private->_tone1);
-    sp_tone_init(_sp, _private->_tone1);
-    _private->_tone0->hp = defaultHalfPowerPoint;
-    _private->_tone1->hp = defaultHalfPowerPoint;
+    sp_tone_create(&data->_tone0);
+    sp_tone_init(_sp, data->_tone0);
+    sp_tone_create(&data->_tone1);
+    sp_tone_init(_sp, data->_tone1);
+    data->_tone0->hp = defaultHalfPowerPoint;
+    data->_tone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneFilterDSP::deinit() {
-    sp_tone_destroy(&_private->_tone0);
-    sp_tone_destroy(&_private->_tone1);
+    sp_tone_destroy(&data->_tone0);
+    sp_tone_destroy(&data->_tone1);
 }
 
 void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -71,11 +71,11 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->halfPowerPointRamp.advanceTo(_now + frameOffset);
+            data->halfPowerPointRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_tone0->hp = _private->halfPowerPointRamp.getValue();
-        _private->_tone1->hp = _private->halfPowerPointRamp.getValue();
+        data->_tone0->hp = data->halfPowerPointRamp.getValue();
+        data->_tone1->hp = data->halfPowerPointRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_tone_compute(_sp, _private->_tone0, in, out);
+                sp_tone_compute(_sp, data->_tone0, in, out);
             } else {
-                sp_tone_compute(_sp, _private->_tone1, in, out);
+                sp_tone_compute(_sp, data->_tone1, in, out);
             }
         }
     }

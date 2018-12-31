@@ -26,7 +26,7 @@ AKDSPRef createClipperDSP(int nChannels, double sampleRate);
 class AKClipperDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKClipperDSP();

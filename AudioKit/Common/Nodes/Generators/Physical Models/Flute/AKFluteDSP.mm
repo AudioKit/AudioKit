@@ -31,12 +31,12 @@ struct AKFluteDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKFluteDSP::AKFluteDSP() : _private(new _Internal)
+AKFluteDSP::AKFluteDSP() : data(new _Internal)
 {
-    _private->frequencyRamp.setTarget(440, true);
-    _private->frequencyRamp.setDurationInSamples(10000);
-    _private->amplitudeRamp.setTarget(1, true);
-    _private->amplitudeRamp.setDurationInSamples(10000);
+    data->frequencyRamp.setTarget(440, true);
+    data->frequencyRamp.setDurationInSamples(10000);
+    data->amplitudeRamp.setTarget(1, true);
+    data->amplitudeRamp.setDurationInSamples(10000);
 }
 
 AKFluteDSP::~AKFluteDSP() = default;
@@ -45,14 +45,14 @@ AKFluteDSP::~AKFluteDSP() = default;
 void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKFluteParameterFrequency:
-            _private->frequencyRamp.setTarget(value, immediate);
+            data->frequencyRamp.setTarget(value, immediate);
             break;
         case AKFluteParameterAmplitude:
-            _private->amplitudeRamp.setTarget(value, immediate);
+            data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKFluteParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -61,11 +61,11 @@ void AKFluteDSP::setParameter(AUParameterAddress address, float value, bool imme
 float AKFluteDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKFluteParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKFluteParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKFluteParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
@@ -74,22 +74,22 @@ void AKFluteDSP::init(int _channels, double _sampleRate)  {
     AKDSPBase::init(_channels, _sampleRate);
 
     stk::Stk::setSampleRate(_sampleRate);
-    _private->flute = new stk::Flute(100);
+    data->flute = new stk::Flute(100);
 }
 
 void AKFluteDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKFluteDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     bool immediate = true;
-    _private->frequencyRamp.setTarget(freq, immediate);
-    _private->amplitudeRamp.setTarget(amp, immediate);
+    data->frequencyRamp.setTarget(freq, immediate);
+    data->amplitudeRamp.setTarget(amp, immediate);
     trigger();
 }
 
 void AKFluteDSP::destroy() {
-    delete _private->flute;
+    delete data->flute;
 }
 
 void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -99,27 +99,27 @@ void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
-        float frequency = _private->frequencyRamp.getValue();
-        float amplitude = _private->amplitudeRamp.getValue();
+        float frequency = data->frequencyRamp.getValue();
+        float amplitude = data->amplitudeRamp.getValue();
 
         for (int channel = 0; channel < _nChannels; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->flute->noteOn(frequency, amplitude);
+                if (data->internalTrigger == 1) {
+                    data->flute->noteOn(frequency, amplitude);
                 }
-                *out = _private->flute->tick();
+                *out = data->flute->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }
 

@@ -28,7 +28,7 @@ AKDSPRef createLowShelfParametricEqualizerFilterDSP(int nChannels, double sample
 class AKLowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKLowShelfParametricEqualizerFilterDSP();

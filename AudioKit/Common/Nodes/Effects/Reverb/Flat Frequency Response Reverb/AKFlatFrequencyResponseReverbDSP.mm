@@ -23,23 +23,23 @@ struct AKFlatFrequencyResponseReverbDSP::_Internal {
 };
 
 void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
-    _private->_loopDuration = duration;
+    data->_loopDuration = duration;
 }
 
 
-AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : _private(new _Internal) {
-    _private->reverbDurationRamp.setTarget(defaultReverbDuration, true);
-    _private->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
+AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new _Internal) {
+    data->reverbDurationRamp.setTarget(defaultReverbDuration, true);
+    data->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            _private->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
+            data->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
             break;
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            _private->reverbDurationRamp.setRampDuration(value, _sampleRate);
+            data->reverbDurationRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -48,27 +48,27 @@ void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, 
 float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            return _private->reverbDurationRamp.getTarget();
+            return data->reverbDurationRamp.getTarget();
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            return _private->reverbDurationRamp.getRampDuration(_sampleRate);
+            return data->reverbDurationRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_allpass_create(&_private->_allpass0);
-    sp_allpass_create(&_private->_allpass1);
-    sp_allpass_init(_sp, _private->_allpass0, _private->_loopDuration);
-    sp_allpass_init(_sp, _private->_allpass1, _private->_loopDuration);
-    _private->_allpass0->revtime = defaultReverbDuration;
-    _private->_allpass1->revtime = defaultReverbDuration;
+    sp_allpass_create(&data->_allpass0);
+    sp_allpass_create(&data->_allpass1);
+    sp_allpass_init(_sp, data->_allpass0, data->_loopDuration);
+    sp_allpass_init(_sp, data->_allpass1, data->_loopDuration);
+    data->_allpass0->revtime = defaultReverbDuration;
+    data->_allpass1->revtime = defaultReverbDuration;
 
 }
 
 void AKFlatFrequencyResponseReverbDSP::deinit() {
-    sp_allpass_destroy(&_private->_allpass0);
-    sp_allpass_destroy(&_private->_allpass1);
+    sp_allpass_destroy(&data->_allpass0);
+    sp_allpass_destroy(&data->_allpass1);
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -78,11 +78,11 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->reverbDurationRamp.advanceTo(_now + frameOffset);
+            data->reverbDurationRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_allpass0->revtime = _private->reverbDurationRamp.getValue();
-        _private->_allpass1->revtime = _private->reverbDurationRamp.getValue();
+        data->_allpass0->revtime = data->reverbDurationRamp.getValue();
+        data->_allpass1->revtime = data->reverbDurationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -99,9 +99,9 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
                 continue;
             }
             if (channel == 0) {
-                sp_allpass_compute(_sp, _private->_allpass0, in, out);
+                sp_allpass_compute(_sp, data->_allpass0, in, out);
             } else {
-                sp_allpass_compute(_sp, _private->_allpass1, in, out);
+                sp_allpass_compute(_sp, data->_allpass1, in, out);
             }
         }
 

@@ -21,19 +21,19 @@ struct AKClipperDSP::_Internal {
     AKLinearParameterRamp limitRamp;
 };
 
-AKClipperDSP::AKClipperDSP() : _private(new _Internal) {
-    _private->limitRamp.setTarget(defaultLimit, true);
-    _private->limitRamp.setDurationInSamples(defaultRampDurationSamples);
+AKClipperDSP::AKClipperDSP() : data(new _Internal) {
+    data->limitRamp.setTarget(defaultLimit, true);
+    data->limitRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKClipperDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKClipperParameterLimit:
-            _private->limitRamp.setTarget(clamp(value, limitLowerBound, limitUpperBound), immediate);
+            data->limitRamp.setTarget(clamp(value, limitLowerBound, limitUpperBound), immediate);
             break;
         case AKClipperParameterRampDuration:
-            _private->limitRamp.setRampDuration(value, _sampleRate);
+            data->limitRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -42,26 +42,26 @@ void AKClipperDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 float AKClipperDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKClipperParameterLimit:
-            return _private->limitRamp.getTarget();
+            return data->limitRamp.getTarget();
         case AKClipperParameterRampDuration:
-            return _private->limitRamp.getRampDuration(_sampleRate);
+            return data->limitRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKClipperDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_clip_create(&_private->_clip0);
-    sp_clip_init(_sp, _private->_clip0);
-    sp_clip_create(&_private->_clip1);
-    sp_clip_init(_sp, _private->_clip1);
-    _private->_clip0->lim = defaultLimit;
-    _private->_clip1->lim = defaultLimit;
+    sp_clip_create(&data->_clip0);
+    sp_clip_init(_sp, data->_clip0);
+    sp_clip_create(&data->_clip1);
+    sp_clip_init(_sp, data->_clip1);
+    data->_clip0->lim = defaultLimit;
+    data->_clip1->lim = defaultLimit;
 }
 
 void AKClipperDSP::deinit() {
-    sp_clip_destroy(&_private->_clip0);
-    sp_clip_destroy(&_private->_clip1);
+    sp_clip_destroy(&data->_clip0);
+    sp_clip_destroy(&data->_clip1);
 }
 
 void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -71,11 +71,11 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->limitRamp.advanceTo(_now + frameOffset);
+            data->limitRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_clip0->lim = _private->limitRamp.getValue();
-        _private->_clip1->lim = _private->limitRamp.getValue();
+        data->_clip0->lim = data->limitRamp.getValue();
+        data->_clip1->lim = data->limitRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_clip_compute(_sp, _private->_clip0, in, out);
+                sp_clip_compute(_sp, data->_clip0, in, out);
             } else {
-                sp_clip_compute(_sp, _private->_clip1, in, out);
+                sp_clip_compute(_sp, data->_clip1, in, out);
             }
         }
     }

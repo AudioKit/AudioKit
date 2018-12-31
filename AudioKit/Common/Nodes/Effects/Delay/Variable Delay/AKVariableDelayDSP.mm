@@ -22,25 +22,25 @@ struct AKVariableDelayDSP::_Internal {
     AKLinearParameterRamp feedbackRamp;
 };
 
-AKVariableDelayDSP::AKVariableDelayDSP() : _private(new _Internal) {
-    _private->timeRamp.setTarget(defaultTime, true);
-    _private->timeRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
+AKVariableDelayDSP::AKVariableDelayDSP() : data(new _Internal) {
+    data->timeRamp.setTarget(defaultTime, true);
+    data->timeRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->feedbackRamp.setTarget(defaultFeedback, true);
+    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKVariableDelayDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKVariableDelayParameterTime:
-            _private->timeRamp.setTarget(clamp(value, timeLowerBound, timeUpperBound), immediate);
+            data->timeRamp.setTarget(clamp(value, timeLowerBound, timeUpperBound), immediate);
             break;
         case AKVariableDelayParameterFeedback:
-            _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
+            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKVariableDelayParameterRampDuration:
-            _private->timeRamp.setRampDuration(value, _sampleRate);
-            _private->feedbackRamp.setRampDuration(value, _sampleRate);
+            data->timeRamp.setRampDuration(value, _sampleRate);
+            data->feedbackRamp.setRampDuration(value, _sampleRate);
             break;
     }
 }
@@ -49,35 +49,35 @@ void AKVariableDelayDSP::setParameter(AUParameterAddress address, AUValue value,
 float AKVariableDelayDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKVariableDelayParameterTime:
-            return _private->timeRamp.getTarget();
+            return data->timeRamp.getTarget();
         case AKVariableDelayParameterFeedback:
-            return _private->feedbackRamp.getTarget();
+            return data->feedbackRamp.getTarget();
         case AKVariableDelayParameterRampDuration:
-            return _private->timeRamp.getRampDuration(_sampleRate);
+            return data->timeRamp.getRampDuration(_sampleRate);
     }
     return 0;
 }
 
 void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_vdelay_create(&_private->_vdelay0);
-    sp_vdelay_init(_sp, _private->_vdelay0, 10);
-    sp_vdelay_create(&_private->_vdelay1);
-    sp_vdelay_init(_sp, _private->_vdelay1, 10);
-    _private->_vdelay0->del = defaultTime;
-    _private->_vdelay1->del = defaultTime;
-    _private->_vdelay0->feedback = defaultFeedback;
-    _private->_vdelay1->feedback = defaultFeedback;
+    sp_vdelay_create(&data->_vdelay0);
+    sp_vdelay_init(_sp, data->_vdelay0, 10);
+    sp_vdelay_create(&data->_vdelay1);
+    sp_vdelay_init(_sp, data->_vdelay1, 10);
+    data->_vdelay0->del = defaultTime;
+    data->_vdelay1->del = defaultTime;
+    data->_vdelay0->feedback = defaultFeedback;
+    data->_vdelay1->feedback = defaultFeedback;
 }
 
 void AKVariableDelayDSP::deinit() {
-    sp_vdelay_destroy(&_private->_vdelay0);
-    sp_vdelay_destroy(&_private->_vdelay1);
+    sp_vdelay_destroy(&data->_vdelay0);
+    sp_vdelay_destroy(&data->_vdelay1);
 }
 
 void AKVariableDelayDSP::clear() {
-    sp_vdelay_reset(_sp, _private->_vdelay0);
-    sp_vdelay_reset(_sp, _private->_vdelay1);
+    sp_vdelay_reset(_sp, data->_vdelay0);
+    sp_vdelay_reset(_sp, data->_vdelay1);
 }
 
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -87,14 +87,14 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->timeRamp.advanceTo(_now + frameOffset);
-            _private->feedbackRamp.advanceTo(_now + frameOffset);
+            data->timeRamp.advanceTo(_now + frameOffset);
+            data->feedbackRamp.advanceTo(_now + frameOffset);
         }
 
-        _private->_vdelay0->del = _private->timeRamp.getValue();
-        _private->_vdelay1->del = _private->timeRamp.getValue();
-        _private->_vdelay0->feedback = _private->feedbackRamp.getValue();
-        _private->_vdelay1->feedback = _private->feedbackRamp.getValue();
+        data->_vdelay0->del = data->timeRamp.getValue();
+        data->_vdelay1->del = data->timeRamp.getValue();
+        data->_vdelay0->feedback = data->feedbackRamp.getValue();
+        data->_vdelay1->feedback = data->feedbackRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -111,9 +111,9 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             }
 
             if (channel == 0) {
-                sp_vdelay_compute(_sp, _private->_vdelay0, in, out);
+                sp_vdelay_compute(_sp, data->_vdelay0, in, out);
             } else {
-                sp_vdelay_compute(_sp, _private->_vdelay1, in, out);
+                sp_vdelay_compute(_sp, data->_vdelay1, in, out);
             }
         }
     }

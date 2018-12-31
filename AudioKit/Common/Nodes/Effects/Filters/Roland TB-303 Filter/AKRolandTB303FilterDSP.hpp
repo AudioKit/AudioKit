@@ -29,7 +29,7 @@ AKDSPRef createRolandTB303FilterDSP(int nChannels, double sampleRate);
 class AKRolandTB303FilterDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKRolandTB303FilterDSP();

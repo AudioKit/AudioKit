@@ -39,7 +39,7 @@ protected:
     AKModulatedDelayType effectType;
 
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
 };
 
 #endif

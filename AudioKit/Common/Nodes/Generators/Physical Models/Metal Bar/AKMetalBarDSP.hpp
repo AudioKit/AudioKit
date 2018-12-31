@@ -32,7 +32,7 @@ AKDSPRef createMetalBarDSP(int nChannels, double sampleRate);
 class AKMetalBarDSP : public AKSoundpipeDSPBase {
 private:
     struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    std::unique_ptr<_Internal> data;
  
 public:
     AKMetalBarDSP();
