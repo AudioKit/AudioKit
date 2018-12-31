@@ -57,7 +57,7 @@ public:
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                if (_playing) {
+                if (isStarted) {
                     processSample(channel, in, out);
                 } else {
                     *out = *in;

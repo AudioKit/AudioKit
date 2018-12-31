@@ -88,7 +88,7 @@ float AKMorphingOscillatorDSP::getParameter(uint64_t address) {
 
 void AKMorphingOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    _playing = false;
+    isStarted = false;
     sp_oscmorph_create(&data->oscmorph);
 }
 
@@ -134,7 +134,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
                     sp_oscmorph_compute(sp, data->oscmorph, nil, &temp);
                 }

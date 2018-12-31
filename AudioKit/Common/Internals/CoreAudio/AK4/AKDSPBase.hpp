@@ -29,8 +29,8 @@ protected:
     AudioBufferList *outBufferListPtr = nullptr;
 
     // To support AKAudioUnit functions
-    bool _initialized = true;
-    bool _playing = true;
+    bool isInitialized = true;
+    bool isStarted = true;
     int64_t now = 0;  // current time in samples
 
 public:
@@ -93,10 +93,10 @@ public:
     }
 
     // Add for compatibility with AKAudioUnit
-    virtual void start() { _playing = true; }
-    virtual void stop() { _playing = false; }
-    virtual bool isPlaying() { return _playing; }
-    virtual bool isSetup() { return _initialized; }
+    virtual void start() { isStarted = true; }
+    virtual void stop() { isStarted = false; }
+    virtual bool isPlaying() { return isStarted; }
+    virtual bool isSetup() { return isInitialized; }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
     /**

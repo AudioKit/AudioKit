@@ -104,7 +104,7 @@ public:
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
-                if (!_playing) {
+                if (!isStarted) {
                     *out = *in;
                     continue;
                 }
@@ -114,7 +114,7 @@ public:
                     sp_comb_compute(sp, comb1, in, out);
                 }
             }
-            if (_playing) {
+            if (isStarted) {
             }
         }
     }

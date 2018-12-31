@@ -113,7 +113,7 @@ public:
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                if (_playing) {
+                if (isStarted) {
                     sp_osc_compute(sp, trem, NULL, &temp);
                     *out = *in * (1.0 - temp);
                 } else {

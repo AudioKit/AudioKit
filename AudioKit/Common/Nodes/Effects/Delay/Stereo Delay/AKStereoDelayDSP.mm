@@ -100,7 +100,7 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
     //unsigned inChannelCount = inBufferListPtr->mNumberBuffers;
     //unsigned outChannelCount = outBufferListPtr->mNumberBuffers;
 
-    if (!_playing)
+    if (!isStarted)
     {
         // effect bypassed: just copy input to output
         memcpy(outBuffers[0], inBuffers[0], frameCount * sizeof(float));

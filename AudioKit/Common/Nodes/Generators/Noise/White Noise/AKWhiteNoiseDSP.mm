@@ -75,7 +75,7 @@ void AKWhiteNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
                     sp_noise_compute(sp, data->noise, nil, &temp);
                 }
