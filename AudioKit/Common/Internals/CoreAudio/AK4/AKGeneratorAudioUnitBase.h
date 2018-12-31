@@ -28,6 +28,7 @@
 // STK Methods
 - (void)trigger;
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
+- (void)triggerType:(UInt8)type amplitude:(float)amplitude;
 
 @end
 

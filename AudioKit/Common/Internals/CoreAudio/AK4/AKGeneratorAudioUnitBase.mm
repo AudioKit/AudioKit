@@ -28,6 +28,9 @@
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude {
     ((AKDSPBase *)self.dsp)->triggerFrequencyAmplitude(frequency, amplitude);
 }
+- (void)triggerType:(UInt8)type amplitude:(float)amplitude {
+    ((AKDSPBase *)self.dsp)->triggerTypeAmplitude(type, amplitude);
+}
 
 -(BOOL)shouldAllocateInputBus {
     return false;

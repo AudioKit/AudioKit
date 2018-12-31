@@ -92,18 +92,11 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
 
     fileprivate var amplitudeParameter: AUParameter?
 
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
-
     /// Type of shaker to use
     open var type: AKShakerType = .maraca {
         willSet {
             if type != newValue {
-                internalAU?.type = type.rawValue
+                internalAU?.type = Double(type.rawValue)
             }
         }
     }
@@ -169,8 +162,8 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.type = type.rawValue
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.type = Double(type.rawValue)
+        internalAU?.amplitude = Double(amplitude)
     }
 
     /// Trigger the sound with an optional set of parameters
