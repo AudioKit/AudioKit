@@ -52,6 +52,11 @@
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 
+// Convolution and Phase-Locked Vocoder
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size;
+- (void)setPartitionLength:(int)partitionLength;
+- (void)initConvolutionEngine;
+
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
