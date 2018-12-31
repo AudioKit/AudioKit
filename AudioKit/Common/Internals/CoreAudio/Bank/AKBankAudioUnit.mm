@@ -10,28 +10,28 @@
 #import "AKBankDSPKernel.hpp"
 
 @implementation AKBankAudioUnit {
-    AKBankDSPKernel *_kernelPtr;
+    AKBankDSPKernel *kernelPtr;
 }
 
 - (void)setKernelPtr:(void *)ptr {
-    _kernelPtr = (AKBankDSPKernel *)ptr;
+    kernelPtr = (AKBankDSPKernel *)ptr;
 }
 
-- (BOOL)isSetUp { return _kernelPtr->resetted; }
-- (void)setAttackDuration:(float)attackDuration { _kernelPtr->setAttackDuration(attackDuration); }
-- (void)setDecayDuration:(float)decayDuration { _kernelPtr->setDecayDuration(decayDuration); }
-- (void)setSustainLevel:(float)sustainLevel { _kernelPtr->setSustainLevel(sustainLevel); }
-- (void)setReleaseDuration:(float)releaseDuration { _kernelPtr->setReleaseDuration(releaseDuration); }
-- (void)setPitchBend:(float)pitchBend { _kernelPtr->setPitchBend(pitchBend); }
-- (void)setVibratoDepth:(float)vibratoDepth { _kernelPtr->setVibratoDepth(vibratoDepth); }
-- (void)setVibratoRate:(float)vibratoRate { _kernelPtr->setVibratoRate(vibratoRate); }
+- (BOOL)isSetUp { return kernelPtr->resetted; }
+- (void)setAttackDuration:(float)attackDuration { kernelPtr->setAttackDuration(attackDuration); }
+- (void)setDecayDuration:(float)decayDuration { kernelPtr->setDecayDuration(decayDuration); }
+- (void)setSustainLevel:(float)sustainLevel { kernelPtr->setSustainLevel(sustainLevel); }
+- (void)setReleaseDuration:(float)releaseDuration { kernelPtr->setReleaseDuration(releaseDuration); }
+- (void)setPitchBend:(float)pitchBend { kernelPtr->setPitchBend(pitchBend); }
+- (void)setVibratoDepth:(float)vibratoDepth { kernelPtr->setVibratoDepth(vibratoDepth); }
+- (void)setVibratoRate:(float)vibratoRate { kernelPtr->setVibratoRate(vibratoRate); }
 
-- (void)stopNote:(uint8_t)note { _kernelPtr->stopNote(note); };
+- (void)stopNote:(uint8_t)note { kernelPtr->stopNote(note); };
 
-- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity { _kernelPtr->startNote(note, velocity); };
+- (void)startNote:(uint8_t)note velocity:(uint8_t)velocity { kernelPtr->startNote(note, velocity); };
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency {
-    _kernelPtr->startNote(note, velocity, frequency);
+    kernelPtr->startNote(note, velocity, frequency);
 };
 
 - (NSArray *)getStandardParameters {
@@ -121,13 +121,13 @@
     _vibratoDepthAUParameter.value = 0;
     _vibratoRateAUParameter.value = 0;
 
-    _kernelPtr->setParameter(AKBankDSPKernel::attackDurationAddress,  _attackDurationAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::decayDurationAddress,   _decayDurationAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::sustainLevelAddress,    _sustainLevelAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::releaseDurationAddress, _releaseDurationAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::pitchBendAddress,       _pitchBendAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::vibratoDepthAddress,    _vibratoDepthAUParameter.value);
-    _kernelPtr->setParameter(AKBankDSPKernel::vibratoRateAddress,     _vibratoRateAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::attackDurationAddress,  _attackDurationAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::decayDurationAddress,   _decayDurationAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::sustainLevelAddress,    _sustainLevelAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::releaseDurationAddress, _releaseDurationAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::pitchBendAddress,       _pitchBendAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::vibratoDepthAddress,    _vibratoDepthAUParameter.value);
+    kernelPtr->setParameter(AKBankDSPKernel::vibratoRateAddress,     _vibratoRateAUParameter.value);
 
     return @[_attackDurationAUParameter,
              _decayDurationAUParameter,
