@@ -67,6 +67,7 @@ public:
     /// STK Triggers
     virtual void trigger() {}
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
+    virtual void triggerTypeAmplitude(AUValue type, AUValue amplitude) {}
 
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
         _inBufferListPtr = inBufs;
