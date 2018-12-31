@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKMoogLadderParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createMoogLadderDSP(int nChannels, double sampleRate);
+AKDSPRef createMoogLadderDSP(int channelCount, double sampleRate);
 
 #else
 

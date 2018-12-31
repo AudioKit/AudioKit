@@ -9,7 +9,7 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *AKSynthCreateDSP(int nChannels, double sampleRate) {
+extern "C" void *AKSynthCreateDSP(int channelCount, double sampleRate) {
     return new AKSynthDSP();
 }
 
@@ -38,9 +38,9 @@ AKSynthDSP::AKSynthDSP() : AKSynth()
     filterResonanceRamp.setTarget(1.0, true);
 }
 
-void AKSynthDSP::init(int nChannels, double sampleRate)
+void AKSynthDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(nChannels, sampleRate);
+    AKDSPBase::init(channelCount, sampleRate);
     AKSynth::init(sampleRate);
 }
 

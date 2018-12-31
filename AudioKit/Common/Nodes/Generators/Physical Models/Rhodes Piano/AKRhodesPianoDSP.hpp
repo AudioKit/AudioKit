@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate);
+AKDSPRef createRhodesPianoDSP(int channelCount, double sampleRate);
 
 #else
 

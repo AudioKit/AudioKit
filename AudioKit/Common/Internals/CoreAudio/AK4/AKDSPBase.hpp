@@ -23,7 +23,7 @@ class AKDSPBase {
 
 protected:
 
-    int _nChannels;                               /* From Apple Example code */
+    int channelCount;                               /* From Apple Example code */
     double _sampleRate;                           /* From Apple Example code */
     AudioBufferList *_inBufferListPtr = nullptr;  /* From Apple Example code */
     AudioBufferList *_outBufferListPtr = nullptr; /* From Apple Example code */
@@ -83,8 +83,8 @@ public:
         _outBufferListPtr = outBufs;
     }
 
-    virtual void init(int nChannels, double sampleRate) {
-        this->_nChannels = nChannels;
+    virtual void init(int channelCount, double sampleRate) {
+        this->channelCount = channelCount;
         this->_sampleRate = sampleRate;
     }
     

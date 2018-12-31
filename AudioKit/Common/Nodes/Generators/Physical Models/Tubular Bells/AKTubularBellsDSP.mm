@@ -14,9 +14,9 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate) {
     AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -125,7 +125,7 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
         float frequency = data->frequencyRamp.getValue();
         float amplitude = data->amplitudeRamp.getValue();
 
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {

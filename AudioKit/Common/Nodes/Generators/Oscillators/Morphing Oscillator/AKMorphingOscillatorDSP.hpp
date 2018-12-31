@@ -21,7 +21,7 @@ typedef NS_ENUM(AUParameterAddress, AKMorphingOscillatorParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createMorphingOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createMorphingOscillatorDSP(int channelCount, double sampleRate);
 
 #else
 

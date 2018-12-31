@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKLowShelfParametricEqualizerFilterParameter
 
 #ifndef __cplusplus
 
-AKDSPRef createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate);
+AKDSPRef createLowShelfParametricEqualizerFilterDSP(int channelCount, double sampleRate);
 
 #else
 

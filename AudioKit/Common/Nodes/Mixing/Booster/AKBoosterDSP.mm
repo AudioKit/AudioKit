@@ -8,9 +8,9 @@
 
 #include "AKBoosterDSP.hpp"
 
-extern "C" AKDSPRef createBoosterDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate) {
     AKBoosterDSP *dsp = new AKBoosterDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -70,7 +70,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         }
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel == 0) {

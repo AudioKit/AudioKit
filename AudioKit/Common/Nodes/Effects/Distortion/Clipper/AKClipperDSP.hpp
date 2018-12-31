@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKClipperParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createClipperDSP(int nChannels, double sampleRate);
+AKDSPRef createClipperDSP(int channelCount, double sampleRate);
 
 #else
 

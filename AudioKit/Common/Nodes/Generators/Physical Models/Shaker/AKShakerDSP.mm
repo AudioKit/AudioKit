@@ -12,9 +12,9 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createShakerDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createShakerDSP(int channelCount, double sampleRate) {
     AKShakerDSP *dsp = new AKShakerDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -69,7 +69,7 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (_playing) {

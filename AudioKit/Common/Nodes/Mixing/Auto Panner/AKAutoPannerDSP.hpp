@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoPannerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createAutoPannerDSP(int nChannels, double sampleRate);
+AKDSPRef createAutoPannerDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -116,7 +116,7 @@ public:
             float temp = 0;
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
+            for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 

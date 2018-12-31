@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createShakerDSP(int nChannels, double sampleRate);
+AKDSPRef createShakerDSP(int channelCount, double sampleRate);
 
 #else
 

@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKPinkNoiseParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPinkNoiseDSP(int nChannels, double sampleRate);
+AKDSPRef createPinkNoiseDSP(int channelCount, double sampleRate);
 
 #else
 

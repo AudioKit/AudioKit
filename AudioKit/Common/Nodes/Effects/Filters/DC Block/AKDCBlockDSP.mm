@@ -8,9 +8,9 @@
 
 #include "AKDCBlockDSP.hpp"
 
-extern "C" AKDSPRef createDCBlockDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createDCBlockDSP(int channelCount, double sampleRate) {
     AKDCBlockDSP *dsp = new AKDCBlockDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
@@ -41,7 +41,7 @@ void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
+        for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {

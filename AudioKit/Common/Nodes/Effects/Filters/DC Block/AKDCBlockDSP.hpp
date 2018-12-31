@@ -12,7 +12,7 @@
 
 #ifndef __cplusplus
 
-AKDSPRef createDCBlockDSP(int nChannels, double sampleRate);
+AKDSPRef createDCBlockDSP(int channelCount, double sampleRate);
 
 #else
 

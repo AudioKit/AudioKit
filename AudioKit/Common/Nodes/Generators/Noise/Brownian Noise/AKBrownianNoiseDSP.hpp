@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKBrownianNoiseParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createBrownianNoiseDSP(int nChannels, double sampleRate);
+AKDSPRef createBrownianNoiseDSP(int channelCount, double sampleRate);
 
 #else
 

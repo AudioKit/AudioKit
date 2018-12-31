@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKPluckedStringParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createPluckedStringDSP(int nChannels, double sampleRate);
+AKDSPRef createPluckedStringDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -110,7 +110,7 @@ public:
             pluck->freq = frequency;
             pluck->amp = amplitude;
 
-            for (int channel = 0; channel < _nChannels; ++channel) {
+            for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
