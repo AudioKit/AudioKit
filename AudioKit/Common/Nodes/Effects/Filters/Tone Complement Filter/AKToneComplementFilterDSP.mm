@@ -52,9 +52,9 @@ float AKToneComplementFilterDSP::getParameter(uint64_t address) {
 void AKToneComplementFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_atone_create(&data->atone0);
-    sp_atone_init(_sp, data->atone0);
+    sp_atone_init(sp, data->atone0);
     sp_atone_create(&data->atone1);
-    sp_atone_init(_sp, data->atone1);
+    sp_atone_init(sp, data->atone1);
     data->atone0->hp = defaultHalfPowerPoint;
     data->atone1->hp = defaultHalfPowerPoint;
 }
@@ -92,9 +92,9 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_atone_compute(_sp, data->atone0, in, out);
+                sp_atone_compute(sp, data->atone0, in, out);
             } else {
-                sp_atone_compute(_sp, data->atone1, in, out);
+                sp_atone_compute(sp, data->atone1, in, out);
             }
         }
     }

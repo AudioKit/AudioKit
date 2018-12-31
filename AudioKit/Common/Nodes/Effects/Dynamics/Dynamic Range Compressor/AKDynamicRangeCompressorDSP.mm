@@ -79,9 +79,9 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
 void AKDynamicRangeCompressorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_compressor_create(&data->compressor0);
-    sp_compressor_init(_sp, data->compressor0);
+    sp_compressor_init(sp, data->compressor0);
     sp_compressor_create(&data->compressor1);
-    sp_compressor_init(_sp, data->compressor1);
+    sp_compressor_init(sp, data->compressor1);
     *data->compressor0->ratio = defaultRatio;
     *data->compressor1->ratio = defaultRatio;
     *data->compressor0->thresh = defaultThreshold;
@@ -134,9 +134,9 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
             }
 
             if (channel == 0) {
-                sp_compressor_compute(_sp, data->compressor0, in, out);
+                sp_compressor_compute(sp, data->compressor0, in, out);
             } else {
-                sp_compressor_compute(_sp, data->compressor1, in, out);
+                sp_compressor_compute(sp, data->compressor1, in, out);
             }
         }
     }

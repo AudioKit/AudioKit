@@ -132,7 +132,7 @@ float AKZitaReverbDSP::getParameter(uint64_t address) {
 void AKZitaReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_zitarev_create(&data->zitarev);
-    sp_zitarev_init(_sp, data->zitarev);
+    sp_zitarev_init(sp, data->zitarev);
     *data->zitarev->in_delay = defaultPredelay;
     *data->zitarev->lf_x = defaultCrossoverFrequency;
     *data->zitarev->rt60_low = defaultLowReleaseTime;
@@ -194,7 +194,7 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             
         }
         if (_playing) {
-            sp_zitarev_compute(_sp, data->zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_zitarev_compute(sp, data->zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

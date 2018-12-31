@@ -61,9 +61,9 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
 void AKBitCrusherDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_bitcrush_create(&data->bitcrush0);
-    sp_bitcrush_init(_sp, data->bitcrush0);
+    sp_bitcrush_init(sp, data->bitcrush0);
     sp_bitcrush_create(&data->bitcrush1);
-    sp_bitcrush_init(_sp, data->bitcrush1);
+    sp_bitcrush_init(sp, data->bitcrush1);
     data->bitcrush0->bitdepth = defaultBitDepth;
     data->bitcrush1->bitdepth = defaultBitDepth;
     data->bitcrush0->srate = defaultSampleRate;
@@ -106,9 +106,9 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_bitcrush_compute(_sp, data->bitcrush0, in, out);
+                sp_bitcrush_compute(sp, data->bitcrush0, in, out);
             } else {
-                sp_bitcrush_compute(_sp, data->bitcrush1, in, out);
+                sp_bitcrush_compute(sp, data->bitcrush1, in, out);
             }
         }
     }

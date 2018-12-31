@@ -61,9 +61,9 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
 void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_reson_create(&data->reson0);
-    sp_reson_init(_sp, data->reson0);
+    sp_reson_init(sp, data->reson0);
     sp_reson_create(&data->reson1);
-    sp_reson_init(_sp, data->reson1);
+    sp_reson_init(sp, data->reson1);
     data->reson0->freq = defaultFrequency;
     data->reson1->freq = defaultFrequency;
     data->reson0->bw = defaultBandwidth;
@@ -106,9 +106,9 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
 
             if (channel == 0) {
-                sp_reson_compute(_sp, data->reson0, in, out);
+                sp_reson_compute(sp, data->reson0, in, out);
             } else {
-                sp_reson_compute(_sp, data->reson1, in, out);
+                sp_reson_compute(sp, data->reson1, in, out);
             }
         }
     }

@@ -81,7 +81,7 @@ void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     _playing = false;
     sp_osc_create(&data->osc);
-    sp_osc_init(_sp, data->osc, data->ftbl, 0);
+    sp_osc_init(sp, data->osc, data->ftbl, 0);
     data->osc->freq = defaultFrequency;
     data->osc->amp = defaultAmplitude;
 }
@@ -92,7 +92,7 @@ void AKOscillatorDSP::deinit() {
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
     data->ftbl_size = size;
-    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
 }
 
 void AKOscillatorDSP::setWaveformValue(uint32_t index, float value) {
@@ -120,7 +120,7 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_osc_compute(_sp, data->osc, nil, &temp);
+                    sp_osc_compute(sp, data->osc, nil, &temp);
                 }
                 *out = temp;
             } else {

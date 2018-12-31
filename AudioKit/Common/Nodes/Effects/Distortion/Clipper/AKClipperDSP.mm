@@ -52,9 +52,9 @@ float AKClipperDSP::getParameter(uint64_t address) {
 void AKClipperDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_clip_create(&data->clip0);
-    sp_clip_init(_sp, data->clip0);
+    sp_clip_init(sp, data->clip0);
     sp_clip_create(&data->clip1);
-    sp_clip_init(_sp, data->clip1);
+    sp_clip_init(sp, data->clip1);
     data->clip0->lim = defaultLimit;
     data->clip1->lim = defaultLimit;
 }
@@ -92,9 +92,9 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_clip_compute(_sp, data->clip0, in, out);
+                sp_clip_compute(sp, data->clip0, in, out);
             } else {
-                sp_clip_compute(_sp, data->clip1, in, out);
+                sp_clip_compute(sp, data->clip1, in, out);
             }
         }
     }

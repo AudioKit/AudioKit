@@ -31,7 +31,7 @@ AKDSPRef createVocalTractDSP(int nChannels, double sampleRate);
 
 class AKVocalTractDSP : public AKSoundpipeDSPBase {
 
-    sp_vocwrapper *_vocwrapper;
+    sp_vocwrapper *vocwrapper;
 
 private:
     AKLinearParameterRamp frequencyRamp;
@@ -104,17 +104,17 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
 
-        sp_vocwrapper_create(&_vocwrapper);
-        sp_vocwrapper_init(_sp, _vocwrapper);
-        _vocwrapper->freq = 160.0;
-        _vocwrapper->pos = 0.5;
-        _vocwrapper->diam = 1.0;
-        _vocwrapper->tenseness = 0.6;
-        _vocwrapper->nasal = 0.0;
+        sp_vocwrapper_create(&vocwrapper);
+        sp_vocwrapper_init(sp, vocwrapper);
+        vocwrapper->freq = 160.0;
+        vocwrapper->pos = 0.5;
+        vocwrapper->diam = 1.0;
+        vocwrapper->tenseness = 0.6;
+        vocwrapper->nasal = 0.0;
     }
 
     void deinit() override {
-        sp_vocwrapper_destroy(&_vocwrapper);
+        sp_vocwrapper_destroy(&vocwrapper);
     }
 
 
@@ -136,11 +136,11 @@ public:
             float tongueDiameter = tongueDiameterRamp.getValue();
             float tenseness = tensenessRamp.getValue();
             float nasality = nasalityRamp.getValue();
-            _vocwrapper->freq = frequency;
-            _vocwrapper->pos = tonguePosition;
-            _vocwrapper->diam = tongueDiameter;
-            _vocwrapper->tenseness = tenseness;
-            _vocwrapper->nasal = nasality;
+            vocwrapper->freq = frequency;
+            vocwrapper->pos = tonguePosition;
+            vocwrapper->diam = tongueDiameter;
+            vocwrapper->tenseness = tenseness;
+            vocwrapper->nasal = nasality;
 
             float temp = 0;
             for (int channel = 0; channel < _nChannels; ++channel) {
@@ -148,7 +148,7 @@ public:
 
                 if (_playing) {
                     if (channel == 0) {
-                        sp_vocwrapper_compute(_sp, _vocwrapper, nil, &temp);
+                        sp_vocwrapper_compute(sp, vocwrapper, nil, &temp);
                     }
                     *out = temp;
                 } else {

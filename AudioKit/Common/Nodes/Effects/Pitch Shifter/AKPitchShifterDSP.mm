@@ -70,9 +70,9 @@ float AKPitchShifterDSP::getParameter(uint64_t address) {
 void AKPitchShifterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_pshift_create(&data->pshift0);
-    sp_pshift_init(_sp, data->pshift0);
+    sp_pshift_init(sp, data->pshift0);
     sp_pshift_create(&data->pshift1);
-    sp_pshift_init(_sp, data->pshift1);
+    sp_pshift_init(sp, data->pshift1);
     *data->pshift0->shift = defaultShift;
     *data->pshift1->shift = defaultShift;
     *data->pshift0->window = defaultWindowSize;
@@ -120,9 +120,9 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
             }
 
             if (channel == 0) {
-                sp_pshift_compute(_sp, data->pshift0, in, out);
+                sp_pshift_compute(sp, data->pshift0, in, out);
             } else {
-                sp_pshift_compute(_sp, data->pshift1, in, out);
+                sp_pshift_compute(sp, data->pshift1, in, out);
             }
         }
     }

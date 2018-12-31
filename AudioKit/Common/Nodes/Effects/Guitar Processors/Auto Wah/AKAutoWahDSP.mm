@@ -70,9 +70,9 @@ float AKAutoWahDSP::getParameter(uint64_t address) {
 void AKAutoWahDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_autowah_create(&data->autowah0);
-    sp_autowah_init(_sp, data->autowah0);
+    sp_autowah_init(sp, data->autowah0);
     sp_autowah_create(&data->autowah1);
-    sp_autowah_init(_sp, data->autowah1);
+    sp_autowah_init(sp, data->autowah1);
     *data->autowah0->wah = defaultWah;
     *data->autowah1->wah = defaultWah;
     *data->autowah0->mix = defaultMix;
@@ -120,9 +120,9 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
             }
 
             if (channel == 0) {
-                sp_autowah_compute(_sp, data->autowah0, in, out);
+                sp_autowah_compute(sp, data->autowah0, in, out);
             } else {
-                sp_autowah_compute(_sp, data->autowah1, in, out);
+                sp_autowah_compute(sp, data->autowah1, in, out);
             }
         }
     }

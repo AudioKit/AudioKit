@@ -90,7 +90,7 @@ void AKFMOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     _playing = false;
     sp_fosc_create(&data->fosc);
-    sp_fosc_init(_sp, data->fosc, data->ftbl);
+    sp_fosc_init(sp, data->fosc, data->ftbl);
     data->fosc->freq = defaultBaseFrequency;
     data->fosc->car = defaultCarrierMultiplier;
     data->fosc->mod = defaultModulatingMultiplier;
@@ -104,7 +104,7 @@ void AKFMOscillatorDSP::deinit() {
 
 void AKFMOscillatorDSP::setupWaveform(uint32_t size) {
     data->ftbl_size = size;
-    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
 }
 
 void AKFMOscillatorDSP::setWaveformValue(uint32_t index, float value) {
@@ -136,7 +136,7 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_fosc_compute(_sp, data->fosc, nil, &temp);
+                    sp_fosc_compute(sp, data->fosc, nil, &temp);
                 }
                 *out = temp;
             } else {

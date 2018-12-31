@@ -115,7 +115,7 @@ public:
     }
 
     void reset() override {
-        sp_adsr_init(_sp, _adsr);
+        sp_adsr_init(sp, _adsr);
         _adsr->atk = 0.1;
         _adsr->dec = 0.1;
         _adsr->sus = 1.0;
@@ -144,7 +144,7 @@ public:
             _adsr->sus = sustainLevelRamp.getValue();
             _adsr->rel = releaseDurationRamp.getValue();
 
-            sp_adsr_compute(_sp, _adsr, &internalGate, &amp);
+            sp_adsr_compute(sp, _adsr, &internalGate, &amp);
 
             for (int channel = 0; channel < _nChannels; ++channel) {
                 float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;

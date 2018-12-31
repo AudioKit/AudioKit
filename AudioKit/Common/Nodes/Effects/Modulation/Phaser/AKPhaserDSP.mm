@@ -123,7 +123,7 @@ float AKPhaserDSP::getParameter(uint64_t address) {
 void AKPhaserDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_phaser_create(&data->phaser);
-    sp_phaser_init(_sp, data->phaser);
+    sp_phaser_init(sp, data->phaser);
     *data->phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
     *data->phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
     *data->phaser->Notch_width = defaultNotchWidth;
@@ -182,7 +182,7 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
             
         }
         if (_playing) {
-            sp_phaser_compute(_sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_phaser_compute(sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

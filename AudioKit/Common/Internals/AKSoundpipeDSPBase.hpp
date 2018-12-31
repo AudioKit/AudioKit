@@ -24,20 +24,20 @@ extern "C" {
 
 class AKSoundpipeDSPBase: public AKDSPBase {
 protected:
-    sp_data *_sp = nullptr;
+    sp_data *sp = nullptr;
 public:
 
     void init(int _channels, double _sampleRate) override {
         AKDSPBase::init(_channels, _sampleRate);
-        sp_create(&_sp);
-        _sp->sr = _sampleRate;
-        _sp->nchan = _channels;
+        sp_create(&sp);
+        sp->sr = _sampleRate;
+        sp->nchan = _channels;
     }
 
     ~AKSoundpipeDSPBase() {
         //printf("~AKSoundpipeKernel(), &sp is %p\n", (void *)sp);
         // releasing the memory in the destructor only
-        sp_destroy(&_sp);
+        sp_destroy(&sp);
     }
 
     // Is this needed? Ramping should be rethought

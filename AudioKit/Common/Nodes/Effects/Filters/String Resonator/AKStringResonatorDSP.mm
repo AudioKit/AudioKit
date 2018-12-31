@@ -61,9 +61,9 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
 void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_streson_create(&data->streson0);
-    sp_streson_init(_sp, data->streson0);
+    sp_streson_init(sp, data->streson0);
     sp_streson_create(&data->streson1);
-    sp_streson_init(_sp, data->streson1);
+    sp_streson_init(sp, data->streson1);
     data->streson0->freq = defaultFundamentalFrequency;
     data->streson1->freq = defaultFundamentalFrequency;
     data->streson0->fdbgain = defaultFeedback;
@@ -106,9 +106,9 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             }
 
             if (channel == 0) {
-                sp_streson_compute(_sp, data->streson0, in, out);
+                sp_streson_compute(sp, data->streson0, in, out);
             } else {
-                sp_streson_compute(_sp, data->streson1, in, out);
+                sp_streson_compute(sp, data->streson1, in, out);
             }
         }
     }

@@ -61,9 +61,9 @@ float AKMoogLadderDSP::getParameter(uint64_t address) {
 void AKMoogLadderDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_moogladder_create(&data->moogladder0);
-    sp_moogladder_init(_sp, data->moogladder0);
+    sp_moogladder_init(sp, data->moogladder0);
     sp_moogladder_create(&data->moogladder1);
-    sp_moogladder_init(_sp, data->moogladder1);
+    sp_moogladder_init(sp, data->moogladder1);
     data->moogladder0->freq = defaultCutoffFrequency;
     data->moogladder1->freq = defaultCutoffFrequency;
     data->moogladder0->res = defaultResonance;
@@ -106,9 +106,9 @@ void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_moogladder_compute(_sp, data->moogladder0, in, out);
+                sp_moogladder_compute(sp, data->moogladder0, in, out);
             } else {
-                sp_moogladder_compute(_sp, data->moogladder1, in, out);
+                sp_moogladder_compute(sp, data->moogladder1, in, out);
             }
         }
     }

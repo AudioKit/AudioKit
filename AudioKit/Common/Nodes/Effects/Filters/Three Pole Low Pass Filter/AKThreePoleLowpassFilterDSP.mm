@@ -70,9 +70,9 @@ float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
 void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_lpf18_create(&data->lpf180);
-    sp_lpf18_init(_sp, data->lpf180);
+    sp_lpf18_init(sp, data->lpf180);
     sp_lpf18_create(&data->lpf181);
-    sp_lpf18_init(_sp, data->lpf181);
+    sp_lpf18_init(sp, data->lpf181);
     data->lpf180->dist = defaultDistortion;
     data->lpf181->dist = defaultDistortion;
     data->lpf180->cutoff = defaultCutoffFrequency;
@@ -120,9 +120,9 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
             }
 
             if (channel == 0) {
-                sp_lpf18_compute(_sp, data->lpf180, in, out);
+                sp_lpf18_compute(sp, data->lpf180, in, out);
             } else {
-                sp_lpf18_compute(_sp, data->lpf181, in, out);
+                sp_lpf18_compute(sp, data->lpf181, in, out);
             }
         }
     }

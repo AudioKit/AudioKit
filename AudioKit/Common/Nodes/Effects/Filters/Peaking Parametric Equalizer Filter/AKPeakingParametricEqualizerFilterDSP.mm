@@ -70,9 +70,9 @@ float AKPeakingParametricEqualizerFilterDSP::getParameter(uint64_t address) {
 void AKPeakingParametricEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_pareq_create(&data->pareq0);
-    sp_pareq_init(_sp, data->pareq0);
+    sp_pareq_init(sp, data->pareq0);
     sp_pareq_create(&data->pareq1);
-    sp_pareq_init(_sp, data->pareq1);
+    sp_pareq_init(sp, data->pareq1);
     data->pareq0->fc = defaultCenterFrequency;
     data->pareq1->fc = defaultCenterFrequency;
     data->pareq0->v = defaultGain;
@@ -122,9 +122,9 @@ void AKPeakingParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCount
             }
 
             if (channel == 0) {
-                sp_pareq_compute(_sp, data->pareq0, in, out);
+                sp_pareq_compute(sp, data->pareq0, in, out);
             } else {
-                sp_pareq_compute(_sp, data->pareq1, in, out);
+                sp_pareq_compute(sp, data->pareq1, in, out);
             }
         }
     }

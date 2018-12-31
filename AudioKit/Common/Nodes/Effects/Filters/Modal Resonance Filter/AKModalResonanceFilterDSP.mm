@@ -61,9 +61,9 @@ float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
 void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_mode_create(&data->mode0);
-    sp_mode_init(_sp, data->mode0);
+    sp_mode_init(sp, data->mode0);
     sp_mode_create(&data->mode1);
-    sp_mode_init(_sp, data->mode1);
+    sp_mode_init(sp, data->mode1);
     data->mode0->freq = defaultFrequency;
     data->mode1->freq = defaultFrequency;
     data->mode0->q = defaultQualityFactor;
@@ -106,9 +106,9 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_mode_compute(_sp, data->mode0, in, out);
+                sp_mode_compute(sp, data->mode0, in, out);
             } else {
-                sp_mode_compute(_sp, data->mode1, in, out);
+                sp_mode_compute(sp, data->mode1, in, out);
             }
         }
     }

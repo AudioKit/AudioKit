@@ -27,9 +27,9 @@ AKDSPRef createPluckedStringDSP(int nChannels, double sampleRate);
 #import "AKSoundpipeDSPBase.hpp"
 
 class AKPluckedStringDSP : public AKSoundpipeDSPBase {
-
-    sp_pluck *_pluck;
+    sp_pluck *pluck;
     float internalTrigger = 0;
+
 private:
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
@@ -74,14 +74,14 @@ public:
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
 
-        sp_pluck_create(&_pluck);
-        sp_pluck_init(_sp, _pluck, 110);
-        _pluck->freq = 110;
-        _pluck->amp = 0.5;
+        sp_pluck_create(&pluck);
+        sp_pluck_init(sp, pluck, 110);
+        pluck->freq = 110;
+        pluck->amp = 0.5;
     }
 
     void deinit() override {
-        sp_pluck_destroy(&_pluck);
+        sp_pluck_destroy(&pluck);
     }
 
     void trigger() override {
@@ -107,15 +107,15 @@ public:
             }
             float frequency = frequencyRamp.getValue();
             float amplitude = amplitudeRamp.getValue();
-            _pluck->freq = frequency;
-            _pluck->amp = amplitude;
+            pluck->freq = frequency;
+            pluck->amp = amplitude;
 
             for (int channel = 0; channel < _nChannels; ++channel) {
                 float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (_playing) {
                     if (channel == 0) {
-                        sp_pluck_compute(_sp, _pluck, &internalTrigger, out);
+                        sp_pluck_compute(sp, pluck, &internalTrigger, out);
                     }
                 } else {
                     *out = 0.0;

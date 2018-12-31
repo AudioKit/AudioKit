@@ -105,7 +105,7 @@ float AKDripDSP::getParameter(uint64_t address) {
 void AKDripDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_drip_create(&data->drip);
-    sp_drip_init(_sp, data->drip, 0.9);
+    sp_drip_init(sp, data->drip, 0.9);
     data->drip->num_tubes = defaultIntensity;
     data->drip->damp = defaultDampingFactor;
     data->drip->shake_max = defaultEnergyReturn;
@@ -153,7 +153,7 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_drip_compute(_sp, data->drip, &internalTrigger, &temp);
+                    sp_drip_compute(sp, data->drip, &internalTrigger, &temp);
                     internalTrigger = 0.0;
                 }
                 *out = temp;

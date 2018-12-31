@@ -97,7 +97,7 @@ void AKMorphingOscillatorDSP::deinit() {
 }
 
 void  AKMorphingOscillatorDSP::reset() {
-    sp_oscmorph_init(_sp, data->oscmorph, data->ft_array, 4, 0);
+    sp_oscmorph_init(sp, data->oscmorph, data->ft_array, 4, 0);
     data->oscmorph->freq = defaultFrequency;
     data->oscmorph->amp = defaultAmplitude;
     data->oscmorph->wtpos = defaultIndex;
@@ -106,7 +106,7 @@ void  AKMorphingOscillatorDSP::reset() {
 
 void AKMorphingOscillatorDSP::setupIndividualWaveform(uint32_t waveform, uint32_t size) {
     data->ftbl_size = size;
-    sp_ftbl_create(_sp, &data->ft_array[waveform], data->ftbl_size);
+    sp_ftbl_create(sp, &data->ft_array[waveform], data->ftbl_size);
 }
 
 void AKMorphingOscillatorDSP::setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {
@@ -136,7 +136,7 @@ void AKMorphingOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_oscmorph_compute(_sp, data->oscmorph, nil, &temp);
+                    sp_oscmorph_compute(sp, data->oscmorph, nil, &temp);
                 }
                 *out = temp;
             } else {

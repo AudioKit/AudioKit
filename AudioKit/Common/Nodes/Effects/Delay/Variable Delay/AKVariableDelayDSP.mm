@@ -61,9 +61,9 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
 void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_vdelay_create(&data->vdelay0);
-    sp_vdelay_init(_sp, data->vdelay0, 10);
+    sp_vdelay_init(sp, data->vdelay0, 10);
     sp_vdelay_create(&data->vdelay1);
-    sp_vdelay_init(_sp, data->vdelay1, 10);
+    sp_vdelay_init(sp, data->vdelay1, 10);
     data->vdelay0->del = defaultTime;
     data->vdelay1->del = defaultTime;
     data->vdelay0->feedback = defaultFeedback;
@@ -76,8 +76,8 @@ void AKVariableDelayDSP::deinit() {
 }
 
 void AKVariableDelayDSP::clear() {
-    sp_vdelay_reset(_sp, data->vdelay0);
-    sp_vdelay_reset(_sp, data->vdelay1);
+    sp_vdelay_reset(sp, data->vdelay0);
+    sp_vdelay_reset(sp, data->vdelay1);
 }
 
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -111,9 +111,9 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             }
 
             if (channel == 0) {
-                sp_vdelay_compute(_sp, data->vdelay0, in, out);
+                sp_vdelay_compute(sp, data->vdelay0, in, out);
             } else {
-                sp_vdelay_compute(_sp, data->vdelay1, in, out);
+                sp_vdelay_compute(sp, data->vdelay1, in, out);
             }
         }
     }

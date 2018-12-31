@@ -105,7 +105,7 @@ float AKMetalBarDSP::getParameter(uint64_t address) {
 void AKMetalBarDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     sp_bar_create(&data->bar);
-    sp_bar_init(_sp, data->bar, 3, 0.0001);
+    sp_bar_init(sp, data->bar, 3, 0.0001);
     data->bar->bcL = defaultLeftBoundaryCondition;
     data->bar->bcR = defaultRightBoundaryCondition;
     data->bar->T30 = defaultDecayDuration;
@@ -153,7 +153,7 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_bar_compute(_sp, data->bar, &internalTrigger, &temp);
+                    sp_bar_compute(sp, data->bar, &internalTrigger, &temp);
                 }
                 *out = temp;
             } else {
