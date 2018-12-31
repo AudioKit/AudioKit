@@ -7,7 +7,6 @@
 //
 
 #include "AKDCBlockDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
 
 extern "C" AKDSPRef createDCBlockDSP(int nChannels, double sampleRate) {
     AKDCBlockDSP *dsp = new AKDCBlockDSP();
@@ -39,11 +38,6 @@ void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-        }
-
 
         float *tmpin[2];
         float *tmpout[2];
