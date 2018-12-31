@@ -69,6 +69,11 @@ public:
     virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
     virtual void triggerTypeAmplitude(AUValue type, AUValue amplitude) {}
 
+    /// File-based effects convolution and phase locked vocoder
+    virtual void setUpTable(float *table, UInt32 size) {}
+    virtual void setPartitionLength(int partLength) {}
+    virtual void initConvolutionEngine() {}
+
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
         _inBufferListPtr = inBufs;
         _outBufferListPtr = outBufs;
