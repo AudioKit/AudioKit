@@ -18,12 +18,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {

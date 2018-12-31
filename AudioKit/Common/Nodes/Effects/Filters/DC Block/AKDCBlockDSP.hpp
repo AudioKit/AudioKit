@@ -10,10 +10,6 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-typedef NS_ENUM(AUParameterAddress, AKDCBlockParameter) {
-    AKDCBlockParameterRampDuration
-};
-
 #ifndef __cplusplus
 
 AKDSPRef createDCBlockDSP(int nChannels, double sampleRate);
