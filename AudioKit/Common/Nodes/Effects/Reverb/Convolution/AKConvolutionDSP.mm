@@ -68,7 +68,7 @@ void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }

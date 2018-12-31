@@ -128,7 +128,7 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (data->internalTrigger == 1) {
                     data->tubularBells->noteOn(frequency, amplitude);
                 }

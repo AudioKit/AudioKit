@@ -102,12 +102,12 @@ public:
 
     void start() override {
         internalGate = 1;
-        _playing = true;
+        isStarted = true;
     }
 
     void stop() override {
         internalGate = 0;
-        _playing = false;
+        isStarted = false;
     }
 
     void deinit() override {

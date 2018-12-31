@@ -176,7 +176,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        // AKLog("stop() \(isPlaying)")
+        // AKLog("stop() \(isStarted)")
 
         if isPlaying {
             self.lastKnownLeftGain = leftGain

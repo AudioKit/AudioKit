@@ -124,11 +124,11 @@ public:
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
-                if (!_playing) {
+                if (!isStarted) {
                     *out = *in;
                 }
             }
-            if (_playing) {
+            if (isStarted) {
                 sp_osc_compute(sp, trem, NULL, &temp);
                 panst->pan = 2.0 * temp - 1.0;
                 sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);

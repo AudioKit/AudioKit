@@ -108,7 +108,7 @@ public:
 
     void init(int _channels, double _sampleRate) override {
         AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        _playing = false;
+        isStarted = false;
         
         sp_pdhalf_create(&pdhalf);
         sp_tabread_create(&tabread);
@@ -163,7 +163,7 @@ public:
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                if (_playing) {
+                if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
                         sp_pdhalf_compute(sp, pdhalf, &ph, &pd);

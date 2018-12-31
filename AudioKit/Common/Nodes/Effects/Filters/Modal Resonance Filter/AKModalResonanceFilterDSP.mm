@@ -100,7 +100,7 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }

@@ -105,7 +105,7 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         float *outL = (float *)outBufferListPtr->mBuffers[0].mData  + frameOffset;
         float *outR = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
-        if (_playing) {
+        if (isStarted) {
             sp_mincer_compute(sp, data->mincer, NULL, outL);
             *outR = *outL;
         } else {

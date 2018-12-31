@@ -79,7 +79,7 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
 
 void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    _playing = false;
+    isStarted = false;
     sp_osc_create(&data->osc);
     sp_osc_init(sp, data->osc, data->ftbl, 0);
     data->osc->freq = defaultFrequency;
@@ -118,7 +118,7 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
                     sp_osc_compute(sp, data->osc, nil, &temp);
                 }

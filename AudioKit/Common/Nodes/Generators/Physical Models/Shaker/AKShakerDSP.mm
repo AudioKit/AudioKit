@@ -72,7 +72,7 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (data->internalTrigger == 1) {
                     data->shaker->noteOn(data->type, data->amplitude);
                 }

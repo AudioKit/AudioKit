@@ -76,7 +76,7 @@ public:
             }
             float amount = amountRamp.getValue();
 
-            if (!_playing) {
+            if (!isStarted) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;

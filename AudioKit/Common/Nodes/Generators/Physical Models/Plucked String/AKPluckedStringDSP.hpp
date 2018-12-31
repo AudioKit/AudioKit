@@ -113,7 +113,7 @@ public:
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                if (_playing) {
+                if (isStarted) {
                     if (channel == 0) {
                         sp_pluck_compute(sp, pluck, &internalTrigger, out);
                     }

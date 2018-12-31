@@ -114,7 +114,7 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
