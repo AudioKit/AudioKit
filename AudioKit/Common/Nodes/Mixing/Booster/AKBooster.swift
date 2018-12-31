@@ -95,7 +95,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amplification Factor in db
     @objc open dynamic var dB: Double {
         set {
-            self.gain = pow(10.0, Double(newValue / 20))
+            self.gain = pow(10.0, newValue / 20.0)
         }
         get {
             return 20.0 * log10(self.gain)
