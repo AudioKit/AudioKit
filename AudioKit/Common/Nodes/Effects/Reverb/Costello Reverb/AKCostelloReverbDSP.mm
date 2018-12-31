@@ -76,8 +76,8 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->feedbackRamp.advanceTo(_now + frameOffset);
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
+            data->feedbackRamp.advanceTo(now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
         }
 
         data->revsc->feedback = data->feedbackRamp.getValue();

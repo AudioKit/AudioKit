@@ -72,7 +72,7 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                amountRamp.advanceTo(_now + frameOffset);
+                amountRamp.advanceTo(now + frameOffset);
             }
             float amount = amountRamp.getValue();
 

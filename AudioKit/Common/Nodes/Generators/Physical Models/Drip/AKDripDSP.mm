@@ -130,13 +130,13 @@ void AKDripDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOf
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->intensityRamp.advanceTo(_now + frameOffset);
-            data->dampingFactorRamp.advanceTo(_now + frameOffset);
-            data->energyReturnRamp.advanceTo(_now + frameOffset);
-            data->mainResonantFrequencyRamp.advanceTo(_now + frameOffset);
-            data->firstResonantFrequencyRamp.advanceTo(_now + frameOffset);
-            data->secondResonantFrequencyRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->intensityRamp.advanceTo(now + frameOffset);
+            data->dampingFactorRamp.advanceTo(now + frameOffset);
+            data->energyReturnRamp.advanceTo(now + frameOffset);
+            data->mainResonantFrequencyRamp.advanceTo(now + frameOffset);
+            data->firstResonantFrequencyRamp.advanceTo(now + frameOffset);
+            data->secondResonantFrequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         data->drip->num_tubes = data->intensityRamp.getValue();

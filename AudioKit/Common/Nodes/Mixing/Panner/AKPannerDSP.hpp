@@ -80,7 +80,7 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                panRamp.advanceTo(_now + frameOffset);
+                panRamp.advanceTo(now + frameOffset);
             }
             panst->pan = panRamp.getValue();
 

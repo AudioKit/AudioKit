@@ -117,11 +117,11 @@ void AKFMOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->baseFrequencyRamp.advanceTo(_now + frameOffset);
-            data->carrierMultiplierRamp.advanceTo(_now + frameOffset);
-            data->modulatingMultiplierRamp.advanceTo(_now + frameOffset);
-            data->modulationIndexRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->baseFrequencyRamp.advanceTo(now + frameOffset);
+            data->carrierMultiplierRamp.advanceTo(now + frameOffset);
+            data->modulatingMultiplierRamp.advanceTo(now + frameOffset);
+            data->modulationIndexRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         data->fosc->freq = data->baseFrequencyRamp.getValue();

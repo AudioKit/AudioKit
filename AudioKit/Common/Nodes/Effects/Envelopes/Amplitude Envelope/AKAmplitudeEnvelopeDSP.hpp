@@ -134,10 +134,10 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                attackDurationRamp.advanceTo(_now + frameOffset);
-                decayDurationRamp.advanceTo(_now + frameOffset);
-                sustainLevelRamp.advanceTo(_now + frameOffset);
-                releaseDurationRamp.advanceTo(_now + frameOffset);
+                attackDurationRamp.advanceTo(now + frameOffset);
+                decayDurationRamp.advanceTo(now + frameOffset);
+                sustainLevelRamp.advanceTo(now + frameOffset);
+                releaseDurationRamp.advanceTo(now + frameOffset);
             }
             _adsr->atk = attackDurationRamp.getValue();
             _adsr->dec = decayDurationRamp.getValue();

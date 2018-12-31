@@ -146,15 +146,15 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->notchMinimumFrequencyRamp.advanceTo(_now + frameOffset);
-            data->notchMaximumFrequencyRamp.advanceTo(_now + frameOffset);
-            data->notchWidthRamp.advanceTo(_now + frameOffset);
-            data->notchFrequencyRamp.advanceTo(_now + frameOffset);
-            data->vibratoModeRamp.advanceTo(_now + frameOffset);
-            data->depthRamp.advanceTo(_now + frameOffset);
-            data->feedbackRamp.advanceTo(_now + frameOffset);
-            data->invertedRamp.advanceTo(_now + frameOffset);
-            data->lfoBPMRamp.advanceTo(_now + frameOffset);
+            data->notchMinimumFrequencyRamp.advanceTo(now + frameOffset);
+            data->notchMaximumFrequencyRamp.advanceTo(now + frameOffset);
+            data->notchWidthRamp.advanceTo(now + frameOffset);
+            data->notchFrequencyRamp.advanceTo(now + frameOffset);
+            data->vibratoModeRamp.advanceTo(now + frameOffset);
+            data->depthRamp.advanceTo(now + frameOffset);
+            data->feedbackRamp.advanceTo(now + frameOffset);
+            data->invertedRamp.advanceTo(now + frameOffset);
+            data->lfoBPMRamp.advanceTo(now + frameOffset);
         }
 
         *data->phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getValue();

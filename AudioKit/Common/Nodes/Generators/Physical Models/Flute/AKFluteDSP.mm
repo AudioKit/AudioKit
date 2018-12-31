@@ -99,8 +99,8 @@ void AKFluteDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
         float frequency = data->frequencyRamp.getValue();
         float amplitude = data->amplitudeRamp.getValue();

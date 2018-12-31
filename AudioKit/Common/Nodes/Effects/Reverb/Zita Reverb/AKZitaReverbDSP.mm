@@ -156,16 +156,16 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->predelayRamp.advanceTo(_now + frameOffset);
-            data->crossoverFrequencyRamp.advanceTo(_now + frameOffset);
-            data->lowReleaseTimeRamp.advanceTo(_now + frameOffset);
-            data->midReleaseTimeRamp.advanceTo(_now + frameOffset);
-            data->dampingFrequencyRamp.advanceTo(_now + frameOffset);
-            data->equalizerFrequency1Ramp.advanceTo(_now + frameOffset);
-            data->equalizerLevel1Ramp.advanceTo(_now + frameOffset);
-            data->equalizerFrequency2Ramp.advanceTo(_now + frameOffset);
-            data->equalizerLevel2Ramp.advanceTo(_now + frameOffset);
-            data->dryWetMixRamp.advanceTo(_now + frameOffset);
+            data->predelayRamp.advanceTo(now + frameOffset);
+            data->crossoverFrequencyRamp.advanceTo(now + frameOffset);
+            data->lowReleaseTimeRamp.advanceTo(now + frameOffset);
+            data->midReleaseTimeRamp.advanceTo(now + frameOffset);
+            data->dampingFrequencyRamp.advanceTo(now + frameOffset);
+            data->equalizerFrequency1Ramp.advanceTo(now + frameOffset);
+            data->equalizerLevel1Ramp.advanceTo(now + frameOffset);
+            data->equalizerFrequency2Ramp.advanceTo(now + frameOffset);
+            data->equalizerLevel2Ramp.advanceTo(now + frameOffset);
+            data->dryWetMixRamp.advanceTo(now + frameOffset);
         }
 
         *data->zitarev->in_delay = data->predelayRamp.getValue();

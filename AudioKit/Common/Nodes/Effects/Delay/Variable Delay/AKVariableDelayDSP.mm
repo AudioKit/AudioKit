@@ -87,8 +87,8 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->timeRamp.advanceTo(_now + frameOffset);
-            data->feedbackRamp.advanceTo(_now + frameOffset);
+            data->timeRamp.advanceTo(now + frameOffset);
+            data->feedbackRamp.advanceTo(now + frameOffset);
         }
 
         data->vdelay0->del = data->timeRamp.getValue();

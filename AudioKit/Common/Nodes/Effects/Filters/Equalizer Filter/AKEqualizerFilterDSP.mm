@@ -93,9 +93,9 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(_now + frameOffset);
-            data->bandwidthRamp.advanceTo(_now + frameOffset);
-            data->gainRamp.advanceTo(_now + frameOffset);
+            data->centerFrequencyRamp.advanceTo(now + frameOffset);
+            data->bandwidthRamp.advanceTo(now + frameOffset);
+            data->gainRamp.advanceTo(now + frameOffset);
         }
 
         data->eqfil0->freq = data->centerFrequencyRamp.getValue();

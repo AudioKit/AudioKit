@@ -71,7 +71,7 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
         }
 
         data->butlp0->freq = data->cutoffFrequencyRamp.getValue();

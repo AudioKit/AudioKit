@@ -102,8 +102,8 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(_now + frameOffset);
-                depthRamp.advanceTo(_now + frameOffset);
+                frequencyRamp.advanceTo(now + frameOffset);
+                depthRamp.advanceTo(now + frameOffset);
             }
             trem->freq = frequencyRamp.getValue()  * 0.5; //Divide by two for stereo
             trem->amp = depthRamp.getValue();

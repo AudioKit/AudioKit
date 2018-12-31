@@ -125,11 +125,11 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(_now + frameOffset);
-                tonguePositionRamp.advanceTo(_now + frameOffset);
-                tongueDiameterRamp.advanceTo(_now + frameOffset);
-                tensenessRamp.advanceTo(_now + frameOffset);
-                nasalityRamp.advanceTo(_now + frameOffset);
+                frequencyRamp.advanceTo(now + frameOffset);
+                tonguePositionRamp.advanceTo(now + frameOffset);
+                tongueDiameterRamp.advanceTo(now + frameOffset);
+                tensenessRamp.advanceTo(now + frameOffset);
+                nasalityRamp.advanceTo(now + frameOffset);
             }
             float frequency = frequencyRamp.getValue();
             float tonguePosition = tonguePositionRamp.getValue();

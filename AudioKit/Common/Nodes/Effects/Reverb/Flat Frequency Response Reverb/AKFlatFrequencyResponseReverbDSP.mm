@@ -78,7 +78,7 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->reverbDurationRamp.advanceTo(_now + frameOffset);
+            data->reverbDurationRamp.advanceTo(now + frameOffset);
         }
 
         data->allpass0->revtime = data->reverbDurationRamp.getValue();

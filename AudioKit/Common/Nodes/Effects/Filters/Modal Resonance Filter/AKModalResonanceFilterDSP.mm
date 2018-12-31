@@ -82,8 +82,8 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(_now + frameOffset);
-            data->qualityFactorRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->qualityFactorRamp.advanceTo(now + frameOffset);
         }
 
         data->mode0->freq = data->frequencyRamp.getValue();

@@ -66,7 +66,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         data->pinknoise->amp = data->amplitudeRamp.getValue();

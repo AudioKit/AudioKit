@@ -82,8 +82,8 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->fundamentalFrequencyRamp.advanceTo(_now + frameOffset);
-            data->feedbackRamp.advanceTo(_now + frameOffset);
+            data->fundamentalFrequencyRamp.advanceTo(now + frameOffset);
+            data->feedbackRamp.advanceTo(now + frameOffset);
         }
 
         data->streson0->freq = data->fundamentalFrequencyRamp.getValue();

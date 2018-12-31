@@ -82,8 +82,8 @@ void AKBitCrusherDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->bitDepthRamp.advanceTo(_now + frameOffset);
-            data->sampleRateRamp.advanceTo(_now + frameOffset);
+            data->bitDepthRamp.advanceTo(now + frameOffset);
+            data->sampleRateRamp.advanceTo(now + frameOffset);
         }
 
         data->bitcrush0->bitdepth = data->bitDepthRamp.getValue();

@@ -65,7 +65,7 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         float temp = 0;

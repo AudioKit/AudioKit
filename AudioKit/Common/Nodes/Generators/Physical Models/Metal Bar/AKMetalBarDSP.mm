@@ -130,13 +130,13 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->leftBoundaryConditionRamp.advanceTo(_now + frameOffset);
-            data->rightBoundaryConditionRamp.advanceTo(_now + frameOffset);
-            data->decayDurationRamp.advanceTo(_now + frameOffset);
-            data->scanSpeedRamp.advanceTo(_now + frameOffset);
-            data->positionRamp.advanceTo(_now + frameOffset);
-            data->strikeVelocityRamp.advanceTo(_now + frameOffset);
-            data->strikeWidthRamp.advanceTo(_now + frameOffset);
+            data->leftBoundaryConditionRamp.advanceTo(now + frameOffset);
+            data->rightBoundaryConditionRamp.advanceTo(now + frameOffset);
+            data->decayDurationRamp.advanceTo(now + frameOffset);
+            data->scanSpeedRamp.advanceTo(now + frameOffset);
+            data->positionRamp.advanceTo(now + frameOffset);
+            data->strikeVelocityRamp.advanceTo(now + frameOffset);
+            data->strikeWidthRamp.advanceTo(now + frameOffset);
         }
 
         data->bar->bcL = data->leftBoundaryConditionRamp.getValue();

@@ -93,9 +93,9 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->shiftRamp.advanceTo(_now + frameOffset);
-            data->windowSizeRamp.advanceTo(_now + frameOffset);
-            data->crossfadeRamp.advanceTo(_now + frameOffset);
+            data->shiftRamp.advanceTo(now + frameOffset);
+            data->windowSizeRamp.advanceTo(now + frameOffset);
+            data->crossfadeRamp.advanceTo(now + frameOffset);
         }
 
         *data->pshift0->shift = data->shiftRamp.getValue();
