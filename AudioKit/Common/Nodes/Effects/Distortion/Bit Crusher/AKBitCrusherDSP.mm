@@ -58,8 +58,8 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKBitCrusherDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKBitCrusherDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_bitcrush_create(&data->bitcrush0);
     sp_bitcrush_init(sp, data->bitcrush0);
     sp_bitcrush_create(&data->bitcrush1);

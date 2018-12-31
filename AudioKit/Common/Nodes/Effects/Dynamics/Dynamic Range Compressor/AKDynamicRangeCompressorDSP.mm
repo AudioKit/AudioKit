@@ -76,8 +76,8 @@ float AKDynamicRangeCompressorDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKDynamicRangeCompressorDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKDynamicRangeCompressorDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_compressor_create(&data->compressor0);
     sp_compressor_init(sp, data->compressor0);
     sp_compressor_create(&data->compressor1);

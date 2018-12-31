@@ -49,8 +49,8 @@ float AKClipperDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKClipperDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKClipperDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_clip_create(&data->clip0);
     sp_clip_init(sp, data->clip0);
     sp_clip_create(&data->clip1);

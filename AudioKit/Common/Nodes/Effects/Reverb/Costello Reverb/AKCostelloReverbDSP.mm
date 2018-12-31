@@ -57,8 +57,8 @@ float AKCostelloReverbDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKCostelloReverbDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_revsc_create(&data->revsc);
     sp_revsc_init(sp, data->revsc);
     data->revsc->feedback = defaultFeedback;

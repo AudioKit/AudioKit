@@ -67,8 +67,8 @@ float AKPitchShifterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKPitchShifterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKPitchShifterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_pshift_create(&data->pshift0);
     sp_pshift_init(sp, data->pshift0);
     sp_pshift_create(&data->pshift1);

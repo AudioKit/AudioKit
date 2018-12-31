@@ -22,8 +22,8 @@ struct AKChowningReverbDSP::InternalData {
 
 AKChowningReverbDSP::AKChowningReverbDSP() : data(new InternalData) {}
 
-void AKChowningReverbDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKChowningReverbDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_jcrev_create(&data->jcrev0);
     sp_jcrev_init(sp, data->jcrev0);
     sp_jcrev_create(&data->jcrev1);

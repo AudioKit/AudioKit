@@ -58,8 +58,8 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKVariableDelayDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_vdelay_create(&data->vdelay0);
     sp_vdelay_init(sp, data->vdelay0, 10);
     sp_vdelay_create(&data->vdelay1);

@@ -67,8 +67,8 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKEqualizerFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKEqualizerFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_eqfil_create(&data->eqfil0);
     sp_eqfil_init(sp, data->eqfil0);
     sp_eqfil_create(&data->eqfil1);

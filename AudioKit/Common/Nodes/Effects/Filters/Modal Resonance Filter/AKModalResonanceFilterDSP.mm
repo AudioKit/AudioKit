@@ -58,8 +58,8 @@ float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKModalResonanceFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_mode_create(&data->mode0);
     sp_mode_init(sp, data->mode0);
     sp_mode_create(&data->mode1);

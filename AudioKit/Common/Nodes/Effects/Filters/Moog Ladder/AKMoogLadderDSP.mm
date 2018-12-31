@@ -58,8 +58,8 @@ float AKMoogLadderDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKMoogLadderDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKMoogLadderDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_moogladder_create(&data->moogladder0);
     sp_moogladder_init(sp, data->moogladder0);
     sp_moogladder_create(&data->moogladder1);

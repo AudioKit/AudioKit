@@ -67,8 +67,8 @@ float AKFormantFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKFormantFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKFormantFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_fofilt_create(&data->fofilt0);
     sp_fofilt_init(sp, data->fofilt0);
     sp_fofilt_create(&data->fofilt1);

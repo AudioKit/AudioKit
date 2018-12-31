@@ -67,8 +67,8 @@ float AKLowShelfParametricEqualizerFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKLowShelfParametricEqualizerFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKLowShelfParametricEqualizerFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_pareq_create(&data->pareq0);
     sp_pareq_init(sp, data->pareq0);
     sp_pareq_create(&data->pareq1);

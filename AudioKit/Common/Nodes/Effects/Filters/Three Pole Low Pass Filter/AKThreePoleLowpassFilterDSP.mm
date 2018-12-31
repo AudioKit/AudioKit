@@ -67,8 +67,8 @@ float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKThreePoleLowpassFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_lpf18_create(&data->lpf180);
     sp_lpf18_init(sp, data->lpf180);
     sp_lpf18_create(&data->lpf181);

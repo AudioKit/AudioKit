@@ -58,8 +58,8 @@ float AKBandRejectButterworthFilterDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKBandRejectButterworthFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_butbr_create(&data->butbr0);
     sp_butbr_init(sp, data->butbr0);
     sp_butbr_create(&data->butbr1);

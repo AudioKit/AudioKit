@@ -27,8 +27,8 @@ struct AKConvolutionDSP::InternalData {
 
 AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {}
 
-void AKConvolutionDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKConvolutionDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
 }
 
 void AKConvolutionDSP::setPartitionLength(int partLength) {

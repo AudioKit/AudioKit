@@ -48,8 +48,8 @@ float AKWhiteNoiseDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKWhiteNoiseDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKWhiteNoiseDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     sp_noise_create(&data->noise);
     sp_noise_init(sp, data->noise);
     data->noise->amp = defaultAmplitude;

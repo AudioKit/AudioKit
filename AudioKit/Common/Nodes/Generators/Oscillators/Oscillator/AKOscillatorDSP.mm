@@ -77,8 +77,8 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
     return 0;
 }
 
-void AKOscillatorDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKOscillatorDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
     isStarted = false;
     sp_osc_create(&data->osc);
     sp_osc_init(sp, data->osc, data->ftbl, 0);
