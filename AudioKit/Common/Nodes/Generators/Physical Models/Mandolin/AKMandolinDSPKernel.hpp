@@ -24,7 +24,7 @@ public:
     
     ~AKMandolinDSPKernel();
 
-    void init(int _channels, double _sampleRate) override;
+    void init(int channels, double sampleRate) override;
 
     void destroy();
 
