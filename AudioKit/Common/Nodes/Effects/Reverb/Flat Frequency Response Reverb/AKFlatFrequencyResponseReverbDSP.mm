@@ -16,14 +16,14 @@ extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP(int nChannels, double s
 }
 
 struct AKFlatFrequencyResponseReverbDSP::InternalData {
-    sp_allpass *_allpass0;
-    sp_allpass *_allpass1;
-    float _loopDuration = 0.1;
+    sp_allpass *allpass0;
+    sp_allpass *allpass1;
+    float loopDuration = 0.1;
     AKLinearParameterRamp reverbDurationRamp;
 };
 
 void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
-    data->_loopDuration = duration;
+    data->loopDuration = duration;
 }
 
 
@@ -57,18 +57,18 @@ float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
 
 void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_allpass_create(&data->_allpass0);
-    sp_allpass_create(&data->_allpass1);
-    sp_allpass_init(_sp, data->_allpass0, data->_loopDuration);
-    sp_allpass_init(_sp, data->_allpass1, data->_loopDuration);
-    data->_allpass0->revtime = defaultReverbDuration;
-    data->_allpass1->revtime = defaultReverbDuration;
+    sp_allpass_create(&data->allpass0);
+    sp_allpass_create(&data->allpass1);
+    sp_allpass_init(_sp, data->allpass0, data->loopDuration);
+    sp_allpass_init(_sp, data->allpass1, data->loopDuration);
+    data->allpass0->revtime = defaultReverbDuration;
+    data->allpass1->revtime = defaultReverbDuration;
 
 }
 
 void AKFlatFrequencyResponseReverbDSP::deinit() {
-    sp_allpass_destroy(&data->_allpass0);
-    sp_allpass_destroy(&data->_allpass1);
+    sp_allpass_destroy(&data->allpass0);
+    sp_allpass_destroy(&data->allpass1);
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -81,8 +81,8 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
             data->reverbDurationRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_allpass0->revtime = data->reverbDurationRamp.getValue();
-        data->_allpass1->revtime = data->reverbDurationRamp.getValue();
+        data->allpass0->revtime = data->reverbDurationRamp.getValue();
+        data->allpass1->revtime = data->reverbDurationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -99,9 +99,9 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
                 continue;
             }
             if (channel == 0) {
-                sp_allpass_compute(_sp, data->_allpass0, in, out);
+                sp_allpass_compute(_sp, data->allpass0, in, out);
             } else {
-                sp_allpass_compute(_sp, data->_allpass1, in, out);
+                sp_allpass_compute(_sp, data->allpass1, in, out);
             }
         }
 

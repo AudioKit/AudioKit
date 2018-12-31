@@ -16,9 +16,9 @@ extern "C" AKDSPRef createOscillatorDSP(int nChannels, double sampleRate) {
 }
 
 struct AKOscillatorDSP::InternalData {
-    sp_osc *_osc;
-    sp_ftbl *_ftbl;
-    UInt32 _ftbl_size = 4096;
+    sp_osc *osc;
+    sp_ftbl *ftbl;
+    UInt32 ftbl_size = 4096;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp detuningOffsetRamp;
@@ -80,23 +80,23 @@ float AKOscillatorDSP::getParameter(uint64_t address) {
 void AKOscillatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
     _playing = false;
-    sp_osc_create(&data->_osc);
-    sp_osc_init(_sp, data->_osc, data->_ftbl, 0);
-    data->_osc->freq = defaultFrequency;
-    data->_osc->amp = defaultAmplitude;
+    sp_osc_create(&data->osc);
+    sp_osc_init(_sp, data->osc, data->ftbl, 0);
+    data->osc->freq = defaultFrequency;
+    data->osc->amp = defaultAmplitude;
 }
 
 void AKOscillatorDSP::deinit() {
-    sp_osc_destroy(&data->_osc);
+    sp_osc_destroy(&data->osc);
 }
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
-    data->_ftbl_size = size;
-    sp_ftbl_create(_sp, &data->_ftbl, data->_ftbl_size);
+    data->ftbl_size = size;
+    sp_ftbl_create(_sp, &data->ftbl, data->ftbl_size);
 }
 
 void AKOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    data->_ftbl->tbl[index] = value;
+    data->ftbl->tbl[index] = value;
 }
 
 void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -111,8 +111,8 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->detuningOffsetRamp.advanceTo(_now + frameOffset);
             data->detuningMultiplierRamp.advanceTo(_now + frameOffset);
         }
-        data->_osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
-        data->_osc->amp = data->amplitudeRamp.getValue();
+        data->osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
+        data->osc->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -120,7 +120,7 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_osc_compute(_sp, data->_osc, nil, &temp);
+                    sp_osc_compute(_sp, data->osc, nil, &temp);
                 }
                 *out = temp;
             } else {

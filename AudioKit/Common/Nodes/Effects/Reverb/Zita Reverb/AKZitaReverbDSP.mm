@@ -16,7 +16,7 @@ extern "C" AKDSPRef createZitaReverbDSP(int nChannels, double sampleRate) {
 }
 
 struct AKZitaReverbDSP::InternalData {
-    sp_zitarev *_zitarev;
+    sp_zitarev *zitarev;
     AKLinearParameterRamp predelayRamp;
     AKLinearParameterRamp crossoverFrequencyRamp;
     AKLinearParameterRamp lowReleaseTimeRamp;
@@ -131,22 +131,22 @@ float AKZitaReverbDSP::getParameter(uint64_t address) {
 
 void AKZitaReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_zitarev_create(&data->_zitarev);
-    sp_zitarev_init(_sp, data->_zitarev);
-    *data->_zitarev->in_delay = defaultPredelay;
-    *data->_zitarev->lf_x = defaultCrossoverFrequency;
-    *data->_zitarev->rt60_low = defaultLowReleaseTime;
-    *data->_zitarev->rt60_mid = defaultMidReleaseTime;
-    *data->_zitarev->hf_damping = defaultDampingFrequency;
-    *data->_zitarev->eq1_freq = defaultEqualizerFrequency1;
-    *data->_zitarev->eq1_level = defaultEqualizerLevel1;
-    *data->_zitarev->eq2_freq = defaultEqualizerFrequency2;
-    *data->_zitarev->eq2_level = defaultEqualizerLevel2;
-    *data->_zitarev->mix = defaultDryWetMix;
+    sp_zitarev_create(&data->zitarev);
+    sp_zitarev_init(_sp, data->zitarev);
+    *data->zitarev->in_delay = defaultPredelay;
+    *data->zitarev->lf_x = defaultCrossoverFrequency;
+    *data->zitarev->rt60_low = defaultLowReleaseTime;
+    *data->zitarev->rt60_mid = defaultMidReleaseTime;
+    *data->zitarev->hf_damping = defaultDampingFrequency;
+    *data->zitarev->eq1_freq = defaultEqualizerFrequency1;
+    *data->zitarev->eq1_level = defaultEqualizerLevel1;
+    *data->zitarev->eq2_freq = defaultEqualizerFrequency2;
+    *data->zitarev->eq2_level = defaultEqualizerLevel2;
+    *data->zitarev->mix = defaultDryWetMix;
 }
 
 void AKZitaReverbDSP::deinit() {
-    sp_zitarev_destroy(&data->_zitarev);
+    sp_zitarev_destroy(&data->zitarev);
 }
 
 void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -168,16 +168,16 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->dryWetMixRamp.advanceTo(_now + frameOffset);
         }
 
-        *data->_zitarev->in_delay = data->predelayRamp.getValue();
-        *data->_zitarev->lf_x = data->crossoverFrequencyRamp.getValue();
-        *data->_zitarev->rt60_low = data->lowReleaseTimeRamp.getValue();
-        *data->_zitarev->rt60_mid = data->midReleaseTimeRamp.getValue();
-        *data->_zitarev->hf_damping = data->dampingFrequencyRamp.getValue();
-        *data->_zitarev->eq1_freq = data->equalizerFrequency1Ramp.getValue();
-        *data->_zitarev->eq1_level = data->equalizerLevel1Ramp.getValue();
-        *data->_zitarev->eq2_freq = data->equalizerFrequency2Ramp.getValue();
-        *data->_zitarev->eq2_level = data->equalizerLevel2Ramp.getValue();
-        *data->_zitarev->mix = data->dryWetMixRamp.getValue();
+        *data->zitarev->in_delay = data->predelayRamp.getValue();
+        *data->zitarev->lf_x = data->crossoverFrequencyRamp.getValue();
+        *data->zitarev->rt60_low = data->lowReleaseTimeRamp.getValue();
+        *data->zitarev->rt60_mid = data->midReleaseTimeRamp.getValue();
+        *data->zitarev->hf_damping = data->dampingFrequencyRamp.getValue();
+        *data->zitarev->eq1_freq = data->equalizerFrequency1Ramp.getValue();
+        *data->zitarev->eq1_level = data->equalizerLevel1Ramp.getValue();
+        *data->zitarev->eq2_freq = data->equalizerFrequency2Ramp.getValue();
+        *data->zitarev->eq2_level = data->equalizerLevel2Ramp.getValue();
+        *data->zitarev->mix = data->dryWetMixRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -194,7 +194,7 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             
         }
         if (_playing) {
-            sp_zitarev_compute(_sp, data->_zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_zitarev_compute(_sp, data->zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

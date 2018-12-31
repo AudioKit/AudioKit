@@ -16,8 +16,8 @@ extern "C" AKDSPRef createRolandTB303FilterDSP(int nChannels, double sampleRate)
 }
 
 struct AKRolandTB303FilterDSP::InternalData {
-    sp_tbvcf *_tbvcf0;
-    sp_tbvcf *_tbvcf1;
+    sp_tbvcf *tbvcf0;
+    sp_tbvcf *tbvcf1;
     AKLinearParameterRamp cutoffFrequencyRamp;
     AKLinearParameterRamp resonanceRamp;
     AKLinearParameterRamp distortionRamp;
@@ -78,23 +78,23 @@ float AKRolandTB303FilterDSP::getParameter(uint64_t address) {
 
 void AKRolandTB303FilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_tbvcf_create(&data->_tbvcf0);
-    sp_tbvcf_init(_sp, data->_tbvcf0);
-    sp_tbvcf_create(&data->_tbvcf1);
-    sp_tbvcf_init(_sp, data->_tbvcf1);
-    data->_tbvcf0->fco = defaultCutoffFrequency;
-    data->_tbvcf1->fco = defaultCutoffFrequency;
-    data->_tbvcf0->res = defaultResonance;
-    data->_tbvcf1->res = defaultResonance;
-    data->_tbvcf0->dist = defaultDistortion;
-    data->_tbvcf1->dist = defaultDistortion;
-    data->_tbvcf0->asym = defaultResonanceAsymmetry;
-    data->_tbvcf1->asym = defaultResonanceAsymmetry;
+    sp_tbvcf_create(&data->tbvcf0);
+    sp_tbvcf_init(_sp, data->tbvcf0);
+    sp_tbvcf_create(&data->tbvcf1);
+    sp_tbvcf_init(_sp, data->tbvcf1);
+    data->tbvcf0->fco = defaultCutoffFrequency;
+    data->tbvcf1->fco = defaultCutoffFrequency;
+    data->tbvcf0->res = defaultResonance;
+    data->tbvcf1->res = defaultResonance;
+    data->tbvcf0->dist = defaultDistortion;
+    data->tbvcf1->dist = defaultDistortion;
+    data->tbvcf0->asym = defaultResonanceAsymmetry;
+    data->tbvcf1->asym = defaultResonanceAsymmetry;
 }
 
 void AKRolandTB303FilterDSP::deinit() {
-    sp_tbvcf_destroy(&data->_tbvcf0);
-    sp_tbvcf_destroy(&data->_tbvcf1);
+    sp_tbvcf_destroy(&data->tbvcf0);
+    sp_tbvcf_destroy(&data->tbvcf1);
 }
 
 void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -110,14 +110,14 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             data->resonanceAsymmetryRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_tbvcf0->fco = data->cutoffFrequencyRamp.getValue();
-        data->_tbvcf1->fco = data->cutoffFrequencyRamp.getValue();
-        data->_tbvcf0->res = data->resonanceRamp.getValue();
-        data->_tbvcf1->res = data->resonanceRamp.getValue();
-        data->_tbvcf0->dist = data->distortionRamp.getValue();
-        data->_tbvcf1->dist = data->distortionRamp.getValue();
-        data->_tbvcf0->asym = data->resonanceAsymmetryRamp.getValue();
-        data->_tbvcf1->asym = data->resonanceAsymmetryRamp.getValue();
+        data->tbvcf0->fco = data->cutoffFrequencyRamp.getValue();
+        data->tbvcf1->fco = data->cutoffFrequencyRamp.getValue();
+        data->tbvcf0->res = data->resonanceRamp.getValue();
+        data->tbvcf1->res = data->resonanceRamp.getValue();
+        data->tbvcf0->dist = data->distortionRamp.getValue();
+        data->tbvcf1->dist = data->distortionRamp.getValue();
+        data->tbvcf0->asym = data->resonanceAsymmetryRamp.getValue();
+        data->tbvcf1->asym = data->resonanceAsymmetryRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -134,9 +134,9 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             }
 
             if (channel == 0) {
-                sp_tbvcf_compute(_sp, data->_tbvcf0, in, out);
+                sp_tbvcf_compute(_sp, data->tbvcf0, in, out);
             } else {
-                sp_tbvcf_compute(_sp, data->_tbvcf1, in, out);
+                sp_tbvcf_compute(_sp, data->tbvcf1, in, out);
             }
         }
     }

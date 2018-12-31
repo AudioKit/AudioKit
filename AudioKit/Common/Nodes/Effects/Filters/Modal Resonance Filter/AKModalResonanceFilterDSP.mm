@@ -16,8 +16,8 @@ extern "C" AKDSPRef createModalResonanceFilterDSP(int nChannels, double sampleRa
 }
 
 struct AKModalResonanceFilterDSP::InternalData {
-    sp_mode *_mode0;
-    sp_mode *_mode1;
+    sp_mode *mode0;
+    sp_mode *mode1;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp qualityFactorRamp;
 };
@@ -60,19 +60,19 @@ float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
 
 void AKModalResonanceFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_mode_create(&data->_mode0);
-    sp_mode_init(_sp, data->_mode0);
-    sp_mode_create(&data->_mode1);
-    sp_mode_init(_sp, data->_mode1);
-    data->_mode0->freq = defaultFrequency;
-    data->_mode1->freq = defaultFrequency;
-    data->_mode0->q = defaultQualityFactor;
-    data->_mode1->q = defaultQualityFactor;
+    sp_mode_create(&data->mode0);
+    sp_mode_init(_sp, data->mode0);
+    sp_mode_create(&data->mode1);
+    sp_mode_init(_sp, data->mode1);
+    data->mode0->freq = defaultFrequency;
+    data->mode1->freq = defaultFrequency;
+    data->mode0->q = defaultQualityFactor;
+    data->mode1->q = defaultQualityFactor;
 }
 
 void AKModalResonanceFilterDSP::deinit() {
-    sp_mode_destroy(&data->_mode0);
-    sp_mode_destroy(&data->_mode1);
+    sp_mode_destroy(&data->mode0);
+    sp_mode_destroy(&data->mode1);
 }
 
 void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -86,10 +86,10 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             data->qualityFactorRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_mode0->freq = data->frequencyRamp.getValue();
-        data->_mode1->freq = data->frequencyRamp.getValue();
-        data->_mode0->q = data->qualityFactorRamp.getValue();
-        data->_mode1->q = data->qualityFactorRamp.getValue();
+        data->mode0->freq = data->frequencyRamp.getValue();
+        data->mode1->freq = data->frequencyRamp.getValue();
+        data->mode0->q = data->qualityFactorRamp.getValue();
+        data->mode1->q = data->qualityFactorRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKModalResonanceFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
             }
 
             if (channel == 0) {
-                sp_mode_compute(_sp, data->_mode0, in, out);
+                sp_mode_compute(_sp, data->mode0, in, out);
             } else {
-                sp_mode_compute(_sp, data->_mode1, in, out);
+                sp_mode_compute(_sp, data->mode1, in, out);
             }
         }
     }

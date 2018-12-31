@@ -16,8 +16,8 @@ extern "C" AKDSPRef createPitchShifterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKPitchShifterDSP::InternalData {
-    sp_pshift *_pshift0;
-    sp_pshift *_pshift1;
+    sp_pshift *pshift0;
+    sp_pshift *pshift1;
     AKLinearParameterRamp shiftRamp;
     AKLinearParameterRamp windowSizeRamp;
     AKLinearParameterRamp crossfadeRamp;
@@ -69,21 +69,21 @@ float AKPitchShifterDSP::getParameter(uint64_t address) {
 
 void AKPitchShifterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_pshift_create(&data->_pshift0);
-    sp_pshift_init(_sp, data->_pshift0);
-    sp_pshift_create(&data->_pshift1);
-    sp_pshift_init(_sp, data->_pshift1);
-    *data->_pshift0->shift = defaultShift;
-    *data->_pshift1->shift = defaultShift;
-    *data->_pshift0->window = defaultWindowSize;
-    *data->_pshift1->window = defaultWindowSize;
-    *data->_pshift0->xfade = defaultCrossfade;
-    *data->_pshift1->xfade = defaultCrossfade;
+    sp_pshift_create(&data->pshift0);
+    sp_pshift_init(_sp, data->pshift0);
+    sp_pshift_create(&data->pshift1);
+    sp_pshift_init(_sp, data->pshift1);
+    *data->pshift0->shift = defaultShift;
+    *data->pshift1->shift = defaultShift;
+    *data->pshift0->window = defaultWindowSize;
+    *data->pshift1->window = defaultWindowSize;
+    *data->pshift0->xfade = defaultCrossfade;
+    *data->pshift1->xfade = defaultCrossfade;
 }
 
 void AKPitchShifterDSP::deinit() {
-    sp_pshift_destroy(&data->_pshift0);
-    sp_pshift_destroy(&data->_pshift1);
+    sp_pshift_destroy(&data->pshift0);
+    sp_pshift_destroy(&data->pshift1);
 }
 
 void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -98,12 +98,12 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
             data->crossfadeRamp.advanceTo(_now + frameOffset);
         }
 
-        *data->_pshift0->shift = data->shiftRamp.getValue();
-        *data->_pshift1->shift = data->shiftRamp.getValue();
-        *data->_pshift0->window = data->windowSizeRamp.getValue();
-        *data->_pshift1->window = data->windowSizeRamp.getValue();
-        *data->_pshift0->xfade = data->crossfadeRamp.getValue();
-        *data->_pshift1->xfade = data->crossfadeRamp.getValue();
+        *data->pshift0->shift = data->shiftRamp.getValue();
+        *data->pshift1->shift = data->shiftRamp.getValue();
+        *data->pshift0->window = data->windowSizeRamp.getValue();
+        *data->pshift1->window = data->windowSizeRamp.getValue();
+        *data->pshift0->xfade = data->crossfadeRamp.getValue();
+        *data->pshift1->xfade = data->crossfadeRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -120,9 +120,9 @@ void AKPitchShifterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
             }
 
             if (channel == 0) {
-                sp_pshift_compute(_sp, data->_pshift0, in, out);
+                sp_pshift_compute(_sp, data->pshift0, in, out);
             } else {
-                sp_pshift_compute(_sp, data->_pshift1, in, out);
+                sp_pshift_compute(_sp, data->pshift1, in, out);
             }
         }
     }

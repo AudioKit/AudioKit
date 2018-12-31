@@ -16,8 +16,8 @@
 struct ParameterRamper::InternalData
 {
     float clampLow, clampHigh;
-    float _uiValue;
-    float _goal;
+    float uiValue;
+    float goal;
     float inverseSlope;
     uint32_t samplesRemaining;
     volatile atomic_int changeCounter = 0;
@@ -34,7 +34,7 @@ ParameterRamper::~ParameterRamper() {
 
 void ParameterRamper::setImmediate(float value) {
     // only to be called from the render thread or when resources are not allocated.
-    data->_goal = data->_uiValue = value;
+    data->goal = data->uiValue = value;
     data->inverseSlope = 0.0;
     data->samplesRemaining = 0;
 }
@@ -44,7 +44,7 @@ void ParameterRamper::init() {
      Call this from the kernel init.
      Updates the internal value from the UI value.
      */
-    setImmediate(data->_uiValue);
+    setImmediate(data->uiValue);
 }
 
 void ParameterRamper::reset() {
@@ -52,12 +52,12 @@ void ParameterRamper::reset() {
 }
 
 void ParameterRamper::setUIValue(float value) {
-    data->_uiValue = value;
+    data->uiValue = value;
     atomic_fetch_add(&data->changeCounter, 1);
 }
 
 float ParameterRamper::getUIValue() const {
-    return data->_uiValue;
+    return data->uiValue;
 }
 
 void ParameterRamper::dezipperCheck(uint32_t rampDuration)
@@ -66,7 +66,7 @@ void ParameterRamper::dezipperCheck(uint32_t rampDuration)
     int32_t changeCounterSnapshot = data->changeCounter;
     if (data->updateCounter != changeCounterSnapshot) {
         data->updateCounter = changeCounterSnapshot;
-        startRamp(data->_uiValue, rampDuration);
+        startRamp(data->uiValue, rampDuration);
     }
 }
 
@@ -81,7 +81,7 @@ void ParameterRamper::startRamp(float newGoal, uint32_t duration) {
          */
         data->inverseSlope = (get() - newGoal) / float(duration);
         data->samplesRemaining = duration;
-        data->_goal = data->_uiValue = newGoal;
+        data->goal = data->uiValue = newGoal;
     }
 }
 
@@ -90,7 +90,7 @@ float ParameterRamper::get() const {
      For long ramps, integrating a sum loses precision and does not reach
      the goal at the right time. So instead, a line equation is used. y = m * x + b.
      */
-    return data->inverseSlope * float(data->samplesRemaining) + data->_goal;
+    return data->inverseSlope * float(data->samplesRemaining) + data->goal;
 }
 
 void ParameterRamper::step() {
@@ -108,7 +108,7 @@ float ParameterRamper::getAndStep() {
         return value;
     }
     else {
-        return data->_goal;
+        return data->goal;
     }
 }
 

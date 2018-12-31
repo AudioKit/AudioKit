@@ -16,8 +16,8 @@ extern "C" AKDSPRef createResonantFilterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKResonantFilterDSP::InternalData {
-    sp_reson *_reson0;
-    sp_reson *_reson1;
+    sp_reson *reson0;
+    sp_reson *reson1;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
 };
@@ -60,19 +60,19 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
 
 void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_reson_create(&data->_reson0);
-    sp_reson_init(_sp, data->_reson0);
-    sp_reson_create(&data->_reson1);
-    sp_reson_init(_sp, data->_reson1);
-    data->_reson0->freq = defaultFrequency;
-    data->_reson1->freq = defaultFrequency;
-    data->_reson0->bw = defaultBandwidth;
-    data->_reson1->bw = defaultBandwidth;
+    sp_reson_create(&data->reson0);
+    sp_reson_init(_sp, data->reson0);
+    sp_reson_create(&data->reson1);
+    sp_reson_init(_sp, data->reson1);
+    data->reson0->freq = defaultFrequency;
+    data->reson1->freq = defaultFrequency;
+    data->reson0->bw = defaultBandwidth;
+    data->reson1->bw = defaultBandwidth;
 }
 
 void AKResonantFilterDSP::deinit() {
-    sp_reson_destroy(&data->_reson0);
-    sp_reson_destroy(&data->_reson1);
+    sp_reson_destroy(&data->reson0);
+    sp_reson_destroy(&data->reson1);
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -86,10 +86,10 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             data->bandwidthRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_reson0->freq = data->frequencyRamp.getValue();
-        data->_reson1->freq = data->frequencyRamp.getValue();
-        data->_reson0->bw = data->bandwidthRamp.getValue();
-        data->_reson1->bw = data->bandwidthRamp.getValue();
+        data->reson0->freq = data->frequencyRamp.getValue();
+        data->reson1->freq = data->frequencyRamp.getValue();
+        data->reson0->bw = data->bandwidthRamp.getValue();
+        data->reson1->bw = data->bandwidthRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
 
             if (channel == 0) {
-                sp_reson_compute(_sp, data->_reson0, in, out);
+                sp_reson_compute(_sp, data->reson0, in, out);
             } else {
-                sp_reson_compute(_sp, data->_reson1, in, out);
+                sp_reson_compute(_sp, data->reson1, in, out);
             }
         }
     }

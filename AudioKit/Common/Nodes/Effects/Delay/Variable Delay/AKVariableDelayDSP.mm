@@ -16,8 +16,8 @@ extern "C" AKDSPRef createVariableDelayDSP(int nChannels, double sampleRate) {
 }
 
 struct AKVariableDelayDSP::InternalData {
-    sp_vdelay *_vdelay0;
-    sp_vdelay *_vdelay1;
+    sp_vdelay *vdelay0;
+    sp_vdelay *vdelay1;
     AKLinearParameterRamp timeRamp;
     AKLinearParameterRamp feedbackRamp;
 };
@@ -60,24 +60,24 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
 
 void AKVariableDelayDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_vdelay_create(&data->_vdelay0);
-    sp_vdelay_init(_sp, data->_vdelay0, 10);
-    sp_vdelay_create(&data->_vdelay1);
-    sp_vdelay_init(_sp, data->_vdelay1, 10);
-    data->_vdelay0->del = defaultTime;
-    data->_vdelay1->del = defaultTime;
-    data->_vdelay0->feedback = defaultFeedback;
-    data->_vdelay1->feedback = defaultFeedback;
+    sp_vdelay_create(&data->vdelay0);
+    sp_vdelay_init(_sp, data->vdelay0, 10);
+    sp_vdelay_create(&data->vdelay1);
+    sp_vdelay_init(_sp, data->vdelay1, 10);
+    data->vdelay0->del = defaultTime;
+    data->vdelay1->del = defaultTime;
+    data->vdelay0->feedback = defaultFeedback;
+    data->vdelay1->feedback = defaultFeedback;
 }
 
 void AKVariableDelayDSP::deinit() {
-    sp_vdelay_destroy(&data->_vdelay0);
-    sp_vdelay_destroy(&data->_vdelay1);
+    sp_vdelay_destroy(&data->vdelay0);
+    sp_vdelay_destroy(&data->vdelay1);
 }
 
 void AKVariableDelayDSP::clear() {
-    sp_vdelay_reset(_sp, data->_vdelay0);
-    sp_vdelay_reset(_sp, data->_vdelay1);
+    sp_vdelay_reset(_sp, data->vdelay0);
+    sp_vdelay_reset(_sp, data->vdelay1);
 }
 
 void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -91,10 +91,10 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             data->feedbackRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_vdelay0->del = data->timeRamp.getValue();
-        data->_vdelay1->del = data->timeRamp.getValue();
-        data->_vdelay0->feedback = data->feedbackRamp.getValue();
-        data->_vdelay1->feedback = data->feedbackRamp.getValue();
+        data->vdelay0->del = data->timeRamp.getValue();
+        data->vdelay1->del = data->timeRamp.getValue();
+        data->vdelay0->feedback = data->feedbackRamp.getValue();
+        data->vdelay1->feedback = data->feedbackRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -111,9 +111,9 @@ void AKVariableDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             }
 
             if (channel == 0) {
-                sp_vdelay_compute(_sp, data->_vdelay0, in, out);
+                sp_vdelay_compute(_sp, data->vdelay0, in, out);
             } else {
-                sp_vdelay_compute(_sp, data->_vdelay1, in, out);
+                sp_vdelay_compute(_sp, data->vdelay1, in, out);
             }
         }
     }

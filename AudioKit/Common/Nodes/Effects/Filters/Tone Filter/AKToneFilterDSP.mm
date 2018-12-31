@@ -16,8 +16,8 @@ extern "C" AKDSPRef createToneFilterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKToneFilterDSP::InternalData {
-    sp_tone *_tone0;
-    sp_tone *_tone1;
+    sp_tone *tone0;
+    sp_tone *tone1;
     AKLinearParameterRamp halfPowerPointRamp;
 };
 
@@ -51,17 +51,17 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
 
 void AKToneFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_tone_create(&data->_tone0);
-    sp_tone_init(_sp, data->_tone0);
-    sp_tone_create(&data->_tone1);
-    sp_tone_init(_sp, data->_tone1);
-    data->_tone0->hp = defaultHalfPowerPoint;
-    data->_tone1->hp = defaultHalfPowerPoint;
+    sp_tone_create(&data->tone0);
+    sp_tone_init(_sp, data->tone0);
+    sp_tone_create(&data->tone1);
+    sp_tone_init(_sp, data->tone1);
+    data->tone0->hp = defaultHalfPowerPoint;
+    data->tone1->hp = defaultHalfPowerPoint;
 }
 
 void AKToneFilterDSP::deinit() {
-    sp_tone_destroy(&data->_tone0);
-    sp_tone_destroy(&data->_tone1);
+    sp_tone_destroy(&data->tone0);
+    sp_tone_destroy(&data->tone1);
 }
 
 void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,8 +74,8 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             data->halfPowerPointRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_tone0->hp = data->halfPowerPointRamp.getValue();
-        data->_tone1->hp = data->halfPowerPointRamp.getValue();
+        data->tone0->hp = data->halfPowerPointRamp.getValue();
+        data->tone1->hp = data->halfPowerPointRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKToneFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             }
 
             if (channel == 0) {
-                sp_tone_compute(_sp, data->_tone0, in, out);
+                sp_tone_compute(_sp, data->tone0, in, out);
             } else {
-                sp_tone_compute(_sp, data->_tone1, in, out);
+                sp_tone_compute(_sp, data->tone1, in, out);
             }
         }
     }

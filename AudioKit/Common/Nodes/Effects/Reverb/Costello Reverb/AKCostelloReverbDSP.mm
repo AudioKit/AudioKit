@@ -16,7 +16,7 @@ extern "C" AKDSPRef createCostelloReverbDSP(int nChannels, double sampleRate) {
 }
 
 struct AKCostelloReverbDSP::InternalData {
-    sp_revsc *_revsc;
+    sp_revsc *revsc;
     AKLinearParameterRamp feedbackRamp;
     AKLinearParameterRamp cutoffFrequencyRamp;
 };
@@ -59,14 +59,14 @@ float AKCostelloReverbDSP::getParameter(uint64_t address) {
 
 void AKCostelloReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_revsc_create(&data->_revsc);
-    sp_revsc_init(_sp, data->_revsc);
-    data->_revsc->feedback = defaultFeedback;
-    data->_revsc->lpfreq = defaultCutoffFrequency;
+    sp_revsc_create(&data->revsc);
+    sp_revsc_init(_sp, data->revsc);
+    data->revsc->feedback = defaultFeedback;
+    data->revsc->lpfreq = defaultCutoffFrequency;
 }
 
 void AKCostelloReverbDSP::deinit() {
-    sp_revsc_destroy(&data->_revsc);
+    sp_revsc_destroy(&data->revsc);
 }
 
 void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -80,8 +80,8 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_revsc->feedback = data->feedbackRamp.getValue();
-        data->_revsc->lpfreq = data->cutoffFrequencyRamp.getValue();
+        data->revsc->feedback = data->feedbackRamp.getValue();
+        data->revsc->lpfreq = data->cutoffFrequencyRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -98,7 +98,7 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
         }
         if (_playing) {
-            sp_revsc_compute(_sp, data->_revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            sp_revsc_compute(_sp, data->revsc, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

@@ -16,7 +16,7 @@ extern "C" AKDSPRef createPinkNoiseDSP(int nChannels, double sampleRate) {
 }
 
 struct AKPinkNoiseDSP::InternalData {
-    sp_pinknoise *_pinknoise;
+    sp_pinknoise *pinknoise;
     AKLinearParameterRamp amplitudeRamp;
 };
 
@@ -50,13 +50,13 @@ float AKPinkNoiseDSP::getParameter(uint64_t address) {
 
 void AKPinkNoiseDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_pinknoise_create(&data->_pinknoise);
-    sp_pinknoise_init(_sp, data->_pinknoise);
-    data->_pinknoise->amp = defaultAmplitude;
+    sp_pinknoise_create(&data->pinknoise);
+    sp_pinknoise_init(_sp, data->pinknoise);
+    data->pinknoise->amp = defaultAmplitude;
 }
 
 void AKPinkNoiseDSP::deinit() {
-    sp_pinknoise_destroy(&data->_pinknoise);
+    sp_pinknoise_destroy(&data->pinknoise);
 }
 
 void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -69,7 +69,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
             data->amplitudeRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_pinknoise->amp = data->amplitudeRamp.getValue();
+        data->pinknoise->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -77,7 +77,7 @@ void AKPinkNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buf
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_pinknoise_compute(_sp, data->_pinknoise, nil, &temp);
+                    sp_pinknoise_compute(_sp, data->pinknoise, nil, &temp);
                 }
                 *out = temp;
             } else {

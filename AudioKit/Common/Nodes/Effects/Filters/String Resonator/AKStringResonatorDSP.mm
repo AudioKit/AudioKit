@@ -16,8 +16,8 @@ extern "C" AKDSPRef createStringResonatorDSP(int nChannels, double sampleRate) {
 }
 
 struct AKStringResonatorDSP::InternalData {
-    sp_streson *_streson0;
-    sp_streson *_streson1;
+    sp_streson *streson0;
+    sp_streson *streson1;
     AKLinearParameterRamp fundamentalFrequencyRamp;
     AKLinearParameterRamp feedbackRamp;
 };
@@ -60,19 +60,19 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
 
 void AKStringResonatorDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_streson_create(&data->_streson0);
-    sp_streson_init(_sp, data->_streson0);
-    sp_streson_create(&data->_streson1);
-    sp_streson_init(_sp, data->_streson1);
-    data->_streson0->freq = defaultFundamentalFrequency;
-    data->_streson1->freq = defaultFundamentalFrequency;
-    data->_streson0->fdbgain = defaultFeedback;
-    data->_streson1->fdbgain = defaultFeedback;
+    sp_streson_create(&data->streson0);
+    sp_streson_init(_sp, data->streson0);
+    sp_streson_create(&data->streson1);
+    sp_streson_init(_sp, data->streson1);
+    data->streson0->freq = defaultFundamentalFrequency;
+    data->streson1->freq = defaultFundamentalFrequency;
+    data->streson0->fdbgain = defaultFeedback;
+    data->streson1->fdbgain = defaultFeedback;
 }
 
 void AKStringResonatorDSP::deinit() {
-    sp_streson_destroy(&data->_streson0);
-    sp_streson_destroy(&data->_streson1);
+    sp_streson_destroy(&data->streson0);
+    sp_streson_destroy(&data->streson1);
 }
 
 void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -86,10 +86,10 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             data->feedbackRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_streson0->freq = data->fundamentalFrequencyRamp.getValue();
-        data->_streson1->freq = data->fundamentalFrequencyRamp.getValue();
-        data->_streson0->fdbgain = data->feedbackRamp.getValue();
-        data->_streson1->fdbgain = data->feedbackRamp.getValue();
+        data->streson0->freq = data->fundamentalFrequencyRamp.getValue();
+        data->streson1->freq = data->fundamentalFrequencyRamp.getValue();
+        data->streson0->fdbgain = data->feedbackRamp.getValue();
+        data->streson1->fdbgain = data->feedbackRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKStringResonatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             }
 
             if (channel == 0) {
-                sp_streson_compute(_sp, data->_streson0, in, out);
+                sp_streson_compute(_sp, data->streson0, in, out);
             } else {
-                sp_streson_compute(_sp, data->_streson1, in, out);
+                sp_streson_compute(_sp, data->streson1, in, out);
             }
         }
     }

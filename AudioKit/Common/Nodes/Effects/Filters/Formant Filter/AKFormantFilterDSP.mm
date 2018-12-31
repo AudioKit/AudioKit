@@ -16,8 +16,8 @@ extern "C" AKDSPRef createFormantFilterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKFormantFilterDSP::InternalData {
-    sp_fofilt *_fofilt0;
-    sp_fofilt *_fofilt1;
+    sp_fofilt *fofilt0;
+    sp_fofilt *fofilt1;
     AKLinearParameterRamp centerFrequencyRamp;
     AKLinearParameterRamp attackDurationRamp;
     AKLinearParameterRamp decayDurationRamp;
@@ -69,21 +69,21 @@ float AKFormantFilterDSP::getParameter(uint64_t address) {
 
 void AKFormantFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_fofilt_create(&data->_fofilt0);
-    sp_fofilt_init(_sp, data->_fofilt0);
-    sp_fofilt_create(&data->_fofilt1);
-    sp_fofilt_init(_sp, data->_fofilt1);
-    data->_fofilt0->freq = defaultCenterFrequency;
-    data->_fofilt1->freq = defaultCenterFrequency;
-    data->_fofilt0->atk = defaultAttackDuration;
-    data->_fofilt1->atk = defaultAttackDuration;
-    data->_fofilt0->dec = defaultDecayDuration;
-    data->_fofilt1->dec = defaultDecayDuration;
+    sp_fofilt_create(&data->fofilt0);
+    sp_fofilt_init(_sp, data->fofilt0);
+    sp_fofilt_create(&data->fofilt1);
+    sp_fofilt_init(_sp, data->fofilt1);
+    data->fofilt0->freq = defaultCenterFrequency;
+    data->fofilt1->freq = defaultCenterFrequency;
+    data->fofilt0->atk = defaultAttackDuration;
+    data->fofilt1->atk = defaultAttackDuration;
+    data->fofilt0->dec = defaultDecayDuration;
+    data->fofilt1->dec = defaultDecayDuration;
 }
 
 void AKFormantFilterDSP::deinit() {
-    sp_fofilt_destroy(&data->_fofilt0);
-    sp_fofilt_destroy(&data->_fofilt1);
+    sp_fofilt_destroy(&data->fofilt0);
+    sp_fofilt_destroy(&data->fofilt1);
 }
 
 void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -98,12 +98,12 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             data->decayDurationRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_fofilt0->freq = data->centerFrequencyRamp.getValue();
-        data->_fofilt1->freq = data->centerFrequencyRamp.getValue();
-        data->_fofilt0->atk = data->attackDurationRamp.getValue();
-        data->_fofilt1->atk = data->attackDurationRamp.getValue();
-        data->_fofilt0->dec = data->decayDurationRamp.getValue();
-        data->_fofilt1->dec = data->decayDurationRamp.getValue();
+        data->fofilt0->freq = data->centerFrequencyRamp.getValue();
+        data->fofilt1->freq = data->centerFrequencyRamp.getValue();
+        data->fofilt0->atk = data->attackDurationRamp.getValue();
+        data->fofilt1->atk = data->attackDurationRamp.getValue();
+        data->fofilt0->dec = data->decayDurationRamp.getValue();
+        data->fofilt1->dec = data->decayDurationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -120,9 +120,9 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
             }
 
             if (channel == 0) {
-                sp_fofilt_compute(_sp, data->_fofilt0, in, out);
+                sp_fofilt_compute(_sp, data->fofilt0, in, out);
             } else {
-                sp_fofilt_compute(_sp, data->_fofilt1, in, out);
+                sp_fofilt_compute(_sp, data->fofilt1, in, out);
             }
         }
     }

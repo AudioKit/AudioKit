@@ -16,8 +16,8 @@ extern "C" AKDSPRef createBandRejectButterworthFilterDSP(int nChannels, double s
 }
 
 struct AKBandRejectButterworthFilterDSP::InternalData {
-    sp_butbr *_butbr0;
-    sp_butbr *_butbr1;
+    sp_butbr *butbr0;
+    sp_butbr *butbr1;
     AKLinearParameterRamp centerFrequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
 };
@@ -60,19 +60,19 @@ float AKBandRejectButterworthFilterDSP::getParameter(uint64_t address) {
 
 void AKBandRejectButterworthFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_butbr_create(&data->_butbr0);
-    sp_butbr_init(_sp, data->_butbr0);
-    sp_butbr_create(&data->_butbr1);
-    sp_butbr_init(_sp, data->_butbr1);
-    data->_butbr0->freq = defaultCenterFrequency;
-    data->_butbr1->freq = defaultCenterFrequency;
-    data->_butbr0->bw = defaultBandwidth;
-    data->_butbr1->bw = defaultBandwidth;
+    sp_butbr_create(&data->butbr0);
+    sp_butbr_init(_sp, data->butbr0);
+    sp_butbr_create(&data->butbr1);
+    sp_butbr_init(_sp, data->butbr1);
+    data->butbr0->freq = defaultCenterFrequency;
+    data->butbr1->freq = defaultCenterFrequency;
+    data->butbr0->bw = defaultBandwidth;
+    data->butbr1->bw = defaultBandwidth;
 }
 
 void AKBandRejectButterworthFilterDSP::deinit() {
-    sp_butbr_destroy(&data->_butbr0);
-    sp_butbr_destroy(&data->_butbr1);
+    sp_butbr_destroy(&data->butbr0);
+    sp_butbr_destroy(&data->butbr1);
 }
 
 void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -86,10 +86,10 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
             data->bandwidthRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_butbr0->freq = data->centerFrequencyRamp.getValue();
-        data->_butbr1->freq = data->centerFrequencyRamp.getValue();
-        data->_butbr0->bw = data->bandwidthRamp.getValue();
-        data->_butbr1->bw = data->bandwidthRamp.getValue();
+        data->butbr0->freq = data->centerFrequencyRamp.getValue();
+        data->butbr1->freq = data->centerFrequencyRamp.getValue();
+        data->butbr0->bw = data->bandwidthRamp.getValue();
+        data->butbr1->bw = data->bandwidthRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -106,9 +106,9 @@ void AKBandRejectButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUA
             }
 
             if (channel == 0) {
-                sp_butbr_compute(_sp, data->_butbr0, in, out);
+                sp_butbr_compute(_sp, data->butbr0, in, out);
             } else {
-                sp_butbr_compute(_sp, data->_butbr1, in, out);
+                sp_butbr_compute(_sp, data->butbr1, in, out);
             }
         }
     }

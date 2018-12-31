@@ -16,23 +16,23 @@ extern "C" AKDSPRef createChowningReverbDSP(int nChannels, double sampleRate) {
 }
 
 struct AKChowningReverbDSP::InternalData {
-    sp_jcrev *_jcrev0;
-    sp_jcrev *_jcrev1;
+    sp_jcrev *jcrev0;
+    sp_jcrev *jcrev1;
 };
 
 AKChowningReverbDSP::AKChowningReverbDSP() : data(new InternalData) {}
 
 void AKChowningReverbDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_jcrev_create(&data->_jcrev0);
-    sp_jcrev_init(_sp, data->_jcrev0);
-    sp_jcrev_create(&data->_jcrev1);
-    sp_jcrev_init(_sp, data->_jcrev1);
+    sp_jcrev_create(&data->jcrev0);
+    sp_jcrev_init(_sp, data->jcrev0);
+    sp_jcrev_create(&data->jcrev1);
+    sp_jcrev_init(_sp, data->jcrev1);
 }
 
 void AKChowningReverbDSP::deinit() {
-    sp_jcrev_destroy(&data->_jcrev0);
-    sp_jcrev_destroy(&data->_jcrev1);
+    sp_jcrev_destroy(&data->jcrev0);
+    sp_jcrev_destroy(&data->jcrev1);
 }
 
 void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -60,9 +60,9 @@ void AKChowningReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
             }
 
             if (channel == 0) {
-                sp_jcrev_compute(_sp, data->_jcrev0, in, out);
+                sp_jcrev_compute(_sp, data->jcrev0, in, out);
             } else {
-                sp_jcrev_compute(_sp, data->_jcrev1, in, out);
+                sp_jcrev_compute(_sp, data->jcrev1, in, out);
             }
         }
     }

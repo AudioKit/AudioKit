@@ -16,8 +16,8 @@ extern "C" AKDSPRef createEqualizerFilterDSP(int nChannels, double sampleRate) {
 }
 
 struct AKEqualizerFilterDSP::InternalData {
-    sp_eqfil *_eqfil0;
-    sp_eqfil *_eqfil1;
+    sp_eqfil *eqfil0;
+    sp_eqfil *eqfil1;
     AKLinearParameterRamp centerFrequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
     AKLinearParameterRamp gainRamp;
@@ -69,21 +69,21 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
 
 void AKEqualizerFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_eqfil_create(&data->_eqfil0);
-    sp_eqfil_init(_sp, data->_eqfil0);
-    sp_eqfil_create(&data->_eqfil1);
-    sp_eqfil_init(_sp, data->_eqfil1);
-    data->_eqfil0->freq = defaultCenterFrequency;
-    data->_eqfil1->freq = defaultCenterFrequency;
-    data->_eqfil0->bw = defaultBandwidth;
-    data->_eqfil1->bw = defaultBandwidth;
-    data->_eqfil0->gain = defaultGain;
-    data->_eqfil1->gain = defaultGain;
+    sp_eqfil_create(&data->eqfil0);
+    sp_eqfil_init(_sp, data->eqfil0);
+    sp_eqfil_create(&data->eqfil1);
+    sp_eqfil_init(_sp, data->eqfil1);
+    data->eqfil0->freq = defaultCenterFrequency;
+    data->eqfil1->freq = defaultCenterFrequency;
+    data->eqfil0->bw = defaultBandwidth;
+    data->eqfil1->bw = defaultBandwidth;
+    data->eqfil0->gain = defaultGain;
+    data->eqfil1->gain = defaultGain;
 }
 
 void AKEqualizerFilterDSP::deinit() {
-    sp_eqfil_destroy(&data->_eqfil0);
-    sp_eqfil_destroy(&data->_eqfil1);
+    sp_eqfil_destroy(&data->eqfil0);
+    sp_eqfil_destroy(&data->eqfil1);
 }
 
 void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -98,12 +98,12 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             data->gainRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_eqfil0->freq = data->centerFrequencyRamp.getValue();
-        data->_eqfil1->freq = data->centerFrequencyRamp.getValue();
-        data->_eqfil0->bw = data->bandwidthRamp.getValue();
-        data->_eqfil1->bw = data->bandwidthRamp.getValue();
-        data->_eqfil0->gain = data->gainRamp.getValue();
-        data->_eqfil1->gain = data->gainRamp.getValue();
+        data->eqfil0->freq = data->centerFrequencyRamp.getValue();
+        data->eqfil1->freq = data->centerFrequencyRamp.getValue();
+        data->eqfil0->bw = data->bandwidthRamp.getValue();
+        data->eqfil1->bw = data->bandwidthRamp.getValue();
+        data->eqfil0->gain = data->gainRamp.getValue();
+        data->eqfil1->gain = data->gainRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -120,9 +120,9 @@ void AKEqualizerFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCou
             }
 
             if (channel == 0) {
-                sp_eqfil_compute(_sp, data->_eqfil0, in, out);
+                sp_eqfil_compute(_sp, data->eqfil0, in, out);
             } else {
-                sp_eqfil_compute(_sp, data->_eqfil1, in, out);
+                sp_eqfil_compute(_sp, data->eqfil1, in, out);
             }
         }
     }

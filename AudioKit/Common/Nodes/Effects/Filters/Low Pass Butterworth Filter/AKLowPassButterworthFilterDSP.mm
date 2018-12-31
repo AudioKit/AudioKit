@@ -16,8 +16,8 @@ extern "C" AKDSPRef createLowPassButterworthFilterDSP(int nChannels, double samp
 }
 
 struct AKLowPassButterworthFilterDSP::InternalData {
-    sp_butlp *_butlp0;
-    sp_butlp *_butlp1;
+    sp_butlp *butlp0;
+    sp_butlp *butlp1;
     AKLinearParameterRamp cutoffFrequencyRamp;
 };
 
@@ -51,17 +51,17 @@ float AKLowPassButterworthFilterDSP::getParameter(uint64_t address) {
 
 void AKLowPassButterworthFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_butlp_create(&data->_butlp0);
-    sp_butlp_init(_sp, data->_butlp0);
-    sp_butlp_create(&data->_butlp1);
-    sp_butlp_init(_sp, data->_butlp1);
-    data->_butlp0->freq = defaultCutoffFrequency;
-    data->_butlp1->freq = defaultCutoffFrequency;
+    sp_butlp_create(&data->butlp0);
+    sp_butlp_init(_sp, data->butlp0);
+    sp_butlp_create(&data->butlp1);
+    sp_butlp_init(_sp, data->butlp1);
+    data->butlp0->freq = defaultCutoffFrequency;
+    data->butlp1->freq = defaultCutoffFrequency;
 }
 
 void AKLowPassButterworthFilterDSP::deinit() {
-    sp_butlp_destroy(&data->_butlp0);
-    sp_butlp_destroy(&data->_butlp1);
+    sp_butlp_destroy(&data->butlp0);
+    sp_butlp_destroy(&data->butlp1);
 }
 
 void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -74,8 +74,8 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
             data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_butlp0->freq = data->cutoffFrequencyRamp.getValue();
-        data->_butlp1->freq = data->cutoffFrequencyRamp.getValue();
+        data->butlp0->freq = data->cutoffFrequencyRamp.getValue();
+        data->butlp1->freq = data->cutoffFrequencyRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -92,9 +92,9 @@ void AKLowPassButterworthFilterDSP::process(AUAudioFrameCount frameCount, AUAudi
             }
 
             if (channel == 0) {
-                sp_butlp_compute(_sp, data->_butlp0, in, out);
+                sp_butlp_compute(_sp, data->butlp0, in, out);
             } else {
-                sp_butlp_compute(_sp, data->_butlp1, in, out);
+                sp_butlp_compute(_sp, data->butlp1, in, out);
             }
         }
     }

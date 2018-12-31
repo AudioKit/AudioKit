@@ -16,7 +16,7 @@ extern "C" AKDSPRef createMetalBarDSP(int nChannels, double sampleRate) {
 }
 
 struct AKMetalBarDSP::InternalData {
-    sp_bar *_bar;
+    sp_bar *bar;
     AKLinearParameterRamp leftBoundaryConditionRamp;
     AKLinearParameterRamp rightBoundaryConditionRamp;
     AKLinearParameterRamp decayDurationRamp;
@@ -104,19 +104,19 @@ float AKMetalBarDSP::getParameter(uint64_t address) {
 
 void AKMetalBarDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_bar_create(&data->_bar);
-    sp_bar_init(_sp, data->_bar, 3, 0.0001);
-    data->_bar->bcL = defaultLeftBoundaryCondition;
-    data->_bar->bcR = defaultRightBoundaryCondition;
-    data->_bar->T30 = defaultDecayDuration;
-    data->_bar->scan = defaultScanSpeed;
-    data->_bar->pos = defaultPosition;
-    data->_bar->vel = defaultStrikeVelocity;
-    data->_bar->wid = defaultStrikeWidth;
+    sp_bar_create(&data->bar);
+    sp_bar_init(_sp, data->bar, 3, 0.0001);
+    data->bar->bcL = defaultLeftBoundaryCondition;
+    data->bar->bcR = defaultRightBoundaryCondition;
+    data->bar->T30 = defaultDecayDuration;
+    data->bar->scan = defaultScanSpeed;
+    data->bar->pos = defaultPosition;
+    data->bar->vel = defaultStrikeVelocity;
+    data->bar->wid = defaultStrikeWidth;
 }
 
 void AKMetalBarDSP::deinit() {
-    sp_bar_destroy(&data->_bar);
+    sp_bar_destroy(&data->bar);
 }
 
 void AKMetalBarDSP::trigger() {
@@ -139,13 +139,13 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
             data->strikeWidthRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_bar->bcL = data->leftBoundaryConditionRamp.getValue();
-        data->_bar->bcR = data->rightBoundaryConditionRamp.getValue();
-        data->_bar->T30 = data->decayDurationRamp.getValue();
-        data->_bar->scan = data->scanSpeedRamp.getValue();
-        data->_bar->pos = data->positionRamp.getValue();
-        data->_bar->vel = data->strikeVelocityRamp.getValue();
-        data->_bar->wid = data->strikeWidthRamp.getValue();
+        data->bar->bcL = data->leftBoundaryConditionRamp.getValue();
+        data->bar->bcR = data->rightBoundaryConditionRamp.getValue();
+        data->bar->T30 = data->decayDurationRamp.getValue();
+        data->bar->scan = data->scanSpeedRamp.getValue();
+        data->bar->pos = data->positionRamp.getValue();
+        data->bar->vel = data->strikeVelocityRamp.getValue();
+        data->bar->wid = data->strikeWidthRamp.getValue();
 
         float temp = 0;
         for (int channel = 0; channel < _nChannels; ++channel) {
@@ -153,7 +153,7 @@ void AKMetalBarDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
 
             if (_playing) {
                 if (channel == 0) {
-                    sp_bar_compute(_sp, data->_bar, &internalTrigger, &temp);
+                    sp_bar_compute(_sp, data->bar, &internalTrigger, &temp);
                 }
                 *out = temp;
             } else {

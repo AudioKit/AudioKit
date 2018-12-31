@@ -16,8 +16,8 @@ extern "C" AKDSPRef createKorgLowPassFilterDSP(int nChannels, double sampleRate)
 }
 
 struct AKKorgLowPassFilterDSP::InternalData {
-    sp_wpkorg35 *_wpkorg350;
-    sp_wpkorg35 *_wpkorg351;
+    sp_wpkorg35 *wpkorg350;
+    sp_wpkorg35 *wpkorg351;
     AKLinearParameterRamp cutoffFrequencyRamp;
     AKLinearParameterRamp resonanceRamp;
     AKLinearParameterRamp saturationRamp;
@@ -69,21 +69,21 @@ float AKKorgLowPassFilterDSP::getParameter(uint64_t address) {
 
 void AKKorgLowPassFilterDSP::init(int _channels, double _sampleRate) {
     AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_wpkorg35_create(&data->_wpkorg350);
-    sp_wpkorg35_init(_sp, data->_wpkorg350);
-    sp_wpkorg35_create(&data->_wpkorg351);
-    sp_wpkorg35_init(_sp, data->_wpkorg351);
-    data->_wpkorg350->cutoff = defaultCutoffFrequency;
-    data->_wpkorg351->cutoff = defaultCutoffFrequency;
-    data->_wpkorg350->res = defaultResonance;
-    data->_wpkorg351->res = defaultResonance;
-    data->_wpkorg350->saturation = defaultSaturation;
-    data->_wpkorg351->saturation = defaultSaturation;
+    sp_wpkorg35_create(&data->wpkorg350);
+    sp_wpkorg35_init(_sp, data->wpkorg350);
+    sp_wpkorg35_create(&data->wpkorg351);
+    sp_wpkorg35_init(_sp, data->wpkorg351);
+    data->wpkorg350->cutoff = defaultCutoffFrequency;
+    data->wpkorg351->cutoff = defaultCutoffFrequency;
+    data->wpkorg350->res = defaultResonance;
+    data->wpkorg351->res = defaultResonance;
+    data->wpkorg350->saturation = defaultSaturation;
+    data->wpkorg351->saturation = defaultSaturation;
 }
 
 void AKKorgLowPassFilterDSP::deinit() {
-    sp_wpkorg35_destroy(&data->_wpkorg350);
-    sp_wpkorg35_destroy(&data->_wpkorg351);
+    sp_wpkorg35_destroy(&data->wpkorg350);
+    sp_wpkorg35_destroy(&data->wpkorg351);
 }
 
 void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -98,12 +98,12 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             data->saturationRamp.advanceTo(_now + frameOffset);
         }
 
-        data->_wpkorg350->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
-        data->_wpkorg351->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
-        data->_wpkorg350->res = data->resonanceRamp.getValue();
-        data->_wpkorg351->res = data->resonanceRamp.getValue();
-        data->_wpkorg350->saturation = data->saturationRamp.getValue();
-        data->_wpkorg351->saturation = data->saturationRamp.getValue();
+        data->wpkorg350->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
+        data->wpkorg351->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;
+        data->wpkorg350->res = data->resonanceRamp.getValue();
+        data->wpkorg351->res = data->resonanceRamp.getValue();
+        data->wpkorg350->saturation = data->saturationRamp.getValue();
+        data->wpkorg351->saturation = data->saturationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
@@ -120,9 +120,9 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
             }
 
             if (channel == 0) {
-                sp_wpkorg35_compute(_sp, data->_wpkorg350, in, out);
+                sp_wpkorg35_compute(_sp, data->wpkorg350, in, out);
             } else {
-                sp_wpkorg35_compute(_sp, data->_wpkorg351, in, out);
+                sp_wpkorg35_compute(_sp, data->wpkorg351, in, out);
             }
         }
     }

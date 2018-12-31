@@ -17,18 +17,18 @@
 using namespace std;
 
 struct AKRhinoGuitarProcessorDSPKernel::InternalData {
-    RageProcessor *_leftRageProcessor;
-    RageProcessor *_rightRageProcessor;
-    Equalisator *_leftEqLo;
-    Equalisator *_rightEqLo;
-    Equalisator *_leftEqGtr;
-    Equalisator *_rightEqGtr;
-    Equalisator *_leftEqMi;
-    Equalisator *_rightEqMi;
-    Equalisator *_leftEqHi;
-    Equalisator *_rightEqHi;
-    MikeFilter *_mikeFilterL;
-    MikeFilter *_mikeFilterR;
+    RageProcessor *leftRageProcessor;
+    RageProcessor *rightRageProcessor;
+    Equalisator *leftEqLo;
+    Equalisator *rightEqLo;
+    Equalisator *leftEqGtr;
+    Equalisator *rightEqGtr;
+    Equalisator *leftEqMi;
+    Equalisator *rightEqMi;
+    Equalisator *leftEqHi;
+    Equalisator *rightEqHi;
+    MikeFilter *mikeFilterL;
+    MikeFilter *mikeFilterR;
     
     float sampleRate;
     
@@ -50,31 +50,31 @@ void AKRhinoGuitarProcessorDSPKernel::init(int _channels, double _sampleRate) {
     
     sampleRate = (float)_sampleRate;
     
-    data->_leftEqLo = new Equalisator();
-    data->_rightEqLo = new Equalisator();
-    data->_leftEqGtr = new Equalisator();
-    data->_rightEqGtr = new Equalisator();
-    data->_leftEqMi = new Equalisator();
-    data->_rightEqMi = new Equalisator();
-    data->_leftEqHi = new Equalisator();
-    data->_rightEqHi = new Equalisator();
-    data->_mikeFilterL = new MikeFilter();
-    data->_mikeFilterR = new MikeFilter();
+    data->leftEqLo = new Equalisator();
+    data->rightEqLo = new Equalisator();
+    data->leftEqGtr = new Equalisator();
+    data->rightEqGtr = new Equalisator();
+    data->leftEqMi = new Equalisator();
+    data->rightEqMi = new Equalisator();
+    data->leftEqHi = new Equalisator();
+    data->rightEqHi = new Equalisator();
+    data->mikeFilterL = new MikeFilter();
+    data->mikeFilterR = new MikeFilter();
     
-    data->_leftRageProcessor = new RageProcessor((int)_sampleRate);
-    data->_rightRageProcessor = new RageProcessor((int)_sampleRate);
+    data->leftRageProcessor = new RageProcessor((int)_sampleRate);
+    data->rightRageProcessor = new RageProcessor((int)_sampleRate);
     
-    data->_leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
-    data->_rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+    data->leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+    data->rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
     
-    data->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
-    data->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
+    data->leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
+    data->rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
     
-    data->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
-    data->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
+    data->leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
+    data->rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
     
-    data->_mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
-    data->_mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
+    data->mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
+    data->mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
     
     data->lowGain = 0.0f;
     data->midGain = 0.0f;
@@ -252,14 +252,14 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
         data->distType = distTypeRamper.getAndStep();
         data->distortion = distortionRamper.getAndStep();
         
-        data->_leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
-        data->_rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
+        data->leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
+        data->rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
         
-        data->_leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
-        data->_rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
+        data->leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
+        data->rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
         
-        data->_leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
-        data->_rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
+        data->leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
+        data->rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
 
         float *tmpin[2];
         float *tmpout[2];
@@ -276,8 +276,8 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
             }
 
             *in = *in * (data->preGain);
-            const float r_Sig = data->_leftRageProcessor->doRage(*in, data->distortion * 2, data->distortion * 2);
-            const float e_Sig = data->_leftEqLo->filter(data->_leftEqMi->filter(data->_leftEqHi->filter(r_Sig))) *
+            const float r_Sig = data->leftRageProcessor->doRage(*in, data->distortion * 2, data->distortion * 2);
+            const float e_Sig = data->leftEqLo->filter(data->leftEqMi->filter(data->leftEqHi->filter(r_Sig))) *
             (1 / (data->distortion*0.8));
             *out = e_Sig * data->postGain;
         }
