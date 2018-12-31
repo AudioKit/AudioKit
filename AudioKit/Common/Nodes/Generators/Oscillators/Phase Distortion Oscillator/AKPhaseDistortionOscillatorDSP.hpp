@@ -142,11 +142,11 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(_now + frameOffset);
-                amplitudeRamp.advanceTo(_now + frameOffset);
-                phaseDistortionRamp.advanceTo(_now + frameOffset);
-                detuningOffsetRamp.advanceTo(_now + frameOffset);
-                detuningMultiplierRamp.advanceTo(_now + frameOffset);
+                frequencyRamp.advanceTo(now + frameOffset);
+                amplitudeRamp.advanceTo(now + frameOffset);
+                phaseDistortionRamp.advanceTo(now + frameOffset);
+                detuningOffsetRamp.advanceTo(now + frameOffset);
+                detuningMultiplierRamp.advanceTo(now + frameOffset);
             }
             float frequency = frequencyRamp.getValue();
             float amplitude = amplitudeRamp.getValue();

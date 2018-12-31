@@ -116,9 +116,9 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
         
         // ramp parameters
-        data->timeRamp.advanceTo(_now + frameOffset);
-        data->feedbackRamp.advanceTo(_now + frameOffset);
-        data->dryWetMixRamp.advanceTo(_now + frameOffset);
+        data->timeRamp.advanceTo(now + frameOffset);
+        data->feedbackRamp.advanceTo(now + frameOffset);
+        data->dryWetMixRamp.advanceTo(now + frameOffset);
         
         // apply changes
         data->delay.setDelayMs(1000.0 * data->timeRamp.getValue());

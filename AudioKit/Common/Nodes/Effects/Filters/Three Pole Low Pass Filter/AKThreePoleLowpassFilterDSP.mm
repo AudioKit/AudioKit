@@ -93,9 +93,9 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->distortionRamp.advanceTo(_now + frameOffset);
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            data->resonanceRamp.advanceTo(_now + frameOffset);
+            data->distortionRamp.advanceTo(now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
         }
 
         data->lpf180->dist = data->distortionRamp.getValue();

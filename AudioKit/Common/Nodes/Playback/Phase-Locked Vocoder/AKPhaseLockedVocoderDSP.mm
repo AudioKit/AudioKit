@@ -94,9 +94,9 @@ void AKPhaseLockedVocoderDSP::process(AUAudioFrameCount frameCount, AUAudioFrame
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->positionRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
-            data->pitchRatioRamp.advanceTo(_now + frameOffset);
+            data->positionRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
+            data->pitchRatioRamp.advanceTo(now + frameOffset);
         }
 
         data->mincer->time = data->positionRamp.getValue();

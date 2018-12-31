@@ -71,7 +71,7 @@ void AKClipperDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->limitRamp.advanceTo(_now + frameOffset);
+            data->limitRamp.advanceTo(now + frameOffset);
         }
 
         data->clip0->lim = data->limitRamp.getValue();

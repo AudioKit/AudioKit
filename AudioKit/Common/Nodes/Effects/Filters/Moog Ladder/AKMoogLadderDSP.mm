@@ -82,8 +82,8 @@ void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            data->resonanceRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
         }
 
         data->moogladder0->freq = data->cutoffFrequencyRamp.getValue();

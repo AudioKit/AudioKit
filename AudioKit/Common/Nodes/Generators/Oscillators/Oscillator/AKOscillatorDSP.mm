@@ -106,10 +106,10 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
-            data->detuningOffsetRamp.advanceTo(_now + frameOffset);
-            data->detuningMultiplierRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
+            data->detuningOffsetRamp.advanceTo(now + frameOffset);
+            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
         }
         data->osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
         data->osc->amp = data->amplitudeRamp.getValue();

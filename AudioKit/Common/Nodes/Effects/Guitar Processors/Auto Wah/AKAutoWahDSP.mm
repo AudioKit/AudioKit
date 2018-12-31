@@ -93,9 +93,9 @@ void AKAutoWahDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->wahRamp.advanceTo(_now + frameOffset);
-            data->mixRamp.advanceTo(_now + frameOffset);
-            data->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->wahRamp.advanceTo(now + frameOffset);
+            data->mixRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         *data->autowah0->wah = data->wahRamp.getValue();

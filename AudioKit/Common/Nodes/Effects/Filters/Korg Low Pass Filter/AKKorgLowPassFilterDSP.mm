@@ -93,9 +93,9 @@ void AKKorgLowPassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            data->resonanceRamp.advanceTo(_now + frameOffset);
-            data->saturationRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
+            data->saturationRamp.advanceTo(now + frameOffset);
         }
 
         data->wpkorg350->cutoff = data->cutoffFrequencyRamp.getValue() - 0.0001;

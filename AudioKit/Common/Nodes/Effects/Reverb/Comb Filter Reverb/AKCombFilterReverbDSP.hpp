@@ -89,7 +89,7 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                reverbDurationRamp.advanceTo(_now + frameOffset);
+                reverbDurationRamp.advanceTo(now + frameOffset);
             }
             comb0->revtime = reverbDurationRamp.getValue();
             comb1->revtime = reverbDurationRamp.getValue();            

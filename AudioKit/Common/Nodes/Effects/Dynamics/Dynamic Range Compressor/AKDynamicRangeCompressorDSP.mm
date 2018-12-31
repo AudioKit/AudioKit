@@ -104,10 +104,10 @@ void AKDynamicRangeCompressorDSP::process(AUAudioFrameCount frameCount, AUAudioF
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->ratioRamp.advanceTo(_now + frameOffset);
-            data->thresholdRamp.advanceTo(_now + frameOffset);
-            data->attackDurationRamp.advanceTo(_now + frameOffset);
-            data->releaseDurationRamp.advanceTo(_now + frameOffset);
+            data->ratioRamp.advanceTo(now + frameOffset);
+            data->thresholdRamp.advanceTo(now + frameOffset);
+            data->attackDurationRamp.advanceTo(now + frameOffset);
+            data->releaseDurationRamp.advanceTo(now + frameOffset);
         }
 
         *data->compressor0->ratio = data->ratioRamp.getValue();

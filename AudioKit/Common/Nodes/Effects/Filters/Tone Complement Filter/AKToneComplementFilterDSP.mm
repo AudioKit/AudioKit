@@ -71,7 +71,7 @@ void AKToneComplementFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFra
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->halfPowerPointRamp.advanceTo(_now + frameOffset);
+            data->halfPowerPointRamp.advanceTo(now + frameOffset);
         }
 
         data->atone0->hp = data->halfPowerPointRamp.getValue();

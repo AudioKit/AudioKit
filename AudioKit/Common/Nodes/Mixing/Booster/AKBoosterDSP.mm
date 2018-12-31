@@ -65,8 +65,8 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->leftGainRamp.advanceTo(_now + frameOffset);
-            data->rightGainRamp.advanceTo(_now + frameOffset);
+            data->leftGainRamp.advanceTo(now + frameOffset);
+            data->rightGainRamp.advanceTo(now + frameOffset);
         }
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input

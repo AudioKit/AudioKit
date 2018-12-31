@@ -95,9 +95,9 @@ void AKLowShelfParametricEqualizerFilterDSP::process(AUAudioFrameCount frameCoun
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->cornerFrequencyRamp.advanceTo(_now + frameOffset);
-            data->gainRamp.advanceTo(_now + frameOffset);
-            data->qRamp.advanceTo(_now + frameOffset);
+            data->cornerFrequencyRamp.advanceTo(now + frameOffset);
+            data->gainRamp.advanceTo(now + frameOffset);
+            data->qRamp.advanceTo(now + frameOffset);
         }
 
         data->pareq0->fc = data->cornerFrequencyRamp.getValue();

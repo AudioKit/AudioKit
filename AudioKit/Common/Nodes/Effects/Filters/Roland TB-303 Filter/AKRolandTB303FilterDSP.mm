@@ -104,10 +104,10 @@ void AKRolandTB303FilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameC
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            data->resonanceRamp.advanceTo(_now + frameOffset);
-            data->distortionRamp.advanceTo(_now + frameOffset);
-            data->resonanceAsymmetryRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
+            data->distortionRamp.advanceTo(now + frameOffset);
+            data->resonanceAsymmetryRamp.advanceTo(now + frameOffset);
         }
 
         data->tbvcf0->fco = data->cutoffFrequencyRamp.getValue();

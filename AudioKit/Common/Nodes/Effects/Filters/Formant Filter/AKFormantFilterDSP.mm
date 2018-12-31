@@ -93,9 +93,9 @@ void AKFormantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->centerFrequencyRamp.advanceTo(_now + frameOffset);
-            data->attackDurationRamp.advanceTo(_now + frameOffset);
-            data->decayDurationRamp.advanceTo(_now + frameOffset);
+            data->centerFrequencyRamp.advanceTo(now + frameOffset);
+            data->attackDurationRamp.advanceTo(now + frameOffset);
+            data->decayDurationRamp.advanceTo(now + frameOffset);
         }
 
         data->fofilt0->freq = data->centerFrequencyRamp.getValue();

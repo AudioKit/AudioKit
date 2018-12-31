@@ -82,8 +82,8 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->frequencyRamp.advanceTo(_now + frameOffset);
-            data->bandwidthRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->bandwidthRamp.advanceTo(now + frameOffset);
         }
 
         data->reson0->freq = data->frequencyRamp.getValue();

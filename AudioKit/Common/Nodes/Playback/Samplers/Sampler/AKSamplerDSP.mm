@@ -296,19 +296,19 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
         
         // ramp parameters
-        masterVolumeRamp.advanceTo(_now + frameOffset);
+        masterVolumeRamp.advanceTo(now + frameOffset);
         masterVolume = (float)masterVolumeRamp.getValue();
-        pitchBendRamp.advanceTo(_now + frameOffset);
+        pitchBendRamp.advanceTo(now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
-        vibratoDepthRamp.advanceTo(_now + frameOffset);
+        vibratoDepthRamp.advanceTo(now + frameOffset);
         vibratoDepth = (float)vibratoDepthRamp.getValue();
-        filterCutoffRamp.advanceTo(_now + frameOffset);
+        filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterStrengthRamp.advanceTo(_now + frameOffset);
+        filterStrengthRamp.advanceTo(now + frameOffset);
         cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
-        filterResonanceRamp.advanceTo(_now + frameOffset);
+        filterResonanceRamp.advanceTo(now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
-        glideRateRamp.advanceTo(_now + frameOffset);
+        glideRateRamp.advanceTo(now + frameOffset);
         glideRate = (float)glideRateRamp.getValue();
 
         // get data

@@ -104,10 +104,10 @@ void AKTanhDistortionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            data->pregainRamp.advanceTo(_now + frameOffset);
-            data->postgainRamp.advanceTo(_now + frameOffset);
-            data->positiveShapeParameterRamp.advanceTo(_now + frameOffset);
-            data->negativeShapeParameterRamp.advanceTo(_now + frameOffset);
+            data->pregainRamp.advanceTo(now + frameOffset);
+            data->postgainRamp.advanceTo(now + frameOffset);
+            data->positiveShapeParameterRamp.advanceTo(now + frameOffset);
+            data->negativeShapeParameterRamp.advanceTo(now + frameOffset);
         }
 
         data->dist0->pregain = data->pregainRamp.getValue();

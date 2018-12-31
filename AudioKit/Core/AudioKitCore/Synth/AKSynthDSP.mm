@@ -151,15 +151,15 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         if (chunkSize > AKSYNTH_CHUNKSIZE) chunkSize = AKSYNTH_CHUNKSIZE;
         
         // ramp parameters
-        masterVolumeRamp.advanceTo(_now + frameOffset);
+        masterVolumeRamp.advanceTo(now + frameOffset);
         masterVolume = (float)masterVolumeRamp.getValue();
-        pitchBendRamp.advanceTo(_now + frameOffset);
+        pitchBendRamp.advanceTo(now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
-        vibratoDepthRamp.advanceTo(_now + frameOffset);
+        vibratoDepthRamp.advanceTo(now + frameOffset);
         vibratoDepth = (float)vibratoDepthRamp.getValue();
-        filterCutoffRamp.advanceTo(_now + frameOffset);
+        filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterResonanceRamp.advanceTo(_now + frameOffset);
+        filterResonanceRamp.advanceTo(now + frameOffset);
         resLinear = (float)filterResonanceRamp.getValue();
 
         // get data
