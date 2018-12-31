@@ -36,8 +36,8 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
             data->rightGainRamp.setTarget(value, immediate);
             break;
         case AKBoosterParameterRampDuration:
-            data->leftGainRamp.setRampDuration(value, _sampleRate);
-            data->rightGainRamp.setRampDuration(value, _sampleRate);
+            data->leftGainRamp.setRampDuration(value, sampleRate);
+            data->rightGainRamp.setRampDuration(value, sampleRate);
             break;
         case AKBoosterParameterRampType:
             data->leftGainRamp.setRampType(value);
@@ -54,7 +54,7 @@ float AKBoosterDSP::getParameter(AUParameterAddress address) {
         case AKBoosterParameterRightGain:
             return data->rightGainRamp.getTarget();
         case AKBoosterParameterRampDuration:
-            return data->leftGainRamp.getRampDuration(_sampleRate);
+            return data->leftGainRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

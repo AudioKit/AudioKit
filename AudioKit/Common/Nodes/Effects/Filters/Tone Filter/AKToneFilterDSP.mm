@@ -33,7 +33,7 @@ void AKToneFilterDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->halfPowerPointRamp.setTarget(clamp(value, halfPowerPointLowerBound, halfPowerPointUpperBound), immediate);
             break;
         case AKToneFilterParameterRampDuration:
-            data->halfPowerPointRamp.setRampDuration(value, _sampleRate);
+            data->halfPowerPointRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -44,7 +44,7 @@ float AKToneFilterDSP::getParameter(uint64_t address) {
         case AKToneFilterParameterHalfPowerPoint:
             return data->halfPowerPointRamp.getTarget();
         case AKToneFilterParameterRampDuration:
-            return data->halfPowerPointRamp.getRampDuration(_sampleRate);
+            return data->halfPowerPointRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -32,7 +32,7 @@ void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value,
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKBrownianNoiseParameterRampDuration:
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -43,7 +43,7 @@ float AKBrownianNoiseDSP::getParameter(uint64_t address) {
         case AKBrownianNoiseParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKBrownianNoiseParameterRampDuration:
-            return data->amplitudeRamp.getRampDuration(_sampleRate);
+            return data->amplitudeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

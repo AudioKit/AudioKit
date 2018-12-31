@@ -32,7 +32,7 @@ void AKWhiteNoiseDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKWhiteNoiseParameterRampDuration:
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -43,7 +43,7 @@ float AKWhiteNoiseDSP::getParameter(uint64_t address) {
         case AKWhiteNoiseParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKWhiteNoiseParameterRampDuration:
-            return data->amplitudeRamp.getRampDuration(_sampleRate);
+            return data->amplitudeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -67,10 +67,10 @@ public:
                 releaseDurationRamp.setTarget(value, immediate);
                 break;
             case AKAmplitudeEnvelopeParameterRampDuration:
-                attackDurationRamp.setRampDuration(value, _sampleRate);
-                decayDurationRamp.setRampDuration(value, _sampleRate);
-                sustainLevelRamp.setRampDuration(value, _sampleRate);
-                releaseDurationRamp.setRampDuration(value, _sampleRate);
+                attackDurationRamp.setRampDuration(value, sampleRate);
+                decayDurationRamp.setRampDuration(value, sampleRate);
+                sustainLevelRamp.setRampDuration(value, sampleRate);
+                releaseDurationRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -87,16 +87,16 @@ public:
             case AKAmplitudeEnvelopeParameterReleaseDuration:
                 return releaseDurationRamp.getTarget();
             case AKAmplitudeEnvelopeParameterRampDuration:
-                return attackDurationRamp.getRampDuration(_sampleRate);
-                return decayDurationRamp.getRampDuration(_sampleRate);
-                return sustainLevelRamp.getRampDuration(_sampleRate);
-                return releaseDurationRamp.getRampDuration(_sampleRate);
+                return attackDurationRamp.getRampDuration(sampleRate);
+                return decayDurationRamp.getRampDuration(sampleRate);
+                return sustainLevelRamp.getRampDuration(sampleRate);
+                return releaseDurationRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_adsr_create(&_adsr);
     }
 

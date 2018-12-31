@@ -49,9 +49,9 @@ void AKPhaseLockedVocoderDSP::setParameter(AUParameterAddress address, AUValue v
             data->pitchRatioRamp.setTarget(clamp(value, pitchRatioLowerBound, pitchRatioUpperBound), immediate);
             break;
         case AKPhaseLockedVocoderParameterRampDuration:
-            data->positionRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
-            data->pitchRatioRamp.setRampDuration(value, _sampleRate);
+            data->positionRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
+            data->pitchRatioRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -66,7 +66,7 @@ float AKPhaseLockedVocoderDSP::getParameter(uint64_t address) {
         case AKPhaseLockedVocoderParameterPitchRatio:
             return data->pitchRatioRamp.getTarget();
         case AKPhaseLockedVocoderParameterRampDuration:
-            return data->positionRamp.getRampDuration(_sampleRate);
+            return data->positionRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -45,9 +45,9 @@ void AKPeakingParametricEqualizerFilterDSP::setParameter(AUParameterAddress addr
             data->qRamp.setTarget(clamp(value, qLowerBound, qUpperBound), immediate);
             break;
         case AKPeakingParametricEqualizerFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->gainRamp.setRampDuration(value, _sampleRate);
-            data->qRamp.setRampDuration(value, _sampleRate);
+            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
+            data->gainRamp.setRampDuration(value, sampleRate);
+            data->qRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKPeakingParametricEqualizerFilterDSP::getParameter(uint64_t address) {
         case AKPeakingParametricEqualizerFilterParameterQ:
             return data->qRamp.getTarget();
         case AKPeakingParametricEqualizerFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(_sampleRate);
+            return data->centerFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

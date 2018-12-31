@@ -33,7 +33,7 @@ void AKLowPassButterworthFilterDSP::setParameter(AUParameterAddress address, AUV
             data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKLowPassButterworthFilterParameterRampDuration:
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -44,7 +44,7 @@ float AKLowPassButterworthFilterDSP::getParameter(uint64_t address) {
         case AKLowPassButterworthFilterParameterCutoffFrequency:
             return data->cutoffFrequencyRamp.getTarget();
         case AKLowPassButterworthFilterParameterRampDuration:
-            return data->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

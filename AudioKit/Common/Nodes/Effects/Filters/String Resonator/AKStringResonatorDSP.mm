@@ -39,8 +39,8 @@ void AKStringResonatorDSP::setParameter(AUParameterAddress address, AUValue valu
             data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKStringResonatorParameterRampDuration:
-            data->fundamentalFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->feedbackRamp.setRampDuration(value, _sampleRate);
+            data->fundamentalFrequencyRamp.setRampDuration(value, sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKStringResonatorDSP::getParameter(uint64_t address) {
         case AKStringResonatorParameterFeedback:
             return data->feedbackRamp.getTarget();
         case AKStringResonatorParameterRampDuration:
-            return data->fundamentalFrequencyRamp.getRampDuration(_sampleRate);
+            return data->fundamentalFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

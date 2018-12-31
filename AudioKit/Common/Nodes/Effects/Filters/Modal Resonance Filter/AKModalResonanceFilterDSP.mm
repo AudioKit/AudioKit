@@ -39,8 +39,8 @@ void AKModalResonanceFilterDSP::setParameter(AUParameterAddress address, AUValue
             data->qualityFactorRamp.setTarget(clamp(value, qualityFactorLowerBound, qualityFactorUpperBound), immediate);
             break;
         case AKModalResonanceFilterParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->qualityFactorRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->qualityFactorRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKModalResonanceFilterDSP::getParameter(uint64_t address) {
         case AKModalResonanceFilterParameterQualityFactor:
             return data->qualityFactorRamp.getTarget();
         case AKModalResonanceFilterParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

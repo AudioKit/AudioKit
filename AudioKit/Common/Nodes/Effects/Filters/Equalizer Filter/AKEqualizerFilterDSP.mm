@@ -45,9 +45,9 @@ void AKEqualizerFilterDSP::setParameter(AUParameterAddress address, AUValue valu
             data->gainRamp.setTarget(clamp(value, gainLowerBound, gainUpperBound), immediate);
             break;
         case AKEqualizerFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->bandwidthRamp.setRampDuration(value, _sampleRate);
-            data->gainRamp.setRampDuration(value, _sampleRate);
+            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
+            data->bandwidthRamp.setRampDuration(value, sampleRate);
+            data->gainRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKEqualizerFilterDSP::getParameter(uint64_t address) {
         case AKEqualizerFilterParameterGain:
             return data->gainRamp.getTarget();
         case AKEqualizerFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(_sampleRate);
+            return data->centerFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

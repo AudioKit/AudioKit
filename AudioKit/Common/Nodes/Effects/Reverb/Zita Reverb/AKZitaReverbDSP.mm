@@ -86,16 +86,16 @@ void AKZitaReverbDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->dryWetMixRamp.setTarget(clamp(value, dryWetMixLowerBound, dryWetMixUpperBound), immediate);
             break;
         case AKZitaReverbParameterRampDuration:
-            data->predelayRamp.setRampDuration(value, _sampleRate);
-            data->crossoverFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->lowReleaseTimeRamp.setRampDuration(value, _sampleRate);
-            data->midReleaseTimeRamp.setRampDuration(value, _sampleRate);
-            data->dampingFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->equalizerFrequency1Ramp.setRampDuration(value, _sampleRate);
-            data->equalizerLevel1Ramp.setRampDuration(value, _sampleRate);
-            data->equalizerFrequency2Ramp.setRampDuration(value, _sampleRate);
-            data->equalizerLevel2Ramp.setRampDuration(value, _sampleRate);
-            data->dryWetMixRamp.setRampDuration(value, _sampleRate);
+            data->predelayRamp.setRampDuration(value, sampleRate);
+            data->crossoverFrequencyRamp.setRampDuration(value, sampleRate);
+            data->lowReleaseTimeRamp.setRampDuration(value, sampleRate);
+            data->midReleaseTimeRamp.setRampDuration(value, sampleRate);
+            data->dampingFrequencyRamp.setRampDuration(value, sampleRate);
+            data->equalizerFrequency1Ramp.setRampDuration(value, sampleRate);
+            data->equalizerLevel1Ramp.setRampDuration(value, sampleRate);
+            data->equalizerFrequency2Ramp.setRampDuration(value, sampleRate);
+            data->equalizerLevel2Ramp.setRampDuration(value, sampleRate);
+            data->dryWetMixRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -124,7 +124,7 @@ float AKZitaReverbDSP::getParameter(uint64_t address) {
         case AKZitaReverbParameterDryWetMix:
             return data->dryWetMixRamp.getTarget();
         case AKZitaReverbParameterRampDuration:
-            return data->predelayRamp.getRampDuration(_sampleRate);
+            return data->predelayRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -39,8 +39,8 @@ void AKVariableDelayDSP::setParameter(AUParameterAddress address, AUValue value,
             data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKVariableDelayParameterRampDuration:
-            data->timeRamp.setRampDuration(value, _sampleRate);
-            data->feedbackRamp.setRampDuration(value, _sampleRate);
+            data->timeRamp.setRampDuration(value, sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKVariableDelayDSP::getParameter(uint64_t address) {
         case AKVariableDelayParameterFeedback:
             return data->feedbackRamp.getTarget();
         case AKVariableDelayParameterRampDuration:
-            return data->timeRamp.getRampDuration(_sampleRate);
+            return data->timeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

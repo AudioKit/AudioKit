@@ -83,7 +83,8 @@ public:
     
 protected:
     // current sampling rate, samples/sec
-    float sampleRate;
+    // not named sampleRate to avoid clashing with AudioKit's sampleRate
+    float currentSampleRate;
     
     struct InternalData;
     std::unique_ptr<InternalData> data;

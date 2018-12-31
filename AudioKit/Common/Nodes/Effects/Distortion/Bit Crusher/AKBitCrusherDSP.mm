@@ -39,8 +39,8 @@ void AKBitCrusherDSP::setParameter(AUParameterAddress address, AUValue value, bo
             data->sampleRateRamp.setTarget(clamp(value, sampleRateLowerBound, sampleRateUpperBound), immediate);
             break;
         case AKBitCrusherParameterRampDuration:
-            data->bitDepthRamp.setRampDuration(value, _sampleRate);
-            data->sampleRateRamp.setRampDuration(value, _sampleRate);
+            data->bitDepthRamp.setRampDuration(value, sampleRate);
+            data->sampleRateRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKBitCrusherDSP::getParameter(uint64_t address) {
         case AKBitCrusherParameterSampleRate:
             return data->sampleRateRamp.getTarget();
         case AKBitCrusherParameterRampDuration:
-            return data->bitDepthRamp.getRampDuration(_sampleRate);
+            return data->bitDepthRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -23,8 +23,8 @@ public:
 
     AKDiskStreamerDSPKernel() {}
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeKernel::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, sampleRate);
 
         sp_wavin_create(&wavin);
 

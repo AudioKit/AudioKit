@@ -54,8 +54,8 @@ public:
                 depthRamp.setTarget(value, immediate);
                 break;
             case AKTremoloParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                depthRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                depthRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -68,14 +68,14 @@ public:
             case AKTremoloParameterDepth:
                 return depthRamp.getTarget();
             case AKTremoloParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
-                return depthRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
+                return depthRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         sp_osc_create(&trem);
         sp_osc_init(sp, trem, tbl, 0);
         trem->freq = 10.0;

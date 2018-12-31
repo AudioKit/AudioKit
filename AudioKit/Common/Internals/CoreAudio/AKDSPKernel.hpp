@@ -17,7 +17,7 @@ protected:
     int channels;
     float sampleRate;
 public:
-    AKDSPKernel(int channelCount, float _sampleRate) : channels(channelCount), sampleRate(_sampleRate) { }
+    AKDSPKernel(int channelCount, float sampleRate) : channels(channelCount), sampleRate(sampleRate) { }
     AKDSPKernel();
     
     float getSampleRate() { return sampleRate; }
@@ -28,9 +28,9 @@ public:
     // had init methods
     //
 
-    virtual void init(int channelCount, double _sampleRate) {
+    virtual void init(int channelCount, double sampleRate) {
         channels = channelCount;
-        sampleRate = _sampleRate;
+        sampleRate = sampleRate;
     }
 };
 

@@ -58,11 +58,11 @@ void AKFMOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, 
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKFMOscillatorParameterRampDuration:
-            data->baseFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->carrierMultiplierRamp.setRampDuration(value, _sampleRate);
-            data->modulatingMultiplierRamp.setRampDuration(value, _sampleRate);
-            data->modulationIndexRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->baseFrequencyRamp.setRampDuration(value, sampleRate);
+            data->carrierMultiplierRamp.setRampDuration(value, sampleRate);
+            data->modulatingMultiplierRamp.setRampDuration(value, sampleRate);
+            data->modulationIndexRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -81,7 +81,7 @@ float AKFMOscillatorDSP::getParameter(uint64_t address) {
         case AKFMOscillatorParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKFMOscillatorParameterRampDuration:
-            return data->baseFrequencyRamp.getRampDuration(_sampleRate);
+            return data->baseFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

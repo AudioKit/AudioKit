@@ -46,7 +46,7 @@ struct AKCoreSampler::InternalData {
 };
 
 AKCoreSampler::AKCoreSampler()
-: sampleRate(44100.0f)    // sensible guess
+: currentSampleRate(44100.0f)    // sensible guess
 , isKeyMapValid(false)
 , isFilterEnabled(false)
 , masterVolume(1.0f)
@@ -84,7 +84,7 @@ AKCoreSampler::~AKCoreSampler()
 
 int AKCoreSampler::init(double sampleRate)
 {
-    sampleRate = (float)sampleRate;
+    currentSampleRate = (float)sampleRate;
     data->adsrEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->filterEnvelopeParameters.updateSampleRate((float)(sampleRate/AKCORESAMPLER_CHUNKSIZE));
     data->vibratoLFO.waveTable.sinusoid();
@@ -280,13 +280,13 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
             if (pVoice->noteNumber >= 0)
             {
                 //printf("restart %d as %d\n", pVoice->noteNumber, noteNumber);
-                pVoice->restartNewNoteLegato(noteNumber, sampleRate, noteFrequency);
+                pVoice->restartNewNoteLegato(noteNumber, currentSampleRate, noteFrequency);
             }
             else
             {
                 AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
-                pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                pVoice->start(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
             }
             lastPlayedNoteNumber = noteNumber;
             return;
@@ -298,9 +298,9 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
             AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
             if (pBuf == 0) return;  // don't crash if someone forgets to build map
             if (pVoice->noteNumber >= 0)
-                pVoice->restartNewNote(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                pVoice->restartNewNote(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
             else
-                pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                pVoice->start(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
             lastPlayedNoteNumber = noteNumber;
             return;
         }
@@ -328,7 +328,7 @@ void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequ
                 // found a free voice: assign it to play this note
                 AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(noteNumber, velocity);
                 if (pBuf == 0) return;  // don't crash if someone forgets to build map
-                pVoice->start(noteNumber, sampleRate, noteFrequency, velocity / 127.0f, pBuf);
+                pVoice->start(noteNumber, currentSampleRate, noteFrequency, velocity / 127.0f, pBuf);
                 lastPlayedNoteNumber = noteNumber;
                 //printf("Play note %d (%.2f Hz) vel %d as %d (%.2f Hz, voice %d pBuf %p)\n",
                 //       noteNumber, noteFrequency, velocity, pBuf->noteNumber, pBuf->noteFrequency, i, pBuf);
@@ -357,16 +357,16 @@ void AKCoreSampler::stop(unsigned noteNumber, bool immediate)
     {
         int key = data->pedalLogic.firstKeyDown();
         if (key < 0) pVoice->release(loopThruRelease);
-        else if (isLegato) pVoice->restartNewNoteLegato((unsigned)key, sampleRate, data->tuningTable[key]);
+        else if (isLegato) pVoice->restartNewNoteLegato((unsigned)key, currentSampleRate, data->tuningTable[key]);
         else
         {
             unsigned velocity = 100;
             AudioKitCore::KeyMappedSampleBuffer *pBuf = lookupSample(key, velocity);
             if (pBuf == 0) return;  // don't crash if someone forgets to build map
             if (pVoice->noteNumber >= 0)
-                pVoice->restartNewNote(key, sampleRate, data->tuningTable[key], velocity / 127.0f, pBuf);
+                pVoice->restartNewNote(key, currentSampleRate, data->tuningTable[key], velocity / 127.0f, pBuf);
             else
-                pVoice->start(key, sampleRate, data->tuningTable[key], velocity / 127.0f, pBuf);
+                pVoice->start(key, currentSampleRate, data->tuningTable[key], velocity / 127.0f, pBuf);
         }
     }
     else

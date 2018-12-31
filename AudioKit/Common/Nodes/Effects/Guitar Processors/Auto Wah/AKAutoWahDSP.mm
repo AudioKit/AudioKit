@@ -45,9 +45,9 @@ void AKAutoWahDSP::setParameter(AUParameterAddress address, AUValue value, bool 
             data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKAutoWahParameterRampDuration:
-            data->wahRamp.setRampDuration(value, _sampleRate);
-            data->mixRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->wahRamp.setRampDuration(value, sampleRate);
+            data->mixRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKAutoWahDSP::getParameter(uint64_t address) {
         case AKAutoWahParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKAutoWahParameterRampDuration:
-            return data->wahRamp.getRampDuration(_sampleRate);
+            return data->wahRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

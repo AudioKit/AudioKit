@@ -38,8 +38,8 @@ void AKCostelloReverbDSP::setParameter(AUParameterAddress address, AUValue value
             data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKCostelloReverbParameterRampDuration:
-            data->feedbackRamp.setRampDuration(value, _sampleRate);
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -52,7 +52,7 @@ float AKCostelloReverbDSP::getParameter(uint64_t address) {
         case AKCostelloReverbParameterCutoffFrequency:
             return data->cutoffFrequencyRamp.getTarget();
         case AKCostelloReverbParameterRampDuration:
-            return data->feedbackRamp.getRampDuration(_sampleRate);
+            return data->feedbackRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

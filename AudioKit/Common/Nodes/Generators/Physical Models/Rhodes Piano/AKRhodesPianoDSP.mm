@@ -53,8 +53,8 @@ void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, boo
             data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKRhodesPianoParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -67,13 +67,13 @@ float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
         case AKRhodesPianoParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKRhodesPianoParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKRhodesPianoDSP::init(int channelCount, double _sampleRate)  {
-    AKDSPBase::init(channelCount, _sampleRate);
+void AKRhodesPianoDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
@@ -93,7 +93,7 @@ void AKRhodesPianoDSP::init(int channelCount, double _sampleRate)  {
     stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
 
 
-    stk::Stk::setSampleRate(_sampleRate);
+    stk::Stk::setSampleRate(sampleRate);
     data->rhodesPiano = new stk::Rhodey();
 }
 

@@ -52,8 +52,8 @@ void AKClarinetDSP::setParameter(AUParameterAddress address, float value, bool i
             data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKClarinetParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -66,15 +66,15 @@ float AKClarinetDSP::getParameter(AUParameterAddress address)  {
         case AKClarinetParameterAmplitude:
             return data->amplitudeRamp.getTarget();
         case AKClarinetParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKClarinetDSP::init(int channelCount, double _sampleRate)  {
-    AKDSPBase::init(channelCount, _sampleRate);
+void AKClarinetDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
     
-    stk::Stk::setSampleRate(_sampleRate);
+    stk::Stk::setSampleRate(sampleRate);
     data->clarinet = new stk::Clarinet(100);
 }
 

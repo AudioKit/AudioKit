@@ -39,8 +39,8 @@ void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value
             data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
         case AKResonantFilterParameterRampDuration:
-            data->frequencyRamp.setRampDuration(value, _sampleRate);
-            data->bandwidthRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->bandwidthRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKResonantFilterDSP::getParameter(uint64_t address) {
         case AKResonantFilterParameterBandwidth:
             return data->bandwidthRamp.getTarget();
         case AKResonantFilterParameterRampDuration:
-            return data->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

@@ -45,10 +45,10 @@ AKRhinoGuitarProcessorDSPKernel::AKRhinoGuitarProcessorDSPKernel() : data(new In
 
 AKRhinoGuitarProcessorDSPKernel::~AKRhinoGuitarProcessorDSPKernel() = default;
 
-void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double _sampleRate) {
-    AKDSPKernel::init(channelCount, _sampleRate);
+void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double sampleRate) {
+    AKDSPKernel::init(channelCount, sampleRate);
     
-    sampleRate = (float)_sampleRate;
+    sampleRate = (float)sampleRate;
     
     data->leftEqLo = new Equalisator();
     data->rightEqLo = new Equalisator();
@@ -61,11 +61,11 @@ void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double _sampleRate)
     data->mikeFilterL = new MikeFilter();
     data->mikeFilterR = new MikeFilter();
     
-    data->leftRageProcessor = new RageProcessor((int)_sampleRate);
-    data->rightRageProcessor = new RageProcessor((int)_sampleRate);
+    data->leftRageProcessor = new RageProcessor((int)sampleRate);
+    data->rightRageProcessor = new RageProcessor((int)sampleRate);
     
-    data->leftEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
-    data->rightEqLo->calc_filter_coeffs(7, 120.f, (float)_sampleRate, 0.75, -2.f, false);
+    data->leftEqLo->calc_filter_coeffs(7, 120.f, (float)sampleRate, 0.75, -2.f, false);
+    data->rightEqLo->calc_filter_coeffs(7, 120.f, (float)sampleRate, 0.75, -2.f, false);
     
     data->leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
     data->rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
@@ -73,8 +73,8 @@ void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double _sampleRate)
     data->leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
     data->rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
     
-    data->mikeFilterL->calc_filter_coeffs(2500.f, _sampleRate);
-    data->mikeFilterR->calc_filter_coeffs(2500.f, _sampleRate);
+    data->mikeFilterL->calc_filter_coeffs(2500.f, sampleRate);
+    data->mikeFilterR->calc_filter_coeffs(2500.f, sampleRate);
     
     data->lowGain = 0.0f;
     data->midGain = 0.0f;

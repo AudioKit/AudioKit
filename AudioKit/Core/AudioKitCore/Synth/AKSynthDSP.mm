@@ -53,11 +53,11 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
         case rampDurationParameter:
-            masterVolumeRamp.setRampDuration(value, _sampleRate);
-            pitchBendRamp.setRampDuration(value, _sampleRate);
-            vibratoDepthRamp.setRampDuration(value, _sampleRate);
-            filterCutoffRamp.setRampDuration(value, _sampleRate);
-            filterResonanceRamp.setRampDuration(value, _sampleRate);
+            masterVolumeRamp.setRampDuration(value, sampleRate);
+            pitchBendRamp.setRampDuration(value, sampleRate);
+            vibratoDepthRamp.setRampDuration(value, sampleRate);
+            filterCutoffRamp.setRampDuration(value, sampleRate);
+            filterResonanceRamp.setRampDuration(value, sampleRate);
             break;
 
         case masterVolumeParameter:
@@ -108,7 +108,7 @@ float AKSynthDSP::getParameter(uint64_t address)
 {
     switch (address) {
         case rampDurationParameter:
-            return pitchBendRamp.getRampDuration(_sampleRate);
+            return pitchBendRamp.getRampDuration(sampleRate);
 
         case masterVolumeParameter:
             return masterVolumeRamp.getTarget();

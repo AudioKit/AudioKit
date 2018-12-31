@@ -74,11 +74,11 @@ public:
                 detuningMultiplierRamp.setTarget(value, immediate);
                 break;
             case AKPWMOscillatorParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                amplitudeRamp.setRampDuration(value, _sampleRate);
-                pulseWidthRamp.setRampDuration(value, _sampleRate);
-                detuningOffsetRamp.setRampDuration(value, _sampleRate);
-                detuningMultiplierRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                amplitudeRamp.setRampDuration(value, sampleRate);
+                pulseWidthRamp.setRampDuration(value, sampleRate);
+                detuningOffsetRamp.setRampDuration(value, sampleRate);
+                detuningMultiplierRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -97,13 +97,13 @@ public:
             case AKPWMOscillatorParameterDetuningMultiplier:
                 return detuningMultiplierRamp.getTarget();
             case AKPWMOscillatorParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
         isStarted = false;
         
         sp_blsquare_create(&blsquare);

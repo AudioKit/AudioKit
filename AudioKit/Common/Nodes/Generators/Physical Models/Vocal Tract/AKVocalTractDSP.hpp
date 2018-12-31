@@ -73,11 +73,11 @@ public:
                 nasalityRamp.setTarget(value, immediate);
                 break;
             case AKVocalTractParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                tonguePositionRamp.setRampDuration(value, _sampleRate);
-                tongueDiameterRamp.setRampDuration(value, _sampleRate);
-                tensenessRamp.setRampDuration(value, _sampleRate);
-                nasalityRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                tonguePositionRamp.setRampDuration(value, sampleRate);
+                tongueDiameterRamp.setRampDuration(value, sampleRate);
+                tensenessRamp.setRampDuration(value, sampleRate);
+                nasalityRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -96,13 +96,13 @@ public:
             case AKVocalTractParameterNasality:
                 return nasalityRamp.getTarget();
             case AKVocalTractParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int channelCount, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(channelCount, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
 
         sp_vocwrapper_create(&vocwrapper);
         sp_vocwrapper_init(sp, vocwrapper);

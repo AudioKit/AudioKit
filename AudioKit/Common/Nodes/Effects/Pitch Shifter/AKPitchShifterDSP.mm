@@ -45,9 +45,9 @@ void AKPitchShifterDSP::setParameter(AUParameterAddress address, AUValue value, 
             data->crossfadeRamp.setTarget(clamp(value, crossfadeLowerBound, crossfadeUpperBound), immediate);
             break;
         case AKPitchShifterParameterRampDuration:
-            data->shiftRamp.setRampDuration(value, _sampleRate);
-            data->windowSizeRamp.setRampDuration(value, _sampleRate);
-            data->crossfadeRamp.setRampDuration(value, _sampleRate);
+            data->shiftRamp.setRampDuration(value, sampleRate);
+            data->windowSizeRamp.setRampDuration(value, sampleRate);
+            data->crossfadeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKPitchShifterDSP::getParameter(uint64_t address) {
         case AKPitchShifterParameterCrossfade:
             return data->crossfadeRamp.getTarget();
         case AKPitchShifterParameterRampDuration:
-            return data->shiftRamp.getRampDuration(_sampleRate);
+            return data->shiftRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

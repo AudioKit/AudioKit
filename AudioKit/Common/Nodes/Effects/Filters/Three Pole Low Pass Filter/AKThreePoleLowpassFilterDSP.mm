@@ -45,9 +45,9 @@ void AKThreePoleLowpassFilterDSP::setParameter(AUParameterAddress address, AUVal
             data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
         case AKThreePoleLowpassFilterParameterRampDuration:
-            data->distortionRamp.setRampDuration(value, _sampleRate);
-            data->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->resonanceRamp.setRampDuration(value, _sampleRate);
+            data->distortionRamp.setRampDuration(value, sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -62,7 +62,7 @@ float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
         case AKThreePoleLowpassFilterParameterResonance:
             return data->resonanceRamp.getTarget();
         case AKThreePoleLowpassFilterParameterRampDuration:
-            return data->distortionRamp.getRampDuration(_sampleRate);
+            return data->distortionRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

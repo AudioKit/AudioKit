@@ -39,8 +39,8 @@ void AKBandPassButterworthFilterDSP::setParameter(AUParameterAddress address, AU
             data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
         case AKBandPassButterworthFilterParameterRampDuration:
-            data->centerFrequencyRamp.setRampDuration(value, _sampleRate);
-            data->bandwidthRamp.setRampDuration(value, _sampleRate);
+            data->centerFrequencyRamp.setRampDuration(value, sampleRate);
+            data->bandwidthRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -53,7 +53,7 @@ float AKBandPassButterworthFilterDSP::getParameter(uint64_t address) {
         case AKBandPassButterworthFilterParameterBandwidth:
             return data->bandwidthRamp.getTarget();
         case AKBandPassButterworthFilterParameterRampDuration:
-            return data->centerFrequencyRamp.getRampDuration(_sampleRate);
+            return data->centerFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }

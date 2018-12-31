@@ -46,7 +46,7 @@ public:
                 amountRamp.setTarget(value, immediate);
                 break;
             case AKStereoFieldLimiterParameterRampDuration:
-                amountRamp.setRampDuration(value, _sampleRate);
+                amountRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -57,7 +57,7 @@ public:
             case AKStereoFieldLimiterParameterAmount:
                 return amountRamp.getTarget();
             case AKStereoFieldLimiterParameterRampDuration:
-                return amountRamp.getRampDuration(_sampleRate);
+                return amountRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
