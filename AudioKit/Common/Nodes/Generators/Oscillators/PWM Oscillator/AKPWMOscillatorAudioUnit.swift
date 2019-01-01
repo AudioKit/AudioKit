@@ -18,19 +18,23 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 440 {
+    var frequency: Double = AKPWMOscillator.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var amplitude: Double = 1 {
+
+    var amplitude: Double = AKPWMOscillator.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
-    var pulseWidth: Double = 0 {
+
+    var pulseWidth: Double = AKPWMOscillator.defaultPulseWidth {
         didSet { setParameter(.pulseWidth, value: pulseWidth) }
     }
-    var detuningOffset: Double = 0 {
+
+    var detuningOffset: Double = AKPWMOscillator.defaultDetuningOffset {
         didSet { setParameter(.detuningOffset, value: detuningOffset) }
     }
-    var detuningMultiplier: Double = 1 {
+
+    var detuningMultiplier: Double = AKPWMOscillator.defaultDetuningMultiplier {
         didSet { setParameter(.detuningMultiplier, value: detuningMultiplier) }
     }
 
@@ -52,9 +56,9 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 20_000,
+            address: AKPWMOscillatorParameter.frequency.rawValue,
+            min: Float(AKPWMOscillator.frequencyRange.lowerBound),
+            max: Float(AKPWMOscillator.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -64,10 +68,10 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
-            unit: .generic,
+            address: AKPWMOscillatorParameter.amplitude.rawValue,
+            min: Float(AKPWMOscillator.amplitudeRange.lowerBound),
+            max: Float(AKPWMOscillator.amplitudeRange.upperBound),
+            unit: .hertz,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
@@ -75,10 +79,10 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         )
         let pulseWidth = AUParameterTree.createParameter(
             withIdentifier: "pulseWidth",
-            name: "Duty Cycle Width 0 - 1",
-            address: AUParameterAddress(2),
-            min: 0,
-            max: 1,
+            name: "Pulse Width",
+            address: AKPWMOscillatorParameter.pulseWidth.rawValue,
+            min: Float(AKPWMOscillator.pulseWidthRange.lowerBound),
+            max: Float(AKPWMOscillator.pulseWidthRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -88,9 +92,9 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         let detuningOffset = AUParameterTree.createParameter(
             withIdentifier: "detuningOffset",
             name: "Frequency offset (Hz)",
-            address: AUParameterAddress(3),
-            min: -1_000,
-            max: 1_000,
+            address: AKPWMOscillatorParameter.detuningOffset.rawValue,
+            min: Float(AKPWMOscillator.detuningOffsetRange.lowerBound),
+            max: Float(AKPWMOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -100,9 +104,9 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         let detuningMultiplier = AUParameterTree.createParameter(
             withIdentifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
-            address: AUParameterAddress(4),
-            min: 0.9,
-            max: 1.11,
+            address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
+            min: Float(AKPWMOscillator.detuningMultiplierRange.lowerBound),
+            max: Float(AKPWMOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -111,11 +115,11 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         )
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier]))
-        frequency.value = 440
-        amplitude.value = 1
-        pulseWidth.value = 0.5
-        detuningOffset.value = 0
-        detuningMultiplier.value = 1
+        frequency.value = Float(AKPWMOscillator.defaultFrequency)
+        amplitude.value = Float(AKPWMOscillator.defaultAmplitude)
+        pulseWidth.value = Float(AKPWMOscillator.defaultPulseWidth)
+        detuningOffset.value = Float(AKPWMOscillator.defaultDetuningOffset)
+        detuningMultiplier.value = Float(AKPWMOscillator.defaultDetuningMultiplier)
     }
 
     public override var canProcessInPlace: Bool { return true }
