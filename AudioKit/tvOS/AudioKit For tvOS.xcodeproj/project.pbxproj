@@ -312,9 +312,7 @@
 		C470D04A20174A93003D1AFA /* AKOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470D04720174A93003D1AFA /* AKOscillatorAudioUnit.swift */; };
 		C470D04C20174A93003D1AFA /* AKOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C470D04920174A93003D1AFA /* AKOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C470D05020174AA9003D1AFA /* AKPhaseDistortionOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C470D04D20174AA9003D1AFA /* AKPhaseDistortionOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C470D05120174AA9003D1AFA /* AKPhaseDistortionOscillator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C470D04E20174AA9003D1AFA /* AKPhaseDistortionOscillator.mm */; };
 		C470D05220174AA9003D1AFA /* AKPhaseDistortionOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470D04F20174AA9003D1AFA /* AKPhaseDistortionOscillatorAudioUnit.swift */; };
-		C470D05620174ABF003D1AFA /* AKPWMOscillator.mm in Sources */ = {isa = PBXBuildFile; fileRef = C470D05320174ABE003D1AFA /* AKPWMOscillator.mm */; };
 		C470D05720174ABF003D1AFA /* AKPWMOscillatorAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C470D05420174ABE003D1AFA /* AKPWMOscillatorAudioUnit.swift */; };
 		C470D05820174ABF003D1AFA /* AKPWMOscillatorDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C470D05520174ABE003D1AFA /* AKPWMOscillatorDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C470D05C20174AD6003D1AFA /* AKClarinetDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C470D05920174AD6003D1AFA /* AKClarinetDSP.mm */; };
@@ -931,6 +929,8 @@
 		C4BDCB5221DA9E3200D0EC8A /* AKPhaseLockedVocoderAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDCB4F21DA9E3200D0EC8A /* AKPhaseLockedVocoderAudioUnit.swift */; };
 		C4BDCB5321DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4BDCB5021DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BDCB5421DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BDCB5121DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.mm */; };
+		C4BDCB5621DB031500D0EC8A /* AKPhaseDistortionOscillatorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BDCB5521DB031500D0EC8A /* AKPhaseDistortionOscillatorDSP.mm */; };
+		C4BDCB5821DB032300D0EC8A /* AKPWMOscillatorDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BDCB5721DB032200D0EC8A /* AKPWMOscillatorDSP.mm */; };
 		C4BDE83D1C12FFBC00207DA9 /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BDEAAA1C13004A00207DA9 /* AKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE90B1C13004A00207DA9 /* AKNode.swift */; };
 		C4CC46E821D9BF9700B24F3E /* AKShakerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4CC46E521D9BF9700B24F3E /* AKShakerDSP.mm */; };
@@ -1428,9 +1428,7 @@
 		C470D04720174A93003D1AFA /* AKOscillatorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillatorAudioUnit.swift; sourceTree = "<group>"; };
 		C470D04920174A93003D1AFA /* AKOscillatorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKOscillatorDSP.hpp; sourceTree = "<group>"; };
 		C470D04D20174AA9003D1AFA /* AKPhaseDistortionOscillatorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhaseDistortionOscillatorDSP.hpp; sourceTree = "<group>"; };
-		C470D04E20174AA9003D1AFA /* AKPhaseDistortionOscillator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseDistortionOscillator.mm; sourceTree = "<group>"; };
 		C470D04F20174AA9003D1AFA /* AKPhaseDistortionOscillatorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseDistortionOscillatorAudioUnit.swift; sourceTree = "<group>"; };
-		C470D05320174ABE003D1AFA /* AKPWMOscillator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillator.mm; sourceTree = "<group>"; };
 		C470D05420174ABE003D1AFA /* AKPWMOscillatorAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillatorAudioUnit.swift; sourceTree = "<group>"; };
 		C470D05520174ABE003D1AFA /* AKPWMOscillatorDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPWMOscillatorDSP.hpp; sourceTree = "<group>"; };
 		C470D05920174AD6003D1AFA /* AKClarinetDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKClarinetDSP.mm; sourceTree = "<group>"; };
@@ -2098,6 +2096,8 @@
 		C4BDCB4F21DA9E3200D0EC8A /* AKPhaseLockedVocoderAudioUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseLockedVocoderAudioUnit.swift; sourceTree = "<group>"; };
 		C4BDCB5021DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhaseLockedVocoderDSP.hpp; sourceTree = "<group>"; };
 		C4BDCB5121DA9E3200D0EC8A /* AKPhaseLockedVocoderDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseLockedVocoderDSP.mm; sourceTree = "<group>"; };
+		C4BDCB5521DB031500D0EC8A /* AKPhaseDistortionOscillatorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseDistortionOscillatorDSP.mm; sourceTree = "<group>"; };
+		C4BDCB5721DB032200D0EC8A /* AKPWMOscillatorDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorDSP.mm; sourceTree = "<group>"; };
 		C4BDE8391C12FFBC00207DA9 /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
 		C4BDE83E1C12FFBC00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../tvOS/AudioKit/Info.plist; sourceTree = "<group>"; };
@@ -3454,8 +3454,8 @@
 			children = (
 				C47AE4D31D39CCC60091118F /* AKPhaseDistortionOscillator.swift */,
 				C470D04F20174AA9003D1AFA /* AKPhaseDistortionOscillatorAudioUnit.swift */,
-				C470D04E20174AA9003D1AFA /* AKPhaseDistortionOscillator.mm */,
 				C470D04D20174AA9003D1AFA /* AKPhaseDistortionOscillatorDSP.hpp */,
+				C4BDCB5521DB031500D0EC8A /* AKPhaseDistortionOscillatorDSP.mm */,
 			);
 			path = "Phase Distortion Oscillator";
 			sourceTree = "<group>";
@@ -4249,8 +4249,8 @@
 			children = (
 				C49DCD541D2100BF00BF018A /* AKPWMOscillator.swift */,
 				C470D05420174ABE003D1AFA /* AKPWMOscillatorAudioUnit.swift */,
-				C470D05320174ABE003D1AFA /* AKPWMOscillator.mm */,
 				C470D05520174ABE003D1AFA /* AKPWMOscillatorDSP.hpp */,
+				C4BDCB5721DB032200D0EC8A /* AKPWMOscillatorDSP.mm */,
 			);
 			path = "PWM Oscillator";
 			sourceTree = "<group>";
@@ -5438,6 +5438,7 @@
 				C49A0A471D54463D007D8ADB /* korgLowPassFilter.swift in Sources */,
 				C470D03320174A39003D1AFA /* AKBrownianNoiseAudioUnit.swift in Sources */,
 				C49DCD671D2100BF00BF018A /* AKPWMOscillatorBankAudioUnit.mm in Sources */,
+				C4BDCB5821DB032300D0EC8A /* AKPWMOscillatorDSP.mm in Sources */,
 				C470D06220174AED003D1AFA /* AKFluteDSP.mm in Sources */,
 				C470CFE52017493B003D1AFA /* AKMoogLadderPresets.swift in Sources */,
 				C49B1F10204A0CFB009C7C8E /* expon.c in Sources */,
@@ -5612,7 +5613,6 @@
 				EAF9C9891C69A4FC00C10CCE /* AKDevice.swift in Sources */,
 				C49B1E5A204A0CFA009C7C8E /* crossfade.c in Sources */,
 				C49B1ECD204A0CFB009C7C8E /* tgate.c in Sources */,
-				C470D05620174ABF003D1AFA /* AKPWMOscillator.mm in Sources */,
 				C4BDCB5221DA9E3200D0EC8A /* AKPhaseLockedVocoderAudioUnit.swift in Sources */,
 				C49B1EEE204A0CFB009C7C8E /* tphasor.c in Sources */,
 				C4AC8BCA1C4E292D009EA58E /* AKCompressor.swift in Sources */,
@@ -5745,7 +5745,6 @@
 				C4AA7C261FD2A90D00040720 /* AKAmplitudeTap.swift in Sources */,
 				C49B1E98204A0CFB009C7C8E /* basic.c in Sources */,
 				C470CFCB201748E2003D1AFA /* AKKorgLowPassFilterAudioUnit.swift in Sources */,
-				C470D05120174AA9003D1AFA /* AKPhaseDistortionOscillator.mm in Sources */,
 				C44EA279201870EC0072399F /* AKChorus.swift in Sources */,
 				C45381F41C3A5CBD00A51738 /* AKToneFilter.swift in Sources */,
 				C487B6031DD922D000C56B59 /* AKClarinet.swift in Sources */,
@@ -6122,6 +6121,7 @@
 				C49B1EEA204A0CFB009C7C8E /* drip.c in Sources */,
 				C49B214A204A0D57009C7C8E /* Rhodey.cpp in Sources */,
 				C45381D21C3A5CBD00A51738 /* AKLowShelfFilter.swift in Sources */,
+				C4BDCB5621DB031500D0EC8A /* AKPhaseDistortionOscillatorDSP.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
