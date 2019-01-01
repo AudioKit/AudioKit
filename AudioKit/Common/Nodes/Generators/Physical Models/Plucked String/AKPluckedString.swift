@@ -14,12 +14,26 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0 ... 22000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0 ... 1.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 110.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 0.5
+
+    /// Initial value for Lowest Frequency
+    public static let defaultLowestFrequency = 110.0
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -29,7 +43,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open dynamic var frequency: Double = 110 {
+    @objc open dynamic var frequency: Double = defaultLowestFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -45,7 +59,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Amplitude
-    @objc open dynamic var amplitude: Double = 0.5 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             if amplitude == newValue {
                 return
@@ -72,10 +86,11 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     /// - Parameters:
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     ///   - amplitude: Amplitude
+    ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     @objc public init(
-        frequency: Double = 110,
-        amplitude: Double = 0.5) {
+        frequency: Double = defaultLowestFrequency,
+        amplitude: Double = defaultAmplitude) {
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -112,6 +127,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
