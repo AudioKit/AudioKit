@@ -36,15 +36,17 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-        let amount = AUParameterTree.createParameter(withIdentifier: "amount",
-                                                     name: "Limiting amount",
-                                                     address: AUParameterAddress(0),
-                                                     min: 0.0, max: 1.0,
-                                                     unit: .generic,
-                                                     unitName: nil,
-                                                     flags: flags,
-                                                     valueStrings: nil,
-                                                     dependentParameters: nil)
+        let amount = AUParameterTree.createParameter(
+            withIdentifier: "amount",
+            name: "Limiting amount",
+            address: AUParameterAddress(0),
+            min: 0.0,
+            max: 1.0,
+            unit: .generic,
+            unitName: nil,
+            flags: flags,
+            valueStrings: nil,
+            dependentParameters: nil)
         setParameterTree(AUParameterTree.createTree(withChildren: [amount]))
         amount.value = 1.0
     }

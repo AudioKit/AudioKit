@@ -18,7 +18,7 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var pan: Double = 0 {
+    var pan: Double = AKPanner.defaultPan {
         didSet { setParameter(.pan, value: pan) }
     }
 
@@ -40,18 +40,18 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
         let pan = AUParameterTree.createParameter(
             withIdentifier: "pan",
             name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
-            address: AUParameterAddress(0),
-            min: -1,
-            max: 1,
+            address: AKPannerParameter.pan.rawValue,
+            min: Float(AKPanner.panRange.lowerBound),
+            max: Float(AKPanner.panRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [pan]))
-        pan.value = 0
+        pan.value = Float(AKPanner.defaultPan)
     }
 
     public override var canProcessInPlace: Bool { return true }
