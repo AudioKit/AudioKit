@@ -42,4 +42,3 @@ class ViewController: NSViewController, NSWindowDelegate {
         client.send(OSCMessage(OSCAddressPattern("/play")))
     }
 }
-
