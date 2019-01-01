@@ -64,28 +64,18 @@ class ViewController: NSViewController, NSWindowDelegate, OSCServerDelegate {
         }
     }
 
-    func didReceive(_ message: OSCMessage)
-    {
-        if message.address.matches(path: OSCAddress("/osc1/freq"))
-        {
-            if let arg = message.arguments[0] as? Float
-            {
+    func didReceive(_ message: OSCMessage) {
+        if message.address.matches(path: OSCAddress("/osc1/freq")) {
+            if let arg = message.arguments[0] as? Float {
                 oscillator1.frequency = Double(arg)
             }
-        }
-        else if message.address.matches(path: OSCAddress("/osc2/freq"))
-        {
-            if let arg = message.arguments[0] as? Float
-            {
+        } else if message.address.matches(path: OSCAddress("/osc2/freq")) {
+            if let arg = message.arguments[0] as? Float {
                 oscillator2.frequency = Double(arg)
             }
-        }
-        else if message.address.matches(path: OSCAddress("/play"))
-        {
+        } else if message.address.matches(path: OSCAddress("/play")) {
             toggleSound()
-        }
-        else
-        {
+        } else {
             print(message)
         }
     }
