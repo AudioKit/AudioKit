@@ -13,8 +13,8 @@
 typedef NS_ENUM(AUParameterAddress, AKDynamicRangeCompressorParameter) {
     AKDynamicRangeCompressorParameterRatio,
     AKDynamicRangeCompressorParameterThreshold,
-    AKDynamicRangeCompressorParameterAttackTime,
-    AKDynamicRangeCompressorParameterReleaseTime,
+    AKDynamicRangeCompressorParameterAttackDuration,
+    AKDynamicRangeCompressorParameterReleaseDuration,
     AKDynamicRangeCompressorParameterRampDuration
 };
 
