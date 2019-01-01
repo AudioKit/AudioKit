@@ -27,11 +27,11 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
     }
 
     var attackDuration: Double = AKDynamicRangeCompressor.defaultAttackDuration {
-        didSet { setParameter(.attackTime, value: attackDuration) }
+        didSet { setParameter(.attackDuration, value: attackDuration) }
     }
 
     var releaseDuration: Double = AKDynamicRangeCompressor.defaultReleaseDuration {
-        didSet { setParameter(.releaseTime, value: releaseDuration) }
+        didSet { setParameter(.releaseDuration, value: releaseDuration) }
     }
 
     var rampDuration: Double = 0.0 {
@@ -52,7 +52,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         let ratio = AUParameterTree.createParameter(
             withIdentifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",
-            address: AUParameterAddress(0),
+            address: AKDynamicRangeCompressorParameter.ratio.rawValue,
             min: Float(AKDynamicRangeCompressor.ratioRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.ratioRange.upperBound),
             unit: .hertz,
@@ -64,7 +64,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         let threshold = AUParameterTree.createParameter(
             withIdentifier: "threshold",
             name: "Threshold (in dB) 0 = max",
-            address: AUParameterAddress(1),
+            address: AKDynamicRangeCompressorParameter.threshold.rawValue,
             min: Float(AKDynamicRangeCompressor.thresholdRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.thresholdRange.upperBound),
             unit: .generic,
@@ -76,7 +76,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
             name: "Attack duration",
-            address: AUParameterAddress(2),
+            address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
             min: Float(AKDynamicRangeCompressor.attackDurationRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.attackDurationRange.upperBound),
             unit: .seconds,
