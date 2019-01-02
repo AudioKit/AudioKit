@@ -45,7 +45,7 @@ public class AKPresetLoaderView: NSView {
     }
 
     public init(presets: [String],
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
@@ -144,7 +144,7 @@ public class AKPresetLoaderView: NSView {
         presetButtonBorderPath.stroke()
 
         //// presetLabel Drawing
-        let presetLabelRect = NSRect(x: 0, y: 0, width: rect.width * 0.25, height: rect.height)
+        let presetLabelRect = NSRect(width: rect.width * 0.25, height: rect.height)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center

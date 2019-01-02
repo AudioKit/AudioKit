@@ -71,7 +71,7 @@ public enum AKRotaryKnobStyle {
                 taper: Double = 1,
                 format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
+                frame: CGRect = CGRect(width: 150, height: 170),
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
 
         self.knobColor = color
@@ -168,7 +168,7 @@ public enum AKRotaryKnobStyle {
         let width = self.frame.width
         let height = self.frame.height
 
-        let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
+        let nameLabelRect = CGRect(width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .center
 
@@ -272,7 +272,7 @@ public enum AKRotaryKnobStyle {
 
         //// valueLabel Drawing
         if isDragging {
-            let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
+            let valueLabelRect = CGRect(width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
