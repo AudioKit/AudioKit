@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKOscillatorParameter) {
 
 #ifndef __cplusplus
 
-void *createOscillatorDSP(int nChannels, double sampleRate);
+AKDSPRef createOscillatorDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -28,8 +28,8 @@ void *createOscillatorDSP(int nChannels, double sampleRate);
 
 class AKOscillatorDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKOscillatorDSP();
@@ -56,7 +56,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

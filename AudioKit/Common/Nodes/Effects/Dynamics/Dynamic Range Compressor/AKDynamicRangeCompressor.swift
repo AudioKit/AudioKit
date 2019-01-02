@@ -97,7 +97,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.attackTime, value: newValue)
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
 
@@ -113,7 +113,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
                     return
                 }
             }
-            internalAU?.setParameterImmediately(.releaseTime, value: newValue)
+            internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
         }
     }
 
@@ -184,8 +184,8 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
 
         internalAU?.setParameterImmediately(.ratio, value: ratio)
         internalAU?.setParameterImmediately(.threshold, value: threshold)
-        internalAU?.setParameterImmediately(.attackTime, value: attackDuration)
-        internalAU?.setParameterImmediately(.releaseTime, value: releaseDuration)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
     }
 
     // MARK: - Control

@@ -9,7 +9,9 @@
 /// The Fader is also used for the gain stage of the player
 extension AKPlayer {
     internal func createFader() {
-        // AKLog("Creating fader AKBooster")
+        guard faderNode == nil else { return }
+
+        AKLog("Creating fader")
         faderNode = AKBooster()
         faderNode?.gain = gain
         faderNode?.rampType = rampType
@@ -19,7 +21,7 @@ extension AKPlayer {
     internal func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
         guard faderNode != nil else { return }
 
-        // AKLog(fade, faderNode.rampDuration, faderNode.gain, audioTime, hostTime)
+        // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
 
         guard fade.inTime != 0 || fade.outTime != 0 else {
             return

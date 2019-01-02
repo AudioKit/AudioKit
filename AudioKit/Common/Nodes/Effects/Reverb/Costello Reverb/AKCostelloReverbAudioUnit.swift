@@ -31,7 +31,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createCostelloReverbDSP(Int32(count), sampleRate)
     }
 
@@ -44,7 +44,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback",
-            address: AUParameterAddress(0),
+            address: AKCostelloReverbParameter.feedback.rawValue,
             min: Float(AKCostelloReverb.feedbackRange.lowerBound),
             max: Float(AKCostelloReverb.feedbackRange.upperBound),
             unit: .generic,
@@ -56,7 +56,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency",
-            address: AUParameterAddress(1),
+            address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
             min: Float(AKCostelloReverb.cutoffFrequencyRange.lowerBound),
             max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
             unit: .hertz,
@@ -65,7 +65,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [feedback, cutoffFrequency]))
         feedback.value = Float(AKCostelloReverb.defaultFeedback)
         cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)

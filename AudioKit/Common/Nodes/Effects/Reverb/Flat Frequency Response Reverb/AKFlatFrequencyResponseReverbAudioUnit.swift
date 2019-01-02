@@ -27,7 +27,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFlatFrequencyResponseReverbDSP(Int32(count), sampleRate)
     }
 
@@ -40,7 +40,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
         let reverbDuration = AUParameterTree.createParameter(
             withIdentifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
-            address: AUParameterAddress(0),
+            address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
             min: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.lowerBound),
             max: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.upperBound),
             unit: .seconds,
@@ -49,7 +49,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
         reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }

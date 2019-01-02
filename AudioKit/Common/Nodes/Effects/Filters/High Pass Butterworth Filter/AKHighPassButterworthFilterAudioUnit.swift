@@ -27,7 +27,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createHighPassButterworthFilterDSP(Int32(count), sampleRate)
     }
 
@@ -40,7 +40,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKHighPassButterworthFilterParameter.cutoffFrequency.rawValue,
             min: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.lowerBound),
             max: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
@@ -49,7 +49,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
         cutoffFrequency.value = Float(AKHighPassButterworthFilter.defaultCutoffFrequency)
     }

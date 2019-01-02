@@ -39,7 +39,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFlangerDSP(Int32(count), sampleRate)
     }
 
@@ -52,7 +52,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKModulatedDelayParameter.frequency.rawValue,
             min: Float(AKFlanger.frequencyRange.lowerBound),
             max: Float(AKFlanger.frequencyRange.upperBound),
             unit: .hertz,
@@ -64,7 +64,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         let depth = AUParameterTree.createParameter(
             withIdentifier: "depth",
             name: "Depth 0-1",
-            address: AUParameterAddress(1),
+            address: AKModulatedDelayParameter.depth.rawValue,
             min: Float(AKFlanger.depthRange.lowerBound),
             max: Float(AKFlanger.depthRange.upperBound),
             unit: .generic,
@@ -76,7 +76,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback 0-1",
-            address: AUParameterAddress(2),
+            address: AKModulatedDelayParameter.feedback.rawValue,
             min: Float(AKFlanger.feedbackRange.lowerBound),
             max: Float(AKFlanger.feedbackRange.upperBound),
             unit: .generic,
@@ -88,7 +88,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
         let dryWetMix = AUParameterTree.createParameter(
             withIdentifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
-            address: AUParameterAddress(3),
+            address: AKModulatedDelayParameter.dryWetMix.rawValue,
             min: Float(AKFlanger.dryWetMixRange.lowerBound),
             max: Float(AKFlanger.dryWetMixRange.upperBound),
             unit: .generic,

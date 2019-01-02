@@ -27,7 +27,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createClipperDSP(Int32(count), sampleRate)
     }
 
@@ -40,7 +40,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
         let limit = AUParameterTree.createParameter(
             withIdentifier: "limit",
             name: "Threshold",
-            address: AUParameterAddress(0),
+            address: AKClipperParameter.limit.rawValue,
             min: Float(AKClipper.limitRange.lowerBound),
             max: Float(AKClipper.limitRange.upperBound),
             unit: .generic,
@@ -49,7 +49,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
         limit.value = Float(AKClipper.defaultLimit)
     }

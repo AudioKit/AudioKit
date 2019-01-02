@@ -68,7 +68,7 @@
         }];
 
         if (!success && outError != NULL) {
-            *outError = [NSError errorWithDomain:@"AudioUngineUnit"
+            *outError = [NSError errorWithDomain:@"AudioEngineUnit"
                                             code:0
                                         userInfo: @{NSLocalizedDescriptionKey: @"setManualRenderingInputPCMFormat fail"}];
         }

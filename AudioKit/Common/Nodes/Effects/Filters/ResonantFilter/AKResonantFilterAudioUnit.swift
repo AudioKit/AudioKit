@@ -31,7 +31,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createResonantFilterDSP(Int32(count), sampleRate)
     }
 
@@ -44,7 +44,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
-            address: AUParameterAddress(0),
+            address: AKResonantFilterParameter.frequency.rawValue,
             min: Float(AKResonantFilter.frequencyRange.lowerBound),
             max: Float(AKResonantFilter.frequencyRange.upperBound),
             unit: .hertz,
@@ -56,7 +56,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         let bandwidth = AUParameterTree.createParameter(
             withIdentifier: "bandwidth",
             name: "Bandwidth of the filter.",
-            address: AUParameterAddress(1),
+            address: AKResonantFilterParameter.bandwidth.rawValue,
             min: Float(AKResonantFilter.bandwidthRange.lowerBound),
             max: Float(AKResonantFilter.bandwidthRange.upperBound),
             unit: .hertz,
@@ -65,7 +65,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
         frequency.value = Float(AKResonantFilter.defaultFrequency)
         bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
