@@ -27,7 +27,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createToneFilterDSP(Int32(count), sampleRate)
     }
 
@@ -40,7 +40,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
         let halfPowerPoint = AUParameterTree.createParameter(
             withIdentifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
-            address: AUParameterAddress(0),
+            address: AKToneFilterParameter.halfPowerPoint.rawValue,
             min: Float(AKToneFilter.halfPowerPointRange.lowerBound),
             max: Float(AKToneFilter.halfPowerPointRange.upperBound),
             unit: .hertz,
@@ -49,7 +49,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneFilter.defaultHalfPowerPoint)
     }

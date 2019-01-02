@@ -14,13 +14,23 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "trem")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var waveform: AKTable?
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0.0 ... 100.0
+
+    /// Lower and upper bounds for Depth
+    public static let depthRange = 0.0 ... 1.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 10.0
+
+    /// Initial value for Depth
+    public static let defaultDepth = 1.0
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -30,7 +40,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Frequency (Hz)
-    @objc open dynamic var frequency: Double = 10.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             if frequency == newValue {
                 return
@@ -46,7 +56,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Depth
-    @objc open dynamic var depth: Double = 1.0 {
+    @objc open dynamic var depth: Double = defaultDepth {
         willSet {
             if depth == newValue {
                 return
@@ -78,12 +88,11 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        frequency: Double = 10,
-        depth: Double = 1.0,
+        frequency: Double = defaultFrequency,
+        depth: Double = defaultDepth,
         waveform: AKTable = AKTable(.positiveSine)
     ) {
 
-        self.waveform = waveform
         self.frequency = frequency
         self.depth = depth
 

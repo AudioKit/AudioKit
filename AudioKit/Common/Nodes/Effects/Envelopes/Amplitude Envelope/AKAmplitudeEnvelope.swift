@@ -10,7 +10,6 @@
 ///
 open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKAmplitudeEnvelopeAudioUnit
-
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
@@ -23,6 +22,30 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var sustainLevelParameter: AUParameter?
     fileprivate var releaseDurationParameter: AUParameter?
 
+    /// Lower and upper bounds for Attack Duration
+    public static let attackDurationRange = 0 ... 99
+
+    /// Lower and upper bounds for Decay Duration
+    public static let decayDurationRange = 0 ... 99
+
+    /// Lower and upper bounds for Sustain Level
+    public static let sustainLevelRange = 0 ... 99
+
+    /// Lower and upper bounds for Release Duration
+    public static let releaseDurationRange = 0 ... 99
+
+    /// Initial value for Attack Duration
+    public static let defaultAttackDuration = 0.1
+
+    /// Initial value for Decay Duration
+    public static let defaultDecayDuration = 0.1
+
+    /// Initial value for Sustain Level
+    public static let defaultSustainLevel = 1.0
+
+    /// Initial value for Release Duration
+    public static let defaultReleaseDuration = 0.1
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
@@ -31,7 +54,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Attack Duration in seconds
-    @objc open dynamic var attackDuration: Double = 0.1 {
+    @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             if attackDuration == newValue {
                 return
@@ -47,7 +70,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Decay Duration in seconds
-    @objc open dynamic var decayDuration: Double = 0.1 {
+    @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             if decayDuration == newValue {
                 return
@@ -63,7 +86,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Sustain Level
-    @objc open dynamic var sustainLevel: Double = 1.0 {
+    @objc open dynamic var sustainLevel: Double = defaultSustainLevel {
         willSet {
             if sustainLevel == newValue {
                 return
@@ -79,7 +102,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Release Duration in seconds
-    @objc open dynamic var releaseDuration: Double = 0.1 {
+    @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
             if releaseDuration == newValue {
                 return
@@ -112,11 +135,11 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     @objc public init(
         _ input: AKNode? = nil,
-        attackDuration: Double = 0.1,
-        decayDuration: Double = 0.1,
-        sustainLevel: Double = 1.0,
-        releaseDuration: Double = 0.1
-    ) {
+        attackDuration: Double = defaultAttackDuration,
+        decayDuration: Double = defaultDecayDuration,
+        sustainLevel: Double = defaultSustainLevel,
+        releaseDuration: Double = defaultReleaseDuration
+        ) {
 
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -125,7 +148,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
 
         _Self.register()
         super.init()
-
+        
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")
@@ -134,7 +157,6 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -160,7 +182,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-       internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
         internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)
         internalAU?.setParameterImmediately(.sustainLevel, value: sustainLevel)
         internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)

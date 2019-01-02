@@ -10,41 +10,47 @@
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKAudioUnitBase ()
+@implementation AKAudioUnitBase
 
-@property AKDSPBase *kernel;
-
-@end
-
-@implementation AKAudioUnitBase {
-    // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKDSPBase *_kernel;
+// Convenience for casting (AKDSPRef)_dsp to AKDSPBase;
+- (AKDSPBase *)kernel {
+    return (AKDSPBase *)_dsp;
 }
 
 @synthesize parameterTree = _parameterTree;
 
 - (float) getParameterWithAddress: (AUParameterAddress) address; {
-    return _kernel->getParameter(address);
+    return self.kernel->getParameter(address);
 }
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
-    _kernel->setParameter(address, value);
+    self.kernel->setParameter(address, value);
 }
 
 - (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value {
-    _kernel->setParameter(address, value, true);
+    self.kernel->setParameter(address, value, true);
 }
 
-- (void)start { _kernel->start(); }
-- (void)stop { _kernel->stop(); }
-- (void)clear { _kernel->clear(); };
-- (void)initializeConstant:(AUValue)value { _kernel->initializeConstant(value); }
-- (BOOL)isPlaying { return _kernel->isPlaying(); }
-- (BOOL)isSetUp { return _kernel->isSetup(); }
+- (void)start { self.kernel->start(); }
+- (void)stop { self.kernel->stop(); }
+- (void)clear { self.kernel->clear(); };
+- (void)initializeConstant:(AUValue)value { self.kernel->initializeConstant(value); }
+- (BOOL)isPlaying { return self.kernel->isPlaying(); }
+- (BOOL)isSetUp { return self.kernel->isSetup(); }
 - (void)setupWaveform:(int)size {
-    _kernel->setupWaveform((uint32_t)size);
+    self.kernel->setupWaveform((uint32_t)size);
 }
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
-    _kernel->setWaveformValue(index, value);
+    self.kernel->setWaveformValue(index, value);
+}
+
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
+    self.kernel->setUpTable(data, size);
+}
+- (void)setPartitionLength:(int)partitionLength {
+    self.kernel->setPartitionLength(partitionLength);
+}
+- (void)initConvolutionEngine {
+    self.kernel->initConvolutionEngine();
 }
 
 /**
@@ -52,8 +58,8 @@
  DSP is invalid.
  */
 
-- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
-    return (void*)(_kernel = NULL);
+- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count {
+    return (_dsp = NULL);
 }
 
 /**
@@ -69,7 +75,7 @@
     _parameterTree = tree;
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKDSPBase *kernel = _kernel;
+    __block AKDSPBase *kernel = self.kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -105,8 +111,8 @@
     AVAudioFormat *arbitraryFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
                                                                                     channels:AKSettings.channelCount];
 
-    _kernel = (AKDSPBase*)[self initDSPWithSampleRate:arbitraryFormat.sampleRate
-                                         channelCount:arbitraryFormat.channelCount];
+    _dsp = [self initDSPWithSampleRate:arbitraryFormat.sampleRate
+                          channelCount:arbitraryFormat.channelCount];
 
     // Create a default empty parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
@@ -122,22 +128,22 @@
     }
 
     AVAudioFormat *format = self.outputBusses[0].format;
-    _kernel->init(format.channelCount, format.sampleRate);
-    _kernel->reset();
+    self.kernel->init(format.channelCount, format.sampleRate);
+    self.kernel->reset();
     return YES;
 }
 
 -(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
     
-    __block AKDSPBase *state = _kernel;
+    __block AKDSPBase *kernel = self.kernel;
     return ^(AudioBufferList       *inBuffer,
              AudioBufferList       *outBuffer,
              const AudioTimeStamp  *timestamp,
              AVAudioFrameCount     frameCount,
              const AURenderEvent   *eventListHead) {
 
-        state->setBuffers(inBuffer, outBuffer);
-        state->processWithEvents(timestamp, frameCount, eventListHead);
+        kernel->setBuffers(inBuffer, outBuffer);
+        kernel->processWithEvents(timestamp, frameCount, eventListHead);
     };
 }
 
@@ -145,7 +151,7 @@
 // Hosts should call this after finishing rendering.
 
 - (void)deallocateRenderResources {
-    _kernel->deinit();
+    self.kernel->deinit();
     [super deallocateRenderResources];
 }
 
@@ -163,7 +169,7 @@
 // ----- END UNMODIFIED COPY FROM APPLE CODE -----
 
 - (void)dealloc {
-    delete _kernel;
+    delete self.kernel;
 }
 
 @end

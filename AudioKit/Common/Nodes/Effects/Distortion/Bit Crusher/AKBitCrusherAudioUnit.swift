@@ -31,7 +31,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createBitCrusherDSP(Int32(count), sampleRate)
     }
 
@@ -44,7 +44,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         let bitDepth = AUParameterTree.createParameter(
             withIdentifier: "bitDepth",
             name: "Bit Depth",
-            address: AUParameterAddress(0),
+            address: AKBitCrusherParameter.bitDepth.rawValue,
             min: Float(AKBitCrusher.bitDepthRange.lowerBound),
             max: Float(AKBitCrusher.bitDepthRange.upperBound),
             unit: .generic,
@@ -56,7 +56,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
         let sampleRate = AUParameterTree.createParameter(
             withIdentifier: "sampleRate",
             name: "Sample Rate (Hz)",
-            address: AUParameterAddress(1),
+            address: AKBitCrusherParameter.sampleRate.rawValue,
             min: Float(AKBitCrusher.sampleRateRange.lowerBound),
             max: Float(AKBitCrusher.sampleRateRange.upperBound),
             unit: .hertz,
@@ -65,7 +65,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)

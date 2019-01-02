@@ -31,7 +31,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createModalResonanceFilterDSP(Int32(count), sampleRate)
     }
 
@@ -44,7 +44,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Resonant Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKModalResonanceFilterParameter.frequency.rawValue,
             min: Float(AKModalResonanceFilter.frequencyRange.lowerBound),
             max: Float(AKModalResonanceFilter.frequencyRange.upperBound),
             unit: .hertz,
@@ -56,7 +56,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
         let qualityFactor = AUParameterTree.createParameter(
             withIdentifier: "qualityFactor",
             name: "Quality Factor",
-            address: AUParameterAddress(1),
+            address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
             min: Float(AKModalResonanceFilter.qualityFactorRange.lowerBound),
             max: Float(AKModalResonanceFilter.qualityFactorRange.upperBound),
             unit: .generic,

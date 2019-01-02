@@ -38,7 +38,7 @@ typedef NS_ENUM(int64_t, AKSynthParameter)
 
 #ifndef __cplusplus
 
-void *AKSynthCreateDSP(int nChannels, double sampleRate);
+void *AKSynthCreateDSP(int channelCount, double sampleRate);
 void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
 void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
 void AKSynthSustainPedal(void *pDSP, bool pedalDown);
@@ -59,7 +59,7 @@ struct AKSynthDSP : AKDSPBase, AKSynth
     AKLinearParameterRamp filterResonanceRamp;
     
     AKSynthDSP();
-    void init(int nChannels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
     void deinit() override;
 
     void setParameter(uint64_t address, float value, bool immediate) override;

@@ -10,89 +10,41 @@
 
 #import "AKBankDSPKernel.hpp"
 
-enum {
-    standardBankEnumElements()
-};
-
 class AKOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
-    struct NoteState {
-        NoteState* next;
-        NoteState* prev;
-        AKOscillatorBankDSPKernel* kernel;
+    struct NoteState  : public AKBankDSPKernel::NoteState {
 
-        enum { stageOff, stageOn, stageRelease };
-        int stage = stageOff;
-
-        float internalGate = 0;
-        float amp = 0;
-
-        sp_adsr *adsr;
         sp_osc *osc;
 
-        void init() {
-            sp_adsr_create(&adsr);
+        NoteState() {
             sp_osc_create(&osc);
-            sp_adsr_init(kernel->sp, adsr);
-            sp_osc_init(kernel->sp, osc, kernel->ftbl, 0);
+        }
+        
+        virtual ~NoteState() {
+            sp_osc_destroy(&osc);
+        }
+        
+        void init() override {
+            AKOscillatorBankDSPKernel *bankKernel = (AKOscillatorBankDSPKernel*)kernel;
+            
+            sp_adsr_init(kernel->getSpData(), adsr);
+            sp_osc_init(kernel->getSpData(), osc, bankKernel->ftbl, 0);
             osc->freq = 0;
             osc->amp = 0;
         }
 
-
-        void clear() {
-            stage = stageOff;
-            amp = 0;
-        }
-
-        // linked list management
-        void remove() {
-            if (prev) prev->next = next;
-            else kernel->playingNotes = next;
-
-            if (next) next->prev = prev;
-
-            //prev = next = nullptr; Had to remove due to a click, potentially bad
-
-            --kernel->playingNotesCount;
-
-            sp_osc_destroy(&osc);
-            sp_adsr_destroy(&adsr);
-        }
-
-        void add() {
-            init();
-            prev = nullptr;
-            next = kernel->playingNotes;
-            if (next) next->prev = this;
-            kernel->playingNotes = this;
-            ++kernel->playingNotesCount;
-        }
-
-        void noteOn(int noteNumber, int velocity)
+        void noteOn(int noteNumber, int velocity, float frequency) override
         {
-            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
-        }
-
-        void noteOn(int noteNumber, int velocity, float frequency)
-        {
-            if (velocity == 0) {
-                if (stage == stageOn) {
-                    stage = stageRelease;
-                    internalGate = 0;
-                }
-            } else {
-                if (stage == stageOff) { add(); }
+            AKBankDSPKernel::NoteState::noteOn(noteNumber, velocity, frequency);
+            
+            if (velocity != 0) {
                 osc->freq = (float)frequency;
                 osc->amp = (float)pow2(velocity / 127.);
-                stage = stageOn;
-                internalGate = 1;
             }
         }
 
-
-        void run(int frameCount, float* outL, float* outR)
+        void run(int frameCount, float *outL, float *outR) override
         {
             float originalFrequency = osc->freq;
 
@@ -105,15 +57,14 @@ public:
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
 
-
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
-                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
                 osc->freq = bentFrequency * powf(2, depth * variation);
 
-                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
-                sp_osc_compute(kernel->sp, osc, nil, &x);
+                sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
+                sp_osc_compute(kernel->getSpData(), osc, nil, &x);
                 *outL++ += amp * x;
                 *outR++ += amp * x;
 
@@ -128,11 +79,14 @@ public:
     };
 
     // MARK: Member Functions
+public:
 
     AKOscillatorBankDSPKernel() {
         noteStates.resize(128);
-        for (NoteState& state : noteStates) {
-            state.kernel = this;
+        for (auto& ns : noteStates)
+        {
+            ns.reset(new NoteState);
+            ns->kernel = this;
         }
     }
 
@@ -145,43 +99,14 @@ public:
         ftbl->tbl[index] = value;
     }
 
-    void reset() {
-        for (NoteState& state : noteStates) {
-            state.clear();
-        }
-        playingNotes = nullptr;
-        AKBankDSPKernel::reset();
-    }
-
-    standardBankKernelFunctions()
-
-    void setParameter(AUParameterAddress address, AUValue value) {
-        switch (address) {
-                standardBankSetParameters()
-        }
-    }
-    AUValue getParameter(AUParameterAddress address) {
-        switch (address) {
-                standardBankGetParameters()
-        }
-    }
-
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
-        switch (address) {
-                standardBankStartRamps()
-        }
-    }
-
-    standardHandleMIDI()
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
-        float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+        float *outL = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+        float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
-        standardBankGetAndSteps()
+        standardBankGetAndSteps();
 
-        NoteState* noteState = playingNotes;
+        AKBankDSPKernel::NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -197,11 +122,6 @@ public:
     // MARK: Member Variables
 
 private:
-    std::vector<NoteState> noteStates;
-
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
-
-public:
-    NoteState* playingNotes = nullptr;
 };

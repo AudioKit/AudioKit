@@ -12,94 +12,49 @@
 #import "AKBankDSPKernel.hpp"
 
 class AKPWMOscillatorBankDSPKernel : public AKBankDSPKernel, public AKOutputBuffered {
-public:
+protected:
     // MARK: Types
     
-    enum {
-        standardBankEnumElements(),
-        pulseWidthAddress = numberOfBankEnumElements
-    };
-    
-    struct NoteState {
-        NoteState *next;
-        NoteState *prev;
-        AKPWMOscillatorBankDSPKernel *kernel;
+    struct NoteState  : public AKBankDSPKernel::NoteState {
 
-        enum { stageOff, stageOn, stageRelease };
-        int stage = stageOff;
-
-        float internalGate = 0;
-        float amp = 0;
-
-        sp_adsr *adsr;
         sp_blsquare *blsquare;
 
-        void init() {
-            sp_adsr_create(&adsr);
-            sp_adsr_init(kernel->sp, adsr);
+        NoteState() {
             sp_blsquare_create(&blsquare);
-            sp_blsquare_init(kernel->sp, blsquare);
+        }
+        
+        virtual ~NoteState() {
+            sp_blsquare_destroy(&blsquare);
+        }
+        
+        void init() override {
+            sp_adsr_create(&adsr);
+            sp_adsr_init(kernel->getSpData(), adsr);
+            sp_blsquare_init(kernel->getSpData(), blsquare);
             *blsquare->freq = 0;
             *blsquare->amp = 0;
             *blsquare->width = 0.5;
         }
 
-        void clear() {
-            stage = stageOff;
-            amp = 0;
-        }
+        void noteOn(int noteNumber, int velocity, float frequency) override {
+            AKBankDSPKernel::NoteState::noteOn(noteNumber, velocity, frequency);
 
-        // linked list management
-        void remove() {
-            if (prev) prev->next = next;
-            else kernel->playingNotes = next;
-
-            if (next) next->prev = prev;
-
-            //prev = next = nullptr; Had to remove due to a click, potentially bad
-
-            --kernel->playingNotesCount;
-
-            sp_blsquare_destroy(&blsquare);
-        }
-
-        void add() {
-            init();
-            prev = nullptr;
-            next = kernel->playingNotes;
-            if (next) next->prev = this;
-            kernel->playingNotes = this;
-            ++kernel->playingNotesCount;
-        }
-
-        void noteOn(int noteNumber, int velocity) {
-            noteOn(noteNumber, velocity, (float)noteToHz(noteNumber));
-        }
-
-        void noteOn(int noteNumber, int velocity, float frequency) {
-            if (velocity == 0) {
-                if (stage == stageOn) {
-                    stage = stageRelease;
-                    internalGate = 0;
-                }
-            } else {
-                if (stage == stageOff) { add(); }
+            if (velocity != 0) {
                 *blsquare->freq = frequency;
                 *blsquare->amp = (float)pow2(velocity / 127.);
-                stage = stageOn;
-                internalGate = 1;
             }
         }
 
-
-        void run(int frameCount, float *outL, float *outR)
+        void run(int frameCount, float *outL, float *outR) override
         {
+            auto bankKernel = (AKPWMOscillatorBankDSPKernel*)kernel;
+            
             float originalFrequency = *blsquare->freq;
             *blsquare->freq *= powf(2, kernel->pitchBend / 12.0);
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
             float bentFrequency = *blsquare->freq;
 
-            *blsquare->width = kernel->pulseWidth;
+            *blsquare->width = bankKernel->pulseWidth;
 
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;
@@ -109,10 +64,10 @@ public:
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 float depth = kernel->vibratoDepth / 12.0;
-                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->sampleRate);
+                float variation = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->vibratoRate / kernel->getSampleRate());
                 *blsquare->freq = bentFrequency * powf(2, depth * variation);
-                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
-                sp_blsquare_compute(kernel->sp, blsquare, nil, &x);
+                sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
+                sp_blsquare_compute(kernel->getSpData(), blsquare, nil, &x);
                 *outL++ += amp * x;
                 *outR++ += amp * x;
 
@@ -126,30 +81,31 @@ public:
 
     };
 
+public:
+    enum BankAddresses {
+        pulseWidthAddress = numberOfBankEnumElements,
+    };
+
     // MARK: Member Functions
+public:
 
     AKPWMOscillatorBankDSPKernel() {
         noteStates.resize(128);
-        for (NoteState& state : noteStates) {
-            state.kernel = this;
+        for (auto& ns : noteStates)
+        {
+            ns.reset(new NoteState);
+            ns->kernel = this;
         }
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKBankDSPKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKBankDSPKernel::init(channelCount, sampleRate);
         pulseWidthRamper.init();
     }
 
-    void reset() {
-        for (NoteState& state : noteStates) {
-            state.clear();
-        }
-        playingNotes = nullptr;
+    void reset() override {
         pulseWidthRamper.reset();
-        AKBankDSPKernel::reset();
     }
-
-    standardBankKernelFunctions()
 
     void setPulseWidth(float value) {
         pulseWidth = clamp(value, 0.0f, 1.0f);
@@ -158,34 +114,34 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-
             case pulseWidthAddress:
                 pulseWidthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
-                standardBankSetParameters()
+            default:
+                AKBankDSPKernel::setParameter(address, value);
+                break;
         }
     }
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-
             case pulseWidthAddress:
                 return pulseWidthRamper.getUIValue();
-                standardBankGetParameters()
+            default:
+                return AKBankDSPKernel::getParameter(address);
         }
     }
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
-                standardBankStartRamps()
+            default:
+                AKBankDSPKernel::startRamp(address, value, duration);
+                break;
         }
     }
-
-    standardHandleMIDI()
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
@@ -193,9 +149,9 @@ public:
         float *outR = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
         pulseWidth = double(pulseWidthRamper.getAndStep());
-        standardBankGetAndSteps()
+        standardBankGetAndSteps();
 
-        NoteState *noteState = playingNotes;
+        AKBankDSPKernel::NoteState *noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
             noteState = noteState->next;
@@ -211,13 +167,9 @@ public:
     // MARK: Member Variables
 
 private:
-    std::vector<NoteState> noteStates;
-
     float pulseWidth = 0.5;
 
 public:
-    NoteState *playingNotes = nullptr;
-
     ParameterRamper pulseWidthRamper = 0.5;
 };
 
