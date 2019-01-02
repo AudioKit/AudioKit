@@ -11,11 +11,11 @@ import AVFoundation
 public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKVocalTractParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKVocalTractParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKVocalTract.defaultFrequency {

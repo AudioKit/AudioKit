@@ -11,11 +11,11 @@ import AVFoundation
 public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKTanhDistortionParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKTanhDistortionParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var pregain: Double = AKTanhDistortion.defaultPregain {

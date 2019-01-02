@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBandPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBandPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKBandPassButterworthFilter.defaultCenterFrequency {

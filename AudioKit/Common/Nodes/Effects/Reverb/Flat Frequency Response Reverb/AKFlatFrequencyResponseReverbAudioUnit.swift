@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKFlatFrequencyResponseReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFlatFrequencyResponseReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var reverbDuration: Double = AKFlatFrequencyResponseReverb.defaultReverbDuration {

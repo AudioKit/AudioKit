@@ -11,11 +11,11 @@ import AVFoundation
 public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKModalResonanceFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKModalResonanceFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKModalResonanceFilter.defaultFrequency {

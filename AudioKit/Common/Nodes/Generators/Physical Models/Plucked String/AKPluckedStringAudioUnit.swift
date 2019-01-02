@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPluckedStringParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPluckedStringParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKPluckedString.defaultFrequency {

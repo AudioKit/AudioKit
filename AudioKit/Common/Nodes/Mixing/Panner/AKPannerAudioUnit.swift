@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPannerAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKPannerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPannerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var pan: Double = AKPanner.defaultPan {

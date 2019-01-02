@@ -11,11 +11,11 @@ import AVFoundation
 public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKKorgLowPassFilter.defaultCutoffFrequency {

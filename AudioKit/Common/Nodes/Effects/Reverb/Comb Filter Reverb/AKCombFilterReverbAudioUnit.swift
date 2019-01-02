@@ -11,11 +11,11 @@ import AVFoundation
 public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKCombFilterReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKCombFilterReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var reverbDuration: Double = AKCombFilterReverb.defaultReverbDuration {

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKStereoFieldLimiterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKStereoFieldLimiterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var amount: Double = 1.0 {
@@ -39,7 +39,7 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
         let amount = AUParameterTree.createParameter(
             withIdentifier: "amount",
             name: "Limiting amount",
-            address: AUParameterAddress(0),
+            address: 0,
             min: 0.0,
             max: 1.0,
             unit: .generic,

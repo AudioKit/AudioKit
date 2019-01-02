@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFlangerAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKFlanger.defaultFrequency {

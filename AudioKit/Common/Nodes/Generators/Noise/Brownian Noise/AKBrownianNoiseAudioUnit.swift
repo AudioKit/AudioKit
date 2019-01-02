@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKBrownianNoiseParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBrownianNoiseParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var amplitude: Double = AKBrownianNoise.defaultAmplitude {
