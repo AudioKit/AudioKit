@@ -29,7 +29,7 @@ open class AKAppleSampler: AKNode {
         get {
             return _audioFiles
         }
-        set(newValue) {
+        set {
             do {
                 try loadAudioFiles(newValue)
             } catch {

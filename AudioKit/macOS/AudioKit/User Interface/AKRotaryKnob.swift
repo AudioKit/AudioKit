@@ -174,9 +174,9 @@ public enum AKRotaryKnobStyle {
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: fontSize),
-                                       NSAttributedString.Key.foregroundColor: textColor,
-                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: fontSize),
+                                       .foregroundColor: textColor,
+                                       .paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
