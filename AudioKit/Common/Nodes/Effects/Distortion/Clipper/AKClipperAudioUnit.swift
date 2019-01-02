@@ -34,9 +34,6 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let limit = AUParameterTree.createParameter(
             withIdentifier: "limit",
             name: "Threshold",
@@ -45,7 +42,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             max: Float(AKClipper.limitRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

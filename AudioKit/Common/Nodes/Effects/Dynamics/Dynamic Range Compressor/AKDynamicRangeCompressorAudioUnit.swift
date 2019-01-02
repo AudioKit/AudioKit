@@ -46,9 +46,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let ratio = AUParameterTree.createParameter(
             withIdentifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",
@@ -57,7 +54,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             max: Float(AKDynamicRangeCompressor.ratioRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -69,7 +66,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             max: Float(AKDynamicRangeCompressor.thresholdRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -81,7 +78,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             max: Float(AKDynamicRangeCompressor.attackDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +90,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             max: Float(AKDynamicRangeCompressor.releaseDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

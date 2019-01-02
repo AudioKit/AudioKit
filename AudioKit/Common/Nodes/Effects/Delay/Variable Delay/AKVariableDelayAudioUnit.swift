@@ -38,9 +38,6 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let time = AUParameterTree.createParameter(
             withIdentifier: "time",
             name: "Delay time (Seconds)",
@@ -49,7 +46,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             max: Float(AKVariableDelay.timeRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +58,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             max: Float(AKVariableDelay.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

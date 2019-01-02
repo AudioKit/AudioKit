@@ -39,8 +39,6 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
@@ -49,7 +47,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKResonantFilter.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +59,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKResonantFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

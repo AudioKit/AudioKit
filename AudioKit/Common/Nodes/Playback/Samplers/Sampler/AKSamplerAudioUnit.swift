@@ -45,7 +45,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var glideRate: Double = 0.0 {
         didSet { setParameter(.glideRate, value: glideRate) }
     }
-    
+
     var rampDuration: Double = 0.0 {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }

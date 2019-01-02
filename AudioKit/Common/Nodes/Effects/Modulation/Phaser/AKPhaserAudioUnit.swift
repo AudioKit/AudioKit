@@ -67,8 +67,6 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let notchMinimumFrequency = AUParameterTree.createParameter(
             withIdentifier: "notchMinimumFrequency",
             name: "Notch Minimum Frequency",
@@ -77,7 +75,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.notchMinimumFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -89,7 +87,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.notchMaximumFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -101,7 +99,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.notchWidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -113,7 +111,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.notchFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -125,7 +123,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.vibratoModeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -137,7 +135,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.depthRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -149,7 +147,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -161,7 +159,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.invertedRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -173,7 +171,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             max: Float(AKPhaser.lfoBPMRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

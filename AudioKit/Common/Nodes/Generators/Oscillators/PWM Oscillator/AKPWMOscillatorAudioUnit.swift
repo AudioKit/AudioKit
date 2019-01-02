@@ -51,8 +51,6 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
@@ -61,7 +59,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPWMOscillator.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -73,7 +71,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPWMOscillator.amplitudeRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -85,7 +83,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPWMOscillator.pulseWidthRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -97,7 +95,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPWMOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -109,7 +107,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPWMOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

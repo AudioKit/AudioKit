@@ -32,8 +32,6 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let type = AUParameterTree.createParameter(
             withIdentifier: "Type",
             name: "type",
@@ -42,7 +40,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             max: 22,
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -54,7 +52,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             max: 10,
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

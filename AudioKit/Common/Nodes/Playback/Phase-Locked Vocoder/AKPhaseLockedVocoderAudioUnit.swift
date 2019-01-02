@@ -43,8 +43,6 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let position = AUParameterTree.createParameter(
             withIdentifier: "position",
             name: "Position",
@@ -53,7 +51,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseLockedVocoder.positionRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -66,7 +64,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseLockedVocoder.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -79,7 +77,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseLockedVocoder.pitchRatioRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

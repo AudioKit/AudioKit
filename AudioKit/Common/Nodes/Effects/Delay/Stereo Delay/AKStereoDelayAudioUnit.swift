@@ -46,7 +46,6 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                                       options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
         let time = AUParameterTree.createParameter(
             withIdentifier: "time",
             name: "Delay time (Seconds)",
@@ -55,7 +54,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             max: Float(AKStereoDelay.timeRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp],
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -67,7 +66,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             max: Float(AKStereoDelay.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp],
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -79,7 +78,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             max: Float(AKStereoDelay.dryWetMixRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp],
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

@@ -179,7 +179,7 @@ public enum AKRotaryKnobStyle {
                                        .paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
-            with: CGSize(width: width, height: CGFloat.infinity),
+            with: CGSize(width: width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         context.saveGState()

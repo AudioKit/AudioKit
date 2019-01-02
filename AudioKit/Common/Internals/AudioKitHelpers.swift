@@ -49,6 +49,10 @@ extension Collection where Element == CGPoint {
     }
 }
 
+extension AudioUnitParameterOptions {
+    public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+}
+
 extension NSRect {
     public init(size: NSSize) {
         self.init(origin: .zero, size: size)
