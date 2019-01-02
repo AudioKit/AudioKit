@@ -9,7 +9,7 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *AKSynthCreateDSP(int nChannels, double sampleRate) {
+extern "C" void *AKSynthCreateDSP(int channelCount, double sampleRate) {
     return new AKSynthDSP();
 }
 
@@ -38,9 +38,9 @@ AKSynthDSP::AKSynthDSP() : AKSynth()
     filterResonanceRamp.setTarget(1.0, true);
 }
 
-void AKSynthDSP::init(int nChannels, double sampleRate)
+void AKSynthDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(nChannels, sampleRate);
+    AKDSPBase::init(channelCount, sampleRate);
     AKSynth::init(sampleRate);
 }
 
@@ -53,11 +53,11 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
         case rampDurationParameter:
-            masterVolumeRamp.setRampDuration(value, _sampleRate);
-            pitchBendRamp.setRampDuration(value, _sampleRate);
-            vibratoDepthRamp.setRampDuration(value, _sampleRate);
-            filterCutoffRamp.setRampDuration(value, _sampleRate);
-            filterResonanceRamp.setRampDuration(value, _sampleRate);
+            masterVolumeRamp.setRampDuration(value, sampleRate);
+            pitchBendRamp.setRampDuration(value, sampleRate);
+            vibratoDepthRamp.setRampDuration(value, sampleRate);
+            filterCutoffRamp.setRampDuration(value, sampleRate);
+            filterResonanceRamp.setRampDuration(value, sampleRate);
             break;
 
         case masterVolumeParameter:
@@ -108,7 +108,7 @@ float AKSynthDSP::getParameter(uint64_t address)
 {
     switch (address) {
         case rampDurationParameter:
-            return pitchBendRamp.getRampDuration(_sampleRate);
+            return pitchBendRamp.getRampDuration(sampleRate);
 
         case masterVolumeParameter:
             return masterVolumeRamp.getTarget();
@@ -151,22 +151,22 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         if (chunkSize > AKSYNTH_CHUNKSIZE) chunkSize = AKSYNTH_CHUNKSIZE;
         
         // ramp parameters
-        masterVolumeRamp.advanceTo(_now + frameOffset);
+        masterVolumeRamp.advanceTo(now + frameOffset);
         masterVolume = (float)masterVolumeRamp.getValue();
-        pitchBendRamp.advanceTo(_now + frameOffset);
+        pitchBendRamp.advanceTo(now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
-        vibratoDepthRamp.advanceTo(_now + frameOffset);
+        vibratoDepthRamp.advanceTo(now + frameOffset);
         vibratoDepth = (float)vibratoDepthRamp.getValue();
-        filterCutoffRamp.advanceTo(_now + frameOffset);
+        filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterResonanceRamp.advanceTo(_now + frameOffset);
+        filterResonanceRamp.advanceTo(now + frameOffset);
         resLinear = (float)filterResonanceRamp.getValue();
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
-        unsigned channelCount = _outBufferListPtr->mNumberBuffers;
+        outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
+        unsigned channelCount = outBufferListPtr->mNumberBuffers;
         AKSynth::render(channelCount, chunkSize, outBuffers);
     }
 }

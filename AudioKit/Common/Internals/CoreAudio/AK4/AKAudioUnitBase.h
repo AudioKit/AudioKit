@@ -13,8 +13,12 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "AKDSPBase.hpp"
 #import "BufferedAudioUnit.h"
+#import "AKInterop.h"
 
 @interface AKAudioUnitBase : BufferedAudioUnit
+
+/** Pointer to AKDSPBase subclass. */
+@property (readonly) AKDSPRef dsp;
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
@@ -23,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (void*)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
@@ -47,6 +51,11 @@
 // Common for oscillating effects
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
+
+// Convolution and Phase-Locked Vocoder
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size;
+- (void)setPartitionLength:(int)partitionLength;
+- (void)initConvolutionEngine;
 
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;

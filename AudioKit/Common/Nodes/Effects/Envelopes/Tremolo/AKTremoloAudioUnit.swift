@@ -18,10 +18,11 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 10.0 {
+    var frequency: Double = AKTremolo.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var depth: Double = 1.0 {
+
+    var depth: Double = AKTremolo.defaultDepth {
         didSet { setParameter(.depth, value: depth) }
     }
 
@@ -30,7 +31,7 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createTremoloDSP(Int32(count), sampleRate)
     }
 
@@ -43,9 +44,9 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: 0.0,
-            max: 100.0,
+            address: AKTremoloParameter.frequency.rawValue,
+            min: Float(AKTremolo.frequencyRange.lowerBound),
+            max: Float(AKTremolo.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -55,19 +56,19 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
         let depth = AUParameterTree.createParameter(
             withIdentifier: "depth",
             name: "Depth",
-            address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1.0,
+            address: AKTremoloParameter.depth.rawValue,
+            min: Float(AKTremolo.depthRange.lowerBound),
+            max: Float(AKTremolo.depthRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
-        frequency.value = 10.0
-        depth.value = 1.0
+        frequency.value = Float(AKTremolo.defaultFrequency)
+        depth.value = Float(AKTremolo.defaultDepth)
     }
 
     public override var canProcessInPlace: Bool { return true }

@@ -27,7 +27,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createPinkNoiseDSP(Int32(count), sampleRate)
     }
 
@@ -40,7 +40,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(0),
+            address: AKPinkNoiseParameter.amplitude.rawValue,
             min: Float(AKPinkNoise.amplitudeRange.lowerBound),
             max: Float(AKPinkNoise.amplitudeRange.upperBound),
             unit: .generic,
@@ -49,7 +49,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
         amplitude.value = Float(AKPinkNoise.defaultAmplitude)
     }

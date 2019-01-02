@@ -35,7 +35,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createLowShelfParametricEqualizerFilterDSP(Int32(count), sampleRate)
     }
 
@@ -48,7 +48,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let cornerFrequency = AUParameterTree.createParameter(
             withIdentifier: "cornerFrequency",
             name: "Corner Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKLowShelfParametricEqualizerFilterParameter.cornerFrequency.rawValue,
             min: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.lowerBound),
             max: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.upperBound),
             unit: .hertz,
@@ -60,7 +60,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let gain = AUParameterTree.createParameter(
             withIdentifier: "gain",
             name: "Gain",
-            address: AUParameterAddress(1),
+            address: AKLowShelfParametricEqualizerFilterParameter.gain.rawValue,
             min: Float(AKLowShelfParametricEqualizerFilter.gainRange.lowerBound),
             max: Float(AKLowShelfParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
@@ -72,7 +72,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let q = AUParameterTree.createParameter(
             withIdentifier: "q",
             name: "Q",
-            address: AUParameterAddress(2),
+            address: AKLowShelfParametricEqualizerFilterParameter.Q.rawValue,
             min: Float(AKLowShelfParametricEqualizerFilter.qRange.lowerBound),
             max: Float(AKLowShelfParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
@@ -81,7 +81,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [cornerFrequency, gain, q]))
         cornerFrequency.value = Float(AKLowShelfParametricEqualizerFilter.defaultCornerFrequency)
         gain.value = Float(AKLowShelfParametricEqualizerFilter.defaultGain)

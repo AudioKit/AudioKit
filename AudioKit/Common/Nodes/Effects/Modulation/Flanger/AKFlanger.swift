@@ -18,6 +18,11 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
+    fileprivate var frequencyParameter: AUParameter?
+    fileprivate var depthParameter: AUParameter?
+    fileprivate var feedbackParameter: AUParameter?
+    fileprivate var dryWetMixParameter: AUParameter?
+
     public static let frequencyRange = Double(kAKFlanger_MinFrequency) ... Double(kAKFlanger_MaxFrequency)
     public static let depthRange = Double(kAKFlanger_MinDepth) ... Double(kAKFlanger_MaxDepth)
     public static let feedbackRange = Double(kAKFlanger_MinFeedback) ... Double(kAKFlanger_MaxFeedback)
@@ -27,11 +32,6 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     public static let defaultDepth = Double(kAKFlanger_DefaultDepth)
     public static let defaultFeedback = Double(kAKFlanger_DefaultFeedback)
     public static let defaultDryWetMix = Double(kAKFlanger_DefaultDryWetMix)
-
-    fileprivate var frequencyParameter: AUParameter?
-    fileprivate var depthParameter: AUParameter?
-    fileprivate var feedbackParameter: AUParameter?
-    fileprivate var dryWetMixParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -46,15 +46,13 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             if frequency == newValue {
                 return
             }
-
             if internalAU?.isSetUp ?? false {
-                if token != nil && frequencyParameter != nil {
-                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
                 }
             }
-
-            internalAU?.frequency = newValue
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
@@ -64,15 +62,13 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             if depth == newValue {
                 return
             }
-
             if internalAU?.isSetUp ?? false {
-                if token != nil && depthParameter != nil {
-                    depthParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    depthParameter?.setValue(Float(newValue), originator: existingToken)
                     return
                 }
             }
-
-            internalAU?.depth = newValue
+            internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
 
@@ -82,35 +78,32 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             if feedback == newValue {
                 return
             }
-
             if internalAU?.isSetUp ?? false {
-                if token != nil && feedbackParameter != nil {
-                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     return
                 }
             }
-
-            internalAU?.feedback = newValue
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
-    /// Dry Wet Mix - Traditionally 50% for a flanger, avoid changing this value
+    /// Dry Wet Mix (fraction)
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             if dryWetMix == newValue {
                 return
             }
-
             if internalAU?.isSetUp ?? false {
-                if token != nil && dryWetMixParameter != nil {
-                    dryWetMixParameter?.setValue(Float(newValue), originator: token!)
+                if let existingToken = token {
+                    dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
                     return
                 }
             }
-
-            internalAU?.dryWetMix = newValue
+            internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
         }
     }
+
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
@@ -152,7 +145,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            input?.connect(to: self!)
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {

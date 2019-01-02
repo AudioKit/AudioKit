@@ -23,8 +23,6 @@
     _kernel.setIndex(index);
 }
 
-standardBankFunctions()
-
 - (void)setupWaveform:(UInt32)waveform size:(int)size {
     _kernel.setupWaveform(waveform, (uint32_t)size);
 }
@@ -40,7 +38,6 @@ standardBankFunctions()
 - (void)createParameters {
 
     standardGeneratorSetup(MorphingOscillatorBank)
-    standardBankParameters(AKMorphingOscillatorBankDSPKernel)
 
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameter:@"index"
@@ -55,11 +52,11 @@ standardBankFunctions()
 
     _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
 
+    [self setKernelPtr:&_kernel];
+    
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
-                                                               standardBankAUParameterList(),
-                                                               indexAUParameter
-                                                               ]];
+    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
+    _parameterTree = [AUParameterTree createTreeWithChildren:children];
     parameterTreeBlock(MorphingOscillatorBank)
 }
 

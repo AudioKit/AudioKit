@@ -18,16 +18,19 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var attackDuration: Double = 0.1 {
+    var attackDuration: Double = AKAmplitudeEnvelope.defaultAttackDuration {
         didSet { setParameter(.attackDuration, value: attackDuration) }
     }
-    var decayDuration: Double = 0.1 {
+
+    var decayDuration: Double = AKAmplitudeEnvelope.defaultDecayDuration {
         didSet { setParameter(.decayDuration, value: decayDuration) }
     }
-    var sustainLevel: Double = 1.0 {
+
+    var sustainLevel: Double = AKAmplitudeEnvelope.defaultSustainLevel {
         didSet { setParameter(.sustainLevel, value: sustainLevel) }
     }
-    var releaseDuration: Double = 0.1 {
+
+    var releaseDuration: Double = AKAmplitudeEnvelope.defaultReleaseDuration {
         didSet { setParameter(.releaseDuration, value: releaseDuration) }
     }
 
@@ -36,7 +39,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createAmplitudeEnvelopeDSP(Int32(count), sampleRate)
     }
 
@@ -48,10 +51,10 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
 
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
-            name: "Attack duration (secs)",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 99,
+            name: "Attack time",
+            address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
+            min: Float(AKAmplitudeEnvelope.attackDurationRange.lowerBound),
+            max: Float(AKAmplitudeEnvelope.attackDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -60,10 +63,10 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         )
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
-            name: "Decay duration (secs)",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 99,
+            name: "Decay time",
+            address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
+            min: Float(AKAmplitudeEnvelope.decayDurationRange.lowerBound),
+            max: Float(AKAmplitudeEnvelope.decayDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
@@ -73,9 +76,9 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         let sustainLevel = AUParameterTree.createParameter(
             withIdentifier: "sustainLevel",
             name: "Sustain Level",
-            address: AUParameterAddress(2),
-            min: 0,
-            max: 99,
+            address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
+            min: Float(AKAmplitudeEnvelope.sustainLevelRange.lowerBound),
+            max: Float(AKAmplitudeEnvelope.sustainLevelRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
@@ -84,22 +87,22 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
         )
         let releaseDuration = AUParameterTree.createParameter(
             withIdentifier: "releaseDuration",
-            name: "Release duration (secs)",
-            address: AUParameterAddress(3),
-            min: 0,
-            max: 99,
+            name: "Release time",
+            address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
+            min: Float(AKAmplitudeEnvelope.releaseDurationRange.lowerBound),
+            max: Float(AKAmplitudeEnvelope.releaseDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
-        attackDuration.value = 0.1
-        decayDuration.value = 0.1
-        sustainLevel.value = 1.0
-        releaseDuration.value = 0.1
+        attackDuration.value = Float(AKAmplitudeEnvelope.defaultAttackDuration)
+        decayDuration.value = Float(AKAmplitudeEnvelope.defaultDecayDuration)
+        sustainLevel.value = Float(AKAmplitudeEnvelope.defaultSustainLevel)
+        releaseDuration.value = Float(AKAmplitudeEnvelope.defaultReleaseDuration)
     }
 
     public override var canProcessInPlace: Bool { return true }

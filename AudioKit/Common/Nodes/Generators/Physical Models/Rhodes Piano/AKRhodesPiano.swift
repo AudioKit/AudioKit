@@ -104,8 +104,8 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.frequency = frequency
+        internalAU?.amplitude = amplitude
     }
 
     /// Trigger the sound with an optional set of parameters

@@ -16,7 +16,7 @@
 @implementation AKSamplerMetronome {
     AKTimelineTap *tap;
     double _beatsPerSample;
-    double _sampleRate;
+    double sampleRate;
     int _beatCount;
     double _triggers[32];
     BOOL _hasSound;
@@ -34,7 +34,7 @@
 -(instancetype)initWithSound:(NSURL *)soundURL downBeatSound:(NSURL *)downBeatSoundURL {
     self = [super init];
     if (self) {
-        _sampleRate = [self outputFormatForBus:0].sampleRate;
+        sampleRate = [self outputFormatForBus:0].sampleRate;
         _soundURL = soundURL;
         _downBeatSoundURL = downBeatSoundURL;
 
@@ -101,7 +101,7 @@
 
     //Update new tempo, stored as beatsPerSample.
     double beatsPerSecond = bpm / 60.0;
-    _beatsPerSample = beatsPerSecond / _sampleRate;
+    _beatsPerSample = beatsPerSecond / sampleRate;
     _beatCount = beats;
 
     Float64 newLoopEnd = _beatCount / _beatsPerSample;
@@ -155,7 +155,7 @@
 }
 
 -(double)tempo {
-    double beatsPerSecond = _beatsPerSample * _sampleRate;
+    double beatsPerSecond = _beatsPerSample * sampleRate;
     return beatsPerSecond * 60.0;
 }
 

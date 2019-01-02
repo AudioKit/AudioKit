@@ -31,7 +31,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createBandPassButterworthFilterDSP(Int32(count), sampleRate)
     }
 
@@ -44,7 +44,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKBandPassButterworthFilterParameter.centerFrequency.rawValue,
             min: Float(AKBandPassButterworthFilter.centerFrequencyRange.lowerBound),
             max: Float(AKBandPassButterworthFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
@@ -56,7 +56,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
         let bandwidth = AUParameterTree.createParameter(
             withIdentifier: "bandwidth",
             name: "Bandwidth (Hz)",
-            address: AUParameterAddress(1),
+            address: AKBandPassButterworthFilterParameter.bandwidth.rawValue,
             min: Float(AKBandPassButterworthFilter.bandwidthRange.lowerBound),
             max: Float(AKBandPassButterworthFilter.bandwidthRange.upperBound),
             unit: .hertz,
@@ -65,7 +65,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandPassButterworthFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)
