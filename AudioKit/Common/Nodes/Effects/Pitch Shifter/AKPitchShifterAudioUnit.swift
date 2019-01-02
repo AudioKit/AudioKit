@@ -43,8 +43,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let shift = AUParameterTree.createParameter(
             withIdentifier: "shift",
             name: "Pitch shift (in semitones)",
@@ -53,7 +51,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             max: Float(AKPitchShifter.shiftRange.upperBound),
             unit: .relativeSemiTones,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             max: Float(AKPitchShifter.windowSizeRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             max: Float(AKPitchShifter.crossfadeRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

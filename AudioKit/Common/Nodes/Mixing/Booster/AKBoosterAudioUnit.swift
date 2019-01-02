@@ -45,8 +45,6 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let leftGain = AUParameterTree.createParameter(
             withIdentifier: "leftGain",
             name: "Left Boosting Amount",
@@ -55,7 +53,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             max: 2.0,
             unit: .linearGain,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil)
 
@@ -67,7 +65,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             max: 2.0,
             unit: .linearGain,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil)
 

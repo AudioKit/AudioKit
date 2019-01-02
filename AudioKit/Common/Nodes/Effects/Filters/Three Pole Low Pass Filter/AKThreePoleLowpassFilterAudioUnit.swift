@@ -43,8 +43,6 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let distortion = AUParameterTree.createParameter(
             withIdentifier: "distortion",
             name: "Distortion (%)",
@@ -53,7 +51,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKThreePoleLowpassFilter.distortionRange.upperBound),
             unit: .percent,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKThreePoleLowpassFilter.resonanceRange.upperBound),
             unit: .percent,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

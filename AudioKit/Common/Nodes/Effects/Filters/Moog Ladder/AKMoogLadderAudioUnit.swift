@@ -39,8 +39,6 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
@@ -49,7 +47,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             max: Float(AKMoogLadder.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +59,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             max: Float(AKMoogLadder.resonanceRange.upperBound),
             unit: .percent,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

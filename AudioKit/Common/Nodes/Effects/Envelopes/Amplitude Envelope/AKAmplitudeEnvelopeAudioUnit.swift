@@ -47,8 +47,6 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
             name: "Attack time",
@@ -57,7 +55,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             max: Float(AKAmplitudeEnvelope.attackDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -69,7 +67,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             max: Float(AKAmplitudeEnvelope.decayDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -81,7 +79,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             max: Float(AKAmplitudeEnvelope.sustainLevelRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +91,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             max: Float(AKAmplitudeEnvelope.releaseDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

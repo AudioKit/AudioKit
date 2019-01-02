@@ -178,7 +178,7 @@ public enum AKSliderStyle {
                                        .paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
-            with: CGSize(width: width, height: CGFloat.infinity),
+            with: CGSize(width: width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         context.saveGState()
@@ -263,7 +263,7 @@ public enum AKSliderStyle {
 
             let valueLabelInset: NSRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
-                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
+                with: CGSize(width: valueLabelInset.width, height: .infinity),
                 options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 

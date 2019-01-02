@@ -46,9 +46,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let pregain = AUParameterTree.createParameter(
             withIdentifier: "pregain",
             name: "Pregain",
@@ -57,7 +54,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             max: Float(AKTanhDistortion.pregainRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -69,7 +66,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             max: Float(AKTanhDistortion.postgainRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -81,7 +78,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             max: Float(AKTanhDistortion.positiveShapeParameterRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +90,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             max: Float(AKTanhDistortion.negativeShapeParameterRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

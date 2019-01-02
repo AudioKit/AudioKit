@@ -35,8 +35,6 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let pan = AUParameterTree.createParameter(
             withIdentifier: "pan",
             name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
@@ -45,7 +43,7 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
             max: Float(AKPanner.panRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

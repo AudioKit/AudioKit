@@ -71,8 +71,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let predelay = AUParameterTree.createParameter(
             withIdentifier: "predelay",
             name: "Delay in ms before reverberation begins.",
@@ -81,7 +79,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.predelayRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +91,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.crossoverFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -105,7 +103,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.lowReleaseTimeRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -117,7 +115,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.midReleaseTimeRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -129,7 +127,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.dampingFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -141,7 +139,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.equalizerFrequency1Range.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -153,7 +151,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.equalizerLevel1Range.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -165,7 +163,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.equalizerFrequency2Range.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -177,7 +175,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.equalizerLevel2Range.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -189,7 +187,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKZitaReverb.dryWetMixRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

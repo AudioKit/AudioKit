@@ -47,8 +47,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
@@ -57,7 +55,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             max: Float(AKRolandTB303Filter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -69,7 +67,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             max: Float(AKRolandTB303Filter.resonanceRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -81,7 +79,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             max: Float(AKRolandTB303Filter.distortionRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +91,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             max: Float(AKRolandTB303Filter.resonanceAsymmetryRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

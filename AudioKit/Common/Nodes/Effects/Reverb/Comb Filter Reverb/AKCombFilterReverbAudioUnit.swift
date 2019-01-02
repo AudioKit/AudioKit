@@ -35,8 +35,6 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let reverbDuration = AUParameterTree.createParameter(
             withIdentifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
@@ -45,7 +43,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKCombFilterReverb.reverbDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
