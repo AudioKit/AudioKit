@@ -11,19 +11,19 @@
 #include "Mandolin.h"
 #include "mand_raw.h"
 
-struct AKMandolinDSPKernel::_Internal
+struct AKMandolinDSPKernel::InternalData
 {
     stk::Mandolin *mandolins[4];
     float detune = 1;
     float bodySize = 1;
 };
 
-AKMandolinDSPKernel::AKMandolinDSPKernel() : _private(new _Internal) { }
+AKMandolinDSPKernel::AKMandolinDSPKernel() : data(new InternalData) { }
 
 AKMandolinDSPKernel::~AKMandolinDSPKernel() = default;
 
-void AKMandolinDSPKernel::init(int _channels, double _sampleRate) {
-    AKDSPKernel::init(_channels, _sampleRate);
+void AKMandolinDSPKernel::init(int channelCount, double sampleRate) {
+    AKDSPKernel::init(channelCount, sampleRate);
     
     // Create temporary raw files
     NSError *error = nil;
@@ -54,13 +54,13 @@ void AKMandolinDSPKernel::init(int _channels, double _sampleRate) {
     
     stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
     for (int i=0; i <= 3; i++)
-        _private->mandolins[i] = new stk::Mandolin(100);
+        data->mandolins[i] = new stk::Mandolin(100);
     stk::Stk::setSampleRate(sampleRate);
 }
 
 void AKMandolinDSPKernel::destroy() {
     for (int i=0; i <= 3; i++)
-        delete _private->mandolins[i];
+        delete data->mandolins[i];
 }
 
 void AKMandolinDSPKernel::reset() {
@@ -68,22 +68,22 @@ void AKMandolinDSPKernel::reset() {
 }
 
 void AKMandolinDSPKernel::setDetune(float value) {
-    _private->detune = clamp(value, 0.0f, 10.0f);
-    detuneRamper.setImmediate(_private->detune);
+    data->detune = clamp(value, 0.0f, 10.0f);
+    detuneRamper.setImmediate(data->detune);
 }
 
 void AKMandolinDSPKernel::setBodySize(float value) {
-    _private->bodySize = clamp(value, 0.0f, 3.0f);
-    bodySizeRamper.setImmediate(_private->bodySize);
+    data->bodySize = clamp(value, 0.0f, 3.0f);
+    bodySizeRamper.setImmediate(data->bodySize);
 }
 
 void AKMandolinDSPKernel::setFrequency(float frequency, int course) {
-    _private->mandolins[course]->setFrequency(frequency);
+    data->mandolins[course]->setFrequency(frequency);
 }
 
 void AKMandolinDSPKernel::pluck(int course, float position, int velocity) {
     started = true;
-    _private->mandolins[course]->pluck((float)velocity/127.0, position);
+    data->mandolins[course]->pluck((float)velocity/127.0, position);
 }
 
 void AKMandolinDSPKernel::mute(int course) {
@@ -132,21 +132,21 @@ void AKMandolinDSPKernel::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         
         int frameOffset = int(frameIndex + bufferOffset);
         
-        _private->detune = detuneRamper.getAndStep();
-        _private->bodySize = bodySizeRamper.getAndStep();
+        data->detune = detuneRamper.getAndStep();
+        data->bodySize = bodySizeRamper.getAndStep();
         
-        for (auto & mandolin : _private->mandolins) {
-            mandolin->setDetune(_private->detune);
-            mandolin->setBodySize(1 / _private->bodySize);
+        for (auto & mandolin : data->mandolins) {
+            mandolin->setDetune(data->detune);
+            mandolin->setBodySize(1 / data->bodySize);
         }
         
         for (int channel = 0; channel < channels; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (started) {
-                *out = _private->mandolins[0]->tick();
-                *out += _private->mandolins[1]->tick();
-                *out += _private->mandolins[2]->tick();
-                *out += _private->mandolins[3]->tick();
+                *out = data->mandolins[0]->tick();
+                *out += data->mandolins[1]->tick();
+                *out += data->mandolins[2]->tick();
+                *out += data->mandolins[3]->tick();
             } else {
                 *out = 0.0;
             }

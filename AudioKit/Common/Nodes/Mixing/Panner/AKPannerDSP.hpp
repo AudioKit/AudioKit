@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPannerParameter) {
 
 #ifndef __cplusplus
 
-void *createPannerDSP(int nChannels, double sampleRate);
+AKDSPRef createPannerDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -27,7 +27,7 @@ void *createPannerDSP(int nChannels, double sampleRate);
 
 class AKPannerDSP : public AKSoundpipeDSPBase {
 
-    sp_panst *_panst;
+    sp_panst *panst;
 
 
 private:
@@ -46,7 +46,7 @@ public:
                 panRamp.setTarget(value, immediate);
                 break;
             case AKPannerParameterRampDuration:
-                panRamp.setRampDuration(value, _sampleRate);
+                panRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -57,20 +57,20 @@ public:
             case AKPannerParameterPan:
                 return panRamp.getTarget();
             case AKPannerParameterRampDuration:
-                return panRamp.getRampDuration(_sampleRate);
+                return panRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_panst_create(&_panst);
-        sp_panst_init(_sp, _panst);
-        _panst->pan = 0;
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_panst_create(&panst);
+        sp_panst_init(sp, panst);
+        panst->pan = 0;
     }
 
     void deinit() override {
-        sp_panst_destroy(&_panst);
+        sp_panst_destroy(&panst);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -80,26 +80,26 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                panRamp.advanceTo(_now + frameOffset);
+                panRamp.advanceTo(now + frameOffset);
             }
-            _panst->pan = panRamp.getValue();
+            panst->pan = panRamp.getValue();
 
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
-                if (!_playing) {
+                if (!isStarted) {
                     *out = *in;
                 }
             }
-            if (_playing) {
-                sp_panst_compute(_sp, _panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            if (isStarted) {
+                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
         }
     }

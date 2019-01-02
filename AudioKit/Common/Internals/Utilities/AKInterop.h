@@ -11,8 +11,10 @@
 
 #ifdef __OBJC__
 #define AK_ENUM(a) enum __attribute__((enum_extensibility(open))) a : int
+#define AK_SWIFT_TYPE __attribute((swift_newtype(struct)))
 #else
 #define AK_ENUM(a) enum a
+#define AK_SWIFT_TYPE
 #endif
 
 /* EXAMPLE
@@ -28,5 +30,8 @@
  Then use in Swift:
  let direction: AKDirection = .up
 */
+
+/** Pointer to an instance of an AKDSPBase subclass */
+typedef void* AKDSPRef AK_SWIFT_TYPE;
 
 #endif /* AKInterop_h */

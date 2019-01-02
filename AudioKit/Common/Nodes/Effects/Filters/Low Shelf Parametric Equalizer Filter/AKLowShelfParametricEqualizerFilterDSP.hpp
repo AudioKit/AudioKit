@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKLowShelfParametricEqualizerFilterParameter
 
 #ifndef __cplusplus
 
-void *createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRate);
+AKDSPRef createLowShelfParametricEqualizerFilterDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -27,8 +27,8 @@ void *createLowShelfParametricEqualizerFilterDSP(int nChannels, double sampleRat
 
 class AKLowShelfParametricEqualizerFilterDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKLowShelfParametricEqualizerFilterDSP();
@@ -52,7 +52,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

@@ -18,7 +18,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var reverbDuration: Double = 1.0 {
+    var reverbDuration: Double = AKCombFilterReverb.defaultReverbDuration {
         didSet { setParameter(.reverbDuration, value: reverbDuration) }
     }
 
@@ -27,7 +27,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createCombFilterReverbDSP(Int32(count), sampleRate)
     }
 
@@ -40,18 +40,18 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
         let reverbDuration = AUParameterTree.createParameter(
             withIdentifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
-            address: AUParameterAddress(0),
-            min: 0.0,
-            max: 10.0,
+            address: AKCombFilterReverbParameter.reverbDuration.rawValue,
+            min: Float(AKCombFilterReverb.reverbDurationRange.lowerBound),
+            max: Float(AKCombFilterReverb.reverbDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
-        reverbDuration.value = 1.0
+        reverbDuration.value = Float(AKCombFilterReverb.defaultReverbDuration)
     }
 
     public override var canProcessInPlace: Bool { return true }

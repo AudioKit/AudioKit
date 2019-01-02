@@ -198,7 +198,7 @@ static void bufferListClear(AudioBufferList *audioBufferList) {
     }
 }
 
-static size_t  bufferListByteSize(int channelCount) {
+static size_t bufferListByteSize(int channelCount) {
     return sizeof(AudioBufferList) + (sizeof(AudioBuffer) * (channelCount - 1));
 }
 
