@@ -276,13 +276,13 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSAttributedString.Key.foregroundColor: textColor,
-                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            .foregroundColor: textColor,
+                                            .paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
-                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
+                with: CGSize(width: valueLabelInset.width, height: .infinity),
                 options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 

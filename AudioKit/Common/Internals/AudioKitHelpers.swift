@@ -8,6 +8,7 @@
 
 import AudioToolbox
 import CoreAudio
+import Cocoa
 
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16
@@ -29,6 +30,28 @@ extension Collection {
     public var randomIndex: Index {
         let offset = Int(arc4random_uniform(UInt32(Int64(count))))
         return index(startIndex, offsetBy: offset)
+    }
+}
+
+extension Collection where Element == CGPoint {
+    public func bezier() -> NSBezierPath {
+        let path = NSBezierPath()
+
+        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
+        path.move(to: fst)
+
+        dropFirst().forEach {
+            path.line(to: $0)
+        }
+
+        path.close()
+        return path
+    }
+}
+
+extension NSRect {
+    init(size: NSSize) {
+        self.init(origin: .zero, size: size)
     }
 }
 
