@@ -49,7 +49,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     /// Initialize the resource loader
     public convenience init(player: AKAudioPlayer,
                             filenames: [String],
-                            frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+                            frame: CGRect = CGRect(width: 440, height: 60)) {
         self.init(frame: frame)
         self.player = player
         self.titles = filenames

@@ -50,8 +50,16 @@ extension Collection where Element == CGPoint {
 }
 
 extension NSRect {
-    init(size: NSSize) {
+    public init(size: NSSize) {
         self.init(origin: .zero, size: size)
+    }
+
+    public init(width: CGFloat, height: CGFloat) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
+    }
+
+    public init(width: Int, height: Int) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
     }
 }
 
