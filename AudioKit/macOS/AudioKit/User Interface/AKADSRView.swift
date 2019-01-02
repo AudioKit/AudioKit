@@ -138,13 +138,7 @@ public class AKADSRView: NSView {
         //// attackTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
-        attackTouchAreaPath = NSBezierPath()
-        attackTouchAreaPath.move(to: NSPoint(x: 0, y: size.height))
-        attackTouchAreaPath.line(to: highPointAxis)
-        attackTouchAreaPath.line(to: highMax)
-        attackTouchAreaPath.line(to: initialMax)
-        attackTouchAreaPath.line(to: NSPoint(x: 0, y: size.height))
-        attackTouchAreaPath.close()
+        attackTouchAreaPath = [NSPoint(x: 0, y: size.height), highPointAxis, highMax, initialMax, NSPoint(x: 0, y: size.height)].bezier()
         backgroundColor.setFill()
         attackTouchAreaPath.fill()
 
@@ -153,13 +147,7 @@ public class AKADSRView: NSView {
         //// decaySustainTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
-        decaySustainTouchAreaPath = NSBezierPath()
-        decaySustainTouchAreaPath.move(to: highPointAxis)
-        decaySustainTouchAreaPath.line(to: releaseAxis)
-        decaySustainTouchAreaPath.line(to: releaseMax)
-        decaySustainTouchAreaPath.line(to: highMax)
-        decaySustainTouchAreaPath.line(to: highPointAxis)
-        decaySustainTouchAreaPath.close()
+        decaySustainTouchAreaPath = [highPointAxis, releaseAxis, releaseMax, highMax, highPointAxis].bezier()
         backgroundColor.setFill()
         decaySustainTouchAreaPath.fill()
 
@@ -168,13 +156,7 @@ public class AKADSRView: NSView {
         //// releaseTouchArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
-        releaseTouchAreaPath = NSBezierPath()
-        releaseTouchAreaPath.move(to: releaseAxis)
-        releaseTouchAreaPath.line(to: endAxes)
-        releaseTouchAreaPath.line(to: endMax)
-        releaseTouchAreaPath.line(to: releaseMax)
-        releaseTouchAreaPath.line(to: releaseAxis)
-        releaseTouchAreaPath.close()
+        releaseTouchAreaPath = [releaseAxis, endAxes, endMax, releaseMax, releaseAxis].bezier()
         backgroundColor.setFill()
         releaseTouchAreaPath.fill()
 
@@ -201,13 +183,7 @@ public class AKADSRView: NSView {
         //// sustainArea Drawing
         NSGraphicsContext.saveGraphicsState()
 
-        let sustainAreaPath = NSBezierPath()
-        sustainAreaPath.move(to: sustainAxis)
-        sustainAreaPath.line(to: releaseAxis)
-        sustainAreaPath.line(to: releasePoint)
-        sustainAreaPath.line(to: sustainPoint)
-        sustainAreaPath.line(to: sustainAxis)
-        sustainAreaPath.close()
+        let sustainAreaPath = [sustainAxis, releaseAxis, releasePoint, sustainPoint, sustainAxis].bezier()
         sustainColor.setFill()
         sustainAreaPath.fill()
 
