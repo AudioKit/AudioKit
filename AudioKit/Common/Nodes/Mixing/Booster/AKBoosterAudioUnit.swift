@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBoosterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBoosterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var leftGain: Double = 1.0 {
@@ -50,7 +50,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         let leftGain = AUParameterTree.createParameter(
             withIdentifier: "leftGain",
             name: "Left Boosting Amount",
-            address: AUParameterAddress(0),
+            address: 0,
             min: 0.0,
             max: 2.0,
             unit: .linearGain,

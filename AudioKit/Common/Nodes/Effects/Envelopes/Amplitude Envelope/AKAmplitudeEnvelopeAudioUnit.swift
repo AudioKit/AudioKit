@@ -11,11 +11,11 @@ import AVFoundation
 public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKAmplitudeEnvelopeParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKAmplitudeEnvelopeParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var attackDuration: Double = AKAmplitudeEnvelope.defaultAttackDuration {

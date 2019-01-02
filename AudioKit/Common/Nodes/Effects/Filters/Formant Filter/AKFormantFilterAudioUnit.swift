@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFormantFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKFormantFilter.defaultCenterFrequency {

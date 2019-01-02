@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKPhaseDistortionOscillator.defaultFrequency {

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKMetalBarParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKMetalBarParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var leftBoundaryCondition: Double = AKMetalBar.defaultLeftBoundaryCondition {

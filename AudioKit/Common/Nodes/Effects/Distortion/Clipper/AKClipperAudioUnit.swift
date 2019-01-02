@@ -11,11 +11,11 @@ import AVFoundation
 public class AKClipperAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKClipperParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKClipperParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var limit: Double = AKClipper.defaultLimit {

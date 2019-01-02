@@ -11,11 +11,11 @@ import AVFoundation
 public class AKStringResonatorAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKStringResonatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKStringResonatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var fundamentalFrequency: Double = AKStringResonator.defaultFundamentalFrequency {

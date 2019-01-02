@@ -11,11 +11,11 @@ import AVFoundation
 public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKRolandTB303FilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKRolandTB303FilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKRolandTB303Filter.defaultCutoffFrequency {

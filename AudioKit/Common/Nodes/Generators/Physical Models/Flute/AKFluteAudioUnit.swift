@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKFluteParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFluteParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = 440 {
@@ -43,7 +43,7 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: 0,
             min: 0,
             max: 20_000,
             unit: .hertz,

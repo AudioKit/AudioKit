@@ -11,11 +11,11 @@ import AVFoundation
 public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKHighPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKHighPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKHighPassButterworthFilter.defaultCutoffFrequency {

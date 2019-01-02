@@ -11,11 +11,11 @@ import AVFoundation
 public class AKVariableDelayAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKVariableDelayParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKVariableDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var time: Double = AKVariableDelay.defaultTime {

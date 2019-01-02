@@ -11,11 +11,11 @@ import AVFoundation
 public class AKZitaReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKZitaReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKZitaReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var predelay: Double = AKZitaReverb.defaultPredelay {

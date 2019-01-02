@@ -40,7 +40,7 @@ public class AKTableView: NSView {
         let height = Double(frame.height) / 2.0
         let padding = 0.9
 
-        let border = NSBezierPath(rect: NSRect(width: frame.width, height: frame.height))
+        let border = NSBezierPath(rect: NSRect(size: frame.size))
         let bgcolor = AKStylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()

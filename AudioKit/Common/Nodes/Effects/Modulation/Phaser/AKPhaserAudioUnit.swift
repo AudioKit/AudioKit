@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPhaserAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKPhaserParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPhaserParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var notchMinimumFrequency: Double = AKPhaser.defaultNotchMinimumFrequency {

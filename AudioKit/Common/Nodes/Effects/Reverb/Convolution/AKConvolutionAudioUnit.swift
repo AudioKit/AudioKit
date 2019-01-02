@@ -11,11 +11,11 @@ import AVFoundation
 public class AKConvolutionAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKConvolutionParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKConvolutionParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var rampDuration: Double = 0.0 {

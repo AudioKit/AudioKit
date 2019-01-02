@@ -11,11 +11,11 @@ import AVFoundation
 public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cornerFrequency: Double = AKLowShelfParametricEqualizerFilter.defaultCornerFrequency {

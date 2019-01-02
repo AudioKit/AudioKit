@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPhaseLockedVocoderParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPhaseLockedVocoderParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var position: Double = AKPhaseLockedVocoder.defaultPosition {
