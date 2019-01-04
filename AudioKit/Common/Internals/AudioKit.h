@@ -142,7 +142,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKStereoFieldLimiterDSP.hpp"
 
 // Playback
-#import "AKPhaseLockedVocoderAudioUnit.h"
+#import "AKPhaseLockedVocoderDSP.hpp"
 #import "AKWaveTableAudioUnit.h"
 #import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"

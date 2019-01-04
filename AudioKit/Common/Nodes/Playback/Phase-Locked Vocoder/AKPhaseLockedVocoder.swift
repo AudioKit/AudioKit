@@ -24,6 +24,24 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
     fileprivate var pitchRatioParameter: AUParameter?
 
+    /// Lower and upper bounds for position
+    public static let positionRange = 0.0 ... 1000.0
+
+    /// Initial value for position
+    public static let defaultPosition = 0.0
+
+    /// Lower and upper bounds for amplitude
+    public static let amplitudeRange = 0.0 ... 1.0
+
+    /// Initial value for amplitude
+    public static let defaultAmplitude = 0.0
+
+    /// Lower and upper bounds for pitch ratio
+    public static let pitchRatioRange = 0.0 ... 1000.0
+
+    /// Initial value for pitch ratio
+    public static let defaultPitchRatio = 1.0
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
@@ -40,7 +58,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                         positionParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.position = Float(newValue)
+                    internalAU?.position = newValue
                 }
             }
         }
@@ -55,7 +73,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                         amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.amplitude = Float(newValue)
+                    internalAU?.amplitude = newValue
                 }
             }
         }
@@ -70,7 +88,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                         pitchRatioParameter?.setValue(Float(newValue), originator: existingToken)
                     }
                 } else {
-                    internalAU?.pitchRatio = Float(newValue)
+                    internalAU?.pitchRatio = newValue
                 }
             }
         }
@@ -135,9 +153,9 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.position = Float(position)
-        internalAU?.amplitude = Float(amplitude)
-        internalAU?.pitchRatio = Float(pitchRatio)
+        internalAU?.position = position
+        internalAU?.amplitude = amplitude
+        internalAU?.pitchRatio = pitchRatio
     }
 
     // MARK: - Control

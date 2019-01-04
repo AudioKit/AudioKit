@@ -9,13 +9,13 @@
 #include "AKConvolutionDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" AKDSPRef createConvolutionDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createConvolutionDSP(int channelCount, double sampleRate) {
     AKConvolutionDSP *dsp = new AKConvolutionDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKConvolutionDSP::_Internal {
+struct AKConvolutionDSP::InternalData {
     sp_conv *conv0;
     sp_conv *conv1;
 
@@ -25,33 +25,33 @@ struct AKConvolutionDSP::_Internal {
     int partitionLength = 2048;
 };
 
-AKConvolutionDSP::AKConvolutionDSP() : _private(new _Internal) {}
+AKConvolutionDSP::AKConvolutionDSP() : data(new InternalData) {}
 
-void AKConvolutionDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
+void AKConvolutionDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
 }
 
 void AKConvolutionDSP::setPartitionLength(int partLength) {
-    _private->partitionLength = partLength;
+    data->partitionLength = partLength;
 }
 
 void AKConvolutionDSP::setUpTable(float *table, UInt32 size) {
-    _private->ftbl_size = size;
-    sp_ftbl_create(_sp, &_private->ftbl, _private->ftbl_size);
-    _private->ftbl->tbl = table;
+    data->ftbl_size = size;
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
+    data->ftbl->tbl = table;
 }
 
 
 void AKConvolutionDSP::initConvolutionEngine() {
-    sp_conv_create(&_private->conv0);
-    sp_conv_create(&_private->conv1);
-    sp_conv_init(_sp, _private->conv0, _private->ftbl, (float)_private->partitionLength);
-    sp_conv_init(_sp, _private->conv1, _private->ftbl, (float)_private->partitionLength);
+    sp_conv_create(&data->conv0);
+    sp_conv_create(&data->conv1);
+    sp_conv_init(sp, data->conv0, data->ftbl, (float)data->partitionLength);
+    sp_conv_init(sp, data->conv1, data->ftbl, (float)data->partitionLength);
 }
 
 void AKConvolutionDSP::deinit() {
-    sp_conv_destroy(&_private->conv0);
-    sp_conv_destroy(&_private->conv1);
+    sp_conv_destroy(&data->conv0);
+    sp_conv_destroy(&data->conv1);
 }
 
 void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -61,22 +61,22 @@ void AKConvolutionDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
 
             if (channel == 0) {
-                sp_conv_compute(_sp, _private->conv0, in, out);
+                sp_conv_compute(sp, data->conv0, in, out);
             } else {
-                sp_conv_compute(_sp, _private->conv1, in, out);
+                sp_conv_compute(sp, data->conv1, in, out);
             }
             *out = *out * 0.05; // Hack
         }

@@ -40,7 +40,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(0),
+            address: AKBrownianNoiseParameter.amplitude.rawValue,
             min: Float(AKBrownianNoise.amplitudeRange.lowerBound),
             max: Float(AKBrownianNoise.amplitudeRange.upperBound),
             unit: .generic,
@@ -49,7 +49,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
         amplitude.value = Float(AKBrownianNoise.defaultAmplitude)
     }

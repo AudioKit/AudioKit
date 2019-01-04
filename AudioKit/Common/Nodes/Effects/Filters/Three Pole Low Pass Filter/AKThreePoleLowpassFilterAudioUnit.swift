@@ -35,7 +35,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> AKDSPRef! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createThreePoleLowpassFilterDSP(Int32(count), sampleRate)
     }
 
@@ -48,7 +48,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
         let distortion = AUParameterTree.createParameter(
             withIdentifier: "distortion",
             name: "Distortion (%)",
-            address: AUParameterAddress(0),
+            address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
             min: Float(AKThreePoleLowpassFilter.distortionRange.lowerBound),
             max: Float(AKThreePoleLowpassFilter.distortionRange.upperBound),
             unit: .percent,
@@ -60,7 +60,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
-            address: AUParameterAddress(1),
+            address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
             min: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.lowerBound),
             max: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
@@ -72,7 +72,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
         let resonance = AUParameterTree.createParameter(
             withIdentifier: "resonance",
             name: "Resonance (%)",
-            address: AUParameterAddress(2),
+            address: AKThreePoleLowpassFilterParameter.resonance.rawValue,
             min: Float(AKThreePoleLowpassFilter.resonanceRange.lowerBound),
             max: Float(AKThreePoleLowpassFilter.resonanceRange.upperBound),
             unit: .percent,
@@ -81,7 +81,7 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [distortion, cutoffFrequency, resonance]))
         distortion.value = Float(AKThreePoleLowpassFilter.defaultDistortion)
         cutoffFrequency.value = Float(AKThreePoleLowpassFilter.defaultCutoffFrequency)

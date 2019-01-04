@@ -54,8 +54,8 @@ public:
     
 protected:
  
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
     
     /// "event" counter for voice-stealing (reallocation)
     unsigned eventCounter;

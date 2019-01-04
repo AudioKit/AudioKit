@@ -12,15 +12,15 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createShakerDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createShakerDSP(int channelCount, double sampleRate) {
     AKShakerDSP *dsp = new AKShakerDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
 // AKShakerDSP method implementations
 
-struct AKShakerDSP::_Internal
+struct AKShakerDSP::InternalData
 {
     float internalTrigger = 0;
     UInt8 type = 0;
@@ -28,7 +28,7 @@ struct AKShakerDSP::_Internal
     stk::Shakers *shaker;
 };
 
-AKShakerDSP::AKShakerDSP() : _private(new _Internal)
+AKShakerDSP::AKShakerDSP() : data(new InternalData)
 {
 }
 
@@ -43,25 +43,25 @@ float AKShakerDSP::getParameter(AUParameterAddress address)  {
     return 0;
 }
 
-void AKShakerDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKShakerDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
-    stk::Stk::setSampleRate(_sampleRate);
-    _private->shaker = new stk::Shakers();
+    stk::Stk::setSampleRate(sampleRate);
+    data->shaker = new stk::Shakers();
 }
 
 void AKShakerDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKShakerDSP::triggerTypeAmplitude(AUValue type, AUValue amp)  {
-    _private->type = type;
-    _private->amplitude = amp;
+    data->type = type;
+    data->amplitude = amp;
     trigger();
 }
 
 void AKShakerDSP::destroy() {
-    delete _private->shaker;
+    delete data->shaker;
 }
 
 void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -69,21 +69,21 @@ void AKShakerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->shaker->noteOn(_private->type, _private->amplitude);
+            if (isStarted) {
+                if (data->internalTrigger == 1) {
+                    data->shaker->noteOn(data->type, data->amplitude);
                 }
-                *out = _private->shaker->tick();
+                *out = data->shaker->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }
 

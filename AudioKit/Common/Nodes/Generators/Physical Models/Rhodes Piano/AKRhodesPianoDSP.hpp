@@ -20,14 +20,14 @@ typedef NS_ENUM(AUParameterAddress, AKRhodesPianoParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate);
+AKDSPRef createRhodesPianoDSP(int channelCount, double sampleRate);
 
 #else
 
 class AKRhodesPianoDSP : public AKDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
 
@@ -41,7 +41,7 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(AUParameterAddress address) override;
 
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void trigger() override;
 

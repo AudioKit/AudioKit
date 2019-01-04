@@ -52,7 +52,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         let pregain = AUParameterTree.createParameter(
             withIdentifier: "pregain",
             name: "Pregain",
-            address: AUParameterAddress(0),
+            address: AKTanhDistortionParameter.pregain.rawValue,
             min: Float(AKTanhDistortion.pregainRange.lowerBound),
             max: Float(AKTanhDistortion.pregainRange.upperBound),
             unit: .generic,
@@ -64,7 +64,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         let postgain = AUParameterTree.createParameter(
             withIdentifier: "postgain",
             name: "Postgain",
-            address: AUParameterAddress(1),
+            address: AKTanhDistortionParameter.postgain.rawValue,
             min: Float(AKTanhDistortion.postgainRange.lowerBound),
             max: Float(AKTanhDistortion.postgainRange.upperBound),
             unit: .generic,
@@ -76,7 +76,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         let positiveShapeParameter = AUParameterTree.createParameter(
             withIdentifier: "positiveShapeParameter",
             name: "Positive Shape Parameter",
-            address: AUParameterAddress(2),
+            address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
             min: Float(AKTanhDistortion.positiveShapeParameterRange.lowerBound),
             max: Float(AKTanhDistortion.positiveShapeParameterRange.upperBound),
             unit: .generic,
@@ -88,7 +88,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
         let negativeShapeParameter = AUParameterTree.createParameter(
             withIdentifier: "negativeShapeParameter",
             name: "Negative Shape Parameter",
-            address: AUParameterAddress(3),
+            address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
             min: Float(AKTanhDistortion.negativeShapeParameterRange.lowerBound),
             max: Float(AKTanhDistortion.negativeShapeParameterRange.upperBound),
             unit: .generic,

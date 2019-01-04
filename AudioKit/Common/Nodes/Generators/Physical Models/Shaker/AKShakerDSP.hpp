@@ -19,14 +19,14 @@ typedef NS_ENUM(AUParameterAddress, AKShakerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createShakerDSP(int nChannels, double sampleRate);
+AKDSPRef createShakerDSP(int channelCount, double sampleRate);
 
 #else
 
 class AKShakerDSP : public AKDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
 
@@ -40,7 +40,7 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(AUParameterAddress address) override;
 
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void trigger() override;
 

@@ -48,7 +48,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Corner Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.centerFrequencyRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
@@ -60,7 +60,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let gain = AUParameterTree.createParameter(
             withIdentifier: "gain",
             name: "Gain",
-            address: AUParameterAddress(1),
+            address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.gainRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
@@ -72,7 +72,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         let q = AUParameterTree.createParameter(
             withIdentifier: "q",
             name: "Q",
-            address: AUParameterAddress(2),
+            address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.qRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
@@ -81,7 +81,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
         centerFrequency.value = Float(AKHighShelfParametricEqualizerFilter.defaultCenterFrequency)
         gain.value = Float(AKHighShelfParametricEqualizerFilter.defaultGain)

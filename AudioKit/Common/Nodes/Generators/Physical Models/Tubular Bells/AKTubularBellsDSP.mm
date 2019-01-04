@@ -14,15 +14,15 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate) {
     AKTubularBellsDSP *dsp = new AKTubularBellsDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
 // AKTubularBellsDSP method implementations
 
-struct AKTubularBellsDSP::_Internal
+struct AKTubularBellsDSP::InternalData
 {
     float internalTrigger = 0;
     stk::TubeBell *tubularBells;
@@ -33,12 +33,12 @@ struct AKTubularBellsDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKTubularBellsDSP::AKTubularBellsDSP() : _private(new _Internal)
+AKTubularBellsDSP::AKTubularBellsDSP() : data(new InternalData)
 {
-    _private->frequencyRamp.setTarget(110, true);
-    _private->frequencyRamp.setDurationInSamples(10000);
-    _private->amplitudeRamp.setTarget(0.5, true);
-    _private->amplitudeRamp.setDurationInSamples(10000);
+    data->frequencyRamp.setTarget(110, true);
+    data->frequencyRamp.setDurationInSamples(10000);
+    data->amplitudeRamp.setTarget(0.5, true);
+    data->amplitudeRamp.setDurationInSamples(10000);
 }
 
 AKTubularBellsDSP::~AKTubularBellsDSP() = default;
@@ -47,14 +47,14 @@ AKTubularBellsDSP::~AKTubularBellsDSP() = default;
 void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:
-            _private->frequencyRamp.setTarget(value, immediate);
+            data->frequencyRamp.setTarget(value, immediate);
             break;
         case AKTubularBellsParameterAmplitude:
-            _private->amplitudeRamp.setTarget(value, immediate);
+            data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKTubularBellsParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -63,17 +63,17 @@ void AKTubularBellsDSP::setParameter(AUParameterAddress address, float value, bo
 float AKTubularBellsDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKTubularBellsParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKTubularBellsParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKTubularBellsParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKTubularBellsDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKTubularBellsDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
@@ -93,23 +93,23 @@ void AKTubularBellsDSP::init(int _channels, double _sampleRate)  {
     stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
 
 
-    stk::Stk::setSampleRate(_sampleRate);
-    _private->tubularBells = new stk::TubeBell();
+    stk::Stk::setSampleRate(sampleRate);
+    data->tubularBells = new stk::TubeBell();
 }
 
 void AKTubularBellsDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKTubularBellsDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     bool immediate = true;
-    _private->frequencyRamp.setTarget(freq, immediate);
-    _private->amplitudeRamp.setTarget(amp, immediate);
+    data->frequencyRamp.setTarget(freq, immediate);
+    data->amplitudeRamp.setTarget(amp, immediate);
     trigger();
 }
 
 void AKTubularBellsDSP::destroy() {
-    delete _private->tubularBells;
+    delete data->tubularBells;
 }
 
 void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -119,27 +119,27 @@ void AKTubularBellsDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
-        float frequency = _private->frequencyRamp.getValue();
-        float amplitude = _private->amplitudeRamp.getValue();
+        float frequency = data->frequencyRamp.getValue();
+        float amplitude = data->amplitudeRamp.getValue();
 
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->tubularBells->noteOn(frequency, amplitude);
+            if (isStarted) {
+                if (data->internalTrigger == 1) {
+                    data->tubularBells->noteOn(frequency, amplitude);
                 }
-                *out = _private->tubularBells->tick();
+                *out = data->tubularBells->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }
 

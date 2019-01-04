@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKStereoDelayParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createStereoDelayDSP(int _channels, double sampleRate);
+AKDSPRef createStereoDelayDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -29,8 +29,8 @@ AKDSPRef createStereoDelayDSP(int _channels, double sampleRate);
 class AKStereoDelayDSP : public AKDSPBase
 {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKStereoDelayDSP();
@@ -55,7 +55,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
     void clear() override;
     void deinit() override;
 

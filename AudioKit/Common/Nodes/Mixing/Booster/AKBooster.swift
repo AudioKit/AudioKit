@@ -95,7 +95,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amplification Factor in db
     @objc open dynamic var dB: Double {
         set {
-            self.gain = pow(10.0, Double(newValue / 20))
+            self.gain = pow(10.0, newValue / 20.0)
         }
         get {
             return 20.0 * log10(self.gain)
@@ -176,7 +176,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to stop or bypass the node, both are equivalent
     @objc open func stop() {
-        // AKLog("stop() \(isPlaying)")
+        // AKLog("stop() \(isStarted)")
 
         if isPlaying {
             self.lastKnownLeftGain = leftGain

@@ -44,7 +44,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         let time = AUParameterTree.createParameter(
             withIdentifier: "time",
             name: "Delay time (Seconds)",
-            address: AUParameterAddress(0),
+            address: AKVariableDelayParameter.time.rawValue,
             min: Float(AKVariableDelay.timeRange.lowerBound),
             max: Float(AKVariableDelay.timeRange.upperBound),
             unit: .seconds,
@@ -56,7 +56,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback (%)",
-            address: AUParameterAddress(1),
+            address: AKVariableDelayParameter.feedback.rawValue,
             min: Float(AKVariableDelay.feedbackRange.lowerBound),
             max: Float(AKVariableDelay.feedbackRange.upperBound),
             unit: .generic,
