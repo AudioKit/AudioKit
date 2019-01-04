@@ -14,15 +14,15 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" AKDSPRef createRhodesPianoDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createRhodesPianoDSP(int channelCount, double sampleRate) {
     AKRhodesPianoDSP *dsp = new AKRhodesPianoDSP();
-    dsp->init(nChannels, sampleRate);
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
 // AKRhodesPianoDSP method implementations
 
-struct AKRhodesPianoDSP::_Internal
+struct AKRhodesPianoDSP::InternalData
 {
     float internalTrigger = 0;
     stk::Rhodey *rhodesPiano;
@@ -33,12 +33,12 @@ struct AKRhodesPianoDSP::_Internal
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKRhodesPianoDSP::AKRhodesPianoDSP() : _private(new _Internal)
+AKRhodesPianoDSP::AKRhodesPianoDSP() : data(new InternalData)
 {
-    _private->frequencyRamp.setTarget(110, true);
-    _private->frequencyRamp.setDurationInSamples(10000);
-    _private->amplitudeRamp.setTarget(0.5, true);
-    _private->amplitudeRamp.setDurationInSamples(10000);
+    data->frequencyRamp.setTarget(110, true);
+    data->frequencyRamp.setDurationInSamples(10000);
+    data->amplitudeRamp.setTarget(0.5, true);
+    data->amplitudeRamp.setDurationInSamples(10000);
 }
 
 AKRhodesPianoDSP::~AKRhodesPianoDSP() = default;
@@ -47,14 +47,14 @@ AKRhodesPianoDSP::~AKRhodesPianoDSP() = default;
 void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, bool immediate)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:
-            _private->frequencyRamp.setTarget(value, immediate);
+            data->frequencyRamp.setTarget(value, immediate);
             break;
         case AKRhodesPianoParameterAmplitude:
-            _private->amplitudeRamp.setTarget(value, immediate);
+            data->amplitudeRamp.setTarget(value, immediate);
             break;
         case AKRhodesPianoParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -63,17 +63,17 @@ void AKRhodesPianoDSP::setParameter(AUParameterAddress address, float value, boo
 float AKRhodesPianoDSP::getParameter(AUParameterAddress address)  {
     switch (address) {
         case AKRhodesPianoParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKRhodesPianoParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKRhodesPianoParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKRhodesPianoDSP::init(int _channels, double _sampleRate)  {
-    AKDSPBase::init(_channels, _sampleRate);
+void AKRhodesPianoDSP::init(int channelCount, double sampleRate)  {
+    AKDSPBase::init(channelCount, sampleRate);
 
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
@@ -93,23 +93,23 @@ void AKRhodesPianoDSP::init(int _channels, double _sampleRate)  {
     stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
 
 
-    stk::Stk::setSampleRate(_sampleRate);
-    _private->rhodesPiano = new stk::Rhodey();
+    stk::Stk::setSampleRate(sampleRate);
+    data->rhodesPiano = new stk::Rhodey();
 }
 
 void AKRhodesPianoDSP::trigger() {
-    _private->internalTrigger = 1;
+    data->internalTrigger = 1;
 }
 
 void AKRhodesPianoDSP::triggerFrequencyAmplitude(AUValue freq, AUValue amp)  {
     bool immediate = true;
-    _private->frequencyRamp.setTarget(freq, immediate);
-    _private->amplitudeRamp.setTarget(amp, immediate);
+    data->frequencyRamp.setTarget(freq, immediate);
+    data->amplitudeRamp.setTarget(amp, immediate);
     trigger();
 }
 
 void AKRhodesPianoDSP::destroy() {
-    delete _private->rhodesPiano;
+    delete data->rhodesPiano;
 }
 
 void AKRhodesPianoDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -119,27 +119,27 @@ void AKRhodesPianoDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
-        float frequency = _private->frequencyRamp.getValue();
-        float amplitude = _private->amplitudeRamp.getValue();
+        float frequency = data->frequencyRamp.getValue();
+        float amplitude = data->amplitudeRamp.getValue();
 
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
-                if (_private->internalTrigger == 1) {
-                    _private->rhodesPiano->noteOn(frequency, amplitude);
+            if (isStarted) {
+                if (data->internalTrigger == 1) {
+                    data->rhodesPiano->noteOn(frequency, amplitude);
                 }
-                *out = _private->rhodesPiano->tick();
+                *out = data->rhodesPiano->tick();
             } else {
                 *out = 0.0;
             }
         }
     }
-    if (_private->internalTrigger == 1) {
-        _private->internalTrigger = 0;
+    if (data->internalTrigger == 1) {
+        data->internalTrigger = 0;
     }
 }
 

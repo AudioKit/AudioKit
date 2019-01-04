@@ -23,15 +23,15 @@ class AKDSPBase {
 
 protected:
 
-    int _nChannels;                               /* From Apple Example code */
-    double _sampleRate;                           /* From Apple Example code */
-    AudioBufferList *_inBufferListPtr = nullptr;  /* From Apple Example code */
-    AudioBufferList *_outBufferListPtr = nullptr; /* From Apple Example code */
+    int channelCount;
+    double sampleRate;
+    AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     // To support AKAudioUnit functions
-    bool _initialized = true;
-    bool _playing = true;
-    int64_t _now = 0;  // current time in samples
+    bool isInitialized = true;
+    bool isStarted = true;
+    int64_t now = 0;  // current time in samples
 
 public:
     
@@ -75,17 +75,17 @@ public:
     virtual void initConvolutionEngine() {}
 
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
-        _inBufferListPtr = inBufs;
-        _outBufferListPtr = outBufs;
+        inBufferListPtr = inBufs;
+        outBufferListPtr = outBufs;
     }
 
     virtual void setBuffer(AudioBufferList *outBufs) {
-        _outBufferListPtr = outBufs;
+        outBufferListPtr = outBufs;
     }
 
-    virtual void init(int nChannels, double sampleRate) {
-        this->_nChannels = nChannels;
-        this->_sampleRate = sampleRate;
+    virtual void init(int channelCount, double sampleRate) {
+        this->channelCount = channelCount;
+        this->sampleRate = sampleRate;
     }
     
     /// override this if your DSP kernel allocates memory; free it here
@@ -93,10 +93,10 @@ public:
     }
 
     // Add for compatibility with AKAudioUnit
-    virtual void start() { _playing = true; }
-    virtual void stop() { _playing = false; }
-    virtual bool isPlaying() { return _playing; }
-    virtual bool isSetup() { return _initialized; }
+    virtual void start() { isStarted = true; }
+    virtual void stop() { isStarted = false; }
+    virtual bool isPlaying() { return isStarted; }
+    virtual bool isSetup() { return isInitialized; }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
     /**

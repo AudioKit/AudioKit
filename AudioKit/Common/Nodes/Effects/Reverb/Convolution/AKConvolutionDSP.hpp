@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKConvolutionParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createConvolutionDSP(int nChannels, double sampleRate);
+AKDSPRef createConvolutionDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -24,15 +24,15 @@ AKDSPRef createConvolutionDSP(int nChannels, double sampleRate);
 
 class AKConvolutionDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKConvolutionDSP();
 
     int defaultRampDurationSamples = 10000;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void setUpTable(float *table, UInt32 size) override;
     void setPartitionLength(int partLength) override;

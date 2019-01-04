@@ -20,14 +20,14 @@ typedef NS_ENUM(AUParameterAddress, AKTubularBellsParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createTubularBellsDSP(int nChannels, double sampleRate);
+AKDSPRef createTubularBellsDSP(int channelCount, double sampleRate);
 
 #else
 
 class AKTubularBellsDSP : public AKDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
 
 public:
 
@@ -41,7 +41,7 @@ public:
     /** Uses the ParameterAddress as a key */
     float getParameter(AUParameterAddress address) override;
 
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void trigger() override;
 

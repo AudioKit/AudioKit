@@ -12,7 +12,7 @@
 
 #ifndef __cplusplus
 
-AKDSPRef createDCBlockDSP(int nChannels, double sampleRate);
+AKDSPRef createDCBlockDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -20,15 +20,15 @@ AKDSPRef createDCBlockDSP(int nChannels, double sampleRate);
 
 class AKDCBlockDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKDCBlockDSP();
 
     int defaultRampDurationSamples = 10000;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

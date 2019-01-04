@@ -50,7 +50,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
         let time = AUParameterTree.createParameter(
             withIdentifier: "time",
             name: "Delay time (Seconds)",
-            address: AUParameterAddress(0),
+            address: AKStereoDelayParameter.time.rawValue,
             min: Float(AKStereoDelay.timeRange.lowerBound),
             max: Float(AKStereoDelay.timeRange.upperBound),
             unit: .seconds,
@@ -62,7 +62,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback (%)",
-            address: AUParameterAddress(1),
+            address: AKStereoDelayParameter.feedback.rawValue,
             min: Float(AKStereoDelay.feedbackRange.lowerBound),
             max: Float(AKStereoDelay.feedbackRange.upperBound),
             unit: .generic,
@@ -74,7 +74,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
         let dryWetMix = AUParameterTree.createParameter(
             withIdentifier: "dryWetMix",
             name: "Dry-Wet Mix",
-            address: AUParameterAddress(2),
+            address: AKStereoDelayParameter.dryWetMix.rawValue,
             min: Float(AKStereoDelay.dryWetMixRange.lowerBound),
             max: Float(AKStereoDelay.dryWetMixRange.upperBound),
             unit: .generic,
@@ -86,7 +86,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
         let pingPong = AUParameterTree.createParameter(
             withIdentifier: "pingPong",
             name: "Ping-Pong Mode",
-            address: AUParameterAddress(3),
+            address: AKStereoDelayParameter.pingPong.rawValue,
             min: Float(0.0),
             max: Float(1.0),
             unit: .boolean,

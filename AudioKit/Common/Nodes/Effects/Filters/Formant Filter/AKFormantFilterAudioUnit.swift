@@ -48,7 +48,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKFormantFilterParameter.centerFrequency.rawValue,
             min: Float(AKFormantFilter.centerFrequencyRange.lowerBound),
             max: Float(AKFormantFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
@@ -59,8 +59,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         )
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
-            name: "Impulse response attack duration (Seconds)",
-            address: AUParameterAddress(1),
+            name: "Impulse response attack time (Seconds)",
+            address: AKFormantFilterParameter.attackDuration.rawValue,
             min: Float(AKFormantFilter.attackDurationRange.lowerBound),
             max: Float(AKFormantFilter.attackDurationRange.upperBound),
             unit: .seconds,
@@ -71,8 +71,8 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
         )
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
-            name: "Impulse reponse decay duration (Seconds)",
-            address: AUParameterAddress(2),
+            name: "Impulse reponse decay time (Seconds)",
+            address: AKFormantFilterParameter.decayDuration.rawValue,
             min: Float(AKFormantFilter.decayDurationRange.lowerBound),
             max: Float(AKFormantFilter.decayDurationRange.upperBound),
             unit: .seconds,
@@ -81,7 +81,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration]))
         centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
         attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)

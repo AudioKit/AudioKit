@@ -18,10 +18,11 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
         setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
     }
 
-    var frequency: Double = 110 {
+    var frequency: Double = AKPluckedString.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var amplitude: Double = 0.5 {
+
+    var amplitude: Double = AKPluckedString.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
 
@@ -43,9 +44,9 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 22_000,
+            address: AKPluckedStringParameter.frequency.rawValue,
+            min: Float(AKPluckedString.frequencyRange.lowerBound),
+            max: Float(AKPluckedString.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
             flags: flags,
@@ -55,19 +56,19 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 1,
+            address: AKPluckedStringParameter.amplitude.rawValue,
+            min: Float(AKPluckedString.amplitudeRange.lowerBound),
+            max: Float(AKPluckedString.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
             flags: flags,
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
-        frequency.value = 110
-        amplitude.value = 0.5
+        frequency.value = Float(AKPluckedString.defaultFrequency)
+        amplitude.value = Float(AKPluckedString.defaultAmplitude)
     }
 
     public override var canProcessInPlace: Bool { return true }

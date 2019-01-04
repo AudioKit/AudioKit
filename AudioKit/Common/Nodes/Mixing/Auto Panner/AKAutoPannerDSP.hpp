@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKAutoPannerParameter) {
 
 #ifndef __cplusplus
 
-AKDSPRef createAutoPannerDSP(int nChannels, double sampleRate);
+AKDSPRef createAutoPannerDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -28,10 +28,10 @@ AKDSPRef createAutoPannerDSP(int nChannels, double sampleRate);
 
 class AKAutoPannerDSP : public AKSoundpipeDSPBase {
 
-    sp_osc *_trem;
-    sp_ftbl *_tbl;
-    sp_panst *_panst;
-    UInt32 _tbl_size = 4096;
+    sp_osc *trem;
+    sp_ftbl *tbl;
+    sp_panst *panst;
+    UInt32 tbl_size = 4096;
 
 private:
     AKLinearParameterRamp frequencyRamp;
@@ -55,8 +55,8 @@ public:
                 depthRamp.setTarget(value, immediate);
                 break;
             case AKAutoPannerParameterRampDuration:
-                frequencyRamp.setRampDuration(value, _sampleRate);
-                depthRamp.setRampDuration(value, _sampleRate);
+                frequencyRamp.setRampDuration(value, sampleRate);
+                depthRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -69,35 +69,35 @@ public:
             case AKAutoPannerParameterDepth:
                 return depthRamp.getTarget();
             case AKAutoPannerParameterRampDuration:
-                return frequencyRamp.getRampDuration(_sampleRate);
-                return depthRamp.getRampDuration(_sampleRate);
+                return frequencyRamp.getRampDuration(sampleRate);
+                return depthRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeDSPBase::init(_channels, _sampleRate);
-        sp_osc_create(&_trem);
-        sp_osc_init(_sp, _trem, _tbl, 0);
-        _trem->freq = 10.0;
-        _trem->amp = 1.0;
-        sp_panst_create(&_panst);
-        sp_panst_init(_sp, _panst);
-        _panst->pan = 0;
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeDSPBase::init(channelCount, sampleRate);
+        sp_osc_create(&trem);
+        sp_osc_init(sp, trem, tbl, 0);
+        trem->freq = 10.0;
+        trem->amp = 1.0;
+        sp_panst_create(&panst);
+        sp_panst_init(sp, panst);
+        panst->pan = 0;
     }
 
     void setupWaveform(uint32_t size) override {
-        _tbl_size = size;
-        sp_ftbl_create(_sp, &_tbl, _tbl_size);
+        tbl_size = size;
+        sp_ftbl_create(sp, &tbl, tbl_size);
     }
 
     void setWaveformValue(uint32_t index, float value) override {
-        _tbl->tbl[index] = value;
+        tbl->tbl[index] = value;
     }
 
     void deinit() override {
-        sp_osc_destroy(&_trem);
-        sp_panst_destroy(&_panst);
+        sp_osc_destroy(&trem);
+        sp_panst_destroy(&panst);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
@@ -107,31 +107,31 @@ public:
 
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                frequencyRamp.advanceTo(_now + frameOffset);
-                depthRamp.advanceTo(_now + frameOffset);
+                frequencyRamp.advanceTo(now + frameOffset);
+                depthRamp.advanceTo(now + frameOffset);
             }
-            _trem->freq = frequencyRamp.getValue();
-            _trem->amp = depthRamp.getValue();
+            trem->freq = frequencyRamp.getValue();
+            trem->amp = depthRamp.getValue();
 
             float temp = 0;
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
-                if (!_playing) {
+                if (!isStarted) {
                     *out = *in;
                 }
             }
-            if (_playing) {
-                sp_osc_compute(_sp, _trem, NULL, &temp);
-                _panst->pan = 2.0 * temp - 1.0;
-                sp_panst_compute(_sp, _panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+            if (isStarted) {
+                sp_osc_compute(sp, trem, NULL, &temp);
+                panst->pan = 2.0 * temp - 1.0;
+                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
 
         }

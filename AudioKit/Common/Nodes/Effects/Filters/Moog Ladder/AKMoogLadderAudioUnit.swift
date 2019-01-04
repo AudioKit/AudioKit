@@ -44,7 +44,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: AKMoogLadderParameter.cutoffFrequency.rawValue,
             min: Float(AKMoogLadder.cutoffFrequencyRange.lowerBound),
             max: Float(AKMoogLadder.cutoffFrequencyRange.upperBound),
             unit: .hertz,
@@ -56,7 +56,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
         let resonance = AUParameterTree.createParameter(
             withIdentifier: "resonance",
             name: "Resonance (%)",
-            address: AUParameterAddress(1),
+            address: AKMoogLadderParameter.resonance.rawValue,
             min: Float(AKMoogLadder.resonanceRange.lowerBound),
             max: Float(AKMoogLadder.resonanceRange.upperBound),
             unit: .percent,
@@ -65,7 +65,7 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             valueStrings: nil,
             dependentParameters: nil
         )
-
+        
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance]))
         cutoffFrequency.value = Float(AKMoogLadder.defaultCutoffFrequency)
         resonance.value = Float(AKMoogLadder.defaultResonance)
