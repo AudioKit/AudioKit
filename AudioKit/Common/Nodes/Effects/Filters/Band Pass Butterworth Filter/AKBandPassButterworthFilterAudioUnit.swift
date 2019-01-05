@@ -46,11 +46,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKBandPassButterworthFilter.centerFrequencyRange.lowerBound),
             max: Float(AKBandPassButterworthFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             withIdentifier: "bandwidth",
             name: "Bandwidth (Hz)",
@@ -58,11 +54,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKBandPassButterworthFilter.bandwidthRange.lowerBound),
             max: Float(AKBandPassButterworthFilter.bandwidthRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandPassButterworthFilter.defaultCenterFrequency)

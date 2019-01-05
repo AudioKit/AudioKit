@@ -54,11 +54,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             min: Float(AKChorus.frequencyRange.lowerBound),
             max: Float(AKChorus.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let depth = AUParameterTree.createParameter(
             withIdentifier: "depth",
             name: "Depth 0-1",
@@ -66,11 +62,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             min: Float(AKChorus.depthRange.lowerBound),
             max: Float(AKChorus.depthRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback 0-1",
@@ -78,11 +70,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             min: Float(AKChorus.feedbackRange.lowerBound),
             max: Float(AKChorus.feedbackRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
             withIdentifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
@@ -90,11 +78,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             min: Float(AKChorus.dryWetMixRange.lowerBound),
             max: Float(AKChorus.dryWetMixRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKChorus.defaultFrequency)

@@ -46,11 +46,7 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             min: Float(AKTremolo.frequencyRange.lowerBound),
             max: Float(AKTremolo.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let depth = AUParameterTree.createParameter(
             withIdentifier: "depth",
             name: "Depth",
@@ -58,11 +54,7 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             min: Float(AKTremolo.depthRange.lowerBound),
             max: Float(AKTremolo.depthRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
         frequency.value = Float(AKTremolo.defaultFrequency)

@@ -42,11 +42,7 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKToneComplementFilter.halfPowerPointRange.lowerBound),
             max: Float(AKToneComplementFilter.halfPowerPointRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneComplementFilter.defaultHalfPowerPoint)

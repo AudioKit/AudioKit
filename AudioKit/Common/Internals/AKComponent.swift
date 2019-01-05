@@ -61,6 +61,27 @@ extension AUParameterTree {
                                valueStrings: nil,
                                dependentParameters: nil)
     }
+
+    public class func createParameter(withIdentifier identifier: String,
+                                      name: String,
+                                      address: AUParameterAddress,
+                                      min: AUValue,
+                                      max: AUValue,
+                                      unit: AudioUnitParameterUnit,
+                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
+        return createParameter(withIdentifier: identifier,
+                               name: name,
+                               address: address,
+                               min: min,
+                               max: max,
+                               unit: unit,
+                               unitName: nil,
+                               flags: flags,
+                               valueStrings: nil,
+                               dependentParameters: nil)
+    }
+
+
 }
 
 /// Adding convenience initializers

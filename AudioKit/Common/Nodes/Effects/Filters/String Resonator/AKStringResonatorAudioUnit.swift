@@ -46,11 +46,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             min: Float(AKStringResonator.fundamentalFrequencyRange.lowerBound),
             max: Float(AKStringResonator.fundamentalFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback (%)",
@@ -58,11 +54,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             min: Float(AKStringResonator.feedbackRange.lowerBound),
             max: Float(AKStringResonator.feedbackRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [fundamentalFrequency, feedback]))
         fundamentalFrequency.value = Float(AKStringResonator.defaultFundamentalFrequency)

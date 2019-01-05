@@ -50,11 +50,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKFormantFilter.centerFrequencyRange.lowerBound),
             max: Float(AKFormantFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
             name: "Impulse response attack time (Seconds)",
@@ -62,11 +58,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKFormantFilter.attackDurationRange.lowerBound),
             max: Float(AKFormantFilter.attackDurationRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
             name: "Impulse reponse decay time (Seconds)",
@@ -74,11 +66,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKFormantFilter.decayDurationRange.lowerBound),
             max: Float(AKFormantFilter.decayDurationRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration]))
         centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)

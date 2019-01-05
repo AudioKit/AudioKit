@@ -54,11 +54,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             min: Float(AKRolandTB303Filter.cutoffFrequencyRange.lowerBound),
             max: Float(AKRolandTB303Filter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let resonance = AUParameterTree.createParameter(
             withIdentifier: "resonance",
             name: "Resonance",
@@ -66,11 +62,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             min: Float(AKRolandTB303Filter.resonanceRange.lowerBound),
             max: Float(AKRolandTB303Filter.resonanceRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let distortion = AUParameterTree.createParameter(
             withIdentifier: "distortion",
             name: "Distortion",
@@ -78,11 +70,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             min: Float(AKRolandTB303Filter.distortionRange.lowerBound),
             max: Float(AKRolandTB303Filter.distortionRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let resonanceAsymmetry = AUParameterTree.createParameter(
             withIdentifier: "resonanceAsymmetry",
             name: "Resonance Asymmetry",
@@ -90,11 +78,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             min: Float(AKRolandTB303Filter.resonanceAsymmetryRange.lowerBound),
             max: Float(AKRolandTB303Filter.resonanceAsymmetryRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, distortion, resonanceAsymmetry]))
         cutoffFrequency.value = Float(AKRolandTB303Filter.defaultCutoffFrequency)

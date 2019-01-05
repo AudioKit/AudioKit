@@ -45,11 +45,7 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
             min: 0,
             max: 20_000,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
@@ -57,11 +53,7 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
             min: 0,
             max: 10,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
         frequency.value = 440
         amplitude.value = 1

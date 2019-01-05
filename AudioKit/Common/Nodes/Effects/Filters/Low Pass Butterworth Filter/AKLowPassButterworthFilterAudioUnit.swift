@@ -42,11 +42,7 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.lowerBound),
             max: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
         cutoffFrequency.value = Float(AKLowPassButterworthFilter.defaultCutoffFrequency)

@@ -46,11 +46,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKResonantFilter.frequencyRange.lowerBound),
             max: Float(AKResonantFilter.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             withIdentifier: "bandwidth",
             name: "Bandwidth of the filter.",
@@ -58,11 +54,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKResonantFilter.bandwidthRange.lowerBound),
             max: Float(AKResonantFilter.bandwidthRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
         frequency.value = Float(AKResonantFilter.defaultFrequency)

@@ -52,22 +52,16 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             min: 0.0,
             max: 2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
         let rightGain = AUParameterTree.createParameter(
             withIdentifier: "rightGain",
             name: "Right Boosting Amount",
-            address: AUParameterAddress(1),
+            address: 1,
             min: 0.0,
             max: 2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [leftGain, rightGain]))
         leftGain.value = 1.0

@@ -50,11 +50,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKKorgLowPassFilter.cutoffFrequencyRange.lowerBound),
             max: Float(AKKorgLowPassFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let resonance = AUParameterTree.createParameter(
             withIdentifier: "resonance",
             name: "Filter resonance (should be between 0-2)",
@@ -62,11 +58,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKKorgLowPassFilter.resonanceRange.lowerBound),
             max: Float(AKKorgLowPassFilter.resonanceRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let saturation = AUParameterTree.createParameter(
             withIdentifier: "saturation",
             name: "Filter saturation.",
@@ -74,11 +66,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKKorgLowPassFilter.saturationRange.lowerBound),
             max: Float(AKKorgLowPassFilter.saturationRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, saturation]))
         cutoffFrequency.value = Float(AKKorgLowPassFilter.defaultCutoffFrequency)

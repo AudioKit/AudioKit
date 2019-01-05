@@ -53,11 +53,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             min: Float(AKDynamicRangeCompressor.ratioRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.ratioRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let threshold = AUParameterTree.createParameter(
             withIdentifier: "threshold",
             name: "Threshold (in dB) 0 = max",
@@ -65,11 +61,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             min: Float(AKDynamicRangeCompressor.thresholdRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.thresholdRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let attackDuration = AUParameterTree.createParameter(
             withIdentifier: "attackDuration",
             name: "Attack duration",
@@ -77,11 +69,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             min: Float(AKDynamicRangeCompressor.attackDurationRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.attackDurationRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
             withIdentifier: "releaseDuration",
             name: "Release duration",
@@ -89,11 +77,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             min: Float(AKDynamicRangeCompressor.releaseDurationRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.releaseDurationRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackDuration, releaseDuration]))
         ratio.value = Float(AKDynamicRangeCompressor.defaultRatio)

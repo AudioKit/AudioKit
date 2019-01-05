@@ -45,11 +45,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             min: Float(AKVariableDelay.timeRange.lowerBound),
             max: Float(AKVariableDelay.timeRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback (%)",
@@ -57,11 +53,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             min: Float(AKVariableDelay.feedbackRange.lowerBound),
             max: Float(AKVariableDelay.feedbackRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback]))
         time.value = Float(AKVariableDelay.defaultTime)

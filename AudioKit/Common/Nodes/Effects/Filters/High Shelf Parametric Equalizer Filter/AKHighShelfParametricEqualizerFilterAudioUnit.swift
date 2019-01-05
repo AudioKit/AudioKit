@@ -50,11 +50,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKHighShelfParametricEqualizerFilter.centerFrequencyRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let gain = AUParameterTree.createParameter(
             withIdentifier: "gain",
             name: "Gain",
@@ -62,11 +58,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKHighShelfParametricEqualizerFilter.gainRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let q = AUParameterTree.createParameter(
             withIdentifier: "q",
             name: "Q",
@@ -74,11 +66,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKHighShelfParametricEqualizerFilter.qRange.lowerBound),
             max: Float(AKHighShelfParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
         centerFrequency.value = Float(AKHighShelfParametricEqualizerFilter.defaultCenterFrequency)
