@@ -42,7 +42,7 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
             range: AKPanner.panRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [pan]))
         pan.value = Float(AKPanner.defaultPan)
     }

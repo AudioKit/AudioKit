@@ -86,7 +86,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             range: AKVocalTract.nasalityRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [frequency, tonguePosition, tongueDiameter, tenseness, nasality]))
         frequency.value = Float(AKVocalTract.defaultFrequency)
         tonguePosition.value = Float(AKVocalTract.defaultTonguePosition)

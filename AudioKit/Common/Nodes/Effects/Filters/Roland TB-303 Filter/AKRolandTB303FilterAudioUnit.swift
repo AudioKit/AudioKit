@@ -75,7 +75,7 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             range: AKRolandTB303Filter.resonanceAsymmetryRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [cutoffFrequency, resonance, distortion, resonanceAsymmetry]))
         cutoffFrequency.value = Float(AKRolandTB303Filter.defaultCutoffFrequency)
         resonance.value = Float(AKRolandTB303Filter.defaultResonance)

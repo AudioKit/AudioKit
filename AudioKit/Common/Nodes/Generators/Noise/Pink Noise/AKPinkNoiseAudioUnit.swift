@@ -42,7 +42,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             range: AKPinkNoise.amplitudeRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [amplitude]))
         amplitude.value = Float(AKPinkNoise.defaultAmplitude)
     }

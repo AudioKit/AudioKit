@@ -75,7 +75,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             range: AKOscillator.detuningMultiplierRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [frequency, amplitude, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKOscillator.defaultFrequency)
         amplitude.value = Float(AKOscillator.defaultAmplitude)

@@ -53,7 +53,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             range: AKBandPassButterworthFilter.bandwidthRange,
             unit: .hertz,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandPassButterworthFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)

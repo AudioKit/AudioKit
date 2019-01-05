@@ -6,11 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that
 /// doesn't rely on an as much Apple AV foundation/engine code as the others.
-/// As any other Sampler, it plays a part of a given sound file at a specified rate 
-/// with specified volume. Changing the rate plays it faster and therefore sounds 
-/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
+/// As any other Sampler, it plays a part of a given sound file at a specified rate
+/// with specified volume. Changing the rate plays it faster and therefore sounds
+/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.
 /// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
@@ -39,7 +39,7 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.rampDuration = newValue
         }
     }
-    
+
     /// startPoint in samples - where to start playing the sample from
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
@@ -47,7 +47,7 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.startPoint = Float(safeSample(newValue))
         }
     }
-    
+
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
@@ -56,7 +56,7 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.endPoint = Float(safeSample(newValue))
         }
     }
-    
+
     /// loopStartPoint in samples - where to start playing the sample from
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
@@ -64,7 +64,7 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.loopStartPoint = Float(safeSample(newValue))
         }
     }
-    
+
     /// loopEndPoint - this is where the sample will play to before stopping.
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
@@ -72,7 +72,7 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.loopEndPoint = Float(safeSample(newValue))
         }
     }
-    
+
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
@@ -86,7 +86,7 @@ open class AKWaveTable: AKNode, AKComponent {
             }
         }
     }
-    
+
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
         willSet {

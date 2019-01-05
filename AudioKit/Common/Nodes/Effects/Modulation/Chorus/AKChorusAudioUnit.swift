@@ -75,7 +75,7 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             range: AKChorus.dryWetMixRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKChorus.defaultFrequency)
         depth.value = Float(AKChorus.defaultDepth)

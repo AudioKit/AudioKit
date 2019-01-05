@@ -107,7 +107,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             range: AKMetalBar.strikeWidthRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth]))
         leftBoundaryCondition.value = Float(AKMetalBar.defaultLeftBoundaryCondition)
         rightBoundaryCondition.value = Float(AKMetalBar.defaultRightBoundaryCondition)

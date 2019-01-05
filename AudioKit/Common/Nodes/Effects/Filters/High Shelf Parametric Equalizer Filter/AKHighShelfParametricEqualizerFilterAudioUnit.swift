@@ -64,7 +64,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             range: AKHighShelfParametricEqualizerFilter.qRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [centerFrequency, gain, q]))
         centerFrequency.value = Float(AKHighShelfParametricEqualizerFilter.defaultCenterFrequency)
         gain.value = Float(AKHighShelfParametricEqualizerFilter.defaultGain)

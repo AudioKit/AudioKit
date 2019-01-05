@@ -53,7 +53,7 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             range: AKTremolo.depthRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [frequency, depth]))
         frequency.value = Float(AKTremolo.defaultFrequency)
         depth.value = Float(AKTremolo.defaultDepth)

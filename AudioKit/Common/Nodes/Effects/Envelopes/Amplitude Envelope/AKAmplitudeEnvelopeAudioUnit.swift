@@ -75,7 +75,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             range: AKAmplitudeEnvelope.releaseDurationRange,
             unit: .seconds,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
         attackDuration.value = Float(AKAmplitudeEnvelope.defaultAttackDuration)
         decayDuration.value = Float(AKAmplitudeEnvelope.defaultDecayDuration)

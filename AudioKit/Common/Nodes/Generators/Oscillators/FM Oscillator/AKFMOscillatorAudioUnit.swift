@@ -86,7 +86,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             range: AKFMOscillator.amplitudeRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
         baseFrequency.value = Float(AKFMOscillator.defaultBaseFrequency)
         carrierMultiplier.value = Float(AKFMOscillator.defaultCarrierMultiplier)
