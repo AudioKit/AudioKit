@@ -63,7 +63,7 @@ extension CGRect {
     }
 
     public init(width: Int, height: Int) {
-        self.init(origin: .zero, size: CGSize(width: width, height: height))
+        self.init(width: CGFloat(width), height: CGFloat(height))
     }
 }
 
@@ -87,17 +87,10 @@ public func fourCC(_ string: String) -> UInt32 {
 ///
 @inline(__always)
 public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any...) {
-    if AKSettings.enableLogging {
-        let fileName = (file as NSString).lastPathComponent
-        var content = ""
-        for i in 0 ..< items.count {
-            content += String(describing: items[i])
-            if i < items.count - 1 {
-                content += " "
-            }
-        }
-        Swift.print("\(fileName):\(fullname):\(line):\(content)")
-    }
+    guard AKSettings.enableLogging else { return }
+    let fileName = (file as NSString).lastPathComponent
+    let content = (items.map { String(describing: $0) }).joined(separator: " ")
+    Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
 
 /// Random double between bounds
