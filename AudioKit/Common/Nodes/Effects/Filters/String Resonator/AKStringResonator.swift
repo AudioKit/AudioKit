@@ -47,9 +47,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     /// Fundamental frequency of string.
     @objc open dynamic var fundamentalFrequency: Double = defaultFundamentalFrequency {
         willSet {
-            if fundamentalFrequency == newValue {
-                return
-            }
+            guard fundamentalFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -63,9 +61,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback == newValue {
-                return
-            }
+            guard feedback != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)

@@ -40,9 +40,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
-            if gain == newValue {
-                return
-            }
+            guard gain != newValue else { return }
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
@@ -63,9 +61,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Left Channel Amplification Factor
     @objc open dynamic var leftGain: Double = 1 {
         willSet {
-            if leftGain == newValue {
-                return
-            }
+            guard leftGain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let token = token {
                     leftGainParameter?.setValue(Float(newValue), originator: token)
@@ -79,9 +75,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     /// Right Channel Amplification Factor
     @objc open dynamic var rightGain: Double = 1 {
         willSet {
-            if rightGain == newValue {
-                return
-            }
+            guard rightGain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let token = token {
                     rightGainParameter?.setValue(Float(newValue), originator: token)
