@@ -34,7 +34,7 @@
     kernelPtr->startNote(note, velocity, frequency);
 };
 
-- (NSArray *)getStandardParameters {
+- (NSArray *)standardParameters {
     AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
     _attackDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"attackDuration"

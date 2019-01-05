@@ -92,7 +92,7 @@
 
     [self setKernelPtr:&_kernel];
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
                                                                                       modulatingMultiplierAUParameter,
                                                                                       modulationIndexAUParameter]];
     _parameterTree = [AUParameterTree createTreeWithChildren:children];

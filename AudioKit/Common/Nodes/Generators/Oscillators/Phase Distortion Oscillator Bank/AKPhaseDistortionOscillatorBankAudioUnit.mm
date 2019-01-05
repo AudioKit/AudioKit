@@ -51,7 +51,7 @@
     [self setKernelPtr:&_kernel];
 
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
     _parameterTree = [AUParameterTree createTreeWithChildren:children];
     parameterTreeBlock(PhaseDistortionOscillatorBank)
 }

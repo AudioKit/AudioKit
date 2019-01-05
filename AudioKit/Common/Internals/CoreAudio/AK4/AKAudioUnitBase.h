@@ -37,7 +37,7 @@
 
 - (void) setParameterTree: (AUParameterTree*) tree;
 
-- (float) getParameterWithAddress:(AUParameterAddress)address;
+- (AUValue) parameterWithAddress:(AUParameterAddress)address;
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
 - (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
 
