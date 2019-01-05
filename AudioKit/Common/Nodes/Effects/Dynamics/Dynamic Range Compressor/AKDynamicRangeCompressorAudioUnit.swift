@@ -73,7 +73,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
         let releaseDuration = AUParameterTree.createParameter(
             withIdentifier: "releaseDuration",
             name: "Release duration",
-            address: AUParameterAddress(3),
+            address: 3,
             min: Float(AKDynamicRangeCompressor.releaseDurationRange.lowerBound),
             max: Float(AKDynamicRangeCompressor.releaseDurationRange.upperBound),
             unit: .seconds,
