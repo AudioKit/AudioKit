@@ -48,7 +48,6 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             name: "Filter cutoff",
             address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
             range: AKKorgLowPassFilter.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             name: "Filter resonance (should be between 0-2)",
             address: AKKorgLowPassFilterParameter.resonance.rawValue,
             range: AKKorgLowPassFilter.resonanceRange,
-            
             unit: .generic,
             flags: .default)
         let saturation = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             name: "Filter saturation.",
             address: AKKorgLowPassFilterParameter.saturation.rawValue,
             range: AKKorgLowPassFilter.saturationRange,
-            
             unit: .generic,
             flags: .default)
         

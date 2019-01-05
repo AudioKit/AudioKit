@@ -48,7 +48,6 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AKFormantFilterParameter.centerFrequency.rawValue,
             range: AKFormantFilter.centerFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let attackDuration = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             name: "Impulse response attack time (Seconds)",
             address: AKFormantFilterParameter.attackDuration.rawValue,
             range: AKFormantFilter.attackDurationRange,
-            
             unit: .seconds,
             flags: .default)
         let decayDuration = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             name: "Impulse reponse decay time (Seconds)",
             address: AKFormantFilterParameter.decayDuration.rawValue,
             range: AKFormantFilter.decayDurationRange,
-            
             unit: .seconds,
             flags: .default)
         

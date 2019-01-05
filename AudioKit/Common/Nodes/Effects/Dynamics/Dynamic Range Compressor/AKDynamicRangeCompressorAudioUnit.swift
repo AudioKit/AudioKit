@@ -51,7 +51,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             name: "Ratio to compress with, a value > 1 will compress",
             address: AKDynamicRangeCompressorParameter.ratio.rawValue,
             range: AKDynamicRangeCompressor.ratioRange,
-            
             unit: .hertz,
             flags: .default)
         let threshold = AUParameterTree.createParameter(
@@ -59,7 +58,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             name: "Threshold (in dB) 0 = max",
             address: AKDynamicRangeCompressorParameter.threshold.rawValue,
             range: AKDynamicRangeCompressor.thresholdRange,
-            
             unit: .generic,
             flags: .default)
         let attackDuration = AUParameterTree.createParameter(
@@ -67,7 +65,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             name: "Attack duration",
             address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
             range: AKDynamicRangeCompressor.attackDurationRange,
-            
             unit: .seconds,
             flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
@@ -75,7 +72,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             name: "Release duration",
             address: 3,
             range: AKDynamicRangeCompressor.releaseDurationRange,
-            
             unit: .seconds,
             flags: .default)
 

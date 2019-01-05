@@ -56,7 +56,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency (in Hz)",
             address: AKMorphingOscillatorParameter.frequency.rawValue,
             range: AKMorphingOscillator.frequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
@@ -64,7 +63,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude (typically a value between 0 and 1).",
             address: AKMorphingOscillatorParameter.amplitude.rawValue,
             range: AKMorphingOscillator.amplitudeRange,
-            
             unit: .hertz,
             flags: .default)
         let index = AUParameterTree.createParameter(
@@ -72,7 +70,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Index of the wavetable to use (fractional are okay).",
             address: AKMorphingOscillatorParameter.index.rawValue,
             range: AKMorphingOscillator.indexRange,
-            
             unit: .hertz,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
@@ -80,7 +77,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency offset (Hz)",
             address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
             range: AKMorphingOscillator.detuningOffsetRange,
-            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
@@ -88,7 +84,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency detuning multiplier",
             address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
             range: AKMorphingOscillator.detuningMultiplierRange,
-            
             unit: .generic,
             flags: .default)
 

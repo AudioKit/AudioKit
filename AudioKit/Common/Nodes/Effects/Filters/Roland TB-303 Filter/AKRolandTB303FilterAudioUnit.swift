@@ -52,7 +52,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AKRolandTB303FilterParameter.cutoffFrequency.rawValue,
             range: AKRolandTB303Filter.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
@@ -60,7 +59,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             name: "Resonance",
             address: AKRolandTB303FilterParameter.resonance.rawValue,
             range: AKRolandTB303Filter.resonanceRange,
-            
             unit: .generic,
             flags: .default)
         let distortion = AUParameterTree.createParameter(
@@ -68,7 +66,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             name: "Distortion",
             address: AKRolandTB303FilterParameter.distortion.rawValue,
             range: AKRolandTB303Filter.distortionRange,
-            
             unit: .generic,
             flags: .default)
         let resonanceAsymmetry = AUParameterTree.createParameter(
@@ -76,7 +73,6 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             name: "Resonance Asymmetry",
             address: AKRolandTB303FilterParameter.resonanceAsymmetry.rawValue,
             range: AKRolandTB303Filter.resonanceAsymmetryRange,
-            
             unit: .generic,
             flags: .default)
         

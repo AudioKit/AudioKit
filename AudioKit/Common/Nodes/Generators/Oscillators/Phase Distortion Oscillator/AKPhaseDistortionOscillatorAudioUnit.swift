@@ -56,7 +56,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency (Hz)",
             address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
             range: AKPhaseDistortionOscillator.frequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
@@ -64,7 +63,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude",
             address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
             range: AKPhaseDistortionOscillator.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
         let phaseDistortion = AUParameterTree.createParameter(
@@ -72,7 +70,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
             address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
             range: AKPhaseDistortionOscillator.phaseDistortionRange,
-            
             unit: .generic,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
@@ -80,7 +77,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency offset (Hz)",
             address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
             range: AKPhaseDistortionOscillator.detuningOffsetRange,
-            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
@@ -88,7 +84,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Frequency detuning multiplier",
             address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,
             range: AKPhaseDistortionOscillator.detuningMultiplierRange,
-            
             unit: .generic,
             flags: .default)
         

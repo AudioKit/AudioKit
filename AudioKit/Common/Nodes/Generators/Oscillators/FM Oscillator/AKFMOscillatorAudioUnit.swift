@@ -56,7 +56,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Base Frequency (Hz)",
             address: AKFMOscillatorParameter.baseFrequency.rawValue,
             range: AKFMOscillator.baseFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let carrierMultiplier = AUParameterTree.createParameter(
@@ -64,7 +63,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Carrier Multiplier",
             address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
             range: AKFMOscillator.carrierMultiplierRange,
-            
             unit: .generic,
             flags: .default)
         let modulatingMultiplier = AUParameterTree.createParameter(
@@ -72,7 +70,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Modulating Multiplier",
             address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
             range: AKFMOscillator.modulatingMultiplierRange,
-            
             unit: .generic,
             flags: .default)
         let modulationIndex = AUParameterTree.createParameter(
@@ -80,7 +77,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Modulation Index",
             address: AKFMOscillatorParameter.modulationIndex.rawValue,
             range: AKFMOscillator.modulationIndexRange,
-            
             unit: .generic,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
@@ -88,7 +84,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude",
             address: AKFMOscillatorParameter.amplitude.rawValue,
             range: AKFMOscillator.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
         

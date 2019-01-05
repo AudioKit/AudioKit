@@ -43,7 +43,6 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             name: "Delay time (Seconds)",
             address: AKVariableDelayParameter.time.rawValue,
             range: AKVariableDelay.timeRange,
-            
             unit: .seconds,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
@@ -51,7 +50,6 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             name: "Feedback (%)",
             address: AKVariableDelayParameter.feedback.rawValue,
             range: AKVariableDelay.feedbackRange,
-            
             unit: .generic,
             flags: .default)
 

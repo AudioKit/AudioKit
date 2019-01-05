@@ -40,7 +40,6 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude",
             address: AKPinkNoiseParameter.amplitude.rawValue,
             range: AKPinkNoise.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
         

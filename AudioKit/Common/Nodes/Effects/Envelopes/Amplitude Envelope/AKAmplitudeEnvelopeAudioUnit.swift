@@ -52,7 +52,6 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             name: "Attack time",
             address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
             range: AKAmplitudeEnvelope.attackDurationRange,
-            
             unit: .seconds,
             flags: .default)
         let decayDuration = AUParameterTree.createParameter(
@@ -60,7 +59,6 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             name: "Decay time",
             address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
             range: AKAmplitudeEnvelope.decayDurationRange,
-            
             unit: .seconds,
             flags: .default)
         let sustainLevel = AUParameterTree.createParameter(
@@ -68,7 +66,6 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             name: "Sustain Level",
             address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
             range: AKAmplitudeEnvelope.sustainLevelRange,
-            
             unit: .generic,
             flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
@@ -76,7 +73,6 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             name: "Release time",
             address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
             range: AKAmplitudeEnvelope.releaseDurationRange,
-            
             unit: .seconds,
             flags: .default)
         

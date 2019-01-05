@@ -40,7 +40,6 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
             range: AKLowPassButterworthFilter.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         

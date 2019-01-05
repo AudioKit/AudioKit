@@ -48,7 +48,6 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             name: "Distortion (%)",
             address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
             range: AKThreePoleLowpassFilter.distortionRange,
-            
             unit: .percent,
             flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
             range: AKThreePoleLowpassFilter.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             name: "Resonance (%)",
             address: AKThreePoleLowpassFilterParameter.resonance.rawValue,
             range: AKThreePoleLowpassFilter.resonanceRange,
-            
             unit: .percent,
             flags: .default)
         

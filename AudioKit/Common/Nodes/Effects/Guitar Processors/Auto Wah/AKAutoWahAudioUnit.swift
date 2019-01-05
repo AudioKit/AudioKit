@@ -48,7 +48,6 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             name: "Wah Amount",
             address: AKAutoWahParameter.wah.rawValue,
             range: AKAutoWah.wahRange,
-            
             unit: .generic,
             flags: .default)
         let mix = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             name: "Dry/Wet Mix",
             address: AKAutoWahParameter.mix.rawValue,
             range: AKAutoWah.mixRange,
-            
             unit: .percent,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             name: "Overall level",
             address: AKAutoWahParameter.amplitude.rawValue,
             range: AKAutoWah.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
         

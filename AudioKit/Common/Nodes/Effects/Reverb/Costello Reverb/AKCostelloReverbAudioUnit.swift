@@ -44,7 +44,6 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             name: "Feedback",
             address: AKCostelloReverbParameter.feedback.rawValue,
             range: AKCostelloReverb.feedbackRange,
-            
             unit: .generic,
             flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
@@ -52,7 +51,6 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency",
             address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
             range: AKCostelloReverb.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         
