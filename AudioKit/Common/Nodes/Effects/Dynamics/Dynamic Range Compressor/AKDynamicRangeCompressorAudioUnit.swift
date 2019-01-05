@@ -46,28 +46,30 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let ratio = AUParameterTree.createParameter(
+
+
+        let ratio = AUParameter(
             identifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",
             address: AKDynamicRangeCompressorParameter.ratio.rawValue,
             range: AKDynamicRangeCompressor.ratioRange,
             unit: .hertz,
             flags: .default)
-        let threshold = AUParameterTree.createParameter(
+        let threshold = AUParameter(
             identifier: "threshold",
             name: "Threshold (in dB) 0 = max",
             address: AKDynamicRangeCompressorParameter.threshold.rawValue,
             range: AKDynamicRangeCompressor.thresholdRange,
             unit: .generic,
             flags: .default)
-        let attackDuration = AUParameterTree.createParameter(
+        let attackDuration = AUParameter(
             identifier: "attackDuration",
             name: "Attack duration",
             address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
             range: AKDynamicRangeCompressor.attackDurationRange,
             unit: .seconds,
             flags: .default)
-        let releaseDuration = AUParameterTree.createParameter(
+        let releaseDuration = AUParameter(
             identifier: "releaseDuration",
             name: "Release duration",
             address: 3,

@@ -121,7 +121,8 @@
             address:(AUParameterAddress)address
                 min:(AUValue)min
                 max:(AUValue)max
-               unit:(AudioUnitParameterUnit)unit {
+               unit:(AudioUnitParameterUnit)unit
+              flags:(AudioUnitParameterOptions)flags {
 
     return self = [AUParameterTree createParameterWithIdentifier:identifier
                                                             name:name
@@ -130,7 +131,7 @@
                                                              max:max
                                                             unit:unit
                                                         unitName:nil
-                                                           flags:0
+                                                           flags:flags
                                                     valueStrings:nil
                                              dependentParameters:nil];
 }
@@ -146,7 +147,8 @@
                              address:address
                                  min:min
                                  max:max
-                                unit:unit];
+                                unit:unit
+                               flags:0];
 }
 
 +(instancetype)frequency:(NSString *)identifier

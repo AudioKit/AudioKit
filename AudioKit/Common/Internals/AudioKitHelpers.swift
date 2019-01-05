@@ -367,19 +367,20 @@ extension AVAudioNode {
 
 extension AUParameter {
     @nonobjc
-    convenience init(_ identifier: String,
+    convenience init(identifier: String,
                      name: String,
                      address: AUParameterAddress,
-                     range: ClosedRange<AUValue>,
+                     range: ClosedRange<Double>,
                      unit: AudioUnitParameterUnit,
-                     value: AUValue = 0) {
+                     flags: AudioUnitParameterOptions) {
+
         self.init(identifier,
                   name: name,
                   address: address,
-                  min: range.lowerBound,
-                  max: range.upperBound,
-                  unit: unit)
-        self.value = value
+                  min: AUValue(range.lowerBound),
+                  max: AUValue(range.upperBound),
+                  unit: unit,
+                  flags: flags)
     }
 }
 

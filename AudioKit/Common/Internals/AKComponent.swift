@@ -41,7 +41,6 @@ extension AKComponent {
 
 extension AUParameterTree {
 
-
     public subscript (key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
