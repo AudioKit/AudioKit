@@ -43,7 +43,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
+            address: 1,
             min: 0,
             max: 10,
             unit: .generic,
