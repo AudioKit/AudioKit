@@ -95,7 +95,7 @@
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
                                                                                       modulatingMultiplierAUParameter,
                                                                                       modulationIndexAUParameter]];
-    _parameterTree = [AUParameterTree createTreeWithChildren:children];
+    _parameterTree = [AUParameterTree treeWithChildren:children];
 
     parameterTreeBlock(FMOscillatorBank)
 }

@@ -38,7 +38,7 @@
     [self setKernelPtr:&_kernel];
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:[self standardParameters]];
+    _parameterTree = [AUParameterTree treeWithChildren:[self standardParameters]];
 
     parameterTreeBlock(OscillatorBank)
 }

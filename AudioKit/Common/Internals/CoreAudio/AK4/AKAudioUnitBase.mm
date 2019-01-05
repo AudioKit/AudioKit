@@ -115,7 +115,7 @@
                           channelCount:arbitraryFormat.channelCount];
 
     // Create a default empty parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
 
     return self;
 }
