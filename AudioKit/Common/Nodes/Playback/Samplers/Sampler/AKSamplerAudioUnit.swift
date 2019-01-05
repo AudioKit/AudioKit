@@ -11,11 +11,11 @@ import AVFoundation
 public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKSamplerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
     
     func setParameterImmediately(_ address: AKSamplerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
     
     var masterVolume: Double = 0.0 {
@@ -45,7 +45,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var glideRate: Double = 0.0 {
         didSet { setParameter(.glideRate, value: glideRate) }
     }
-    
+
     var rampDuration: Double = 0.0 {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }

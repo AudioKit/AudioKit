@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFlangerAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKFlanger.defaultFrequency {
@@ -47,8 +47,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
@@ -57,7 +55,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             max: Float(AKFlanger.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -69,7 +67,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             max: Float(AKFlanger.depthRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -81,7 +79,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             max: Float(AKFlanger.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -93,7 +91,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             max: Float(AKFlanger.dryWetMixRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

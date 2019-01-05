@@ -45,7 +45,7 @@ public class AKPresetLoaderView: NSView {
     }
 
     public init(presets: [String],
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
@@ -144,18 +144,18 @@ public class AKPresetLoaderView: NSView {
         presetButtonBorderPath.stroke()
 
         //// presetLabel Drawing
-        let presetLabelRect = NSRect(x: 0, y: 0, width: rect.width * 0.25, height: rect.height)
+        let presetLabelRect = NSRect(width: rect.width * 0.25, height: rect.height)
         let presetLabelTextContent = NSString(string: "Preset")
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
 
-        let presetLabelFontAttributes = [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 24),
-                                         NSAttributedString.Key.foregroundColor: textColorForTheme,
-                                         NSAttributedString.Key.paragraphStyle: presetLabelStyle]
+        let presetLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24),
+                                         .foregroundColor: textColorForTheme,
+                                         .paragraphStyle: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
-            with: NSSize(width: presetLabelInset.width, height: CGFloat.infinity),
+            with: NSSize(width: presetLabelInset.width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: presetLabelFontAttributes).size.height
         let presetLabelTextRect: NSRect = NSRect(
@@ -208,13 +208,13 @@ public class AKPresetLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 24),
-                                       NSAttributedString.Key.foregroundColor: textColorForTheme,
-                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24),
+                                       .foregroundColor: textColorForTheme,
+                                       .paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(
-            with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
+            with: NSSize(width: nameLabelInset.width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(

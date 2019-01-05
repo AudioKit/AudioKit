@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var baseFrequency: Double = AKFMOscillator.defaultBaseFrequency {
@@ -51,8 +51,6 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let baseFrequency = AUParameterTree.createParameter(
             withIdentifier: "baseFrequency",
             name: "Base Frequency (Hz)",
@@ -61,7 +59,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKFMOscillator.baseFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -73,7 +71,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKFMOscillator.carrierMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -85,7 +83,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKFMOscillator.modulatingMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -97,7 +95,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKFMOscillator.modulationIndexRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -109,7 +107,7 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKFMOscillator.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

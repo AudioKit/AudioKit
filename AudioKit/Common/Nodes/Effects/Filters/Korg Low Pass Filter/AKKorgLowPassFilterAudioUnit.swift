@@ -11,11 +11,11 @@ import AVFoundation
 public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKKorgLowPassFilter.defaultCutoffFrequency {
@@ -43,8 +43,6 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Filter cutoff",
@@ -53,7 +51,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKKorgLowPassFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKKorgLowPassFilter.resonanceRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKKorgLowPassFilter.saturationRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKAutoPannerAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = 10.0 {
@@ -38,17 +38,15 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
+            address: 0,
             min: 0.0,
             max: 100.0,
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -60,7 +58,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             max: 1.0,
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

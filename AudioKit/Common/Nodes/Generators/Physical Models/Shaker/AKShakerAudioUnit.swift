@@ -9,11 +9,11 @@
 public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKShakerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKShakerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var type: Double = 0 {
@@ -32,17 +32,15 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let type = AUParameterTree.createParameter(
             withIdentifier: "Type",
             name: "type",
-            address: AUParameterAddress(0),
+            address: 0,
             min: 0,
             max: 22,
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -54,7 +52,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             max: 10,
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

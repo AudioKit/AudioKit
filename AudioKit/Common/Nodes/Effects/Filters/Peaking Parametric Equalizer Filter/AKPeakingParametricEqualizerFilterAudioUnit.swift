@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKPeakingParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPeakingParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKPeakingParametricEqualizerFilter.defaultCenterFrequency {
@@ -43,8 +43,6 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
@@ -53,7 +51,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKPeakingParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKPeakingParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKPhaseDistortionOscillator.defaultFrequency {
@@ -51,8 +51,6 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (Hz)",
@@ -61,7 +59,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseDistortionOscillator.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -73,7 +71,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseDistortionOscillator.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -85,7 +83,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseDistortionOscillator.phaseDistortionRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -97,7 +95,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseDistortionOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -109,7 +107,7 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPhaseDistortionOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

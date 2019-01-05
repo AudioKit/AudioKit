@@ -11,11 +11,11 @@ import AVFoundation
 public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKCostelloReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKCostelloReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var feedback: Double = AKCostelloReverb.defaultFeedback {
@@ -39,8 +39,6 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let feedback = AUParameterTree.createParameter(
             withIdentifier: "feedback",
             name: "Feedback",
@@ -49,7 +47,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKCostelloReverb.feedbackRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +59,7 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
