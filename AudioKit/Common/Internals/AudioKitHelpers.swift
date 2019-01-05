@@ -8,7 +8,6 @@
 
 import AudioToolbox
 import CoreAudio
-import Cocoa
 
 public typealias MIDIByte = UInt8
 public typealias MIDIWord = UInt16
@@ -33,21 +32,22 @@ extension Collection {
     }
 }
 
-extension Collection where Element == CGPoint {
-    public func bezier() -> NSBezierPath {
-        let path = NSBezierPath()
-
-        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
-        path.move(to: fst)
-
-        dropFirst().forEach {
-            path.line(to: $0)
-        }
-
-        path.close()
-        return path
-    }
-}
+//extension Collection where Element == CGPoint {
+//
+//    public func bezier() -> NSBezierPath {
+//        let path = NSBezierPath()
+//
+//        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
+//        path.move(to: fst)
+//
+//        dropFirst().forEach {
+//            path.line(to: $0)
+//        }
+//
+//        path.close()
+//        return path
+//    }
+//}
 
 extension AudioUnitParameterOptions {
     public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
