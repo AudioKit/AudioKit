@@ -27,7 +27,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
         printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
         return;
     }
-    
+
     AKSampleDataDescriptor sdd;
     sdd.sampleDescriptor = pSFD->sampleDescriptor;
     sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
@@ -35,7 +35,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
     sdd.sampleCount = WavpackGetNumSamples(wpc);
     sdd.isInterleaved = sdd.channelCount > 1;
     sdd.data = new float[sdd.channelCount * sdd.sampleCount];
-    
+
     int mode = WavpackGetMode(wpc);
     WavpackUnpackSamples(wpc, (int32_t*)sdd.data, sdd.sampleCount);
     if ((mode & MODE_FLOAT) == 0)
@@ -48,7 +48,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
         for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
-    
+
     ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
     delete[] sdd.data;
 }
@@ -294,7 +294,7 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
-        
+
         // ramp parameters
         masterVolumeRamp.advanceTo(now + frameOffset);
         masterVolume = (float)masterVolumeRamp.getValue();

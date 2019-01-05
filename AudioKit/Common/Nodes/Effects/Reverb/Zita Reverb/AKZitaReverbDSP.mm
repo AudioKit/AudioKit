@@ -191,7 +191,7 @@ void AKZitaReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
             if (!isStarted) {
                 *out = *in;
             }
-            
+
         }
         if (isStarted) {
             sp_zitarev_compute(sp, data->zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);

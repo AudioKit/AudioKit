@@ -134,7 +134,7 @@
 }
 
 -(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
-    
+
     __block AKDSPBase *kernel = self.kernel;
     return ^(AudioBufferList       *inBuffer,
              AudioBufferList       *outBuffer,

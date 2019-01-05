@@ -24,7 +24,7 @@ AKMandolinDSPKernel::~AKMandolinDSPKernel() = default;
 
 void AKMandolinDSPKernel::init(int channelCount, double sampleRate) {
     AKDSPKernel::init(channelCount, sampleRate);
-    
+
     // Create temporary raw files
     NSError *error = nil;
     NSURL *directoryURL = [NSURL fileURLWithPath:[NSTemporaryDirectory()
@@ -51,7 +51,7 @@ void AKMandolinDSPKernel::init(int channelCount, double sampleRate) {
     } else {
         NSLog(@"Failed to create temporary directory at path %@ with error %@", directoryURL, error);
     }
-    
+
     stk::Stk::setRawwavePath(directoryURL.fileSystemRepresentation);
     for (int i=0; i <= 3; i++)
         data->mandolins[i] = new stk::Mandolin(100);
@@ -95,7 +95,7 @@ void AKMandolinDSPKernel::setParameter(AUParameterAddress address, AUValue value
         case detuneAddress:
             detuneRamper.setUIValue(clamp(value, 0.0f, 10.0f));
             break;
-            
+
         case bodySizeAddress:
             bodySizeRamper.setUIValue(clamp(value, 0.0f, 3.0f));
             break;
@@ -106,10 +106,10 @@ AUValue AKMandolinDSPKernel::getParameter(AUParameterAddress address) {
     switch (address) {
         case detuneAddress:
             return detuneRamper.getUIValue();
-            
+
         case bodySizeAddress:
             return bodySizeRamper.getUIValue();
-            
+
         default: return 0.0f;
     }
 }
@@ -119,7 +119,7 @@ void AKMandolinDSPKernel::startRamp(AUParameterAddress address, AUValue value, A
         case detuneAddress:
             detuneRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
             break;
-            
+
         case bodySizeAddress:
             bodySizeRamper.startRamp(clamp(value, 0.0f, 3.0f), duration);
             break;
@@ -127,19 +127,19 @@ void AKMandolinDSPKernel::startRamp(AUParameterAddress address, AUValue value, A
 }
 
 void AKMandolinDSPKernel::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    
+
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        
+
         int frameOffset = int(frameIndex + bufferOffset);
-        
+
         data->detune = detuneRamper.getAndStep();
         data->bodySize = bodySizeRamper.getAndStep();
-        
+
         for (auto & mandolin : data->mandolins) {
             mandolin->setDetune(data->detune);
             mandolin->setBodySize(1 / data->bodySize);
         }
-        
+
         for (int channel = 0; channel < channels; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (started) {

@@ -14,10 +14,10 @@
 struct AKDynaRageCompressorDSPKernel::InternalData {
     Compressor *left_compressor;
     Compressor *right_compressor;
-    
+
     RageProcessor *left_rageprocessor;
     RageProcessor *right_rageprocessor;
-    
+
     float ratio = 1.0;
     float threshold = 0.0;
     float attackDuration = 0.1;
@@ -35,10 +35,10 @@ void AKDynaRageCompressorDSPKernel::init(int channelCount, double sampleRate) {
                                                data->attackDuration, data->releaseDuration, (int)sampleRate);
     data->right_compressor = new Compressor(data->threshold, data->ratio, data->attackDuration,
                                                 data->releaseDuration, (int)sampleRate);
-    
+
     data->left_rageprocessor = new RageProcessor((int)sampleRate);
     data->right_rageprocessor = new RageProcessor((int)sampleRate);
-    
+
     ratioRamper.init();
     thresholdRamper.init();
     attackDurationRamper.init();
@@ -89,23 +89,23 @@ void AKDynaRageCompressorDSPKernel::setParameter(AUParameterAddress address, AUV
         case ratioAddress:
             ratioRamper.setUIValue(clamp(value, 1.0f, 20.0f));
             break;
-            
+
         case thresholdAddress:
             thresholdRamper.setUIValue(clamp(value, -100.0f, 0.0f));
             break;
-            
+
         case attackDurationAddress:
             attackDurationRamper.setUIValue(clamp(value, 0.1f, 500.0f));
             break;
-            
+
         case releaseDurationAddress:
             releaseDurationRamper.setUIValue(clamp(value, 0.1f, 500.0f));
             break;
-            
+
         case rageAddress:
             rageRamper.setUIValue(clamp(value, 0.1f, 20.0f));
             break;
-            
+
             break;
     }
 }
@@ -114,19 +114,19 @@ AUValue AKDynaRageCompressorDSPKernel::getParameter(AUParameterAddress address) 
     switch (address) {
         case ratioAddress:
             return ratioRamper.getUIValue();
-            
+
         case thresholdAddress:
             return thresholdRamper.getUIValue();
-            
+
         case attackDurationAddress:
             return attackDurationRamper.getUIValue();
-            
+
         case releaseDurationAddress:
             return releaseDurationRamper.getUIValue();
-            
+
         case rageAddress:
             return rageRamper.getUIValue();
-            
+
         default: return 0.0f;
     }
 }
@@ -136,19 +136,19 @@ void AKDynaRageCompressorDSPKernel::startRamp(AUParameterAddress address, AUValu
         case ratioAddress:
             ratioRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
             break;
-            
+
         case thresholdAddress:
             thresholdRamper.startRamp(clamp(value, -100.0f, 0.0f), duration);
             break;
-            
+
         case attackDurationAddress:
             attackDurationRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
             break;
-            
+
         case releaseDurationAddress:
             releaseDurationRamper.startRamp(clamp(value, 0.1f, 500.0f), duration);
             break;
-            
+
         case rageAddress:
             rageRamper.startRamp(clamp(value, 0.1f, 20.0f), duration);
             break;
@@ -156,29 +156,29 @@ void AKDynaRageCompressorDSPKernel::startRamp(AUParameterAddress address, AUValu
 }
 
 void AKDynaRageCompressorDSPKernel::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    
+
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        
+
         int frameOffset = int(frameIndex + bufferOffset);
-        
+
         data->ratio = ratioRamper.getAndStep();
         data->threshold = thresholdRamper.getAndStep();
         data->attackDuration = attackDurationRamper.getAndStep();
         data->releaseDuration = releaseDurationRamper.getAndStep();
         data->rage = rageRamper.getAndStep();
-        
+
         data->left_compressor->setParameters(data->threshold, data->ratio,
                                                  data->attackDuration, data->releaseDuration);
         data->right_compressor->setParameters(data->threshold, data->ratio,
                                                   data->attackDuration, data->releaseDuration);
-        
+
         for (int channel = 0; channel < channels; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            
+
             if (started) {
                 if (channel == 0) {
-                    
+
                     float rageSignal = data->left_rageprocessor->doRage(*in, data->rage, data->rage);
                     float compSignal = data->left_compressor->Process((bool)data->rageIsOn ? rageSignal : *in, false, 1);
                     *out = compSignal;

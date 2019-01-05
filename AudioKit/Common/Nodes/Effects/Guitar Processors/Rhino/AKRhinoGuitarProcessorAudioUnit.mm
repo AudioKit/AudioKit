@@ -104,8 +104,8 @@ standardKernelPassthroughs()
                                      min:1.0
                                      max:20.0
                                     unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     preGainAUParameter.value = 5.0;
     postGainAUParameter.value = 0.7;
@@ -114,7 +114,7 @@ standardKernelPassthroughs()
     highGainAUParameter.value = 0.0;
     distTypeAUParameter.value = 1.0;
     distortionAUParameter.value = 1.0;
-    
+
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::preGainAddress,  preGainAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::postGainAddress, postGainAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::lowGainAddress,  lowGainAUParameter.value);
@@ -122,7 +122,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::highGainAddress, highGainAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distTypeAddress, distTypeAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distortionAddress, distortionAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:@[
                                                          preGainAUParameter,
@@ -133,7 +133,7 @@ standardKernelPassthroughs()
                                                          distTypeAUParameter,
                                                          distortionAUParameter
                                                          ]];
-    
+
     parameterTreeBlock(RhinoGuitarProcessor)
 }
 
