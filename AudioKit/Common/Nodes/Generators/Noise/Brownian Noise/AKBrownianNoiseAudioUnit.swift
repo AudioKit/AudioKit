@@ -42,7 +42,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             range: AKBrownianNoise.amplitudeRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [amplitude]))
         amplitude.value = Float(AKBrownianNoise.defaultAmplitude)
     }

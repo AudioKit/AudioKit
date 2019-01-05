@@ -59,7 +59,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
@@ -73,7 +73,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
@@ -87,7 +87,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
+
     /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
@@ -101,8 +101,8 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
-    
+
+
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
@@ -116,8 +116,8 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
-    
+
+
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
@@ -131,8 +131,8 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-    
-    
+
+
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {

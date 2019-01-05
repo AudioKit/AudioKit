@@ -141,7 +141,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             range: AKZitaReverb.dryWetMixRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
         predelay.value = Float(AKZitaReverb.defaultPredelay)
         crossoverFrequency.value = Float(AKZitaReverb.defaultCrossoverFrequency)

@@ -41,7 +41,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             range: AKClipper.limitRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [limit]))
         limit.value = Float(AKClipper.defaultLimit)
     }

@@ -108,7 +108,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             range: AKDrip.amplitudeRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude]))
         intensity.value = Float(AKDrip.defaultIntensity)
         dampingFactor.value = Float(AKDrip.defaultDampingFactor)

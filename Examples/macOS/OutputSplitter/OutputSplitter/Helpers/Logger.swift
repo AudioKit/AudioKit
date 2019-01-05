@@ -15,7 +15,7 @@ func checkErr(_ err : @autoclosure () -> OSStatus, file: String = #file, line: I
         print("Error: \(error) ->  \(file):\(line)\n");
         return error
     }
-    
+
     return nil;
 }
 

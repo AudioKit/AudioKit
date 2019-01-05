@@ -64,7 +64,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             range: AKFormantFilter.decayDurationRange,
             unit: .seconds,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [centerFrequency, attackDuration, decayDuration]))
         centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
         attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)

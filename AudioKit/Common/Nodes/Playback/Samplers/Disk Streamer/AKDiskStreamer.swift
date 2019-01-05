@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that
 /// will playback samples from disk, without incurring lots of memory usage
 
 import Foundation

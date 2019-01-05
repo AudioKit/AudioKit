@@ -64,7 +64,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             range: AKEqualizerFilter.gainRange,
             unit: .percent,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [centerFrequency, bandwidth, gain]))
         centerFrequency.value = Float(AKEqualizerFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKEqualizerFilter.defaultBandwidth)

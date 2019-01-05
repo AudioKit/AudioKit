@@ -64,7 +64,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             range: AKLowShelfParametricEqualizerFilter.qRange,
             unit: .generic,
             flags: .default)
-        
+
         setParameterTree(AUParameterTree(children: [cornerFrequency, gain, q]))
         cornerFrequency.value = Float(AKLowShelfParametricEqualizerFilter.defaultCornerFrequency)
         gain.value = Float(AKLowShelfParametricEqualizerFilter.defaultGain)

@@ -23,7 +23,7 @@ class ViewController: NSViewController {
 
         mixer = AKMixer(oscillator1, oscillator2)
         plot.node = mixer
-        
+
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer
