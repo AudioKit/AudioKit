@@ -24,13 +24,13 @@ public typealias AKCCallback = @convention(block) () -> Void
 /// Callback function that can be called from C
 public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
 
-extension Collection {
-    /// Return a random element from the collection
-    public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
-        return index(startIndex, offsetBy: offset)
-    }
-}
+//extension Collection {
+//    /// Return a random element from the collection
+//    public var randomIndex: Index {
+//        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
+//        return index(startIndex, offsetBy: offset)
+//    }
+//}
 
 //extension Collection where Element == CGPoint {
 //
@@ -53,8 +53,8 @@ extension AudioUnitParameterOptions {
     public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
 }
 
-extension NSRect {
-    public init(size: NSSize) {
+extension CGRect {
+    public init(size: CGSize) {
         self.init(origin: .zero, size: size)
     }
 
