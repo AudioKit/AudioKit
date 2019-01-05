@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBandPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBandPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKBandPassButterworthFilter.defaultCenterFrequency {
@@ -39,8 +39,6 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
@@ -49,7 +47,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKBandPassButterworthFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +59,7 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKBandPassButterworthFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

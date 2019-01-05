@@ -11,11 +11,11 @@ import AVFoundation
 public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKLowPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKLowPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKLowPassButterworthFilter.defaultCutoffFrequency {
@@ -35,8 +35,6 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let cutoffFrequency = AUParameterTree.createParameter(
             withIdentifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
@@ -45,7 +43,7 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

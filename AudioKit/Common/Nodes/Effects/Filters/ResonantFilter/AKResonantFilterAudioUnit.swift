@@ -11,11 +11,11 @@ import AVFoundation
 public class AKResonantFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKResonantFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKResonantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKResonantFilter.defaultFrequency {
@@ -39,8 +39,6 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
@@ -49,7 +47,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKResonantFilter.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +59,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKResonantFilter.bandwidthRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

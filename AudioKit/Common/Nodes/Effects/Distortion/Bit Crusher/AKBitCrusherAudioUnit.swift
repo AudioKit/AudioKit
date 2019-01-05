@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBitCrusherAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBitCrusherParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBitCrusherParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var bitDepth: Double = AKBitCrusher.defaultBitDepth {
@@ -38,9 +38,6 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let bitDepth = AUParameterTree.createParameter(
             withIdentifier: "bitDepth",
             name: "Bit Depth",
@@ -49,7 +46,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             max: Float(AKBitCrusher.bitDepthRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -61,7 +58,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             max: Float(AKBitCrusher.sampleRateRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

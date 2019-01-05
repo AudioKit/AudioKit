@@ -11,11 +11,11 @@ import AVFoundation
 public class AKAutoWahAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKAutoWahParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKAutoWahParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var wah: Double = AKAutoWah.defaultWah {
@@ -43,8 +43,6 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let wah = AUParameterTree.createParameter(
             withIdentifier: "wah",
             name: "Wah Amount",
@@ -53,7 +51,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             max: Float(AKAutoWah.wahRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             max: Float(AKAutoWah.mixRange.upperBound),
             unit: .percent,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             max: Float(AKAutoWah.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPinkNoiseParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPinkNoiseParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var amplitude: Double = AKPinkNoise.defaultAmplitude {
@@ -35,8 +35,6 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
@@ -45,7 +43,7 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKPinkNoise.amplitudeRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

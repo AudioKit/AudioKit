@@ -11,11 +11,11 @@ import AVFoundation
 public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKMorphingOscillator.defaultFrequency {
@@ -51,8 +51,6 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Frequency (in Hz)",
@@ -61,7 +59,7 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKMorphingOscillator.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -73,7 +71,7 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKMorphingOscillator.amplitudeRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -85,7 +83,7 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKMorphingOscillator.indexRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -97,7 +95,7 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKMorphingOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -109,11 +107,11 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKMorphingOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKMorphingOscillator.defaultFrequency)
         amplitude.value = Float(AKMorphingOscillator.defaultAmplitude)

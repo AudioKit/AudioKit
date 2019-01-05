@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFormantFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKFormantFilter.defaultCenterFrequency {
@@ -43,8 +43,6 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let centerFrequency = AUParameterTree.createParameter(
             withIdentifier: "centerFrequency",
             name: "Center Frequency (Hz)",
@@ -53,7 +51,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKFormantFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKFormantFilter.attackDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKFormantFilter.decayDurationRange.upperBound),
             unit: .seconds,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

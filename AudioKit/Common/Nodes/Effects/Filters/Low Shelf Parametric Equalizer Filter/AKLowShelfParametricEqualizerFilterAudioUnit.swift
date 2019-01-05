@@ -11,11 +11,11 @@ import AVFoundation
 public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cornerFrequency: Double = AKLowShelfParametricEqualizerFilter.defaultCornerFrequency {
@@ -43,8 +43,6 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let cornerFrequency = AUParameterTree.createParameter(
             withIdentifier: "cornerFrequency",
             name: "Corner Frequency (Hz)",
@@ -53,7 +51,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -65,7 +63,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKLowShelfParametricEqualizerFilter.gainRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -77,7 +75,7 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKLowShelfParametricEqualizerFilter.qRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

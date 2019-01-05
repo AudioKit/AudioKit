@@ -11,11 +11,11 @@ import AVFoundation
 public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKVocalTractParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKVocalTractParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKVocalTract.defaultFrequency {
@@ -51,8 +51,6 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let frequency = AUParameterTree.createParameter(
             withIdentifier: "frequency",
             name: "Glottal frequency.",
@@ -61,7 +59,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKVocalTract.frequencyRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -73,7 +71,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKVocalTract.tonguePositionRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -85,7 +83,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKVocalTract.tongueDiameterRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -97,7 +95,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKVocalTract.tensenessRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
@@ -109,7 +107,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             max: Float(AKVocalTract.nasalityRange.upperBound),
             unit: .generic,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )

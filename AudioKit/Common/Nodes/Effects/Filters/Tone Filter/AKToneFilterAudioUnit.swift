@@ -11,11 +11,11 @@ import AVFoundation
 public class AKToneFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKToneFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKToneFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var halfPowerPoint: Double = AKToneFilter.defaultHalfPowerPoint {
@@ -35,8 +35,6 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
         let halfPowerPoint = AUParameterTree.createParameter(
             withIdentifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
@@ -45,11 +43,11 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
             max: Float(AKToneFilter.halfPowerPointRange.upperBound),
             unit: .hertz,
             unitName: nil,
-            flags: flags,
+            flags: .default,
             valueStrings: nil,
             dependentParameters: nil
         )
-        
+
         setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneFilter.defaultHalfPowerPoint)
     }
