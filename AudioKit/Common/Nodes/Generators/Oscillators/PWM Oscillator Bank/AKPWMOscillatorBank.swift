@@ -48,7 +48,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
@@ -104,7 +103,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
@@ -118,7 +116,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
 
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
@@ -134,7 +131,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
@@ -148,7 +144,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
 
     // MARK: - Initialization
 
@@ -168,7 +163,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - pitchBend: Change of pitch in semitones
     ///   - vibratoDepth: Vibrato size in semitones
     ///   - vibratoRate: Frequency of vibrato in Hz
-
     ///
     @objc public init(
         pulseWidth: Double = 0.5,

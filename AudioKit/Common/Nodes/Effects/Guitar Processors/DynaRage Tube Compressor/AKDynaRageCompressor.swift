@@ -46,7 +46,6 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
             } else {
                 internalAU?.ratio = Float(newValue)
             }
-
         }
     }
 
@@ -193,7 +192,6 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.rage = Float(rage)
         internalAU?.rageIsOn = Bool(rageIsOn)
-
     }
 
     // MARK: - Control
