@@ -41,7 +41,6 @@ extension AVAudioTime {
             let hostTime = anchorTime.hostTime + secondsDiff / ticksToSeconds
             return AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
         }
-
     }
 
     /// An AVAudioTime with a valid hostTime representing now.

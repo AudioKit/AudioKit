@@ -236,7 +236,6 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             }
             needsDisplay = true
         }
-
     }
 
     // MARK: - MIDI

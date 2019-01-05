@@ -98,7 +98,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
             }
             input?.connect(to: strongSelf)
         }
-
     }
 
     deinit {
