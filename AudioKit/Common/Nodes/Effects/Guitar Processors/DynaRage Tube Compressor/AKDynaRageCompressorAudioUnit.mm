@@ -42,9 +42,9 @@
 standardKernelPassthroughs()
 
 - (void)createParameters {
-    
+
     standardSetup(DynaRageCompressor)
-    
+
     // Create a parameter object for the ratio.
     AUParameter *ratioAUParameter =
     [AUParameter parameterWithIdentifier:@"ratio"
@@ -77,7 +77,7 @@ standardKernelPassthroughs()
                                      min:0.1
                                      max:500.0
                                     unit:kAudioUnitParameterUnit_Seconds];
-    
+
     // Create a parameter object for the rage.
     AUParameter *rageAUParameter =
     [AUParameter parameterWithIdentifier:@"rage"
@@ -86,21 +86,21 @@ standardKernelPassthroughs()
                                      min:0.1
                                      max:20.0
                                     unit:kAudioUnitParameterUnit_Generic];
-    
-    
+
+
     // Initialize the parameter values.
     ratioAUParameter.value = 1.0;
     thresholdAUParameter.value = 0.0;
     attackDurationAUParameter.value = 0.1;
     releaseDurationAUParameter.value = 0.1;
     rageAUParameter.value = 0.1;
-    
+
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::ratioAddress,       ratioAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::thresholdAddress,   thresholdAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::releaseDurationAddress, releaseDurationAUParameter.value);
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::rageAddress,  rageAUParameter.value);
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:@[
                                                          ratioAUParameter,
@@ -109,7 +109,7 @@ standardKernelPassthroughs()
                                                          releaseDurationAUParameter,
                                                          rageAUParameter
                                                          ]];
-    
+
     parameterTreeBlock(DynaRageCompressor)
 }
 

@@ -24,7 +24,7 @@ struct AKClarinetDSP::InternalData
 {
     float internalTrigger = 0;
     stk::Clarinet *clarinet;
-    
+
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp detuningOffsetRamp;
@@ -73,7 +73,7 @@ float AKClarinetDSP::getParameter(AUParameterAddress address)  {
 
 void AKClarinetDSP::init(int channelCount, double sampleRate)  {
     AKDSPBase::init(channelCount, sampleRate);
-    
+
     stk::Stk::setSampleRate(sampleRate);
     data->clarinet = new stk::Clarinet(100);
 }
@@ -94,10 +94,10 @@ void AKClarinetDSP::destroy() {
 }
 
 void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    
+
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
-        
+
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
             data->frequencyRamp.advanceTo(now + frameOffset);
@@ -105,10 +105,10 @@ void AKClarinetDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
         }
         float frequency = data->frequencyRamp.getValue();
         float amplitude = data->amplitudeRamp.getValue();
-        
+
         for (int channel = 0; channel < channelCount; ++channel) {
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            
+
             if (isStarted) {
                 if (data->internalTrigger == 1) {
                     data->clarinet->noteOn(frequency, amplitude);
