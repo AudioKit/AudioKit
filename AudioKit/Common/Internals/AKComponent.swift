@@ -45,11 +45,11 @@ extension AUParameterTree {
     }
 
     public class func createParameter(identifier: String,
-                               name: String,
-                               address: AUParameterAddress,
-                               range: ClosedRange<AUValue>,
-                               unit: AudioUnitParameterUnit,
-                               flags: AudioUnitParameterOptions = []) -> AUParameter {
+                                      name: String,
+                                      address: AUParameterAddress,
+                                      range: ClosedRange<AUValue>,
+                                      unit: AudioUnitParameterUnit,
+                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
         return createParameter(withIdentifier: identifier,
                                name: name,
                                address: address,
@@ -62,7 +62,7 @@ extension AUParameterTree {
                                dependentParameters: nil)
     }
 
-    public class func createParameter(withIdentifier identifier: String,
+    public class func createParameter(identifier: String,
                                       name: String,
                                       address: AUParameterAddress,
                                       min: AUValue,

@@ -40,7 +40,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
             address: AKResonantFilterParameter.frequency.rawValue,
             min: Float(AKResonantFilter.frequencyRange.lowerBound),
@@ -48,7 +48,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
-            withIdentifier: "bandwidth",
+            identifier: "bandwidth",
             name: "Bandwidth of the filter.",
             address: AKResonantFilterParameter.bandwidth.rawValue,
             min: Float(AKResonantFilter.bandwidthRange.lowerBound),

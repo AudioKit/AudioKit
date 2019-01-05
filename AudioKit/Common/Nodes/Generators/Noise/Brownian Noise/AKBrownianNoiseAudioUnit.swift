@@ -36,7 +36,7 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKBrownianNoiseParameter.amplitude.rawValue,
             min: Float(AKBrownianNoise.amplitudeRange.lowerBound),

@@ -36,7 +36,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let halfPowerPoint = AUParameterTree.createParameter(
-            withIdentifier: "halfPowerPoint",
+            identifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
             address: AKToneFilterParameter.halfPowerPoint.rawValue,
             min: Float(AKToneFilter.halfPowerPointRange.lowerBound),

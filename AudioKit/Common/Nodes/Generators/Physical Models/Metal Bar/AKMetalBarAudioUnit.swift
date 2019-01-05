@@ -59,7 +59,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let leftBoundaryCondition = AUParameterTree.createParameter(
-            withIdentifier: "leftBoundaryCondition",
+            identifier: "leftBoundaryCondition",
             name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
             address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
             min: Float(AKMetalBar.leftBoundaryConditionRange.lowerBound),
@@ -67,7 +67,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let rightBoundaryCondition = AUParameterTree.createParameter(
-            withIdentifier: "rightBoundaryCondition",
+            identifier: "rightBoundaryCondition",
             name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
             address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
             min: Float(AKMetalBar.rightBoundaryConditionRange.lowerBound),
@@ -75,7 +75,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let decayDuration = AUParameterTree.createParameter(
-            withIdentifier: "decayDuration",
+            identifier: "decayDuration",
             name: "30db decay time (in seconds).",
             address: AKMetalBarParameter.decayDuration.rawValue,
             min: Float(AKMetalBar.decayDurationRange.lowerBound),
@@ -83,7 +83,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let scanSpeed = AUParameterTree.createParameter(
-            withIdentifier: "scanSpeed",
+            identifier: "scanSpeed",
             name: "Speed of scanning the output location.",
             address: AKMetalBarParameter.scanSpeed.rawValue,
             min: Float(AKMetalBar.scanSpeedRange.lowerBound),
@@ -91,7 +91,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let position = AUParameterTree.createParameter(
-            withIdentifier: "position",
+            identifier: "position",
             name: "Position along bar that strike occurs.",
             address: AKMetalBarParameter.position.rawValue,
             min: Float(AKMetalBar.positionRange.lowerBound),
@@ -99,7 +99,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
         let strikeVelocity = AUParameterTree.createParameter(
-            withIdentifier: "strikeVelocity",
+            identifier: "strikeVelocity",
             name: "Normalized strike velocity",
             address: AKMetalBarParameter.strikeVelocity.rawValue,
             min: Float(AKMetalBar.strikeVelocityRange.lowerBound),
@@ -107,7 +107,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
         let strikeWidth = AUParameterTree.createParameter(
-            withIdentifier: "strikeWidth",
+            identifier: "strikeWidth",
             name: "Spatial width of strike.",
             address: AKMetalBarParameter.strikeWidth.rawValue,
             min: Float(AKMetalBar.strikeWidthRange.lowerBound),

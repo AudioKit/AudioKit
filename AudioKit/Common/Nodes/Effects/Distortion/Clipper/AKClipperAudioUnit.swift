@@ -35,7 +35,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let limit = AUParameterTree.createParameter(
-            withIdentifier: "limit",
+            identifier: "limit",
             name: "Threshold",
             address: AKClipperParameter.limit.rawValue,
             min: Float(AKClipper.limitRange.lowerBound),

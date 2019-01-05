@@ -36,7 +36,7 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
             min: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.lowerBound),

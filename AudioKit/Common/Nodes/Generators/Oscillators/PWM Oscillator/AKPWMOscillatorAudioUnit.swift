@@ -52,7 +52,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPWMOscillatorParameter.frequency.rawValue,
             min: Float(AKPWMOscillator.frequencyRange.lowerBound),
@@ -60,7 +60,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKPWMOscillatorParameter.amplitude.rawValue,
             min: Float(AKPWMOscillator.amplitudeRange.lowerBound),
@@ -68,7 +68,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let pulseWidth = AUParameterTree.createParameter(
-            withIdentifier: "pulseWidth",
+            identifier: "pulseWidth",
             name: "Pulse Width",
             address: AKPWMOscillatorParameter.pulseWidth.rawValue,
             min: Float(AKPWMOscillator.pulseWidthRange.lowerBound),
@@ -76,7 +76,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
-            withIdentifier: "detuningOffset",
+            identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPWMOscillatorParameter.detuningOffset.rawValue,
             min: Float(AKPWMOscillator.detuningOffsetRange.lowerBound),
@@ -84,7 +84,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "detuningMultiplier",
+            identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
             min: Float(AKPWMOscillator.detuningMultiplierRange.lowerBound),

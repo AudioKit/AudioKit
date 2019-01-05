@@ -165,11 +165,11 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
-            var theFileFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
+            var theFileFormat = AudioStreamBasicDescription()
             var thePropertySize: UInt32 = UInt32(MemoryLayout.stride(ofValue: theFileFormat))
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
-            var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
+            var theOutputFormat = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }

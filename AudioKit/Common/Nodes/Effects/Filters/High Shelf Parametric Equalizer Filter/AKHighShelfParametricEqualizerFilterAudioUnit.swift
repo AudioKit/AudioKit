@@ -44,7 +44,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+            identifier: "centerFrequency",
             name: "Corner Frequency (Hz)",
             address: AKHighShelfParametricEqualizerFilterParameter.centerFrequency.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.centerFrequencyRange.lowerBound),
@@ -52,7 +52,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let gain = AUParameterTree.createParameter(
-            withIdentifier: "gain",
+            identifier: "gain",
             name: "Gain",
             address: AKHighShelfParametricEqualizerFilterParameter.gain.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.gainRange.lowerBound),
@@ -60,7 +60,7 @@ public class AKHighShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         let q = AUParameterTree.createParameter(
-            withIdentifier: "q",
+            identifier: "q",
             name: "Q",
             address: AKHighShelfParametricEqualizerFilterParameter.Q.rawValue,
             min: Float(AKHighShelfParametricEqualizerFilter.qRange.lowerBound),
