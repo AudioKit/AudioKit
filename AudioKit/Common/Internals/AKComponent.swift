@@ -62,36 +62,25 @@ extension AUParameterTree {
                                valueStrings: nil,
                                dependentParameters: nil)
     }
-
-    public class func createParameter(identifier: String,
-                                      name: String,
-                                      address: AUParameterAddress,
-                                      min: AUValue,
-                                      max: AUValue,
-                                      unit: AudioUnitParameterUnit,
-                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
-        return createParameter(withIdentifier: identifier,
-                               name: name,
-                               address: address,
-                               min: min,
-                               max: max,
-                               unit: unit,
-                               unitName: nil,
-                               flags: flags,
-                               valueStrings: nil,
-                               dependentParameters: nil)
-    }
-}
-
-final class AKParameterTree : AUParameterTree, ExpressibleByArrayLiteral {
-    typealias Element = AUParameter
-    public required init(arrayLiteral literal: AUParameter...) {
-        fatalError()
-    }
-
-    required init?(coder decoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//
+//    public class func createParameter(identifier: String,
+//                                      name: String,
+//                                      address: AUParameterAddress,
+//                                      min: AUValue,
+//                                      max: AUValue,
+//                                      unit: AudioUnitParameterUnit,
+//                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
+//        return createParameter(withIdentifier: identifier,
+//                               name: name,
+//                               address: address,
+//                               min: min,
+//                               max: max,
+//                               unit: unit,
+//                               unitName: nil,
+//                               flags: flags,
+//                               valueStrings: nil,
+//                               dependentParameters: nil)
+//    }
 }
 
 /// Adding convenience initializers

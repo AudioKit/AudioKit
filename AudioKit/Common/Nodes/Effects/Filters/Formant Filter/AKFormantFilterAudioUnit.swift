@@ -43,21 +43,21 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let centerFrequency = AUParameter(
+        let centerFrequency = AUParameterTree.createParameter(
             identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKFormantFilterParameter.centerFrequency.rawValue,
             range: AKFormantFilter.centerFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let attackDuration = AUParameter(
+        let attackDuration = AUParameterTree.createParameter(
             identifier: "attackDuration",
             name: "Impulse response attack time (Seconds)",
             address: AKFormantFilterParameter.attackDuration.rawValue,
             range: AKFormantFilter.attackDurationRange,
             unit: .seconds,
             flags: .default)
-        let decayDuration = AUParameter(
+        let decayDuration = AUParameterTree.createParameter(
             identifier: "decayDuration",
             name: "Impulse reponse decay time (Seconds)",
             address: AKFormantFilterParameter.decayDuration.rawValue,

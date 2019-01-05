@@ -46,28 +46,28 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                                       options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let time = AUParameter(
+        let time = AUParameterTree.createParameter(
             identifier: "time",
             name: "Delay time (Seconds)",
             address: AKStereoDelayParameter.time.rawValue,
             range: AKStereoDelay.timeRange,
             unit: .seconds,
             flags: .default)
-        let feedback = AUParameter(
+        let feedback = AUParameterTree.createParameter(
             identifier: "feedback",
             name: "Feedback (%)",
             address: AKStereoDelayParameter.feedback.rawValue,
             range: AKStereoDelay.feedbackRange,
             unit: .generic,
             flags: .default)
-        let dryWetMix = AUParameter(
+        let dryWetMix = AUParameterTree.createParameter(
             identifier: "dryWetMix",
             name: "Dry-Wet Mix",
             address: AKStereoDelayParameter.dryWetMix.rawValue,
             range: AKStereoDelay.dryWetMixRange,
             unit: .generic,
             flags: .default)
-        let pingPong = AUParameter(
+        let pingPong = AUParameterTree.createParameter(
             identifier: "pingPong",
             name: "Ping-Pong Mode",
             address: AKStereoDelayParameter.pingPong.rawValue,

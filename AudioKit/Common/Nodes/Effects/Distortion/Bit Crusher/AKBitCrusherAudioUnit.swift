@@ -38,14 +38,14 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let bitDepth = AUParameter(
+        let bitDepth = AUParameterTree.createParameter(
             identifier: "bitDepth",
             name: "Bit Depth",
             address: AKBitCrusherParameter.bitDepth.rawValue,
             range: AKBitCrusher.bitDepthRange,
             unit: .generic,
             flags: .default)
-        let sampleRate = AUParameter(
+        let sampleRate = AUParameterTree.createParameter(
             identifier: "sampleRate",
             name: "Sample Rate (Hz)",
             address: AKBitCrusherParameter.sampleRate.rawValue,

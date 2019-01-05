@@ -47,28 +47,28 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let attackDuration = AUParameter(
+        let attackDuration = AUParameterTree.createParameter(
             identifier: "attackDuration",
             name: "Attack time",
             address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
             range: AKAmplitudeEnvelope.attackDurationRange,
             unit: .seconds,
             flags: .default)
-        let decayDuration = AUParameter(
+        let decayDuration = AUParameterTree.createParameter(
             identifier: "decayDuration",
             name: "Decay time",
             address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
             range: AKAmplitudeEnvelope.decayDurationRange,
             unit: .seconds,
             flags: .default)
-        let sustainLevel = AUParameter(
+        let sustainLevel = AUParameterTree.createParameter(
             identifier: "sustainLevel",
             name: "Sustain Level",
             address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
             range: AKAmplitudeEnvelope.sustainLevelRange,
             unit: .generic,
             flags: .default)
-        let releaseDuration = AUParameter(
+        let releaseDuration = AUParameterTree.createParameter(
             identifier: "releaseDuration",
             name: "Release time",
             address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,

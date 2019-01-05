@@ -51,35 +51,35 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        let frequency = AUParameterTree.createParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
             range: AKPhaseDistortionOscillator.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
             range: AKPhaseDistortionOscillator.amplitudeRange,
             unit: .generic,
             flags: .default)
-        let phaseDistortion = AUParameter(
+        let phaseDistortion = AUParameterTree.createParameter(
             identifier: "phaseDistortion",
             name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
             address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
             range: AKPhaseDistortionOscillator.phaseDistortionRange,
             unit: .generic,
             flags: .default)
-        let detuningOffset = AUParameter(
+        let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
             range: AKPhaseDistortionOscillator.detuningOffsetRange,
             unit: .hertz,
             flags: .default)
-        let detuningMultiplier = AUParameter(
+        let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,

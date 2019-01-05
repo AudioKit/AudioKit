@@ -67,63 +67,63 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let notchMinimumFrequency = AUParameter(
+        let notchMinimumFrequency = AUParameterTree.createParameter(
             identifier: "notchMinimumFrequency",
             name: "Notch Minimum Frequency",
             address: AKPhaserParameter.notchMinimumFrequency.rawValue,
             range: AKPhaser.notchMinimumFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let notchMaximumFrequency = AUParameter(
+        let notchMaximumFrequency = AUParameterTree.createParameter(
             identifier: "notchMaximumFrequency",
             name: "Notch Maximum Frequency",
             address: AKPhaserParameter.notchMaximumFrequency.rawValue,
             range: AKPhaser.notchMaximumFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let notchWidth = AUParameter(
+        let notchWidth = AUParameterTree.createParameter(
             identifier: "notchWidth",
             name: "Between 10 and 5000",
             address: AKPhaserParameter.notchWidth.rawValue,
             range: AKPhaser.notchWidthRange,
             unit: .hertz,
             flags: .default)
-        let notchFrequency = AUParameter(
+        let notchFrequency = AUParameterTree.createParameter(
             identifier: "notchFrequency",
             name: "Between 1.1 and 4",
             address: AKPhaserParameter.notchFrequency.rawValue,
             range: AKPhaser.notchFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let vibratoMode = AUParameter(
+        let vibratoMode = AUParameterTree.createParameter(
             identifier: "vibratoMode",
             name: "Direct or Vibrato (default)",
             address: AKPhaserParameter.vibratoMode.rawValue,
             range: AKPhaser.vibratoModeRange,
             unit: .generic,
             flags: .default)
-        let depth = AUParameter(
+        let depth = AUParameterTree.createParameter(
             identifier: "depth",
             name: "Between 0 and 1",
             address: AKPhaserParameter.depth.rawValue,
             range: AKPhaser.depthRange,
             unit: .generic,
             flags: .default)
-        let feedback = AUParameter(
+        let feedback = AUParameterTree.createParameter(
             identifier: "feedback",
             name: "Between 0 and 1",
             address: AKPhaserParameter.feedback.rawValue,
             range: AKPhaser.feedbackRange,
             unit: .generic,
             flags: .default)
-        let inverted = AUParameter(
+        let inverted = AUParameterTree.createParameter(
             identifier: "inverted",
             name: "1 or 0",
             address: AKPhaserParameter.inverted.rawValue,
             range: AKPhaser.invertedRange,
             unit: .generic,
             flags: .default)
-        let lfoBPM = AUParameter(
+        let lfoBPM = AUParameterTree.createParameter(
             identifier: "lfoBPM",
             name: "Between 24 and 360",
             address: AKPhaserParameter.lfoBPM.rawValue,

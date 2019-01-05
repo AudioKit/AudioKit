@@ -35,7 +35,7 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let pan = AUParameter(
+        let pan = AUParameterTree.createParameter(
             identifier: "pan",
             name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
             address: AKPannerParameter.pan.rawValue,
