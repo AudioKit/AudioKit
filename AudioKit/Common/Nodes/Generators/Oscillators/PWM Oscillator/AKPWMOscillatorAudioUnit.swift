@@ -55,40 +55,40 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPWMOscillatorParameter.frequency.rawValue,
-            min: Float(AKPWMOscillator.frequencyRange.lowerBound),
-            max: Float(AKPWMOscillator.frequencyRange.upperBound),
+            range: AKPWMOscillator.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPWMOscillatorParameter.amplitude.rawValue,
-            min: Float(AKPWMOscillator.amplitudeRange.lowerBound),
-            max: Float(AKPWMOscillator.amplitudeRange.upperBound),
+            range: AKPWMOscillator.amplitudeRange,
+            
             unit: .hertz,
             flags: .default)
         let pulseWidth = AUParameterTree.createParameter(
             identifier: "pulseWidth",
             name: "Pulse Width",
             address: AKPWMOscillatorParameter.pulseWidth.rawValue,
-            min: Float(AKPWMOscillator.pulseWidthRange.lowerBound),
-            max: Float(AKPWMOscillator.pulseWidthRange.upperBound),
+            range: AKPWMOscillator.pulseWidthRange,
+            
             unit: .generic,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPWMOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKPWMOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKPWMOscillator.detuningOffsetRange.upperBound),
+            range: AKPWMOscillator.detuningOffsetRange,
+            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKPWMOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKPWMOscillator.detuningMultiplierRange.upperBound),
+            range: AKPWMOscillator.detuningMultiplierRange,
+            
             unit: .generic,
             flags: .default)
 

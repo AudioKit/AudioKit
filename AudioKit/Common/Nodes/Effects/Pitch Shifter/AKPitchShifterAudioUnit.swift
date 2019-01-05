@@ -47,24 +47,24 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             identifier: "shift",
             name: "Pitch shift (in semitones)",
             address: AKPitchShifterParameter.shift.rawValue,
-            min: Float(AKPitchShifter.shiftRange.lowerBound),
-            max: Float(AKPitchShifter.shiftRange.upperBound),
+            range: AKPitchShifter.shiftRange,
+            
             unit: .relativeSemiTones,
             flags: .default)
         let windowSize = AUParameterTree.createParameter(
             identifier: "windowSize",
             name: "Window size (in samples)",
             address: AKPitchShifterParameter.windowSize.rawValue,
-            min: Float(AKPitchShifter.windowSizeRange.lowerBound),
-            max: Float(AKPitchShifter.windowSizeRange.upperBound),
+            range: AKPitchShifter.windowSizeRange,
+            
             unit: .hertz,
             flags: .default)
         let crossfade = AUParameterTree.createParameter(
             identifier: "crossfade",
             name: "Crossfade (in samples)",
             address: AKPitchShifterParameter.crossfade.rawValue,
-            min: Float(AKPitchShifter.crossfadeRange.lowerBound),
-            max: Float(AKPitchShifter.crossfadeRange.upperBound),
+            range: AKPitchShifter.crossfadeRange,
+            
             unit: .hertz,
             flags: .default)
         

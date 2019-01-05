@@ -51,32 +51,32 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
-            min: Float(AKChorus.frequencyRange.lowerBound),
-            max: Float(AKChorus.frequencyRange.upperBound),
+            range: AKChorus.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let depth = AUParameterTree.createParameter(
             identifier: "depth",
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
-            min: Float(AKChorus.depthRange.lowerBound),
-            max: Float(AKChorus.depthRange.upperBound),
+            range: AKChorus.depthRange,
+            
             unit: .generic,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
             identifier: "feedback",
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
-            min: Float(AKChorus.feedbackRange.lowerBound),
-            max: Float(AKChorus.feedbackRange.upperBound),
+            range: AKChorus.feedbackRange,
+            
             unit: .generic,
             flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
             identifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,
-            min: Float(AKChorus.dryWetMixRange.lowerBound),
-            max: Float(AKChorus.dryWetMixRange.upperBound),
+            range: AKChorus.dryWetMixRange,
+            
             unit: .generic,
             flags: .default)
         

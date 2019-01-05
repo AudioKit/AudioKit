@@ -47,24 +47,24 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKEqualizerFilterParameter.centerFrequency.rawValue,
-            min: Float(AKEqualizerFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKEqualizerFilter.centerFrequencyRange.upperBound),
+            range: AKEqualizerFilter.centerFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             identifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AKEqualizerFilterParameter.bandwidth.rawValue,
-            min: Float(AKEqualizerFilter.bandwidthRange.lowerBound),
-            max: Float(AKEqualizerFilter.bandwidthRange.upperBound),
+            range: AKEqualizerFilter.bandwidthRange,
+            
             unit: .hertz,
             flags: .default)
         let gain = AUParameterTree.createParameter(
             identifier: "gain",
             name: "Gain (%)",
             address: AKEqualizerFilterParameter.gain.rawValue,
-            min: Float(AKEqualizerFilter.gainRange.lowerBound),
-            max: Float(AKEqualizerFilter.gainRange.upperBound),
+            range: AKEqualizerFilter.gainRange,
+            
             unit: .percent,
             flags: .default)
         

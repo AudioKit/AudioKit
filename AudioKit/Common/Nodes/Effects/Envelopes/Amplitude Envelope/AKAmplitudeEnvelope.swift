@@ -23,16 +23,16 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var releaseDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Attack Duration
-    public static let attackDurationRange = 0 ... 99
+    public static let attackDurationRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange = 0 ... 99
+    public static let decayDurationRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Sustain Level
-    public static let sustainLevelRange = 0 ... 99
+    public static let sustainLevelRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Release Duration
-    public static let releaseDurationRange = 0 ... 99
+    public static let releaseDurationRange = 0.0 ... 99.0
 
     /// Initial value for Attack Duration
     public static let defaultAttackDuration = 0.1

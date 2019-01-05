@@ -55,40 +55,40 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "baseFrequency",
             name: "Base Frequency (Hz)",
             address: AKFMOscillatorParameter.baseFrequency.rawValue,
-            min: Float(AKFMOscillator.baseFrequencyRange.lowerBound),
-            max: Float(AKFMOscillator.baseFrequencyRange.upperBound),
+            range: AKFMOscillator.baseFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let carrierMultiplier = AUParameterTree.createParameter(
             identifier: "carrierMultiplier",
             name: "Carrier Multiplier",
             address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
-            min: Float(AKFMOscillator.carrierMultiplierRange.lowerBound),
-            max: Float(AKFMOscillator.carrierMultiplierRange.upperBound),
+            range: AKFMOscillator.carrierMultiplierRange,
+            
             unit: .generic,
             flags: .default)
         let modulatingMultiplier = AUParameterTree.createParameter(
             identifier: "modulatingMultiplier",
             name: "Modulating Multiplier",
             address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
-            min: Float(AKFMOscillator.modulatingMultiplierRange.lowerBound),
-            max: Float(AKFMOscillator.modulatingMultiplierRange.upperBound),
+            range: AKFMOscillator.modulatingMultiplierRange,
+            
             unit: .generic,
             flags: .default)
         let modulationIndex = AUParameterTree.createParameter(
             identifier: "modulationIndex",
             name: "Modulation Index",
             address: AKFMOscillatorParameter.modulationIndex.rawValue,
-            min: Float(AKFMOscillator.modulationIndexRange.lowerBound),
-            max: Float(AKFMOscillator.modulationIndexRange.upperBound),
+            range: AKFMOscillator.modulationIndexRange,
+            
             unit: .generic,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKFMOscillatorParameter.amplitude.rawValue,
-            min: Float(AKFMOscillator.amplitudeRange.lowerBound),
-            max: Float(AKFMOscillator.amplitudeRange.upperBound),
+            range: AKFMOscillator.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         

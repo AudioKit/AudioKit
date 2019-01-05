@@ -43,16 +43,16 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             identifier: "frequency",
             name: "Resonant Frequency (Hz)",
             address: AKModalResonanceFilterParameter.frequency.rawValue,
-            min: Float(AKModalResonanceFilter.frequencyRange.lowerBound),
-            max: Float(AKModalResonanceFilter.frequencyRange.upperBound),
+            range: AKModalResonanceFilter.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let qualityFactor = AUParameterTree.createParameter(
             identifier: "qualityFactor",
             name: "Quality Factor",
             address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
-            min: Float(AKModalResonanceFilter.qualityFactorRange.lowerBound),
-            max: Float(AKModalResonanceFilter.qualityFactorRange.upperBound),
+            range: AKModalResonanceFilter.qualityFactorRange,
+            
             unit: .generic,
             flags: .default)
 

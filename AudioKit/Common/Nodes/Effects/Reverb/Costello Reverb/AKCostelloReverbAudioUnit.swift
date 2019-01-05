@@ -43,16 +43,16 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
             identifier: "feedback",
             name: "Feedback",
             address: AKCostelloReverbParameter.feedback.rawValue,
-            min: Float(AKCostelloReverb.feedbackRange.lowerBound),
-            max: Float(AKCostelloReverb.feedbackRange.upperBound),
+            range: AKCostelloReverb.feedbackRange,
+            
             unit: .generic,
             flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency",
             address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
-            min: Float(AKCostelloReverb.cutoffFrequencyRange.lowerBound),
-            max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
+            range: AKCostelloReverb.cutoffFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         

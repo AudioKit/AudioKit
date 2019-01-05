@@ -47,24 +47,24 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
             identifier: "distortion",
             name: "Distortion (%)",
             address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
-            min: Float(AKThreePoleLowpassFilter.distortionRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.distortionRange.upperBound),
+            range: AKThreePoleLowpassFilter.distortionRange,
+            
             unit: .percent,
             flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.upperBound),
+            range: AKThreePoleLowpassFilter.cutoffFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
             identifier: "resonance",
             name: "Resonance (%)",
             address: AKThreePoleLowpassFilterParameter.resonance.rawValue,
-            min: Float(AKThreePoleLowpassFilter.resonanceRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.resonanceRange.upperBound),
+            range: AKThreePoleLowpassFilter.resonanceRange,
+            
             unit: .percent,
             flags: .default)
         

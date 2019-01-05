@@ -43,16 +43,16 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKBandRejectButterworthFilterParameter.centerFrequency.rawValue,
-            min: Float(AKBandRejectButterworthFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKBandRejectButterworthFilter.centerFrequencyRange.upperBound),
+            range: AKBandRejectButterworthFilter.centerFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             identifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AKBandRejectButterworthFilterParameter.bandwidth.rawValue,
-            min: Float(AKBandRejectButterworthFilter.bandwidthRange.lowerBound),
-            max: Float(AKBandRejectButterworthFilter.bandwidthRange.upperBound),
+            range: AKBandRejectButterworthFilter.bandwidthRange,
+            
             unit: .hertz,
             flags: .default)
         

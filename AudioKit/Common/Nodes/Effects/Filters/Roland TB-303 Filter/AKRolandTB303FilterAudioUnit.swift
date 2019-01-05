@@ -51,32 +51,32 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKRolandTB303FilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKRolandTB303Filter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKRolandTB303Filter.cutoffFrequencyRange.upperBound),
+            range: AKRolandTB303Filter.cutoffFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
             identifier: "resonance",
             name: "Resonance",
             address: AKRolandTB303FilterParameter.resonance.rawValue,
-            min: Float(AKRolandTB303Filter.resonanceRange.lowerBound),
-            max: Float(AKRolandTB303Filter.resonanceRange.upperBound),
+            range: AKRolandTB303Filter.resonanceRange,
+            
             unit: .generic,
             flags: .default)
         let distortion = AUParameterTree.createParameter(
             identifier: "distortion",
             name: "Distortion",
             address: AKRolandTB303FilterParameter.distortion.rawValue,
-            min: Float(AKRolandTB303Filter.distortionRange.lowerBound),
-            max: Float(AKRolandTB303Filter.distortionRange.upperBound),
+            range: AKRolandTB303Filter.distortionRange,
+            
             unit: .generic,
             flags: .default)
         let resonanceAsymmetry = AUParameterTree.createParameter(
             identifier: "resonanceAsymmetry",
             name: "Resonance Asymmetry",
             address: AKRolandTB303FilterParameter.resonanceAsymmetry.rawValue,
-            min: Float(AKRolandTB303Filter.resonanceAsymmetryRange.lowerBound),
-            max: Float(AKRolandTB303Filter.resonanceAsymmetryRange.upperBound),
+            range: AKRolandTB303Filter.resonanceAsymmetryRange,
+            
             unit: .generic,
             flags: .default)
         

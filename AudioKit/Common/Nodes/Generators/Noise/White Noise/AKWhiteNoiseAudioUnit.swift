@@ -39,8 +39,8 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "amplitude",
             name: "Amplitude",
             address: AKWhiteNoiseParameter.amplitude.rawValue,
-            min: Float(AKWhiteNoise.amplitudeRange.lowerBound),
-            max: Float(AKWhiteNoise.amplitudeRange.upperBound),
+            range: AKWhiteNoise.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
 

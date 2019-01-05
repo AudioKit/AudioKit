@@ -51,32 +51,32 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             identifier: "attackDuration",
             name: "Attack time",
             address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.attackDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.attackDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.attackDurationRange,
+            
             unit: .seconds,
             flags: .default)
         let decayDuration = AUParameterTree.createParameter(
             identifier: "decayDuration",
             name: "Decay time",
             address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.decayDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.decayDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.decayDurationRange,
+            
             unit: .seconds,
             flags: .default)
         let sustainLevel = AUParameterTree.createParameter(
             identifier: "sustainLevel",
             name: "Sustain Level",
             address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
-            min: Float(AKAmplitudeEnvelope.sustainLevelRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.sustainLevelRange.upperBound),
+            range: AKAmplitudeEnvelope.sustainLevelRange,
+            
             unit: .generic,
             flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
             identifier: "releaseDuration",
             name: "Release time",
             address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.releaseDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.releaseDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.releaseDurationRange,
+            
             unit: .seconds,
             flags: .default)
         

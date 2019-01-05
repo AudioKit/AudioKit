@@ -55,40 +55,40 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (in Hz)",
             address: AKMorphingOscillatorParameter.frequency.rawValue,
-            min: Float(AKMorphingOscillator.frequencyRange.lowerBound),
-            max: Float(AKMorphingOscillator.frequencyRange.upperBound),
+            range: AKMorphingOscillator.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude (typically a value between 0 and 1).",
             address: AKMorphingOscillatorParameter.amplitude.rawValue,
-            min: Float(AKMorphingOscillator.amplitudeRange.lowerBound),
-            max: Float(AKMorphingOscillator.amplitudeRange.upperBound),
+            range: AKMorphingOscillator.amplitudeRange,
+            
             unit: .hertz,
             flags: .default)
         let index = AUParameterTree.createParameter(
             identifier: "index",
             name: "Index of the wavetable to use (fractional are okay).",
             address: AKMorphingOscillatorParameter.index.rawValue,
-            min: Float(AKMorphingOscillator.indexRange.lowerBound),
-            max: Float(AKMorphingOscillator.indexRange.upperBound),
+            range: AKMorphingOscillator.indexRange,
+            
             unit: .hertz,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKMorphingOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningOffsetRange.upperBound),
+            range: AKMorphingOscillator.detuningOffsetRange,
+            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKMorphingOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningMultiplierRange.upperBound),
+            range: AKMorphingOscillator.detuningMultiplierRange,
+            
             unit: .generic,
             flags: .default)
 

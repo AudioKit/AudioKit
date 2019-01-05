@@ -39,8 +39,8 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
             identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
-            min: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.lowerBound),
-            max: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.upperBound),
+            range: AKFlatFrequencyResponseReverb.reverbDurationRange,
+            
             unit: .seconds,
             flags: .default)
         

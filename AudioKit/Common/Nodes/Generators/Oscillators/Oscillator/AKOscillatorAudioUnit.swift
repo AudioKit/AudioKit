@@ -51,32 +51,32 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKOscillatorParameter.frequency.rawValue,
-            min: Float(AKOscillator.frequencyRange.lowerBound),
-            max: Float(AKOscillator.frequencyRange.upperBound),
+            range: AKOscillator.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKOscillatorParameter.amplitude.rawValue,
-            min: Float(AKOscillator.amplitudeRange.lowerBound),
-            max: Float(AKOscillator.amplitudeRange.upperBound),
+            range: AKOscillator.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKOscillator.detuningOffsetRange.upperBound),
+            range: AKOscillator.detuningOffsetRange,
+            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKOscillator.detuningMultiplierRange.upperBound),
+            range: AKOscillator.detuningMultiplierRange,
+            
             unit: .generic,
             flags: .default)
         

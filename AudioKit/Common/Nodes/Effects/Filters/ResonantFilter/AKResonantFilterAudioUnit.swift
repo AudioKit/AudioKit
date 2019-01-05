@@ -43,16 +43,16 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             identifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
             address: AKResonantFilterParameter.frequency.rawValue,
-            min: Float(AKResonantFilter.frequencyRange.lowerBound),
-            max: Float(AKResonantFilter.frequencyRange.upperBound),
+            range: AKResonantFilter.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             identifier: "bandwidth",
             name: "Bandwidth of the filter.",
             address: AKResonantFilterParameter.bandwidth.rawValue,
-            min: Float(AKResonantFilter.bandwidthRange.lowerBound),
-            max: Float(AKResonantFilter.bandwidthRange.upperBound),
+            range: AKResonantFilter.bandwidthRange,
+            
             unit: .hertz,
             flags: .default)
         

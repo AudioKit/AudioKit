@@ -39,8 +39,8 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPinkNoiseParameter.amplitude.rawValue,
-            min: Float(AKPinkNoise.amplitudeRange.lowerBound),
-            max: Float(AKPinkNoise.amplitudeRange.upperBound),
+            range: AKPinkNoise.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         

@@ -43,16 +43,16 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
             address: AKPluckedStringParameter.frequency.rawValue,
-            min: Float(AKPluckedString.frequencyRange.lowerBound),
-            max: Float(AKPluckedString.frequencyRange.upperBound),
+            range: AKPluckedString.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPluckedStringParameter.amplitude.rawValue,
-            min: Float(AKPluckedString.amplitudeRange.lowerBound),
-            max: Float(AKPluckedString.amplitudeRange.upperBound),
+            range: AKPluckedString.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         

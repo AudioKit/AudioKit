@@ -50,32 +50,32 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             identifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",
             address: AKDynamicRangeCompressorParameter.ratio.rawValue,
-            min: Float(AKDynamicRangeCompressor.ratioRange.lowerBound),
-            max: Float(AKDynamicRangeCompressor.ratioRange.upperBound),
+            range: AKDynamicRangeCompressor.ratioRange,
+            
             unit: .hertz,
             flags: .default)
         let threshold = AUParameterTree.createParameter(
             identifier: "threshold",
             name: "Threshold (in dB) 0 = max",
             address: AKDynamicRangeCompressorParameter.threshold.rawValue,
-            min: Float(AKDynamicRangeCompressor.thresholdRange.lowerBound),
-            max: Float(AKDynamicRangeCompressor.thresholdRange.upperBound),
+            range: AKDynamicRangeCompressor.thresholdRange,
+            
             unit: .generic,
             flags: .default)
         let attackDuration = AUParameterTree.createParameter(
             identifier: "attackDuration",
             name: "Attack duration",
             address: AKDynamicRangeCompressorParameter.attackDuration.rawValue,
-            min: Float(AKDynamicRangeCompressor.attackDurationRange.lowerBound),
-            max: Float(AKDynamicRangeCompressor.attackDurationRange.upperBound),
+            range: AKDynamicRangeCompressor.attackDurationRange,
+            
             unit: .seconds,
             flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
             identifier: "releaseDuration",
             name: "Release duration",
             address: 3,
-            min: Float(AKDynamicRangeCompressor.releaseDurationRange.lowerBound),
-            max: Float(AKDynamicRangeCompressor.releaseDurationRange.upperBound),
+            range: AKDynamicRangeCompressor.releaseDurationRange,
+            
             unit: .seconds,
             flags: .default)
 

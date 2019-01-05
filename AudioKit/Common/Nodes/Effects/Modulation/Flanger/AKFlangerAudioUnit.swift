@@ -51,32 +51,32 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
-            min: Float(AKFlanger.frequencyRange.lowerBound),
-            max: Float(AKFlanger.frequencyRange.upperBound),
+            range: AKFlanger.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let depth = AUParameterTree.createParameter(
             identifier: "depth",
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
-            min: Float(AKFlanger.depthRange.lowerBound),
-            max: Float(AKFlanger.depthRange.upperBound),
+            range: AKFlanger.depthRange,
+            
             unit: .generic,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
             identifier: "feedback",
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
-            min: Float(AKFlanger.feedbackRange.lowerBound),
-            max: Float(AKFlanger.feedbackRange.upperBound),
+            range: AKFlanger.feedbackRange,
+            
             unit: .generic,
             flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
             identifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,
-            min: Float(AKFlanger.dryWetMixRange.lowerBound),
-            max: Float(AKFlanger.dryWetMixRange.upperBound),
+            range: AKFlanger.dryWetMixRange,
+            
             unit: .generic,
             flags: .default)
 
