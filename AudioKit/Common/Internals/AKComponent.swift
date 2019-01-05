@@ -44,7 +44,7 @@ extension AUParameterTree {
         return value(forKey: key) as? AUParameter
     }
 
-    class func createParameter(identifier: String,
+    public class func createParameter(identifier: String,
                                name: String,
                                address: AUParameterAddress,
                                range: ClosedRange<AUValue>,
@@ -57,7 +57,7 @@ extension AUParameterTree {
                                max: range.upperBound,
                                unit: unit,
                                unitName: nil,
-                               flags:flags,
+                               flags: flags,
                                valueStrings: nil,
                                dependentParameters: nil)
     }
