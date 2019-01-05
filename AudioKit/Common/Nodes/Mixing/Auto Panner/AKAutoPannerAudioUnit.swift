@@ -39,7 +39,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
             min: 0.0,
@@ -47,7 +47,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let depth = AUParameterTree.createParameter(
-            withIdentifier: "depth",
+            identifier: "depth",
             name: "Depth",
             address: 1,
             min: 0.0,

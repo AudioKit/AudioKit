@@ -36,7 +36,7 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKWhiteNoiseParameter.amplitude.rawValue,
             min: Float(AKWhiteNoise.amplitudeRange.lowerBound),

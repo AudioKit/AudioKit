@@ -47,7 +47,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
                                       options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let time = AUParameterTree.createParameter(
-            withIdentifier: "time",
+            identifier: "time",
             name: "Delay time (Seconds)",
             address: AKStereoDelayParameter.time.rawValue,
             min: Float(AKStereoDelay.timeRange.lowerBound),
@@ -55,7 +55,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKStereoDelayParameter.feedback.rawValue,
             min: Float(AKStereoDelay.feedbackRange.lowerBound),
@@ -63,7 +63,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
-            withIdentifier: "dryWetMix",
+            identifier: "dryWetMix",
             name: "Dry-Wet Mix",
             address: AKStereoDelayParameter.dryWetMix.rawValue,
             min: Float(AKStereoDelay.dryWetMixRange.lowerBound),
@@ -71,7 +71,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         let pingPong = AUParameterTree.createParameter(
-            withIdentifier: "pingPong",
+            identifier: "pingPong",
             name: "Ping-Pong Mode",
             address: AKStereoDelayParameter.pingPong.rawValue,
             min: Float(0.0),

@@ -40,11 +40,11 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let shift = AUParameterTree.createParameter(
-            withIdentifier: "shift",
+            identifier: "shift",
             name: "Pitch shift (in semitones)",
             address: AKPitchShifterParameter.shift.rawValue,
             min: Float(AKPitchShifter.shiftRange.lowerBound),
@@ -52,7 +52,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             unit: .relativeSemiTones,
             flags: .default)
         let windowSize = AUParameterTree.createParameter(
-            withIdentifier: "windowSize",
+            identifier: "windowSize",
             name: "Window size (in samples)",
             address: AKPitchShifterParameter.windowSize.rawValue,
             min: Float(AKPitchShifter.windowSizeRange.lowerBound),
@@ -60,7 +60,7 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let crossfade = AUParameterTree.createParameter(
-            withIdentifier: "crossfade",
+            identifier: "crossfade",
             name: "Crossfade (in samples)",
             address: AKPitchShifterParameter.crossfade.rawValue,
             min: Float(AKPitchShifter.crossfadeRange.lowerBound),

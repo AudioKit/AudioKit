@@ -44,7 +44,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+            identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
             min: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.lowerBound),
@@ -52,7 +52,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         let gain = AUParameterTree.createParameter(
-            withIdentifier: "gain",
+            identifier: "gain",
             name: "Gain",
             address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
             min: Float(AKPeakingParametricEqualizerFilter.gainRange.lowerBound),
@@ -60,7 +60,7 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         let q = AUParameterTree.createParameter(
-            withIdentifier: "q",
+            identifier: "q",
             name: "Q",
             address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,
             min: Float(AKPeakingParametricEqualizerFilter.qRange.lowerBound),

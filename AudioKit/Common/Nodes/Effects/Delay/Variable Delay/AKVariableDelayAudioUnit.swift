@@ -39,7 +39,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let time = AUParameterTree.createParameter(
-            withIdentifier: "time",
+            identifier: "time",
             name: "Delay time (Seconds)",
             address: AKVariableDelayParameter.time.rawValue,
             min: Float(AKVariableDelay.timeRange.lowerBound),
@@ -47,7 +47,7 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKVariableDelayParameter.feedback.rawValue,
             min: Float(AKVariableDelay.feedbackRange.lowerBound),

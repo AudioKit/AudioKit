@@ -35,7 +35,7 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let amount = AUParameterTree.createParameter(
-            withIdentifier: "amount",
+            identifier: "amount",
             name: "Limiting amount",
             address: 0,
             min: 0.0,
