@@ -32,7 +32,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let reverbDuration = AUParameterTree.createParameter(
