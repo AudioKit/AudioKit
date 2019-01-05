@@ -124,7 +124,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distortionAddress, distortionAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                              preGainAUParameter,
                                              postGainAUParameter,
                                              lowGainAUParameter,

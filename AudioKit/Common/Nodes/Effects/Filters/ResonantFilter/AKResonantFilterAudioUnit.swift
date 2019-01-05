@@ -54,7 +54,7 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
+        setParameterTree(AUParameterTree(children: [frequency, bandwidth]))
         frequency.value = Float(AKResonantFilter.defaultFrequency)
         bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
     }

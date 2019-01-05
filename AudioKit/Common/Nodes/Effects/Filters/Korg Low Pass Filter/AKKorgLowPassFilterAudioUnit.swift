@@ -65,7 +65,7 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, saturation]))
+        setParameterTree(AUParameterTree(children: [cutoffFrequency, resonance, saturation]))
         cutoffFrequency.value = Float(AKKorgLowPassFilter.defaultCutoffFrequency)
         resonance.value = Float(AKKorgLowPassFilter.defaultResonance)
         saturation.value = Float(AKKorgLowPassFilter.defaultSaturation)

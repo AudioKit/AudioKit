@@ -76,7 +76,7 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
+        setParameterTree(AUParameterTree(children: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKFlanger.defaultFrequency)
         depth.value = Float(AKFlanger.defaultDepth)
         feedback.value = Float(AKFlanger.defaultFeedback)

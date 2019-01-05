@@ -87,7 +87,7 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKPWMOscillator.defaultFrequency)
         amplitude.value = Float(AKPWMOscillator.defaultAmplitude)
         pulseWidth.value = Float(AKPWMOscillator.defaultPulseWidth)

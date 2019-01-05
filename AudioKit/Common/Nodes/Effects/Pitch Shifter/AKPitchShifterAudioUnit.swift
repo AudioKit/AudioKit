@@ -64,8 +64,8 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             range: AKPitchShifter.crossfadeRange,
             unit: .hertz,
             flags: .default)
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
+
+        setParameterTree(AUParameterTree(children: [shift, windowSize, crossfade]))
         shift.value = Float(AKPitchShifter.defaultShift)
         windowSize.value = Float(AKPitchShifter.defaultWindowSize)
         crossfade.value = Float(AKPitchShifter.defaultCrossfade)

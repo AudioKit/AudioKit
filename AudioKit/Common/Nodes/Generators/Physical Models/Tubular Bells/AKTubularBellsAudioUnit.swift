@@ -54,7 +54,7 @@ public class AKTubularBellsAudioUnit: AKGeneratorAudioUnitBase {
             max: 10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = 110
         amplitude.value = 0.5
     }

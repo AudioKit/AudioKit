@@ -59,7 +59,7 @@
 @end
 
 @interface AUParameterTree(Ext)
-+(_Nonnull instancetype)tree:(NSArray<AUParameterNode *> * _Nonnull)children;
++(_Nonnull instancetype)treeWithChildren:(NSArray<AUParameter *> * _Nonnull)children;
 @end
 
 //@interface AVAudioNode(Ext)

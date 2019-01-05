@@ -43,7 +43,7 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
+        setParameterTree(AUParameterTree(children: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneFilter.defaultHalfPowerPoint)
     }
 

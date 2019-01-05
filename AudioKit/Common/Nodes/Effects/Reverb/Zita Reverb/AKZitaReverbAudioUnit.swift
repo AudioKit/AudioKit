@@ -142,7 +142,7 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
+        setParameterTree(AUParameterTree(children: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
         predelay.value = Float(AKZitaReverb.defaultPredelay)
         crossoverFrequency.value = Float(AKZitaReverb.defaultCrossoverFrequency)
         lowReleaseTime.value = Float(AKZitaReverb.defaultLowReleaseTime)

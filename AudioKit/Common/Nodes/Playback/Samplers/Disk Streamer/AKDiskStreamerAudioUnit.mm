@@ -134,7 +134,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                              startPointAUParameter,
                                              endPointAUParameter,
                                              loopStartPointAUParameter,

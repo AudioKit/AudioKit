@@ -102,7 +102,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(AKDynaRageCompressorDSPKernel::rageAddress,  rageAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                              ratioAUParameter,
                                              thresholdAUParameter,
                                              attackDurationAUParameter,

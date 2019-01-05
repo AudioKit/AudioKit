@@ -54,7 +54,7 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
             max: 10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = 440
         amplitude.value = 1
     }

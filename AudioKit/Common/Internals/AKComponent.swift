@@ -40,6 +40,8 @@ extension AKComponent {
 }
 
 extension AUParameterTree {
+
+
     public subscript (key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
@@ -80,8 +82,17 @@ extension AUParameterTree {
                                valueStrings: nil,
                                dependentParameters: nil)
     }
+}
 
+final class AKParameterTree : AUParameterTree, ExpressibleByArrayLiteral {
+    typealias Element = AUParameter
+    public required init(arrayLiteral literal: AUParameter...) {
+        fatalError()
+    }
 
+    required init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 /// Adding convenience initializers

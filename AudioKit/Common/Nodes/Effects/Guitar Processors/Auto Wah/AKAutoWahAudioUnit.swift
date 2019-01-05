@@ -65,7 +65,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [wah, mix, amplitude]))
+        setParameterTree(AUParameterTree(children: [wah, mix, amplitude]))
         wah.value = Float(AKAutoWah.defaultWah)
         mix.value = Float(AKAutoWah.defaultMix)
         amplitude.value = Float(AKAutoWah.defaultAmplitude)
