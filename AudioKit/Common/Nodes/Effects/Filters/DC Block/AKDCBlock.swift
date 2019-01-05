@@ -18,7 +18,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return internalAU?.isPlaying ?? false

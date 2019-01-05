@@ -47,7 +47,6 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-
         let ratio = AUParameterTree.createParameter(
             identifier: "ratio",
             name: "Ratio to compress with, a value > 1 will compress",

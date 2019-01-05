@@ -102,7 +102,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
@@ -116,7 +115,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
 
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
@@ -132,7 +130,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
         }
     }
 
-
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
@@ -146,7 +143,6 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
 
     // MARK: - Initialization
 
