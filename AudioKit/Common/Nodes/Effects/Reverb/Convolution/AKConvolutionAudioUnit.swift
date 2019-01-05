@@ -30,7 +30,7 @@ public class AKConvolutionAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        setParameterTree(AUParameterTree.createTree(withChildren: []))
+        setParameterTree(AUParameterTree(children: []))
     }
 
     public override var canProcessInPlace: Bool { return true }

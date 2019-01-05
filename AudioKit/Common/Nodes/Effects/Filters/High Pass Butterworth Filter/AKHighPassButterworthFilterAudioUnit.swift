@@ -43,7 +43,7 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
+        setParameterTree(AUParameterTree(children: [cutoffFrequency]))
         cutoffFrequency.value = Float(AKHighPassButterworthFilter.defaultCutoffFrequency)
     }
 

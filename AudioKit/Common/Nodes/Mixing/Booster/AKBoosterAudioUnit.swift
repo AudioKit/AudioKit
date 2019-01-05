@@ -63,7 +63,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             unit: .linearGain,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [leftGain, rightGain]))
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain]))
         leftGain.value = 1.0
         rightGain.value = 1.0
     }

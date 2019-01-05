@@ -54,7 +54,7 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [fundamentalFrequency, feedback]))
+        setParameterTree(AUParameterTree(children: [fundamentalFrequency, feedback]))
         fundamentalFrequency.value = Float(AKStringResonator.defaultFundamentalFrequency)
         feedback.value = Float(AKStringResonator.defaultFeedback)
     }

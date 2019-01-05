@@ -76,7 +76,7 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
+        setParameterTree(AUParameterTree(children: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
         attackDuration.value = Float(AKAmplitudeEnvelope.defaultAttackDuration)
         decayDuration.value = Float(AKAmplitudeEnvelope.defaultDecayDuration)
         sustainLevel.value = Float(AKAmplitudeEnvelope.defaultSustainLevel)

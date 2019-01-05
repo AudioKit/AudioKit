@@ -48,7 +48,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             max: 10,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree.createTree(withChildren: [type, amplitude]))
+        setParameterTree(AUParameterTree(children: [type, amplitude]))
         type.value = 0
         amplitude.value = 0.5
     }

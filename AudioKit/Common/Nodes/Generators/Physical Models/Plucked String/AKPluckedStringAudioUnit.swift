@@ -54,7 +54,7 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = Float(AKPluckedString.defaultFrequency)
         amplitude.value = Float(AKPluckedString.defaultAmplitude)
     }

@@ -67,7 +67,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [position, amplitude, pitchRatio]))
+        setParameterTree(AUParameterTree(children: [position, amplitude, pitchRatio]))
         position.value = Float(AKPhaseLockedVocoder.defaultPosition)
         amplitude.value = Float(AKPhaseLockedVocoder.defaultAmplitude)
         pitchRatio.value = Float(AKPhaseLockedVocoder.defaultPitchRatio)

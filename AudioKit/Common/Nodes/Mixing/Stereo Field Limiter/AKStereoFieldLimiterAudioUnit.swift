@@ -42,7 +42,7 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
             max: 1.0,
             unit: .generic,
             flags: .default)
-        setParameterTree(AUParameterTree.createTree(withChildren: [amount]))
+        setParameterTree(AUParameterTree(children: [amount]))
         amount.value = 1.0
     }
 

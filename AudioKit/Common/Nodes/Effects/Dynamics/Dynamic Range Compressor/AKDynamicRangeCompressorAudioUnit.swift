@@ -75,7 +75,7 @@ public class AKDynamicRangeCompressorAudioUnit: AKAudioUnitBase {
             unit: .seconds,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [ratio, threshold, attackDuration, releaseDuration]))
+        setParameterTree(AUParameterTree(children: [ratio, threshold, attackDuration, releaseDuration]))
         ratio.value = Float(AKDynamicRangeCompressor.defaultRatio)
         threshold.value = Float(AKDynamicRangeCompressor.defaultThreshold)
         attackDuration.value = Float(AKDynamicRangeCompressor.defaultAttackDuration)

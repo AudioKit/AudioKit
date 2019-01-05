@@ -53,7 +53,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             unit: .hertz,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
+        setParameterTree(AUParameterTree(children: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)
     }

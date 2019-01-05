@@ -55,7 +55,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
+        setParameterTree(AUParameterTree(children: [frequency, depth]))
         frequency.value = 10.0
         depth.value = 1.0
     }

@@ -79,7 +79,8 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             unit: .boolean,
             flags: [.flag_IsReadable, .flag_IsWritable])
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback, dryWetMix, pingPong]))
+
+        setParameterTree(AUParameterTree(children: [time, feedback, dryWetMix, pingPong]))
         time.value = Float(AKStereoDelay.defaultTime)
         feedback.value = Float(AKStereoDelay.defaultFeedback)
         dryWetMix.value = Float(AKStereoDelay.defaultDryWetMix)

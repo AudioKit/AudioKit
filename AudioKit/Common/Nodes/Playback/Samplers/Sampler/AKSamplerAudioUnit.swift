@@ -326,7 +326,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: nonRampFlags)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter,
+        setParameterTree(AUParameterTree(children: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
                                                                    filterCutoffParameter,

@@ -131,7 +131,7 @@ public class AKPhaserAudioUnit: AKAudioUnitBase {
             unit: .generic,
             flags: .default)
         
-        setParameterTree(AUParameterTree.createTree(withChildren: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM]))
+        setParameterTree(AUParameterTree(children: [notchMinimumFrequency, notchMaximumFrequency, notchWidth, notchFrequency, vibratoMode, depth, feedback, inverted, lfoBPM]))
         notchMinimumFrequency.value = Float(AKPhaser.defaultNotchMinimumFrequency)
         notchMaximumFrequency.value = Float(AKPhaser.defaultNotchMaximumFrequency)
         notchWidth.value = Float(AKPhaser.defaultNotchWidth)
