@@ -374,7 +374,7 @@ extension AUParameter {
                      unit: AudioUnitParameterUnit,
                      flags: AudioUnitParameterOptions) {
 
-        self.init(identifier,
+        self.init(identifier: identifier,
                   name: name,
                   address: address,
                   min: AUValue(range.lowerBound),
