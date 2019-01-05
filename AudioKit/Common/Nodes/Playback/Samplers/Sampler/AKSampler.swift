@@ -53,9 +53,7 @@
     /// Master volume (fraction)
     @objc open dynamic var masterVolume: Double = 1.0 {
         willSet {
-            if masterVolume == newValue {
-                return
-            }
+            guard masterVolume != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && masterVolumeParameter != nil {
@@ -71,9 +69,7 @@
     /// Pitch offset (semitones)
     @objc open dynamic var pitchBend: Double = 0.0 {
         willSet {
-            if pitchBend == newValue {
-                return
-            }
+            guard pitchBend != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && pitchBendParameter != nil {
@@ -89,9 +85,7 @@
     /// Vibrato amount (semitones)
     @objc open dynamic var vibratoDepth: Double = 1.0 {
         willSet {
-            if vibratoDepth == newValue {
-                return
-            }
+            guard vibratoDepth != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && vibratoDepthParameter != nil {
@@ -107,9 +101,7 @@
     /// Filter cutoff (harmonic ratio)
     @objc open dynamic var filterCutoff: Double = 4.0 {
         willSet {
-            if filterCutoff == newValue {
-                return
-            }
+            guard filterCutoff != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterCutoffParameter != nil {
@@ -125,9 +117,7 @@
     /// Filter EG strength (harmonic ratio)
     @objc open dynamic var filterStrength: Double = 20.0 {
         willSet {
-            if filterStrength == newValue {
-                return
-            }
+            guard filterStrength != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterStrengthParameter != nil {
@@ -143,9 +133,7 @@
     /// Filter resonance (dB)
     @objc open dynamic var filterResonance: Double = 0.0 {
         willSet {
-            if filterResonance == newValue {
-                return
-            }
+            guard filterResonance != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterResonanceParameter != nil {
@@ -161,9 +149,7 @@
     /// Glide rate (seconds per octave)
     @objc open dynamic var glideRate: Double = 0.0 {
         willSet {
-            if glideRate == newValue {
-                return
-            }
+            guard glideRate != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && glideRateParameter != nil {

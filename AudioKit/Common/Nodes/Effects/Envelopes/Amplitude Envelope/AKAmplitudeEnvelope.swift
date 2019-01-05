@@ -56,9 +56,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackDuration == newValue {
-                return
-            }
+            guard attackDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -72,9 +70,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Decay Duration in seconds
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
-            if decayDuration == newValue {
-                return
-            }
+            guard decayDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -88,9 +84,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = defaultSustainLevel {
         willSet {
-            if sustainLevel == newValue {
-                return
-            }
+            guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
@@ -104,9 +98,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Release Duration in seconds
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseDuration == newValue {
-                return
-            }
+            guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
