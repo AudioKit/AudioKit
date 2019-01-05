@@ -39,70 +39,64 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.rampDuration = newValue
         }
     }
-
+    
     /// startPoint in samples - where to start playing the sample from
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
-            if startPoint != newValue {
-                internalAU?.startPoint = Float(safeSample(newValue))
-            }
+            guard startPoint != newValue else { return }
+            internalAU?.startPoint = Float(safeSample(newValue))
         }
     }
-
+    
     /// endPoint - this is where the sample will play to before stopping.
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
-            if endPoint != newValue {
-                internalAU?.endPoint = Float(safeSample(newValue))
-            }
+            guard endPoint != newValue else { return }
+            internalAU?.endPoint = Float(safeSample(newValue))
         }
     }
-
+    
     /// loopStartPoint in samples - where to start playing the sample from
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
-            if loopStartPoint != newValue {
-                internalAU?.loopStartPoint = Float(safeSample(newValue))
-            }
+            guard loopStartPoint != newValue else { return }
+            internalAU?.loopStartPoint = Float(safeSample(newValue))
         }
     }
-
+    
     /// loopEndPoint - this is where the sample will play to before stopping.
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
-            if endPoint != newValue {
-                internalAU?.loopEndPoint = Float(safeSample(newValue))
-            }
+            guard endPoint != newValue else { return }
+            internalAU?.loopEndPoint = Float(safeSample(newValue))
         }
     }
-
+    
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
-            if rate != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        rateParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.rate = Float(newValue)
+            guard rate != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    rateParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.rate = Float(newValue)
             }
         }
     }
-
+    
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
         willSet {
-            if volume != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.volume = Float(newValue)
+            guard volume != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    volumeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.volume = Float(newValue)
             }
         }
     }

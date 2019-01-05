@@ -165,126 +165,112 @@
     /// Amplitude attack duration (seconds)
     @objc open dynamic var attackDuration: Double = 0.0 {
         willSet {
-            if attackDuration != newValue {
-                internalAU?.attackDuration = newValue
-            }
+            guard attackDuration != newValue else { return }
+            internalAU?.attackDuration = newValue
         }
     }
 
     /// Amplitude Decay duration (seconds)
     @objc open dynamic var decayDuration: Double = 0.0 {
         willSet {
-            if decayDuration != newValue {
-                internalAU?.decayDuration = newValue
-            }
+            guard decayDuration != newValue else { return }
+            internalAU?.decayDuration = newValue
         }
     }
 
     /// Amplitude sustain level (fraction)
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
-            if sustainLevel != newValue {
-                internalAU?.sustainLevel = newValue
-            }
+            guard sustainLevel != newValue else { return }
+            internalAU?.sustainLevel = newValue
         }
     }
 
     /// Amplitude Release duration (seconds)
     @objc open dynamic var releaseDuration: Double = 0.0 {
         willSet {
-            if releaseDuration != newValue {
-                internalAU?.releaseDuration = newValue
-            }
+            guard releaseDuration != newValue else { return }
+            internalAU?.releaseDuration = newValue
         }
     }
 
     /// Filter attack duration (seconds)
     @objc open dynamic var filterAttackDuration: Double = 0.0 {
         willSet {
-            if filterAttackDuration != newValue {
-                internalAU?.filterAttackDuration = newValue
-            }
+            guard filterAttackDuration != newValue else { return }
+            internalAU?.filterAttackDuration = newValue
         }
     }
 
     /// Filter Decay duration (seconds)
     @objc open dynamic var filterDecayDuration: Double = 0.0 {
         willSet {
-            if filterDecayDuration != newValue {
-                internalAU?.filterDecayDuration = newValue
-            }
+            guard filterDecayDuration != newValue else { return }
+            internalAU?.filterDecayDuration = newValue
         }
     }
 
     /// Filter sustain level (fraction)
     @objc open dynamic var filterSustainLevel: Double = 1.0 {
         willSet {
-            if filterSustainLevel != newValue {
-                internalAU?.filterSustainLevel = newValue
-            }
+            guard filterSustainLevel != newValue else { return }
+            internalAU?.filterSustainLevel = newValue
         }
     }
 
     /// Filter Release duration (seconds)
     @objc open dynamic var filterReleaseDuration: Double = 0.0 {
         willSet {
-            if filterReleaseDuration != newValue {
-                internalAU?.filterReleaseDuration = newValue
-            }
+            guard filterReleaseDuration != newValue else { return }
+            internalAU?.filterReleaseDuration = newValue
         }
     }
 
     /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var filterEnable: Bool = false {
         willSet {
-            if filterEnable != newValue {
-                internalAU?.filterEnable = newValue ? 1.0 : 0.0
-            }
+            guard filterEnable != newValue else { return }
+            internalAU?.filterEnable = newValue ? 1.0 : 0.0
         }
     }
 
     /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var loopThruRelease: Bool = false {
         willSet {
-            if loopThruRelease != newValue {
-                internalAU?.loopThruRelease = newValue ? 1.0 : 0.0
-            }
+            guard loopThruRelease != newValue else { return }
+            internalAU?.loopThruRelease = newValue ? 1.0 : 0.0
         }
     }
 
     /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var isMonophonic: Bool = false {
         willSet {
-            if isMonophonic != newValue {
-                internalAU?.isMonophonic = newValue ? 1.0 : 0.0
-            }
+            guard isMonophonic != newValue else { return }
+            internalAU?.isMonophonic = newValue ? 1.0 : 0.0
         }
     }
 
     /// isLegato (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var isLegato: Bool = false {
         willSet {
-            if isLegato != newValue {
-                internalAU?.isLegato = newValue ? 1.0 : 0.0
-            }
+            guard isLegato != newValue else { return }
+            internalAU?.isLegato = newValue ? 1.0 : 0.0
         }
     }
 
     /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
     @objc open dynamic var keyTrackingFraction: Double = 1.0 {
         willSet {
-            if keyTrackingFraction != newValue {
-                internalAU?.keyTrackingFraction = newValue
-            }
+            guard keyTrackingFraction != newValue else { return }
+            internalAU?.keyTrackingFraction = newValue
         }
     }
 
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
     @objc open dynamic var filterEnvelopeVelocityScaling: Double = 0.0 {
         willSet {
-            if filterEnvelopeVelocityScaling != newValue {
-                internalAU?.filterEnvelopeVelocityScaling = newValue
-            }
+            guard filterEnvelopeVelocityScaling != newValue else { return }
+            internalAU?.filterEnvelopeVelocityScaling = newValue
         }
     }
 
