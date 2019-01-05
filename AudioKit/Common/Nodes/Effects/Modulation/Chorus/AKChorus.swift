@@ -42,9 +42,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     /// Modulation Frequency (Hz)
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
-                return
-            }
+            guard frequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -58,9 +56,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     /// Modulation Depth (fraction)
     @objc open dynamic var depth: Double = defaultDepth {
         willSet {
-            if depth == newValue {
-                return
-            }
+            guard depth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     depthParameter?.setValue(Float(newValue), originator: existingToken)
@@ -74,9 +70,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     /// Feedback (fraction)
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback == newValue {
-                return
-            }
+            guard feedback != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
@@ -90,9 +84,7 @@ open class AKChorus: AKNode, AKToggleable, AKComponent, AKInput {
     /// Dry Wet Mix (fraction)
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
-            if dryWetMix == newValue {
-                return
-            }
+            guard dryWetMix != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
