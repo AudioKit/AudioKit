@@ -42,16 +42,14 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
-            min: 0,
-            max: 20_000,
+            range: 0...20000,
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,
-            min: 0,
-            max: 10,
+            range: 0...10,
             unit: .generic,
             flags: .default)
         setParameterTree(AUParameterTree(children: [frequency, amplitude]))

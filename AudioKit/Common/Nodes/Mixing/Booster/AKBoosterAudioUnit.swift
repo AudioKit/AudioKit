@@ -49,8 +49,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             identifier: "leftGain",
             name: "Left Boosting Amount",
             address: 0,
-            min: 0.0,
-            max: 2.0,
+            range: 0.0...2.0,
             unit: .linearGain,
             flags: .default)
 
@@ -58,8 +57,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             identifier: "rightGain",
             name: "Right Boosting Amount",
             address: 1,
-            min: 0.0,
-            max: 2.0,
+            range: 0.0...2.0,
             unit: .linearGain,
             flags: .default)
 

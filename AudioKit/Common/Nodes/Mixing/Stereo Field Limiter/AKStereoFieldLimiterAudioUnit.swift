@@ -38,8 +38,7 @@ public class AKStereoFieldLimiterAudioUnit: AKAudioUnitBase {
             identifier: "amount",
             name: "Limiting amount",
             address: 0,
-            min: 0.0,
-            max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: .default)
         setParameterTree(AUParameterTree(children: [amount]))

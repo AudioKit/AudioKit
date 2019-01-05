@@ -122,7 +122,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "masterVolume",
             name: "Master Volume",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: .default)
 
@@ -132,7 +132,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
             address: parameterAddress,
-            min: -1_000.0, max: 1_000.0,
+            range: -1_000.0...1_000.0,
             unit: .relativeSemiTones,
             flags: .default)
 
@@ -142,7 +142,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
             address: parameterAddress,
-            min: 0.0, max: 24.0,
+            range: 0.0...24.0,
             unit: .relativeSemiTones,
             flags: .default)
 
@@ -152,7 +152,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
             address: parameterAddress,
-            min: 1.0, max: 1_000.0,
+            range: 1.0...1_000.0,
             unit: .ratio,
             flags: .default)
 
@@ -162,7 +162,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .ratio,
             flags: .default)
 
@@ -172,7 +172,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterResonance",
             name: "Filter resonance (dB))",
             address: parameterAddress,
-            min: -20.0, max: 20.0,
+            range: -20.0...20.0,
             unit: .decibels,
             flags: .default)
         
@@ -182,7 +182,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "glideRate",
             name: "Glide rate (sec/octave))",
             address: parameterAddress,
-            min: 0.0, max: 10.0,
+            range: 0.0...10.0,
             unit: .seconds,
             flags: .default)
         
@@ -192,7 +192,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -202,7 +202,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -212,7 +212,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: nonRampFlags)
 
@@ -222,7 +222,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -232,7 +232,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -242,7 +242,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -252,7 +252,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: nonRampFlags)
 
@@ -262,7 +262,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
-            min: 0.0, max: 1_000.0,
+            range: 0.0...1000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -272,7 +272,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterEnable",
             name: "Filter Enable",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .boolean,
             flags: nonRampFlags)
 
@@ -282,7 +282,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "loopThruRelease",
             name: "Loop Thru Release",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .boolean,
             flags: nonRampFlags)
 
@@ -292,7 +292,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "monophonic",
             name: "Monophonic Mode",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .boolean,
             flags: nonRampFlags)
 
@@ -302,7 +302,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "legato",
             name: "Legato Mode",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .boolean,
             flags: nonRampFlags)
         
@@ -312,7 +312,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "keyTracking",
             name: "Key Tracking",
             address: parameterAddress,
-            min: -2.0, max: 2.0,
+            range: -2.0...2.0,
             unit: .generic,
             flags: nonRampFlags)
 
@@ -322,7 +322,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterEnvelopeVelocityScaling",
             name: "Filter Envelope Velocity Scaling",
             address: parameterAddress,
-            min: 0.0, max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: nonRampFlags)
 

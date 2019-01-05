@@ -71,8 +71,7 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
             identifier: "pingPong",
             name: "Ping-Pong Mode",
             address: AKStereoDelayParameter.pingPong.rawValue,
-            min: Float(0.0),
-            max: Float(1.0),
+            range: 0.0...1.0,
             unit: .boolean,
             flags: [.flag_IsReadable, .flag_IsWritable])
 

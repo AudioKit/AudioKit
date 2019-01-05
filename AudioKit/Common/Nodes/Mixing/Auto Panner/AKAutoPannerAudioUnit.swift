@@ -42,16 +42,14 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
-            min: 0.0,
-            max: 100.0,
+            range: 0.0...100.0,
             unit: .hertz,
             flags: .default)
         let depth = AUParameter(
             identifier: "depth",
             name: "Depth",
             address: 1,
-            min: 0.0,
-            max: 1.0,
+            range: 0.0...1.0,
             unit: .generic,
             flags: .default)
 
