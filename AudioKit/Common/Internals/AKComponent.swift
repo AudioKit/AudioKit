@@ -35,7 +35,7 @@ extension AKComponent {
         AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
-                                     version: UInt32.max)
+                                     version: .max)
     }
 }
 

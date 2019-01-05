@@ -56,9 +56,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Cutoff frequency. (in Hertz)
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
-                return
-            }
+            guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -72,9 +70,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance == newValue {
-                return
-            }
+            guard resonance != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     resonanceParameter?.setValue(Float(newValue), originator: existingToken)
@@ -88,9 +84,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
-            if distortion == newValue {
-                return
-            }
+            guard distortion != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     distortionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -104,9 +98,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Asymmetry of resonance. Value is between 0-1
     @objc open dynamic var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
         willSet {
-            if resonanceAsymmetry == newValue {
-                return
-            }
+            guard resonanceAsymmetry != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
