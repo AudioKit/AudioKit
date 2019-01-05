@@ -45,11 +45,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             min: Float(AKBitCrusher.bitDepthRange.lowerBound),
             max: Float(AKBitCrusher.bitDepthRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let sampleRate = AUParameterTree.createParameter(
             withIdentifier: "sampleRate",
             name: "Sample Rate (Hz)",
@@ -57,11 +53,7 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             min: Float(AKBitCrusher.sampleRateRange.lowerBound),
             max: Float(AKBitCrusher.sampleRateRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)

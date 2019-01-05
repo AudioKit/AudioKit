@@ -45,11 +45,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             min: 0.0,
             max: 100.0,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let depth = AUParameterTree.createParameter(
             withIdentifier: "depth",
             name: "Depth",
@@ -57,11 +53,7 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
             min: 0.0,
             max: 1.0,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
         frequency.value = 10.0

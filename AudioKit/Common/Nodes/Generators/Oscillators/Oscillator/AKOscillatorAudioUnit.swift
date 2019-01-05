@@ -54,11 +54,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKOscillator.frequencyRange.lowerBound),
             max: Float(AKOscillator.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
@@ -66,11 +62,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKOscillator.amplitudeRange.lowerBound),
             max: Float(AKOscillator.amplitudeRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
             withIdentifier: "detuningOffset",
             name: "Frequency offset (Hz)",
@@ -78,11 +70,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKOscillator.detuningOffsetRange.lowerBound),
             max: Float(AKOscillator.detuningOffsetRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
             withIdentifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
@@ -90,11 +78,7 @@ public class AKOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKOscillator.detuningMultiplierRange.lowerBound),
             max: Float(AKOscillator.detuningMultiplierRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKOscillator.defaultFrequency)

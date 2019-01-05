@@ -65,11 +65,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.leftBoundaryConditionRange.lowerBound),
             max: Float(AKMetalBar.leftBoundaryConditionRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let rightBoundaryCondition = AUParameterTree.createParameter(
             withIdentifier: "rightBoundaryCondition",
             name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
@@ -77,11 +73,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.rightBoundaryConditionRange.lowerBound),
             max: Float(AKMetalBar.rightBoundaryConditionRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let decayDuration = AUParameterTree.createParameter(
             withIdentifier: "decayDuration",
             name: "30db decay time (in seconds).",
@@ -89,11 +81,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.decayDurationRange.lowerBound),
             max: Float(AKMetalBar.decayDurationRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let scanSpeed = AUParameterTree.createParameter(
             withIdentifier: "scanSpeed",
             name: "Speed of scanning the output location.",
@@ -101,11 +89,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.scanSpeedRange.lowerBound),
             max: Float(AKMetalBar.scanSpeedRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let position = AUParameterTree.createParameter(
             withIdentifier: "position",
             name: "Position along bar that strike occurs.",
@@ -113,11 +97,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.positionRange.lowerBound),
             max: Float(AKMetalBar.positionRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let strikeVelocity = AUParameterTree.createParameter(
             withIdentifier: "strikeVelocity",
             name: "Normalized strike velocity",
@@ -125,11 +105,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.strikeVelocityRange.lowerBound),
             max: Float(AKMetalBar.strikeVelocityRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let strikeWidth = AUParameterTree.createParameter(
             withIdentifier: "strikeWidth",
             name: "Spatial width of strike.",
@@ -137,11 +113,7 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKMetalBar.strikeWidthRange.lowerBound),
             max: Float(AKMetalBar.strikeWidthRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [leftBoundaryCondition, rightBoundaryCondition, decayDuration, scanSpeed, position, strikeVelocity, strikeWidth]))
         leftBoundaryCondition.value = Float(AKMetalBar.defaultLeftBoundaryCondition)

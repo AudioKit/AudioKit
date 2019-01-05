@@ -41,11 +41,7 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
             min: Float(AKClipper.limitRange.lowerBound),
             max: Float(AKClipper.limitRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
         limit.value = Float(AKClipper.defaultLimit)

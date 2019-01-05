@@ -66,11 +66,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.intensityRange.lowerBound),
             max: Float(AKDrip.intensityRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let dampingFactor = AUParameterTree.createParameter(
             withIdentifier: "dampingFactor",
             name: "The damping factor. Maximum value is 2.0.",
@@ -78,11 +74,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.dampingFactorRange.lowerBound),
             max: Float(AKDrip.dampingFactorRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let energyReturn = AUParameterTree.createParameter(
             withIdentifier: "energyReturn",
             name: "The amount of energy to add back into the system.",
@@ -90,11 +82,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.energyReturnRange.lowerBound),
             max: Float(AKDrip.energyReturnRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let mainResonantFrequency = AUParameterTree.createParameter(
             withIdentifier: "mainResonantFrequency",
             name: "Main resonant frequency.",
@@ -102,11 +90,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.mainResonantFrequencyRange.lowerBound),
             max: Float(AKDrip.mainResonantFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let firstResonantFrequency = AUParameterTree.createParameter(
             withIdentifier: "firstResonantFrequency",
             name: "The first resonant frequency.",
@@ -114,11 +98,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.firstResonantFrequencyRange.lowerBound),
             max: Float(AKDrip.firstResonantFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let secondResonantFrequency = AUParameterTree.createParameter(
             withIdentifier: "secondResonantFrequency",
             name: "The second resonant frequency.",
@@ -126,11 +106,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.secondResonantFrequencyRange.lowerBound),
             max: Float(AKDrip.secondResonantFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude.",
@@ -138,11 +114,7 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKDrip.amplitudeRange.lowerBound),
             max: Float(AKDrip.amplitudeRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude]))
         intensity.value = Float(AKDrip.defaultIntensity)

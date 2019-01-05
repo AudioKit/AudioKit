@@ -50,11 +50,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKEqualizerFilter.centerFrequencyRange.lowerBound),
             max: Float(AKEqualizerFilter.centerFrequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
             withIdentifier: "bandwidth",
             name: "Bandwidth (Hz)",
@@ -62,11 +58,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKEqualizerFilter.bandwidthRange.lowerBound),
             max: Float(AKEqualizerFilter.bandwidthRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let gain = AUParameterTree.createParameter(
             withIdentifier: "gain",
             name: "Gain (%)",
@@ -74,11 +66,7 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKEqualizerFilter.gainRange.lowerBound),
             max: Float(AKEqualizerFilter.gainRange.upperBound),
             unit: .percent,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth, gain]))
         centerFrequency.value = Float(AKEqualizerFilter.defaultCenterFrequency)

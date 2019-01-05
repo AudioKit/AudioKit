@@ -53,11 +53,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             min: Float(AKTanhDistortion.pregainRange.lowerBound),
             max: Float(AKTanhDistortion.pregainRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let postgain = AUParameterTree.createParameter(
             withIdentifier: "postgain",
             name: "Postgain",
@@ -65,11 +61,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             min: Float(AKTanhDistortion.postgainRange.lowerBound),
             max: Float(AKTanhDistortion.postgainRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let positiveShapeParameter = AUParameterTree.createParameter(
             withIdentifier: "positiveShapeParameter",
             name: "Positive Shape Parameter",
@@ -77,11 +69,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             min: Float(AKTanhDistortion.positiveShapeParameterRange.lowerBound),
             max: Float(AKTanhDistortion.positiveShapeParameterRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let negativeShapeParameter = AUParameterTree.createParameter(
             withIdentifier: "negativeShapeParameter",
             name: "Negative Shape Parameter",
@@ -89,11 +77,7 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             min: Float(AKTanhDistortion.negativeShapeParameterRange.lowerBound),
             max: Float(AKTanhDistortion.negativeShapeParameterRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [pregain, postgain, positiveShapeParameter, negativeShapeParameter]))
         pregain.value = Float(AKTanhDistortion.defaultPregain)

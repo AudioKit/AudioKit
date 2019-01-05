@@ -42,11 +42,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
             min: Float(AKCombFilterReverb.reverbDurationRange.lowerBound),
             max: Float(AKCombFilterReverb.reverbDurationRange.upperBound),
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
         reverbDuration.value = Float(AKCombFilterReverb.defaultReverbDuration)

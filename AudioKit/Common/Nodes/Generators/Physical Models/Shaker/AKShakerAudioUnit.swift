@@ -39,11 +39,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             min: 0,
             max: 22,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Amplitude",
@@ -51,11 +47,7 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
             min: 0,
             max: 10,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         setParameterTree(AUParameterTree.createTree(withChildren: [type, amplitude]))
         type.value = 0
         amplitude.value = 0.5

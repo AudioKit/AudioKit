@@ -42,11 +42,7 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKWhiteNoise.amplitudeRange.lowerBound),
             max: Float(AKWhiteNoise.amplitudeRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
         amplitude.value = Float(AKWhiteNoise.defaultAmplitude)

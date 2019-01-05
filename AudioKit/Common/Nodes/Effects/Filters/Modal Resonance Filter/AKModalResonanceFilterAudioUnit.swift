@@ -46,11 +46,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKModalResonanceFilter.frequencyRange.lowerBound),
             max: Float(AKModalResonanceFilter.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let qualityFactor = AUParameterTree.createParameter(
             withIdentifier: "qualityFactor",
             name: "Quality Factor",
@@ -58,11 +54,7 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
             min: Float(AKModalResonanceFilter.qualityFactorRange.lowerBound),
             max: Float(AKModalResonanceFilter.qualityFactorRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, qualityFactor]))
         frequency.value = Float(AKModalResonanceFilter.defaultFrequency)

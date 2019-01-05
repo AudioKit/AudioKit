@@ -58,11 +58,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKVocalTract.frequencyRange.lowerBound),
             max: Float(AKVocalTract.frequencyRange.upperBound),
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tonguePosition = AUParameterTree.createParameter(
             withIdentifier: "tonguePosition",
             name: "Tongue position (0-1)",
@@ -70,11 +66,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKVocalTract.tonguePositionRange.lowerBound),
             max: Float(AKVocalTract.tonguePositionRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tongueDiameter = AUParameterTree.createParameter(
             withIdentifier: "tongueDiameter",
             name: "Tongue diameter (0-1)",
@@ -82,11 +74,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKVocalTract.tongueDiameterRange.lowerBound),
             max: Float(AKVocalTract.tongueDiameterRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tenseness = AUParameterTree.createParameter(
             withIdentifier: "tenseness",
             name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
@@ -94,11 +82,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKVocalTract.tensenessRange.lowerBound),
             max: Float(AKVocalTract.tensenessRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let nasality = AUParameterTree.createParameter(
             withIdentifier: "nasality",
             name: "Sets the velum size. Larger values of this creates more nasally sounds.",
@@ -106,11 +90,7 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKVocalTract.nasalityRange.lowerBound),
             max: Float(AKVocalTract.nasalityRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [frequency, tonguePosition, tongueDiameter, tenseness, nasality]))
         frequency.value = Float(AKVocalTract.defaultFrequency)

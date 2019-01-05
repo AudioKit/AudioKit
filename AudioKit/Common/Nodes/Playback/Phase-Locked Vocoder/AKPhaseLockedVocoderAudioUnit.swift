@@ -50,11 +50,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKPhaseLockedVocoder.positionRange.lowerBound),
             max: Float(AKPhaseLockedVocoder.positionRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
@@ -63,11 +59,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKPhaseLockedVocoder.amplitudeRange.lowerBound),
             max: Float(AKPhaseLockedVocoder.amplitudeRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         let pitchRatio = AUParameterTree.createParameter(
             withIdentifier: "pitchRatio",
@@ -76,11 +68,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             min: Float(AKPhaseLockedVocoder.pitchRatioRange.lowerBound),
             max: Float(AKPhaseLockedVocoder.pitchRatioRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
         setParameterTree(AUParameterTree.createTree(withChildren: [position, amplitude, pitchRatio]))
         position.value = Float(AKPhaseLockedVocoder.defaultPosition)

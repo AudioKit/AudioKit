@@ -50,11 +50,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             min: Float(AKAutoWah.wahRange.lowerBound),
             max: Float(AKAutoWah.wahRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let mix = AUParameterTree.createParameter(
             withIdentifier: "mix",
             name: "Dry/Wet Mix",
@@ -62,11 +58,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             min: Float(AKAutoWah.mixRange.lowerBound),
             max: Float(AKAutoWah.mixRange.upperBound),
             unit: .percent,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
             withIdentifier: "amplitude",
             name: "Overall level",
@@ -74,11 +66,7 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             min: Float(AKAutoWah.amplitudeRange.lowerBound),
             max: Float(AKAutoWah.amplitudeRange.upperBound),
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         
         setParameterTree(AUParameterTree.createTree(withChildren: [wah, mix, amplitude]))
         wah.value = Float(AKAutoWah.defaultWah)
