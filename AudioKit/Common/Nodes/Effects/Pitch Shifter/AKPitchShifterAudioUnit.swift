@@ -48,7 +48,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             name: "Pitch shift (in semitones)",
             address: AKPitchShifterParameter.shift.rawValue,
             range: AKPitchShifter.shiftRange,
-            
             unit: .relativeSemiTones,
             flags: .default)
         let windowSize = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             name: "Window size (in samples)",
             address: AKPitchShifterParameter.windowSize.rawValue,
             range: AKPitchShifter.windowSizeRange,
-            
             unit: .hertz,
             flags: .default)
         let crossfade = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
             name: "Crossfade (in samples)",
             address: AKPitchShifterParameter.crossfade.rawValue,
             range: AKPitchShifter.crossfadeRange,
-            
             unit: .hertz,
             flags: .default)
         

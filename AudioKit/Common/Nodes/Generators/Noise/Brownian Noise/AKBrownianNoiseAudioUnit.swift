@@ -40,7 +40,6 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude",
             address: AKBrownianNoiseParameter.amplitude.rawValue,
             range: AKBrownianNoise.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
         

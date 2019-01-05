@@ -44,7 +44,6 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             name: "Cutoff Frequency (Hz)",
             address: AKMoogLadderParameter.cutoffFrequency.rawValue,
             range: AKMoogLadder.cutoffFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
@@ -52,7 +51,6 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
             name: "Resonance (%)",
             address: AKMoogLadderParameter.resonance.rawValue,
             range: AKMoogLadder.resonanceRange,
-            
             unit: .percent,
             flags: .default)
         

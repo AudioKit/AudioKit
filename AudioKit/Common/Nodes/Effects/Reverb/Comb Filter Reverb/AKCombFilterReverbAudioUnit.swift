@@ -40,7 +40,6 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
             name: "Reverb Duration (Seconds)",
             address: AKCombFilterReverbParameter.reverbDuration.rawValue,
             range: AKCombFilterReverb.reverbDurationRange,
-            
             unit: .seconds,
             flags: .default)
         

@@ -40,7 +40,6 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
             name: "Half-Power Point (Hz)",
             address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,
             range: AKToneComplementFilter.halfPowerPointRange,
-            
             unit: .hertz,
             flags: .default)
         

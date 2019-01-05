@@ -52,7 +52,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
             range: AKFlanger.frequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let depth = AUParameterTree.createParameter(
@@ -60,7 +59,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
             range: AKFlanger.depthRange,
-            
             unit: .generic,
             flags: .default)
         let feedback = AUParameterTree.createParameter(
@@ -68,7 +66,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
             range: AKFlanger.feedbackRange,
-            
             unit: .generic,
             flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
@@ -76,7 +73,6 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,
             range: AKFlanger.dryWetMixRange,
-            
             unit: .generic,
             flags: .default)
 

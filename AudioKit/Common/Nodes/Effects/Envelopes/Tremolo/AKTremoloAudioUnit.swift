@@ -44,7 +44,6 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             name: "Frequency (Hz)",
             address: AKTremoloParameter.frequency.rawValue,
             range: AKTremolo.frequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let depth = AUParameterTree.createParameter(
@@ -52,7 +51,6 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
             name: "Depth",
             address: AKTremoloParameter.depth.rawValue,
             range: AKTremolo.depthRange,
-            
             unit: .generic,
             flags: .default)
         

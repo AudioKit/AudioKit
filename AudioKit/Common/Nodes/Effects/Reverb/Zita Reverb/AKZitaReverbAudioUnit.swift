@@ -76,7 +76,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Delay in ms before reverberation begins.",
             address: AKZitaReverbParameter.predelay.rawValue,
             range: AKZitaReverb.predelayRange,
-            
             unit: .generic,
             flags: .default)
         let crossoverFrequency = AUParameterTree.createParameter(
@@ -84,7 +83,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Crossover frequency separating low and middle frequencies (Hz).",
             address: AKZitaReverbParameter.crossoverFrequency.rawValue,
             range: AKZitaReverb.crossoverFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let lowReleaseTime = AUParameterTree.createParameter(
@@ -92,7 +90,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Time (in seconds) to decay 60db in low-frequency band.",
             address: AKZitaReverbParameter.lowReleaseTime.rawValue,
             range: AKZitaReverb.lowReleaseTimeRange,
-            
             unit: .seconds,
             flags: .default)
         let midReleaseTime = AUParameterTree.createParameter(
@@ -100,7 +97,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Time (in seconds) to decay 60db in mid-frequency band.",
             address: AKZitaReverbParameter.midReleaseTime.rawValue,
             range: AKZitaReverb.midReleaseTimeRange,
-            
             unit: .seconds,
             flags: .default)
         let dampingFrequency = AUParameterTree.createParameter(
@@ -108,7 +104,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
             address: AKZitaReverbParameter.dampingFrequency.rawValue,
             range: AKZitaReverb.dampingFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let equalizerFrequency1 = AUParameterTree.createParameter(
@@ -116,7 +111,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
             address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
             range: AKZitaReverb.equalizerFrequency1Range,
-            
             unit: .hertz,
             flags: .default)
         let equalizerLevel1 = AUParameterTree.createParameter(
@@ -124,7 +118,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
             address: AKZitaReverbParameter.equalizerLevel1.rawValue,
             range: AKZitaReverb.equalizerLevel1Range,
-            
             unit: .generic,
             flags: .default)
         let equalizerFrequency2 = AUParameterTree.createParameter(
@@ -132,7 +125,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
             address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
             range: AKZitaReverb.equalizerFrequency2Range,
-            
             unit: .hertz,
             flags: .default)
         let equalizerLevel2 = AUParameterTree.createParameter(
@@ -140,7 +132,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
             address: AKZitaReverbParameter.equalizerLevel2.rawValue,
             range: AKZitaReverb.equalizerLevel2Range,
-            
             unit: .generic,
             flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
@@ -148,7 +139,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
             name: "0 = all dry, 1 = all wet",
             address: AKZitaReverbParameter.dryWetMix.rawValue,
             range: AKZitaReverb.dryWetMixRange,
-            
             unit: .generic,
             flags: .default)
         

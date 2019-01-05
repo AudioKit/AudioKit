@@ -51,7 +51,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             name: "Pregain",
             address: AKTanhDistortionParameter.pregain.rawValue,
             range: AKTanhDistortion.pregainRange,
-            
             unit: .generic,
             flags: .default)
         let postgain = AUParameterTree.createParameter(
@@ -59,7 +58,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             name: "Postgain",
             address: AKTanhDistortionParameter.postgain.rawValue,
             range: AKTanhDistortion.postgainRange,
-            
             unit: .generic,
             flags: .default)
         let positiveShapeParameter = AUParameterTree.createParameter(
@@ -67,7 +65,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             name: "Positive Shape Parameter",
             address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
             range: AKTanhDistortion.positiveShapeParameterRange,
-            
             unit: .generic,
             flags: .default)
         let negativeShapeParameter = AUParameterTree.createParameter(
@@ -75,7 +72,6 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             name: "Negative Shape Parameter",
             address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
             range: AKTanhDistortion.negativeShapeParameterRange,
-            
             unit: .generic,
             flags: .default)
 

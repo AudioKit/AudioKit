@@ -48,7 +48,6 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AKEqualizerFilterParameter.centerFrequency.rawValue,
             range: AKEqualizerFilter.centerFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
@@ -56,7 +55,6 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Bandwidth (Hz)",
             address: AKEqualizerFilterParameter.bandwidth.rawValue,
             range: AKEqualizerFilter.bandwidthRange,
-            
             unit: .hertz,
             flags: .default)
         let gain = AUParameterTree.createParameter(
@@ -64,7 +62,6 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
             name: "Gain (%)",
             address: AKEqualizerFilterParameter.gain.rawValue,
             range: AKEqualizerFilter.gainRange,
-            
             unit: .percent,
             flags: .default)
         

@@ -40,7 +40,6 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
             name: "Amplitude",
             address: AKWhiteNoiseParameter.amplitude.rawValue,
             range: AKWhiteNoise.amplitudeRange,
-            
             unit: .generic,
             flags: .default)
 

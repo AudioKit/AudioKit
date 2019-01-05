@@ -44,7 +44,6 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             name: "Center Frequency (Hz)",
             address: AKBandRejectButterworthFilterParameter.centerFrequency.rawValue,
             range: AKBandRejectButterworthFilter.centerFrequencyRange,
-            
             unit: .hertz,
             flags: .default)
         let bandwidth = AUParameterTree.createParameter(
@@ -52,7 +51,6 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
             name: "Bandwidth (Hz)",
             address: AKBandRejectButterworthFilterParameter.bandwidth.rawValue,
             range: AKBandRejectButterworthFilter.bandwidthRange,
-            
             unit: .hertz,
             flags: .default)
         
