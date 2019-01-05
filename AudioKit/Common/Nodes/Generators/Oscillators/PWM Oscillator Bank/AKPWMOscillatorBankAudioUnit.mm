@@ -44,7 +44,7 @@
     [self setKernelPtr:&_kernel];
     
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[pulseWidthAUParameter]];
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[pulseWidthAUParameter]];
     _parameterTree = [AUParameterTree createTreeWithChildren:children];
 
     parameterTreeBlock(PWMOscillatorBank)

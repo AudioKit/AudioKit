@@ -55,7 +55,7 @@
     [self setKernelPtr:&_kernel];
     
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
     _parameterTree = [AUParameterTree createTreeWithChildren:children];
     parameterTreeBlock(MorphingOscillatorBank)
 }

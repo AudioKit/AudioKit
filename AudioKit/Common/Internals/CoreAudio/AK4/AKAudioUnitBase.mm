@@ -19,7 +19,7 @@
 
 @synthesize parameterTree = _parameterTree;
 
-- (float) getParameterWithAddress: (AUParameterAddress) address; {
+- (AUValue) parameterWithAddress: (AUParameterAddress) address; {
     return self.kernel->getParameter(address);
 }
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
