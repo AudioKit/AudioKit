@@ -36,35 +36,25 @@ public class AKStringResonatorAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let fundamentalFrequency = AUParameterTree.createParameter(
-            withIdentifier: "fundamentalFrequency",
+            identifier: "fundamentalFrequency",
             name: "Fundamental Frequency (Hz)",
             address: AKStringResonatorParameter.fundamentalFrequency.rawValue,
-            min: Float(AKStringResonator.fundamentalFrequencyRange.lowerBound),
-            max: Float(AKStringResonator.fundamentalFrequencyRange.upperBound),
+            range: AKStringResonator.fundamentalFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKStringResonatorParameter.feedback.rawValue,
-            min: Float(AKStringResonator.feedbackRange.lowerBound),
-            max: Float(AKStringResonator.feedbackRange.upperBound),
+            range: AKStringResonator.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [fundamentalFrequency, feedback]))
+        setParameterTree(AUParameterTree(children: [fundamentalFrequency, feedback]))
         fundamentalFrequency.value = Float(AKStringResonator.defaultFundamentalFrequency)
         feedback.value = Float(AKStringResonator.defaultFeedback)
     }

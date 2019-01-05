@@ -40,7 +40,7 @@ standardKernelPassthroughs()
     standardGeneratorSetup(CallbackInstrument)
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
 
     parameterTreeBlock(CallbackInstrument)
 }

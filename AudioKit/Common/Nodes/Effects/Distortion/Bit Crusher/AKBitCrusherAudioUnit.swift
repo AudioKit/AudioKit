@@ -36,34 +36,24 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let bitDepth = AUParameterTree.createParameter(
-            withIdentifier: "bitDepth",
+            identifier: "bitDepth",
             name: "Bit Depth",
             address: AKBitCrusherParameter.bitDepth.rawValue,
-            min: Float(AKBitCrusher.bitDepthRange.lowerBound),
-            max: Float(AKBitCrusher.bitDepthRange.upperBound),
+            range: AKBitCrusher.bitDepthRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let sampleRate = AUParameterTree.createParameter(
-            withIdentifier: "sampleRate",
+            identifier: "sampleRate",
             name: "Sample Rate (Hz)",
             address: AKBitCrusherParameter.sampleRate.rawValue,
-            min: Float(AKBitCrusher.sampleRateRange.lowerBound),
-            max: Float(AKBitCrusher.sampleRateRange.upperBound),
+            range: AKBitCrusher.sampleRateRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)
     }

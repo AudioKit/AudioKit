@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
+/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
 /// Based on work by Perry Cook.
 ///
 open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
@@ -17,7 +17,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
-
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {

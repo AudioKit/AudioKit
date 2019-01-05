@@ -32,23 +32,18 @@ public class AKPinkNoiseAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKPinkNoiseParameter.amplitude.rawValue,
-            min: Float(AKPinkNoise.amplitudeRange.lowerBound),
-            max: Float(AKPinkNoise.amplitudeRange.upperBound),
+            range: AKPinkNoise.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [amplitude]))
         amplitude.value = Float(AKPinkNoise.defaultAmplitude)
     }
 

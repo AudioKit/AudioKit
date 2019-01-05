@@ -48,55 +48,35 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
-            min: Float(AKChorus.frequencyRange.lowerBound),
-            max: Float(AKChorus.frequencyRange.upperBound),
+            range: AKChorus.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let depth = AUParameterTree.createParameter(
-            withIdentifier: "depth",
+            identifier: "depth",
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
-            min: Float(AKChorus.depthRange.lowerBound),
-            max: Float(AKChorus.depthRange.upperBound),
+            range: AKChorus.depthRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
-            min: Float(AKChorus.feedbackRange.lowerBound),
-            max: Float(AKChorus.feedbackRange.upperBound),
+            range: AKChorus.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
-            withIdentifier: "dryWetMix",
+            identifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,
-            min: Float(AKChorus.dryWetMixRange.lowerBound),
-            max: Float(AKChorus.dryWetMixRange.upperBound),
+            range: AKChorus.dryWetMixRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKChorus.defaultFrequency)
         depth.value = Float(AKChorus.defaultDepth)
         feedback.value = Float(AKChorus.defaultFeedback)

@@ -38,14 +38,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Ratio to compress with, a value > 1 will compress
     @objc open dynamic var ratio: Double = 1 {
         willSet {
-            if ratio != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        ratioParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.ratio = Float(newValue)
+            guard ratio != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    ratioParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.ratio = Float(newValue)
             }
         }
     }
@@ -53,14 +52,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Threshold (in dB) 0 = max
     @objc open dynamic var threshold: Double = 0.0 {
         willSet {
-            if threshold != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        thresholdParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.threshold = Float(newValue)
+            guard threshold != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    thresholdParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.threshold = Float(newValue)
             }
         }
     }
@@ -68,14 +66,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Attack dration
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
-            if attackDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.attackDuration = Float(newValue)
+            guard attackDuration != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.attackDuration = Float(newValue)
             }
         }
     }
@@ -83,14 +80,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Release duration
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
-            if releaseDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.releaseDuration = Float(newValue)
+            guard releaseDuration != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.releaseDuration = Float(newValue)
             }
         }
     }
@@ -98,14 +94,13 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Rage Amount
     @objc open dynamic var rage: Double = 0.1 {
         willSet {
-            if rage != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        rageParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.rage = Float(newValue)
+            guard rage != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    rageParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.rage = Float(newValue)
             }
         }
     }
@@ -197,7 +192,6 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.rage = Float(rage)
         internalAU?.rageIsOn = Bool(rageIsOn)
-
     }
 
     // MARK: - Control

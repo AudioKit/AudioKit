@@ -36,35 +36,25 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
             address: AKResonantFilterParameter.frequency.rawValue,
-            min: Float(AKResonantFilter.frequencyRange.lowerBound),
-            max: Float(AKResonantFilter.frequencyRange.upperBound),
+            range: AKResonantFilter.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
-            withIdentifier: "bandwidth",
+            identifier: "bandwidth",
             name: "Bandwidth of the filter.",
             address: AKResonantFilterParameter.bandwidth.rawValue,
-            min: Float(AKResonantFilter.bandwidthRange.lowerBound),
-            max: Float(AKResonantFilter.bandwidthRange.upperBound),
+            range: AKResonantFilter.bandwidthRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, bandwidth]))
         frequency.value = Float(AKResonantFilter.defaultFrequency)
         bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
     }

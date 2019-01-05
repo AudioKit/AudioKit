@@ -38,33 +38,42 @@
 //@end
 
 @interface AUParameter(Ext)
--(instancetype)init:(NSString *)identifier
-               name:(NSString *)name
-            address:(AUParameterAddress)address
-                min:(AUValue)min
-                max:(AUValue)max
-               unit:(AudioUnitParameterUnit)unit;
+//-(_Nonnull instancetype)init:(NSString * _Nonnull)identifier
+//                        name:(NSString * _Nonnull)name
+//                     address:(AUParameterAddress)address
+//                         min:(AUValue)min
+//                         max:(AUValue)max
+//                        unit:(AudioUnitParameterUnit)unit
+//                       flags:(AudioUnitParameterOptions)flags;
 
-+(instancetype)parameter:(NSString *)identifier
-                    name:(NSString *)name
-                 address:(AUParameterAddress)address
-                     min:(AUValue)min
-                     max:(AUValue)max
-                    unit:(AudioUnitParameterUnit)unit;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit
+                                          flags:(AudioUnitParameterOptions)flags;
 
-+(instancetype)frequency:(NSString *)identifier
-                    name:(NSString *)name
-                 address:(AUParameterAddress)address;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit;
+//+(_Nonnull instancetype)frequency:(NSString * _Nonnull)identifier
+//                             name:(NSString * _Nonnull)name
+//                          address:(AUParameterAddress)address;
 
 @end
 
 @interface AUParameterTree(Ext)
-+(instancetype)tree:(NSArray<AUParameterNode *> *)children;
+
++(_Nonnull instancetype)treeWithChildren:(NSArray<AUParameter *> * _Nonnull)children;
 @end
 
-@interface AVAudioNode(Ext)
--(instancetype)initWithComponent:(AudioComponentDescription)component;
-@end
+//@interface AVAudioNode(Ext)
+//-(instancetype)initWithComponent:(AudioComponentDescription)component;
+//@end
 
 
 #define standardKernelPassthroughs() \

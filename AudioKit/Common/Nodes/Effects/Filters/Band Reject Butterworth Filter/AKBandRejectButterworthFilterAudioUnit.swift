@@ -36,35 +36,25 @@ public class AKBandRejectButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+            identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKBandRejectButterworthFilterParameter.centerFrequency.rawValue,
-            min: Float(AKBandRejectButterworthFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKBandRejectButterworthFilter.centerFrequencyRange.upperBound),
+            range: AKBandRejectButterworthFilter.centerFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
-            withIdentifier: "bandwidth",
+            identifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AKBandRejectButterworthFilterParameter.bandwidth.rawValue,
-            min: Float(AKBandRejectButterworthFilter.bandwidthRange.lowerBound),
-            max: Float(AKBandRejectButterworthFilter.bandwidthRange.upperBound),
+            range: AKBandRejectButterworthFilter.bandwidthRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandRejectButterworthFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKBandRejectButterworthFilter.defaultBandwidth)
     }

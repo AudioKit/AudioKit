@@ -36,12 +36,12 @@
     standardGeneratorSetup(PhaseDistortionOscillatorBank)
 
     // Create a parameter object for the phaseDistortion.
-    AUParameter *phaseDistortionAUParameter = [AUParameter parameter:@"phaseDistortion"
-                                                                name:@"Phase Distortion"
-                                                             address:AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress
-                                                                 min:0.0
-                                                                 max:1.0
-                                                                unit:kAudioUnitParameterUnit_Generic];
+    AUParameter *phaseDistortionAUParameter = [AUParameter parameterWithIdentifier:@"phaseDistortion"
+                                                                              name:@"Phase Distortion"
+                                                                           address:AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress
+                                                                               min:0.0
+                                                                               max:1.0
+                                                                              unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
@@ -51,8 +51,8 @@
     [self setKernelPtr:&_kernel];
 
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
-    _parameterTree = [AUParameterTree createTreeWithChildren:children];
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
+    _parameterTree = [AUParameterTree treeWithChildren:children];
     parameterTreeBlock(PhaseDistortionOscillatorBank)
 }
 

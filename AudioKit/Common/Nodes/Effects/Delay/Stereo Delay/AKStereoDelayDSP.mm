@@ -22,7 +22,7 @@ struct AKStereoDelayDSP::InternalData {
     AKLinearParameterRamp timeRamp;
     AKLinearParameterRamp feedbackRamp;
     AKLinearParameterRamp dryWetMixRamp;
-    
+
 };
 
 AKStereoDelayDSP::AKStereoDelayDSP() : data(new InternalData) {
@@ -114,12 +114,12 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
-        
+
         // ramp parameters
         data->timeRamp.advanceTo(now + frameOffset);
         data->feedbackRamp.advanceTo(now + frameOffset);
         data->dryWetMixRamp.advanceTo(now + frameOffset);
-        
+
         // apply changes
         data->delay.setDelayMs(1000.0 * data->timeRamp.getValue());
         data->delay.setFeedback(data->feedbackRamp.getValue());
@@ -127,7 +127,7 @@ void AKStereoDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount b
 
         // process
         data->delay.render(chunkSize, inBuffers, outBuffers);
-        
+
         // advance pointers
         inBuffers[0] += chunkSize;
         inBuffers[1] += chunkSize;

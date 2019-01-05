@@ -32,23 +32,18 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let reverbDuration = AUParameterTree.createParameter(
-            withIdentifier: "reverbDuration",
+            identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,
-            min: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.lowerBound),
-            max: Float(AKFlatFrequencyResponseReverb.reverbDurationRange.upperBound),
+            range: AKFlatFrequencyResponseReverb.reverbDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [reverbDuration]))
         reverbDuration.value = Float(AKFlatFrequencyResponseReverb.defaultReverbDuration)
     }
 

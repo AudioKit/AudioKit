@@ -11,18 +11,18 @@ import AudioKitUI
 
 class ViewController: NSViewController {
     var playButton: AKButton!
-    
+
     @IBOutlet weak var output1Selector: NSComboBox!
     @IBOutlet weak var output2Selector: NSComboBox!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         playButton = AKButton()
         playButton.title = "Play"
         playButton.frame = NSRect(x: 0, y: view.bounds.height - 40, width: view.bounds.width, height: 40)
         view.addSubview(playButton)
-        
+
         playButton.callback = { _ in
             if Application.engine.player.isPlaying {
                 Application.engine.player.stop()
@@ -33,11 +33,11 @@ class ViewController: NSViewController {
                 self.playButton.title = "Stop"
             }
         }
-        
+
         Application.start()
         setOutputDeviceSelectors()
     }
-    
+
     func setOutputDeviceSelectors () {
         let outputDevices = EZAudioDevice.outputDevices() as! [EZAudioDevice]
         output1Selector.removeAllItems()
@@ -47,13 +47,13 @@ class ViewController: NSViewController {
         if Application.output1 != nil {
             output1Selector.stringValue = Application.output1!.device.name
         }
-        
+
         if Application.output2 != nil {
             output2Selector.stringValue = Application.output2!.device.name
         }
 
     }
-    
+
     @IBAction func output1Selected(_ sender: NSComboBox) {
         let device = Devices.output.first { $0.name == output1Selector.objectValueOfSelectedItem as? String }
         if (device != nil) {
@@ -61,7 +61,7 @@ class ViewController: NSViewController {
             setOutputDeviceSelectors()
         }
     }
-    
+
     @IBAction func output2Selected(_ sender: NSComboBox) {
         let device = Devices.output.first { $0.name == output2Selector.objectValueOfSelectedItem as? String }
         if (device != nil) {

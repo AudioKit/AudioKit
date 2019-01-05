@@ -32,23 +32,18 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKWhiteNoiseParameter.amplitude.rawValue,
-            min: Float(AKWhiteNoise.amplitudeRange.lowerBound),
-            max: Float(AKWhiteNoise.amplitudeRange.upperBound),
+            range: AKWhiteNoise.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
+        setParameterTree(AUParameterTree(children: [amplitude]))
         amplitude.value = Float(AKWhiteNoise.defaultAmplitude)
     }
 

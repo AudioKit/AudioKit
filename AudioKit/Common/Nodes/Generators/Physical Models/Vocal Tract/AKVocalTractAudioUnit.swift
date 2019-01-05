@@ -48,71 +48,46 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Glottal frequency.",
             address: AKVocalTractParameter.frequency.rawValue,
-            min: Float(AKVocalTract.frequencyRange.lowerBound),
-            max: Float(AKVocalTract.frequencyRange.upperBound),
+            range: AKVocalTract.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tonguePosition = AUParameterTree.createParameter(
-            withIdentifier: "tonguePosition",
+            identifier: "tonguePosition",
             name: "Tongue position (0-1)",
             address: AKVocalTractParameter.tonguePosition.rawValue,
-            min: Float(AKVocalTract.tonguePositionRange.lowerBound),
-            max: Float(AKVocalTract.tonguePositionRange.upperBound),
+            range: AKVocalTract.tonguePositionRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tongueDiameter = AUParameterTree.createParameter(
-            withIdentifier: "tongueDiameter",
+            identifier: "tongueDiameter",
             name: "Tongue diameter (0-1)",
             address: AKVocalTractParameter.tongueDiameter.rawValue,
-            min: Float(AKVocalTract.tongueDiameterRange.lowerBound),
-            max: Float(AKVocalTract.tongueDiameterRange.upperBound),
+            range: AKVocalTract.tongueDiameterRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let tenseness = AUParameterTree.createParameter(
-            withIdentifier: "tenseness",
+            identifier: "tenseness",
             name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
             address: AKVocalTractParameter.tenseness.rawValue,
-            min: Float(AKVocalTract.tensenessRange.lowerBound),
-            max: Float(AKVocalTract.tensenessRange.upperBound),
+            range: AKVocalTract.tensenessRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let nasality = AUParameterTree.createParameter(
-            withIdentifier: "nasality",
+            identifier: "nasality",
             name: "Sets the velum size. Larger values of this creates more nasally sounds.",
             address: AKVocalTractParameter.nasality.rawValue,
-            min: Float(AKVocalTract.nasalityRange.lowerBound),
-            max: Float(AKVocalTract.nasalityRange.upperBound),
+            range: AKVocalTract.nasalityRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, tonguePosition, tongueDiameter, tenseness, nasality]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, tonguePosition, tongueDiameter, tenseness, nasality]))
         frequency.value = Float(AKVocalTract.defaultFrequency)
         tonguePosition.value = Float(AKVocalTract.defaultTonguePosition)
         tongueDiameter.value = Float(AKVocalTract.defaultTongueDiameter)

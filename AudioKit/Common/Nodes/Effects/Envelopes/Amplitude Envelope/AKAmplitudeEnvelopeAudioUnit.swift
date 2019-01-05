@@ -44,59 +44,39 @@ public class AKAmplitudeEnvelopeAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let attackDuration = AUParameterTree.createParameter(
-            withIdentifier: "attackDuration",
+            identifier: "attackDuration",
             name: "Attack time",
             address: AKAmplitudeEnvelopeParameter.attackDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.attackDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.attackDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.attackDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let decayDuration = AUParameterTree.createParameter(
-            withIdentifier: "decayDuration",
+            identifier: "decayDuration",
             name: "Decay time",
             address: AKAmplitudeEnvelopeParameter.decayDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.decayDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.decayDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.decayDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let sustainLevel = AUParameterTree.createParameter(
-            withIdentifier: "sustainLevel",
+            identifier: "sustainLevel",
             name: "Sustain Level",
             address: AKAmplitudeEnvelopeParameter.sustainLevel.rawValue,
-            min: Float(AKAmplitudeEnvelope.sustainLevelRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.sustainLevelRange.upperBound),
+            range: AKAmplitudeEnvelope.sustainLevelRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let releaseDuration = AUParameterTree.createParameter(
-            withIdentifier: "releaseDuration",
+            identifier: "releaseDuration",
             name: "Release time",
             address: AKAmplitudeEnvelopeParameter.releaseDuration.rawValue,
-            min: Float(AKAmplitudeEnvelope.releaseDurationRange.lowerBound),
-            max: Float(AKAmplitudeEnvelope.releaseDurationRange.upperBound),
+            range: AKAmplitudeEnvelope.releaseDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [attackDuration, decayDuration, sustainLevel, releaseDuration]))
         attackDuration.value = Float(AKAmplitudeEnvelope.defaultAttackDuration)
         decayDuration.value = Float(AKAmplitudeEnvelope.defaultDecayDuration)
         sustainLevel.value = Float(AKAmplitudeEnvelope.defaultSustainLevel)

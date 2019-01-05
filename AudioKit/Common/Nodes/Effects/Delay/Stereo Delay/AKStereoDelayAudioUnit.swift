@@ -47,55 +47,35 @@ public class AKStereoDelayAudioUnit: AKAudioUnitBase {
                                       options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let time = AUParameterTree.createParameter(
-            withIdentifier: "time",
+            identifier: "time",
             name: "Delay time (Seconds)",
             address: AKStereoDelayParameter.time.rawValue,
-            min: Float(AKStereoDelay.timeRange.lowerBound),
-            max: Float(AKStereoDelay.timeRange.upperBound),
+            range: AKStereoDelay.timeRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKStereoDelayParameter.feedback.rawValue,
-            min: Float(AKStereoDelay.feedbackRange.lowerBound),
-            max: Float(AKStereoDelay.feedbackRange.upperBound),
+            range: AKStereoDelay.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let dryWetMix = AUParameterTree.createParameter(
-            withIdentifier: "dryWetMix",
+            identifier: "dryWetMix",
             name: "Dry-Wet Mix",
             address: AKStereoDelayParameter.dryWetMix.rawValue,
-            min: Float(AKStereoDelay.dryWetMixRange.lowerBound),
-            max: Float(AKStereoDelay.dryWetMixRange.upperBound),
+            range: AKStereoDelay.dryWetMixRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let pingPong = AUParameterTree.createParameter(
-            withIdentifier: "pingPong",
+            identifier: "pingPong",
             name: "Ping-Pong Mode",
             address: AKStereoDelayParameter.pingPong.rawValue,
-            min: Float(0.0),
-            max: Float(1.0),
+            range: 0.0...1.0,
             unit: .boolean,
-            unitName: nil,
-            flags: [.flag_IsReadable, .flag_IsWritable],
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: [.flag_IsReadable, .flag_IsWritable])
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback, dryWetMix, pingPong]))
+        setParameterTree(AUParameterTree(children: [time, feedback, dryWetMix, pingPong]))
         time.value = Float(AKStereoDelay.defaultTime)
         feedback.value = Float(AKStereoDelay.defaultFeedback)
         dryWetMix.value = Float(AKStereoDelay.defaultDryWetMix)

@@ -63,7 +63,7 @@
 
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                                                ]];
 
     // Create the input and output busses.

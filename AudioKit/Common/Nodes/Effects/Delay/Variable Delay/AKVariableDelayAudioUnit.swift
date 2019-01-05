@@ -36,34 +36,24 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let time = AUParameterTree.createParameter(
-            withIdentifier: "time",
+            identifier: "time",
             name: "Delay time (Seconds)",
             address: AKVariableDelayParameter.time.rawValue,
-            min: Float(AKVariableDelay.timeRange.lowerBound),
-            max: Float(AKVariableDelay.timeRange.upperBound),
+            range: AKVariableDelay.timeRange,
             unit: .seconds,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKVariableDelayParameter.feedback.rawValue,
-            min: Float(AKVariableDelay.feedbackRange.lowerBound),
-            max: Float(AKVariableDelay.feedbackRange.upperBound),
+            range: AKVariableDelay.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback]))
+        setParameterTree(AUParameterTree(children: [time, feedback]))
         time.value = Float(AKVariableDelay.defaultTime)
         feedback.value = Float(AKVariableDelay.defaultFeedback)
     }

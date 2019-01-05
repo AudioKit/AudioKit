@@ -35,7 +35,7 @@ AudioUnitParameter parameter[] = {
 
 void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitParameter *inParameter, Float32 inValue) {
     AKSampler_UIView *SELF = (AKSampler_UIView *)inRefCon;
-    
+
     [SELF priv_parameterListener:inObject parameter:inParameter value:inValue];
 }
 
@@ -57,12 +57,12 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     // remove previous listeners
     if (mAU)
         [self priv_removeListeners];
-    
+
     mAU = inAU;
-    
+
     // add new listeners
     [self priv_addListeners];
-    
+
     // initial setup
     [self priv_synchronizeUIWithParameterValues];
 }
@@ -195,7 +195,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
 
 - (IBAction)onPresetSelect:(NSPopUpButton *)sender {
     CFStringRef cfstr = (__bridge CFStringRef)[presetPopup titleOfSelectedItem];
-    
+
     UInt32 dataSize = sizeof(CFStringRef);
     ComponentResult result = AudioUnitSetProperty(mAU,
                                                   kPresetNameProperty,
@@ -214,7 +214,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [panel setCanChooseFiles:NO];
     if ([panel runModal] != NSModalResponseOK) return;
     mPresetFolder = [[panel URLs] lastObject];
-    
+
     // Should I do something here to release the previous copied value?
     CFStringRef cfstr = (__bridge CFStringRef)[[mPresetFolder path] copy];
     UInt32 dataSize = sizeof(CFStringRef);
@@ -255,7 +255,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
                                CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 0.100, // 100 ms
                                &mParameterListener ) == noErr,
               @"[CocoaView _addListeners] AUListenerCreate()");
-    
+
     for (int i = 0; i < kNumberOfParams; ++i) {
         parameter[i].mAudioUnit = mAU;
         NSAssert (AUListenerAddParameter (mParameterListener, NULL, &parameter[i]) == noErr,
@@ -269,7 +269,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         NSAssert (AUListenerRemoveParameter(mParameterListener, NULL, &parameter[i]) == noErr,
                   @"[CocoaView _removeListeners] AUListenerRemoveParameter()");
     }
-    
+
     NSAssert (AUListenerDispose(mParameterListener) == noErr,
               @"[CocoaView _removeListeners] AUListenerDispose()");
 
@@ -295,7 +295,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
 
 - (void)priv_parameterListener:(void *)inObject parameter:(const AudioUnitParameter *)inParameter value:(Float32)inValue {
     //inObject ignored in this case.
-    
+
     switch (inParameter->mParameterID) {
         case kMasterVolumeFraction:
             [volumeSlider setFloatValue: 100 * inValue];

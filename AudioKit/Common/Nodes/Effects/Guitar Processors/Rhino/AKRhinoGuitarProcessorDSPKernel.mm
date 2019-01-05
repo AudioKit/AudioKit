@@ -29,9 +29,9 @@ struct AKRhinoGuitarProcessorDSPKernel::InternalData {
     Equalisator *rightEqHi;
     MikeFilter *mikeFilterL;
     MikeFilter *mikeFilterR;
-    
+
     float sampleRate;
-    
+
     float preGain = 5.0;
     float postGain = 0.7;
     float lowGain = 0.0;
@@ -47,9 +47,9 @@ AKRhinoGuitarProcessorDSPKernel::~AKRhinoGuitarProcessorDSPKernel() = default;
 
 void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double sampleRate) {
     AKDSPKernel::init(channelCount, sampleRate);
-    
+
     sampleRate = (float)sampleRate;
-    
+
     data->leftEqLo = new Equalisator();
     data->rightEqLo = new Equalisator();
     data->leftEqGtr = new Equalisator();
@@ -60,26 +60,26 @@ void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double sampleRate) 
     data->rightEqHi = new Equalisator();
     data->mikeFilterL = new MikeFilter();
     data->mikeFilterR = new MikeFilter();
-    
+
     data->leftRageProcessor = new RageProcessor((int)sampleRate);
     data->rightRageProcessor = new RageProcessor((int)sampleRate);
-    
+
     data->leftEqLo->calc_filter_coeffs(7, 120.f, (float)sampleRate, 0.75, -2.f, false);
     data->rightEqLo->calc_filter_coeffs(7, 120.f, (float)sampleRate, 0.75, -2.f, false);
-    
+
     data->leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
     data->rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.5, 6.5, true);
-    
+
     data->leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
     data->rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6,-15, false);
-    
+
     data->mikeFilterL->calc_filter_coeffs(2500.f, sampleRate);
     data->mikeFilterR->calc_filter_coeffs(2500.f, sampleRate);
-    
+
     data->lowGain = 0.0f;
     data->midGain = 0.0f;
     data->highGain = 0.0f;
-    
+
     preGainRamper.init();
     postGainRamper.init();
     lowGainRamper.init();
@@ -151,27 +151,27 @@ void AKRhinoGuitarProcessorDSPKernel::setParameter(AUParameterAddress address, A
         case preGainAddress:
             preGainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
             break;
-            
+
         case postGainAddress:
             postGainRamper.setUIValue(clamp(value, 0.0f, 1.0f));
             break;
-            
+
         case lowGainAddress:
             lowGainRamper.setUIValue(clamp(value, -1.0f, 1.0f));
             break;
-            
+
         case midGainAddress:
             midGainRamper.setUIValue(clamp(value, -1.0f, 1.0f));
             break;
-            
+
         case highGainAddress:
             highGainRamper.setUIValue(clamp(value, -1.0f, 1.0f));
             break;
-            
+
         case distTypeAddress:
             distTypeRamper.setUIValue(clamp(value, 1.0f, 3.0f));
             break;
-            
+
         case distortionAddress:
             distortionRamper.setUIValue(clamp(value, 1.0f, 20.0f));
             break;
@@ -182,25 +182,25 @@ AUValue AKRhinoGuitarProcessorDSPKernel::getParameter(AUParameterAddress address
     switch (address) {
         case preGainAddress:
             return preGainRamper.getUIValue();
-            
+
         case postGainAddress:
             return postGainRamper.getUIValue();
-            
+
         case lowGainAddress:
             return lowGainRamper.getUIValue();
-            
+
         case midGainAddress:
             return midGainRamper.getUIValue();
-            
+
         case highGainAddress:
             return highGainRamper.getUIValue();
-            
+
         case distTypeAddress:
             return distTypeRamper.getUIValue();
-            
+
         case distortionAddress:
             return distortionRamper.getUIValue();
-            
+
         default: return 0.0f;
     }
 }
@@ -210,28 +210,28 @@ void AKRhinoGuitarProcessorDSPKernel::startRamp(AUParameterAddress address, AUVa
         case preGainAddress:
             preGainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
             break;
-            
+
         case postGainAddress:
             postGainRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
             break;
-            
+
         case lowGainAddress:
             lowGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
-            
+
             break;
-            
+
         case midGainAddress:
             midGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
             break;
-            
+
         case highGainAddress:
             highGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
             break;
-            
+
         case distTypeAddress:
             distTypeRamper.startRamp(clamp(value, 1.0f, 3.0f), duration);
             break;
-            
+
         case distortionAddress:
             distortionRamper.startRamp(clamp(value, 1.0f, 20.0f), duration);
             break;
@@ -239,11 +239,11 @@ void AKRhinoGuitarProcessorDSPKernel::startRamp(AUParameterAddress address, AUVa
 }
 
 void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    
+
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        
+
         int frameOffset = int(frameIndex + bufferOffset);
-        
+
         data->preGain = preGainRamper.getAndStep();
         data->postGain = postGainRamper.getAndStep();
         data->lowGain = lowGainRamper.getAndStep();
@@ -251,13 +251,13 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
         data->highGain = highGainRamper.getAndStep();
         data->distType = distTypeRamper.getAndStep();
         data->distortion = distortionRamper.getAndStep();
-        
+
         data->leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
         data->rightEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
-        
+
         data->leftEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
         data->rightEqMi->calc_filter_coeffs(6, 2450, sampleRate, 1.7, 2.5 * data->midGain, true);
-        
+
         data->leftEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
         data->rightEqHi->calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -data->highGain, false);
 

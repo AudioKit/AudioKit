@@ -36,35 +36,25 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKMoogLadderParameter.cutoffFrequency.rawValue,
-            min: Float(AKMoogLadder.cutoffFrequencyRange.lowerBound),
-            max: Float(AKMoogLadder.cutoffFrequencyRange.upperBound),
+            range: AKMoogLadder.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let resonance = AUParameterTree.createParameter(
-            withIdentifier: "resonance",
+            identifier: "resonance",
             name: "Resonance (%)",
             address: AKMoogLadderParameter.resonance.rawValue,
-            min: Float(AKMoogLadder.resonanceRange.lowerBound),
-            max: Float(AKMoogLadder.resonanceRange.upperBound),
+            range: AKMoogLadder.resonanceRange,
             unit: .percent,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [cutoffFrequency, resonance]))
         cutoffFrequency.value = Float(AKMoogLadder.defaultCutoffFrequency)
         resonance.value = Float(AKMoogLadder.defaultResonance)
     }

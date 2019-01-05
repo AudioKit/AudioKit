@@ -35,35 +35,25 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
-            min: 0.0,
-            max: 100.0,
+            range: 0.0...100.0,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let depth = AUParameterTree.createParameter(
-            withIdentifier: "depth",
+            identifier: "depth",
             name: "Depth",
-            address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1.0,
+            address: 1,
+            range: 0.0...1.0,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
+        setParameterTree(AUParameterTree(children: [frequency, depth]))
         frequency.value = 10.0
         depth.value = 1.0
     }

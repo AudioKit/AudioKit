@@ -40,47 +40,32 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let distortion = AUParameterTree.createParameter(
-            withIdentifier: "distortion",
+            identifier: "distortion",
             name: "Distortion (%)",
             address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
-            min: Float(AKThreePoleLowpassFilter.distortionRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.distortionRange.upperBound),
+            range: AKThreePoleLowpassFilter.distortionRange,
             unit: .percent,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.cutoffFrequencyRange.upperBound),
+            range: AKThreePoleLowpassFilter.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let resonance = AUParameterTree.createParameter(
-            withIdentifier: "resonance",
+            identifier: "resonance",
             name: "Resonance (%)",
             address: AKThreePoleLowpassFilterParameter.resonance.rawValue,
-            min: Float(AKThreePoleLowpassFilter.resonanceRange.lowerBound),
-            max: Float(AKThreePoleLowpassFilter.resonanceRange.upperBound),
+            range: AKThreePoleLowpassFilter.resonanceRange,
             unit: .percent,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [distortion, cutoffFrequency, resonance]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [distortion, cutoffFrequency, resonance]))
         distortion.value = Float(AKThreePoleLowpassFilter.defaultDistortion)
         cutoffFrequency.value = Float(AKThreePoleLowpassFilter.defaultCutoffFrequency)
         resonance.value = Float(AKThreePoleLowpassFilter.defaultResonance)

@@ -48,71 +48,46 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (in Hz)",
             address: AKMorphingOscillatorParameter.frequency.rawValue,
-            min: Float(AKMorphingOscillator.frequencyRange.lowerBound),
-            max: Float(AKMorphingOscillator.frequencyRange.upperBound),
+            range: AKMorphingOscillator.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude (typically a value between 0 and 1).",
             address: AKMorphingOscillatorParameter.amplitude.rawValue,
-            min: Float(AKMorphingOscillator.amplitudeRange.lowerBound),
-            max: Float(AKMorphingOscillator.amplitudeRange.upperBound),
+            range: AKMorphingOscillator.amplitudeRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let index = AUParameterTree.createParameter(
-            withIdentifier: "index",
+            identifier: "index",
             name: "Index of the wavetable to use (fractional are okay).",
             address: AKMorphingOscillatorParameter.index.rawValue,
-            min: Float(AKMorphingOscillator.indexRange.lowerBound),
-            max: Float(AKMorphingOscillator.indexRange.upperBound),
+            range: AKMorphingOscillator.indexRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
-            withIdentifier: "detuningOffset",
+            identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKMorphingOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningOffsetRange.upperBound),
+            range: AKMorphingOscillator.detuningOffsetRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "detuningMultiplier",
+            identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKMorphingOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningMultiplierRange.upperBound),
+            range: AKMorphingOscillator.detuningMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKMorphingOscillator.defaultFrequency)
         amplitude.value = Float(AKMorphingOscillator.defaultAmplitude)
         index.value = Float(AKMorphingOscillator.defaultIndex)
