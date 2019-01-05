@@ -51,35 +51,35 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let baseFrequency = AUParameterTree.createParameter(
+        let baseFrequency = AUParameter(
             identifier: "baseFrequency",
             name: "Base Frequency (Hz)",
             address: AKFMOscillatorParameter.baseFrequency.rawValue,
             range: AKFMOscillator.baseFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let carrierMultiplier = AUParameterTree.createParameter(
+        let carrierMultiplier = AUParameter(
             identifier: "carrierMultiplier",
             name: "Carrier Multiplier",
             address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
             range: AKFMOscillator.carrierMultiplierRange,
             unit: .generic,
             flags: .default)
-        let modulatingMultiplier = AUParameterTree.createParameter(
+        let modulatingMultiplier = AUParameter(
             identifier: "modulatingMultiplier",
             name: "Modulating Multiplier",
             address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
             range: AKFMOscillator.modulatingMultiplierRange,
             unit: .generic,
             flags: .default)
-        let modulationIndex = AUParameterTree.createParameter(
+        let modulationIndex = AUParameter(
             identifier: "modulationIndex",
             name: "Modulation Index",
             address: AKFMOscillatorParameter.modulationIndex.rawValue,
             range: AKFMOscillator.modulationIndexRange,
             unit: .generic,
             flags: .default)
-        let amplitude = AUParameterTree.createParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKFMOscillatorParameter.amplitude.rawValue,

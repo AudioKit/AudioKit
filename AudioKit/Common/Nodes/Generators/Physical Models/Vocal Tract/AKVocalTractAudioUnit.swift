@@ -51,35 +51,35 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameterTree.createParameter(
+        let frequency = AUParameter(
             identifier: "frequency",
             name: "Glottal frequency.",
             address: AKVocalTractParameter.frequency.rawValue,
             range: AKVocalTract.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let tonguePosition = AUParameterTree.createParameter(
+        let tonguePosition = AUParameter(
             identifier: "tonguePosition",
             name: "Tongue position (0-1)",
             address: AKVocalTractParameter.tonguePosition.rawValue,
             range: AKVocalTract.tonguePositionRange,
             unit: .generic,
             flags: .default)
-        let tongueDiameter = AUParameterTree.createParameter(
+        let tongueDiameter = AUParameter(
             identifier: "tongueDiameter",
             name: "Tongue diameter (0-1)",
             address: AKVocalTractParameter.tongueDiameter.rawValue,
             range: AKVocalTract.tongueDiameterRange,
             unit: .generic,
             flags: .default)
-        let tenseness = AUParameterTree.createParameter(
+        let tenseness = AUParameter(
             identifier: "tenseness",
             name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
             address: AKVocalTractParameter.tenseness.rawValue,
             range: AKVocalTract.tensenessRange,
             unit: .generic,
             flags: .default)
-        let nasality = AUParameterTree.createParameter(
+        let nasality = AUParameter(
             identifier: "nasality",
             name: "Sets the velum size. Larger values of this creates more nasally sounds.",
             address: AKVocalTractParameter.nasality.rawValue,
