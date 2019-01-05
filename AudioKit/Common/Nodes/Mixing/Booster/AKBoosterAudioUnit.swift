@@ -42,34 +42,26 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let leftGain = AUParameterTree.createParameter(
-            withIdentifier: "leftGain",
+            identifier: "leftGain",
             name: "Left Boosting Amount",
             address: 0,
-            min: 0.0,
-            max: 2.0,
+            range: 0.0...2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
         let rightGain = AUParameterTree.createParameter(
-            withIdentifier: "rightGain",
+            identifier: "rightGain",
             name: "Right Boosting Amount",
-            address: AUParameterAddress(1),
-            min: 0.0,
-            max: 2.0,
+            address: 1,
+            range: 0.0...2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [leftGain, rightGain]))
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain]))
         leftGain.value = 1.0
         rightGain.value = 1.0
     }

@@ -35,34 +35,24 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
-            min: 0,
-            max: 20_000,
+            range: 0...20_000,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            address: 1,
+            range: 0...10,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+            flags: .default)
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = 440
         amplitude.value = 1
     }

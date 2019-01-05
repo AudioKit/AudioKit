@@ -32,23 +32,18 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.upperBound),
+            range: AKLowPassButterworthFilter.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [cutoffFrequency]))
         cutoffFrequency.value = Float(AKLowPassButterworthFilter.defaultCutoffFrequency)
     }
 

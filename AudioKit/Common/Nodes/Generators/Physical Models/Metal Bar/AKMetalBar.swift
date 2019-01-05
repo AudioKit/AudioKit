@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// 
+///
 ///
 open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     public typealias AKAudioUnitType = AKMetalBarAudioUnit
@@ -86,9 +86,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @objc open dynamic var leftBoundaryCondition: Double = defaultLeftBoundaryCondition {
         willSet {
-            if leftBoundaryCondition == newValue {
-                return
-            }
+            guard leftBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     leftBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -102,9 +100,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @objc open dynamic var rightBoundaryCondition: Double = defaultRightBoundaryCondition {
         willSet {
-            if rightBoundaryCondition == newValue {
-                return
-            }
+            guard rightBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     rightBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -118,9 +114,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// 30db decay time (in seconds).
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
-            if decayDuration == newValue {
-                return
-            }
+            guard decayDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -134,9 +128,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Speed of scanning the output location.
     @objc open dynamic var scanSpeed: Double = defaultScanSpeed {
         willSet {
-            if scanSpeed == newValue {
-                return
-            }
+            guard scanSpeed != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     scanSpeedParameter?.setValue(Float(newValue), originator: existingToken)
@@ -150,9 +142,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Position along bar that strike occurs.
     @objc open dynamic var position: Double = defaultPosition {
         willSet {
-            if position == newValue {
-                return
-            }
+            guard position != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     positionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -166,9 +156,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Normalized strike velocity
     @objc open dynamic var strikeVelocity: Double = defaultStrikeVelocity {
         willSet {
-            if strikeVelocity == newValue {
-                return
-            }
+            guard strikeVelocity != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     strikeVelocityParameter?.setValue(Float(newValue), originator: existingToken)
@@ -182,9 +170,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     /// Spatial width of strike.
     @objc open dynamic var strikeWidth: Double = defaultStrikeWidth {
         willSet {
-            if strikeWidth == newValue {
-                return
-            }
+            guard strikeWidth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     strikeWidthParameter?.setValue(Float(newValue), originator: existingToken)

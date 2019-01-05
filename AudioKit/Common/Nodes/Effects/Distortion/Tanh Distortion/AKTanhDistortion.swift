@@ -56,9 +56,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @objc open dynamic var pregain: Double = defaultPregain {
         willSet {
-            if pregain == newValue {
-                return
-            }
+            guard pregain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     pregainParameter?.setValue(Float(newValue), originator: existingToken)
@@ -72,9 +70,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     /// Gain applied after waveshaping
     @objc open dynamic var postgain: Double = defaultPostgain {
         willSet {
-            if postgain == newValue {
-                return
-            }
+            guard postgain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     postgainParameter?.setValue(Float(newValue), originator: existingToken)
@@ -88,9 +84,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @objc open dynamic var positiveShapeParameter: Double = defaultPositiveShapeParameter {
         willSet {
-            if positiveShapeParameter == newValue {
-                return
-            }
+            guard positiveShapeParameter != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     positiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
@@ -104,9 +98,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     /// Like the positive shape parameter, only for the negative part.
     @objc open dynamic var negativeShapeParameter: Double = defaultNegativeShapeParameter {
         willSet {
-            if negativeShapeParameter == newValue {
-                return
-            }
+            guard negativeShapeParameter != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     negativeShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)

@@ -36,35 +36,25 @@ public class AKBandPassButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+            identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKBandPassButterworthFilterParameter.centerFrequency.rawValue,
-            min: Float(AKBandPassButterworthFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKBandPassButterworthFilter.centerFrequencyRange.upperBound),
+            range: AKBandPassButterworthFilter.centerFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let bandwidth = AUParameterTree.createParameter(
-            withIdentifier: "bandwidth",
+            identifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AKBandPassButterworthFilterParameter.bandwidth.rawValue,
-            min: Float(AKBandPassButterworthFilter.bandwidthRange.lowerBound),
-            max: Float(AKBandPassButterworthFilter.bandwidthRange.upperBound),
+            range: AKBandPassButterworthFilter.bandwidthRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, bandwidth]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [centerFrequency, bandwidth]))
         centerFrequency.value = Float(AKBandPassButterworthFilter.defaultCenterFrequency)
         bandwidth.value = Float(AKBandPassButterworthFilter.defaultBandwidth)
     }

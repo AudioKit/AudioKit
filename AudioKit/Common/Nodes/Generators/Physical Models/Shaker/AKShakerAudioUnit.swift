@@ -33,30 +33,20 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
         try super.init(componentDescription: componentDescription, options: options)
 
         let type = AUParameterTree.createParameter(
-            withIdentifier: "Type",
+            identifier: "Type",
             name: "type",
             address: 0,
-            min: 0,
-            max: 22,
+            range: 0...22,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            address: 1,
+            range: 0...10,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        setParameterTree(AUParameterTree.createTree(withChildren: [type, amplitude]))
+            flags: .default)
+        setParameterTree(AUParameterTree(children: [type, amplitude]))
         type.value = 0
         amplitude.value = 0.5
     }

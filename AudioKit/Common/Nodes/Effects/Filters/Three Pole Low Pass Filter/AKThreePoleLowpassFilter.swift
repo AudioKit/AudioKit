@@ -49,9 +49,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
-            if distortion == newValue {
-                return
-            }
+            guard distortion != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     distortionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -65,9 +63,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Filter cutoff frequency in Hertz.
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
-                return
-            }
+            guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -81,9 +77,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance == newValue {
-                return
-            }
+            guard resonance != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     resonanceParameter?.setValue(Float(newValue), originator: existingToken)

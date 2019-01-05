@@ -36,35 +36,25 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
             address: AKPluckedStringParameter.frequency.rawValue,
-            min: Float(AKPluckedString.frequencyRange.lowerBound),
-            max: Float(AKPluckedString.frequencyRange.upperBound),
+            range: AKPluckedString.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKPluckedStringParameter.amplitude.rawValue,
-            min: Float(AKPluckedString.amplitudeRange.lowerBound),
-            max: Float(AKPluckedString.amplitudeRange.upperBound),
+            range: AKPluckedString.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = Float(AKPluckedString.defaultFrequency)
         amplitude.value = Float(AKPluckedString.defaultAmplitude)
     }

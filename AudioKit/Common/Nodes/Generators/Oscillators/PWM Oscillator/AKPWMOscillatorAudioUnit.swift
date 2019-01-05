@@ -48,71 +48,46 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPWMOscillatorParameter.frequency.rawValue,
-            min: Float(AKPWMOscillator.frequencyRange.lowerBound),
-            max: Float(AKPWMOscillator.frequencyRange.upperBound),
+            range: AKPWMOscillator.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKPWMOscillatorParameter.amplitude.rawValue,
-            min: Float(AKPWMOscillator.amplitudeRange.lowerBound),
-            max: Float(AKPWMOscillator.amplitudeRange.upperBound),
+            range: AKPWMOscillator.amplitudeRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let pulseWidth = AUParameterTree.createParameter(
-            withIdentifier: "pulseWidth",
+            identifier: "pulseWidth",
             name: "Pulse Width",
             address: AKPWMOscillatorParameter.pulseWidth.rawValue,
-            min: Float(AKPWMOscillator.pulseWidthRange.lowerBound),
-            max: Float(AKPWMOscillator.pulseWidthRange.upperBound),
+            range: AKPWMOscillator.pulseWidthRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
-            withIdentifier: "detuningOffset",
+            identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPWMOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKPWMOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKPWMOscillator.detuningOffsetRange.upperBound),
+            range: AKPWMOscillator.detuningOffsetRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "detuningMultiplier",
+            identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKPWMOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKPWMOscillator.detuningMultiplierRange.upperBound),
+            range: AKPWMOscillator.detuningMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude, pulseWidth, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKPWMOscillator.defaultFrequency)
         amplitude.value = Float(AKPWMOscillator.defaultAmplitude)
         pulseWidth.value = Float(AKPWMOscillator.defaultPulseWidth)

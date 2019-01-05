@@ -36,35 +36,25 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            identifier: "feedback",
             name: "Feedback",
             address: AKCostelloReverbParameter.feedback.rawValue,
-            min: Float(AKCostelloReverb.feedbackRange.lowerBound),
-            max: Float(AKCostelloReverb.feedbackRange.upperBound),
+            range: AKCostelloReverb.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency",
             address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
-            min: Float(AKCostelloReverb.cutoffFrequencyRange.lowerBound),
-            max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
+            range: AKCostelloReverb.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [feedback, cutoffFrequency]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [feedback, cutoffFrequency]))
         feedback.value = Float(AKCostelloReverb.defaultFeedback)
         cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)
     }

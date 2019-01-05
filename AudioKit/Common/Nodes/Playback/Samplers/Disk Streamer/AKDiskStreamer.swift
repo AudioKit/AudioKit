@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKDiskStreamer is a player that
 /// will playback samples from disk, without incurring lots of memory usage
 
 import Foundation
@@ -58,14 +58,13 @@ open class AKDiskStreamer: AKNode, AKComponent {
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
         willSet {
-            if volume != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.volume = Float(newValue)
+            guard volume != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    volumeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.volume = Float(newValue)
             }
         }
     }

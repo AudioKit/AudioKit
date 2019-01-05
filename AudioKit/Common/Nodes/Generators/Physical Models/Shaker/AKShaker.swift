@@ -95,19 +95,17 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     /// Type of shaker to use
     open var type: AKShakerType = .maraca {
         willSet {
-            if type != newValue {
-                internalAU?.type = Double(type.rawValue)
-            }
+            guard type != newValue else { return }
+            internalAU?.type = Double(type.rawValue)
         }
     }
 
     /// Amplitude
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
-            if amplitude != newValue {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+            guard amplitude != newValue else { return }
+            if let existingToken = token {
+                amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
             }
         }
     }

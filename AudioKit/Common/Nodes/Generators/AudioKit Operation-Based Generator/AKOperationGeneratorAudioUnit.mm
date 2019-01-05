@@ -67,7 +67,7 @@
 - (void)createParameters {
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
     parameterTreeBlock(OperationGenerator)
 }
 

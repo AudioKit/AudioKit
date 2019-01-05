@@ -36,35 +36,25 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+            identifier: "frequency",
             name: "Resonant Frequency (Hz)",
             address: AKModalResonanceFilterParameter.frequency.rawValue,
-            min: Float(AKModalResonanceFilter.frequencyRange.lowerBound),
-            max: Float(AKModalResonanceFilter.frequencyRange.upperBound),
+            range: AKModalResonanceFilter.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let qualityFactor = AUParameterTree.createParameter(
-            withIdentifier: "qualityFactor",
+            identifier: "qualityFactor",
             name: "Quality Factor",
             address: AKModalResonanceFilterParameter.qualityFactor.rawValue,
-            min: Float(AKModalResonanceFilter.qualityFactorRange.lowerBound),
-            max: Float(AKModalResonanceFilter.qualityFactorRange.upperBound),
+            range: AKModalResonanceFilter.qualityFactorRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, qualityFactor]))
+        setParameterTree(AUParameterTree(children: [frequency, qualityFactor]))
         frequency.value = Float(AKModalResonanceFilter.defaultFrequency)
         qualityFactor.value = Float(AKModalResonanceFilter.defaultQualityFactor)
     }

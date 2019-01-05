@@ -56,95 +56,60 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let intensity = AUParameterTree.createParameter(
-            withIdentifier: "intensity",
+            identifier: "intensity",
             name: "The intensity of the dripping sounds.",
             address: AKDripParameter.intensity.rawValue,
-            min: Float(AKDrip.intensityRange.lowerBound),
-            max: Float(AKDrip.intensityRange.upperBound),
+            range: AKDrip.intensityRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let dampingFactor = AUParameterTree.createParameter(
-            withIdentifier: "dampingFactor",
+            identifier: "dampingFactor",
             name: "The damping factor. Maximum value is 2.0.",
             address: AKDripParameter.dampingFactor.rawValue,
-            min: Float(AKDrip.dampingFactorRange.lowerBound),
-            max: Float(AKDrip.dampingFactorRange.upperBound),
+            range: AKDrip.dampingFactorRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let energyReturn = AUParameterTree.createParameter(
-            withIdentifier: "energyReturn",
+            identifier: "energyReturn",
             name: "The amount of energy to add back into the system.",
             address: AKDripParameter.energyReturn.rawValue,
-            min: Float(AKDrip.energyReturnRange.lowerBound),
-            max: Float(AKDrip.energyReturnRange.upperBound),
+            range: AKDrip.energyReturnRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let mainResonantFrequency = AUParameterTree.createParameter(
-            withIdentifier: "mainResonantFrequency",
+            identifier: "mainResonantFrequency",
             name: "Main resonant frequency.",
             address: AKDripParameter.mainResonantFrequency.rawValue,
-            min: Float(AKDrip.mainResonantFrequencyRange.lowerBound),
-            max: Float(AKDrip.mainResonantFrequencyRange.upperBound),
+            range: AKDrip.mainResonantFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let firstResonantFrequency = AUParameterTree.createParameter(
-            withIdentifier: "firstResonantFrequency",
+            identifier: "firstResonantFrequency",
             name: "The first resonant frequency.",
             address: AKDripParameter.firstResonantFrequency.rawValue,
-            min: Float(AKDrip.firstResonantFrequencyRange.lowerBound),
-            max: Float(AKDrip.firstResonantFrequencyRange.upperBound),
+            range: AKDrip.firstResonantFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let secondResonantFrequency = AUParameterTree.createParameter(
-            withIdentifier: "secondResonantFrequency",
+            identifier: "secondResonantFrequency",
             name: "The second resonant frequency.",
             address: AKDripParameter.secondResonantFrequency.rawValue,
-            min: Float(AKDrip.secondResonantFrequencyRange.lowerBound),
-            max: Float(AKDrip.secondResonantFrequencyRange.upperBound),
+            range: AKDrip.secondResonantFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
         let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            identifier: "amplitude",
             name: "Amplitude.",
             address: AKDripParameter.amplitude.rawValue,
-            min: Float(AKDrip.amplitudeRange.lowerBound),
-            max: Float(AKDrip.amplitudeRange.upperBound),
+            range: AKDrip.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [intensity, dampingFactor, energyReturn, mainResonantFrequency, firstResonantFrequency, secondResonantFrequency, amplitude]))
         intensity.value = Float(AKDrip.defaultIntensity)
         dampingFactor.value = Float(AKDrip.defaultDampingFactor)
         energyReturn.value = Float(AKDrip.defaultEnergyReturn)

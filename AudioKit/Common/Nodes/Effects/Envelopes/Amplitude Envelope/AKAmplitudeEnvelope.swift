@@ -23,16 +23,16 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var releaseDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Attack Duration
-    public static let attackDurationRange = 0 ... 99
+    public static let attackDurationRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Decay Duration
-    public static let decayDurationRange = 0 ... 99
+    public static let decayDurationRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Sustain Level
-    public static let sustainLevelRange = 0 ... 99
+    public static let sustainLevelRange = 0.0 ... 99.0
 
     /// Lower and upper bounds for Release Duration
-    public static let releaseDurationRange = 0 ... 99
+    public static let releaseDurationRange = 0.0 ... 99.0
 
     /// Initial value for Attack Duration
     public static let defaultAttackDuration = 0.1
@@ -56,9 +56,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackDuration == newValue {
-                return
-            }
+            guard attackDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -72,9 +70,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Decay Duration in seconds
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
-            if decayDuration == newValue {
-                return
-            }
+            guard decayDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -88,9 +84,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = defaultSustainLevel {
         willSet {
-            if sustainLevel == newValue {
-                return
-            }
+            guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
@@ -104,9 +98,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     /// Release Duration in seconds
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseDuration == newValue {
-                return
-            }
+            guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -148,7 +140,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
 
         _Self.register()
         super.init()
-        
+
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
             guard let strongSelf = self else {
                 AKLog("Error: self is nil")

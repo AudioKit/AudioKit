@@ -40,12 +40,12 @@
     standardGeneratorSetup(MorphingOscillatorBank)
 
     // Create a parameter object for the index.
-    AUParameter *indexAUParameter = [AUParameter parameter:@"index"
-                                                      name:@"Index"
-                                                   address:AKMorphingOscillatorBankDSPKernel::indexAddress
-                                                       min:0.0
-                                                       max:1.0
-                                                      unit:kAudioUnitParameterUnit_Generic];
+    AUParameter *indexAUParameter = [AUParameter parameterWithIdentifier:@"index"
+                                                                    name:@"Index"
+                                                                 address:AKMorphingOscillatorBankDSPKernel::indexAddress
+                                                                     min:0.0
+                                                                     max:1.0
+                                                                    unit:kAudioUnitParameterUnit_Generic];
 
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
@@ -53,10 +53,10 @@
     _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
 
     [self setKernelPtr:&_kernel];
-    
+
     // Create the parameter tree.
-    NSArray *children = [[self getStandardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
-    _parameterTree = [AUParameterTree createTreeWithChildren:children];
+    NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
+    _parameterTree = [AUParameterTree treeWithChildren:children];
     parameterTreeBlock(MorphingOscillatorBank)
 }
 

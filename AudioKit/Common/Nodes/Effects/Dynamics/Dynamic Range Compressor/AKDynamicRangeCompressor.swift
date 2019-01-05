@@ -56,9 +56,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Ratio to compress with, a value > 1 will compress
     @objc open dynamic var ratio: Double = defaultRatio {
         willSet {
-            if ratio == newValue {
-                return
-            }
+            guard ratio != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     ratioParameter?.setValue(Float(newValue), originator: existingToken)
@@ -72,9 +70,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Threshold (in dB) 0 = max
     @objc open dynamic var threshold: Double = defaultThreshold {
         willSet {
-            if threshold == newValue {
-                return
-            }
+            guard threshold != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     thresholdParameter?.setValue(Float(newValue), originator: existingToken)
@@ -88,9 +84,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackDuration == newValue {
-                return
-            }
+            guard attackDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
@@ -104,9 +98,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Release Duration in seconds
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseDuration == newValue {
-                return
-            }
+            guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)

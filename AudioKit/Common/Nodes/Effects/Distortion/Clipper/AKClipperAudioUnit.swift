@@ -32,22 +32,17 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
         let limit = AUParameterTree.createParameter(
-            withIdentifier: "limit",
+            identifier: "limit",
             name: "Threshold",
             address: AKClipperParameter.limit.rawValue,
-            min: Float(AKClipper.limitRange.lowerBound),
-            max: Float(AKClipper.limitRange.upperBound),
+            range: AKClipper.limitRange,
             unit: .generic,
-            unitName: nil,
-            flags: .default,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [limit]))
         limit.value = Float(AKClipper.defaultLimit)
     }
 
