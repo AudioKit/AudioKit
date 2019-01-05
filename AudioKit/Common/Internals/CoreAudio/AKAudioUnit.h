@@ -59,12 +59,12 @@
 @end
 
 @interface AUParameterTree(Ext)
-+(instancetype)tree:(NSArray<AUParameterNode *> *)children;
++(_Nonnull instancetype)tree:(NSArray<AUParameterNode *> * _Nonnull)children;
 @end
 
-@interface AVAudioNode(Ext)
--(instancetype)initWithComponent:(AudioComponentDescription)component;
-@end
+//@interface AVAudioNode(Ext)
+//-(instancetype)initWithComponent:(AudioComponentDescription)component;
+//@end
 
 
 #define standardKernelPassthroughs() \
