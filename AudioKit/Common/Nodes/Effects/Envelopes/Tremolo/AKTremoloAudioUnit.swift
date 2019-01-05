@@ -39,14 +39,14 @@ public class AKTremoloAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        let frequency = AUParameterTree.createParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKTremoloParameter.frequency.rawValue,
             range: AKTremolo.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let depth = AUParameter(
+        let depth = AUParameterTree.createParameter(
             identifier: "depth",
             name: "Depth",
             address: AKTremoloParameter.depth.rawValue,

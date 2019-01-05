@@ -46,28 +46,28 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let pregain = AUParameter(
+        let pregain = AUParameterTree.createParameter(
             identifier: "pregain",
             name: "Pregain",
             address: AKTanhDistortionParameter.pregain.rawValue,
             range: AKTanhDistortion.pregainRange,
             unit: .generic,
             flags: .default)
-        let postgain = AUParameter(
+        let postgain = AUParameterTree.createParameter(
             identifier: "postgain",
             name: "Postgain",
             address: AKTanhDistortionParameter.postgain.rawValue,
             range: AKTanhDistortion.postgainRange,
             unit: .generic,
             flags: .default)
-        let positiveShapeParameter = AUParameter(
+        let positiveShapeParameter = AUParameterTree.createParameter(
             identifier: "positiveShapeParameter",
             name: "Positive Shape Parameter",
             address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
             range: AKTanhDistortion.positiveShapeParameterRange,
             unit: .generic,
             flags: .default)
-        let negativeShapeParameter = AUParameter(
+        let negativeShapeParameter = AUParameterTree.createParameter(
             identifier: "negativeShapeParameter",
             name: "Negative Shape Parameter",
             address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,

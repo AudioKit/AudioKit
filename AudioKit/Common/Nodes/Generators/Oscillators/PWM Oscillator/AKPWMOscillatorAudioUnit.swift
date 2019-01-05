@@ -51,35 +51,35 @@ public class AKPWMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        let frequency = AUParameterTree.createParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPWMOscillatorParameter.frequency.rawValue,
             range: AKPWMOscillator.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPWMOscillatorParameter.amplitude.rawValue,
             range: AKPWMOscillator.amplitudeRange,
             unit: .hertz,
             flags: .default)
-        let pulseWidth = AUParameter(
+        let pulseWidth = AUParameterTree.createParameter(
             identifier: "pulseWidth",
             name: "Pulse Width",
             address: AKPWMOscillatorParameter.pulseWidth.rawValue,
             range: AKPWMOscillator.pulseWidthRange,
             unit: .generic,
             flags: .default)
-        let detuningOffset = AUParameter(
+        let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPWMOscillatorParameter.detuningOffset.rawValue,
             range: AKPWMOscillator.detuningOffsetRange,
             unit: .hertz,
             flags: .default)
-        let detuningMultiplier = AUParameter(
+        let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPWMOscillatorParameter.detuningMultiplier.rawValue,

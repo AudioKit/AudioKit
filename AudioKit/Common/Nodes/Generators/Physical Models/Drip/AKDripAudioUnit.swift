@@ -59,49 +59,49 @@ public class AKDripAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let intensity = AUParameter(
+        let intensity = AUParameterTree.createParameter(
             identifier: "intensity",
             name: "The intensity of the dripping sounds.",
             address: AKDripParameter.intensity.rawValue,
             range: AKDrip.intensityRange,
             unit: .generic,
             flags: .default)
-        let dampingFactor = AUParameter(
+        let dampingFactor = AUParameterTree.createParameter(
             identifier: "dampingFactor",
             name: "The damping factor. Maximum value is 2.0.",
             address: AKDripParameter.dampingFactor.rawValue,
             range: AKDrip.dampingFactorRange,
             unit: .generic,
             flags: .default)
-        let energyReturn = AUParameter(
+        let energyReturn = AUParameterTree.createParameter(
             identifier: "energyReturn",
             name: "The amount of energy to add back into the system.",
             address: AKDripParameter.energyReturn.rawValue,
             range: AKDrip.energyReturnRange,
             unit: .generic,
             flags: .default)
-        let mainResonantFrequency = AUParameter(
+        let mainResonantFrequency = AUParameterTree.createParameter(
             identifier: "mainResonantFrequency",
             name: "Main resonant frequency.",
             address: AKDripParameter.mainResonantFrequency.rawValue,
             range: AKDrip.mainResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let firstResonantFrequency = AUParameter(
+        let firstResonantFrequency = AUParameterTree.createParameter(
             identifier: "firstResonantFrequency",
             name: "The first resonant frequency.",
             address: AKDripParameter.firstResonantFrequency.rawValue,
             range: AKDrip.firstResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let secondResonantFrequency = AUParameter(
+        let secondResonantFrequency = AUParameterTree.createParameter(
             identifier: "secondResonantFrequency",
             name: "The second resonant frequency.",
             address: AKDripParameter.secondResonantFrequency.rawValue,
             range: AKDrip.secondResonantFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameter(
+        let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude.",
             address: AKDripParameter.amplitude.rawValue,

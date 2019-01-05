@@ -47,28 +47,28 @@ public class AKFlangerAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        let frequency = AUParameterTree.createParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
             range: AKFlanger.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let depth = AUParameter(
+        let depth = AUParameterTree.createParameter(
             identifier: "depth",
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
             range: AKFlanger.depthRange,
             unit: .generic,
             flags: .default)
-        let feedback = AUParameter(
+        let feedback = AUParameterTree.createParameter(
             identifier: "feedback",
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
             range: AKFlanger.feedbackRange,
             unit: .generic,
             flags: .default)
-        let dryWetMix = AUParameter(
+        let dryWetMix = AUParameterTree.createParameter(
             identifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,

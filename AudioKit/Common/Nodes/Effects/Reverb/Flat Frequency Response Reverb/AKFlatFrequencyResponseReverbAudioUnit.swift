@@ -35,7 +35,7 @@ public class AKFlatFrequencyResponseReverbAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let reverbDuration = AUParameter(
+        let reverbDuration = AUParameterTree.createParameter(
             identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKFlatFrequencyResponseReverbParameter.reverbDuration.rawValue,

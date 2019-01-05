@@ -60,6 +60,7 @@
 @end
 
 @interface AUParameterTree(Ext)
+
 +(_Nonnull instancetype)treeWithChildren:(NSArray<AUParameter *> * _Nonnull)children;
 @end
 

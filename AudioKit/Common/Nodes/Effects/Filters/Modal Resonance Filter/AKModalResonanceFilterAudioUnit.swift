@@ -39,14 +39,14 @@ public class AKModalResonanceFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameter(
+        let frequency = AUParameterTree.createParameter(
             identifier: "frequency",
             name: "Resonant Frequency (Hz)",
             address: AKModalResonanceFilterParameter.frequency.rawValue,
             range: AKModalResonanceFilter.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let qualityFactor = AUParameter(
+        let qualityFactor = AUParameterTree.createParameter(
             identifier: "qualityFactor",
             name: "Quality Factor",
             address: AKModalResonanceFilterParameter.qualityFactor.rawValue,

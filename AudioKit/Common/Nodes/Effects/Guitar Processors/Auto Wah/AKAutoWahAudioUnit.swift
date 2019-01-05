@@ -43,21 +43,21 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let wah = AUParameter(
+        let wah = AUParameterTree.createParameter(
             identifier: "wah",
             name: "Wah Amount",
             address: AKAutoWahParameter.wah.rawValue,
             range: AKAutoWah.wahRange,
             unit: .generic,
             flags: .default)
-        let mix = AUParameter(
+        let mix = AUParameterTree.createParameter(
             identifier: "mix",
             name: "Dry/Wet Mix",
             address: AKAutoWahParameter.mix.rawValue,
             range: AKAutoWah.mixRange,
             unit: .percent,
             flags: .default)
-        let amplitude = AUParameter(
+        let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Overall level",
             address: AKAutoWahParameter.amplitude.rawValue,

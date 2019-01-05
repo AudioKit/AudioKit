@@ -58,49 +58,49 @@ public class AKMetalBarAudioUnit: AKGeneratorAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let leftBoundaryCondition = AUParameter(
+        let leftBoundaryCondition = AUParameterTree.createParameter(
             identifier: "leftBoundaryCondition",
             name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
             address: AKMetalBarParameter.leftBoundaryCondition.rawValue,
             range: AKMetalBar.leftBoundaryConditionRange,
             unit: .hertz,
             flags: .default)
-        let rightBoundaryCondition = AUParameter(
+        let rightBoundaryCondition = AUParameterTree.createParameter(
             identifier: "rightBoundaryCondition",
             name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
             address: AKMetalBarParameter.rightBoundaryCondition.rawValue,
             range: AKMetalBar.rightBoundaryConditionRange,
             unit: .hertz,
             flags: .default)
-        let decayDuration = AUParameter(
+        let decayDuration = AUParameterTree.createParameter(
             identifier: "decayDuration",
             name: "30db decay time (in seconds).",
             address: AKMetalBarParameter.decayDuration.rawValue,
             range: AKMetalBar.decayDurationRange,
             unit: .hertz,
             flags: .default)
-        let scanSpeed = AUParameter(
+        let scanSpeed = AUParameterTree.createParameter(
             identifier: "scanSpeed",
             name: "Speed of scanning the output location.",
             address: AKMetalBarParameter.scanSpeed.rawValue,
             range: AKMetalBar.scanSpeedRange,
             unit: .hertz,
             flags: .default)
-        let position = AUParameter(
+        let position = AUParameterTree.createParameter(
             identifier: "position",
             name: "Position along bar that strike occurs.",
             address: AKMetalBarParameter.position.rawValue,
             range: AKMetalBar.positionRange,
             unit: .generic,
             flags: .default)
-        let strikeVelocity = AUParameter(
+        let strikeVelocity = AUParameterTree.createParameter(
             identifier: "strikeVelocity",
             name: "Normalized strike velocity",
             address: AKMetalBarParameter.strikeVelocity.rawValue,
             range: AKMetalBar.strikeVelocityRange,
             unit: .generic,
             flags: .default)
-        let strikeWidth = AUParameter(
+        let strikeWidth = AUParameterTree.createParameter(
             identifier: "strikeWidth",
             name: "Spatial width of strike.",
             address: AKMetalBarParameter.strikeWidth.rawValue,
