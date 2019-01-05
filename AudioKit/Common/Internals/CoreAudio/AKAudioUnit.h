@@ -38,24 +38,31 @@
 //@end
 
 @interface AUParameter(Ext)
--(_Nonnull instancetype)init:(NSString * _Nonnull)identifier
-                        name:(NSString * _Nonnull)name
-                     address:(AUParameterAddress)address
-                         min:(AUValue)min
-                         max:(AUValue)max
-                        unit:(AudioUnitParameterUnit)unit
-                       flags:(AudioUnitParameterOptions)flags;
+//-(_Nonnull instancetype)init:(NSString * _Nonnull)identifier
+//                        name:(NSString * _Nonnull)name
+//                     address:(AUParameterAddress)address
+//                         min:(AUValue)min
+//                         max:(AUValue)max
+//                        unit:(AudioUnitParameterUnit)unit
+//                       flags:(AudioUnitParameterOptions)flags;
 
-+(_Nonnull instancetype)parameter:(NSString * _Nonnull)identifier
-                             name:(NSString * _Nonnull)name
-                          address:(AUParameterAddress)address
-                              min:(AUValue)min
-                              max:(AUValue)max
-                             unit:(AudioUnitParameterUnit)unit;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit
+                                          flags:(AudioUnitParameterOptions)flags;
 
-+(_Nonnull instancetype)frequency:(NSString * _Nonnull)identifier
-                             name:(NSString * _Nonnull)name
-                          address:(AUParameterAddress)address;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit;
+//+(_Nonnull instancetype)frequency:(NSString * _Nonnull)identifier
+//                             name:(NSString * _Nonnull)name
+//                          address:(AUParameterAddress)address;
 
 @end
 
