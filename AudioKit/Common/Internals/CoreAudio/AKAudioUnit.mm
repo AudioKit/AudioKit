@@ -180,19 +180,19 @@
 @end
 
 
-
-@implementation AVAudioNode(Ext)
--(instancetype)initWithComponent:(AudioComponentDescription)component {
-		self = [self init];
-		__block AVAudioNode * __strong * _this = &self;
-
-  [AVAudioUnit instantiateWithComponentDescription:component
-                                           options:0
-                                 completionHandler:^(__kindof AVAudioUnit * _Nullable audioUnit,
-                                                     NSError * _Nullable error) {
-
-                                   *_this = audioUnit;
-                                 }];
-  return self;
-}
-@end
+//
+//@implementation AVAudioNode(Ext)
+//-(instancetype)initWithComponent:(AudioComponentDescription)component {
+//        self = [self init];
+//        __block AVAudioNode * __strong * _this = &self;
+//
+//  [AVAudioUnit instantiateWithComponentDescription:component
+//                                           options:0
+//                                 completionHandler:^(__kindof AVAudioUnit * _Nullable audioUnit,
+//                                                     NSError * _Nullable error) {
+//
+//                                   *_this = audioUnit;
+//                                 }];
+//  return self;
+//}
+//@end
