@@ -39,8 +39,8 @@ public class AKBrownianNoiseAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "amplitude",
             name: "Amplitude",
             address: AKBrownianNoiseParameter.amplitude.rawValue,
-            min: Float(AKBrownianNoise.amplitudeRange.lowerBound),
-            max: Float(AKBrownianNoise.amplitudeRange.upperBound),
+            range: AKBrownianNoise.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         

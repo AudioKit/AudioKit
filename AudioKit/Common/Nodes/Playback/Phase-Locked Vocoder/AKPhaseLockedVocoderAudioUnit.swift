@@ -47,8 +47,8 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "position",
             name: "Position",
             address: AKPhaseLockedVocoderParameter.position.rawValue,
-            min: Float(AKPhaseLockedVocoder.positionRange.lowerBound),
-            max: Float(AKPhaseLockedVocoder.positionRange.upperBound),
+            range: AKPhaseLockedVocoder.positionRange,
+            
             unit: .generic,
             flags: .default)
 
@@ -56,8 +56,8 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
-            min: Float(AKPhaseLockedVocoder.amplitudeRange.lowerBound),
-            max: Float(AKPhaseLockedVocoder.amplitudeRange.upperBound),
+            range: AKPhaseLockedVocoder.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
 
@@ -65,8 +65,8 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "pitchRatio",
             name: "Pitch Ratio",
             address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,
-            min: Float(AKPhaseLockedVocoder.pitchRatioRange.lowerBound),
-            max: Float(AKPhaseLockedVocoder.pitchRatioRange.upperBound),
+            range: AKPhaseLockedVocoder.pitchRatioRange,
+            
             unit: .generic,
             flags: .default)
 

@@ -55,40 +55,40 @@ public class AKVocalTractAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Glottal frequency.",
             address: AKVocalTractParameter.frequency.rawValue,
-            min: Float(AKVocalTract.frequencyRange.lowerBound),
-            max: Float(AKVocalTract.frequencyRange.upperBound),
+            range: AKVocalTract.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let tonguePosition = AUParameterTree.createParameter(
             identifier: "tonguePosition",
             name: "Tongue position (0-1)",
             address: AKVocalTractParameter.tonguePosition.rawValue,
-            min: Float(AKVocalTract.tonguePositionRange.lowerBound),
-            max: Float(AKVocalTract.tonguePositionRange.upperBound),
+            range: AKVocalTract.tonguePositionRange,
+            
             unit: .generic,
             flags: .default)
         let tongueDiameter = AUParameterTree.createParameter(
             identifier: "tongueDiameter",
             name: "Tongue diameter (0-1)",
             address: AKVocalTractParameter.tongueDiameter.rawValue,
-            min: Float(AKVocalTract.tongueDiameterRange.lowerBound),
-            max: Float(AKVocalTract.tongueDiameterRange.upperBound),
+            range: AKVocalTract.tongueDiameterRange,
+            
             unit: .generic,
             flags: .default)
         let tenseness = AUParameterTree.createParameter(
             identifier: "tenseness",
             name: "Vocal tenseness. 0 = all breath. 1=fully saturated.",
             address: AKVocalTractParameter.tenseness.rawValue,
-            min: Float(AKVocalTract.tensenessRange.lowerBound),
-            max: Float(AKVocalTract.tensenessRange.upperBound),
+            range: AKVocalTract.tensenessRange,
+            
             unit: .generic,
             flags: .default)
         let nasality = AUParameterTree.createParameter(
             identifier: "nasality",
             name: "Sets the velum size. Larger values of this creates more nasally sounds.",
             address: AKVocalTractParameter.nasality.rawValue,
-            min: Float(AKVocalTract.nasalityRange.lowerBound),
-            max: Float(AKVocalTract.nasalityRange.upperBound),
+            range: AKVocalTract.nasalityRange,
+            
             unit: .generic,
             flags: .default)
         

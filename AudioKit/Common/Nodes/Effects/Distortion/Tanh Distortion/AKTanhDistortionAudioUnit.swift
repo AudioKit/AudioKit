@@ -50,32 +50,32 @@ public class AKTanhDistortionAudioUnit: AKAudioUnitBase {
             identifier: "pregain",
             name: "Pregain",
             address: AKTanhDistortionParameter.pregain.rawValue,
-            min: Float(AKTanhDistortion.pregainRange.lowerBound),
-            max: Float(AKTanhDistortion.pregainRange.upperBound),
+            range: AKTanhDistortion.pregainRange,
+            
             unit: .generic,
             flags: .default)
         let postgain = AUParameterTree.createParameter(
             identifier: "postgain",
             name: "Postgain",
             address: AKTanhDistortionParameter.postgain.rawValue,
-            min: Float(AKTanhDistortion.postgainRange.lowerBound),
-            max: Float(AKTanhDistortion.postgainRange.upperBound),
+            range: AKTanhDistortion.postgainRange,
+            
             unit: .generic,
             flags: .default)
         let positiveShapeParameter = AUParameterTree.createParameter(
             identifier: "positiveShapeParameter",
             name: "Positive Shape Parameter",
             address: AKTanhDistortionParameter.positiveShapeParameter.rawValue,
-            min: Float(AKTanhDistortion.positiveShapeParameterRange.lowerBound),
-            max: Float(AKTanhDistortion.positiveShapeParameterRange.upperBound),
+            range: AKTanhDistortion.positiveShapeParameterRange,
+            
             unit: .generic,
             flags: .default)
         let negativeShapeParameter = AUParameterTree.createParameter(
             identifier: "negativeShapeParameter",
             name: "Negative Shape Parameter",
             address: AKTanhDistortionParameter.negativeShapeParameter.rawValue,
-            min: Float(AKTanhDistortion.negativeShapeParameterRange.lowerBound),
-            max: Float(AKTanhDistortion.negativeShapeParameterRange.upperBound),
+            range: AKTanhDistortion.negativeShapeParameterRange,
+            
             unit: .generic,
             flags: .default)
 

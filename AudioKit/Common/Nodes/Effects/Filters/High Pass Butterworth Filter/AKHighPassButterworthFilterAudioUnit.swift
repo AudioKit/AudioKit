@@ -39,8 +39,8 @@ public class AKHighPassButterworthFilterAudioUnit: AKAudioUnitBase {
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKHighPassButterworthFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKHighPassButterworthFilter.cutoffFrequencyRange.upperBound),
+            range: AKHighPassButterworthFilter.cutoffFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         

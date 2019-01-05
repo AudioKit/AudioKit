@@ -47,24 +47,24 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
             identifier: "wah",
             name: "Wah Amount",
             address: AKAutoWahParameter.wah.rawValue,
-            min: Float(AKAutoWah.wahRange.lowerBound),
-            max: Float(AKAutoWah.wahRange.upperBound),
+            range: AKAutoWah.wahRange,
+            
             unit: .generic,
             flags: .default)
         let mix = AUParameterTree.createParameter(
             identifier: "mix",
             name: "Dry/Wet Mix",
             address: AKAutoWahParameter.mix.rawValue,
-            min: Float(AKAutoWah.mixRange.lowerBound),
-            max: Float(AKAutoWah.mixRange.upperBound),
+            range: AKAutoWah.mixRange,
+            
             unit: .percent,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Overall level",
             address: AKAutoWahParameter.amplitude.rawValue,
-            min: Float(AKAutoWah.amplitudeRange.lowerBound),
-            max: Float(AKAutoWah.amplitudeRange.upperBound),
+            range: AKAutoWah.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         

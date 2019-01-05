@@ -24,7 +24,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     fileprivate var reverbDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Reverb Duration
-    public static let reverbDurationRange = 0 ... 10
+    public static let reverbDurationRange = 0.0 ... 10.0
 
     /// Initial value for Reverb Duration
     public static let defaultReverbDuration = 0.5

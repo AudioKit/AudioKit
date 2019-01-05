@@ -39,8 +39,8 @@ public class AKToneFilterAudioUnit: AKAudioUnitBase {
             identifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
             address: AKToneFilterParameter.halfPowerPoint.rawValue,
-            min: Float(AKToneFilter.halfPowerPointRange.lowerBound),
-            max: Float(AKToneFilter.halfPowerPointRange.upperBound),
+            range: AKToneFilter.halfPowerPointRange,
+            
             unit: .hertz,
             flags: .default)
 

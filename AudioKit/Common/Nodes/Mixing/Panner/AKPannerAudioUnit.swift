@@ -39,8 +39,8 @@ public class AKPannerAudioUnit: AKAudioUnitBase {
             identifier: "pan",
             name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
             address: AKPannerParameter.pan.rawValue,
-            min: Float(AKPanner.panRange.lowerBound),
-            max: Float(AKPanner.panRange.upperBound),
+            range: AKPanner.panRange,
+            
             unit: .generic,
             flags: .default)
         

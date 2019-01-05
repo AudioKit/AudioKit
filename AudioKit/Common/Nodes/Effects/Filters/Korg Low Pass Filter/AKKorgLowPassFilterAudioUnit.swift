@@ -47,24 +47,24 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
             identifier: "cutoffFrequency",
             name: "Filter cutoff",
             address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKKorgLowPassFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.cutoffFrequencyRange.upperBound),
+            range: AKKorgLowPassFilter.cutoffFrequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let resonance = AUParameterTree.createParameter(
             identifier: "resonance",
             name: "Filter resonance (should be between 0-2)",
             address: AKKorgLowPassFilterParameter.resonance.rawValue,
-            min: Float(AKKorgLowPassFilter.resonanceRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.resonanceRange.upperBound),
+            range: AKKorgLowPassFilter.resonanceRange,
+            
             unit: .generic,
             flags: .default)
         let saturation = AUParameterTree.createParameter(
             identifier: "saturation",
             name: "Filter saturation.",
             address: AKKorgLowPassFilterParameter.saturation.rawValue,
-            min: Float(AKKorgLowPassFilter.saturationRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.saturationRange.upperBound),
+            range: AKKorgLowPassFilter.saturationRange,
+            
             unit: .generic,
             flags: .default)
         

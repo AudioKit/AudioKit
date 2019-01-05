@@ -42,16 +42,16 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
             identifier: "bitDepth",
             name: "Bit Depth",
             address: AKBitCrusherParameter.bitDepth.rawValue,
-            min: Float(AKBitCrusher.bitDepthRange.lowerBound),
-            max: Float(AKBitCrusher.bitDepthRange.upperBound),
+            range: AKBitCrusher.bitDepthRange,
+            
             unit: .generic,
             flags: .default)
         let sampleRate = AUParameterTree.createParameter(
             identifier: "sampleRate",
             name: "Sample Rate (Hz)",
             address: AKBitCrusherParameter.sampleRate.rawValue,
-            min: Float(AKBitCrusher.sampleRateRange.lowerBound),
-            max: Float(AKBitCrusher.sampleRateRange.upperBound),
+            range: AKBitCrusher.sampleRateRange,
+            
             unit: .hertz,
             flags: .default)
         

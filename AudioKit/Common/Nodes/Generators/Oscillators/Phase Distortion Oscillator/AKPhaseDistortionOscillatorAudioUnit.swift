@@ -55,40 +55,40 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
-            min: Float(AKPhaseDistortionOscillator.frequencyRange.lowerBound),
-            max: Float(AKPhaseDistortionOscillator.frequencyRange.upperBound),
+            range: AKPhaseDistortionOscillator.frequencyRange,
+            
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameterTree.createParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
-            min: Float(AKPhaseDistortionOscillator.amplitudeRange.lowerBound),
-            max: Float(AKPhaseDistortionOscillator.amplitudeRange.upperBound),
+            range: AKPhaseDistortionOscillator.amplitudeRange,
+            
             unit: .generic,
             flags: .default)
         let phaseDistortion = AUParameterTree.createParameter(
             identifier: "phaseDistortion",
             name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
             address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
-            min: Float(AKPhaseDistortionOscillator.phaseDistortionRange.lowerBound),
-            max: Float(AKPhaseDistortionOscillator.phaseDistortionRange.upperBound),
+            range: AKPhaseDistortionOscillator.phaseDistortionRange,
+            
             unit: .generic,
             flags: .default)
         let detuningOffset = AUParameterTree.createParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
-            min: Float(AKPhaseDistortionOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKPhaseDistortionOscillator.detuningOffsetRange.upperBound),
+            range: AKPhaseDistortionOscillator.detuningOffsetRange,
+            
             unit: .hertz,
             flags: .default)
         let detuningMultiplier = AUParameterTree.createParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,
-            min: Float(AKPhaseDistortionOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKPhaseDistortionOscillator.detuningMultiplierRange.upperBound),
+            range: AKPhaseDistortionOscillator.detuningMultiplierRange,
+            
             unit: .generic,
             flags: .default)
         
