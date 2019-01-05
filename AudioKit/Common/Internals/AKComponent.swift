@@ -43,6 +43,24 @@ extension AUParameterTree {
     public subscript (key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
+
+    class func createParameter(identifier: String,
+                               name: String,
+                               address: AUParameterAddress,
+                               range: ClosedRange<AUValue>,
+                               unit: AudioUnitParameterUnit,
+                               flags: AudioUnitParameterOptions = []) -> AUParameter {
+        return createParameter(withIdentifier: identifier,
+                               name: name,
+                               address: address,
+                               min: range.lowerBound,
+                               max: range.upperBound,
+                               unit: unit,
+                               unitName: nil,
+                               flags:flags,
+                               valueStrings: nil,
+                               dependentParameters: nil)
+    }
 }
 
 /// Adding convenience initializers
