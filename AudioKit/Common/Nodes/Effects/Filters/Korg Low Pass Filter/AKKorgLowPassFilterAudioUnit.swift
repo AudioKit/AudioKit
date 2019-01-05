@@ -43,21 +43,21 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let cutoffFrequency = AUParameterTree.createParameter(
+        let cutoffFrequency = AUParameter(
             identifier: "cutoffFrequency",
             name: "Filter cutoff",
             address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
             range: AKKorgLowPassFilter.cutoffFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let resonance = AUParameterTree.createParameter(
+        let resonance = AUParameter(
             identifier: "resonance",
             name: "Filter resonance (should be between 0-2)",
             address: AKKorgLowPassFilterParameter.resonance.rawValue,
             range: AKKorgLowPassFilter.resonanceRange,
             unit: .generic,
             flags: .default)
-        let saturation = AUParameterTree.createParameter(
+        let saturation = AUParameter(
             identifier: "saturation",
             name: "Filter saturation.",
             address: AKKorgLowPassFilterParameter.saturation.rawValue,

@@ -51,35 +51,35 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameterTree.createParameter(
+        let frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (in Hz)",
             address: AKMorphingOscillatorParameter.frequency.rawValue,
             range: AKMorphingOscillator.frequencyRange,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameterTree.createParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude (typically a value between 0 and 1).",
             address: AKMorphingOscillatorParameter.amplitude.rawValue,
             range: AKMorphingOscillator.amplitudeRange,
             unit: .hertz,
             flags: .default)
-        let index = AUParameterTree.createParameter(
+        let index = AUParameter(
             identifier: "index",
             name: "Index of the wavetable to use (fractional are okay).",
             address: AKMorphingOscillatorParameter.index.rawValue,
             range: AKMorphingOscillator.indexRange,
             unit: .hertz,
             flags: .default)
-        let detuningOffset = AUParameterTree.createParameter(
+        let detuningOffset = AUParameter(
             identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
             address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
             range: AKMorphingOscillator.detuningOffsetRange,
             unit: .hertz,
             flags: .default)
-        let detuningMultiplier = AUParameterTree.createParameter(
+        let detuningMultiplier = AUParameter(
             identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
             address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,

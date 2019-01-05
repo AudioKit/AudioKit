@@ -38,14 +38,14 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
     public override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        let time = AUParameterTree.createParameter(
+        let time = AUParameter(
             identifier: "time",
             name: "Delay time (Seconds)",
             address: AKVariableDelayParameter.time.rawValue,
             range: AKVariableDelay.timeRange,
             unit: .seconds,
             flags: .default)
-        let feedback = AUParameterTree.createParameter(
+        let feedback = AUParameter(
             identifier: "feedback",
             name: "Feedback (%)",
             address: AKVariableDelayParameter.feedback.rawValue,

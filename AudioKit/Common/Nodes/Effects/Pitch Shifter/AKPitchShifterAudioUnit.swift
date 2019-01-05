@@ -43,21 +43,21 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let shift = AUParameterTree.createParameter(
+        let shift = AUParameter(
             identifier: "shift",
             name: "Pitch shift (in semitones)",
             address: AKPitchShifterParameter.shift.rawValue,
             range: AKPitchShifter.shiftRange,
             unit: .relativeSemiTones,
             flags: .default)
-        let windowSize = AUParameterTree.createParameter(
+        let windowSize = AUParameter(
             identifier: "windowSize",
             name: "Window size (in samples)",
             address: AKPitchShifterParameter.windowSize.rawValue,
             range: AKPitchShifter.windowSizeRange,
             unit: .hertz,
             flags: .default)
-        let crossfade = AUParameterTree.createParameter(
+        let crossfade = AUParameter(
             identifier: "crossfade",
             name: "Crossfade (in samples)",
             address: AKPitchShifterParameter.crossfade.rawValue,
