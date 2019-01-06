@@ -6,8 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-#ifndef AKInterop_h
-#define AKInterop_h
+#pragma once
 
 #ifdef __OBJC__
 #define AK_ENUM(a) enum __attribute__((enum_extensibility(open))) a : int
@@ -34,4 +33,3 @@
 /** Pointer to an instance of an AKDSPBase subclass */
 typedef void* AKDSPRef AK_SWIFT_TYPE;
 
-#endif /* AKInterop_h */
