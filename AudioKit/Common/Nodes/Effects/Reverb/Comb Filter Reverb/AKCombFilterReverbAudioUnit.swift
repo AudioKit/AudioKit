@@ -35,7 +35,7 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let reverbDuration = AUParameterTree.createParameter(
+        let reverbDuration = AUParameter(
             identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKCombFilterReverbParameter.reverbDuration.rawValue,

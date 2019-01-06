@@ -118,7 +118,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
         var parameterAddress: AUParameterAddress = 0
-        let masterVolumeParameter = AUParameterTree.createParameter(
+        let masterVolumeParameter = AUParameter(
             identifier: "masterVolume",
             name: "Master Volume",
             address: parameterAddress,
@@ -128,7 +128,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let pitchBendParameter = AUParameterTree.createParameter(
+        let pitchBendParameter = AUParameter(
             identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
             address: parameterAddress,
@@ -138,7 +138,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let vibratoDepthParameter = AUParameterTree.createParameter(
+        let vibratoDepthParameter = AUParameter(
             identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
             address: parameterAddress,
@@ -148,7 +148,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterCutoffParameter = AUParameterTree.createParameter(
+        let filterCutoffParameter = AUParameter(
             identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
             address: parameterAddress,
@@ -158,7 +158,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterStrengthParameter = AUParameterTree.createParameter(
+        let filterStrengthParameter = AUParameter(
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
@@ -168,7 +168,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterResonanceParameter = AUParameterTree.createParameter(
+        let filterResonanceParameter = AUParameter(
             identifier: "filterResonance",
             name: "Filter resonance (dB))",
             address: parameterAddress,
@@ -178,7 +178,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let glideRateParameter = AUParameterTree.createParameter(
+        let glideRateParameter = AUParameter(
             identifier: "glideRate",
             name: "Glide rate (sec/octave))",
             address: parameterAddress,
@@ -188,7 +188,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let attackDurationParameter = AUParameterTree.createParameter(
+        let attackDurationParameter = AUParameter(
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
@@ -198,7 +198,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let decayDurationParameter = AUParameterTree.createParameter(
+        let decayDurationParameter = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
@@ -208,7 +208,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let sustainLevelParameter = AUParameterTree.createParameter(
+        let sustainLevelParameter = AUParameter(
             identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
             address: parameterAddress,
@@ -218,7 +218,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let releaseDurationParameter = AUParameterTree.createParameter(
+        let releaseDurationParameter = AUParameter(
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
@@ -228,7 +228,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterAttackDurationParameter = AUParameterTree.createParameter(
+        let filterAttackDurationParameter = AUParameter(
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
@@ -238,7 +238,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterDecayDurationParameter = AUParameterTree.createParameter(
+        let filterDecayDurationParameter = AUParameter(
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
@@ -248,7 +248,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterSustainLevelParameter = AUParameterTree.createParameter(
+        let filterSustainLevelParameter = AUParameter(
             identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
             address: parameterAddress,
@@ -258,7 +258,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterReleaseDurationParameter = AUParameterTree.createParameter(
+        let filterReleaseDurationParameter = AUParameter(
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
@@ -268,7 +268,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterEnableParameter = AUParameterTree.createParameter(
+        let filterEnableParameter = AUParameter(
             identifier: "filterEnable",
             name: "Filter Enable",
             address: parameterAddress,
@@ -278,7 +278,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let loopThruReleaseParameter = AUParameterTree.createParameter(
+        let loopThruReleaseParameter = AUParameter(
             identifier: "loopThruRelease",
             name: "Loop Thru Release",
             address: parameterAddress,
@@ -288,7 +288,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let monophonicParameter = AUParameterTree.createParameter(
+        let monophonicParameter = AUParameter(
             identifier: "monophonic",
             name: "Monophonic Mode",
             address: parameterAddress,
@@ -298,7 +298,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let legatoParameter = AUParameterTree.createParameter(
+        let legatoParameter = AUParameter(
             identifier: "legato",
             name: "Legato Mode",
             address: parameterAddress,
@@ -308,7 +308,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let keyTrackingParameter = AUParameterTree.createParameter(
+        let keyTrackingParameter = AUParameter(
             identifier: "keyTracking",
             name: "Key Tracking",
             address: parameterAddress,
@@ -318,7 +318,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
         parameterAddress += 1
 
-        let filterEnvelopeVelocityScalingParameter = AUParameterTree.createParameter(
+        let filterEnvelopeVelocityScalingParameter = AUParameter(
             identifier: "filterEnvelopeVelocityScaling",
             name: "Filter Envelope Velocity Scaling",
             address: parameterAddress,

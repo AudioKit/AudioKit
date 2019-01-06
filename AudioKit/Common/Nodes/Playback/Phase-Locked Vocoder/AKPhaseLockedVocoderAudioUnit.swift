@@ -43,7 +43,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let position = AUParameterTree.createParameter(
+        let position = AUParameter(
             identifier: "position",
             name: "Position",
             address: AKPhaseLockedVocoderParameter.position.rawValue,
@@ -51,7 +51,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        let amplitude = AUParameterTree.createParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: AKPhaseLockedVocoderParameter.amplitude.rawValue,
@@ -59,7 +59,7 @@ public class AKPhaseLockedVocoderAudioUnit: AKGeneratorAudioUnitBase {
             unit: .generic,
             flags: .default)
 
-        let pitchRatio = AUParameterTree.createParameter(
+        let pitchRatio = AUParameter(
             identifier: "pitchRatio",
             name: "Pitch Ratio",
             address: AKPhaseLockedVocoderParameter.pitchRatio.rawValue,

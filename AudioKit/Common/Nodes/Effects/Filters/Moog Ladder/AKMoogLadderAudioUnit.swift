@@ -39,14 +39,14 @@ public class AKMoogLadderAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let cutoffFrequency = AUParameterTree.createParameter(
+        let cutoffFrequency = AUParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKMoogLadderParameter.cutoffFrequency.rawValue,
             range: AKMoogLadder.cutoffFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let resonance = AUParameterTree.createParameter(
+        let resonance = AUParameter(
             identifier: "resonance",
             name: "Resonance (%)",
             address: AKMoogLadderParameter.resonance.rawValue,
