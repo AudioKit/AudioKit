@@ -32,14 +32,14 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let type = AUParameterTree.createParameter(
+        let type = AUParameter(
             identifier: "Type",
             name: "type",
             address: 0,
             range: 0...22,
             unit: .generic,
             flags: .default)
-        let amplitude = AUParameterTree.createParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,

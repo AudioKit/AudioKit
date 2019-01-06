@@ -43,21 +43,21 @@ public class AKThreePoleLowpassFilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let distortion = AUParameterTree.createParameter(
+        let distortion = AUParameter(
             identifier: "distortion",
             name: "Distortion (%)",
             address: AKThreePoleLowpassFilterParameter.distortion.rawValue,
             range: AKThreePoleLowpassFilter.distortionRange,
             unit: .percent,
             flags: .default)
-        let cutoffFrequency = AUParameterTree.createParameter(
+        let cutoffFrequency = AUParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKThreePoleLowpassFilterParameter.cutoffFrequency.rawValue,
             range: AKThreePoleLowpassFilter.cutoffFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let resonance = AUParameterTree.createParameter(
+        let resonance = AUParameter(
             identifier: "resonance",
             name: "Resonance (%)",
             address: AKThreePoleLowpassFilterParameter.resonance.rawValue,
