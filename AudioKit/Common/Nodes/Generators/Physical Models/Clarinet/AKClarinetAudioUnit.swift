@@ -38,14 +38,14 @@ public class AKClarinetAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let frequency = AUParameterTree.createParameter(
+        let frequency = AUParameter(
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
             range: 0...20_000,
             unit: .hertz,
             flags: .default)
-        let amplitude = AUParameterTree.createParameter(
+        let amplitude = AUParameter(
             identifier: "amplitude",
             name: "Amplitude",
             address: 1,

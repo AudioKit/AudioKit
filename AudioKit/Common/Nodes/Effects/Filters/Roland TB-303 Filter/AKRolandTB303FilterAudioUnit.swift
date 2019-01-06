@@ -47,28 +47,28 @@ public class AKRolandTB303FilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let cutoffFrequency = AUParameterTree.createParameter(
+        let cutoffFrequency = AUParameter(
             identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
             address: AKRolandTB303FilterParameter.cutoffFrequency.rawValue,
             range: AKRolandTB303Filter.cutoffFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let resonance = AUParameterTree.createParameter(
+        let resonance = AUParameter(
             identifier: "resonance",
             name: "Resonance",
             address: AKRolandTB303FilterParameter.resonance.rawValue,
             range: AKRolandTB303Filter.resonanceRange,
             unit: .generic,
             flags: .default)
-        let distortion = AUParameterTree.createParameter(
+        let distortion = AUParameter(
             identifier: "distortion",
             name: "Distortion",
             address: AKRolandTB303FilterParameter.distortion.rawValue,
             range: AKRolandTB303Filter.distortionRange,
             unit: .generic,
             flags: .default)
-        let resonanceAsymmetry = AUParameterTree.createParameter(
+        let resonanceAsymmetry = AUParameter(
             identifier: "resonanceAsymmetry",
             name: "Resonance Asymmetry",
             address: AKRolandTB303FilterParameter.resonanceAsymmetry.rawValue,
