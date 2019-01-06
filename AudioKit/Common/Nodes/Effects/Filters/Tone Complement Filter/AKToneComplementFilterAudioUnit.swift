@@ -35,7 +35,7 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let halfPowerPoint = AUParameterTree.createParameter(
+        let halfPowerPoint = AUParameter(
             identifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
             address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,

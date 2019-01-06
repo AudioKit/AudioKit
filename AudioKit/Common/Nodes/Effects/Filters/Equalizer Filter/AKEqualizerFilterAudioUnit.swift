@@ -43,21 +43,21 @@ public class AKEqualizerFilterAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let centerFrequency = AUParameterTree.createParameter(
+        let centerFrequency = AUParameter(
             identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
             address: AKEqualizerFilterParameter.centerFrequency.rawValue,
             range: AKEqualizerFilter.centerFrequencyRange,
             unit: .hertz,
             flags: .default)
-        let bandwidth = AUParameterTree.createParameter(
+        let bandwidth = AUParameter(
             identifier: "bandwidth",
             name: "Bandwidth (Hz)",
             address: AKEqualizerFilterParameter.bandwidth.rawValue,
             range: AKEqualizerFilter.bandwidthRange,
             unit: .hertz,
             flags: .default)
-        let gain = AUParameterTree.createParameter(
+        let gain = AUParameter(
             identifier: "gain",
             name: "Gain (%)",
             address: AKEqualizerFilterParameter.gain.rawValue,
