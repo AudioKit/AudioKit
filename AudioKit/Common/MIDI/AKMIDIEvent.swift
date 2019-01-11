@@ -139,7 +139,7 @@ public struct AKMIDIEvent {
                     internalData.append(byte)
                 }
             } else {
-                fillData(command: command, byte1: data[1], byte2: data[2])
+                fillData(command: command, bytes: Array(data.suffix(from: 1)))
             }
         } else if let status = AKMIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
@@ -181,26 +181,20 @@ public struct AKMIDIEvent {
     ///   - byte2:   Second data byte
     ///
     init(command: AKMIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
-        fillData(command: command, byte1: byte1, byte2: byte2)
+        var data = [byte1]
+        if byte2 != nil {
+            data.append(byte2!)
+        }
+        fillData(command: command, bytes: data)
     }
 
     fileprivate mutating func fillData(command: AKMIDISystemCommand,
-                                       byte1: MIDIByte,
-                                       byte2: MIDIByte? = nil) {
+                                       bytes: [MIDIByte]) {
         internalData.removeAll()
         internalData.append(command.byte)
 
-        switch command {
-        case .sysex:
-            AKLog("sysex")
-            break
-        case .songPosition:
-            internalData.append(byte1.lower7bits())
-            internalData.append(byte2?.lower7bits() ?? 0)
-        case .songSelect, .timeCodeQuarterFrame:
-            internalData.append(byte1.lower7bits())
-        default:
-            break
+        for byte in bytes {
+            internalData.append(byte)
         }
     }
 
@@ -341,5 +335,10 @@ public struct AKMIDIEvent {
     }
 }
 
+struct TupleArray {
+    var tuple: (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+    var array: [UInt8] {
+        var tmp = self.tuple
+        return [UInt8](UnsafeBufferPointer(start: &tmp.0, count: MemoryLayout.size(ofValue: tmp)))
     }
 }
