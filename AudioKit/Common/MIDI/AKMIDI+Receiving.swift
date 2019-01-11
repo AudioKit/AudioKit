@@ -134,11 +134,11 @@ extension AKMIDI {
 
     internal func handleMIDIMessage(_ event: AKMIDIEvent) {
         for listener in listeners {
-            guard let eventChannel = event.channel else {
-                AKLog("No channel detected in handleMIDIMessage")
-                return
-            }
             if let type = event.status?.type {
+                guard let eventChannel = event.channel else {
+                    AKLog("No channel detected in handleMIDIMessage")
+                    return
+                }
                 switch type {
                 case .controllerChange:
                     listener.receivedMIDIController(event.internalData[1],
