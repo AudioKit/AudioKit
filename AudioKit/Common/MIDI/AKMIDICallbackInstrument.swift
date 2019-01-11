@@ -45,7 +45,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     override open func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel) {
-        triggerCallbacks(AKMIDIStatus(statusType: .noteOn, channel: channel), data1: noteNumber, data2: velocity)
+        triggerCallbacks(AKMIDIStatus(type: .noteOn, channel: channel), data1: noteNumber, data2: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -55,6 +55,6 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        triggerCallbacks(AKMIDIStatus(statusType: .noteOff, channel: channel), data1: noteNumber, data2: 0)
+        triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel), data1: noteNumber, data2: 0)
     }
 }

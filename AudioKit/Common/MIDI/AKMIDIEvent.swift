@@ -167,7 +167,7 @@ public struct AKMIDIEvent {
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
         internalData = []
-        internalData.append(AKMIDIStatus.init(statusType: status, channel: channel).byte)
+        internalData.append(AKMIDIStatus.init(type: status, channel: channel).byte)
         for byte in bytes {
             internalData.append(byte.lower7bits())
         }
@@ -210,7 +210,7 @@ public struct AKMIDIEvent {
     public init(noteOn noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .noteOn, channel: channel).byte, noteNumber, velocity])
+        self.init(data: [AKMIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
     }
 
     /// Create note off event
@@ -223,7 +223,7 @@ public struct AKMIDIEvent {
     public init(noteOff noteNumber: MIDINoteNumber,
                 velocity: MIDIVelocity,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .noteOff, channel: channel).byte, noteNumber, velocity])
+        self.init(data: [AKMIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
     }
 
     /// Create program change event
@@ -234,7 +234,7 @@ public struct AKMIDIEvent {
     ///
     public init(programChange data: MIDIByte,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .programChange, channel: channel).byte, data])
+        self.init(data: [AKMIDIStatus(type: .programChange, channel: channel).byte, data])
     }
 
     /// Create controller event
@@ -247,7 +247,7 @@ public struct AKMIDIEvent {
     public init(controllerChange controller: MIDIByte,
                 value: MIDIByte,
                 channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .controllerChange, channel: channel).byte, controller, value])
+        self.init(data: [AKMIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
     }
 
     /// Array of MIDI events from a MIDI packet list poionter
