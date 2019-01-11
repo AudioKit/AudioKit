@@ -10,15 +10,15 @@
 #import <AVFoundation/AVFoundation.h>
 
 @protocol AKKernelUnit
--(AUImplementorValueProvider)getter;
--(AUImplementorValueObserver)setter;
+-(AUImplementorValueProvider _Null_unspecified)getter;
+-(AUImplementorValueObserver _Null_unspecified)setter;
 @end
 
 @interface AKAudioUnit : AUAudioUnit<AKKernelUnit>
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-@property AVAudioFormat *defaultFormat;
+@property AUAudioUnitBus * _Nonnull outputBus;
+@property AUAudioUnitBusArray * _Nonnull inputBusArray;
+@property AUAudioUnitBusArray * _Nonnull outputBusArray;
+@property AVAudioFormat * _Nonnull defaultFormat;
 
 - (void)start;
 - (void)stop;
@@ -27,8 +27,8 @@
 
 @property double rampDuration;
 
--(AUImplementorValueProvider)getter;
--(AUImplementorValueObserver)setter;
+-(AUImplementorValueProvider _Null_unspecified)getter;
+-(AUImplementorValueObserver _Null_unspecified)setter;
 
 @end
 

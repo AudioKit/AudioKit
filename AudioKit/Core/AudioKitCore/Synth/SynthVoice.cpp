@@ -58,7 +58,7 @@ namespace AudioKitCore
         pumpEG.start();
         
         noteFrequency = frequency;
-        noteNumber = noteNumber;
+        this->noteNumber = noteNumber;
     }
     
     void SynthVoice::restart(unsigned evt, float volume)
