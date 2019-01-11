@@ -77,7 +77,6 @@ extension AKMIDI {
                         let events = [AKMIDIEvent](packet) //uses makeiterator
                         let transformedMIDIEventList = self.transformMIDIEventList(events)
                         // Note: incomplete sysex packets will not have a status
-                        print("status is \(transformedMIDIEventList[0].status) \(transformedMIDIEventList[0].command)")
                         for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil || transformedEvent.command != nil {
                             self.handleMIDIMessage(transformedEvent)
                         }
@@ -166,8 +165,7 @@ extension AKMIDI {
                     listener.receivedMIDIProgramChange(event.internalData[1],
                                                        channel: MIDIChannel(eventChannel))
                 }
-            }
-            if let _ = event.command {
+            } else if event.command != nil {
                 listener.receivedMIDISystemCommand(event.internalData)
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
