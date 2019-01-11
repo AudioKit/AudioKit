@@ -76,7 +76,7 @@ public class AKADSRView: NSView {
         needsDisplay = true
     }
 
-    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150),
+    public init(frame: CGRect = CGRect(width: 440, height: 150),
                 callback: @escaping ADSRCallback) {
         self.callback = callback
         super.init(frame: frame)

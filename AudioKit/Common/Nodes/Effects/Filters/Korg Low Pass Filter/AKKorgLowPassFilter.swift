@@ -49,9 +49,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Filter cutoff
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
-                return
-            }
+            guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -65,9 +63,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Filter resonance (should be between 0-2)
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance == newValue {
-                return
-            }
+            guard resonance != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     resonanceParameter?.setValue(Float(newValue), originator: existingToken)
@@ -81,9 +77,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Filter saturation.
     @objc open dynamic var saturation: Double = defaultSaturation {
         willSet {
-            if saturation == newValue {
-                return
-            }
+            guard saturation != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     saturationParameter?.setValue(Float(newValue), originator: existingToken)

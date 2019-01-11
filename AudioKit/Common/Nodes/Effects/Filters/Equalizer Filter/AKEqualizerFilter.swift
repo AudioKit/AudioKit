@@ -52,9 +52,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Center frequency. (in Hertz)
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency == newValue {
-                return
-            }
+            guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -68,9 +66,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// The peak/notch bandwidth in Hertz
     @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth == newValue {
-                return
-            }
+            guard bandwidth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
@@ -84,9 +80,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// The peak/notch gain
     @objc open dynamic var gain: Double = defaultGain {
         willSet {
-            if gain == newValue {
-                return
-            }
+            guard gain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     gainParameter?.setValue(Float(newValue), originator: existingToken)

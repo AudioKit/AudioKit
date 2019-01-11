@@ -50,15 +50,15 @@ extension Int: UInt32Representable, CGFloatRepresentable, DoubleRepresentable, I
     public var uint32Value: UInt32 {
         return UInt32(self)
     }
-    
+
     public var CGFloatValue: CGFloat { // swiftlint:disable:this variable_name
         return CGFloat(self)
     }
-    
+
     public var doubleValue: Double {
         return Double(self)
     }
-    
+
     public var int32Value: Int32 {
         return Int32(self)
     }
@@ -80,7 +80,7 @@ extension UInt: IntRepresentable, UInt32Representable {
     public var intValue: Int {
         return Int(self)
     }
-    
+
     public var uint32Value: UInt32 {
         return UInt32(self)
     }
@@ -90,15 +90,15 @@ extension UInt32: IntRepresentable, Int32Representable, UIntRepresentable, Doubl
     public var intValue: Int {
         return Int(self)
     }
-    
+
     public var int32Value: Int32 {
         return Int32(self)
     }
-    
+
     public var uintValue: UInt {
         return UInt(self)
     }
-    
+
     public var doubleValue: Double {
         return Double(self)
     }
@@ -108,7 +108,7 @@ extension UInt64: DoubleRepresentable, Int64Representable {
     public var doubleValue: Double {
         return Double(self)
     }
-    
+
     public var int64Value: Int64 {
         return Int64(self)
     }
@@ -118,7 +118,7 @@ extension Float: CGFloatRepresentable, IntRepresentable {
     public var CGFloatValue: CGFloat { // swiftlint:disable:this variable_name
         return CGFloat(self)
     }
-    
+
     public var intValue: Int {
         return Int(self)
     }
@@ -128,15 +128,15 @@ extension Double: CGFloatRepresentable, FloatRepresentable, Int64Representable, 
     public var CGFloatValue: CGFloat { // swiftlint:disable:this variable_name
         return CGFloat(self)
     }
-    
+
     public var floatValue: Float {
         return Float(self)
     }
-    
+
     public var int64Value: Int64 {
         return Int64(self)
     }
-    
+
     public var uint64Value: UInt64 {
         return UInt64(self)
     }
@@ -146,15 +146,15 @@ extension CGFloat: FloatRepresentable, DoubleRepresentable, IntRepresentable, In
     public var floatValue: Float {
         return Float(self)
     }
-    
+
     public var doubleValue: Double {
         return Double(self)
     }
-    
+
     public var intValue: Int {
         return Int(self)
     }
-    
+
     public var int32Value: Int32 {
         return Int32(self)
     }

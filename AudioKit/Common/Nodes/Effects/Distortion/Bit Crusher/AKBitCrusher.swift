@@ -42,9 +42,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @objc open dynamic var bitDepth: Double = defaultBitDepth {
         willSet {
-            if bitDepth == newValue {
-                return
-            }
+            guard bitDepth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
@@ -58,9 +56,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     /// The sample rate of signal output.
     @objc open dynamic var sampleRate: Double = defaultSampleRate {
         willSet {
-            if sampleRate == newValue {
-                return
-            }
+            guard sampleRate != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     sampleRateParameter?.setValue(Float(newValue), originator: existingToken)

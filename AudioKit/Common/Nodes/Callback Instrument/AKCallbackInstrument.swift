@@ -45,7 +45,6 @@ open class AKCallbackInstrument: AKPolyphonicNode, AKComponent {
             self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-
     }
 
     override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {

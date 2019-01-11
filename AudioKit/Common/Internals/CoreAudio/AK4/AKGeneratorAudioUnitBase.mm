@@ -28,6 +28,18 @@
 - (void)triggerFrequency:(float)frequency amplitude:(float)amplitude {
     ((AKDSPBase *)self.dsp)->triggerFrequencyAmplitude(frequency, amplitude);
 }
+- (void)triggerType:(UInt8)type amplitude:(float)amplitude {
+    ((AKDSPBase *)self.dsp)->triggerTypeAmplitude(type, amplitude);
+}
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
+    ((AKDSPBase *)self.dsp)->setUpTable(data, size);
+}
+- (void)setPartitionLength:(int)partitionLength {
+    ((AKDSPBase *)self.dsp)->setPartitionLength(partitionLength);
+}
+- (void)initConvolutionEngine {
+    ((AKDSPBase *)self.dsp)->initConvolutionEngine();
+}
 
 -(BOOL)shouldAllocateInputBus {
     return false;

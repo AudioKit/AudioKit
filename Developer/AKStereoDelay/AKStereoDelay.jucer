@@ -11,10 +11,8 @@
             file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/AdjustableDelayLine.cpp"/>
       <FILE id="hYtJXH" name="AdjustableDelayLine.hpp" compile="0" resource="0"
             file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/AdjustableDelayLine.hpp"/>
-      <FILE id="RFCK7C" name="AKStereoDelay.cpp" compile="1" resource="0"
-            file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/AKStereoDelay.cpp"/>
-      <FILE id="uBOFEl" name="AKStereoDelay.hpp" compile="0" resource="0"
-            file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/AKStereoDelay.hpp"/>
+      <FILE id="tLaqwj" name="StereoDelay.cpp" compile="1" resource="0" file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/StereoDelay.cpp"/>
+      <FILE id="MCgpf5" name="StereoDelay.hpp" compile="0" resource="0" file="../../AudioKit/Core/AudioKitCore/ModulatedDelay/StereoDelay.hpp"/>
     </GROUP>
     <GROUP id="{7E531ACC-A9F5-DEFD-1805-63F4F1310C9E}" name="Source">
       <FILE id="QwQh8T" name="PluginProcessor.cpp" compile="1" resource="0"

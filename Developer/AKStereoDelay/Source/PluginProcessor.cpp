@@ -10,13 +10,13 @@ AKStereoDelayProcessor::AKStereoDelayProcessor()
             std::make_unique<AudioParameterBool>("pingpong", "Ping-Pong", false),
             std::make_unique<AudioParameterFloat>("delaySec", "DelaySec", 0.0f, 2.0f, 0.5f),
             std::make_unique<AudioParameterFloat>("feedback", "Feedback", 0.0f, 1.0f, 0.0f),
-            std::make_unique<AudioParameterFloat>("fxLevel", "Effect Level", 0.0f, 1.0f, 0.8f),
+            std::make_unique<AudioParameterFloat>("dryWetMix", "Dry-Wet Mix", 0.0f, 1.0f, 0.5f),
         })
 {
     paramTree.addParameterListener("pingpong", this);
     paramTree.addParameterListener("delaySec", this);
     paramTree.addParameterListener("feedback", this);
-    paramTree.addParameterListener("fxLevel", this);
+    paramTree.addParameterListener("dryWetMix", this);
 }
 
 AKStereoDelayProcessor::~AKStereoDelayProcessor()
@@ -37,9 +37,9 @@ void AKStereoDelayProcessor::parameterChanged(const String& parameterID, float n
     {
         delay.setFeedback(newValue);
     }
-    else if (parameterID == "fxLevel")
+    else if (parameterID == "dryWetMix")
     {
-        delay.setEffectLevel(newValue);
+        delay.setDryWetMix(newValue);
     }
 }
 
@@ -109,13 +109,13 @@ void AKStereoDelayProcessor::prepareToPlay (double sampleRate, int /*samplesPerB
     bool pingPong = *paramTree.getRawParameterValue("pingpong") > 0.5f;
     float delayTimeSeconds = *paramTree.getRawParameterValue("delaySec");
     float feedbackFraction = *paramTree.getRawParameterValue("feedback");
-    float effectLevelFraction = *paramTree.getRawParameterValue("fxLevel");
+    float dryWetMixFraction = *paramTree.getRawParameterValue("dryWetMix");
 
     delay.init(sampleRate, 2000.0);
     delay.setPingPongMode(pingPong);
     delay.setDelayMs(float(1000.0 * delayTimeSeconds));
     delay.setFeedback(feedbackFraction);
-    delay.setEffectLevel(effectLevelFraction);
+    delay.setDryWetMix(dryWetMixFraction);
 }
 
 void AKStereoDelayProcessor::releaseResources()

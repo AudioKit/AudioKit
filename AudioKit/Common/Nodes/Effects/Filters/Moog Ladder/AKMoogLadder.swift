@@ -46,9 +46,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     /// Filter cutoff frequency.
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
-                return
-            }
+            guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -62,9 +60,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance == newValue {
-                return
-            }
+            guard resonance != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     resonanceParameter?.setValue(Float(newValue), originator: existingToken)
