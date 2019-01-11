@@ -2488,10 +2488,14 @@
 		3425221A21E7C47C0014B603 /* Polysynths */ = {
 			isa = PBXGroup;
 			children = (
+				C45665DF1D448D7E00D26565 /* FM Oscillator Bank */,
+				C45665E91D448D7E00D26565 /* Morphing Oscillator Bank */,
+				C45665F31D448D7E00D26565 /* Oscillator Bank */,
+				C45665FD1D448D7E00D26565 /* Phase Distortion Oscillator Bank */,
+				C45666071D448D7E00D26565 /* PWM Oscillator Bank */,
 				3425221B21E7C47C0014B603 /* Synth */,
 			);
-			name = Polysynths;
-			path = Generators/Polysynths;
+			path = Polysynths;
 			sourceTree = "<group>";
 		};
 		3425221B21E7C47C0014B603 /* Synth */ = {
@@ -3008,7 +3012,6 @@
 				C45666291D448D7E00D26565 /* Input */,
 				C456662B1D448D7E00D26565 /* Mixing */,
 				C456663F1D448D7E00D26565 /* Playback */,
-				3425221A21E7C47C0014B603 /* Polysynths */,
 				552CD48C1F3BBA1B005762E9 /* Offline */,
 			);
 			name = Nodes;
@@ -3605,11 +3608,12 @@
 		C45665C71D448D7E00D26565 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
-				BEA4C113207722AE007437A7 /* Speech Synthesizer */,
 				C45665C81D448D7E00D26565 /* AudioKit Operation-Based Generator */,
 				C45665CD1D448D7E00D26565 /* Noise */,
 				C45665D81D448D7E00D26565 /* Oscillators */,
 				C456660C1D448D7E00D26565 /* Physical Models */,
+				3425221A21E7C47C0014B603 /* Polysynths */,
+				BEA4C113207722AE007437A7 /* Speech Synthesizer */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -3661,15 +3665,10 @@
 			isa = PBXGroup;
 			children = (
 				C45665D91D448D7E00D26565 /* FM Oscillator */,
-				C45665DF1D448D7E00D26565 /* FM Oscillator Bank */,
 				C45665E41D448D7E00D26565 /* Morphing Oscillator */,
-				C45665E91D448D7E00D26565 /* Morphing Oscillator Bank */,
 				C403C2252009B4E400875AE4 /* Oscillator */,
-				C45665F31D448D7E00D26565 /* Oscillator Bank */,
 				C45665F81D448D7E00D26565 /* Phase Distortion Oscillator */,
-				C45665FD1D448D7E00D26565 /* Phase Distortion Oscillator Bank */,
 				C45666021D448D7E00D26565 /* PWM Oscillator */,
-				C45666071D448D7E00D26565 /* PWM Oscillator Bank */,
 			);
 			path = Oscillators;
 			sourceTree = "<group>";
