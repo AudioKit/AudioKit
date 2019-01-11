@@ -242,7 +242,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             filterAttackDurationParameter,
             filterDecayDurationParameter,
             filterSustainLevelParameter,
-            filterReleaseDurationParameter,
+            filterReleaseDurationParameter
             ]))
 
         masterVolumeParameter.value = 1.0
