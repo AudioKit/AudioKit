@@ -223,7 +223,6 @@
     ///   - filterSustainLevel: 0.0 - 1.0
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///
-
     @objc public init(
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
@@ -292,7 +291,7 @@
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
-            guard let _ = self else {
+            guard self != nil else {
                 AKLog("Unable to create strong reference to self")
                 return
             } // Replace _ with strongSelf if needed
