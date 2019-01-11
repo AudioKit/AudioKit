@@ -169,8 +169,9 @@ extension AKMIDI {
             }
             if let _ = event.command {
                 listener.receivedMIDISystemCommand(event.internalData)
+            } else {
+                AKLog("No usable status detected in handleMIDIMessage")
             }
-            AKLog("No usable status detected in handleMIDIMessage")
             return
         }
     }
