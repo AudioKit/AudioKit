@@ -2528,6 +2528,11 @@
 		3425222921E7F90E0014B603 /* Polysynths */ = {
 			isa = PBXGroup;
 			children = (
+				C49D695E1D1F1DE300BF018A /* FM Oscillator Bank */,
+				C49D69631D1F1DE300BF018A /* Morphing Oscillator Bank */,
+				C49D69681D1F1DE300BF018A /* Oscillator Bank */,
+				C47AE4B31D39C5B10091118F /* Phase Distortion Oscillator Bank */,
+				C49D69511D1F1C6500BF018A /* PWM Oscillator Bank */,
 				3425222A21E7F90E0014B603 /* Synth */,
 			);
 			path = Polysynths;
@@ -3053,11 +3058,11 @@
 		C42F35531C057F4C000E937C /* Generators */ = {
 			isa = PBXGroup;
 			children = (
-				3425222921E7F90E0014B603 /* Polysynths */,
 				C453804D1C3A5A4300A51738 /* AudioKit Operation-Based Generator */,
 				C48AA6631C0FA382006EB131 /* Noise */,
 				C42F35561C057F4C000E937C /* Oscillators */,
 				C40C42691C41B22A009D870B /* Physical Models */,
+				3425222921E7F90E0014B603 /* Polysynths */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -3066,15 +3071,10 @@
 			isa = PBXGroup;
 			children = (
 				C45380561C3A5BDA00A51738 /* FM Oscillator */,
-				C49D695E1D1F1DE300BF018A /* FM Oscillator Bank */,
 				C44B59701C4B5FA00008507F /* Morphing Oscillator */,
-				C49D69631D1F1DE300BF018A /* Morphing Oscillator Bank */,
 				C453805B1C3A5BDA00A51738 /* Oscillator */,
-				C49D69681D1F1DE300BF018A /* Oscillator Bank */,
 				C421DCDA1D39650000E15879 /* Phase Distortion Oscillator */,
-				C47AE4B31D39C5B10091118F /* Phase Distortion Oscillator Bank */,
 				C49D694C1D1F1C6500BF018A /* PWM Oscillator */,
-				C49D69511D1F1C6500BF018A /* PWM Oscillator Bank */,
 			);
 			path = Oscillators;
 			sourceTree = "<group>";
