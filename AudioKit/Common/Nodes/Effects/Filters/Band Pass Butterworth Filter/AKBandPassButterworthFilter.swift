@@ -43,9 +43,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     /// Center frequency. (in Hertz)
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency == newValue {
-                return
-            }
+            guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -59,9 +57,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     /// Bandwidth. (in Hertz)
     @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth == newValue {
-                return
-            }
+            guard bandwidth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     bandwidthParameter?.setValue(Float(newValue), originator: existingToken)

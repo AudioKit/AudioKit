@@ -11,11 +11,11 @@ import AVFoundation
 public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKLowPassButterworthFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKLowPassButterworthFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKLowPassButterworthFilter.defaultCutoffFrequency {
@@ -27,30 +27,23 @@ public class AKLowPassButterworthFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createLowPassButterworthFilterDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+        let cutoffFrequency = AUParameter(
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKLowPassButterworthFilter.cutoffFrequencyRange.upperBound),
+            address: AKLowPassButterworthFilterParameter.cutoffFrequency.rawValue,
+            range: AKLowPassButterworthFilter.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency]))
+        setParameterTree(AUParameterTree(children: [cutoffFrequency]))
         cutoffFrequency.value = Float(AKLowPassButterworthFilter.defaultCutoffFrequency)
     }
 

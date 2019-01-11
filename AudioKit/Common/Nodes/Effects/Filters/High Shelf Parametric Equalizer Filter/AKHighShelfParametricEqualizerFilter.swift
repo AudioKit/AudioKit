@@ -49,9 +49,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Corner frequency.
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency == newValue {
-                return
-            }
+            guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -65,9 +63,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     @objc open dynamic var gain: Double = defaultGain {
         willSet {
-            if gain == newValue {
-                return
-            }
+            guard gain != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     gainParameter?.setValue(Float(newValue), originator: existingToken)
@@ -81,9 +77,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     /// Q of the filter. sqrt(0.5) is no resonance.
     @objc open dynamic var q: Double = defaultQ {
         willSet {
-            if q == newValue {
-                return
-            }
+            guard q != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     qParameter?.setValue(Float(newValue), originator: existingToken)

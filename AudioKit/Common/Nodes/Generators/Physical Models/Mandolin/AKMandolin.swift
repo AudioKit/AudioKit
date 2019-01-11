@@ -37,14 +37,13 @@ open class AKMandolin: AKNode, AKComponent {
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
     @objc open dynamic var detune: Double = 1 {
         willSet {
-            if detune != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        detuneParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detune = Float(newValue)
+            guard detune != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    detuneParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.detune = Float(newValue)
             }
         }
     }
@@ -52,14 +51,13 @@ open class AKMandolin: AKNode, AKComponent {
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     @objc open dynamic var bodySize: Double = 1 {
         willSet {
-            if bodySize != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bodySize = Float(newValue)
+            guard bodySize != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.bodySize = Float(newValue)
             }
         }
     }

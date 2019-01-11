@@ -34,6 +34,8 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
     AKSamplerParameterLoopThruRelease,
     AKSamplerParameterMonophonic,
     AKSamplerParameterLegato,
+    AKSamplerParameterKeyTrackingFraction,
+    AKSamplerParameterFilterEnvelopeVelocityScaling,
     
     // ensure this is always last in the list, to simplify parameter addressing
     AKSamplerParameterRampDuration,
@@ -43,18 +45,19 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 
 #include "AKSampler_Typedefs.h"
 
-void *createAKSamplerDSP(int nChannels, double sampleRate);
-void doAKSamplerLoadData(void *pDSP, AKSampleDataDescriptor *pSDD);
-void doAKSamplerLoadCompressedFile(void *pDSP, AKSampleFileDescriptor *pSFD);
-void doAKSamplerUnloadAllSamples(void *pDSP);
-void doAKSamplerBuildSimpleKeyMap(void *pDSP);
-void doAKSamplerBuildKeyMap(void *pDSP);
-void doAKSamplerSetLoopThruRelease(void *pDSP, bool value);
-void doAKSamplerPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-void doAKSamplerStopNote(void *pDSP, UInt8 noteNumber, bool immediate);
-void doAKSamplerStopAllVoices(void *pDSP);
-void doAKSamplerRestartVoices(void *pDSP);
-void doAKSamplerSustainPedal(void *pDSP, bool pedalDown);
+AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate);
+void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
+void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
+void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
+void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
+void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
+void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
+void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
+void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
+void doAKSamplerStopAllVoices(AKDSPRef pDSP);
+void doAKSamplerRestartVoices(AKDSPRef pDSP);
+void doAKSamplerSustainPedal(AKDSPRef pDSP, bool pedalDown);
 
 #else
 
@@ -74,7 +77,7 @@ struct AKSamplerDSP : AKDSPBase, AKCoreSampler
     AKLinearParameterRamp glideRateRamp;
     
     AKSamplerDSP();
-    void init(int nChannels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
     void deinit() override;
 
     void setParameter(uint64_t address, float value, bool immediate) override;

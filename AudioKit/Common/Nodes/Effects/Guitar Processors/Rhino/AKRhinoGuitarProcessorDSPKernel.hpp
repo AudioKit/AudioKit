@@ -29,7 +29,7 @@ public:
     AKRhinoGuitarProcessorDSPKernel();
     ~AKRhinoGuitarProcessorDSPKernel();
 
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void start();
 
@@ -63,8 +63,8 @@ public:
     // MARK: Member Variables
 
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
     
 public:
     bool started = true;

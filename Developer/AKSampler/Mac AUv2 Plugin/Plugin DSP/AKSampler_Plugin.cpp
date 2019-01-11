@@ -86,7 +86,7 @@ void AKSampler_Plugin::initForTesting()
     // load single-cycle saw waves so there's something to play
     AudioKitCore::FunctionTable ftable;
     ftable.init(1024);
-    ftable.sawtooth(0.2f);
+    ftable.sinusoid(0.4f);
     AKSampleDataDescriptor sdd;
     sdd.sampleDescriptor.noteNumber = 28;
     sdd.sampleDescriptor.noteFrequency = 44100.0f / 1024;

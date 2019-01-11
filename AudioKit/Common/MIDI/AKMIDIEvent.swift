@@ -89,8 +89,9 @@ public struct AKMIDIEvent {
             if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                 AudioKit.midi.startReceivingSysex(with: midiBytes)
                 internalData += midiBytes
-                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                    internalData = Array(internalData.prefix(sysexEndIndex))
+                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                    let length = sysexEndIndex + 1
+                    internalData = Array(internalData.prefix(length))
                     AudioKit.midi.stopReceivingSysex()
                 } else {
                     internalData.removeAll()
@@ -130,8 +131,76 @@ public struct AKMIDIEvent {
             if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 internalData = Array(data[0...sysexEndIndex])
             }
-        } else {
-            internalData = data
+        } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
+            internalData = []
+            // is sys command
+            if command == .sysex {
+                for byte in data {
+                    internalData.append(byte)
+                }
+            } else {
+                fillData(command: command, byte1: data[1], byte2: data[2])
+            }
+        } else if let status = AKMIDIStatusType.from(byte: data[0]) {
+            // is regular MIDI status
+            let channel = data[0].lowBit
+            fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
+        } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
+            print("is meta event \(metaType.description)")
+        }
+    }
+
+    /// Initialize the MIDI Event from a status message
+    ///
+    /// - Parameters:
+    ///   - status:  MIDI Status
+    ///   - channel: Channel on which the event occurs
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte
+    ///
+    init(status: AKMIDIStatusType, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
+        let data = [byte1, byte2]
+        fillData(status: status, channel: channel, bytes: data)
+    }
+
+    fileprivate mutating func fillData(status: AKMIDIStatusType,
+                                       channel: MIDIChannel,
+                                       bytes: [MIDIByte]) {
+        internalData = []
+        internalData.append(AKMIDIStatus.init(statusType: status, channel: channel).byte)
+        for byte in bytes {
+            internalData.append(byte.lower7bits())
+        }
+    }
+
+    /// Initialize the MIDI Event from a system command message
+    ///
+    /// - Parameters:
+    ///   - command: MIDI System Command
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte
+    ///
+    init(command: AKMIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
+        fillData(command: command, byte1: byte1, byte2: byte2)
+    }
+
+    fileprivate mutating func fillData(command: AKMIDISystemCommand,
+                                       byte1: MIDIByte,
+                                       byte2: MIDIByte? = nil) {
+        internalData.removeAll()
+        internalData.append(command.byte)
+
+        switch command {
+        case .sysex:
+            AKLog("sysex")
+            break
+        case .songPosition:
+            internalData.append(byte1.lower7bits())
+            internalData.append(byte2?.lower7bits() ?? 0)
+        case .songSelect, .timeCodeQuarterFrame:
+            internalData.append(byte1.lower7bits())
+        default:
+            break
         }
     }
 

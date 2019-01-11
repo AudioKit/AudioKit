@@ -51,8 +51,8 @@ extern const float kAKFlanger_MaxDryWetMix;
 
 #ifndef __cplusplus
 
-void *createChorusDSP(int nChannels, double sampleRate);
-void *createFlangerDSP(int nChannels, double sampleRate);
+AKDSPRef createChorusDSP(int channelCount, double sampleRate);
+AKDSPRef createFlangerDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -69,7 +69,7 @@ struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
     
     AKModulatedDelayDSP(AKModulatedDelayType type);
     
-    void init(int nChannels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
     void deinit() override;
     
     void setParameter(uint64_t address, float value, bool immediate) override;

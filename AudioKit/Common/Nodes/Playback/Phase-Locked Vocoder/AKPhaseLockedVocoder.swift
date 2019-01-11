@@ -10,6 +10,8 @@
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
+
+
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
     /// Four letter unique description of the node
@@ -24,6 +26,24 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
     fileprivate var pitchRatioParameter: AUParameter?
 
+    /// Lower and upper bounds for position
+    public static let positionRange = 0.0 ... 1000.0
+
+    /// Initial value for position
+    public static let defaultPosition = 0.0
+
+    /// Lower and upper bounds for amplitude
+    public static let amplitudeRange = 0.0 ... 1.0
+
+    /// Initial value for amplitude
+    public static let defaultAmplitude = 0.0
+
+    /// Lower and upper bounds for pitch ratio
+    public static let pitchRatioRange = 0.0 ... 1000.0
+
+    /// Initial value for pitch ratio
+    public static let defaultPitchRatio = 1.0
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
@@ -34,14 +54,13 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @objc open dynamic var position: Double = 0 {
         willSet {
-            if position != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        positionParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.position = Float(newValue)
+            guard position != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    positionParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.position = newValue
             }
         }
     }
@@ -49,14 +68,13 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     /// Amplitude.
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
-            if amplitude != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.amplitude = Float(newValue)
+            guard amplitude != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.amplitude = newValue
             }
         }
     }
@@ -64,14 +82,13 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     /// Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var pitchRatio: Double = 1 {
         willSet {
-            if pitchRatio != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        pitchRatioParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.pitchRatio = Float(newValue)
+            guard pitchRatio != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    pitchRatioParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.pitchRatio = newValue
             }
         }
     }
@@ -135,9 +152,9 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.position = Float(position)
-        internalAU?.amplitude = Float(amplitude)
-        internalAU?.pitchRatio = Float(pitchRatio)
+        internalAU?.position = position
+        internalAU?.amplitude = amplitude
+        internalAU?.pitchRatio = pitchRatio
     }
 
     // MARK: - Control
@@ -147,11 +164,11 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
-            var theFileFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
+            var theFileFormat = AudioStreamBasicDescription()
             var thePropertySize: UInt32 = UInt32(MemoryLayout.stride(ofValue: theFileFormat))
             var extRef: ExtAudioFileRef?
             var theData: UnsafeMutablePointer<CChar>?
-            var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
+            var theOutputFormat = AudioStreamBasicDescription()
 
             err = ExtAudioFileOpenURL(self.avAudiofile.url as CFURL, &extRef)
             if err != 0 { AKLog("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }

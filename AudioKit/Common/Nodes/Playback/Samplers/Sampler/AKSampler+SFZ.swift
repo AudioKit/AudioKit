@@ -73,11 +73,12 @@ extension AKSampler {
                         } else if part.hasPrefix("loop_end") {
                             loopEndPoint = Float32(part.components(separatedBy: "=")[1])!
                         } else if part.hasPrefix("sample") {
-                            sample = trimmed.components(separatedBy: "sample=")[1]
+                            sample = part.components(separatedBy: "sample=")[1]
                         }
                     }
 
-                    let noteFrequency = Float(AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber))
+                    let noteFrequency = Float(440.0 * pow(2.0, (Double(noteNumber) - 69.0)/12.0))
+
                     let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
                     AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 

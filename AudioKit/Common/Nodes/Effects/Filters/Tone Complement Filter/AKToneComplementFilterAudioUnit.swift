@@ -11,11 +11,11 @@ import AVFoundation
 public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKToneComplementFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKToneComplementFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var halfPowerPoint: Double = AKToneComplementFilter.defaultHalfPowerPoint {
@@ -27,30 +27,23 @@ public class AKToneComplementFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createToneComplementFilterDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let halfPowerPoint = AUParameterTree.createParameter(
-            withIdentifier: "halfPowerPoint",
+        let halfPowerPoint = AUParameter(
+            identifier: "halfPowerPoint",
             name: "Half-Power Point (Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKToneComplementFilter.halfPowerPointRange.lowerBound),
-            max: Float(AKToneComplementFilter.halfPowerPointRange.upperBound),
+            address: AKToneComplementFilterParameter.halfPowerPoint.rawValue,
+            range: AKToneComplementFilter.halfPowerPointRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [halfPowerPoint]))
+        setParameterTree(AUParameterTree(children: [halfPowerPoint]))
         halfPowerPoint.value = Float(AKToneComplementFilter.defaultHalfPowerPoint)
     }
 

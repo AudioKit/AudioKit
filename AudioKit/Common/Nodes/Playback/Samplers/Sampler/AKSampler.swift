@@ -40,6 +40,8 @@
     fileprivate var loopThruReleaseParameter: AUParameter?
     fileprivate var monophonicParameter: AUParameter?
     fileprivate var legatoParameter: AUParameter?
+    fileprivate var keyTrackingParameter: AUParameter?
+    fileprivate var filterEnvelopeVelocityScalingParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -51,9 +53,7 @@
     /// Master volume (fraction)
     @objc open dynamic var masterVolume: Double = 1.0 {
         willSet {
-            if masterVolume == newValue {
-                return
-            }
+            guard masterVolume != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && masterVolumeParameter != nil {
@@ -69,9 +69,7 @@
     /// Pitch offset (semitones)
     @objc open dynamic var pitchBend: Double = 0.0 {
         willSet {
-            if pitchBend == newValue {
-                return
-            }
+            guard pitchBend != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && pitchBendParameter != nil {
@@ -87,9 +85,7 @@
     /// Vibrato amount (semitones)
     @objc open dynamic var vibratoDepth: Double = 1.0 {
         willSet {
-            if vibratoDepth == newValue {
-                return
-            }
+            guard vibratoDepth != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && vibratoDepthParameter != nil {
@@ -105,9 +101,7 @@
     /// Filter cutoff (harmonic ratio)
     @objc open dynamic var filterCutoff: Double = 4.0 {
         willSet {
-            if filterCutoff == newValue {
-                return
-            }
+            guard filterCutoff != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterCutoffParameter != nil {
@@ -123,9 +117,7 @@
     /// Filter EG strength (harmonic ratio)
     @objc open dynamic var filterStrength: Double = 20.0 {
         willSet {
-            if filterStrength == newValue {
-                return
-            }
+            guard filterStrength != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterStrengthParameter != nil {
@@ -141,9 +133,7 @@
     /// Filter resonance (dB)
     @objc open dynamic var filterResonance: Double = 0.0 {
         willSet {
-            if filterResonance == newValue {
-                return
-            }
+            guard filterResonance != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && filterResonanceParameter != nil {
@@ -159,9 +149,7 @@
     /// Glide rate (seconds per octave)
     @objc open dynamic var glideRate: Double = 0.0 {
         willSet {
-            if glideRate == newValue {
-                return
-            }
+            guard glideRate != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && glideRateParameter != nil {
@@ -177,108 +165,112 @@
     /// Amplitude attack duration (seconds)
     @objc open dynamic var attackDuration: Double = 0.0 {
         willSet {
-            if attackDuration != newValue {
-                internalAU?.attackDuration = newValue
-            }
+            guard attackDuration != newValue else { return }
+            internalAU?.attackDuration = newValue
         }
     }
 
     /// Amplitude Decay duration (seconds)
     @objc open dynamic var decayDuration: Double = 0.0 {
         willSet {
-            if decayDuration != newValue {
-                internalAU?.decayDuration = newValue
-            }
+            guard decayDuration != newValue else { return }
+            internalAU?.decayDuration = newValue
         }
     }
 
     /// Amplitude sustain level (fraction)
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
-            if sustainLevel != newValue {
-                internalAU?.sustainLevel = newValue
-            }
+            guard sustainLevel != newValue else { return }
+            internalAU?.sustainLevel = newValue
         }
     }
 
     /// Amplitude Release duration (seconds)
     @objc open dynamic var releaseDuration: Double = 0.0 {
         willSet {
-            if releaseDuration != newValue {
-                internalAU?.releaseDuration = newValue
-            }
+            guard releaseDuration != newValue else { return }
+            internalAU?.releaseDuration = newValue
         }
     }
 
     /// Filter attack duration (seconds)
     @objc open dynamic var filterAttackDuration: Double = 0.0 {
         willSet {
-            if filterAttackDuration != newValue {
-                internalAU?.filterAttackDuration = newValue
-            }
+            guard filterAttackDuration != newValue else { return }
+            internalAU?.filterAttackDuration = newValue
         }
     }
 
     /// Filter Decay duration (seconds)
     @objc open dynamic var filterDecayDuration: Double = 0.0 {
         willSet {
-            if filterDecayDuration != newValue {
-                internalAU?.filterDecayDuration = newValue
-            }
+            guard filterDecayDuration != newValue else { return }
+            internalAU?.filterDecayDuration = newValue
         }
     }
 
     /// Filter sustain level (fraction)
     @objc open dynamic var filterSustainLevel: Double = 1.0 {
         willSet {
-            if filterSustainLevel != newValue {
-                internalAU?.filterSustainLevel = newValue
-            }
+            guard filterSustainLevel != newValue else { return }
+            internalAU?.filterSustainLevel = newValue
         }
     }
 
     /// Filter Release duration (seconds)
     @objc open dynamic var filterReleaseDuration: Double = 0.0 {
         willSet {
-            if filterReleaseDuration != newValue {
-                internalAU?.filterReleaseDuration = newValue
-            }
+            guard filterReleaseDuration != newValue else { return }
+            internalAU?.filterReleaseDuration = newValue
         }
     }
 
     /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var filterEnable: Bool = false {
         willSet {
-            if filterEnable != newValue {
-                internalAU?.filterEnable = newValue ? 1.0 : 0.0
-            }
+            guard filterEnable != newValue else { return }
+            internalAU?.filterEnable = newValue ? 1.0 : 0.0
         }
     }
 
     /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var loopThruRelease: Bool = false {
         willSet {
-            if loopThruRelease != newValue {
-                internalAU?.loopThruRelease = newValue ? 1.0 : 0.0
-            }
+            guard loopThruRelease != newValue else { return }
+            internalAU?.loopThruRelease = newValue ? 1.0 : 0.0
         }
     }
 
     /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var isMonophonic: Bool = false {
         willSet {
-            if isMonophonic != newValue {
-                internalAU?.isMonophonic = newValue ? 1.0 : 0.0
-            }
+            guard isMonophonic != newValue else { return }
+            internalAU?.isMonophonic = newValue ? 1.0 : 0.0
         }
     }
 
     /// isLegato (boolean, 0.0 for false or 1.0 for true)
     @objc open dynamic var isLegato: Bool = false {
         willSet {
-            if isLegato != newValue {
-                internalAU?.isLegato = newValue ? 1.0 : 0.0
-            }
+            guard isLegato != newValue else { return }
+            internalAU?.isLegato = newValue ? 1.0 : 0.0
+        }
+    }
+
+    /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
+    @objc open dynamic var keyTrackingFraction: Double = 1.0 {
+        willSet {
+            guard keyTrackingFraction != newValue else { return }
+            internalAU?.keyTrackingFraction = newValue
+        }
+    }
+
+    /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
+    @objc open dynamic var filterEnvelopeVelocityScaling: Double = 0.0 {
+        willSet {
+            guard filterEnvelopeVelocityScaling != newValue else { return }
+            internalAU?.filterEnvelopeVelocityScaling = newValue
         }
     }
 
@@ -306,6 +298,8 @@
     ///   - loopThruRelease: if true, sample will continue looping after key release
     ///   - isMonophonic: true for mono, false for polyphonic
     ///   - isLegato: (mono mode onl) if true, legato notes will not retrigger
+    ///   - keyTracking: -2.0 - 2.0, 1.0 means perfect key tracking, 0.0 means none
+    ///   - filterEnvelopeVelocityScaling: fraction, 0.0 - 1.0
     ///
     @objc public init(
         masterVolume: Double = 1.0,
@@ -326,7 +320,9 @@
         glideRate: Double = 0.0,
         loopThruRelease: Bool = true,
         isMonophonic: Bool = false,
-        isLegato: Bool = false  ) {
+        isLegato: Bool = false,
+        keyTracking: Double = 1.0,
+        filterEnvelopeVelocityScaling: Double = 0.0) {
 
         self.masterVolume = masterVolume
         self.pitchBend = pitchBend
@@ -347,6 +343,8 @@
         self.loopThruRelease = loopThruRelease
         self.isMonophonic = isMonophonic
         self.isLegato = isLegato
+        self.keyTrackingFraction = keyTracking
+        self.filterEnvelopeVelocityScaling = filterEnvelopeVelocityScaling
 
         AKSampler.register()
 
@@ -386,6 +384,8 @@
         self.loopThruReleaseParameter = tree["loopThruRelease"]
         self.monophonicParameter = tree["monophonic"]
         self.legatoParameter = tree["legato"]
+        self.keyTrackingParameter = tree["keyTracking"]
+        self.filterEnvelopeVelocityScalingParameter = tree["filterEnvelopeVelocityScaling"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -418,6 +418,8 @@
         self.internalAU?.setParameterImmediately(.loopThruRelease, value: loopThruRelease ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.monophonic, value: isMonophonic ? 1.0 : 0.0)
         self.internalAU?.setParameterImmediately(.legato, value: isLegato ? 1.0 : 0.0)
+        self.internalAU?.setParameterImmediately(.keyTrackingFraction, value: keyTracking)
+        self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)
     }
 
     @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
@@ -452,6 +454,10 @@
 
     @objc open func unloadAllSamples() {
         internalAU?.unloadAllSamples()
+    }
+
+    @objc open func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: Double) {
+        internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: Float(frequency))
     }
 
     @objc open func buildSimpleKeyMap() {

@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKStereoFieldLimiterParameter) {
 
 #ifndef __cplusplus
 
-void *createStereoFieldLimiterDSP(int nChannels, double sampleRate);
+AKDSPRef createStereoFieldLimiterDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -46,7 +46,7 @@ public:
                 amountRamp.setTarget(value, immediate);
                 break;
             case AKStereoFieldLimiterParameterRampDuration:
-                amountRamp.setRampDuration(value, _sampleRate);
+                amountRamp.setRampDuration(value, sampleRate);
                 break;
         }
     }
@@ -57,7 +57,7 @@ public:
             case AKStereoFieldLimiterParameterAmount:
                 return amountRamp.getTarget();
             case AKStereoFieldLimiterParameterRampDuration:
-                return amountRamp.getRampDuration(_sampleRate);
+                return amountRamp.getRampDuration(sampleRate);
         }
         return 0;
     }
@@ -72,21 +72,21 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             // do ramping every 8 samples
             if ((frameOffset & 0x7) == 0) {
-                amountRamp.advanceTo(_now + frameOffset);
+                amountRamp.advanceTo(now + frameOffset);
             }
             float amount = amountRamp.getValue();
 
-            if (!_playing) {
-                _outBufferListPtr->mBuffers[0] = _inBufferListPtr->mBuffers[0];
-                _outBufferListPtr->mBuffers[1] = _inBufferListPtr->mBuffers[1];
+            if (!isStarted) {
+                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
+                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
             }
 
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < _nChannels; ++channel) {
-                float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+            for (int channel = 0; channel < channelCount; ++channel) {
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
