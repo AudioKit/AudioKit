@@ -41,7 +41,6 @@
             AKLog("Error: \(error.localizedDescription)")
             return nil
         }
-
     }
 
     // MARK: - Initialization

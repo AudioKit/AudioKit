@@ -71,9 +71,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     /// Frequency (in Hz)
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
-                return
-            }
+            guard frequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -87,9 +85,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     /// Amplitude (typically a value between 0 and 1).
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
-                return
-            }
+            guard amplitude != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
@@ -103,9 +99,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     /// Index of the wavetable to use (fractional are okay).
     @objc open dynamic var index: Double = defaultIndex {
         willSet {
-            if index == newValue {
-                return
-            }
+            guard index != newValue else { return }
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
@@ -120,9 +114,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     /// Frequency offset in Hz.
     @objc open dynamic var detuningOffset: Double = defaultDetuningOffset {
         willSet {
-            if detuningOffset == newValue {
-                return
-            }
+            guard detuningOffset != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
@@ -136,9 +128,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     /// Frequency detuning multiplier
     @objc open dynamic var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
-            if detuningMultiplier == newValue {
-                return
-            }
+            guard detuningMultiplier != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)

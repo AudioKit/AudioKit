@@ -150,7 +150,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
                       polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
-        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        super.init(frame: CGRect(width: width, height: height))
         size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         needsDisplay = true
     }
@@ -236,7 +236,6 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             }
             needsDisplay = true
         }
-
     }
 
     // MARK: - MIDI

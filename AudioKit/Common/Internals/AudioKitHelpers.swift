@@ -18,11 +18,46 @@ public typealias AKCCallback = @convention(block) () -> Void
 /// Callback function that can be called from C
 public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
 
-extension Collection {
-    /// Return a random element from the collection
-    public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
-        return index(startIndex, offsetBy: offset)
+//extension Collection {
+//    /// Return a random element from the collection
+//    public var randomIndex: Index {
+//        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
+//        return index(startIndex, offsetBy: offset)
+//    }
+//}
+
+//extension Collection where Element == CGPoint {
+//
+//    public func bezier() -> NSBezierPath {
+//        let path = NSBezierPath()
+//
+//        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
+//        path.move(to: fst)
+//
+//        dropFirst().forEach {
+//            path.line(to: $0)
+//        }
+//
+//        path.close()
+//        return path
+//    }
+//}
+
+extension AudioUnitParameterOptions {
+    public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+}
+
+extension CGRect {
+    public init(size: CGSize) {
+        self.init(origin: .zero, size: size)
+    }
+
+    public init(width: CGFloat, height: CGFloat) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
+    }
+
+    public init(width: Int, height: Int) {
+        self.init(width: CGFloat(width), height: CGFloat(height))
     }
 }
 
@@ -46,17 +81,10 @@ public func fourCC(_ string: String) -> UInt32 {
 ///
 @inline(__always)
 public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any...) {
-    if AKSettings.enableLogging {
-        let fileName = (file as NSString).lastPathComponent
-        var content = ""
-        for i in 0 ..< items.count {
-            content += String(describing: items[i])
-            if i < items.count - 1 {
-                content += " "
-            }
-        }
-        Swift.print("\(fileName):\(fullname):\(line):\(content)")
-    }
+    guard AKSettings.enableLogging else { return }
+    let fileName = (file as NSString).lastPathComponent
+    let content = (items.map { String(describing: $0) }).joined(separator: " ")
+    Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
 
 /// Random double between bounds
@@ -333,19 +361,20 @@ extension AVAudioNode {
 
 extension AUParameter {
     @nonobjc
-    convenience init(_ identifier: String,
+    convenience init(identifier: String,
                      name: String,
                      address: AUParameterAddress,
-                     range: ClosedRange<AUValue>,
+                     range: ClosedRange<Double>,
                      unit: AudioUnitParameterUnit,
-                     value: AUValue = 0) {
-        self.init(identifier,
+                     flags: AudioUnitParameterOptions) {
+
+        self.init(identifier: identifier,
                   name: name,
                   address: address,
-                  min: range.lowerBound,
-                  max: range.upperBound,
-                  unit: unit)
-        self.value = value
+                  min: AUValue(range.lowerBound),
+                  max: AUValue(range.upperBound),
+                  unit: unit,
+                  flags: flags)
     }
 }
 

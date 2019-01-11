@@ -29,8 +29,8 @@ public:
 
     AKOperationGeneratorDSPKernel() {}
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, sampleRate);
 
         plumber_register(&pd);
         plumber_init(&pd);
@@ -156,14 +156,14 @@ public:
 
 private:
 
-    int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    int internalTriggers[14] = {0};
 
     plumber_data pd;
     char *sporthCode = nil;
     std::vector<AKCustomUgenInfo> customUgens;
 
 public:
-    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float parameters[14] = {0};
     bool started = false;
 };
 
