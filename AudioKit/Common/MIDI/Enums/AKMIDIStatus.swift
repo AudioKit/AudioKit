@@ -9,8 +9,8 @@
 public struct AKMIDIStatus {
     public var byte: MIDIByte
 
-    public init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
-        byte = MIDIByte(statusType.rawValue) << 4 + channel
+    public init(type: AKMIDIStatusType, channel: MIDIChannel) {
+        byte = MIDIByte(type.rawValue) << 4 + channel
     }
 
     public init(command: AKMIDISystemCommand) {
