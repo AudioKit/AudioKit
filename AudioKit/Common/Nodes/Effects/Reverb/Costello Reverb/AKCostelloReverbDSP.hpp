@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKCostelloReverbParameter) {
 
 #ifndef __cplusplus
 
-void *createCostelloReverbDSP(int nChannels, double sampleRate);
+AKDSPRef createCostelloReverbDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -26,8 +26,8 @@ void *createCostelloReverbDSP(int nChannels, double sampleRate);
 
 class AKCostelloReverbDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKCostelloReverbDSP();
@@ -48,7 +48,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

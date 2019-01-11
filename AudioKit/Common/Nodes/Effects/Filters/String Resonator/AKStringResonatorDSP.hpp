@@ -18,7 +18,7 @@ typedef NS_ENUM(AUParameterAddress, AKStringResonatorParameter) {
 
 #ifndef __cplusplus
 
-void *createStringResonatorDSP(int nChannels, double sampleRate);
+AKDSPRef createStringResonatorDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -26,8 +26,8 @@ void *createStringResonatorDSP(int nChannels, double sampleRate);
 
 class AKStringResonatorDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKStringResonatorDSP();
@@ -48,7 +48,7 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

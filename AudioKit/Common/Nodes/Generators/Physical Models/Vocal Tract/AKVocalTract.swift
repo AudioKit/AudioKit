@@ -17,7 +17,6 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
@@ -27,6 +26,36 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     fileprivate var tensenessParameter: AUParameter?
     fileprivate var nasalityParameter: AUParameter?
 
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0.0 ... 22050.0
+
+    /// Lower and upper bounds for Tongue Position
+    public static let tonguePositionRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Tongue Diameter
+    public static let tongueDiameterRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Tenseness
+    public static let tensenessRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Nasality
+    public static let nasalityRange = 0.0 ... 1.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 160.0
+
+    /// Initial value for Tongue Position
+    public static let defaultTonguePosition = 0.5
+
+    /// Initial value for Tongue Diameter
+    public static let defaultTongueDiameter = 1.0
+
+    /// Initial value for Tenseness
+    public static let defaultTenseness = 0.6
+
+    /// Initial value for Nasality
+    public static let defaultNasality = 0.0
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
@@ -35,11 +64,9 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Glottal frequency.
-    @objc open dynamic var frequency: Double = 160.0 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
-                return
-            }
+            guard frequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -51,11 +78,9 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue position (0-1)
-    @objc open dynamic var tonguePosition: Double = 0.5 {
+    @objc open dynamic var tonguePosition: Double = defaultTonguePosition {
         willSet {
-            if tonguePosition == newValue {
-                return
-            }
+            guard tonguePosition != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     tonguePositionParameter?.setValue(Float(newValue), originator: existingToken)
@@ -67,11 +92,9 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Tongue diameter (0-1)
-    @objc open dynamic var tongueDiameter: Double = 1.0 {
+    @objc open dynamic var tongueDiameter: Double = defaultTongueDiameter {
         willSet {
-            if tongueDiameter == newValue {
-                return
-            }
+            guard tongueDiameter != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     tongueDiameterParameter?.setValue(Float(newValue), originator: existingToken)
@@ -83,11 +106,9 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    @objc open dynamic var tenseness: Double = 0.6 {
+    @objc open dynamic var tenseness: Double = defaultTenseness {
         willSet {
-            if tenseness == newValue {
-                return
-            }
+            guard tenseness != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     tensenessParameter?.setValue(Float(newValue), originator: existingToken)
@@ -99,11 +120,9 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     }
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    @objc open dynamic var nasality: Double = 0.0 {
+    @objc open dynamic var nasality: Double = defaultNasality {
         willSet {
-            if nasality == newValue {
-                return
-            }
+            guard nasality != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     nasalityParameter?.setValue(Float(newValue), originator: existingToken)
@@ -131,11 +150,12 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     ///   - nasality: Sets the velum size. Larger values of this creates more nasally sounds.
     ///
     @objc public init(
-        frequency: Double = 160.0,
-        tonguePosition: Double = 0.5,
-        tongueDiameter: Double = 1.0,
-        tenseness: Double = 0.6,
-        nasality: Double = 0.0) {
+        frequency: Double = defaultFrequency,
+        tonguePosition: Double = defaultTonguePosition,
+        tongueDiameter: Double = defaultTongueDiameter,
+        tenseness: Double = defaultTenseness,
+        nasality: Double = defaultNasality
+    ) {
 
         self.frequency = frequency
         self.tonguePosition = tonguePosition
@@ -178,6 +198,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.tonguePosition, value: tonguePosition)
         internalAU?.setParameterImmediately(.tongueDiameter, value: tongueDiameter)

@@ -13,12 +13,12 @@
 
 #include "AKModulatedDelayDSP.hpp"
 
-extern "C" void *createChorusDSP(int nChannels, double sampleRate)
+extern "C" AKDSPRef createChorusDSP(int channelCount, double sampleRate)
 {
     return new AKModulatedDelayDSP(kChorus);
 }
 
-extern "C" void *createFlangerDSP(int nChannels, double sampleRate)
+extern "C" AKDSPRef createFlangerDSP(int channelCount, double sampleRate)
 {
     return new AKModulatedDelayDSP(kFlanger);
 }
@@ -102,10 +102,10 @@ void AKModulatedDelayDSP::setParameter(AUParameterAddress address, float value, 
             dryWetMixRamp.setTarget(value, immediate);
             break;
         case AKModulatedDelayParameterRampDuration:
-            frequencyRamp.setRampDuration(value, _sampleRate);
-            depthRamp.setRampDuration(value, _sampleRate);
-            feedbackRamp.setRampDuration(value, _sampleRate);
-            dryWetMixRamp.setRampDuration(value, _sampleRate);
+            frequencyRamp.setRampDuration(value, sampleRate);
+            depthRamp.setRampDuration(value, sampleRate);
+            feedbackRamp.setRampDuration(value, sampleRate);
+            dryWetMixRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -122,7 +122,7 @@ float AKModulatedDelayDSP::getParameter(AUParameterAddress address)
         case AKModulatedDelayParameterDryWetMix:
             return dryWetMixRamp.getTarget();
         case AKModulatedDelayParameterRampDuration:
-            return frequencyRamp.getRampDuration(_sampleRate);
+            return frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
@@ -132,13 +132,13 @@ float AKModulatedDelayDSP::getParameter(AUParameterAddress address)
 void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
 {
     float *inBuffers[2], *outBuffers[2];
-    inBuffers[0]  = (float *)_inBufferListPtr->mBuffers[0].mData  + bufferOffset;
-    inBuffers[1]  = (float *)_inBufferListPtr->mBuffers[1].mData  + bufferOffset;
-    outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + bufferOffset;
-    outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + bufferOffset;
-    unsigned channelCount = _outBufferListPtr->mNumberBuffers;
+    inBuffers[0]  = (float *)inBufferListPtr->mBuffers[0].mData  + bufferOffset;
+    inBuffers[1]  = (float *)inBufferListPtr->mBuffers[1].mData  + bufferOffset;
+    outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + bufferOffset;
+    outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + bufferOffset;
+    unsigned channelCount = outBufferListPtr->mNumberBuffers;
 
-    if (!_playing)
+    if (!isStarted)
     {
         // effect bypassed: just copy input to output
         memcpy(outBuffers[0], inBuffers[0], frameCount * sizeof(float));
@@ -152,13 +152,13 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
-        
+
         // ramp parameters
-        frequencyRamp.advanceTo(_now + frameOffset);
-        depthRamp.advanceTo(_now + frameOffset);
-        feedbackRamp.advanceTo(_now + frameOffset);
-        dryWetMixRamp.advanceTo(_now + frameOffset);
-        
+        frequencyRamp.advanceTo(now + frameOffset);
+        depthRamp.advanceTo(now + frameOffset);
+        feedbackRamp.advanceTo(now + frameOffset);
+        dryWetMixRamp.advanceTo(now + frameOffset);
+
         // apply changes
         setModFrequencyHz(frequencyRamp.getValue());
         modDepthFraction = depthRamp.getValue();
@@ -169,7 +169,7 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // process
         Render(channelCount, chunkSize, inBuffers, outBuffers);
-        
+
         // advance pointers
         inBuffers[0] += chunkSize;
         inBuffers[1] += chunkSize;

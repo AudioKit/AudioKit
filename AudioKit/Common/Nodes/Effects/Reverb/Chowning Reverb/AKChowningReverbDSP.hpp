@@ -16,7 +16,7 @@ typedef NS_ENUM(AUParameterAddress, AKChowningReverbParameter) {
 
 #ifndef __cplusplus
 
-void *createChowningReverbDSP(int nChannels, double sampleRate);
+AKDSPRef createChowningReverbDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -24,13 +24,13 @@ void *createChowningReverbDSP(int nChannels, double sampleRate);
 
 class AKChowningReverbDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKChowningReverbDSP();
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
     void deinit() override;
 

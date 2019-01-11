@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFormantFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFormantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKFormantFilter.defaultCenterFrequency {
@@ -35,54 +35,37 @@ public class AKFormantFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFormantFilterDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+        let centerFrequency = AUParameter(
+            identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKFormantFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKFormantFilter.centerFrequencyRange.upperBound),
+            address: AKFormantFilterParameter.centerFrequency.rawValue,
+            range: AKFormantFilter.centerFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let attackDuration = AUParameterTree.createParameter(
-            withIdentifier: "attackDuration",
-            name: "Impulse response attack duration (Seconds)",
-            address: AUParameterAddress(1),
-            min: Float(AKFormantFilter.attackDurationRange.lowerBound),
-            max: Float(AKFormantFilter.attackDurationRange.upperBound),
+            flags: .default)
+        let attackDuration = AUParameter(
+            identifier: "attackDuration",
+            name: "Impulse response attack time (Seconds)",
+            address: AKFormantFilterParameter.attackDuration.rawValue,
+            range: AKFormantFilter.attackDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let decayDuration = AUParameterTree.createParameter(
-            withIdentifier: "decayDuration",
-            name: "Impulse reponse decay duration (Seconds)",
-            address: AUParameterAddress(2),
-            min: Float(AKFormantFilter.decayDurationRange.lowerBound),
-            max: Float(AKFormantFilter.decayDurationRange.upperBound),
+            flags: .default)
+        let decayDuration = AUParameter(
+            identifier: "decayDuration",
+            name: "Impulse reponse decay time (Seconds)",
+            address: AKFormantFilterParameter.decayDuration.rawValue,
+            range: AKFormantFilter.decayDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, attackDuration, decayDuration]))
+        setParameterTree(AUParameterTree(children: [centerFrequency, attackDuration, decayDuration]))
         centerFrequency.value = Float(AKFormantFilter.defaultCenterFrequency)
         attackDuration.value = Float(AKFormantFilter.defaultAttackDuration)
         decayDuration.value = Float(AKFormantFilter.defaultDecayDuration)

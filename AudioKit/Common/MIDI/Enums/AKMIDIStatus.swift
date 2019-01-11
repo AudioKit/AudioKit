@@ -51,8 +51,6 @@ public struct AKMIDIStatus {
 ///    single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
 /// - PitchWheel:
 ///    common keyboard control that allow for a pitch to be bent up or down a given number of semitones
-/// - SystemCommand:
-///    differ from system to system
 ///
 public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release

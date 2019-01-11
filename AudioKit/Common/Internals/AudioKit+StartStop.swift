@@ -12,11 +12,16 @@ import UIKit
 #endif
 
 extension AudioKit {
-
     // MARK: - Start/Stop
 
     /// Start up the audio engine with periodic functions
     public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
+        // ensure that an output has been set previously
+        guard let finalMixer = finalMixer else {
+            AKLog("No output has been assigned yet.")
+            return
+        }
+
         for function in functions {
             function.connect(to: finalMixer)
         }
@@ -96,10 +101,10 @@ extension AudioKit {
         }
         #endif
     }
-    
+
     @objc public static func shutdown() throws {
         engine = AVAudioEngine()
-        finalMixer = AKMixer()
+        finalMixer = nil
         output = nil
         shouldBeRunning = false
     }
@@ -119,7 +124,6 @@ extension AudioKit {
                 }
 
                 if AKSettings.enableCategoryChangeHandling && !engine.isRunning && shouldBeRunning {
-
                     #if !os(macOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
@@ -157,7 +161,6 @@ extension AudioKit {
         // Notifications aren't guaranteed to come in on the main thread
 
         let attemptRestart = {
-
             if AKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
                 do {
                     #if !os(macOS)

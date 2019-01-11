@@ -139,7 +139,6 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
             throw error
         }
-
     }
 
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
@@ -165,6 +164,5 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
-
     }
 }

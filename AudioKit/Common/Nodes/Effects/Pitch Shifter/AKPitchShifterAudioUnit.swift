@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPitchShifterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKPitchShifterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPitchShifterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var shift: Double = AKPitchShifter.defaultShift {
@@ -35,54 +35,37 @@ public class AKPitchShifterAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createPitchShifterDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let shift = AUParameterTree.createParameter(
-            withIdentifier: "shift",
+        let shift = AUParameter(
+            identifier: "shift",
             name: "Pitch shift (in semitones)",
-            address: AUParameterAddress(0),
-            min: Float(AKPitchShifter.shiftRange.lowerBound),
-            max: Float(AKPitchShifter.shiftRange.upperBound),
+            address: AKPitchShifterParameter.shift.rawValue,
+            range: AKPitchShifter.shiftRange,
             unit: .relativeSemiTones,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let windowSize = AUParameterTree.createParameter(
-            withIdentifier: "windowSize",
+            flags: .default)
+        let windowSize = AUParameter(
+            identifier: "windowSize",
             name: "Window size (in samples)",
-            address: AUParameterAddress(1),
-            min: Float(AKPitchShifter.windowSizeRange.lowerBound),
-            max: Float(AKPitchShifter.windowSizeRange.upperBound),
+            address: AKPitchShifterParameter.windowSize.rawValue,
+            range: AKPitchShifter.windowSizeRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let crossfade = AUParameterTree.createParameter(
-            withIdentifier: "crossfade",
+            flags: .default)
+        let crossfade = AUParameter(
+            identifier: "crossfade",
             name: "Crossfade (in samples)",
-            address: AUParameterAddress(2),
-            min: Float(AKPitchShifter.crossfadeRange.lowerBound),
-            max: Float(AKPitchShifter.crossfadeRange.upperBound),
+            address: AKPitchShifterParameter.crossfade.rawValue,
+            range: AKPitchShifter.crossfadeRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [shift, windowSize, crossfade]))
+        setParameterTree(AUParameterTree(children: [shift, windowSize, crossfade]))
         shift.value = Float(AKPitchShifter.defaultShift)
         windowSize.value = Float(AKPitchShifter.defaultWindowSize)
         crossfade.value = Float(AKPitchShifter.defaultCrossfade)

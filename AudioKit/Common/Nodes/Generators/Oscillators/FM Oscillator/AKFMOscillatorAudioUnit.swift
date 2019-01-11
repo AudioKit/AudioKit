@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFMOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var baseFrequency: Double = AKFMOscillator.defaultBaseFrequency {
@@ -43,78 +43,51 @@ public class AKFMOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFMOscillatorDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let baseFrequency = AUParameterTree.createParameter(
-            withIdentifier: "baseFrequency",
+        let baseFrequency = AUParameter(
+            identifier: "baseFrequency",
             name: "Base Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKFMOscillator.baseFrequencyRange.lowerBound),
-            max: Float(AKFMOscillator.baseFrequencyRange.upperBound),
+            address: AKFMOscillatorParameter.baseFrequency.rawValue,
+            range: AKFMOscillator.baseFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let carrierMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "carrierMultiplier",
+            flags: .default)
+        let carrierMultiplier = AUParameter(
+            identifier: "carrierMultiplier",
             name: "Carrier Multiplier",
-            address: AUParameterAddress(1),
-            min: Float(AKFMOscillator.carrierMultiplierRange.lowerBound),
-            max: Float(AKFMOscillator.carrierMultiplierRange.upperBound),
+            address: AKFMOscillatorParameter.carrierMultiplier.rawValue,
+            range: AKFMOscillator.carrierMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let modulatingMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "modulatingMultiplier",
+            flags: .default)
+        let modulatingMultiplier = AUParameter(
+            identifier: "modulatingMultiplier",
             name: "Modulating Multiplier",
-            address: AUParameterAddress(2),
-            min: Float(AKFMOscillator.modulatingMultiplierRange.lowerBound),
-            max: Float(AKFMOscillator.modulatingMultiplierRange.upperBound),
+            address: AKFMOscillatorParameter.modulatingMultiplier.rawValue,
+            range: AKFMOscillator.modulatingMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let modulationIndex = AUParameterTree.createParameter(
-            withIdentifier: "modulationIndex",
+            flags: .default)
+        let modulationIndex = AUParameter(
+            identifier: "modulationIndex",
             name: "Modulation Index",
-            address: AUParameterAddress(3),
-            min: Float(AKFMOscillator.modulationIndexRange.lowerBound),
-            max: Float(AKFMOscillator.modulationIndexRange.upperBound),
+            address: AKFMOscillatorParameter.modulationIndex.rawValue,
+            range: AKFMOscillator.modulationIndexRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(4),
-            min: Float(AKFMOscillator.amplitudeRange.lowerBound),
-            max: Float(AKFMOscillator.amplitudeRange.upperBound),
+            address: AKFMOscillatorParameter.amplitude.rawValue,
+            range: AKFMOscillator.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
+        setParameterTree(AUParameterTree(children: [baseFrequency, carrierMultiplier, modulatingMultiplier, modulationIndex, amplitude]))
         baseFrequency.value = Float(AKFMOscillator.defaultBaseFrequency)
         carrierMultiplier.value = Float(AKFMOscillator.defaultCarrierMultiplier)
         modulatingMultiplier.value = Float(AKFMOscillator.defaultModulatingMultiplier)

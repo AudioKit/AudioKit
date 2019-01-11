@@ -30,10 +30,9 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     @objc open dynamic var frequency: Double = 110 {
         willSet {
-            if frequency != newValue {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+            guard frequency != newValue else { return }
+            if let existingToken = token {
+                frequencyParameter?.setValue(Float(newValue), originator: existingToken)
             }
         }
     }
@@ -41,10 +40,9 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Amplitude
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
-            if amplitude != newValue {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+            guard amplitude != newValue else { return }
+            if let existingToken = token {
+                amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
             }
         }
     }
@@ -104,8 +102,8 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.frequency = frequency
+        internalAU?.amplitude = amplitude
     }
 
     /// Trigger the sound with an optional set of parameters
