@@ -9,27 +9,27 @@
 #import "AKSynthDSP.hpp"
 #include <math.h>
 
-extern "C" void *AKSynthCreateDSP(int channelCount, double sampleRate) {
+extern "C" void *createAKSynthDSP(int channelCount, double sampleRate) {
     return new AKSynthDSP();
 }
 
-extern "C" void AKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+extern "C" void doAKSynthPlayNote(void *pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
 {
     ((AKSynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
 }
 
-extern "C" void AKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
+extern "C" void doAKSynthStopNote(void *pDSP, UInt8 noteNumber, bool immediate)
 {
     ((AKSynthDSP*)pDSP)->stopNote(noteNumber, immediate);
 }
 
-extern "C" void AKSynthSustainPedal(void *pDSP, bool pedalDown)
+extern "C" void doAKSynthSustainPedal(void *pDSP, bool pedalDown)
 {
     ((AKSynthDSP*)pDSP)->sustainPedal(pedalDown);
 }
 
 
-AKSynthDSP::AKSynthDSP() : AKSynth()
+AKSynthDSP::AKSynthDSP() : AKCoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -41,18 +41,18 @@ AKSynthDSP::AKSynthDSP() : AKSynth()
 void AKSynthDSP::init(int channelCount, double sampleRate)
 {
     AKDSPBase::init(channelCount, sampleRate);
-    AKSynth::init(sampleRate);
+    AKCoreSynth::init(sampleRate);
 }
 
 void AKSynthDSP::deinit()
 {
-    AKSynth::deinit();
+    AKCoreSynth::deinit();
 }
 
 void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
 {
     switch (address) {
-        case rampDurationParameter:
+        case AKSynthParameterRampDuration:
             masterVolumeRamp.setRampDuration(value, sampleRate);
             pitchBendRamp.setRampDuration(value, sampleRate);
             vibratoDepthRamp.setRampDuration(value, sampleRate);
@@ -60,45 +60,48 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
             filterResonanceRamp.setRampDuration(value, sampleRate);
             break;
 
-        case masterVolumeParameter:
+        case AKSynthParameterMasterVolume:
             masterVolumeRamp.setTarget(value, immediate);
             break;
-        case pitchBendParameter:
+        case AKSynthParameterPitchBend:
             pitchBendRamp.setTarget(value, immediate);
             break;
-        case vibratoDepthParameter:
+        case AKSynthParameterVibratoDepth:
             vibratoDepthRamp.setTarget(value, immediate);
             break;
-        case filterCutoffParameter:
+        case AKSynthParameterFilterCutoff:
             filterCutoffRamp.setTarget(value, immediate);
             break;
-        case filterResonanceParameter:
+        case AKSynthParameterFilterStrength:
+            filterStrengthRamp.setTarget(value, immediate);
+            break;
+        case AKSynthParameterFilterResonance:
             filterResonanceRamp.setTarget(pow(10.0, -0.05 * value), immediate);
             break;
 
-        case attackDurationParameter:
+        case AKSynthParameterAttackDuration:
             setAmpAttackDurationSeconds(value);
             break;
-        case decayDurationParameter:
+        case AKSynthParameterDecayDuration:
             setAmpDecayDurationSeconds(value);
             break;
-        case sustainLevelParameter:
+        case AKSynthParameterSustainLevel:
             setAmpSustainFraction(value);
             break;
-        case releaseDurationParameter:
+        case AKSynthParameterReleaseDuration:
             setAmpReleaseDurationSeconds(value);
             break;
 
-        case filterAttackDurationParameter:
+        case AKSynthParameterFilterAttackDuration:
             setFilterAttackDurationSeconds(value);
             break;
-        case filterDecayDurationParameter:
+        case AKSynthParameterFilterDecayDuration:
             setFilterDecayDurationSeconds(value);
             break;
-        case filterSustainLevelParameter:
+        case AKSynthParameterFilterSustainLevel:
             setFilterSustainFraction(value);
             break;
-        case filterReleaseDurationParameter:
+        case AKSynthParameterFilterReleaseDuration:
             setFilterReleaseDurationSeconds(value);
             break;
     }
@@ -107,36 +110,38 @@ void AKSynthDSP::setParameter(uint64_t address, float value, bool immediate)
 float AKSynthDSP::getParameter(uint64_t address)
 {
     switch (address) {
-        case rampDurationParameter:
+        case AKSynthParameterRampDuration:
             return pitchBendRamp.getRampDuration(sampleRate);
 
-        case masterVolumeParameter:
+        case AKSynthParameterMasterVolume:
             return masterVolumeRamp.getTarget();
-        case pitchBendParameter:
+        case AKSynthParameterPitchBend:
             return pitchBendRamp.getTarget();
-        case vibratoDepthParameter:
+        case AKSynthParameterVibratoDepth:
             return vibratoDepthRamp.getTarget();
-        case filterCutoffParameter:
+        case AKSynthParameterFilterCutoff:
             return filterCutoffRamp.getTarget();
-        case filterResonanceParameter:
+        case AKSynthParameterFilterStrength:
+            return filterStrengthRamp.getTarget();
+        case AKSynthParameterFilterResonance:
             return -20.0f * log10(filterResonanceRamp.getTarget());
 
-        case attackDurationParameter:
+        case AKSynthParameterAttackDuration:
             return getAmpAttackDurationSeconds();
-        case decayDurationParameter:
+        case AKSynthParameterDecayDuration:
             return getAmpDecayDurationSeconds();
-        case sustainLevelParameter:
+        case AKSynthParameterSustainLevel:
             return getAmpSustainFraction();
-        case releaseDurationParameter:
+        case AKSynthParameterReleaseDuration:
             return getAmpReleaseDurationSeconds();
 
-        case filterAttackDurationParameter:
+        case AKSynthParameterFilterAttackDuration:
             return getFilterAttackDurationSeconds();
-        case filterDecayDurationParameter:
+        case AKSynthParameterFilterDecayDuration:
             return getFilterDecayDurationSeconds();
-        case filterSustainLevelParameter:
+        case AKSynthParameterFilterSustainLevel:
             return getFilterSustainFraction();
-        case filterReleaseDurationParameter:
+        case AKSynthParameterFilterReleaseDuration:
             return getFilterReleaseDurationSeconds();
     }
     return 0;
@@ -159,14 +164,16 @@ void AKSynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         vibratoDepth = (float)vibratoDepthRamp.getValue();
         filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
+        filterStrengthRamp.advanceTo(now + frameOffset);
+        cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(now + frameOffset);
-        resLinear = (float)filterResonanceRamp.getValue();
+        linearResonance = (float)filterResonanceRamp.getValue();
 
         // get data
         float *outBuffers[2];
         outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
         unsigned channelCount = outBufferListPtr->mNumberBuffers;
-        AKSynth::render(channelCount, chunkSize, outBuffers);
+        AKCoreSynth::render(channelCount, chunkSize, outBuffers);
     }
 }
