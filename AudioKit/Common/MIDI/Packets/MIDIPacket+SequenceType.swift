@@ -40,12 +40,9 @@ extension MIDIPacket: Sequence {
             let status = pop()
             if AudioKit.midi.isReceivingSysex {
                 return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
-            } else if AKMIDIEvent.isStatusByte(status) {
+            } else if var mstat = AKMIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
-                guard var mstat = AKMIDIStatusType.from(byte: status) else {
-                    return AKMIDIEvent(packet: self)
-                }
 
                 switch  mstat {
 
