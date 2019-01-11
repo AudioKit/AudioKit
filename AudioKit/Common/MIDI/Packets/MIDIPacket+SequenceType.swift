@@ -43,7 +43,9 @@ extension MIDIPacket: Sequence {
             } else if AKMIDIEvent.isStatusByte(status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
-                var mstat = AKMIDIEvent.statusFromValue(status)
+                guard var mstat = AKMIDIStatusType.from(byte: status) else {
+                    return AKMIDIEvent(packet: self)
+                }
 
                 let chan = status & 0xF
 
@@ -80,8 +82,6 @@ extension MIDIPacket: Sequence {
                     default:
                         return AKMIDIEvent(packet: self)
                     }
-                default:
-                    return AKMIDIEvent(packet: self)
                 }
             } else {
                 return nil

@@ -1145,6 +1145,9 @@
 		FE8FE9D620E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */; };
 		FE8FE9D720E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */; };
 		FE8FE9D820E42BFD00F15B7E /* AKDiskStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */; };
+		FEF991AB21E9114A00F8CAD3 /* MIDI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */; };
+		FEF991AD21E911DA00F8CAD3 /* AKMIDIFileChunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AC21E911DA00F8CAD3 /* AKMIDIFileChunk.swift */; };
+		FEF991AF21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AE21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2364,6 +2367,9 @@
 		FE8FE9D220E42BFD00F15B7E /* AKDiskStreamerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDiskStreamerDSPKernel.hpp; sourceTree = "<group>"; };
 		FE8FE9D320E42BFD00F15B7E /* AKDiskStreamerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDiskStreamerAudioUnit.mm; sourceTree = "<group>"; };
 		FE8FE9D420E42BFD00F15B7E /* AKDiskStreamer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDiskStreamer.swift; sourceTree = "<group>"; };
+		FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDI+Extensions.swift"; sourceTree = "<group>"; };
+		FEF991AC21E911DA00F8CAD3 /* AKMIDIFileChunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileChunk.swift; sourceTree = "<group>"; };
+		FEF991AE21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMetaEventType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2908,21 +2914,23 @@
 			isa = PBXGroup;
 			children = (
 				C44EA286201874770072399F /* README.md */,
+				C45664DF1D448D7E00D26565 /* Enums */,
+				C45664E31D448D7E00D26565 /* Packets */,
+				C45664E71D448D7E00D26565 /* Sequencer */,
+				FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */,
 				C45664D91D448D7E00D26565 /* AKMIDI.swift */,
 				C468DC3221AC21A200678959 /* AKMIDI+Receiving.swift */,
 				C468DC3321AC21A200678959 /* AKMIDI+Sending.swift */,
 				C4FE68861EC2AD74000B09B2 /* AKMIDIEndpointInfo.swift */,
 				C45664DA1D448D7E00D26565 /* AKMIDIEvent.swift */,
-				C45664DB1D448D7E00D26565 /* AKMIDIInstrument.swift */,
+				FEF991AC21E911DA00F8CAD3 /* AKMIDIFileChunk.swift */,
 				C45664DC1D448D7E00D26565 /* AKMIDIListener.swift */,
+				C45664DB1D448D7E00D26565 /* AKMIDIInstrument.swift */,
 				C45664DD1D448D7E00D26565 /* AKMIDINode.swift */,
 				C429F6B71F24053500601D47 /* AKMIDIPlayer.swift */,
 				C45664DE1D448D7E00D26565 /* AKMIDISampler.swift */,
 				075C6EC41F0D6C7C0075027C /* AKMIDITransformer.swift */,
 				FE771D01219251A700C7EB7E /* AKMIDICallbackInstrument.swift */,
-				C45664DF1D448D7E00D26565 /* Enums */,
-				C45664E31D448D7E00D26565 /* Packets */,
-				C45664E71D448D7E00D26565 /* Sequencer */,
 			);
 			name = MIDI;
 			path = ../Common/MIDI;
@@ -2934,6 +2942,7 @@
 				C45664E01D448D7E00D26565 /* AKMIDIControl.swift */,
 				C45664E11D448D7E00D26565 /* AKMIDIStatus.swift */,
 				C45664E21D448D7E00D26565 /* AKMIDISystemCommand.swift */,
+				FEF991AE21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -5584,7 +5593,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6007,6 +6016,7 @@
 				C49B1938204A0AD1009C7C8E /* smoothdelay.c in Sources */,
 				C44EA23A20186DBF0072399F /* AKChorus.swift in Sources */,
 				C4077A842007687200E5923C /* AKTanhDistortionAudioUnit.swift in Sources */,
+				FEF991AB21E9114A00F8CAD3 /* MIDI+Extensions.swift in Sources */,
 				C49B18D9204A0AD1009C7C8E /* posc3.c in Sources */,
 				C49B184A204A0AD0009C7C8E /* prop.c in Sources */,
 				C49B1B8E204A0C48009C7C8E /* TwoZero.cpp in Sources */,
@@ -6320,6 +6330,7 @@
 				C49B1889204A0AD1009C7C8E /* rspline.c in Sources */,
 				C49B18FF204A0AD1009C7C8E /* tenv.c in Sources */,
 				C49B180D204A0AD0009C7C8E /* kiss_fft.c in Sources */,
+				FEF991AD21E911DA00F8CAD3 /* AKMIDIFileChunk.swift in Sources */,
 				C49B1833204A0AD0009C7C8E /* bltriangle.c in Sources */,
 				C4D4C4E91EB7175100134B39 /* AKTuningTable+Scala.swift in Sources */,
 				C49B18C7204A0AD1009C7C8E /* fof.c in Sources */,
@@ -6375,6 +6386,7 @@
 				C45669D71D448D7E00D26565 /* sineWave.swift in Sources */,
 				C49B191A204A0AD1009C7C8E /* reson.c in Sources */,
 				C49B1823204A0AD0009C7C8E /* fof.c in Sources */,
+				FEF991AF21E9122B00F8CAD3 /* AKMIDIMetaEventType.swift in Sources */,
 				C45F3F751ED1576100A75143 /* AKSamplePlayer.swift in Sources */,
 				C4AC4ED0200AEB480095694F /* AKPhaseDistortionOscillatorAudioUnit.swift in Sources */,
 				C4AA7C131FD2A88200040720 /* AKRenderTap.m in Sources */,
@@ -6685,7 +6697,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,

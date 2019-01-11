@@ -1,10 +1,28 @@
 //
-//  AKMIDIStatus.swift
+//  AKMIDIStatusType.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+
+struct AKMIDIStatus {
+    var byte: MIDIByte
+    var type: AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte >> 4))
+    }
+    var channel: MIDIChannel? {
+        return byte.lowBit
+    }
+
+    init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
+        byte = MIDIByte(statusType.rawValue) << 4 + channel
+    }
+
+    init(byte: MIDIByte) {
+        self.byte = byte
+    }
+}
 
 /// Potential MIDI Status messages
 ///
@@ -26,9 +44,7 @@
 /// - SystemCommand:
 ///    differ from system to system
 ///
-public enum AKMIDIStatus: Int {
-    /// Default empty status
-    case nothing = 0
+public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -50,11 +66,43 @@ public enum AKMIDIStatus: Int {
     /// System commands differ from system to system
     case systemCommand = 15
 
-    public init?(statusByte: MIDIByte) {
-        if let status = AKMIDIStatus(rawValue: Int(statusByte >> 4)) {
-            self = status
-        } else {
+    func with(channel: UInt8) -> UInt8 {
+        return UInt8(self.rawValue << 4) + channel
+    }
+
+    static func from(byte: MIDIByte) -> AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte >> 4))
+    }
+
+    var length: Int? {
+        switch self {
+        case .programChange, .channelAftertouch:
+            return 2
+        case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
+            return 3
+        case .systemCommand:
             return nil
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .noteOff:
+            return "Note Off"
+        case .noteOn:
+            return "Note On"
+        case .polyphonicAftertouch:
+            return "Polyphonic Aftertouch / Pressure"
+        case .controllerChange:
+            return "Control Change"
+        case .programChange:
+            return "Program Change"
+        case .channelAftertouch:
+            return "Channel Aftertouch / Pressure"
+        case .pitchWheel:
+            return "Pitch Wheel"
+        case .systemCommand:
+            return "System Command"
         }
     }
 }
