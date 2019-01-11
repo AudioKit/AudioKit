@@ -339,22 +339,7 @@ public struct AKMIDIEvent {
         }
         return outBytes
     }
+}
 
-    static fileprivate let statusBit: MIDIByte = 0b10000000
-
-    /// Determine whether a given byte is the status byte for a MIDI event
-    ///
-    /// - parameter byte: Byte to test
-    ///
-    static func isStatusByte(_ byte: MIDIByte) -> Bool {
-        return (byte & AKMIDIEvent.statusBit) == AKMIDIEvent.statusBit
-    }
-
-    /// Determine whether a given byte is a data byte for a MIDI Event
-    ///
-    /// - parameter byte: Byte to test
-    ///
-    static func isDataByte(_ byte: MIDIByte) -> Bool {
-        return (byte & AKMIDIEvent.statusBit) == 0
     }
 }
