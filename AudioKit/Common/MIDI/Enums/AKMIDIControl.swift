@@ -6,7 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Value of byte 2 in conjunction with AKMIDIStatusControllerChange
+/// Common name of MIDI Control number from MIDIByte
 ///
 /// - ModulationWheel: Modulation Control
 /// - BreathControl: Breath Control (in MIDI Saxophones for example)
