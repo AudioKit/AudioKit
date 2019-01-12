@@ -43,7 +43,7 @@ namespace AudioKitCore
         else    // you would normally only do this if you plan to low-pass filter the result
         {
             for (int i=0; i < nTableSize; i++)
-                pWaveTable[i] = 2.0f * amplitude * (0.5f - fabsf((float(i)/nTableSize) - 0.5f)) - amplitude;
+                pWaveTable[i] = 2.0f * amplitude * (0.25f - fabsf((float(i)/nTableSize) - 0.5f));
         }
     }
     
