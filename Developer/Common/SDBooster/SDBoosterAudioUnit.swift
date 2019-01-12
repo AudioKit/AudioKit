@@ -31,7 +31,8 @@ public class SDBoosterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
 
-    public override func initDSP(withSampleRate sampleRate: Double, channelCount count: AVAudioChannelCount) -> AKDSPRef {
+    public override func initDSP(withSampleRate sampleRate: Double,
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createSDBoosterDSP(Int32(count), sampleRate)
     }
 
