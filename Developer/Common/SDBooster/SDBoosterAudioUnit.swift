@@ -36,7 +36,7 @@ public class SDBoosterAudioUnit: AKAudioUnitBase {
     }
 
     override public init(componentDescription: AudioComponentDescription,
-                                      options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
         let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
