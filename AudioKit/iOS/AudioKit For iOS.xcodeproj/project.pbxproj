@@ -5241,11 +5241,11 @@
 		FE081EEC21E94B3B00653575 /* MIDIFile */ = {
 			isa = PBXGroup;
 			children = (
+				FE081EF121E94B3B00653575 /* AKMIDIFile.swift */,
 				FE081EED21E94B3B00653575 /* AKMIDIFileChunk.swift */,
 				FE081EEE21E94B3B00653575 /* AKMIDIFileChunkEvent.swift */,
 				FE081EEF21E94B3B00653575 /* AKMIDIFileHeaderChunk.swift */,
 				FE081EF021E94B3B00653575 /* AKMIDIFileTrackChunk.swift */,
-				FE081EF121E94B3B00653575 /* AKMIDIFile.swift */,
 			);
 			path = MIDIFile;
 			sourceTree = "<group>";
