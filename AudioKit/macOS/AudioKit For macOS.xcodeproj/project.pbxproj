@@ -365,7 +365,7 @@
 		C45669721D448D7E00D26565 /* AKMorphingOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45665EA1D448D7E00D26565 /* AKMorphingOscillatorBank.swift */; };
 		C45669731D448D7E00D26565 /* AKMorphingOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45665EB1D448D7E00D26565 /* AKMorphingOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45669741D448D7E00D26565 /* AKMorphingOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45665EC1D448D7E00D26565 /* AKMorphingOscillatorBankAudioUnit.mm */; };
-		C45669751D448D7E00D26565 /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45665ED1D448D7E00D26565 /* AKMorphingOscillatorBankDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C45669751D448D7E00D26565 /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45665ED1D448D7E00D26565 /* AKMorphingOscillatorBankDSPKernel.hpp */; };
 		C456697A1D448D7E00D26565 /* AKOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45665F41D448D7E00D26565 /* AKOscillatorBank.swift */; };
 		C456697B1D448D7E00D26565 /* AKOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45665F51D448D7E00D26565 /* AKOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C456697C1D448D7E00D26565 /* AKOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45665F61D448D7E00D26565 /* AKOscillatorBankAudioUnit.mm */; };
@@ -379,7 +379,7 @@
 		C456698A1D448D7E00D26565 /* AKPWMOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666081D448D7E00D26565 /* AKPWMOscillatorBank.swift */; };
 		C456698B1D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45666091D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C456698C1D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C456660A1D448D7E00D26565 /* AKPWMOscillatorBankAudioUnit.mm */; };
-		C456698D1D448D7E00D26565 /* AKPWMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C456660B1D448D7E00D26565 /* AKPWMOscillatorBankDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C456698D1D448D7E00D26565 /* AKPWMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C456660B1D448D7E00D26565 /* AKPWMOscillatorBankDSPKernel.hpp */; };
 		C456698E1D448D7E00D26565 /* AKDrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456660E1D448D7E00D26565 /* AKDrip.swift */; };
 		C45669921D448D7E00D26565 /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666131D448D7E00D26565 /* AKDrumSynths.swift */; };
 		C45669931D448D7E00D26565 /* AKFlute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666151D448D7E00D26565 /* AKFlute.swift */; };
@@ -1099,7 +1099,7 @@
 		EADFC4342150F4C5003E5191 /* AKCoreSampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4322150F4C5003E5191 /* AKCoreSampler.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EADFC4352150F4C5003E5191 /* AKCoreSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC4332150F4C5003E5191 /* AKCoreSampler.cpp */; };
 		EADFC4382151088D003E5191 /* AKCoreSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC4362151088D003E5191 /* AKCoreSynth.cpp */; };
-		EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4372151088D003E5191 /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4372151088D003E5191 /* AKCoreSynth.hpp */; };
 		EAF71D8020248B3F0018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7E20248B3F0018946B /* AKDSPKernel.mm */; };
 		EAF71D8920248B8F0018946B /* AKDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C128D1F089A8B00F4C7F1 /* AKDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEC61F4EBD7D00A2B046 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666951D448D7E00D26565 /* AKNodeFFTPlot.swift */; };
@@ -5627,7 +5627,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6741,7 +6741,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
