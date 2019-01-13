@@ -30,7 +30,7 @@ extension MIDIPacket: Sequence {
             }
 
             func pop() -> MIDIByte {
-                assert(index < self.length)
+                assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysex.byte))
                 index += 1
                 guard let byte = generator.next() as? MIDIByte else {
                     return 0 // Is this right?
@@ -40,12 +40,9 @@ extension MIDIPacket: Sequence {
             let status = pop()
             if AudioKit.midi.isReceivingSysex {
                 return AKMIDIEvent.appendIncomingSysex(packet: self) //will be nil until sysex is done
-            } else if AKMIDIEvent.isStatusByte(status) {
+            } else if var mstat = AKMIDIStatusType.from(byte: status) {
                 var data1: MIDIByte = 0
                 var data2: MIDIByte = 0
-                var mstat = AKMIDIEvent.statusFromValue(status)
-
-                let chan = status & 0xF
 
                 switch  mstat {
 
@@ -55,31 +52,27 @@ extension MIDIPacket: Sequence {
                         // turn noteOn with velocity 0 to noteOff
                         mstat = .noteOff
                     }
-                    return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+                    return AKMIDIEvent(data: [status, data1, data2])
 
                 case .programChange, .channelAftertouch:
                     data1 = pop()
-                    return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
-
-                case .systemCommand:
-                    guard let cmd = AKMIDISystemCommand(rawValue: status) else {
-                        return AKMIDIEvent(packet: self)
-                    }
-                    switch  cmd {
-                    case .sysex:
-                        index = self.length
-                        return AKMIDIEvent(packet: self)
-                    case .songPosition:
-                        //the remaining event generators need to be tested and tweaked to the specific messages
-                        data1 = pop()
-                        data2 = pop()
-                        return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
-                    case .songSelect:
-                        data1 = pop()
-                        return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
-                    default:
-                        return AKMIDIEvent(packet: self)
-                    }
+                    return AKMIDIEvent(data: [status, data1])
+                }
+            } else if let command = AKMIDISystemCommand(rawValue: status) {
+                var data1: MIDIByte = 0
+                var data2: MIDIByte = 0
+                switch command {
+                case .sysex:
+                    index = self.length
+                    return AKMIDIEvent(packet: self)
+                case .songPosition:
+                    //the remaining event generators need to be tested and tweaked to the specific messages
+                    data1 = pop()
+                    data2 = pop()
+                    return AKMIDIEvent(data: [status, data1, data2])
+                case .songSelect:
+                    data1 = pop()
+                    return AKMIDIEvent(data: [status, data1])
                 default:
                     return AKMIDIEvent(packet: self)
                 }
