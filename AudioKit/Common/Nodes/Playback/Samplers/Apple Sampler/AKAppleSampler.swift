@@ -305,4 +305,8 @@ open class AKAppleSampler: AKNode {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 
+    public func setPitchbend(amount: MIDIWord, channel: MIDIChannel) {
+        samplerUnit.sendPitchBend(amount, onChannel: channel)
+    }
+
 }

@@ -69,9 +69,10 @@ class ViewController: NSViewController, AKMIDIListener {
 
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
+            updateText("")
             var newString = "MIDI System Command: \(command) \n"
             for i in 0 ..< data.count {
-                let hexValue = String(format: "%2X", data[i])
+                let hexValue = String(format: "%02x", data[i])
                 newString.append("\(hexValue) ")
             }
             updateText(newString)
