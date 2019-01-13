@@ -92,8 +92,9 @@ class AudiobusCompatibleSequencer {
     fileprivate func setUpCallBackFunctions(channel: Int) -> AKMIDICallbackInstrument {
         return  AKMIDICallbackInstrument { [weak self] status, note, velocity in
             guard let this = self else { return }
-            if let midiStatus = AKMIDIStatus(rawValue: Int(status >> 4)) {
-                switch midiStatus {
+            if let midiStatusType = AKMIDIStatusType(rawValue: Int(status >> 4)) {
+                let midiStatus = AKMIDIStatus(type: midiStatusType, channel: MIDIChannel(channel))
+                switch midiStatusType {
                 case .noteOn:
                     this.noteOn(midiSendPort: this.ports[channel], status: midiStatus,
                                 note: note, velocity: velocity, channel: MIDIChannel(channel))
