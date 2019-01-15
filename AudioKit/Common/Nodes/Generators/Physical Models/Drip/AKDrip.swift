@@ -181,11 +181,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the drip with defaults
-    public convenience override init() {
-        self.init(intensity: 10)
-    }
-
     /// Initialize this drip node
     ///
     /// - Parameters:
@@ -197,8 +192,9 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
+    @available(*, deprecated, message: "The physical model is inherently unstable and unpredictable, use at your own risk/discrertion.")
     @objc public init(
-        intensity: Double,
+        intensity: Double = 10,
         dampingFactor: Double = defaultDampingFactor,
         energyReturn: Double = defaultEnergyReturn,
         mainResonantFrequency: Double = defaultMainResonantFrequency,
