@@ -49,9 +49,14 @@ extension AKMIDI {
     /// - Parameter forUid: unique id for a input
     /// - Returns: name of input or "Unknown"
     public func inputName(for inputUid: MIDIUniqueID) -> String {
-        let name : String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in let (_, uid) = arg; return inputUid == uid }.map { (arg) -> String in
-            let (name, _) = arg
-            return name
+        let name : String = zip(inputNames, inputUIDs).first {
+                (arg: (String, MIDIUniqueID)) -> Bool in
+                let (_, uid) = arg;
+                return inputUid == uid
+            }.map {
+                (arg) -> String in
+                let (name, _) = arg
+                return name
             } ?? "Uknown"
         return name
     }
@@ -94,7 +99,7 @@ extension AKMIDI {
     /// - Returns: unique identifier for the port
     public func uidForInputAtIndex(_ inputIndex: Int = 0) -> MIDIUniqueID {
         let endpoint: MIDIEndpointRef = MIDISources()[inputIndex]
-        let uid = GetMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
+        let uid = getMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
         return uid
     }
 

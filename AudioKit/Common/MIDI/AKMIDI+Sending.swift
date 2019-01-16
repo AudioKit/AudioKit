@@ -62,18 +62,18 @@ internal struct MIDIDestinations: Collection {
 extension Collection where Iterator.Element == MIDIEndpointRef {
     var names: [String] {
         return map {
-            GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
+            getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
         }
     }
 
     var uniqueIds: [MIDIUniqueID] {
         return map {
-            GetMIDIObjectIntegerProperty(ref: $0, property: kMIDIPropertyUniqueID)
+            getMIDIObjectIntegerProperty(ref: $0, property: kMIDIPropertyUniqueID)
         }
     }
 }
 
-internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
+internal func getMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
     var string: Unmanaged<CFString>?
     MIDIObjectGetStringProperty(ref, property, &string)
     if let returnString = string?.takeRetainedValue() {
@@ -83,7 +83,7 @@ internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString
     }
 }
 
-internal func GetMIDIObjectIntegerProperty(ref: MIDIObjectRef, property: CFString) -> Int32 {
+internal func getMIDIObjectIntegerProperty(ref: MIDIObjectRef, property: CFString) -> Int32 {
     var result: Int32 = 0
     MIDIObjectGetIntegerProperty(ref, property, &result)
     return result
@@ -106,9 +106,14 @@ extension AKMIDI {
     /// - Parameter forUid: unique id for a destination
     /// - Returns: name of destination or "Unknown"
     public func destinationName(for destUid: MIDIUniqueID) -> String {
-        let name : String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in let (_, uid) = arg; return destUid == uid }.map { (arg) -> String in
-            let (name, _) = arg
-            return name
+        let name : String = zip(destinationNames, destinationUIDs).first {
+                (arg: (String, MIDIUniqueID)) -> Bool in
+                let (_, uid) = arg;
+                return destUid == uid
+            }.map {
+                (arg) -> String in
+                let (name, _) = arg
+                return name
             } ?? "Uknown"
         return name
     }
@@ -119,7 +124,7 @@ extension AKMIDI {
     /// - Returns: unique identifier for the port
     public func uidForDestinationAtIndex(_ outputIndex: Int = 0) -> MIDIUniqueID {
         let endpoint: MIDIEndpointRef = MIDIDestinations()[outputIndex]
-        let uid = GetMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
+        let uid = getMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
         return uid
     }
 
@@ -146,7 +151,7 @@ extension AKMIDI {
 
         // close any previous output port and dispose of it
         if outputPort != 0 {
-            let uid = GetMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
+            let uid = getMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
             closeOutput(uid)
             outputPort = 0
         }
@@ -162,8 +167,12 @@ extension AKMIDI {
             }
         } else {
             // To get only [the FIRST] endpoint with name provided in output (conditional mapping)
-            _ = zip(destinationUIDs, destinations).first { (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in let (uid, _) = arg; return outputUid == uid }.map {
-                endpoints[$0] = $1
+            _ = zip(destinationUIDs, destinations).first {
+                    (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in
+                    let (uid, _) = arg;
+                    return outputUid == uid
+                }.map {
+                    endpoints[$0] = $1
             }
         }
     }
