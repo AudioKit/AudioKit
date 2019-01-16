@@ -17,11 +17,11 @@ public extension AKMIDITransformer {
         return eventList
     }
 
-    func isEqualTo(_ transformer : AKMIDITransformer) -> Bool {
+    func isEqualTo(_ transformer: AKMIDITransformer) -> Bool {
         return self == transformer
     }
 }
 
-func ==(lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
+func == (lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
     return lhs.isEqualTo(rhs)
 }

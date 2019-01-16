@@ -11,13 +11,13 @@ import Foundation
 import AudioKit
 
 /// K5000 manufacturer and machine bytes
-enum kawaiK5000 : MIDIByte {
+enum kawaiK5000: MIDIByte {
     case manufacturerId = 0x40
     case machine         = 0x0A
 }
 
 /// K5000 sysex messages all have a midi channel byte
-enum K5000sysexChannel : MIDIByte {
+enum K5000sysexChannel: MIDIByte {
     case channel0 = 0x00
     case channel1 = 0x01
     case channel2 = 0x02
@@ -37,8 +37,8 @@ enum K5000sysexChannel : MIDIByte {
 }
 
 // MARK: - Usefull runs of sysex bytes
-let K5000_SYSEX_START : [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue, kawaiK5000.manufacturerId.rawValue]
-let SYSEX_END : [MIDIByte] = [AKMIDISystemCommand.sysexEnd.rawValue]
+let K5000sysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue, kawaiK5000.manufacturerId.rawValue]
+let SysexEnd: [MIDIByte] = [AKMIDISystemCommand.sysexEnd.rawValue]
 
 /// Request type words used across all devices
 public enum K5000requestTypes: MIDIWord {
@@ -76,14 +76,14 @@ class K5000messages {
     /// - Parameter channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockSingleAreaA(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaA.rawValue.msb,
              K5000SRdumpRequests.areaA.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -99,14 +99,14 @@ class K5000messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaA.rawValue.msb,
              K5000SRdumpRequests.areaA.rawValue.lsb,
-             patch] + SYSEX_END
+             patch] + SysexEnd
         return request
     }
 
@@ -118,14 +118,14 @@ class K5000messages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockCombinationAreaC(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaC.rawValue.msb,
              K5000SRdumpRequests.areaC.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -141,14 +141,14 @@ class K5000messages {
         guard combi <= 0x3f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaC.rawValue.msb,
              K5000SRdumpRequests.areaC.rawValue.lsb,
-             combi] + SYSEX_END
+             combi] + SysexEnd
         return request
     }
 
@@ -160,14 +160,14 @@ class K5000messages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockSingleAreaD(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaD.rawValue.msb,
              K5000SRdumpRequests.areaD.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -183,14 +183,14 @@ class K5000messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaD.rawValue.msb,
              K5000SRdumpRequests.areaD.rawValue.lsb,
-             patch] + SYSEX_END
+             patch] + SysexEnd
         return request
     }
 
@@ -202,14 +202,14 @@ class K5000messages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockSingleAreaE(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaE.rawValue.msb,
              K5000ME1dumpRequests.areaE.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -225,14 +225,14 @@ class K5000messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaE.rawValue.msb,
              K5000ME1dumpRequests.areaE.rawValue.lsb,
-             patch] + SYSEX_END
+             patch] + SysexEnd
         return request
     }
 
@@ -244,14 +244,14 @@ class K5000messages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockSingleAreaF(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaF.rawValue.msb,
              K5000ME1dumpRequests.areaF.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -267,14 +267,14 @@ class K5000messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaF.rawValue.msb,
              K5000ME1dumpRequests.areaF.rawValue.lsb,
-             patch] + SYSEX_END
+             patch] + SysexEnd
         return request
     }
 }
@@ -286,14 +286,14 @@ class K5000Wmessages {
     /// - Parameter channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockSingleAreaBpcm(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.areaBpcm.rawValue.msb,
              K5000WdumpRequests.areaBpcm.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -307,14 +307,14 @@ class K5000Wmessages {
         guard patch >= 0x45 && patch <= 0x73 else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.areaBpcm.rawValue.msb,
              K5000WdumpRequests.areaBpcm.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -324,14 +324,14 @@ class K5000Wmessages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func drumKit(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumKit.rawValue.msb,
              K5000WdumpRequests.drumKit.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -341,14 +341,14 @@ class K5000Wmessages {
     ///   - channel: K5000sysexChannel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func blockDrumInstrument(channel: K5000sysexChannel) -> [MIDIByte] {
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.block.rawValue.msb,
              K5000requestTypes.block.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumInst.rawValue.msb,
              K5000WdumpRequests.drumInst.rawValue.lsb,
-             0x00] + SYSEX_END
+             0x00] + SysexEnd
         return request
     }
 
@@ -362,14 +362,14 @@ class K5000Wmessages {
         guard instrument <= 0x1f else {
             return []
         }
-        let request: [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000sysexStart +
             [channel.rawValue,
              K5000requestTypes.single.rawValue.msb,
              K5000requestTypes.single.rawValue.lsb,
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumInst.rawValue.msb,
              K5000WdumpRequests.drumInst.rawValue.lsb,
-             instrument] + SYSEX_END
+             instrument] + SysexEnd
         return request
     }
 }
