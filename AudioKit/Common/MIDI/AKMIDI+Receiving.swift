@@ -106,14 +106,14 @@ extension AKMIDI {
     /// - Parameter inputIndex: Index of source port
     public func openInput(_ inputIndex: Int = 0) {
         let uid = uidForInputAtIndex(inputIndex)
-        openInput(uid)
+        openInput(uid: uid)
     }
 
     /// Open a MIDI Input port
     ///
     /// - parameter inputUID: Unique identifier for a MIDI Input
     ///
-    public func openInput(_ inputUID: MIDIUniqueID = 0) {
+    public func openInput(uid inputUID: MIDIUniqueID) {
         for (uid, src) in zip(inputUIDs, MIDISources()) {
             if inputUID == 0 || inputUID == uid {
                 inputPorts[inputUID] = MIDIPortRef()
