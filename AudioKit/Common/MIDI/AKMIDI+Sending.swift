@@ -131,7 +131,7 @@ extension AKMIDI {
     /// - Parameter outputIndex: Index of destination endpoint
     public func openOutput(_ outputIndex: Int = 0) {
         let uid = uidForDestinationAtIndex(outputIndex)
-        openOutput(uid)
+        openOutput(uid: uid)
     }
 
     /// Open a MIDI Output Port by name
@@ -141,7 +141,7 @@ extension AKMIDI {
     ///
     /// - parameter outputName: String containing the name of the MIDI Input
     ///
-    public func openOutput(_ outputUid: MIDIUniqueID = 0) {
+    public func openOutput(uid outputUid: MIDIUniqueID) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
             AKLog("Unable to create MIDIOutputPort")
             return
