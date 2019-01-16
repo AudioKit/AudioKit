@@ -319,17 +319,18 @@ public struct AKMIDIEvent {
 
     static func decode(packet: MIDIPacket) -> [MIDIByte]? {
         var outBytes = [MIDIByte]()
-        var computedLength = 0
+        var tupleIndex: UInt16 = 0
+        let byteCount = packet.length
         let mirrorData = Mirror(reflecting: packet.data)
-        for (_, value) in mirrorData.children {
-            if computedLength < 256 {
-                computedLength += 1
+        for (_, value) in mirrorData.children { // [tupleIndex, outBytes] in
+            if tupleIndex < 256 {
+                tupleIndex += 1
             }
-            guard let byte = value as? MIDIByte else {
-                AKLog("unable to create sysex midi byte")
-                return nil
+            if let byte = value as? MIDIByte {
+                if tupleIndex <= byteCount {
+                    outBytes.append(byte)
+                }
             }
-            outBytes.append(byte)
         }
         return outBytes
     }

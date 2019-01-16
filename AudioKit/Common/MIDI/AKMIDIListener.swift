@@ -189,4 +189,11 @@ public extension AKMIDIListener {
         AKLog("MIDI Setup Has Changed.")
     }
 
+    func isEqualTo(_ listener : AKMIDIListener) -> Bool {
+        return self == listener
+    }
+}
+
+func == (lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
+    return lhs.isEqualTo(rhs)
 }
