@@ -9,13 +9,13 @@
 import Foundation
 import AudioKit
 
-class MidiConnectionManger : AKMIDIListener {
+class MidiConnectionManger: AKMIDIListener {
     let midi = AudioKit.midi
 
-    var input : MIDIUniqueID = 0
-    var input_index : Int = 0
-    var output : MIDIUniqueID = 0
-    var output_index : Int = 0
+    var input: MIDIUniqueID = 0
+    var input_index: Int = 0
+    var output: MIDIUniqueID = 0
+    var output_index: Int = 0
 
     init() {
         midi.addListener(self)
@@ -57,11 +57,11 @@ class MidiConnectionManger : AKMIDIListener {
 
     func selectInput() {
         var userInputAccepted = false
-        while (!userInputAccepted) {
+        while userInputAccepted == false {
             var num = 1
             for input in midi.inputInfos {
                 print("\(num) : \(input.manufacturer) \(input.displayName)")
-                num = num + 1
+                num += 1
             }
             print("Select input: ")
             let inputLn = readLine()
@@ -79,11 +79,11 @@ class MidiConnectionManger : AKMIDIListener {
 
     private func selectOutput() {
         var userInputAccepted = false
-        while (!userInputAccepted) {
+        while userInputAccepted == false {
             var num = 1
             for dest in midi.destinationInfos {
                 print("\(num) : \(dest.manufacturer) \(dest.displayName)")
-                num = num + 1
+                num += 1
             }
             print("Select output: ")
             let outputLn = readLine()
