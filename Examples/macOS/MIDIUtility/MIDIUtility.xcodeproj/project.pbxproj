@@ -15,23 +15,6 @@
 		FE0349991F6A0337009BB8AC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B40D1D455799000AEFCA /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		FECC5C0021C858E200D6987E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FECC5BFB21C858E100D6987E /* AudioKit for macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		FECC5C0221C858E200D6987E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FECC5BFB21C858E100D6987E /* AudioKit for macOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
-			remoteInfo = AudioKitUI;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		FE0349981F69FFA5009BB8AC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -54,7 +37,6 @@
 		C472E1981CD40E2000C748F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C472E19A1CD40E2000C748F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE0349861F69E8F0009BB8AC /* MIDISendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISendVC.swift; sourceTree = "<group>"; };
-		FECC5BFB21C858E100D6987E /* AudioKit for macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit for macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit for macOS.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +54,6 @@
 		C472E1851CD40E2000C748F4 = {
 			isa = PBXGroup;
 			children = (
-				FECC5BFB21C858E100D6987E /* AudioKit for macOS.xcodeproj */,
 				C472E1901CD40E2000C748F4 /* MIDIUtility */,
 				EA8B8AA71D0AAFA800D4C3B2 /* Frameworks */,
 				C472E18F1CD40E2000C748F4 /* Products */,
@@ -106,15 +87,6 @@
 				C446B40D1D455799000AEFCA /* AudioKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FECC5BFC21C858E100D6987E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FECC5C0121C858E200D6987E /* AudioKit.framework */,
-				FECC5C0321C858E200D6987E /* AudioKitUI.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,35 +137,12 @@
 			mainGroup = C472E1851CD40E2000C748F4;
 			productRefGroup = C472E18F1CD40E2000C748F4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FECC5BFC21C858E100D6987E /* Products */;
-					ProjectRef = FECC5BFB21C858E100D6987E /* AudioKit for macOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C472E18D1CD40E2000C748F4 /* MIDIUtility */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FECC5C0121C858E200D6987E /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = FECC5C0021C858E200D6987E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FECC5C0321C858E200D6987E /* AudioKitUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKitUI.framework;
-			remoteRef = FECC5C0221C858E200D6987E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C472E18C1CD40E2000C748F4 /* Resources */ = {
