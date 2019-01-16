@@ -16,7 +16,7 @@ extension MIDIWord {
     /// - Parameters:
     ///   - command: Command Byte Value
     ///   - version: Command Byte Version Value
-    init(command:MIDIByte, version: MIDIByte) {
+    init(command: MIDIByte, version: MIDIByte) {
         self = MIDIWord((command << 8) | version)
     }
 
@@ -41,4 +41,3 @@ extension MIDIWord {
         return MIDIByte(self & 0x00FF)
     }
 }
-
