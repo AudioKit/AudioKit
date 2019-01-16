@@ -16,4 +16,12 @@ public extension AKMIDITransformer {
         AKLog("MIDI Transformer called")
         return eventList
     }
+
+    func isEqualTo(_ transformer: AKMIDITransformer) -> Bool {
+        return self == transformer
+    }
+}
+
+func == (lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
+    return lhs.isEqualTo(rhs)
 }
