@@ -5,6 +5,21 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+// AKMIDI+Receiving Goals
+//      * Simplicty in discovery and presentation of available source inputs
+//      * Simplicty in inserting multiple midi transformations between a source and listeners
+//      * Simplicty in removing an individual midi transformation
+//      * Simplicty in removing all midi transformations
+//      * Simplicty in attaching multiple listeners to a source input
+//      * Simplicty in removing an individual listeners from a source input
+//      * Simplicty in removing all listeners
+//      * Simplicty to close all ports
+//      * Ports must be identifies using MIDIUniqueIDs because ports can share the same name across devices and clients
+//
+// Possible Improvements:
+//      * Support hidden uuid generation so the caller can worry about less
+//      *
+//
 
 internal struct MIDISources: Collection {
     typealias Index = Int
@@ -21,21 +36,28 @@ internal struct MIDISources: Collection {
     }
 }
 
-internal func GetMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
-    var string: Unmanaged<CFString>?
-    MIDIObjectGetStringProperty(ref, property, &string)
-    if let returnString = string?.takeRetainedValue() {
-        return returnString as String
-    } else {
-        return ""
-    }
-}
-
 extension AKMIDI {
 
-    /// Array of input names
+    /// Array of input source unique ids
+    public var inputUIDs: [MIDIUniqueID] {
+        return MIDISources().uniqueIds
+    }
+
+    /// Array of input source names
     public var inputNames: [String] {
         return MIDISources().names
+    }
+
+    /// Lookup a input name from its unique id
+    ///
+    /// - Parameter forUid: unique id for a input
+    /// - Returns: name of input or "Unknown"
+    public func inputName(for inputUid: MIDIUniqueID) -> String {
+        let name : String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in let (_, uid) = arg; return inputUid == uid }.map { (arg) -> String in
+            let (name, _) = arg
+            return name
+            } ?? "Uknown"
+        return name
     }
 
     /// Add a listener to the listeners
@@ -70,16 +92,34 @@ extension AKMIDI {
         transformers.removeAll()
     }
 
+    /// Look up the unique id for a input index
+    ///
+    /// - Parameter inputIndex: index of destination
+    /// - Returns: unique identifier for the port
+    public func uidForInputAtIndex(_ inputIndex: Int = 0) -> MIDIUniqueID {
+        let endpoint: MIDIEndpointRef = MIDISources()[inputIndex]
+        let uid = GetMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
+        return uid
+    }
+
+    /// Open a MIDI Input port by index
+    ///
+    /// - Parameter inputIndex: Index of source port
+    public func openInput(_ inputIndex: Int = 0) {
+        let uid = uidForInputAtIndex(inputIndex)
+        openInput(uid)
+    }
+
     /// Open a MIDI Input port
     ///
-    /// - parameter inputName: String containing the name of the MIDI Input
+    /// - parameter inputUID: Unique identifier for a MIDI Input
     ///
-    public func openInput(_ inputName: String = "") {
-        for (name, src) in zip(inputNames, MIDISources()) {
-            if inputName.isEmpty || inputName == name {
-                inputPorts[inputName] = MIDIPortRef()
+    public func openInput(_ inputUID: MIDIUniqueID = 0) {
+        for (uid, src) in zip(inputUIDs, MIDISources()) {
+            if inputUID == 0 || inputUID == uid {
+                inputPorts[inputUID] = MIDIPortRef()
 
-                var port = inputPorts[inputName]!
+                var port = inputPorts[inputUID]!
 
                 let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
                     var packetCount = 1
@@ -96,39 +136,39 @@ extension AKMIDI {
                     }
                 }
 
-                inputPorts[inputName] = port
+                inputPorts[inputUID] = port
 
                 if result != noErr {
                     AKLog("Error creating MIDI Input Port : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
-                endpoints[inputName] = src
+                endpoints[inputUID] = src
             }
         }
     }
 
     /// Close a MIDI Input port
     ///
-    /// - parameter inputName: String containing the name of the MIDI Input
+    /// - parameter inputName: Unique id of the MIDI Input
     ///
-    public func closeInput(_ inputName: String = "") {
+    public func closeInput(_ inputUID: MIDIUniqueID = 0) {
+        let name = inputName(for: inputUID)
         AKLog("Closing MIDI Input '\(inputName)'")
         var result = noErr
-        for key in inputPorts.keys {
-            if inputName.isEmpty || key == inputName {
-                if let port = inputPorts[key], let endpoint = endpoints[key] {
-
+        for uid in inputPorts.keys {
+            if inputUID == 0 || uid == inputUID {
+                if let port = inputPorts[uid], let endpoint = endpoints[uid] {
                     result = MIDIPortDisconnectSource(port, endpoint)
                     if result == noErr {
-                        endpoints.removeValue(forKey: key)
-                        inputPorts.removeValue(forKey: key)
-                        AKLog("Disconnected \(key) and removed it from endpoints and input ports")
+                        endpoints.removeValue(forKey: uid)
+                        inputPorts.removeValue(forKey: uid)
+                        AKLog("Disconnected \(name) and removed it from endpoints and input ports")
                     } else {
                         AKLog("Error disconnecting MIDI port: \(result)")
                     }
                     result = MIDIPortDispose(port)
                     if result == noErr {
-                        AKLog("Disposed \(key)")
+                        AKLog("Disposed \(name)")
                     } else {
                         AKLog("Error displosing  MIDI port: \(result)")
                     }
