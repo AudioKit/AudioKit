@@ -37,8 +37,7 @@ enum K5000sysexChannel: MIDIByte {
 }
 
 // MARK: - Usefull runs of sysex bytes
-let kawaikawaiK5000sysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue, kawaiK5000.manufacturerId.rawValue]
-typealias sysexEnd = AKMIDISystemCommand.sysexEnd.rawValue
+let kawaiK5000sysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue, kawaiK5000.manufacturerId.rawValue]
 
 /// Request type words used across all devices
 public enum K5000requestTypes: MIDIWord {
@@ -83,7 +82,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaA.rawValue.msb,
              K5000SRdumpRequests.areaA.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -106,7 +105,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaA.rawValue.msb,
              K5000SRdumpRequests.areaA.rawValue.lsb,
-             patch, sysexEnd]
+             patch, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -125,7 +124,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaC.rawValue.msb,
              K5000SRdumpRequests.areaC.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -148,7 +147,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaC.rawValue.msb,
              K5000SRdumpRequests.areaC.rawValue.lsb,
-             combi, sysexEnd]
+             combi, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -167,7 +166,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaD.rawValue.msb,
              K5000SRdumpRequests.areaD.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -190,7 +189,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000SRdumpRequests.areaD.rawValue.msb,
              K5000SRdumpRequests.areaD.rawValue.lsb,
-             patch, sysexEnd]
+             patch, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -209,7 +208,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaE.rawValue.msb,
              K5000ME1dumpRequests.areaE.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -232,7 +231,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaE.rawValue.msb,
              K5000ME1dumpRequests.areaE.rawValue.lsb,
-             patch, sysexEnd]
+             patch, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -251,7 +250,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaF.rawValue.msb,
              K5000ME1dumpRequests.areaF.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -274,7 +273,7 @@ class K5000messages {
              kawaiK5000.machine.rawValue,
              K5000ME1dumpRequests.areaF.rawValue.msb,
              K5000ME1dumpRequests.areaF.rawValue.lsb,
-             patch, sysexEnd]
+             patch, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 }
@@ -293,7 +292,7 @@ class K5000Wmessages {
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.areaBpcm.rawValue.msb,
              K5000WdumpRequests.areaBpcm.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -314,7 +313,7 @@ class K5000Wmessages {
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.areaBpcm.rawValue.msb,
              K5000WdumpRequests.areaBpcm.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -331,7 +330,7 @@ class K5000Wmessages {
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumKit.rawValue.msb,
              K5000WdumpRequests.drumKit.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -348,7 +347,7 @@ class K5000Wmessages {
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumInst.rawValue.msb,
              K5000WdumpRequests.drumInst.rawValue.lsb,
-             0x00, sysexEnd]
+             0x00, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 
@@ -369,7 +368,7 @@ class K5000Wmessages {
              kawaiK5000.machine.rawValue,
              K5000WdumpRequests.drumInst.rawValue.msb,
              K5000WdumpRequests.drumInst.rawValue.lsb,
-             instrument, sysexEnd]
+             instrument, AKMIDISystemCommand.sysexEnd.rawValue]
         return request
     }
 }

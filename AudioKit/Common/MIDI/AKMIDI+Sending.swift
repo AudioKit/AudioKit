@@ -106,12 +106,10 @@ extension AKMIDI {
     /// - Parameter forUid: unique id for a destination
     /// - Returns: name of destination or "Unknown"
     public func destinationName(for destUid: MIDIUniqueID) -> String {
-        let name : String = zip(destinationNames, destinationUIDs).first {
-                (arg: (String, MIDIUniqueID)) -> Bool in
-                let (_, uid) = arg;
+        let name : String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+                let (_, uid) = arg
                 return destUid == uid
-            }.map {
-                (arg) -> String in
+            }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
             } ?? "Uknown"
@@ -138,7 +136,7 @@ extension AKMIDI {
 
     /// Open a MIDI Output Port by name
     ///
-    /// Destination name (string) can be empty for some hardware device;
+    /// Destination name (string) can be empty for some hardware device
     /// So optional string is better for checking and targeting the device.
     ///
     /// - parameter outputName: String containing the name of the MIDI Input
@@ -167,9 +165,8 @@ extension AKMIDI {
             }
         } else {
             // To get only [the FIRST] endpoint with name provided in output (conditional mapping)
-            _ = zip(destinationUIDs, destinations).first {
-                    (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in
-                    let (uid, _) = arg;
+            _ = zip(destinationUIDs, destinations).first { (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in
+                    let (uid, _) = arg
                     return outputUid == uid
                 }.map {
                     endpoints[$0] = $1
