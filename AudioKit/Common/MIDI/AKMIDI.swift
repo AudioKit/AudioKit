@@ -95,4 +95,3 @@ open class AKMIDI {
     }
     var incomingSysex = [MIDIByte]()
 }
-

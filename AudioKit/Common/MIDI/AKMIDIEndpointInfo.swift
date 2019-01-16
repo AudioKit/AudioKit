@@ -31,12 +31,12 @@ public struct EndpointInfo {
 extension Collection where Iterator.Element == MIDIEndpointRef {
     var endpointInfos: [EndpointInfo] {
 
-        let name = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName) }
-        let displayName = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDisplayName) }
-        let manufacturer = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
-        let model = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
-        let image = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyImage) }
-        let driverOwner = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDriverOwner) }
+        let name = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName) }
+        let displayName = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDisplayName) }
+        let manufacturer = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
+        let model = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
+        let image = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyImage) }
+        let driverOwner = map { getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDriverOwner) }
 
         var ei = [EndpointInfo]()
         for i in 0 ..< displayName.count {

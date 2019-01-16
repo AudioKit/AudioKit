@@ -319,7 +319,7 @@ public struct AKMIDIEvent {
 
     static func decode(packet: MIDIPacket) -> [MIDIByte]? {
         var outBytes = [MIDIByte]()
-        var tupleIndex : UInt16 = 0
+        var tupleIndex: UInt16 = 0
         let byteCount = packet.length
         let mirrorData = Mirror(reflecting: packet.data)
         for (_, value) in mirrorData.children { // [tupleIndex, outBytes] in
@@ -327,7 +327,7 @@ public struct AKMIDIEvent {
                 tupleIndex += 1
             }
             if let byte = value as? MIDIByte {
-                if (tupleIndex <= byteCount) {
+                if tupleIndex <= byteCount {
                     outBytes.append(byte)
                 }
             }
