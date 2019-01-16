@@ -37,7 +37,7 @@ extension MIDIByte {
     ///   - bit3:
     ///   - bit2:
     ///   - bit1:
-    init(bit7:Bool, bit6:Bool, bit5:Bool, bit4:Bool, bit3:Bool, bit2:Bool, bit1:Bool)  {
+    init(bit7:Bool, bit6:Bool, bit5:Bool, bit4:Bool, bit3:Bool, bit2:Bool, bit1:Bool) {
         let nibbleH = UInt8((bit7 ? 1<<6 : 0) |
             (bit6 ? 1<<5 : 0) |
             (bit5 ? 1<<4 : 0))
@@ -46,6 +46,5 @@ extension MIDIByte {
             (bit2 ? 1<<1 : 0) |
             (bit1 ? 1 : 0))
         self = nibbleH | nibbleL
-
     }
 }

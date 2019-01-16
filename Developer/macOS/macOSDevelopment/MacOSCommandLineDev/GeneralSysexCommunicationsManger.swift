@@ -50,7 +50,7 @@ open class GeneralSysexCommunicationsManger : AKMIDIListener {
     static let SysexTimedOut = Notification.Name(rawValue: "SysexTimedOutNotification")
 
     let midi = AudioKit.midi
-    let K5000 = K5000_messages()
+    let K5000 = K5000messages()
 
     /// Defaults to 44 seconds, which is just a bit longer than it takes
     /// the largest K5000 sysex messages to be received.
@@ -71,18 +71,18 @@ open class GeneralSysexCommunicationsManger : AKMIDIListener {
     public func requestAndWaitForResponse() {
         messageTimeout.performWithTimeout( {
             // Very fast requests
-            let sysexMessage = K5000.one_single_ADD_A(channel: .channel_0, patch: 0)
-//            let sysexMessage = K5000.one_combination_C(channel: .channel_0, combi: 0)
-//            let sysexMessage = K5000.one_single_ADD_D(channel: .channel_0, patch: 0)
-//            let sysexMessage = K5000.one_single_ADD_E(channel: .channel_0, patch: 0)
-//            let sysexMessage = K5000.one_single_ADD_F(channel: .channel_0, patch: 0)
+            let sysexMessage = K5000.oneSingleAreaA(channel: .channel0, patch: 0)
+//            let sysexMessage = K5000.oneCombinationAreaC(channel: .channel0, combi: 0)
+//            let sysexMessage = K5000.oneSingleAreaD(channel: .channel0, patch: 0)
+//            let sysexMessage = K5000.oneSingleAreaE(channel: .channel0, patch: 0)
+//            let sysexMessage = K5000.oneSingleAreaF(channel: .channel0, patch: 0)
 
             // Very slow requests
-//            let sysexMessage = K5000.block_single_ADD_A(channel: .channel_0)
-//            let sysexMessage = K5000.block_combination_C(channel: .channel_0)
-//            let sysexMessage = K5000.block_single_ADD_D(channel: .channel_0)
-//            let sysexMessage = K5000.block_single_ADD_E(channel: .channel_0)
-//            let sysexMessage = K5000.block_single_ADD_F(channel: .channel_0)
+//            let sysexMessage = K5000.blockSingleAreaA(channel: .channel0)
+//            let sysexMessage = K5000.blockCombinationAreaC(channel: .channel0)
+//            let sysexMessage = K5000.blockSingleAreaD(channel: .channel0)
+//            let sysexMessage = K5000.blockSingleAreaE(channel: .channel0)
+//            let sysexMessage = K5000.blockSingleAreaF(channel: .channel0)
 
             midi.sendMessage(sysexMessage)
         })
