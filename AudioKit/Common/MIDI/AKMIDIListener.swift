@@ -194,6 +194,6 @@ public extension AKMIDIListener {
     }
 }
 
-func ==(lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
+func == (lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
     return lhs.isEqualTo(rhs)
 }
