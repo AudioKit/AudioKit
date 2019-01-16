@@ -20,6 +20,8 @@
 		C51D173A21EE9FF4008EB51F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139320319D42002E0FD8 /* AudioKit.framework */; };
 		C51D173C21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */; };
 		C51D173E21EEDE01008EB51F /* K5000SysexMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */; };
+		C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */; };
+		C539CDCA21EFAE9500C45A2C /* MIDIWord+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		C51D173421EE85D2008EB51F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "../../../../../MacOS/Command Line/Unitor Control/Unitor Control/main.swift"; sourceTree = "<group>"; };
 		C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSysexCommunicationsManger.swift; sourceTree = "<group>"; };
 		C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = K5000SysexMessages.swift; sourceTree = "<group>"; };
+		C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIByte+Sysex.swift"; sourceTree = "<group>"; };
+		C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIWord+Sysex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +147,8 @@
 				C51D173321EE85D2008EB51F /* MIDI Connection Manager.swift */,
 				C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */,
 				C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */,
+				C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */,
+				C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */,
 			);
 			path = MacOSCommandLineDev;
 			sourceTree = "<group>";
@@ -283,8 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */,
 				C51D173C21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift in Sources */,
 				C51D173721EE85D3008EB51F /* MIDI Connection Manager.swift in Sources */,
+				C539CDCA21EFAE9500C45A2C /* MIDIWord+Sysex.swift in Sources */,
 				C51D173821EE85D3008EB51F /* main.swift in Sources */,
 				C51D173E21EEDE01008EB51F /* K5000SysexMessages.swift in Sources */,
 			);

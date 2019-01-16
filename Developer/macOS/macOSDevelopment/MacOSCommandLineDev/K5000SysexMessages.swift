@@ -67,80 +67,6 @@ public enum K5000W_Requests: MIDIWord {
     case dump_request_drum_inst     = 0x1100
 }
 
-// MARK: - Extensions to MIDIWord
-extension MIDIWord {
-    /// Create a MIDIWord for a command and command version
-    ///
-    /// - Parameters:
-    ///   - command: Command Byte Value
-    ///   - version: Command Byte Version Value
-    init(command:MIDIByte, version: MIDIByte) {
-        self = MIDIWord((command << 8) | version)
-    }
-
-    /// Create a MIDIWord from a byte by taking the
-    /// upper nibble and lower nibble of a byte,
-    /// and separating each into a byte in the word
-    ///
-    /// - Parameter ioBitmap: Full 8bits of ioMapping for one output
-    init(ioBitmap: UInt8) {
-        let high = (ioBitmap & 0xF0) >> 4
-        let low = ioBitmap & 0x0F
-        self = UInt16(high << 8) | UInt16(low)
-    }
-
-    /// Most significant byte in a MIDIWord
-    var msb: MIDIByte {
-        return MIDIByte(self >> 8)
-    }
-
-    /// Lease significant byte in a MIDIWord
-    var lsb: MIDIByte {
-        return MIDIByte(self & 0x00FF)
-    }
-}
-
-// MARK: - Extension related to the i/o message filter bits
-extension MIDIByte {
-    /// Internal function to convert a boolean to a 0x01 or 0x00 value
-    ///
-    /// - Parameter b: true(1) or false(0)
-    /// - Returns: 1 or 0
-    private static func boolToByte(_ b:Bool) -> Int8 {
-        return (b ? 0x01 : 0x00)
-    }
-
-    /// Internal function to convert a single bit position to a boolean respresting whether the bit was 1(true) or 0(false)
-    ///
-    /// - Parameter pos: Bit position to test
-    /// - Returns: true if bit position contains 1 or false if bit position contains 0
-    private func bitToBool(_ pos:Int8) -> Bool {
-        return (self & (1 << pos)) > 0
-    }
-
-    /// Constructor of a MIDIByte represting a bit field
-    ///
-    /// - Parameters:
-    ///   - bit7:
-    ///   - bit6:
-    ///   - bit5:
-    ///   - bit4:
-    ///   - bit3:
-    ///   - bit2:
-    ///   - bit1:
-    init(bit7:Bool, bit6:Bool, bit5:Bool, bit4:Bool, bit3:Bool, bit2:Bool, bit1:Bool)  {
-        let nibbleH = UInt8((bit7 ? 1<<6 : 0) |
-            (bit6 ? 1<<5 : 0) |
-            (bit5 ? 1<<4 : 0))
-        let nibbleL = UInt8((bit4 ? 1<<3 : 0) |
-            (bit3 ? 1<<2 : 0) |
-            (bit2 ? 1<<1 : 0) |
-            (bit1 ? 1 : 0))
-        self = nibbleH | nibbleL
-
-    }
-}
-
 /// Sysex Message for the K5000S/R
 class K5000_messages {
     /// Block Single Dump Request (ADD A1-128)
@@ -150,7 +76,7 @@ class K5000_messages {
     /// - Parameter channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_single_ADD_A(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -173,7 +99,7 @@ class K5000_messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -192,7 +118,7 @@ class K5000_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_combination_C(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -215,7 +141,7 @@ class K5000_messages {
         guard combi <= 0x3f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -234,7 +160,7 @@ class K5000_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_single_ADD_D(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -257,7 +183,7 @@ class K5000_messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -276,7 +202,7 @@ class K5000_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_single_ADD_E(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -299,7 +225,7 @@ class K5000_messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -318,7 +244,7 @@ class K5000_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_single_ADD_F(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -341,7 +267,7 @@ class K5000_messages {
         guard patch <= 0x7f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -360,7 +286,7 @@ class K5000W_messages {
     /// - Parameter channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_single_PCM(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -381,7 +307,7 @@ class K5000W_messages {
         guard patch >= 0x45 && patch <= 0x73 else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -398,7 +324,7 @@ class K5000W_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func drum_kit(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -415,7 +341,7 @@ class K5000W_messages {
     ///   - channel: K5000_sysex_channel 0x00 - 0x0F
     /// - Returns: [MIDIByte]
     func block_drum_instrument(channel: K5000_sysex_channel) -> [MIDIByte] {
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.block.rawValue.msb,
              K5000_RequestTypes.block.rawValue.lsb,
@@ -436,7 +362,7 @@ class K5000W_messages {
         guard instrument <= 0x1f else {
             return []
         }
-        let request : [MIDIByte] = K5000_SYSEX_START +
+        let request: [MIDIByte] = K5000_SYSEX_START +
             [channel.rawValue,
              K5000_RequestTypes.single.rawValue.msb,
              K5000_RequestTypes.single.rawValue.lsb,
@@ -447,3 +373,4 @@ class K5000W_messages {
         return request
     }
 }
+
