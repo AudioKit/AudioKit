@@ -43,6 +43,12 @@ extension AKMIDI {
         listeners.append(listener)
     }
 
+    public func removeListener(_ listener: AKMIDIListener) {
+        listeners.removeAll { (item) -> Bool in
+            return item == listener
+        }
+    }
+
     /// Remove all listeners
     public func clearListeners() {
         listeners.removeAll()
@@ -51,6 +57,12 @@ extension AKMIDI {
     /// Add a transformer to the transformers list
     public func addTransformer(_ transformer: AKMIDITransformer) {
         transformers.append(transformer)
+    }
+
+    public func removeTransformer(_ transformer: AKMIDITransformer) {
+        transformers.removeAll { (item) -> Bool in
+            return item == transformer
+        }
     }
 
     /// Remove all transformers
