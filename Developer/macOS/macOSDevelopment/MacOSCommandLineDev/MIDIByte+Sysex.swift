@@ -15,7 +15,7 @@ extension MIDIByte {
     ///
     /// - Parameter b: true(1) or false(0)
     /// - Returns: 1 or 0
-    private static func boolToByte(_ b:Bool) -> Int8 {
+    private static func boolToByte(_ b: Bool) -> Int8 {
         return (b ? 0x01 : 0x00)
     }
 
@@ -23,7 +23,7 @@ extension MIDIByte {
     ///
     /// - Parameter pos: Bit position to test
     /// - Returns: true if bit position contains 1 or false if bit position contains 0
-    private func bitToBool(_ pos:Int8) -> Bool {
+    private func bitToBool(_ pos: Int8) -> Bool {
         return (self & (1 << pos)) > 0
     }
 
@@ -37,7 +37,7 @@ extension MIDIByte {
     ///   - bit3:
     ///   - bit2:
     ///   - bit1:
-    init(bit7:Bool, bit6:Bool, bit5:Bool, bit4:Bool, bit3:Bool, bit2:Bool, bit1:Bool) {
+    init(bit7: Bool, bit6: Bool, bit5: Bool, bit4: Bool, bit3: Bool, bit2: Bool, bit1: Bool) {
         let nibbleH = UInt8((bit7 ? 1<<6 : 0) |
             (bit6 ? 1<<5 : 0) |
             (bit5 ? 1<<4 : 0))

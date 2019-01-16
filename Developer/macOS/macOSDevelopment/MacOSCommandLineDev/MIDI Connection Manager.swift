@@ -13,9 +13,9 @@ class MidiConnectionManger: AKMIDIListener {
     let midi = AudioKit.midi
 
     var input: MIDIUniqueID = 0
-    var input_index: Int = 0
+    var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
-    var output_index: Int = 0
+    var outputIndex: Int = 0
 
     init() {
         midi.addListener(self)
@@ -39,7 +39,7 @@ class MidiConnectionManger: AKMIDIListener {
 
     func selectIO() {
         var confirmed = false
-        while (!confirmed) {
+        while confirmed == false {
             selectInput()
             print("")
             selectOutput()
@@ -69,7 +69,7 @@ class MidiConnectionManger: AKMIDIListener {
             if inputNum > 0 && inputNum <= midi.inputNames.count {
                 let index = inputNum - 1
                 input = midi.inputUIDs[index]
-                input_index = index
+                inputIndex = index
                 userInputAccepted = true
             } else {
                 print("No input selected.")
@@ -91,7 +91,7 @@ class MidiConnectionManger: AKMIDIListener {
             if outputNum > 0 && outputNum <= midi.destinationNames.count {
                 let index = outputNum - 1
                 output = midi.destinationUIDs[index]
-                output_index = index
+                outputIndex = index
                 userInputAccepted = true
             } else {
                 print("No output selected.")
@@ -100,8 +100,8 @@ class MidiConnectionManger: AKMIDIListener {
     }
 
     private func displayIOSelections() {
-        let dest = midi.destinationInfos[output_index]
-        let src = midi.inputInfos[input_index]
+        let dest = midi.destinationInfos[outputIndex]
+        let src = midi.inputInfos[inputIndex]
 
         print(" Input: \(src.manufacturer) \(src.displayName)")
         print("Output: \(dest.manufacturer) \(dest.displayName)")
