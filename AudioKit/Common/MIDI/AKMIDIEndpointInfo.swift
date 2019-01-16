@@ -33,8 +33,8 @@ extension Collection where Iterator.Element == MIDIEndpointRef {
 
         let name = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName) }
         let displayName = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDisplayName) }
-        let manufacturer = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
-        let model = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
+        let manufacturer = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyManufacturer) }
+        let model = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyModel) }
         let image = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyImage) }
         let driverOwner = map { GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyDriverOwner) }
 
