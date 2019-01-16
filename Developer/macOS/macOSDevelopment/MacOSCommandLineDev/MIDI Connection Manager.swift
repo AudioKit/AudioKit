@@ -2,9 +2,9 @@
 //  MIDI Connection Manager.swift
 //
 //  Created by Kurt Arnlund on 1/14/19.
-//  Copyright © 2019 iatapps. All rights reserved.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
-//  Interactive connection manager for command line testing
+//  Interactive MIDI I/O connection manager for command line testing
 
 import Foundation
 import AudioKit
