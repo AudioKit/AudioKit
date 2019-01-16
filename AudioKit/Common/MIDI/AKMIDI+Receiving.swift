@@ -16,10 +16,6 @@
 //      * Simplicty to close all ports
 //      * Ports must be identifies using MIDIUniqueIDs because ports can share the same name across devices and clients
 //
-// Possible Improvements:
-//      * Support hidden uuid generation so the caller can worry about less
-//      *
-//
 
 internal struct MIDISources: Collection {
     typealias Index = Int

@@ -2,8 +2,10 @@
 //  K5000SysexMessages.swift
 //
 //  Created by Kurt Arnlund on 1/12/19.
-//  Copyright © 2019 iatapps. All rights reserved.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
+//  A rather complete set of Kawai K5000 Sysex Message Definitions
+//  Used as an example of how to setup Sysex Messages
 
 import Foundation
 import AudioKit

@@ -2,13 +2,18 @@
 //  GeneralSysexCommunicationsManger.swift
 //  
 //  Created by Kurt Arnlund on 1/12/19.
-//  Copyright © 2019 iatapps. All rights reserved.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 //
 
 import Foundation
 import AudioKit
 
+/// A class that performs an action block, then starts a timer that
+/// catches timeout conditions where a response is not received.
+/// Since the external caller is responsible for what constitues succes,
+/// they are expected to call succeed() which will prevent timeout from
+/// happening.
 open class SuccessOrTimeoutMgr : NSObject {
     private var onSuccess : (() -> Void)?
     private var onTimeout : (() -> Void)?
@@ -38,6 +43,8 @@ open class SuccessOrTimeoutMgr : NSObject {
     }
 }
 
+/// A class responsible for sending sysex messages and informing a caller of
+/// reception of a sysex response, or a timeout error condition.
 open class GeneralSysexCommunicationsManger : AKMIDIListener {
     static let ReceivedSysex = Notification.Name(rawValue: "ReceivedSysexNotification")
     static let SysexTimedOut = Notification.Name(rawValue: "SysexTimedOutNotification")
@@ -45,6 +52,8 @@ open class GeneralSysexCommunicationsManger : AKMIDIListener {
     let midi = AudioKit.midi
     let K5000 = K5000_messages()
 
+    /// Defaults to 44 seconds, which is just a bit longer than it takes
+    /// the largest K5000 sysex messages to be received.
     let timeoutInterval = TimeInterval(44)
     let messageTimeout: SuccessOrTimeoutMgr
 
@@ -56,6 +65,8 @@ open class GeneralSysexCommunicationsManger : AKMIDIListener {
         }
         midi.addListener(self)
     }
+
+    // MARK: - Request
 
     public func requestAndWaitForResponse() {
         messageTimeout.performWithTimeout( {
@@ -76,6 +87,8 @@ open class GeneralSysexCommunicationsManger : AKMIDIListener {
             midi.sendMessage(sysexMessage)
         })
     }
+
+    // MARK: - AKMIDIListener
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         guard data[0] == AKMIDISystemCommand.sysex.rawValue else {
