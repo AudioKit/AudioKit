@@ -101,6 +101,15 @@ extension AKMIDI {
         return uid
     }
 
+    /// Open a MIDI Input port by name
+    ///
+    /// - Parameter inputIndex: Index of source port
+    public func openInput(name: String) {
+        guard  let index = inputNames.firstIndex(of: name) else { return }
+        let uid = inputUIDs[index]
+        openInput(uid: uid)
+    }
+
     /// Open a MIDI Input port by index
     ///
     /// - Parameter inputIndex: Index of source port
