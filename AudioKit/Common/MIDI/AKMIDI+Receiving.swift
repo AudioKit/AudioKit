@@ -49,7 +49,7 @@ extension AKMIDI {
     /// - Parameter forUid: unique id for a input
     /// - Returns: name of input or "Unknown"
     public func inputName(for inputUid: MIDIUniqueID) -> String {
-        let name : String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+        let name: String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return inputUid == uid
             }.map { (arg) -> String in
@@ -104,8 +104,11 @@ extension AKMIDI {
     /// Open a MIDI Input port by name
     ///
     /// - Parameter inputIndex: Index of source port
-    public func openInput(name: String) {
-        guard  let index = inputNames.firstIndex(of: name) else { return }
+    public func openInput(name: String = "") {
+        guard  let index = inputNames.firstIndex(of: name) else {
+            openInput(uid: 0)
+            return
+        }
         let uid = inputUIDs[index]
         openInput(uid: uid)
     }
@@ -113,7 +116,10 @@ extension AKMIDI {
     /// Open a MIDI Input port by index
     ///
     /// - Parameter inputIndex: Index of source port
-    public func openInput(_ inputIndex: Int = 0) {
+    public func openInput(index inputIndex: Int) {
+        guard inputIndex < inputNames.count else {
+            return
+        }
         let uid = uidForInputAtIndex(inputIndex)
         openInput(uid: uid)
     }
@@ -155,11 +161,31 @@ extension AKMIDI {
         }
     }
 
+    /// Open a MIDI Input port by name
+    ///
+    /// - Parameter inputIndex: Index of source port
+    public func closeInput(name: String = "") {
+        guard  let index = inputNames.firstIndex(of: name) else {
+            closeInput(uid: 0)
+            return
+        }
+        let uid = inputUIDs[index]
+        closeInput(uid: uid)
+    }
+
+    /// Open a MIDI Input port by index
+    ///
+    /// - Parameter inputIndex: Index of source port
+    public func closeInput(index inputIndex: Int) {
+        let uid = uidForInputAtIndex(inputIndex)
+        closeInput(uid: uid)
+    }
+
     /// Close a MIDI Input port
     ///
     /// - parameter inputName: Unique id of the MIDI Input
     ///
-    public func closeInput(_ inputUID: MIDIUniqueID = 0) {
+    public func closeInput(uid inputUID: MIDIUniqueID) {
         let name = inputName(for: inputUID)
         AKLog("Closing MIDI Input '\(inputName)'")
         var result = noErr

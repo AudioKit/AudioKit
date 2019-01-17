@@ -180,7 +180,7 @@ public extension AKMIDIListener {
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
-            AKLog("MIDI System Command: \(command))")
+            AKLog("MIDI System Command: \(command) \(data)")
         }
     }
 
