@@ -32,7 +32,7 @@
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
 - (void)stopNote:(uint8_t)note;
 
-- (NSArray *)getStandardParameters;
+- (NSArray *)standardParameters;
 - (void)setKernelPtr:(void *)ptr;
 
 @end

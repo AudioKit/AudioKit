@@ -11,11 +11,11 @@ import AVFoundation
 public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKWhiteNoiseParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKWhiteNoiseParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var amplitude: Double = AKWhiteNoise.defaultAmplitude {
@@ -32,25 +32,18 @@ public class AKWhiteNoiseAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKWhiteNoiseParameter.amplitude.rawValue,
-            min: Float(AKWhiteNoise.amplitudeRange.lowerBound),
-            max: Float(AKWhiteNoise.amplitudeRange.upperBound),
+            range: AKWhiteNoise.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [amplitude]))
         amplitude.value = Float(AKWhiteNoise.defaultAmplitude)
     }
 

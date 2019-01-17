@@ -39,7 +39,7 @@
 }
 
 - (void)setParameters:(NSArray *)parameters {
-    float temporaryParameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float temporaryParameters[14] = {0};
     for (int i = 0; i < parameters.count; i++) {
         temporaryParameters[i] = [parameters[i] floatValue];
     }
@@ -67,7 +67,7 @@
 - (void)createParameters {
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
     parameterTreeBlock(OperationGenerator)
 }
 

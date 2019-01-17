@@ -11,89 +11,89 @@ import AVFoundation
 public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKSamplerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
-    
+
     func setParameterImmediately(_ address: AKSamplerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
-    
+
     var masterVolume: Double = 0.0 {
         didSet { setParameter(.masterVolume, value: masterVolume) }
     }
-    
+
     var pitchBend: Double = 0.0 {
         didSet { setParameter(.pitchBend, value: pitchBend) }
     }
-    
+
     var vibratoDepth: Double = 1.0 {
         didSet { setParameter(.vibratoDepth, value: vibratoDepth) }
     }
-    
+
     var filterCutoff: Double = 4.0 {
         didSet { setParameter(.filterCutoff, value: filterCutoff) }
     }
-    
+
     var filterStrength: Double = 20.0 {
         didSet { setParameter(.filterStrength, value: filterCutoff) }
     }
-    
+
     var filterResonance: Double = 0.0 {
         didSet { setParameter(.filterResonance, value: filterResonance) }
     }
-    
+
     var glideRate: Double = 0.0 {
         didSet { setParameter(.glideRate, value: glideRate) }
     }
-    
+
     var rampDuration: Double = 0.0 {
         didSet { setParameter(.rampDuration, value: rampDuration) }
     }
-    
+
     var attackDuration: Double = 0.0 {
         didSet { setParameter(.attackDuration, value: attackDuration) }
     }
-    
+
     var decayDuration: Double = 0.0 {
         didSet { setParameter(.decayDuration, value: decayDuration) }
     }
-    
+
     var sustainLevel: Double = 0.0 {
         didSet { setParameter(.sustainLevel, value: sustainLevel) }
     }
-    
+
     var releaseDuration: Double = 0.0 {
         didSet { setParameter(.releaseDuration, value: releaseDuration) }
     }
-    
+
     var filterAttackDuration: Double = 0.0 {
         didSet { setParameter(.filterAttackDuration, value: filterAttackDuration) }
     }
-    
+
     var filterDecayDuration: Double = 0.0 {
         didSet { setParameter(.filterDecayDuration, value: filterDecayDuration) }
     }
-    
+
     var filterSustainLevel: Double = 0.0 {
         didSet { setParameter(.filterSustainLevel, value: filterSustainLevel) }
     }
-    
+
     var filterReleaseDuration: Double = 0.0 {
         didSet { setParameter(.filterReleaseDuration, value: filterReleaseDuration) }
     }
-    
+
     var filterEnable: Double = 0.0 {
         didSet { setParameter(.filterEnable, value: filterEnable) }
     }
-    
+
     var loopThruRelease: Double = 0.0 {
         didSet { setParameter(.loopThruRelease, value: loopThruRelease) }
     }
-    
+
     var isMonophonic: Double = 0.0 {
         didSet { setParameter(.monophonic, value: isMonophonic) }
     }
-    
+
     var isLegato: Double = 0.0 {
         didSet { setParameter(.legato, value: isLegato) }
     }
@@ -105,250 +105,228 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     var filterEnvelopeVelocityScaling: Double = 0.0 {
         didSet { setParameter(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling) }
     }
-    
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createAKSamplerDSP(Int32(count), sampleRate)
     }
-    
+
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        
-        let rampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
-        
-        var parameterAddress = 0
-        let masterVolumeParameter = AUParameterTree.createParameter(
-            withIdentifier: "masterVolume",
+
+        var parameterAddress: AUParameterAddress = 0
+        let masterVolumeParameter = AUParameter(
+            identifier: "masterVolume",
             name: "Master Volume",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .generic, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .generic,
+            flags: .default)
 
         parameterAddress += 1
 
-        let pitchBendParameter = AUParameterTree.createParameter(
-            withIdentifier: "pitchBend",
+        let pitchBendParameter = AUParameter(
+            identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
-            address: AUParameterAddress(parameterAddress),
-            min: -1_000.0, max: 1_000.0,
-            unit: .relativeSemiTones, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: -1_000.0...1_000.0,
+            unit: .relativeSemiTones,
+            flags: .default)
 
         parameterAddress += 1
 
-        let vibratoDepthParameter = AUParameterTree.createParameter(
-            withIdentifier: "vibratoDepth",
+        let vibratoDepthParameter = AUParameter(
+            identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 24.0,
-            unit: .relativeSemiTones, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...24.0,
+            unit: .relativeSemiTones,
+            flags: .default)
 
         parameterAddress += 1
 
-        let filterCutoffParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterCutoff",
+        let filterCutoffParameter = AUParameter(
+            identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
-            address: AUParameterAddress(parameterAddress),
-            min: 1.0, max: 1_000.0,
-            unit: .ratio, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 1.0...1_000.0,
+            unit: .ratio,
+            flags: .default)
 
         parameterAddress += 1
 
-        let filterStrengthParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterStrength",
+        let filterStrengthParameter = AUParameter(
+            identifier: "filterStrength",
             name: "Filter EG strength",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .ratio, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .ratio,
+            flags: .default)
 
         parameterAddress += 1
 
-        let filterResonanceParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterResonance",
+        let filterResonanceParameter = AUParameter(
+            identifier: "filterResonance",
             name: "Filter resonance (dB))",
-            address: AUParameterAddress(parameterAddress),
-            min: -20.0, max: 20.0,
-            unit: .decibels, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
-        
+            address: parameterAddress,
+            range: -20.0...20.0,
+            unit: .decibels,
+            flags: .default)
+
         parameterAddress += 1
 
-        let glideRateParameter = AUParameterTree.createParameter(
-            withIdentifier: "glideRate",
+        let glideRateParameter = AUParameter(
+            identifier: "glideRate",
             name: "Glide rate (sec/octave))",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 10.0,
-            unit: .seconds, unitName: nil,
-            flags: rampFlags,
-            valueStrings: nil, dependentParameters: nil)
-        
+            address: parameterAddress,
+            range: 0.0...10.0,
+            unit: .seconds,
+            flags: .default)
+
         parameterAddress += 1
 
-        let attackDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "attackDuration",
+        let attackDurationParameter = AUParameter(
+            identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let decayDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "decayDuration",
+        let decayDurationParameter = AUParameter(
+            identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let sustainLevelParameter = AUParameterTree.createParameter(
-            withIdentifier: "sustainLevel",
+        let sustainLevelParameter = AUParameter(
+            identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .generic, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .generic,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let releaseDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "releaseDuration",
+        let releaseDurationParameter = AUParameter(
+            identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterAttackDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterAttackDuration",
+        let filterAttackDurationParameter = AUParameter(
+            identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterDecayDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterDecayDuration",
+        let filterDecayDurationParameter = AUParameter(
+            identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterSustainLevelParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterSustainLevel",
+        let filterSustainLevelParameter = AUParameter(
+            identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .generic, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .generic,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterReleaseDurationParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterReleaseDuration",
+        let filterReleaseDurationParameter = AUParameter(
+            identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1_000.0,
-            unit: .seconds, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1000.0,
+            unit: .seconds,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterEnableParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterEnable",
+        let filterEnableParameter = AUParameter(
+            identifier: "filterEnable",
             name: "Filter Enable",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .boolean, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let loopThruReleaseParameter = AUParameterTree.createParameter(
-            withIdentifier: "loopThruRelease",
+        let loopThruReleaseParameter = AUParameter(
+            identifier: "loopThruRelease",
             name: "Loop Thru Release",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .boolean, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let monophonicParameter = AUParameterTree.createParameter(
-            withIdentifier: "monophonic",
+        let monophonicParameter = AUParameter(
+            identifier: "monophonic",
             name: "Monophonic Mode",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .boolean, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let legatoParameter = AUParameterTree.createParameter(
-            withIdentifier: "legato",
+        let legatoParameter = AUParameter(
+            identifier: "legato",
             name: "Legato Mode",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .boolean, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
-        
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .boolean,
+            flags: nonRampFlags)
+
         parameterAddress += 1
 
-        let keyTrackingParameter = AUParameterTree.createParameter(
-            withIdentifier: "keyTracking",
+        let keyTrackingParameter = AUParameter(
+            identifier: "keyTracking",
             name: "Key Tracking",
-            address: AUParameterAddress(parameterAddress),
-            min: -2.0, max: 2.0,
-            unit: .generic, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: -2.0...2.0,
+            unit: .generic,
+            flags: nonRampFlags)
 
         parameterAddress += 1
 
-        let filterEnvelopeVelocityScalingParameter = AUParameterTree.createParameter(
-            withIdentifier: "filterEnvelopeVelocityScaling",
+        let filterEnvelopeVelocityScalingParameter = AUParameter(
+            identifier: "filterEnvelopeVelocityScaling",
             name: "Filter Envelope Velocity Scaling",
-            address: AUParameterAddress(parameterAddress),
-            min: 0.0, max: 1.0,
-            unit: .generic, unitName: nil,
-            flags: nonRampFlags,
-            valueStrings: nil, dependentParameters: nil)
+            address: parameterAddress,
+            range: 0.0...1.0,
+            unit: .generic,
+            flags: nonRampFlags)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [masterVolumeParameter,
+        setParameterTree(AUParameterTree(children: [masterVolumeParameter,
                                                                    pitchBendParameter,
                                                                    vibratoDepthParameter,
                                                                    filterCutoffParameter,
@@ -391,31 +369,31 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         keyTrackingParameter.value = 1.0
         filterEnvelopeVelocityScalingParameter.value = 0.0
     }
-    
+
     public override var canProcessInPlace: Bool { return true }
-    
+
     public func stopAllVoices() {
         doAKSamplerStopAllVoices(dsp)
     }
-    
+
     public func restartVoices() {
         doAKSamplerRestartVoices(dsp)
     }
-    
+
     public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         var copy = sampleDataDescriptor
         doAKSamplerLoadData(dsp, &copy)
     }
-    
+
     public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         var copy = sampleFileDescriptor
         doAKSamplerLoadCompressedFile(dsp, &copy)
     }
-    
+
     public func unloadAllSamples() {
         doAKSamplerUnloadAllSamples(dsp)
     }
-    
+
     public func setNoteFrequency(noteNumber: Int32, noteFrequency: Float) {
         doAKSamplerSetNoteFrequency(dsp, noteNumber, noteFrequency)
     }
@@ -423,25 +401,25 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
     public func buildSimpleKeyMap() {
         doAKSamplerBuildSimpleKeyMap(dsp)
     }
-    
+
     public func buildKeyMap() {
         doAKSamplerBuildKeyMap(dsp)
     }
-    
+
     public func setLoop(thruRelease: Bool) {
         doAKSamplerSetLoopThruRelease(dsp, thruRelease)
     }
-    
+
     public func playNote(noteNumber: UInt8,
                          velocity: UInt8,
                          noteFrequency: Float) {
         doAKSamplerPlayNote(dsp, noteNumber, velocity, noteFrequency)
     }
-    
+
     public func stopNote(noteNumber: UInt8, immediate: Bool) {
         doAKSamplerStopNote(dsp, noteNumber, immediate)
     }
-    
+
     public func sustainPedal(down: Bool) {
         doAKSamplerSustainPedal(dsp, down)
     }

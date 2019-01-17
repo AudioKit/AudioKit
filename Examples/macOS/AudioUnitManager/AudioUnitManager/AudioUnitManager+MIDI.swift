@@ -20,7 +20,7 @@ extension AudioUnitManager: AKMIDIListener {
 
         if !devices.isEmpty {
             midiDeviceSelector.removeAllItems()
-            midiManager?.openInput(devices[0])
+            midiManager?.openInput(0)
 
             for device in devices {
                 AKLog("MIDI Device: \(device)")

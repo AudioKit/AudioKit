@@ -11,11 +11,11 @@ import AVFoundation
 public class AKChowningReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKChowningReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKChowningReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var rampDuration: Double = 0.0 {
@@ -28,9 +28,9 @@ public class AKChowningReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-        setParameterTree(AUParameterTree.createTree(withChildren: []))
+        setParameterTree(AUParameterTree(children: []))
     }
 
     public override var canProcessInPlace: Bool { return true }

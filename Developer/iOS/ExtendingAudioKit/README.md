@@ -27,7 +27,7 @@ Even if you only plan to use the pre-compiled AudioKit frameworks, you will need
 Using the pre-compiled AudioKit frameworks has the advantage that your project will compile fairly quickly. However, when developing new audio-units, you will often want to dive into the AudioKit source code, to understand base classes, *enum* definitions, etc. Bringing the whole of AudioKit as a sub-project into your own project will allow you to right-click on any AudioKit class name in Xcode and choose "Jump to Definition". The cost for this is that your project will take much longer to compile the first time (only the first time), because you actually have to compile the whole of AudioKit.
 
 ### Create your project
-In Xcode 9, create a new Cocoa App project. It will open to the Project page. Select the Capabilities tab, and turn OFF “App Sandbox” to ensure your app will have full access to audio functions on the Mac.
+In Xcode, create a new Cocoa App project. It will open to the Project page, General tab. **In Xcode 10, the default selection at the top will be "Basic"; change this to "All" so you can see and select the items discussed below.** Select the Capabilities tab, and turn OFF “App Sandbox” to ensure your app will have full access to audio functions.
 
 ### Option 1: Add AudioKit pre-compiled frameworks
 In the Xcode Project page, click on the General tab, and scroll to the Linked Frameworks and Libraries section. Click the **+** button — a “Choose frameworks and libraries to add” dialog will pop up. Click on **Add Other...** to replace it with a standard file-open dialog. Navigate to wherever your copies of the macOS *AudioKit* and *AudioKitUI* frameworks are (if you have copmiled them within your copy of the AudioKit source, you'll find them in the *AudioKit/Frameworks/AudioKit-iOS* folder). Select both *AudioKit.framework* and *AudioKitUI.framework* and click **Open**.
@@ -60,8 +60,10 @@ Before you can build your own extensions to AudioKit, you need to ensure that yo
 Locate the Header Search Paths item (search for “search”), and set it to point to the *AudioKit/AudioKit/Common/Internals/CoreAudio* folder:
 
 * Double-click the Header Search Paths edit field; this brings up a large multi-line edit box
-* In the Mac Finder, locate the CoreAudio folder in your cloned copy of the AudioKit source tree and drag it into the edit box
+* In the Mac Finder, locate the *AudioKit/Common/Internals/CoreAudio* folder in your cloned copy of the AudioKit source tree and drag it into the edit box
 * Change the default “non-recursive” setting on the right to “recursive”
+* Do the same for *AudioKit/Common/Internals/Utilities*
+* If you're going to base your new AudioKit module on existing C++ classes defined in *AudioKit/Core/AudioKitCore*, do the same for that folder also.
 
 ### Create your own AudioKit module
 

@@ -11,11 +11,11 @@ import AVFoundation
 public class AKChorusAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKModulatedDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKChorus.defaultFrequency {
@@ -47,58 +47,36 @@ public class AKChorusAudioUnit: AKAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Frequency (Hz)",
             address: AKModulatedDelayParameter.frequency.rawValue,
-            min: Float(AKChorus.frequencyRange.lowerBound),
-            max: Float(AKChorus.frequencyRange.upperBound),
+            range: AKChorus.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let depth = AUParameterTree.createParameter(
-            withIdentifier: "depth",
+            flags: .default)
+        let depth = AUParameter(
+            identifier: "depth",
             name: "Depth 0-1",
             address: AKModulatedDelayParameter.depth.rawValue,
-            min: Float(AKChorus.depthRange.lowerBound),
-            max: Float(AKChorus.depthRange.upperBound),
+            range: AKChorus.depthRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            flags: .default)
+        let feedback = AUParameter(
+            identifier: "feedback",
             name: "Feedback 0-1",
             address: AKModulatedDelayParameter.feedback.rawValue,
-            min: Float(AKChorus.feedbackRange.lowerBound),
-            max: Float(AKChorus.feedbackRange.upperBound),
+            range: AKChorus.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let dryWetMix = AUParameterTree.createParameter(
-            withIdentifier: "dryWetMix",
+            flags: .default)
+        let dryWetMix = AUParameter(
+            identifier: "dryWetMix",
             name: "Dry Wet Mix 0-1",
             address: AKModulatedDelayParameter.dryWetMix.rawValue,
-            min: Float(AKChorus.dryWetMixRange.lowerBound),
-            max: Float(AKChorus.dryWetMixRange.upperBound),
+            range: AKChorus.dryWetMixRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth, feedback, dryWetMix]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, depth, feedback, dryWetMix]))
         frequency.value = Float(AKChorus.defaultFrequency)
         depth.value = Float(AKChorus.defaultDepth)
         feedback.value = Float(AKChorus.defaultFeedback)

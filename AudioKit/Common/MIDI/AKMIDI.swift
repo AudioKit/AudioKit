@@ -27,14 +27,14 @@ open class AKMIDI {
     /// MIDI Client Reference
     open var client = MIDIClientRef()
 
+    /// MIDI Client Name
+    internal let clientName: CFString = "MIDI Client" as CFString
+
     /// Array of MIDI In ports
-    internal var inputPorts: [String: MIDIPortRef] = [:]
+    internal var inputPorts = [MIDIUniqueID: MIDIPortRef]()
 
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()
-
-    /// MIDI Client Name
-    private let clientName: CFString = "MIDI Client" as CFString
 
     /// MIDI In Port Name
     internal let inputPortName: CFString = "MIDI In Port" as CFString
@@ -45,11 +45,11 @@ open class AKMIDI {
     /// Virtual MIDI output
     open var virtualOutput = MIDIPortRef()
 
-    /// Array of MIDI Endpoints
-    open var endpoints = [String: MIDIEndpointRef]()
-
     /// MIDI Out Port Name
     internal var outputPortName: CFString = "MIDI Out Port" as CFString
+
+    /// Array of MIDI Endpoints
+    open var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
 
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
@@ -83,88 +83,7 @@ open class AKMIDI {
         }
     }
 
-    // MARK: - Virtual MIDI
-
-    /// Create set of virtual input and output MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        AKLog("Creating virtual input and output ports")
-        destroyVirtualPorts()
-        createVirtualInputPort(uniqueID, name: name)
-        createVirtualOutputPort(uniqueID, name: name)
-    }
-
-    /// Create a virtual MIDI input port
-    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        destroyVirtualInputPort()
-        let virtualPortname = name ?? String(clientName)
-
-        let result = MIDIDestinationCreateWithBlock(
-            client,
-            virtualPortname as CFString,
-            &virtualInput) { packetList, _ in
-                for packet in packetList.pointee {
-                    // a Core MIDI packet may contain multiple MIDI events
-                    for event in packet {
-                        self.handleMIDIMessage(event)
-                    }
-                }
-        }
-
-        if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
-        } else {
-            AKLog("Error Creating Virtual Input Port: \(virtualPortname) -- \(virtualInput)")
-            CheckError(result)
-        }
-    }
-
-    /// Create a virtual MIDI output port
-    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        destroyVirtualOutputPort()
-        let virtualPortname = name ?? String(clientName)
-
-        let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
-        if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
-        } else {
-            AKLog("Error Creating Virtual Output Port: \(virtualPortname) -- \(virtualOutput)")
-            CheckError(result)
-        }
-    }
-
-    /// Discard all virtual ports
-    open func destroyVirtualPorts() {
-        destroyVirtualInputPort()
-        destroyVirtualOutputPort()
-    }
-
-    /// Closes the virtual input port, if created one already.
-    ///
-    /// - Returns: Returns true if virtual input closed.
-    ///
-    @discardableResult open func destroyVirtualInputPort() -> Bool {
-        if virtualInput != 0 {
-            if MIDIEndpointDispose(virtualInput) == noErr {
-                virtualInput = 0
-                return true
-            }
-        }
-        return false
-    }
-
-    /// Closes the virtual output port, if created one already.
-    ///
-    /// - Returns: Returns true if virtual output closed.
-    ///
-    @discardableResult open func destroyVirtualOutputPort() -> Bool {
-        if virtualOutput != 0 {
-            if MIDIEndpointDispose(virtualOutput) == noErr {
-                virtualOutput = 0
-                return true
-            }
-        }
-        return false
-    }
+    // MARK: - SYSEX
 
     internal var isReceivingSysex: Bool = false
     func startReceivingSysex(with midiBytes: [MIDIByte]) {

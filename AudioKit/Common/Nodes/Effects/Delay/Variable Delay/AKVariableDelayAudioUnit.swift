@@ -11,11 +11,11 @@ import AVFoundation
 public class AKVariableDelayAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKVariableDelayParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKVariableDelayParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var time: Double = AKVariableDelay.defaultTime {
@@ -36,37 +36,24 @@ public class AKVariableDelayAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let time = AUParameterTree.createParameter(
-            withIdentifier: "time",
+        let time = AUParameter(
+            identifier: "time",
             name: "Delay time (Seconds)",
             address: AKVariableDelayParameter.time.rawValue,
-            min: Float(AKVariableDelay.timeRange.lowerBound),
-            max: Float(AKVariableDelay.timeRange.upperBound),
+            range: AKVariableDelay.timeRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+            flags: .default)
+        let feedback = AUParameter(
+            identifier: "feedback",
             name: "Feedback (%)",
             address: AKVariableDelayParameter.feedback.rawValue,
-            min: Float(AKVariableDelay.feedbackRange.lowerBound),
-            max: Float(AKVariableDelay.feedbackRange.upperBound),
+            range: AKVariableDelay.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [time, feedback]))
+        setParameterTree(AUParameterTree(children: [time, feedback]))
         time.value = Float(AKVariableDelay.defaultTime)
         feedback.value = Float(AKVariableDelay.defaultFeedback)
     }

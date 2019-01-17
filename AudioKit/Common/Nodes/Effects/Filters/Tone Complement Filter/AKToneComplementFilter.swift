@@ -35,9 +35,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
-            if halfPowerPoint == newValue {
-                return
-            }
+            guard halfPowerPoint != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)

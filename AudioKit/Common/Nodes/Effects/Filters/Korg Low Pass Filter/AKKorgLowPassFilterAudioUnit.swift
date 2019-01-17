@@ -11,11 +11,11 @@ import AVFoundation
 public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKKorgLowPassFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cutoffFrequency: Double = AKKorgLowPassFilter.defaultCutoffFrequency {
@@ -40,49 +40,32 @@ public class AKKorgLowPassFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+        let cutoffFrequency = AUParameter(
+            identifier: "cutoffFrequency",
             name: "Filter cutoff",
             address: AKKorgLowPassFilterParameter.cutoffFrequency.rawValue,
-            min: Float(AKKorgLowPassFilter.cutoffFrequencyRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.cutoffFrequencyRange.upperBound),
+            range: AKKorgLowPassFilter.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let resonance = AUParameterTree.createParameter(
-            withIdentifier: "resonance",
+            flags: .default)
+        let resonance = AUParameter(
+            identifier: "resonance",
             name: "Filter resonance (should be between 0-2)",
             address: AKKorgLowPassFilterParameter.resonance.rawValue,
-            min: Float(AKKorgLowPassFilter.resonanceRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.resonanceRange.upperBound),
+            range: AKKorgLowPassFilter.resonanceRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let saturation = AUParameterTree.createParameter(
-            withIdentifier: "saturation",
+            flags: .default)
+        let saturation = AUParameter(
+            identifier: "saturation",
             name: "Filter saturation.",
             address: AKKorgLowPassFilterParameter.saturation.rawValue,
-            min: Float(AKKorgLowPassFilter.saturationRange.lowerBound),
-            max: Float(AKKorgLowPassFilter.saturationRange.upperBound),
+            range: AKKorgLowPassFilter.saturationRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [cutoffFrequency, resonance, saturation]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [cutoffFrequency, resonance, saturation]))
         cutoffFrequency.value = Float(AKKorgLowPassFilter.defaultCutoffFrequency)
         resonance.value = Float(AKKorgLowPassFilter.defaultResonance)
         saturation.value = Float(AKKorgLowPassFilter.defaultSaturation)

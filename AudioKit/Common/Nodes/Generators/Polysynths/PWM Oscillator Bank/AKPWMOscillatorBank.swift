@@ -37,14 +37,13 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Duty cycle width (range 0-1).
     @objc open dynamic var pulseWidth: Double = 0.5 {
         willSet {
-            if pulseWidth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.pulseWidth = Float(newValue)
+            guard pulseWidth != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.pulseWidth = Float(newValue)
             }
         }
     }
@@ -52,56 +51,54 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
-            if attackDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.attackDuration = Float(newValue)
+            guard attackDuration != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.attackDuration = Float(newValue)
             }
         }
     }
+
     /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
-            if decayDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.decayDuration = Float(newValue)
+            guard decayDuration != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.decayDuration = Float(newValue)
             }
         }
     }
     /// Sustain Level
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
-            if sustainLevel != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.sustainLevel = Float(newValue)
+            guard sustainLevel != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.sustainLevel = Float(newValue)
             }
         }
     }
+
     /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
-            if releaseDuration != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.releaseDuration = Float(newValue)
+            guard releaseDuration != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.releaseDuration = Float(newValue)
             }
         }
     }
@@ -109,14 +106,13 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
-            if pitchBend != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.pitchBend = Float(newValue)
+            guard pitchBend != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.pitchBend = Float(newValue)
             }
         }
     }
@@ -124,14 +120,13 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
-            if vibratoDepth != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.vibratoDepth = Float(newValue)
+            guard vibratoDepth != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.vibratoDepth = Float(newValue)
             }
         }
     }
@@ -139,14 +134,13 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
-            if vibratoRate != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.vibratoRate = Float(newValue)
+            guard vibratoRate != newValue else { return }
+            if internalAU?.isSetUp ?? false {
+                if let existingToken = token {
+                    vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.vibratoRate = Float(newValue)
             }
         }
     }
@@ -169,7 +163,6 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - pitchBend: Change of pitch in semitones
     ///   - vibratoDepth: Vibrato size in semitones
     ///   - vibratoRate: Frequency of vibrato in Hz
-
     ///
     @objc public init(
         pulseWidth: Double = 0.5,

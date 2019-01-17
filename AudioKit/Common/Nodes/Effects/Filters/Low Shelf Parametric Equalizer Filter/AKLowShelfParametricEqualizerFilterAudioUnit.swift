@@ -11,11 +11,11 @@ import AVFoundation
 public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKLowShelfParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var cornerFrequency: Double = AKLowShelfParametricEqualizerFilter.defaultCornerFrequency {
@@ -40,49 +40,32 @@ public class AKLowShelfParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let cornerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cornerFrequency",
+        let cornerFrequency = AUParameter(
+            identifier: "cornerFrequency",
             name: "Corner Frequency (Hz)",
             address: AKLowShelfParametricEqualizerFilterParameter.cornerFrequency.rawValue,
-            min: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.lowerBound),
-            max: Float(AKLowShelfParametricEqualizerFilter.cornerFrequencyRange.upperBound),
+            range: AKLowShelfParametricEqualizerFilter.cornerFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let gain = AUParameterTree.createParameter(
-            withIdentifier: "gain",
+            flags: .default)
+        let gain = AUParameter(
+            identifier: "gain",
             name: "Gain",
             address: AKLowShelfParametricEqualizerFilterParameter.gain.rawValue,
-            min: Float(AKLowShelfParametricEqualizerFilter.gainRange.lowerBound),
-            max: Float(AKLowShelfParametricEqualizerFilter.gainRange.upperBound),
+            range: AKLowShelfParametricEqualizerFilter.gainRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let q = AUParameterTree.createParameter(
-            withIdentifier: "q",
+            flags: .default)
+        let q = AUParameter(
+            identifier: "q",
             name: "Q",
             address: AKLowShelfParametricEqualizerFilterParameter.Q.rawValue,
-            min: Float(AKLowShelfParametricEqualizerFilter.qRange.lowerBound),
-            max: Float(AKLowShelfParametricEqualizerFilter.qRange.upperBound),
+            range: AKLowShelfParametricEqualizerFilter.qRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [cornerFrequency, gain, q]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [cornerFrequency, gain, q]))
         cornerFrequency.value = Float(AKLowShelfParametricEqualizerFilter.defaultCornerFrequency)
         gain.value = Float(AKLowShelfParametricEqualizerFilter.defaultGain)
         q.value = Float(AKLowShelfParametricEqualizerFilter.defaultQ)

@@ -42,9 +42,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     @objc open dynamic var reverbDuration: Double = defaultReverbDuration {
         willSet {
-            if reverbDuration == newValue {
-                return
-            }
+            guard reverbDuration != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)

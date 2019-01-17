@@ -30,7 +30,7 @@ typedef BOOL(^SimpleRenderBlock)(AudioBufferList *bufferList, AVAudioFrameCount 
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate channels:AKSettings.channelCount];
     _inputBus.init(self.defaultFormat, 8);
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busType:AUAudioUnitBusTypeInput busses:@[_inputBus.bus]];
-    _parameterTree = [AUParameterTree tree:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
 }
 
 - (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {

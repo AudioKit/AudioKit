@@ -52,7 +52,7 @@
     standardSetup(FrequencyTracker)
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
 
     parameterTreeBlock(FrequencyTracker)
 }

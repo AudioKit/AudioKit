@@ -33,7 +33,7 @@ class ViewController: NSViewController {
     @IBOutlet var reverseButton: NSButton!
     @IBOutlet var normalizeButton: NSButton!
 
-    var openPanel: NSOpenPanel?
+    var openPanel = NSOpenPanel()
 
     var audioTitle: String {
         guard let av = player?.audioFile else { return "" }
@@ -66,6 +66,9 @@ class ViewController: NSViewController {
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
         handleUpdateParam(slider3)
+
+        openPanel.message = "Open Audio File"
+        openPanel.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
     }
 
     @IBAction func start(_ sender: Any) {
@@ -138,15 +141,9 @@ class ViewController: NSViewController {
 
     @IBAction func chooseAudio(_ sender: Any) {
         guard let window = view.window else { return }
-        if openPanel == nil {
-            openPanel = NSOpenPanel()
-            openPanel!.message = "Open Audio File"
-            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
-        }
-        guard let openPanel = openPanel else { return }
         openPanel.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
-                if let url = openPanel.url {
+                if let url = self.openPanel.url {
                     self.open(url: url)
                 }
             }
