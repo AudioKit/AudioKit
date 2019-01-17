@@ -34,6 +34,15 @@ open class SuccessOrTimeoutMgr: NSObject {
     public func succeed() {
         print("success")
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
+        self.performSelector(onMainThread: #selector(mainthreadSuccessCall), with: nil, waitUntilDone: false)
+//        self.performSelector(onMainThread: #selector(delaySuccessCall), with: nil, waitUntilDone: false)
+    }
+
+    @objc func delaySuccessCall() {
+        self.perform(#selector(mainthreadSuccessCall), with: nil, afterDelay: 5)
+    }
+
+    @objc func mainthreadSuccessCall() {
         self.onSuccess?()
     }
 
@@ -59,11 +68,16 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
     init() {
         messageTimeout = SuccessOrTimeoutMgr(timeoutInterval: timeoutInterval, success: {
-        NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil)
-        }) timeout: {
+            NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil)
+        }, timeout: {
+            // never time out for now
             NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.SysexTimedOut, object: nil)
-        }
+        })
         midi.addListener(self)
+    }
+
+    deinit {
+        midi.removeListener(self)
     }
 
     // MARK: - Request
@@ -94,8 +108,49 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
         guard data[0] == AKMIDISystemCommand.sysex.rawValue else {
             return
         }
-        print("Received MIDI data: \(data)")
-        messageTimeout.succeed()
+        // Look for a response from a K5000 that always starts with these bytes
+        // 240, 64, <K5000sysexChannel>, 32, 0, 10, <memory area 0, 0 >
+        let responseK5000blockAreaA: [MIDIByte]     = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x00, 0x00]
+        let responseK5000singleAreaA: [MIDIByte]    = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x00, 0x00]
+        let responseK5000blockAreaBPcm: [MIDIByte]  = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x00, 0x01]
+        let responseK5000singleAreaBPcm: [MIDIByte] = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x00, 0x01]
+        let responseK5000drumKitB117: [MIDIByte]        = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x11]
+        let responseK5000drumInstAreaU: [MIDIByte]      = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x11]
+        let responseK5000blockCombiAreaC: [MIDIByte]    = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x20]
+        let responseK5000singleCombiAreaC: [MIDIByte]   = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x20]
+        let responseK5000blockAreaD: [MIDIByte]     = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x00, 0x02]
+        let responseK5000singleAreaD: [MIDIByte]    = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x00, 0x02]
+        let responseK5000blockAreaE: [MIDIByte]     = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x00, 0x03]
+        let responseK5000singleAreaE: [MIDIByte]    = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x00, 0x03]
+        let responseK5000blockAreaF: [MIDIByte]     = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x21, 0x00, 0x0A, 0x00, 0x04]
+        let responseK5000singleAreaF: [MIDIByte]    = [0xF0, 0x40, K5000sysexChannel.channel0.rawValue, 0x20, 0x00, 0x0A, 0x00, 0x04]
+        let headers = [responseK5000singleAreaA, responseK5000blockAreaA,
+                       responseK5000blockAreaBPcm, responseK5000singleAreaBPcm,
+                       responseK5000drumKitB117, responseK5000drumInstAreaU,
+                       responseK5000blockCombiAreaC, responseK5000singleCombiAreaC,
+                       responseK5000blockAreaD, responseK5000singleAreaD,
+                       responseK5000blockAreaE, responseK5000singleAreaE,
+                       responseK5000blockAreaF, responseK5000singleAreaF]
+
+        for header in headers {
+            let dataheader = data.dropLast(data.count - header.count)
+            let headertuple = zip(dataheader, header)
+            if headersMatch(headertuple) {
+                print("Received long header reponse from K5000")
+                messageTimeout.succeed()
+                break
+            }
+        }
+    }
+
+    func headersMatch(_ headerTuple: Zip2Sequence<ArraySlice<MIDIByte>, [MIDIByte]>) -> Bool {
+        var matches = true
+        for bytes in headerTuple {
+            if bytes.0 != bytes.1 {
+                matches = false
+            }
+        }
+        return matches
     }
 
 }
