@@ -9,11 +9,11 @@
 public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKShakerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKShakerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var type: Double = 0 {
@@ -32,33 +32,21 @@ public class AKShakerAudioUnit: AKGeneratorAudioUnitBase {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let type = AUParameterTree.createParameter(
-            withIdentifier: "Type",
+        let type = AUParameter(
+            identifier: "Type",
             name: "type",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 22,
+            address: 0,
+            range: 0...22,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            address: 1,
+            range: 0...10,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        setParameterTree(AUParameterTree.createTree(withChildren: [type, amplitude]))
+            flags: .default)
+        setParameterTree(AUParameterTree(children: [type, amplitude]))
         type.value = 0
         amplitude.value = 0.5
     }

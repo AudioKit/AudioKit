@@ -179,7 +179,7 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
             if (!isStarted) {
                 *out = *in;
             }
-            
+
         }
         if (isStarted) {
             sp_phaser_compute(sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);

@@ -82,9 +82,7 @@ open class AKFileClip: NSObject, FileClip {
 
     /// Init a file clip from a url with time and offset at zero, and duration set to file duration.
     public convenience init?(url: URL) {
-        if !FileManager.default.fileExists(atPath: url.path) {
-            return nil
-        }
+        guard FileManager.default.fileExists(atPath: url.path) else { return nil }
         do {
             let audioFile = try AKAudioFile(forReading: url)
             self.init(audioFile: audioFile)

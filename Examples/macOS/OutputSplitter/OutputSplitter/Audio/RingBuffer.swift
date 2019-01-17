@@ -42,15 +42,15 @@ public enum RingBufferError: Int32 {
 // endregion
 
 public final class RingBuffer<T> {
-    
+
     fileprivate var mTimeBoundsQueue = ContiguousArray<RingBufferTimeBounds>(repeating: RingBufferTimeBounds(),
                                                                                count: Int(kGeneralRingTimeBoundsQueueSize))
     fileprivate var mTimeBoundsQueueCurrentIndex: Int32 = 0
-    
+
     public var numberOfChannels: UInt32 {
         return mNumberChannels
     }
-    
+
     fileprivate let mNumberChannels: UInt32
     // FIXME: Rename it and make public.
     /// Per channel capacity, must be a power of 2.
@@ -66,12 +66,12 @@ public final class RingBuffer<T> {
     fileprivate var mBufferPointer: UnsafeMutableBufferPointer<T> {
         return UnsafeMutableBufferPointer(start: mBuffer, count: Int(mBuffersLength))
     }
-    
+
     /// Buffer array just for debug purpose.
     fileprivate var mBufferArray: [T] {
         return Array(mBufferPointer)
     }
-    
+
     /// **Note** CapacityFrames will be rounded up to a power of 2
     /// - parameter numberOfChannels: Number of channels (non-interleaved).
     /// - parameter capacityFrames: Capacity per every channel.
@@ -84,14 +84,14 @@ public final class RingBuffer<T> {
         mBytesPerFrame = UInt32(MemoryLayout<T>.stride)
         mCapacityBytes = mBytesPerFrame * mCapacityFrames
     }
-    
+
     deinit {
         mBuffer.deallocate()
     }
 }
 
 extension RingBuffer {
-    
+
     /// Copy framesToWrite of data into the ring buffer at the specified sample time.
     /// The sample time should normally increase sequentially, though gaps
     /// are filled with zeroes. A sufficiently large gap effectively empties
@@ -107,7 +107,7 @@ extension RingBuffer {
             self.storeABL(self.mBuffer, destOffset: destOffset, abl: abl, srcOffset: srcOffset, numberOfBytes: numberOfBytes)
         }
     }
-    
+
     public func fetch(_ abl: UnsafeMutablePointer<AudioBufferList>, framesToRead: UInt32,
                       startRead: SampleTime) -> RingBufferError {
         return fetch(framesToRead: framesToRead, startRead: startRead, zeroProcedure: { destOffset, numberOfBytes in
@@ -119,24 +119,24 @@ extension RingBuffer {
 }
 
 extension RingBuffer {
-    
+
     fileprivate typealias StoreProcedure = (_ srcOffset: SampleTime, _ destOffset: SampleTime, _ numberOfBytes: SampleTime) -> Void
     fileprivate typealias FetchProcedure = (_ srcOffset: SampleTime, _ destOffset: SampleTime, _ numberOfBytes: SampleTime) -> Void
     fileprivate typealias ZeroProcedure = (_ destOffset: SampleTime, _ numberOfBytes: SampleTime) -> Void
-    
+
     fileprivate func frameOffset(_ frameNumber: SampleTime) -> SampleTime {
         return (frameNumber & SampleTime(mCapacityFramesMask)) * SampleTime(mBytesPerFrame)
     }
-    
+
     fileprivate func store(framesToWrite: UInt32, startWrite: SampleTime, storeProcedure: StoreProcedure) -> RingBufferError {
         if framesToWrite == 0 {
             return .noError
         }
-        
+
         if framesToWrite > mCapacityFrames {
             return .tooMuch
         }
-        
+
         let endWrite = startWrite + SampleTime(framesToWrite)
         if startWrite < endTime() {
             // going backwards, throw everything out
@@ -149,7 +149,7 @@ extension RingBuffer {
             let newEnd = max(newStart, endTime())
             setTimeBounds(startTime: newStart, endTime: newEnd)
         }
-        
+
         let curEnd = endTime()
         var offset0: SampleTime
         var offset1: SampleTime
@@ -168,7 +168,7 @@ extension RingBuffer {
         } else {
             offset0 = frameOffset(startWrite)
         }
-        
+
         offset1 = frameOffset(endWrite)
         if offset0 < offset1 {
             storeProcedure(0, offset0, offset1 - offset0)
@@ -177,53 +177,53 @@ extension RingBuffer {
             storeProcedure(0, offset0, nbytes)
             storeProcedure(nbytes, 0, offset1)
         }
-        
+
         // now update the end time
         setTimeBounds(startTime: startTime(), endTime: endWrite)
-        
+
         return .noError
     }
-    
+
     fileprivate func fetch(framesToRead: UInt32, startRead: SampleTime, zeroProcedure: ZeroProcedure,
                            fetchProcedure: FetchProcedure) -> RingBufferError {
         if framesToRead == 0 {
             return .noError
         }
-        
+
         var startRead = max(0, startRead)
-        
+
         var endRead = startRead + Int64(framesToRead)
-        
+
         let startRead0 = startRead
         let endRead0 = endRead
-        
+
         let err = clipTimeBounds(startRead: &startRead, endRead: &endRead)
         if err != .noError {
             return err
         }
-        
+
         if startRead == endRead {
             zeroProcedure(0, Int64(framesToRead * mBytesPerFrame))
             return .noError
         }
-        
+
         let byteSize = (endRead - startRead) * Int64(mBytesPerFrame)
-        
+
         let destStartByteOffset = max(0, (startRead - startRead0) * Int64(mBytesPerFrame))
-        
+
         if destStartByteOffset > 0 {
             zeroProcedure(0, min(Int64(framesToRead * mBytesPerFrame), destStartByteOffset))
         }
-        
+
         let destEndSize = max(0, endRead0 - endRead)
         if destEndSize > 0 {
             zeroProcedure(destStartByteOffset + byteSize, destEndSize * Int64(mBytesPerFrame))
         }
-        
+
         let offset0 = frameOffset(startRead)
         let offset1 = frameOffset(endRead)
         var nbytes: SampleTime = 0
-        
+
         if offset0 < offset1 {
             nbytes = offset1 - offset0
             fetchProcedure(offset0, destStartByteOffset, nbytes)
@@ -233,7 +233,7 @@ extension RingBuffer {
             fetchProcedure(0, destStartByteOffset + nbytes, offset1)
             nbytes += offset1
         }
-        
+
         // FIXME: Do we really need to update mDataByteSize?.
         //      let ablPointer = UnsafeMutableAudioBufferListPointer(abl)
         //      for channel in 0..<ablPointer.count {
@@ -243,13 +243,13 @@ extension RingBuffer {
         //            dest.mDataByteSize = UInt32(nbytes)
         //         }
         //      }
-        
+
         return .noError
     }
-    
+
     fileprivate func storeABL(_ buffers: UnsafeMutablePointer<T>, destOffset: SampleTime, abl: UnsafePointer<AudioBufferList>,
                               srcOffset: SampleTime, numberOfBytes: SampleTime) {
-        
+
         let advanceOfSource = Int(srcOffset) / Int(mBytesPerFrame)
         let advanceOfDestination = Int(destOffset) / Int(mBytesPerFrame)
         let ablPointer = UnsafeMutableAudioBufferListPointer(UnsafeMutablePointer<AudioBufferList>(mutating: abl))
@@ -277,10 +277,10 @@ extension RingBuffer {
             }
         }
     }
-    
+
     fileprivate func fetchABL(_ abl: UnsafeMutablePointer<AudioBufferList>, destOffset: SampleTime,
                               buffers: UnsafeMutablePointer<T>, srcOffset: SampleTime, nbytes: SampleTime) {
-        
+
         let advanceOfSource = Int(srcOffset) / Int(mBytesPerFrame)
         let advanceOfDestination = Int(destOffset) / Int(mBytesPerFrame)
         let ablPointer = UnsafeMutableAudioBufferListPointer(abl)
@@ -305,7 +305,7 @@ extension RingBuffer {
             }
         }
     }
-    
+
     fileprivate func zeroABL(_ abl: UnsafeMutablePointer<AudioBufferList>, destOffset: SampleTime, nbytes: SampleTime) {
         let advanceDistance = Int(destOffset) / Int(mBytesPerFrame)
         let ablPointer = UnsafeMutableAudioBufferListPointer(abl)
@@ -325,7 +325,7 @@ extension RingBuffer {
             memset(positionWrite, 0, numberOfBytes)
         }
     }
-    
+
     fileprivate func zeroBuffer(offset: SampleTime, nbytes: SampleTime) {
         let advanceDistance = Int(offset) / Int(mBytesPerFrame)
         assert(UInt32(offset + nbytes) <= mCapacityBytes)
@@ -338,7 +338,7 @@ extension RingBuffer {
 
 // region MARK: - Time Bounds Queue
 extension RingBuffer {
-    
+
     fileprivate func setTimeBounds(startTime: SampleTime, endTime: SampleTime) {
         let nextAbsoluteIndex = mTimeBoundsQueueCurrentIndex + 1 // Always increasing
         // Index always in range [0, kGeneralRingTimeBoundsQueueSize - 1]
@@ -346,23 +346,23 @@ extension RingBuffer {
         mTimeBoundsQueue[elementIndex].mStartTime = startTime
         mTimeBoundsQueue[elementIndex].mEndTime = endTime
         mTimeBoundsQueue[elementIndex].mUpdateCounter = UInt32(nextAbsoluteIndex)
-        
+
         let status = OSAtomicCompareAndSwap32Barrier(mTimeBoundsQueueCurrentIndex, nextAbsoluteIndex,
                                                      &mTimeBoundsQueueCurrentIndex)
         assert(status)
     }
-    
+
     public func getTimeBounds(startTime: inout SampleTime, endTime: inout SampleTime) -> RingBufferError {
         // Fail after a few tries.
         for _ in 0 ..< 8 {
             let curPtr = mTimeBoundsQueueCurrentIndex
             let index = curPtr & kGeneralRingTimeBoundsQueueMask
             let bounds = mTimeBoundsQueue[Int(index)]
-            
+
             startTime = bounds.mStartTime
             endTime = bounds.mEndTime
             let newPtr = Int32(bounds.mUpdateCounter)
-            
+
             if newPtr == curPtr {
                 return .noError
             }
@@ -372,37 +372,37 @@ extension RingBuffer {
 }
 
 extension RingBuffer {
-    
+
     /// **Note!** Should only be called from Store.
     /// - returns: Start time from the Time bounds queue at current index.
     fileprivate func startTime() -> SampleTime {
         return mTimeBoundsQueue[Int(mTimeBoundsQueueCurrentIndex & kGeneralRingTimeBoundsQueueMask)].mStartTime
     }
-    
+
     /// **Note!** Should only be called from Store.
     /// - returns: End time from the Time bounds queue at current index.
     fileprivate func endTime() -> SampleTime {
         return mTimeBoundsQueue[Int(mTimeBoundsQueueCurrentIndex & kGeneralRingTimeBoundsQueueMask)].mEndTime
     }
-    
+
     fileprivate func clipTimeBounds(startRead: inout SampleTime, endRead: inout SampleTime) -> RingBufferError {
         var startTime: SampleTime = 0
         var endTime: SampleTime = 0
-        
+
         let err = getTimeBounds(startTime: &startTime, endTime: &endTime)
         if err != .noError {
             return err
         }
-        
+
         if startRead > endTime || endRead < startTime {
             endRead = startRead
             return .noError
         }
-        
+
         startRead = max(startRead, startTime)
         endRead = min(endRead, endTime)
         endRead = max(endRead, startRead)
-        
+
         return .noError
     }
 }

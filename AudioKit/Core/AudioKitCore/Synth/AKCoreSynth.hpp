@@ -1,5 +1,5 @@
 //
-//  Synth.hpp
+//  AKCoreSynth.hpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
@@ -16,11 +16,11 @@ namespace AudioKitCore
     struct SynthVoice;
 }
 
-class AKSynth
+class AKCoreSynth
 {
 public:
-    AKSynth();
-    ~AKSynth();
+    AKCoreSynth();
+    ~AKCoreSynth();
     
     /// returns system error code, nonzero only if a problem occurs
     int init(double sampleRate);
@@ -69,10 +69,10 @@ protected:
     float cutoffMultiple;
     
     /// how much filter EG adds on top of cutoffMultiple
-    float cutoffStrength;
+    float cutoffEnvelopeStrength;
     
     /// resonance [-20 dB, +20 dB] becomes linear [10.0, 0.1]
-    float resLinear;
+    float linearResonance;
     
     void play(unsigned noteNumber, unsigned velocity, float noteFrequency);
     void stop(unsigned noteNumber, bool immediate);

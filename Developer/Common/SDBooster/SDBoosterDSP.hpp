@@ -9,6 +9,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
+#import <AKInterop.h>
 
 typedef NS_ENUM(AUParameterAddress, SDBoosterParameter) {
     SDBoosterParameterLeftGain,
@@ -18,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, SDBoosterParameter) {
 
 #ifndef __cplusplus
 
-void* createSDBoosterDSP(int nChannels, double sampleRate);
+AKDSPRef createSDBoosterDSP(int nChannels, double sampleRate);
 
 #else
 

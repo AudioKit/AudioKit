@@ -50,9 +50,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @objc open dynamic var time: Double = defaultTime {
         willSet {
-            if time == newValue {
-                return
-            }
+            guard time != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     timeParameter?.setValue(Float(newValue), originator: existingToken)
@@ -66,9 +64,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Feedback amount. Should be a value between 0-1.
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback == newValue {
-                return
-            }
+            guard feedback != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
@@ -82,9 +78,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Dry/wet mix. Should be a value between 0-1.
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
-            if dryWetMix == newValue {
-                return
-            }
+            guard dryWetMix != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
@@ -98,9 +92,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     /// Ping-pong mode: true or false (stereo mode)
     @objc open dynamic var pingPong: Bool = false {
         willSet {
-            if pingPong == newValue {
-                return
-            }
+            guard pingPong != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     pingPongParameter?.setValue(Float(newValue ? 1.0 : 0.0), originator: existingToken)

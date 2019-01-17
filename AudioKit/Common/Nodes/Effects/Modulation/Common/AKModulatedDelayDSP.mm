@@ -152,13 +152,13 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
-        
+
         // ramp parameters
         frequencyRamp.advanceTo(now + frameOffset);
         depthRamp.advanceTo(now + frameOffset);
         feedbackRamp.advanceTo(now + frameOffset);
         dryWetMixRamp.advanceTo(now + frameOffset);
-        
+
         // apply changes
         setModFrequencyHz(frequencyRamp.getValue());
         modDepthFraction = depthRamp.getValue();
@@ -169,7 +169,7 @@ void AKModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // process
         Render(channelCount, chunkSize, inBuffers, outBuffers);
-        
+
         // advance pointers
         inBuffers[0] += chunkSize;
         inBuffers[1] += chunkSize;

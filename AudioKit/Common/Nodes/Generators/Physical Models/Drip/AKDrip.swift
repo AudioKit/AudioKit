@@ -79,9 +79,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// The intensity of the dripping sound.
     @objc open dynamic var intensity: Double = defaultIntensity {
         willSet {
-            if intensity == newValue {
-                return
-            }
+            guard intensity != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     intensityParameter?.setValue(Float(newValue), originator: existingToken)
@@ -95,9 +93,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// The damping factor. Maximum value is 2.0.
     @objc open dynamic var dampingFactor: Double = defaultDampingFactor {
         willSet {
-            if dampingFactor == newValue {
-                return
-            }
+            guard dampingFactor != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     dampingFactorParameter?.setValue(Float(newValue), originator: existingToken)
@@ -111,9 +107,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// The amount of energy to add back into the system.
     @objc open dynamic var energyReturn: Double = defaultEnergyReturn {
         willSet {
-            if energyReturn == newValue {
-                return
-            }
+            guard energyReturn != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     energyReturnParameter?.setValue(Float(newValue), originator: existingToken)
@@ -127,9 +121,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// Main resonant frequency.
     @objc open dynamic var mainResonantFrequency: Double = defaultMainResonantFrequency {
         willSet {
-            if mainResonantFrequency == newValue {
-                return
-            }
+            guard mainResonantFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     mainResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -143,9 +135,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// The first resonant frequency.
     @objc open dynamic var firstResonantFrequency: Double = defaultFirstResonantFrequency {
         willSet {
-            if firstResonantFrequency == newValue {
-                return
-            }
+            guard firstResonantFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     firstResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -159,9 +149,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// The second resonant frequency.
     @objc open dynamic var secondResonantFrequency: Double = defaultSecondResonantFrequency {
         willSet {
-            if secondResonantFrequency == newValue {
-                return
-            }
+            guard secondResonantFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     secondResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -175,9 +163,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     /// Amplitude.
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
-                return
-            }
+            guard amplitude != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
@@ -195,11 +181,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the drip with defaults
-    public convenience override init() {
-        self.init(intensity: 10)
-    }
-
     /// Initialize this drip node
     ///
     /// - Parameters:
@@ -211,8 +192,9 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
+    @available(*, deprecated, message: "The physical model is inherently unstable and unpredictable, use at your own risk/discrertion.")
     @objc public init(
-        intensity: Double,
+        intensity: Double = 10,
         dampingFactor: Double = defaultDampingFactor,
         energyReturn: Double = defaultEnergyReturn,
         mainResonantFrequency: Double = defaultMainResonantFrequency,

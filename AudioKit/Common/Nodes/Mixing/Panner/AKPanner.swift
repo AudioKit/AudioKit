@@ -35,9 +35,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     @objc open dynamic var pan: Double = defaultPan {
         willSet {
-            if pan == newValue {
-                return
-            }
+            guard pan != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     panParameter?.setValue(Float(newValue), originator: existingToken)

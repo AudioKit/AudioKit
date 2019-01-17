@@ -30,9 +30,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Limiting Factor
     @objc open dynamic var amount: Double = 1 {
         willSet {
-            if amount == newValue {
-                return
-            }
+            guard amount != newValue else { return }
 
             if internalAU?.isSetUp ?? false {
                 if token != nil && amountParameter != nil {

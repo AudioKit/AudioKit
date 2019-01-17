@@ -45,9 +45,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     @objc open dynamic var frequency: Double = defaultLowestFrequency {
         willSet {
-            if frequency == newValue {
-                return
-            }
+            guard frequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -61,9 +59,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     /// Amplitude
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
-                return
-            }
+            guard amplitude != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
