@@ -97,7 +97,7 @@ class Conductor {
 
     func openMIDIInput(at index: Int) {
         midi.closeAllInputs()
-        midi.openInput(index)
+        midi.openInput(index: index)
     }
 
     func playNote(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
