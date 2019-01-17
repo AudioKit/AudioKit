@@ -67,7 +67,7 @@
 		C4BDE7F51C12FAE600207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C51D172921EE85A9008EB51F /* MacOSCommandLineDev */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacOSCommandLineDev; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51D173321EE85D2008EB51F /* MIDI Connection Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDI Connection Manager.swift"; sourceTree = "<group>"; };
-		C51D173421EE85D2008EB51F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "../../../../../MacOS/Command Line/Unitor Control/Unitor Control/main.swift"; sourceTree = "<group>"; };
+		C51D173421EE85D2008EB51F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSysexCommunicationsManger.swift; sourceTree = "<group>"; };
 		C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = K5000SysexMessages.swift; sourceTree = "<group>"; };
 		C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIByte+Sysex.swift"; sourceTree = "<group>"; };
