@@ -222,7 +222,7 @@ extension AKMIDI {
             if let type = event.status?.type {
                 guard let eventChannel = event.channel else {
                     AKLog("No channel detected in handleMIDIMessage")
-                    return
+                    continue
                 }
                 switch type {
                 case .controllerChange:
@@ -252,11 +252,14 @@ extension AKMIDI {
                                                        channel: MIDIChannel(eventChannel))
                 }
             } else if event.command != nil {
+                AKLog("Passing system command to listener \(listener)")
                 listener.receivedMIDISystemCommand(event.internalData)
+                if event.command == .sysex {
+                    AKLog("system command was a sysex message")
+                }
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
-            return
         }
     }
 
