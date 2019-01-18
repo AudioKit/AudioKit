@@ -24,24 +24,6 @@ extension MIDIByte {
     }
 }
 
-extension MIDIPacket {
-    var isSysex: Bool {
-        return data.0 == AKMIDISystemCommand.sysex.rawValue
-    }
-
-    var status: AKMIDIStatus? {
-        return AKMIDIStatus(byte: data.0)
-    }
-
-    var channel: MIDIChannel {
-        return data.0.lowBit
-    }
-
-    var command: AKMIDISystemCommand? {
-        return AKMIDISystemCommand(rawValue: data.0)
-    }
-}
-
 extension MIDIWord {
     init(byte1: MIDIByte, byte2: MIDIByte) {
         let x = MIDIWord(byte1)

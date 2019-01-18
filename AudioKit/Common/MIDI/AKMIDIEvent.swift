@@ -83,19 +83,36 @@ public struct AKMIDIEvent {
     ///
     public init(packet: MIDIPacket) {
         // FIXME: we currently assume this is one midi event could be any number of events
-        if packet.isSysex {
-            internalData = [] //reset internalData
-            //voodoo
-            if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-                AudioKit.midi.startReceivingSysex(with: midiBytes)
-                internalData += midiBytes
-                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
-                    let length = sysexEndIndex + 1
-                    internalData = Array(internalData.prefix(length))
-                    AudioKit.midi.stopReceivingSysex()
-                } else {
-                    internalData.removeAll()
+        // FIXME: we currently assume this is one midi event is either sysex length, or three bytes, and there are a bunch of 1 byte messages
+        let isSystemCommand = packet.isSystemCommand
+        if isSystemCommand {
+            let systemCommand = packet.systemCommand
+            let length = systemCommand?.length
+            if systemCommand == .sysex {
+                internalData = [] //reset internalData
+
+                // voodoo to convert packet 256 element tuple to byte arrays
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    // flag midi system that a sysex packet has started so it can gather bytes until the end
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                        let length = sysexEndIndex + 1
+                        internalData = Array(internalData.prefix(length))
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                    }
                 }
+            } else if length == 1 {
+                let bytes = [packet.data.0]
+                internalData = bytes
+            } else if length == 2 {
+                let bytes = [packet.data.0, packet.data.2]
+                internalData = bytes
+            } else if length == 3 {
+                let bytes = [packet.data.0, packet.data.1, packet.data.2]
+                internalData = bytes
             }
         } else {
             let bytes = [packet.data.0, packet.data.1, packet.data.2]

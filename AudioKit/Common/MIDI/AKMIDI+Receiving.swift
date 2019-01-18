@@ -140,7 +140,7 @@ extension AKMIDI {
                     for packet in packetList.pointee {
                         // a CoreMIDI packet may contain multiple MIDI events -
                         // treat it like an array of events that can be transformed
-                        let events = [AKMIDIEvent](packet) //uses makeiterator
+                        let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
                         let transformedMIDIEventList = self.transformMIDIEventList(events)
                         // Note: incomplete sysex packets will not have a status
                         for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil || transformedEvent.command != nil {
@@ -251,12 +251,11 @@ extension AKMIDI {
                     listener.receivedMIDIProgramChange(event.internalData[1],
                                                        channel: MIDIChannel(eventChannel))
                 }
+                
             } else if event.command != nil {
-                AKLog("Passing system command to listener \(listener)")
+                let commandDesc = event.command?.description ?? "unknown"
+                AKLog("Passing [\(commandDesc)] to listener \(listener)")
                 listener.receivedMIDISystemCommand(event.internalData)
-                if event.command == .sysex {
-                    AKLog("system command was a sysex message")
-                }
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
