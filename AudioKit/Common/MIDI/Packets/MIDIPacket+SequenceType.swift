@@ -67,6 +67,9 @@ extension MIDIPacket: Sequence {
                     data1 = pop()
                     data2 = pop()
                     return AKMIDIEvent(data: [status, data1, data2])
+                case .timeCodeQuarterFrame:
+                    data1 = pop()
+                    return AKMIDIEvent(data: [status, data1])
                 case .songSelect:
                     data1 = pop()
                     return AKMIDIEvent(data: [status, data1])
