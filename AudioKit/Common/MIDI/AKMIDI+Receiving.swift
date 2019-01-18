@@ -251,7 +251,6 @@ extension AKMIDI {
                     listener.receivedMIDIProgramChange(event.internalData[1],
                                                        channel: MIDIChannel(eventChannel))
                 }
-                
             } else if event.command != nil {
                 let commandDesc = event.command?.description ?? "unknown"
                 AKLog("Passing [\(commandDesc)] to listener \(listener)")
