@@ -87,10 +87,12 @@ open class AKMIDI {
 
     internal var isReceivingSysex: Bool = false
     func startReceivingSysex(with midiBytes: [MIDIByte]) {
+        AKLog("Starting to receive Sysex")
         isReceivingSysex = true
         incomingSysex = midiBytes
     }
     func stopReceivingSysex() {
+        AKLog("Done receiving Sysex")
         isReceivingSysex = false
     }
     var incomingSysex = [MIDIByte]()

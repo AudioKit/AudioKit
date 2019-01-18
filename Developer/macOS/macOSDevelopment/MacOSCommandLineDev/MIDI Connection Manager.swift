@@ -22,8 +22,8 @@ class MidiConnectionManger: AKMIDIListener {
     }
 
     deinit {
-        midi.closeInput(input)
-        midi.closeOutput(output)
+        midi.closeInput(uid: input)
+        midi.closeOutput(uid: output)
 
         midi.removeListener(self)
     }
@@ -51,8 +51,10 @@ class MidiConnectionManger: AKMIDIListener {
                 confirmed = true
             }
         }
-        midi.openInput(input)
-        midi.openOutput(output)
+        midi.openInput(); // open all inputs
+//        midi.openInput(uid: input)
+        midi.openOutput() // open all outputs?
+//        midi.openOutput(uid: output)
     }
 
     func selectInput() {

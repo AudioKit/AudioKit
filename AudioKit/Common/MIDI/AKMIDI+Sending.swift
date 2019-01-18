@@ -105,8 +105,9 @@ extension AKMIDI {
     ///
     /// - Parameter forUid: unique id for a destination
     /// - Returns: name of destination or "Unknown"
+    ///
     public func destinationName(for destUid: MIDIUniqueID) -> String {
-        let name : String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+        let name: String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return destUid == uid
             }.map { (arg) -> String in
@@ -120,6 +121,7 @@ extension AKMIDI {
     ///
     /// - Parameter outputIndex: index of destination
     /// - Returns: unique identifier for the port
+    ///
     public func uidForDestinationAtIndex(_ outputIndex: Int = 0) -> MIDIUniqueID {
         let endpoint: MIDIEndpointRef = MIDIDestinations()[outputIndex]
         let uid = getMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
@@ -129,7 +131,24 @@ extension AKMIDI {
     /// Open a MIDI Output Port by index
     ///
     /// - Parameter outputIndex: Index of destination endpoint
-    public func openOutput(_ outputIndex: Int = 0) {
+    ///
+    public func openOutput(name: String = "") {
+        guard  let index = destinationNames.firstIndex(of: name) else {
+            openOutput(uid: 0)
+            return
+        }
+        let uid = uidForDestinationAtIndex(index)
+        openOutput(uid: uid)
+    }
+
+    /// Open a MIDI Output Port by index
+    ///
+    /// - Parameter outputIndex: Index of destination endpoint
+    ///
+    public func openOutput(index outputIndex: Int) {
+        guard outputIndex < destinationNames.count else {
+            return
+        }
         let uid = uidForDestinationAtIndex(outputIndex)
         openOutput(uid: uid)
     }
@@ -150,7 +169,7 @@ extension AKMIDI {
         // close any previous output port and dispose of it
         if outputPort != 0 {
             let uid = getMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
-            closeOutput(uid)
+            closeOutput(uid: uid)
             outputPort = 0
         }
 
@@ -174,11 +193,35 @@ extension AKMIDI {
         }
     }
 
+    /// Open a MIDI Input port by name
+    ///
+    /// - Parameter name: Name of port to close.
+    ///
+    public func closeOutput(name: String = "") {
+        guard  let index = destinationNames.firstIndex(of: name) else {
+            return
+        }
+        let uid = inputUIDs[index]
+        closeInput(uid: uid)
+    }
+
+    /// Open a MIDI Input port by index
+    ///
+    /// - Parameter index: Index of destination port name
+    ///
+    public func closeOutput(index outputIndex: Int) {
+        guard outputIndex < destinationNames.count else {
+            return
+        }
+        let uid = uidForInputAtIndex(outputIndex)
+        closeInput(uid: uid)
+    }
+
     /// Close a MIDI Output port
     ///
     /// - parameter inputName: Unique id of the MIDI Output
     ///
-    public func closeOutput(_ outputUid: MIDIUniqueID) {
+    public func closeOutput(uid outputUid: MIDIUniqueID) {
         let name = destinationName(for: outputUid)
         AKLog("Closing MIDI Input '\(inputName)'")
         var result = noErr
