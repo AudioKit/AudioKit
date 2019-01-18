@@ -31,7 +31,7 @@ print("Sending Sysex Request")
 sysexCom.requestAndWaitForResponse()
 
 while (runUntilNote) {
-    let oneSecondLater = Date(timeIntervalSinceNow: 0.25)
+    let oneSecondLater = Date(timeIntervalSinceNow: 0.0025)
     RunLoop.current.run(mode: .default, before: oneSecondLater)
 }
 
