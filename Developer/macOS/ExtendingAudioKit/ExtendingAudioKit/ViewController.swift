@@ -78,7 +78,7 @@ extension ViewController: AKMIDIListener {
         AKLog("midi setup change, midi.inputNames: \(conductor.midi.inputNames)")
         let inputNames = conductor.midi.inputNames
         inputNames.forEach { inputName in
-            conductor.midi.openInput(inputName)
+            conductor.midi.openInput(name: inputName)
         }
     }
 

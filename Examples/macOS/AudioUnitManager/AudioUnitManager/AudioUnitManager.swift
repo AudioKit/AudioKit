@@ -216,7 +216,7 @@ class AudioUnitManager: NSViewController {
     }
 
     @IBAction func handleMidiDeviceSelected(_ sender: NSPopUpButton) {
-        midiManager?.openInput(sender.indexOfSelectedItem)
+        midiManager?.openInput(index: sender.indexOfSelectedItem)
     }
 
     @IBAction func handleInstrumentSelected(_ sender: NSPopUpButton) {
