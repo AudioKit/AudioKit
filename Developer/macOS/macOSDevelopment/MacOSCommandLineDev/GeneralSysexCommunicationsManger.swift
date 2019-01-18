@@ -70,7 +70,6 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
         messageTimeout = SuccessOrTimeoutMgr(timeoutInterval: timeoutInterval, success: {
             NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil)
         }, timeout: {
-            // never time out for now
             NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.SysexTimedOut, object: nil)
         })
         midi.addListener(self)
@@ -136,8 +135,9 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
             let dataheader = data.dropLast(data.count - header.count)
             let headertuple = zip(dataheader, header)
             if headersMatch(headertuple) {
-                print("Received long header reponse from K5000")
                 messageTimeout.succeed()
+                debugPrint("Received sysex header reponse from K5000")
+                debugPrint(data)
                 break
             }
         }
