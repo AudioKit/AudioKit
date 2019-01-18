@@ -82,8 +82,7 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        // FIXME: we currently assume this is one midi event could be any number of events
-        // FIXME: we currently assume this is one midi event is either sysex length, or three bytes, and there are a bunch of 1 byte messages
+        // MARK: we currently assume this is one midi event could be any number of events
         let isSystemCommand = packet.isSystemCommand
         if isSystemCommand {
             let systemCommand = packet.systemCommand
