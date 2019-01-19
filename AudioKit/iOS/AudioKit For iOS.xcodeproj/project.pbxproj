@@ -256,6 +256,7 @@
 		C42F35041C057E03000E937C /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42FFBE41C3D195000823BD4 /* AKBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBE31C3D195000823BD4 /* AKBooster.swift */; };
 		C42FFBEC1C3D1FD100823BD4 /* AKDryWetMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBEB1C3D1FD100823BD4 /* AKDryWetMixer.swift */; };
+		C430E2BE21F2A12000B010CC /* MIDIPacket+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C430E2BD21F2A12000B010CC /* MIDIPacket+Extensions.swift */; };
 		C43323041FE05F0200330AEC /* AKTimeline.h in Headers */ = {isa = PBXBuildFile; fileRef = C43322FB1FE05F0100330AEC /* AKTimeline.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C43323051FE05F0200330AEC /* AKTimeline.c in Sources */ = {isa = PBXBuildFile; fileRef = C43322FC1FE05F0100330AEC /* AKTimeline.c */; };
 		C43323061FE05F0200330AEC /* TPCircularBuffer+Unit.c in Sources */ = {isa = PBXBuildFile; fileRef = C43322FE1FE05F0100330AEC /* TPCircularBuffer+Unit.c */; };
@@ -1450,6 +1451,7 @@
 		C42F35051C057E03000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../iOS/AudioKit/Info.plist; sourceTree = "<group>"; };
 		C42FFBE31C3D195000823BD4 /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C42FFBEB1C3D1FD100823BD4 /* AKDryWetMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDryWetMixer.swift; sourceTree = "<group>"; };
+		C430E2BD21F2A12000B010CC /* MIDIPacket+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacket+Extensions.swift"; sourceTree = "<group>"; };
 		C43322FB1FE05F0100330AEC /* AKTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTimeline.h; sourceTree = "<group>"; };
 		C43322FC1FE05F0100330AEC /* AKTimeline.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AKTimeline.c; sourceTree = "<group>"; };
 		C43322FE1FE05F0100330AEC /* TPCircularBuffer+Unit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+Unit.c"; sourceTree = "<group>"; };
@@ -4108,6 +4110,7 @@
 		C48DB7E01CD5797100D1EC13 /* Packets */ = {
 			isa = PBXGroup;
 			children = (
+				C430E2BD21F2A12000B010CC /* MIDIPacket+Extensions.swift */,
 				C48DB7E11CD5797100D1EC13 /* MIDIPacket+SequenceType.swift */,
 				C48DB7E21CD5797100D1EC13 /* MIDIPacketList+SequenceType.swift */,
 			);
@@ -6221,6 +6224,7 @@
 				C49B1401204A06B7009C7C8E /* biquad.c in Sources */,
 				C4D3714E1EEFA78600B3DCA6 /* vocalTract.swift in Sources */,
 				C49B14BE204A06B8009C7C8E /* rpt.c in Sources */,
+				C430E2BE21F2A12000B010CC /* MIDIPacket+Extensions.swift in Sources */,
 				C49B1488204A06B8009C7C8E /* gen_eval.c in Sources */,
 				C49B1591204A06B8009C7C8E /* FM.cpp in Sources */,
 				C49B140F204A06B7009C7C8E /* voc.c in Sources */,
