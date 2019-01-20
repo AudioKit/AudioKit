@@ -85,16 +85,13 @@ open class AKMIDIBPMListener: AKMIDIListener {
     var state: mmc_state = .stopped
 
     var clockEvents: [UInt64] = []
-    let clockEventLimit = 24
-    var info = mach_timebase_info()
+    let clockEventLimit = 96
     public var bpm: BpmType = 0
     public var bpmHistory: [BpmType] = []
-    let bpmHistoryLimit = 96
+    let bpmHistoryLimit = 4
 
     public init() {
-        guard mach_timebase_info(&info) == KERN_SUCCESS else {
-            return
-        }
+
     }
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
@@ -110,10 +107,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
 
             // if you want bpm updates to be synchronized to quarter notes, then uncomment this next line
             // synchronized updates could sound more musical possibly?
-//            clockEvents = []
-            if clockEvents.count > 1 {
-                clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
-            }
+            resetClockEvents()
         }
         if data[0] == AKMIDISystemCommand.continue.rawValue {
             AKLog("Incoming MMC [Continue]")
@@ -121,7 +115,8 @@ open class AKMIDIBPMListener: AKMIDIListener {
             state = newState
         }
         if data[0] == AKMIDISystemCommand.clock.rawValue {
-            clockEvents.append(time)
+            let nanos = AudioConvertHostTimeToNanos(time)
+            clockEvents.append(nanos)
             analyze()
         }
     }
@@ -135,27 +130,21 @@ open class AKMIDIBPMListener: AKMIDIListener {
     private func analyze() {
         guard clockEvents.count > 1 else { return }
         guard bpmHistoryLimit > 1 else { return }
-        guard bpmHistoryLimit > 1 else { return }
+        guard clockEventLimit > 1 else { return }
 
         guard clockEvents.count >= clockEventLimit else { return}
 
         // https://stackoverflow.com/questions/9641399/ios-how-to-receive-midi-tempo-bpm-from-host-using-coremidi
+        // https://stackoverflow.com/questions/13562714/calculate-accurate-bpm-from-midi-clock-in-objc-with-coremidi
         // (1000 / 17.86 / 24) * 60 = 139.978 BPM
+        // This doesn't seem to work correctly.  I'm fine tuning the 60 second duration to see what effect it has.
+        // 156 BPM on my Red Voyage 1 registers as 156.83 in Ableton and I want my reading to match Ableton
 
-        let diff24 = clockEvents[23] - clockEvents[0]
-        let nanos =  diff24 * UInt64(info.numer) / UInt64(info.denom)
-        let diffTime = TimeInterval(nanos) / TimeInterval(NSEC_PER_SEC)
-        let bpmCalc =  TimeInterval(60) / diffTime
-        let bpmCalc1 =  TimeInterval(55) / diffTime
-        let bpmCalc2 =  TimeInterval(56) / diffTime
-        let bpmCalc3 =  TimeInterval(57) / diffTime
-        let bpmCalc4 =  TimeInterval(58) / diffTime
-        let bpmCalc5 =  TimeInterval(59) / diffTime
-        clockEvents = clockEvents.dropFirst(clockEvents.count-1).map { $0 }
-        guard clockEvents.count == 1 else {
-            AKLog("Terrible things are happening")
-            return
-        }
+        let diffNanos24ticks = TimeInterval(clockEvents[clockEventLimit-1] - clockEvents[0])
+        let time = TimeInterval(NSEC_PER_SEC) / diffNanos24ticks // (TimeInterval(24) / TimeInterval(clockEventLimit))
+        let convert = 237.481  //0.7916033333 * 60 * 5
+        let bpmCalc =  TimeInterval(convert) * time
+        resetClockEvents()
 
         while bpmHistory.count > (bpmHistoryLimit - 1) {
             bpmHistory.remove(at: 0)
@@ -163,6 +152,11 @@ open class AKMIDIBPMListener: AKMIDIListener {
         bpmHistory.append(bpmCalc)
         bpm = bpmCalc
 
-        AKLog("BPM: \(bpmCalc1) \(bpmCalc2) \(bpmCalc3) \(bpmCalc4) \(bpmCalc5)")
+        AKLog("BPM: \(bpmCalc)") //" mean: \(bpmHistory.avg()) stdDev: \(bpmHistory.std())")
+    }
+
+    private func resetClockEvents() {
+        guard clockEvents.count > 1 else { return }
+        clockEvents = clockEvents.dropFirst(clockEvents.count-1).map { $0 }
     }
 }
