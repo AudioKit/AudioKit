@@ -31,7 +31,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc public internal(set) static var engine: AVAudioEngine {
+    @objc public static var engine: AVAudioEngine {
         get {
             _ = AudioKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
             return _engine
