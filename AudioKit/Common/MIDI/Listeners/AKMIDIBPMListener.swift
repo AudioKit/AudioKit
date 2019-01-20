@@ -16,6 +16,26 @@
 import Foundation
 import CoreMIDI
 
+public typealias BpmType = TimeInterval
+
+extension Array where Element: FloatingPoint {
+
+    func sum() -> Element {
+        return self.reduce(0, +)
+    }
+
+    func avg() -> Element {
+        return self.sum() / Element(self.count)
+    }
+
+    func std() -> Element {
+        let mean = self.avg()
+        let v = self.reduce(0, { $0 + ($1-mean)*($1-mean) })
+        return sqrt(v / (Element(self.count) - 1))
+    }
+
+}
+
 open class AKMIDIBPMListener: AKMIDIListener {
 
     enum mmc_event: MIDIByte {
@@ -67,8 +87,8 @@ open class AKMIDIBPMListener: AKMIDIListener {
     var clockEvents: [UInt64] = []
     let clockEventLimit = 24
     var info = mach_timebase_info()
-    public var bpm: Float64 = 0
-    public var bpmHistory: [Float64] = []
+    public var bpm: BpmType = 0
+    public var bpmHistory: [BpmType] = []
     let bpmHistoryLimit = 96
 
     public init() {
@@ -103,7 +123,6 @@ open class AKMIDIBPMListener: AKMIDIListener {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
             clockEvents.append(time)
             analyze()
-            expireOldestClockEvents()
         }
     }
 
@@ -118,39 +137,32 @@ open class AKMIDIBPMListener: AKMIDIListener {
         guard bpmHistoryLimit > 1 else { return }
         guard bpmHistoryLimit > 1 else { return }
 
-        // expireOldest() ensures that we always arrive here with 24 or less clockEvents
-        let clockEventDiffs = self.clockEventDiffs()
-        let times = clockEventDiffs.map { (timediff) -> Float64 in
-            let pulseTime =  Float32( (UInt32(timediff) * info.numer / info.denom) ) / Float32(NSEC_PER_SEC)
-            let pulsesPerMinute =  Float32(60) / pulseTime
-            // 24 pulses per beat
-            let bpm = pulsesPerMinute / Float32(24)
-            return Float64(bpm)
+        guard clockEvents.count >= clockEventLimit else { return}
+
+        // https://stackoverflow.com/questions/9641399/ios-how-to-receive-midi-tempo-bpm-from-host-using-coremidi
+        // (1000 / 17.86 / 24) * 60 = 139.978 BPM
+
+        let diff24 = clockEvents[23] - clockEvents[0]
+        let nanos =  diff24 * UInt64(info.numer) / UInt64(info.denom)
+        let diffTime = TimeInterval(nanos) / TimeInterval(NSEC_PER_SEC)
+        let bpmCalc =  TimeInterval(60) / diffTime
+        let bpmCalc1 =  TimeInterval(55) / diffTime
+        let bpmCalc2 =  TimeInterval(56) / diffTime
+        let bpmCalc3 =  TimeInterval(57) / diffTime
+        let bpmCalc4 =  TimeInterval(58) / diffTime
+        let bpmCalc5 =  TimeInterval(59) / diffTime
+        clockEvents = clockEvents.dropFirst(clockEvents.count-1).map { $0 }
+        guard clockEvents.count == 1 else {
+            AKLog("Terrible things are happening")
+            return
         }
-        // Average the BPMs
-        let bpmCalc = Float64(times.reduce(0) { $0 + $1 }) / Float64(times.count)
+
         while bpmHistory.count > (bpmHistoryLimit - 1) {
             bpmHistory.remove(at: 0)
         }
-        bpmHistory.append( bpmCalc)
+        bpmHistory.append(bpmCalc)
+        bpm = bpmCalc
 
-//        AKLog("bpmCalc: \(bpmCalc) based on \(times.count) timed clock pulses\n - \(bpmHistory.count) bpm's in history\n - \(clockEvents.count) clock events")
-
-        // Eventually we will use stdev to see when the bpm accurancy has stabilized
-        if clockEvents.count > (clockEventLimit - 1) {
-//            let bpmAvg = bpmHistory.reduce(0) { $0 + $1 } / bpmHistory.count
-//            bpm = bpmAvg
-
-            bpm = bpmHistory.last ?? 0
-        }
-    }
-
-    private func expireOldestClockEvents() {
-        guard clockEvents.count > (clockEventLimit - 1) else { return }
-
-        clockEvents = []
-//        if clockEvents.count > 1 {
-//            clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
-//        }
+        AKLog("BPM: \(bpmCalc1) \(bpmCalc2) \(bpmCalc3) \(bpmCalc4) \(bpmCalc5)")
     }
 }
