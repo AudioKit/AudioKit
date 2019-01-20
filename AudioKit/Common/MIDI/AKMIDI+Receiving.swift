@@ -254,7 +254,7 @@ extension AKMIDI {
             } else if event.command != nil {
                 let commandDesc = event.command?.description ?? "unknown"
                 AKLog("Passing [\(commandDesc)] to listener \(listener)")
-                listener.receivedMIDISystemCommand(event.internalData)
+                listener.receivedMIDISystemCommand(event.internalData, time: event.timeStamp)
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }

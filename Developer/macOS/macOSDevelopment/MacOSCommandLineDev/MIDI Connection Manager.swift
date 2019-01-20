@@ -16,8 +16,10 @@ class MidiConnectionManger: AKMIDIListener {
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
+    public let bpmListenter = AKMIDIBPMListener()
 
     init() {
+        midi.addListener(bpmListenter)
         midi.addListener(self)
     }
 
@@ -37,6 +39,16 @@ class MidiConnectionManger: AKMIDIListener {
         return input != 0 || output != 0
     }
 
+    func openAll() {
+        midi.openInput(); // open all inputs
+        midi.openOutput() // open all outputs?
+    }
+
+    func closeAll() {
+        midi.closeAllInputs()
+        midi.closeOutput()
+    }
+
     func selectIO() {
         var confirmed = false
         while confirmed == false {
@@ -51,10 +63,8 @@ class MidiConnectionManger: AKMIDIListener {
                 confirmed = true
             }
         }
-        midi.openInput(); // open all inputs
-//        midi.openInput(uid: input)
-        midi.openOutput() // open all outputs?
-//        midi.openOutput(uid: output)
+        midi.openInput(uid: input)
+        midi.openOutput(uid: output)
     }
 
     func selectInput() {
