@@ -33,7 +33,7 @@ let sysex_timeout = NotificationCenter.default.addObserver(forName: GeneralSysex
 print("Sending Sysex Request")
 sysexCom.requestAndWaitForResponse()
 
-var bpm: Float64 = 0
+var bpm: BpmType = 0
 
 if bpmListener {
     bpm = midiConnection.bpmListenter.bpm
@@ -47,7 +47,7 @@ while receivedNotificaton == false {
         let currentBmp = midiConnection.bpmListenter.bpm
         if bpm != currentBmp {
             bpm = currentBmp
-            print("BPM: \(bpm)")
+//            print("BPM: \(bpm)")
         }
     }
 }
