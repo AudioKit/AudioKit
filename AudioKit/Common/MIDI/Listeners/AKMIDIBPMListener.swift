@@ -85,10 +85,11 @@ open class AKMIDIBPMListener: AKMIDIListener {
     var state: mmc_state = .stopped
 
     var clockEvents: [UInt64] = []
-    let clockEventLimit = 96
+    let clockEventLimit = 48
     public var bpm: BpmType = 0
     public var bpmHistory: [BpmType] = []
     let bpmHistoryLimit = 4
+    var convert = 117.54
 
     public init() {
 
@@ -136,13 +137,16 @@ open class AKMIDIBPMListener: AKMIDIListener {
 
         // https://stackoverflow.com/questions/9641399/ios-how-to-receive-midi-tempo-bpm-from-host-using-coremidi
         // https://stackoverflow.com/questions/13562714/calculate-accurate-bpm-from-midi-clock-in-objc-with-coremidi
+        // https://github.com/yderidde/PGMidi/blob/master/Sources/PGMidi/PGMidiSession.mm#L186
         // (1000 / 17.86 / 24) * 60 = 139.978 BPM
         // This doesn't seem to work correctly.  I'm fine tuning the 60 second duration to see what effect it has.
         // 156 BPM on my Red Voyage 1 registers as 156.83 in Ableton and I want my reading to match Ableton
 
+        // Idea : Weighted mean where recent ticks get more weight in the mean calculation
+
         let diffNanos24ticks = TimeInterval(clockEvents[clockEventLimit-1] - clockEvents[0])
         let time = TimeInterval(NSEC_PER_SEC) / diffNanos24ticks // (TimeInterval(24) / TimeInterval(clockEventLimit))
-        let convert = 237.481  //0.7916033333 * 60 * 5
+         //0.7916033333 * 60 * 5
         let bpmCalc =  TimeInterval(convert) * time
         resetClockEvents()
 
@@ -152,7 +156,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
         bpmHistory.append(bpmCalc)
         bpm = bpmCalc
 
-        AKLog("BPM: \(bpmCalc)") //" mean: \(bpmHistory.avg()) stdDev: \(bpmHistory.std())")
+        AKLog("BPM: \(bpmCalc) mean: \(bpmHistory.avg()) stdDev: \(bpmHistory.std())")
     }
 
     private func resetClockEvents() {
