@@ -9,6 +9,11 @@
 import Foundation
 import AudioKit
 
+/// Control whether success and fail are sent.
+/// This provides a lot of flexibility in how this test app is used.
+let SUCCES_AND_FAIL = false
+let SEND_SYSEX = false
+
 /// A class that performs an action block, then starts a timer that
 /// catches timeout conditions where a response is not received.
 /// Since the external caller is responsible for what constitues succes,
@@ -35,7 +40,7 @@ open class SuccessOrTimeoutMgr: NSObject {
         print("success")
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
         self.performSelector(onMainThread: #selector(mainthreadSuccessCall), with: nil, waitUntilDone: false)
-//        self.performSelector(onMainThread: #selector(delaySuccessCall), with: nil, waitUntilDone: false)
+//            self.performSelector(onMainThread: #selector(delaySuccessCall), with: nil, waitUntilDone: false)
     }
 
     @objc func delaySuccessCall() {
@@ -43,12 +48,16 @@ open class SuccessOrTimeoutMgr: NSObject {
     }
 
     @objc func mainthreadSuccessCall() {
-        self.onSuccess?()
+        if SUCCES_AND_FAIL {
+            self.onSuccess?()
+        }
     }
 
     @objc func messageTimeout() {
         print("timed out")
-        self.onTimeout?()
+        if SUCCES_AND_FAIL {
+            self.onTimeout?()
+        }
     }
 }
 
@@ -83,27 +92,29 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
     public func requestAndWaitForResponse() {
         messageTimeout.performWithTimeout( {
-            // Very fast requests
-            let sysexMessage = synthK5000.oneSingleAreaA(channel: .channel0, patch: 0)
-//            let sysexMessage = synthK5000.oneCombinationAreaC(channel: .channel0, combi: 0)
-//            let sysexMessage = synthK5000.oneSingleAreaD(channel: .channel0, patch: 0)
-//            let sysexMessage = synthK5000.oneSingleAreaE(channel: .channel0, patch: 0)
-//            let sysexMessage = synthK5000.oneSingleAreaF(channel: .channel0, patch: 0)
+            if SEND_SYSEX {
+                // Very fast requests
+                let sysexMessage = synthK5000.oneSingleAreaA(channel: .channel0, patch: 0)
+//                let sysexMessage = synthK5000.oneCombinationAreaC(channel: .channel0, combi: 0)
+//                let sysexMessage = synthK5000.oneSingleAreaD(channel: .channel0, patch: 0)
+//                let sysexMessage = synthK5000.oneSingleAreaE(channel: .channel0, patch: 0)
+//                let sysexMessage = synthK5000.oneSingleAreaF(channel: .channel0, patch: 0)
 
-            // Very slow requests
-//            let sysexMessage = synthK5000.blockSingleAreaA(channel: .channel0)
-//            let sysexMessage = synthK5000.blockCombinationAreaC(channel: .channel0)
-//            let sysexMessage = synthK5000.blockSingleAreaD(channel: .channel0)
-//            let sysexMessage = synthK5000.blockSingleAreaE(channel: .channel0)
-//            let sysexMessage = synthK5000.blockSingleAreaF(channel: .channel0)
+                // Very slow requests
+//                let sysexMessage = synthK5000.blockSingleAreaA(channel: .channel0)
+//                let sysexMessage = synthK5000.blockCombinationAreaC(channel: .channel0)
+//                let sysexMessage = synthK5000.blockSingleAreaD(channel: .channel0)
+//                let sysexMessage = synthK5000.blockSingleAreaE(channel: .channel0)
+//                let sysexMessage = synthK5000.blockSingleAreaF(channel: .channel0)
 
-            midi.sendMessage(sysexMessage)
+                midi.sendMessage(sysexMessage)
+            }
         })
     }
 
     // MARK: - AKMIDIListener
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte]) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         guard data[0] == AKMIDISystemCommand.sysex.rawValue else {
             return
         }

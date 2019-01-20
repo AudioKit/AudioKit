@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import AudioKit
+
+let bpmListener = true
 
 let midiConnection = MidiConnectionManger()
-midiConnection.selectIO()
+midiConnection.openAll()
 
 print("")
 
@@ -30,10 +33,26 @@ let sysex_timeout = NotificationCenter.default.addObserver(forName: GeneralSysex
 print("Sending Sysex Request")
 sysexCom.requestAndWaitForResponse()
 
+var bpm: Float64 = 0
+
+if bpmListener {
+    bpm = midiConnection.bpmListenter.bpm
+}
+
 while receivedNotificaton == false {
     let oneSecondLater = Date(timeIntervalSinceNow: 0.0025)
     RunLoop.current.run(mode: .default, before: oneSecondLater)
+
+    if bpmListener {
+        let currentBmp = midiConnection.bpmListenter.bpm
+        if bpm != currentBmp {
+            bpm = currentBmp
+            print("BPM: \(bpm)")
+        }
+    }
 }
 
 NotificationCenter.default.removeObserver(sysex_success)
 NotificationCenter.default.removeObserver(sysex_timeout)
+
+midiConnection.closeAll()

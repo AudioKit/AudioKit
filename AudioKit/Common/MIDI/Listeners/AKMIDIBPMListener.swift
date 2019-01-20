@@ -14,6 +14,7 @@
 //      - Provide the standard deviation of differences in clock times to observe stability
 
 import Foundation
+import CoreMIDI
 
 open class AKMIDIBPMListener: AKMIDIListener {
 
@@ -64,7 +65,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
     var state: mmc_state = .stopped
 
     var clockEvents: [UInt64] = []
-    let clockEventLimit = 48
+    let clockEventLimit = 24
     var info = mach_timebase_info()
     public var bpm: Float64 = 0
     public var bpmHistory: [Float64] = []
@@ -76,7 +77,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
         }
     }
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte]) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")
             let newState = state.event(event: .stop)
@@ -90,6 +91,9 @@ open class AKMIDIBPMListener: AKMIDIListener {
             // if you want bpm updates to be synchronized to quarter notes, then uncomment this next line
             // synchronized updates could sound more musical possibly?
 //            clockEvents = []
+            if clockEvents.count > 1 {
+                clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
+            }
         }
         if data[0] == AKMIDISystemCommand.continue.rawValue {
             AKLog("Incoming MMC [Continue]")
@@ -97,8 +101,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
             state = newState
         }
         if data[0] == AKMIDISystemCommand.clock.rawValue {
-            let eventTime = mach_absolute_time()
-            clockEvents.append(eventTime)
+            clockEvents.append(time)
             analyze()
             expireOldestClockEvents()
         }
@@ -112,33 +115,42 @@ open class AKMIDIBPMListener: AKMIDIListener {
     
     private func analyze() {
         guard clockEvents.count > 1 else { return }
+        guard bpmHistoryLimit > 1 else { return }
+        guard bpmHistoryLimit > 1 else { return }
 
         // expireOldest() ensures that we always arrive here with 24 or less clockEvents
         let clockEventDiffs = self.clockEventDiffs()
         let times = clockEventDiffs.map { (timediff) -> Float64 in
-            let pulseTime =  Float64( (UInt32(timediff) * info.numer / info.denom) ) / Float64(NSEC_PER_SEC)
-            let pulsesPerMinute =  Float64(60) / pulseTime
-            let bpm = pulsesPerMinute / Float64(23)
-            return bpm
+            let pulseTime =  Float32( (UInt32(timediff) * info.numer / info.denom) ) / Float32(NSEC_PER_SEC)
+            let pulsesPerMinute =  Float32(60) / pulseTime
+            // 24 pulses per beat
+            let bpm = pulsesPerMinute / Float32(24)
+            return Float64(bpm)
         }
-        // Average the pulse times
-        let bpmCalc = times.reduce(0) { $0 + $1 } / times.count
+        // Average the BPMs
+        let bpmCalc = Float64(times.reduce(0) { $0 + $1 }) / Float64(times.count)
         while bpmHistory.count > (bpmHistoryLimit - 1) {
             bpmHistory.remove(at: 0)
         }
-        bpmHistory.append(bpmCalc)
+        bpmHistory.append( bpmCalc)
 
 //        AKLog("bpmCalc: \(bpmCalc) based on \(times.count) timed clock pulses\n - \(bpmHistory.count) bpm's in history\n - \(clockEvents.count) clock events")
 
         // Eventually we will use stdev to see when the bpm accurancy has stabilized
         if clockEvents.count > (clockEventLimit - 1) {
-            let bpmAvg = bpmHistory.reduce(0) { $0 + $1 } / bpmHistory.count
-            bpm = bpmAvg
+//            let bpmAvg = bpmHistory.reduce(0) { $0 + $1 } / bpmHistory.count
+//            bpm = bpmAvg
+
+            bpm = bpmHistory.last ?? 0
         }
     }
 
     private func expireOldestClockEvents() {
         guard clockEvents.count > (clockEventLimit - 1) else { return }
+
         clockEvents = []
+//        if clockEvents.count > 1 {
+//            clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
+//        }
     }
 }
