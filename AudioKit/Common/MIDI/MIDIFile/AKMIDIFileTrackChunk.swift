@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MIDIFileTrackChunk: AKMIDIFileChunk {
+public struct MIDIFileTrackChunk: AKMIDIFileChunk {
 
     var typeData: [UInt8] = Array(repeating: 0, count: 4)
     var lengthData: [UInt8] = Array(repeating: 0, count: 4)
@@ -26,7 +26,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         self.data = chunk.data
     }
 
-    var chunkEvents: [AKMIDIFileChunkEvent] {
+    public var chunkEvents: [AKMIDIFileChunkEvent] {
         var events = [AKMIDIFileChunkEvent]()
         var currentTimeByte: Int?
         var currentTypeByte: MIDIByte?
