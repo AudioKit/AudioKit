@@ -54,7 +54,7 @@ public struct SequenceNoteEvent: SequenceEvent {
     }
     public var velocityModifier: MIDIVelocity = 0
     public var channel: MIDIChannel {
-        return status!.channel!
+        return status!.channel
     }
     mutating func modifyPosition(by amount: Double){
         positionModifier = amount

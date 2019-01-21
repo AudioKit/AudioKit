@@ -59,7 +59,7 @@ public struct NoteOnOffEvent {
     var duration = 0.1
     var noteOnEvent: SequenceNoteEvent
     var noteOffEvent: SequenceNoteEvent {
-        let event = AKMIDIEvent(noteOff: noteOnEvent.event.bytes[1], velocity: 0,
+        let event = AKMIDIEvent(noteOff: noteOnEvent.event.noteNumber!, velocity: 0,
                                 channel: noteOnEvent.event.channel ?? 0)
         return SequenceNoteEvent(event: event, position: noteOnEvent.position + duration)
     }
