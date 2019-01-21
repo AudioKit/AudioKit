@@ -19,7 +19,7 @@
 
 @synthesize parameterTree = _parameterTree;
 
-- (float) getParameterWithAddress: (AUParameterAddress) address; {
+- (AUValue) parameterWithAddress: (AUParameterAddress) address; {
     return self.kernel->getParameter(address);
 }
 - (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
@@ -41,6 +41,16 @@
 }
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
     self.kernel->setWaveformValue(index, value);
+}
+
+- (void)setupAudioFileTable:(float *)data size:(UInt32)size {
+    self.kernel->setUpTable(data, size);
+}
+- (void)setPartitionLength:(int)partitionLength {
+    self.kernel->setPartitionLength(partitionLength);
+}
+- (void)initConvolutionEngine {
+    self.kernel->initConvolutionEngine();
 }
 
 /**
@@ -105,7 +115,7 @@
                           channelCount:arbitraryFormat.channelCount];
 
     // Create a default empty parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
 
     return self;
 }
@@ -124,7 +134,7 @@
 }
 
 -(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
-    
+
     __block AKDSPBase *kernel = self.kernel;
     return ^(AudioBufferList       *inBuffer,
              AudioBufferList       *outBuffer,

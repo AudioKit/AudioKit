@@ -73,8 +73,8 @@ public class AKSequencerTrack {
     }
 
     public func add(controller: UInt8, value: UInt8, at: Double, channel: UInt8) {
-        let status = AKMIDIStatusType.controllerChange.with(channel: channel)
-        engine.addMIDIEvent(status, data1: controller, data2: value, at: at)
+        let status = AKMIDIStatus.init(type: .controllerChange, channel: channel)
+        engine.addMIDIEvent(status.byte, data1: controller, data2: value, at: at)
     }
 
     public func play() {

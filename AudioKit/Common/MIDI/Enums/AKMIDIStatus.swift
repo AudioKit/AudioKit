@@ -9,8 +9,8 @@
 public struct AKMIDIStatus {
     public var byte: MIDIByte
 
-    public init(statusType: AKMIDIStatusType, channel: MIDIChannel) {
-        byte = MIDIByte(statusType.rawValue) << 4 + channel
+    public init(type: AKMIDIStatusType, channel: MIDIChannel) {
+        byte = MIDIByte(type.rawValue) << 4 + channel
     }
 
     public init(command: AKMIDISystemCommand) {
@@ -29,14 +29,7 @@ public struct AKMIDIStatus {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
-    public var command: AKMIDISystemCommand? {
-        return AKMIDISystemCommand(rawValue: byte)
-    }
-    
-    public var channel: MIDIChannel? {
-        if type == .systemCommand {
-            return nil
-        }
+    public var channel: MIDIChannel {
         return byte.lowBit
     }
 }
@@ -58,8 +51,6 @@ public struct AKMIDIStatus {
 ///    single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
 /// - PitchWheel:
 ///    common keyboard control that allow for a pitch to be bent up or down a given number of semitones
-/// - SystemCommand:
-///    differ from system to system
 ///
 public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
@@ -80,29 +71,21 @@ public enum AKMIDIStatusType: Int {
     /// A pitch wheel is a common keyboard control that allow for a pitch to be
     /// bent up or down a given number of semitones
     case pitchWheel = 14
-    /// System commands differ from system to system
-    case systemCommand = 15
-
-    func with(channel: UInt8) -> UInt8 {
-        return UInt8(self.rawValue << 4) + channel
-    }
 
     static func from(byte: MIDIByte) -> AKMIDIStatusType? {
-        return AKMIDIStatusType(rawValue: Int(byte >> 4))
+        return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
 
-    var length: Int? {
+    public var length: Int {
         switch self {
         case .programChange, .channelAftertouch:
             return 2
         case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
             return 3
-        case .systemCommand:
-            return nil
         }
     }
 
-    var description: String {
+    public var description: String {
         switch self {
         case .noteOff:
             return "Note Off"
@@ -118,8 +101,6 @@ public enum AKMIDIStatusType: Int {
             return "Channel Aftertouch / Pressure"
         case .pitchWheel:
             return "Pitch Wheel"
-        case .systemCommand:
-            return "System Command"
         }
     }
 }

@@ -26,6 +26,14 @@ private let sizeOfMIDIPacketListHeader = sizeOfMIDIPacketList - sizeOfMIDIPacket
 private let sizeOfMIDIPacketHeader = MemoryLayout<MIDITimeStamp>.size + MemoryLayout<UInt16>.size
 private let sizeOfMIDICombinedHeaders = sizeOfMIDIPacketListHeader + sizeOfMIDIPacketHeader
 
+func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
+    var port: MIDIPortRef = 0
+    guard MIDIOutputPortCreate(client, name, &port) == noErr else {
+        return nil
+    }
+    return port
+}
+
 internal extension Collection where Index == Int {
     var startIndex: Index {
         return 0
@@ -34,14 +42,6 @@ internal extension Collection where Index == Int {
     func index(after index: Index) -> Index {
         return index + 1
     }
-}
-
-func MIDIOutputPort(client: MIDIClientRef, name: CFString) -> MIDIPortRef? {
-    var port: MIDIPortRef = 0
-    guard MIDIOutputPortCreate(client, name, &port) == noErr else {
-        return nil
-    }
-    return port
 }
 
 internal struct MIDIDestinations: Collection {
@@ -62,43 +62,188 @@ internal struct MIDIDestinations: Collection {
 extension Collection where Iterator.Element == MIDIEndpointRef {
     var names: [String] {
         return map {
-            GetMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
+            getMIDIObjectStringProperty(ref: $0, property: kMIDIPropertyName)
+        }
+    }
+
+    var uniqueIds: [MIDIUniqueID] {
+        return map {
+            getMIDIObjectIntegerProperty(ref: $0, property: kMIDIPropertyUniqueID)
         }
     }
 }
 
+internal func getMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
+    var string: Unmanaged<CFString>?
+    MIDIObjectGetStringProperty(ref, property, &string)
+    if let returnString = string?.takeRetainedValue() {
+        return returnString as String
+    } else {
+        return ""
+    }
+}
+
+internal func getMIDIObjectIntegerProperty(ref: MIDIObjectRef, property: CFString) -> Int32 {
+    var result: Int32 = 0
+    MIDIObjectGetIntegerProperty(ref, property, &result)
+    return result
+}
+
 extension AKMIDI {
+
+    /// Array of destination unique ids
+    public var destinationUIDs: [MIDIUniqueID] {
+        return MIDIDestinations().uniqueIds
+    }
+
     /// Array of destination names
     public var destinationNames: [String] {
         return MIDIDestinations().names
     }
 
-    /// Open a MIDI Output Port
+    /// Lookup a destination name from its unique id
     ///
-    /// Destination name (string) can be empty for some hardware device;
+    /// - Parameter forUid: unique id for a destination
+    /// - Returns: name of destination or "Unknown"
+    ///
+    public func destinationName(for destUid: MIDIUniqueID) -> String {
+        let name: String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+                let (_, uid) = arg
+                return destUid == uid
+            }.map { (arg) -> String in
+                let (name, _) = arg
+                return name
+            } ?? "Uknown"
+        return name
+    }
+
+    /// Look up the unique id for a destination index
+    ///
+    /// - Parameter outputIndex: index of destination
+    /// - Returns: unique identifier for the port
+    ///
+    public func uidForDestinationAtIndex(_ outputIndex: Int = 0) -> MIDIUniqueID {
+        let endpoint: MIDIEndpointRef = MIDIDestinations()[outputIndex]
+        let uid = getMIDIObjectIntegerProperty(ref: endpoint, property: kMIDIPropertyUniqueID)
+        return uid
+    }
+
+    /// Open a MIDI Output Port by index
+    ///
+    /// - Parameter outputIndex: Index of destination endpoint
+    ///
+    public func openOutput(name: String = "") {
+        guard  let index = destinationNames.firstIndex(of: name) else {
+            openOutput(uid: 0)
+            return
+        }
+        let uid = uidForDestinationAtIndex(index)
+        openOutput(uid: uid)
+    }
+
+    /// Open a MIDI Output Port by index
+    ///
+    /// - Parameter outputIndex: Index of destination endpoint
+    ///
+    public func openOutput(index outputIndex: Int) {
+        guard outputIndex < destinationNames.count else {
+            return
+        }
+        let uid = uidForDestinationAtIndex(outputIndex)
+        openOutput(uid: uid)
+    }
+
+    /// Open a MIDI Output Port by name
+    ///
+    /// Destination name (string) can be empty for some hardware device
     /// So optional string is better for checking and targeting the device.
     ///
     /// - parameter outputName: String containing the name of the MIDI Input
     ///
-    public func openOutput(_ outputName: String? = nil) {
+    public func openOutput(uid outputUid: MIDIUniqueID) {
         guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
             AKLog("Unable to create MIDIOutputPort")
             return
         }
+
+        // close any previous output port and dispose of it
+        if outputPort != 0 {
+            let uid = getMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
+            closeOutput(uid: uid)
+            outputPort = 0
+        }
+
         outputPort = tempPort
 
+        let destinations = MIDIDestinations()
+
         // To get all endpoints; and set in endpoints array (mapping without condition)
-        if outputName == nil {
-            _ = zip(destinationNames, MIDIDestinations()).map {
+        if outputUid == 0 {
+            _ = zip(destinationUIDs, destinations).map {
                 endpoints[$0] = $1
             }
         } else {
-            // To get only  endpoint with name provided in output (conditional mapping)
-            _ = zip(destinationNames, MIDIDestinations()).first { name, _ in outputName! == name }.map {
-                endpoints[$0] = $1
+            // To get only [the FIRST] endpoint with name provided in output (conditional mapping)
+            _ = zip(destinationUIDs, destinations).first { (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in
+                    let (uid, _) = arg
+                    return outputUid == uid
+                }.map {
+                    endpoints[$0] = $1
             }
         }
     }
+
+    /// Open a MIDI Input port by name
+    ///
+    /// - Parameter name: Name of port to close.
+    ///
+    public func closeOutput(name: String = "") {
+        guard  let index = destinationNames.firstIndex(of: name) else {
+            return
+        }
+        let uid = inputUIDs[index]
+        closeInput(uid: uid)
+    }
+
+    /// Open a MIDI Input port by index
+    ///
+    /// - Parameter index: Index of destination port name
+    ///
+    public func closeOutput(index outputIndex: Int) {
+        guard outputIndex < destinationNames.count else {
+            return
+        }
+        let uid = uidForInputAtIndex(outputIndex)
+        closeInput(uid: uid)
+    }
+
+    /// Close a MIDI Output port
+    ///
+    /// - parameter inputName: Unique id of the MIDI Output
+    ///
+    public func closeOutput(uid outputUid: MIDIUniqueID) {
+        let name = destinationName(for: outputUid)
+        AKLog("Closing MIDI Input '\(inputName)'")
+        var result = noErr
+        if let endpoint = endpoints[outputUid] {
+            result = MIDIPortDisconnectSource(outputPort, endpoint)
+            if result == noErr {
+                endpoints.removeValue(forKey: outputUid)
+
+                result = MIDIPortDispose(outputPort)
+                if result == noErr {
+                    AKLog("Disposed \(name)")
+                } else {
+                    AKLog("Error displosing  MIDI port: \(result)")
+                }
+                outputPort = 0
+                AKLog("Disconnected \(name) and removed it from endpoints and output ports")
+            } else {
+                AKLog("Error disconnecting MIDI port: \(result)")
+            }
+        }
+    }
+
     /// Send Message with data
     public func sendMessage(_ data: [MIDIByte]) {
 

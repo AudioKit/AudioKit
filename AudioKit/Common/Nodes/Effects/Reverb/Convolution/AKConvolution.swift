@@ -150,7 +150,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 if err == noErr {
                     // success
                     let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
+                    internalAU?.setupAudioFileTable(data!, size: ioNumberFrames)
                 } else {
                     // failure
                     theData?.deallocate()

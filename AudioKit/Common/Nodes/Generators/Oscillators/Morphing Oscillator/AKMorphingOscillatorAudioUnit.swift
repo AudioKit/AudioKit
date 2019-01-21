@@ -11,11 +11,11 @@ import AVFoundation
 public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKMorphingOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKMorphingOscillator.defaultFrequency {
@@ -48,73 +48,46 @@ public class AKMorphingOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Frequency (in Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKMorphingOscillator.frequencyRange.lowerBound),
-            max: Float(AKMorphingOscillator.frequencyRange.upperBound),
+            address: AKMorphingOscillatorParameter.frequency.rawValue,
+            range: AKMorphingOscillator.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude (typically a value between 0 and 1).",
-            address: AUParameterAddress(1),
-            min: Float(AKMorphingOscillator.amplitudeRange.lowerBound),
-            max: Float(AKMorphingOscillator.amplitudeRange.upperBound),
+            address: AKMorphingOscillatorParameter.amplitude.rawValue,
+            range: AKMorphingOscillator.amplitudeRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let index = AUParameterTree.createParameter(
-            withIdentifier: "index",
+            flags: .default)
+        let index = AUParameter(
+            identifier: "index",
             name: "Index of the wavetable to use (fractional are okay).",
-            address: AUParameterAddress(2),
-            min: Float(AKMorphingOscillator.indexRange.lowerBound),
-            max: Float(AKMorphingOscillator.indexRange.upperBound),
+            address: AKMorphingOscillatorParameter.index.rawValue,
+            range: AKMorphingOscillator.indexRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let detuningOffset = AUParameterTree.createParameter(
-            withIdentifier: "detuningOffset",
+            flags: .default)
+        let detuningOffset = AUParameter(
+            identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
-            address: AUParameterAddress(3),
-            min: Float(AKMorphingOscillator.detuningOffsetRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningOffsetRange.upperBound),
+            address: AKMorphingOscillatorParameter.detuningOffset.rawValue,
+            range: AKMorphingOscillator.detuningOffsetRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let detuningMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "detuningMultiplier",
+            flags: .default)
+        let detuningMultiplier = AUParameter(
+            identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
-            address: AUParameterAddress(4),
-            min: Float(AKMorphingOscillator.detuningMultiplierRange.lowerBound),
-            max: Float(AKMorphingOscillator.detuningMultiplierRange.upperBound),
+            address: AKMorphingOscillatorParameter.detuningMultiplier.rawValue,
+            range: AKMorphingOscillator.detuningMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
+        setParameterTree(AUParameterTree(children: [frequency, amplitude, index, detuningOffset, detuningMultiplier]))
         frequency.value = Float(AKMorphingOscillator.defaultFrequency)
         amplitude.value = Float(AKMorphingOscillator.defaultAmplitude)
         index.value = Float(AKMorphingOscillator.defaultIndex)

@@ -22,7 +22,7 @@ namespace AudioKitCore
         capacity = int(maxDelayMs * sampleRateHz / 1000.0);
         if (pBuffer) delete[] pBuffer;
         pBuffer = new float[capacity];
-        for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
+        clear();
         writeIndex = 0;
         readIndex = (float)(capacity - 1);
         fbFraction = 0.0f;
@@ -33,6 +33,11 @@ namespace AudioKitCore
     {
         if (pBuffer) delete[] pBuffer;
         pBuffer = 0;
+    }
+    
+    void AdjustableDelayLine::clear()
+    {
+        for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
     }
     
     void AdjustableDelayLine::setDelayMs(double delayMs)

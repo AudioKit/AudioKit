@@ -7,11 +7,11 @@
 //
 
 #if !os(tvOS)
-import CoreAudioKit
+    import CoreAudioKit
 #endif
 
 #if !os(macOS)
-import UIKit
+    import UIKit
 #endif
 import Dispatch
 
@@ -22,17 +22,16 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// Top level AudioKit managing class
 @objc open class AudioKit: NSObject {
-
     #if !os(macOS)
-    static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+        static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
     #else
-    static let deviceSampleRate: Double = 44_100
+        static let deviceSampleRate: Double = 44_100
     #endif
 
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc public static internal(set) var engine: AVAudioEngine {
+    @objc public static var engine: AVAudioEngine {
         get {
             _ = AudioKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
             return _engine
@@ -42,15 +41,15 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
         }
     }
 
-    static internal(set) var _engine = AVAudioEngine()
+    internal(set) static var _engine = AVAudioEngine()
 
     /// Reference to singleton MIDI
 
     #if !os(tvOS)
-    public static let midi = AKMIDI()
+        public static let midi = AKMIDI()
     #endif
 
-    @objc static var finalMixer = AKMixer()
+    @objc static var finalMixer: AKMixer?
 
     // MARK: - Device Management
 
@@ -59,21 +58,32 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
         didSet {
             do {
                 try updateSessionCategoryAndOptions()
-                output?.connect(to: finalMixer)
-                engine.connect(finalMixer.avAudioNode, to: engine.outputNode)
 
-                } catch {
+                // if the assigned output is already a mixer, avoid creating an additional mixer and just use
+                // that input as the finalMixer
+                if let mixerInput = output as? AKMixer {
+                    finalMixer = mixerInput
+                } else {
+                    // otherwise at this point create the finalMixer and add the input to it
+                    let mixer = AKMixer()
+                    output?.connect(to: mixer)
+                    finalMixer = mixer
+                }
+                guard let finalMixer = finalMixer else { return }
+                engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: AKSettings.audioFormat)
+
+            } catch {
                 AKLog("Could not set output: \(error)")
             }
         }
     }
 
     #if os(macOS)
-    /// Enumerate the list of available devices.
-    @objc public static var devices: [AKDevice]? {
-        EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-        return EZAudioDevice.devices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
-    }
+        /// Enumerate the list of available devices.
+        @objc public static var devices: [AKDevice]? {
+            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
+            return EZAudioDevice.devices().map { AKDevice(ezAudioDevice: $0 as! EZAudioDevice) }
+        }
     #endif
 
     /// Enumerate the list of available input devices.
@@ -157,7 +167,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
         return nil
     }
 
-        /// Change the preferred input device, giving it one of the names from the list of available inputs.
+    /// Change the preferred input device, giving it one of the names from the list of available inputs.
     @objc public static func setInputDevice(_ input: AKDevice) throws {
         #if os(macOS)
             try AKTry {
@@ -223,7 +233,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
                 }
             }
         #else
-            //not available on ios
+            // not available on ios
         #endif
     }
 
@@ -231,6 +241,8 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
     /// Disconnect all inputs
     @objc public static func disconnectAllInputs() {
+        guard let finalMixer = finalMixer else { return }
+
         engine.disconnectNodeInput(finalMixer.avAudioNode)
     }
 }

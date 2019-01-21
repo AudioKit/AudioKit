@@ -99,6 +99,10 @@ public enum AKMIDISystemCommand: MIDIByte {
             return "System Reset"
         }
     }
+
+    var byte: MIDIByte {
+        return rawValue
+    }
 }
 
 public enum AKMIDISystemCommandType {

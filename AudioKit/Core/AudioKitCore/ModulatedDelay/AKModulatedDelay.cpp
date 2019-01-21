@@ -12,7 +12,7 @@
 #include "AdjustableDelayLine.hpp"
 #include "FunctionTable.hpp"
 
-struct AKModulatedDelay::_Internal
+struct AKModulatedDelay::InternalData
 {
     AudioKitCore::AdjustableDelayLine leftDelayLine, rightDelayLine;
     AudioKitCore::FunctionTableOscillator modOscillator;
@@ -21,7 +21,7 @@ struct AKModulatedDelay::_Internal
 AKModulatedDelay::AKModulatedDelay(AKModulatedDelayType type)
 : modFreqHz(1.0f)
 , modDepthFraction(0.0f)
-, effectType(type), _private(new _Internal)
+, effectType(type), data(new InternalData)
 {
 }
 
@@ -30,50 +30,50 @@ AKModulatedDelay::~AKModulatedDelay()
     deinit();
 }
 
-void AKModulatedDelay::init(int channels, double sampleRate)
+void AKModulatedDelay::init(int channelCount, double sampleRate)
 {
     minDelayMs = kChorusMinDelayMs;
     maxDelayMs = kChorusMaxDelayMs;
-    _private->modOscillator.init(sampleRate, modFreqHz);
+    data->modOscillator.init(sampleRate, modFreqHz);
     switch (effectType) {
         case kFlanger:
             minDelayMs = kFlangerMinDelayMs;
             maxDelayMs = kFlangerMaxDelayMs;
-            _private->modOscillator.waveTable.triangle();
+            data->modOscillator.waveTable.triangle();
             break;
         case kChorus:
         default:
-            _private->modOscillator.waveTable.sinusoid();
+            data->modOscillator.waveTable.sinusoid();
             break;
     }
     delayRangeMs = 0.5f * (maxDelayMs - minDelayMs);
     midDelayMs = 0.5f * (minDelayMs + maxDelayMs);
-    _private->leftDelayLine.init(sampleRate, maxDelayMs);
-    _private->rightDelayLine.init(sampleRate, maxDelayMs);
-    _private->leftDelayLine.setDelayMs(minDelayMs);
-    _private->rightDelayLine.setDelayMs(minDelayMs);
+    data->leftDelayLine.init(sampleRate, maxDelayMs);
+    data->rightDelayLine.init(sampleRate, maxDelayMs);
+    data->leftDelayLine.setDelayMs(minDelayMs);
+    data->rightDelayLine.setDelayMs(minDelayMs);
 }
 
 void AKModulatedDelay::deinit()
 {
-    _private->leftDelayLine.deinit();
-    _private->rightDelayLine.deinit();
-    _private->modOscillator.deinit();
+    data->leftDelayLine.deinit();
+    data->rightDelayLine.deinit();
+    data->modOscillator.deinit();
 }
 
 void AKModulatedDelay::setModFrequencyHz(float freq)
 {
-    _private->modOscillator.setFrequency(freq);
+    data->modOscillator.setFrequency(freq);
 }
 
 void AKModulatedDelay::setLeftFeedback(float feedback)
 {
-    _private->leftDelayLine.setFeedback(feedback);
+    data->leftDelayLine.setFeedback(feedback);
 }
 
 void AKModulatedDelay::setRightFeedback(float feedback)
 {
-    _private->rightDelayLine.setFeedback(feedback);
+    data->rightDelayLine.setFeedback(feedback);
 }
 
 void AKModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
@@ -87,7 +87,7 @@ void AKModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
     for (int i=0; i < (int)sampleCount; i++)
     {
         float modLeft, modRight;
-        _private->modOscillator.getSamples(&modLeft, &modRight);
+        data->modOscillator.getSamples(&modLeft, &modRight);
         
         float leftDelayMs = midDelayMs + delayRangeMs * modDepthFraction * modLeft;
         float rightDelayMs = midDelayMs + delayRangeMs * modDepthFraction * modRight;
@@ -101,15 +101,15 @@ void AKModulatedDelay::Render(unsigned channelCount, unsigned sampleCount,
             default:
                 break;
         }
-        _private->leftDelayLine.setDelayMs(leftDelayMs);
-        _private->rightDelayLine.setDelayMs(rightDelayMs);
+        data->leftDelayLine.setDelayMs(leftDelayMs);
+        data->rightDelayLine.setDelayMs(rightDelayMs);
         
         float dryFraction = 1.0f - dryWetMix;
-        *pOutLeft++ = dryFraction * (*pInLeft) + dryWetMix * _private->leftDelayLine.push(*pInLeft);
+        *pOutLeft++ = dryFraction * (*pInLeft) + dryWetMix * data->leftDelayLine.push(*pInLeft);
         pInLeft++;
         if (channelCount > 1)
         {
-            *pOutRight++ = dryFraction * (*pInRight) + dryWetMix * _private->rightDelayLine.push(*pInRight);
+            *pOutRight++ = dryFraction * (*pInRight) + dryWetMix * data->rightDelayLine.push(*pInRight);
             pInRight++;
         }
     }

@@ -36,7 +36,7 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     /// Initialize the microphone
-    override public init() {
+    @objc override public init() {
         super.init()
         self.avAudioNode = mixer
         AKSettings.audioInputEnabled = true

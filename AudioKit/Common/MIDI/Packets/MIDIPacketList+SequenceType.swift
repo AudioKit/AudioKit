@@ -9,6 +9,10 @@
 extension MIDIPacketList: Sequence {
     public typealias Element = MIDIPacket
 
+    public var count: UInt32 {
+        return self.numPackets
+    }
+
     public func makeIterator() -> AnyIterator<Element> {
         var p: MIDIPacket = packet
         var idx: UInt32 = 0

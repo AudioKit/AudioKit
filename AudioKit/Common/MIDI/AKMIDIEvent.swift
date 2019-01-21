@@ -32,7 +32,7 @@ public struct AKMIDIEvent {
     }
 
     /// The length in bytes for this MIDI message (1 to 3 bytes)
-    var length: Int {
+    public var length: Int {
         return internalData.count
     }
 
@@ -75,12 +75,6 @@ public struct AKMIDIEvent {
         return nil
     }
 
-    var bytes: Data {
-        return Data(bytes: internalData.prefix(3))
-    }
-
-    static fileprivate let statusBit: MIDIByte = 0b10000000
-
     // MARK: - Initialization
 
     /// Initialize the MIDI Event from a MIDI Packet
@@ -88,24 +82,205 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        // FIXME: we currently assume this is one midi event could be any number of events
-        if packet.isSysex {
-            internalData = [] //reset internalData
-            //voodoo
-            if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-                AudioKit.midi.startReceivingSysex(with: midiBytes)
-                internalData += midiBytes
-                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                    internalData = Array(internalData.prefix(sysexEndIndex))
-                    AudioKit.midi.stopReceivingSysex()
-                } else {
-                    internalData.removeAll()
+        // MARK: we currently assume this is one midi event could be any number of events
+        let isSystemCommand = packet.isSystemCommand
+        if isSystemCommand {
+            let systemCommand = packet.systemCommand
+            let length = systemCommand?.length
+            if systemCommand == .sysex {
+                internalData = [] //reset internalData
+
+                // voodoo to convert packet 256 element tuple to byte arrays
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    // flag midi system that a sysex packet has started so it can gather bytes until the end
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                        let length = sysexEndIndex + 1
+                        internalData = Array(internalData.prefix(length))
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                    }
                 }
+            } else if length == 1 {
+                let bytes = [packet.data.0]
+                internalData = bytes
+            } else if length == 2 {
+                let bytes = [packet.data.0, packet.data.2]
+                internalData = bytes
+            } else if length == 3 {
+                let bytes = [packet.data.0, packet.data.1, packet.data.2]
+                internalData = bytes
             }
         } else {
             let bytes = [packet.data.0, packet.data.1, packet.data.2]
             internalData = bytes
         }
+    }
+
+    init?(fileEvent event: AKMIDIFileChunkEvent) {
+        if let typeByte = event.typeByte {
+            if typeByte == AKMIDISystemCommand.sysex.rawValue ||
+                typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
+                print(AKMIDISystemCommand.sysex.description)
+                let data = [AKMIDISystemCommand.sysex.rawValue] + event.eventData
+                self = AKMIDIEvent(data: data)
+            } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
+                print(statusType.description)
+                self = AKMIDIEvent(data: event.eventData)
+            }
+        } else {
+            dump(event)
+            AKLog("bad AKMIDIFile chunk - no type for \(event.typeByte!)")
+            return nil
+        }
+    }
+    
+    /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
+    ///
+    /// - Parameters:
+    ///   - data:  [MIDIByte] bluetooth packet
+    ///
+    public init(data: [MIDIByte]) {
+        if AudioKit.midi.isReceivingSysex {
+            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+                internalData = Array(data[0...sysexEndIndex])
+            }
+        } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
+            internalData = []
+            // is sys command
+            if command == .sysex {
+                for byte in data {
+                    internalData.append(byte)
+                }
+            } else {
+                fillData(command: command, bytes: Array(data.suffix(from: 1)))
+            }
+        } else if let status = AKMIDIStatusType.from(byte: data[0]) {
+            // is regular MIDI status
+            let channel = data[0].lowBit
+            fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
+        } else if let metaType = AKMIDIMetaEventType(rawValue: data[0]) {
+            print("is meta event \(metaType.description)")
+        }
+    }
+
+    /// Initialize the MIDI Event from a status message
+    ///
+    /// - Parameters:
+    ///   - status:  MIDI Status
+    ///   - channel: Channel on which the event occurs
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte
+    ///
+    init(status: AKMIDIStatusType, channel: MIDIChannel, byte1: MIDIByte, byte2: MIDIByte) {
+        let data = [byte1, byte2]
+        fillData(status: status, channel: channel, bytes: data)
+    }
+
+    fileprivate mutating func fillData(status: AKMIDIStatusType,
+                                       channel: MIDIChannel,
+                                       bytes: [MIDIByte]) {
+        internalData = []
+        internalData.append(AKMIDIStatus.init(type: status, channel: channel).byte)
+        for byte in bytes {
+            internalData.append(byte.lower7bits())
+        }
+    }
+
+    /// Initialize the MIDI Event from a system command message
+    ///
+    /// - Parameters:
+    ///   - command: MIDI System Command
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte
+    ///
+    init(command: AKMIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
+        var data = [byte1]
+        if byte2 != nil {
+            data.append(byte2!)
+        }
+        fillData(command: command, bytes: data)
+    }
+
+    fileprivate mutating func fillData(command: AKMIDISystemCommand,
+                                       bytes: [MIDIByte]) {
+        internalData.removeAll()
+        internalData.append(command.byte)
+
+        for byte in bytes {
+            internalData.append(byte)
+        }
+    }
+
+    // MARK: - Utility constructors for common MIDI events
+
+    /// Create note on event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI Note velocity (0-127)
+    ///   - channel:    Channel on which the note appears
+    ///
+    public init(noteOn noteNumber: MIDINoteNumber,
+                velocity: MIDIVelocity,
+                channel: MIDIChannel) {
+        self.init(data: [AKMIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
+    }
+
+    /// Create note off event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI Note velocity (0-127)
+    ///   - channel:    Channel on which the note appears
+    ///
+    public init(noteOff noteNumber: MIDINoteNumber,
+                velocity: MIDIVelocity,
+                channel: MIDIChannel) {
+        self.init(data: [AKMIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
+    }
+
+    /// Create program change event
+    ///
+    /// - Parameters:
+    ///   - data: Program change byte
+    ///   - channel: Channel on which the program change appears
+    ///
+    public init(programChange data: MIDIByte,
+                channel: MIDIChannel) {
+        self.init(data: [AKMIDIStatus(type: .programChange, channel: channel).byte, data])
+    }
+
+    /// Create controller event
+    ///
+    /// - Parameters:
+    ///   - controller: Controller number
+    ///   - value:      Value of the controller
+    ///   - channel:    Channel on which the controller value has changed
+    ///
+    public init(controllerChange controller: MIDIByte,
+                value: MIDIByte,
+                channel: MIDIChannel) {
+        self.init(data: [AKMIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
+    }
+
+    /// Array of MIDI events from a MIDI packet list poionter
+    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
+        return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
+    }
+
+    static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
+        if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+            AudioKit.midi.incomingSysex += midiBytes
+            if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
+                AudioKit.midi.stopReceivingSysex()
+                return sysexEvent
+            }
+        }
+        return nil
     }
 
     /// Generate array of MIDI events from Bluetooth data
@@ -158,139 +333,29 @@ public struct AKMIDIEvent {
         return midiEvents
     }
 
-    public init(fileEvent event: AKMIDIFileChunkEvent) {
-        if let typeByte = event.typeByte {
-            if typeByte == AKMIDISystemCommand.sysex.rawValue ||
-                typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
-                print(AKMIDISystemCommand.sysex.description)
-                let data = [AKMIDISystemCommand.sysex.rawValue] + event.eventData
-                self = AKMIDIEvent(data: data)
-            } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
-                print(statusType.description)
-                self = AKMIDIEvent(data: event.eventData)
-            } else if let metaType = AKMIDIMetaEventType.init(rawValue: typeByte){
-                print(metaType.description)
-            } else {
-                dump(event)
-                fatalError("bad AKMIDIFile chunk - no type for \(event.typeByte)")
-            }
-        }
-    }
-    
-    /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
-    ///
-    /// - Parameters:
-    ///   - data:  [MIDIByte] bluetooth packet
-    ///
-    public init(data: [MIDIByte]) {
-        if AudioKit.midi.isReceivingSysex {
-            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                internalData = Array(data[0...sysexEndIndex])
-            }
-        } else {
-            internalData = data
-        }
-    }
-
-    // MARK: - Utility constructors for common MIDI events
-
-    /// Determine whether a given byte is the status byte for a MIDI event
-    ///
-    /// - parameter byte: Byte to test
-    ///
-    static func isStatusByte(_ byte: MIDIByte) -> Bool {
-        return (byte & AKMIDIEvent.statusBit) == AKMIDIEvent.statusBit
-    }
-
-    /// Determine whether a given byte is a data byte for a MIDI Event
-    ///
-    /// - parameter byte: Byte to test
-    ///
-    static func isDataByte(_ byte: MIDIByte) -> Bool {
-        return (byte & AKMIDIEvent.statusBit) == 0
-    }
-
-    /// Create note on event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - velocity:   MIDI Note velocity (0-127)
-    ///   - channel:    Channel on which the note appears
-    ///
-    public init(noteOn noteNumber: MIDINoteNumber,
-                velocity: MIDIVelocity,
-                channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .noteOn, channel: channel).byte, noteNumber, velocity])
-    }
-
-    /// Create note off event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - velocity:   MIDI Note velocity (0-127)
-    ///   - channel:    Channel on which the note appears
-    ///
-    public init(noteOff noteNumber: MIDINoteNumber,
-                velocity: MIDIVelocity,
-                channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .noteOff, channel: channel).byte, noteNumber, velocity])
-    }
-
-    /// Create program change event
-    ///
-    /// - Parameters:
-    ///   - data: Program change byte
-    ///   - channel: Channel on which the program change appears
-    ///
-    public init(programChange data: MIDIByte,
-                channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .programChange, channel: channel).byte, data])
-    }
-
-    /// Create controller event
-    ///
-    /// - Parameters:
-    ///   - controller: Controller number
-    ///   - value:      Value of the controller
-    ///   - channel:    Channel on which the controller value has changed
-    ///
-    public init(controllerChange controller: MIDIByte,
-                value: MIDIByte,
-                channel: MIDIChannel) {
-        self.init(data: [AKMIDIStatus(statusType: .controllerChange, channel: channel).byte, controller, value])
-    }
-
-    /// Array of MIDI events from a MIDI packet list poionter
-    static public func midiEventsFrom(packetListPointer: UnsafePointer< MIDIPacketList>) -> [AKMIDIEvent] {
-        return packetListPointer.pointee.map { AKMIDIEvent(packet: $0) }
-    }
-
-    static func appendIncomingSysex(packet: MIDIPacket) -> AKMIDIEvent? {
-        if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-            AudioKit.midi.incomingSysex += midiBytes
-            if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
-                AudioKit.midi.stopReceivingSysex()
-                return sysexEvent
-            }
-        }
-        return nil
-    }
-
     static func decode(packet: MIDIPacket) -> [MIDIByte]? {
         var outBytes = [MIDIByte]()
-        var computedLength = 0
+        var tupleIndex: UInt16 = 0
+        let byteCount = packet.length
         let mirrorData = Mirror(reflecting: packet.data)
-        for (_, value) in mirrorData.children {
-            if computedLength < 256 {
-                computedLength += 1
+        for (_, value) in mirrorData.children { // [tupleIndex, outBytes] in
+            if tupleIndex < 256 {
+                tupleIndex += 1
             }
-            guard let byte = value as? MIDIByte else {
-                AKLog("unable to create sysex midi byte")
-                return nil
+            if let byte = value as? MIDIByte {
+                if tupleIndex <= byteCount {
+                    outBytes.append(byte)
+                }
             }
-            outBytes.append(byte)
         }
         return outBytes
+    }
+}
+
+struct TupleArray {
+    var tuple: (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
+    var array: [UInt8] {
+        var tmp = self.tuple
+        return [UInt8](UnsafeBufferPointer(start: &tmp.0, count: MemoryLayout.size(ofValue: tmp)))
     }
 }

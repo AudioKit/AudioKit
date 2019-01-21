@@ -6,6 +6,8 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
+import Foundation
+
 extension AKPlayer {
     /// Play entire file right now
     @objc public func play() {
@@ -54,7 +56,7 @@ extension AKPlayer {
     }
 
     @objc public func resume() {
-        guard let pauseTime = pauseTime else {
+        guard let pauseTime = self.pauseTime else {
             play()
             return
         }
@@ -62,6 +64,8 @@ extension AKPlayer {
         playerNode.stop()
         play(from: pauseTime)
         AKLog("Resuming at \(pauseTime)")
+
+        self.pauseTime = nil
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
@@ -85,7 +89,6 @@ extension AKPlayer {
         completionTimer?.invalidate()
         prerollTimer?.invalidate()
         faderTimer?.invalidate()
-        pauseTime = nil
     }
 
     // MARK: - Scheduling
@@ -189,7 +192,7 @@ extension AKPlayer {
 
         let totalFrames = (audioFile.length - startFrame) - (audioFile.length - endFrame)
         guard totalFrames > 0 else {
-            AKLog("totalFrames to play is \(totalFrames). Bailing.")
+            AKLog("Unable to schedule file. totalFrames to play is \(totalFrames). audioFile.length is", audioFile.length)
             return
         }
 
@@ -220,8 +223,7 @@ extension AKPlayer {
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
         // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
-        // only forward the completion if is actually done playing.
-        // if the user calls stop() themselves then the currentFrame will be < frameCount
+        // only forward the completion if is actually done playing without user intervention.
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
@@ -237,7 +239,9 @@ extension AKPlayer {
             }
             do {
                 try AKTry {
-                    if self.currentFrame >= self.frameCount {
+                    // if the user calls stop() themselves then the currentFrame will be 0 as of 10.14
+                    // in this case, don't call the completion handler
+                    if self.currentFrame > 0 {
                         self.handleComplete()
                     }
                 }
@@ -259,6 +263,8 @@ extension AKPlayer {
             startTime = 0
             pauseTime = nil
         }
+        AKLog("Firing callback. currentFrame:", currentFrame, "frameCount:", frameCount)
+
         completionHandler?()
     }
 }

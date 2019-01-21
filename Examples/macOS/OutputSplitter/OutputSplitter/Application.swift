@@ -18,15 +18,15 @@ class Application {
         engine = Engine()
         selectOutputDevice1(device: EZAudioDevice.currentOutput()!)
     }
-    
+
     static func selectOutputDevice1 (device: EZAudioDevice) {
         print("Creating an Output1 Engine for Device: " + device.name)
         output1 = Output(device: device, engine: engine)
     }
-    
+
     static func selectOutputDevice2 (device: EZAudioDevice) {
         print("Creating an Output2 Engine for Device: " + device.name)
         output2 = Output(device: device, engine: engine)
     }
-    
+
 }
