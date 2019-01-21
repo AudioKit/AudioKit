@@ -110,17 +110,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Generators / Oscillators
 #import "AKFMOscillatorDSP.hpp"
-#import "AKFMOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorDSP.hpp"
-#import "AKMorphingOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorBankDSPKernel.hpp"
 #import "AKOscillatorDSP.hpp"
-#import "AKOscillatorBankAudioUnit.h"
 #import "AKPhaseDistortionOscillatorDSP.hpp"
-#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorDSP.hpp"
-#import "AKPWMOscillatorBankAudioUnit.h"
-#import "AKPWMOscillatorBankDSPKernel.hpp"
 
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"
@@ -133,6 +126,14 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKShakerDSP.hpp"
 #import "AKTubularBellsDSP.hpp"
 #import "AKVocalTractDSP.hpp"
+
+// Generators / Polysynths
+#import "AKFMOscillatorBankAudioUnit.h"
+#import "AKMorphingOscillatorBankAudioUnit.h"
+#import "AKOscillatorBankAudioUnit.h"
+#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
+#import "AKPWMOscillatorBankAudioUnit.h"
+#import "AKSynthDSP.hpp"
 
 // Mixing
 #import "AKAutoPannerDSP.hpp"
@@ -183,6 +184,3 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
 
-// Synth
-#import "AKCoreSynth.hpp"
-#import "AKSynthDSP.hpp"

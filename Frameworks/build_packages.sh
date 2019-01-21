@@ -91,7 +91,8 @@ do
 	create_package $os
 done
 
-test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && create_playgrounds
+# Only package Playgrounds if they are part of this repo
+test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && test -d ../Playgrounds && create_playgrounds
 
 # Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3425223521E7F9950014B603 /* AKCoreSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3425223321E7F9950014B603 /* AKCoreSynth.cpp */; };
-		3425223621E7F9950014B603 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3425223421E7F9950014B603 /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3425223621E7F9950014B603 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3425223421E7F9950014B603 /* AKCoreSynth.hpp */; };
 		3425223D21E7F9B40014B603 /* AKSynthAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425223921E7F9B40014B603 /* AKSynthAudioUnit.swift */; };
 		3425223E21E7F9B40014B603 /* AKSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425223A21E7F9B40014B603 /* AKSynth.swift */; };
 		3425223F21E7F9B40014B603 /* AKSynthDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3425223B21E7F9B40014B603 /* AKSynthDSP.mm */; };
@@ -878,7 +878,7 @@
 		C49DCD4A1D2100B400BF018A /* AKMorphingOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD461D2100B400BF018A /* AKMorphingOscillatorBank.swift */; };
 		C49DCD4B1D2100B400BF018A /* AKMorphingOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD471D2100B400BF018A /* AKMorphingOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49DCD4C1D2100B400BF018A /* AKMorphingOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD481D2100B400BF018A /* AKMorphingOscillatorBankAudioUnit.mm */; };
-		C49DCD4D1D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD491D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49DCD4D1D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD491D2100B400BF018A /* AKMorphingOscillatorBankDSPKernel.hpp */; };
 		C49DCD5D1D2100BF00BF018A /* AKOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD4F1D2100BF00BF018A /* AKOscillatorBank.swift */; };
 		C49DCD5E1D2100BF00BF018A /* AKOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD501D2100BF00BF018A /* AKOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49DCD5F1D2100BF00BF018A /* AKOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD511D2100BF00BF018A /* AKOscillatorBankAudioUnit.mm */; };
@@ -887,7 +887,7 @@
 		C49DCD651D2100BF00BF018A /* AKPWMOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD591D2100BF00BF018A /* AKPWMOscillatorBank.swift */; };
 		C49DCD661D2100BF00BF018A /* AKPWMOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD5A1D2100BF00BF018A /* AKPWMOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49DCD671D2100BF00BF018A /* AKPWMOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49DCD5B1D2100BF00BF018A /* AKPWMOscillatorBankAudioUnit.mm */; };
-		C49DCD681D2100BF00BF018A /* AKPWMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD5C1D2100BF00BF018A /* AKPWMOscillatorBankDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49DCD681D2100BF00BF018A /* AKPWMOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49DCD5C1D2100BF00BF018A /* AKPWMOscillatorBankDSPKernel.hpp */; };
 		C49E9E171D2B4BE600E5E8BF /* AKAudioFile+ConvenienceInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E9E131D2B4BE600E5E8BF /* AKAudioFile+ConvenienceInitializers.swift */; };
 		C49E9E191D2B4BE600E5E8BF /* AKAudioFile+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E9E151D2B4BE600E5E8BF /* AKAudioFile+Processing.swift */; };
 		C49E9E1A1D2B4BE600E5E8BF /* AKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49E9E161D2B4BE600E5E8BF /* AKAudioFile.swift */; };

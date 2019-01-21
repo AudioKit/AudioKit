@@ -82,20 +82,36 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        // FIXME: we currently assume this is one midi event could be any number of events
-        if packet.isSysex {
-            internalData = [] //reset internalData
-            //voodoo
-            if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-                AudioKit.midi.startReceivingSysex(with: midiBytes)
-                internalData += midiBytes
-                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
-                    let length = sysexEndIndex + 1
-                    internalData = Array(internalData.prefix(length))
-                    AudioKit.midi.stopReceivingSysex()
-                } else {
-                    internalData.removeAll()
+        // MARK: we currently assume this is one midi event could be any number of events
+        let isSystemCommand = packet.isSystemCommand
+        if isSystemCommand {
+            let systemCommand = packet.systemCommand
+            let length = systemCommand?.length
+            if systemCommand == .sysex {
+                internalData = [] //reset internalData
+
+                // voodoo to convert packet 256 element tuple to byte arrays
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    // flag midi system that a sysex packet has started so it can gather bytes until the end
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                        let length = sysexEndIndex + 1
+                        internalData = Array(internalData.prefix(length))
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                    }
                 }
+            } else if length == 1 {
+                let bytes = [packet.data.0]
+                internalData = bytes
+            } else if length == 2 {
+                let bytes = [packet.data.0, packet.data.2]
+                internalData = bytes
+            } else if length == 3 {
+                let bytes = [packet.data.0, packet.data.1, packet.data.2]
+                internalData = bytes
             }
         } else {
             let bytes = [packet.data.0, packet.data.1, packet.data.2]
@@ -319,17 +335,18 @@ public struct AKMIDIEvent {
 
     static func decode(packet: MIDIPacket) -> [MIDIByte]? {
         var outBytes = [MIDIByte]()
-        var computedLength = 0
+        var tupleIndex: UInt16 = 0
+        let byteCount = packet.length
         let mirrorData = Mirror(reflecting: packet.data)
-        for (_, value) in mirrorData.children {
-            if computedLength < 256 {
-                computedLength += 1
+        for (_, value) in mirrorData.children { // [tupleIndex, outBytes] in
+            if tupleIndex < 256 {
+                tupleIndex += 1
             }
-            guard let byte = value as? MIDIByte else {
-                AKLog("unable to create sysex midi byte")
-                return nil
+            if let byte = value as? MIDIByte {
+                if tupleIndex <= byteCount {
+                    outBytes.append(byte)
+                }
             }
-            outBytes.append(byte)
         }
         return outBytes
     }
