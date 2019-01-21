@@ -179,9 +179,7 @@ public extension AKMIDIListener {
     /// - parameter data: Array of integers
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
-        if let command = AKMIDISystemCommand(rawValue: data[0]) {
-            AKLog("MIDI System Command: \(command))")
-        }
+        AKLog("AKMIDIListener default method")
     }
 
     /// MIDI Setup has changed
@@ -189,4 +187,11 @@ public extension AKMIDIListener {
         AKLog("MIDI Setup Has Changed.")
     }
 
+    func isEqualTo(_ listener : AKMIDIListener) -> Bool {
+        return self == listener
+    }
+}
+
+func == (lhs: AKMIDIListener, rhs: AKMIDIListener) -> Bool {
+    return lhs.isEqualTo(rhs)
 }
