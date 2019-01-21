@@ -118,7 +118,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         if let status = AKMIDIStatus(byte: data1), let statusType = status.type {
             let channel = status.channel
-            if statusType == .noteOn && data3 > 0  {
+            if statusType == .noteOn && data3 > 0 {
                 start(noteNumber: data2,
                       velocity: data3,
                       channel: channel)
