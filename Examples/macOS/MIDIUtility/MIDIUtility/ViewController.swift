@@ -18,7 +18,7 @@ class ViewController: NSViewController, AKMIDIListener {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        midi.openInput("Session 1")
+        midi.openInput(name: "Session 1")
         midi.addListener(self)
 
         sourcePopUpButton.removeAllItems()
@@ -29,7 +29,7 @@ class ViewController: NSViewController, AKMIDIListener {
     @IBAction func sourceChanged(_ sender: NSPopUpButton) {
         if sender.indexOfSelectedItem > 0 {
             midi.closeAllInputs()
-            midi.openInput(midi.inputNames[sender.indexOfSelectedItem - 1])
+            midi.openInput(name: midi.inputNames[sender.indexOfSelectedItem - 1])
         }
     }
 
