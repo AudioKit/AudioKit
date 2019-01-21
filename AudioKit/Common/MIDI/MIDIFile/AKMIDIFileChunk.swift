@@ -29,7 +29,8 @@ extension AKMIDIFileChunk {
     }
 
     var isValid: Bool {
-        return typeData.count == 4 && lengthData.count == 4 && data.count == combine(bytes: lengthData) && (isHeader || isTrack)
+        return typeData.count == 4 && lengthData.count == 4 &&
+            data.count == combine(bytes: lengthData) && (isHeader || isTrack)
     }
 
     var length: Int {

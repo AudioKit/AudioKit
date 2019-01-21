@@ -65,13 +65,13 @@ open class AKMIDISampler: AKAppleSampler {
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
         if let status = AKMIDIStatus(byte: data1) {
             let channel = status.channel
-            if status.type == AKMIDIStatusType.noteOn && data3 > 0 {
+            if status.type == .noteOn && data3 > 0 {
                 try play(noteNumber: data2,
                          velocity: data3,
                          channel: channel)
-            } else if status.type == AKMIDIStatusType.noteOn && data3 == 0 {
+            } else if status.type == .noteOn && data3 == 0 {
                 try stop(noteNumber: data2, channel: channel)
-            } else if status.type == AKMIDIStatusType.controllerChange {
+            } else if status.type == .controllerChange {
                 midiCC(data2, value: data3, channel: channel)
             }
         }
