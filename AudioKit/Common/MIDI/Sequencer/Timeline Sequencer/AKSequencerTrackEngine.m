@@ -152,7 +152,7 @@ struct MIDINote {
 }
 
 void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset, double time, int index) {
-    //printf("sending: %i %i at %f\n", status, data1, time);
+    printf("sending: %i %i at %f\n", status, data1, time);
     if (midiPort == 0 || midiEndpoint == 0) {
         MusicDeviceMIDIEvent(audioUnit, status, data1, data2, offset);
     } else {
@@ -173,9 +173,9 @@ void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef mid
 }
 
 -(void)debugEvents {
-    printf("deboog: debuggin sequence\n");
+    printf("debug: debugging sequence\n");
     for (int i = 0; i < _noteCount; i++) {
-        printf("deboog: %i - %i - %f \n", _events[i].status, _events[i].data1, _events[i].beat);
+        printf("debug: %i - %i - %f \n", _events[i].status, _events[i].data1, _events[i].beat);
     }
 }
 
