@@ -95,7 +95,7 @@ public class AKSeqPlus {
         print("loadind file at \(path)")
         let file = AKMIDIFile(path: path)
         for track in file.trackChunks {
-            let events = track.events
+            let events = track.chunkEvents
         }
     }
 
