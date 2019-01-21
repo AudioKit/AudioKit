@@ -41,6 +41,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Delay
 #import "AKVariableDelayDSP.hpp"
+#import "AKStereoDelayDSP.hpp"
 
 // Effects / Distortion
 #import "AKBitCrusherDSP.hpp"
@@ -94,7 +95,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Effects / Reverb
 #import "AKChowningReverbDSP.hpp"
 #import "AKCombFilterReverbDSP.hpp"
-#import "AKConvolutionAudioUnit.h"
+#import "AKConvolutionDSP.hpp"
 #import "AKCostelloReverbDSP.hpp"
 #import "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKZitaReverbDSP.hpp"
@@ -109,17 +110,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Generators / Oscillators
 #import "AKFMOscillatorDSP.hpp"
-#import "AKFMOscillatorBankAudioUnit.h"
 #import "AKMorphingOscillatorDSP.hpp"
-#import "AKMorphingOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorBankDSPKernel.hpp"
 #import "AKOscillatorDSP.hpp"
-#import "AKOscillatorBankAudioUnit.h"
 #import "AKPhaseDistortionOscillatorDSP.hpp"
-#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorDSP.hpp"
-#import "AKPWMOscillatorBankAudioUnit.h"
-#import "AKPWMOscillatorBankDSPKernel.hpp"
 
 // Generators / Physical Models
 #import "AKClarinetDSP.hpp"
@@ -127,11 +121,19 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
 #import "AKMetalBarDSP.hpp"
-#import "AKRhodesPianoAudioUnit.h"
+#import "AKRhodesPianoDSP.hpp"
 #import "AKPluckedStringDSP.hpp"
-#import "AKShakerAudioUnit.h"
-#import "AKTubularBellsAudioUnit.h"
+#import "AKShakerDSP.hpp"
+#import "AKTubularBellsDSP.hpp"
 #import "AKVocalTractDSP.hpp"
+
+// Generators / Polysynths
+#import "AKFMOscillatorBankAudioUnit.h"
+#import "AKMorphingOscillatorBankAudioUnit.h"
+#import "AKOscillatorBankAudioUnit.h"
+#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
+#import "AKPWMOscillatorBankAudioUnit.h"
+#import "AKSynthDSP.hpp"
 
 // Mixing
 #import "AKAutoPannerDSP.hpp"
@@ -141,8 +143,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKStereoFieldLimiterDSP.hpp"
 
 // Playback
-#import "AKPhaseLockedVocoderAudioUnit.h"
-#import "AKSamplePlayerAudioUnit.h"
+#import "AKPhaseLockedVocoderDSP.hpp"
 #import "AKWaveTableAudioUnit.h"
 #import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"
@@ -184,6 +185,3 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
 
-// Synth
-#import "AKSynth.hpp"
-#import "AKSynthDSP.hpp"

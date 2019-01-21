@@ -36,9 +36,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
     /// Amplitude. (Value between 0-1).
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
-                return
-            }
+            guard amplitude != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)

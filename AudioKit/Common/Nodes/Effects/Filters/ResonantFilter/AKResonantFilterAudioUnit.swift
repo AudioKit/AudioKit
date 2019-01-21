@@ -11,11 +11,11 @@ import AVFoundation
 public class AKResonantFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKResonantFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKResonantFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKResonantFilter.defaultFrequency {
@@ -36,37 +36,25 @@ public class AKResonantFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Center frequency of the filter, or frequency position of the peak response.",
-            address: AUParameterAddress(0),
-            min: Float(AKResonantFilter.frequencyRange.lowerBound),
-            max: Float(AKResonantFilter.frequencyRange.upperBound),
+            address: AKResonantFilterParameter.frequency.rawValue,
+            range: AKResonantFilter.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let bandwidth = AUParameterTree.createParameter(
-            withIdentifier: "bandwidth",
+            flags: .default)
+        let bandwidth = AUParameter(
+            identifier: "bandwidth",
             name: "Bandwidth of the filter.",
-            address: AUParameterAddress(1),
-            min: Float(AKResonantFilter.bandwidthRange.lowerBound),
-            max: Float(AKResonantFilter.bandwidthRange.upperBound),
+            address: AKResonantFilterParameter.bandwidth.rawValue,
+            range: AKResonantFilter.bandwidthRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, bandwidth]))
+        setParameterTree(AUParameterTree(children: [frequency, bandwidth]))
         frequency.value = Float(AKResonantFilter.defaultFrequency)
         bandwidth.value = Float(AKResonantFilter.defaultBandwidth)
     }

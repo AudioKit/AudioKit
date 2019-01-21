@@ -33,7 +33,7 @@ class ViewController: NSViewController {
     @IBOutlet var reverseButton: NSButton!
     @IBOutlet var normalizeButton: NSButton!
 
-    var openPanel: NSOpenPanel?
+    var openPanel = NSOpenPanel()
 
     var audioTitle: String {
         guard let av = player?.audioFile else { return "" }
@@ -66,10 +66,12 @@ class ViewController: NSViewController {
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
         handleUpdateParam(slider3)
+
+        openPanel.message = "Open Audio File"
+        openPanel.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
     }
 
     @IBAction func start(_ sender: Any) {
-
         do {
             try AudioKit.start()
         } catch {
@@ -139,15 +141,9 @@ class ViewController: NSViewController {
 
     @IBAction func chooseAudio(_ sender: Any) {
         guard let window = view.window else { return }
-        if openPanel == nil {
-            openPanel = NSOpenPanel()
-            openPanel!.message = "Open Audio File"
-            openPanel!.allowedFileTypes = EZAudioFile.supportedAudioFileTypes() as? [String]
-        }
-        guard let openPanel = openPanel else { return }
         openPanel.beginSheetModal(for: window, completionHandler: { response in
             if response == NSApplication.ModalResponse.OK {
-                if let url = openPanel.url {
+                if let url = self.openPanel.url {
                     self.open(url: url)
                 }
             }
@@ -170,22 +166,21 @@ class ViewController: NSViewController {
     func open(url: URL) {
         inputSourceInfo.stringValue = url.lastPathComponent
 
-        if player == nil {
-            player = AKPlayer(url: url)
-            player?.completionHandler = handleAudioComplete
-            player?.isLooping = loopButton.state == .on
-            // for seamless looping use:
-            player?.buffering = .dynamic
-            // can use these to test the internal fader in the player:
-//            player?.fade.inTime = 1
-//            player?.fade.outTime = 1
-//            player?.fade.inRampType = .linear
-//            player?.fade.outRampType = .exponential
-        } else {
-            do {
-                try player?.load(url: url)
-            } catch {}
+        // for now just make a new player so it's not necessary to rebalance format types
+        // if the processingFormat changes
+        if player != nil {
+            player?.detach()
+            player = nil
         }
+
+        AKLog("Creating player...")
+        player = AKPlayer(url: url)
+        player?.completionHandler = handleAudioComplete
+        player?.isLooping = loopButton.state == .on
+        // for seamless looping use: .always
+        // player?.buffering = .dynamic
+        player?.stopEnvelopeTime = 0.3
+
         initPlayer()
 
         AKLog("Opened \(url.lastPathComponent)")
@@ -195,15 +190,29 @@ class ViewController: NSViewController {
         let state = sender.state == .on
         if node == osc {
             state ? osc.play() : osc.stop()
+
         } else if node == speechSynthesizer {
 //            speechSynthesizer.sayHello()
-        } else if node == player {
-            state ? player?.resume() : player?.pause()
+
+        } else if node == player, let player = player {
+//            if state {
+//                // can use these to test the internal fader in the player:
+//                player.fade.inTime = 2
+//                player.fade.outTime = 2
+//                player.fade.inRampType = .exponential
+//                player.fade.outRampType = .exponential
+//            }
+
+            state ? player.play() : player.stop()
+
+            AKLog("player.isPlaying:", player.isPlaying)
         }
     }
 
     private func handleAudioComplete() {
-        if !(player?.isLooping ?? false) {
+        AKLog("Complete")
+        guard let player = player else { return }
+        if !player.isLooping {
             playButton?.state = .off
         }
     }
@@ -245,5 +254,4 @@ class ViewController: NSViewController {
         let decimalValue = pow(10.0, Double(decimalPlaces))
         return round(value * decimalValue) / decimalValue
     }
-
 }

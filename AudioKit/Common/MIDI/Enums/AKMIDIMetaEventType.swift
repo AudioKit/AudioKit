@@ -25,10 +25,6 @@ public enum AKMIDIMetaEventType : MIDIByte {
     case keySignature = 0x59
     case sequencerSpecificMetaEvent = 0x7F
 
-    static func with(type: UInt8) -> AKMIDIMetaEventType? {
-        return AKMIDIMetaEventType(rawValue: type)
-    }
-
     var length: Int? {
         switch self {
         case .endOfTrack:
@@ -48,7 +44,7 @@ public enum AKMIDIMetaEventType : MIDIByte {
         }
     }
 
-    var description: String {
+    public var description: String {
         switch self {
         case .sequenceNumber:
             return "Sequence Number"
@@ -82,4 +78,26 @@ public enum AKMIDIMetaEventType : MIDIByte {
             return "Sequence Specific"
         }
     }
+}
+
+public struct AKMIDIMetaEvent {
+
+    public init?(data: [MIDIByte]) {
+        if data.count > 2,
+            let _ = AKMIDIMetaEventType(rawValue: data[1]) {
+            self.data = data
+        }
+        return nil
+    }
+
+    public var data: [MIDIByte] = []
+
+    public var type: AKMIDIMetaEventType {
+        return AKMIDIMetaEventType(rawValue: data[1])! //we prevent bad values on init
+    }
+
+    public var length: Int {
+        return Int(data[2])
+    }
+
 }

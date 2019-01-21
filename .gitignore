@@ -38,3 +38,6 @@ AudioUnits
 # JUCE related
 Builds/
 JuceLibraryCode/
+
+# Style Checking 
+SwiftStyleSettings.plist

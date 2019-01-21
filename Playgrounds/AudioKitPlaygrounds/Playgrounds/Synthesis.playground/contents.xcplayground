@@ -31,6 +31,7 @@
         <page name='PWM Oscillator Bank'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Segment Operations'/>
+        <page name='Shaker'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>
         <page name='Tubular Bells'/>

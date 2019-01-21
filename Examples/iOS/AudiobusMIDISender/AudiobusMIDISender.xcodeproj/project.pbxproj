@@ -123,6 +123,8 @@
 				1F9F2B22206B65A2009E1296 /* Sources */,
 				1F9F2B23206B65A2009E1296 /* Frameworks */,
 				1F9F2B24206B65A2009E1296 /* Resources */,
+				89A3A94C1B668E61D266FE5B /* [CP] Embed Pods Frameworks */,
+				09DE075F15E246AFB22BFE3C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,6 +193,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09DE075F15E246AFB22BFE3C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89A3A94C1B668E61D266FE5B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B7084267CA9AC22C1BF474CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

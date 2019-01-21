@@ -29,10 +29,10 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
         AudioKit.engine.attach(self.avAudioNode)
     }
 
-    fileprivate func triggerCallbacks(_ status: MIDIByte,
+    fileprivate func triggerCallbacks(_ status: AKMIDIStatus,
                                       data1: MIDIByte,
                                       data2: MIDIByte) {
-        _ = callback.map { $0(status, data1, data2) }
+        _ = callback.map { $0(status.byte, data1, data2) }
     }
 
     /// Will trigger in response to any noteOn Message
@@ -45,8 +45,7 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     override open func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel) {
-        let status = AKMIDIStatus(statusType: .noteOn, channel: channel).byte
-        triggerCallbacks(status, data1: noteNumber, data2: velocity)
+        triggerCallbacks(AKMIDIStatus(type: .noteOn, channel: channel), data1: noteNumber, data2: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -56,7 +55,6 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     ///   - channel:    MIDI Channel
     ///
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        let status = AKMIDIStatus(statusType: .noteOff, channel: channel).byte
-        triggerCallbacks(status, data1: noteNumber, data2: 0)
+        triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel), data1: noteNumber, data2: 0)
     }
 }

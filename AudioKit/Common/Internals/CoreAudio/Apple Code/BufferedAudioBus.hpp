@@ -92,7 +92,7 @@ struct BufferedInputBus : BufferedAudioBus {
      the pullInputBlock.
      */
     AUAudioUnitStatus pullInput(AudioUnitRenderActionFlags *actionFlags,
-                                AudioTimeStamp const* timestamp,
+                                AudioTimeStamp const *timestamp,
                                 AVAudioFrameCount frameCount,
                                 NSInteger inputBusNumber,
                                 AURenderPullInputBlock pullInputBlock) {

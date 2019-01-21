@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKPeakingParametricEqualizerFilterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPeakingParametricEqualizerFilterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var centerFrequency: Double = AKPeakingParametricEqualizerFilter.defaultCenterFrequency {
@@ -40,49 +40,32 @@ public class AKPeakingParametricEqualizerFilterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let centerFrequency = AUParameterTree.createParameter(
-            withIdentifier: "centerFrequency",
+        let centerFrequency = AUParameter(
+            identifier: "centerFrequency",
             name: "Center Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.lowerBound),
-            max: Float(AKPeakingParametricEqualizerFilter.centerFrequencyRange.upperBound),
+            address: AKPeakingParametricEqualizerFilterParameter.centerFrequency.rawValue,
+            range: AKPeakingParametricEqualizerFilter.centerFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let gain = AUParameterTree.createParameter(
-            withIdentifier: "gain",
+            flags: .default)
+        let gain = AUParameter(
+            identifier: "gain",
             name: "Gain",
-            address: AUParameterAddress(1),
-            min: Float(AKPeakingParametricEqualizerFilter.gainRange.lowerBound),
-            max: Float(AKPeakingParametricEqualizerFilter.gainRange.upperBound),
+            address: AKPeakingParametricEqualizerFilterParameter.gain.rawValue,
+            range: AKPeakingParametricEqualizerFilter.gainRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let q = AUParameterTree.createParameter(
-            withIdentifier: "q",
+            flags: .default)
+        let q = AUParameter(
+            identifier: "q",
             name: "Q",
-            address: AUParameterAddress(2),
-            min: Float(AKPeakingParametricEqualizerFilter.qRange.lowerBound),
-            max: Float(AKPeakingParametricEqualizerFilter.qRange.upperBound),
+            address: AKPeakingParametricEqualizerFilterParameter.Q.rawValue,
+            range: AKPeakingParametricEqualizerFilter.qRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [centerFrequency, gain, q]))
+        setParameterTree(AUParameterTree(children: [centerFrequency, gain, q]))
         centerFrequency.value = Float(AKPeakingParametricEqualizerFilter.defaultCenterFrequency)
         gain.value = Float(AKPeakingParametricEqualizerFilter.defaultGain)
         q.value = Float(AKPeakingParametricEqualizerFilter.defaultQ)

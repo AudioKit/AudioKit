@@ -10,24 +10,24 @@
 #include "wavpack.h"
 #include <math.h>
 
-extern "C" AKDSPRef createAKSamplerDSP(int nChannels, double sampleRate) {
+extern "C" AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor* pSDD) {
+extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
     ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor* pSFD)
+extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
 {
     char errMsg[100];
-    WavpackContext* wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
+    WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
     if (wpc == 0)
     {
         printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
         return;
     }
-    
+
     AKSampleDataDescriptor sdd;
     sdd.sampleDescriptor = pSFD->sampleDescriptor;
     sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
@@ -35,7 +35,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
     sdd.sampleCount = WavpackGetNumSamples(wpc);
     sdd.isInterleaved = sdd.channelCount > 1;
     sdd.data = new float[sdd.channelCount * sdd.sampleCount];
-    
+
     int mode = WavpackGetMode(wpc);
     WavpackUnpackSamples(wpc, (int32_t*)sdd.data, sdd.sampleCount);
     if ((mode & MODE_FLOAT) == 0)
@@ -48,7 +48,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
         for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
             *pf++ = scale * *pi++;
     }
-    
+
     ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
     delete[] sdd.data;
 }
@@ -56,6 +56,11 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
 extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
 {
     ((AKSamplerDSP*)pDSP)->deinit();
+}
+
+extern "C" void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
+{
+    ((AKSamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
 }
 
 extern "C" void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP) {
@@ -107,9 +112,9 @@ AKSamplerDSP::AKSamplerDSP() : AKCoreSampler()
     glideRateRamp.setTarget(0.0, true);
 }
 
-void AKSamplerDSP::init(int nChannels, double sampleRate)
+void AKSamplerDSP::init(int channelCount, double sampleRate)
 {
-    AKDSPBase::init(nChannels, sampleRate);
+    AKDSPBase::init(channelCount, sampleRate);
     AKCoreSampler::init(sampleRate);
 }
 
@@ -122,13 +127,13 @@ void AKSamplerDSP::setParameter(AUParameterAddress address, float value, bool im
 {
     switch (address) {
         case AKSamplerParameterRampDuration:
-            masterVolumeRamp.setRampDuration(value, _sampleRate);
-            pitchBendRamp.setRampDuration(value, _sampleRate);
-            vibratoDepthRamp.setRampDuration(value, _sampleRate);
-            filterCutoffRamp.setRampDuration(value, _sampleRate);
-            filterStrengthRamp.setRampDuration(value, _sampleRate);
-            filterResonanceRamp.setRampDuration(value, _sampleRate);
-            glideRateRamp.setRampDuration(value, _sampleRate);
+            masterVolumeRamp.setRampDuration(value, sampleRate);
+            pitchBendRamp.setRampDuration(value, sampleRate);
+            vibratoDepthRamp.setRampDuration(value, sampleRate);
+            filterCutoffRamp.setRampDuration(value, sampleRate);
+            filterStrengthRamp.setRampDuration(value, sampleRate);
+            filterResonanceRamp.setRampDuration(value, sampleRate);
+            glideRateRamp.setRampDuration(value, sampleRate);
             break;
 
         case AKSamplerParameterMasterVolume:
@@ -203,7 +208,7 @@ float AKSamplerDSP::getParameter(AUParameterAddress address)
 {
     switch (address) {
         case AKSamplerParameterRampDuration:
-            return pitchBendRamp.getRampDuration(_sampleRate);
+            return pitchBendRamp.getRampDuration(sampleRate);
 
         case AKSamplerParameterMasterVolume:
             return masterVolumeRamp.getTarget();
@@ -289,28 +294,28 @@ void AKSamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         int frameOffset = int(frameIndex + bufferOffset);
         int chunkSize = frameCount - frameIndex;
         if (chunkSize > AKCORESAMPLER_CHUNKSIZE) chunkSize = AKCORESAMPLER_CHUNKSIZE;
-        
+
         // ramp parameters
-        masterVolumeRamp.advanceTo(_now + frameOffset);
+        masterVolumeRamp.advanceTo(now + frameOffset);
         masterVolume = (float)masterVolumeRamp.getValue();
-        pitchBendRamp.advanceTo(_now + frameOffset);
+        pitchBendRamp.advanceTo(now + frameOffset);
         pitchOffset = (float)pitchBendRamp.getValue();
-        vibratoDepthRamp.advanceTo(_now + frameOffset);
+        vibratoDepthRamp.advanceTo(now + frameOffset);
         vibratoDepth = (float)vibratoDepthRamp.getValue();
-        filterCutoffRamp.advanceTo(_now + frameOffset);
+        filterCutoffRamp.advanceTo(now + frameOffset);
         cutoffMultiple = (float)filterCutoffRamp.getValue();
-        filterStrengthRamp.advanceTo(_now + frameOffset);
+        filterStrengthRamp.advanceTo(now + frameOffset);
         cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
-        filterResonanceRamp.advanceTo(_now + frameOffset);
+        filterResonanceRamp.advanceTo(now + frameOffset);
         linearResonance = (float)filterResonanceRamp.getValue();
-        glideRateRamp.advanceTo(_now + frameOffset);
+        glideRateRamp.advanceTo(now + frameOffset);
         glideRate = (float)glideRateRamp.getValue();
 
         // get data
         float *outBuffers[2];
-        outBuffers[0] = (float *)_outBufferListPtr->mBuffers[0].mData + frameOffset;
-        outBuffers[1] = (float *)_outBufferListPtr->mBuffers[1].mData + frameOffset;
-        unsigned channelCount = _outBufferListPtr->mNumberBuffers;
+        outBuffers[0] = (float *)outBufferListPtr->mBuffers[0].mData + frameOffset;
+        outBuffers[1] = (float *)outBufferListPtr->mBuffers[1].mData + frameOffset;
+        unsigned channelCount = outBufferListPtr->mNumberBuffers;
         AKCoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }
