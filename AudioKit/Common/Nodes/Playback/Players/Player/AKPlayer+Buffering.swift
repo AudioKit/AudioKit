@@ -51,12 +51,15 @@ extension AKPlayer {
             return
         }
 
-        frameCount = AVAudioFrameCount(endFrame - startFrame)
+        let framesToRead: AVAudioFramePosition = endFrame - startFrame
 
-        guard frameCount > 0 else {
-            AKLog("totalFrames to play is \(frameCount). Bailing.")
+        guard framesToRead > 0 else {
+            AKLog("Error, endFrame must be after startFrame. Unable to fill buffer.")
             return
         }
+
+        // AVAudioFrameCount is unsigned so cast it after the zero check
+        frameCount = AVAudioFrameCount(framesToRead)
 
         guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat, frameCapacity: frameCount) else { return }
 
