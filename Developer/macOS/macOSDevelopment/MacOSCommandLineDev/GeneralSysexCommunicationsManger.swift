@@ -9,57 +9,7 @@
 import Foundation
 import AudioKit
 
-/// Control whether success and fail are sent.
-/// This provides a lot of flexibility in how this test app is used.
-let SUCCES_AND_FAIL = false
 let SEND_SYSEX = false
-
-/// A class that performs an action block, then starts a timer that
-/// catches timeout conditions where a response is not received.
-/// Since the external caller is responsible for what constitues succes,
-/// they are expected to call succeed() which will prevent timeout from
-/// happening.
-open class SuccessOrTimeoutMgr: NSObject {
-    private var onSuccess: (() -> Void)?
-    private var onTimeout: (() -> Void)?
-    let timeoutInterval: TimeInterval
-
-    init(timeoutInterval time: TimeInterval, success: @escaping () -> Void, timeout: @escaping () -> Void) {
-        timeoutInterval = time
-        onSuccess = success
-        onTimeout = timeout
-        super.init()
-    }
-
-    open func performWithTimeout(_ block: () -> Void) {
-        self.perform(#selector(messageTimeout), with: nil, afterDelay: timeoutInterval)
-        block()
-    }
-
-    public func succeed() {
-        print("success")
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(messageTimeout), object: nil)
-        self.performSelector(onMainThread: #selector(mainthreadSuccessCall), with: nil, waitUntilDone: false)
-//            self.performSelector(onMainThread: #selector(delaySuccessCall), with: nil, waitUntilDone: false)
-    }
-
-    @objc func delaySuccessCall() {
-        self.perform(#selector(mainthreadSuccessCall), with: nil, afterDelay: 5)
-    }
-
-    @objc func mainthreadSuccessCall() {
-        if SUCCES_AND_FAIL {
-            self.onSuccess?()
-        }
-    }
-
-    @objc func messageTimeout() {
-        print("timed out")
-        if SUCCES_AND_FAIL {
-            self.onTimeout?()
-        }
-    }
-}
 
 /// A class responsible for sending sysex messages and informing a caller of
 /// reception of a sysex response, or a timeout error condition.
@@ -73,10 +23,10 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
     /// Defaults to 44 seconds, which is just a bit longer than it takes
     /// the largest K5000 sysex messages to be received.
     let timeoutInterval = TimeInterval(44)
-    let messageTimeout: SuccessOrTimeoutMgr
+    let messageTimeout: AKMIDITimeout
 
     init() {
-        messageTimeout = SuccessOrTimeoutMgr(timeoutInterval: timeoutInterval, success: {
+        messageTimeout = AKMIDITimeout(timeoutInterval: timeoutInterval, success: {
             NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil)
         }, timeout: {
             NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.SysexTimedOut, object: nil)
@@ -91,7 +41,7 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
     // MARK: - Request
 
     public func requestAndWaitForResponse() {
-        messageTimeout.performWithTimeout( {
+        messageTimeout.perform {
             if SEND_SYSEX {
                 // Very fast requests
                 let sysexMessage = synthK5000.oneSingleAreaA(channel: .channel0, patch: 0)
@@ -109,7 +59,7 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
                 midi.sendMessage(sysexMessage)
             }
-        })
+        }
     }
 
     // MARK: - AKMIDIListener

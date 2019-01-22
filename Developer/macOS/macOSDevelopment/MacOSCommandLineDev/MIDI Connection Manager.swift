@@ -20,7 +20,7 @@ class MidiConnectionManger: AKMIDIListener {
 
     init() {
         midi.addListener(bpmListenter)
-        midi.addListener(self)
+        //midi.addListener(self)
     }
 
     deinit {
@@ -40,6 +40,7 @@ class MidiConnectionManger: AKMIDIListener {
     }
 
     func openAll() {
+        midi.createVirtualPorts()
         midi.openInput(); // open all inputs
         midi.openOutput() // open all outputs?
     }
