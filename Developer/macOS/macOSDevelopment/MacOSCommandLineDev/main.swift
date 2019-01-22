@@ -31,7 +31,7 @@ let sysex_timeout = NotificationCenter.default.addObserver(forName: GeneralSysex
 }
 
 print("Sending Sysex Request")
-sysexCom.requestAndWaitForResponse()
+//sysexCom.requestAndWaitForResponse()
 
 var bpm: BpmType = 0
 
@@ -56,3 +56,4 @@ NotificationCenter.default.removeObserver(sysex_success)
 NotificationCenter.default.removeObserver(sysex_timeout)
 
 midiConnection.closeAll()
+print("Closed")

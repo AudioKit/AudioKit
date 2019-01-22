@@ -39,13 +39,6 @@
 			remoteGlobalIDString = EAFECEBD1F4EBBFE00A2B046;
 			remoteInfo = AudioKitUI;
 		};
-		C58BBD1521F3CC5E006AD20F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4AF138D20319D41002E0FD8 /* AudioKit For macOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F36CB1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -198,7 +191,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C58BBD1621F3CC5E006AD20F /* PBXTargetDependency */,
 			);
 			name = MacOSCommandLineDev;
 			productName = MacOSCommandLineDev;
@@ -307,14 +299,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C58BBD1621F3CC5E006AD20F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = C58BBD1521F3CC5E006AD20F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C4BDE7F21C12FAE600207DA9 /* Main.storyboard */ = {
