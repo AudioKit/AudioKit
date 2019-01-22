@@ -110,7 +110,10 @@ struct MIDINote {
              UInt32             inNumberFrames,
              AudioBufferList    *ioData) {
 
-        if (timeStamp->mSampleTime < *lastStartSample) {
+        //this fixes the sequence note playing once it reaches the end
+        unsigned long long currentSample = timeline->lastRenderTime.mSampleTime; //timeStamp->mSampleTime;
+        
+        if (currentSample < *lastStartSample) {
             *playCount += 1;
             if (self->_loopCallback != NULL) {
                 self->_loopCallback();
@@ -120,18 +123,17 @@ struct MIDINote {
                 *isPlaying = false;
             }
         }
-        *lastStartSample = timeStamp->mSampleTime;
+        *lastStartSample = currentSample;
 
-        if (*startOffset < 0 || timeStamp->mSampleTime == 0) {
-            *startOffset = timeStamp->mSampleTime;
+        if (*startOffset < 0 || currentSample == 0) {
+            *startOffset = currentSample;
         }
 
-        Float64 startSample = timeStamp->mSampleTime - *startOffset;
+        Float64 startSample = currentSample - *startOffset;
         Float64 endSample = startSample + inNumberFrames;
 
         for (int i = 0; i < *noteCount; i++) {
             double triggerTime = events[i].beat / *beatsPerSample;
-
             if (((startSample <= triggerTime && triggerTime <= endSample)) && *stopAfterCurrentNotes == false)
             {
                 int time = triggerTime - startSample + offset;
