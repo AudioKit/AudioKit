@@ -154,7 +154,7 @@ struct MIDINote {
 }
 
 void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset, double time, int index) {
-    printf("sending: %i %i at %f\n", status, data1, time);
+    //printf("sending: %i %i at %f\n", status, data1, time);
     if (midiPort == 0 || midiEndpoint == 0) {
         MusicDeviceMIDIEvent(audioUnit, status, data1, data2, offset);
     } else {
