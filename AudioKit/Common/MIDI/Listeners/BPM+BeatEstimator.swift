@@ -9,59 +9,55 @@
 import Foundation
 import CoreMIDI
 
-// MARK: - AKMIDIMMCEventsListener interface
-
-public protocol AKMIDIBeatEventListener {
-
-    /// Called each 24 midi clock pulses
-    func quarterNoteBeat()
-}
-
-/// Default listener functions
-public extension AKMIDIBeatEventListener {
-
-    func quarterNoteBeat() {
-
-    }
-
-    func isEqualTo(_ listener : AKMIDIBeatEventListener) -> Bool {
-        return self == listener
-    }
-}
-
-func == (lhs: AKMIDIBeatEventListener, rhs: AKMIDIBeatEventListener) -> Bool {
-    return lhs.isEqualTo(rhs)
-}
-
 /// This class is used to count midi clock events and inform listeners
 /// every 24 pulses (1 quarter note)
 /// The reason this is called an estimator, is that before an mmc start
 /// command is received, the guarter note events are just guesses based
-/// on the very first clock event received
-open class AKMIDIBeatEstimator : AKMIDIMMCEventsListener  {
-    var beatCounter: UInt64 = 0
-    var listeners: [AKMIDIBeatEventListener] = []
+/// on the very first clock event received.
+///
+/// AKMIDIBeatEstimator requires to be an observer of both MMC and BPM events
+open class AKMIDIBeatEstimator : AKMIDIMMCObserver, AKMIDIBPMObserver  {
+    public var beatCounter: UInt64 = 0
+    public var fourCount: UInt8 = 0
     let quarterNoteCount: UInt8
-    let mmcListener: AKMIDIMMCListener
-    var fourCount: UInt8 = 0
-    private var state: AKMIDIMMCListener.mmc_state = .stopped
+    private var sendStart = false
+    private var sendContinue = false
 
-    init(mmcListener mmc: AKMIDIMMCListener, quarterNoteCount count: UInt8 = 24) {
+    private let mmcListener: AKMIDIMMCListener
+    private let bpmListener: AKMIDIBPMListener
+    private var listeners: [AKMIDIBeatObserver] = []
+
+    init(mmcListener mmc: AKMIDIMMCListener, quarterNoteCount count: UInt8 = 24, bpmListener bpm: AKMIDIBPMListener) {
         quarterNoteCount = count
         mmcListener = mmc
-        mmc.addListener(self)
+        bpmListener = bpm
+
+        // self is now initializedI
+        
+        mmcListener.addObserver(self)
+        bpmListener.addObserver(self)
     }
 
-    func addListener(listener: AKMIDIBeatEventListener) {
+    deinit {
+        mmcListener.removeObserver(self)
+        bpmListener.removeObserver(self)
+        listeners = []
+    }
+
+    func addListener(listener: AKMIDIBeatObserver) {
         listeners.append(listener)
     }
 
-    func removedListener(listener: AKMIDIBeatEventListener) {
+    func removedListener(listener: AKMIDIBeatObserver) {
         listeners.removeAll { $0 == listener }
     }
 
+    func removedAllListeners() {
+        listeners.removeAll()
+    }
+
     func midiClockBeat() {
-        guard state == .playing else { return }
+        guard mmcListener.state == .playing else { return }
 
         self.beatCounter += 1
 
@@ -70,9 +66,13 @@ open class AKMIDIBeatEstimator : AKMIDIMMCEventsListener  {
             if fourCount > 4 { fourCount = 1 }
             if fourCount > 0 { AKLog("Beat: ", fourCount) }
 
-            listeners.forEach { (listener) in
-                listener.quarterNoteBeat()
+            if sendStart || sendContinue {
+                sendMmcStartContinueToListeners()
+                sendContinue = false
+                sendStart = false
             }
+
+            sendQuarterNoteMessageToListeners()
         } else if beatCounter == 24 {
             beatCounter = 0
         }
@@ -80,6 +80,36 @@ open class AKMIDIBeatEstimator : AKMIDIMMCEventsListener  {
 
     func midiClockStopped() {
         beatCounter = 0
+    }
+}
+
+// MARK: - Send to Listeners
+
+extension AKMIDIBeatEstimator {
+    private func sendQuarterNoteMessageToListeners() {
+        listeners.forEach { (listener) in
+            listener.AKMidiQuarterNoteBeat()
+        }
+    }
+
+    private func sendMmcPreparePlayToListeners(continue resume: Bool) {
+        listeners.forEach { (listener) in
+            listener.AKMidiMmcPreparePlay(continue: resume)
+        }
+    }
+
+    func sendMmcStartContinueToListeners() {
+        guard sendContinue || sendStart else { return }
+
+        listeners.forEach { (listener) in
+            listener.AKMidiMmcStartFirstBeat(continue: sendContinue)
+        }
+    }
+
+    private func sendMmcStopToListeners() {
+        listeners.forEach { (listener) in
+            listener.AKMidiMmcStop()
+        }
     }
 }
 
@@ -99,18 +129,20 @@ extension AKMIDIBeatEstimator  {
 
     public func mmcStop(state newState: AKMIDIMMCListener.mmc_state) {
         AKLog("Beat: [Stop]")
-        state = newState
+        sendMmcStopToListeners()
     }
 
     public func mmcStart(state newState: AKMIDIMMCListener.mmc_state) {
         AKLog("Beat: [Start]")
         beatCounter = 0
         fourCount = 0
-        state = newState
+        sendStart = true
+        sendMmcPreparePlayToListeners(continue: true)
     }
 
     public func mmcContinue(state newState: AKMIDIMMCListener.mmc_state) {
         AKLog("Beat: [Continue]")
-        state = newState
+        sendContinue = true
+        sendMmcPreparePlayToListeners(continue: true)
     }
 }

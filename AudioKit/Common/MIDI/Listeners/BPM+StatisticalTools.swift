@@ -9,13 +9,18 @@
 import Foundation
 
 extension Double {
+    /// Tool for rouding to decimal places which is good for
+    /// producing a more stable BPM display.
+    ///
+    /// - Parameter decimalPlaces: number of decimal places in the result
+    /// - Returns: rounded Double
     func roundToDecimalPlaces(_ decimalPlaces: UInt8) -> Double {
         let multiplier = pow(10, Double(decimalPlaces))
         return (self * multiplier).rounded() / multiplier
-//            Darwin.round(self * multiplier) / multiplier
     }
 }
 
+// MARK: - Tools for obtaining average and std_dev arrays of floating points
 extension Array where Element: FloatingPoint {
 
     func sum() -> Element {
@@ -33,10 +38,12 @@ extension Array where Element: FloatingPoint {
         let v = self.reduce(0, { $0 + ($1-mean)*($1-mean) })
         return sqrt(v / (Element(self.count) - 1))
     }
-
-    // I'd like to have variance
 }
 
+/// BpmHistoryStatistics keeps several sets of BPM history data for
+/// various lengths of time.  This is done so that the history with
+/// the smallest standard deviation may be returned as the current
+/// BPM
 struct BpmHistoryStatistics {
     let historyCounts = [3,6,12,24,48,96,192,384]
     var bpmHistory: [[BpmType]] = [[], [], [], [], [], [], [], []]
@@ -84,6 +91,9 @@ struct BpmHistoryStatistics {
     }
 }
 
+/// BpmHistoryAveraging keeps a history of BPM values that recorded into it.
+/// Each time a value is recorded, it calcualtes a average and standard
+//  deviation so that the stability of the BPM clock can be examined.
 struct BpmHistoryAveraging {
     var bpmHistory: [BpmType]
     var countLimit: Int
@@ -116,6 +126,9 @@ struct BpmHistoryAveraging {
     }
 }
 
+/// Value Smoothing is for smoothing out high frequency noise
+/// It simply applies a weight between a new value and a
+/// prior stored smoothed value using a factor give at initialization.
 struct ValueSmoothing {
     var smoothed : Float64
     let factor : Float64

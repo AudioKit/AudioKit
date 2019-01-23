@@ -29,51 +29,55 @@ open class AKMIDIBPMListener: AKMIDIListener {
 
     public var mmcListener = AKMIDIMMCListener()
 
+    private var bpmObservers: [AKMIDIBPMObserver] = []
+
     public var bpmStr: String = ""
     public var bpm: BpmType = 0
-    var clockEvents: [UInt64] = []
-    let clockEventLimit = 2
-    var bpmStats = BpmHistoryStatistics()
-    var bpmAveraging: BpmHistoryAveraging
-    var timebaseInfo = mach_timebase_info()
-    var tickSmoothing: ValueSmoothing
-    var smoothedBpm = BpmType(0)
+    private var clockEvents: [UInt64] = []
+    private let clockEventLimit = 2
+    private var bpmStats = BpmHistoryStatistics()
+    private var bpmAveraging: BpmHistoryAveraging
+    private var timebaseInfo = mach_timebase_info()
+    private var tickSmoothing: ValueSmoothing
+    private var smoothedBpm = BpmType(0)
 
-    var clockTimeout: AKMIDITimeout?
-    var incomingClockActive = false
+    private var clockTimeout: AKMIDITimeout?
+    private var incomingClockActive = false
 
-    let BEAT_TICKS = 24
-    let oneThousand = UInt64(1000)
+    private let BEAT_TICKS = 24
+    private let oneThousand = UInt64(1000)
 
-    public init(smoothing: Float64 = 0.1, bpmHistoryLimit: Int = 192) {
+    @objc public init(smoothing: Float64 = 0.1, bpmHistoryLimit: Int = 192) {
         assert(bpmHistoryLimit > 0, "You must specify a positive number for bpmHistoryLimit")
         tickSmoothing = ValueSmoothing(factor: smoothing)
         bpmAveraging = BpmHistoryAveraging(countLimit: bpmHistoryLimit)
 
-        beatEstimator = AKMIDIBeatEstimator(mmcListener: mmcListener)
+        beatEstimator = AKMIDIBeatEstimator(mmcListener: mmcListener, bpmListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
         }
 
         clockTimeout = AKMIDITimeout(timeoutInterval: 1.6, onMainThread: true, success: {}, timeout: {
-//            AKLog("MIDI Clock Stopped")
             if self.incomingClockActive == true {
-                self.mmcListener.midiClockStopped()
+                self.midiClockActivityStopped()
             }
             self.incomingClockActive = false
         })
-        self.mmcListener.midiClockStopped()
+        midiClockActivityStopped()
+    }
+
+    deinit {
+        clockTimeout = nil
+        beatEstimator = nil
     }
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
-//            AKLog("[MIDI Clock]")
             clockTimeout?.succeed()
             clockTimeout?.perform {
                 if self.incomingClockActive == false {
-//                    AKLog("MIDI Clock Started")
-                    self.mmcListener.midiClockReceived()
+                    midiClockActivityStarted()
                     self.incomingClockActive = true
                 }
                 clockEvents.append(time)
@@ -88,12 +92,6 @@ open class AKMIDIBPMListener: AKMIDIListener {
             resetClockEventsLeavingOne()
         }
         mmcListener.receivedMIDISystemCommand(data, time: time)
-    }
-
-    func clockEventDiffs() -> [UInt64] {
-        let shifted = clockEvents.dropFirst()
-        let zipped = zip(clockEvents, shifted)
-        return zipped.map{ return $1 - $0 }
     }
 
     private func analyze() {
@@ -114,7 +112,7 @@ open class AKMIDIBPMListener: AKMIDIListener {
         }
         let intervalNanos = (UInt64(tickDelta) * UInt64(timebaseInfo.numer)) / (UInt64(oneThousand) * UInt64(timebaseInfo.denom))
 
-        let bpmCalc = BpmType((Float64(1000000.0) / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
+        let bpmCalc = BpmType((Float64(NSEC_PER_SEC) / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
         smoothedBpm = bpmCalc.roundToDecimalPlaces(2)
 
         resetClockEventsLeavingOne()
@@ -132,8 +130,8 @@ open class AKMIDIBPMListener: AKMIDIListener {
         let newBpmStr = String(format: "%3.2f", bpmAveraging.results.avg)
         if newBpmStr != bpmStr {
             bpmStr = newBpmStr
-//            let stdDevStr = String(format: "%3.2f", bpmAveraging.results.std)
-//            AKLog("BPM:", bpmStr,"\t\tstdDev: ", stdDevStr)
+
+            bpmUpdate(bpmAveraging.results.avg, str: bpmStr)
         }
     }
 
@@ -151,5 +149,38 @@ open class AKMIDIBPMListener: AKMIDIListener {
         guard clockEvents.count > 1 else { return }
         clockEvents = []
     }
+}
 
+// MARK: - Management and Communications for BPM Observers
+
+extension AKMIDIBPMListener {
+    public func addObserver(_ observer: AKMIDIBPMObserver) {
+        bpmObservers.append(observer)
+    }
+
+    public func removeObserver(_ observer: AKMIDIBPMObserver) {
+        bpmObservers.removeAll { $0 == observer }
+    }
+
+    public func removeAllObserver() {
+        bpmObservers.removeAll()
+    }
+
+    func midiClockActivityStarted() {
+        bpmObservers.forEach { (observer) in
+            observer.midiClockSlaveMode()
+        }
+    }
+
+    func midiClockActivityStopped() {
+        bpmObservers.forEach { (observer) in
+            observer.midiClockMasterEnabled()
+        }
+    }
+
+    func bpmUpdate(_ bpm: BpmType, str: String) {
+        bpmObservers.forEach { (observer) in
+            observer.bpmUpdate(bpm, bpmStr: str)
+        }
+    }
 }
