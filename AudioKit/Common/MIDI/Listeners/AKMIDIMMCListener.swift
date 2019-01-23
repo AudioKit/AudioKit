@@ -9,61 +9,8 @@
 import Foundation
 import CoreMIDI
 
-public protocol AKMIDIMMCEventsListener {
-
-    /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
-    /// This signifies that there is an incoming midi clock detected
-    func midiClockSlaveMode()
-
-    /// Called when this client is allowed to become a clock master
-    func midiClockMasterEnabled()
-
-    /// Called when a midi start system message is received
-    ///
-    /// - Parameter state: current state
-    func mmcStart(state: AKMIDIMMCListener.mmc_state)
-
-    /// Called when a midi stop system message is received
-    /// Stop should pause
-    func mmcStop(state: AKMIDIMMCListener.mmc_state)
-
-    /// Called when a midi continue system message is received
-    //
-    func mmcContinue(state: AKMIDIMMCListener.mmc_state)
-}
-
-// MARK: - Default handler methods for AKMIDIMMCEvents
-extension AKMIDIMMCEventsListener {
-
-    func midiClockSlaveMode() {
-
-    }
-
-    func midiClockMasterEnabled() {
-
-    }
-
-    func mmcStart(state: AKMIDIMMCListener.mmc_state) {
-
-    }
-
-    func mmcStop(state: AKMIDIMMCListener.mmc_state) {
-
-    }
-
-    func mmcContinue(state: AKMIDIMMCListener.mmc_state) {
-
-    }
-
-    func isEqualTo(_ listener : AKMIDIMMCEventsListener) -> Bool {
-        return self == listener
-    }
-}
-
-func == (lhs: AKMIDIMMCEventsListener, rhs: AKMIDIMMCEventsListener) -> Bool {
-    return lhs.isEqualTo(rhs)
-}
-
+/// This AKMIDIListener looks for midi machine control (mmc)
+/// midi system messages.
 open class AKMIDIMMCListener: AKMIDIListener {
     enum mmc_event: MIDIByte {
         case stop = 0xFC
@@ -110,16 +57,7 @@ open class AKMIDIMMCListener: AKMIDIListener {
     }
 
     var state: mmc_state = .stopped
-
-    var listeners: [AKMIDIMMCEventsListener] = []
-
-    public func addListener(_ listener: AKMIDIMMCEventsListener) {
-        listeners.append(listener)
-    }
-
-    public func removeListener(_ listener: AKMIDIMMCEventsListener) {
-        listeners.removeAll { $0 == listener }
-    }
+    var observers: [AKMIDIMMCObserver] = []
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
@@ -127,42 +65,55 @@ open class AKMIDIMMCListener: AKMIDIListener {
             let newState = state.event(event: .stop)
             state = newState
 
-            listeners.forEach { (listener) in
-                listener.mmcStop(state: state)
-            }
+            sendStopToObservers()
         }
         if data[0] == AKMIDISystemCommand.start.rawValue {
             AKLog("Incoming MMC [Start]")
             let newState = state.event(event: .start)
             state = newState
 
-            listeners.forEach { (listener) in
-                listener.mmcStart(state: state)
-            }
+            sendStartToObservers()
         }
         if data[0] == AKMIDISystemCommand.continue.rawValue {
             AKLog("Incoming MMC [Continue]")
             let newState = state.event(event: .continue)
             state = newState
 
-            listeners.forEach { (listener) in
-                listener.mmcContinue(state: state)
-            }
+            sendContinueToObservers()
+        }
+    }
+}
+
+extension AKMIDIMMCListener {
+    public func addObserver(_ observer: AKMIDIMMCObserver) {
+        observers.append(observer)
+    }
+
+    public func removeObserver(_ observer: AKMIDIMMCObserver) {
+        observers.removeAll { $0 == observer }
+    }
+
+    public func removeAllObserver(_ observer: AKMIDIMMCObserver) {
+        observers.removeAll()
+    }
+
+    func sendStopToObservers() {
+        observers.forEach { (observer) in
+            observer.mmcStop(state: state)
         }
     }
 
-    func midiClockReceived() {
-        listeners.forEach { (listener) in
-            listener.midiClockSlaveMode()
+    func sendStartToObservers() {
+        observers.forEach { (observer) in
+            observer.mmcStart(state: state)
         }
     }
 
-    func midiClockStopped() {
-        listeners.forEach { (listener) in
-            listener.midiClockMasterEnabled()
+    func sendContinueToObservers() {
+        observers.forEach { (observer) in
+            observer.mmcContinue(state: state)
         }
     }
-
 }
 
 

@@ -1095,6 +1095,9 @@
 		C550836A21F676E200465A21 /* AKMIDIMMCListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C550836921F676E200465A21 /* AKMIDIMMCListener.swift */; };
 		C550836D21F68A9500465A21 /* AKMIDITimeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C550836C21F68A9500465A21 /* AKMIDITimeout.swift */; };
 		C58BBD1421F2DDFF006AD20F /* AKMIDIBPMListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58BBD1321F2DDFF006AD20F /* AKMIDIBPMListener.swift */; };
+		C5DEBEAA21F8FE5100A36FE7 /* AKMIDIBeatObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DEBEA921F8FE5100A36FE7 /* AKMIDIBeatObserver.swift */; };
+		C5DEBEAC21F8FE5800A36FE7 /* AKMIDIBPMObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DEBEAB21F8FE5800A36FE7 /* AKMIDIBPMObserver.swift */; };
+		C5DEBEAD21F8FE9E00A36FE7 /* AKMIDIMMCObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5DEBEA621F8FE4000A36FE7 /* AKMIDIMMCObserver.swift */; };
 		EA03BFCC201DD3CE00E8BE2C /* AKDSPBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFCB201DD3CE00E8BE2C /* AKDSPBase.mm */; };
 		EA03BFD0201DD87C00E8BE2C /* AKMandolinDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFCF201DD87B00E8BE2C /* AKMandolinDSPKernel.mm */; };
 		EA03BFEA202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */; };
@@ -2350,6 +2353,10 @@
 		C550836921F676E200465A21 /* AKMIDIMMCListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIMMCListener.swift; sourceTree = "<group>"; };
 		C550836C21F68A9500465A21 /* AKMIDITimeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDITimeout.swift; sourceTree = "<group>"; };
 		C58BBD1321F2DDFF006AD20F /* AKMIDIBPMListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIBPMListener.swift; sourceTree = "<group>"; };
+		C5DEBEA521F8FE3F00A36FE7 /* AKMIDIObserverMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIObserverMaster.swift; sourceTree = "<group>"; };
+		C5DEBEA621F8FE4000A36FE7 /* AKMIDIMMCObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMMCObserver.swift; sourceTree = "<group>"; };
+		C5DEBEA921F8FE5100A36FE7 /* AKMIDIBeatObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIBeatObserver.swift; sourceTree = "<group>"; };
+		C5DEBEAB21F8FE5800A36FE7 /* AKMIDIBPMObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIBPMObserver.swift; sourceTree = "<group>"; };
 		EA03BFCB201DD3CE00E8BE2C /* AKDSPBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPBase.mm; sourceTree = "<group>"; };
 		EA03BFCF201DD87B00E8BE2C /* AKMandolinDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMandolinDSPKernel.mm; sourceTree = "<group>"; };
 		EA03BFE9202070A000E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKRhinoGuitarProcessorDSPKernel.mm; sourceTree = "<group>"; };
@@ -2974,9 +2981,9 @@
 		C45664D51D448D7E00D26565 /* MIDI */ = {
 			isa = PBXGroup;
 			children = (
+				C44EA286201874770072399F /* README.md */,
 				C550836B21F68A6600465A21 /* Utilities */,
 				C58BBD1221F2DDC3006AD20F /* Listeners */,
-				C44EA286201874770072399F /* README.md */,
 				C45664DF1D448D7E00D26565 /* Enums */,
 				C45664E31D448D7E00D26565 /* Packets */,
 				C45664E71D448D7E00D26565 /* Sequencer */,
@@ -5192,9 +5199,13 @@
 		C58BBD1221F2DDC3006AD20F /* Listeners */ = {
 			isa = PBXGroup;
 			children = (
+				C5DEBEA521F8FE3F00A36FE7 /* AKMIDIObserverMaster.swift */,
+				C5DEBEAB21F8FE5800A36FE7 /* AKMIDIBPMObserver.swift */,
 				C58BBD1321F2DDFF006AD20F /* AKMIDIBPMListener.swift */,
-				C550836521F662E200465A21 /* BPM+StatisticalTools.swift */,
+				C5DEBEA921F8FE5100A36FE7 /* AKMIDIBeatObserver.swift */,
 				C550836721F6694C00465A21 /* BPM+BeatEstimator.swift */,
+				C550836521F662E200465A21 /* BPM+StatisticalTools.swift */,
+				C5DEBEA621F8FE4000A36FE7 /* AKMIDIMMCObserver.swift */,
 				C550836921F676E200465A21 /* AKMIDIMMCListener.swift */,
 			);
 			path = Listeners;
@@ -5897,6 +5908,7 @@
 				C45668F41D448D7E00D26565 /* AKDCBlock.swift in Sources */,
 				C457CBD2213C6CBD00AFDEBC /* EnsembleOscillator.cpp in Sources */,
 				C4C378FF1F0C55640085F876 /* AKSequencer.swift in Sources */,
+				C5DEBEAD21F8FE9E00A36FE7 /* AKMIDIMMCObserver.swift in Sources */,
 				C4F17CB22005F71600AFDE31 /* AKChowningReverbAudioUnit.swift in Sources */,
 				34BB66DD205ABBC0000E5450 /* tags.c in Sources */,
 				C49B1849204A0AD0009C7C8E /* line.c in Sources */,
@@ -6000,6 +6012,7 @@
 				C49B1B51204A0C48009C7C8E /* SineWave.cpp in Sources */,
 				075C6EC51F0D6C7C0075027C /* AKMIDITransformer.swift in Sources */,
 				C49B191D204A0AD1009C7C8E /* gen_file.c in Sources */,
+				C5DEBEAC21F8FE5800A36FE7 /* AKMIDIBPMObserver.swift in Sources */,
 				C49B184D204A0AD0009C7C8E /* foo.c in Sources */,
 				C457CBD8213C6CBD00AFDEBC /* DrawbarsOscillator.cpp in Sources */,
 				C49B1886204A0AD0009C7C8E /* tblrec.c in Sources */,
@@ -6007,6 +6020,7 @@
 				C4D4C4E61EB7175100134B39 /* AKTuningTable+EqualTemperament.swift in Sources */,
 				3404A779204F879600A2C9E4 /* ADSREnvelope.cpp in Sources */,
 				C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */,
+				C5DEBEAA21F8FE5100A36FE7 /* AKMIDIBeatObserver.swift in Sources */,
 				C49B1855204A0AD0009C7C8E /* tin.c in Sources */,
 				C49B18F5204A0AD1009C7C8E /* phasor.c in Sources */,
 				C49B188A204A0AD1009C7C8E /* randi.c in Sources */,
