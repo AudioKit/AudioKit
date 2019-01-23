@@ -8,9 +8,11 @@
 
 import AudioKit
 
-class Conductor {
+class Conductor : AKMIDIBeatEventListener {
 
-    var fmOscillator = AKFMOscillatorBank()
+    let bpmListenter = AKMIDIBPMListener()
+
+    let fmOscillator = AKFMOscillatorBank()
     var melodicSound: AKMIDINode!
     var verb: AKReverb2!
 
@@ -40,7 +42,7 @@ class Conductor {
 
         melodicSound = AKMIDINode(node: fmOscillator)
         verb = AKReverb2(melodicSound)
-        verb.dryWetMix = 0.5
+        verb.dryWetMix = 0.3
         verb.decayTimeAt0Hz = 7
         verb.decayTimeAtNyquist = 11
         verb.randomizeReflections = 600
@@ -87,8 +89,8 @@ class Conductor {
         generateSnareDrumGhostSequence()
 
         sequencer.enableLooping()
-        sequencer.setTempo(100)
-        sequencer.play()
+//        sequencer.setTempo(100)
+//        sequencer.play()
     }
 
     func generateNewMelodicSequence(_ stepSize: Float = 1 / 8, minor: Bool = false, clear: Bool = true) {
@@ -179,4 +181,22 @@ class Conductor {
         sequencer.tracks[typeOfSequence.rawValue].clear()
     }
 
+}
+
+extension Conductor {
+    func AKMidiMmcPreparePlay(continue: Bool) {
+        sequencer.preroll()
+    }
+
+    func AKMidiMmcStartFirstBeat(continue: Bool) {
+        sequencer.play()
+    }
+
+    func AKMidiMmcStop() {
+
+    }
+
+    func AKMidiQuarterNoteBeat() {
+
+    }
 }
