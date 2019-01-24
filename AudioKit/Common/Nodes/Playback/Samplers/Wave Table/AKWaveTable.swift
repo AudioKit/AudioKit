@@ -76,14 +76,7 @@ open class AKWaveTable: AKNode, AKComponent {
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
-            guard rate != newValue else { return }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    rateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
-            } else {
-                internalAU?.rate = Float(newValue)
-            }
+            internalAU?.rate = newValue
         }
     }
 
