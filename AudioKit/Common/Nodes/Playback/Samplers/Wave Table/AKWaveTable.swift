@@ -76,6 +76,8 @@ open class AKWaveTable: AKNode, AKComponent {
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
+            let clampedValue = simd_clamp(newValue, -10.0, 10.0)
+            guard rate != clampedValue else { return }
             internalAU?.rate = newValue
         }
     }
