@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 #pragma once
-#import "AKSoundpipeKernel.hpp"
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
@@ -32,7 +31,7 @@ enum {
     startPointAddress = 0,
 };
 
-class AKDIYSeqEngineDSPKernel : public AKSoundpipeKernel, public AKOutputBuffered {
+class AKDIYSeqEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
     // MARK: Member Functions
 
@@ -40,7 +39,6 @@ public:
 
     void init(int channelCount, double sampleRate) override {
         printf("deboog: inited diyseqengine\n");
-        AKSoundpipeKernel::init(channelCount, sampleRate);
     }
 
     void setTargetAU(AudioUnit target) {
@@ -70,7 +68,7 @@ public:
     }
 
     void destroy() {
-        AKSoundpipeKernel::destroy();
+        
     }
 
     void setStartPoint(float value) {
