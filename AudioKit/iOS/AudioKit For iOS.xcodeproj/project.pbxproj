@@ -1157,6 +1157,10 @@
 		FE2FC5C92094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
 		FE2FC5CA2094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
 		FE5839722080FA78008DBCE6 /* AKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5839712080FA78008DBCE6 /* AKError.swift */; };
+		FE5AB41721FBBED600EB669F /* DIYSeq.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41621FBBED600EB669F /* DIYSeq.swift */; };
+		FE5AB41921FBBEF300EB669F /* DIYSeqEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */; };
+		FE5AB41C21FBBF3100EB669F /* DIYSeqDSPKernel.hpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */; };
+		FE5AB41D21FBCA8600EB669F /* DIYSeqEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE72B20420895B9E00D861BC /* AudioKit+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B20320895B9E00D861BC /* AudioKit+Status.swift */; };
 		FE72B219208AA5AC00D861BC /* AudioKit+SafeConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B218208AA5AC00D861BC /* AudioKit+SafeConnections.swift */; };
 		FE72B21B208AA62600D861BC /* AVAudioEngine+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */; };
@@ -2414,6 +2418,10 @@
 		FE2FC5C62094E0BB007334A4 /* AKDualButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDualButton.swift; sourceTree = "<group>"; };
 		FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKitHelpers+Approximation.swift"; sourceTree = "<group>"; };
 		FE5839712080FA78008DBCE6 /* AKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKError.swift; sourceTree = "<group>"; };
+		FE5AB41621FBBED600EB669F /* DIYSeq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYSeq.swift; sourceTree = "<group>"; };
+		FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DIYSeqEngine.mm; sourceTree = "<group>"; };
+		FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIYSeqEngine.h; sourceTree = "<group>"; };
+		FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DIYSeqDSPKernel.hpp; sourceTree = "<group>"; };
 		FE72B20320895B9E00D861BC /* AudioKit+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+Status.swift"; sourceTree = "<group>"; };
 		FE72B218208AA5AC00D861BC /* AudioKit+SafeConnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKit+SafeConnections.swift"; sourceTree = "<group>"; };
 		FE72B21A208AA62600D861BC /* AVAudioEngine+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioEngine+Extensions.swift"; sourceTree = "<group>"; };
@@ -4131,6 +4139,7 @@
 		C48DB7E41CD5797100D1EC13 /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
+				FE5AB41521FBBE7C00EB669F /* DIYSeq */,
 				FEA22B6721ABDECB004E0A11 /* Timeline Sequencer */,
 				C49E9DF31D2B1F9100E5E8BF /* AKDuration.swift */,
 				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
@@ -5299,6 +5308,17 @@
 			path = dr_wav;
 			sourceTree = "<group>";
 		};
+		FE5AB41521FBBE7C00EB669F /* DIYSeq */ = {
+			isa = PBXGroup;
+			children = (
+				FE5AB41621FBBED600EB669F /* DIYSeq.swift */,
+				FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */,
+				FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */,
+				FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */,
+			);
+			path = DIYSeq;
+			sourceTree = "<group>";
+		};
 		FE771CE921920EFC00C7EB7E /* Callback Instrument */ = {
 			isa = PBXGroup;
 			children = (
@@ -5313,10 +5333,10 @@
 		FEA22B6721ABDECB004E0A11 /* Timeline Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				FEA22B6921ABDECB004E0A11 /* AKSequencerTrackEngine.m */,
-				FEA22B6A21ABDECB004E0A11 /* AKSequencerTrackEngine.h */,
-				FEA22B6B21ABDECB004E0A11 /* AKSequencerTrack.swift */,
 				FEA22B6C21ABDECB004E0A11 /* AKSeq.swift */,
+				FEA22B6B21ABDECB004E0A11 /* AKSequencerTrack.swift */,
+				FEA22B6A21ABDECB004E0A11 /* AKSequencerTrackEngine.h */,
+				FEA22B6921ABDECB004E0A11 /* AKSequencerTrackEngine.m */,
 			);
 			path = "Timeline Sequencer";
 			sourceTree = "<group>";
@@ -5617,6 +5637,7 @@
 				3404A7A120507B1500A2C9E4 /* SustainPedalLogic.hpp in Headers */,
 				C49B143F204A06B7009C7C8E /* def.h in Headers */,
 				C4A43294200618650005BFE4 /* AKChowningReverbDSP.hpp in Headers */,
+				FE5AB41D21FBCA8600EB669F /* DIYSeqEngine.h in Headers */,
 				C49B1526204A06B8009C7C8E /* Voicer.h in Headers */,
 				C49B143B204A06B7009C7C8E /* CombFilter.h in Headers */,
 				C49B153E204A06B8009C7C8E /* Wurley.h in Headers */,
@@ -5852,6 +5873,7 @@
 				C49B1468204A06B7009C7C8E /* vdelay.c in Sources */,
 				C49B1478204A06B8009C7C8E /* tseq.c in Sources */,
 				C49B13A8204A06B7009C7C8E /* maygate.c in Sources */,
+				FE5AB41921FBBEF300EB669F /* DIYSeqEngine.mm in Sources */,
 				C49232FC20284E4A001BB1C7 /* AKResonantFilterDSP.mm in Sources */,
 				F4CA85801EB666260066BE5C /* AKTuningTable+EqualTemperament.swift in Sources */,
 				C49B1480204A06B8009C7C8E /* dmetro.c in Sources */,
@@ -6026,6 +6048,7 @@
 				C49B148D204A06B8009C7C8E /* render.c in Sources */,
 				C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */,
 				E4630B501D2BC7F800437E75 /* AKMoogLadderPresets.swift in Sources */,
+				FE5AB41721FBBED600EB669F /* DIYSeq.swift in Sources */,
 				C4077B142008760F00E5923C /* AKKorgLowPassFilterAudioUnit.swift in Sources */,
 				C49B13D7204A06B7009C7C8E /* foo.c in Sources */,
 				C4D890C62028456D0002A86A /* AKRolandTB303FilterDSP.mm in Sources */,
@@ -6060,6 +6083,7 @@
 				C49B14C5204A06B8009C7C8E /* voc.c in Sources */,
 				FEAEDA5920F04AF8007E1EF6 /* AKMusicTrack+Load.swift in Sources */,
 				C45357882041550300C5C7CC /* AKAutoWah.swift in Sources */,
+				FE5AB41C21FBBF3100EB669F /* DIYSeqDSPKernel.hpp in Sources */,
 				C49B149A204A06B8009C7C8E /* scale.c in Sources */,
 				C4D890C0202842390002A86A /* AKThreePoleLowpassFilterDSP.mm in Sources */,
 				FE2C8B4C20DADB3800009BAC /* dr_wav.c in Sources */,

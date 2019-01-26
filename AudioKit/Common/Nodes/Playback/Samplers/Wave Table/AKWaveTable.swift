@@ -76,14 +76,9 @@ open class AKWaveTable: AKNode, AKComponent {
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
-            guard rate != newValue else { return }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    rateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
-            } else {
-                internalAU?.rate = Float(newValue)
-            }
+            let clampedValue = simd_clamp(newValue, -10.0, 10.0)
+            guard rate != clampedValue else { return }
+            internalAU?.rate = newValue
         }
     }
 
@@ -235,7 +230,7 @@ open class AKWaveTable: AKNode, AKComponent {
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)
         internalAU?.loopEndPoint = Float(self.endPoint)
-        internalAU?.rate = Float(rate)
+        internalAU?.rate = rate
         internalAU?.volume = Float(volume)
 
         if maximumSamples != 0 {
