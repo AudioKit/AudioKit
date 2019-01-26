@@ -32,8 +32,8 @@ open class DIYSeq: AKNode, AKComponent {
         }
     }
 
-    /// startPoint in samples - where to start playing the sample from
     private var startPoint: Sample = 0
+    var lengthInBeats: Double = 4.0
 
     // MARK: - Initialization
     @objc public override init() {
@@ -83,5 +83,19 @@ open class DIYSeq: AKNode, AKComponent {
 
     public func play() {
         internalAU?.start()
+    }
+    public func stop() {
+        internalAU?.stop()
+    }
+    public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0, beat: Double, duration: Double) {
+        var noteOffPosition: Double = (beat + duration);
+        while (noteOffPosition >= lengthInBeats && lengthInBeats != 0) {
+            noteOffPosition -= lengthInBeats;
+        }
+        addMIDIEvent(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: beat)
+        addMIDIEvent(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: noteOffPosition)
+    }
+    public func addMIDIEvent(status: AKMIDIStatus, data1: UInt8, data2: UInt8, beat: Double) {
+        internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: beat)
     }
 }
