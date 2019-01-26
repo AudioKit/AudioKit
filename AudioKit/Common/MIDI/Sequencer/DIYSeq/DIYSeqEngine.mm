@@ -16,7 +16,6 @@
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKDIYSeqEngineDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
-    struct MIDIEvent _events[512];
     int _noteCount;
     double _beatsPerSample;
     double _sampleRate;
@@ -33,6 +32,9 @@
 
 -(void)setTarget:(AudioUnit)target {
     _kernel.setTargetAU(target);
+}
+-(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat {
+    _kernel.addMIDIEvent(status, data1, data2, beat);
 }
 -(void)setLoopCallback:(AKCCallback)callback {
     _kernel.loopCallback = callback;

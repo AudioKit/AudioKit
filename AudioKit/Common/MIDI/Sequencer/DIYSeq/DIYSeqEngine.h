@@ -18,8 +18,7 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) AKCCallback loopCallback;
 
 -(void)setTarget:(AudioUnit)target;
--(void)play;
--(void)stop;
+-(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat;
 
 @end
 
