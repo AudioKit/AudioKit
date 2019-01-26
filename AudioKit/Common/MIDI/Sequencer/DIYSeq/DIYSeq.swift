@@ -12,6 +12,7 @@ import Foundation
 open class DIYSeq: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKDIYSeqEngine
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "diys")
 
@@ -21,6 +22,8 @@ open class DIYSeq: AKNode, AKComponent {
     private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
+    private var targetNode: AKNode?
+    private var engine: AKDIYSeqEngine!
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -33,9 +36,7 @@ open class DIYSeq: AKNode, AKComponent {
     private var startPoint: Sample = 0
 
     // MARK: - Initialization
-    
     @objc public override init() {
-
         _Self.register()
 
         super.init()
@@ -68,5 +69,19 @@ open class DIYSeq: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+    }
+
+    @objc public convenience init(targetNode: AKNode) {
+        self.init()
+        setTarget(node: targetNode)
+    }
+
+    public func setTarget(node: AKNode) {
+        targetNode = node
+        internalAU?.setTarget(targetNode?.avAudioUnit?.audioUnit)
+    }
+
+    public func play() {
+        internalAU?.start()
     }
 }
