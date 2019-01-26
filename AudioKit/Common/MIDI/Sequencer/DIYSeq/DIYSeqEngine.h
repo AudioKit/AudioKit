@@ -17,6 +17,10 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) float startPoint;
 @property (nonatomic) AKCCallback loopCallback;
 
+-(void)setTarget:(AudioUnit)target;
+-(void)play;
+-(void)stop;
+
 @end
 
 #endif /* DIYSeqEngine_h */

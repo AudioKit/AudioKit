@@ -44,14 +44,20 @@ public:
         AKSoundpipeKernel::init(channelCount, sampleRate);
     }
 
+    void setTargetAU(AudioUnit target) {
+        targetAU = target;
+    }
+
     void start() {
         printf("deboog: started diyseqengine\n");
         started = true;
+        isPlaying = true;
     }
 
     void stop() {
         printf("deboog: stopped diyseqengine\n");
         started = false;
+        isPlaying = false;
     }
     
     void reset() {
@@ -94,19 +100,23 @@ public:
     }
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
-        printf("deboog: loop via diyseqengine\n");
+        if (!isPlaying) {
+            return;
+        }
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
             int frameOffset = int(frameIndex + bufferOffset);
-
-            for (int channel = 0; channel < channels; ++channel) {
-
+            if (framesCounted % 44100 == 0) {
+                sendMidiData(targetAU, midiPort, midiEndpoint,
+                             0x90, 60, 100,
+                             frameIndex, 0);
             }
+            framesCounted++;
         }
     }
     
-    void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset, double time, int index) {
-        //printf("deboog: sending: %i %i at %f\n", status, data1, time);
+    void sendMidiData(AudioUnit audioUnit, MIDIPortRef midiPort, MIDIEndpointRef midiEndpoint, UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
+        printf("deboog: sending: %i %i at %f\n", status, data1, time);
         if (midiPort == 0 || midiEndpoint == 0) {
             MusicDeviceMIDIEvent(audioUnit, status, data1, data2, offset);
         } else {
@@ -125,10 +135,16 @@ public:
 private:
 
     float startPoint = 0;
+    AudioUnit targetAU;
+    UInt64 framesCounted = 0;
 
 public:
     bool started = false;
     bool resetted = false;
     ParameterRamper startPointRamper = 1;
+
+    bool isPlaying = false;
+    MIDIPortRef midiPort;
+    MIDIEndpointRef midiEndpoint;
     AKCCallback loopCallback = nullptr;
 };
