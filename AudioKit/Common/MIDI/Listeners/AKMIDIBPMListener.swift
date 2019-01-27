@@ -97,6 +97,8 @@ open class AKMIDIBPMListener : NSObject {
     }
 }
 
+// MARK: - BPM Analysis
+
 public extension AKMIDIBPMListener {
     func analyze() {
         guard clockEvents.count > 1 else { return }
