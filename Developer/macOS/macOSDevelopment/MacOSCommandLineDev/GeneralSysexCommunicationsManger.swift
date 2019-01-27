@@ -19,6 +19,7 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
     let midi = AudioKit.midi
     let synthK5000 = K5000messages()
+    let midiCi = MidiCiMessage(deviceId: .toFromMidiPort, subId2: <#T##midiCiSubID2#>)
 
     /// Defaults to 44 seconds, which is just a bit longer than it takes
     /// the largest K5000 sysex messages to be received.
@@ -43,19 +44,21 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
     public func requestAndWaitForResponse() {
         messageTimeout.perform {
             if SEND_SYSEX {
+                // K5000
                 // Very fast requests
                 let sysexMessage = synthK5000.oneSingleAreaA(channel: .channel0, patch: 0)
 //                let sysexMessage = synthK5000.oneCombinationAreaC(channel: .channel0, combi: 0)
 //                let sysexMessage = synthK5000.oneSingleAreaD(channel: .channel0, patch: 0)
 //                let sysexMessage = synthK5000.oneSingleAreaE(channel: .channel0, patch: 0)
 //                let sysexMessage = synthK5000.oneSingleAreaF(channel: .channel0, patch: 0)
-
                 // Very slow requests
 //                let sysexMessage = synthK5000.blockSingleAreaA(channel: .channel0)
 //                let sysexMessage = synthK5000.blockCombinationAreaC(channel: .channel0)
 //                let sysexMessage = synthK5000.blockSingleAreaD(channel: .channel0)
 //                let sysexMessage = synthK5000.blockSingleAreaE(channel: .channel0)
 //                let sysexMessage = synthK5000.blockSingleAreaF(channel: .channel0)
+
+                // MIDI CI
 
                 midi.sendMessage(sysexMessage)
             }

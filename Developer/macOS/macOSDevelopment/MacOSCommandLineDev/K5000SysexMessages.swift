@@ -12,7 +12,7 @@ import AudioKit
 
 /// K5000 manufacturer and machine bytes
 enum kawaiK5000: MIDIByte {
-    case manufacturerId = 0x40
+    case manufacturerId  = 0x40
     case machine         = 0x0A
 }
 
