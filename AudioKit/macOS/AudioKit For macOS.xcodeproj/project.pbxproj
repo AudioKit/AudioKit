@@ -5230,11 +5230,11 @@
 		FE081EE021E916F100653575 /* MIDIFile */ = {
 			isa = PBXGroup;
 			children = (
-				FE081EE121E916F100653575 /* AKMIDIFileChunk.swift */,
-				FE081EE221E916F100653575 /* AKMIDIFileChunkEvent.swift */,
+				FE081EE521E916F100653575 /* AKMIDIFile.swift */,
 				FE081EE321E916F100653575 /* AKMIDIFileHeaderChunk.swift */,
 				FE081EE421E916F100653575 /* AKMIDIFileTrackChunk.swift */,
-				FE081EE521E916F100653575 /* AKMIDIFile.swift */,
+				FE081EE121E916F100653575 /* AKMIDIFileChunk.swift */,
+				FE081EE221E916F100653575 /* AKMIDIFileChunkEvent.swift */,
 			);
 			path = MIDIFile;
 			sourceTree = "<group>";
@@ -5675,7 +5675,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -6799,7 +6799,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
