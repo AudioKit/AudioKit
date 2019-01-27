@@ -117,8 +117,9 @@ public extension AKMIDIBPMListener {
         let intervalNanos = (UInt64(tickDelta) * UInt64(timebaseInfo.numer)) / (UInt64(oneThousand) * UInt64(timebaseInfo.denom))
 
         //NSEC_PER_SEC
-//        let nsec_per_sec = NSEC_PER_SEC
-        let bpmCalc = BpmType((Float64(1000000) / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
+//        let nsec_per_sec = NSEC_PER_SEC  // This results in huge BPMs and appears to be off by a factor of 1000
+        let oneMillion = Float64(1000000)
+        let bpmCalc = BpmType((oneMillion / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
         smoothedBpm = bpmCalc.roundToDecimalPlaces(2)
 
         resetClockEventsLeavingOne()
