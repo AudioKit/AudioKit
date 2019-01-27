@@ -30,7 +30,9 @@ extension MIDIByte {
 }
 
 extension MIDIWord {
-    /// Construct a MIDIWord value that can be read as a 14 bit integer value
+    /// Construct a 14 bit integer MIDIWord value
+    ///
+    /// This would be used for converting two incoming MIDIBytes into a useable value
     ///
     /// - Parameters:
     ///   - byte1: The least significant byte in the 14 bit integer value
