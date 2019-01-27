@@ -149,7 +149,8 @@ extension AKMIDI {
                         let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
                         let transformedMIDIEventList = self.transformMIDIEventList(events)
                         // Note: incomplete sysex packets will not have a status
-                        for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil || transformedEvent.command != nil {
+                        for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
+                            || transformedEvent.command != nil {
                             self.handleMIDIMessage(transformedEvent)
                         }
                         packetCount += 1
