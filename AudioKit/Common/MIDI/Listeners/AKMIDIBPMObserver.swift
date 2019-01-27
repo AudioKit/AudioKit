@@ -25,15 +25,15 @@ public protocol AKMIDIBPMObserver {
 
 public extension AKMIDIBPMObserver {
 
-    func midiClockSlaveMode() {
+    public func midiClockSlaveMode() {
 
     }
 
-    func midiClockMasterEnabled() {
+    public func midiClockMasterEnabled() {
 
     }
 
-    func bpmUpdate(_ bpm: BpmType, bpmStr: String) {
+    public func bpmUpdate(_ bpm: BpmType, bpmStr: String) {
 
     }
 

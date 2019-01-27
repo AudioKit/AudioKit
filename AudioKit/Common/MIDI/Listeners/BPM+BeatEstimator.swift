@@ -16,7 +16,7 @@ import CoreMIDI
 /// on the very first clock event received.
 ///
 /// AKMIDIBeatEstimator requires to be an observer of both MMC and BPM events
-open class AKMIDIBeatEstimator : AKMIDIMMCObserver, AKMIDIBPMObserver  {
+open class AKMIDIBeatEstimator : NSObject {
     public var beatCounter: UInt64 = 0
     public var fourCount: UInt8 = 0
     let quarterNoteCount: UInt8
@@ -32,8 +32,9 @@ open class AKMIDIBeatEstimator : AKMIDIMMCObserver, AKMIDIBPMObserver  {
         mmcListener = mmc
         bpmListener = bpm
 
+        super.init()
         // self is now initialized
-        
+
         mmcListener.addObserver(self)
         bpmListener.addObserver(self)
     }
@@ -89,21 +90,21 @@ extension AKMIDIBeatEstimator {
 
 // MARK: - Beat Observations
 
-extension AKMIDIBeatEstimator {
+extension AKMIDIBeatEstimator : AKMIDIBPMObserver {
 
-    private func sendQuarterNoteMessageToObservers() {
+    internal func sendQuarterNoteMessageToObservers() {
         observers.forEach { (listener) in
             listener.AKMidiQuarterNoteBeat()
         }
     }
 
-    private func sendMmcPreparePlayToObservers(continue resume: Bool) {
+    internal func sendMmcPreparePlayToObservers(continue resume: Bool) {
         observers.forEach { (observer) in
             observer.AKMidiMmcPreparePlay(continue: resume)
         }
     }
 
-    func sendMmcStartContinueToObservers() {
+    internal func sendMmcStartContinueToObservers() {
         guard sendContinue || sendStart else { return }
 
         observers.forEach { (observer) in
@@ -111,7 +112,7 @@ extension AKMIDIBeatEstimator {
         }
     }
 
-    private func sendMmcStopToObservers() {
+    internal func sendMmcStopToObservers() {
         observers.forEach { (observer) in
             observer.AKMidiMmcStop()
         }
@@ -120,7 +121,7 @@ extension AKMIDIBeatEstimator {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIBeatEstimator  {
+extension AKMIDIBeatEstimator : AKMIDIMMCObserver {
 
     public func midiClockSlaveMode() {
         AKLog("[MIDI CLOCK SLAVE]")
