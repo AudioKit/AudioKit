@@ -57,4 +57,20 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel), data1: noteNumber, data2: 0)
     }
+
+    override open func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        triggerCallbacks(AKMIDIStatus(type: .controllerChange, channel: channel), data1: controller, data2: value)
+    }
+
+    override open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                              pressure: MIDIByte,
+                                              channel: MIDIChannel) {
+        triggerCallbacks(AKMIDIStatus(type: .polyphonicAftertouch, channel: channel), data1: controller, data2: value)
+    }
+
+    override open func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+    }
+
+    override open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+    }
 }
