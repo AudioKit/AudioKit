@@ -23,34 +23,58 @@ import CoreMIDI
 
 public typealias BpmType = TimeInterval
 
-open class AKMIDIBPMListener: AKMIDIListener {
+/// A AudioKit midi listener that looks at midi clock messages and calculates a BPM
+///
+/// Usage:
+///
+///     let bpmListener = AKMIDIBPMListener()
+///     AudioKit.midi.addListener(bpmListener)
+///
+/// Make your class a AKMIDIBPMObserver and you will recieve callbacks when the BPM
+/// changes.
+///
+///     class YOURCLASS : AKMIDIBPMObserver {
+///         func bpmUpdate(_ bpm: BpmType, bpmStr: String) {  ... }
+///         func midiClockSlaveMode() { ... }
+///         func midiClockMasterEnabled() { ... }
+///
+/// midiClockSlaveMode() informs client that midi clock messages have been received
+/// and the client may not become the clock master.
+///
+/// midiClockMasterEnabled() informs client that midi clock messages have not been seen
+/// in 1.6 seconds and the client is allowed to become the clock master.
+///
+open class AKMIDIBPMListener : NSObject {
 
-    public var beatEstimator: AKMIDIBeatEstimator?
+    var beatEstimator: AKMIDIBeatEstimator?
 
-    public var mmcListener = AKMIDIMMCListener()
+    var mmcListener = AKMIDIMMCListener()
 
-    private var bpmObservers: [AKMIDIBPMObserver] = []
+    var bpmObservers: [AKMIDIBPMObserver] = []
 
     public var bpmStr: String = ""
     public var bpm: BpmType = 0
-    private var clockEvents: [UInt64] = []
-    private let clockEventLimit = 2
-    private var bpmStats = BpmHistoryStatistics()
-    private var bpmAveraging: BpmHistoryAveraging
-    private var timebaseInfo = mach_timebase_info()
-    private var tickSmoothing: ValueSmoothing
-    private var smoothedBpm = BpmType(0)
+    var clockEvents: [UInt64] = []
+    let clockEventLimit = 2
+    var bpmStats = BpmHistoryStatistics()
+    var bpmAveraging: BpmHistoryAveraging
+    var timebaseInfo = mach_timebase_info()
+    var tickSmoothing: ValueSmoothing
+    var smoothedBpm = BpmType(0)
 
-    private var clockTimeout: AKMIDITimeout?
-    private var incomingClockActive = false
+    var clockTimeout: AKMIDITimeout?
+    var incomingClockActive = false
 
-    private let BEAT_TICKS = 24
-    private let oneThousand = UInt64(1000)
+    let BEAT_TICKS = 24
+    let oneThousand = UInt64(1000)
 
-    @objc public init(smoothing: Float64 = 0.1, bpmHistoryLimit: Int = 192) {
+    //192
+    @objc public init(smoothing: Float64 = 0.5, bpmHistoryLimit: Int = 24) {
         assert(bpmHistoryLimit > 0, "You must specify a positive number for bpmHistoryLimit")
         tickSmoothing = ValueSmoothing(factor: smoothing)
         bpmAveraging = BpmHistoryAveraging(countLimit: bpmHistoryLimit)
+
+        super.init()
 
         beatEstimator = AKMIDIBeatEstimator(mmcListener: mmcListener, bpmListener: self)
 
@@ -71,30 +95,10 @@ open class AKMIDIBPMListener: AKMIDIListener {
         clockTimeout = nil
         beatEstimator = nil
     }
+}
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
-        if data[0] == AKMIDISystemCommand.clock.rawValue {
-            clockTimeout?.succeed()
-            clockTimeout?.perform {
-                if self.incomingClockActive == false {
-                    midiClockActivityStarted()
-                    self.incomingClockActive = true
-                }
-                clockEvents.append(time)
-                analyze()
-                beatEstimator?.midiClockBeat()
-            }
-        }
-        if data[0] == AKMIDISystemCommand.stop.rawValue {
-            resetClockEventsLeavingNone()
-        }
-        if data[0] == AKMIDISystemCommand.start.rawValue {
-            resetClockEventsLeavingOne()
-        }
-        mmcListener.receivedMIDISystemCommand(data, time: time)
-    }
-
-    private func analyze() {
+public extension AKMIDIBPMListener {
+    func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
         guard clockEvents.count >= clockEventLimit else { return}
@@ -112,7 +116,9 @@ open class AKMIDIBPMListener: AKMIDIListener {
         }
         let intervalNanos = (UInt64(tickDelta) * UInt64(timebaseInfo.numer)) / (UInt64(oneThousand) * UInt64(timebaseInfo.denom))
 
-        let bpmCalc = BpmType((Float64(NSEC_PER_SEC) / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
+        //NSEC_PER_SEC
+//        let nsec_per_sec = NSEC_PER_SEC
+        let bpmCalc = BpmType((Float64(1000000) / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
         smoothedBpm = bpmCalc.roundToDecimalPlaces(2)
 
         resetClockEventsLeavingOne()
@@ -135,25 +141,52 @@ open class AKMIDIBPMListener: AKMIDIListener {
         }
     }
 
-    private func resetClockEventsLeavingOne() {
+    func resetClockEventsLeavingOne() {
         guard clockEvents.count > 1 else { return }
         clockEvents = clockEvents.dropFirst(clockEvents.count-1).map { $0 }
     }
 
-    private func resetClockEventsLeavingHalf() {
+    func resetClockEventsLeavingHalf() {
         guard clockEvents.count > 1 else { return }
         clockEvents = clockEvents.dropFirst(clockEvents.count/2).map { $0 }
     }
 
-    private func resetClockEventsLeavingNone() {
+    func resetClockEventsLeavingNone() {
         guard clockEvents.count > 1 else { return }
         clockEvents = []
     }
 }
 
+// MARK: - AKMIDIBPMListener should be used as an AKMIDIListener
+
+extension AKMIDIBPMListener : AKMIDIListener {
+
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
+        if data[0] == AKMIDISystemCommand.clock.rawValue {
+            clockTimeout?.succeed()
+            clockTimeout?.perform {
+                if self.incomingClockActive == false {
+                    midiClockActivityStarted()
+                    self.incomingClockActive = true
+                }
+                clockEvents.append(time)
+                analyze()
+                beatEstimator?.midiClockBeat()
+            }
+        }
+        if data[0] == AKMIDISystemCommand.stop.rawValue {
+            resetClockEventsLeavingNone()
+        }
+        if data[0] == AKMIDISystemCommand.start.rawValue {
+            resetClockEventsLeavingOne()
+        }
+        mmcListener.receivedMIDISystemCommand(data, time: time)
+    }
+}
+
 // MARK: - Management and Communications for BPM Observers
 
-extension AKMIDIBPMListener {
+public extension AKMIDIBPMListener {
     public func addObserver(_ observer: AKMIDIBPMObserver) {
         bpmObservers.append(observer)
     }

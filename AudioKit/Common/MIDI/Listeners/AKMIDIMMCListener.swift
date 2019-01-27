@@ -11,7 +11,7 @@ import CoreMIDI
 
 /// This AKMIDIListener looks for midi machine control (mmc)
 /// midi system messages.
-open class AKMIDIMMCListener: AKMIDIListener {
+open class AKMIDIMMCListener : NSObject {
     enum mmc_event: MIDIByte {
         case stop = 0xFC
         case start = 0xFA
@@ -58,7 +58,9 @@ open class AKMIDIMMCListener: AKMIDIListener {
 
     var state: mmc_state = .stopped
     var observers: [AKMIDIMMCObserver] = []
+}
 
+extension AKMIDIMMCListener : AKMIDIListener {
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")
