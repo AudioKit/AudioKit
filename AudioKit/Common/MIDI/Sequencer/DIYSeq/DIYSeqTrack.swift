@@ -9,7 +9,7 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class DIYSeq: AKNode, AKComponent {
+open class DIYSeqTrack: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKDIYSeqEngine
 
