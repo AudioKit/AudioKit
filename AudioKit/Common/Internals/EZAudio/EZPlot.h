@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "AudioKit/EZAudioUtilities.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Enumerations
