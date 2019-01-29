@@ -60,7 +60,7 @@ public:
         started = false;
         isPlaying = false;
     }
-    
+
     void reset() {
         printf("deboog: resetted diyseqengine\n");
         resetted = true;
@@ -68,7 +68,7 @@ public:
     }
 
     void destroy() {
-        
+
     }
 
     void setStartPoint(float value) {
@@ -104,16 +104,14 @@ public:
 
         if (isPlaying) {
             if (positionInSamples >= lengthInSamples()){
-                if (loopEnabled) {
-                    positionInSamples = 0;
-                } else {
+                if (!loopEnabled) { //stop if played enough
                     printf("deboog: seq finished %i \n", lengthInSamples());
                     stop();
                     return;
                 }
             }
-            UInt64 currentStartSample = positionModulo();
-            UInt64 currentEndSample = currentStartSample + frameCount;
+            int currentStartSample = positionModulo();
+            int currentEndSample = currentStartSample + frameCount;
             for (int i = 0; i < eventCount; i++) {
                 int triggerTime = beatToSamples(events[i].beat);
                 if ((currentStartSample <= triggerTime && triggerTime < currentEndSample)
@@ -121,17 +119,15 @@ public:
                     int offset = (int)(triggerTime - currentStartSample);
                     sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                  offset, events[i].beat);
-                    //printf("deboog event %i will fire at %i offset %i \n", i, triggerTime, offset);
+                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    int loopRestartInBuffer = lengthInSamples() - currentStartSample;
+                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    if (triggerTime < samplesOfBufferForNewLoop) {
+                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        sendMidiData(events[i].status, events[i].data1, events[i].data2,
+                                     offset, events[i].beat);
+                    }
                 }
-
-                //            if (((startSample <= triggerTime && triggerTime <= endSample)) && *stopAfterCurrentNotes == false)
-                //            {
-                //                int time = triggerTime - startSample + offset;
-                //                if (self->_eventCallback != NULL) {
-                //                    self->_eventCallback(events[i].status, events[i].data1, events[i].data2);
-                //                }
-
-                //            }
             }
             positionInSamples += frameCount;
         }
@@ -148,9 +144,8 @@ public:
         return eventCount;
     }
 
-private:
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
-//        printf("deboog: sending: %i %i at %f\n", status, data1, time);
+//        printf("deboog: sending: %i %i %i at offset %f (%f beats)\n", status, data1, data2, offset, time);
         if (midiPort == 0 || midiEndpoint == 0) {
             MusicDeviceMIDIEvent(targetAU, status, data1, data2, offset);
         } else {
