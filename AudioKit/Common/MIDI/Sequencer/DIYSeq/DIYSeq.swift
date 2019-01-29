@@ -17,6 +17,14 @@ open class DIYSeq: AKNode, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "diys")
 
     // MARK: - Properties
+    public var loopEnabled: Bool {
+        set {
+            internalAU?.loopEnabled = newValue
+        }
+        get {
+            return internalAU?.loopEnabled ?? false
+        }
+    }
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
