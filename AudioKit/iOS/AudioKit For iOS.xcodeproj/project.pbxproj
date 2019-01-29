@@ -1157,7 +1157,7 @@
 		FE2FC5C92094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
 		FE2FC5CA2094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
 		FE5839722080FA78008DBCE6 /* AKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5839712080FA78008DBCE6 /* AKError.swift */; };
-		FE5AB41721FBBED600EB669F /* DIYSeq.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41621FBBED600EB669F /* DIYSeq.swift */; };
+		FE5AB41721FBBED600EB669F /* DIYSeqTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */; };
 		FE5AB41921FBBEF300EB669F /* DIYSeqEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */; };
 		FE5AB41C21FBBF3100EB669F /* DIYSeqDSPKernel.hpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */; };
 		FE5AB41D21FBCA8600EB669F /* DIYSeqEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2418,7 +2418,7 @@
 		FE2FC5C62094E0BB007334A4 /* AKDualButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDualButton.swift; sourceTree = "<group>"; };
 		FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKitHelpers+Approximation.swift"; sourceTree = "<group>"; };
 		FE5839712080FA78008DBCE6 /* AKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKError.swift; sourceTree = "<group>"; };
-		FE5AB41621FBBED600EB669F /* DIYSeq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYSeq.swift; sourceTree = "<group>"; };
+		FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYSeqTrack.swift; sourceTree = "<group>"; };
 		FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DIYSeqEngine.mm; sourceTree = "<group>"; };
 		FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIYSeqEngine.h; sourceTree = "<group>"; };
 		FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DIYSeqDSPKernel.hpp; sourceTree = "<group>"; };
@@ -5311,7 +5311,7 @@
 		FE5AB41521FBBE7C00EB669F /* DIYSeq */ = {
 			isa = PBXGroup;
 			children = (
-				FE5AB41621FBBED600EB669F /* DIYSeq.swift */,
+				FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */,
 				FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */,
 				FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */,
 				FE5AB41B21FBBF3100EB669F /* DIYSeqDSPKernel.hpp */,
@@ -6048,7 +6048,7 @@
 				C49B148D204A06B8009C7C8E /* render.c in Sources */,
 				C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */,
 				E4630B501D2BC7F800437E75 /* AKMoogLadderPresets.swift in Sources */,
-				FE5AB41721FBBED600EB669F /* DIYSeq.swift in Sources */,
+				FE5AB41721FBBED600EB669F /* DIYSeqTrack.swift in Sources */,
 				C4077B142008760F00E5923C /* AKKorgLowPassFilterAudioUnit.swift in Sources */,
 				C49B13D7204A06B7009C7C8E /* foo.c in Sources */,
 				C4D890C62028456D0002A86A /* AKRolandTB303FilterDSP.mm in Sources */,

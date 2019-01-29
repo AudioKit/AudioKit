@@ -113,16 +113,21 @@ public:
             int currentStartSample = positionModulo();
             int currentEndSample = currentStartSample + frameCount;
             for (int i = 0; i < eventCount; i++) {
+                // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
                 if ((currentStartSample <= triggerTime && triggerTime < currentEndSample)
                     && stopAfterCurrentNotes == false) {
+                    // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
                     sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                  offset, events[i].beat);
                 } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    // this buffer extends beyond the length of the loop and looping is on
                     int loopRestartInBuffer = lengthInSamples() - currentStartSample;
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
+                        // this event would trigger early enough in the next loop that it should happen in this buffer
+                        // ie. this buffer contains events from the previous loop, and the next loop
                         int offset = (int)triggerTime + loopRestartInBuffer;
                         sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                      offset, events[i].beat);
