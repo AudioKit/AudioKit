@@ -15,7 +15,11 @@ typedef void (^AKCCallback)(void);
 
 @interface AKDIYSeqEngine : AKAudioUnit
 @property (nonatomic) float startPoint;
+@property (nonatomic) bool loopEnabled;
 @property (nonatomic) AKCCallback loopCallback;
+
+-(void)setTarget:(AudioUnit)target;
+-(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat;
 
 @end
 

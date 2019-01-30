@@ -16,23 +16,21 @@
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKDIYSeqEngineDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
-    MIDIPortRef _midiPort;
-    MIDIEndpointRef _midiEndpoint;
-    struct MIDIEvent _events[512];
-    int _noteCount;
-    double _beatsPerSample;
-    double _sampleRate;
-    double _lengthInBeats;
-    uint _playCount;
-    uint _maximumPlayCount;
-    BOOL _stopAfterCurrentNotes;
-    Float64 _startOffset;
-    Float64 _lastStartSample; //Used for detecting sequence loopback
-    bool _isPlaying;
-    AudioUnit _audioUnit;
 }
 @synthesize parameterTree = _parameterTree;
 
+-(void)setLoopEnabled:(bool)loopEnabled {
+    _kernel.loopEnabled = loopEnabled;
+}
+-(bool)loopEnabled {
+    return _kernel.loopEnabled;
+}
+-(void)setTarget:(AudioUnit)target {
+    _kernel.setTargetAU(target);
+}
+-(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat {
+    _kernel.addMIDIEvent(status, data1, data2, beat);
+}
 -(void)setLoopCallback:(AKCCallback)callback {
     _kernel.loopCallback = callback;
 }

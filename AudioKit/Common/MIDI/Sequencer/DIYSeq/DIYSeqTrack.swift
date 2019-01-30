@@ -9,18 +9,29 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class DIYSeq: AKNode, AKComponent {
+open class DIYSeqTrack: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKDIYSeqEngine
+
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "diys")
 
     // MARK: - Properties
+    public var loopEnabled: Bool {
+        set {
+            internalAU?.loopEnabled = newValue
+        }
+        get {
+            return internalAU?.loopEnabled ?? false
+        }
+    }
 
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
+    private var targetNode: AKNode?
+    private var engine: AKDIYSeqEngine!
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -29,13 +40,11 @@ open class DIYSeq: AKNode, AKComponent {
         }
     }
 
-    /// startPoint in samples - where to start playing the sample from
     private var startPoint: Sample = 0
+    var lengthInBeats: Double = 4.0
 
     // MARK: - Initialization
-    
     @objc public override init() {
-
         _Self.register()
 
         super.init()
@@ -68,5 +77,33 @@ open class DIYSeq: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+    }
+
+    @objc public convenience init(targetNode: AKNode) {
+        self.init()
+        setTarget(node: targetNode)
+    }
+
+    public func setTarget(node: AKNode) {
+        targetNode = node
+        internalAU?.setTarget(targetNode?.avAudioUnit?.audioUnit)
+    }
+
+    public func play() {
+        internalAU?.start()
+    }
+    public func stop() {
+        internalAU?.stop()
+    }
+    public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0, beat: Double, duration: Double) {
+        var noteOffPosition: Double = (beat + duration);
+        while (noteOffPosition >= lengthInBeats && lengthInBeats != 0) {
+            noteOffPosition -= lengthInBeats;
+        }
+        addMIDIEvent(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: beat)
+        addMIDIEvent(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: noteOffPosition)
+    }
+    public func addMIDIEvent(status: AKMIDIStatus, data1: UInt8, data2: UInt8, beat: Double) {
+        internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: beat)
     }
 }
