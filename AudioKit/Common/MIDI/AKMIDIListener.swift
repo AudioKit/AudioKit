@@ -89,6 +89,9 @@ public protocol AKMIDIListener {
 
     /// MIDI Setup has changed
     func receivedMIDISetupChange()
+
+    /// MIDI Object Property has changed
+    func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification)
 }
 
 /// Default listener functions
@@ -185,6 +188,11 @@ public extension AKMIDIListener {
     /// MIDI Setup has changed
     func receivedMIDISetupChange() {
         AKLog("MIDI Setup Has Changed.")
+    }
+
+    /// MIDI Setup has changed
+    func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
+        AKLog("MIDI Property Has Changed.")
     }
 
     func isEqualTo(_ listener : AKMIDIListener) -> Bool {

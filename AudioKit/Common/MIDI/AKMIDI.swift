@@ -70,11 +70,23 @@ open class AKMIDI {
 
         if client == 0 {
             let result = MIDIClientCreateWithBlock(clientName, &client) {
-                guard $0.pointee.messageID == .msgSetupChanged else {
-                    return
-                }
-                for l in self.listeners {
-                    l.receivedMIDISetupChange()
+                let messageID = $0.pointee.messageID
+
+                switch messageID {
+                case .msgSetupChanged:
+                    for l in self.listeners {
+                        l.receivedMIDISetupChange()
+                    }
+                    break
+                case .msgPropertyChanged:
+                    let rawPtr = UnsafeRawPointer($0)
+                    let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
+                    for l in self.listeners {
+                        l.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
+                    }
+                    break
+                default:
+                    break
                 }
             }
             if result != noErr {
