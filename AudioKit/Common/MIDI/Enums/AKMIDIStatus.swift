@@ -80,7 +80,7 @@ public enum AKMIDIStatusType: Int {
         switch self {
         case .programChange, .channelAftertouch:
             return 2
-        case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
+        case .noteOff, .noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
             return 3
         }
     }
