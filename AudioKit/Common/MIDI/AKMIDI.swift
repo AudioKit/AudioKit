@@ -75,7 +75,7 @@ open class AKMIDI {
                 switch messageID {
                 case .msgSetupChanged:
                     for l in self.listeners {
-                        l.receivedMIDISetupChange(notification: $0.pointee)
+                        l.receivedMIDISetupChange()
                     }
                     break
                 case .msgPropertyChanged:
@@ -86,6 +86,9 @@ open class AKMIDI {
                     }
                     break
                 default:
+                    for l in self.listeners {
+                        l.receivedMIDINotification(notification: $0.pointee)
+                    }
                     break
                 }
             }
