@@ -189,7 +189,7 @@ public extension AKMIDIListener {
     }
 
     /// MIDI Setup has changed
-    func receivedMIDISetupChange(notification: MIDINotification? = nil) {
+    func receivedMIDISetupChange() {
         AKLog("MIDI Setup Has Changed.")
     }
 
