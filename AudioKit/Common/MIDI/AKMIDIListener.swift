@@ -88,7 +88,7 @@ public protocol AKMIDIListener {
     func receivedMIDISystemCommand(_ data: [MIDIByte])
 
     /// MIDI Setup has changed
-    func receivedMIDISetupChange()
+    func receivedMIDISetupChange(notification: MIDINotification?)
 
     /// MIDI Object Property has changed
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification)
@@ -186,7 +186,7 @@ public extension AKMIDIListener {
     }
 
     /// MIDI Setup has changed
-    func receivedMIDISetupChange() {
+    func receivedMIDISetupChange(notification: MIDINotification? = nil) {
         AKLog("MIDI Setup Has Changed.")
     }
 
