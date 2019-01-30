@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum AKMIDIMetaEventType : MIDIByte {
+public enum AKMIDIMetaEventType: MIDIByte {
     case sequenceNumber = 0x00
     case textEvent = 0x01
     case copyright = 0x02
@@ -84,7 +84,7 @@ public struct AKMIDIMetaEvent {
 
     public init?(data: [MIDIByte]) {
         if data.count > 2,
-            let _ = AKMIDIMetaEventType(rawValue: data[1]) {
+            AKMIDIMetaEventType(rawValue: data[1]) != nil {
             self.data = data
         }
         return nil
