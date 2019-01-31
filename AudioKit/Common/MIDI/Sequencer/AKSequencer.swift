@@ -1,5 +1,5 @@
 //
-//  AKMusicSequencer.swift
+//  AKSequencer.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on GitHub.
