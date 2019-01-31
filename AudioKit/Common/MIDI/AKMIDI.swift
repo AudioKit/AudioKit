@@ -77,19 +77,16 @@ open class AKMIDI {
                     for l in self.listeners {
                         l.receivedMIDISetupChange()
                     }
-                    break
                 case .msgPropertyChanged:
                     let rawPtr = UnsafeRawPointer($0)
                     let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
                     for l in self.listeners {
                         l.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
                     }
-                    break
                 default:
                     for l in self.listeners {
                         l.receivedMIDINotification(notification: $0.pointee)
                     }
-                    break
                 }
             }
             if result != noErr {
