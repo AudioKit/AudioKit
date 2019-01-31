@@ -74,18 +74,18 @@ open class AKMIDI {
 
                 switch messageID {
                 case .msgSetupChanged:
-                    for l in self.listeners {
-                        l.receivedMIDISetupChange()
+                    for listener in self.listeners {
+                        listener.receivedMIDISetupChange()
                     }
                 case .msgPropertyChanged:
                     let rawPtr = UnsafeRawPointer($0)
                     let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
-                    for l in self.listeners {
-                        l.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
+                    for listener in self.listeners {
+                        listener.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
                     }
                 default:
-                    for l in self.listeners {
-                        l.receivedMIDINotification(notification: $0.pointee)
+                    for listener in self.listeners {
+                        listener.receivedMIDINotification(notification: $0.pointee)
                     }
                 }
             }
