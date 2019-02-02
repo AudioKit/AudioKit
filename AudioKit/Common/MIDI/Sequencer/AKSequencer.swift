@@ -7,7 +7,7 @@
 //
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
-open class AKSequencer {
+open class AKSequencer: NSObject {
 
     /// Music sequence
     open var sequence: MusicSequence?
@@ -25,7 +25,7 @@ open class AKSequencer {
     open private(set) var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    @objc public init() {
+    override public init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
