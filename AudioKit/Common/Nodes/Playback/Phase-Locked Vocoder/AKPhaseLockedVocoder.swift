@@ -110,7 +110,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     ///   - amplitude: Amplitude.
     ///   - pitchRatio: Pitch ratio. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
-    @objc public init(
+    public init(
         file: AVAudioFile,
         position: Double = 0,
         amplitude: Double = 1,
@@ -160,7 +160,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -250,7 +250,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

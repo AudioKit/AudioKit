@@ -257,7 +257,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - equalizerLevel2: Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
     ///   - dryWetMix: 0 = all dry, 1 = all wet
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         predelay: Double = defaultPredelay,
         crossoverFrequency: Double = defaultCrossoverFrequency,
@@ -339,12 +339,12 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

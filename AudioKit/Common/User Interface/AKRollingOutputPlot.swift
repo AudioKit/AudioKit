@@ -16,7 +16,7 @@ open class AKRollingOutputPlot: AKNodeOutputPlot {
     ///   - frame: CGRect in which to draw the plot
     ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
-    @objc public init(frame: CGRect, bufferSize: Int = 1_024) {
+    public init(frame: CGRect, bufferSize: Int = 1_024) {
         super.init(frame: frame)
         self.bufferSize = UInt32(bufferSize)
 

@@ -69,7 +69,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the
     ///                   delay time or “echo density” of the reverberation.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         reverbDuration: Double = defaultReverbDuration,
         loopDuration: Double = defaultLoopDuration
@@ -118,12 +118,12 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

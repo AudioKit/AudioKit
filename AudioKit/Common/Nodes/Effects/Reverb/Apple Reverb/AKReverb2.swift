@@ -163,7 +163,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         dryWetMix: Double = 0.5,
         gain: Double = 0,
@@ -238,7 +238,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -246,7 +246,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

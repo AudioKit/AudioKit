@@ -34,7 +34,7 @@ open class AKClipRecorder {
     ///
     /// - Parameter node: The node that audio will be recorded from
     ///
-    @objc public init(node: AKOutput) {
+    public init(node: AKOutput) {
         self.node = node
         timing = AKNodeTiming(node: node)
         node.outputNode.installTap(onBus: 0, bufferSize: 256, format: nil, block: self.audioTap)

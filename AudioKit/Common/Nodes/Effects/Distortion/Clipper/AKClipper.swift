@@ -60,7 +60,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - limit: Threshold / limiting value.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         limit: Double = defaultLimit
         ) {
@@ -106,12 +106,12 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

@@ -106,7 +106,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - bandwidth: The peak/notch bandwidth in Hertz
     ///   - gain: The peak/notch gain
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = defaultCenterFrequency,
         bandwidth: Double = defaultBandwidth,
@@ -160,12 +160,12 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

@@ -68,7 +68,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - decayDuration: Decay Duration (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         attackDuration: Double = 0.012,
         decayDuration: Double = 0.024,
@@ -112,7 +112,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -120,7 +120,7 @@ open class AKPeakLimiter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

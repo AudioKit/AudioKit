@@ -155,7 +155,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
     ///   - amplitude: Output Amplitude.
     ///
-    @objc public init(
+    public init(
         waveform: AKTable,
         baseFrequency: Double = defaultBaseFrequency,
         carrierMultiplier: Double = defaultCarrierMultiplier,
@@ -217,12 +217,12 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

@@ -25,7 +25,7 @@ open class AKSequencer {
     open private(set) var loopEnabled: Bool = false
 
     /// Sequencer Initialization
-    @objc public init() {
+    public init() {
         NewMusicSequence(&sequence)
         if let existingSequence = sequence {
             sequencePointer = UnsafeMutablePointer<MusicSequence>(existingSequence)
@@ -491,7 +491,7 @@ open class AKSequencer {
     }
 
     /// Stop the sequence
-    @objc open func stop() {
+    open func stop() {
         if let existingMusicPlayer = musicPlayer {
             MusicPlayerStop(existingMusicPlayer)
         }

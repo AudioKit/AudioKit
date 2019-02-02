@@ -105,7 +105,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - attackDuration: Impulse response attack duration (in seconds).
     ///   - decayDuration: Impulse reponse decay duration (in seconds)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = defaultCenterFrequency,
         attackDuration: Double = defaultAttackDuration,
@@ -159,12 +159,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

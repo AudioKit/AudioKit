@@ -193,7 +193,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Amplitude.
     ///
     @available(*, deprecated, message: "The physical model is inherently unstable and unpredictable, use at your own risk/discrertion.")
-    @objc public init(
+    public init(
         intensity: Double = 10,
         dampingFactor: Double = defaultDampingFactor,
         energyReturn: Double = defaultEnergyReturn,
@@ -266,12 +266,12 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

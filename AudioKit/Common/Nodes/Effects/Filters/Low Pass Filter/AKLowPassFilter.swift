@@ -61,7 +61,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     ///   - resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 6_900,
         resonance: Double = 0) {
@@ -101,7 +101,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -109,7 +109,7 @@ open class AKLowPassFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

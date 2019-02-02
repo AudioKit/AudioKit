@@ -30,7 +30,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     ///   - input: AKNode to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
-    @objc public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
+    public init(_ input: AKNode? = nil, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
         super.init()
 
@@ -48,7 +48,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -56,7 +56,7 @@ open class AKReverb: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

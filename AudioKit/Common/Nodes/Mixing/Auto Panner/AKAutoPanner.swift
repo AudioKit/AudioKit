@@ -72,7 +72,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - depth: Depth
     ///   - waveform:  Shape of the panner (default to sine)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         frequency: Double = 10,
         depth: Double = 1.0,
@@ -128,12 +128,12 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

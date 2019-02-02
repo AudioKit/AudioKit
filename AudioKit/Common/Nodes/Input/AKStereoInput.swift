@@ -7,7 +7,7 @@
 //
 
 /// Audio from a standard stereo input (very useful for making filters that use Audiobus or IAA as their input source)
-@objc open class AKStereoInput: AKNode, AKToggleable {
+open class AKStereoInput: AKNode, AKToggleable {
 
     internal let mixer = AVAudioMixerNode()
 
@@ -44,14 +44,14 @@
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             volume = lastKnownVolume
         }
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownVolume = volume
             volume = 0

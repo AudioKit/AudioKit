@@ -8,7 +8,7 @@
 
 /// Sampler
 ///
-@objc open class AKSampler: AKPolyphonicNode, AKComponent {
+open class AKSampler: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSamplerAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKss")
@@ -301,7 +301,7 @@
     ///   - keyTracking: -2.0 - 2.0, 1.0 means perfect key tracking, 0.0 means none
     ///   - filterEnvelopeVelocityScaling: fraction, 0.0 - 1.0
     ///
-    @objc public init(
+    public init(
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,

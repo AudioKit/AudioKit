@@ -8,7 +8,7 @@
 
 /// Synth
 ///
-@objc open class AKSynth: AKPolyphonicNode, AKComponent {
+open class AKSynth: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKSynthAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "AKsy")
@@ -223,7 +223,7 @@
     ///   - filterSustainLevel: 0.0 - 1.0
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///
-    @objc public init(
+    public init(
         masterVolume: Double = 1.0,
         pitchBend: Double = 0.0,
         vibratoDepth: Double = 0.0,

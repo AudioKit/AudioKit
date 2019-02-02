@@ -197,7 +197,7 @@ open class AKFileClipSequence: NSObject, ClipMergeDelegate {
     /// Initialize a clip sequence with an array of clips.
     /// - Parameter clips: An array of file clips.  Will not be set if clips are invalid.
     ///
-    @objc public init(clips: [AKFileClip]) {
+    public init(clips: [AKFileClip]) {
         super.init()
         clipMerger.mergeDelegate = self
         self.clips = clips

@@ -156,7 +156,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
-    @objc public init(
+    public init(
         frequency: Double,
         amplitude: Double = defaultAmplitude,
         pulseWidth: Double = defaultPulseWidth,
@@ -212,12 +212,12 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

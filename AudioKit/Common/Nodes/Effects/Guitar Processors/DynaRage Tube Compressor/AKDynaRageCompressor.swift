@@ -128,7 +128,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - attackDuration: Attack duration in seconds
     ///   - releaseDuration: Release duration in seconds
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         ratio: Double = 1,
         threshold: Double = 0.0,
@@ -197,12 +197,12 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

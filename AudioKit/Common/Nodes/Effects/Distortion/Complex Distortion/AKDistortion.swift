@@ -172,7 +172,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
     ///   - finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         delay: Double = 0.1,
         decay: Double = 1.0,
@@ -236,7 +236,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             finalMix = lastKnownMix
             isStarted = true
@@ -244,7 +244,7 @@ open class AKDistortion: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = finalMix
             finalMix = 0

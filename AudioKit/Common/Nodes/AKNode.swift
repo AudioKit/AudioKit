@@ -13,7 +13,7 @@ extension AVAudioConnectionPoint {
 }
 
 /// Parent class for all nodes in AudioKit
-@objc open class AKNode: NSObject {
+open class AKNode: NSObject {
 
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
@@ -32,7 +32,7 @@ extension AVAudioConnectionPoint {
     }
 
     /// Initialize the node from an AVAudioUnit
-    @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
+    public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
         avAudioNode = avAudioUnit
         if attach {
@@ -41,7 +41,7 @@ extension AVAudioConnectionPoint {
     }
 
     /// Initialize the node from an AVAudioNode
-    @objc public init(avAudioNode: AVAudioNode, attach: Bool = false) {
+    public init(avAudioNode: AVAudioNode, attach: Bool = false) {
         self.avAudioNode = avAudioNode
         if attach {
             AudioKit.engine.attach(avAudioNode)
