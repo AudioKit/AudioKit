@@ -59,7 +59,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         halfPowerPoint: Double = defaultHalfPowerPoint
         ) {
@@ -105,12 +105,12 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

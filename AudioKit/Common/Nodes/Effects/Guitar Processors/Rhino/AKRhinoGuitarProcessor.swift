@@ -148,7 +148,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - distType: Distortion Type
     ///   - distortion: Distortion Amount
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         preGain: Double = 5.0,
         postGain: Double = 0.7,
@@ -228,12 +228,12 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

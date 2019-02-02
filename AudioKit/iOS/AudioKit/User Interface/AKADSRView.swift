@@ -102,7 +102,7 @@ import UIKit
     // MARK: - Initialization
 
     /// Initialize the view, usually with a callback
-    public init(callback: ADSRCallback? = nil) {
+    @objc public init(callback: ADSRCallback? = nil) {
         self.callback = callback
         super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
         backgroundColor = .clear

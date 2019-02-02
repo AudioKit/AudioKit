@@ -59,7 +59,7 @@
     }
 
     /// Initialize the preset loader view
-    public init(presets: [String],
+    @objc public init(presets: [String],
                       frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                       font: UIFont = UIFont.boldSystemFont(ofSize: 24),
                       fontSize: CGFloat = 24,

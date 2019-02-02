@@ -61,7 +61,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     ///   - lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
     ///   - dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio, ranges from 0 to 1 (Default: 0.5)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         time: Double = 1,
         feedback: Double = 0.5,
@@ -83,7 +83,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         if isStopped {
             dryWetMix = lastKnownMix
             isStarted = true
@@ -91,7 +91,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         if isPlaying {
             lastKnownMix = dryWetMix
             dryWetMix = 0

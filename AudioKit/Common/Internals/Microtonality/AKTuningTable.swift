@@ -7,20 +7,20 @@
 //
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-open class AKTuningTableETNN: NSObject {
+@objc open class AKTuningTableETNN: NSObject {
     @objc public var nn: MIDINoteNumber = 60
     @objc public var pitchBend: Int = 16_384 / 2
-    public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
+    @objc public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
         self.nn = nn
         self.pitchBend = pb
     }
 }
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
-open class AKTuningTableDelta12ET: NSObject {
+@objc open class AKTuningTableDelta12ET: NSObject {
     @objc public var nn: MIDINoteNumber = 60
     @objc public var cents: Double = 0
-    public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
+    @objc public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
         self.nn = nn
         self.cents = cents
     }
@@ -31,7 +31,7 @@ open class AKTuningTableDelta12ET: NSObject {
 // Definitions:
 // masterSet = an octave-based array of linear frequencies, processed to spread across all midi note numbers
 
-open class AKTuningTable: AKTuningTableBase {
+@objc open class AKTuningTable: AKTuningTableBase {
 
     @objc private(set) public var masterSet = [Frequency]()
 

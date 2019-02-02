@@ -41,7 +41,7 @@ public class AKAmplitudeTap: AKToggleable {
     }
 
     /// - parameter input: Node to analyze
-    public init(_ input: AKNode?) {
+    @objc public init(_ input: AKNode?) {
         self.input = input
     }
 

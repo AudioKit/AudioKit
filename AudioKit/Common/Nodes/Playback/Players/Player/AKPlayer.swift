@@ -43,7 +43,7 @@ import AVFoundation
 
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
-public class AKPlayer: AKNode {
+@objc public class AKPlayer: AKNode {
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons

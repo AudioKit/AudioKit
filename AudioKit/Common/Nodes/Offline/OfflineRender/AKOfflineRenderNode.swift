@@ -45,7 +45,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
     ///
     /// - parameter input: AudioKit Node to render audio from
     ///
-    public init(_ input: AKNode? = nil) {
+    @objc public init(_ input: AKNode? = nil) {
 
         _Self.register()
         super.init()

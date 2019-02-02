@@ -12,7 +12,7 @@ public class AKScheduledAction {
     private var block: (() -> Void)
     private var timer: Timer?
 
-    public init(interval: TimeInterval, block: @escaping () -> Void) {
+    @objc public init(interval: TimeInterval, block: @escaping () -> Void) {
         self.interval = interval
         self.block = block
         start()

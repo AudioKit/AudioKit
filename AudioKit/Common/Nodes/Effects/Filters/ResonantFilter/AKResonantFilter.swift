@@ -82,7 +82,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - frequency: Center frequency of the filter, or frequency position of the peak response.
     ///   - bandwidth: Bandwidth of the filter.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         frequency: Double = defaultFrequency,
         bandwidth: Double = defaultBandwidth
@@ -132,12 +132,12 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

@@ -103,7 +103,7 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cornerFrequency: Double = defaultCornerFrequency,
         gain: Double = defaultGain,
@@ -157,12 +157,12 @@ open class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable, AKComponen
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

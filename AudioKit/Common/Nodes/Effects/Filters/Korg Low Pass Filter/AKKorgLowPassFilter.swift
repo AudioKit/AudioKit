@@ -103,7 +103,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - resonance: Filter resonance (should be between 0-2)
     ///   - saturation: Filter saturation.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = defaultCutoffFrequency,
         resonance: Double = defaultResonance,
@@ -157,12 +157,12 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

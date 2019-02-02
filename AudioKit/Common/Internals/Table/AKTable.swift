@@ -43,7 +43,7 @@
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public class AKTable: NSObject, MutableCollection, Codable {
+@objc public class AKTable: NSObject, MutableCollection, Codable {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = Float
@@ -102,7 +102,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     ///   - phase: Phase offset
     ///   - count: Size of the table (multiple of 2)
     ///
-    public init(_ type: AKTableType = .sine,
+    @objc public init(_ type: AKTableType = .sine,
                 phase: Float = 0,
                 count: IndexDistance = 4_096) {
         self.type = type

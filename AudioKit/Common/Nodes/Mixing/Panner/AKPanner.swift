@@ -59,7 +59,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         pan: Double = defaultPan
         ) {
@@ -105,12 +105,12 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

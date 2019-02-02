@@ -80,7 +80,7 @@ import AudioKit
     }
 
     /// Initialize the keyboard
-    public init(width: Int,
+    @objc public init(width: Int,
                       height: Int,
                       firstOctave: Int = 4,
                       octaveCount: Int = 3,

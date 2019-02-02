@@ -86,7 +86,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         feedback: Double = defaultFeedback,
         cutoffFrequency: Double = defaultCutoffFrequency
@@ -136,12 +136,12 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

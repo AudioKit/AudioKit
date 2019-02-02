@@ -30,7 +30,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// - parameter node: A polyphonic node that will be triggered via MIDI
     /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
+    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode

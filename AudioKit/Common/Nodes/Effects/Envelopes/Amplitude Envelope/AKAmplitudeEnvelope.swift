@@ -125,7 +125,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - sustainLevel: Sustain Level
     ///   - releaseDuration: Release Duration in seconds
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         attackDuration: Double = defaultAttackDuration,
         decayDuration: Double = defaultDecayDuration,
@@ -183,12 +183,12 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

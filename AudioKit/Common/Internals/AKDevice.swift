@@ -13,7 +13,7 @@ public typealias DeviceID = String
 #endif
 
 /// Wrapper for audio device selection
-open class AKDevice: NSObject {
+@objc open class AKDevice: NSObject {
     /// The human-readable name for the device.
     open var name: String
     open var nInputChannels: Int?
@@ -28,7 +28,7 @@ open class AKDevice: NSObject {
     ///   - name: The human-readable name for the device.
     ///   - deviceID: The device identifier.
     ///
-    public init(name: String, deviceID: DeviceID, dataSource: String = "") {
+    @objc public init(name: String, deviceID: DeviceID, dataSource: String = "") {
         self.name = name
         self.deviceID = deviceID
         #if !os(macOS)
