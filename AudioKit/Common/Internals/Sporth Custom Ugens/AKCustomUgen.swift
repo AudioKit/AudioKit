@@ -7,7 +7,7 @@
 //
 
 /// Custom Sporth Unit Generator (Ugen)
-open class AKCustomUgen: NSObject {
+@objc open class AKCustomUgen: NSObject {
 
     /// Name of the Ugen
     @objc public let name: String

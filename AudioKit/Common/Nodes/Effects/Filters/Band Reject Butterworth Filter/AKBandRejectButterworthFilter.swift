@@ -82,7 +82,7 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     ///   - centerFrequency: Center frequency. (in Hertz)
     ///   - bandwidth: Bandwidth. (in Hertz)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         centerFrequency: Double = defaultCenterFrequency,
         bandwidth: Double = defaultBandwidth
@@ -132,12 +132,12 @@ open class AKBandRejectButterworthFilter: AKNode, AKToggleable, AKComponent, AKI
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

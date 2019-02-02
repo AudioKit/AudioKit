@@ -21,7 +21,7 @@ public typealias AKCallback = () -> Void
 public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// Top level AudioKit managing class
-open class AudioKit: NSObject {
+@objc open class AudioKit: NSObject {
     #if !os(macOS)
         static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
     #else

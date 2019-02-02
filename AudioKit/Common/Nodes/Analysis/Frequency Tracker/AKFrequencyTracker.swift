@@ -40,7 +40,7 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// - parameter hopSize: Hop size.
     /// - parameter peakCount: Number of peaks.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         hopSize: Int = 4_096,
         peakCount: Int = 20) {
@@ -66,12 +66,12 @@ open class AKFrequencyTracker: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

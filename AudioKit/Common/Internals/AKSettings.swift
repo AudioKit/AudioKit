@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 /// Global settings for AudioKit
-open class AKSettings: NSObject {
+@objc open class AKSettings: NSObject {
 
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)

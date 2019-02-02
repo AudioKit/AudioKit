@@ -109,7 +109,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         gain: Double = 1
     ) {
@@ -160,7 +160,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         // AKLog("start() \(isStopped)")
         if isStopped {
             self.leftGain = lastKnownLeftGain
@@ -169,7 +169,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         // AKLog("stop() \(isStarted)")
 
         if isPlaying {

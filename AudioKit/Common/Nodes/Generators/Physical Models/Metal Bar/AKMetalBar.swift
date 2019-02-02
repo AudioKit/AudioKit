@@ -201,7 +201,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     ///   - stiffness: Dimensionless stiffness parameter
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
-    public init(
+    @objc public init(
         leftBoundaryCondition: Double = defaultLeftBoundaryCondition,
         rightBoundaryCondition: Double = defaultRightBoundaryCondition,
         decayDuration: Double = defaultDecayDuration,
@@ -276,12 +276,12 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         internalAU?.stop()
     }
 }

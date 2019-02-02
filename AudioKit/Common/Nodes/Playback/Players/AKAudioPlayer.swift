@@ -249,7 +249,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be caught.
     ///
-    public init(file: AKAudioFile,
+    @objc public init(file: AKAudioFile,
                       looping: Bool = false,
                       lazyBuffering: Bool = false,
                       completionHandler: AKCallback? = nil) throws {
@@ -289,7 +289,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Methods
 
     /// Start playback
-    open func start() {
+    @objc open func start() {
         play(at: nil)
     }
 
@@ -317,7 +317,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Stop playback
-    open func stop() {
+    @objc open func stop() {
         scheduledStopAction = nil
 
         if ❗️playing {

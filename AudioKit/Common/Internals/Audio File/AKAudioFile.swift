@@ -165,7 +165,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
 }
 
 /// Audio file, inherits from AVAudioFile and adds functionality
-open class AKAudioFile: AVAudioFile {
+@objc open class AKAudioFile: AVAudioFile {
 
     // MARK: - embedded enums
 

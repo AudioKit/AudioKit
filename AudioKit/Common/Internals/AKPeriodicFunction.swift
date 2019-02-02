@@ -28,7 +28,7 @@ public class AKPeriodicFunction: AKOperationGenerator {
     /// - parameter period: Interval between block executions
     /// - parameter handler: Code block to execute
     ///
-    public init(every period: Double, handler: @escaping () -> Void) {
+    @objc public init(every period: Double, handler: @escaping () -> Void) {
         duration = period
         internalHandler = handler
         super.init(sporth: "\(period) dmetro (_triggerFunction fe) 0 0", customUgens: [triggerFunctionUgen] )

@@ -7,7 +7,7 @@
 //
 
 /// Simple audio recorder class
-open class AKNodeRecorder: NSObject {
+@objc open class AKNodeRecorder: NSObject {
 
     // MARK: - Properties
 
@@ -54,7 +54,7 @@ open class AKNodeRecorder: NSObject {
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    public init(node: AKNode? = AudioKit.output,
+    @objc public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -127,7 +127,7 @@ open class AKNodeRecorder: NSObject {
     }
 
     /// Stop recording
-    open func stop() {
+    @objc open func stop() {
         if isRecording == false {
             AKLog("AKNodeRecorder Warning: Cannot stop recording, already stopped")
             return

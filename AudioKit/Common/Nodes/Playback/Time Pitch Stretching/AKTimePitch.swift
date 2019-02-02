@@ -49,7 +49,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     ///   - pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     ///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         rate: Double = 1.0,
         pitch: Double = 0.0,
@@ -67,12 +67,12 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    open func start() {
+    @objc open func start() {
         timePitchAU.bypass = false
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    open func stop() {
+    @objc open func stop() {
         timePitchAU.bypass = true
     }
 }
