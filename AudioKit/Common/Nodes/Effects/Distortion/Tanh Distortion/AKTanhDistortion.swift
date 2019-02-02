@@ -125,7 +125,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - positiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
     ///   - negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         pregain: Double = defaultPregain,
         postgain: Double = defaultPostgain,
@@ -183,12 +183,12 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

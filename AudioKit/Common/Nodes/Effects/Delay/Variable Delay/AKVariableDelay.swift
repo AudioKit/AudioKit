@@ -85,7 +85,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - feedback: Feedback amount. Should be a value between 0-1.
     ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         time: Double = defaultTime,
         feedback: Double = defaultFeedback,
@@ -136,12 +136,12 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 

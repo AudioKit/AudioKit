@@ -94,7 +94,7 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    @objc public init(sporth: String, customUgens: [AKCustomUgen] = []) {
+    public init(sporth: String, customUgens: [AKCustomUgen] = []) {
         self.sporth = sporth
         self.customUgens = customUgens
 
@@ -120,12 +120,12 @@ open class AKOperationGenerator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 

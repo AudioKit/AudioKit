@@ -120,7 +120,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - dryWetMix: Dry/wet mix. Should be a value between 0-1.
     ///   - pingPong: true for ping-pong mode, false for stereo mode.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         maximumDelayTime: Double = AKStereoDelay.timeRange.upperBound,
         time: Double = defaultTime,
@@ -179,12 +179,12 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 

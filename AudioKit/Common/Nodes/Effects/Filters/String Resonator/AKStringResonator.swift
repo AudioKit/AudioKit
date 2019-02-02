@@ -86,7 +86,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - fundamentalFrequency: Fundamental frequency of string.
     ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         fundamentalFrequency: Double = defaultFundamentalFrequency,
         feedback: Double = defaultFeedback
@@ -136,12 +136,12 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

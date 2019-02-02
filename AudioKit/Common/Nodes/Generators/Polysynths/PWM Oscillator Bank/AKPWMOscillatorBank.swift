@@ -164,7 +164,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoDepth: Vibrato size in semitones
     ///   - vibratoRate: Frequency of vibrato in Hz
     ///
-    @objc public init(
+    public init(
         pulseWidth: Double = 0.5,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,

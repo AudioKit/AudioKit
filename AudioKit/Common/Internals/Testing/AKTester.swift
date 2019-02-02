@@ -41,7 +41,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to test
     ///   - samples: Number of samples to produce
     ///
-    @objc public init(_ input: AKNode?, samples: Int) {
+    public init(_ input: AKNode?, samples: Int) {
 
         testedNode = input as? AKToggleable
         totalSamples = samples
@@ -64,13 +64,13 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         testedNode?.start()
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

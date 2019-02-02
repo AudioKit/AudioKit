@@ -54,7 +54,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         decimation: Double = 0.5,
         rounding: Double = 0,
@@ -84,7 +84,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -92,7 +92,7 @@ open class AKDecimator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0

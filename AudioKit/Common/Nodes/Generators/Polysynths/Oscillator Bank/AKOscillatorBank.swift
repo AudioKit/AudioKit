@@ -164,7 +164,7 @@ open class AKOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - vibratoRate: Frequency of vibrato in Hz
 
     ///
-    @objc public init(
+    public init(
         waveform: AKTable,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,

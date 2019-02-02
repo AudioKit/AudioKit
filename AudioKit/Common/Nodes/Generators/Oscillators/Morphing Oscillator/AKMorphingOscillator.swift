@@ -162,7 +162,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///   - phase: Initial phase of waveform, expects a value 0-1
     ///
-    @objc public init(
+    public init(
         waveformArray: [AKTable],
         frequency: Double = defaultFrequency,
         amplitude: Double = defaultAmplitude,
@@ -229,12 +229,12 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

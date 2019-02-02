@@ -171,7 +171,7 @@ open class AKWaveTable: AKNode, AKComponent {
     ///   - maximumSamples: Largest number of samples that will be loaded into the sample player
     ///   - completionHandler: Callback to run when the sample playback is completed
     ///
-    @objc public init(file: AKAudioFile? = nil,
+    public init(file: AKAudioFile? = nil,
                       startPoint: Sample = 0,
                       endPoint: Sample = 0,
                       rate: Double = 1,
@@ -249,7 +249,7 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.startPoint = Float(safeSample(startPoint))
         internalAU?.endPoint = Float(safeSample(endPoint))
         internalAU?.loopStartPoint = Float(safeSample(loopStartPoint))
@@ -258,7 +258,7 @@ open class AKWaveTable: AKNode, AKComponent {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 

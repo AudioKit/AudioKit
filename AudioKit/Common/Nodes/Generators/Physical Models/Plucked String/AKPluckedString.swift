@@ -83,7 +83,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     ///   - amplitude: Amplitude
     ///
-    @objc public init(
+    public init(
         frequency: Double = defaultLowestFrequency,
         amplitude: Double = defaultAmplitude) {
 
@@ -148,12 +148,12 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

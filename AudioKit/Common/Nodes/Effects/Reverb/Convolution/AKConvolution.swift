@@ -35,7 +35,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency,
     ///                      at the cost of requiring more CPU power.
     ///
-    @objc public init(_ input: AKNode? = nil,
+    public init(_ input: AKNode? = nil,
                       impulseResponseFileURL: URL,
                       partitionLength: Int = 2_048) {
 
@@ -64,12 +64,12 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 

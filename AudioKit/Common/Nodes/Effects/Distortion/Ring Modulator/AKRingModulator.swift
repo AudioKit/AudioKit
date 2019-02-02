@@ -63,7 +63,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - balance: Balance (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///   - mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         frequency1: Double = 100,
         frequency2: Double = 100,
@@ -93,7 +93,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         if isStopped {
             mix = lastKnownMix
             isStarted = true
@@ -101,7 +101,7 @@ open class AKRingModulator: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         if isPlaying {
             lastKnownMix = mix
             mix = 0

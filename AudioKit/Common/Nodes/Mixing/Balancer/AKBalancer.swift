@@ -34,7 +34,7 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: Input node to process
     ///   - comparator: Audio to match power with
     ///
-    @objc public init(_ input: AKNode? = nil, comparator: AKNode) {
+    public init(_ input: AKNode? = nil, comparator: AKNode) {
         _Self.register()
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
@@ -51,12 +51,12 @@ open class AKBalancer: AKNode, AKToggleable, AKComponent, AKInput {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

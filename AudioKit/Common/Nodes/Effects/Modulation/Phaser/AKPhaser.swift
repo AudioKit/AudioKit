@@ -236,7 +236,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - inverted: 1 or 0
     ///   - lfoBPM: Between 24 and 360
     ///
-    @objc public init(
+    public init(
         _ input: AKNode? = nil,
         notchMinimumFrequency: Double = defaultNotchMinimumFrequency,
         notchMaximumFrequency: Double = defaultNotchMaximumFrequency,
@@ -314,12 +314,12 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
-    @objc open func start() {
+    open func start() {
         internalAU?.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
+    open func stop() {
         internalAU?.stop()
     }
 }

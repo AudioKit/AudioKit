@@ -55,7 +55,7 @@ open class AKTelephoneView: UIView {
     }
 
     /// Initialize the telephone view
-    @objc public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
+    public init(frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 782),
                       callback: @escaping (String, String) -> Void) {
         self.callback = callback
         super.init(frame: frame)
