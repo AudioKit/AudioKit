@@ -12,11 +12,11 @@ import Foundation
 public protocol AKMIDIBeatObserver {
 
     /// Called when the midi system real time start or continue message arrives.
-    /// AKMidiMmcStartFirstBeat(continue:) will be
-    // called when on the very first beat.
+    /// AKMidiMmcStartFirstBeat(continue:) will be called when on the very first beat.
     func AKMIDISRTPreparePlay(continue: Bool)
 
     /// First beat of playback after an system real time start or continue message.
+    /// This is called on the first clock tick after a start or continue command
     func AKMIDISRTStartFirstBeat(continue: Bool)
 
     /// system real time stop message
