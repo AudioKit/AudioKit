@@ -2361,8 +2361,8 @@
 		C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BPM+StatisticalTools.swift"; sourceTree = "<group>"; };
 		C539CCC621F823B00096AF95 /* AKMIDIBPMListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIBPMListener.swift; sourceTree = "<group>"; };
 		C539CCCC21F823CF0096AF95 /* AKMIDITimeout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDITimeout.swift; sourceTree = "<group>"; };
-		C59E4E74220A0BB800654569 /* AKMIDISRTObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AKMIDISRTObserver.swift; path = "/Users/kurtarnlund/Development/IAT/Unitor Control/AudioKit/AudioKit/Common/MIDI/Listeners/AKMIDISRTObserver.swift"; sourceTree = "<absolute>"; };
-		C59E4E75220A0BB900654569 /* AKMIDISRTListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AKMIDISRTListener.swift; path = "/Users/kurtarnlund/Development/IAT/Unitor Control/AudioKit/AudioKit/Common/MIDI/Listeners/AKMIDISRTListener.swift"; sourceTree = "<absolute>"; };
+		C59E4E74220A0BB800654569 /* AKMIDISRTObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDISRTObserver.swift; sourceTree = "<group>"; };
+		C59E4E75220A0BB900654569 /* AKMIDISRTListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDISRTListener.swift; sourceTree = "<group>"; };
 		C5AF016121FE602F0012C7B3 /* AKMIDIOmniListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIOmniListener.swift; sourceTree = "<group>"; };
 		C5AF016321FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIMonoPolyListener.swift; sourceTree = "<group>"; };
 		C5DEBE9D21F8D9D100A36FE7 /* AKMIDIBPMObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIBPMObserver.swift; sourceTree = "<group>"; };
