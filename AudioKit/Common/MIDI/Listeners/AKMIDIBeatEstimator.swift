@@ -1,5 +1,5 @@
 //
-//  BPM+BeatEstimator.swift
+//  AKMIDIBeatEstimator.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/21/19.
