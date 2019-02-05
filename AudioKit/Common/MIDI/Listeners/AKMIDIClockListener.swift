@@ -1,5 +1,5 @@
 //
-//  AKMIDIBeatEstimator.swift
+//  AKMIDIClockListener.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/21/19.
@@ -11,12 +11,10 @@ import CoreMIDI
 
 /// This class is used to count midi clock events and inform observers
 /// every 24 pulses (1 quarter note)
-/// The reason this is called an estimator, is that before an system real
-/// time start command is received, the guarter note events are just
-/// guesses based on the very first clock event received.
 ///
-/// AKMIDIBeatEstimator requires to be an observer of both SRT and BPM events
-open class AKMIDIBeatEstimator : NSObject {
+/// If you wish to observer its events, then add your own AKMIDIBeatObserver
+///
+open class AKMIDIClockListener : NSObject {
     // Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: UInt8
     // Count of 24 quantums per quarter note
@@ -36,6 +34,7 @@ open class AKMIDIBeatEstimator : NSObject {
     private let bpmListener: AKMIDIBPMListener
     private var observers: [AKMIDIBeatObserver] = []
 
+    /// AKMIDIClockListener requires to be an observer of both SRT and BPM events
     init(srtListener srt: AKMIDISRTListener, quantumsPerQuarterNote count: UInt8 = 24, bpmListener bpm: AKMIDIBPMListener) {
         quantumsPerQuarterNote = count
         srtListener = srt
@@ -112,7 +111,7 @@ open class AKMIDIBeatEstimator : NSObject {
 
 // MARK: - Observers
 
-extension AKMIDIBeatEstimator {
+extension AKMIDIClockListener {
     public func addObserver(_ observer: AKMIDIBeatObserver) {
         observers.append(observer)
 //        AKLog("[AKMIDIBeatEstimator:addObserver] (\(observers.count) observers)")
@@ -120,18 +119,18 @@ extension AKMIDIBeatEstimator {
 
     public func removeObserver(_ observer: AKMIDIBeatObserver) {
         observers.removeAll { $0 == observer }
-//        AKLog("[AKMIDIBeatEstimator:removeObserver] (\(observers.count) observers)")
+//        AKLog("[AKMIDIClockListener:removeObserver] (\(observers.count) observers)")
     }
 
     public func removeAllObservers() {
         observers.removeAll()
-//        AKLog("[AKMIDIBeatEstimator:removeAllObservers] (\(observers.count) observers)")
+//        AKLog("[AKMIDIClockListener:removeAllObservers] (\(observers.count) observers)")
     }
 }
 
 // MARK: - Beat Observations
 
-extension AKMIDIBeatEstimator : AKMIDIBPMObserver {
+extension AKMIDIClockListener : AKMIDIBPMObserver {
 
     internal func sendMIDIBeatUpdateToObservers() {
 //        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
@@ -179,7 +178,7 @@ extension AKMIDIBeatEstimator : AKMIDIBPMObserver {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIBeatEstimator : AKMIDISRTObserver {
+extension AKMIDIClockListener : AKMIDISRTObserver {
 
     public func midiClockSlaveMode() {
         AKLog("[MIDI CLOCK SLAVE]")

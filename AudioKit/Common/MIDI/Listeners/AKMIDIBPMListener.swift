@@ -46,7 +46,7 @@ public typealias BPMType = TimeInterval
 ///
 open class AKMIDIBPMListener : NSObject {
 
-    public var beatEstimator: AKMIDIBeatEstimator?
+    public var beatEstimator: AKMIDIClockListener?
 
     public var srtListener = AKMIDISRTListener()
 
@@ -74,7 +74,7 @@ open class AKMIDIBPMListener : NSObject {
 
         super.init()
 
-        beatEstimator = AKMIDIBeatEstimator(srtListener: srtListener, bpmListener: self)
+        beatEstimator = AKMIDIClockListener(srtListener: srtListener, bpmListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
