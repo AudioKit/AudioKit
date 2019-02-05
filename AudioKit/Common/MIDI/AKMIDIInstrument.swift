@@ -21,6 +21,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// Name of the instrument
     open var name = "AudioKit MIDI Instrument"
 
+    open var mpeActiveNotes : [(note: MIDINoteNumber, channel: MIDIChannel)] = []
+
     /// Initialize the MIDI Instrument
     ///
     /// - Parameter midiInputName: Name of the instrument's MIDI input
@@ -69,6 +71,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel) {
+        mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
             start(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
@@ -85,6 +88,51 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         stop(noteNumber: noteNumber, channel: channel)
+        mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
+    }
+
+    /// Receive a generic controller value
+    ///
+    /// - Parameters:
+    ///   - controller: MIDI Controller Number
+    ///   - value:      Value of this controller
+    ///   - channel:    MIDI Channel (1-16)
+    ///
+    @objc open func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        // Override in subclass
+    }
+
+    /// Receive single note based aftertouch event
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note number of touched note
+    ///   - pressure:   Pressure applied to the note (0-127)
+    ///   - channel:    MIDI Channel (1-16)
+    ///
+    @objc open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                pressure: MIDIByte,
+                                channel: MIDIChannel) {
+        // Override in subclass
+    }
+
+    /// Receive global aftertouch
+    ///
+    /// - Parameters:
+    ///   - pressure: Pressure applied (0-127)
+    ///   - channel:  MIDI Channel (1-16)
+    ///
+    @objc open func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+        // Override in subclass
+    }
+
+    /// Receive pitch wheel value
+    ///
+    /// - Parameters:
+    ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
+    ///   - channel:         MIDI Channel (1-16)
+    ///
+    @objc open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+        // Override in subclass
     }
 
     // MARK: - MIDI Note Start/Stop
@@ -109,7 +157,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    Channel on which to stop the note
     ///
     @objc open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        // OVerride in subclass
+        // Override in subclass
     }
 
     // MARK: - Private functions
@@ -131,6 +179,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     func showVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
     }
+
     func hideVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }

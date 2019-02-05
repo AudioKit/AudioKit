@@ -36,3 +36,20 @@ Optionally, you may restrict which platforms to build the frameworks for by sett
 
 `PLATFORMS="iOS tvOS" ./build_frameworks.sh`
 
+## Distribution to other projects
+
+**Current this is only enabled for iOS, but it's easy for you to improve this for other targets** 
+
+For people who want to build AudioKit in one directory then copy it into another project, there is an optional script, `distribute_built_frameworks.sh` that you can use to perform this copy at the end of `./build_frameworks.sh`.  
+
+* First edit the example to copy the framework to your desired location:
+
+    `pico distribute_built_frameworks.sh_example`
+    
+* Next move the example to enable the script:
+
+    `mv distribute_built_frameworks.sh_example distribute_built_frameworks.sh`
+
+Now, each time you run `./build_frameworks.sh`, it will copy the framework to your desired location.
+
+`distribute_built_frameworks.sh` is in the .gitignore file so that you don't share your distribution process to other developers.

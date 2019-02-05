@@ -22,6 +22,7 @@
 		C51D173E21EEDE01008EB51F /* K5000SysexMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */; };
 		C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */; };
 		C539CDCA21EFAE9500C45A2C /* MIDIWord+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */; };
+		C5CD6B4A21FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = K5000SysexMessages.swift; sourceTree = "<group>"; };
 		C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIByte+Sysex.swift"; sourceTree = "<group>"; };
 		C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIWord+Sysex.swift"; sourceTree = "<group>"; };
+		C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDI CI Sysex Messages.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */,
 				C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */,
 				C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */,
+				C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */,
 			);
 			path = MacOSCommandLineDev;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5CD6B4A21FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift in Sources */,
 				C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */,
 				C51D173C21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift in Sources */,
 				C51D173721EE85D3008EB51F /* MIDI Connection Manager.swift in Sources */,

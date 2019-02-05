@@ -32,6 +32,42 @@ internal struct MIDISources: Collection {
     }
 }
 
+// MARK: - AKMIDIListeners
+extension AKMIDI {
+    /// Add a listener to the listeners
+    public func addListener(_ listener: AKMIDIListener) {
+        listeners.append(listener)
+    }
+
+    public func removeListener(_ listener: AKMIDIListener) {
+        listeners.removeAll { (item) -> Bool in
+            return item == listener
+        }
+    }
+
+    /// Remove all listeners
+    public func clearListeners() {
+        listeners.removeAll()
+    }
+}
+
+// MARK: - AKMIDITransformers
+extension AKMIDI {
+    /// Add a transformer to the transformers list
+    public func addTransformer(_ transformer: AKMIDITransformer) {
+        transformers.append(transformer)
+    }
+
+    public func removeTransformer(_ transformer: AKMIDITransformer) {
+        transformers.removeAll { $0 == transformer }
+    }
+
+    /// Remove all transformers
+    public func clearTransformers() {
+        transformers.removeAll()
+    }
+}
+
 extension AKMIDI {
 
     /// Array of input source unique ids
@@ -59,37 +95,7 @@ extension AKMIDI {
         return name
     }
 
-    /// Add a listener to the listeners
-    public func addListener(_ listener: AKMIDIListener) {
-        listeners.append(listener)
-    }
 
-    public func removeListener(_ listener: AKMIDIListener) {
-        listeners.removeAll { (item) -> Bool in
-            return item == listener
-        }
-    }
-
-    /// Remove all listeners
-    public func clearListeners() {
-        listeners.removeAll()
-    }
-
-    /// Add a transformer to the transformers list
-    public func addTransformer(_ transformer: AKMIDITransformer) {
-        transformers.append(transformer)
-    }
-
-    public func removeTransformer(_ transformer: AKMIDITransformer) {
-        transformers.removeAll { (item) -> Bool in
-            return item == transformer
-        }
-    }
-
-    /// Remove all transformers
-    public func clearTransformers() {
-        transformers.removeAll()
-    }
 
     /// Look up the unique id for a input index
     ///
@@ -165,13 +171,18 @@ extension AKMIDI {
     /// Open a MIDI Input port by name
     ///
     /// - Parameter inputIndex: Index of source port
-    public func closeInput(name: String = "") {
+    @available(*, deprecated, message: "Try to not use names any more because they are not unique across devices")
+    public func closeInput(name: String) {
         guard  let index = inputNames.firstIndex(of: name) else {
             closeInput(uid: 0)
             return
         }
         let uid = inputUIDs[index]
         closeInput(uid: uid)
+    }
+
+    public func closeInput() {
+        closeInput(uid: 0)
     }
 
     /// Open a MIDI Input port by index
@@ -253,9 +264,8 @@ extension AKMIDI {
                                                        channel: MIDIChannel(eventChannel))
                 }
             } else if event.command != nil {
-                let commandDesc = event.command?.description ?? "unknown"
-                AKLog("Passing [\(commandDesc)] to listener \(listener)")
-                listener.receivedMIDISystemCommand(event.internalData)
+                //AKLog("Passing [\(event.command?.description ?? "unknown")] to listener \(listener)")
+                listener.receivedMIDISystemCommand(event.internalData, time: event.timeStamp)
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
