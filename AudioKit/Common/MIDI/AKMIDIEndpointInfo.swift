@@ -14,7 +14,6 @@ public struct EndpointInfo {
 
     /// Dispaly name
     public var displayName = ""
-
     /// Model information
     public var model = ""
 

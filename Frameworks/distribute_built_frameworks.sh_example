@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Distribute built frameworks to other destinations on the users drive.
+#
+# This is useful if you link in copies of the framework into other projects.
+
+IOS_FRAMWORK_DIR='AudioKit-iOS'
+
+# Set this to your destination directory
+SYNTHONE_DIR='/Users/<you>/Development/AudioKitSynthOne'
+
+if test -d  "${SYNTHONE_DIR}"; then
+    echo "Distributing iOS framework to ${SYNTHONE_DIR}"
+    if test -d "${SYNTHONE_DIR}/AudioKit.framework"; then
+        rm -rf "${SYNTHONE_DIR}/AudioKit.framework"
+    fi
+    if test -d "${SYNTHONE_DIR}/AudioKitUI.framework"; then
+        rm -rf "${SYNTHONE_DIR}/AudioKitUI.framework"
+    fi
+    cp -rf "${IOS_FRAMWORK_DIR}/AudioKit.framework" "${SYNTHONE_DIR}/AudioKit.framework"
+    cp -rf "${IOS_FRAMWORK_DIR}/AudioKitUI.framework" "${SYNTHONE_DIR}/AudioKitUI.framework"
+fi
