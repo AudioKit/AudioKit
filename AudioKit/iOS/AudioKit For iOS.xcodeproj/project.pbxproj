@@ -83,6 +83,7 @@
 		34F5A35F205ECBE400290001 /* AKModulatedDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34F5A359205ECBE300290001 /* AKModulatedDelay.cpp */; };
 		34F5A360205ECBE400290001 /* AKModulatedDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35A205ECBE300290001 /* AKModulatedDelay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		34F5A361205ECBE400290001 /* AdjustableDelayLine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34F5A35B205ECBE300290001 /* AdjustableDelayLine.hpp */; };
+		37A5FC2B22002CF5008579F8 /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41421C40E3A5009D870B /* EZAudioUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52145B161F3C58F20069C88B /* AKRhinoGuitarProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52145B121F3C58F20069C88B /* AKRhinoGuitarProcessor.swift */; };
 		52145B171F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 52145B131F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		52145B181F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52145B141F3C58F20069C88B /* AKRhinoGuitarProcessorAudioUnit.mm */; };
@@ -5688,6 +5689,7 @@
 				EA7D07241F4E641A00707706 /* EZAudioPlotGL.h in Headers */,
 				EAFECEC51F4EBD3900A2B046 /* AudioKitUI.h in Headers */,
 				EA7D07221F4E641A00707706 /* EZAudioPlot.h in Headers */,
+				37A5FC2B22002CF5008579F8 /* EZAudioUtilities.h in Headers */,
 				EA7D07201F4E640D00707706 /* EZPlot.h in Headers */,
 				EA7D07271F4E655600707706 /* EZAudioDisplayLink.h in Headers */,
 			);
