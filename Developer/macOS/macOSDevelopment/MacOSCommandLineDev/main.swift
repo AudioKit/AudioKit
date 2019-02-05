@@ -47,7 +47,7 @@ while receivedNotificaton == false {
         let currentBmp = midiConnection.bpmListenter.bpmStr
         if bpm != currentBmp {
             bpm = currentBmp
-            print("BPM: \(bpm)")
+//            debugPrint("BPM: \(bpm)")
         }
     }
 }

@@ -16,7 +16,7 @@ extension Double {
     /// - Returns: rounded Double
     func roundToDecimalPlaces(_ decimalPlaces: UInt8) -> Double {
         let multiplier = pow(10, Double(decimalPlaces))
-        return (self * multiplier).rounded() / multiplier
+        return (self * multiplier).rounded(.towardZero) * (1.0 / multiplier)
     }
 }
 
@@ -44,13 +44,13 @@ extension Array where Element: FloatingPoint {
 /// various lengths of time.  This is done so that the history with
 /// the smallest standard deviation may be returned as the current
 /// BPM
-struct BpmHistoryStatistics {
+struct BPMHistoryStatistics {
     let historyCounts = [3,6,12,24,48,96,192,384]
-    var bpmHistory: [[BpmType]] = [[], [], [], [], [], [], [], []]
-    var stdDevs:    [BpmType] = []
-    var means:      [BpmType] = []
+    var bpmHistory: [[BPMType]] = [[], [], [], [], [], [], [], []]
+    var stdDevs:    [BPMType] = []
+    var means:      [BPMType] = []
 
-    mutating func recordBpm(_ bpm: BpmType) {
+    mutating func recordBpm(_ bpm: BPMType) {
         historyCounts.forEach { (count) in
             guard let index = historyCounts.firstIndex(of: count) else { return }
 
@@ -63,8 +63,8 @@ struct BpmHistoryStatistics {
 
         // Peform Statistics
         var iterator = bpmHistory.makeIterator()
-        var newMeans: [BpmType] = []
-        var newStdDevs: [BpmType] = []
+        var newMeans: [BPMType] = []
+        var newStdDevs: [BPMType] = []
         while let bpms = iterator.next() {
             let mean = bpms.avg()
             let stdDev = bpms.std()
@@ -80,7 +80,7 @@ struct BpmHistoryStatistics {
     /// the sequence with the least deviation from that sets mean.
     ///
     /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BTM history set it used, and the count of recent BPMs used to obtain the average
-    func avgFromSmallestDeviatingHistory() -> (avg: BpmType, std: BpmType, index: Int, count: Int, accuracy: Double) {
+    func avgFromSmallestDeviatingHistory() -> (avg: BPMType, std: BPMType, index: Int, count: Int, accuracy: Double) {
         let std = stdDevs.min() ?? 0
         guard let index = stdDevs.index(of: std) else {
             return (0, 0, 0, 0, 0)
@@ -94,10 +94,10 @@ struct BpmHistoryStatistics {
 /// BpmHistoryAveraging keeps a history of BPM values that recorded into it.
 /// Each time a value is recorded, it calcualtes a average and standard
 //  deviation so that the stability of the BPM clock can be examined.
-struct BpmHistoryAveraging {
-    var bpmHistory: [BpmType]
+struct BPMHistoryAveraging {
+    var bpmHistory: [BPMType]
     var countLimit: Int
-    var results: (avg: BpmType, std: BpmType)
+    var results: (avg: BPMType, std: BPMType)
 
     init(countLimit limit: Int) {
         countLimit = limit
@@ -105,7 +105,7 @@ struct BpmHistoryAveraging {
         results = (0,0)
     }
 
-    mutating func record(_ bpm: BpmType) {
+    mutating func record(_ bpm: BPMType) {
         while bpmHistory.count > countLimit {
             bpmHistory.remove(at: 0)
         }

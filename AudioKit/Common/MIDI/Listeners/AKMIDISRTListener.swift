@@ -1,5 +1,5 @@
 //
-//  AKMIDIMMCListener.swift
+//  AKMIDISRTListener.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/21/19.
@@ -9,21 +9,21 @@
 import Foundation
 import CoreMIDI
 
-/// This AKMIDIListener looks for midi machine control (mmc)
+/// This AKMIDIListener looks for midi system real time (SRT)
 /// midi system messages.
-open class AKMIDIMMCListener : NSObject {
-    enum mmc_event: MIDIByte {
+open class AKMIDISRTListener : NSObject {
+    enum SRTEvent: MIDIByte {
         case stop = 0xFC
         case start = 0xFA
         case `continue` = 0xFB
     }
 
-    public enum mmc_state {
+    public enum SRTState {
         case stopped
         case playing
         case paused
 
-        func event(event: mmc_event) -> mmc_state {
+        func event(event: SRTEvent) -> SRTState {
             switch self {
             case .stopped:
                 switch event {
@@ -56,11 +56,11 @@ open class AKMIDIMMCListener : NSObject {
         }
     }
 
-    var state: mmc_state = .stopped
-    var observers: [AKMIDIMMCObserver] = []
+    var state: SRTState = .stopped
+    var observers: [AKMIDISRTObserver] = []
 }
 
-extension AKMIDIMMCListener : AKMIDIListener {
+extension AKMIDISRTListener : AKMIDIListener {
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")
@@ -86,34 +86,34 @@ extension AKMIDIMMCListener : AKMIDIListener {
     }
 }
 
-extension AKMIDIMMCListener {
-    public func addObserver(_ observer: AKMIDIMMCObserver) {
+extension AKMIDISRTListener {
+    public func addObserver(_ observer: AKMIDISRTObserver) {
         observers.append(observer)
     }
 
-    public func removeObserver(_ observer: AKMIDIMMCObserver) {
+    public func removeObserver(_ observer: AKMIDISRTObserver) {
         observers.removeAll { $0 == observer }
     }
 
-    public func removeAllObserver(_ observer: AKMIDIMMCObserver) {
+    public func removeAllObserver(_ observer: AKMIDISRTObserver) {
         observers.removeAll()
     }
 
     func sendStopToObservers() {
         observers.forEach { (observer) in
-            observer.mmcStop(state: state)
+            observer.SRTStop(srtListener: self)
         }
     }
 
     func sendStartToObservers() {
         observers.forEach { (observer) in
-            observer.mmcStart(state: state)
+            observer.SRTStart(srtListener: self)
         }
     }
 
     func sendContinueToObservers() {
         observers.forEach { (observer) in
-            observer.mmcContinue(state: state)
+            observer.SRTContinue(srtListener: self)
         }
     }
 }
