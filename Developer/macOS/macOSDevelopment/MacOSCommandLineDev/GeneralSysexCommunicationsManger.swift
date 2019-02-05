@@ -19,7 +19,7 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
     let midi = AudioKit.midi
     let synthK5000 = K5000messages()
-    let midiCi = MidiCiMessage(deviceId: .toFromMidiPort, subId2: <#T##midiCiSubID2#>)
+//    let midiCi = MidiCiMessage(deviceId: .toFromMidiPort, subId2: <#T##midiCiSubID2#>)
 
     /// Defaults to 44 seconds, which is just a bit longer than it takes
     /// the largest K5000 sysex messages to be received.

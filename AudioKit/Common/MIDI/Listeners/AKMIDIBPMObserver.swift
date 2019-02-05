@@ -20,7 +20,7 @@ public protocol AKMIDIBPMObserver {
     /// Called each time the BPM is updated from the midi clock
     ///
     /// - Parameter bpm: Beats Per Minute
-    func bpmUpdate(_ bpm: BpmType, bpmStr: String)
+    func bpmUpdate(_ bpm: BPMType, bpmStr: String)
 }
 
 public extension AKMIDIBPMObserver {
@@ -33,7 +33,7 @@ public extension AKMIDIBPMObserver {
 
     }
 
-    public func bpmUpdate(_ bpm: BpmType, bpmStr: String) {
+    public func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
 
     }
 

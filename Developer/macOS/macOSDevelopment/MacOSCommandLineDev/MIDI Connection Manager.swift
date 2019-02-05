@@ -16,10 +16,11 @@ class MidiConnectionManger: AKMIDIListener {
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
-    public let bpmListenter = AKMIDIBPMListener()
+    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.4, bpmHistoryLimit: 3)
 
     init() {
         midi.addListener(bpmListenter)
+        bpmListenter.beatEstimator?.addObserver(self)
         //midi.addListener(self)
     }
 
@@ -118,5 +119,31 @@ class MidiConnectionManger: AKMIDIListener {
 
         print(" Input: \(src.manufacturer) \(src.displayName)")
         print("Output: \(dest.manufacturer) \(dest.displayName)")
+    }
+}
+
+extension MidiConnectionManger : AKMIDIBeatObserver {
+    func AKMIDISRTPreparePlay(continue: Bool) {
+        debugPrint("MMC Start Prepare Play")
+    }
+
+    func AKMIDISRTStartFirstBeat(continue: Bool) {
+        debugPrint("MMC Start First Beat")
+    }
+
+    func AKMIDISRTStop() {
+        debugPrint("MMC Stop")
+    }
+
+    func AKMIDIBeatUpdate(beat: UInt64) {
+
+    }
+
+    func AKMIDIQuantumUpdate(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+
+    }
+
+    func AKMIDIQuarterNoteBeat(quarterNote: UInt8) {
+        //debugPrint("Quarter Note: ", quarterNote)
     }
 }

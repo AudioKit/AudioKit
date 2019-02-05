@@ -21,7 +21,7 @@
 import Foundation
 import CoreMIDI
 
-public typealias BpmType = TimeInterval
+public typealias BPMType = TimeInterval
 
 /// A AudioKit midi listener that looks at midi clock messages and calculates a BPM
 ///
@@ -46,37 +46,35 @@ public typealias BpmType = TimeInterval
 ///
 open class AKMIDIBPMListener : NSObject {
 
-    var beatEstimator: AKMIDIBeatEstimator?
+    public var beatEstimator: AKMIDIBeatEstimator?
 
-    var mmcListener = AKMIDIMMCListener()
+    public var srtListener = AKMIDISRTListener()
 
     var bpmObservers: [AKMIDIBPMObserver] = []
 
     public var bpmStr: String = ""
-    public var bpm: BpmType = 0
+    public var bpm: BPMType = 0
     var clockEvents: [UInt64] = []
     let clockEventLimit = 2
-    var bpmStats = BpmHistoryStatistics()
-    var bpmAveraging: BpmHistoryAveraging
+    var bpmStats = BPMHistoryStatistics()
+    var bpmAveraging: BPMHistoryAveraging
     var timebaseInfo = mach_timebase_info()
     var tickSmoothing: ValueSmoothing
-    var smoothedBpm = BpmType(0)
 
     var clockTimeout: AKMIDITimeout?
-    var incomingClockActive = false
+    public var incomingClockActive = false
 
     let BEAT_TICKS = 24
     let oneThousand = UInt64(1000)
 
-    //192
-    @objc public init(smoothing: Float64 = 0.5, bpmHistoryLimit: Int = 24) {
+    @objc public init(smoothing: Float64 = 0.8, bpmHistoryLimit: Int = 3) {
         assert(bpmHistoryLimit > 0, "You must specify a positive number for bpmHistoryLimit")
         tickSmoothing = ValueSmoothing(factor: smoothing)
-        bpmAveraging = BpmHistoryAveraging(countLimit: bpmHistoryLimit)
+        bpmAveraging = BPMHistoryAveraging(countLimit: bpmHistoryLimit)
 
         super.init()
 
-        beatEstimator = AKMIDIBeatEstimator(mmcListener: mmcListener, bpmListener: self)
+        beatEstimator = AKMIDIBeatEstimator(srtListener: srtListener, bpmListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
@@ -119,21 +117,26 @@ public extension AKMIDIBPMListener {
         let intervalNanos = (UInt64(tickDelta) * UInt64(timebaseInfo.numer)) / (UInt64(oneThousand) * UInt64(timebaseInfo.denom))
 
         //NSEC_PER_SEC
-//        let nsec_per_sec = NSEC_PER_SEC  // This results in huge BPMs and appears to be off by a factor of 1000
-        let oneMillion = Float64(1000000)
-        let bpmCalc = BpmType((oneMillion / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
-        smoothedBpm = bpmCalc.roundToDecimalPlaces(2)
+        let oneMillion = Float64(USEC_PER_SEC)
+        let bpmCalc = BPMType((oneMillion / Float64(intervalNanos) / Float64(BEAT_TICKS)) * Float64(60.0))
+        let roundedBPM = bpmCalc.roundToDecimalPlaces(2)
+        let smoothedBPM = roundedBPM
 
         resetClockEventsLeavingOne()
 
-        bpmStats.recordBpm(smoothedBpm)
+        bpmStats.recordBpm(smoothedBPM)
 
         let results = bpmStats.avgFromSmallestDeviatingHistory()
 
         // Only report results when there is enough history to guess at the BPM
-        guard results.avg > 0 else { return }
+        let bpmToRecord : BPMType
+        if results.avg > 0 {
+            bpmToRecord = results.avg
+        } else {
+            bpmToRecord = smoothedBPM
+        }
 
-        bpmAveraging.record(results.avg)
+        bpmAveraging.record(bpmToRecord)
         bpm = bpmAveraging.results.avg
 
         let newBpmStr = String(format: "%3.2f", bpmAveraging.results.avg)
@@ -183,7 +186,7 @@ extension AKMIDIBPMListener : AKMIDIListener {
         if data[0] == AKMIDISystemCommand.start.rawValue {
             resetClockEventsLeavingOne()
         }
-        mmcListener.receivedMIDISystemCommand(data, time: time)
+        srtListener.receivedMIDISystemCommand(data, time: time)
     }
 }
 
@@ -214,7 +217,7 @@ public extension AKMIDIBPMListener {
         }
     }
 
-    func bpmUpdate(_ bpm: BpmType, str: String) {
+    func bpmUpdate(_ bpm: BPMType, str: String) {
         bpmObservers.forEach { (observer) in
             observer.bpmUpdate(bpm, bpmStr: str)
         }
