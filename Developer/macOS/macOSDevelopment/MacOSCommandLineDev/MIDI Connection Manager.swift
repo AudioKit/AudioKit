@@ -20,7 +20,7 @@ class MidiConnectionManger: AKMIDIListener {
 
     init() {
         midi.addListener(bpmListenter)
-        bpmListenter.beatEstimator?.addObserver(self)
+        bpmListenter.clockListener?.addObserver(self)
         //midi.addListener(self)
     }
 
