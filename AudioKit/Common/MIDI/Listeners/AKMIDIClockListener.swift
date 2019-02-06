@@ -114,7 +114,7 @@ open class AKMIDIClockListener : NSObject {
 extension AKMIDIClockListener {
     public func addObserver(_ observer: AKMIDIBeatObserver) {
         observers.append(observer)
-//        AKLog("[AKMIDIBeatEstimator:addObserver] (\(observers.count) observers)")
+//        AKLog("[AKMIDIClockListener:addObserver] (\(observers.count) observers)")
     }
 
     public func removeObserver(_ observer: AKMIDIBeatObserver) {

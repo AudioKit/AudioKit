@@ -11,11 +11,15 @@ import AudioKit
 
 let SEND_SYSEX = false
 
+extension Notification.Name {
+    static let ReceivedSysex = Notification.Name(rawValue: "ReceivedSysexNotification")
+    static let SysexTimedOut = Notification.Name(rawValue: "SysexTimedOutNotification")
+
+}
+
 /// A class responsible for sending sysex messages and informing a caller of
 /// reception of a sysex response, or a timeout error condition.
 open class GeneralSysexCommunicationsManger: AKMIDIListener {
-    static let ReceivedSysex = Notification.Name(rawValue: "ReceivedSysexNotification")
-    static let SysexTimedOut = Notification.Name(rawValue: "SysexTimedOutNotification")
 
     let midi = AudioKit.midi
     let synthK5000 = K5000messages()
@@ -28,9 +32,9 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
 
     init() {
         messageTimeout = AKMIDITimeout(timeoutInterval: timeoutInterval, success: {
-            NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil)
+            NotificationCenter.default.post(name: .ReceivedSysex, object: nil)
         }, timeout: {
-            NotificationCenter.default.post(name: GeneralSysexCommunicationsManger.SysexTimedOut, object: nil)
+            NotificationCenter.default.post(name: .SysexTimedOut, object: nil)
         })
         midi.addListener(self)
     }
@@ -108,13 +112,7 @@ open class GeneralSysexCommunicationsManger: AKMIDIListener {
     }
 
     func headersMatch(_ headerTuple: Zip2Sequence<ArraySlice<MIDIByte>, [MIDIByte]>) -> Bool {
-        var matches = true
-        for bytes in headerTuple {
-            if bytes.0 != bytes.1 {
-                matches = false
-            }
-        }
-        return matches
+        return headerTuple.contains { $0.0 != $0.1 }
     }
 
 }

@@ -46,7 +46,7 @@ public typealias BPMType = TimeInterval
 ///
 open class AKMIDIBPMListener : NSObject {
 
-    public var beatEstimator: AKMIDIClockListener?
+    public var clockListener: AKMIDIClockListener?
 
     public var srtListener = AKMIDISRTListener()
 
@@ -74,7 +74,7 @@ open class AKMIDIBPMListener : NSObject {
 
         super.init()
 
-        beatEstimator = AKMIDIClockListener(srtListener: srtListener, bpmListener: self)
+        clockListener = AKMIDIClockListener(srtListener: srtListener, bpmListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
@@ -91,7 +91,7 @@ open class AKMIDIBPMListener : NSObject {
 
     deinit {
         clockTimeout = nil
-        beatEstimator = nil
+        clockListener = nil
     }
 }
 
@@ -177,7 +177,7 @@ extension AKMIDIBPMListener : AKMIDIListener {
                 }
                 clockEvents.append(time)
                 analyze()
-                beatEstimator?.midiClockBeat()
+                clockListener?.midiClockBeat()
             }
         }
         if data[0] == AKMIDISystemCommand.stop.rawValue {
