@@ -9,18 +9,19 @@
 import Foundation
 import AudioKit
 
-class MidiConnectionManger: AKMIDIListener {
-    let midi = AudioKit.midi
+class MidiConnectionManger {
 
+    let midi = AudioKit.midi
     var input: MIDIUniqueID = 0
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
-    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.4, bpmHistoryLimit: 3)
+    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.5, bpmHistoryLimit: 6)
 
     init() {
         midi.addListener(bpmListenter)
         bpmListenter.clockListener?.addObserver(self)
+        bpmListenter.addObserver(self)
         //midi.addListener(self)
     }
 
@@ -29,11 +30,6 @@ class MidiConnectionManger: AKMIDIListener {
         midi.closeOutput(uid: output)
 
         midi.removeListener(self)
-    }
-
-    func receivedMIDISetupChange() {
-        print("MIDI Setup Changed")
-        selectIO()
     }
 
     var hasIOConnections: Bool {
@@ -122,7 +118,31 @@ class MidiConnectionManger: AKMIDIListener {
     }
 }
 
+extension MidiConnectionManger : AKMIDIListener {
+
+    func receivedMIDISetupChange() {
+        print("MIDI Setup Changed")
+        selectIO()
+    }
+}
+
+extension MidiConnectionManger : AKMIDIBPMObserver {
+
+    func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
+        print("[BPM] ", bpmStr)
+    }
+
+    func midiClockSlaveMode() {
+        
+    }
+
+    func midiClockMasterEnabled() {
+
+    }
+}
+
 extension MidiConnectionManger : AKMIDIBeatObserver {
+
     func AKMIDISRTPreparePlay(continue: Bool) {
         debugPrint("MMC Start Prepare Play")
     }

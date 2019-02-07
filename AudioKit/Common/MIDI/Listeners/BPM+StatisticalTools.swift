@@ -21,22 +21,35 @@ extension Double {
 }
 
 // MARK: - Tools for obtaining average and std_dev arrays of floating points
-extension Array where Element: FloatingPoint {
+extension Array where Element: Numeric {
 
-    func sum() -> Element {
-        return self.reduce(0, +)
+    func sum() -> Float64 {
+        return self.reduce( Float64(0), +)
     }
 
-    func avg() -> Element {
+    func avg() -> Float64 {
         guard self.count > 0 else { return 0 }
-        return self.sum() / Element(self.count)
+        return Float64(self.sum()) / Float64(self.count)
     }
 
-    func std() -> Element {
+    func std() -> Float64 {
         guard self.count > 1 else { return 0 }
         let mean = self.avg()
-        let v = self.reduce(0, { $0 + ($1-mean)*($1-mean) })
-        return sqrt(v / (Element(self.count) - 1))
+        let start = Float64(0)
+        let v = self.reduce(start) { (priorResult, item) -> Float64 in
+            let accumulator = Float64(priorResult)
+            let floatItem = item as! Float64
+            let diff = floatItem - mean
+            return accumulator + diff*diff
+        }
+        return sqrt(v / (Float64(self.count) - 1))
+    }
+
+    func meanAndStdDev() -> (mean: Float64, std: Float64) {
+        // Peform Statistics
+        let meanCalc = avg()
+        let stdDev = std()
+        return (meanCalc, stdDev)
     }
 }
 
@@ -45,34 +58,125 @@ extension Array where Element: FloatingPoint {
 /// the smallest standard deviation may be returned as the current
 /// BPM
 struct BPMHistoryStatistics {
+    typealias BPMStats = (mean:BPMType, std:BPMType)
+    typealias TimeStats = (mean:Double, std:Double)
+    typealias LinearRegression = (slope: Double, c: Double)
+
     let historyCounts = [3,6,12,24,48,96,192,384]
-    var bpmHistory: [[BPMType]] = [[], [], [], [], [], [], [], []]
-    var stdDevs:    [BPMType] = []
-    var means:      [BPMType] = []
+    var bpmHistory: [BPMType]
+    var actualTimeHistory: [UInt64]
+    var timeHistory: [Float64]
+    var bpmStats: [BPMStats]
+    var timeStats: [TimeStats]
 
-    mutating func recordBpm(_ bpm: BPMType) {
-        historyCounts.forEach { (count) in
-            guard let index = historyCounts.firstIndex(of: count) else { return }
+    var lineFn: LinearRegression?
 
-            while bpmHistory[index].count > (count - 1) {
-                // remove oldest bpm from history
-                bpmHistory[index].remove(at: 0)
+    init() {
+        bpmHistory = []
+        timeHistory = []
+        bpmStats = []
+        timeStats = []
+        actualTimeHistory = []
+    }
+
+    var middleTime : UInt64 {
+        guard timeHistory.count == 0 else { return 0 }
+        guard timeHistory.count == 1 else { return UInt64(timeHistory.first!) }
+        let first = timeHistory.first!
+        let last = timeHistory.last!
+        return UInt64(first + ((last - first)/2))
+    }
+
+    mutating func record(bpm: BPMType) {
+
+        let maxCount = historyCounts.max() ?? 1
+        if maxCount > 1 {
+            if (bpmHistory.count > maxCount) {
+                bpmHistory = bpmHistory.dropFirst(1).compactMap({ $0 })
             }
-            bpmHistory[index].append(bpm)
         }
+        bpmHistory.append(bpm)
 
-        // Peform Statistics
-        var iterator = bpmHistory.makeIterator()
-        var newMeans: [BPMType] = []
-        var newStdDevs: [BPMType] = []
-        while let bpms = iterator.next() {
-            let mean = bpms.avg()
-            let stdDev = bpms.std()
-            newMeans.append(mean)
-            newStdDevs.append(stdDev)
+        calculateBpmMeanAndStdDev()
+    }
+
+    mutating func record(bpm: BPMType, time: UInt64) {
+
+        let maxCount = historyCounts.max() ?? 1
+        if maxCount > 1 {
+            if (bpmHistory.count > maxCount) {
+                bpmHistory = bpmHistory.dropFirst().compactMap({ $0 })
+            }
+            if (timeHistory.count > maxCount) {
+                timeHistory = timeHistory.dropFirst().compactMap({ $0 })
+            }
+            if (actualTimeHistory.count > maxCount) {
+                actualTimeHistory = actualTimeHistory.dropFirst().compactMap({ $0 })
+            }
         }
-        means = newMeans
-        stdDevs = newStdDevs
+        bpmHistory.append(bpm)
+        timeHistory.append(Float64(time))
+        actualTimeHistory.append(time)
+
+        calculateBpmMeanAndStdDev()
+        calculateTimeMeanAndStdDev()
+        linearRegression()
+    }
+
+    mutating private func calculateBpmMeanAndStdDev() {
+
+        var newStats: [BPMStats] = []
+
+        historyCounts.forEach { (count) in
+            // Peform Statistics
+            let dropCount = bpmHistory.count - count
+            guard dropCount > 0 else { return }
+            let history = bpmHistory.dropFirst(dropCount).compactMap({ $0 })
+            let results = history.meanAndStdDev()
+            newStats.append(results)
+        }
+        bpmStats = newStats
+    }
+
+    mutating private func calculateTimeMeanAndStdDev() {
+
+        var newStats: [TimeStats] = []
+
+        historyCounts.forEach { (count) in
+            // Peform Statistics
+            let dropCount = timeHistory.count - count
+            guard dropCount > 0 else { return }
+            let history = timeHistory.dropFirst(dropCount).compactMap({ $0 })
+            let results = history.meanAndStdDev()
+            newStats.append(results)
+        }
+        timeStats = newStats
+    }
+
+    mutating private func linearRegression() {
+
+        // Configure countIndex to use the results that you'd like to look at
+        let countIndex = 5
+
+        guard timeStats.count >= countIndex else { return }
+        guard bpmStats.count >= countIndex else { return }
+        let pairs = zip(timeHistory, bpmHistory)
+        let meanTime = timeStats[countIndex-1].mean
+        let meanBpm = bpmStats[countIndex-1].mean
+        let a = pairs.reduce(0) { $0 + ($1.0 - meanTime) * ($1.1 - meanBpm) }
+        let b = pairs.reduce(0) { $0 + pow($1.0 - meanTime, 2) }
+
+        let m = a / b
+        let c = meanBpm - m * meanTime
+
+        lineFn = (slope: m, c: c)
+    }
+
+    func bpmFromRegressionAtTime(_ time: UInt64) -> TimeInterval {
+
+        guard let lineFn = lineFn else { return 0 }
+
+        return lineFn.c + lineFn.slope * Double(time)
     }
 
     /// This methods attempts to return the most accurate BPM
@@ -81,13 +185,12 @@ struct BPMHistoryStatistics {
     ///
     /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BTM history set it used, and the count of recent BPMs used to obtain the average
     func avgFromSmallestDeviatingHistory() -> (avg: BPMType, std: BPMType, index: Int, count: Int, accuracy: Double) {
-        let std = stdDevs.min() ?? 0
-        guard let index = stdDevs.index(of: std) else {
-            return (0, 0, 0, 0, 0)
-        }
-        let meanAtIndex = means[index]
-        let accuracy = Double(index+1) / Double(historyCounts.count)
-        return (meanAtIndex, std, index, historyCounts[index], accuracy)
+
+        guard let results = bpmStats.min(by: { (left, right) -> Bool in
+            return left.std <= right.std
+        }) else { return (0,0,0,0,0) }
+
+        return (results.mean, results.std, 0, 0, 0)
     }
 }
 
@@ -122,7 +225,8 @@ struct BPMHistoryAveraging {
 
     mutating private func calculate() {
         guard bpmHistory.count > 1 else { results = (bpmHistory[0], 0); return }
-        results = (bpmHistory.avg(), bpmHistory.std())
+        let tuple = bpmHistory.meanAndStdDev()
+        results = (tuple.mean, tuple.std)
     }
 }
 
