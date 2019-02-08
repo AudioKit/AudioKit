@@ -112,6 +112,7 @@ open class AKMIDIBPMListener : NSObject {
 // MARK: - BPM Analysis
 
 public extension AKMIDIBPMListener {
+    
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
@@ -206,6 +207,7 @@ extension AKMIDIBPMListener : AKMIDIListener {
 // MARK: - Management and Communications for BPM Observers
 
 public extension AKMIDIBPMListener {
+
     public func addObserver(_ observer: AKMIDIBPMObserver) {
         bpmObservers.append(observer)
     }
