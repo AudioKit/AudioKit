@@ -119,7 +119,7 @@ public extension AKMIDIBPMListener {
 
         //NSEC_PER_SEC
         let oneMillion = Float64(USEC_PER_SEC)
-        let bpmCalc = ((oneMillion / intervalNanos / Float64(BEAT_TICKS)) * Float64(60.0)) + 0.04
+        let bpmCalc = ((oneMillion / intervalNanos / Float64(BEAT_TICKS)) * Float64(60.0)) + 0.055
         //debugPrint("interval: ",intervalNanos)
 
         resetClockEventsLeavingOne()
@@ -127,7 +127,7 @@ public extension AKMIDIBPMListener {
         bpmStats.record(bpm: bpmCalc, time: currentClockTime)
 
         // bpmSmoothing.smoothed(
-        let results = bpmStats.bpmFromRegressionAtTime(currentClockTime - 500000)
+        let results = bpmStats.bpmFromRegressionAtTime(bpmStats.timeAt(ratio: 0.8)) // currentClockTime - 500000
 
         // Only report results when there is enough history to guess at the BPM
         let bpmToRecord : BPMType

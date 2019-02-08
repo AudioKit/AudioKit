@@ -5224,14 +5224,13 @@
 		C539CCC221F823B00096AF95 /* Listeners */ = {
 			isa = PBXGroup;
 			children = (
-				C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */,
 				C5DEBEA321F8EA7E00A36FE7 /* AKMIDIObserverMaster.swift */,
+				C539CCC621F823B00096AF95 /* AKMIDIBPMListener.swift */,
+				C5DEBE9D21F8D9D100A36FE7 /* AKMIDIBPMObserver.swift */,
 				C5DEBEA121F8DE5200A36FE7 /* AKMIDIBeatObserver.swift */,
 				C539CCC421F823B00096AF95 /* AKMIDIClockListener.swift */,
 				C59E4E75220A0BB900654569 /* AKMIDISRTListener.swift */,
 				C59E4E74220A0BB800654569 /* AKMIDISRTObserver.swift */,
-				C5DEBE9D21F8D9D100A36FE7 /* AKMIDIBPMObserver.swift */,
-				C539CCC621F823B00096AF95 /* AKMIDIBPMListener.swift */,
 				C5AF016121FE602F0012C7B3 /* AKMIDIOmniListener.swift */,
 				C5AF016321FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift */,
 			);
@@ -5242,6 +5241,7 @@
 			isa = PBXGroup;
 			children = (
 				C539CCCC21F823CF0096AF95 /* AKMIDITimeout.swift */,
+				C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
