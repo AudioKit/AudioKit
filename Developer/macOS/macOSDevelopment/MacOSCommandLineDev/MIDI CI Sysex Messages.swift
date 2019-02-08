@@ -10,12 +10,12 @@ import Foundation
 import AudioKit
 
 /// MIDI CI device id
-enum midiCiMessageTypeByte: MIDIByte {
+enum MIDICIMessageTypeByte: MIDIByte {
     case universalSystemExclusive   = 0x7E
 }
 
 /// MIDI CI device id
-enum midiCiDeviceId: MIDIByte {
+enum MIDICIDeviceId: MIDIByte {
     case toFromChannel0 = 0x00
     case toFromChannel1 = 0x01
     case toFromChannel2 = 0x02
@@ -35,11 +35,11 @@ enum midiCiDeviceId: MIDIByte {
     case toFromMidiPort  = 0x7F
 }
 
-enum midiCiSubID1: MIDIByte {
+enum MIDICISubID1: MIDIByte {
     case identifier   = 0x0D
 }
 
-enum midiCiSubID2: MIDIByte {
+enum MIDICISubID2: MIDIByte {
     case reserved0 = 0x00
     case reserved1 = 0x01
     case reserved2 = 0x02
@@ -170,16 +170,16 @@ enum midiCiSubID2: MIDIByte {
     case NAK = 0x7F
 }
 
-enum midiCiVersion: MIDIByte {
-    case v1_0   = 0x00
+enum MIDICIVersion: MIDIByte {
+    case v1   = 0x00
 }
 
-let midiCiSysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue,
-                                    midiCiMessageTypeByte.universalSystemExclusive.rawValue]
+let MIDICISysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue,
+                                    MIDICIMessageTypeByte.universalSystemExclusive.rawValue]
 
 struct MNID {
-    var mnid_high : MIDIWord = 0
-    var mnid_low : MIDIWord = 0
+    var mnid_high: MIDIWord = 0
+    var mnid_low: MIDIWord = 0
 
     init() {
         topologyChanged()
@@ -192,9 +192,9 @@ struct MNID {
     }
 }
 
-class MidiCiMessage {
+class MIDICIMessage {
     let mnid = MNID()
-    let bytes : [MIDIByte]
+    let bytes: [MIDIByte]
 
     /// Init a Midi CI message
     ///
@@ -204,24 +204,24 @@ class MidiCiMessage {
     ///   - data: message data contents
     ///
     /// for some products, data contains more sysex
-    init(deviceId: midiCiDeviceId, subId2: midiCiSubID2, data: [MIDIByte] = []) {
+    init(deviceId: MIDICIDeviceId, subId2: MIDICISubID2, data: [MIDIByte] = []) {
         if data.count > 0 {
-            bytes = midiCiSysexStart +
+            bytes = MIDICISysexStart +
                 [deviceId.rawValue,
-                 midiCiSubID1.identifier.rawValue,
+                 MIDICISubID1.identifier.rawValue,
                  subId2.rawValue,
-                 midiCiVersion.v1_0.rawValue,
+                 MIDICIVersion.v1.rawValue,
                  mnid.mnid_high.msb,
                  mnid.mnid_high.lsb,
                  mnid.mnid_low.msb,
                  mnid.mnid_low.lsb] +
                  data + [AKMIDISystemCommand.sysexEnd.rawValue]
         } else {
-            bytes = midiCiSysexStart +
+            bytes = MIDICISysexStart +
                 [deviceId.rawValue,
-                 midiCiSubID1.identifier.rawValue,
+                 MIDICISubID1.identifier.rawValue,
                  subId2.rawValue,
-                 midiCiVersion.v1_0.rawValue,
+                 MIDICIVersion.v1.rawValue,
                  mnid.mnid_high.msb,
                  mnid.mnid_high.lsb,
                  mnid.mnid_low.msb,
@@ -233,9 +233,7 @@ class MidiCiMessage {
     /// Init a NAK message
     ///
     /// - Parameter deviceId: to/from port or channel
-    convenience init(deviceId: midiCiDeviceId) {
+    convenience init(deviceId: MIDICIDeviceId) {
         self.init(deviceId: deviceId, subId2: .NAK)
     }
 }
-
-
