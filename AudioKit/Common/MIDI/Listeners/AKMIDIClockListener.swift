@@ -81,7 +81,7 @@ open class AKMIDIClockListener : NSObject {
             let prefix = spaces.prefix( Int(fourCount) )
             AKLog(prefix, fourCount)
 
-            if (sendStart || sendContinue) {
+            if sendStart || sendContinue {
                 sendMmcStartContinueToObservers()
                 sendContinue = false
                 sendStart = false
@@ -95,7 +95,7 @@ open class AKMIDIClockListener : NSObject {
 
         if sppMidiBeatQuantumCounter == 6 { sppMidiBeatQuantumCounter = 0; sppMidiBeatCounter += 1 }
         sppMidiBeatQuantumCounter += 1
-        if (sppMidiBeatQuantumCounter == 1) {
+        if sppMidiBeatQuantumCounter == 1 {
             sendMIDIBeatUpdateToObservers()
 
             let beat = (sppMidiBeatCounter % 16) + 1
@@ -112,6 +112,7 @@ open class AKMIDIClockListener : NSObject {
 // MARK: - Observers
 
 extension AKMIDIClockListener {
+
     public func addObserver(_ observer: AKMIDIBeatObserver) {
         observers.append(observer)
 //        AKLog("[AKMIDIClockListener:addObserver] (\(observers.count) observers)")
@@ -130,7 +131,7 @@ extension AKMIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension AKMIDIClockListener : AKMIDIBPMObserver {
+extension AKMIDIClockListener: AKMIDIBPMObserver {
 
     internal func sendMIDIBeatUpdateToObservers() {
 //        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
@@ -178,7 +179,7 @@ extension AKMIDIClockListener : AKMIDIBPMObserver {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIClockListener : AKMIDISRTObserver {
+extension AKMIDIClockListener: AKMIDISRTObserver {
 
     public func midiClockSlaveMode() {
         AKLog("[MIDI CLOCK SLAVE]")
