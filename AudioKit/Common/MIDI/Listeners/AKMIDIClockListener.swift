@@ -82,7 +82,7 @@ open class AKMIDIClockListener: NSObject {
             AKLog(prefix, fourCount)
 
             if (sendStart || sendContinue) {
-                sendMMCStartContinueToObservers()
+                sendStartContinueToObservers()
                 sendContinue = false
                 sendStart = false
             }
@@ -130,8 +130,7 @@ extension AKMIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension AKMIDIClockListener: AKMIDITempoObserver {
-
+extension AKMIDIClockListener: AKMIDIBeatObserver {
     internal func sendMIDIBeatUpdateToObservers() {
         observers.forEach { (observer) in
             observer.receivedBeatEvent(beat: sppMIDIBeatCounter)
@@ -150,20 +149,20 @@ extension AKMIDIClockListener: AKMIDITempoObserver {
         }
     }
 
-    internal func sendMMCPreparePlayToObservers(continue resume: Bool) {
+    internal func sendPreparePlayToObservers(continue resume: Bool) {
         observers.forEach { (observer) in
             observer.preparePlay(continue: resume)
         }
     }
 
-    internal func sendMMCStartContinueToObservers() {
+    internal func sendStartContinueToObservers() {
         guard sendContinue || sendStart else { return }
         observers.forEach { (observer) in
             observer.startFirstBeat(continue: sendContinue)
         }
     }
 
-    internal func sendMMCStopToObservers() {
+    internal func sendStopToObservers() {
         observers.forEach { (observer) in
             observer.stopSRT()
         }
@@ -172,8 +171,7 @@ extension AKMIDIClockListener: AKMIDITempoObserver {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
-
+extension AKMIDIClockListener: AKMIDITempoObserver {
     public func midiClockSlaveMode() {
         AKLog("[MIDI CLOCK SLAVE]")
         quarterNoteQuantumCounter = 0
@@ -183,10 +181,12 @@ extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
         AKLog("[MIDI CLOCK MASTER - AVAILABLE]")
         quarterNoteQuantumCounter = 0
     }
+}
 
+extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
     public func stopSRT(listener: AKMIDISystemRealTimeListener) {
         AKLog("Beat: [Stop]")
-        sendMMCStopToObservers()
+        sendStopToObservers()
     }
 
     public func startSRT(listener: AKMIDISystemRealTimeListener) {
@@ -195,12 +195,12 @@ extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
         quarterNoteQuantumCounter = 0
         fourCount = 0
         sendStart = true
-        sendMMCPreparePlayToObservers(continue: false)
+        sendPreparePlayToObservers(continue: false)
     }
 
     public func continueSRT(listener: AKMIDISystemRealTimeListener) {
         AKLog("Beat: [Continue]")
         sendContinue = true
-        sendMMCPreparePlayToObservers(continue: true)
+        sendPreparePlayToObservers(continue: true)
     }
 }

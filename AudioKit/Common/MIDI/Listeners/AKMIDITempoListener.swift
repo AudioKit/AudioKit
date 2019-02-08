@@ -39,7 +39,8 @@ public typealias BPMType = TimeInterval
 ///         func midiClockMasterEnabled() { ... }
 ///
 /// midiClockSlaveMode() informs client that midi clock messages have been received
-/// and the client may not become the clock master.
+/// and the client may not become the clock master.  The client must stop all
+/// transmission of MIDI clock.
 ///
 /// midiClockMasterEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock master.
@@ -205,7 +206,7 @@ extension AKMIDITempoListener: AKMIDIListener {
 
 // MARK: - Management and Communications for BPM Observers
 
-public extension AKMIDITempoListener {
+extension AKMIDITempoListener {
     public func addObserver(_ observer: AKMIDITempoObserver) {
         tempoObservers.append(observer)
     }

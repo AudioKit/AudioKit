@@ -128,7 +128,7 @@ extension MidiConnectionManger: AKMIDIListener {
 
 extension MidiConnectionManger: AKMIDITempoObserver {
 
-    func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
+    func receivedTempo(_ bpm: BPMType, bpmStr: String) {
         print("[BPM] ", bpmStr)
     }
 
@@ -143,27 +143,27 @@ extension MidiConnectionManger: AKMIDITempoObserver {
 
 extension MidiConnectionManger: AKMIDIBeatObserver {
 
-    func AKMIDISRTPreparePlay(continue: Bool) {
+    func preparePlay(continue: Bool) {
         debugPrint("MMC Start Prepare Play")
     }
 
-    func AKMIDISRTStartFirstBeat(continue: Bool) {
+    func startFirstBeat(continue: Bool) {
         debugPrint("MMC Start First Beat")
     }
 
-    func AKMIDISRTStop() {
+    func stopSRT() {
         debugPrint("MMC Stop")
     }
 
-    func AKMIDIBeatUpdate(beat: UInt64) {
+    func receivedBeatEvent(beat: UInt64) {
 
     }
 
-    func AKMIDIQuantumUpdate(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
 
     }
 
-    func AKMIDIQuarterNoteBeat(quarterNote: UInt8) {
+    func receivedQuarterNoteBeat(quarterNote: UInt8) {
         //debugPrint("Quarter Note: ", quarterNote)
     }
 }
