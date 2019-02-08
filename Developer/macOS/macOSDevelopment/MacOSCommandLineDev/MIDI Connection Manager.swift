@@ -16,7 +16,7 @@ class MidiConnectionManger {
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
-    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.98, bpmHistoryLimit: 1)
+    public let bpmListenter = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
 
     init() {
         midi.addListener(bpmListenter)
@@ -126,7 +126,7 @@ extension MidiConnectionManger: AKMIDIListener {
     }
 }
 
-extension MidiConnectionManger: AKMIDIBPMObserver {
+extension MidiConnectionManger: AKMIDITempoObserver {
 
     func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
         print("[BPM] ", bpmStr)
