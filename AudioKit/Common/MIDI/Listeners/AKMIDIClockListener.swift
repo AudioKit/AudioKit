@@ -22,9 +22,9 @@ open class AKMIDIClockListener: NSObject {
     // number of all time quantum F8 MIDI Clock messages seen
     public var quantumCounter: UInt64 = 0
     // 6 F8 MIDI Clock messages = 1 SPP MIDI Beat
-    public var sppMidiBeatCounter: UInt64 = 0
+    public var sppMIDIBeatCounter: UInt64 = 0
     // 6 F8 MIDI Clock quantum messages = 1 SPP MIDI Beat
-    public var sppMidiBeatQuantumCounter: UInt8 = 0
+    public var sppMIDIBeatQuantumCounter: UInt8 = 0
     // 1, 2, 3, 4 , 1, 2, 3, 4 - quarter note counter
     public var fourCount: UInt8 = 0
 
@@ -54,8 +54,8 @@ open class AKMIDIClockListener: NSObject {
     }
 
     func sppChange(_ positionPointer: UInt16) {
-        sppMidiBeatCounter = UInt64(positionPointer)
-        quantumCounter = UInt64(6 * sppMidiBeatCounter)
+        sppMIDIBeatCounter = UInt64(positionPointer)
+        quantumCounter = UInt64(6 * sppMIDIBeatCounter)
         quarterNoteQuantumCounter = UInt8(quantumCounter % 24)
     }
 
@@ -93,12 +93,12 @@ open class AKMIDIClockListener: NSObject {
         }
         sendQuantumUpdateToObservers()
 
-        if sppMidiBeatQuantumCounter == 6 { sppMidiBeatQuantumCounter = 0; sppMidiBeatCounter += 1 }
-        sppMidiBeatQuantumCounter += 1
-        if (sppMidiBeatQuantumCounter == 1) {
+        if sppMIDIBeatQuantumCounter == 6 { sppMIDIBeatQuantumCounter = 0; sppMIDIBeatCounter += 1 }
+        sppMIDIBeatQuantumCounter += 1
+        if (sppMIDIBeatQuantumCounter == 1) {
             sendMIDIBeatUpdateToObservers()
 
-            let beat = (sppMidiBeatCounter % 16) + 1
+            let beat = (sppMIDIBeatCounter % 16) + 1
             AKLog("       ", beat)
         }
     }
@@ -124,7 +124,6 @@ extension AKMIDIClockListener {
 
     public func removeAllObservers() {
         observers.removeAll()
-//        AKLog("[AKMIDIClockListener:removeAllObservers] (\(observers.count) observers)")
     }
 }
 
@@ -133,45 +132,39 @@ extension AKMIDIClockListener {
 extension AKMIDIClockListener: AKMIDITempoObserver {
 
     internal func sendMIDIBeatUpdateToObservers() {
-//        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDIBeatUpdate(beat: sppMidiBeatCounter)
+            observer.receivedBeatEvent(beat: sppMIDIBeatCounter)
         }
     }
 
     internal func sendQuantumUpdateToObservers() {
-//        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDIQuantumUpdate(quarterNote: fourCount, beat: sppMidiBeatCounter, quantum: quantumCounter)
+            observer.receivedQuantum(quarterNote: fourCount, beat: sppMIDIBeatCounter, quantum: quantumCounter)
         }
     }
 
     internal func sendQuarterNoteMessageToObservers() {
-//        AKLog("[sendQuarterNoteMessageToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDIQuarterNoteBeat(quarterNote: fourCount)
+            observer.receivedQuarterNoteBeat(quarterNote: fourCount)
         }
     }
 
     internal func sendMMCPreparePlayToObservers(continue resume: Bool) {
-//        AKLog("[sendMMCPreparePlayToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDISRTPreparePlay(continue: resume)
+            observer.preparePlay(continue: resume)
         }
     }
 
     internal func sendMMCStartContinueToObservers() {
         guard sendContinue || sendStart else { return }
-//        AKLog("[sendMMCStartContinueToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDISRTStartFirstBeat(continue: sendContinue)
+            observer.startFirstBeat(continue: sendContinue)
         }
     }
 
     internal func sendMMCStopToObservers() {
-//        AKLog("[sendMMCStopToObservers] (\(observers.count) observers)")
         observers.forEach { (observer) in
-            observer.AKMIDISRTStop()
+            observer.stopSRT()
         }
     }
 }
@@ -197,7 +190,7 @@ extension AKMIDIClockListener: AKMIDISystemRealTimeObserver {
 
     public func startSRT(listener: AKMIDISystemRealTimeListener) {
         AKLog("Beat: [Start]")
-        sppMidiBeatCounter = 0
+        sppMIDIBeatCounter = 0
         quarterNoteQuantumCounter = 0
         fourCount = 0
         sendStart = true
