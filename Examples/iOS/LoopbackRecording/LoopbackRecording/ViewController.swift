@@ -71,32 +71,33 @@ class ViewController: UIViewController {
     func setUpAudio() {
 
         do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setActive(true)
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers])
+            AKSettings.audioInputEnabled = true
+            AKSettings.defaultToSpeaker = true
+            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+            try AKSettings.setSession(category: .playAndRecord)
+
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
             // It's a must if you want accurate recordings.  It turns of the os input processing.
             // Uncomment / Experiment
-            /*
 
-            try audioSession.setMode(AVAudioSessionModeMeasurement)
+            // try AKSettings.session.setMode(AVAudioSession.Mode.measurement)
 
-             */
 
         } catch {
             fatalError(error.localizedDescription)
         }
 
-        // Make connections, using engine.outputNode so that I can skip AudioKit.start()
-        [metronome, player] >>> mixer >>> AudioKit.engine.outputNode
+        // Make connections
+        metronome.connect(to: mixer.inputNode)
+        player.connect(to: mixer.inputNode)
+        AudioKit.output = mixer
 
         // Set up recorders
         loopBackRecorder = AKClipRecorder(node: AudioKit.engine.inputNode)
         directRecorder = AKClipRecorder(node: metronome)
 
-        // Calling start on the engine seems to avoid the bugs around AudioKit.start()
-        do { try AudioKit.engine.start() } catch {
+        do { try AudioKit.start() } catch {
             fatalError(error.localizedDescription)
         }
 
@@ -117,7 +118,7 @@ class ViewController: UIViewController {
         // samples.  However, the hostTime of all of the timestamps share the same base, so we'll use it.
         guard let lastRenderHostTime = mixer.avAudioNode.lastRenderTime?.hostTime else { fatalError("Engine not running!") }
 
-        let audioSession = AVAudioSession.sharedInstance()
+        let audioSession = AKSettings.session
         let bufferDurationTicks = UInt64(audioSession.ioBufferDuration * secondsToTicks)
         let outputLatencyTicks = UInt64(audioSession.outputLatency * secondsToTicks)
         let inputLatencyTicks = UInt64(audioSession.inputLatency * secondsToTicks)

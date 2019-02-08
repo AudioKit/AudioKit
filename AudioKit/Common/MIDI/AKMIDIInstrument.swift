@@ -21,7 +21,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     /// Name of the instrument
     open var name = "AudioKit MIDI Instrument"
 
-    open var mpeActiveNotes : [(note: MIDINoteNumber, channel: MIDIChannel)] = []
+    open var mpeActiveNotes: [(note: MIDINoteNumber, channel: MIDIChannel)] = []
 
     /// Initialize the MIDI Instrument
     ///

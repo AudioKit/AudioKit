@@ -1,5 +1,5 @@
 //
-//  AKMIDIBPMListener.swift
+//  AKMIDITempoListener.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/18/19.
@@ -27,14 +27,14 @@ public typealias BPMType = TimeInterval
 ///
 /// Usage:
 ///
-///     let bpmListener = AKMIDIBPMListener()
-///     AudioKit.midi.addListener(bpmListener)
+///     let tempoListener = AKMIDITempoListener()
+///     AudioKit.midi.addListener(tempoListener)
 ///
-/// Make your class a AKMIDIBPMObserver and you will recieve callbacks when the BPM
+/// Make your class a AKMIDITempoObserver and you will recieve callbacks when the BPM
 /// changes.
 ///
-///     class YOURCLASS : AKMIDIBPMObserver {
-///         func bpmUpdate(_ bpm: BpmType, bpmStr: String) {  ... }
+///     class YOURCLASS: AKMIDITempoObserver {
+///         func bpmUpdate(_ bpm: BPMType, bpmStr: String) {  ... }
 ///         func midiClockSlaveMode() { ... }
 ///         func midiClockMasterEnabled() { ... }
 ///
@@ -44,16 +44,16 @@ public typealias BPMType = TimeInterval
 /// midiClockMasterEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock master.
 ///
-open class AKMIDIBPMListener : NSObject {
+open class AKMIDITempoListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 
     public var srtListener = AKMIDISRTListener()
 
-    var bpmObservers: [AKMIDIBPMObserver] = []
+    var tempoObservers: [AKMIDITempoObserver] = []
 
     public var bpmStr: String = ""
-    public var bpm: BPMType = 0
+    public var tempo: BPMType = 0
     var clockEvents: [UInt64] = []
     let clockEventLimit = 2
     var bpmStats = BPMHistoryStatistics()
@@ -88,7 +88,7 @@ open class AKMIDIBPMListener : NSObject {
 
         super.init()
 
-        clockListener = AKMIDIClockListener(srtListener: srtListener, bpmListener: self)
+        clockListener = AKMIDIClockListener(srtListener: srtListener, tempoListener: self)
 
         if timebaseInfo.denom == 0 {
             _ = mach_timebase_info(&timebaseInfo)
@@ -111,8 +111,12 @@ open class AKMIDIBPMListener : NSObject {
 
 // MARK: - BPM Analysis
 
+<<<<<<< HEAD:AudioKit/Common/MIDI/Listeners/AKMIDIBPMListener.swift
 public extension AKMIDIBPMListener {
     
+=======
+public extension AKMIDITempoListener {
+>>>>>>> ak_develop:AudioKit/Common/MIDI/Listeners/AKMIDITempoListener.swift
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
@@ -143,7 +147,7 @@ public extension AKMIDIBPMListener {
         let results = bpmStats.bpmFromRegressionAtTime(bpmStats.timeAt(ratio: 0.8)) // currentClockTime - 500000
 
         // Only report results when there is enough history to guess at the BPM
-        let bpmToRecord : BPMType
+        let bpmToRecord: BPMType
         if results > 0 {
             bpmToRecord = BPMType(results)
         } else {
@@ -151,9 +155,9 @@ public extension AKMIDIBPMListener {
         }
 
         bpmAveraging.record(bpmToRecord)
-        bpm = bpmAveraging.results.avg
+        tempo = bpmAveraging.results.avg
 
-        let newBpmStr = String(format: "%3.2f", bpm)
+        let newBpmStr = String(format: "%3.2f", tempo)
         if newBpmStr != bpmStr {
             bpmStr = newBpmStr
 
@@ -177,9 +181,9 @@ public extension AKMIDIBPMListener {
     }
 }
 
-// MARK: - AKMIDIBPMListener should be used as an AKMIDIListener
+// MARK: - AKMIDITempoListener should be used as an AKMIDIListener
 
-extension AKMIDIBPMListener : AKMIDIListener {
+extension AKMIDITempoListener: AKMIDIListener {
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
@@ -206,34 +210,40 @@ extension AKMIDIBPMListener : AKMIDIListener {
 
 // MARK: - Management and Communications for BPM Observers
 
+<<<<<<< HEAD:AudioKit/Common/MIDI/Listeners/AKMIDIBPMListener.swift
 public extension AKMIDIBPMListener {
 
     public func addObserver(_ observer: AKMIDIBPMObserver) {
         bpmObservers.append(observer)
+=======
+public extension AKMIDITempoListener {
+    public func addObserver(_ observer: AKMIDITempoObserver) {
+        tempoObservers.append(observer)
+>>>>>>> ak_develop:AudioKit/Common/MIDI/Listeners/AKMIDITempoListener.swift
     }
 
-    public func removeObserver(_ observer: AKMIDIBPMObserver) {
-        bpmObservers.removeAll { $0 == observer }
+    public func removeObserver(_ observer: AKMIDITempoObserver) {
+        tempoObservers.removeAll { $0 == observer }
     }
 
     public func removeAllObserver() {
-        bpmObservers.removeAll()
+        tempoObservers.removeAll()
     }
 
     func midiClockActivityStarted() {
-        bpmObservers.forEach { (observer) in
+        tempoObservers.forEach { (observer) in
             observer.midiClockSlaveMode()
         }
     }
 
     func midiClockActivityStopped() {
-        bpmObservers.forEach { (observer) in
+        tempoObservers.forEach { (observer) in
             observer.midiClockMasterEnabled()
         }
     }
 
     func bpmUpdate(_ bpm: BPMType, str: String) {
-        bpmObservers.forEach { (observer) in
+        tempoObservers.forEach { (observer) in
             observer.bpmUpdate(bpm, bpmStr: str)
         }
     }
