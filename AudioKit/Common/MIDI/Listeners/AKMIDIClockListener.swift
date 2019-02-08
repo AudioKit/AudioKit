@@ -31,25 +31,25 @@ open class AKMIDIClockListener: NSObject {
     private var sendStart = false
     private var sendContinue = false
     private let srtListener: AKMIDISRTListener
-    private let bpmListener: AKMIDIBPMListener
+    private let tempoListener: AKMIDITempoListener
     private var observers: [AKMIDIBeatObserver] = []
 
     /// AKMIDIClockListener requires to be an observer of both SRT and BPM events
-    init(srtListener srt: AKMIDISRTListener, quantumsPerQuarterNote count: UInt8 = 24, bpmListener bpm: AKMIDIBPMListener) {
+    init(srtListener srt: AKMIDISRTListener, quantumsPerQuarterNote count: UInt8 = 24, tempoListener tempo: AKMIDITempoListener) {
         quantumsPerQuarterNote = count
         srtListener = srt
-        bpmListener = bpm
+        tempoListener = tempo
 
         super.init()
         // self is now initialized
 
         srtListener.addObserver(self)
-        bpmListener.addObserver(self)
+        tempoListener.addObserver(self)
     }
 
     deinit {
         srtListener.removeObserver(self)
-        bpmListener.removeObserver(self)
+        tempoListener.removeObserver(self)
         observers = []
     }
 
@@ -130,7 +130,7 @@ extension AKMIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension AKMIDIClockListener: AKMIDIBPMObserver {
+extension AKMIDIClockListener: AKMIDITempoObserver {
 
     internal func sendMIDIBeatUpdateToObservers() {
 //        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
