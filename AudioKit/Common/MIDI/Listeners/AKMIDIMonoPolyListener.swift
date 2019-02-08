@@ -5,7 +5,7 @@
 //  Created by Kurt Arnlund on 1/27/19.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
-//  AKMIDIMonoPolyListener : AKMIDIListener
+//  AKMIDIMonoPolyListener: AKMIDIListener
 //
 //  This class probably needs to support observers as well
 //  so that a client may be able to be notified of state changes

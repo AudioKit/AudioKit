@@ -42,7 +42,7 @@ extension AKMIDISRTObserver {
 
     }
 
-    public func isEqualTo(_ listener : AKMIDISRTObserver) -> Bool {
+    public func isEqualTo(_ listener: AKMIDISRTObserver) -> Bool {
         return self == listener
     }
 }

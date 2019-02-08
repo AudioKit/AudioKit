@@ -1,5 +1,5 @@
 //
-//  AKMIDIBPMObserver.swift
+//  AKMIDITempoObserver.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/23/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol AKMIDIBPMObserver {
+public protocol AKMIDITempoObserver {
 
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
     /// This signifies that there is an incoming midi clock detected
@@ -23,7 +23,7 @@ public protocol AKMIDIBPMObserver {
     func bpmUpdate(_ bpm: BPMType, bpmStr: String)
 }
 
-public extension AKMIDIBPMObserver {
+public extension AKMIDITempoObserver {
 
     public func midiClockSlaveMode() {
 
@@ -37,11 +37,15 @@ public extension AKMIDIBPMObserver {
 
     }
 
+<<<<<<< HEAD:AudioKit/Common/MIDI/Listeners/AKMIDIBPMObserver.swift
     func isEqualTo(_ listener: AKMIDIBPMObserver) -> Bool {
+=======
+    func isEqualTo(_ listener: AKMIDITempoObserver) -> Bool {
+>>>>>>> ak_develop:AudioKit/Common/MIDI/Listeners/AKMIDITempoObserver.swift
         return self == listener
     }
 }
 
-func == (lhs: AKMIDIBPMObserver, rhs: AKMIDIBPMObserver) -> Bool {
+func == (lhs: AKMIDITempoObserver, rhs: AKMIDITempoObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
