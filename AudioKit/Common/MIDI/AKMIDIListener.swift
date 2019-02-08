@@ -13,6 +13,9 @@
 /// the classes complete freedom to respond to only the particular MIDI messages
 /// of interest.
 ///
+
+let AKMIDIListenerLogging = false
+
 public protocol AKMIDIListener {
 
     /// Receive the MIDI note on event
@@ -85,7 +88,7 @@ public protocol AKMIDIListener {
     ///
     /// - parameter data: Array of integers
     ///
-    func receivedMIDISystemCommand(_ data: [MIDIByte])
+    func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp)
 
     /// MIDI Setup has changed
     func receivedMIDISetupChange()
@@ -110,7 +113,9 @@ public extension AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
+        }
     }
 
     /// Receive the MIDI note off event
@@ -123,7 +128,9 @@ public extension AKMIDIListener {
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel) {
-        AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
+        }
     }
 
     /// Receive a generic controller value
@@ -134,7 +141,9 @@ public extension AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        AKLog("channel: \(channel) controller: \(controller) value: \(value)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) controller: \(controller) value: \(value)")
+        }
     }
 
     /// Receive single note based aftertouch event
@@ -147,7 +156,9 @@ public extension AKMIDIListener {
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel) {
-        AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure)")
+        }
     }
 
     /// Receive global aftertouch
@@ -157,7 +168,9 @@ public extension AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
-        AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure)")
+        }
     }
 
     /// Receive pitch wheel value
@@ -167,7 +180,9 @@ public extension AKMIDIListener {
     ///   - channel:         MIDI Channel (1-16)
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
-        AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue)")
+        }
     }
 
     /// Receive program change
@@ -177,20 +192,26 @@ public extension AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
-        AKLog("channel: \(channel) programChange: \(program)")
+        if AKMIDIListenerLogging {
+            AKLog("channel: \(channel) programChange: \(program)")
+        }
     }
 
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
     /// - parameter data: Array of integers
     ///
-    func receivedMIDISystemCommand(_ data: [MIDIByte]) {
-        AKLog("AKMIDIListener default method")
+    func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
+        if AKMIDIListenerLogging {
+            AKLog("AKMIDIListener default method")
+        }
     }
 
     /// MIDI Setup has changed
     func receivedMIDISetupChange() {
-        AKLog("MIDI Setup Has Changed.")
+        if AKMIDIListenerLogging {
+            AKLog("MIDI Setup Has Changed.")
+        }
     }
 
     /// MIDI Setup has changed

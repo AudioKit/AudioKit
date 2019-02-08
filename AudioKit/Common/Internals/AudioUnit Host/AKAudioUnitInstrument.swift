@@ -56,4 +56,23 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         }
         midiInstrument.stopNote(noteNumber, onChannel: channel)
     }
+
+    open override func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        midiInstrument?.sendController(controller, withValue: value, onChannel: channel)
+    }
+
+    open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                           pressure: MIDIByte,
+                                           channel: MIDIChannel) {
+        midiInstrument?.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
+    }
+
+    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+        midiInstrument?.sendPressure(pressure, onChannel: channel)
+    }
+
+    open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+        midiInstrument?.sendPitchBend(pitchWheelValue, onChannel: channel)
+    }
+
 }

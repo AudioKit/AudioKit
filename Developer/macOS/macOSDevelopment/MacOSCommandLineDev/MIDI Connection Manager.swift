@@ -9,16 +9,20 @@
 import Foundation
 import AudioKit
 
-class MidiConnectionManger: AKMIDIListener {
-    let midi = AudioKit.midi
+class MidiConnectionManger {
 
+    let midi = AudioKit.midi
     var input: MIDIUniqueID = 0
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
+    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.98, bpmHistoryLimit: 1)
 
     init() {
-        midi.addListener(self)
+        midi.addListener(bpmListenter)
+        bpmListenter.clockListener?.addObserver(self)
+        bpmListenter.addObserver(self)
+        //midi.addListener(self)
     }
 
     deinit {
@@ -28,13 +32,19 @@ class MidiConnectionManger: AKMIDIListener {
         midi.removeListener(self)
     }
 
-    func receivedMIDISetupChange() {
-        print("MIDI Setup Changed")
-        selectIO()
-    }
-
     var hasIOConnections: Bool {
         return input != 0 || output != 0
+    }
+
+    func openAll() {
+        midi.createVirtualPorts()
+        midi.openInput(); // open all inputs
+        midi.openOutput() // open all outputs?
+    }
+
+    func closeAll() {
+        midi.closeAllInputs()
+        midi.closeOutput()
     }
 
     func selectIO() {
@@ -51,10 +61,8 @@ class MidiConnectionManger: AKMIDIListener {
                 confirmed = true
             }
         }
-        midi.openInput(); // open all inputs
-//        midi.openInput(uid: input)
-        midi.openOutput() // open all outputs?
-//        midi.openOutput(uid: output)
+        midi.openInput(uid: input)
+        midi.openOutput(uid: output)
     }
 
     func selectInput() {
@@ -107,5 +115,55 @@ class MidiConnectionManger: AKMIDIListener {
 
         print(" Input: \(src.manufacturer) \(src.displayName)")
         print("Output: \(dest.manufacturer) \(dest.displayName)")
+    }
+}
+
+extension MidiConnectionManger: AKMIDIListener {
+
+    func receivedMIDISetupChange() {
+        print("MIDI Setup Changed")
+        selectIO()
+    }
+}
+
+extension MidiConnectionManger: AKMIDIBPMObserver {
+
+    func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
+        print("[BPM] ", bpmStr)
+    }
+
+    func midiClockSlaveMode() {
+
+    }
+
+    func midiClockMasterEnabled() {
+
+    }
+}
+
+extension MidiConnectionManger: AKMIDIBeatObserver {
+
+    func AKMIDISRTPreparePlay(continue: Bool) {
+        debugPrint("MMC Start Prepare Play")
+    }
+
+    func AKMIDISRTStartFirstBeat(continue: Bool) {
+        debugPrint("MMC Start First Beat")
+    }
+
+    func AKMIDISRTStop() {
+        debugPrint("MMC Stop")
+    }
+
+    func AKMIDIBeatUpdate(beat: UInt64) {
+
+    }
+
+    func AKMIDIQuantumUpdate(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+
+    }
+
+    func AKMIDIQuarterNoteBeat(quarterNote: UInt8) {
+        //debugPrint("Quarter Note: ", quarterNote)
     }
 }
