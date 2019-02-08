@@ -26,8 +26,8 @@ public protocol AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            channel: MIDIChannel)
+                              velocity: MIDIVelocity,
+                               channel: MIDIChannel)
 
     /// Receive the MIDI note off event
     ///
@@ -37,8 +37,8 @@ public protocol AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                             velocity: MIDIVelocity,
-                             channel: MIDIChannel)
+                               velocity: MIDIVelocity,
+                                channel: MIDIChannel)
 
     /// Receive a generic controller value
     ///
@@ -57,8 +57,8 @@ public protocol AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                pressure: MIDIByte,
-                                channel: MIDIChannel)
+                                  pressure: MIDIByte,
+                                   channel: MIDIChannel)
 
     /// Receive global aftertouch
     ///
@@ -111,8 +111,8 @@ public extension AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                            velocity: MIDIVelocity,
-                            channel: MIDIChannel) {
+                              velocity: MIDIVelocity,
+                               channel: MIDIChannel) {
         if AKMIDIListenerLogging {
             AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
         }
@@ -126,8 +126,8 @@ public extension AKMIDIListener {
     ///   - channel:    MIDI Channel (1-16)
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                             velocity: MIDIVelocity,
-                             channel: MIDIChannel) {
+                               velocity: MIDIVelocity,
+                                channel: MIDIChannel) {
         if AKMIDIListenerLogging {
             AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
         }
