@@ -53,13 +53,13 @@ extension Array where Element: Numeric {
     }
 }
 
-/// BpmHistoryStatistics keeps several sets of BPM history data for
+/// BPMHistoryStatistics keeps several sets of BPM history data for
 /// various lengths of time.  This is done so that the history with
 /// the smallest standard deviation may be returned as the current
 /// BPM
 struct BPMHistoryStatistics {
-    typealias BPMStats = (mean:BPMType, std:BPMType)
-    typealias TimeStats = (mean:Double, std:Double)
+    typealias BPMStats = (mean: BPMType, std: BPMType)
+    typealias TimeStats = (mean: Double, std: Double)
     typealias LinearRegression = (slope: Double, c: Double)
 
     // Configure countIndex to use the results that you'd like to look at
@@ -103,7 +103,7 @@ struct BPMHistoryStatistics {
         }
         bpmHistory.append(bpm)
 
-        calculateBpmMeanAndStdDev()
+        calculateBPMMeanAndStdDev()
     }
 
     mutating func record(bpm: BPMType, time: UInt64) {
@@ -124,12 +124,12 @@ struct BPMHistoryStatistics {
         timeHistory.append(Float64(time))
         actualTimeHistory.append(time)
 
-        calculateBpmMeanAndStdDev()
+        calculateBPMMeanAndStdDev()
         calculateTimeMeanAndStdDev()
         linearRegression()
     }
 
-    mutating private func calculateBpmMeanAndStdDev() {
+    mutating private func calculateBPMMeanAndStdDev() {
 
         var newStats: [BPMStats] = []
 
@@ -165,12 +165,12 @@ struct BPMHistoryStatistics {
         guard bpmStats.count >= regressionCountIndex else { return }
         let pairs = zip(timeHistory, bpmHistory)
         let meanTime = timeStats[regressionCountIndex-1].mean
-        let meanBpm = bpmStats[regressionCountIndex-1].mean
-        let a = pairs.reduce(0) { $0 + ($1.0 - meanTime) * ($1.1 - meanBpm) }
+        let meanBPM = bpmStats[regressionCountIndex-1].mean
+        let a = pairs.reduce(0) { $0 + ($1.0 - meanTime) * ($1.1 - meanBPM) }
         let b = pairs.reduce(0) { $0 + pow($1.0 - meanTime, 2) }
 
         let m = a / b
-        let c = meanBpm - m * meanTime
+        let c = meanBPM - m * meanTime
 
         lineFn = (slope: m, c: c)
     }
@@ -197,7 +197,7 @@ struct BPMHistoryStatistics {
     }
 }
 
-/// BpmHistoryAveraging keeps a history of BPM values that recorded into it.
+/// BPMHistoryAveraging keeps a history of BPM values that recorded into it.
 /// Each time a value is recorded, it calcualtes a average and standard
 //  deviation so that the stability of the BPM clock can be examined.
 struct BPMHistoryAveraging {

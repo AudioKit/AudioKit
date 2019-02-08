@@ -52,7 +52,7 @@ open class AKMIDITempoListener: NSObject {
 
     var tempoObservers: [AKMIDITempoObserver] = []
 
-    public var bpmStr: String = ""
+    public var tempoString: String = ""
     public var tempo: BPMType = 0
     var clockEvents: [UInt64] = []
     let clockEventLimit = 2
@@ -152,11 +152,11 @@ public extension AKMIDITempoListener {
         bpmAveraging.record(bpmToRecord)
         tempo = bpmAveraging.results.avg
 
-        let newBpmStr = String(format: "%3.2f", tempo)
-        if newBpmStr != bpmStr {
-            bpmStr = newBpmStr
+        let newTempoString = String(format: "%3.2f", tempo)
+        if newTempoString != tempoString {
+            tempoString = newTempoString
 
-            receivedTempo(bpm: bpmAveraging.results.avg, label: bpmStr)
+            receivedTempo(bpm: bpmAveraging.results.avg, label: tempoString)
         }
     }
 
