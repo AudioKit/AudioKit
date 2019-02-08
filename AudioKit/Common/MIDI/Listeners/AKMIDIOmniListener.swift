@@ -13,9 +13,9 @@
 import Foundation
 import CoreMIDI
 
-open class AKMIDIOMNIListener : NSObject {
+open class AKMIDIOMNIListener: NSObject {
 
-    var omniMode : Bool
+    var omniMode: Bool
 
     @objc public init(omni: Bool = true) {
         omniMode = omni
@@ -24,7 +24,7 @@ open class AKMIDIOMNIListener : NSObject {
 
 // MARK: - AKMIDIOMNIListener should be used as an AKMIDIListener
 
-extension AKMIDIOMNIListener : AKMIDIListener {
+extension AKMIDIOMNIListener: AKMIDIListener {
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         if controller == AKMIDIControl.omniModeOff.rawValue {
