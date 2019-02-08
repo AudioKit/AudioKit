@@ -11,7 +11,7 @@ import CoreMIDI
 
 /// This AKMIDIListener looks for midi system real time (SRT)
 /// midi system messages.
-open class AKMIDISRTListener : NSObject {
+open class AKMIDISRTListener: NSObject {
     enum SRTEvent: MIDIByte {
         case stop = 0xFC
         case start = 0xFA
@@ -60,7 +60,7 @@ open class AKMIDISRTListener : NSObject {
     var observers: [AKMIDISRTObserver] = []
 }
 
-extension AKMIDISRTListener : AKMIDIListener {
+extension AKMIDISRTListener: AKMIDIListener {
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")

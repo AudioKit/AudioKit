@@ -123,7 +123,7 @@ extension AKAudioFile {
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func normalizeAsynchronously(baseDir: BaseDirectory = .temp,
                                         name: String = "",
@@ -160,7 +160,7 @@ extension AKAudioFile {
     ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func reverseAsynchronously(baseDir: BaseDirectory = .temp,
                                       name: String = "",
@@ -196,7 +196,7 @@ extension AKAudioFile {
     ///   - file: an AKAudioFile that will be used to append audio from.
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func appendAsynchronously(file: AKAudioFile,
                                      baseDir: BaseDirectory = .temp,

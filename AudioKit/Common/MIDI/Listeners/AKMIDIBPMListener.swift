@@ -33,7 +33,7 @@ public typealias BPMType = TimeInterval
 /// Make your class a AKMIDIBPMObserver and you will recieve callbacks when the BPM
 /// changes.
 ///
-///     class YOURCLASS : AKMIDIBPMObserver {
+///     class YOURCLASS: AKMIDIBPMObserver {
 ///         func bpmUpdate(_ bpm: BpmType, bpmStr: String) {  ... }
 ///         func midiClockSlaveMode() { ... }
 ///         func midiClockMasterEnabled() { ... }
@@ -44,7 +44,7 @@ public typealias BPMType = TimeInterval
 /// midiClockMasterEnabled() informs client that midi clock messages have not been seen
 /// in 1.6 seconds and the client is allowed to become the clock master.
 ///
-open class AKMIDIBPMListener : NSObject {
+open class AKMIDIBPMListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 
@@ -142,7 +142,7 @@ public extension AKMIDIBPMListener {
         let results = bpmStats.bpmFromRegressionAtTime(bpmStats.timeAt(ratio: 0.8)) // currentClockTime - 500000
 
         // Only report results when there is enough history to guess at the BPM
-        let bpmToRecord : BPMType
+        let bpmToRecord: BPMType
         if results > 0 {
             bpmToRecord = BPMType(results)
         } else {
@@ -178,7 +178,7 @@ public extension AKMIDIBPMListener {
 
 // MARK: - AKMIDIBPMListener should be used as an AKMIDIListener
 
-extension AKMIDIBPMListener : AKMIDIListener {
+extension AKMIDIBPMListener: AKMIDIListener {
 
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
