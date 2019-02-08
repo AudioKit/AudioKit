@@ -34,7 +34,7 @@ public typealias BPMType = TimeInterval
 /// changes.
 ///
 ///     class YOURCLASS: AKMIDITempoObserver {
-///         func bpmUpdate(_ bpm: BPMType, bpmStr: String) {  ... }
+///         func receivedTempoUpdate(bpm: BPMType, label: String) {  ... }
 ///         func midiClockSlaveMode() { ... }
 ///         func midiClockMasterEnabled() { ... }
 ///
@@ -48,7 +48,7 @@ open class AKMIDITempoListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 
-    public var srtListener = AKMIDISRTListener()
+    public var srtListener = AKMIDISystemRealTimeListener()
 
     var tempoObservers: [AKMIDITempoObserver] = []
 
@@ -156,7 +156,7 @@ public extension AKMIDITempoListener {
         if newBpmStr != bpmStr {
             bpmStr = newBpmStr
 
-            bpmUpdate(bpmAveraging.results.avg, str: bpmStr)
+            receivedTempo(bpm: bpmAveraging.results.avg, label: bpmStr)
         }
     }
 
@@ -230,9 +230,9 @@ public extension AKMIDITempoListener {
         }
     }
 
-    func bpmUpdate(_ bpm: BPMType, str: String) {
+    func receivedTempo(bpm: BPMType, label: String) {
         tempoObservers.forEach { (observer) in
-            observer.bpmUpdate(bpm, bpmStr: str)
+            observer.receivedTempo(bpm: bpm, label: label)
         }
     }
 }
