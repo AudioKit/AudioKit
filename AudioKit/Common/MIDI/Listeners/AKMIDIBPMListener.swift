@@ -68,6 +68,18 @@ open class AKMIDIBPMListener : NSObject {
     let BEAT_TICKS = 24
     let oneThousand = UInt64(1000)
 
+    /// Create a BPM Listener
+    ///
+    /// This object creates a clockListener: AKMIDIClockListener
+    /// The AKMIDIClockListener is informed every time there is a clock and it in turn informs its
+    /// AKMIDIBeatObserver's whenever beat events happen.
+    ///
+    /// - Parameters:
+    ///   - smoothing: [0 - 1] this value controls the tick smoothing and bpm smoothing (currently both are disabled)
+    ///   - bpmHistoryLimit:    When a bpm is calculated it's stored in a array which is sized by this number.
+    ///                         The values in this array are averaged and that is the BPM result that is returned.
+    ///                         If you make this number larger, then BPM will change very slowly.
+    ///                         If you make this number small, then BPM will change very quickly.
     @objc public init(smoothing: Float64 = 0.8, bpmHistoryLimit: Int = 3) {
         assert(bpmHistoryLimit > 0, "You must specify a positive number for bpmHistoryLimit")
         tickSmoothing = ValueSmoothing(factor: smoothing)
