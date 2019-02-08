@@ -9,11 +9,11 @@
 import Foundation
 
 public protocol ObserverProtocol {
-    func isEqualTo(_ listener : ObserverProtocol) -> Bool
+    func isEqualTo(_ listener: ObserverProtocol) -> Bool
 }
 
 extension ObserverProtocol {
-    func isEqualTo(_ listener : ObserverProtocol) -> Bool {
+    func isEqualTo(_ listener: ObserverProtocol) -> Bool {
         return self == listener
     }
 }
@@ -22,7 +22,7 @@ func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 
-class AKMIDIObserverMaster<P> where P : ObserverProtocol {
+class AKMIDIObserverMaster<P> where P: ObserverProtocol {
 
     var observers: [P] = []
 
@@ -31,7 +31,7 @@ class AKMIDIObserverMaster<P> where P : ObserverProtocol {
     }
 
     public func removeObserver(_ observer: P) {
-        observers.removeAll { (anObserver : P) -> Bool in
+        observers.removeAll { (anObserver: P) -> Bool in
             return anObserver.isEqualTo(observer)
         }
     }
