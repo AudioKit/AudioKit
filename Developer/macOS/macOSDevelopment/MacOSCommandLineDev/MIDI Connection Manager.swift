@@ -16,7 +16,7 @@ class MidiConnectionManger {
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
-    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.5, bpmHistoryLimit: 6)
+    public let bpmListenter = AKMIDIBPMListener(smoothing: 0.98, bpmHistoryLimit: 1)
 
     init() {
         midi.addListener(bpmListenter)

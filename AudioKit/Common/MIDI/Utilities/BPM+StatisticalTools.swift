@@ -62,7 +62,10 @@ struct BPMHistoryStatistics {
     typealias TimeStats = (mean:Double, std:Double)
     typealias LinearRegression = (slope: Double, c: Double)
 
+    // Configure countIndex to use the results that you'd like to look at
+    let regressionCountIndex = 5
     let historyCounts = [3,6,12,24,48,96,192,384]
+
     var bpmHistory: [BPMType]
     var actualTimeHistory: [UInt64]
     var timeHistory: [Float64]
@@ -79,12 +82,15 @@ struct BPMHistoryStatistics {
         actualTimeHistory = []
     }
 
-    var middleTime : UInt64 {
-        guard timeHistory.count == 0 else { return 0 }
-        guard timeHistory.count == 1 else { return UInt64(timeHistory.first!) }
-        let first = timeHistory.first!
+    func timeAt(ratio: Float) -> UInt64 {
+        guard timeHistory.count != 0 else { return 0 }
+        guard timeHistory.count != 1 else { return UInt64(timeHistory.first!) }
+        let firstIndex = max(timeHistory.count - historyCounts[regressionCountIndex], 0)
+        let first = timeHistory[firstIndex]
         let last = timeHistory.last!
-        return UInt64(first + ((last - first)/2))
+        let value = first + ((last - first) * ratio)
+        //AKLog("value \(first) + ((\(last) - \(first))/2) = \(middle)")
+        return UInt64(value)
     }
 
     mutating func record(bpm: BPMType) {
@@ -155,14 +161,11 @@ struct BPMHistoryStatistics {
 
     mutating private func linearRegression() {
 
-        // Configure countIndex to use the results that you'd like to look at
-        let countIndex = 5
-
-        guard timeStats.count >= countIndex else { return }
-        guard bpmStats.count >= countIndex else { return }
+        guard timeStats.count >= regressionCountIndex else { return }
+        guard bpmStats.count >= regressionCountIndex else { return }
         let pairs = zip(timeHistory, bpmHistory)
-        let meanTime = timeStats[countIndex-1].mean
-        let meanBpm = bpmStats[countIndex-1].mean
+        let meanTime = timeStats[regressionCountIndex-1].mean
+        let meanBpm = bpmStats[regressionCountIndex-1].mean
         let a = pairs.reduce(0) { $0 + ($1.0 - meanTime) * ($1.1 - meanBpm) }
         let b = pairs.reduce(0) { $0 + pow($1.0 - meanTime, 2) }
 
