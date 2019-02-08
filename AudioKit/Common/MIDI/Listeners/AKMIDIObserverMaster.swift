@@ -46,4 +46,3 @@ class AKMIDIObserverMaster<P> where P: ObserverProtocol {
         }
     }
 }
-

@@ -45,4 +45,3 @@ public extension AKMIDITempoObserver {
 func == (lhs: AKMIDITempoObserver, rhs: AKMIDITempoObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
-
