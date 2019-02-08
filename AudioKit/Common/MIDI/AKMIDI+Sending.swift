@@ -132,13 +132,20 @@ extension AKMIDI {
     ///
     /// - Parameter outputIndex: Index of destination endpoint
     ///
-    public func openOutput(name: String = "") {
+    @available(*, deprecated, message: "Try to not use names any more because they are not unique across devices")
+    public func openOutput(name: String) {
         guard  let index = destinationNames.firstIndex(of: name) else {
             openOutput(uid: 0)
             return
         }
         let uid = uidForDestinationAtIndex(index)
         openOutput(uid: uid)
+    }
+
+    /// Handle the acceptable default case of no parameter without causing a
+    /// deprecation warning
+    public func openOutput() {
+        openOutput(uid: 0)
     }
 
     /// Open a MIDI Output Port by index

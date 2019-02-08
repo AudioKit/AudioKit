@@ -7,33 +7,53 @@
 //
 
 import Foundation
+import AudioKit
+
+let bpmListener = true
 
 let midiConnection = MidiConnectionManger()
-midiConnection.selectIO()
+midiConnection.openAll()
 
 print("")
 
 let sysexCom = GeneralSysexCommunicationsManger()
 
 var receivedNotificaton = false
-let sysex_success = NotificationCenter.default.addObserver(forName: GeneralSysexCommunicationsManger.ReceivedSysex, object: nil, queue: nil) { (note) in
+let sysexSuccess = NotificationCenter.default.addObserver(forName: .ReceivedSysex, object: nil, queue: nil) { (note) in
     receivedNotificaton = true
     CFRunLoopStop(RunLoop.current.getCFRunLoop())
 }
 
-let sysex_timeout = NotificationCenter.default.addObserver(forName: GeneralSysexCommunicationsManger.SysexTimedOut, object: nil, queue: nil) { (note) in
+let sysexTimeout = NotificationCenter.default.addObserver(forName: .SysexTimedOut, object: nil, queue: nil) { (note) in
     print("Communications Timeout")
     receivedNotificaton = true
     CFRunLoopStop(RunLoop.current.getCFRunLoop())
 }
 
 print("Sending Sysex Request")
-sysexCom.requestAndWaitForResponse()
+//sysexCom.requestAndWaitForResponse()
+
+var bpm: String = ""
+
+if bpmListener {
+    bpm = midiConnection.bpmListenter.bpmStr
+}
 
 while receivedNotificaton == false {
     let oneSecondLater = Date(timeIntervalSinceNow: 0.0025)
     RunLoop.current.run(mode: .default, before: oneSecondLater)
+
+    if bpmListener {
+        let currentBmp = midiConnection.bpmListenter.bpmStr
+        if bpm != currentBmp {
+            bpm = currentBmp
+//            debugPrint("BPM: \(bpm)")
+        }
+    }
 }
 
-NotificationCenter.default.removeObserver(sysex_success)
-NotificationCenter.default.removeObserver(sysex_timeout)
+NotificationCenter.default.removeObserver(sysexSuccess)
+NotificationCenter.default.removeObserver(sysexTimeout)
+
+midiConnection.closeAll()
+print("Closed")

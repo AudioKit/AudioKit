@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import CoreMIDI
 
 extension MIDIPacketList: Sequence {
     public typealias Element = MIDIPacket

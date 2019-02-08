@@ -6,7 +6,7 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Foundation
+import CoreMIDI
 
 extension MIDIPacket {
     var isSysex: Bool {
