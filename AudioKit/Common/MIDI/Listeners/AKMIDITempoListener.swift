@@ -34,7 +34,7 @@ public typealias BPMType = TimeInterval
 /// changes.
 ///
 ///     class YOURCLASS: AKMIDITempoObserver {
-///         func bpmUpdate(_ bpm: BPMType, bpmStr: String) {  ... }
+///         func receivedTempoUpdate(bpm: BPMType, label: String) {  ... }
 ///         func midiClockSlaveMode() { ... }
 ///         func midiClockMasterEnabled() { ... }
 ///
@@ -48,7 +48,7 @@ open class AKMIDITempoListener: NSObject {
 
     public var clockListener: AKMIDIClockListener?
 
-    public var srtListener = AKMIDISRTListener()
+    public var srtListener = AKMIDISystemRealTimeListener()
 
     var tempoObservers: [AKMIDITempoObserver] = []
 
@@ -111,12 +111,7 @@ open class AKMIDITempoListener: NSObject {
 
 // MARK: - BPM Analysis
 
-<<<<<<< HEAD:AudioKit/Common/MIDI/Listeners/AKMIDIBPMListener.swift
-public extension AKMIDIBPMListener {
-    
-=======
 public extension AKMIDITempoListener {
->>>>>>> ak_develop:AudioKit/Common/MIDI/Listeners/AKMIDITempoListener.swift
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
@@ -161,7 +156,7 @@ public extension AKMIDITempoListener {
         if newBpmStr != bpmStr {
             bpmStr = newBpmStr
 
-            bpmUpdate(bpmAveraging.results.avg, str: bpmStr)
+            receivedTempo(bpm: bpmAveraging.results.avg, label: bpmStr)
         }
     }
 
@@ -210,16 +205,9 @@ extension AKMIDITempoListener: AKMIDIListener {
 
 // MARK: - Management and Communications for BPM Observers
 
-<<<<<<< HEAD:AudioKit/Common/MIDI/Listeners/AKMIDIBPMListener.swift
-public extension AKMIDIBPMListener {
-
-    public func addObserver(_ observer: AKMIDIBPMObserver) {
-        bpmObservers.append(observer)
-=======
 public extension AKMIDITempoListener {
     public func addObserver(_ observer: AKMIDITempoObserver) {
         tempoObservers.append(observer)
->>>>>>> ak_develop:AudioKit/Common/MIDI/Listeners/AKMIDITempoListener.swift
     }
 
     public func removeObserver(_ observer: AKMIDITempoObserver) {
@@ -242,9 +230,9 @@ public extension AKMIDITempoListener {
         }
     }
 
-    func bpmUpdate(_ bpm: BPMType, str: String) {
+    func receivedTempo(bpm: BPMType, label: String) {
         tempoObservers.forEach { (observer) in
-            observer.bpmUpdate(bpm, bpmStr: str)
+            observer.receivedTempo(bpm: bpm, label: label)
         }
     }
 }

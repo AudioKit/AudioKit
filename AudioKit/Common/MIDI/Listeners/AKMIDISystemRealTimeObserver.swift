@@ -8,45 +8,45 @@
 
 import Foundation
 
-public protocol AKMIDISRTObserver {
+public protocol AKMIDISystemRealTimeObserver {
 
     /// Called when a midi start system message is received
     ///
     /// - Parameter srtListener: AKMIDISRTListener
-    func SRTStart(srtListener: AKMIDISRTListener)
+    func startSRT(listener: AKMIDISystemRealTimeListener)
 
     /// Called when a midi stop system message is received
     /// Stop should pause
     ///
     /// - Parameter srtListener: AKMIDISRTListener
-    func SRTStop(srtListener: AKMIDISRTListener)
+    func stopSRT(listener: AKMIDISystemRealTimeListener)
 
     /// Called when a midi continue system message is received
     ///
     /// - Parameter srtListener: AKMIDISRTListener
-    func SRTContinue(srtListener: AKMIDISRTListener)
+    func continueSRT(listener: AKMIDISystemRealTimeListener)
 }
 
 // MARK: - Default handler methods for AKMIDIMMCEvents
-extension AKMIDISRTObserver {
+extension AKMIDISystemRealTimeObserver {
 
-    func SRTStart(srtListener: AKMIDISRTListener) {
-
-    }
-
-    func SRTStop(srtListener: AKMIDISRTListener) {
+    func startSRT(listener: AKMIDISystemRealTimeListener) {
 
     }
 
-    func SRTContinue(srtListener: AKMIDISRTListener) {
+    func stopSRT(listener: AKMIDISystemRealTimeListener) {
 
     }
 
-    public func isEqualTo(_ listener: AKMIDISRTObserver) -> Bool {
+    func continueSRT(listener: AKMIDISystemRealTimeListener) {
+
+    }
+
+    public func isEqualTo(_ listener: AKMIDISystemRealTimeObserver) -> Bool {
         return self == listener
     }
 }
 
-func == (lhs: AKMIDISRTObserver, rhs: AKMIDISRTObserver) -> Bool {
+func == (lhs: AKMIDISystemRealTimeObserver, rhs: AKMIDISystemRealTimeObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
