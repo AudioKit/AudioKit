@@ -59,7 +59,7 @@ public extension AKMIDIBeatObserver {
 
     }
 
-    func isEqualTo(_ listener : AKMIDIBeatObserver) -> Bool {
+    func isEqualTo(_ listener: AKMIDIBeatObserver) -> Bool {
         return self == listener
     }
 }

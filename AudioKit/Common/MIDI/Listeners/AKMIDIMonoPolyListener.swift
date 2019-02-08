@@ -5,7 +5,7 @@
 //  Created by Kurt Arnlund on 1/27/19.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
-//  AKMIDIMonoPolyListener : AKMIDIListener
+//  AKMIDIMonoPolyListener: AKMIDIListener
 //
 //  This class probably needs to support observers as well
 //  so that a client may be able to be notified of state changes
@@ -18,9 +18,9 @@
 import Foundation
 import CoreMIDI
 
-open class AKMIDIMonoPolyListener : NSObject {
+open class AKMIDIMonoPolyListener: NSObject {
 
-    var monoMode : Bool
+    var monoMode: Bool
 
     @objc public init(mono: Bool = true) {
         monoMode = mono
@@ -29,7 +29,7 @@ open class AKMIDIMonoPolyListener : NSObject {
 
 // MARK: - AKMIDIMonoPolyListener should be used as an AKMIDIListener
 
-extension AKMIDIMonoPolyListener : AKMIDIListener {
+extension AKMIDIMonoPolyListener: AKMIDIListener {
 
     public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         if controller == AKMIDIControl.monoOperation.rawValue {

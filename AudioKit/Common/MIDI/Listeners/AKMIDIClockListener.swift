@@ -14,7 +14,7 @@ import CoreMIDI
 ///
 /// If you wish to observer its events, then add your own AKMIDIBeatObserver
 ///
-open class AKMIDIClockListener : NSObject {
+open class AKMIDIClockListener: NSObject {
     // Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: UInt8
     // Count of 24 quantums per quarter note
@@ -130,7 +130,7 @@ extension AKMIDIClockListener {
 
 // MARK: - Beat Observations
 
-extension AKMIDIClockListener : AKMIDIBPMObserver {
+extension AKMIDIClockListener: AKMIDIBPMObserver {
 
     internal func sendMIDIBeatUpdateToObservers() {
 //        AKLog("[sendQuantumUpdateToObservers] (\(observers.count) observers)")
@@ -178,7 +178,7 @@ extension AKMIDIClockListener : AKMIDIBPMObserver {
 
 // MARK: - MMC Observations interface
 
-extension AKMIDIClockListener : AKMIDISRTObserver {
+extension AKMIDIClockListener: AKMIDISRTObserver {
 
     public func midiClockSlaveMode() {
         AKLog("[MIDI CLOCK SLAVE]")

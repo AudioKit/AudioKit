@@ -37,7 +37,7 @@ public extension AKMIDIBPMObserver {
 
     }
 
-    func isEqualTo(_ listener : AKMIDIBPMObserver) -> Bool {
+    func isEqualTo(_ listener: AKMIDIBPMObserver) -> Bool {
         return self == listener
     }
 }
