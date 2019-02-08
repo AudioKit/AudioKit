@@ -36,7 +36,7 @@ print("Sending Sysex Request")
 var bpm: String = ""
 
 if bpmListener {
-    bpm = midiConnection.bpmListenter.bpmStr
+    bpm = midiConnection.bpmListenter.tempoString
 }
 
 while receivedNotificaton == false {
@@ -44,7 +44,7 @@ while receivedNotificaton == false {
     RunLoop.current.run(mode: .default, before: oneSecondLater)
 
     if bpmListener {
-        let currentBmp = midiConnection.bpmListenter.bpmStr
+        let currentBmp = midiConnection.bpmListenter.tempoString
         if bpm != currentBmp {
             bpm = currentBmp
 //            debugPrint("BPM: \(bpm)")
