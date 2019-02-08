@@ -118,7 +118,7 @@ class MidiConnectionManger {
     }
 }
 
-extension MidiConnectionManger : AKMIDIListener {
+extension MidiConnectionManger: AKMIDIListener {
 
     func receivedMIDISetupChange() {
         print("MIDI Setup Changed")
@@ -126,14 +126,14 @@ extension MidiConnectionManger : AKMIDIListener {
     }
 }
 
-extension MidiConnectionManger : AKMIDIBPMObserver {
+extension MidiConnectionManger: AKMIDIBPMObserver {
 
     func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
         print("[BPM] ", bpmStr)
     }
 
     func midiClockSlaveMode() {
-        
+
     }
 
     func midiClockMasterEnabled() {
@@ -141,7 +141,7 @@ extension MidiConnectionManger : AKMIDIBPMObserver {
     }
 }
 
-extension MidiConnectionManger : AKMIDIBeatObserver {
+extension MidiConnectionManger: AKMIDIBeatObserver {
 
     func AKMIDISRTPreparePlay(continue: Bool) {
         debugPrint("MMC Start Prepare Play")

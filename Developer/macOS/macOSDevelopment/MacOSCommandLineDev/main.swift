@@ -19,12 +19,12 @@ print("")
 let sysexCom = GeneralSysexCommunicationsManger()
 
 var receivedNotificaton = false
-let sysex_success = NotificationCenter.default.addObserver(forName: .ReceivedSysex, object: nil, queue: nil) { (note) in
+let sysexSuccess = NotificationCenter.default.addObserver(forName: .ReceivedSysex, object: nil, queue: nil) { (note) in
     receivedNotificaton = true
     CFRunLoopStop(RunLoop.current.getCFRunLoop())
 }
 
-let sysex_timeout = NotificationCenter.default.addObserver(forName: .SysexTimedOut, object: nil, queue: nil) { (note) in
+let sysexTimeout = NotificationCenter.default.addObserver(forName: .SysexTimedOut, object: nil, queue: nil) { (note) in
     print("Communications Timeout")
     receivedNotificaton = true
     CFRunLoopStop(RunLoop.current.getCFRunLoop())
@@ -52,8 +52,8 @@ while receivedNotificaton == false {
     }
 }
 
-NotificationCenter.default.removeObserver(sysex_success)
-NotificationCenter.default.removeObserver(sysex_timeout)
+NotificationCenter.default.removeObserver(sysexSuccess)
+NotificationCenter.default.removeObserver(sysexTimeout)
 
 midiConnection.closeAll()
 print("Closed")
