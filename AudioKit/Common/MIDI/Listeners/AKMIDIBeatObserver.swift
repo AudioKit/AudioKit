@@ -12,50 +12,50 @@ import Foundation
 public protocol AKMIDIBeatObserver {
 
     /// Called when the midi system real time start or continue message arrives.
-    /// AKMidiMMCStartFirstBeat(continue:) will be called when on the very first beat.
-    func AKMIDISRTPreparePlay(continue: Bool)
+    /// Will be called when on the very first beat.
+    func preparePlay(continue: Bool)
 
     /// First beat of playback after an system real time start or continue message.
     /// This is called on the first clock tick after a start or continue command
-    func AKMIDISRTStartFirstBeat(continue: Bool)
+    func startFirstBeat(continue: Bool)
 
     /// system real time stop message
-    func AKMIDISRTStop()
+    func stopSRT()
 
     /// Called each midi beat event (every 6 midi clock quantums)
-    func AKMIDIBeatUpdate(beat: UInt64)
+    func receivedBeatEvent(beat: UInt64)
 
     /// Called each midi clock pulse (quantum = 24 quantums per quarter note)
-    func AKMIDIQuantumUpdate(quarterNote: UInt8, beat: UInt64, quantum: UInt64)
+    func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64)
 
     /// Called each 24 midi clock pulses
-    func AKMIDIQuarterNoteBeat(quarterNote: UInt8)
+    func receivedQuarterNoteBeat(quarterNote: UInt8)
 }
 
 /// Default listener methods
 public extension AKMIDIBeatObserver {
 
-    func AKMIDISRTPreparePlay(continue: Bool) {
+    func preparePlay(continue: Bool) {
 
     }
 
-    func AKMIDISRTStartFirstBeat(continue: Bool) {
+    func startFirstBeat(continue: Bool) {
 
     }
 
-    func AKMIDISRTStop() {
+    func stopSRT() {
 
     }
 
-    func AKMIDIBeatUpdate(beat: UInt64) {
+    func receivedBeatEvent(beat: UInt64) {
 
     }
 
-    func AKMIDIQuantumUpdate(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
 
     }
 
-    func AKMIDIQuarterNoteBeat(quarterNote: UInt8) {
+    func receivedQuarterNoteBeat(quarterNote: UInt8) {
 
     }
 
