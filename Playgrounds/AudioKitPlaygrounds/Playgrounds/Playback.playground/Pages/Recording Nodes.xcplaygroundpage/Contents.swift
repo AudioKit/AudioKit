@@ -29,7 +29,7 @@ let mixer = AKMixer(player, reverb)
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: mixer)
+let recorder = try AKNodeRecorder(node: mixer, file: tape)
 
 AudioKit.output = mixer
 
@@ -42,6 +42,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
     var recordLabel: AKLabel!
     var playLabel: AKLabel!
+    var playButton: AKButton!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
@@ -85,7 +86,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
         playLabel = addLabel("Press Play to playback...")
 
-        addView(AKButton(title: "Play") { button in
+        playButton = AKButton(title: "Play") { button in
             if player.isPlaying {
                 self.playLabel.stringValue = "Stopped playback!"
                 player.stop()
@@ -101,12 +102,13 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     self.playLabel.stringValue = "Playing..."
                     player.completionHandler = self.callback
                     player.play()
+                    button.title = "Stop"
                 } else {
                     self.playLabel.stringValue = "Tape is empty!..."
                 }
-                button.title = "Stop"
             }
-        })
+        }
+        addView(playButton)
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
@@ -116,6 +118,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
         DispatchQueue.main.async {
+            self.playButton.title = "Play"
             self.playLabel.stringValue = "Finished playing!"
         }
     }
