@@ -20,7 +20,7 @@ public protocol AKMIDITempoObserver {
     /// Called each time the BPM is updated from the midi clock
     ///
     /// - Parameter bpm: Beats Per Minute
-    func bpmUpdate(_ bpm: BPMType, bpmStr: String)
+    func receivedTempo(bpm: BPMType, label: String)
 }
 
 public extension AKMIDITempoObserver {
@@ -33,7 +33,7 @@ public extension AKMIDITempoObserver {
 
     }
 
-    public func bpmUpdate(_ bpm: BPMType, bpmStr: String) {
+    public func receivedTempo(bpm: BPMType, label: String) {
 
     }
 

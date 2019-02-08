@@ -1,5 +1,5 @@
 //
-//  AKMIDISRTListener.swift
+//  AKMIDISystemRealTimeListener.swift
 //  AudioKit
 //
 //  Created by Kurt Arnlund on 1/21/19.
@@ -11,7 +11,7 @@ import CoreMIDI
 
 /// This AKMIDIListener looks for midi system real time (SRT)
 /// midi system messages.
-open class AKMIDISRTListener: NSObject {
+open class AKMIDISystemRealTimeListener: NSObject {
     enum SRTEvent: MIDIByte {
         case stop = 0xFC
         case start = 0xFA
@@ -57,10 +57,10 @@ open class AKMIDISRTListener: NSObject {
     }
 
     var state: SRTState = .stopped
-    var observers: [AKMIDISRTObserver] = []
+    var observers: [AKMIDISystemRealTimeObserver] = []
 }
 
-extension AKMIDISRTListener: AKMIDIListener {
+extension AKMIDISystemRealTimeListener: AKMIDIListener {
     public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")
@@ -86,34 +86,34 @@ extension AKMIDISRTListener: AKMIDIListener {
     }
 }
 
-extension AKMIDISRTListener {
-    public func addObserver(_ observer: AKMIDISRTObserver) {
+extension AKMIDISystemRealTimeListener {
+    public func addObserver(_ observer: AKMIDISystemRealTimeObserver) {
         observers.append(observer)
     }
 
-    public func removeObserver(_ observer: AKMIDISRTObserver) {
+    public func removeObserver(_ observer: AKMIDISystemRealTimeObserver) {
         observers.removeAll { $0 == observer }
     }
 
-    public func removeAllObserver(_ observer: AKMIDISRTObserver) {
+    public func removeAllObserver(_ observer: AKMIDISystemRealTimeObserver) {
         observers.removeAll()
     }
 
     func sendStopToObservers() {
         observers.forEach { (observer) in
-            observer.SRTStop(srtListener: self)
+            observer.stopSRT(listener: self)
         }
     }
 
     func sendStartToObservers() {
         observers.forEach { (observer) in
-            observer.SRTStart(srtListener: self)
+            observer.startSRT(listener: self)
         }
     }
 
     func sendContinueToObservers() {
         observers.forEach { (observer) in
-            observer.SRTContinue(srtListener: self)
+            observer.continueSRT(listener: self)
         }
     }
 }
