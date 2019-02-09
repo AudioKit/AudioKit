@@ -101,6 +101,7 @@
 		55B95B331FEDC34F00C76AF5 /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B321FEDC34700C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F52A1F57DAC30088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */; };
+		986B82CB220DD558003461CE /* AKMusicTrack+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B82CA220DD557003461CE /* AKMusicTrack+Events.swift */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1468E1D20D025E40030BA66 /* AKDynamicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E1C20D025E40030BA66 /* AKDynamicPlayer.swift */; };
@@ -1276,6 +1277,7 @@
 		55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSamplerMetronome.h; path = ../AKSamplerMetronome.h; sourceTree = "<group>"; };
 		55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSamplerMetronome.m; path = ../AKSamplerMetronome.m; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
+		986B82CA220DD557003461CE /* AKMusicTrack+Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Events.swift"; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
 		B1468E1C20D025E40030BA66 /* AKDynamicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDynamicPlayer.swift; sourceTree = "<group>"; };
@@ -3038,6 +3040,7 @@
 				C45664E81D448D7E00D26565 /* AKDuration.swift */,
 				C4CC303B208484E1004E91CB /* AKMIDINoteData.swift */,
 				C45664E91D448D7E00D26565 /* AKMusicTrack.swift */,
+				986B82CA220DD557003461CE /* AKMusicTrack+Events.swift */,
 				FE8E009A20FD1A7D000F0ADC /* AKMusicTrack+Load.swift */,
 				C4C378FE1F0C55640085F876 /* AKSequencer.swift */,
 				C42371F020A7F65A00507E72 /* AKTimeSignature.swift */,
@@ -5869,6 +5872,7 @@
 				C4812ADF2028543200D4AFB1 /* AKClipperDSP.mm in Sources */,
 				C45669C91D448D7E00D26565 /* modalResonanceFilter.swift in Sources */,
 				C4812AFD2028552C00D4AFB1 /* AKStringResonatorDSP.mm in Sources */,
+				986B82CB220DD558003461CE /* AKMusicTrack+Events.swift in Sources */,
 				C49B193D204A0AD1009C7C8E /* gen_sporth.c in Sources */,
 				34BB66CC205ABBC0000E5450 /* pack.c in Sources */,
 				C49B1919204A0AD1009C7C8E /* biscale.c in Sources */,
