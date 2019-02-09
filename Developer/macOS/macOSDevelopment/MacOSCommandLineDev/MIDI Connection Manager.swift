@@ -9,19 +9,19 @@
 import Foundation
 import AudioKit
 
-class MidiConnectionManger {
+class MIDIConnectionManger {
 
     let midi = AudioKit.midi
     var input: MIDIUniqueID = 0
     var inputIndex: Int = 0
     var output: MIDIUniqueID = 0
     var outputIndex: Int = 0
-    public let bpmListenter = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
+    public let tempoListener = AKMIDITempoListener(smoothing: 0.98, bpmHistoryLimit: 1)
 
     init() {
-        midi.addListener(bpmListenter)
-        bpmListenter.clockListener?.addObserver(self)
-        bpmListenter.addObserver(self)
+        midi.addListener(tempoListener)
+        tempoListener.clockListener?.addObserver(self)
+        tempoListener.addObserver(self)
         //midi.addListener(self)
     }
 
@@ -118,7 +118,7 @@ class MidiConnectionManger {
     }
 }
 
-extension MidiConnectionManger: AKMIDIListener {
+extension MIDIConnectionManger: AKMIDIListener {
 
     func receivedMIDISetupChange() {
         print("MIDI Setup Changed")
@@ -126,7 +126,7 @@ extension MidiConnectionManger: AKMIDIListener {
     }
 }
 
-extension MidiConnectionManger: AKMIDITempoObserver {
+extension MIDIConnectionManger: AKMIDITempoObserver {
 
     func receivedTempo(_ bpm: BPMType, bpmStr: String) {
         print("[BPM] ", bpmStr)
@@ -141,7 +141,7 @@ extension MidiConnectionManger: AKMIDITempoObserver {
     }
 }
 
-extension MidiConnectionManger: AKMIDIBeatObserver {
+extension MIDIConnectionManger: AKMIDIBeatObserver {
 
     func preparePlay(continue: Bool) {
         debugPrint("MMC Start Prepare Play")
