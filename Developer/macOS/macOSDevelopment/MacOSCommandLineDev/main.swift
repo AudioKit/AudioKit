@@ -9,9 +9,9 @@
 import Foundation
 import AudioKit
 
-let bpmListener = true
+let isTempoListener = true
 
-let midiConnection = MidiConnectionManger()
+let midiConnection = MIDIConnectionManger()
 midiConnection.openAll()
 
 print("")
@@ -33,21 +33,21 @@ let sysexTimeout = NotificationCenter.default.addObserver(forName: .SysexTimedOu
 print("Sending Sysex Request")
 //sysexCom.requestAndWaitForResponse()
 
-var bpm: String = ""
+var tempoString: String = ""
 
-if bpmListener {
-    bpm = midiConnection.bpmListenter.tempoString
+if isTempoListener {
+    bpm = midiConnection.tempoListener.tempoString
 }
 
 while receivedNotificaton == false {
     let oneSecondLater = Date(timeIntervalSinceNow: 0.0025)
     RunLoop.current.run(mode: .default, before: oneSecondLater)
 
-    if bpmListener {
-        let currentBmp = midiConnection.bpmListenter.tempoString
-        if bpm != currentBmp {
-            bpm = currentBmp
-//            debugPrint("BPM: \(bpm)")
+    if isTempoListener {
+        let currentTempo = midiConnection.tempoListener.tempoString
+        if tempoString != currentTempo {
+            tempoString = currentTempo
+//            debugPrint("Tempo: \(tempoString)")
         }
     }
 }
