@@ -9,8 +9,8 @@
 import Foundation
 
 extension Double {
-    /// Tool for rouding to decimal places which is good for
-    /// producing a more stable BPM display.
+    /// Tool for rounding to decimal places which is good for
+    /// producing a more stable tempo display.
     ///
     /// - Parameter decimalPlaces: number of decimal places in the result
     /// - Returns: rounded Double
