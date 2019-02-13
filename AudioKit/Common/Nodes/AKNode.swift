@@ -13,7 +13,7 @@ extension AVAudioConnectionPoint {
 }
 
 /// Parent class for all nodes in AudioKit
-@objc open class AKNode: NSObject {
+open class AKNode: NSObject {
 
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
