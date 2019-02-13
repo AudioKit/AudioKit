@@ -108,7 +108,6 @@ open class AKClipPlayer: AKNode {
             AKLog(error)
             return nil
         }
-
     }
     // swiftlint:enable force_cast
 

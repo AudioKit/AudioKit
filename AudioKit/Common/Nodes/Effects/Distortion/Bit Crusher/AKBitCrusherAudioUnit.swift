@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBitCrusherAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBitCrusherParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBitCrusherParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var bitDepth: Double = AKBitCrusher.defaultBitDepth {
@@ -36,37 +36,24 @@ public class AKBitCrusherAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let bitDepth = AUParameterTree.createParameter(
-            withIdentifier: "bitDepth",
+        let bitDepth = AUParameter(
+            identifier: "bitDepth",
             name: "Bit Depth",
             address: AKBitCrusherParameter.bitDepth.rawValue,
-            min: Float(AKBitCrusher.bitDepthRange.lowerBound),
-            max: Float(AKBitCrusher.bitDepthRange.upperBound),
+            range: AKBitCrusher.bitDepthRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let sampleRate = AUParameterTree.createParameter(
-            withIdentifier: "sampleRate",
+            flags: .default)
+        let sampleRate = AUParameter(
+            identifier: "sampleRate",
             name: "Sample Rate (Hz)",
             address: AKBitCrusherParameter.sampleRate.rawValue,
-            min: Float(AKBitCrusher.sampleRateRange.lowerBound),
-            max: Float(AKBitCrusher.sampleRateRange.upperBound),
+            range: AKBitCrusher.sampleRateRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [bitDepth, sampleRate]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [bitDepth, sampleRate]))
         bitDepth.value = Float(AKBitCrusher.defaultBitDepth)
         sampleRate.value = Float(AKBitCrusher.defaultSampleRate)
     }

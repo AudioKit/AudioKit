@@ -11,11 +11,11 @@ import AVFoundation
 public class AKBoosterAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKBoosterParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var leftGain: Double = 1.0 {
@@ -42,36 +42,26 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let leftGain = AUParameterTree.createParameter(
-            withIdentifier: "leftGain",
+        let leftGain = AUParameter(
+            identifier: "leftGain",
             name: "Left Boosting Amount",
-            address: AUParameterAddress(0),
-            min: 0.0,
-            max: 2.0,
+            address: 0,
+            range: 0.0...2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
-        let rightGain = AUParameterTree.createParameter(
-            withIdentifier: "rightGain",
+        let rightGain = AUParameter(
+            identifier: "rightGain",
             name: "Right Boosting Amount",
-            address: AUParameterAddress(1),
-            min: 0.0,
-            max: 2.0,
+            address: 1,
+            range: 0.0...2.0,
             unit: .linearGain,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil)
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [leftGain, rightGain]))
+        setParameterTree(AUParameterTree(children: [leftGain, rightGain]))
         leftGain.value = 1.0
         rightGain.value = 1.0
     }

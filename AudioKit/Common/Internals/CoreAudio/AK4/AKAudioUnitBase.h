@@ -18,7 +18,7 @@
 @interface AKAudioUnitBase : BufferedAudioUnit
 
 /** Pointer to AKDSPBase subclass. */
-@property (readonly) AKDSPRef dsp;
+@property (readonly) AKDSPRef _Nonnull dsp;
 
 /**
  This method should be overridden by the specific AU code, because it knows how to set up
@@ -27,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (AKDSPRef)initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AKDSPRef _Nonnull )initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
@@ -35,11 +35,11 @@
  the .m file. There may be a better way to do what is needed here.
  */
 
-- (void) setParameterTree: (AUParameterTree*) tree;
+- (void)setParameterTree:(AUParameterTree* _Nonnull) tree;
 
-- (float) getParameterWithAddress:(AUParameterAddress)address;
-- (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (AUValue)parameterWithAddress:(AUParameterAddress)address;
+- (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (void)setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
 
 // Add for compatibility with AKAudioUnit
 
@@ -53,7 +53,7 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 
 // Convolution and Phase-Locked Vocoder
-- (void)setupAudioFileTable:(float *)data size:(UInt32)size;
+- (void)setupAudioFileTable:(float *_Nonnull)data size:(UInt32)size;
 - (void)setPartitionLength:(int)partitionLength;
 - (void)initConvolutionEngine;
 

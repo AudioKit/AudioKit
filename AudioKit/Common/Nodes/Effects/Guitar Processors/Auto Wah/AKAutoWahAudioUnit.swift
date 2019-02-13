@@ -11,11 +11,11 @@ import AVFoundation
 public class AKAutoWahAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKAutoWahParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKAutoWahParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var wah: Double = AKAutoWah.defaultWah {
@@ -40,49 +40,32 @@ public class AKAutoWahAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let wah = AUParameterTree.createParameter(
-            withIdentifier: "wah",
+        let wah = AUParameter(
+            identifier: "wah",
             name: "Wah Amount",
             address: AKAutoWahParameter.wah.rawValue,
-            min: Float(AKAutoWah.wahRange.lowerBound),
-            max: Float(AKAutoWah.wahRange.upperBound),
+            range: AKAutoWah.wahRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let mix = AUParameterTree.createParameter(
-            withIdentifier: "mix",
+            flags: .default)
+        let mix = AUParameter(
+            identifier: "mix",
             name: "Dry/Wet Mix",
             address: AKAutoWahParameter.mix.rawValue,
-            min: Float(AKAutoWah.mixRange.lowerBound),
-            max: Float(AKAutoWah.mixRange.upperBound),
+            range: AKAutoWah.mixRange,
             unit: .percent,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Overall level",
             address: AKAutoWahParameter.amplitude.rawValue,
-            min: Float(AKAutoWah.amplitudeRange.lowerBound),
-            max: Float(AKAutoWah.amplitudeRange.upperBound),
+            range: AKAutoWah.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [wah, mix, amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [wah, mix, amplitude]))
         wah.value = Float(AKAutoWah.defaultWah)
         mix.value = Float(AKAutoWah.defaultMix)
         amplitude.value = Float(AKAutoWah.defaultAmplitude)

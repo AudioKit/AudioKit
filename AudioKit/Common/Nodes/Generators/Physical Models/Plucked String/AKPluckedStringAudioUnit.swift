@@ -11,11 +11,11 @@ import AVFoundation
 public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPluckedStringParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPluckedStringParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = AKPluckedString.defaultFrequency {
@@ -36,37 +36,25 @@ public class AKPluckedStringAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
             address: AKPluckedStringParameter.frequency.rawValue,
-            min: Float(AKPluckedString.frequencyRange.lowerBound),
-            max: Float(AKPluckedString.frequencyRange.upperBound),
+            range: AKPluckedString.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
             address: AKPluckedStringParameter.amplitude.rawValue,
-            min: Float(AKPluckedString.amplitudeRange.lowerBound),
-            max: Float(AKPluckedString.amplitudeRange.upperBound),
+            range: AKPluckedString.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = Float(AKPluckedString.defaultFrequency)
         amplitude.value = Float(AKPluckedString.defaultAmplitude)
     }

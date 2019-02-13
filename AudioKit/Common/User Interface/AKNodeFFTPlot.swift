@@ -55,7 +55,7 @@ open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         setupNode(node)
     }
 
-    func setupReconnection() {
+    private func setupReconnection() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reconnect),
                                                name: .IAAConnected,

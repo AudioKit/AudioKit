@@ -45,9 +45,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback == newValue {
-                return
-            }
+            guard feedback != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
@@ -61,9 +59,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     /// Low-pass cutoff frequency.
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
-                return
-            }
+            guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)

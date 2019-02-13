@@ -141,7 +141,7 @@ private:
     char *sporthCode = nil;
     std::vector<AKCustomUgenInfo> customUgens;
 public:
-    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float parameters[14] = {0};
     bool started = true;
 };
 

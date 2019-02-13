@@ -18,7 +18,7 @@ class ViewController: NSViewController, AKMIDIListener {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        midi.openInput("Session 1")
+        midi.openInput(name: "Session 1")
         midi.addListener(self)
 
         sourcePopUpButton.removeAllItems()
@@ -29,7 +29,7 @@ class ViewController: NSViewController, AKMIDIListener {
     @IBAction func sourceChanged(_ sender: NSPopUpButton) {
         if sender.indexOfSelectedItem > 0 {
             midi.closeAllInputs()
-            midi.openInput(midi.inputNames[sender.indexOfSelectedItem - 1])
+            midi.openInput(name: midi.inputNames[sender.indexOfSelectedItem - 1])
         }
     }
 
@@ -69,9 +69,10 @@ class ViewController: NSViewController, AKMIDIListener {
 
     func receivedMIDISystemCommand(_ data: [MIDIByte]) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
+            updateText("")
             var newString = "MIDI System Command: \(command) \n"
             for i in 0 ..< data.count {
-                let hexValue = String(format: "%2X", data[i])
+                let hexValue = String(format: "%02x", data[i])
                 newString.append("\(hexValue) ")
             }
             updateText(newString)

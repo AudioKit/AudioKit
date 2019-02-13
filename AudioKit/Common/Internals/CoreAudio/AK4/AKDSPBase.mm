@@ -14,7 +14,7 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
     now = timestamp->mSampleTime;
     AUAudioFrameCount framesRemaining = frameCount;
     AURenderEvent const *event = events;
-    
+
     while (framesRemaining > 0) {
         // If there are no more events, we can process the entire remaining segment and exit.
         if (event == nullptr) {
@@ -22,17 +22,17 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
             process(framesRemaining, bufferOffset);
             return;
         }
-        
+
         // **** start late events late.
         auto timeZero = AUEventSampleTime(0);
         auto headEventTime = event->head.eventSampleTime;
         AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - now));
-        
+
         // Compute everything before the next event.
         if (framesThisSegment > 0) {
             AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
             process(framesThisSegment, bufferOffset);
-            
+
             // Advance frames.
             framesRemaining -= framesThisSegment;
             // Advance time.

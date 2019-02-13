@@ -43,9 +43,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Center frequency of the filter, or frequency position of the peak response.
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
-                return
-            }
+            guard frequency != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
@@ -59,9 +57,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Bandwidth of the filter.
     @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth == newValue {
-                return
-            }
+            guard bandwidth != newValue else { return }
             if internalAU?.isSetUp ?? false {
                 if let existingToken = token {
                     bandwidthParameter?.setValue(Float(newValue), originator: existingToken)

@@ -7,7 +7,7 @@
 //
 
 /// Simple audio recorder class
-@objc open class AKNodeRecorder: NSObject {
+open class AKNodeRecorder: NSObject {
 
     // MARK: - Properties
 
@@ -41,7 +41,6 @@
             AKLog("Error: \(error.localizedDescription)")
             return nil
         }
-
     }
 
     // MARK: - Initialization
@@ -55,7 +54,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    @objc public init(node: AKNode? = AudioKit.output,
+    public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup

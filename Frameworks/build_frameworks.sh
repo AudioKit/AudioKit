@@ -10,6 +10,23 @@ CONFIGURATION=${CONFIGURATION:-"Release"}
 STAGING_BRANCH="staging"
 BUILD_DIR="$PWD/build"
 
+for parameter in $*; do
+    if test $parameter = '-?'; then
+        echo "Usage:"
+        echo ""
+        echo "PLATFORMS=\"iOS\" ./build_frameworks.sh"
+        echo "or"
+        echo "PLATFORMS=\"macOS\" ./build_frameworks.sh"
+        echo "or"
+        echo "PLATFORMS=\"tvOS\" ./build_frameworks.sh"
+        echo "or"
+        echo "PLATFORMS=\"iOS macOS\" ./build_frameworks.sh"
+        echo "or"
+        echo "./build_frameworks.sh"
+        exit 0
+    fi
+done
+
 if [ ! -f build_frameworks.sh ]; then
     echo "This script needs to be run from the Frameworks folder"
     exit 0
@@ -155,4 +172,8 @@ for os in $PLATFORMS; do
 		create_macos_framework macOS macosx
 	fi
 done
+
+if [ -f distribute_built_frameworks.sh ]; then
+    ./distribute_built_frameworks.sh
+fi
 
