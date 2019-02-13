@@ -11,11 +11,11 @@ import AVFoundation
 public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKCombFilterReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKCombFilterReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var reverbDuration: Double = AKCombFilterReverb.defaultReverbDuration {
@@ -32,25 +32,18 @@ public class AKCombFilterReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let reverbDuration = AUParameterTree.createParameter(
-            withIdentifier: "reverbDuration",
+        let reverbDuration = AUParameter(
+            identifier: "reverbDuration",
             name: "Reverb Duration (Seconds)",
             address: AKCombFilterReverbParameter.reverbDuration.rawValue,
-            min: Float(AKCombFilterReverb.reverbDurationRange.lowerBound),
-            max: Float(AKCombFilterReverb.reverbDurationRange.upperBound),
+            range: AKCombFilterReverb.reverbDurationRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        
-        setParameterTree(AUParameterTree.createTree(withChildren: [reverbDuration]))
+            flags: .default)
+
+        setParameterTree(AUParameterTree(children: [reverbDuration]))
         reverbDuration.value = Float(AKCombFilterReverb.defaultReverbDuration)
     }
 

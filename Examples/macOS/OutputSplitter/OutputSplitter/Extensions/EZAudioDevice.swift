@@ -15,13 +15,13 @@ extension EZAudioDevice {
             return boolPropertyForSelector(kAudioDevicePropertyDeviceIsAlive)
         }
     }
-    
+
     var isRunningSomewhere: Bool {
         get {
             return boolPropertyForSelector(kAudioDevicePropertyDeviceIsRunningSomewhere)
         }
     }
-    
+
     var transportType: UInt32 {
         get {
             var address = EZAudioDevice.addressForPropertySelector(kAudioDevicePropertyTransportType)
@@ -31,7 +31,7 @@ extension EZAudioDevice {
             return result
         }
     }
-    
+
     func boolPropertyForSelector (_ selector: AudioObjectPropertySelector) -> Bool {
         var address = EZAudioDevice.addressForPropertySelector(selector)
         var result: UInt32 = 0
@@ -39,7 +39,7 @@ extension EZAudioDevice {
         checkErr(AudioObjectGetPropertyData(self.deviceID, &address, 0, nil, &size, &result))
         return result == 1
     }
-    
+
     static var buildInOutput: EZAudioDevice? {
         get {
             let device = (EZAudioDevice.outputDevices() as! [EZAudioDevice]).first { $0.transportType == kAudioDeviceTransportTypeBuiltIn }

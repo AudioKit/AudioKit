@@ -652,7 +652,7 @@ typedef struct
 
         // create a default value in the case of missing names
         afm.name = [NSString stringWithFormat:@"Marker %d", i+1];
-        
+
         if (markerList->mMarkers[i].mName != NULL) {
             afm.name = (__bridge NSString *)(markerList->mMarkers[i].mName);
         }

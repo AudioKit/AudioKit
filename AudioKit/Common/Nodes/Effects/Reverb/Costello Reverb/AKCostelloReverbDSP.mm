@@ -88,7 +88,7 @@ void AKCostelloReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
         for (int channel = 0; channel < channelCount; ++channel) {
             float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
             float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-            
+
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;

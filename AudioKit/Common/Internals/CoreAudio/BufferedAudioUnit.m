@@ -102,7 +102,7 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
 }
 
 -(ProcessEventsBlock)processEventsBlock:(AVAudioFormat *)format {
-    
+
     return ^(AudioBufferList       *inBuffer,
              AudioBufferList       *outBuffer,
              const AudioTimeStamp  *timestamp,
@@ -140,7 +140,7 @@ static void    bufferListPointChannelDataToBuffer(AudioBufferList *bufferList, f
 
         char inputBufferAllocation[bufferListByteSize(outputBufferList->mNumberBuffers)];
         AudioBufferList *inputBufferList = NULL;
-        
+
         if (welf->_inputBuffer != NULL) {
 
             // Prepare buffer for pull input.

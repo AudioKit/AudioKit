@@ -19,7 +19,10 @@ open class AKAudioUnitManager: NSObject {
 
     /// The notifications this class may generate
     public enum Notification {
-        case effectsAvailable, instrumentsAvailable, changed, crashed, added
+        case effectsAvailable(effects: [AVAudioUnitComponent])
+        case instrumentsAvailable(instruments: [AVAudioUnitComponent])
+        case changed
+        case crashed(audioUnit: AUAudioUnit?)
     }
 
     /// Callback definitions
@@ -188,14 +191,14 @@ open class AKAudioUnitManager: NSObject {
 
     private func componentRegistrationObservor(notification: Foundation.Notification) {
         AKLog("* Audio Units available changed *")
-        delegate?.handleAudioUnitNotification(type: .changed, object: nil)
+        delegate?.handleAudioUnitManagerNotification(.changed, audioUnitManager: self)
     }
 
     private func componentInstanceObservor(notification: Foundation.Notification) {
         // TODO: remove from signal chain
         let crashedAU = notification.object as? AUAudioUnit
         AKLog("Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
-        delegate?.handleAudioUnitNotification(type: .crashed, object: crashedAU)
+        delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
     }
 
     // ------------------------------------------
@@ -210,9 +213,8 @@ open class AKAudioUnitManager: NSObject {
             self.availableEffects = components
 
             DispatchQueue.main.async {
-                // notify delegate
-                self.delegate?.handleAudioUnitNotification(type: .effectsAvailable,
-                                                           object: self.availableEffects)
+                self.delegate?.handleAudioUnitManagerNotification(.effectsAvailable(effects: self.availableEffects),
+                                                                  audioUnitManager: self)
                 completionHandler?(self.availableEffects)
             }
         }
@@ -225,8 +227,9 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitNotification(type: .instrumentsAvailable,
-                                                           object: self.availableInstruments)
+                self.delegate?.handleAudioUnitManagerNotification(
+                    .instrumentsAvailable(instruments: self.availableInstruments),
+                    audioUnitManager: self)
 
                 completionHandler?(self.availableInstruments)
             }
@@ -296,7 +299,7 @@ open class AKAudioUnitManager: NSObject {
             connectEffects()
         }
 
-        delegate?.handleEffectRemoved(at: index)
+        delegate?.audioUnitManager(self, didRemoveEffectAtIndex: index)
     }
 
     /// Create the Audio Unit at the specified index of the chain
@@ -330,7 +333,7 @@ open class AKAudioUnitManager: NSObject {
                 self._effectsChain[index] = audioUnit
                 self.connectEffects()
                 DispatchQueue.main.async {
-                    self.delegate?.handleEffectAdded(at: index)
+                    self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
                 }
             }
 
@@ -338,7 +341,7 @@ open class AKAudioUnitManager: NSObject {
             _effectsChain[index] = avUnit
             connectEffects()
             DispatchQueue.main.async {
-                self.delegate?.handleEffectAdded(at: index)
+                self.delegate?.audioUnitManager(self, didAddEffectAtIndex: index)
             }
         } else {
             AKLog("Error: Unable to find ", name, "in availableEffects.")
@@ -446,9 +449,8 @@ open class AKAudioUnitManager: NSObject {
 }
 
 public protocol AKAudioUnitManagerDelegate: class {
-    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?)
-    func handleEffectAdded(at auIndex: Int)
-
-    /// If your UI needs to handle an effect being removed
-    func handleEffectRemoved(at auIndex: Int)
+    func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
+                                            audioUnitManager: AKAudioUnitManager)
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didAddEffectAtIndex index: Int)
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didRemoveEffectAtIndex index: Int)
 }

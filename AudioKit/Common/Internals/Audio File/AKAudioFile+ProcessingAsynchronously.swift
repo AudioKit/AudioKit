@@ -109,7 +109,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -119,11 +119,10 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func normalizeAsynchronously(baseDir: BaseDirectory = .temp,
                                         name: String = "",
@@ -147,7 +146,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -160,7 +159,7 @@ extension AKAudioFile {
     ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func reverseAsynchronously(baseDir: BaseDirectory = .temp,
                                       name: String = "",
@@ -182,7 +181,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -192,11 +191,10 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - file: an AKAudioFile that will be used to append audio from.
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func appendAsynchronously(file: AKAudioFile,
                                      baseDir: BaseDirectory = .temp,
@@ -223,7 +221,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -233,12 +231,11 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - fromSample: the starting sampleFrame for extraction. (default is zero)
     ///   - toSample: the ending sampleFrame for extraction (default is zero)
     ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp (Default is .temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func extractAsynchronously(fromSample: Int64 = 0,
                                       toSample: Int64 = 0,

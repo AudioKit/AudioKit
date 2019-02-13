@@ -11,11 +11,11 @@ import AVFoundation
 public class AKAutoPannerAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKAutoPannerParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = 10.0 {
@@ -35,37 +35,25 @@ public class AKAutoPannerAudioUnit: AKAudioUnitBase {
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: 0.0,
-            max: 100.0,
+            address: 0,
+            range: 0.0...100.0,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let depth = AUParameterTree.createParameter(
-            withIdentifier: "depth",
+            flags: .default)
+        let depth = AUParameter(
+            identifier: "depth",
             name: "Depth",
-            address: AUParameterAddress(1),
-            min: 0.0,
-            max: 1.0,
+            address: 1,
+            range: 0.0...1.0,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, depth]))
+        setParameterTree(AUParameterTree(children: [frequency, depth]))
         frequency.value = 10.0
         depth.value = 1.0
     }

@@ -49,9 +49,12 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
-                self.handleMIDI(data1: MIDIByte(event.internalData[0]),
-                                data2: MIDIByte(event.internalData[1]),
-                                data3: MIDIByte(event.internalData[2]))
+                guard event.internalData.count > 2 else {
+                    return
+                }
+                self.handleMIDI(data1: event.internalData[0],
+                                data2: event.internalData[1],
+                                data3: event.internalData[2])
 
             }
         })
@@ -61,15 +64,15 @@ open class AKMIDINode: AKNode, AKMIDIListener {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        let status = Int(data1 >> 4)
+        let status = AKMIDIStatus(byte: data1)
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
 
-        if status == AKMIDIStatus.noteOn.rawValue && velocity > 0 {
+        if status?.type == .noteOn && velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity)
-        } else if status == AKMIDIStatus.noteOn.rawValue && velocity == 0 {
+        } else if status?.type == .noteOn && velocity == 0 {
             internalNode.stop(noteNumber: noteNumber)
-        } else if status == AKMIDIStatus.noteOff.rawValue {
+        } else if status?.type == .noteOff {
             internalNode.stop(noteNumber: noteNumber)
         }
     }
