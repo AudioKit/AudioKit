@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import CoreMIDI
 
 /**
  Allows a MIDIPacket to be iterated through with a for statement.
