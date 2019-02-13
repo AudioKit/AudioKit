@@ -22,7 +22,7 @@ extension MIDIPacket {
     }
 
     var isSystemCommand: Bool {
-        return data.0 & 0x80 > 0
+        return data.0 >= 0xf0
     }
 
     var systemCommand: AKMIDISystemCommand? {
