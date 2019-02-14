@@ -456,6 +456,47 @@ open class AKMusicTrack {
         MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &controlMessage)
     }
 
+    /// Add polyphonic key pressure (a.k.a aftertouch)
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note to apply the pressure to
+    ///   - pressure: Amount of pressure
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///   - channel: MIDI channel for this event
+    open func addAfterTouch(_ noteNumber: MIDINoteNumber,
+                            pressure: MIDIByte,
+                            position: AKDuration, channel: MIDIChannel = 0) {
+        guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
+            return
+        }
+
+        var message = MIDIChannelMessage(status: MIDIByte(10 << 4) | MIDIByte((channel) & 0xf),
+                                         data1: noteNumber,
+                                         data2: pressure,
+                                         reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &message)
+    }
+
+    /// Add channel pressure (a.k.a. global aftertouch)
+    ///
+    /// - Parameters:
+    ///   - pressure: Amount of pressure
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///   - channel: MIDI channel for this event
+    open func addChannelAfterTouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+        guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
+            return
+        }
+
+        var message = MIDIChannelMessage(status: MIDIByte(13 << 4) | MIDIByte((channel) & 0xf),
+                                         data1: pressure,
+                                         data2: 0,
+                                         reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &message)
+    }
+
     /// Add Sysex message to sequence
     ///
     /// - Parameters:
