@@ -59,12 +59,12 @@ open class AKMIDIClockListener: NSObject {
         quarterNoteQuantumCounter = UInt8(quantumCounter % 24)
     }
 
-    func midiClockBeat() {
+    func midiClockBeat(time: MIDITimeStamp) {
         self.quantumCounter += 1
 
         // quarter notes can only increment when we are playing
         guard srtListener.state == .playing else {
-            sendQuantumUpdateToObservers()
+            sendQuantumUpdateToObservers(time: time)
             return
         }
 
@@ -91,7 +91,7 @@ open class AKMIDIClockListener: NSObject {
         } else if quarterNoteQuantumCounter == quantumsPerQuarterNote {
             quarterNoteQuantumCounter = 0
         }
-        sendQuantumUpdateToObservers()
+        sendQuantumUpdateToObservers(time: time)
 
         if sppMIDIBeatQuantumCounter == 6 { sppMIDIBeatQuantumCounter = 0; sppMIDIBeatCounter += 1 }
         sppMIDIBeatQuantumCounter += 1
@@ -137,9 +137,9 @@ extension AKMIDIClockListener: AKMIDIBeatObserver {
         }
     }
 
-    internal func sendQuantumUpdateToObservers() {
+    internal func sendQuantumUpdateToObservers(time: MIDITimeStamp) {
         observers.forEach { (observer) in
-            observer.receivedQuantum(quarterNote: fourCount, beat: sppMIDIBeatCounter, quantum: quantumCounter)
+            observer.receivedQuantum(time: time, quarterNote: fourCount, beat: sppMIDIBeatCounter, quantum: quantumCounter)
         }
     }
 
