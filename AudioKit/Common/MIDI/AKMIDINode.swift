@@ -65,11 +65,12 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = AKMIDIStatus(byte: data1)
+        let channel = status?.channel
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
 
         if status?.type == .noteOn && velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel ?? 0)
         } else if status?.type == .noteOn && velocity == 0 {
             internalNode.stop(noteNumber: noteNumber)
         } else if status?.type == .noteOff {
@@ -88,7 +89,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel) {
         if velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
             internalNode.stop(noteNumber: noteNumber)
         }
