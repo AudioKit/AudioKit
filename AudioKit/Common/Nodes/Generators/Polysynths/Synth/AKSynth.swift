@@ -317,7 +317,10 @@
         self.internalAU?.setParameterImmediately(.filterReleaseDuration, value: filterReleaseDuration)
     }
 
-    @objc open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+    @objc open override func play(noteNumber: MIDINoteNumber,
+                                  velocity: MIDIVelocity,
+                                  frequency: Double,
+                                  channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
     }
 

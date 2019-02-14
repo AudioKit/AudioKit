@@ -153,7 +153,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     @objc open func start(noteNumber: MIDINoteNumber,
                           velocity: MIDIVelocity,
                           channel: MIDIChannel) {
-        play(noteNumber: noteNumber, velocity: velocity)
+        play(noteNumber: noteNumber, velocity: velocity, channel: channel)
     }
     
     /// Stop a note
@@ -172,13 +172,28 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         if let status = AKMIDIStatus(byte: data1), let statusType = status.type {
+
             let channel = status.channel
-            if statusType == .noteOn && data3 > 0 {
-                start(noteNumber: data2,
-                      velocity: data3,
-                      channel: channel)
-            } else if statusType == .noteOn && data3 == 0 || statusType == .noteOff {
+
+            switch statusType {
+            case .noteOn:
+                if data3 > 0 {
+                    start(noteNumber: data2, velocity: data3, channel: channel)
+                } else {
+                    stop(noteNumber: data2, channel: channel)
+                }
+            case .noteOff:
                 stop(noteNumber: data2, channel: channel)
+            case .polyphonicAftertouch:
+                receivedMIDIAftertouch(noteNumber: data2, pressure: data3, channel: channel)
+            case .channelAftertouch:
+                receivedMIDIAfterTouch(data2, channel: channel)
+            case .controllerChange:
+                receivedMIDIController(data2, value: data3, channel: channel)
+            case .programChange:
+                receivedMIDIProgramChange(data2, channel: channel)
+            case .pitchWheel:
+                receivedMIDIPitchWheel(MIDIWord(byte1: data2, byte2: data3), channel: channel)
             }
         }
     }
