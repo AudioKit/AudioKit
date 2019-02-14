@@ -26,7 +26,7 @@ public protocol AKMIDIBeatObserver {
     func receivedBeatEvent(beat: UInt64)
 
     /// Called each midi clock pulse (quantum = 24 quantums per quarter note)
-    func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64)
+    func receivedQuantum(time: MIDITimeStamp, quarterNote: UInt8, beat: UInt64, quantum: UInt64)
 
     /// Called each 24 midi clock pulses
     func receivedQuarterNoteBeat(quarterNote: UInt8)
@@ -51,7 +51,7 @@ public extension AKMIDIBeatObserver {
 
     }
 
-    func receivedQuantum(quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(time: MIDITimeStamp, quarterNote: UInt8, beat: UInt64, quantum: UInt64) {
 
     }
 
