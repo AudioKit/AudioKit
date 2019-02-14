@@ -391,9 +391,9 @@ extension AKAudioFile {
                 // Then delete file
                 AKLog("Export: Output file already exists, trying to delete...")
                 do {
-                    try fileManager.removeItem(atPath: destinationURL.absoluteString)
+                    try fileManager.removeItem(atPath: destinationURL.path)
                 } catch let error as NSError {
-                    AKLog("Error: couldn't delete file \"\(destinationURL)\"")
+                    AKLog("Error: couldn't delete file \"\(destinationURL.path)\"")
                     AKLog(error.localizedDescription)
                     callback(nil, error)
                 }
