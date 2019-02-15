@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKMusicTrack {
-    func loadMidi(filePath: String) {
+    func loadMIDI(filePath: String) {
         print("loading file from exists @ \(filePath)")
         let fileURL = URL(fileURLWithPath: filePath)
         var tempSeq: MusicSequence?

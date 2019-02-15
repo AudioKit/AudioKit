@@ -6,7 +6,7 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Foundation
+import CoreMIDI
 
 extension MIDIPacket {
     var isSysex: Bool {
@@ -22,7 +22,7 @@ extension MIDIPacket {
     }
 
     var isSystemCommand: Bool {
-        return data.0 & 0x80 > 0
+        return data.0 >= 0xf0
     }
 
     var systemCommand: AKMIDISystemCommand? {

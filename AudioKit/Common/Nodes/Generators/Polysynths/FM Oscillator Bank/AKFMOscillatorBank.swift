@@ -191,7 +191,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    @objc public convenience override init() {
         self.init(waveform: AKTable(.sine))
     }
 
@@ -297,7 +297,10 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - AKPolyphonic
 
     // Function to start, play, or activate the node at frequency
-    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: Double) {
+    open override func play(noteNumber: MIDINoteNumber,
+                            velocity: MIDIVelocity,
+                            frequency: Double,
+                            channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
 
