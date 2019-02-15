@@ -2,7 +2,7 @@
 //  EZAudioFile.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali, revision history on Githbub.
+//  Created by Syed Haris Ali, revision history on Github.
 //  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -40,7 +40,7 @@
  @param waveformData An array of float arrays, each representing a channel of audio data from the file
  @param length       An int representing the length of each channel of float audio data
  */
-typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformData, int length);
+typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable*_Nullable waveformData, int length);
 
 //------------------------------------------------------------------------------
 #pragma mark - EZAudioFileDelegate
@@ -58,8 +58,8 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param bufferSize       The length of the buffers float arrays
  @param numberOfChannels The number of channels. 2 for stereo, 1 for mono.
  */
-- (void)       audioFile:(EZAudioFile *)audioFile
-               readAudio:(float **)buffer
+- (void)       audioFile:(nonnull EZAudioFile *)audioFile
+               readAudio:(float *_Nonnull*_Nonnull)buffer
           withBufferSize:(UInt32)bufferSize
     withNumberOfChannels:(UInt32)numberOfChannels;
 
@@ -69,7 +69,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  Occurs when the audio file's internal seek position has been updated by the EZAudioFile functions `readFrames:audioBufferList:bufferSize:eof:` or `audioFile:updatedPosition:`. As of 0.8.0 this is the preferred method of listening for position updates on the audio file since a user may want the pull the currentTime, formattedCurrentTime, or the frame index from the EZAudioFile instance provided.
  @param audioFile The instance of the EZAudio in which the change occurred.
  */
-- (void)audioFileUpdatedPosition:(EZAudioFile *)audioFile;
+- (void)audioFileUpdatedPosition:(nonnull EZAudioFile *)audioFile;
 
 //------------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @deprecated This property is deprecated starting in version 0.8.0.
  @note Please use `audioFileUpdatedPosition:` property instead.
  */
-- (void)  audioFile:(EZAudioFile *)audioFile
+- (void)  audioFile:(nonnull EZAudioFile *)audioFile
     updatedPosition:(SInt64)framePosition  __attribute__((deprecated));
 
 @end
@@ -114,7 +114,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param url The file path reference of the audio file as an NSURL.
  @return The newly created EZAudioFile instance. nil if the file path does not exist.
  */
-- (instancetype _Nonnull)initWithURL:(NSURL *_Nonnull)url;
+- (instancetype _Nullable)initWithURL:(nonnull NSURL *)url;
 
 /**
  Creates a new instance of the EZAudioFile using a file path URL with a delegate conforming to the EZAudioFileDelegate protocol.
@@ -122,7 +122,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param url The file path reference of the audio file as an NSURL.
  @return The newly created EZAudioFile instance.
  */
-- (instancetype _Nonnull)initWithURL:(NSURL *_Nonnull)url
+- (instancetype _Nullable)initWithURL:(nonnull NSURL *)url
                             delegate:(id<EZAudioFileDelegate>_Nullable)delegate;
 
 //------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param clientFormat An AudioStreamBasicDescription that will be used as the client format on the audio file. For instance, the audio file might be in a 22.5 kHz sample rate format in its file format, but your app wants to read the samples at a sample rate of 44.1 kHz so it can iterate with other components (like a audio processing graph) without any weird playback effects. If this initializer is not used then a non-interleaved float format will be assumed.
  @return The newly created EZAudioFile instance.
  */
-- (instancetype _Nonnull)initWithURL:(NSURL *_Nonnull)url
+- (instancetype _Nullable)initWithURL:(nonnull NSURL *)url
                             delegate:(id<EZAudioFileDelegate>_Nullable)delegate
                         clientFormat:(AudioStreamBasicDescription)clientFormat;
 
@@ -150,7 +150,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param url The file path reference of the audio file as an NSURL.
  @return The newly created EZAudioFile instance.
  */
-+ (instancetype _Nonnull)audioFileWithURL:(NSURL *_Nonnull)url;
++ (instancetype _Nullable)audioFileWithURL:(nonnull NSURL *)url;
 
 //------------------------------------------------------------------------------
 
@@ -160,7 +160,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param delegate The audio file delegate that receives events specified by the EZAudioFileDelegate protocol
  @return The newly created EZAudioFile instance.
  */
-+ (instancetype _Nonnull)audioFileWithURL:(NSURL *_Nonnull)url
++ (instancetype _Nullable)audioFileWithURL:(nonnull NSURL *)url
                                  delegate:(id<EZAudioFileDelegate>_Nullable)delegate;
 
 //------------------------------------------------------------------------------
@@ -172,8 +172,8 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param clientFormat An AudioStreamBasicDescription that will be used as the client format on the audio file. For instance, the audio file might be in a 22.5 kHz sample rate, interleaved MP3 file format, but your app wants to read linear PCM samples at a sample rate of 44.1 kHz so it can be read in the context of other components sharing a common stream format (like a audio processing graph). If this initializer is not used then the `defaultClientFormat` will be used as the default value for the client format.
  @return The newly created EZAudioFile instance.
  */
-+ (instancetype _Nonnull)audioFileWithURL:(NSURL *_Nonnull)url
-                                 delegate:(id<EZAudioFileDelegate>_Nullable)delegate
++ (instancetype _Nullable)audioFileWithURL:(nonnull NSURL *)url
+                                 delegate:(nullable id<EZAudioFileDelegate>)delegate
                              clientFormat:(AudioStreamBasicDescription)clientFormat;
 
 //------------------------------------------------------------------------------
@@ -203,7 +203,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  Provides an array of the supported audio files types. Each audio file type is provided as a string, i.e. @"caf". Useful for filtering lists of files in an open panel to only the types allowed.
  @return An array of NSString objects representing the represented file types.
  */
-+ (NSArray *_Nonnull)supportedAudioFileTypes;
++ (nonnull NSArray *)supportedAudioFileTypes;
 
 //------------------------------------------------------------------------------
 #pragma mark - Events
@@ -220,9 +220,9 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  @param eof             A pointer to a BOOL in which to store whether the read operation reached the end of the audio file.
  */
 - (void) readFrames:(UInt32)frames
-    audioBufferList:(AudioBufferList *_Nonnull)audioBufferList
-         bufferSize:(UInt32 *_Nonnull)bufferSize
-                eof:(BOOL *_Nonnull)eof;
+    audioBufferList:(nonnull AudioBufferList *)audioBufferList
+         bufferSize:(nonnull UInt32 *)bufferSize
+                eof:(nonnull BOOL *)eof;
 
 //------------------------------------------------------------------------------
 
@@ -278,14 +278,14 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
 /**
  Provides the current time as an NSString with the time format MM:SS.
  */
-@property (readonly, nullable) NSString *formattedCurrentTime;
+@property (readonly, nonnull) NSString *formattedCurrentTime;
 
 //------------------------------------------------------------------------------
 
 /**
  Provides the duration as an NSString with the time format MM:SS.
  */
-@property (readonly, nullable) NSString *formattedDuration;
+@property (readonly, nonnull) NSString *formattedDuration;
 
 //------------------------------------------------------------------------------
 
@@ -343,7 +343,7 @@ typedef void (^EZAudioWaveformDataCompletionBlock)(float *_Nullable *waveformDat
  Provides the NSURL for the audio file.
  @return An NSURL representing the path of the EZAudioFile instance.
  */
-@property (nonatomic, copy, readonly, nullable) NSURL *url;
+@property (nonatomic, copy, readonly, nonnull) NSURL *url;
 
 /**
  The AudioFileID for this file
