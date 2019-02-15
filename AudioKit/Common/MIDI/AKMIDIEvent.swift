@@ -13,6 +13,8 @@ public struct AKMIDIEvent {
 
     // MARK: - Properties
 
+    public var timeStamp: MIDITimeStamp = 0
+
     public var position: AKDuration?
 
     /// Internal data
@@ -82,6 +84,8 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
+        timeStamp = packet.timeStamp
+
         // MARK: we currently assume this is one midi event could be any number of events
         let isSystemCommand = packet.isSystemCommand
         if isSystemCommand {
@@ -142,7 +146,8 @@ public struct AKMIDIEvent {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    public init(data: [MIDIByte]) {
+    public init(data: [MIDIByte], time: MIDITimeStamp = 0) {
+        timeStamp = time
         if AudioKit.midi.isReceivingSysex {
             if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 internalData = Array(data[0...sysexEndIndex])
@@ -275,7 +280,7 @@ public struct AKMIDIEvent {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AudioKit.midi.incomingSysex += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex, time: packet.timeStamp)
                 AudioKit.midi.stopReceivingSysex()
                 return sysexEvent
             }
