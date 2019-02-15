@@ -1079,7 +1079,6 @@
 		C539CCC921F823B10096AF95 /* BPM+StatisticalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CCC521F823B00096AF95 /* BPM+StatisticalTools.swift */; };
 		C539CCCA21F823B10096AF95 /* AKMIDITempoListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CCC621F823B00096AF95 /* AKMIDITempoListener.swift */; };
 		C539CCCD21F823CF0096AF95 /* AKMIDITimeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CCCC21F823CF0096AF95 /* AKMIDITimeout.swift */; };
-		C5869D3A21F96F9B003CD335 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C59E4E76220A0BB900654569 /* AKMIDISystemRealTimeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59E4E74220A0BB800654569 /* AKMIDISystemRealTimeObserver.swift */; };
 		C59E4E77220A0BB900654569 /* AKMIDISystemRealTimeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59E4E75220A0BB900654569 /* AKMIDISystemRealTimeListener.swift */; };
 		C5AF016221FE602F0012C7B3 /* AKMIDIOmniListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF016121FE602F0012C7B3 /* AKMIDIOmniListener.swift */; };
@@ -2453,7 +2452,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5869D3A21F96F9B003CD335 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5224,15 +5222,15 @@
 		C539CCC221F823B00096AF95 /* Listeners */ = {
 			isa = PBXGroup;
 			children = (
-				C5DEBEA121F8DE5200A36FE7 /* AKMIDIBeatObserver.swift */,
-				C539CCC421F823B00096AF95 /* AKMIDIClockListener.swift */,
-				C5AF016321FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift */,
 				C5DEBEA321F8EA7E00A36FE7 /* AKMIDIObserverMaster.swift */,
-				C5AF016121FE602F0012C7B3 /* AKMIDIOmniListener.swift */,
+				C539CCC421F823B00096AF95 /* AKMIDIClockListener.swift */,
+				C5DEBEA121F8DE5200A36FE7 /* AKMIDIBeatObserver.swift */,
 				C59E4E75220A0BB900654569 /* AKMIDISystemRealTimeListener.swift */,
 				C59E4E74220A0BB800654569 /* AKMIDISystemRealTimeObserver.swift */,
 				C539CCC621F823B00096AF95 /* AKMIDITempoListener.swift */,
 				C408275A220D52CA00DAE6DA /* AKMIDITempoObserver.swift */,
+				C5AF016121FE602F0012C7B3 /* AKMIDIOmniListener.swift */,
+				C5AF016321FE6F0A0012C7B3 /* AKMIDIMonoPolyListener.swift */,
 			);
 			path = Listeners;
 			sourceTree = "<group>";
