@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,6 +21,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t0B-cf-kAs">
                                 <rect key="frame" x="20" y="20" width="137" height="30"/>
                                 <color key="backgroundColor" red="0.90186554190000001" green="0.90201717619999999" blue="0.90184420350000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="137" id="ECX-RG-gEW"/>
+                                </constraints>
                                 <state key="normal" title="Start AudioKit"/>
                                 <connections>
                                     <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="R0b-U1-QLf"/>
@@ -76,13 +79,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GRn-3y-xGs" firstAttribute="width" secondItem="t0B-cf-kAs" secondAttribute="width" id="461-xM-pXT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nCM-VN-aTd" secondAttribute="trailing" constant="867" id="6Aj-nM-bXp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vKa-pA-Ft4" secondAttribute="bottom" constant="20" id="AqP-Jt-J16"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RKq-q9-3gq" secondAttribute="trailing" constant="867" id="Ehs-bR-jFT"/>
                             <constraint firstItem="t0B-cf-kAs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="F8b-qr-4Uc"/>
+                            <constraint firstItem="nCM-VN-aTd" firstAttribute="width" secondItem="t0B-cf-kAs" secondAttribute="width" id="IL9-xz-nyu"/>
                             <constraint firstItem="SPg-VG-QN3" firstAttribute="top" secondItem="TZx-1R-bGa" secondAttribute="bottom" constant="8" id="Krj-2I-OGO"/>
                             <constraint firstItem="vKa-pA-Ft4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="MRP-I6-1C7"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="t0B-cf-kAs" secondAttribute="trailing" constant="867" id="T4K-2j-7D0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GRn-3y-xGs" secondAttribute="trailing" constant="20" id="U7v-PA-bNT"/>
                             <constraint firstItem="nCM-VN-aTd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Uo9-8Q-6HY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SPg-VG-QN3" secondAttribute="trailing" constant="20" id="WhP-cd-Tvs"/>
@@ -97,7 +99,6 @@
                             <constraint firstItem="TZx-1R-bGa" firstAttribute="top" secondItem="GIy-mS-PxU" secondAttribute="bottom" constant="8" id="oCC-c7-7yg"/>
                             <constraint firstItem="GIy-mS-PxU" firstAttribute="top" secondItem="RKq-q9-3gq" secondAttribute="bottom" constant="8" id="qpW-Hs-Iaj"/>
                             <constraint firstItem="SPg-VG-QN3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rhF-e2-agN"/>
-                            <constraint firstItem="RKq-q9-3gq" firstAttribute="width" secondItem="nCM-VN-aTd" secondAttribute="width" id="sYm-WL-eWm"/>
                             <constraint firstItem="RKq-q9-3gq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="t3G-wC-8Y0"/>
                             <constraint firstItem="TZx-1R-bGa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ueM-eX-fqd"/>
                             <constraint firstItem="TZx-1R-bGa" firstAttribute="width" secondItem="RKq-q9-3gq" secondAttribute="width" id="yN8-Os-vu0"/>

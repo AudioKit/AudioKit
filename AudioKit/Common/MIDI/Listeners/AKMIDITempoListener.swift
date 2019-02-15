@@ -191,7 +191,7 @@ extension AKMIDITempoListener: AKMIDIListener {
                 }
                 clockEvents.append(time)
                 analyze()
-                clockListener?.midiClockBeat()
+                clockListener?.midiClockBeat(time: time)
             }
         }
         if data[0] == AKMIDISystemCommand.stop.rawValue {
