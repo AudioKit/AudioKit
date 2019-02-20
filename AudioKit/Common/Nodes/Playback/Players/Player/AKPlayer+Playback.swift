@@ -56,6 +56,7 @@ extension AKPlayer {
     }
 
     @objc public func resume() {
+        // save the last set startTime as resume will overwrite it
         let previousStartTime = startTime
 
         var time = pauseTime ?? 0
@@ -68,6 +69,7 @@ extension AKPlayer {
         playerNode.stop()
         play(from: time)
 
+        // restore that startTime as it might be a selection
         startTime = previousStartTime
         pauseTime = nil
     }
