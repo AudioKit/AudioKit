@@ -56,16 +56,20 @@ extension AKPlayer {
     }
 
     @objc public func resume() {
-        guard let pauseTime = self.pauseTime else {
-            play()
-            return
+        let previousStartTime = startTime
+
+        var time = pauseTime ?? 0
+
+        // bounds check
+        if time >= duration {
+            time = 0
         }
         // clear the frame count in the player
         playerNode.stop()
-        play(from: pauseTime)
-        AKLog("Resuming at \(pauseTime)")
+        play(from: time)
 
-        self.pauseTime = nil
+        startTime = previousStartTime
+        pauseTime = nil
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events

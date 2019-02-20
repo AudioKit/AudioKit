@@ -155,7 +155,18 @@ class ViewController: NSViewController {
     }
 
     @IBAction func setNormalizeState(_ sender: NSButton) {
-        player?.isNormalized = sender.state == .on
+        guard let player = player else { return }
+
+        let state = sender.state == .on
+        //player?.isNormalized = sender.state == .on
+
+        if state {
+            player.pause()
+            //player.pauseTime = player.duration
+            AKLog("set pause start time to", player.pauseTime)
+        } else {
+            player.resume()
+        }
     }
 
     @IBAction func setReversedState(_ sender: NSButton) {

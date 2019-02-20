@@ -444,7 +444,6 @@ typedef struct {
             } else {
                 for (int channel = 0; channel < channels; channel++) {
                     float *channelData = audioBufferList->mBuffers[channel].mData;
-
                     float rms = 0.0;
                     vDSP_rmsqv(channelData, 1, &rms, (vDSP_Length)bufferSize);
                     data[channel][i] = rms;
