@@ -428,6 +428,7 @@ typedef struct {
                                                            &bufferSize,
                                                            audioBufferList)
                                 operation:"Failed to read audio data from file waveform"];
+
             if (interleaved) {
                 float *buffer = (float *)audioBufferList->mBuffers[0].mData;
                 for (int channel = 0; channel < channels; channel++) {
@@ -435,13 +436,17 @@ typedef struct {
                     for (int frame = 0; frame < framesPerChannel; frame++) {
                         channelData[frame] = buffer[frame * channels + channel];
                     }
-                    float rms = [EZAudioUtilities RMS:channelData length:(UInt32)framesPerChannel];
+                    // Using Accelerate is much faster for RMS
+                    float rms = 0.0;
+                    vDSP_rmsqv(channelData, 1, &rms, (vDSP_Length)framesPerChannel);
                     data[channel][i] = rms;
                 }
             } else {
                 for (int channel = 0; channel < channels; channel++) {
                     float *channelData = audioBufferList->mBuffers[channel].mData;
-                    float rms = [EZAudioUtilities RMS:channelData length:bufferSize];
+
+                    float rms = 0.0;
+                    vDSP_rmsqv(channelData, 1, &rms, (vDSP_Length)bufferSize);
                     data[channel][i] = rms;
                 }
             }
