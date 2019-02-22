@@ -13,7 +13,7 @@ open class AKFFTTap: NSObject, EZAudioFFTDelegate {
     internal var fft: EZAudioFFT?
 
     /// Array of FFT data
-    open var fftData = [Double](zeros: 512)
+    @objc open var fftData = [Double](zeros: 512)
 
     /// Initialze the FFT calculation on a given node
     ///
