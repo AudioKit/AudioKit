@@ -54,7 +54,7 @@ create_package()
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && return # Do not bundle any examples for staging, just the frameworks
 	cd $DIR
 	mkdir -p Examples
-	cp -a ../../Examples/$1/* Examples/
+	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
 	rm -rf Examples/SongProcessor
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;

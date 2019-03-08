@@ -365,7 +365,7 @@ extension AVAudioNode {
     }
 }
 
-extension AUParameter {
+public extension AUParameter {
     @nonobjc
     convenience init(identifier: String,
                      name: String,

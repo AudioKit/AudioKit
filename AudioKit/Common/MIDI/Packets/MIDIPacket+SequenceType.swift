@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import CoreMIDI
 
 /**
  Allows a MIDIPacket to be iterated through with a for statement.
@@ -67,6 +68,9 @@ extension MIDIPacket: Sequence {
                     data1 = pop()
                     data2 = pop()
                     return AKMIDIEvent(data: [status, data1, data2])
+                case .timeCodeQuarterFrame:
+                    data1 = pop()
+                    return AKMIDIEvent(data: [status, data1])
                 case .songSelect:
                     data1 = pop()
                     return AKMIDIEvent(data: [status, data1])

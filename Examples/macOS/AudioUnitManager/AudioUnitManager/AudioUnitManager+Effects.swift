@@ -314,18 +314,23 @@ extension AudioUnitManager {
 }
 
 extension AudioUnitManager: AKAudioUnitManagerDelegate {
-    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        if type == .changed {
+
+    func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
+                                            audioUnitManager: AKAudioUnitManager) {
+        switch notification {
+        case .changed:
             updateEffectsUI(audioUnits: internalManager.availableEffects)
+        default:
+            break
         }
     }
 
-    func handleEffectAdded(at auIndex: Int) {
-        showEffect(at: auIndex, state: true)
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didAddEffectAtIndex index: Int) {
+        showEffect(at: index, state: true)
         reconnect()
     }
 
-    func handleEffectRemoved(at auIndex: Int) {
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didRemoveEffectAtIndex index: Int) {
         reconnect()
     }
 }

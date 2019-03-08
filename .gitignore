@@ -38,3 +38,7 @@ AudioUnits
 # JUCE related
 Builds/
 JuceLibraryCode/
+
+# Style Checking 
+SwiftStyleSettings.plist
+/Frameworks/distribute_built_frameworks.sh

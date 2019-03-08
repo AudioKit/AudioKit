@@ -35,11 +35,11 @@
  the .m file. There may be a better way to do what is needed here.
  */
 
-- (void) setParameterTree: (AUParameterTree* _Nonnull) tree;
+- (void)setParameterTree:(AUParameterTree* _Nonnull) tree;
 
-- (AUValue) parameterWithAddress:(AUParameterAddress)address;
-- (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
-- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (AUValue)parameterWithAddress:(AUParameterAddress)address;
+- (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
+- (void)setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value;
 
 // Add for compatibility with AKAudioUnit
 

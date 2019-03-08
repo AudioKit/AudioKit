@@ -13,6 +13,8 @@ public struct AKMIDIEvent {
 
     // MARK: - Properties
 
+    public var timeStamp: MIDITimeStamp = 0
+
     public var position: AKDuration?
 
     /// Internal data
@@ -82,20 +84,38 @@ public struct AKMIDIEvent {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        // FIXME: we currently assume this is one midi event could be any number of events
-        if packet.isSysex {
-            internalData = [] //reset internalData
-            //voodoo
-            if let midiBytes = AKMIDIEvent.decode(packet: packet) {
-                AudioKit.midi.startReceivingSysex(with: midiBytes)
-                internalData += midiBytes
-                if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
-                    let length = sysexEndIndex + 1
-                    internalData = Array(internalData.prefix(length))
-                    AudioKit.midi.stopReceivingSysex()
-                } else {
-                    internalData.removeAll()
+        timeStamp = packet.timeStamp
+
+        // MARK: we currently assume this is one midi event could be any number of events
+        let isSystemCommand = packet.isSystemCommand
+        if isSystemCommand {
+            let systemCommand = packet.systemCommand
+            let length = systemCommand?.length
+            if systemCommand == .sysex {
+                internalData = [] //reset internalData
+
+                // voodoo to convert packet 256 element tuple to byte arrays
+                if let midiBytes = AKMIDIEvent.decode(packet: packet) {
+                    // flag midi system that a sysex packet has started so it can gather bytes until the end
+                    AudioKit.midi.startReceivingSysex(with: midiBytes)
+                    internalData += midiBytes
+                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                        let length = sysexEndIndex + 1
+                        internalData = Array(internalData.prefix(length))
+                        AudioKit.midi.stopReceivingSysex()
+                    } else {
+                        internalData.removeAll()
+                    }
                 }
+            } else if length == 1 {
+                let bytes = [packet.data.0]
+                internalData = bytes
+            } else if length == 2 {
+                let bytes = [packet.data.0, packet.data.2]
+                internalData = bytes
+            } else if length == 3 {
+                let bytes = [packet.data.0, packet.data.1, packet.data.2]
+                internalData = bytes
             }
         } else {
             let bytes = [packet.data.0, packet.data.1, packet.data.2]
@@ -126,7 +146,8 @@ public struct AKMIDIEvent {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    public init(data: [MIDIByte]) {
+    public init(data: [MIDIByte], time: MIDITimeStamp = 0) {
+        timeStamp = time
         if AudioKit.midi.isReceivingSysex {
             if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 internalData = Array(data[0...sysexEndIndex])
@@ -259,7 +280,7 @@ public struct AKMIDIEvent {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AudioKit.midi.incomingSysex += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex)
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex, time: packet.timeStamp)
                 AudioKit.midi.stopReceivingSysex()
                 return sysexEvent
             }
@@ -333,13 +354,5 @@ public struct AKMIDIEvent {
             }
         }
         return outBytes
-    }
-}
-
-struct TupleArray {
-    var tuple: (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-    var array: [UInt8] {
-        var tmp = self.tuple
-        return [UInt8](UnsafeBufferPointer(start: &tmp.0, count: MemoryLayout.size(ofValue: tmp)))
     }
 }
