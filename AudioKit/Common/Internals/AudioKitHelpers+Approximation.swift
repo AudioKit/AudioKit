@@ -1,6 +1,6 @@
 //
 //  AudioKitHelpers+Approximation.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 4/28/18.
 //  Copyright © 2018 AudioKit. All rights reserved.

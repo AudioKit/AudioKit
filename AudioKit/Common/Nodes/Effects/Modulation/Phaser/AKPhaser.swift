@@ -52,7 +52,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     /// Lower and upper bounds for Inverted
     public static let invertedRange = 0.0 ... 1.0
 
-    /// Lower and upper bounds for Lfo Bpm
+    /// Lower and upper bounds for Lfo BPM
     public static let lfoBPMRange = 24.0 ... 360.0
 
     /// Initial value for Notch Minimum Frequency
@@ -79,7 +79,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
     /// Initial value for Inverted
     public static let defaultInverted = 0.0
 
-    /// Initial value for Lfo Bpm
+    /// Initial value for Lfo BPM
     public static let defaultLfoBPM = 30.0
 
     /// Ramp Duration represents the speed at which parameters are allowed to change

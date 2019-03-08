@@ -70,11 +70,23 @@ open class AKMIDI {
 
         if client == 0 {
             let result = MIDIClientCreateWithBlock(clientName, &client) {
-                guard $0.pointee.messageID == .msgSetupChanged else {
-                    return
-                }
-                for l in self.listeners {
-                    l.receivedMIDISetupChange()
+                let messageID = $0.pointee.messageID
+
+                switch messageID {
+                case .msgSetupChanged:
+                    for listener in self.listeners {
+                        listener.receivedMIDISetupChange()
+                    }
+                case .msgPropertyChanged:
+                    let rawPtr = UnsafeRawPointer($0)
+                    let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
+                    for listener in self.listeners {
+                        listener.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
+                    }
+                default:
+                    for listener in self.listeners {
+                        listener.receivedMIDINotification(notification: $0.pointee)
+                    }
                 }
             }
             if result != noErr {
@@ -87,10 +99,12 @@ open class AKMIDI {
 
     internal var isReceivingSysex: Bool = false
     func startReceivingSysex(with midiBytes: [MIDIByte]) {
+        AKLog("Starting to receive Sysex")
         isReceivingSysex = true
         incomingSysex = midiBytes
     }
     func stopReceivingSysex() {
+        AKLog("Done receiving Sysex")
         isReceivingSysex = false
     }
     var incomingSysex = [MIDIByte]()
