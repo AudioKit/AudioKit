@@ -20,7 +20,7 @@ class PluckedStringTests: AKTestCase {
         output = AKOperationGenerator { _ in
             return AKOperation.pluckedString(trigger: AKOperation.metronome())
         }
-        AKTestMD5("ef5660234d2603a3f945cde22a967102")
+        AKTestMD5("382cdbd27558fed9c8723ba435cdb4cf")
     }
 
 }

@@ -20,14 +20,14 @@ class PinkNoiseTests: AKTestCase {
         output = AKOperationGenerator { _ in
             return AKOperation.pinkNoise()
         }
-        AKTestMD5("ddf3ff7735d85181d93abd7655b9658b")
+        AKTestMD5("f5032eb3fc926f68a73fec67e29c6ac7")
     }
 
     func testAmplitude() {
         output = AKOperationGenerator { _ in
             return AKOperation.pinkNoise(amplitude: 0.456)
         }
-        AKTestMD5("225013a98880fabae9333b4b281dfbbe")
+        AKTestMD5("fe160cb0de91109574515f9bef8e3286")
     }
 
     func testParameterSweep() {
@@ -39,7 +39,7 @@ class PinkNoiseTests: AKTestCase {
                 duration: self.duration)
             return AKOperation.pinkNoise(amplitude: line)
         }
-        AKTestMD5("a3ff6fe8636bee3dadad539a2448226f")
+        AKTestMD5("db9904288c8872a06a87a6d4913eb942")
     }
 
 }
