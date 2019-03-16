@@ -54,7 +54,7 @@ open class AudioKit: NSObject {
     // MARK: - Device Management
 
     /// An audio output operation that most applications will need to use last
-    public static var output: AKNode? {
+    @objc public static var output: AKNode? {
         didSet {
             do {
                 try updateSessionCategoryAndOptions()

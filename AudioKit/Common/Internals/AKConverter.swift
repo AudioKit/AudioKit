@@ -32,7 +32,16 @@ open class AKConverter: NSObject {
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    public static let inputFormats = AKConverter.outputFormats + ["mp3", "mp4", "snd", "au", "sd2", "aiff", "aifc", "aac"]
+    public static let inputFormats = AKConverter.outputFormats + ["mp3",
+                                                                  "snd",
+                                                                  "au",
+                                                                  "sd2",
+                                                                  "aiff",
+                                                                  "aifc",
+                                                                  "aac",
+                                                                  "mp4",
+                                                                  "m4v",
+                                                                  "mov"]
 
     /**
      The conversion options, leave nil to adopt the value of the input file
@@ -491,7 +500,7 @@ open class AKConverter: NSObject {
 
     private func isCompressed(url: URL) -> Bool {
         let ext = url.pathExtension.lowercased()
-        return (ext == "m4a" || ext == "mp3" || ext == "mp4")
+        return (ext == "m4a" || ext == "mp3" || ext == "mp4" || ext == "m4v")
     }
 
     private func createError(message: String, code: Int = 1) -> NSError {
