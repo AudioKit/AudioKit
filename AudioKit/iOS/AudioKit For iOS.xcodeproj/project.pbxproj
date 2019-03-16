@@ -32,7 +32,7 @@
 		3404A7C920507BEB00A2C9E4 /* AKSamplerDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3404A7C320507BEB00A2C9E4 /* AKSamplerDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		3404A7CB20507BEB00A2C9E4 /* AKSamplerDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3404A7C520507BEB00A2C9E4 /* AKSamplerDSP.mm */; };
 		3425222721E7F8EE0014B603 /* AKCoreSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3425222521E7F8EE0014B603 /* AKCoreSynth.cpp */; };
-		3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3425222621E7F8EE0014B603 /* AKCoreSynth.hpp */; };
+		3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3425222621E7F8EE0014B603 /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		3425222F21E7F90E0014B603 /* AKSynthAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425222B21E7F90E0014B603 /* AKSynthAudioUnit.swift */; };
 		3425223021E7F90E0014B603 /* AKSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425222C21E7F90E0014B603 /* AKSynth.swift */; };
 		3425223121E7F90E0014B603 /* AKSynthDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3425222D21E7F90E0014B603 /* AKSynthDSP.mm */; };
@@ -5355,6 +5355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B12B88A7201C1B2C008F196D /* AKExponentialParameterRamp.hpp in Headers */,
+				3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */,
 				C42223E621BC69D1007E3424 /* AKAutoPannerDSP.hpp in Headers */,
 				B15770482093C86A00830A3E /* AKParameterRamp.hpp in Headers */,
 				34F5A361205ECBE400290001 /* AdjustableDelayLine.hpp in Headers */,
@@ -5486,7 +5487,6 @@
 				C44EA2562018704D0072399F /* AKPhaserDSP.hpp in Headers */,
 				C49B139B204A06B7009C7C8E /* kiss_fft.h in Headers */,
 				C49B1540204A06B8009C7C8E /* dsound.h in Headers */,
-				3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */,
 				C40C41661C40E3A5009D870B /* EZOutput.h in Headers */,
 				C49B1421204A06B7009C7C8E /* Array.hpp in Headers */,
 				C49B1573204A06B8009C7C8E /* Blit.h in Headers */,
