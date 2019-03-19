@@ -39,7 +39,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var ratio: Double = 1 {
         willSet {
             guard ratio != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     ratioParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -53,7 +53,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var threshold: Double = 0.0 {
         willSet {
             guard threshold != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     thresholdParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -67,7 +67,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -81,7 +81,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -95,7 +95,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var rage: Double = 0.1 {
         willSet {
             guard rage != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     rageParameter?.setValue(Float(newValue), originator: existingToken)
                 }

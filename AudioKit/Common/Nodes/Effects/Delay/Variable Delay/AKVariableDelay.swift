@@ -46,7 +46,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var time: Double = defaultTime {
         willSet {
             guard time != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     timeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -60,7 +60,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             guard feedback != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     return

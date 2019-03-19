@@ -52,7 +52,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             guard centerFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -66,7 +66,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -80,7 +80,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             guard decayDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return

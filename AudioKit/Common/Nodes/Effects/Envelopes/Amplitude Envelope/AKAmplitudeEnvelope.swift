@@ -57,7 +57,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -71,7 +71,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             guard decayDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -85,7 +85,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var sustainLevel: Double = defaultSustainLevel {
         willSet {
             guard sustainLevel != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -99,7 +99,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
             guard releaseDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
