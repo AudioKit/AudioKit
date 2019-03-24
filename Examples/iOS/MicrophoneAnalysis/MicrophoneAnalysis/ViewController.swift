@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet private var noteNameWithSharpsLabel: UILabel!
     @IBOutlet private var noteNameWithFlatsLabel: UILabel!
     @IBOutlet private var audioInputPlot: EZAudioPlot!
+    @IBOutlet private var inputDevicesButton: UIButton!
 
     var mic: AKMicrophone!
     var tracker: AKFrequencyTracker!
@@ -89,4 +90,48 @@ class ViewController: UIViewController {
         }
         amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
     }
+
+    // MARK: - Actions
+
+    @IBAction func didTapInputDevicesButton(_ sender: UIButton) {
+        let inputDevices = InputDeviceTableViewController()
+        inputDevices.settingsDelegate = self
+        inputDevices.currentInputDevice = AudioKit.inputDevice
+        let navigationController = UINavigationController(rootViewController: inputDevices)
+        navigationController.preferredContentSize = CGSize(width: 300, height: 300)
+        navigationController.modalPresentationStyle = .popover
+        navigationController.popoverPresentationController!.delegate = self
+        self.present(navigationController, animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension ViewController: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        popoverPresentationController.backgroundColor = .white
+        popoverPresentationController.permittedArrowDirections = .down
+        popoverPresentationController.sourceView = inputDevicesButton
+        popoverPresentationController.sourceRect = inputDevicesButton.bounds
+    }
+}
+
+// MARK: - InputDeviceDelegate
+
+extension ViewController: InputDeviceDelegate {
+
+    func didSelectInputDevice(_ device: AKDevice) {
+        do {
+            try mic.setDevice(device)
+        } catch {
+            AKLog("Error setting input device")
+        }
+    }
+
 }
