@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05C5FD6822476C3400A2CAAE /* InputDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */; };
 		7881F8301D0C01F0007E62A3 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7881F82F1D0C01F0007E62A3 /* AudioKit.framework */; };
 		789CA9B61D0A01F500D6EFF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */; };
 		789CA9B81D0A01F500D6EFF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B71D0A01F500D6EFF1 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputDeviceTableViewController.swift; sourceTree = "<group>"; };
 		7881F82F1D0C01F0007E62A3 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		789CA9B21D0A01F500D6EFF1 /* MicrophoneAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrophoneAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */,
+				05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */,
 				789CA9B71D0A01F500D6EFF1 /* ViewController.swift */,
 				789CA9B91D0A01F500D6EFF1 /* Main.storyboard */,
 				789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */,
@@ -152,6 +155,7 @@
 			files = (
 				789CA9B81D0A01F500D6EFF1 /* ViewController.swift in Sources */,
 				789CA9B61D0A01F500D6EFF1 /* AppDelegate.swift in Sources */,
+				05C5FD6822476C3400A2CAAE /* InputDeviceTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
