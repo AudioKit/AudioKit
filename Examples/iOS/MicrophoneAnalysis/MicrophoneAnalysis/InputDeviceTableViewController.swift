@@ -9,7 +9,7 @@
 import UIKit
 import AudioKit
 
-protocol InputDeviceDelegate {
+protocol InputDeviceDelegate: AnyObject {
     func didSelectInputDevice(_ device: AKDevice)
 }
 
@@ -17,7 +17,7 @@ class InputDeviceTableViewController: UITableViewController {
 
     var currentInputDevice: AKDevice?
     var inputDevices = AudioKit.inputDevices ?? []
-    var settingsDelegate: InputDeviceDelegate?
+    weak var settingsDelegate: InputDeviceDelegate?
     let reuseIdentifier = "inputCell"
 
     override func viewDidLoad() {
