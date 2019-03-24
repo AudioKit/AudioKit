@@ -47,8 +47,30 @@ open class AKDevice: NSObject {
     }
     #endif
 
+    /// Initialize the device
+    ///
+    /// - Parameters:
+    ///   - portDescription: A port description object that describes a single
+    /// input or output port associated with an audio route.
+    ///
+    public convenience init(portDescription: AVAudioSessionPortDescription) {
+        let deviceID = [
+            portDescription.uid,
+            portDescription.selectedDataSource?.dataSourceName
+            ].compactMap{$0}.joined(separator: " ")
+        self.init(name: portDescription.portName, deviceID: deviceID)
+    }
+
     /// Printable device description
     override open var description: String {
         return "<Device: \(name) (\(deviceID))>"
     }
+
+    override open func isEqual(_ object: Any?) -> Bool {
+        if let object = object as? AKDevice {
+            return self.name == object.name && self.deviceID == object.deviceID
+        }
+        return false
+    }
+
 }
