@@ -54,10 +54,8 @@ open class AKDevice: NSObject {
     /// input or output port associated with an audio route.
     ///
     public convenience init(portDescription: AVAudioSessionPortDescription) {
-        let deviceID = [
-            portDescription.uid,
-            portDescription.selectedDataSource?.dataSourceName
-            ].compactMap{$0}.joined(separator: " ")
+        let deviceID = [portDescription.uid, portDescription.selectedDataSource?.dataSourceName]
+            .compactMap{$0}.joined(separator: " ")
         self.init(name: portDescription.portName, deviceID: deviceID)
     }
 
