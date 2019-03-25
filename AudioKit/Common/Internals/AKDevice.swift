@@ -47,6 +47,7 @@ open class AKDevice: NSObject {
     }
     #endif
 
+    #if !os(macOS)
     /// Initialize the device
     ///
     /// - Parameters:
@@ -54,10 +55,22 @@ open class AKDevice: NSObject {
     /// input or output port associated with an audio route.
     ///
     public convenience init(portDescription: AVAudioSessionPortDescription) {
-        let deviceID = [portDescription.uid, portDescription.selectedDataSource?.dataSourceName]
-            .compactMap{$0}.joined(separator: " ")
+        let portData = [portDescription.uid, portDescription.selectedDataSource?.dataSourceName]
+        let deviceID = portData.compactMap { $0 }.joined(separator: " ")
         self.init(name: portDescription.portName, deviceID: deviceID)
     }
+
+    /// Return a port description matching the devices name.
+    var portDescription: AVAudioSessionPortDescription? {
+        return AVAudioSession.sharedInstance().availableInputs?.filter { $0.portName == name }.first
+    }
+
+    /// Return a data source matching the devices deviceID.
+    var dataSource: AVAudioSessionDataSourceDescription? {
+        let dataSources = portDescription?.dataSources ?? []
+        return dataSources.filter { deviceID.contains($0.dataSourceName) }.first
+    }
+    #endif
 
     /// Printable device description
     override open var description: String {
