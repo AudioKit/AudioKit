@@ -17,7 +17,7 @@ public struct AKMIDIFile {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    init(path: String) {
+    public init(path: String) {
         print("loadind file at \(path)")
         let url = URL(fileURLWithPath: path)
         if let midiData = try? Data(contentsOf: url) {
