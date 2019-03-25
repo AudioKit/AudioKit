@@ -87,7 +87,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var leftBoundaryCondition: Double = defaultLeftBoundaryCondition {
         willSet {
             guard leftBoundaryCondition != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     leftBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -101,7 +101,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var rightBoundaryCondition: Double = defaultRightBoundaryCondition {
         willSet {
             guard rightBoundaryCondition != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     rightBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -115,7 +115,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
             guard decayDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -129,7 +129,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var scanSpeed: Double = defaultScanSpeed {
         willSet {
             guard scanSpeed != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     scanSpeedParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -143,7 +143,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var position: Double = defaultPosition {
         willSet {
             guard position != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     positionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -157,7 +157,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var strikeVelocity: Double = defaultStrikeVelocity {
         willSet {
             guard strikeVelocity != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     strikeVelocityParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -171,7 +171,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var strikeWidth: Double = defaultStrikeWidth {
         willSet {
             guard strikeWidth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     strikeWidthParameter?.setValue(Float(newValue), originator: existingToken)
                     return

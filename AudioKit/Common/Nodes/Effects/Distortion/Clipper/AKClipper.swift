@@ -37,7 +37,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var limit: Double = defaultLimit {
         willSet {
             guard limit != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     limitParameter?.setValue(Float(newValue), originator: existingToken)
                     return
