@@ -15,14 +15,14 @@ protocol InputDeviceDelegate: AnyObject {
 
 class InputDeviceTableViewController: UITableViewController {
 
-    var currentInputDevice: AKDevice?
-    var inputDevices = AudioKit.inputDevices ?? []
+    private var currentInputDevice = AudioKit.inputDevice
+    private var inputDevices = AudioKit.inputDevices ?? []
+    private let reuseIdentifier = "inputCell"
     weak var settingsDelegate: InputDeviceDelegate?
-    let reuseIdentifier = "inputCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Input Devices"
+        title = "Available Inputs"
     }
 
     // MARK: - Table view data source
