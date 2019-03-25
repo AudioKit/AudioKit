@@ -10,7 +10,7 @@ import Foundation
 
 public struct AKMIDITrack {
 
-    var chunk: MIDIFileTrackChunk
+    public var chunk: MIDIFileTrackChunk
     
     public var events: [AKMIDIEvent] {
         return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) })
