@@ -18,10 +18,8 @@ public struct AKMIDIFile {
     }
 
     public init(path: String) {
-        print("loadind file at \(path)")
         let url = URL(fileURLWithPath: path)
         if let midiData = try? Data(contentsOf: url) {
-            print("got data \(midiData.count)")
             let dataSize = midiData.count
             let typeLength = 4
             var typeIndex = 0
