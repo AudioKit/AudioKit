@@ -10,17 +10,17 @@ import Foundation
 
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
 
-    var typeData: [UInt8] = Array(repeating: 0, count: 4)
-    var lengthData: [UInt8] = Array(repeating: 0, count: 4)
-    var data: [UInt8] = []
+    public var typeData: [UInt8] = Array(repeating: 0, count: 4)
+    public var lengthData: [UInt8] = Array(repeating: 0, count: 4)
+    public var data: [UInt8] = []
 
-    init() {
+    public init() {
         typeData = Array(repeating: 0, count: 4)
         lengthData = Array(repeating: 0, count: 4)
         data = []
     }
 
-    init(chunk: AKMIDIFileChunk) {
+    public init(chunk: AKMIDIFileChunk) {
         self.typeData = chunk.typeData
         self.lengthData = chunk.lengthData
         self.data = chunk.data

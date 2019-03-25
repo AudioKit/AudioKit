@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol AKMIDIFileChunk {
+public protocol AKMIDIFileChunk {
     var typeData: [UInt8] { get set }
     var lengthData: [UInt8] { get set }
     var data: [UInt8] { get set }
@@ -18,7 +18,7 @@ protocol AKMIDIFileChunk {
 
 extension AKMIDIFileChunk {
 
-    init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8]) {
+    public init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8]) {
         self.init()
         self.typeData = typeData
         self.lengthData = lengthData
@@ -28,24 +28,24 @@ extension AKMIDIFileChunk {
         }
     }
 
-    var isValid: Bool {
+    public var isValid: Bool {
         return typeData.count == 4 && lengthData.count == 4 &&
             data.count == combine(bytes: lengthData) && (isHeader || isTrack)
     }
 
-    var length: Int {
+    public var length: Int {
         return combine(bytes: lengthData)
     }
 
-    var type: String {
+    public var type: String {
         return String(self.typeData.map({ Character(UnicodeScalar($0)) }))
     }
 
-    var isHeader: Bool {
+    public var isHeader: Bool {
         return type == "MThd"
     }
 
-    var isTrack: Bool {
+    public var isTrack: Bool {
         return type == "MTrk"
     }
 
