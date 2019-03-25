@@ -57,7 +57,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             guard cutoffFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -71,7 +71,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
             guard resonance != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     resonanceParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -85,7 +85,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
             guard distortion != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     distortionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -99,7 +99,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var resonanceAsymmetry: Double = defaultResonanceAsymmetry {
         willSet {
             guard resonanceAsymmetry != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
                     return

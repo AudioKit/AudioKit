@@ -99,7 +99,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var predelay: Double = defaultPredelay {
         willSet {
             guard predelay != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     predelayParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -113,7 +113,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var crossoverFrequency: Double = defaultCrossoverFrequency {
         willSet {
             guard crossoverFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     crossoverFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -127,7 +127,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var lowReleaseTime: Double = defaultLowReleaseTime {
         willSet {
             guard lowReleaseTime != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     lowReleaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -141,7 +141,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var midReleaseTime: Double = defaultMidReleaseTime {
         willSet {
             guard midReleaseTime != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     midReleaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -155,7 +155,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var dampingFrequency: Double = defaultDampingFrequency {
         willSet {
             guard dampingFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     dampingFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -169,7 +169,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var equalizerFrequency1: Double = defaultEqualizerFrequency1 {
         willSet {
             guard equalizerFrequency1 != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     equalizerFrequency1Parameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -183,7 +183,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var equalizerLevel1: Double = defaultEqualizerLevel1 {
         willSet {
             guard equalizerLevel1 != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     equalizerLevel1Parameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -197,7 +197,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var equalizerFrequency2: Double = defaultEqualizerFrequency2 {
         willSet {
             guard equalizerFrequency2 != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     equalizerFrequency2Parameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -211,7 +211,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var equalizerLevel2: Double = defaultEqualizerLevel2 {
         willSet {
             guard equalizerLevel2 != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     equalizerLevel2Parameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -225,7 +225,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             guard dryWetMix != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
                     return
