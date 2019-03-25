@@ -179,23 +179,17 @@ open class AudioKit: NSObject {
                     &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
             }
         #else
-            // Should never happen ...
-            guard let portDescriptions = AVAudioSession.sharedInstance().availableInputs else {
-                throw AKError.Unexplained
+            // Set the port description first eg iPhone Microphone / Headset Microphone etc
+            guard let portDescription = input.portDescription else {
+                throw AKError.DeviceNotFound
             }
-            for portDescription in portDescriptions {
-                // Set the port description first eg iPhone Microphone / Headset Microphone etc
-                if input.name == portDescription.portName {
-                    try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
+            try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
 
-                    // Set the data source (if any) eg. Back/Bottom/Front microphone
-                    for dataSourceDescription in (portDescription.dataSources ?? []) {
-                        if input.deviceID.contains(dataSourceDescription.dataSourceName) {
-                            try AVAudioSession.sharedInstance().setInputDataSource(dataSourceDescription)
-                        }
-                    }
-                }
+            // Set the data source (if any) eg. Back/Bottom/Front microphone
+            guard let dataSourceDescription = input.dataSource else {
+                return
             }
+            try AVAudioSession.sharedInstance().setInputDataSource(dataSourceDescription)
         #endif
     }
 
