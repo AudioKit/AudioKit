@@ -44,7 +44,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -58,7 +58,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var depth: Double = defaultDepth {
         willSet {
             guard depth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     depthParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -72,7 +72,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             guard feedback != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -86,7 +86,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             guard dryWetMix != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
                     return

@@ -36,7 +36,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
             guard halfPowerPoint != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
                     return

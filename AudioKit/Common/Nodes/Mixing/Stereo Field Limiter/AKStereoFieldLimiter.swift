@@ -32,7 +32,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard amount != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && amountParameter != nil {
                     amountParameter?.setValue(Float(newValue), originator: token!)
                     return

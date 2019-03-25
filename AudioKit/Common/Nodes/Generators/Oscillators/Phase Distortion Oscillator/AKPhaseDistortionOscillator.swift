@@ -70,7 +70,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -84,7 +84,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -98,7 +98,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var phaseDistortion: Double = defaultPhaseDistortion {
         willSet {
             guard phaseDistortion != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     phaseDistortionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -112,7 +112,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningOffset: Double = defaultDetuningOffset {
         willSet {
             guard detuningOffset != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -126,7 +126,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
             guard detuningMultiplier != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     return
