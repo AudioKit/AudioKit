@@ -10,6 +10,39 @@ import Foundation
 
 public struct AKMIDIFile {
     var chunks: [AKMIDIFileChunk] = []
+
+    public var tracks: [AKMIDITrack] {
+        return trackChunks.compactMap({ AKMIDITrack(chunk: $0) })
+    }
+
+    public var format: Int {
+        return header?.format ?? 0
+    }
+
+    public var numberOfTracks: Int {
+        return header?.numTracks ?? 0
+    }
+
+    public var timeFormat: MIDITimeFormat? {
+        return header?.timeFormat ?? nil
+    }
+
+    public var ticksPerBeat: Int? {
+        return header?.ticksPerBeat
+    }
+
+    public var framesPerSecond: Int? {
+        return header?.framesPerSecond
+    }
+
+    public var ticksPerFrame: Int? {
+        return header?.ticksPerFrame
+    }
+
+    public var timeDivision: UInt16 {
+        return header?.timeDivision ?? 0
+    }
+
     var header: MIDIFileHeaderChunk? {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
