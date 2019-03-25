@@ -77,7 +77,7 @@ extension MIDIWord {
     }
 }
 
-enum MIDITimeFormat: Int {
+public enum MIDITimeFormat: Int {
     case ticksPerBeat = 0
     case framesPerSecond = 1
 
