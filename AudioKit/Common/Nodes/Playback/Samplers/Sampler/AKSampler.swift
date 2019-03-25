@@ -55,7 +55,7 @@
         willSet {
             guard masterVolume != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && masterVolumeParameter != nil {
                     masterVolumeParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -71,7 +71,7 @@
         willSet {
             guard pitchBend != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && pitchBendParameter != nil {
                     pitchBendParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -87,7 +87,7 @@
         willSet {
             guard vibratoDepth != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && vibratoDepthParameter != nil {
                     vibratoDepthParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -103,7 +103,7 @@
         willSet {
             guard filterCutoff != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && filterCutoffParameter != nil {
                     filterCutoffParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -119,7 +119,7 @@
         willSet {
             guard filterStrength != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && filterStrengthParameter != nil {
                     filterStrengthParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -135,7 +135,7 @@
         willSet {
             guard filterResonance != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && filterResonanceParameter != nil {
                     filterResonanceParameter?.setValue(Float(newValue), originator: token!)
                     return
@@ -151,7 +151,7 @@
         willSet {
             guard glideRate != newValue else { return }
 
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if token != nil && glideRateParameter != nil {
                     glideRateParameter?.setValue(Float(newValue), originator: token!)
                     return

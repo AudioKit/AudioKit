@@ -43,7 +43,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var reverbDuration: Double = defaultReverbDuration {
         willSet {
             guard reverbDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
