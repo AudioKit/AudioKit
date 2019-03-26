@@ -25,7 +25,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case keySignature = 0x59
     case sequencerSpecificMetaEvent = 0x7F
 
-    var length: Int? {
+    var length: Int? { //length can be variable for certain metaevents, so returns nil for the type length
         switch self {
         case .endOfTrack:
             return 0
