@@ -167,27 +167,27 @@ public protocol AKPolyphonic {
 public extension AKToggleable {
 
     /// Synonym for isStarted that may make more sense with musical instruments
-    public var isPlaying: Bool {
+    var isPlaying: Bool {
         return isStarted
     }
 
     /// Antonym for isStarted
-    public var isStopped: Bool {
+    var isStopped: Bool {
         return !isStarted
     }
 
     /// Antonym for isStarted that may make more sense with effects
-    public var isBypassed: Bool {
+    var isBypassed: Bool {
         return !isStarted
     }
 
     /// Synonym to start that may more more sense with musical instruments
-    public func play() {
+    func play() {
         start()
     }
 
     /// Synonym for stop that may make more sense with effects
-    public func bypass() {
+    func bypass() {
         stop()
     }
 }
