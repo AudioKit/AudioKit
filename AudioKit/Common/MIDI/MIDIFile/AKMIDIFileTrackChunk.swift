@@ -38,7 +38,11 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var isParsingSysex = false
         var runningStatus: MIDIByte?
         var variableBits = [MIDIByte]()
+        var i = 0
+        print("data \(data)")
         for byte in data {
+            print("processing \(i) - \(byte.hex)")
+            i += 1
             if currentTimeByte == nil {
                 if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
                     isParsingVariableTime = true
@@ -53,27 +57,34 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                             time = shifted + UInt16(masked)
                         }
                         currentTimeByte = Int(time)
+                        print("setting variable time to \(currentTimeByte)")
                         isParsingVariableTime = false
                     } else {
                         currentTimeByte = Int(byte)
+                        print("setting time to \(currentTimeByte)")
                     }
                 }
             } else if currentTypeByte == nil {
                 if byte == 0xFF { //MetaEvent
+                    print("isParsingMetaEvent now")
                     isParsingMetaEvent = true
                 } else {
                     if let _ = AKMIDIStatusType.from(byte: byte) {
                         currentTypeByte = byte
                         runningStatus = byte
+                        print("type is status")
                     } else if AKMIDISystemCommand(rawValue: byte) != nil {
                         currentTypeByte = byte
+                        print("type is command")
                     } else if AKMIDIMetaEventType(rawValue: byte) != nil {
                         currentTypeByte = byte
+                        print("type is meta")
                     } else if let statusByte = runningStatus, let status = AKMIDIStatusType.from(byte: statusByte) {
                         let length = MIDIByte(status.length)
                         currentTypeByte = statusByte
                         currentEventData.append(statusByte)
                         currentLengthByte = length
+                        print("running status")
                     }
                 }
                 if let command = AKMIDISystemCommand(rawValue: byte), command == .sysex || command == .sysexEnd {
@@ -87,6 +98,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
             } else if currentLengthByte == nil {
                 if isParsingMetaEvent {
                     currentLengthByte = byte
+                    print("isParsingMeta length \(currentLengthByte)")
                 } else {
                     if let type = currentTypeByte {
                         if let command = AKMIDISystemCommand(rawValue: type) {
@@ -109,6 +121,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentEventData.append(byte)
             }
             currentAllData.append(byte)
+            print("time \(currentTimeByte) type \(currentTypeByte) len \(currentLengthByte) count \(currentEventData.count)")
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
                 var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData)
