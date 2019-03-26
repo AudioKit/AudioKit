@@ -230,7 +230,7 @@ extension AKMIDI {
     ///
     public func closeOutput(uid outputUid: MIDIUniqueID) {
         let name = destinationName(for: outputUid)
-        AKLog("Closing MIDI Input '\(inputName)'")
+        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
         var result = noErr
         if let endpoint = endpoints[outputUid] {
             result = MIDIPortDisconnectSource(outputPort, endpoint)
