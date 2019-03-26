@@ -37,19 +37,50 @@ extension AKMIDIFileChunk {
         return combine(bytes: lengthData)
     }
 
-    public var type: String {
-        return String(self.typeData.map({ Character(UnicodeScalar($0)) }))
+    public var type: MIDIFileChunkType? {
+        return MIDIFileChunkType.init(data: typeData)
     }
 
     public var isHeader: Bool {
-        return type == "MThd"
+        return type == .header
     }
 
     public var isTrack: Bool {
-        return type == "MTrk"
+        return type == .track
     }
 
     func combine(bytes: [UInt8]) -> Int {
         return Int(bytes.map(String.init).joined()) ?? 0
     }
+}
+
+public enum MIDIFileChunkType: String {
+    case track
+    case header
+    
+    init?(data: [UInt8]) {
+        let text = String(data.map({ Character(UnicodeScalar($0)) }))
+        self.init(text: text)
+    }
+
+    init?(text: String) {
+        if text == MIDIFileChunkType.headerText {
+            self = MIDIFileChunkType.header
+        } else if text == MIDIFileChunkType.trackText {
+            self = MIDIFileChunkType.track
+        }
+        return nil
+    }
+
+    var text: String {
+        switch self {
+        case .track:
+            return MIDIFileChunkType.trackText
+        case .header:
+            return MIDIFileChunkType.headerText
+        }
+    }
+
+    static var headerText = "MThd"
+    static var trackText = "MTrk"
 }
