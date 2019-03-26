@@ -28,10 +28,7 @@ extension AKMIDIFileChunk {
         }
     }
 
-    public var isValid: Bool {
-        return isTypeValid && isLengthValid
-    }
-
+    public var isValid: Bool { return isTypeValid && isLengthValid }
     var isTypeValid: Bool { return typeData.count == 4 && lengthData.count == 4 }
     var isLengthValid: Bool { return data.count == length }
 
