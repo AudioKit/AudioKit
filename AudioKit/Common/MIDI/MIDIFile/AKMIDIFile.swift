@@ -16,34 +16,34 @@ public struct AKMIDIFile {
     }
 
     public var format: Int {
-        return header?.format ?? 0
+        return headerChunk?.format ?? 0
     }
 
     public var numberOfTracks: Int {
-        return header?.numTracks ?? 0
+        return headerChunk?.numTracks ?? 0
     }
 
     public var timeFormat: MIDITimeFormat? {
-        return header?.timeFormat ?? nil
+        return headerChunk?.timeFormat ?? nil
     }
 
     public var ticksPerBeat: Int? {
-        return header?.ticksPerBeat
+        return headerChunk?.ticksPerBeat
     }
 
     public var framesPerSecond: Int? {
-        return header?.framesPerSecond
+        return headerChunk?.framesPerSecond
     }
 
     public var ticksPerFrame: Int? {
-        return header?.ticksPerFrame
+        return headerChunk?.ticksPerFrame
     }
 
     public var timeDivision: UInt16 {
-        return header?.timeDivision ?? 0
+        return headerChunk?.timeDivision ?? 0
     }
 
-    var header: MIDIFileHeaderChunk? {
+    public var headerChunk: MIDIFileHeaderChunk? {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
     public var trackChunks: [MIDIFileTrackChunk] {
