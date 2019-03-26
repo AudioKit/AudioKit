@@ -5740,7 +5740,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42F34FF1C057E03000E937C = {
@@ -5756,10 +5756,11 @@
 			};
 			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C42F34F61C057E03000E937C;
 			productRefGroup = C42F35011C057E03000E937C /* Products */;
@@ -6665,6 +6666,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				AUDIOKIT_VERSION = 4.4.0;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6731,6 +6733,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				AUDIOKIT_VERSION = 4.4.0;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

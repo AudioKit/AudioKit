@@ -41,7 +41,7 @@ open class AudioKit: NSObject {
         }
     }
 
-    internal(set) static var _engine = AVAudioEngine()
+    internal static var _engine = AVAudioEngine()
 
     /// Reference to singleton MIDI
 
