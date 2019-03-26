@@ -10,9 +10,9 @@ import Foundation
 
 public struct MIDIFileTrackChunk: AKMIDIFileChunk {
 
-    public var typeData: [UInt8] = Array(repeating: 0, count: 4)
-    public var lengthData: [UInt8] = Array(repeating: 0, count: 4)
-    public var data: [UInt8] = []
+    public var typeData: [UInt8]
+    public var lengthData: [UInt8]
+    public var data: [UInt8]
 
     public init() {
         typeData = Array(repeating: 0, count: 4)
