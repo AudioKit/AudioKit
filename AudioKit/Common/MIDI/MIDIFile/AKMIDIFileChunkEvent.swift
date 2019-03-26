@@ -42,15 +42,17 @@ public struct AKMIDIFileChunkEvent {
         return runningStatus?.byte
     }
 
-    public var metaEventType: AKMIDIMetaEventType? {
-        if let byte = typeByte {
-            return AKMIDIMetaEventType(rawValue: byte)
+    public var event: AKMIDIMessage? {
+        if let meta = AKMIDIMetaEvent(data: eventData) {
+            return meta
+        } else if let type = typeByte {
+            if let status = AKMIDIStatus(byte: type) {
+                return status
+            } else if let command = AKMIDISystemCommand(rawValue: type) {
+                return command
+            }
         }
         return nil
-    }
-
-    public var type: AKMIDIMessage? {
-        return AKMIDIMetaEvent(data: eventData)
     }
 
     private var typeIndex: Int? {
