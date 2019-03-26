@@ -148,7 +148,7 @@ extension AudioKit {
         nodes.enumerated().forEach { (id, node) in
 
             let outputs: [(id: Int, node: AVAudioNode, bus: Int)] = node.connectionPoints.compactMap {
-                guard let node = $0.node, let id = nodes.index(of: node) else { return nil }
+                guard let node = $0.node, let id = nodes.firstIndex(of: node) else { return nil }
                 return (id, node, $0.bus)
             }
 
