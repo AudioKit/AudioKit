@@ -80,24 +80,25 @@ public enum AKMIDIMetaEventType: MIDIByte {
     }
 }
 
-public struct AKMIDIMetaEvent {
+public struct AKMIDIMetaEvent: AKMIDIMessage {
 
     public init?(data: [MIDIByte]) {
-        if data.count > 2,
-            AKMIDIMetaEventType(rawValue: data[1]) != nil {
+        if data.count < 0,
+            data[0] == 0xFF,
+            data.count > 2,
+            let type = AKMIDIMetaEventType(rawValue: data[1]) {
             self.data = data
+            self.type = type
+            self.length = Int(data[2])
         }
         return nil
     }
 
-    public var data: [MIDIByte] = []
-
-    public var type: AKMIDIMetaEventType {
-        return AKMIDIMetaEventType(rawValue: data[1])! //we prevent bad values on init
-    }
-
-    public var length: Int {
-        return Int(data[2])
+    public var data: [MIDIByte]
+    public var type: AKMIDIMetaEventType
+    public var length: Int
+    public var description: String {
+        return type.description + " \(length) bytes long"
     }
 
 }

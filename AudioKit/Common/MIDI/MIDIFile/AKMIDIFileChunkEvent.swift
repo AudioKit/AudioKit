@@ -16,8 +16,8 @@ public struct AKMIDIFileChunkEvent {
         self.data = data
     }
 
-    var eventData: [MIDIByte] {
-        return Array(data.prefix(timeLength))
+    public var eventData: [MIDIByte] {
+        return Array(data.suffix(from: timeLength))
     }
 
     public var deltaTime: Int {
@@ -40,6 +40,17 @@ public struct AKMIDIFileChunkEvent {
             return data[index]
         }
         return runningStatus?.byte
+    }
+
+    public var metaEventType: AKMIDIMetaEventType? {
+        if let byte = typeByte {
+            return AKMIDIMetaEventType(rawValue: byte)
+        }
+        return nil
+    }
+
+    public var type: AKMIDIMessage? {
+        return AKMIDIMetaEvent(data: eventData)
     }
 
     private var typeIndex: Int? {
