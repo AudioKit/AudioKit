@@ -72,7 +72,7 @@ public enum MIDIFileChunkType: String {
         return nil
     }
 
-    var text: String {
+    public var text: String {
         switch self {
         case .track:
             return MIDIFileChunkType.trackText
