@@ -27,6 +27,11 @@ extension MIDIByte {
     var highBit: MIDIByte {
         return self >> 4
     }
+
+    public var hex: String {
+        let st = String(format:"%02X", self)
+        return "0x\(st)"
+    }
 }
 
 extension MIDIWord {
