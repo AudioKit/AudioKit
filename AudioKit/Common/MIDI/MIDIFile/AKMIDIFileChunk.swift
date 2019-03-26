@@ -24,13 +24,16 @@ extension AKMIDIFileChunk {
         self.lengthData = lengthData
         self.data = data
         if !isValid {
-            fatalError("Type and length must be 4 bytes long")
+            fatalError("Type and length must be 4 bytes long, length must equal amount of data")
         }
     }
 
     public var isValid: Bool {
-        return typeData.count == 4 && lengthData.count == 4 && data.count == combine(bytes: lengthData)
+        return isTypeValid && isLengthValid
     }
+
+    var isTypeValid: Bool { return typeData.count == 4 && lengthData.count == 4 }
+    var isLengthValid: Bool { return data.count == length }
 
     public var length: Int {
         return combine(bytes: lengthData)
