@@ -54,8 +54,8 @@ extension AKMIDIFileChunk {
 }
 
 public enum MIDIFileChunkType: String {
-    case track
-    case header
+    case track = "MTrk"
+    case header = "MThd"
     
     init?(data: [UInt8]) {
         let text = String(data.map({ Character(UnicodeScalar($0)) }))
@@ -63,23 +63,10 @@ public enum MIDIFileChunkType: String {
     }
 
     init?(text: String) {
-        if text == MIDIFileChunkType.headerText {
-            self = MIDIFileChunkType.header
-        } else if text == MIDIFileChunkType.trackText {
-            self = MIDIFileChunkType.track
-        }
-        return nil
+        self.init(rawValue: text)
     }
 
     public var text: String {
-        switch self {
-        case .track:
-            return MIDIFileChunkType.trackText
-        case .header:
-            return MIDIFileChunkType.headerText
-        }
+        return self.rawValue
     }
-
-    static var headerText = "MThd"
-    static var trackText = "MTrk"
 }
