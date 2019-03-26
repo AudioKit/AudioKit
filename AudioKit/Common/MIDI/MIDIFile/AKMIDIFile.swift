@@ -9,7 +9,7 @@
 import Foundation
 
 public struct AKMIDIFile {
-    var chunks: [AKMIDIFileChunk] = []
+    public var chunks: [AKMIDIFileChunk] = []
 
     public var tracks: [AKMIDITrack] {
         return trackChunks.compactMap({ AKMIDITrack(chunk: $0) })
