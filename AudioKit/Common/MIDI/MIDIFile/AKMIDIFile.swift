@@ -9,7 +9,16 @@
 import Foundation
 
 public struct AKMIDIFile {
-    public var chunks: [AKMIDIFileChunk] = []
+    
+    var chunks: [AKMIDIFileChunk] = []
+
+    var headerChunk: MIDIFileHeaderChunk? {
+        return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
+    }
+
+    var trackChunks: [MIDIFileTrackChunk] {
+        return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
+    }
 
     public var tracks: [AKMIDITrack] {
         return trackChunks.compactMap({ AKMIDITrack(chunk: $0) })
@@ -41,13 +50,6 @@ public struct AKMIDIFile {
 
     public var timeDivision: UInt16 {
         return headerChunk?.timeDivision ?? 0
-    }
-
-    public var headerChunk: MIDIFileHeaderChunk? {
-        return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
-    }
-    public var trackChunks: [MIDIFileTrackChunk] {
-        return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
     public init(url: URL) {
