@@ -199,7 +199,7 @@ extension AKMIDI {
     ///
     public func closeInput(uid inputUID: MIDIUniqueID) {
         let name = inputName(for: inputUID)
-        AKLog("Closing MIDI Input '\(inputName)'")
+        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
         var result = noErr
         for uid in inputPorts.keys {
             if inputUID == 0 || uid == inputUID {

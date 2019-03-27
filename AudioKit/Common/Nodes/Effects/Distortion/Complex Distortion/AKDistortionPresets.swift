@@ -10,7 +10,7 @@
 public extension AKDistortion {
 
     /// Massive Distortion
-    public func presetInfiniteDistortionWall() {
+    func presetInfiniteDistortionWall() {
         delay = 475.776
         decay = 40.579
         delayMix = 0.820
@@ -23,7 +23,7 @@ public extension AKDistortion {
     }
 
     /// Print out current values in case you want to save it as a preset
-    public func printCurrentValuesAsPreset() {
+    func printCurrentValuesAsPreset() {
         AKLog("public func presetSomeNewDistortion() {")
         AKLog("    delay = \(String(format: "%0.3f", delay))")
         AKLog("    decay = \(String(format: "%0.3f", decay))")

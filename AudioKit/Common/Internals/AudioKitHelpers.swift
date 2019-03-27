@@ -349,7 +349,7 @@ internal struct AUWrapper {
 
 /// Adding instantiation with component and callback
 public extension AVAudioUnit {
-    public class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
+    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
             avAudioUnit.map {
                 AudioKit.engine.attach($0)

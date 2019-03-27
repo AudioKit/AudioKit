@@ -12,7 +12,7 @@ public extension AKTable {
     /// This method is intended for wavetables (i.e., 2048 or 4096 samples), not large audio files.
     /// Parameters:
     ///   - url: URL to the file
-    public static func fromAudioFile(_ url: URL) -> AKTable? {
+    static func fromAudioFile(_ url: URL) -> AKTable? {
         var retVal: AKTable?
         do {
             let sample = try AKAudioFile(forReading: url)
@@ -35,7 +35,7 @@ public extension AKTable {
     /// Will write to CAF in temporary directory
     /// Parameters:
     ///   - fileName: String name of file
-    public func writeToAudioFile(_ fileName: String) throws {
+    func writeToAudioFile(_ fileName: String) throws {
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             _ = try AKAudioFile(createFileFromFloats: [content], baseDir: .temp, name: fileName)

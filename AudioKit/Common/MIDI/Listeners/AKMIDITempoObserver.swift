@@ -25,15 +25,15 @@ public protocol AKMIDITempoObserver {
 
 public extension AKMIDITempoObserver {
 
-    public func midiClockSlaveMode() {
+    func midiClockSlaveMode() {
 
     }
 
-    public func midiClockMasterEnabled() {
+    func midiClockMasterEnabled() {
 
     }
 
-    public func receivedTempo(bpm: BPMType, label: String) {
+    func receivedTempo(bpm: BPMType, label: String) {
 
     }
 
