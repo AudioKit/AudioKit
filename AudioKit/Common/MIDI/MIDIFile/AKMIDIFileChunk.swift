@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol AKMIDIFileChunk {
+protocol AKMIDIFileChunk {
     var typeData: [UInt8] { get set }
     var lengthData: [UInt8] { get set }
     var data: [UInt8] { get set }
@@ -18,7 +18,7 @@ public protocol AKMIDIFileChunk {
 
 extension AKMIDIFileChunk {
 
-    public init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8]) {
+    init(typeData: [UInt8], lengthData: [UInt8], data: [UInt8]) {
         self.init()
         self.typeData = typeData
         self.lengthData = lengthData
@@ -28,23 +28,23 @@ extension AKMIDIFileChunk {
         }
     }
 
-    public var isValid: Bool { return isTypeValid && isLengthValid }
+    var isValid: Bool { return isTypeValid && isLengthValid }
     var isTypeValid: Bool { return typeData.count == 4 && lengthData.count == 4 }
     var isLengthValid: Bool { return data.count == length }
 
-    public var length: Int {
+    var length: Int {
         return combine(bytes: lengthData)
     }
 
-    public var type: MIDIFileChunkType? {
+    var type: MIDIFileChunkType? {
         return MIDIFileChunkType.init(data: typeData)
     }
 
-    public var isHeader: Bool {
+    var isHeader: Bool {
         return type == .header
     }
 
-    public var isTrack: Bool {
+    var isTrack: Bool {
         return type == .track
     }
 
@@ -53,7 +53,7 @@ extension AKMIDIFileChunk {
     }
 }
 
-public enum MIDIFileChunkType: String {
+enum MIDIFileChunkType: String {
     case track = "MTrk"
     case header = "MThd"
     
@@ -66,7 +66,7 @@ public enum MIDIFileChunkType: String {
         self.init(rawValue: text)
     }
 
-    public var text: String {
+    var text: String {
         return self.rawValue
     }
 }

@@ -8,33 +8,33 @@
 
 import Foundation
 
-public struct MIDIFileHeaderChunk: AKMIDIFileChunk {
+struct MIDIFileHeaderChunk: AKMIDIFileChunk {
 
-    public var typeData: [UInt8]
-    public var lengthData: [UInt8]
-    public var data: [UInt8]
+    var typeData: [UInt8]
+    var lengthData: [UInt8]
+    var data: [UInt8]
 
-    public init() {
+    init() {
         typeData = Array(repeating: 0, count: 4)
         lengthData = Array(repeating: 0, count: 4)
         data = []
     }
 
-    public init(chunk: AKMIDIFileChunk) {
+    init(chunk: AKMIDIFileChunk) {
         self.typeData = chunk.typeData
         self.lengthData = chunk.lengthData
         self.data = chunk.data
     }
 
-    public var format: Int {
+    var format: Int {
         return Int(convertTo16Bit(msb: data[0], lsb: data[1]))
     }
 
-    public var numTracks: Int {
+    var numTracks: Int {
         return Int(convertTo16Bit(msb: data[2], lsb: data[3]))
     }
 
-    public var timeFormat: MIDITimeFormat {
+    var timeFormat: MIDITimeFormat {
         if((timeDivision & 0x8000) == 0) {
             return .ticksPerBeat
         } else {
@@ -42,28 +42,28 @@ public struct MIDIFileHeaderChunk: AKMIDIFileChunk {
         }
     }
 
-    public var ticksPerBeat: Int? {
+    var ticksPerBeat: Int? {
         if timeFormat == .ticksPerBeat {
             return Int(timeDivision & 0x7fff)
         }
         return nil
     }
 
-    public var framesPerSecond: Int? {
+    var framesPerSecond: Int? {
         if timeFormat == .ticksPerBeat {
             return Int((timeDivision & 0x7f00) >> 8)
         }
         return nil
     }
 
-    public var ticksPerFrame: Int? {
+    var ticksPerFrame: Int? {
         if timeFormat == .ticksPerBeat {
             return Int(timeDivision & 0xff)
         }
         return nil
     }
 
-    public var timeDivision: UInt16 {
+    var timeDivision: UInt16 {
         return convertTo16Bit(msb: data[4], lsb: data[5])
     }
 
