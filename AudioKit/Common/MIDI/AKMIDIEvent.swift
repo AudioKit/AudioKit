@@ -9,7 +9,7 @@
 import CoreMIDI
 
 /// A container for the values that define a MIDI event
-public struct AKMIDIEvent {
+public struct AKMIDIEvent: AKMIDIMessage {
 
     // MARK: - Properties
 
