@@ -1112,7 +1112,7 @@
 		EADFC4342150F4C5003E5191 /* AKCoreSampler.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4322150F4C5003E5191 /* AKCoreSampler.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EADFC4352150F4C5003E5191 /* AKCoreSampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC4332150F4C5003E5191 /* AKCoreSampler.cpp */; };
 		EADFC4382151088D003E5191 /* AKCoreSynth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC4362151088D003E5191 /* AKCoreSynth.cpp */; };
-		EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4372151088D003E5191 /* AKCoreSynth.hpp */; };
+		EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EADFC4372151088D003E5191 /* AKCoreSynth.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAF71D8020248B3F0018946B /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF71D7E20248B3F0018946B /* AKDSPKernel.mm */; };
 		EAF71D8920248B8F0018946B /* AKDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C128D1F089A8B00F4C7F1 /* AKDSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEC61F4EBD7D00A2B046 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666951D448D7E00D26565 /* AKNodeFFTPlot.swift */; };
@@ -5295,6 +5295,7 @@
 				C4DE8591200D6B2B0075C82B /* AKPluckedStringDSP.hpp in Headers */,
 				C49B18A1204A0AD1009C7C8E /* FFTRealSelect.hpp in Headers */,
 				C49B18A3204A0AD1009C7C8E /* FFTRealFixLenParam.h in Headers */,
+				EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */,
 				C4B65F83200C518B0074FB93 /* AKClarinetDSP.hpp in Headers */,
 				C49B18AA204A0AD1009C7C8E /* FFTRealFixLen.hpp in Headers */,
 				55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */,
@@ -5428,7 +5429,6 @@
 				C49B1B05204A0C48009C7C8E /* BlowHole.h in Headers */,
 				3425221F21E7C47C0014B603 /* AKSynthDSP.hpp in Headers */,
 				C49B1B1E204A0C48009C7C8E /* Phonemes.h in Headers */,
-				EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */,
 				C49B1B12204A0C48009C7C8E /* Instrmnt.h in Headers */,
 				C49B1B26204A0C48009C7C8E /* Brass.h in Headers */,
 				C49B1AF9204A0C48009C7C8E /* Simple.h in Headers */,
