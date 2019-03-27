@@ -18,6 +18,17 @@ public struct AKMIDIEvent {
     /// Internal data
     public var data = [MIDIByte]()
 
+    /// Description
+    public var description: String {
+        if let status = self.status {
+            return "\(status.description) - \(data)"
+        }
+        if let command = self.command {
+            return "\(command.description) - \(data)"
+        }
+        return "Unhandled event \(data)"
+    }
+
     /// Internal MIDIByte-sized packets - in development / not used yet
     public var internalPackets: [[MIDIByte]] {
         var splitData = [[MIDIByte]]()
