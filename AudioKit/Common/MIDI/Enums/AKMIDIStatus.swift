@@ -7,7 +7,7 @@
 //
 
 public struct AKMIDIStatus: AKMIDIMessage {
-    
+
     public var data: [UInt8] {
         return [byte]
     }

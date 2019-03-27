@@ -70,7 +70,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         let length = MIDIByte(status.length)
                         currentLengthByte = length
                         currentEventData.append(currentRunningStatus)
-                    } else if let _ = AKMIDIStatusType.from(byte: byte) {
+                    } else if AKMIDIStatusType.from(byte: byte) != nil {
                         currentTypeByte = byte
                         runningStatus = byte
                     } else if let command = AKMIDISystemCommand(rawValue: byte) {
