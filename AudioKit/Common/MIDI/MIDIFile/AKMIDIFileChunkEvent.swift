@@ -69,20 +69,16 @@ public struct AKMIDIFileChunkEvent {
 
     public var length: Int {
         if let metaEvent = event as? AKMIDIMetaEvent {
-            print("chunk is a metaEvent \(event?.description)")
             return metaEvent.length
         } else if let status = event as? AKMIDIStatus {
-            print("chunk is a status \(status.byte.hex) - \(data) - \(status.data)")
             return status.length
         } else if let command = event as? AKMIDISystemCommand {
-            print("chunk is a command \(command)")
             if let standardLength = command.length {
                 return standardLength
             } else {
                 return data.count
             }
         } else if let index = typeIndex {
-            print("unknown type")
             return Int(data[index + 1])
         }
         return 0
