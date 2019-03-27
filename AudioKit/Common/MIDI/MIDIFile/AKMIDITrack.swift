@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct AKMIDITrack {
+public struct AKMIDIFileTrack {
 
     var chunk: MIDIFileTrackChunk
     
