@@ -5383,6 +5383,7 @@
 				344E88E8217E8C1300D58551 /* ADSREnvelope.h in Headers */,
 				C40718611D2267B800665C02 /* AKMandolinAudioUnit.h in Headers */,
 				C4077A772007628D00E5923C /* AKBitCrusherDSP.hpp in Headers */,
+				3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */,
 				C4077B202008764600E5923C /* AKLowShelfParametricEqualizerFilterDSP.hpp in Headers */,
 				C493520C1C3CBA6C00A28D7F /* AKBalancerAudioUnit.h in Headers */,
 				C410F14C2030531F002EA801 /* AKMorphingOscillatorDSP.hpp in Headers */,
