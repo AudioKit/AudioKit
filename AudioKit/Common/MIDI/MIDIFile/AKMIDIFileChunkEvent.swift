@@ -10,26 +10,26 @@ import Foundation
 
 public struct AKMIDIFileChunkEvent {
     var data: [MIDIByte]
-    public var runningStatus: AKMIDIStatus? = nil
+    var runningStatus: AKMIDIStatus?
 
     init(data: [MIDIByte]) {
         self.data = data
     }
 
-    public var computedData: [MIDIByte] {
+    var computedData: [MIDIByte] {
         var outData = [MIDIByte]()
         if let addStatus = runningStatus {
             outData.append(addStatus.byte)
         }
-        outData.append(contentsOf: eventData)
+        outData.append(contentsOf: rawEventData)
         return outData
     }
 
-    public var eventData: [MIDIByte] {
+    var rawEventData: [MIDIByte] {
         return Array(data.suffix(from: timeLength))
     }
 
-    public var deltaTime: Int {
+    var deltaTime: Int {
         let timeBytes = data.prefix(timeLength)
         var time: UInt16  = 0
         for byte in timeBytes {
@@ -40,11 +40,11 @@ public struct AKMIDIFileChunkEvent {
         return Int(time)
     }
 
-    private var timeLength: Int {
+    var timeLength: Int {
         return (data.firstIndex(where: { $0 < 0x80 }) ?? 0) + 1
     }
 
-    public var typeByte: MIDIByte? {
+    var typeByte: MIDIByte? {
         if let runningStatus = self.runningStatus {
             return runningStatus.byte
         }
@@ -54,21 +54,21 @@ public struct AKMIDIFileChunkEvent {
         return nil
     }
 
-    private var typeIndex: Int? {
+    var typeIndex: Int? {
         if data.count > timeLength {
             if data[timeLength] == 0xFF,
                 data.count > timeLength + 1 { //is Meta-Event
                 return timeLength + 1
-            } else if let _ = AKMIDIStatus(byte: data[timeLength]) {
+            } else if AKMIDIStatus(byte: data[timeLength]) != nil {
                 return timeLength
-            } else if let _ = AKMIDISystemCommand(rawValue: data[timeLength]) {
+            } else if AKMIDISystemCommand(rawValue: data[timeLength]) != nil {
                 return timeLength
             }
         }
         return nil
     }
 
-    public var length: Int {
+    var length: Int {
         if let metaEvent = event as? AKMIDIMetaEvent {
             return metaEvent.length
         } else if let status = event as? AKMIDIStatus {
@@ -87,8 +87,8 @@ public struct AKMIDIFileChunkEvent {
         return 0
     }
 
-    public var event: AKMIDIMessage? {
-        if let meta = AKMIDIMetaEvent(data: eventData) {
+    var event: AKMIDIMessage? {
+        if let meta = AKMIDIMetaEvent(data: rawEventData) {
             return meta
         } else if let type = typeByte {
             if let status = AKMIDIStatus(byte: type) {
