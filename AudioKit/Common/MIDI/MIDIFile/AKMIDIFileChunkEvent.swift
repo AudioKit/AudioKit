@@ -54,25 +54,14 @@ public struct AKMIDIFileChunkEvent {
         return nil
     }
 
-    public var event: AKMIDIMessage? {
-        if let meta = AKMIDIMetaEvent(data: eventData) {
-            return meta
-        } else if let type = typeByte {
-            if let status = AKMIDIStatus(byte: type) {
-                return status
-            } else if let command = AKMIDISystemCommand(rawValue: type) {
-                return command
-            }
-        }
-        return nil
-    }
-
     private var typeIndex: Int? {
         if data.count > timeLength {
             if data[timeLength] == 0xFF,
                 data.count > timeLength + 1 { //is Meta-Event
                 return timeLength + 1
             } else if let _ = AKMIDIStatus(byte: data[timeLength]) {
+                return timeLength
+            } else if let _ = AKMIDISystemCommand(rawValue: data[timeLength]) {
                 return timeLength
             }
         }
@@ -87,6 +76,8 @@ public struct AKMIDIFileChunkEvent {
         } else if let command = event as? AKMIDISystemCommand {
             if let standardLength = command.length {
                 return standardLength
+            } else if command == .sysex {
+                return Int(data[timeLength + 1])
             } else {
                 return data.count
             }
@@ -94,5 +85,18 @@ public struct AKMIDIFileChunkEvent {
             return Int(data[index + 1])
         }
         return 0
+    }
+
+    public var event: AKMIDIMessage? {
+        if let meta = AKMIDIMetaEvent(data: eventData) {
+            return meta
+        } else if let type = typeByte {
+            if let status = AKMIDIStatus(byte: type) {
+                return status
+            } else if let command = AKMIDISystemCommand(rawValue: type) {
+                return command
+            }
+        }
+        return nil
     }
 }
