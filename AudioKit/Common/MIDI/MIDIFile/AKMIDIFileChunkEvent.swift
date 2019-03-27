@@ -72,8 +72,8 @@ public struct AKMIDIFileChunkEvent {
             print("chunk is a metaEvent \(event?.description)")
             return metaEvent.length
         } else if let status = event as? AKMIDIStatus {
-            print("chunk is a status \(status.byte.hex)")
-            return status.data.count
+            print("chunk is a status \(status.byte.hex) - \(data) - \(status.data)")
+            return status.length
         } else if let command = event as? AKMIDISystemCommand {
             print("chunk is a command \(command)")
             if let standardLength = command.length {
