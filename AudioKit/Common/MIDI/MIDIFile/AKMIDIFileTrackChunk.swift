@@ -27,6 +27,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
     }
 
     var chunkEvents: [AKMIDIFileChunkEvent] {
+        //FIXME: Not currently handling channel prefix
         var events = [AKMIDIFileChunkEvent]()
         var currentTimeByte: Int?
         var currentTypeByte: MIDIByte?
