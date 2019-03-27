@@ -76,17 +76,13 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     } else if let command = AKMIDISystemCommand(rawValue: byte) {
                         currentTypeByte = byte
                         if command == .sysex || command == .sysexEnd {
+                            isParsingSysex = true
                             runningStatus = nil
                         }
                     } else if AKMIDIMetaEventType(rawValue: byte) != nil {
                         currentTypeByte = byte
                         runningStatus = nil
                     }
-                }
-                if let command = AKMIDISystemCommand(rawValue: byte), command == .sysex || command == .sysexEnd {
-                    isParsingSysex = true
-                    runningStatus = nil
-                    currentTypeByte = byte
                 }
                 if !isParsingMetaEvent && !isParsingSysex {
                     currentEventData.append(byte)
@@ -101,7 +97,6 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         } else if let status = AKMIDIStatusType.from(byte: type) {
                             currentLengthByte = MIDIByte(status.length)
                         } else {
-                            print("\(type) - \(currentTypeByte)")
                             AKLog(("bad midi data - could not determine length of event"))
                             return events
                         }
