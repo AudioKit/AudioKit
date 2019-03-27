@@ -16,16 +16,16 @@ public struct AKMIDIEvent {
     public var timeStamp: MIDITimeStamp = 0
 
     /// Internal data
-    public var internalData = [MIDIByte]()
+    public var data = [MIDIByte]()
 
     /// Internal MIDIByte-sized packets - in development / not used yet
     public var internalPackets: [[MIDIByte]] {
         var splitData = [[MIDIByte]]()
-        let byteLimit = Int(internalData.count / 256)
+        let byteLimit = Int(data.count / 256)
         for i in 0...byteLimit {
             let arrayStart = i * 256
-            let arrayEnd: Int = min(Int(arrayStart + 256), Int(internalData.count))
-            let tempData = Array(internalData[arrayStart..<arrayEnd])
+            let arrayEnd: Int = min(Int(arrayStart + 256), Int(data.count))
+            let tempData = Array(data[arrayStart..<arrayEnd])
             splitData.append(tempData)
         }
         return splitData
@@ -33,12 +33,12 @@ public struct AKMIDIEvent {
 
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     public var length: Int {
-        return internalData.count
+        return data.count
     }
 
     /// Status
     public var status: AKMIDIStatus? {
-        if let statusByte = internalData.first {
+        if let statusByte = data.first {
             return AKMIDIStatus(byte: statusByte)
         }
         return nil
@@ -46,7 +46,7 @@ public struct AKMIDIEvent {
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        if let statusByte = internalData.first {
+        if let statusByte = data.first {
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil
@@ -59,8 +59,8 @@ public struct AKMIDIEvent {
 
     /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
-        if status?.type == .noteOn || status?.type == .noteOff, internalData.count > 1 {
-            return MIDINoteNumber(internalData[1])
+        if status?.type == .noteOn || status?.type == .noteOff, data.count > 1 {
+            return MIDINoteNumber(data[1])
         }
         return nil
     }
@@ -68,8 +68,8 @@ public struct AKMIDIEvent {
     /// Representation of the pitchBend data as a MIDI word 0-16383
     public var pitchbendAmount: MIDIWord? {
         if status?.type == .pitchWheel {
-            if internalData.count > 2 {
-                return MIDIWord(byte1: internalData[1], byte2: internalData[2])
+            if data.count > 2 {
+                return MIDIWord(byte1: data[1], byte2: data[2])
             }
         }
         return nil
@@ -90,34 +90,34 @@ public struct AKMIDIEvent {
             let systemCommand = packet.systemCommand
             let length = systemCommand?.length
             if systemCommand == .sysex {
-                internalData = [] //reset internalData
+                data = [] //reset internalData
 
                 // voodoo to convert packet 256 element tuple to byte arrays
                 if let midiBytes = AKMIDIEvent.decode(packet: packet) {
                     // flag midi system that a sysex packet has started so it can gather bytes until the end
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
-                    internalData += midiBytes
+                    data += midiBytes
                     if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
                         let length = sysexEndIndex + 1
-                        internalData = Array(internalData.prefix(length))
+                        data = Array(data.prefix(length))
                         AudioKit.midi.stopReceivingSysex()
                     } else {
-                        internalData.removeAll()
+                        data.removeAll()
                     }
                 }
             } else if length == 1 {
                 let bytes = [packet.data.0]
-                internalData = bytes
+                data = bytes
             } else if length == 2 {
                 let bytes = [packet.data.0, packet.data.2]
-                internalData = bytes
+                data = bytes
             } else if length == 3 {
                 let bytes = [packet.data.0, packet.data.1, packet.data.2]
-                internalData = bytes
+                data = bytes
             }
         } else {
             let bytes = [packet.data.0, packet.data.1, packet.data.2]
-            internalData = bytes
+            data = bytes
         }
     }
 
@@ -150,14 +150,14 @@ public struct AKMIDIEvent {
         timeStamp = time
         if AudioKit.midi.isReceivingSysex {
             if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
-                internalData = Array(data[0...sysexEndIndex])
+                self.data = Array(data[0...sysexEndIndex])
             }
         } else if let command = AKMIDISystemCommand(rawValue: data[0]) {
-            internalData = []
+            self.data = []
             // is sys command
             if command == .sysex {
                 for byte in data {
-                    internalData.append(byte)
+                    self.data.append(byte)
                 }
             } else {
                 fillData(command: command, bytes: Array(data.suffix(from: 1)))
@@ -187,10 +187,10 @@ public struct AKMIDIEvent {
     fileprivate mutating func fillData(status: AKMIDIStatusType,
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
-        internalData = []
-        internalData.append(AKMIDIStatus.init(type: status, channel: channel).byte)
+        data = []
+        data.append(AKMIDIStatus.init(type: status, channel: channel).byte)
         for byte in bytes {
-            internalData.append(byte.lower7bits())
+            data.append(byte.lower7bits())
         }
     }
 
@@ -211,11 +211,11 @@ public struct AKMIDIEvent {
 
     fileprivate mutating func fillData(command: AKMIDISystemCommand,
                                        bytes: [MIDIByte]) {
-        internalData.removeAll()
-        internalData.append(command.byte)
+        data.removeAll()
+        data.append(command.byte)
 
         for byte in bytes {
-            internalData.append(byte)
+            data.append(byte)
         }
     }
 
