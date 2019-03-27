@@ -20,19 +20,19 @@ public struct AKMIDIFile {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    public var tempoTrack: AKMIDITrack? {
+    public var tempoTrack: AKMIDIFileTrack? {
         if format == 1, let tempoTrackChunk = trackChunks.first {
-            return AKMIDITrack(chunk: tempoTrackChunk)
+            return AKMIDIFileTrack(chunk: tempoTrackChunk)
         }
         return nil
     }
 
-    public var tracks: [AKMIDITrack] {
+    public var tracks: [AKMIDIFileTrack] {
         var tracks = trackChunks
         if format == 1 {
             tracks = Array(tracks.dropFirst())
         }
-        return tracks.compactMap({ AKMIDITrack(chunk: $0) })
+        return tracks.compactMap({ AKMIDIFileTrack(chunk: $0) })
     }
 
     public var format: Int {
