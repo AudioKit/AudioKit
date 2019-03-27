@@ -18,6 +18,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case marker = 0x06
     case cuePoint = 0x07
     case channelPrefix = 0x20
+    case midiPort = 0x21
     case endOfTrack = 0x2F
     case setTempo = 0x51
     case smtpeOffset = 0x54
@@ -29,9 +30,9 @@ public enum AKMIDIMetaEventType: MIDIByte {
         switch self {
         case .endOfTrack:
             return 0
-        case .channelPrefix:
+        case .channelPrefix, .midiPort:
             return 1
-        case .keySignature:
+        case .keySignature, .sequenceNumber:
             return 2
         case .setTempo:
             return 3
@@ -64,6 +65,8 @@ public enum AKMIDIMetaEventType: MIDIByte {
             return "Cue Point"
         case .channelPrefix:
             return "Channel Prefix"
+        case .midiPort:
+            return "MIDI Port"
         case .endOfTrack:
             return "End of Track"
         case .setTempo:
