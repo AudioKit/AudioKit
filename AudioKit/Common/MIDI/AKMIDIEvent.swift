@@ -15,8 +15,6 @@ public struct AKMIDIEvent {
 
     public var timeStamp: MIDITimeStamp = 0
 
-    public var position: AKDuration?
-
     /// Internal data
     public var internalData = [MIDIByte]()
 
@@ -124,6 +122,8 @@ public struct AKMIDIEvent {
     }
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
+        print("fileCHunkEvent at \(event.deltaTime)")
+        print(event)
         if let typeByte = event.typeByte {
             if typeByte == AKMIDISystemCommand.sysex.rawValue ||
                 typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
