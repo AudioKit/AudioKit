@@ -5389,6 +5389,7 @@
 				344E88E8217E8C1300D58551 /* ADSREnvelope.h in Headers */,
 				C40718611D2267B800665C02 /* AKMandolinAudioUnit.h in Headers */,
 				C4077A772007628D00E5923C /* AKBitCrusherDSP.hpp in Headers */,
+				3425222821E7F8EE0014B603 /* AKCoreSynth.hpp in Headers */,
 				C4077B202008764600E5923C /* AKLowShelfParametricEqualizerFilterDSP.hpp in Headers */,
 				C493520C1C3CBA6C00A28D7F /* AKBalancerAudioUnit.h in Headers */,
 				C410F14C2030531F002EA801 /* AKMorphingOscillatorDSP.hpp in Headers */,
@@ -5746,7 +5747,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42F34FF1C057E03000E937C = {
@@ -5762,10 +5763,11 @@
 			};
 			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C42F34F61C057E03000E937C;
 			productRefGroup = C42F35011C057E03000E937C /* Products */;
@@ -6673,6 +6675,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				AUDIOKIT_VERSION = 4.4.0;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -6739,6 +6742,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				AUDIOKIT_VERSION = 4.4.0;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
