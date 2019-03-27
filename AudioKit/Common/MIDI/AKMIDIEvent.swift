@@ -133,8 +133,6 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
-        print("fileCHunkEvent at \(event.deltaTime)")
-        print(event)
         if let typeByte = event.typeByte {
             if typeByte == AKMIDISystemCommand.sysex.rawValue ||
                 typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
@@ -144,6 +142,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
             } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
                 print(statusType.description)
                 self = AKMIDIEvent(data: event.eventData)
+            } else {
+                //unhandled data - fill event anyway with raw data for later decoding
+                self.data = event.eventData
             }
         } else {
             dump(event)
