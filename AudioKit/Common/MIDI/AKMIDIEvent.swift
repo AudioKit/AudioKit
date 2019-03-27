@@ -57,7 +57,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     /// System Command
     public var command: AKMIDISystemCommand? {
-        if let statusByte = data.first {
+        if let statusByte = data.first, (statusByte != AKMIDISystemCommand.sysReset.rawValue && data.count > 1) {
             return AKMIDISystemCommand(rawValue: statusByte)
         }
         return nil
@@ -136,18 +136,15 @@ public struct AKMIDIEvent: AKMIDIMessage {
         if let typeByte = event.typeByte {
             if typeByte == AKMIDISystemCommand.sysex.rawValue ||
                 typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
-                print(AKMIDISystemCommand.sysex.description)
                 let data = [AKMIDISystemCommand.sysex.rawValue] + event.eventData
                 self = AKMIDIEvent(data: data)
             } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
-                print(statusType.description)
-                self = AKMIDIEvent(data: event.eventData)
+                self = AKMIDIEvent(data: event.computedData)
             } else {
                 //unhandled data - fill event anyway with raw data for later decoding
                 self.data = event.eventData
             }
         } else {
-            dump(event)
             AKLog("bad AKMIDIFile chunk - no type for \(event.typeByte!)")
             return nil
         }

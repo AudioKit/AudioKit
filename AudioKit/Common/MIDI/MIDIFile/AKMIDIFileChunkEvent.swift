@@ -10,10 +10,19 @@ import Foundation
 
 public struct AKMIDIFileChunkEvent {
     var data: [MIDIByte]
-    var runningStatus: AKMIDIStatus? = nil
+    public var runningStatus: AKMIDIStatus? = nil
 
     init(data: [MIDIByte]) {
         self.data = data
+    }
+
+    public var computedData: [MIDIByte] {
+        var outData = [MIDIByte]()
+        if let addStatus = runningStatus {
+            outData.append(addStatus.byte)
+        }
+        outData.append(contentsOf: Array(data.suffix(from: timeLength)))
+        return outData
     }
 
     public var eventData: [MIDIByte] {
@@ -36,10 +45,13 @@ public struct AKMIDIFileChunkEvent {
     }
 
     public var typeByte: MIDIByte? {
+        if let runningStatus = self.runningStatus {
+            return runningStatus.byte
+        }
         if let index = typeIndex {
             return data[index]
         }
-        return runningStatus?.byte
+        return nil
     }
 
     public var event: AKMIDIMessage? {
