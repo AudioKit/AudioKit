@@ -133,21 +133,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     }
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
-        if let typeByte = event.typeByte {
-            if typeByte == AKMIDISystemCommand.sysex.rawValue ||
-                typeByte == AKMIDISystemCommand.sysexEnd.rawValue {
-                let data = [AKMIDISystemCommand.sysex.rawValue] + event.eventData
-                self = AKMIDIEvent(data: data)
-            } else if let statusType = AKMIDIStatusType.from(byte: typeByte) {
-                self = AKMIDIEvent(data: event.computedData)
-            } else {
-                //unhandled data - fill event anyway with raw data for later decoding
-                self.data = event.eventData
-            }
-        } else {
-            AKLog("bad AKMIDIFile chunk - no type for \(event.typeByte!)")
-            return nil
-        }
+        self = AKMIDIEvent(data: event.computedData)
     }
     
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)

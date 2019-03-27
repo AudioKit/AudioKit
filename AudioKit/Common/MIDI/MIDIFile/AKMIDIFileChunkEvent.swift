@@ -21,7 +21,7 @@ public struct AKMIDIFileChunkEvent {
         if let addStatus = runningStatus {
             outData.append(addStatus.byte)
         }
-        outData.append(contentsOf: Array(data.suffix(from: timeLength)))
+        outData.append(contentsOf: eventData)
         return outData
     }
 
