@@ -46,6 +46,10 @@ public struct AKMIDIStatus: AKMIDIMessage {
         }
         return "Invalid message"
     }
+
+    public var length: Int {
+        return type?.length ?? 0
+    }
 }
 
 /// Potential MIDI Status messages
