@@ -41,7 +41,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var i = 0
         print("data \(data)")
         for byte in data {
-            print("processing \(i) - \(byte.hex)")
+            print("processing \(i) - \(byte.hex) - \(byte)")
             i += 1
             if currentTimeByte == nil {
                 if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
@@ -98,13 +98,15 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
             } else if currentLengthByte == nil {
                 if isParsingMetaEvent {
                     currentLengthByte = byte
-                    print("isParsingMeta length \(currentLengthByte)")
+                    print("setting length to \(currentLengthByte) from meta")
                 } else {
                     if let type = currentTypeByte {
                         if let command = AKMIDISystemCommand(rawValue: type) {
                             currentLengthByte = MIDIByte(command.length ?? Int(byte))
+                            print("setting length to \(currentLengthByte) from command")
                         } else if let status = AKMIDIStatusType.from(byte: type) {
                             currentLengthByte = MIDIByte(status.length)
+                            print("setting length to \(currentLengthByte) from status")
                         } else {
                             AKLog(("bad midi data - could not determine length of event"))
                             return events
@@ -121,9 +123,9 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentEventData.append(byte)
             }
             currentAllData.append(byte)
-            print("time \(currentTimeByte) type \(currentTypeByte) len \(currentLengthByte) count \(currentEventData.count)")
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
+                print("Got all needed events for event fo type \(currentTypeByte) currentAllData \(currentAllData)")
                 var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData)
                 if chunkEvent.typeByte == nil, let running = runningStatus {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
