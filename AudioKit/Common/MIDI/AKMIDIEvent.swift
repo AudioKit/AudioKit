@@ -26,6 +26,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
         if let command = self.command {
             return "\(command.description) - \(data)"
         }
+        if let meta = AKMIDIMetaEvent(data: data) {
+            return "\(meta.description) - \(data)"
+        }
         return "Unhandled event \(data)"
     }
 
