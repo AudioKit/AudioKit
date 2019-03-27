@@ -19,4 +19,12 @@ public struct AKMIDITrack {
     init(chunk: MIDIFileTrackChunk) {
         self.chunk = chunk
     }
+
+    public var name: String? {
+        if let nameChunk = chunk.chunkEvents.first(where: { $0.typeByte == AKMIDIMetaEventType.trackName.rawValue }),
+            let meta = AKMIDIMetaEvent(data: nameChunk.computedData) {
+            return meta.name
+        }
+        return nil
+    }
 }
