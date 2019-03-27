@@ -39,9 +39,8 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var isParsingSysex = false
         var runningStatus: MIDIByte?
         var variableBits = [MIDIByte]()
-        var i = 0
         for byte in data {
-            i += 1
+            print("byte: \(byte)")
             if currentTimeByte == nil {
                 if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
                     isParsingVariableTime = true
@@ -65,16 +64,26 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if byte == 0xFF { //MetaEvent
                     isParsingMetaEvent = true
                 } else {
-                    if let _ = AKMIDIStatusType.from(byte: byte) {
+                    if byte < 0x80, let status = runningStatus { //Running Status Implied
+                        currentTypeByte = status
+                        runningStatus = status
+                    } else if let _ = AKMIDIStatusType.from(byte: byte) {
                         currentTypeByte = byte
                         runningStatus = byte
-                    } else if AKMIDISystemCommand(rawValue: byte) != nil {
+                    } else if let command = AKMIDISystemCommand(rawValue: byte) {
                         currentTypeByte = byte
+                        if command == .sysex || command == .sysexEnd {
+                            runningStatus = nil
+                        }
                     } else if AKMIDIMetaEventType(rawValue: byte) != nil {
                         currentTypeByte = byte
+                        runningStatus = nil
                     } else if let statusByte = runningStatus, let status = AKMIDIStatusType.from(byte: statusByte) {
                         let length = MIDIByte(status.length)
                         currentTypeByte = statusByte
+                        if status == .controllerChange {
+                            print("got cc")
+                        }
                         currentEventData.append(statusByte)
                         currentLengthByte = length
                     }
@@ -97,6 +106,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         } else if let status = AKMIDIStatusType.from(byte: type) {
                             currentLengthByte = MIDIByte(status.length)
                         } else {
+                            print("\(type) - \(currentTypeByte)")
                             AKLog(("bad midi data - could not determine length of event"))
                             return events
                         }
@@ -115,6 +125,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
                 var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData)
+                print("got \(chunkEvent)")
                 if chunkEvent.typeByte == nil, let running = runningStatus {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
                 }
