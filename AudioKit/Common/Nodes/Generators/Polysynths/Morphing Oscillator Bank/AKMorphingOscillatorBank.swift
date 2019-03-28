@@ -52,7 +52,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var index: Double = 0.0 {
         willSet {
             guard index != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     indexParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -67,7 +67,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
             guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -81,7 +81,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
             guard decayDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -95,7 +95,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var sustainLevel: Double = 1.0 {
         willSet {
             guard sustainLevel != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -109,7 +109,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
             guard releaseDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -123,7 +123,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
             guard pitchBend != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -137,7 +137,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
             guard vibratoDepth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -151,7 +151,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
             guard vibratoRate != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
                 }

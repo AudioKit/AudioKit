@@ -77,7 +77,7 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc open dynamic var rate: Double = 1 {
         willSet {
             guard rate != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     rateParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -91,7 +91,7 @@ open class AKWaveTable: AKNode, AKComponent {
     @objc open dynamic var volume: Double = 1 {
         willSet {
             guard volume != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     volumeParameter?.setValue(Float(newValue), originator: existingToken)
                 }

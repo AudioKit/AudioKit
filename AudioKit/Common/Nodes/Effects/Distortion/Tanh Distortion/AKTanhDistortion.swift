@@ -57,7 +57,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pregain: Double = defaultPregain {
         willSet {
             guard pregain != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     pregainParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -71,7 +71,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var postgain: Double = defaultPostgain {
         willSet {
             guard postgain != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     postgainParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -85,7 +85,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var positiveShapeParameter: Double = defaultPositiveShapeParameter {
         willSet {
             guard positiveShapeParameter != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     positiveShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -99,7 +99,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var negativeShapeParameter: Double = defaultNegativeShapeParameter {
         willSet {
             guard negativeShapeParameter != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     negativeShapeParameterParameter?.setValue(Float(newValue), originator: existingToken)
                     return
