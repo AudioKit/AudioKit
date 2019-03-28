@@ -29,8 +29,8 @@ extension MIDIByte {
     }
 
     public var hex: String {
-        let st = String(format: "%02X", self)
-        return "0x\(st)"
+        let str = String(format: "%02X", self)
+        return "0x\(str)"
     }
 }
 
