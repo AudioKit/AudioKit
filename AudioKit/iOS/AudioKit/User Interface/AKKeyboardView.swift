@@ -91,7 +91,7 @@ import AudioKit
         oneOctaveSize = CGSize(width: Double(width / octaveCount - width / (octaveCount * octaveCount * 7)),
                                height: Double(height))
         isMultipleTouchEnabled = true
-        setNeedsDisplay()
+        polyphonicMode = polyphonic
     }
 
     /// Initialization within Interface Builder
