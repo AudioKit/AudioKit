@@ -238,34 +238,34 @@ extension AKMIDI {
                 }
                 switch type {
                 case .controllerChange:
-                    listener.receivedMIDIController(event.internalData[1],
-                                                    value: event.internalData[2],
+                    listener.receivedMIDIController(event.data[1],
+                                                    value: event.data[2],
                                                     channel: MIDIChannel(eventChannel))
                 case .channelAftertouch:
-                    listener.receivedMIDIAfterTouch(event.internalData[1],
+                    listener.receivedMIDIAfterTouch(event.data[1],
                                                     channel: MIDIChannel(eventChannel))
                 case .noteOn:
-                    listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                velocity: MIDIVelocity(event.internalData[2]),
+                    listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.data[1]),
+                                                velocity: MIDIVelocity(event.data[2]),
                                                 channel: MIDIChannel(eventChannel))
                 case .noteOff:
-                    listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                 velocity: MIDIVelocity(event.internalData[2]),
+                    listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.data[1]),
+                                                 velocity: MIDIVelocity(event.data[2]),
                                                  channel: MIDIChannel(eventChannel))
                 case .pitchWheel:
                     listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
                                                     channel: MIDIChannel(eventChannel))
                 case .polyphonicAftertouch:
-                    listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.internalData[1]),
-                                                    pressure: event.internalData[2],
+                    listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.data[1]),
+                                                    pressure: event.data[2],
                                                     channel: MIDIChannel(eventChannel))
                 case .programChange:
-                    listener.receivedMIDIProgramChange(event.internalData[1],
+                    listener.receivedMIDIProgramChange(event.data[1],
                                                        channel: MIDIChannel(eventChannel))
                 }
             } else if event.command != nil {
                 //AKLog("Passing [\(event.command?.description ?? "unknown")] to listener \(listener)")
-                listener.receivedMIDISystemCommand(event.internalData, time: event.timeStamp)
+                listener.receivedMIDISystemCommand(event.data, time: event.timeStamp)
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
