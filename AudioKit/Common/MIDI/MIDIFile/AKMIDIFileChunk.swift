@@ -56,7 +56,7 @@ extension AKMIDIFileChunk {
 enum MIDIFileChunkType: String {
     case track = "MTrk"
     case header = "MThd"
-    
+
     init?(data: [UInt8]) {
         let text = String(data.map({ Character(UnicodeScalar($0)) }))
         self.init(text: text)
