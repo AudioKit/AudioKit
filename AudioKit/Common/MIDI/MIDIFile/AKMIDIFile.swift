@@ -9,19 +9,62 @@
 import Foundation
 
 public struct AKMIDIFile {
+
     var chunks: [AKMIDIFileChunk] = []
-    var header: MIDIFileHeaderChunk? {
+
+    var headerChunk: MIDIFileHeaderChunk? {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
+
     var trackChunks: [MIDIFileTrackChunk] {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    public init(path: String) {
-        print("loadind file at \(path)")
-        let url = URL(fileURLWithPath: path)
+    public var tempoTrack: AKMIDIFileTrack? {
+        if format == 1, let tempoTrackChunk = trackChunks.first {
+            return AKMIDIFileTrack(chunk: tempoTrackChunk)
+        }
+        return nil
+    }
+
+    public var tracks: [AKMIDIFileTrack] {
+        var tracks = trackChunks
+        if format == 1 {
+            tracks = Array(tracks.dropFirst())
+        }
+        return tracks.compactMap({ AKMIDIFileTrack(chunk: $0) })
+    }
+
+    public var format: Int {
+        return headerChunk?.format ?? 0
+    }
+
+    public var numberOfTracks: Int {
+        return headerChunk?.numTracks ?? 0
+    }
+
+    public var timeFormat: MIDITimeFormat? {
+        return headerChunk?.timeFormat ?? nil
+    }
+
+    public var ticksPerBeat: Int? {
+        return headerChunk?.ticksPerBeat
+    }
+
+    public var framesPerSecond: Int? {
+        return headerChunk?.framesPerSecond
+    }
+
+    public var ticksPerFrame: Int? {
+        return headerChunk?.ticksPerFrame
+    }
+
+    public var timeDivision: UInt16 {
+        return headerChunk?.timeDivision ?? 0
+    }
+
+    public init(url: URL) {
         if let midiData = try? Data(contentsOf: url) {
-            print("got data \(midiData.count)")
             let dataSize = midiData.count
             let typeLength = 4
             var typeIndex = 0
@@ -80,5 +123,9 @@ public struct AKMIDIFile {
             }
             self.chunks = chunks
         }
+    }
+
+    public init(path: String) {
+        self.init(url: URL(fileURLWithPath: path))
     }
 }
