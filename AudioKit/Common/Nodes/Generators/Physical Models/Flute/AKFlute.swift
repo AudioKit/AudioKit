@@ -31,7 +31,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = 110 {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -45,7 +45,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     return

@@ -27,6 +27,11 @@ extension MIDIByte {
     var highBit: MIDIByte {
         return self >> 4
     }
+
+    public var hex: String {
+        let st = String(format: "%02X", self)
+        return "0x\(st)"
+    }
 }
 
 extension MIDIWord {
@@ -77,7 +82,7 @@ extension MIDIWord {
     }
 }
 
-enum MIDITimeFormat: Int {
+public enum MIDITimeFormat: Int {
     case ticksPerBeat = 0
     case framesPerSecond = 1
 

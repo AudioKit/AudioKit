@@ -36,33 +36,56 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     /// Initialize the microphone
-    @objc override public init() {
-        super.init()
-        self.avAudioNode = mixer
-        AKSettings.audioInputEnabled = true
+	public init?(with format: AVAudioFormat? = nil)
+	{
+		super.init()
+		guard let format = getFormatForDevice()
+		else
+		{
+			AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
+			return nil
+		}
+		self.avAudioNode = mixer
+		AKSettings.audioInputEnabled = true
 
-        #if os(iOS)
-        let format = getFormatForDevice()
-        // we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
-        setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
-        AudioKit.engine.attach(avAudioUnitOrNode)
-        AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format!)
-        setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
-        #elseif !os(tvOS)
-        AudioKit.engine.inputNode.connect(to: self.avAudioNode)
-        #endif
-    }
+		#if os(iOS)
+		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
+		do
+		{
+			try setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
+		}
+		catch
+		{
+			AKLog(error)
+			return nil
+		}
 
-    deinit {
-        AKSettings.audioInputEnabled = false
-    }
-
-    private func setAVSessionSampleRate(sampleRate: Double) {
+		AudioKit.engine.attach(avAudioUnitOrNode)
+		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format)
+		
+		//Now set samplerate to your AKSettings sampling rate, it may be heavy handed to make the init fail here, but taking all percautions to avoid all the hard crashes with AKMicrohpone init issues of late.
+		do
+		{
+			try setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
+		}
+		catch
+		{
+			AKLog(error)
+			return nil
+		}
+		#elseif !os(tvOS)
+		AudioKit.engine.inputNode.connect(to: self.avAudioNode)
+		#endif
+	}
+	
+	// Making this throw as whenever we have sample rate mismatches, it often crashes.
+	private func setAVSessionSampleRate(sampleRate: Double) throws {
         #if !os(macOS)
         do {
             try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
         } catch {
             AKLog(error)
+			throw error
         }
         #endif
     }

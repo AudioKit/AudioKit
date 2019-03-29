@@ -28,10 +28,23 @@ public:
     //    }
 
     sp_data *getSpData() { return sp; }
+
+    // The default constructor should be deleted,
+    // but we're keeping it to not break the API
+    AKSoundpipeKernel() = default;
+
+    AKSoundpipeKernel(int channelCount, double sampleRate) :
+        AKDSPKernel(channelCount, sampleRate) {
+        sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channelCount;
+    }
     
     void init(int channelCount, double sampleRate) override {
         AKDSPKernel::init(channelCount, sampleRate);
-        sp_create(&sp);
+        if (sp == nullptr) {
+            sp_create(&sp);
+        }
         sp->sr = sampleRate;
         sp->nchan = channelCount;
     }
