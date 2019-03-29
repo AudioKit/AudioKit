@@ -18,6 +18,7 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case marker = 0x06
     case cuePoint = 0x07
     case channelPrefix = 0x20
+    case midiPort = 0x21
     case endOfTrack = 0x2F
     case setTempo = 0x51
     case smtpeOffset = 0x54
@@ -25,13 +26,13 @@ public enum AKMIDIMetaEventType: MIDIByte {
     case keySignature = 0x59
     case sequencerSpecificMetaEvent = 0x7F
 
-    var length: Int? {
+    var length: Int? { //length can be variable for certain metaevents, so returns nil for the type length
         switch self {
         case .endOfTrack:
             return 0
-        case .channelPrefix:
+        case .channelPrefix, .midiPort:
             return 1
-        case .keySignature:
+        case .keySignature, .sequenceNumber:
             return 2
         case .setTempo:
             return 3
@@ -64,6 +65,8 @@ public enum AKMIDIMetaEventType: MIDIByte {
             return "Cue Point"
         case .channelPrefix:
             return "Channel Prefix"
+        case .midiPort:
+            return "MIDI Port"
         case .endOfTrack:
             return "End of Track"
         case .setTempo:
@@ -80,24 +83,33 @@ public enum AKMIDIMetaEventType: MIDIByte {
     }
 }
 
-public struct AKMIDIMetaEvent {
+public struct AKMIDIMetaEvent: AKMIDIMessage {
 
     public init?(data: [MIDIByte]) {
-        if data.count > 2,
-            AKMIDIMetaEventType(rawValue: data[1]) != nil {
+        if data.count > 02,
+            data[0] == 0xFF,
+            let type = AKMIDIMetaEventType(rawValue: data[1]) {
             self.data = data
+            self.type = type
+            self.length = Int(data[2])
+        } else {
+            return nil
         }
-        return nil
     }
 
-    public var data: [MIDIByte] = []
-
-    public var type: AKMIDIMetaEventType {
-        return AKMIDIMetaEventType(rawValue: data[1])! //we prevent bad values on init
+    public var data: [MIDIByte]
+    public var type: AKMIDIMetaEventType
+    public var length: Int
+    public var description: String {
+        var nameStr: String = ""
+        if type == .trackName || type == .instrumentName {
+            nameStr = "- \(name!)"
+        }
+        return type.description + " \(length) bytes long \(nameStr)"
     }
 
-    public var length: Int {
-        return Int(data[2])
+    public var name: String? {
+        return String(bytes: data.suffix(length), encoding: .utf8) ?? nil
     }
 
 }

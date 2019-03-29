@@ -57,7 +57,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var ratio: Double = defaultRatio {
         willSet {
             guard ratio != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     ratioParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -71,7 +71,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var threshold: Double = defaultThreshold {
         willSet {
             guard threshold != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     thresholdParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -85,7 +85,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
             guard attackDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -99,7 +99,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
             guard releaseDuration != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
                     return

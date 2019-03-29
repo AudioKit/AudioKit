@@ -37,7 +37,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
             guard cutoffFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return

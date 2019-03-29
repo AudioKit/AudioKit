@@ -55,7 +55,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     @objc open dynamic var position: Double = 0 {
         willSet {
             guard position != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     positionParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -69,7 +69,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     @objc open dynamic var amplitude: Double = 1 {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
@@ -83,7 +83,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     @objc open dynamic var pitchRatio: Double = 1 {
         willSet {
             guard pitchRatio != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     pitchRatioParameter?.setValue(Float(newValue), originator: existingToken)
                 }
