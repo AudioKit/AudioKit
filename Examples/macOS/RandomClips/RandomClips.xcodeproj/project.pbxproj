@@ -49,8 +49,6 @@
 		55C731C11F62D9A100611001 = {
 			isa = PBXGroup;
 			children = (
-				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
-				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 				55C731CC1F62D9A100611001 /* RandomClips */,
 				55C731CB1F62D9A100611001 /* Products */,
 				EA2FA542215AFC88001C210A /* Frameworks */,
@@ -84,6 +82,8 @@
 		EA2FA542215AFC88001C210A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
+				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,7 +120,7 @@
 				TargetAttributes = {
 					55C731C91F62D9A100611001 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -312,7 +312,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -333,7 +333,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
