@@ -45,8 +45,6 @@
 		B1F827B3209CDAD2006DE336 = {
 			isa = PBXGroup;
 			children = (
-				B1F827CF209CDAFA006DE336 /* AudioKit.framework */,
-				B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */,
 				B1F827BE209CDAD2006DE336 /* SimpleAudioUnit */,
 				B1F827BD209CDAD2006DE336 /* Products */,
 				EAA07330215CD58600FCFE54 /* Frameworks */,
@@ -78,6 +76,8 @@
 		EAA07330215CD58600FCFE54 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1F827CF209CDAFA006DE336 /* AudioKit.framework */,
+				B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,7 +114,7 @@
 				TargetAttributes = {
 					B1F827BB209CDAD2006DE336 = {
 						CreatedOnToolsVersion = 9.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -307,7 +307,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -327,7 +327,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
