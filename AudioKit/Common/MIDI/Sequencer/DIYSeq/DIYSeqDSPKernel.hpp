@@ -31,7 +31,7 @@ enum {
     startPointAddress = 0,
 };
 
-class AKDIYSeqEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKDIYSeqEngineDSPKernel : public AKDSPBase {
 public:
     // MARK: Member Functions
 
@@ -41,11 +41,11 @@ public:
         printf("deboog: inited diyseqengine\n");
     }
 
-    void setTargetAU(AudioUnit target) {
+    void setTargetAU(AudioUnit target) override {
         targetAU = target;
     }
 
-    void start() {
+    void start() override {
         resetPlaybackVariables();
         started = true;
         isPlaying = true;
@@ -55,13 +55,13 @@ public:
 //        int position = beat;
 //    }
 
-    void stop() {
+    void stop() override {
         printf("deboog: stopped diyseqengine\n");
         started = false;
         isPlaying = false;
     }
 
-    void reset() {
+    void reset() override {
         printf("deboog: resetted diyseqengine\n");
         resetted = true;
         startPointRamper.reset();
@@ -83,7 +83,7 @@ public:
         }
     }
 
-    AUValue getParameter(AUParameterAddress address) {
+    AUValue getParameter(AUParameterAddress address) override {
         switch (address) {
             case startPointAddress:
                 return startPointRamper.getUIValue();
@@ -92,7 +92,7 @@ public:
         }
     }
 
-    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {
         switch (address) {
             case startPointAddress:
                 startPointRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
@@ -139,14 +139,14 @@ public:
         framesCounted += frameCount;
     }
 
-    int addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
+    void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) override {
         events[eventCount].status = status;
         events[eventCount].data1 = data1;
         events[eventCount].data2 = data2;
         events[eventCount].beat = beat;
 
         eventCount += 1;
-        return eventCount;
+        //return eventCount;
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
