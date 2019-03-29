@@ -35,7 +35,7 @@ open class AKNewSequencerTrack: AKNode, AKComponent {
     private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
-    private var targetNode: AKNode?
+    public var targetNode: AKNode?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -45,7 +45,9 @@ open class AKNewSequencerTrack: AKNode, AKComponent {
     }
 
     private var startPoint: Sample = 0
-    var lengthInBeats: Double = 4.0
+    public var lengthInBeats: Double = 4.0
+    public var tempo: Double = 120
+    public var loopCount: Int = 0
 
     // MARK: - Initialization
     @objc public override init() {
