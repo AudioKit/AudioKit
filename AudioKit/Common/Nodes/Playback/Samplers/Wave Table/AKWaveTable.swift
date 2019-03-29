@@ -82,7 +82,7 @@ open class AKWaveTable: AKNode, AKComponent {
                     rateParameter?.setValue(Float(newValue), originator: existingToken)
                 }
             } else {
-                internalAU?.rate = Float(newValue)
+                internalAU?.rate = newValue
             }
         }
     }
