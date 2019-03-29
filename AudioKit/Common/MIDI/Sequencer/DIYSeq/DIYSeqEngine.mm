@@ -35,11 +35,26 @@
     _kernel.loopCallback = callback;
 }
 
-standardKernelPassthroughs()
+- (void)start { _kernel.start(); }
+- (void)stop { _kernel.stop(); }
+- (BOOL)isPlaying { return _kernel.started; }
+- (BOOL)isSetUp { return _kernel.resetted; }
+- (void)setShouldBypassEffect:(BOOL)shouldBypassEffect {
+    if (shouldBypassEffect) {
+        _kernel.stop();
+    } else {
+        _kernel.start();
+    }
+}
 
 - (void)createParameters {
 
-    standardGeneratorSetup(DIYSeqEngine)
+self.rampDuration = AKSettings.rampDuration;
+self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate channels:AKSettings.channelCount];
+_kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate);
+_outputBusBuffer.init(self.defaultFormat, 2);
+self.outputBus = _outputBusBuffer.bus;
+self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busType:AUAudioUnitBusTypeOutput busses:@[self.outputBus]];
 
     // Create a parameter object for the start.
     AUParameter *startPointAUParameter = [AUParameter parameterWithIdentifier:@"startPoint"
@@ -58,9 +73,45 @@ standardKernelPassthroughs()
                                                          startPointAUParameter
                                                          ]];
 
-    parameterTreeBlock(DIYSeqEngine)
+    __block AKDIYSeqEngineDSPKernel *blockKernel = &_kernel;
+    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
+        blockKernel->setParameter(param.address, value);
+    };
+    self.parameterTree.implementorValueProvider = ^(AUParameter *param) {
+        return blockKernel->getParameter(param.address);
+    };
 }
 
-AUAudioUnitGeneratorOverrides(DIYSeqEngine)
+- (BOOL)allocateRenderResourcesAndReturnError:(NSError **)outError {
+    if (![super allocateRenderResourcesAndReturnError:outError]) {
+        return NO;
+    }
+    _outputBusBuffer.allocateRenderResources(self.maximumFramesToRender);
+    _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
+    _kernel.reset();
+    return YES;
+}
+
+- (void)deallocateRenderResources {
+    _outputBusBuffer.deallocateRenderResources();
+    [super deallocateRenderResources];
+}
+
+- (AUInternalRenderBlock)internalRenderBlock {
+    __block AKDIYSeqEngineDSPKernel *state = &_kernel;
+    return ^AUAudioUnitStatus(
+                              AudioUnitRenderActionFlags *actionFlags,
+                              const AudioTimeStamp       *timestamp,
+                              AVAudioFrameCount           frameCount,
+                              NSInteger                   outputBusNumber,
+                              AudioBufferList            *outputData,
+                              const AURenderEvent        *realtimeEventListHead,
+                              AURenderPullInputBlock      pullInputBlock) {
+        _outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true);
+        state->setBuffer(outputData);
+        state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
+        return noErr;
+    };
+}
 
 @end
