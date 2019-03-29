@@ -110,7 +110,7 @@ class ViewController: NSViewController {
 
     private func initPlayer() {
         if player == nil {
-            chooseAudio(chooseAudioButton)
+            chooseAudio(chooseAudioButton!)
             return
         }
         guard node != player else { return }
@@ -163,7 +163,7 @@ class ViewController: NSViewController {
         if state {
             player.pause()
             //player.pauseTime = player.duration
-            AKLog("set pause start time to", player.pauseTime)
+            AKLog("set pause start time to", player.pauseTime ?? 0.0)
         } else {
             player.resume()
         }
