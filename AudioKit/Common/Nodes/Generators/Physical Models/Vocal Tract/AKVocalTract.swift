@@ -67,7 +67,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -81,7 +81,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tonguePosition: Double = defaultTonguePosition {
         willSet {
             guard tonguePosition != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     tonguePositionParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -95,7 +95,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tongueDiameter: Double = defaultTongueDiameter {
         willSet {
             guard tongueDiameter != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     tongueDiameterParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -109,7 +109,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var tenseness: Double = defaultTenseness {
         willSet {
             guard tenseness != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     tensenessParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -123,7 +123,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var nasality: Double = defaultNasality {
         willSet {
             guard nasality != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     nasalityParameter?.setValue(Float(newValue), originator: existingToken)
                     return

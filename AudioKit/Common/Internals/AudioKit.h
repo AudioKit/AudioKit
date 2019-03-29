@@ -149,6 +149,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPresetManager.h"
 #import "AKSampler_Typedefs.h"
 #import "AKCoreSampler.hpp"
+#import "AKCoreSynth.hpp"
 #import "AKSamplerDSP.hpp"
 
 #if !TARGET_OS_TV

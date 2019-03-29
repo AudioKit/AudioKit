@@ -67,7 +67,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var baseFrequency: Double = defaultBaseFrequency {
         willSet {
             guard baseFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     baseFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -81,7 +81,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var carrierMultiplier: Double = defaultCarrierMultiplier {
         willSet {
             guard carrierMultiplier != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     carrierMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -95,7 +95,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var modulatingMultiplier: Double = defaultModulatingMultiplier {
         willSet {
             guard modulatingMultiplier != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     modulatingMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -109,7 +109,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var modulationIndex: Double = defaultModulationIndex {
         willSet {
             guard modulationIndex != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     modulationIndexParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -123,7 +123,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
