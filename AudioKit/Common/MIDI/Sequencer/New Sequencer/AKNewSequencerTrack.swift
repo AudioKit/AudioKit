@@ -115,4 +115,8 @@ open class AKNewSequencerTrack: AKNode, AKComponent {
     public func addMIDIEvent(status: AKMIDIStatus, data1: UInt8, data2: UInt8, beat: Double) {
         internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: beat)
     }
+    
+    public func clear() {
+        internalAU?.clear()
+    }
 }

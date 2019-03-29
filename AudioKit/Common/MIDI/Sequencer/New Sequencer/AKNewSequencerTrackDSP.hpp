@@ -80,6 +80,7 @@ public:
     void start() override;
     bool isLooping() override;
     void toggleLooping() override;
+    void clear() override;
     void setTargetAU(AudioUnit target) override;
     void addMIDIEvent(UInt8 status, UInt8 data1, UInt8 data2, double beat) override;
     double getTempo() override;
