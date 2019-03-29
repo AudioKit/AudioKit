@@ -83,7 +83,7 @@ class Conductor {
 
     func openMIDIInput(byName: String) {
         midi.closeAllInputs()
-        midi.openInput(byName)
+        midi.openInput(name: byName)
     }
 
     func openMIDIInput(byIndex: Int) {
