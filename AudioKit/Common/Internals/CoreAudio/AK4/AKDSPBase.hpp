@@ -78,6 +78,9 @@ public:
     virtual void setTargetAU(AudioUnit target) {}
     virtual void addMIDIEvent(UInt8 status, UInt8 data1, UInt8 data2, double beat) {}
 
+    /// Musical file
+    virtual double getTempo() { return 0.0;}
+
     virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
         inBufferListPtr = inBufs;
         outBufferListPtr = outBufs;
