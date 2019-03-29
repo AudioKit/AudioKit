@@ -50,7 +50,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var shift: Double = defaultShift {
         willSet {
             guard shift != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     shiftParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -64,7 +64,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var windowSize: Double = defaultWindowSize {
         willSet {
             guard windowSize != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     windowSizeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -78,7 +78,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var crossfade: Double = defaultCrossfade {
         willSet {
             guard crossfade != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     crossfadeParameter?.setValue(Float(newValue), originator: existingToken)
                     return

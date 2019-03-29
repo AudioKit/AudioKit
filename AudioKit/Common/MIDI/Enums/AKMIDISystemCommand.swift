@@ -21,7 +21,8 @@
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum AKMIDISystemCommand: MIDIByte {
+public enum AKMIDISystemCommand: MIDIByte, AKMIDIMessage {
+
     /// System Exclusive (Sysex)
     case sysex = 0xF0
     /// MIDI Time Code Quarter Frame (System Common)
@@ -71,7 +72,7 @@ public enum AKMIDISystemCommand: MIDIByte {
         }
     }
 
-    var description: String {
+    public var description: String {
         switch self {
         case .sysex:
             return "Sysex Begin"
@@ -100,8 +101,12 @@ public enum AKMIDISystemCommand: MIDIByte {
         }
     }
 
-    var byte: MIDIByte {
+    public var byte: MIDIByte {
         return rawValue
+    }
+
+    public var data: [UInt8] {
+        return [byte]
     }
 }
 

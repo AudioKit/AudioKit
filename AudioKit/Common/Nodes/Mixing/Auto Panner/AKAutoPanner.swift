@@ -33,7 +33,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = 10.0 {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -47,7 +47,7 @@ open class AKAutoPanner: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var depth: Double = 1.0 {
         willSet {
             guard depth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     depthParameter?.setValue(Float(newValue), originator: existingToken)
                     return

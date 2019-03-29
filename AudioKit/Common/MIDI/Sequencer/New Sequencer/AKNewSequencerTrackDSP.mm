@@ -59,6 +59,10 @@ void AKNewSequencerTrackDSP::init(int channelCount, double sampleRate) {
     isStarted = false;
 }
 
+
+void AKNewSequencerTrackDSP::clear() {
+    eventCount = 0;
+}
 double AKNewSequencerTrackDSP::getTempo() {
     return bpm;
 }
