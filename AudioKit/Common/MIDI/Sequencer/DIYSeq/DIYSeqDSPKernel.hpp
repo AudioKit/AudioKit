@@ -13,6 +13,7 @@
 #define NOTEOFF 0x80
 #define INITVALUE -1.0
 #define MIDINOTECOUNT 128
+#define MAXNUMBEROFEVENTS 512
 
 struct MIDIEvent {
     uint8_t status;
@@ -149,6 +150,10 @@ public:
         return eventCount;
     }
 
+    void clear() {
+        eventCount = 0;
+    }
+
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
 //        printf("deboog: sending: %i %i %i at offset %f (%f beats)\n", status, data1, data2, offset, time);
         if (midiPort == 0 || midiEndpoint == 0) {
@@ -202,8 +207,9 @@ public:
     MIDIPortRef midiPort;
     MIDIEndpointRef midiEndpoint;
     AKCCallback loopCallback = nullptr;
-    MIDIEvent events[512];
+    MIDIEvent events[MAXNUMBEROFEVENTS];
     int eventCount = 0;
+    int maximumPlayCount = 0;
     double lengthInBeats = 4.0;
     double bpm = 120.0;
     bool stopAfterCurrentNotes = false;

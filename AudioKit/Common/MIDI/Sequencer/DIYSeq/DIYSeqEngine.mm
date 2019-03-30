@@ -19,6 +19,25 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+-(void)setTempo:(double)bpm {
+    _kernel.bpm = bpm;
+}
+-(double)getTempo {
+    return _kernel.bpm;
+}
+-(void)setLengthInBeats:(double)length {
+    _kernel.lengthInBeats = length;
+}
+-(double)getLengthInBeats {
+    return _kernel.lengthInBeats;
+}
+-(void)setMaximumPlayCount:(double)maximumPlayCount {
+    _kernel.maximumPlayCount = maximumPlayCount;
+}
+-(double)getMaximumPlayCount {
+    return _kernel.maximumPlayCount;
+}
+
 -(void)setLoopEnabled:(bool)loopEnabled {
     _kernel.loopEnabled = loopEnabled;
 }
@@ -33,6 +52,9 @@
 }
 -(void)setLoopCallback:(AKCCallback)callback {
     _kernel.loopCallback = callback;
+}
+-(void)clear {
+    _kernel.clear();
 }
 
 - (void)start { _kernel.start(); }

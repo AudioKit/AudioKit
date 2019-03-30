@@ -41,7 +41,23 @@ open class DIYSeqTrack: AKNode, AKComponent {
     }
 
     private var startPoint: Sample = 0
-    var lengthInBeats: Double = 4.0
+    public var lengthInBeats: Double = 4.0
+    public var tempo: Double {
+        get {
+            return internalAU?.tempo ?? 0
+        }
+        set {
+            internalAU?.tempo = tempo
+        }
+    }
+    public var maximumPlayCount: Double {
+        get {
+            return internalAU?.maximumPlayCount ?? 0
+        }
+        set {
+            internalAU?.maximumPlayCount = maximumPlayCount
+        }
+    }
 
     // MARK: - Initialization
     @objc public override init() {
@@ -95,6 +111,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public func stop() {
         internalAU?.stop()
     }
+
     public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0, beat: Double, duration: Double) {
         var noteOffPosition: Double = (beat + duration);
         while (noteOffPosition >= lengthInBeats && lengthInBeats != 0) {
@@ -103,7 +120,13 @@ open class DIYSeqTrack: AKNode, AKComponent {
         addMIDIEvent(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: beat)
         addMIDIEvent(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: noteOffPosition)
     }
+
     public func addMIDIEvent(status: AKMIDIStatus, data1: UInt8, data2: UInt8, beat: Double) {
         internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: beat)
+    }
+
+    public func clear() {
+        print("clear sequence")
+        internalAU?.clear()
     }
 }
