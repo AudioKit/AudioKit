@@ -47,7 +47,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
             return internalAU?.tempo ?? 0
         }
         set {
-            internalAU?.tempo = tempo
+            internalAU?.tempo = newValue
         }
     }
     public var maximumPlayCount: Double {
