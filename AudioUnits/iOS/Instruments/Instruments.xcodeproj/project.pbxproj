@@ -86,8 +86,6 @@
 		C46D585D20F419530052B9CF = {
 			isa = PBXGroup;
 			children = (
-				C4F3B19020F423960072FFF4 /* AudioKit.framework */,
-				C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */,
 				C46D586820F419530052B9CF /* Instruments */,
 				C46D588020F419F30052B9CF /* AKOscillatorBankExtension */,
 				C46D586720F419530052B9CF /* Products */,
@@ -130,6 +128,8 @@
 		EA2FA54B215B775E001C210A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4F3B19020F423960072FFF4 /* AudioKit.framework */,
+				C4F3B18F20F423950072FFF4 /* AudioKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -185,11 +185,11 @@
 				TargetAttributes = {
 					C46D586520F419530052B9CF = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					C46D587E20F419F30052B9CF = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -416,6 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS/";
 				INFOPLIST_FILE = Instruments/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -423,7 +424,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.Instruments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -435,6 +436,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS/";
 				INFOPLIST_FILE = Instruments/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -442,7 +444,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.audiokitpro.Instruments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -462,7 +464,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -482,7 +484,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -113,7 +113,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
                     // flag midi system that a sysex packet has started so it can gather bytes until the end
                     AudioKit.midi.startReceivingSysex(with: midiBytes)
                     data += midiBytes
-                    if let sysexEndIndex = midiBytes.index(of: AKMIDISystemCommand.sysexEnd.byte) {
+                    if let sysexEndIndex = midiBytes.firstIndex(of: AKMIDISystemCommand.sysexEnd.byte) {
                         let length = sysexEndIndex + 1
                         data = Array(data.prefix(length))
                         AudioKit.midi.stopReceivingSysex()
@@ -149,7 +149,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     public init(data: [MIDIByte], time: MIDITimeStamp = 0) {
         timeStamp = time
         if AudioKit.midi.isReceivingSysex {
-            if let sysexEndIndex = data.index(of: AKMIDISystemCommand.sysexEnd.rawValue) {
+            if let sysexEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 self.data = Array(data[0...sysexEndIndex])
             }
         } else if let command = AKMIDISystemCommand(rawValue: data[0]) {

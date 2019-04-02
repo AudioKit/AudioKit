@@ -159,7 +159,7 @@ open class AKClipRecorder {
     }
 
     private func finalize(clip: AKClipRecording, error: Error? = nil, completion: (() -> Void)? = nil) {
-        if let index = clips.index(of: clip) {
+        if let index = clips.firstIndex(of: clip) {
             clips.remove(at: index)
         }
 
