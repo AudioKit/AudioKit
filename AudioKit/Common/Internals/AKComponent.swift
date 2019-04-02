@@ -90,7 +90,7 @@ extension AudioComponentDescription {
         self.init(componentType: type,
                   componentSubType: subType,
                   componentManufacturer: fourCC("AuKt"),
-                  componentFlags: 0,
+                  componentFlags: AudioComponentFlags.sandboxSafe.rawValue,
                   componentFlagsMask: 0)
     }
 
