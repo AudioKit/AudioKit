@@ -130,7 +130,7 @@ public:
             }
             if (isStarted) {
                 sp_osc_compute(sp, trem, NULL, &temp);
-                panst->pan = depthRamp.getValue() * (temp - 0.5);
+                panst->pan = (2.0 * temp - 1.0) * depthRamp.getValue();
                 sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
 
