@@ -111,7 +111,7 @@ public:
                 depthRamp.advanceTo(now + frameOffset);
             }
             trem->freq = frequencyRamp.getValue();
-            trem->amp = depthRamp.getValue();
+            trem->amp = 1;
 
             float temp = 0;
             float *tmpin[2];
@@ -130,7 +130,7 @@ public:
             }
             if (isStarted) {
                 sp_osc_compute(sp, trem, NULL, &temp);
-                panst->pan = 2.0 * temp - 1.0;
+                panst->pan = depthRamp.getValue() * (temp - 0.5);
                 sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
             }
 
