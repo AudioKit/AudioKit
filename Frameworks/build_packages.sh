@@ -49,10 +49,10 @@ create_package()
 	echo "Packaging AudioKit version $VERSION for $1 ..."
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
-	mkdir -p "Carthage/$os"
-	cp -a "$DIR/AudioKit.framework" "$DIR/AudioKitUI.framework" "Carthage/$os/"
 	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && return # Do not bundle any examples for staging, just the frameworks
+	mkdir -p "Carthage/$1"
 	cd $DIR
+	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip

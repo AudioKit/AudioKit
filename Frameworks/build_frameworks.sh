@@ -138,6 +138,26 @@ create_universal_framework()
 	fi
 }
 
+# Create individual static platform frameworks (device or simulator) in their own subdirectories
+# 2 arguments: platform (iOS or tvOS), platform (iphoneos, iphonesimulator, appletvos, appletvsimulator)
+create_framework()
+{
+	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
+	DIR="AudioKit-$1/$2"
+	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
+	mkdir -p "$DIR"
+	if test "$2" = iphonesimulator -o "$2" = appletvsimulator; then
+		XCCONFIG=simulator${XCSUFFIX}.xcconfig
+	else
+		XCCONFIG=device.xcconfig
+	fi
+	echo "Building static frameworks for $1 / $2"
+	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig ${XCCONFIG} -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
+	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
+	strip -S "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}"
+}
+
+
 # Provide 2 arguments: platform (macOS), native os (macosx)
 create_macos_framework()
 {
@@ -165,9 +185,13 @@ echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
-		create_universal_framework iOS iphonesimulator iphoneos
+		#create_universal_framework iOS iphonesimulator iphoneos
+		create_framework iOS iphoneos
+		create_framework iOS iphonesimulator
 	elif test $os = 'tvOS'; then
-		create_universal_framework tvOS appletvsimulator appletvos
+		#create_universal_framework tvOS appletvsimulator appletvos
+		create_framework tvOS appletvos
+		create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
 		create_macos_framework macOS macosx
 	fi
