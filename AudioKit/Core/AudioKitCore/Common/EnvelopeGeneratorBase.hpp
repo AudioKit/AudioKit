@@ -6,7 +6,6 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 #pragma once
-#include <cmath>
 #include <vector>
 
 namespace AudioKitCore

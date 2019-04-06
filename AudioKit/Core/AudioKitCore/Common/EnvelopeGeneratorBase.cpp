@@ -6,6 +6,7 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 #include "EnvelopeGeneratorBase.hpp"
+#include <cmath>
 
 namespace AudioKitCore
 {
