@@ -7,6 +7,8 @@
 //
 #include "ADSREnvelope.hpp"
 
+#include <cmath>
+
 namespace AudioKitCore
 {
 
