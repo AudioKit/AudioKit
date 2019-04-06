@@ -1,5 +1,5 @@
 //
-//  EnvelopeGeneratorBase.h
+//  EnvelopeGeneratorBase.hpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.

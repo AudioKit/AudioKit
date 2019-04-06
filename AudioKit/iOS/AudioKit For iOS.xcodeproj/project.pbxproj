@@ -36,9 +36,9 @@
 		3425223021E7F90E0014B603 /* AKSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425222C21E7F90E0014B603 /* AKSynth.swift */; };
 		3425223121E7F90E0014B603 /* AKSynthDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3425222D21E7F90E0014B603 /* AKSynthDSP.mm */; };
 		3425223221E7F90E0014B603 /* AKSynthDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3425222E21E7F90E0014B603 /* AKSynthDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		344E88E8217E8C1300D58551 /* ADSREnvelope.h in Headers */ = {isa = PBXBuildFile; fileRef = 344E88E5217E8C1200D58551 /* ADSREnvelope.h */; };
+		344E88E8217E8C1300D58551 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 344E88E5217E8C1200D58551 /* ADSREnvelope.hpp */; };
 		344E88E9217E8C1300D58551 /* EnvelopeGeneratorBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344E88E6217E8C1300D58551 /* EnvelopeGeneratorBase.cpp */; };
-		344E88EA217E8C1300D58551 /* EnvelopeGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.h */; };
+		344E88EA217E8C1300D58551 /* EnvelopeGeneratorBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.hpp */; };
 		3492772A21C80F7500EB0892 /* StereoDelay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3492772821C80F7500EB0892 /* StereoDelay.hpp */; };
 		3492772B21C80F7500EB0892 /* StereoDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3492772921C80F7500EB0892 /* StereoDelay.cpp */; };
 		3492775021C8165000EB0892 /* AKStereoDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3492774C21C8165000EB0892 /* AKStereoDelay.swift */; };
@@ -1229,9 +1229,9 @@
 		3425222C21E7F90E0014B603 /* AKSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSynth.swift; sourceTree = "<group>"; };
 		3425222D21E7F90E0014B603 /* AKSynthDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSynthDSP.mm; sourceTree = "<group>"; };
 		3425222E21E7F90E0014B603 /* AKSynthDSP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSynthDSP.hpp; sourceTree = "<group>"; };
-		344E88E5217E8C1200D58551 /* ADSREnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSREnvelope.h; sourceTree = "<group>"; };
+		344E88E5217E8C1200D58551 /* ADSREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADSREnvelope.hpp; sourceTree = "<group>"; };
 		344E88E6217E8C1300D58551 /* EnvelopeGeneratorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnvelopeGeneratorBase.cpp; sourceTree = "<group>"; };
-		344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnvelopeGeneratorBase.h; sourceTree = "<group>"; };
+		344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EnvelopeGeneratorBase.hpp; sourceTree = "<group>"; };
 		3492772821C80F7500EB0892 /* StereoDelay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StereoDelay.hpp; sourceTree = "<group>"; };
 		3492772921C80F7500EB0892 /* StereoDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StereoDelay.cpp; sourceTree = "<group>"; };
 		3492774C21C8165000EB0892 /* AKStereoDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoDelay.swift; sourceTree = "<group>"; };
@@ -2489,9 +2489,9 @@
 				3404A78920507B1500A2C9E4 /* FunctionTable.hpp */,
 				3404A78720507B1500A2C9E4 /* FunctionTable.cpp */,
 				3404A78A20507B1500A2C9E4 /* LinearRamper.hpp */,
-				344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.h */,
+				344E88E7217E8C1300D58551 /* EnvelopeGeneratorBase.hpp */,
 				344E88E6217E8C1300D58551 /* EnvelopeGeneratorBase.cpp */,
-				344E88E5217E8C1200D58551 /* ADSREnvelope.h */,
+				344E88E5217E8C1200D58551 /* ADSREnvelope.hpp */,
 				3404A78B20507B1500A2C9E4 /* ADSREnvelope.cpp */,
 				3404A78520507B1500A2C9E4 /* ResonantLowPassFilter.hpp */,
 				3404A78D20507B1500A2C9E4 /* ResonantLowPassFilter.cpp */,
@@ -5384,7 +5384,7 @@
 				C49B156B204A06B8009C7C8E /* FileWvOut.h in Headers */,
 				C4AC0B3A1FC944E400EDA024 /* AKAudioUnitBase.h in Headers */,
 				C49B1562204A06B8009C7C8E /* Brass.h in Headers */,
-				344E88E8217E8C1300D58551 /* ADSREnvelope.h in Headers */,
+				344E88E8217E8C1300D58551 /* ADSREnvelope.hpp in Headers */,
 				C40718611D2267B800665C02 /* AKMandolinAudioUnit.h in Headers */,
 				C4077A772007628D00E5923C /* AKBitCrusherDSP.hpp in Headers */,
 				C4077B202008764600E5923C /* AKLowShelfParametricEqualizerFilterDSP.hpp in Headers */,
@@ -5669,7 +5669,7 @@
 				C49B157B204A06B8009C7C8E /* Effect.h in Headers */,
 				C453804A1C3A59EA00A51738 /* AKOperationEffectAudioUnit.h in Headers */,
 				C49B138E204A06B7009C7C8E /* test.h in Headers */,
-				344E88EA217E8C1300D58551 /* EnvelopeGeneratorBase.h in Headers */,
+				344E88EA217E8C1300D58551 /* EnvelopeGeneratorBase.hpp in Headers */,
 				C49B156C204A06B8009C7C8E /* TapDelay.h in Headers */,
 				F02767341E79D1D20099CA47 /* AKCustomUgenInfo.h in Headers */,
 				C49B141E204A06B7009C7C8E /* Equalisator.h in Headers */,
