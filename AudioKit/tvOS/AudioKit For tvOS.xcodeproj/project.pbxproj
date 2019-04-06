@@ -554,7 +554,6 @@
 		C49B1E66204A0CFA009C7C8E /* OscSinCos.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C30204A0CF8009C7C8E /* OscSinCos.h */; };
 		C49B1E67204A0CFA009C7C8E /* LPFCombFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C31204A0CF8009C7C8E /* LPFCombFilter.h */; };
 		C49B1E68204A0CFA009C7C8E /* OnePoleLPF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C32204A0CF8009C7C8E /* OnePoleLPF.cpp */; };
-		C49B1E69204A0CFA009C7C8E /* Filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C33204A0CF8009C7C8E /* Filter.cpp */; };
 		C49B1E6A204A0CFA009C7C8E /* Compressor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C34204A0CF8009C7C8E /* Compressor.cpp */; };
 		C49B1E6B204A0CFA009C7C8E /* pluginconstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C35204A0CF8009C7C8E /* pluginconstants.h */; };
 		C49B1E6C204A0CFA009C7C8E /* FFTRealFixLen.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C37204A0CF8009C7C8E /* FFTRealFixLen.h */; };
@@ -578,7 +577,6 @@
 		C49B1E7F204A0CFA009C7C8E /* DynArray.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4A204A0CF8009C7C8E /* DynArray.hpp */; };
 		C49B1E81204A0CFA009C7C8E /* def.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4C204A0CF8009C7C8E /* def.h */; };
 		C49B1E82204A0CFA009C7C8E /* Equalisator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C4D204A0CF8009C7C8E /* Equalisator.cpp */; };
-		C49B1E83204A0CFA009C7C8E /* Filter.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4E204A0CF8009C7C8E /* Filter.h */; };
 		C49B1E84204A0CFA009C7C8E /* Compressor.h in Headers */ = {isa = PBXBuildFile; fileRef = C49B1C4F204A0CF8009C7C8E /* Compressor.h */; };
 		C49B1E85204A0CFA009C7C8E /* RageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C50204A0CF8009C7C8E /* RageProcessor.cpp */; };
 		C49B1E87204A0CFA009C7C8E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = C49B1C53204A0CF8009C7C8E /* stack.c */; };
@@ -1048,6 +1046,8 @@
 		EA6949EF1C5AE1EA0035B5DF /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */; };
 		EAB403CE2258A9A200EB0A24 /* ADSREnvelope.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAB403CC2258A9A100EB0A24 /* ADSREnvelope.hpp */; };
 		EAB403CF2258A9A200EB0A24 /* EnvelopeGeneratorBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAB403CD2258A9A200EB0A24 /* EnvelopeGeneratorBase.hpp */; };
+		EAB403D62258B47500EB0A24 /* MikeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB403D42258B47500EB0A24 /* MikeFilter.h */; };
+		EAB403D72258B47500EB0A24 /* MikeFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB403D52258B47500EB0A24 /* MikeFilter.cpp */; };
 		EAB4E0512026A08700171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E0502026A08600171A16 /* AKCostelloReverbDSP.mm */; };
 		EAD65AE72140B0EE0063221D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD65AE62140B0EE0063221D /* libc++.tbd */; };
 		EADFC42821506452003E5191 /* AKModulatedDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC42621506451003E5191 /* AKModulatedDelay.cpp */; };
@@ -1678,7 +1678,6 @@
 		C49B1C30204A0CF8009C7C8E /* OscSinCos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscSinCos.h; sourceTree = "<group>"; };
 		C49B1C31204A0CF8009C7C8E /* LPFCombFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPFCombFilter.h; sourceTree = "<group>"; };
 		C49B1C32204A0CF8009C7C8E /* OnePoleLPF.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnePoleLPF.cpp; sourceTree = "<group>"; };
-		C49B1C33204A0CF8009C7C8E /* Filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Filter.cpp; sourceTree = "<group>"; };
 		C49B1C34204A0CF8009C7C8E /* Compressor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Compressor.cpp; sourceTree = "<group>"; };
 		C49B1C35204A0CF8009C7C8E /* pluginconstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pluginconstants.h; sourceTree = "<group>"; };
 		C49B1C37204A0CF8009C7C8E /* FFTRealFixLen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFTRealFixLen.h; sourceTree = "<group>"; };
@@ -1702,7 +1701,6 @@
 		C49B1C4A204A0CF8009C7C8E /* DynArray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DynArray.hpp; sourceTree = "<group>"; };
 		C49B1C4C204A0CF8009C7C8E /* def.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = def.h; sourceTree = "<group>"; };
 		C49B1C4D204A0CF8009C7C8E /* Equalisator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Equalisator.cpp; sourceTree = "<group>"; };
-		C49B1C4E204A0CF8009C7C8E /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
 		C49B1C4F204A0CF8009C7C8E /* Compressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compressor.h; sourceTree = "<group>"; };
 		C49B1C50204A0CF8009C7C8E /* RageProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RageProcessor.cpp; sourceTree = "<group>"; };
 		C49B1C52204A0CF8009C7C8E /* sporth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sporth.c; sourceTree = "<group>"; };
@@ -2223,6 +2221,8 @@
 		EA8BA9851C5E253900BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
 		EAB403CC2258A9A100EB0A24 /* ADSREnvelope.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ADSREnvelope.hpp; sourceTree = "<group>"; };
 		EAB403CD2258A9A200EB0A24 /* EnvelopeGeneratorBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EnvelopeGeneratorBase.hpp; sourceTree = "<group>"; };
+		EAB403D42258B47500EB0A24 /* MikeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MikeFilter.h; sourceTree = "<group>"; };
+		EAB403D52258B47500EB0A24 /* MikeFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MikeFilter.cpp; sourceTree = "<group>"; };
 		EAB4E0502026A08600171A16 /* AKCostelloReverbDSP.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbDSP.mm; sourceTree = "<group>"; };
 		EAD65AE62140B0EE0063221D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		EADFC42621506451003E5191 /* AKModulatedDelay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKModulatedDelay.cpp; sourceTree = "<group>"; };
@@ -3803,8 +3803,8 @@
 				C49B1C4D204A0CF8009C7C8E /* Equalisator.cpp */,
 				C49B1C2A204A0CF8009C7C8E /* Equalisator.h */,
 				C49B1C36204A0CF8009C7C8E /* FFTReal */,
-				C49B1C33204A0CF8009C7C8E /* Filter.cpp */,
-				C49B1C4E204A0CF8009C7C8E /* Filter.h */,
+				EAB403D52258B47500EB0A24 /* MikeFilter.cpp */,
+				EAB403D42258B47500EB0A24 /* MikeFilter.h */,
 				C49B1C2F204A0CF8009C7C8E /* LPFCombFilter.cpp */,
 				C49B1C31204A0CF8009C7C8E /* LPFCombFilter.h */,
 				C49B1C32204A0CF8009C7C8E /* OnePoleLPF.cpp */,
@@ -5163,10 +5163,10 @@
 				C47C52942093069600A6FB3C /* AKWaveTableDSPKernel.hpp in Headers */,
 				C45381891C3A5CBD00A51738 /* AKFrequencyTrackerAudioUnit.h in Headers */,
 				C470D05820174ABF003D1AFA /* AKPWMOscillatorDSP.hpp in Headers */,
-				C49B1E83204A0CFA009C7C8E /* Filter.h in Headers */,
 				C4BC755A20302C9200062B11 /* AKDripDSP.hpp in Headers */,
 				C470D07F20174B99003D1AFA /* AKPannerDSP.hpp in Headers */,
 				C453818B1C3A5CBD00A51738 /* AKFrequencyTrackerDSPKernel.hpp in Headers */,
+				EAB403D62258B47500EB0A24 /* MikeFilter.h in Headers */,
 				C49B20D2204A0D57009C7C8E /* Granulate.h in Headers */,
 				C470CF782017477F003D1AFA /* AKBitCrusherDSP.hpp in Headers */,
 				C49B20F1204A0D57009C7C8E /* TwoZero.h in Headers */,
@@ -5675,6 +5675,7 @@
 				C470CFE42017493B003D1AFA /* AKMoogLadderAudioUnit.swift in Sources */,
 				C4812B352028581200D4AFB1 /* AKFlatFrequencyResponseReverbDSP.mm in Sources */,
 				A8E996F61EB921D100116ADA /* AKTuningTable+Brun.swift in Sources */,
+				EAB403D72258B47500EB0A24 /* MikeFilter.cpp in Sources */,
 				EA03BFEC202070F400E8BE2C /* AKRhinoGuitarProcessorDSPKernel.mm in Sources */,
 				C4A107601E696F490018848C /* brownianNoise.swift in Sources */,
 				C443E0F020312DD300407CF9 /* AKFlangerAudioUnit.swift in Sources */,
@@ -5963,7 +5964,6 @@
 				C49B1E4D204A0CFA009C7C8E /* jcrev.c in Sources */,
 				C49B1E2B204A0CFA009C7C8E /* compressor.c in Sources */,
 				C49B1DD4204A0CFA009C7C8E /* md5.c in Sources */,
-				C49B1E69204A0CFA009C7C8E /* Filter.cpp in Sources */,
 				C49B1DF1204A0CFA009C7C8E /* talkbox.c in Sources */,
 				C49B1DE6204A0CFA009C7C8E /* eqfil.c in Sources */,
 				C49B1EF0204A0CFB009C7C8E /* streson.c in Sources */,
