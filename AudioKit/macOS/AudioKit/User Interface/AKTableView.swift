@@ -5,6 +5,8 @@
 //  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import Cocoa
+import AudioKit
 
 public class AKTableView: NSView {
 

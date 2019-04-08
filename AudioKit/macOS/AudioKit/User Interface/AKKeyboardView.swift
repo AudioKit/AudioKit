@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 @objc public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)

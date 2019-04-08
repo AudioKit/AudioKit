@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+import AudioKit
 
 public enum AKSliderStyle {
     case roundIndicator

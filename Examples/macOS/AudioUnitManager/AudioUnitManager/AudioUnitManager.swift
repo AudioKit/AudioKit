@@ -190,7 +190,7 @@ class AudioUnitManager: NSViewController {
         }
     }
 
-    @IBAction func handleRewindButton(_ sender: Any) {
+    @IBAction func handleRewindButton(_ sender: NSButton) {
         handleRewind()
     }
 
