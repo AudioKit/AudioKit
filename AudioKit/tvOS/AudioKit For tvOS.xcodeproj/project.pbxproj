@@ -1048,6 +1048,7 @@
 		EAB403CF2258A9A200EB0A24 /* EnvelopeGeneratorBase.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAB403CD2258A9A200EB0A24 /* EnvelopeGeneratorBase.hpp */; };
 		EAB403D62258B47500EB0A24 /* MikeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = EAB403D42258B47500EB0A24 /* MikeFilter.h */; };
 		EAB403D72258B47500EB0A24 /* MikeFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EAB403D52258B47500EB0A24 /* MikeFilter.cpp */; };
+		EAB403DC225AF7DD00EB0A24 /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41FF1C40E5C2009D870B /* EZAudioUtilities.h */; };
 		EAB4E0512026A08700171A16 /* AKCostelloReverbDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAB4E0502026A08600171A16 /* AKCostelloReverbDSP.mm */; };
 		EAD65AE72140B0EE0063221D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD65AE62140B0EE0063221D /* libc++.tbd */; };
 		EADFC42821506452003E5191 /* AKModulatedDelay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EADFC42621506451003E5191 /* AKModulatedDelay.cpp */; };
@@ -5290,6 +5291,7 @@
 				EAFECF041F4EC3ED00A2B046 /* EZPlot.h in Headers */,
 				EAFECF021F4EC3ED00A2B046 /* EZAudioPlotGL.h in Headers */,
 				EAFECF001F4EC3ED00A2B046 /* EZAudioPlot.h in Headers */,
+				EAB403DC225AF7DD00EB0A24 /* EZAudioUtilities.h in Headers */,
 				EAFECEFD1F4EC3C100A2B046 /* AudioKitUI.h in Headers */,
 				EAFECEFE1F4EC3ED00A2B046 /* EZAudioDisplayLink.h in Headers */,
 			);
