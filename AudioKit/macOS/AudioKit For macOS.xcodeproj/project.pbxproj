@@ -1132,7 +1132,7 @@
 		EAFECED81F4EBE1A00A2B046 /* AudioKitUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EAFECED61F4EBE1300A2B046 /* AudioKitUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEDC1F4EBE6600A2B046 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F36CC1C0582E6000E937C /* AudioKit.framework */; };
 		EAFECEDD1F4EBEB700A2B046 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662D21D448D7D00D26565 /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662D31D448D7D00D26565 /* EZAudioDisplayLink.m */; };
+		EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.h in Sources */ = {isa = PBXBuildFile; fileRef = C45662D31D448D7D00D26565 /* EZAudioDisplayLink.h */; };
 		EAFECEDF1F4EBEC700A2B046 /* EZAudioPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662DE1D448D7D00D26565 /* EZAudioPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAFECEE01F4EBEC700A2B046 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = C45662DF1D448D7D00D26565 /* EZAudioPlot.m */; };
 		EAFECEE11F4EBEC700A2B046 /* EZAudioPlotGL.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662E01D448D7D00D26565 /* EZAudioPlotGL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1447,8 +1447,8 @@
 		C45662CF1D448D7D00D26565 /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
 		C45662D01D448D7D00D26565 /* EZAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDevice.h; sourceTree = "<group>"; };
 		C45662D11D448D7D00D26565 /* EZAudioDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioDevice.m; sourceTree = "<group>"; };
-		C45662D21D448D7D00D26565 /* EZAudioDisplayLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDisplayLink.h; sourceTree = "<group>"; };
-		C45662D31D448D7D00D26565 /* EZAudioDisplayLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioDisplayLink.m; sourceTree = "<group>"; };
+		C45662D21D448D7D00D26565 /* EZAudioDisplayLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioDisplayLink.h; path = "../../User Interface/EZAudio/EZAudioDisplayLink.h"; sourceTree = "<group>"; };
+		C45662D31D448D7D00D26565 /* EZAudioDisplayLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EZAudioDisplayLink.h; path = "../../User Interface/EZAudio/EZAudioDisplayLink.h"; sourceTree = "<group>"; };
 		C45662D41D448D7D00D26565 /* EZAudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFFT.h; sourceTree = "<group>"; };
 		C45662D51D448D7D00D26565 /* EZAudioFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFFT.m; sourceTree = "<group>"; };
 		C45662D61D448D7D00D26565 /* EZAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFile.h; sourceTree = "<group>"; };
@@ -2946,7 +2946,7 @@
 				C45662D01D448D7D00D26565 /* EZAudioDevice.h */,
 				C45662D11D448D7D00D26565 /* EZAudioDevice.m */,
 				C45662D21D448D7D00D26565 /* EZAudioDisplayLink.h */,
-				C45662D31D448D7D00D26565 /* EZAudioDisplayLink.m */,
+				C45662D31D448D7D00D26565 /* EZAudioDisplayLink.h */,
 				C45662D41D448D7D00D26565 /* EZAudioFFT.h */,
 				C45662D51D448D7D00D26565 /* EZAudioFFT.m */,
 				C45662D61D448D7D00D26565 /* EZAudioFile.h */,
@@ -6560,7 +6560,7 @@
 				EAFECED51F4EBD8E00A2B046 /* AKRotaryKnob.swift in Sources */,
 				EAFECECB1F4EBD8E00A2B046 /* AKADSRView.swift in Sources */,
 				EAFECED31F4EBD8E00A2B046 /* AKSlider.swift in Sources */,
-				EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.m in Sources */,
+				EAFECEDE1F4EBEB700A2B046 /* EZAudioDisplayLink.h in Sources */,
 				EAFECED01F4EBD8E00A2B046 /* AKPlaygroundLoop.swift in Sources */,
 				EAFECEC61F4EBD7D00A2B046 /* AKNodeFFTPlot.swift in Sources */,
 				EAFECEC71F4EBD7D00A2B046 /* AKNodeOutputPlot.swift in Sources */,
