@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AudioKit
 import AudioKitUI
 
 let samples = 882
