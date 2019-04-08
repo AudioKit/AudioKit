@@ -85,6 +85,7 @@ create_playgrounds()
 }
 
 rm -rf Carthage
+mkdir -p Carthage
 
 for os in $PLATFORMS;
 do
