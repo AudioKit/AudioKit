@@ -70,7 +70,7 @@ create_universal_framework()
 	rm -rf "$DIR/$PROJECT_NAME.framework" "$DIR/$PROJECT_UI_NAME.framework"
 	mkdir -p "$DIR"
 	xcodebuild -project "$PROJECT" -target $PROJECT_UI_NAME -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" AUDIOKIT_VERSION="$VERSION" clean build | $XCPRETTY || exit 2
-	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework" "$DIR/"
+	cp -av "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework" "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework" "$DIR/"
 	if test -d  "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM"; then
 		echo "Building dynamic framework for AudioKit"
 		DYNAMIC=true
