@@ -103,13 +103,13 @@ create_universal_framework()
 			"${DIR}/${PROJECT_UI_NAME}.framework/Modules/${PROJECT_UI_NAME}.swiftmodule/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/Info.plist" "${DIR}/${PROJECT_NAME}.framework/"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/Info.plist" "${DIR}/${PROJECT_UI_NAME}.framework/"
-		# Merge the frameworks proper
+		# Merge the frameworks proper - apparently it's important that device OS is first starting in Xcode 10.2
 		lipo -create -output "${DIR}/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/${PROJECT_NAME}" || exit 4
+			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_NAME}.framework/${PROJECT_NAME}" \
+			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" || exit 4
 		lipo -create -output "${DIR}/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" \
-			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" || exit 4
+			"${BUILD_DIR}/${CONFIGURATION}-$3/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" \
+			"${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_UI_NAME}.framework/${PROJECT_UI_NAME}" || exit 4
 		if test "$DYNAMIC" = true;
 		then
 			mkdir -p "${DIR}/${PROJECT_NAME}.framework/BCSymbolMaps"
@@ -185,13 +185,13 @@ echo "Building frameworks for version $VERSION on platforms: $PLATFORMS"
 
 for os in $PLATFORMS; do
 	if test $os = 'iOS'; then
-		#create_universal_framework iOS iphonesimulator iphoneos
-		create_framework iOS iphoneos
-		create_framework iOS iphonesimulator
+		create_universal_framework iOS iphonesimulator iphoneos
+		#create_framework iOS iphoneos
+		#create_framework iOS iphonesimulator
 	elif test $os = 'tvOS'; then
-		#create_universal_framework tvOS appletvsimulator appletvos
-		create_framework tvOS appletvos
-		create_framework tvOS appletvsimulator
+		create_universal_framework tvOS appletvsimulator appletvos
+		#create_framework tvOS appletvos
+		#create_framework tvOS appletvsimulator
 	elif test $os = 'macOS'; then
 		create_macos_framework macOS macosx
 	fi
