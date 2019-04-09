@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 @IBDesignable open class AKPropertyControl: NSView {
     override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
