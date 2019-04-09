@@ -6,7 +6,7 @@
 //
 
 #pragma once
-#include "Filter.h"
+#include "MikeFilter.h"
 
 class RageProcessor {
 public:

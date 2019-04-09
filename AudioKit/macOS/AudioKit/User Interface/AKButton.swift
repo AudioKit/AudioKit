@@ -7,6 +7,7 @@
 //
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
+import AudioKit
 
 public enum AKButtonStyle {
     case standard
