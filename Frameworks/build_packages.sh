@@ -49,10 +49,10 @@ create_package()
 	echo "Packaging AudioKit version $VERSION for $1 ..."
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
-	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p "Carthage/$1"
 	cd $DIR
 	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
+	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
@@ -98,7 +98,7 @@ test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && test -d ../Playgrounds && create_p
 # Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 
 echo "Packaging AudioKit frameworks version $VERSION for CocoaPods and Carthage ..."
-rm -f AudioKit.framework.zip
+rm -f ${SUBDIR}/AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
 zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md
