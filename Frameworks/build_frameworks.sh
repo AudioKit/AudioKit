@@ -138,7 +138,8 @@ create_universal_framework()
 		# Swift 5 / Xcode 10.2 bug (!?) - must combine the generated AudioKit-Swift.h headers
 		for fw in ${PROJECT_NAME} ${PROJECT_UI_NAME};
 		do
-			echo '#if TARGET_OS_SIMULATOR' > "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+			echo '#include <TargetConditionals.h>' > "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
+			echo '#if TARGET_OS_SIMULATOR' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
 			cat "${BUILD_DIR}/${CONFIGURATION}-$2/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
 			echo '#else' >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
 			cat "${BUILD_DIR}/${CONFIGURATION}-$3/${fw}.framework/Headers/${fw}-Swift.h" >> "${DIR}/${fw}.framework/Headers/${fw}-Swift.h"
