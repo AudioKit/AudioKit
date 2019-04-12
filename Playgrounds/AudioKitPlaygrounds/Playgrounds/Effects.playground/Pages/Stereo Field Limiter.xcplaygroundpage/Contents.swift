@@ -4,13 +4,14 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-var player = try AKAudioPlayer(file: file)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var limitedOutput = AKStereoFieldLimiter(player)
 
 AudioKit.output = limitedOutput
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

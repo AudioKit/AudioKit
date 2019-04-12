@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Daniel Clelland, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKComputedParameter {
@@ -11,7 +11,7 @@ extension AKComputedParameter {
     /// A second-order resonant filter.
     ///
     /// - Parameters:
-    ///   - frequency: The center frequency of the filter, or frequency position of the peak response 
+    ///   - frequency: The center frequency of the filter, or frequency position of the peak response
     ///                (defaults to 4000 Hz).
     ///   - bandwidth: The bandwidth of the filter (the Hz difference between the upper and lower half-power points
     ///                (defaults to 1000 Hz).

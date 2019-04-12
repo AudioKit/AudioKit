@@ -3,14 +3,14 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Preset for the AKFMOscillator
 public extension AKFMOscillator {
 
     /// Stun Ray Preset
-    public func presetStunRay() {
+    func presetStunRay() {
         baseFrequency = 200
         carrierMultiplier = 90
         modulatingMultiplier = 10
@@ -18,7 +18,7 @@ public extension AKFMOscillator {
     }
 
     /// Fog Horn Preset
-    public func presetFogHorn() {
+    func presetFogHorn() {
         baseFrequency = 25
         carrierMultiplier = 10
         modulatingMultiplier = 5
@@ -26,7 +26,7 @@ public extension AKFMOscillator {
     }
 
     /// Buzzer Preset
-    public func presetBuzzer() {
+    func presetBuzzer() {
         baseFrequency = 400
         carrierMultiplier = 28
         modulatingMultiplier = 0.5
@@ -34,7 +34,7 @@ public extension AKFMOscillator {
     }
 
     /// Spiral Preset
-    public func presetSpiral() {
+    func presetSpiral() {
         baseFrequency = 5
         carrierMultiplier = 280
         modulatingMultiplier = 0.2
@@ -42,7 +42,7 @@ public extension AKFMOscillator {
     }
 
     /// Wobble Preset
-    public func presetWobble() {
+    func presetWobble() {
         baseFrequency = 20
         carrierMultiplier = 10
         modulatingMultiplier = 0.9

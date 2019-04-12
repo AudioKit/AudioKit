@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  HelloWorld
 //
-//  Created by Aurelius Prochazka on 12/4/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -12,6 +12,7 @@ import AudioKitUI
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var plot: AKNodeOutputPlot?
 
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
@@ -20,9 +21,15 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         mixer = AKMixer(oscillator1, oscillator2)
+
+        // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5
         AudioKit.output = mixer
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
     }
 
     @IBAction func toggleSound(_ sender: UIButton) {

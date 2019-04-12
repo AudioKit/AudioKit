@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AKStringResonator passes the input through a network composed of comb,
@@ -19,53 +19,62 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var fundamentalFrequencyParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Fundamental Frequency
+    public static let fundamentalFrequencyRange = 12.0 ... 10_000.0
+
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Initial value for Fundamental Frequency
+    public static let defaultFundamentalFrequency = 100.0
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.95
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Fundamental frequency of string.
-    @objc open dynamic var fundamentalFrequency: Double = 100 {
+    @objc open dynamic var fundamentalFrequency: Double = defaultFundamentalFrequency {
         willSet {
-            if fundamentalFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.fundamentalFrequency = Float(newValue)
+            guard fundamentalFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.fundamentalFrequency, value: newValue)
         }
     }
-    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance.
-    /// Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    @objc open dynamic var feedback: Double = 0.95 {
+
+    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            guard feedback != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -75,14 +84,13 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - fundamentalFrequency: Fundamental frequency of string.
-    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more
-    ///               pronounced resonance. Small values may leave the input signal unaffected. Depending on the
-    ///               filter frequency, typical values are > .9.
+    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        fundamentalFrequency: Double = 100,
-        feedback: Double = 0.95) {
+        fundamentalFrequency: Double = defaultFundamentalFrequency,
+        feedback: Double = defaultFeedback
+        ) {
 
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
@@ -91,11 +99,14 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -118,8 +129,8 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.fundamentalFrequency = Float(fundamentalFrequency)
-        internalAU?.feedback = Float(feedback)
+        internalAU?.setParameterImmediately(.fundamentalFrequency, value: fundamentalFrequency)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
     }
 
     // MARK: - Control

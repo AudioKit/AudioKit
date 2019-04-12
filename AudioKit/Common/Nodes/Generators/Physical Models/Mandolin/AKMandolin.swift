@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Physical model of a 4 course mandolin
@@ -27,24 +27,23 @@ open class AKMandolin: AKNode, AKComponent {
     //    private var course3FrequencyParameter: AUParameter?
     //    private var course4FrequencyParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
     @objc open dynamic var detune: Double = 1 {
         willSet {
-            if detune != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        detuneParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.detune = Float(newValue)
+            guard detune != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    detuneParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.detune = Float(newValue)
             }
         }
     }
@@ -52,14 +51,13 @@ open class AKMandolin: AKNode, AKComponent {
     /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     @objc open dynamic var bodySize: Double = 1 {
         willSet {
-            if bodySize != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bodySize = Float(newValue)
+            guard bodySize != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    bodySizeParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.bodySize = Float(newValue)
             }
         }
     }
@@ -72,7 +70,7 @@ open class AKMandolin: AKNode, AKComponent {
     ///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
     ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     ///
-    public init(
+    @objc public init(
         detune: Double = 1,
         bodySize: Double = 1) {
 
@@ -84,6 +82,7 @@ open class AKMandolin: AKNode, AKComponent {
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
+            self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }

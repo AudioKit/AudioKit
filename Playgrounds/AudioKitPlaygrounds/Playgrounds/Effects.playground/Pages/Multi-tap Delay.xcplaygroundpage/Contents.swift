@@ -10,7 +10,7 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: In AudioKit, you can create a multitap easily through creating a function
@@ -29,7 +29,7 @@ func multitapDelay(_ input: AKNode?, times: [Double], gains: [Double]) -> AKMixe
 }
 
 AudioKit.output = multitapDelay(player, times: [0.1, 0.2, 0.4], gains: [0.5, 2.0, 0.5])
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

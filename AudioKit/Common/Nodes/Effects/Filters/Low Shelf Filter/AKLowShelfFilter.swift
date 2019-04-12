@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
@@ -32,16 +32,16 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
         }
     }
 
-    /// Dry/Wet Mix (Default 100)
-    @objc open dynamic var dryWetMix: Double = 100 {
+    /// Dry/Wet Mix (Default 1)
+    @objc open dynamic var dryWetMix: Double = 1 {
         didSet {
-            dryWetMix = (0...100).clamp(dryWetMix)
-            inputGain?.volume = 1 - dryWetMix / 100
-            effectGain?.volume = dryWetMix / 100
+            dryWetMix = (0...1).clamp(dryWetMix)
+            inputGain?.volume = 1 - dryWetMix
+            effectGain?.volume = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 100
+    private var lastKnownMix: Double = 1
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
     var inputMixer = AKMixer()
@@ -61,7 +61,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     ///   - cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
     ///   - gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
@@ -119,7 +119,7 @@ open class AKLowShelfFilter: AKNode, AKToggleable, AUEffect, AKInput {
     }
 
     /// Disconnect the node
-    override open func disconnect() {
+    override open func detach() {
         stop()
 
         AudioKit.detach(nodes: [inputMixer.avAudioNode,

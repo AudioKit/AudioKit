@@ -2,7 +2,7 @@
 //  EZAudio.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 11/21/13.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -58,9 +58,9 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 
 /**
  EZAudio is a simple, intuitive framework for iOS and OSX. The goal of EZAudio was to provide a modular, cross-platform framework to simplify performing everyday audio operations like getting microphone input, creating audio waveforms, recording/playing audio files, etc. The visualization tools like the EZAudioPlot and EZAudioPlotGL were created to plug right into the framework's various components and provide highly optimized drawing routines that work in harmony with audio callback loops. All components retain the same namespace whether you're on an iOS device or a Mac computer so an EZAudioPlot understands it will subclass an UIView on an iOS device or an NSView on a Mac.
- 
- Class methods for EZAudio are provided as utility methods used throughout the other modules within the framework. For instance, these methods help make sense of error codes (checkResult:operation:), map values betwen coordinate systems (MAP:leftMin:leftMax:rightMin:rightMax:), calculate root mean squared values for buffers (RMS:length:), etc.
- 
+
+ Class methods for EZAudio are provided as utility methods used throughout the other modules within the framework. For instance, these methods help make sense of error codes (checkResult:operation:), map values between coordinate systems (MAP:leftMin:leftMax:rightMin:rightMax:), calculate root mean squared values for buffers (RMS:length:), etc.
+
  @warning As of 1.0 these methods have been moved over to `EZAudioUtilities` to allow using specific modules without requiring the whole library.
  */
 @interface EZAudio : NSObject
@@ -359,9 +359,9 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @deprecated This method is deprecated starting in version 0.1.0.
  @note Please use same method in EZAudioUtilities class instead.
  */
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @note Please use same method in EZAudioUtilities class instead.
  */
 +(void)    appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
@@ -407,7 +407,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @note Please use same method in EZAudioUtilities class instead.
  @return	The root mean squared of the buffer
  */
-+ (float)RMS:(float*)buffer length:(int)bufferSize __attribute__((deprecated));
++ (float)RMS:(float *)buffer length:(int)bufferSize __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
 

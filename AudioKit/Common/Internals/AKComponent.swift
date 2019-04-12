@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Helpful in reducing repetitive code in AudioKit
@@ -35,14 +35,52 @@ extension AKComponent {
         AUAudioUnit.registerSubclass(Self.AKAudioUnitType.self,
                                      as: Self.ComponentDescription,
                                      name: "Local \(Self.self)",
-                                     version: UInt32.max)
+                                     version: .max)
     }
 }
 
 extension AUParameterTree {
+
     public subscript (key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }
+
+    public class func createParameter(identifier: String,
+                                      name: String,
+                                      address: AUParameterAddress,
+                                      range: ClosedRange<Double>,
+                                      unit: AudioUnitParameterUnit,
+                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
+        return createParameter(withIdentifier: identifier,
+                               name: name,
+                               address: address,
+                               min: AUValue(range.lowerBound),
+                               max: AUValue(range.upperBound),
+                               unit: unit,
+                               unitName: nil,
+                               flags: flags,
+                               valueStrings: nil,
+                               dependentParameters: nil)
+    }
+//
+//    public class func createParameter(identifier: String,
+//                                      name: String,
+//                                      address: AUParameterAddress,
+//                                      min: AUValue,
+//                                      max: AUValue,
+//                                      unit: AudioUnitParameterUnit,
+//                                      flags: AudioUnitParameterOptions = []) -> AUParameter {
+//        return createParameter(withIdentifier: identifier,
+//                               name: name,
+//                               address: address,
+//                               min: min,
+//                               max: max,
+//                               unit: unit,
+//                               unitName: nil,
+//                               flags: flags,
+//                               valueStrings: nil,
+//                               dependentParameters: nil)
+//    }
 }
 
 /// Adding convenience initializers
@@ -52,7 +90,7 @@ extension AudioComponentDescription {
         self.init(componentType: type,
                   componentSubType: subType,
                   componentManufacturer: fourCC("AuKt"),
-                  componentFlags: 0,
+                  componentFlags: AudioComponentFlags.sandboxSafe.rawValue,
                   componentFlagsMask: 0)
     }
 

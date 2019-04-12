@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Delay Audio Unit
@@ -73,7 +73,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
         self.lowPassCutoff = lowPassCutoff
         self.dryWetMix = dryWetMix
 
-        super.init(avAudioNode: delayAU, attach: true)
+        super.init(avAudioUnit: delayAU, attach: true)
         input?.connect(to: self)
 
         delayAU.delayTime = self.time

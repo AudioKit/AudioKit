@@ -16,7 +16,7 @@ let effect = AKOperationEffect(player) { player, _ in
 }
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import CoreMIDI
@@ -12,13 +12,14 @@ import CoreMIDI
 ///
 /// You add MIDI listeners like this:
 /// ```
-/// var midiIn = AKMIDI()
+/// var midi = AudioKit.midi
 /// midi.openInput()
 /// midi.addListener(someClass)
 /// ```
 /// ...where someClass conforms to the AKMIDIListener protocol
 ///
 /// You then implement the methods you need from AKMIDIListener and use the data how you need.
+///
 open class AKMIDI {
 
     // MARK: - Properties
@@ -26,29 +27,29 @@ open class AKMIDI {
     /// MIDI Client Reference
     open var client = MIDIClientRef()
 
+    /// MIDI Client Name
+    internal let clientName: CFString = "MIDI Client" as CFString
+
     /// Array of MIDI In ports
-    internal var inputPorts: [String: MIDIPortRef] = [:]
+    internal var inputPorts = [MIDIUniqueID: MIDIPortRef]()
 
     /// Virtual MIDI Input destination
     open var virtualInput = MIDIPortRef()
-
-    /// MIDI Client Name
-    private let clientName: CFString = "MIDI Client" as CFString
 
     /// MIDI In Port Name
     internal let inputPortName: CFString = "MIDI In Port" as CFString
 
     /// MIDI Out Port Reference
-    internal var outputPort = MIDIPortRef()
+    public var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
     open var virtualOutput = MIDIPortRef()
 
-    /// Array of MIDI Endpoints
-    open var endpoints = [String: MIDIEndpointRef]()
-
     /// MIDI Out Port Name
     internal var outputPortName: CFString = "MIDI Out Port" as CFString
+
+    /// Array of MIDI Endpoints
+    open var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
 
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
@@ -58,21 +59,34 @@ open class AKMIDI {
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
-    public init() {
+    @objc public init() {
+        AKLog("Initializing MIDI")
 
         #if os(iOS)
-            MIDINetworkSession.default().isEnabled = true
-            MIDINetworkSession.default().connectionPolicy =
-                MIDINetworkConnectionPolicy.anyone
+        MIDINetworkSession.default().isEnabled = true
+        MIDINetworkSession.default().connectionPolicy =
+            MIDINetworkConnectionPolicy.anyone
         #endif
 
         if client == 0 {
             let result = MIDIClientCreateWithBlock(clientName, &client) {
-                guard $0.pointee.messageID == .msgSetupChanged else {
-                    return
-                }
-                for l in self.listeners {
-                    l.receivedMIDISetupChange()
+                let messageID = $0.pointee.messageID
+
+                switch messageID {
+                case .msgSetupChanged:
+                    for listener in self.listeners {
+                        listener.receivedMIDISetupChange()
+                    }
+                case .msgPropertyChanged:
+                    let rawPtr = UnsafeRawPointer($0)
+                    let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
+                    for listener in self.listeners {
+                        listener.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
+                    }
+                default:
+                    for listener in self.listeners {
+                        listener.receivedMIDINotification(notification: $0.pointee)
+                    }
                 }
             }
             if result != noErr {
@@ -81,60 +95,17 @@ open class AKMIDI {
         }
     }
 
-    // MARK: - Virtual MIDI
+    // MARK: - SYSEX
 
-    /// Create set of virtual MIDI ports
-    open func createVirtualPorts(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        destroyVirtualPorts()
-        createVirtualInputPort(uniqueID, name: name)
-        createVirtualOutputPort(uniqueID, name: name)
+    internal var isReceivingSysex: Bool = false
+    func startReceivingSysex(with midiBytes: [MIDIByte]) {
+        AKLog("Starting to receive Sysex")
+        isReceivingSysex = true
+        incomingSysex = midiBytes
     }
-
-    /// Create a virtual MIDI input port
-    open func createVirtualInputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        destroyVirtualPorts()
-        let virtualPortname = ((name != nil) ? name! : String(clientName))
-
-        let result = MIDIDestinationCreateWithBlock(client,
-                                                    virtualPortname as CFString,
-                                                    &virtualInput) { packetList, _ in
-            for packet in packetList.pointee {
-                // a Core MIDI packet may contain multiple MIDI events
-                for event in packet {
-                    self.handleMIDIMessage(event)
-                }
-            }
-        }
-
-        if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID)
-        } else {
-            AKLog("Error creatervirt dest: \(virtualPortname) -- \(virtualInput)")
-        }
+    func stopReceivingSysex() {
+        AKLog("Done receiving Sysex")
+        isReceivingSysex = false
     }
-
-    /// Create a virtual MIDI output port
-    open func createVirtualOutputPort(_ uniqueID: Int32 = 2_000_000, name: String? = nil) {
-        let virtualPortname = ((name != nil) ? name! : String(clientName))
-
-        let result = MIDISourceCreate(client, virtualPortname as CFString, &virtualOutput)
-        if result == noErr {
-            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueID + 1)
-        } else {
-            AKLog("Error creating virtual source: \(virtualPortname) -- \(virtualOutput)")
-        }
-    }
-
-    /// Discard all virtual ports
-    open func destroyVirtualPorts() {
-        if virtualInput != 0 {
-            MIDIEndpointDispose(virtualInput)
-            virtualInput = 0
-        }
-
-        if virtualOutput != 0 {
-            MIDIEndpointDispose(virtualOutput)
-            virtualOutput = 0
-        }
-    }
+    var incomingSysex = [MIDIByte]()
 }

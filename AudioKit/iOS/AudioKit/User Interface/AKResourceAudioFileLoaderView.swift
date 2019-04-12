@@ -3,8 +3,9 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
+import AudioKit
 
 /// View to choose from audio files to use in playgrounds
 @IBDesignable open class AKResourcesAudioFileLoaderView: UIView {
@@ -12,7 +13,7 @@
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKAudioPlayer?
+    var player: AKPlayer?
     var stopOuterPath = UIBezierPath()
     var playOuterPath = UIBezierPath()
     var upOuterPath = UIBezierPath()
@@ -74,11 +75,7 @@
                 player?.stop()
                 let filename = titles[currentIndex]
                 if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                    do {
-                        try player?.replace(file: file)
-                    } catch {
-                        AKLog("Could not replace file")
-                    }
+                    player?.load(audioFile: file)
                 }
                 if isPlayerPlaying { player?.play() }
                 setNeedsDisplay()
@@ -87,7 +84,7 @@
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKAudioPlayer,
+    public convenience init(player: AKPlayer,
                             filenames: [String],
                             frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.init(frame: frame)
@@ -304,9 +301,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24.0),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0),
+                                       NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(

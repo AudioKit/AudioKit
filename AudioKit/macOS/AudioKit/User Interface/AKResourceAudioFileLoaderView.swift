@@ -2,11 +2,12 @@
 //  AKResourceAudioFileLoaderView.swift
 //  AudioKit for macOS
 //
-//  Created by Aurelius Prochazka on 7/30/16.
+//  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
 
 import Cocoa
+import AudioKit
 
 public class AKResourcesAudioFileLoaderView: NSView {
 
@@ -49,7 +50,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     /// Initialize the resource loader
     public convenience init(player: AKAudioPlayer,
                             filenames: [String],
-                            frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+                            frame: CGRect = CGRect(width: 440, height: 60)) {
         self.init(frame: frame)
         self.player = player
         self.titles = filenames
@@ -58,15 +59,19 @@ public class AKResourcesAudioFileLoaderView: NSView {
     /// Handle click
     override public func mouseDown(with theEvent: NSEvent) {
         var isFileChanged = false
-        guard let isPlayerPlaying = player?.isPlaying else {
-            return
-        }
+        guard let player = player else { return }
+        let wasPlaying = player.isPlaying
+        player.stop()
+
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if stopOuterPath.contains(touchLocation) {
-            player?.stop()
+            player.stop()
+            return
         }
         if playOuterPath.contains(touchLocation) {
-            player?.play()
+            AKLog("Playing from: \(player.startTime)")
+            player.play(from: player.startTime)
+            return
         }
         if upOuterPath.contains(touchLocation) {
             currentIndex -= 1
@@ -80,16 +85,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         if currentIndex >= titles.count { currentIndex = 0 }
 
         if isFileChanged {
-            player?.stop()
+            player.stop()
             let filename = titles[currentIndex]
-            if let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) {
-                do {
-                    try player?.replace(file: file)
-                } catch {
-                    Swift.print("Could not replace file")
-                }
+            guard let file = try? AKAudioFile(readFileName: "\(filename)", baseDir: .resources) else {
+                AKLog("Unable to load file: \(filename)")
+                return
             }
-            if isPlayerPlaying { player?.play() }
+            try! player.replace(file: file)
+            if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
     }
@@ -127,7 +130,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
+        _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
         let rect = bounds
 
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
@@ -287,14 +290,14 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24.0),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24.0),
+                                       .foregroundColor: textColorForTheme,
+                                       .paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
-            with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
-            options: NSString.DrawingOptions.usesLineFragmentOrigin,
+            with: NSSize(width: nameLabelInset.width, height: .infinity),
+            options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(
             x: nameLabelInset.minX,

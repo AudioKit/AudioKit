@@ -3,32 +3,32 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 
 #import <AVFoundation/AVFoundation.h>
 
 @protocol AKKernelUnit
--(AUImplementorValueProvider)getter;
--(AUImplementorValueObserver)setter;
+-(AUImplementorValueProvider _Null_unspecified)getter;
+-(AUImplementorValueObserver _Null_unspecified)setter;
 @end
 
 @interface AKAudioUnit : AUAudioUnit<AKKernelUnit>
-@property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
-@property AUAudioUnitBusArray *outputBusArray;
-@property AVAudioFormat *defaultFormat;
+@property AUAudioUnitBus * _Nonnull outputBus;
+@property AUAudioUnitBusArray * _Nonnull inputBusArray;
+@property AUAudioUnitBusArray * _Nonnull outputBusArray;
+@property AVAudioFormat * _Nonnull defaultFormat;
 
 - (void)start;
 - (void)stop;
-- (BOOL)isPlaying;
-- (BOOL)isSetUp;
+@property (readonly) BOOL isPlaying;
+@property (readonly) BOOL isSetUp;
 
-@property double rampTime;
+@property double rampDuration;
 
--(AUImplementorValueProvider)getter;
--(AUImplementorValueObserver)setter;
+-(AUImplementorValueProvider _Null_unspecified)getter;
+-(AUImplementorValueObserver _Null_unspecified)setter;
 
 @end
 
@@ -38,54 +38,69 @@
 //@end
 
 @interface AUParameter(Ext)
--(instancetype)init:(NSString *)identifier
-               name:(NSString *)name
-            address:(AUParameterAddress)address
-                min:(AUValue)min
-                max:(AUValue)max
-               unit:(AudioUnitParameterUnit)unit;
+//-(_Nonnull instancetype)init:(NSString * _Nonnull)identifier
+//                        name:(NSString * _Nonnull)name
+//                     address:(AUParameterAddress)address
+//                         min:(AUValue)min
+//                         max:(AUValue)max
+//                        unit:(AudioUnitParameterUnit)unit
+//                       flags:(AudioUnitParameterOptions)flags;
 
-+(instancetype)parameter:(NSString *)identifier
-                    name:(NSString *)name
-                 address:(AUParameterAddress)address
-                     min:(AUValue)min
-                     max:(AUValue)max
-                    unit:(AudioUnitParameterUnit)unit;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit
+                                          flags:(AudioUnitParameterOptions)flags;
 
-+(instancetype)frequency:(NSString *)identifier
-                    name:(NSString *)name
-                 address:(AUParameterAddress)address;
++(_Nonnull instancetype)parameterWithIdentifier:(NSString * _Nonnull)identifier
+                                           name:(NSString * _Nonnull)name
+                                        address:(AUParameterAddress)address
+                                            min:(AUValue)min
+                                            max:(AUValue)max
+                                           unit:(AudioUnitParameterUnit)unit;
+//+(_Nonnull instancetype)frequency:(NSString * _Nonnull)identifier
+//                             name:(NSString * _Nonnull)name
+//                          address:(AUParameterAddress)address;
 
 @end
 
 @interface AUParameterTree(Ext)
-+(instancetype)tree:(NSArray<AUParameterNode *> *)children;
++(_Nonnull instancetype)treeWithChildren:(NSArray<AUParameter *> * _Nonnull)children;
 @end
 
-@interface AVAudioNode(Ext)
--(instancetype)initWithComponent:(AudioComponentDescription)component;
-@end
+//@interface AVAudioNode(Ext)
+//-(instancetype)initWithComponent:(AudioComponentDescription)component;
+//@end
 
 
 #define standardKernelPassthroughs() \
 - (void)start { _kernel.start(); } \
 - (void)stop { _kernel.stop(); } \
 - (BOOL)isPlaying { return _kernel.started; } \
-- (BOOL)isSetUp { return _kernel.resetted; }
+- (BOOL)isSetUp { return _kernel.resetted; } \
+- (void)setShouldBypassEffect:(BOOL)shouldBypassEffect { \
+    if (shouldBypassEffect) {\
+        _kernel.stop();\
+    } else {\
+        _kernel.start();\
+    }\
+}\
 
 #define standardSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
-                                                                        channels:AKSettings.numberOfChannels]; \
+                                                                        channels:AKSettings.channelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
     _inputBus.init(self.defaultFormat, 8); \
     self.inputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self \
                                                                 busType:AUAudioUnitBusTypeInput \
                                                                  busses:@[_inputBus.bus]];
 #define standardGeneratorSetup(str) \
-    self.rampTime = AKSettings.rampTime; \
+    self.rampDuration = AKSettings.rampDuration; \
     self.defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate \
-                                                                        channels:AKSettings.numberOfChannels]; \
+                                                                        channels:AKSettings.channelCount]; \
     _kernel.init(self.defaultFormat.channelCount, self.defaultFormat.sampleRate); \
     _outputBusBuffer.init(self.defaultFormat, 2); \
     self.outputBus = _outputBusBuffer.bus; \

@@ -16,15 +16,15 @@ delay.feedback = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 class LiveView: AKLiveViewController {
 
-    var timeSlider: AKSlider?
-    var feedbackSlider: AKSlider?
-    var lowPassCutoffFrequencySlider: AKSlider?
-    var dryWetMixSlider: AKSlider?
+    var timeSlider: AKSlider!
+    var feedbackSlider: AKSlider!
+    var lowPassCutoffFrequencySlider: AKSlider!
+    var dryWetMixSlider: AKSlider!
 
     override func viewDidLoad() {
         addTitle("Delay")

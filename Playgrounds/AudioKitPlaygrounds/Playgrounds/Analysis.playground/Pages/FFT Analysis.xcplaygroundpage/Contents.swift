@@ -2,14 +2,16 @@
 //:
 import AudioKitPlaygrounds
 import AudioKit
+import AudioKitUI
 
 let file = try AKAudioFile(readFileName: "leadloop.wav")
 
-var player = try AKAudioPlayer(file: file)
-player.looping = true
+var player = AKPlayer(audioFile: file)
+player.isLooping = true
+player.buffering = .always
 
 AudioKit.output = player
-AudioKit.start()
+try AudioKit.start()
 player.play()
 let fft = AKFFTTap(player)
 

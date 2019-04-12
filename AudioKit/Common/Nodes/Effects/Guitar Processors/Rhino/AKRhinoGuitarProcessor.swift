@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Mike Gazzaruso, revision history on Github.
-//  Copyright © 2017 Mike Gazzaruso, Devoloop Srls. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Guitar head and cab simulator.
@@ -21,27 +21,25 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var lowGainParameter: AUParameter?
     fileprivate var midGainParameter: AUParameter?
     fileprivate var highGainParameter: AUParameter?
-    //fileprivate var distTypeParameter: AUParameter?
-    fileprivate var distAmountParameter: AUParameter?
+    fileprivate var distortionParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampDuration = rampDuration
         }
     }
 
     /// Determines the amount of gain applied to the signal before processing.
     @objc open dynamic var preGain: Double = 5.0 {
         willSet {
-            if preGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        preGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.preGain = Float(newValue)
+            guard preGain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    preGainParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.preGain = Float(newValue)
             }
         }
     }
@@ -49,14 +47,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Gain applied after processing.
     @objc open dynamic var postGain: Double = 0.7 {
         willSet {
-            if postGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        postGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.postGain = Float(newValue)
+            guard postGain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    postGainParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.postGain = Float(newValue)
             }
         }
     }
@@ -64,14 +61,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amount of Low frequencies.
     @objc open dynamic var lowGain: Double = 0.0 {
         willSet {
-            if lowGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        lowGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.lowGain = Float(newValue)
+            guard lowGain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    lowGainParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.lowGain = Float(newValue)
             }
         }
     }
@@ -79,14 +75,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amount of Middle frequencies.
     @objc open dynamic var midGain: Double = 0.0 {
         willSet {
-            if midGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        midGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.midGain = Float(newValue)
+            guard midGain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    midGainParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.midGain = Float(newValue)
             }
         }
     }
@@ -94,14 +89,13 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     /// Amount of High frequencies.
     @objc open dynamic var highGain: Double = 0.0 {
         willSet {
-            if highGain != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        highGainParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.highGain = Float(newValue)
+            guard highGain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    highGainParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.highGain = Float(newValue)
             }
         }
     }
@@ -110,7 +104,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     //    open dynamic var distType: Double = 1 {
     //        willSet {
     //            if distType != newValue {
-    //                if internalAU?.isSetUp() ?? false {
+    //                if internalAU?.isSetUp == true {
     //                    if let existingToken = token {
     //                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
     //                    }
@@ -122,23 +116,22 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     //    }
 
     /// Distortion Amount
-    @objc open dynamic var distAmount: Double = 1.0 {
+    @objc open dynamic var distortion: Double = 1.0 {
         willSet {
-            if distAmount != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        distAmountParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.distAmount = Float(newValue)
+            guard distortion != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
                 }
+            } else {
+                internalAU?.distortion = Float(newValue)
             }
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -153,9 +146,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - midGain: Amount of Middle frequencies.
     ///   - highGain: Amount of High frequencies.
     ///   - distType: Distortion Type
-    ///   - distAmount: Distortion Amount
+    ///   - distortion: Distortion Amount
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         preGain: Double = 5.0,
         postGain: Double = 0.7,
@@ -163,7 +156,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         midGain: Double = 0.0,
         highGain: Double = 0.0,
         distType: Double = 1,
-        distAmount: Double = 1.0) {
+        distortion: Double = 1.0) {
 
         self.preGain = preGain
         self.postGain = postGain
@@ -171,17 +164,21 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         self.midGain = midGain
         self.highGain = highGain
         //self.distType = distType
-        self.distAmount = distAmount
+        self.distortion = distortion
 
         _Self.register()
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -195,23 +192,26 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         midGainParameter = tree["midGain"]
         highGainParameter = tree["highGain"]
         //distTypeParameter = tree["distType"]
-        distAmountParameter = tree["distAmount"]
+        distortionParameter = tree["distortion"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
-
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
             DispatchQueue.main.async {
-                if address == self?.preGainParameter?.address {
-                    self?.preGain = Double(value)
-                } else if address == self?.postGainParameter?.address {
-                    self?.postGain = Double(value)
-                } else if address == self?.lowGainParameter?.address {
-                    self?.lowGain = Double(value)
-                } else if address == self?.midGainParameter?.address {
-                    self?.midGain = Double(value)
-                } else if address == self?.highGainParameter?.address {
-                    self?.highGain = Double(value)
-                } else if address == self?.distAmountParameter?.address {
-                    self?.distAmount = Double(value)
+                if address == strongSelf.preGainParameter?.address {
+                    strongSelf.preGain = Double(value)
+                } else if address == strongSelf.postGainParameter?.address {
+                    strongSelf.postGain = Double(value)
+                } else if address == strongSelf.lowGainParameter?.address {
+                    strongSelf.lowGain = Double(value)
+                } else if address == strongSelf.midGainParameter?.address {
+                    strongSelf.midGain = Double(value)
+                } else if address == strongSelf.highGainParameter?.address {
+                    strongSelf.highGain = Double(value)
+                } else if address == strongSelf.distortionParameter?.address {
+                    strongSelf.distortion = Double(value)
                 }
             }
         })
@@ -222,7 +222,7 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.midGain = Float(midGain)
         internalAU?.highGain = Float(highGain)
         internalAU?.distType = Float(distType)
-        internalAU?.distAmount = Float(distAmount)
+        internalAU?.distortion = Float(distortion)
     }
 
     // MARK: - Control

@@ -16,7 +16,8 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-var player = try AKAudioPlayer(file: file)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let input = AKStereoOperation.input.toMono()
@@ -25,7 +26,7 @@ let sporth = "(\(input) ((0 p) 40 (_throttle f)) 1000 100 pshift) dup"
 let effect = AKOperationEffect(player, sporth: sporth, customUgens: [throttleUgen])
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

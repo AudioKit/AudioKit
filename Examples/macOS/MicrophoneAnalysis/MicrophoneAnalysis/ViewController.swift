@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MicrophoneAnalysis
 //
-//  Created by Kanstantsin Linou on 6/14/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -47,7 +47,11 @@ class ViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         AudioKit.output = silence
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setupPlot()
         Timer.scheduledTimer(timeInterval: 0.1,
                              target: self,

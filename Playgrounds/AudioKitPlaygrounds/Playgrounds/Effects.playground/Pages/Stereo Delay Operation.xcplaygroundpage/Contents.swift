@@ -8,7 +8,7 @@ let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player, numberOfChannels: 2) { _, parameters in
+let effect = AKOperationEffect(player, channelCount: 2) { _, parameters in
     let leftDelay = AKOperation.leftInput.variableDelay(time: parameters[0], feedback: parameters[1])
     let rightDelay = AKOperation.rightInput.variableDelay(time: parameters[2], feedback: parameters[3])
     return [leftDelay, rightDelay]
@@ -16,7 +16,7 @@ let effect = AKOperationEffect(player, numberOfChannels: 2) { _, parameters in
 effect.parameters = [0.2, 0.5, 0.01, 0.9]
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface
@@ -45,7 +45,7 @@ class LiveView: AKLiveViewController {
         ) { sliderValue in
             effect.parameters[2] = sliderValue
         })
-        addView(AKSlider(property: "Left Feedback", value: effect.parameters[3]) { sliderValue in
+        addView(AKSlider(property: "Right Feedback", value: effect.parameters[3]) { sliderValue in
             effect.parameters[3] = sliderValue
         })
     }

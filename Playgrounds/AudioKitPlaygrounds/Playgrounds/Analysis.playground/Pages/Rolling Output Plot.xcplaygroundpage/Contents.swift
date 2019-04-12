@@ -14,7 +14,7 @@ var variSpeed = AKVariSpeed(player)
 variSpeed.rate = 2.0
 
 AudioKit.output = variSpeed
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

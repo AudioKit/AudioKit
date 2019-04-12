@@ -7,7 +7,7 @@ import AudioKitUI
 let voc = AKVocalTract()
 
 AudioKit.output = voc
-AudioKit.start()
+try AudioKit.start()
 
 class LiveView: AKLiveViewController {
 
@@ -68,12 +68,12 @@ class LiveView: AKLiveViewController {
             voc.nasality = self.nasalitySlider.randomize()
         })
 
-        addView(AKSlider(property: "Ramp Time",
-                         value: voc.rampTime,
+        addView(AKSlider(property: "Ramp Duration",
+                         value: voc.rampDuration,
                          range: 0 ... 10,
                          format: "%0.3f s"
         ) { time in
-            voc.rampTime = time
+            voc.rampDuration = time
         })
     }
 }

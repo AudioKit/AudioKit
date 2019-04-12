@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's TimePitch Audio Unit
@@ -46,7 +46,7 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
     /// - Parameters:
     ///   - input: Input node to process
     ///   - rate: Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
-    ///   - pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
+    ///   - pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     ///   - overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
     @objc public init(
@@ -60,8 +60,9 @@ open class AKTimePitch: AKNode, AKToggleable, AKInput {
         self.overlap = overlap
 
         super.init()
-        self.avAudioNode = timePitchAU
-        AudioKit.engine.attach(self.avAudioNode)
+        avAudioUnit = timePitchAU
+        avAudioNode = timePitchAU
+        AudioKit.engine.attach(avAudioUnitOrNode)
         input?.connect(to: self)
     }
 

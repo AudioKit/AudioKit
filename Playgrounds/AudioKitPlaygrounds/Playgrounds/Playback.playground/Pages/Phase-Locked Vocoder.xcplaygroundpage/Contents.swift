@@ -1,5 +1,5 @@
 //: ## Phase-Locked Vocoder
-//: A different kind of time and pitch stretching
+//: A different kind of time and pitch stretching. It plays a spectral freeze of the current position in time.
 import AudioKitPlaygrounds
 import AudioKit
 
@@ -7,7 +7,7 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav")
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
 AudioKit.output = phaseLockedVocoder
-AudioKit.start()
+try AudioKit.start()
 phaseLockedVocoder.start()
 phaseLockedVocoder.amplitude = 1
 phaseLockedVocoder.pitchRatio = 1
@@ -19,7 +19,7 @@ import AudioKitUI
 class LiveView: AKLiveViewController {
 
     // UI Elements we'll need to be able to access
-    var playingPositionSlider: AKSlider?
+    var playingPositionSlider: AKSlider!
 
     override func viewDidLoad() {
 

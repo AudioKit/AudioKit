@@ -5,7 +5,7 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = AKOperationEffect(player) { player, _ in
@@ -15,7 +15,7 @@ let effect = AKOperationEffect(player) { player, _ in
 }
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface

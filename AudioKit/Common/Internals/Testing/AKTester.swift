@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Testing node
@@ -41,7 +41,7 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode to test
     ///   - samples: Number of samples to produce
     ///
-    public init(_ input: AKNode?, samples: Int) {
+    @objc public init(_ input: AKNode?, samples: Int) {
 
         testedNode = input as? AKToggleable
         totalSamples = samples
@@ -50,12 +50,16 @@ open class AKTester: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
-            self?.internalAU?.samples = Int32(samples)
+            input?.connect(to: strongSelf)
+            strongSelf.internalAU?.samples = Int32(samples)
         }
     }
 

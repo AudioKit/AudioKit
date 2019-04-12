@@ -5,7 +5,7 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var delays = [AKVariableDelay]()
@@ -41,7 +41,7 @@ let delayPannedRight = AKPanner(rightDelay, pan: 1)
 let mix = AKMixer(delayPannedLeft, delayPannedRight)
 
 AudioKit.output = mix
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

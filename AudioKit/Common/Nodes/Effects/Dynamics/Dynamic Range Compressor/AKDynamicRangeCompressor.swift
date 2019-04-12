@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Dynamic range compressor from Faust
@@ -19,79 +19,99 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
 
     fileprivate var ratioParameter: AUParameter?
     fileprivate var thresholdParameter: AUParameter?
-    fileprivate var attackTimeParameter: AUParameter?
-    fileprivate var releaseTimeParameter: AUParameter?
+    fileprivate var attackDurationParameter: AUParameter?
+    fileprivate var releaseDurationParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Ratio
+    public static let ratioRange = 0.01 ... 100.0
+
+    /// Lower and upper bounds for Threshold
+    public static let thresholdRange = -100.0 ... 0.0
+
+    /// Lower and upper bounds for Attack Duration
+    public static let attackDurationRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Release Duration
+    public static let releaseDurationRange = 0.0 ... 1.0
+
+    /// Initial value for Ratio
+    public static let defaultRatio = 1.0
+
+    /// Initial value for Threshold
+    public static let defaultThreshold = 0.0
+
+    /// Initial value for Attack Duration
+    public static let defaultAttackDuration = 0.1
+
+    /// Initial value for Release Duration
+    public static let defaultReleaseDuration = 0.1
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = rampTime
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Ratio to compress with, a value > 1 will compress
-    @objc open dynamic var ratio: Double = 1 {
+    @objc open dynamic var ratio: Double = defaultRatio {
         willSet {
-            if ratio != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        ratioParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.ratio = Float(newValue)
+            guard ratio != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    ratioParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.ratio, value: newValue)
         }
     }
 
     /// Threshold (in dB) 0 = max
-    @objc open dynamic var threshold: Double = 0.0 {
+    @objc open dynamic var threshold: Double = defaultThreshold {
         willSet {
-            if threshold != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        thresholdParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.threshold = Float(newValue)
+            guard threshold != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    thresholdParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.threshold, value: newValue)
         }
     }
 
-    /// Attack time
-    @objc open dynamic var attackTime: Double = 0.1 {
+    /// Attack Duration in seconds
+    @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackTime != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        attackTimeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.attackTime = Float(newValue)
+            guard attackDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
 
-    /// Release time
-    @objc open dynamic var releaseTime: Double = 0.1 {
+    /// Release Duration in seconds
+    @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseTime != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        releaseTimeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.releaseTime = Float(newValue)
+            guard releaseDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -102,30 +122,34 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     ///   - input: Input node to process
     ///   - ratio: Ratio to compress with, a value > 1 will compress
     ///   - threshold: Threshold (in dB) 0 = max
-    ///   - attackTime: Attack time
-    ///   - releaseTime: Release time
+    ///   - attackDuration: Attack duration in seconds
+    ///   - releaseDuration: Release duration in seconds
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        ratio: Double = 1,
-        threshold: Double = 0.0,
-        attackTime: Double = 0.1,
-        releaseTime: Double = 0.1) {
+        ratio: Double = defaultRatio,
+        threshold: Double = defaultThreshold,
+        attackDuration: Double = defaultAttackDuration,
+        releaseDuration: Double = defaultReleaseDuration
+        ) {
 
         self.ratio = ratio
         self.threshold = threshold
-        self.attackTime = attackTime
-        self.releaseTime = releaseTime
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
 
         _Self.register()
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -135,8 +159,8 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
 
         ratioParameter = tree["ratio"]
         thresholdParameter = tree["threshold"]
-        attackTimeParameter = tree["attackTime"]
-        releaseTimeParameter = tree["releaseTime"]
+        attackDurationParameter = tree["attackDuration"]
+        releaseDurationParameter = tree["releaseDuration"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -150,10 +174,10 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
             }
         })
 
-        internalAU?.ratio = Float(ratio)
-        internalAU?.threshold = Float(threshold)
-        internalAU?.attackTime = Float(attackTime)
-        internalAU?.releaseTime = Float(releaseTime)
+        internalAU?.setParameterImmediately(.ratio, value: ratio)
+        internalAU?.setParameterImmediately(.threshold, value: threshold)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
     }
 
     // MARK: - Control

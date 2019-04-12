@@ -14,7 +14,7 @@ wah.wah = 1
 wah.amplitude = 1
 
 AudioKit.output = wah
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

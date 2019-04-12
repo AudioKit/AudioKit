@@ -1,46 +1,54 @@
-// MARK: - Instrument Player - from Apple
+// MARK: - Instrument Player
 /*
-	This class implements a basic player for our instrument sample au,
- sending some fake MIDI events on a concurrent thread until stopped.
+ This class implements a basic player for our instrument sample au,
+ sending a whole tone scale on a concurrent thread until stopped.
  */
-import Cocoa
 import AVFoundation
+import Cocoa
 
 public class InstrumentPlayer: NSObject {
-    public var isPlaying = false
-    private var isDone = false
+    private let playingQueue = DispatchQueue(label: "InstrumentPlayer.playingQueue")
+
     private var noteBlock: AUScheduleMIDIEventBlock
 
-    internal init?(audioUnit: AUAudioUnit?) {
-        guard audioUnit != nil else { return nil }
-        guard let theNoteBlock = audioUnit!.scheduleMIDIEventBlock else { return nil }
+    private var _isPlaying: Bool = false
 
-        noteBlock = theNoteBlock
+    public var isPlaying: Bool {
+        get {
+            var result = false
+            playingQueue.sync {
+                result = self._isPlaying
+            }
+            return result
+        }
+
+        set {
+            self.playingQueue.sync {
+                self._isPlaying = newValue
+            }
+        }
+    }
+
+    internal init?(audioUnit: AUAudioUnit?) {
+        guard let audioUnit = audioUnit else { return nil }
+        guard let theNoteBlock = audioUnit.scheduleMIDIEventBlock else { return nil }
+
+        self.noteBlock = theNoteBlock
         super.init()
     }
 
     internal func play() {
-        if (false == isPlaying) {
-            isDone = false
-            scheduleInstrumentLoop()
+        if !self.isPlaying {
+            self.scheduleInstrumentLoop()
         }
     }
 
-    @discardableResult
-    internal func stop() -> Bool {
+    func stop() {
         self.isPlaying = false
-        synced(self.isDone as AnyObject) {}
-        return isDone
-    }
-
-    private func synced(_ lock: AnyObject, closure: () -> Void) {
-        objc_sync_enter(lock)
-        closure()
-        objc_sync_exit(lock)
     }
 
     private func scheduleInstrumentLoop() {
-        isPlaying = true
+        self.isPlaying = true
 
         let cbytes = UnsafeMutablePointer<UInt8>.allocate(capacity: 3)
 
@@ -51,44 +59,39 @@ public class InstrumentPlayer: NSObject {
             self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
 
             usleep(useconds_t(0.1 * 1e6))
-
             var releaseTime: Float = 0.05
-
             usleep(useconds_t(0.1 * 1e6))
 
             var i = 0
-            self.synced(self.isDone as AnyObject) {
-                while self.isPlaying {
-                    // lengthen the releaseTime by 5% each time up to 10 seconds.
-                    if releaseTime < 10.0 {
-                        releaseTime = min(releaseTime * 1.05, 10.0)
-                    }
+            while self.isPlaying {
+                // lengthen the releaseTime by 5% each time up to 10 seconds.
+                if releaseTime < 10.0 {
+                    releaseTime = min(releaseTime * 1.05, 10.0)
+                }
 
-                    cbytes[0] = 0x90
-                    cbytes[1] = UInt8(60 + i)
-                    cbytes[2] = 64
-                    self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
-
-                    usleep(useconds_t(0.2 * 1e6))
-
-                    cbytes[2] = 0    // note off
-                    self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
-
-                    i += 2
-                    if i >= 24 {
-                        i = -12
-                    }
-                } // while isPlaying
-
-                cbytes[0] = 0xB0
-                cbytes[1] = 123
-                cbytes[2] = 0
+                cbytes[0] = 0x90
+                cbytes[1] = UInt8(60 + i)
+                cbytes[2] = 64
                 self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
 
-                cbytes.deallocate(capacity: 3)
+                usleep(useconds_t(0.2 * 1e6))
 
-                self.isDone = true
-            } // synced
+                cbytes[2] = 0 // note off
+                self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
+
+                i += 2
+                if i >= 24 {
+                    i = -12
+                }
+            } // while isPlaying
+
+            cbytes[0] = 0xB0
+            cbytes[1] = 123
+            cbytes[2] = 0
+            self.noteBlock(AUEventSampleTimeImmediate, 0, 3, cbytes)
+
+            cbytes.deallocate()
+
         } // dispached
     } // scheduleInstrumentLoop
 }

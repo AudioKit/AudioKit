@@ -23,7 +23,7 @@ let filterSectionEffect = AKOperationEffect(player) { player, _ in
                                    resonance: resonance)
 }
 AudioKit.output = filterSectionEffect
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

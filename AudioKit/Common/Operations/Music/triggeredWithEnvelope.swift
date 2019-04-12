@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKOperation {
@@ -12,9 +12,9 @@ extension AKOperation {
     ///
     /// - Parameters:
     ///   - trigger: A triggering operation such as a metronome
-    ///   - attack: Attack time, in seconds. (Default: 0.1)
-    ///   - hold: Hold time, in seconds. (Default: 0.3)
-    ///   - release: Release time, in seconds. (Default: 0.2)
+    ///   - attack: Attack duration, in seconds. (Default: 0.1)
+    ///   - hold: Hold duration, in seconds. (Default: 0.3)
+    ///   - release: Release duration, in seconds. (Default: 0.2)
     ///
     public func triggeredWithEnvelope(
         trigger: AKParameter,

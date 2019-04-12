@@ -54,7 +54,7 @@ let synth = AKOperationGenerator { _ in
 }
 
 AudioKit.output = synth
-AudioKit.start()
+try AudioKit.start()
 synth.parameters = [0, 1_000, 0] // Initialize the array
 synth.start()
 

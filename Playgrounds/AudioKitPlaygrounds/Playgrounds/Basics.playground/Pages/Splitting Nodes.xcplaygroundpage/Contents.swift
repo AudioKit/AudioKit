@@ -29,7 +29,7 @@ delay.dryWetMix = 1
 let mixer = AKMixer(player, delay)
 
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import PlaygroundSupport

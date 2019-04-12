@@ -2,21 +2,24 @@
 //  Conductor.swift
 //  Drums
 //
-//  Created by Aurelius Prochazka on 8/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
 
 class Conductor {
     static let sharedInstance = Conductor()
-    let drums = AKSampler()
+    let drums = AKAppleSampler()
 
     init() {
 
         AudioKit.output = drums
-        AudioKit.start()
-
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         do {
             let bassDrumFile = try AKAudioFile(readFileName: "Samples/Drums/bass_drum_C1.wav")
             let clapFile = try AKAudioFile(readFileName: "Samples/Drums/clap_D#1.wav")

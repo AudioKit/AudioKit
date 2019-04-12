@@ -12,7 +12,7 @@ var toneFilter = AKToneFilter(player)
 var toneComplement = AKToneComplementFilter(toneFilter)
 
 AudioKit.output = toneComplement
-AudioKit.start()
+try AudioKit.start()
 
 player.play()
 

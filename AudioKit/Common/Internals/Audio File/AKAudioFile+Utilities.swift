@@ -2,10 +2,8 @@
 //  AKAudioFile+Utilities.swift
 //  AudioKit
 //
-//  Created by Laurent Veliscek on 7/4/16.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
-//
-//
+//  Created by Laurent Veliscek, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKAudioFile {
@@ -40,4 +38,7 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: silentFile.url)
     }
 
+    static public func findPeak(pcmBuffer: AVAudioPCMBuffer) -> Double {
+        return pcmBuffer.peakTime()
+    }
 }

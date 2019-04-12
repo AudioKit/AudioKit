@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// This will digitally degrade a signal.
@@ -20,45 +20,56 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var bitDepthParameter: AUParameter?
     fileprivate var sampleRateParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Bit Depth
+    public static let bitDepthRange = 1.0 ... 24.0
+
+    /// Lower and upper bounds for Sample Rate
+    public static let sampleRateRange = 0.0 ... 20_000.0
+
+    /// Initial value for Bit Depth
+    public static let defaultBitDepth = 8.0
+
+    /// Initial value for Sample Rate
+    public static let defaultSampleRate = 10_000.0
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    @objc open dynamic var bitDepth: Double = 8 {
+    @objc open dynamic var bitDepth: Double = defaultBitDepth {
         willSet {
-            if bitDepth != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bitDepth = Float(newValue)
+            guard bitDepth != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.bitDepth, value: newValue)
         }
     }
+
     /// The sample rate of signal output.
-    @objc open dynamic var sampleRate: Double = 10_000 {
+    @objc open dynamic var sampleRate: Double = defaultSampleRate {
         willSet {
-            if sampleRate != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.sampleRate = Float(newValue)
+            guard sampleRate != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.sampleRate, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -70,10 +81,11 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     ///   - sampleRate: The sample rate of signal output.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        bitDepth: Double = 8,
-        sampleRate: Double = 10_000) {
+        bitDepth: Double = defaultBitDepth,
+        sampleRate: Double = defaultSampleRate
+        ) {
 
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
@@ -81,13 +93,15 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
         _Self.register()
 
         super.init()
-
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -110,8 +124,8 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.bitDepth = Float(bitDepth)
-        internalAU?.sampleRate = Float(sampleRate)
+        internalAU?.setParameterImmediately(.bitDepth, value: bitDepth)
+        internalAU?.setParameterImmediately(.sampleRate, value: sampleRate)
     }
 
     // MARK: - Control

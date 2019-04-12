@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  Drums
 //
-//  Created by Aurelius Prochazka on 8/13/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -34,28 +34,28 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         drumPad11.callback = { button in
-            self.conductor.drums.play(noteNumber: 36 - 12)
+            try? self.conductor.drums.play(noteNumber: 36 - 12)
         }
         drumPad12.callback = { button in
-            self.conductor.drums.play(noteNumber: 38 - 12)
+            try? self.conductor.drums.play(noteNumber: 38 - 12)
         }
         drumPad13.callback = { button in
-            self.conductor.drums.play(noteNumber: 42 - 12)
+            try? self.conductor.drums.play(noteNumber: 42 - 12)
         }
         drumPad14.callback = { button in
-            self.conductor.drums.play(noteNumber: 46 - 12)
+            try? self.conductor.drums.play(noteNumber: 46 - 12)
         }
         drumPad21.callback = { button in
-            self.conductor.drums.play(noteNumber: 41 - 12)
+            try? self.conductor.drums.play(noteNumber: 41 - 12)
         }
         drumPad22.callback = { button in
-            self.conductor.drums.play(noteNumber: 47 - 12)
+            try? self.conductor.drums.play(noteNumber: 47 - 12)
         }
         drumPad23.callback = { button in
-            self.conductor.drums.play(noteNumber: 50 - 12)
+            try? self.conductor.drums.play(noteNumber: 50 - 12)
         }
         drumPad24.callback = { button in
-            self.conductor.drums.play(noteNumber: 39 - 12)
+            try? self.conductor.drums.play(noteNumber: 39 - 12)
         }
     }
 

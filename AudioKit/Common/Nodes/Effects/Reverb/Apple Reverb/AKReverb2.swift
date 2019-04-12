@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
@@ -163,7 +163,7 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
     ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
         dryWetMix: Double = 0.5,
         gain: Double = 0,
@@ -184,8 +184,8 @@ open class AKReverb2: AKNode, AKToggleable, AKInput {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
 
             super.init()
-            self.avAudioNode = internalEffect
-            AudioKit.engine.attach(self.avAudioNode)
+            avAudioUnit = internalEffect
+            AudioKit.engine.attach(avAudioUnitOrNode)
             input?.connect(to: self)
             internalAU = internalEffect.audioUnit
 

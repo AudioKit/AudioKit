@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# Process the framework to copy symbol maps to the archive, remove simulator slices and remove extra data from the frameworks themselves
+# Process the dynamic framework to copy symbol maps to the archive, remove simulator slices and remove extra data from the frameworks themselves
+# Note: this script is not necessary for static frameworks
 #
 
 cd "$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH"

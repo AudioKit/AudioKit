@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MIDIUtility
 //
-//  Created by Aurelius Prochazka on 1/29/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -11,8 +11,8 @@ import UIKit
 
 class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet private var outputTextView: UITextView!
-    var midi = AKMIDI()
-    var senderVC:MIDISenderVC?
+    var midi = AudioKit.midi
+    var senderVC: MIDISenderVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()

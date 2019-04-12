@@ -3,8 +3,9 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
+#pragma once
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
@@ -18,6 +19,15 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
+#import "AKAudioUnitBase.h"
+#import "AKGeneratorAudioUnitBase.h"
+#import "AKSoundpipeDSPBase.hpp"
+#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
+#import "AKSoundpipeKernel.hpp"
+#import "AKBankDSPKernel.hpp"
+#import "ExceptionCatcher.h"
+
 // Analysis
 #import "AKAmplitudeTrackerAudioUnit.h"
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -30,102 +40,121 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSporthStack.h"
 
 // Effects / Delay
-#import "AKVariableDelayAudioUnit.h"
+#import "AKVariableDelayDSP.hpp"
+#import "AKStereoDelayDSP.hpp"
 
 // Effects / Distortion
-#import "AKBitCrusherAudioUnit.h"
-#import "AKClipperAudioUnit.h"
-#import "AKTanhDistortionAudioUnit.h"
+#import "AKBitCrusherDSP.hpp"
+#import "AKClipperDSP.hpp"
+#import "AKTanhDistortionDSP.hpp"
 
 // Effects / Dynamics
-#import "AKDynamicRangeCompressorAudioUnit.h"
-#import "AKDynaRageCompressorAudioUnit.h"
+#import "AKDynamicRangeCompressorDSP.hpp"
 
 // Effects / Envelopes
-#import "AKAmplitudeEnvelopeAudioUnit.h"
-#import "AKTremoloAudioUnit.h"
+#import "AKAmplitudeEnvelopeDSP.hpp"
+#import "AKTremoloDSP.hpp"
 
-// Efffects / Filters
-#import "AKAutoWahAudioUnit.h"
-#import "AKBandPassButterworthFilterAudioUnit.h"
-#import "AKBandRejectButterworthFilterAudioUnit.h"
-#import "AKCombFilterReverbAudioUnit.h"
-#import "AKDCBlockAudioUnit.h"
-#import "AKEqualizerFilterAudioUnit.h"
-#import "AKHighPassButterworthFilterAudioUnit.h"
-#import "AKHighShelfParametricEqualizerFilterAudioUnit.h"
-#import "AKKorgLowPassFilterAudioUnit.h"
-#import "AKLowPassButterworthFilterAudioUnit.h"
-#import "AKLowShelfParametricEqualizerFilterAudioUnit.h"
-#import "AKModalResonanceFilterAudioUnit.h"
-#import "AKMoogLadderAudioUnit.h"
-#import "AKPeakingParametricEqualizerFilterAudioUnit.h"
-#import "AKFormantFilterAudioUnit.h"
-#import "AKResonantFilterAudioUnit.h"
-#import "AKRolandTB303FilterAudioUnit.h"
-#import "AKStringResonatorAudioUnit.h"
-#import "AKThreePoleLowpassFilterAudioUnit.h"
-#import "AKToneComplementFilterAudioUnit.h"
-#import "AKToneFilterAudioUnit.h"
+// Effects / Filters
+#import "AKAutoWahDSP.hpp"
+#import "AKBandPassButterworthFilterDSP.hpp"
+#import "AKBandRejectButterworthFilterDSP.hpp"
+#import "AKDCBlockDSP.hpp"
+#import "AKEqualizerFilterDSP.hpp"
+#import "AKFormantFilterDSP.hpp"
+#import "AKHighPassButterworthFilterDSP.hpp"
+#import "AKHighShelfParametricEqualizerFilterDSP.hpp"
+#import "AKKorgLowPassFilterDSP.hpp"
+#import "AKLowPassButterworthFilterDSP.hpp"
+#import "AKLowShelfParametricEqualizerFilterDSP.hpp"
+#import "AKModalResonanceFilterDSP.hpp"
+#import "AKMoogLadderDSP.hpp"
+#import "AKPeakingParametricEqualizerFilterDSP.hpp"
+#import "AKResonantFilterDSP.hpp"
+#import "AKRolandTB303FilterDSP.hpp"
+#import "AKStringResonatorDSP.hpp"
+#import "AKThreePoleLowpassFilterDSP.hpp"
+#import "AKToneComplementFilterDSP.hpp"
+#import "AKToneFilterDSP.hpp"
 
 // Effects / Guitar Processors
+#import "AKDynaRageCompressorAudioUnit.h"
+#import "AKDynaRageCompressorDSPKernel.hpp"
 #import "AKRhinoGuitarProcessorAudioUnit.h"
+#import "AKRhinoGuitarProcessorDSPKernel.hpp"
 
-// Effects / Phaser
-#import "AKPhaserAudioUnit.h"
+// Effects / Modulation
+#import "AKModulatedDelay_Typedefs.h"
+#import "AKModulatedDelay.hpp"
+#import "AKModulatedDelayDSP.hpp"
+#import "AKPhaserDSP.hpp"
 
 // Effects / Pitch Shifter
-#import "AKPitchShifterAudioUnit.h"
+#import "AKPitchShifterDSP.hpp"
 
 // Effects / Reverb
-#import "AKChowningReverbAudioUnit.h"
-#import "AKConvolutionAudioUnit.h"
-#import "AKCostelloReverbAudioUnit.h"
-#import "AKFlatFrequencyResponseReverbAudioUnit.h"
-#import "AKZitaReverbAudioUnit.h"
+#import "AKChowningReverbDSP.hpp"
+#import "AKCombFilterReverbDSP.hpp"
+#import "AKConvolutionDSP.hpp"
+#import "AKCostelloReverbDSP.hpp"
+#import "AKFlatFrequencyResponseReverbDSP.hpp"
+#import "AKZitaReverbDSP.hpp"
 
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
 
 // Generators / Noise
-#import "AKBrownianNoiseAudioUnit.h"
-#import "AKPinkNoiseAudioUnit.h"
-#import "AKWhiteNoiseAudioUnit.h"
+#import "AKBrownianNoiseDSP.hpp"
+#import "AKPinkNoiseDSP.hpp"
+#import "AKWhiteNoiseDSP.hpp"
 
 // Generators / Oscillators
-#import "AKFMOscillatorAudioUnit.h"
-#import "AKFMOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorAudioUnit.h"
-#import "AKMorphingOscillatorBankAudioUnit.h"
-#import "AKOscillatorAudioUnit.h"
-#import "AKOscillatorBankAudioUnit.h"
-#import "AKPhaseDistortionOscillatorAudioUnit.h"
-#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
-#import "AKPWMOscillatorAudioUnit.h"
-#import "AKPWMOscillatorBankAudioUnit.h"
+#import "AKFMOscillatorDSP.hpp"
+#import "AKMorphingOscillatorDSP.hpp"
+#import "AKOscillatorDSP.hpp"
+#import "AKPhaseDistortionOscillatorDSP.hpp"
+#import "AKPWMOscillatorDSP.hpp"
 
 // Generators / Physical Models
-#import "AKClarinetAudioUnit.h"
-#import "AKDripAudioUnit.h"
-#import "AKFluteAudioUnit.h"
+#import "AKClarinetDSP.hpp"
+#import "AKDripDSP.hpp"
+#import "AKFluteDSP.hpp"
 #import "AKMandolinAudioUnit.h"
-#import "AKMetalBarAudioUnit.h"
-#import "AKPluckedStringAudioUnit.h"
-#import "AKRhodesPianoAudioUnit.h"
-#import "AKShakerAudioUnit.h"
-#import "AKTubularBellsAudioUnit.h"
-#import "AKVocalTractAudioUnit.h"
+#import "AKMetalBarDSP.hpp"
+#import "AKRhodesPianoDSP.hpp"
+#import "AKPluckedStringDSP.hpp"
+#import "AKShakerDSP.hpp"
+#import "AKTubularBellsDSP.hpp"
+#import "AKVocalTractDSP.hpp"
+
+// Generators / Polysynths
+#import "AKFMOscillatorBankAudioUnit.h"
+#import "AKMorphingOscillatorBankAudioUnit.h"
+#import "AKOscillatorBankAudioUnit.h"
+#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
+#import "AKPWMOscillatorBankAudioUnit.h"
+#import "AKSynthDSP.hpp"
 
 // Mixing
+#import "AKAutoPannerDSP.hpp"
 #import "AKBalancerAudioUnit.h"
-#import "AKBoosterAudioUnit.h"
-#import "AKPannerAudioUnit.h"
-#import "AKStereoFieldLimiterAudioUnit.h"
+#import "AKBoosterDSP.hpp"
+#import "AKPannerDSP.hpp"
+#import "AKStereoFieldLimiterDSP.hpp"
 
 // Playback
-#import "AKPhaseLockedVocoderAudioUnit.h"
-#import "AKSamplePlayerAudioUnit.h"
+#import "AKPhaseLockedVocoderDSP.hpp"
+#import "AKWaveTableAudioUnit.h"
+#import "AKDiskStreamerAudioUnit.h"
 #import "AKPresetManager.h"
+#import "AKSampler_Typedefs.h"
+#import "AKCoreSampler.hpp"
+#import "AKCoreSynth.hpp"
+#import "AKSamplerDSP.hpp"
+
+#if !TARGET_OS_TV
+#import "AKCallbackInstrumentAudioUnit.h"
+#endif
 
 // Testing
 #import "AKTesterAudioUnit.h"
@@ -145,15 +174,14 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "TPCircularBuffer.h"
 #import "TPCircularBuffer+Unit.h"
 #import "TPCircularBuffer+AudioBufferList.h"
+#import "ParameterRamper.hpp"
+#import "BufferedAudioBus.hpp"
 #import "AKTimeline.h"
+#import "AudioEngineUnit.h"
 
 // Sequencer
 #import "AKSamplerMetronome.h"
 
-#ifdef JAZZY_HACK
-// Hack to get jazzy to see the UI classes, please ignore
-#import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
-#import "EZAudioPlot.h"
-#import "EZAudioPlotGL.h"
-#endif
+// Swift/ObjC/C/C++ Inter-operability
+#import "AKInterop.h"
+

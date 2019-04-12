@@ -2,7 +2,7 @@
 //  Constants.swift
 //  DropDown
 //
-//  Created by Kevin Hirsch on 28/07/15.
+//  Created by Kevin Hirsch, revision history on Githbub.
 //  Copyright (c) 2015 Kevin Hirsch. All rights reserved.
 //
 
@@ -47,8 +47,8 @@ internal struct DPDConstant {
 	internal struct Animation {
 
 		static let Duration = 0.15
-		static let EntranceOptions: UIViewAnimationOptions = [.allowUserInteraction, .curveEaseOut]
-		static let ExitOptions: UIViewAnimationOptions = [.allowUserInteraction, .curveEaseIn]
+		static let EntranceOptions: UIView.AnimationOptions = [.allowUserInteraction, .curveEaseOut]
+		static let ExitOptions: UIView.AnimationOptions = [.allowUserInteraction, .curveEaseIn]
 		static let DownScaleTransform = CGAffineTransform(scaleX: 0.9, y: 0.9)
 
 	}

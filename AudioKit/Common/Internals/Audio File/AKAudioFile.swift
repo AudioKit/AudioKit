@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Adding description property
@@ -22,12 +22,14 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             return "PCMFormatInt16"
         case .pcmFormatInt32:
             return "PCMFormatInt32"
+        @unknown default:
+            fatalError("Unknown Type")
         }
     }
 }
 
 /// Helpful additions for using AVAudioFiles within AudioKit
-extension AVAudioFile {
+@objc extension AVAudioFile {
 
     // MARK: - Public Properties
 
@@ -154,11 +156,11 @@ extension AVAudioFile {
                 }
             }
 
-            AKLog("\(deletedFilesCount) files deleted")
+            AKLog(deletedFilesCount, "files deleted")
 
         } catch let error as NSError {
             AKLog("Couldn't access Temp Directory")
-            AKLog("Error: \(error)")
+            AKLog("Error:", error)
         }
     }
 
@@ -214,10 +216,15 @@ extension AVAudioFile {
         AVURLAsset(url: URL(fileURLWithPath: self.url.path))
     }()
 
+    // MARK: - open vars
+
     /// Returns an AVAsset from the AKAudioFile
     open var avAsset: AVURLAsset {
         return internalAVAsset
     }
+
+    /// will have a reference to the current export session when exporting async
+    open var currentExportSession: AVAssetExportSession?
 
     // Make our types Human Friendly™
     public typealias FloatChannelData = [[Float]]
@@ -267,7 +274,6 @@ extension AVAudioFile {
 
     }()
 
-    ///
     /// returns the peak level expressed in dB ( -> Float).
     open lazy var maxLevel: Float = {
         var maxLev: Float = 0
@@ -341,7 +347,7 @@ extension AVAudioFile {
     /// - returns: An initialized AKAudioFile for writing, or nil if init failed.
     ///
     public override init(forWriting fileURL: URL,
-                         settings: [String : Any],
+                         settings: [String: Any],
                          commonFormat format: AVAudioCommonFormat,
                          interleaved: Bool) throws {
         try super.init(forWriting: fileURL,

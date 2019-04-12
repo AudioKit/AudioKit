@@ -2,8 +2,8 @@
 //  AKMIDITransformer.swift
 //  AudioKit
 //
-//  Created by Eric George on 7/5/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Eric George, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 public protocol AKMIDITransformer {
@@ -16,4 +16,12 @@ public extension AKMIDITransformer {
         AKLog("MIDI Transformer called")
         return eventList
     }
+
+    func isEqualTo(_ transformer: AKMIDITransformer) -> Bool {
+        return self == transformer
+    }
+}
+
+func == (lhs: AKMIDITransformer, rhs: AKMIDITransformer) -> Bool {
+    return lhs.isEqualTo(rhs)
 }

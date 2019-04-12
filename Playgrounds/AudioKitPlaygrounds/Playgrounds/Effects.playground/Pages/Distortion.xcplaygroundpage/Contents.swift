@@ -21,7 +21,7 @@ distortion.softClipGain = -6
 distortion.finalMix = 0.5
 
 AudioKit.output = AKBooster(distortion, gain: 0.1)
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up
@@ -29,15 +29,15 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var delaySlider: AKSlider?
-    var decaySlider: AKSlider?
-    var delayMixSlider: AKSlider?
-    var linearTermSlider: AKSlider?
-    var squaredTermSlider: AKSlider?
-    var cubicTermSlider: AKSlider?
-    var polynomialMixSlider: AKSlider?
-    var softClipGainSlider: AKSlider?
-    var finalMixSlider: AKSlider?
+    var delaySlider: AKSlider!
+    var decaySlider: AKSlider!
+    var delayMixSlider: AKSlider!
+    var linearTermSlider: AKSlider!
+    var squaredTermSlider: AKSlider!
+    var cubicTermSlider: AKSlider!
+    var polynomialMixSlider: AKSlider!
+    var softClipGainSlider: AKSlider!
+    var finalMixSlider: AKSlider!
 
     override func viewDidLoad() {
         addTitle("Distortion")

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1845px" height="643px" viewBox="0 0 1845 643" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>CoreMIDI Design</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Core-MIDI-Design" sketch:type="MSLayerGroup">
+            <path d="M0,0 L2268,0 L2268,1106 L0,1106 L0,0 Z" id="Fill-1" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M0,0 L2268,0 L2268,1106 L0,1106 L0,0 Z" id="Fill-2" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M234,216 L855,216 L855,297 L234,297 L234,216 Z" id="Fill-3" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M234,216 L855,216 L855,297 L234,297 L234,216 Z" id="Stroke-4" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIClientRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="495.02" y="232.360107">MIDIClientRef</tspan>
+            </text>
+            <path d="M963,216 L1791,216 L1791,342 L963,342 L963,216 Z" id="Fill-5" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M963,216 L1791,216 L1791,342 L963,342 L963,216 Z" id="Stroke-6" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIDeviceRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1323.816" y="232.360107">MIDIDeviceRef</tspan>
+            </text>
+            <path d="M963,252 L1341,252 L1341,333 L963,333 L963,252 Z" id="Fill-7" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M963,252 L1341,252 L1341,333 L963,333 L963,252 Z" id="Stroke-8" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1102.96" y="268.360107">MIDIEntityRef</tspan>
+            </text>
+            <path d="M1011.255,288 L1157.704,288 L1157.704,324 L1011.255,324 L1011.255,288 Z" id="Fill-9" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1011.255,288 L1157.704,288 L1157.704,324 L1011.255,324 L1011.255,288 Z" id="Stroke-10" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1023.4319" y="308.136107">MIDIEndpointRef</tspan>
+            </text>
+            <text id="source" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="1009.1815" y="282.210067">sou</tspan>
+                <tspan x="1025.4815" y="282.210067" letter-spacing="-0.18">r</tspan>
+                <tspan x="1028.4515" y="282.210067">ce</tspan>
+            </text>
+            <text id="destination" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="1250.6985" y="282.710067">destination</tspan>
+            </text>
+            <path d="M1157.705,288 L1304.341,288 L1304.341,324 L1157.705,324 L1157.705,288 Z" id="Fill-11" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1157.705,288 L1304.341,288 L1304.341,324 L1157.705,324 L1157.705,288 Z" id="Stroke-12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1169.9747" y="308.136107">MIDIEndpointRef</tspan>
+            </text>
+            <path d="M1712.02,252 L1791,252 L1791,333 L1712.02,333 L1712.02,252 Z" id="Fill-13" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1712.02,252 L1791,252 L1791,333 L1712.02,333 L1712.02,252 Z" id="Stroke-14" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="–" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1743.5103" y="294.636107">–</tspan>
+            </text>
+            <path d="M1341,252 L1712.204,252 L1712.204,333 L1341,333 L1341,252 Z" id="Fill-15" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1341,252 L1712.204,252 L1712.204,333 L1341,333 L1341,252 Z" id="Stroke-16" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1477.562" y="268.360107">MIDIEntityRef</tspan>
+            </text>
+            <path d="M1377,288 L1532.204,288 L1532.204,324 L1377,324 L1377,288 Z" id="Fill-17" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1377,288 L1532.204,288 L1532.204,324 L1377,324 L1377,288 Z" id="Stroke-18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1393.5541" y="308.136107">MIDIEndpointRef</tspan>
+            </text>
+            <text id="source" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="1382.3219" y="281.672967">sou</tspan>
+                <tspan x="1398.6219" y="281.672967" letter-spacing="-0.18">r</tspan>
+                <tspan x="1401.5919" y="281.672967">ce</tspan>
+            </text>
+            <text id="destination" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="1646.1249" y="282.709967">destination</tspan>
+            </text>
+            <path d="M1532.204,288 L1701,288 L1701,324 L1532.204,324 L1532.204,288 Z" id="Fill-19" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M1532.204,288 L1701,288 L1701,324 L1532.204,324 L1532.204,288 Z" id="Stroke-20" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="1555.5541" y="308.136107">MIDIEndpointRef</tspan>
+            </text>
+            <path d="M1347.102,247.086 L1450.102,247.086 L1450.102,257.086 L1347.102,257.086 L1347.102,247.086 Z" id="Fill-21" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityGetDevice" sketch:type="MSTextLayer" font-family="Menlo" font-size="9" font-weight="normal" fill="#000000">
+                <tspan x="1346.6019" y="252.609837">MIDIEntityGetDevice</tspan>
+            </text>
+            <path d="M1482.333,286.073 L1596.333,286.073 L1596.333,296.073 L1482.333,296.073 L1482.333,286.073 Z" id="Fill-22" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointGetEntity" sketch:type="MSTextLayer" font-family="Menlo" font-size="9" font-weight="normal" fill="#000000">
+                <tspan x="1482.3333" y="291.596037">MIDIEndpointGetEntity</tspan>
+            </text>
+            <path d="M432,252 L558,252 L558,288 L432,288 L432,252 Z" id="Fill-23" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M432,252 L558,252 L558,288 L432,288 L432,252 Z" id="Stroke-24" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIPortRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="451.152" y="272.136107">MIDIPortRef</tspan>
+            </text>
+            <path d="M234,252 L360,252 L360,288 L234,288 L234,252 Z" id="Fill-25" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M234,252 L360,252 L360,288 L234,288 L234,252 Z" id="Stroke-26" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIPortRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="253.152" y="272.136107">MIDIPortRef</tspan>
+            </text>
+            <path d="M360,252 L432,252 L432,288 L360,288 L360,252 Z" id="Fill-27" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M360,252 L432,252 L432,288 L360,288 L360,252 Z" id="Stroke-28" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="–" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="388" y="272.136107">–</tspan>
+            </text>
+            <path d="M72,144 L216,144 L216,180 L72,180 L72,144 Z" id="Fill-29" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M72,144 L216,144 L216,180 L72,180 L72,144 Z" id="Stroke-30" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIObjectRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="91.4" y="164.136107">MIDIObjectRef</tspan>
+            </text>
+            <path d="M72,216 L216,216 L216,252 L72,252 L72,216 Z" id="Fill-31" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M72,216 L216,216 L216,252 L72,252 L72,216 Z" id="Stroke-32" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDISetupRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="93.92" y="236.136107">MIDISetupRef</tspan>
+            </text>
+            <path d="M144,216 L144,180" id="Stroke-33" stroke="#C00D23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M72,72 L216,72 L216,108 L72,108 L72,72 Z" id="Fill-34" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M72,72 L216,72 L216,108 L72,108 L72,72 Z" id="Stroke-35" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="UInt32" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="120.288" y="92.1361074">UInt32</tspan>
+            </text>
+            <path d="M144,144 L144,108 M544.5,216 L544.5,198 L144,198 L144,180 L144,198 L467.734,198 L467.734,252 M144,180 L144,198 L1377,198 L1377,216" id="Stroke-36" stroke="#C00D23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M239,35 L405,35 L405,48 L239,48 L239,35 Z" id="Fill-37" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIClientCreateWithBlock" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="238.9999" y="42.6953125">MIDIClientCreateWithBlock</tspan>
+            </text>
+            <path d="M239.5,59 L352.5,59 L352.5,72 L239.5,72 L239.5,59 Z" id="Fill-38" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIClientDispose" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="238.9999" y="66.6953125">MIDIClientDispose</tspan>
+            </text>
+            <path d="M239.484,89 L365.484,89 L365.484,102 L239.484,102 L239.484,89 Z" id="Fill-39" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIInputPortCreate" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="239.4843" y="96.6954125">MIDIInputPortCreate</tspan>
+            </text>
+            <path d="M239,113 L424,113 L424,126 L239,126 L239,113 Z" id="Fill-40" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIInputPortCreateWithBlock" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="238.9999" y="120.695412">MIDIInputPortCreateWithBlock</tspan>
+            </text>
+            <path d="M510.5,89 L642.5,89 L642.5,102 L510.5,102 L510.5,89 Z" id="Fill-41" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIOutputPortCreate" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="510" y="96.6954125">MIDIOutputPortCreate</tspan>
+            </text>
+            <path d="M356,344.065 L455,344.065 L455,357.065 L356,357.065 L356,344.065 Z" id="Fill-42" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIPortDispose" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="355.9999" y="351.760412">MIDIPortDispose</tspan>
+            </text>
+            <path d="M575,462 L714,462 L714,475 L575,475 L575,462 Z" id="Fill-43" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIPortConnectSource" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="574.9999" y="469.695312">MIDIPortConnectSource</tspan>
+            </text>
+            <path d="M1084.48,324 L1084.48,469 L735.9,469" id="Stroke-44" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M724.7,469 L735.9,473.2 L735.9,464.8 L724.7,469 Z" id="Fill-45" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M724.7,469 L735.9,473.2 L735.9,464.8 L724.7,469 Z" id="Stroke-46" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M570,469 L297,469 L297,288 L297,307.9 L297,303.9" id="Stroke-47" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M297,292.7 L292.8,303.9 L301.2,303.9 L297,292.7 Z" id="Fill-48" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M297,292.7 L292.8,303.9 L301.2,303.9 L297,292.7 Z" id="Stroke-49" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M357,66 L664.959,66 L664.959,216 L664.959,207 L664.959,216 M410,42 L664.959,42 L664.959,216 L664.959,207 L664.959,216" id="Stroke-50" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="input-portsoutput-ports" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="239.3249" y="246.710067">input port</tspan>
+                <tspan x="282.6749" y="246.710067" letter-spacing="209.815">s</tspan>
+                <tspan x="497.4899" y="246.710067">output ports</tspan>
+            </text>
+            <path d="M370.484,96 L452,96 L452,162 L297,162 L297,252 M430,120 L452,120 L452,162 L297,162 L297,252 M351,351.065 L328.5,351.065 L328.5,288 L328.5,297 L328.5,288 M467.734,288 L467.734,324.033 L470,324.033 L470,351.065 L461,351.065" id="Stroke-51" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M563.5,489 L722.5,489 L722.5,502 L563.5,502 L563.5,489 Z" id="Fill-52" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIPortDisconnectSource" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="562.9999" y="496.695312">MIDIPortDisconnectSource</tspan>
+            </text>
+            <path d="M742.9,496 L1084.48,496 L1084.48,324 L1084.48,343.9 L1084.48,324" id="Stroke-53" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M731.7,496 L742.9,500.2 L742.9,491.8 L731.7,496 Z" id="Fill-54" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M731.7,496 L742.9,500.2 L742.9,491.8 L731.7,496 Z" id="Stroke-55" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M558,496 L297,496 L297,288 L297,297 L297,288" id="Stroke-56" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1010,35 L1156,35 L1156,48 L1010,48 L1010,35 Z" id="Fill-57" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetNumberOfDevices" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1010" y="42.6953125">MIDIGetNumberOfDevices</tspan>
+            </text>
+            <path d="M1031.5,56 L1117.5,56 L1117.5,69 L1031.5,69 L1031.5,56 Z" id="Fill-58" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetDevice" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1030.9999" y="63.6953125">MIDIGetDevice</tspan>
+            </text>
+            <path d="M1123,63 L1540.289,63 L1540.289,216 L1540.289,207 L1540.289,216" id="Stroke-59" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1022,80 L1148,80 L1148,93 L1022,93 L1022,80 Z" id="Fill-60" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIDeviceGetEntity" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1021.9999" y="87.6954125">MIDIDeviceGetEntity</tspan>
+            </text>
+            <path d="M977,113 L1162,113 L1162,126 L977,126 L977,113 Z" id="Fill-61" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityGetNumberOfSources" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="976.9999" y="120.695412">MIDIEntityGetNumberOfSources</tspan>
+            </text>
+            <path d="M1004,134 L1130,134 L1130,147 L1004,147 L1004,134 Z" id="Fill-62" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityGetSource" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1003.9999" y="141.695312">MIDIEntityGetSource</tspan>
+            </text>
+            <path d="M999,141 L990,141 L990,180 L1084.48,180 L1084.48,288 M1168,120 L1197,120 L1197,233 L1152,233 L1152,252 M1153,87 L1521.117,87 L1521.117,252 L1521.117,243 L1521.117,252" id="Stroke-63" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1265.5,116 L1484.5,116 L1484.5,129 L1265.5,129 L1265.5,116 Z" id="Fill-64" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityGetNumberOfDestinations" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1264.9999" y="123.695312">MIDIEntityGetNumberOfDestinations</tspan>
+            </text>
+            <path d="M1489,123 L1521.117,123 L1521.117,252 L1521.117,243 L1521.117,252" id="Stroke-65" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1289.117,140 L1448.117,140 L1448.117,153 L1289.117,153 L1289.117,140 Z" id="Fill-66" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEntityGetDestination" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1288.6167" y="147.695312">MIDIEntityGetDestination</tspan>
+            </text>
+            <path d="M1452.617,147 L1638.411,147 L1638.411,288 L1638.411,279 L1638.411,288" id="Stroke-67" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M623,527 L769,527 L769,540 L623,540 L623,527 Z" id="Fill-68" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetNumberOfSources" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="623" y="534.695312">MIDIGetNumberOfSources</tspan>
+            </text>
+            <path d="M653.5,545 L739.5,545 L739.5,558 L653.5,558 L653.5,545 Z" id="Fill-69" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetSource" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="653" y="552.695312">MIDIGetSource</tspan>
+            </text>
+            <path d="M851.5,527 L1030.5,527 L1030.5,540 L851.5,540 L851.5,527 Z" id="Fill-70" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetNumberOfDestinations" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="850.9999" y="534.695312">MIDIGetNumberOfDestinations</tspan>
+            </text>
+            <path d="M878,545 L997,545 L997,558 L878,558 L878,545 Z" id="Fill-71" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetDestination" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="878" y="552.695312">MIDIGetDestination</tspan>
+            </text>
+            <path d="M759,38 L898,38 L898,51 L759,51 L759,38 Z" id="Fill-72" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIDestinationCreate" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="759" y="45.6953125">MIDIDestinationCreate</tspan>
+            </text>
+            <path d="M759.5,62 L958.5,62 L958.5,75 L759.5,75 L759.5,62 Z" id="Fill-73" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIDestinationCreateWithBlock" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="759" y="69.6953125">MIDIDestinationCreateWithBlock</tspan>
+            </text>
+            <path d="M558,252 L702,252 L702,288 L558,288 L558,252 Z" id="Fill-74" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M558,252 L702,252 L702,288 L558,288 L558,252 Z" id="Stroke-75" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="568.952" y="272.136107">MIDIEndpointRef</tspan>
+            </text>
+            <text id="virtual-source" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="636.59" y="246.710067">virtual sou</tspan>
+                <tspan x="682.52" y="246.710067" letter-spacing="-0.18">r</tspan>
+                <tspan x="685.49" y="246.710067">ce</tspan>
+            </text>
+            <path d="M702,252 L855,252 L855,288 L702,288 L702,252 Z" id="Fill-76" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <path d="M702,252 L855,252 L855,288 L702,288 L702,252 Z" id="Stroke-77" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="16" font-weight="normal" fill="#000000">
+                <tspan x="717.4519" y="272.136107">MIDIEndpointRef</tspan>
+            </text>
+            <text id="virtual-destination" sketch:type="MSTextLayer" font-family="Helvetica Neue" font-size="10" font-weight="normal" fill="#000000">
+                <tspan x="749.5753" y="246.710067">virtual destination</tspan>
+            </text>
+            <path d="M754,69 L745,69 L745,171 L778.5,171 L778.5,252 M754,45 L745,45 L745,171 L778.5,171 L778.5,252 M505,96 L487.261,96 L487.261,252 L487.261,243 L487.261,252" id="Stroke-78" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M634,343.935 L760,343.935 L760,356.935 L634,356.935 L634,343.935 Z" id="Fill-79" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIEndpointDispose" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="633.9999" y="351.630212">MIDIEndpointDispose</tspan>
+            </text>
+            <path d="M765,350.935 L774,350.935 L774,323.968 L758.418,323.968 L758.418,288 M629,350.935 L620,350.935 L620,323.968 L666,323.968 L666,288" id="Stroke-80" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M510,125 L616,125 L616,138 L510,138 L510,125 Z" id="Fill-81" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDISourceCreate" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="510" y="132.695312">MIDISourceCreate</tspan>
+            </text>
+            <path d="M621,132 L630,132 L630,252 L630,243 L630,252" id="Stroke-82" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1112.5,527 L1311.5,527 L1311.5,540 L1112.5,540 L1112.5,527 Z" id="Fill-83" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetNumberOfExternalDevices" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1112" y="534.695312">MIDIGetNumberOfExternalDevices</tspan>
+            </text>
+            <path d="M1148,545 L1287,545 L1287,558 L1148,558 L1148,545 Z" id="Fill-84" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIGetExternalDevice" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="1148" y="552.695312">MIDIGetExternalDevice</tspan>
+            </text>
+            <path d="M851.5,590 L1010.5,590 L1010.5,603 L851.5,603 L851.5,590 Z" id="Fill-85" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIObjectFindByUniqueID" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="851" y="597.695312">MIDIObjectFindByUniqueID</tspan>
+            </text>
+            <path d="M572,425 L910,425 L910,438 L572,438 L572,425 Z" id="Fill-86" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDISend--from---MIDIPortRef---to---MIDIEndpointRef" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="572" y="432.695312">MIDISend  from   MIDIPortRef   to   MIDIEndpointRef</tspan>
+            </text>
+            <path d="M551.1,432 L526.348,432 L526.348,369 L526.5,307.9 L526.5,288" id="Stroke-87" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M562.3,432 L551.1,427.8 L551.1,436.2 L562.3,432 Z" id="Fill-88" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M562.3,432 L551.1,427.8 L551.1,436.2 L562.3,432 Z" id="Stroke-89" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M915,432 L934.9,432 L934.9,369 L801.494,369 L801.494,303.9" id="Stroke-90" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M801.494,292.7 L797.294,303.9 L805.694,303.9 L801.494,292.7 Z" id="Fill-91" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M801.494,292.7 L797.294,303.9 L805.694,303.9 L801.494,292.7 Z" id="Stroke-92" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M915,432 L1076.98,432 C1076.98,424.5 1091.98,424.5 1091.98,432 L1616.185,432 L1616.185,396 L1616.602,343.9 L1616.602,339.9" id="Stroke-93" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1616.602,328.7 L1612.402,339.9 L1620.802,339.9 L1616.602,328.7 Z" id="Fill-94" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M1616.602,328.7 L1612.402,339.9 L1620.802,339.9 L1616.602,328.7 Z" id="Stroke-95" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M915,432 L1076.98,432 C1076.98,424.5 1091.98,424.5 1091.98,432 L1231.018,432 L1231.018,378 L1231.023,343.9 L1231.023,339.9" id="Stroke-96" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1231.023,328.7 L1226.823,339.9 L1235.223,339.9 L1231.023,328.7 Z" id="Fill-97" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M1231.023,328.7 L1226.823,339.9 L1235.223,339.9 L1231.023,328.7 Z" id="Stroke-98" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M977,389 L1056,389 L1056,402 L977,402 L977,389 Z" id="Fill-99" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            <text id="MIDIReceived" sketch:type="MSTextLayer" font-family="Menlo" font-size="11" font-weight="normal" fill="#000000">
+                <tspan x="977" y="396.695312">MIDIReceived</tspan>
+            </text>
+            <path d="M1062,396 L1616.602,396 L1616.602,324 L1616.602,343.9 L1616.602,339.9" id="Stroke-100" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1616.602,328.7 L1612.402,339.9 L1620.802,339.9 L1616.602,328.7 Z" id="Fill-101" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M1616.602,328.7 L1612.402,339.9 L1620.802,339.9 L1616.602,328.7 Z" id="Stroke-102" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M1062,396 L1231.023,396 L1231.023,324 L1231.023,343.9 L1231.023,339.9" id="Stroke-103" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1231.023,328.7 L1226.823,339.9 L1235.223,339.9 L1231.023,328.7 Z" id="Fill-104" fill="#306E00" sketch:type="MSShapeGroup"></path>
+            <path d="M1231.023,328.7 L1226.823,339.9 L1235.223,339.9 L1231.023,328.7 Z" id="Stroke-105" stroke="#306E00" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            <path d="M594,288 L594,396 L927.4,396 C927.4,389.5 942.4,389.5 942.4,396 L959.1,396" id="Stroke-106" stroke="#306E00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,8" sketch:type="MSShapeGroup"></path>
+            <path d="M968.7,396 L959.1,392.4 L959.1,399.6 L968.7,396 Z" id="Stroke-107" stroke="#306E00" stroke-width="2" sketch:type="MSShapeGroup"></path>
+            <path d="M144,180 L144,198 L328.5,198 L328.5,252" id="Stroke-108" stroke="#C00D23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M1062,396 L1071,396 L1071,369 L801.494,369 L801.494,288" id="Stroke-109" stroke="#306E00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M144,180 L144,198 L600.821,198 L600.821,252" id="Stroke-110" stroke="#C00D23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+            <path d="M144,180 L144,198 L721.554,198 L721.554,252 M144,180 L144,198 L989.922,198 L989.922,252 M144,180 L144,198 L1040.747,198 L1040.747,288 M144,180 L144,198 L1221.045,198 L1221.045,288 M144,180 L144,198 L1419.983,198 L1419.983,288 M144,180 L144,198 L1594.184,198 L1594.184,288" id="Stroke-111" stroke="#C00D23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

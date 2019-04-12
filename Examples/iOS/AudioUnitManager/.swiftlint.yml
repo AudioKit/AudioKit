@@ -1,0 +1,70 @@
+disabled_rules: # rule identifiers to exclude from running
+  - file_header
+  - attributes
+  #- cyclomatic_complexity
+  - type_name
+  - todo
+
+
+type_body_length:
+  - 800 # warning
+  - 4000 # error
+
+function_body_length:
+  - 400 # warning
+  - 4000 # error
+
+line_length:
+  - 120 # warning
+  - 5000 # error
+
+file_length:
+  - 1000 # warning
+  - 10000 # error
+
+identifier_name:
+  min_length:
+    - 1 # warning
+
+force_cast: error
+force_unwrapping: error
+empty_count: error
+force_try: error
+for_where: error
+
+cyclomatic_complexity:
+  - 10 # warning
+  - 100 # error
+
+excluded:
+
+
+opt_in_rules:
+  - legacy_constructor
+  - closure_spacing
+  - closure_end_indentation
+  #- conditional_returns_on_newline
+  - empty_count
+  - explicit_init
+  - first_where
+  - nimble_operator
+  #- number_separator
+  - operator_usage_whitespace
+  - overridden_super_call
+  #- private_outlet
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - switch_case_on_newline
+  - file_length
+  - weak_delegate
+  - force_cast
+  - object_literal
+  - line_length
+  - attributes
+  - force_unwrapping
+  - identifier_name
+  - type_name
+  - type_body_length
+  - function_parameter_count
+  - class_delegate_protocol
+  - force_try

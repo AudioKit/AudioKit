@@ -9,6 +9,7 @@ DerivedData/
 *.xcuserstate
 *.xccheckout
 *.xctimeline
+*.o
 project.xcworkspace/
 xcuserdata/
 xcodebuild
@@ -18,6 +19,7 @@ Playgrounds/iOS/
 # Cocoapods
 Pods/
 Podfile.lock
+*.podspec.json
 
 # osx noise
 .DS_Store
@@ -30,3 +32,14 @@ output/
 dev/
 
 Dev.playground
+
+# During Development
+AudioUnits
+
+# JUCE related
+Builds/
+JuceLibraryCode/
+
+# Style Checking 
+SwiftStyleSettings.plist
+/Frameworks/distribute_built_frameworks.sh
