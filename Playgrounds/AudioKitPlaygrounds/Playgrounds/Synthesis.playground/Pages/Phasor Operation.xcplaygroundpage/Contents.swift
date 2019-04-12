@@ -20,7 +20,7 @@ let generator = AKOperationGenerator { _ in
 }
 
 AudioKit.output = generator
-AudioKit.start()
+try AudioKit.start()
 generator.start()
 
 import PlaygroundSupport

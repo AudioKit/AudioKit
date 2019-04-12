@@ -1,0 +1,424 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1F9F2B2A206B65A2009E1296 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B29206B65A2009E1296 /* AppDelegate.swift */; };
+		1F9F2B2C206B65A2009E1296 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B2B206B65A2009E1296 /* ViewController.swift */; };
+		1F9F2B2F206B65A2009E1296 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F2B2D206B65A2009E1296 /* Main.storyboard */; };
+		1F9F2B31206B65A2009E1296 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F2B30206B65A2009E1296 /* Assets.xcassets */; };
+		1F9F2B34206B65A2009E1296 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F2B32206B65A2009E1296 /* LaunchScreen.storyboard */; };
+		1F9F2B3D206B6811009E1296 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9F2B3C206B6811009E1296 /* AudioToolbox.framework */; };
+		1F9F2B3F206B6B23009E1296 /* Audiobus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B3E206B6B23009E1296 /* Audiobus.swift */; };
+		1F9F2B41206B6B34009E1296 /* Audiobus.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F9F2B40206B6B33009E1296 /* Audiobus.txt */; };
+		1F9F2B43206B6B4E009E1296 /* Audiobus+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B42206B6B4E009E1296 /* Audiobus+MIDI.swift */; };
+		1F9F2B45206B7132009E1296 /* AudiobusCompatibleSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F2B44206B7132009E1296 /* AudiobusCompatibleSequencer.swift */; };
+		21E6BE67496E372765E253C4 /* Pods_AudiobusMIDISender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */; };
+		C4058A17206F04190055B6CA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4058A16206F04190055B6CA /* AudioKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		084CB9F5CEB4E13DD2C60BE8 /* Pods-AudiobusMIDISender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudiobusMIDISender.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender.debug.xcconfig"; sourceTree = "<group>"; };
+		1F9F2B26206B65A2009E1296 /* AudiobusMIDISender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudiobusMIDISender.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F9F2B29206B65A2009E1296 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1F9F2B2B206B65A2009E1296 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1F9F2B2E206B65A2009E1296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1F9F2B30206B65A2009E1296 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F9F2B33206B65A2009E1296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1F9F2B35206B65A2009E1296 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F9F2B3B206B6811009E1296 /* AudiobusMIDISender.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AudiobusMIDISender.entitlements; sourceTree = "<group>"; };
+		1F9F2B3C206B6811009E1296 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1F9F2B3E206B6B23009E1296 /* Audiobus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audiobus.swift; sourceTree = "<group>"; };
+		1F9F2B40206B6B33009E1296 /* Audiobus.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Audiobus.txt; sourceTree = "<group>"; };
+		1F9F2B42206B6B4E009E1296 /* Audiobus+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Audiobus+MIDI.swift"; sourceTree = "<group>"; };
+		1F9F2B44206B7132009E1296 /* AudiobusCompatibleSequencer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudiobusCompatibleSequencer.swift; sourceTree = "<group>"; };
+		1F9F2B46206B7340009E1296 /* AudiobusMIDISender-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudiobusMIDISender-BridgingHeader.h"; sourceTree = "<group>"; };
+		5BB9282EE90BE91CC0599EAA /* Pods-AudiobusMIDISender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudiobusMIDISender.release.xcconfig"; path = "Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender.release.xcconfig"; sourceTree = "<group>"; };
+		6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AudiobusMIDISender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4058A16206F04190055B6CA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1F9F2B23206B65A2009E1296 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4058A17206F04190055B6CA /* AudioKit.framework in Frameworks */,
+				21E6BE67496E372765E253C4 /* Pods_AudiobusMIDISender.framework in Frameworks */,
+				1F9F2B3D206B6811009E1296 /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F9F2B1D206B65A2009E1296 = {
+			isa = PBXGroup;
+			children = (
+				1F9F2B28206B65A2009E1296 /* AudiobusMIDISender */,
+				1F9F2B27206B65A2009E1296 /* Products */,
+				2D8C8DE2C5834C51CFE1C6B8 /* Pods */,
+				5143BE3127059D506A5A4413 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1F9F2B27206B65A2009E1296 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F9F2B26206B65A2009E1296 /* AudiobusMIDISender.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F9F2B28206B65A2009E1296 /* AudiobusMIDISender */ = {
+			isa = PBXGroup;
+			children = (
+				1F9F2B3B206B6811009E1296 /* AudiobusMIDISender.entitlements */,
+				1F9F2B29206B65A2009E1296 /* AppDelegate.swift */,
+				1F9F2B2D206B65A2009E1296 /* Main.storyboard */,
+				1F9F2B2B206B65A2009E1296 /* ViewController.swift */,
+				1F9F2B44206B7132009E1296 /* AudiobusCompatibleSequencer.swift */,
+				1F9F2B3E206B6B23009E1296 /* Audiobus.swift */,
+				1F9F2B42206B6B4E009E1296 /* Audiobus+MIDI.swift */,
+				1F9F2B40206B6B33009E1296 /* Audiobus.txt */,
+				1F9F2B30206B65A2009E1296 /* Assets.xcassets */,
+				1F9F2B32206B65A2009E1296 /* LaunchScreen.storyboard */,
+				1F9F2B35206B65A2009E1296 /* Info.plist */,
+				1F9F2B46206B7340009E1296 /* AudiobusMIDISender-BridgingHeader.h */,
+			);
+			path = AudiobusMIDISender;
+			sourceTree = "<group>";
+		};
+		2D8C8DE2C5834C51CFE1C6B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				084CB9F5CEB4E13DD2C60BE8 /* Pods-AudiobusMIDISender.debug.xcconfig */,
+				5BB9282EE90BE91CC0599EAA /* Pods-AudiobusMIDISender.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5143BE3127059D506A5A4413 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4058A16206F04190055B6CA /* AudioKit.framework */,
+				1F9F2B3C206B6811009E1296 /* AudioToolbox.framework */,
+				6351B369CFB256FCA40AB1D2 /* Pods_AudiobusMIDISender.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1F9F2B25206B65A2009E1296 /* AudiobusMIDISender */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F9F2B38206B65A2009E1296 /* Build configuration list for PBXNativeTarget "AudiobusMIDISender" */;
+			buildPhases = (
+				B7084267CA9AC22C1BF474CA /* [CP] Check Pods Manifest.lock */,
+				1F9F2B22206B65A2009E1296 /* Sources */,
+				1F9F2B23206B65A2009E1296 /* Frameworks */,
+				1F9F2B24206B65A2009E1296 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudiobusMIDISender;
+			productName = AudiobusMIDISender;
+			productReference = 1F9F2B26206B65A2009E1296 /* AudiobusMIDISender.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1F9F2B1E206B65A2009E1296 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Jeff Holtzkener";
+				TargetAttributes = {
+					1F9F2B25206B65A2009E1296 = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 1F9F2B21206B65A2009E1296 /* Build configuration list for PBXProject "AudiobusMIDISender" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1F9F2B1D206B65A2009E1296;
+			productRefGroup = 1F9F2B27206B65A2009E1296 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1F9F2B25206B65A2009E1296 /* AudiobusMIDISender */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1F9F2B24206B65A2009E1296 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F9F2B34206B65A2009E1296 /* LaunchScreen.storyboard in Resources */,
+				1F9F2B31206B65A2009E1296 /* Assets.xcassets in Resources */,
+				1F9F2B41206B6B34009E1296 /* Audiobus.txt in Resources */,
+				1F9F2B2F206B65A2009E1296 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B7084267CA9AC22C1BF474CA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AudiobusMIDISender-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F9F2B22206B65A2009E1296 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F9F2B43206B6B4E009E1296 /* Audiobus+MIDI.swift in Sources */,
+				1F9F2B2C206B65A2009E1296 /* ViewController.swift in Sources */,
+				1F9F2B2A206B65A2009E1296 /* AppDelegate.swift in Sources */,
+				1F9F2B3F206B6B23009E1296 /* Audiobus.swift in Sources */,
+				1F9F2B45206B7132009E1296 /* AudiobusCompatibleSequencer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1F9F2B2D206B65A2009E1296 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F9F2B2E206B65A2009E1296 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1F9F2B32206B65A2009E1296 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F9F2B33206B65A2009E1296 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1F9F2B36206B65A2009E1296 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-lc++";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1F9F2B37206B65A2009E1296 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../Frameworks/AudioKit-iOS";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-lc++";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1F9F2B39206B65A2009E1296 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 084CB9F5CEB4E13DD2C60BE8 /* Pods-AudiobusMIDISender.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AudiobusMIDISender/AudiobusMIDISender.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1F9F2B3A206B65A2009E1296 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BB9282EE90BE91CC0599EAA /* Pods-AudiobusMIDISender.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AudiobusMIDISender/AudiobusMIDISender.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F9F2B21206B65A2009E1296 /* Build configuration list for PBXProject "AudiobusMIDISender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F9F2B36206B65A2009E1296 /* Debug */,
+				1F9F2B37206B65A2009E1296 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1F9F2B38206B65A2009E1296 /* Build configuration list for PBXNativeTarget "AudiobusMIDISender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F9F2B39206B65A2009E1296 /* Debug */,
+				1F9F2B3A206B65A2009E1296 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1F9F2B1E206B65A2009E1296 /* Project object */;
+}

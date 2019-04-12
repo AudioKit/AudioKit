@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKTesterAudioUnit.h"
@@ -42,7 +42,7 @@
 
 - (void)createParameters {
     standardSetup(Tester)
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
     parameterTreeBlock(Tester)
 }
 

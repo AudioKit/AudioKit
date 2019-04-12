@@ -1,8 +1,8 @@
 //: ## Amplitude Envelope
-//: A surprising amount of character can be added to a sound by changing its amplitude over time.  
-//: A very common means of defining the shape of amplitude is to use an ADSR envelope which stands for 
+//: A surprising amount of character can be added to a sound by changing its amplitude over time.
+//: A very common means of defining the shape of amplitude is to use an ADSR envelope which stands for
 //: Attack, Sustain, Decay, Release.
-//: * Attack is the amount of time it takes a sound to reach its maximum volume.  An example of a fast attack is a 
+//: * Attack is the amount of time it takes a sound to reach its maximum volume.  An example of a fast attack is a
 //:   piano, where as a cello can have a longer attack time.
 //: * Decay is the amount of time after which the peak amplitude is reached for a lower amplitude to arrive.
 //: * Sustain is not a time, but a percentage of the peak amplitude that will be the the sustained amplitude.
@@ -13,7 +13,7 @@ import AudioKit
 var fmWithADSR = AKOscillatorBank()
 var amplitudeTracker = AKAmplitudeTracker(fmWithADSR)
 AudioKit.output = AKBooster(amplitudeTracker, gain: 5)
-AudioKit.start()
+try AudioKit.start()
 amplitudeTracker.start()
 
 //: User Interface Set up
@@ -40,10 +40,10 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
             fmWithADSR.decayDuration = dec
             fmWithADSR.sustainLevel = sus
             fmWithADSR.releaseDuration = rel
-            Swift.print("fmWithADSR.attackDuration  = \(att)")
-            Swift.print("fmWithADSR.decayDuration   = \(dec)")
-            Swift.print("fmWithADSR.sustainLevel    = \(sus)")
-            Swift.print("fmWithADSR.releaseDuration = \(rel)\n")
+            AKLog("fmWithADSR.attackDuration  = \(att)")
+            AKLog("fmWithADSR.decayDuration   = \(dec)")
+            AKLog("fmWithADSR.sustainLevel    = \(sus)")
+            AKLog("fmWithADSR.releaseDuration = \(rel)\n")
         }
         adsrView.attackDuration = fmWithADSR.attackDuration
         adsrView.decayDuration = fmWithADSR.decayDuration

@@ -7,8 +7,9 @@
 //
 
 import Cocoa
+import AudioKit
 
-public protocol AKKeyboardDelegate: class {
+@objc public protocol AKKeyboardDelegate: class {
     func noteOn(note: MIDINoteNumber)
     func noteOff(note: MIDINoteNumber)
 }
@@ -38,7 +39,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
 
-    public var polyphonicMode = false {
+    @objc public var polyphonicMode = false {
         didSet {
             for note in onKeys {
                 delegate?.noteOff(note: note)
@@ -48,7 +49,7 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    let midi = AKMIDI()
+    let midi = AudioKit.midi
 
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -143,14 +144,14 @@ public class AKKeyboardView: NSView, AKMIDIListener {
         }
     }
 
-    public init(width: Int,
-                height: Int,
-                firstOctave: Int = 4,
-                octaveCount: Int = 3,
-                polyphonic: Bool = false) {
+    @objc public init(width: Int,
+                      height: Int,
+                      firstOctave: Int = 4,
+                      octaveCount: Int = 3,
+                      polyphonic: Bool = false) {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
-        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        super.init(frame: CGRect(width: width, height: height))
         size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         needsDisplay = true
     }
@@ -236,7 +237,6 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             }
             needsDisplay = true
         }
-
     }
 
     // MARK: - MIDI

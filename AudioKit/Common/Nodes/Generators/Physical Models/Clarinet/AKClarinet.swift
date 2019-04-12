@@ -3,15 +3,15 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// STK Clarinet
 ///
 open class AKClarinet: AKNode, AKToggleable, AKComponent {
+    public typealias AKAudioUnitType = AKClarinetAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(generator: "flut")
-    public typealias AKAudioUnitType = AKClarinetAudioUnit
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
@@ -20,38 +20,44 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     @objc open dynamic var frequency: Double = 110 {
         willSet {
-            if frequency != newValue {
+            guard frequency != newValue else { return }
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
     /// Amplitude
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
-            if amplitude != newValue {
+            guard amplitude != newValue else { return }
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -68,7 +74,7 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
     ///                greater than that.
     ///   - amplitude: Amplitude
     ///
-    public init(
+    @objc public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
 
@@ -79,9 +85,13 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -103,13 +113,22 @@ open class AKClarinet: AKNode, AKToggleable, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.setParameterImmediately(.frequency, value: frequency)
+        internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }
 
-    /// Trigger the sound with an optional set of parameters
+    /// Trigger the sound with current parameters
+    ///
+    open func trigger() {
+        internalAU?.start()
+        internalAU?.trigger()
+    }
+
+    /// Trigger the sound with a set of parameters
+    ///
+    /// - Parameters:
     ///   - frequency: Frequency in Hz
-    /// - amplitude amplitude: Volume
+    ///   - amplitude amplitude: Volume
     ///
     open func trigger(frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency

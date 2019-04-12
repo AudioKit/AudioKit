@@ -1,16 +1,17 @@
 //
 //  GenericAudioUnitView.swift
 //
-//  Created by Ryan Francesconi on 6/27/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-import Cocoa
 import AVFoundation
+import Cocoa
 
 /// Creates a simple list of parameters linked to sliders
 class AudioUnitGenericView: NSView {
-
+    open var name: String = ""
+    open var preferredWidth: CGFloat = 360
     open var preferredHeight: CGFloat = 400
 
     override var isFlipped: Bool {
@@ -30,17 +31,18 @@ class AudioUnitGenericView: NSView {
 
         if opaqueBackground {
             backgroundColor.setFill()
-
-            let rect = NSMakeRect(0, 0, bounds.width, bounds.height)
-            let rectanglePath = NSBezierPath(roundedRect: rect, xRadius: 5, yRadius: 5)
-            rectanglePath.fill()
+            let rect = NSRect(x: 0, y: 0, width: bounds.width, height: bounds.height)
+            rect.fill()
         }
     }
 
-    convenience init(au: AVAudioUnit) {
+    convenience init(audioUnit: AVAudioUnit) {
         self.init()
+        wantsLayer = true
 
-        frame.size = NSSize(width: 380, height: 400)
+        if let cname = audioUnit.auAudioUnit.componentName {
+            name = cname
+        }
 
         let nameField = NSTextField()
         nameField.isSelectable = false
@@ -50,17 +52,17 @@ class AudioUnitGenericView: NSView {
         nameField.font = NSFont.boldSystemFont(ofSize: 12)
         nameField.textColor = NSColor.white
         nameField.backgroundColor = NSColor.white.withAlphaComponent(0)
-        nameField.stringValue = "\(au.manufacturerName): \(au.name)"
-        nameField.frame = NSRect(x: 0, y: 4, width: 400, height: 20)
+        nameField.stringValue = name
+        nameField.frame = NSRect(x: 0, y: 4, width: preferredWidth, height: 20)
         addSubview(nameField)
 
-        guard let tree = au.auAudioUnit.parameterTree else { return }
+        guard let tree = audioUnit.auAudioUnit.parameterTree else { return }
 
         var y = 5
         for param in tree.allParameters {
             y += 24
 
-            let slider = AudioUnitParamSlider(audioUnit: au, param: param )
+            let slider = AudioUnitParamSlider(audioUnit: audioUnit, param: param)
             slider.setFrameOrigin(NSPoint(x: 10, y: y))
 
             addSubview(slider)
@@ -69,10 +71,6 @@ class AudioUnitGenericView: NSView {
             }
         }
         preferredHeight = CGFloat(y + 50)
+        frame.size = NSSize(width: preferredWidth, height: preferredHeight)
     }
-
-    func handleChange(_ sender: NSSlider) {
-        //Swift.print(sender.doubleValue)
-    }
-
 }

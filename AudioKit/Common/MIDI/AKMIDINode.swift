@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AVFoundation
@@ -28,28 +28,33 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     /// Initialize the MIDI node
     ///
     /// - parameter node: A polyphonic node that will be triggered via MIDI
+    /// - parameter midiOutputName: Name of the node's MIDI output
     ///
-    public init(node: AKPolyphonicNode) {
+    @objc public init(node: AKPolyphonicNode, midiOutputName: String? = nil) {
         internalNode = node
         super.init()
         avAudioNode = internalNode.avAudioNode
-        enableMIDI()
+        avAudioUnit = internalNode.avAudioUnit
+      enableMIDI(name: midiOutputName ?? "Unnamed")
     }
 
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
-    ///   - midiClient: A refernce to the midi client
+    ///   - midiClient: A reference to the midi client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = AKMIDI().client,
+    open func enableMIDI(_ midiClient: MIDIClientRef = AudioKit.midi.client,
                          name: String = "Unnamed") {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
-                self.handleMIDI(data1: MIDIByte(event.internalData[0]),
-                                data2: MIDIByte(event.internalData[1]),
-                                data3: MIDIByte(event.internalData[2]))
+                guard event.data.count > 2 else {
+                    return
+                }
+                self.handleMIDI(data1: event.data[0],
+                                data2: event.data[1],
+                                data3: event.data[2])
 
             }
         })
@@ -59,15 +64,16 @@ open class AKMIDINode: AKNode, AKMIDIListener {
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        let status = Int(data1 >> 4)
+        let status = AKMIDIStatus(byte: data1)
+        let channel = status?.channel
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
 
-        if status == AKMIDIStatus.noteOn.rawValue && velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
-        } else if status == AKMIDIStatus.noteOn.rawValue && velocity == 0 {
+        if status?.type == .noteOn && velocity > 0 {
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel ?? 0)
+        } else if status?.type == .noteOn && velocity == 0 {
             internalNode.stop(noteNumber: noteNumber)
-        } else if status == AKMIDIStatus.noteOff.rawValue {
+        } else if status?.type == .noteOff {
             internalNode.stop(noteNumber: noteNumber)
         }
     }
@@ -83,7 +89,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel) {
         if velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
             internalNode.stop(noteNumber: noteNumber)
         }

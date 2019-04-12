@@ -2,8 +2,8 @@
 //  AKCustomUgenInfo.h
 //  AudioKit
 //
-//  Created by Joseph Constantakis on 3/15/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Joseph Constantakis, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once

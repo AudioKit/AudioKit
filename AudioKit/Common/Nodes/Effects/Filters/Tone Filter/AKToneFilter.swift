@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// A first-order recursive low-pass filter with variable frequency response.
@@ -14,37 +14,41 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "tone")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Half Power Point
+    public static let halfPowerPointRange = 12.0 ... 20_000.0
+
+    /// Initial value for Half Power Point
+    public static let defaultHalfPowerPoint = 1_000.0
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    @objc open dynamic var halfPowerPoint: Double = 1_000.0 {
+    @objc open dynamic var halfPowerPoint: Double = defaultHalfPowerPoint {
         willSet {
-            if halfPowerPoint != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.halfPowerPoint = Float(newValue)
+            guard halfPowerPoint != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.halfPowerPoint, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -53,11 +57,12 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - halfPowerPoint: The response curve's half-power point, in Hz. Half power is defined as peak power / root 2.
+    ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        halfPowerPoint: Double = 1_000.0) {
+        halfPowerPoint: Double = defaultHalfPowerPoint
+        ) {
 
         self.halfPowerPoint = halfPowerPoint
 
@@ -65,10 +70,14 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -90,7 +99,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.halfPowerPoint = Float(halfPowerPoint)
+        internalAU?.setParameterImmediately(.halfPowerPoint, value: halfPowerPoint)
     }
 
     // MARK: - Control

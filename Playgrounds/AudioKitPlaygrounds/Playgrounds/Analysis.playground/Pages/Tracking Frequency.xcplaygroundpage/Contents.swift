@@ -23,7 +23,7 @@ let secondaryOscillator = AKOscillator()
 //: The frequency tracker passes its input to the output,
 //: so we can insert into the signal chain at the bottom
 AudioKit.output = AKMixer(booster, secondaryOscillator)
-AudioKit.start()
+try AudioKit.start()
 
 oscillatorNode.start()
 secondaryOscillator.start()
@@ -33,8 +33,8 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider?
-    var trackedFrequencySlider: AKSlider?
+    var trackedAmplitudeSlider: AKSlider!
+    var trackedFrequencySlider: AKSlider!
 
     override func viewDidLoad() {
 

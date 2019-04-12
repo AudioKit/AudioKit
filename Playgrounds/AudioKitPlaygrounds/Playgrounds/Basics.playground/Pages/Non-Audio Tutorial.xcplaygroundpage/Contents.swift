@@ -16,11 +16,11 @@ import AudioKit
 //: framework, you will also need to import it.
 import AudioKitUI
 
-//: ALERT: This is also the line that most commonly shows an error "No such module" 
+//: ALERT: This is also the line that most commonly shows an error "No such module"
 //: This just means you haven't built AudioKitPlaygrounds yet, in which case pressing Cmd-B or
 //: accessing the "Product" menu and choosing "Build".
 
-//: To use a file, copy it intot playground's "Resources" folder and refer to it by name:
+//: To use a file, copy it into the playground's "Resources" folder and refer to it by name:
 let file = try AKAudioFile(readFileName: "mixloop.wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
@@ -37,7 +37,7 @@ let file = try AKAudioFile(readFileName: "mixloop.wav")
 //: on them and looking at the Quick Help Inspector.  Or, you can also option-click
 //: on any class, method, or variable name to show information about that element.
 //: Try it with the lines below:
-let player = try AKAudioPlayer(file: file)
+let player = AKPlayer(audioFile: file)
 let effect = AKMoogLadder(player)
 
 //: The following lines keep a playground executing even after the last line is

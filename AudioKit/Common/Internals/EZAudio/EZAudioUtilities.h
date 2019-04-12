@@ -2,7 +2,7 @@
 //  EZAudioUtilities.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 6/23/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -39,7 +39,7 @@
 /**
  A data structure that holds information about audio data over time. It contains a circular buffer to incrementally write the audio data to and a scratch buffer to hold a window of audio data relative to the whole circular buffer. In use, this will provide a way to continuously append data while having an adjustable viewable window described by the bufferSize.
  */
-typedef struct
+typedef struct _EZPlotHistoryInfo
 {
     float            *buffer;
     int               bufferSize;
@@ -56,16 +56,6 @@ typedef struct
     AudioUnit audioUnit;
     AUNode    node;
 } EZAudioNodeInfo;
-
-//------------------------------------------------------------------------------
-#pragma mark - Types
-//------------------------------------------------------------------------------
-
-#if TARGET_OS_IPHONE
-typedef CGRect EZRect;
-#elif TARGET_OS_MAC
-typedef NSRect EZRect;
-#endif
 
 //------------------------------------------------------------------------------
 #pragma mark - EZAudioUtilities
@@ -262,7 +252,7 @@ typedef NSRect EZRect;
 //------------------------------------------------------------------------------
 
 /**
- Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed, 
+ Checks an AudioStreamBasicDescription to see if it is a linear PCM format (uncompressed,
  1 frame per packet)
  @param asbd A valid AudioStreamBasicDescription
  @return A BOOL indicating whether or not the AudioStreamBasicDescription is linear PCM.
@@ -324,9 +314,9 @@ typedef NSRect EZRect;
  @param scrollHistory       The target history buffer in which to append the values
  @param scrollHistoryLength The length of the target history buffer
  */
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength;
 
 //------------------------------------------------------------------------------
@@ -338,7 +328,7 @@ typedef NSRect EZRect;
  @param scrollHistoryLength The length of the target history buffer
  */
 +(void)    appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength;
 
 //------------------------------------------------------------------------------
@@ -366,7 +356,7 @@ typedef NSRect EZRect;
  @param 	bufferSize 	The size of the float buffer
  @return	The root mean squared of the buffer
  */
-+ (float)RMS:(float*)buffer length:(int)bufferSize;
++ (float)RMS:(float *)buffer length:(int)bufferSize;
 
 //------------------------------------------------------------------------------
 

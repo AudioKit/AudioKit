@@ -2,7 +2,7 @@
 //  EZAudioDevice.h
 //  EZAudio
 //
-//  Created by Syed Haris Ali on 6/25/15.
+//  Created by Syed Haris Ali, revision history on Githbub.
 //  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -108,7 +108,7 @@
 //------------------------------------------------------------------------------
 
 /**
- Enumerates all the available devices. 
+ Enumerates all the available devices.
     - OSX only
  @param block When enumerating this block executes repeatedly for each EZAudioDevice found. It contains two arguments - first, the EZAudioDevice found, then a pointer to a stop BOOL to allow breaking out of the enumeration)
  */

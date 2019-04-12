@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #import "AKOperationGeneratorAudioUnit.h"
@@ -17,7 +17,7 @@
 @implementation AKOperationGeneratorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
     AKOperationGeneratorDSPKernel _kernel;
-    
+
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -39,11 +39,11 @@
 }
 
 - (void)setParameters:(NSArray *)parameters {
-    float params[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float temporaryParameters[14] = {0};
     for (int i = 0; i < parameters.count; i++) {
-        params[i] =[parameters[i] floatValue];
+        temporaryParameters[i] = [parameters[i] floatValue];
     }
-    _kernel.setParameters(params);
+    _kernel.setParameters(temporaryParameters);
 }
 
 - (void)addCustomUgen:(AKCustomUgen *)ugen {
@@ -67,7 +67,7 @@
 - (void)createParameters {
     standardGeneratorSetup(OperationGenerator)
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[]];
+    _parameterTree = [AUParameterTree treeWithChildren:@[]];
     parameterTreeBlock(OperationGenerator)
 }
 

@@ -13,21 +13,25 @@ let bassFile = try AKAudioFile(readFileName: "bassloop.wav")
 let guitarFile = try AKAudioFile(readFileName: "guitarloop.wav")
 let leadFile = try AKAudioFile(readFileName: "leadloop.wav")
 
-var drums = try AKAudioPlayer(file: drumFile)
-var bass = try AKAudioPlayer(file: bassFile)
-var guitar = try AKAudioPlayer(file: guitarFile)
-var lead = try AKAudioPlayer(file: leadFile)
+var drums = AKPlayer(audioFile: drumFile)
+var bass = AKPlayer(audioFile: bassFile)
+var guitar = AKPlayer(audioFile: guitarFile)
+var lead = AKPlayer(audioFile: leadFile)
 
-drums.looping = true
-bass.looping = true
-guitar.looping = true
-lead.looping = true
+drums.isLooping = true
+drums.buffering = .always
+bass.isLooping = true
+bass.buffering = .always
+guitar.isLooping = true
+guitar.buffering = .always
+lead.isLooping = true
+lead.buffering = .always
 
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)
-
-AudioKit.output = mixer
-AudioKit.start()
+let booster = AKBooster(mixer)
+AudioKit.output = booster
+try AudioKit.start()
 
 drums.play()
 bass.play()
@@ -92,6 +96,10 @@ class LiveView: AKLiveViewController {
         })
         addView(AKSlider(property: "Lead Pan", value: lead.pan, range: -1 ... 1) { sliderValue in
             lead.pan = sliderValue
+        })
+
+        addView(AKSlider(property: "Overall Voilume", value: booster.gain, range: 0 ... 2) { sliderValue in
+            booster.gain = sliderValue
         })
     }
 }

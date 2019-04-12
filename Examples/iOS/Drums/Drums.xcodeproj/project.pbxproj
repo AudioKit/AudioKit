@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C41226FC1F4FDAE70004296C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41226FB1F4FDAA90004296C /* AudioKit.framework */; };
-		C41226FD1F4FDAE70004296C /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C41226FB1F4FDAA90004296C /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4571A3B1F4FDC0C00A18299 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = C4571A3A1F4FDBBB00A18299 /* Samples */; };
 		C4CBE2711F40AF4D0079091A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2701F40AF4D0079091A /* AppDelegate.swift */; };
 		C4CBE2731F40AF4D0079091A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2721F40AF4D0079091A /* ViewController.swift */; };
@@ -16,24 +15,8 @@
 		C4CBE2781F40AF4D0079091A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CBE2771F40AF4D0079091A /* Assets.xcassets */; };
 		C4CBE27B1F40AF4D0079091A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CBE2791F40AF4D0079091A /* LaunchScreen.storyboard */; };
 		C4CBE2831F40AF760079091A /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CBE2821F40AF760079091A /* Conductor.swift */; };
-		EAC9C59E1F5014CA00B01FF7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C59C1F5014C300B01FF7 /* AudioKitUI.framework */; };
-		EAC9C59F1F5014CA00B01FF7 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C59C1F5014C300B01FF7 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA2FA54F215B7D5E001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C59C1F5014C300B01FF7 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C4CBE2881F40AFE60079091A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EAC9C59F1F5014CA00B01FF7 /* AudioKitUI.framework in Embed Frameworks */,
-				C41226FD1F4FDAE70004296C /* AudioKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C41226FB1F4FDAA90004296C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
@@ -54,8 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC9C59E1F5014CA00B01FF7 /* AudioKitUI.framework in Frameworks */,
 				C41226FC1F4FDAE70004296C /* AudioKit.framework in Frameworks */,
+				EA2FA54F215B7D5E001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,7 +96,6 @@
 				C4CBE2691F40AF4D0079091A /* Sources */,
 				C4CBE26A1F40AF4D0079091A /* Frameworks */,
 				C4CBE26B1F40AF4D0079091A /* Resources */,
-				C4CBE2881F40AFE60079091A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,19 +113,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C4CBE26C1F40AF4D0079091A = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C4CBE2681F40AF4D0079091A /* Build configuration list for PBXProject "Drums" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -210,6 +192,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -220,6 +203,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -227,6 +211,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -268,6 +253,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -278,6 +264,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -285,6 +272,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -323,9 +311,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Drums/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Drums;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -337,9 +326,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Drums/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Drums;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

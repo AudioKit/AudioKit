@@ -1,12 +1,12 @@
 //: ## MIDI Chord Generator
-//: This playground builds on the MIDI Scale Quantizer by adding a second 
+//: This playground builds on the MIDI Scale Quantizer by adding a second
 //: AKMIDITransformer which takes the quantized scale and generates chords
-//: from it.  You can chain as many AKMIDITransformers as you want, and 
+//: from it.  You can chain as many AKMIDITransformers as you want, and
 //: each can take an array of AKMIDIEvents to process
 import AudioKitPlaygrounds
 import AudioKit
 
-let sampler = AKSampler()
+let sampler = AKAppleSampler()
 try sampler.loadWav("Samples/FM Piano")
 
 let reverb = AKReverb(sampler)
@@ -16,7 +16,7 @@ var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
 AudioKit.output = mixer
-AudioKit.start()
+try AudioKit.start()
 
 enum Key {
     case C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
@@ -82,7 +82,7 @@ enum Mode {
 var key = Key.C
 var mode = Mode.major
 
-let midi = AKMIDI()
+let midi = AudioKit.midi
 
 midi.inputNames
 midi.openInput()
@@ -198,7 +198,11 @@ class PlaygroundMIDIListener: AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        sampler.play(noteNumber: noteNumber)
+        do {
+            try sampler.play(noteNumber: noteNumber)
+        } catch {
+            AKLog("Could not play")
+        }
     }
 }
 

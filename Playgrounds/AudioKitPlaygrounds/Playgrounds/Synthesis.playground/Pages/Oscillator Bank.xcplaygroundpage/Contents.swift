@@ -8,7 +8,7 @@ let bank = AKOscillatorBank(waveform: AKTable(.sine),
                             releaseDuration: 0.1)
 
 AudioKit.output = bank
-AudioKit.start()
+try AudioKit.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 

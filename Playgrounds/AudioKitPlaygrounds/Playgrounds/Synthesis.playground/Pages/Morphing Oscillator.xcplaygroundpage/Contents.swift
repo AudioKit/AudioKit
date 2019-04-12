@@ -13,7 +13,7 @@ morph.amplitude = 0.1
 morph.index = 0.8
 
 AudioKit.output = morph
-AudioKit.start()
+try AudioKit.start()
 morph.start()
 
 class LiveView: AKLiveViewController {

@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKComputedParameter {
@@ -16,8 +16,8 @@ extension AKComputedParameter {
     ///
     /// - Parameters:
     ///   - cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
-    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause 
-    ///                aliasing, analogue synths generally allow resonances to be above 1. 
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause
+    ///                aliasing, analogue synths generally allow resonances to be above 1.
     ///                (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
     ///
     public func moogLadderFilter(

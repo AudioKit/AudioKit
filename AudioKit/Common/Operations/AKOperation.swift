@@ -3,10 +3,10 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// A computed parameter differs from a regular parameter in that it only exists within an operation 
+/// A computed parameter differs from a regular parameter in that it only exists within an operation
 /// (unlike float, doubles, and ints which have a value outside of an operation)
 public protocol AKComputedParameter: AKParameter {}
 
@@ -101,18 +101,18 @@ open class AKOperation: AKComputedParameter {
     // MARK: - Inputs
 
     /// Left input to any stereo operation
-    open static var leftInput = AKOperation("(14 p) ")
+    public static var leftInput = AKOperation("(14 p) ")
 
     /// Right input to any stereo operation
-    open static var rightInput = AKOperation("(15 p) ")
+    public static var rightInput = AKOperation("(15 p) ")
 
     /// Dummy trigger
-    open static var trigger = AKOperation("(0 p) ")
+    public static var trigger = AKOperation("(0 p) ")
 
     // MARK: - Functions
 
     /// An= array of 14 parameters which may be sent to operations
-    open static var parameters: [AKOperation] =
+    public static var parameters: [AKOperation] =
         [AKOperation("(0 p) "),
          AKOperation("(1 p) "),
          AKOperation("(2 p) "),
@@ -214,7 +214,7 @@ open class AKOperation: AKComputedParameter {
     }
 }
 
-// MARK: - Global Functions 
+// MARK: - Global Functions
 
 /// Performs absolute value on the operation
 ///

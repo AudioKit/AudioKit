@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// These filters are Butterworth second-order IIR filters. They offer an almost
@@ -21,45 +21,56 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Center Frequency
+    public static let centerFrequencyRange = 12.0 ... 20_000.0
+
+    /// Lower and upper bounds for Bandwidth
+    public static let bandwidthRange = 0.0 ... 20_000.0
+
+    /// Initial value for Center Frequency
+    public static let defaultCenterFrequency = 2_000.0
+
+    /// Initial value for Bandwidth
+    public static let defaultBandwidth = 100.0
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Center frequency. (in Hertz)
-    @objc open dynamic var centerFrequency: Double = 2_000.0 {
+    @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.centerFrequency = Float(newValue)
+            guard centerFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
+
     /// Bandwidth. (in Hertz)
-    @objc open dynamic var bandwidth: Double = 100.0 {
+    @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.bandwidth = Float(newValue)
+            guard bandwidth != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -68,13 +79,14 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency in Hz. (default: 2000 Hz)
-    ///   - bandwidth: Bandwidth in Hz. (default: 100 Hz)
+    ///   - centerFrequency: Center frequency. (in Hertz)
+    ///   - bandwidth: Bandwidth. (in Hertz)
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        centerFrequency: Double = 2_000.0,
-        bandwidth: Double = 100.0) {
+        centerFrequency: Double = defaultCenterFrequency,
+        bandwidth: Double = defaultBandwidth
+        ) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -83,11 +95,14 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -110,8 +125,8 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
             }
         })
 
-        internalAU?.centerFrequency = Float(centerFrequency)
-        internalAU?.bandwidth = Float(bandwidth)
+        internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
+        internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)
     }
 
     // MARK: - Control

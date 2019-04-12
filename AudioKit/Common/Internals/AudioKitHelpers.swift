@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioToolbox
@@ -15,16 +15,55 @@ public typealias MIDINoteNumber = UInt8
 public typealias MIDIVelocity = UInt8
 public typealias MIDIChannel = UInt8
 
-extension Collection where IndexDistance == Int {
-    /// Return a random element from the collection
-    public var randomIndex: Index {
-        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
-        return index(startIndex, offsetBy: offset)
+/// A Sample type, just a UInt32
+public typealias Sample = UInt32
+
+/// Callback function that can be called from C
+public typealias AKCCallback = @convention(block) () -> Void
+
+/// Callback function that can be called from C
+public typealias AKCMIDICallback = @convention(block) (UInt8, UInt8, UInt8) -> Void
+
+//extension Collection {
+//    /// Return a random element from the collection
+//    public var randomIndex: Index {
+//        let offset = Int(arc4random_uniform(UInt32(Int64(count))))
+//        return index(startIndex, offsetBy: offset)
+//    }
+//}
+
+//extension Collection where Element == CGPoint {
+//
+//    public func bezier() -> NSBezierPath {
+//        let path = NSBezierPath()
+//
+//        guard let fst = first else { fatalError("NSBezierPath needs more than one point") }
+//        path.move(to: fst)
+//
+//        dropFirst().forEach {
+//            path.line(to: $0)
+//        }
+//
+//        path.close()
+//        return path
+//    }
+//}
+
+extension AudioUnitParameterOptions {
+    public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+}
+
+extension CGRect {
+    public init(size: CGSize) {
+        self.init(origin: .zero, size: size)
     }
 
-    /// Retrieve a random element from the collection
-    public func randomElement() -> Iterator.Element {
-        return self[randomIndex]
+    public init(width: CGFloat, height: CGFloat) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
+    }
+
+    public init(width: Int, height: Int) {
+        self.init(width: CGFloat(width), height: CGFloat(height))
     }
 }
 
@@ -42,15 +81,16 @@ public func fourCC(_ string: String) -> UInt32 {
     return out
 }
 
-/// Wrapper for printing out status messages to the console, 
+/// Wrapper for printing out status messages to the console,
 /// eventually it could be expanded with log levels
-/// - parameter string: Message to print
+/// - items: Zero or more items to print.
 ///
 @inline(__always)
-public func AKLog(_ string: String, fname: String = #function) {
-    if AKSettings.enableLogging {
-        print(fname, string)
-    }
+public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any...) {
+    guard AKSettings.enableLogging else { return }
+    let fileName = (file as NSString).lastPathComponent
+    let content = (items.map { String(describing: $0) }).joined(separator: " ")
+    Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
 
 /// Random double between bounds
@@ -253,7 +293,7 @@ extension ClosedRange {
     /// - parameter value: Value to clamp
     ///
     public func clamp(_ value: Bound) -> Bound {
-        return min(max(value, lowerBound), upperBound)
+        return Swift.min(Swift.max(value, lowerBound), upperBound)
     }
 }
 
@@ -309,7 +349,7 @@ internal struct AUWrapper {
 
 /// Adding instantiation with component and callback
 public extension AVAudioUnit {
-    public class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
+    class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
         AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
             avAudioUnit.map {
                 AudioKit.engine.attach($0)
@@ -319,21 +359,28 @@ public extension AVAudioUnit {
     }
 }
 
-extension AUParameter {
+extension AVAudioNode {
+    func inputConnections() -> [AVAudioConnectionPoint] {
+        return (0..<numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+    }
+}
+
+public extension AUParameter {
     @nonobjc
-    convenience init(_ identifier: String,
+    convenience init(identifier: String,
                      name: String,
                      address: AUParameterAddress,
-                     range: ClosedRange<AUValue>,
+                     range: ClosedRange<Double>,
                      unit: AudioUnitParameterUnit,
-                     value: AUValue = 0) {
-        self.init(identifier,
+                     flags: AudioUnitParameterOptions) {
+
+        self.init(identifier: identifier,
                   name: name,
                   address: address,
-                  min: range.lowerBound,
-                  max: range.upperBound,
-                  unit: unit)
-        self.value = value
+                  min: AUValue(range.lowerBound),
+                  max: AUValue(range.upperBound),
+                  unit: unit,
+                  flags: flags)
     }
 }
 
@@ -367,7 +414,7 @@ extension Dictionary: Occupiable { }
 extension Set: Occupiable { }
 
 #if !os(macOS)
-extension AVAudioSessionCategoryOptions: Occupiable { }
+extension AVAudioSession.CategoryOptions: Occupiable { }
 #endif
 
 prefix operator ❗️

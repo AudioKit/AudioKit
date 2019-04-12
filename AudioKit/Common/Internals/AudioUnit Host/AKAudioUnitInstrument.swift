@@ -3,25 +3,25 @@
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Wrapper for audio units that accept MIDI (ie. instruments)
 open class AKAudioUnitInstrument: AKMIDIInstrument {
-
     /// Initialize the audio unit instrument
     ///
     /// - parameter audioUnit: AVAudioUnitMIDIInstrument to wrap
     ///
     public init?(audioUnit: AVAudioUnitMIDIInstrument) {
         super.init()
-        self.midiInstrument = audioUnit
+        midiInstrument = audioUnit
 
         AudioKit.engine.attach(audioUnit)
 
         // assign the output to the mixer
-        self.avAudioNode = audioUnit
-        self.name = audioUnit.name
+        avAudioUnit = audioUnit
+        avAudioNode = audioUnit
+        name = audioUnit.name
     }
 
     /// Send MIDI Note On information to the audio unit
@@ -31,12 +31,12 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - velocity: MIDI velocity to play the note at
     ///   - channel: MIDI channel to play the note on
     ///
-    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
-        guard self.midiInstrument != nil else {
+    override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
+        guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
         }
-        self.midiInstrument!.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+        midiInstrument.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Send MIDI Note Off information to the audio unit
@@ -45,15 +45,50 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - noteNumber: MIDI note number to stop
     ///   - channel: MIDI channel to stop the note on
     ///
-    override open func stop(noteNumber: MIDINoteNumber) {
-        stop(noteNumber: noteNumber, channel: 0)
+    open override func stop(noteNumber: MIDINoteNumber) {
+        self.stop(noteNumber: noteNumber, channel: 0)
     }
-    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        guard self.midiInstrument != nil else {
+
+    open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+        guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
         }
-        self.midiInstrument!.stopNote(noteNumber, onChannel: channel)
+        midiInstrument.stopNote(noteNumber, onChannel: channel)
+    }
+
+    open override func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+        guard let midiInstrument = midiInstrument else {
+            AKLog("no midiInstrument exists")
+            return
+        }
+        midiInstrument.sendController(controller, withValue: value, onChannel: channel)
+    }
+
+    open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                           pressure: MIDIByte,
+                                           channel: MIDIChannel) {
+        guard let midiInstrument = midiInstrument else {
+            AKLog("no midiInstrument exists")
+            return
+        }
+        midiInstrument.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
+    }
+
+    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+        guard let midiInstrument = midiInstrument else {
+            AKLog("no midiInstrument exists")
+            return
+        }
+        midiInstrument.sendPressure(pressure, onChannel: channel)
+    }
+
+    open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+        guard let midiInstrument = midiInstrument else {
+            AKLog("no midiInstrument exists")
+            return
+        }
+        midiInstrument.sendPitchBend(pitchWheelValue, onChannel: channel)
     }
 
 }

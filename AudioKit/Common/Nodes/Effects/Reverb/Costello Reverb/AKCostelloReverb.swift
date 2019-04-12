@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
@@ -16,53 +16,63 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var feedbackParameter: AUParameter?
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampTime: Double = AKSettings.rampTime {
+    /// Lower and upper bounds for Feedback
+    public static let feedbackRange = 0.0 ... 1.0
+
+    /// Lower and upper bounds for Cutoff Frequency
+    public static let cutoffFrequencyRange = 12.0 ... 20_000.0
+
+    /// Initial value for Feedback
+    public static let defaultFeedback = 0.6
+
+    /// Initial value for Cutoff Frequency
+    public static let defaultCutoffFrequency = 4_000.0
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
-            internalAU?.rampTime = newValue
+            internalAU?.rampDuration = newValue
         }
     }
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a
     /// large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
-    @objc open dynamic var feedback: Double = 0.6 {
+    @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
-            if feedback != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.feedback = Float(newValue)
+            guard feedback != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
+
     /// Low-pass cutoff frequency.
-    @objc open dynamic var cutoffFrequency: Double = 4_000 {
+    @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency != newValue {
-                if internalAU?.isSetUp() ?? false {
-                    if let existingToken = token {
-                        cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.cutoffFrequency = Float(newValue)
+            guard cutoffFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                if let existingToken = token {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
+                    return
                 }
             }
+            internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
-        return internalAU?.isPlaying() ?? false
+        return internalAU?.isPlaying ?? false
     }
 
     // MARK: - Initialization
@@ -76,10 +86,11 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
     ///               make the opcode unstable.
     ///   - cutoffFrequency: Low-pass cutoff frequency.
     ///
-    public init(
+    @objc public init(
         _ input: AKNode? = nil,
-        feedback: Double = 0.6,
-        cutoffFrequency: Double = 4_000) {
+        feedback: Double = defaultFeedback,
+        cutoffFrequency: Double = defaultCutoffFrequency
+        ) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
@@ -88,11 +99,14 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
 
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
-            self?.avAudioNode = avAudioUnit
-            self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
-            input?.connect(to: self!)
+            guard let strongSelf = self else {
+                AKLog("Error: self is nil")
+                return
+            }
+            strongSelf.avAudioUnit = avAudioUnit
+            strongSelf.avAudioNode = avAudioUnit
+            strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
+            input?.connect(to: strongSelf)
         }
 
         guard let tree = internalAU?.parameterTree else {
@@ -115,8 +129,8 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
             }
         })
 
-        internalAU?.feedback = Float(feedback)
-        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.setParameterImmediately(.feedback, value: feedback)
+        internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
 
     // MARK: - Control

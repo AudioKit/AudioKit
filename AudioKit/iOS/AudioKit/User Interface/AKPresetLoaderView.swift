@@ -3,10 +3,10 @@
 //  AudioKit for iOS
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// Preset view scoller
+/// Preset view scroller
 @IBDesignable open class AKPresetLoaderView: UIView {
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
@@ -59,12 +59,12 @@
     }
 
     /// Initialize the preset loader view
-    public init(presets: [String],
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                font: UIFont = UIFont.boldSystemFont(ofSize: 24),
-                fontSize: CGFloat = 24,
-                initialIndex: Int = 0,
-                callback: @escaping (String) -> Void) {
+    @objc public init(presets: [String],
+                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                      font: UIFont = UIFont.boldSystemFont(ofSize: 24),
+                      fontSize: CGFloat = 24,
+                      initialIndex: Int = 0,
+                      callback: @escaping (String) -> Void) {
         self.callback = callback
         self.presets = presets
         self.font = font
@@ -176,9 +176,9 @@
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
 
-        let presetLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
-                                         NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                         NSAttributedStringKey.paragraphStyle: presetLabelStyle]
+        let presetLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+                                         NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                         NSAttributedString.Key.paragraphStyle: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
@@ -247,9 +247,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+                                       NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(

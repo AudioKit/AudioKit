@@ -5,21 +5,21 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = AKOperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(
         time: parameters[0],
-        samples: 1_024,
         feedback: parameters[1],
+        samples: 1_024,
         maximumDelayTime: 2.0)
     return mixer(player.toMono(), delayedPlayer)
 }
 effect.parameters = [0.1, 0.7]
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 import AudioKitUI

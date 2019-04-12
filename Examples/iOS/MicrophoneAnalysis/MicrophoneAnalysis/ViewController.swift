@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MicrophoneAnalysis
 //
-//  Created by Kanstantsin Linou on 6/9/16.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by Kanstantsin Linou, revision history on Githbub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 import AudioKit
@@ -28,11 +28,19 @@ class ViewController: UIViewController {
 
     func setupPlot() {
         let plot = AKNodeOutputPlot(mic, frame: audioInputPlot.bounds)
+        plot.translatesAutoresizingMaskIntoConstraints = false
         plot.plotType = .rolling
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.color = UIColor.blue
         audioInputPlot.addSubview(plot)
+
+        // Pin the AKNodeOutputPlot to the audioInputPlot
+        var constraints = [plot.leadingAnchor.constraint(equalTo: audioInputPlot.leadingAnchor)]
+        constraints.append(plot.trailingAnchor.constraint(equalTo: audioInputPlot.trailingAnchor))
+        constraints.append(plot.topAnchor.constraint(equalTo: audioInputPlot.topAnchor))
+        constraints.append(plot.bottomAnchor.constraint(equalTo: audioInputPlot.bottomAnchor))
+        constraints.forEach { $0.isActive = true }
     }
 
     override func viewDidLoad() {
@@ -48,7 +56,11 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
 
         AudioKit.output = silence
-        AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start!")
+        }
         setupPlot()
         Timer.scheduledTimer(timeInterval: 0.1,
                              target: self,
@@ -85,4 +97,45 @@ class ViewController: UIViewController {
         }
         amplitudeLabel.text = String(format: "%0.2f", tracker.amplitude)
     }
+
+    // MARK: - Actions
+
+    @IBAction func didTapInputDevicesButton(_ sender: UIBarButtonItem) {
+        let inputDevices = InputDeviceTableViewController()
+        inputDevices.settingsDelegate = self
+        let navigationController = UINavigationController(rootViewController: inputDevices)
+        navigationController.preferredContentSize = CGSize(width: 300, height: 300)
+        navigationController.modalPresentationStyle = .popover
+        navigationController.popoverPresentationController!.delegate = self
+        self.present(navigationController, animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension ViewController: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        popoverPresentationController.permittedArrowDirections = .up
+        popoverPresentationController.barButtonItem = navigationItem.rightBarButtonItem
+    }
+}
+
+// MARK: - InputDeviceDelegate
+
+extension ViewController: InputDeviceDelegate {
+
+    func didSelectInputDevice(_ device: AKDevice) {
+        do {
+            try mic.setDevice(device)
+        } catch {
+            AKLog("Error setting input device")
+        }
+    }
+
 }

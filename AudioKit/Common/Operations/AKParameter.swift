@@ -3,12 +3,12 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// AKParameters are simply arguments that can be passed into AKComputedParameters
 /// These could be numbers (floats, doubles, ints) or other operations themselves
-/// Since parameters can be audio in mono or stereo format, the protocol 
+/// Since parameters can be audio in mono or stereo format, the protocol
 /// requires that an AKParameter defines method to switch between stereo and mono
 public protocol AKParameter: CustomStringConvertible {
     /// Require a function to produce a mono operation regarless of the mono/stereo nature of the parameter

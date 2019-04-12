@@ -18,7 +18,7 @@ import AudioKit
 let oscillator = AKOscillator()
 
 AudioKit.output = oscillator
-AudioKit.start()
+try AudioKit.start()
 
 oscillator.start()
 

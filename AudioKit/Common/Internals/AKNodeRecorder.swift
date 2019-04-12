@@ -1,14 +1,13 @@
 //
-//  AKAudioNodeRecorder.swift
+//  AKNodeRecorder.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Tweaked by Laurent Veliscek
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Simple audio recorder class
-@objc open class AKNodeRecorder: NSObject {
+open class AKNodeRecorder: NSObject {
 
     // MARK: - Properties
 
@@ -42,7 +41,6 @@
             AKLog("Error: \(error.localizedDescription)")
             return nil
         }
-
     }
 
     // MARK: - Initialization
@@ -56,7 +54,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    @objc public init(node: AKNode? = AudioKit.output,
+    public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -76,7 +74,7 @@
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
-                                                settings: existingFile.processingFormat.settings)
+                                                settings: existingFile.fileFormat.settings)
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot write to \(existingFile.fileNamePlusExtension)")
             throw error
@@ -103,18 +101,23 @@
         isRecording = true
 
         AKLog("AKNodeRecorder: recording")
-        node.avAudioNode.installTap(
+        node.avAudioUnitOrNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
             format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
+                guard let strongSelf = self else {
+                    AKLog("Error: self is nil")
+                    return
+                }
+
                 do {
-                    self!.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
-                    try self!.internalAudioFile.write(from: buffer)
-                    //AKLog("AKNodeRecorder writing (file duration: \(self!.internalAudioFile.duration) seconds)")
+                    strongSelf.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
+                    try strongSelf.internalAudioFile.write(from: buffer)
+                    //AKLog("AKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)")
 
                     // allow an optional timed stop
-                    if self!.durationToRecord != 0 && self!.internalAudioFile.duration >= self!.durationToRecord {
-                        self!.stop()
+                    if strongSelf.durationToRecord != 0 && strongSelf.internalAudioFile.duration >= strongSelf.durationToRecord {
+                        strongSelf.stop()
                     }
 
                 } catch let error as NSError {
@@ -137,7 +140,7 @@
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node?.avAudioNode.removeTap(onBus: 0)
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Reset the AKAudioFile to clear previous recordings
@@ -158,7 +161,7 @@
                 try fileManager.removeItem(atPath: path)
             }
         } catch let error as NSError {
-            AKLog("Error: Can't delete: \(audioFile?.fileNamePlusExtension ?? "nil") \(error.localizedDescription)")
+            AKLog("Error: Can't delete", audioFile?.fileNamePlusExtension ?? "nil", error.localizedDescription)
         }
 
         // Creates a blank new file
@@ -166,7 +169,7 @@
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
             AKLog("AKNodeRecorder: file has been cleared")
         } catch let error as NSError {
-            AKLog("Error: Can't record to: \(internalAudioFile.fileNamePlusExtension)")
+            AKLog("Error: Can't record to", internalAudioFile.fileNamePlusExtension)
             throw error
         }
     }

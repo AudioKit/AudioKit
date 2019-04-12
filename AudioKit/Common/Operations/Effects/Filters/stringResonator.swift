@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2017 Aurelius Prochazka. All rights reserved.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 extension AKComputedParameter {
@@ -14,8 +14,8 @@ extension AKComputedParameter {
     ///
     /// - Parameters:
     ///   - frequency: Fundamental frequency of the filter. (Default: 100.0, Minimum: 12.0, Maximum: 20000.0)
-    ///   - feedback: Feedback gain. A value close to 1 creates a slower decay and a more pronounced resonance. 
-    ///               Small values may leave the input signal unaffected. Depending on the filter frequency, 
+    ///   - feedback: Feedback gain. A value close to 1 creates a slower decay and a more pronounced resonance.
+    ///               Small values may leave the input signal unaffected. Depending on the filter frequency,
     ///               typical values are > .9.  Default 0.95
     ///
     public func stringResonator(

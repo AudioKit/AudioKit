@@ -2,8 +2,8 @@
 //  AKMicrophoneTrackerEngine.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 5/9/17.
-//  Copyright © 2017 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -11,6 +11,9 @@
 #import "EZAudio.h"
 
 @interface AKMicrophoneTrackerEngine : NSObject<EZMicrophoneDelegate>
+
+- (instancetype)initWithHopSize:(UInt32)hopSize peakCount:(UInt32)peakCount;
+
 @property float amplitude;
 @property float frequency;
 

@@ -20,7 +20,7 @@ let generator = AKOperationGenerator { parameters in
                                                    start: 0.3,
                                                    end: 0.01,
                                                    duration: 1.0 / updateRate)
-    return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
+    return AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
 }
 
 var delay = AKDelay(generator)
@@ -32,7 +32,7 @@ var reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.largeHall)
 
 AudioKit.output = reverb
-AudioKit.start()
+try AudioKit.start()
 
 generator.parameters = [2.0]
 generator.start()

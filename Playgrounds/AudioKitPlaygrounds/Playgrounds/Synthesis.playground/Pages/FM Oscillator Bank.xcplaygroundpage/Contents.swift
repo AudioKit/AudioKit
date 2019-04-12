@@ -9,7 +9,7 @@ import AudioKitUI
 let fmBank = AKFMOscillatorBank()
 
 AudioKit.output = fmBank
-AudioKit.start()
+try AudioKit.start()
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 

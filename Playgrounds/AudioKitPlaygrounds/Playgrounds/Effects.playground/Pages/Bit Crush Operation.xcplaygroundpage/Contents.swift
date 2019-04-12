@@ -25,7 +25,7 @@ let effect = AKOperationEffect(player) { input, parameters in
 effect.parameters = [22_050, 0, 16, 0, 1]
 
 AudioKit.output = effect
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 class LiveView: AKLiveViewController {
@@ -56,7 +56,7 @@ class LiveView: AKLiveViewController {
         })
         addView(AKSlider(property: "Bit Depth Variation",
                          value: effect.parameters[3],
-                         range: 0 ...12,
+                         range: 0 ... 12,
                          format: "%0.3f Hz"
         ) { sliderValue in
             effect.parameters[3] = sliderValue

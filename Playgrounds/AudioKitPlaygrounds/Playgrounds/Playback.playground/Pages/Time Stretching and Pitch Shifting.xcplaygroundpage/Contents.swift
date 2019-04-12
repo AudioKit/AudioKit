@@ -16,7 +16,7 @@ timePitch.pitch = -400.0
 timePitch.overlap = 8.0
 
 AudioKit.output = timePitch
-AudioKit.start()
+try AudioKit.start()
 player.play()
 
 //: User Interface Set up

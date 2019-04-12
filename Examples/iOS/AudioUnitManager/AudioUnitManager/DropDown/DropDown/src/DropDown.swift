@@ -2,7 +2,7 @@
 //  DropDown.swift
 //  DropDown
 //
-//  Created by Kevin Hirsch on 28/07/15.
+//  Created by Kevin Hirsch, revision history on Githbub.
 //  Copyright (c) 2015 Kevin Hirsch. All rights reserved.
 //
 
@@ -235,12 +235,12 @@ public final class DropDown: UIView {
 	/**
 	The option of the show animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationEntranceOptions: UIViewAnimationOptions = DropDown.animationEntranceOptions
+	public var animationEntranceOptions: UIView.AnimationOptions = DropDown.animationEntranceOptions
 
 	/**
 	The option of the hide animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationExitOptions: UIViewAnimationOptions = DropDown.animationExitOptions
+	public var animationExitOptions: UIView.AnimationOptions = DropDown.animationExitOptions
 
 	/**
 	The downScale transformation of the tableview when the DropDown is appearing
@@ -269,7 +269,7 @@ public final class DropDown: UIView {
 
     /**
      The NIB to use for DropDownCells
-     
+
      Changing the cell nib automatically reloads the drop down.
      */
 	public var cellNib = UINib(nibName: "DropDownCell", bundle: Bundle(for: DropDownCell.self)) {
@@ -321,7 +321,7 @@ public final class DropDown: UIView {
 
     /**
      A advanced formatter for the cells. Allows customization when custom cells are used
-     
+
      Changing `customCellConfiguration` automatically reloads the drop down.
      */
     public var customCellConfiguration: CellConfigurationClosure? {
@@ -660,7 +660,7 @@ extension DropDown {
 
 	fileprivate func fittingWidth() -> CGFloat {
 		if templateCell == nil {
-			templateCell = cellNib.instantiate(withOwner: nil, options: nil)[0] as! DropDownCell
+            templateCell = cellNib.instantiate(withOwner: nil, options: nil)[0] as? DropDownCell
 		}
 
 		var maxWidth: CGFloat = 0
@@ -668,7 +668,7 @@ extension DropDown {
 		for index in 0..<dataSource.count {
 			configureCell(templateCell, at: index)
 			templateCell.bounds.size.height = cellHeight
-			let width = templateCell.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
+			let width = templateCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
 
 			if width > maxWidth {
 				maxWidth = width
@@ -711,7 +711,7 @@ extension DropDown {
 
     /**
      An Objective-C alias for the show() method which converts the returned tuple into an NSDictionary.
-     
+
      - returns: An NSDictionary with a value for the "canBeDisplayed" Bool, and possibly for the "offScreenHeight" Optional(CGFloat).
      */
     @objc(show)
@@ -750,7 +750,7 @@ extension DropDown {
 
 		let visibleWindow = UIWindow.visibleWindow()
 		visibleWindow?.addSubview(self)
-		visibleWindow?.bringSubview(toFront: self)
+		visibleWindow?.bringSubviewToFront(self)
 
 		self.translatesAutoresizingMaskIntoConstraints = false
 		visibleWindow?.addUniversalConstraints(format: "|[dropDown]|", views: ["dropDown": self])
@@ -974,12 +974,12 @@ extension DropDown {
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(keyboardUpdate),
-			name: NSNotification.Name.UIKeyboardWillShow,
+			name: UIResponder.keyboardWillShowNotification,
 			object: nil)
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(keyboardUpdate),
-			name: NSNotification.Name.UIKeyboardWillHide,
+			name: UIResponder.keyboardWillHideNotification,
 			object: nil)
 	}
 
