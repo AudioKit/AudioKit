@@ -49,12 +49,6 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             }
         })
     }
-<<<<<<< HEAD
-
-    // CHECK! fatal error: Index out of range
-=======
-    
->>>>>>> c9e945e6df90d2834195122e6cb20173a6b22bc9
     private func handle(event: AKMIDIEvent) {
         guard event.data.count > 2 else {
             return
