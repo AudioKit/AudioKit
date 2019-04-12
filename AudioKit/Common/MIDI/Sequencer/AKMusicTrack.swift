@@ -88,47 +88,10 @@ open class AKMusicTrack {
         trackPointer = UnsafeMutablePointer(musicTrack)
 
         let data = [MIDIByte](name.utf8)
-        
-        // MetaEventHelper class is a helper for low level transfer
-        let me = MetaEventHelper(type: 3, data: data)
-        
-        me.withMIDIMetaEventPtr { metaEventPtr in
-            let status = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), metaEventPtr)
-            if status != 0 {
-                AKLog("Unable to name Track")
-            }
-        }
         var metaEvent = MIDIMetaEvent()
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
 
-//  MY TREVOR Correction -->
-//        BUG This code below gives EXC_BAD_ACCESS code=1 in certain circumstance
-//        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-//            for i in 0 ..< data.count {
-//                pointer[i] = data[i]
-//            }
-//        })
-        
-//        FIX by Trevor Sonic
-//        for i in 0 ..< data.count {
-//            metaEvent.data = data[i]
-//        }
-        
-// Temporary commented - It cause crash
-//        let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), &metaEvent)
-//        if result != 0 {
-//            AKLog("Unable to name Track")
-//        }
-//  MY TREVOR Correction --<
-        //        BUG This code below gives EXC_BAD_ACCESS code=1 in certain circumstance
-        //        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-        //            for i in 0 ..< data.count {
-        //                pointer[i] = data[i]
-        //            }
-        //        })
-
-        //        FIX by Trevor Sonic
         for i in 0 ..< data.count {
             metaEvent.data = data[i]
         }
@@ -693,35 +656,4 @@ open class AKMusicTrack {
         }
     }
 
-}
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// MetaEventHelper class is a helper for low level transfer
-class MetaEventHelper {
-    private let size: Int
-    private let mem: UnsafeMutablePointer<UInt8>
-    
-    init(type: UInt8, data: [UInt8]) {
-        // Allocate memory of the required size:
-        size = MemoryLayout<MIDIMetaEvent>.size + data.count
-        mem = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
-        mem.initialize(to: 0, count: size)
-        
-        // Fill data:
-        mem.withMemoryRebound(to: MIDIMetaEvent.self, capacity: 1) { metaEventPtr in
-            metaEventPtr.pointee.metaEventType = type
-            metaEventPtr.pointee.dataLength = UInt32(data.count)
-            memcpy(&metaEventPtr.pointee.data, data, data.count)
-        }
-    }
-    
-    deinit {
-        // Release the allocated memory:
-        mem.deallocate(capacity: size)
-    }
-    
-    func withMIDIMetaEventPtr(body: (UnsafePointer<MIDIMetaEvent>) -> Void) {
-        mem.withMemoryRebound(to: MIDIMetaEvent.self, capacity: 1) { metaEventPtr in
-            body(metaEventPtr)
-        }
-    }
 }

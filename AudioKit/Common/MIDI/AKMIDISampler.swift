@@ -52,8 +52,6 @@ open class AKMIDISampler: AKAppleSampler {
             }
         })
     }
-
-<<<<<<< HEAD
     private func handle(event: AKMIDIEvent) {
         // Trevor correction against -> fatal error: Index out of range
         let data0 = event.internalData.indices.contains(0)
@@ -66,16 +64,9 @@ open class AKMIDISampler: AKAppleSampler {
                             data2: event.internalData[1],
                             data3: event.internalData[2])
         }
-=======
-    private func handle(event: AKMIDIEvent) throws {
-        try self.handleMIDI(data1: event.data[0],
-                            data2: event.data[1],
-                            data3: event.data[2])
->>>>>>> c9e945e6df90d2834195122e6cb20173a6b22bc9
+
     }
-
     // MARK: - Handling MIDI Data
-
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
         if let status = AKMIDIStatus(byte: data1) {
