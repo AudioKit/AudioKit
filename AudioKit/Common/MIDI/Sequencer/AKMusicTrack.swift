@@ -103,7 +103,6 @@ open class AKMusicTrack {
         MusicSequenceNewTrack(sequencer.sequence!, &initMusicTrack)
         initTrackPointer = UnsafeMutablePointer(initMusicTrack!)
         MusicTrackMerge(internalMusicTrack!, 0.0, length, initMusicTrack!, 0.0)
-
     }
 
     /// Initialize with a music track and the AKSequence
