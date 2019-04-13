@@ -5,6 +5,7 @@
 //  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+
 /// Wrapper for internal Apple MusicTrack
 open class AKMusicTrack {
 
@@ -88,6 +89,7 @@ open class AKMusicTrack {
         trackPointer = UnsafeMutablePointer(musicTrack)
 
         let data = [MIDIByte](name.utf8)
+
         var metaEvent = MIDIMetaEvent()
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
