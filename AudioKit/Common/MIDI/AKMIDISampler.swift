@@ -52,13 +52,13 @@ open class AKMIDISampler: AKAppleSampler {
             }
         })
     }
-    
+
     private func handle(event: AKMIDIEvent) throws {
         try self.handleMIDI(data1: event.data[0],
                             data2: event.data[1],
                             data3: event.data[2])
     }
-    
+
     // MARK: - Handling MIDI Data
 
     // Send MIDI data to the audio unit
