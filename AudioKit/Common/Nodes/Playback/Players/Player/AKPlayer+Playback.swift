@@ -71,7 +71,9 @@ extension AKPlayer {
 
         // restore that startTime as it might be a selection
         startTime = previousStartTime
-        pauseTime = nil
+        // restore the pauseTime cleared by play and preserve it by setting _isPaused to false manually
+        pauseTime = time
+        _isPaused = false
     }
 
     /// Stop playback and cancel any pending scheduled playback or completion events
