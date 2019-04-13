@@ -176,6 +176,8 @@ public class AKPlayer: AKNode {
     internal var _rate: Double {
         return 1.0
     }
+    
+    internal var _isPaused = false
 
     // MARK: - Public Properties
 
@@ -303,12 +305,20 @@ public class AKPlayer: AKNode {
     /// - Returns: Current time of the player in seconds while playing.
     @objc public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
-        let current = startTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
-
+        var normalisedPauseTime = 0.0
+        if let pauseTime = pauseTime, pauseTime > startTime {
+            normalisedPauseTime = pauseTime - startTime
+        }
+        let current = startTime + normalisedPauseTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
+        
         return current
     }
-
-    public var pauseTime: Double?
+    
+    public var pauseTime: Double? {
+        didSet {
+            _isPaused = pauseTime != nil
+        }
+    }
 
     @objc public var processingFormat: AVAudioFormat? {
         guard let audioFile = audioFile else { return nil }
@@ -333,7 +343,7 @@ public class AKPlayer: AKNode {
     @objc public var isLooping: Bool = false
 
     @objc public var isPaused: Bool {
-        return pauseTime != nil
+        return _isPaused
     }
 
     /// Reversing the audio will set the player to buffering
@@ -497,6 +507,8 @@ public class AKPlayer: AKNode {
             return
         }
         initFader(at: audioTime, hostTime: hostTime)
+        
+        pauseTime = nil
     }
 
     // MARK: - Deinit
