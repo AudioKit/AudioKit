@@ -49,6 +49,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             }
         })
     }
+
     private func handle(event: AKMIDIEvent) {
         guard event.data.count > 2 else {
             return
