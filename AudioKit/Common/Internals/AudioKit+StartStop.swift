@@ -63,6 +63,14 @@ extension AudioKit {
 
         try AKTry {
             try engine.start()
+            // Send AudioKit started and ready for connections notification.
+            // If you listen this notification, you may not need the `shouldBeRunning` variable.
+            if AKSettings.notificationsEnabled {
+                NotificationCenter.default.post(
+                    name: .AKEngineStarted,
+                    object: nil,
+                    userInfo: nil)
+            }
         }
         shouldBeRunning = true
     }
