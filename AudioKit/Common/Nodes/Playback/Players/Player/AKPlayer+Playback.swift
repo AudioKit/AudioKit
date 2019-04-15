@@ -263,6 +263,7 @@ extension AKPlayer {
             startTime = loop.start
             endTime = loop.end
             play()
+            loopCompletionHandler?()
             return
         }
         if pauseTime != nil {
