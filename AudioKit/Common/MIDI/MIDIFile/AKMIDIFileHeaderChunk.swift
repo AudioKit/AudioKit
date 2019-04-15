@@ -57,7 +57,7 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     }
 
     var ticksPerFrame: Int? {
-        if timeFormat == .ticksPerBeat {
+        if timeFormat == .framesPerSecond {
             return Int(timeDivision & 0xff)
         }
         return nil
