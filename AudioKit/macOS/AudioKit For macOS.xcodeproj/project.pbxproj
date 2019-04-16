@@ -1148,6 +1148,7 @@
 		FE081EEA21E916F200653575 /* AKMIDIFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE081EE521E916F100653575 /* AKMIDIFile.swift */; };
 		FE11CFB6224C3E3000E6D289 /* AKMIDIMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11CFB5224C3E3000E6D289 /* AKMIDIMessage.swift */; };
 		FE11CFB8224C3E3700E6D289 /* AKMIDIFileTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11CFB7224C3E3700E6D289 /* AKMIDIFileTrack.swift */; };
+		FE2F97B122662F97006C7551 /* MIDIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F97B022662F97006C7551 /* MIDIHelper.swift */; };
 		FE4BDB2621925906007E3DA3 /* AKCallbackInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4BDB2221925906007E3DA3 /* AKCallbackInstrument.swift */; };
 		FE4BDB2721925906007E3DA3 /* AKCallbackInstrumentDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FE4BDB2321925906007E3DA3 /* AKCallbackInstrumentDSPKernel.hpp */; };
 		FE4BDB2821925906007E3DA3 /* AKCallbackInstrumentAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = FE4BDB2421925906007E3DA3 /* AKCallbackInstrumentAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2391,6 +2392,7 @@
 		FE081EE521E916F100653575 /* AKMIDIFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFile.swift; sourceTree = "<group>"; };
 		FE11CFB5224C3E3000E6D289 /* AKMIDIMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIMessage.swift; sourceTree = "<group>"; };
 		FE11CFB7224C3E3700E6D289 /* AKMIDIFileTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIFileTrack.swift; sourceTree = "<group>"; };
+		FE2F97B022662F97006C7551 /* MIDIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
 		FE4BDB2221925906007E3DA3 /* AKCallbackInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCallbackInstrument.swift; sourceTree = "<group>"; };
 		FE4BDB2321925906007E3DA3 /* AKCallbackInstrumentDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCallbackInstrumentDSPKernel.hpp; sourceTree = "<group>"; };
 		FE4BDB2421925906007E3DA3 /* AKCallbackInstrumentAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCallbackInstrumentAudioUnit.h; sourceTree = "<group>"; };
@@ -5206,6 +5208,7 @@
 			children = (
 				C550836C21F68A9500465A21 /* AKMIDITimeout.swift */,
 				C550836521F662E200465A21 /* BPM+StatisticalTools.swift */,
+				FE2F97B022662F97006C7551 /* MIDIHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -5693,7 +5696,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -6081,6 +6084,7 @@
 				C45669861D448D7E00D26565 /* AKPWMOscillator.swift in Sources */,
 				C45669921D448D7E00D26565 /* AKDrumSynths.swift in Sources */,
 				C45669CC1D448D7E00D26565 /* stringResonator.swift in Sources */,
+				FE2F97B122662F97006C7551 /* MIDIHelper.swift in Sources */,
 				34BB66CB205ABBC0000E5450 /* pack_dns.c in Sources */,
 				3404A767204F515500A2C9E4 /* AKSampler.swift in Sources */,
 				C456697E1D448D7E00D26565 /* AKPhaseDistortionOscillator.swift in Sources */,
@@ -6829,7 +6833,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
