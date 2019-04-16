@@ -33,7 +33,7 @@ extension AKMIDIFileChunk {
     var isLengthValid: Bool { return data.count == length }
 
     var length: Int {
-        return Int(convertTo32Bit(msb: lengthData[0], data1: lengthData[1],
+        return Int(MIDIHelper.convertTo32Bit(msb: lengthData[0], data1: lengthData[1],
                                   data2: lengthData[2], lsb: lengthData[3]))
     }
 
