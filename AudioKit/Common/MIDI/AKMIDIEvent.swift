@@ -18,6 +18,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
     /// Internal data
     public var data = [MIDIByte]()
 
+    /// Position data - used for events parsed from a MIDI file
+    public var positionInBeats: Double?
+
     /// Description
     public var description: String {
         if let status = self.status {
@@ -139,6 +142,9 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
         self = AKMIDIEvent(data: event.computedData)
+        if event.timeFormat == .ticksPerBeat {
+            positionInBeats = event.position
+        }
     }
     
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
