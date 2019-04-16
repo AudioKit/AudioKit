@@ -45,6 +45,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var isParsingSysex = false
         var runningStatus: MIDIByte?
         var variableBits = [MIDIByte]()
+        var accumulatedDeltaTime = 0
         for byte in data {
             if currentTimeByte == nil {
                 if byte & UInt8(0x80) == 0x80 { //Test if bit #7 of the byte is set
@@ -120,8 +121,8 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
             currentAllData.append(byte)
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
-                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData,
-                                                      timeFormat: timeFormat, timeDivision: timeDivision)
+                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData, timeFormat: timeFormat,
+                                                      timeDivision: timeDivision, timeOffset: accumulatedDeltaTime)
                 if chunkEvent.typeByte == nil, let running = runningStatus {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
                 }
@@ -137,6 +138,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                     AKLog("MIDI File Parser length mismatch got \(length) expected \(chunkEvent.length) type: \(type)")
                     break
                 }
+                accumulatedDeltaTime += chunkEvent.deltaTime
                 currentTimeByte = nil
                 currentTypeByte = nil
                 currentLengthByte = nil
@@ -145,7 +147,6 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 currentEventData.removeAll()
                 variableBits.removeAll()
                 currentAllData.removeAll()
-
                 events.append(chunkEvent)
             }
         }
