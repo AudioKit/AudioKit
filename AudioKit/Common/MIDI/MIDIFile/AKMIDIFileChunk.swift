@@ -33,7 +33,8 @@ extension AKMIDIFileChunk {
     var isLengthValid: Bool { return data.count == length }
 
     var length: Int {
-        return combine(bytes: lengthData)
+        return Int(MIDIHelper.convertTo32Bit(msb: lengthData[0], data1: lengthData[1],
+                                  data2: lengthData[2], lsb: lengthData[3]))
     }
 
     var type: MIDIFileChunkType? {
@@ -46,10 +47,6 @@ extension AKMIDIFileChunk {
 
     var isTrack: Bool {
         return type == .track
-    }
-
-    func combine(bytes: [UInt8]) -> Int {
-        return Int(bytes.map(String.init).joined()) ?? 0
     }
 }
 
