@@ -21,4 +21,8 @@ public class MIDIHelper {
         value |= (UInt32(msb) << 24) & 0xFFFFFFFF
         return value
     }
+
+    static public func convertToString(bytes: [UInt8]) -> String {
+        return bytes.map(String.init).joined()
+    }
 }
