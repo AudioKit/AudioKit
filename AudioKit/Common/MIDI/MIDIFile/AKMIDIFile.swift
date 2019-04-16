@@ -102,7 +102,7 @@ public struct AKMIDIFile {
                     if sizeIndex == sizeLength {
                         isParsingLength = false
                         sizeIndex = 0
-                        dataLength = convertTo32Bit(msb: currentLengthChunk[0], data1: currentLengthChunk[1],
+                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0], data1: currentLengthChunk[1],
                                                     data2: currentLengthChunk[2], lsb: currentLengthChunk[3])
                     }
                 } else { //get chunk data
