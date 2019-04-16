@@ -183,6 +183,10 @@ public class AKPlayer: AKNode {
     /// stop() is called while playing or when looping from a buffer.
     @objc public var completionHandler: AKCallback?
 
+    /// Completion handler to be called when Audio has looped. The handler won't be called if
+    /// stop() is called while playing.
+    @objc public var loopCompletionHandler: AKCallback?
+
     /// Used with buffering players
     @objc public var buffer: AVAudioPCMBuffer?
 
