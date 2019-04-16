@@ -13,10 +13,14 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     // MARK: - Properties
 
-    public var timeStamp: MIDITimeStamp = 0
-
     /// Internal data
     public var data = [MIDIByte]()
+
+    /// Position data - used for events parsed from a MIDI file
+    public var positionInBeats: Double?
+
+    //Timestamp - offset within a packet. Used mostly in receiving packets live
+    public var timeStamp: MIDITimeStamp = 0
 
     /// Description
     public var description: String {
@@ -139,6 +143,10 @@ public struct AKMIDIEvent: AKMIDIMessage {
 
     init?(fileEvent event: AKMIDIFileChunkEvent) {
         self = AKMIDIEvent(data: event.computedData)
+        if event.timeFormat == .ticksPerBeat {
+            positionInBeats = event.position
+        }
+
     }
     
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
