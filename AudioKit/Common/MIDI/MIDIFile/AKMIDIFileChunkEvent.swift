@@ -10,10 +10,14 @@ import Foundation
 
 public struct AKMIDIFileChunkEvent {
     var data: [MIDIByte]
+    var timeFormat: MIDITimeFormat
+    var timeDivision: Int
     var runningStatus: AKMIDIStatus?
 
-    init(data: [MIDIByte]) {
+    init(data: [MIDIByte], timeFormat: MIDITimeFormat, timeDivision: Int) {
         self.data = data
+        self.timeFormat = timeFormat
+        self.timeDivision = timeDivision
     }
 
     var computedData: [MIDIByte] {

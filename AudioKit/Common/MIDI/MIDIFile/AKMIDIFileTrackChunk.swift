@@ -13,17 +13,23 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
     var typeData: [UInt8]
     var lengthData: [UInt8]
     var data: [UInt8]
+    var timeFormat: MIDITimeFormat
+    var timeDivision: Int
 
     init() {
         typeData = Array(repeating: 0, count: 4)
         lengthData = Array(repeating: 0, count: 4)
+        timeFormat = .ticksPerBeat
+        timeDivision = 480 //arbitrary value
         data = []
     }
 
-    init(chunk: AKMIDIFileChunk) {
+    init(chunk: AKMIDIFileChunk, timeFormat: MIDITimeFormat, timeDivision: Int) {
         self.typeData = chunk.typeData
         self.lengthData = chunk.lengthData
         self.data = chunk.data
+        self.timeFormat = timeFormat
+        self.timeDivision = timeDivision
     }
 
     var chunkEvents: [AKMIDIFileChunkEvent] {
@@ -114,7 +120,8 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
             currentAllData.append(byte)
             if let time = currentTimeByte, let type = currentTypeByte, let length = currentLengthByte,
                 UInt8(currentEventData.count) == currentLengthByte {
-                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData)
+                var chunkEvent = AKMIDIFileChunkEvent(data: currentAllData,
+                                                      timeFormat: timeFormat, timeDivision: timeDivision)
                 if chunkEvent.typeByte == nil, let running = runningStatus {
                     chunkEvent.runningStatus = AKMIDIStatus(byte: running)
                 }
