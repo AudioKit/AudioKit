@@ -7,7 +7,7 @@
 //
 
 /// Audio from the standard input
-open class AKMicrophone: AKNode, AKToggleable {
+@objc open class AKMicrophone: AKNode, AKToggleable {
 
     internal let mixer = AVAudioMixerNode()
 
@@ -20,7 +20,7 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     /// Set the actual microphone device
-    public func setDevice(_ device: AKDevice) throws {
+    @objc public func setDevice(_ device: AKDevice) throws {
         do {
             try AudioKit.setInputDevice(device)
         } catch {
@@ -36,7 +36,7 @@ open class AKMicrophone: AKNode, AKToggleable {
     }
 
     /// Initialize the microphone
-	public init?(with format: AVAudioFormat? = nil)
+	@objc public init?(with format: AVAudioFormat? = nil)
 	{
 		super.init()
 		guard let format = getFormatForDevice()
