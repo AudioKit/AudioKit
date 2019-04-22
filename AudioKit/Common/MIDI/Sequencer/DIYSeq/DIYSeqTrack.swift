@@ -26,11 +26,21 @@ open class DIYSeqTrack: AKNode, AKComponent {
         }
     }
 
+    public var isPlaying: Bool {
+        guard engine != nil else { return false }
+        return engine.isPlaying
+    }
+
+    public var currentPosition: Double {
+        guard engine != nil else { return 0.0 }
+        return engine.currentPosition
+    }
+
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
-    private var targetNode: AKNode?
+    public var targetNode: AKNode?
     private var engine: AKDIYSeqEngine!
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
@@ -110,6 +120,12 @@ open class DIYSeqTrack: AKNode, AKComponent {
     }
     public func stop() {
         internalAU?.stop()
+    }
+    public func rewind() {
+        internalAU?.rewind()
+    }
+    public func seek(to seekPosition: Double) {
+        internalAU?.seek(to: seekPosition)
     }
 
     public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0, beat: Double, duration: Double) {
