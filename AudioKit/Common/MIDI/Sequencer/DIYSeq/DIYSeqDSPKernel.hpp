@@ -187,6 +187,10 @@ public:
         return positionInSamples % lengthInSamples();
     }
 
+    double currentPositionInBeats() {
+        return (double)positionModulo() / sampleRate * (bpm / 60);
+    }
+
     bool validTriggerTime(double beat){
         return true;
     }

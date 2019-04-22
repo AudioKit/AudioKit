@@ -38,6 +38,10 @@
     return _kernel.maximumPlayCount;
 }
 
+-(double)getCurrentPosition {
+    return _kernel.currentPositionInBeats();
+}
+
 -(void)setLoopEnabled:(bool)loopEnabled {
     _kernel.loopEnabled = loopEnabled;
 }
@@ -55,6 +59,12 @@
 }
 -(void)clear {
     _kernel.clear();
+}
+-(void)rewind {
+    _kernel.rewind();
+}
+-(void)seekTo:(double)seekPosition {
+    _kernel.seekTo(seekPosition);
 }
 
 - (void)start { _kernel.start(); }
