@@ -173,13 +173,6 @@ extension AKMIDI {
             return
         }
 
-        // close any previous output port and dispose of it
-        if outputPort != 0 {
-            let uid = getMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
-            closeOutput(uid: uid)
-            outputPort = 0
-        }
-
         outputPort = tempPort
 
         let destinations = MIDIDestinations()
@@ -200,7 +193,7 @@ extension AKMIDI {
         }
     }
 
-    /// Open a MIDI Input port by name
+    /// Close a MIDI Input port by name
     ///
     /// - Parameter name: Name of port to close.
     ///
@@ -212,7 +205,7 @@ extension AKMIDI {
         closeInput(uid: uid)
     }
 
-    /// Open a MIDI Input port by index
+    /// Close a MIDI Input port by index
     ///
     /// - Parameter index: Index of destination port name
     ///
@@ -230,24 +223,11 @@ extension AKMIDI {
     ///
     public func closeOutput(uid outputUid: MIDIUniqueID) {
         let name = destinationName(for: outputUid)
-        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
+        AKLog("Closing MIDI Output '\(String(describing: name))'")
         var result = noErr
         if let endpoint = endpoints[outputUid] {
-            result = MIDIPortDisconnectSource(outputPort, endpoint)
-            if result == noErr {
                 endpoints.removeValue(forKey: outputUid)
-
-                result = MIDIPortDispose(outputPort)
-                if result == noErr {
-                    AKLog("Disposed \(name)")
-                } else {
-                    AKLog("Error displosing  MIDI port: \(result)")
-                }
-                outputPort = 0
-                AKLog("Disconnected \(name) and removed it from endpoints and output ports")
-            } else {
-                AKLog("Error disconnecting MIDI port: \(result)")
-            }
+                AKLog("Disconnected \(name) and removed it from endpoints")
         }
     }
 
