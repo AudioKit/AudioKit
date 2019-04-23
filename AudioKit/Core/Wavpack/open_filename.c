@@ -35,6 +35,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include "wavpack_local.h"
 
@@ -243,7 +244,10 @@ WavpackContext *WavpackOpenFileInput (const char *infilename, char *error, int f
 #endif
     }
     else if ((wv_id = fopen_func (infilename, file_mode)) == NULL) {
-        if (error) strcpy (error, (flags & OPEN_EDIT_TAGS) ? "can't open file for editing" : "can't open file");
+        if (error != NULL) {
+            printf("INFILE: %s ERR: %s\n", infilename, strerror(errno));
+            sprintf(error, "%s\n", strerror(errno));
+        }
         return NULL;
     }
 
@@ -254,11 +258,12 @@ WavpackContext *WavpackOpenFileInput (const char *infilename, char *error, int f
         strcat (in2filename, "c");
         wvc_id = fopen_func (in2filename, "rb");
         free (in2filename);
-    }
-    else
+    } else {
         wvc_id = NULL;
-
-    return WavpackOpenFileInputEx64 (&freader, wv_id, wvc_id, error, flags, norm_offset);
+    }
+    WavpackContext *returnValue = WavpackOpenFileInputEx64 (&freader, wv_id, wvc_id, error, flags, norm_offset);
+    fclose(wv_id);
+    return returnValue;
 }
 
 #ifdef _WIN32
