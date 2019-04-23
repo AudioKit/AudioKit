@@ -131,7 +131,6 @@ public:
     }
     long loopPhase = -1;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);

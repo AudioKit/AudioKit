@@ -213,5 +213,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
+        print("end point: \(internalAU?.endPoint)")
     }
 }
