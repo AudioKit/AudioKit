@@ -214,5 +214,8 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
         print("end point: \(internalAU?.endPoint)")
+
+    open func seek(to sample: Double) {
+        internalAU?.seek(to: sample)
     }
 }

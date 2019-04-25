@@ -28,6 +28,7 @@ typedef void (^AKCCallback)(void);
 - (void)loadFile:(const char*)filename;
 - (int)size;
 - (double)position;
+- (void)seekTo:(double)sample;
 
 @end
 

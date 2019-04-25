@@ -47,6 +47,11 @@ public:
         useTempEndPoint = false;
     }
 
+    void seekTo(double sample) {
+        sp_wavin_seek(sp, wavin, sample);
+        position = sample;
+    }
+
     void loadFile(const char *filename) {
         sp_wavin_init(sp, wavin, filename);
         sourceSampleRate = wavin->wav.sampleRate;
@@ -129,8 +134,10 @@ public:
                 break;
         }
     }
+    
     long loopPhase = -1;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
