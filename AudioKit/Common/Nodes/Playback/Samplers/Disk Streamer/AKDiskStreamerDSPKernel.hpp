@@ -45,6 +45,12 @@ public:
         started = false;
         useTempStartPoint = false;
         useTempEndPoint = false;
+        rewind();
+    }
+
+    void rewind() {
+        sp_wavin_resetToStart(sp, wavin);
+        position = startPointViaRate();
     }
 
     void seekTo(double sample) {
