@@ -11,7 +11,7 @@ extension AKPlayer {
     internal func createFader() {
         guard faderNode == nil else { return }
 
-        AKLog("Creating fader")
+        // AKLog("Creating fader")
         faderNode = AKBooster()
         faderNode?.gain = gain
         faderNode?.rampType = rampType
@@ -110,7 +110,8 @@ extension AKPlayer {
             faderNode.rampType = fade.outRampType
             faderNode.rampDuration = time / _rate
             faderNode.gain = Fade.minimumGain
-            // AKLog("Fading out to", Fade.minimumGain, ", shape:", fade.outRampType.rawValue)
+
+            // AKLog("Fading out over", time, "seconds, shape:", fade.outRampType.rawValue)
         }
     }
 }
