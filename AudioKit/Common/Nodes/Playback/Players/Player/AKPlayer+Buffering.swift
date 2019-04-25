@@ -105,7 +105,7 @@ extension AKPlayer {
         guard isBuffered, let buffer = self.buffer else { return }
         if let reversededBuffer = buffer.reverse() {
             self.buffer = reversededBuffer
-            AKLog("Reversed Buffer")
+            // AKLog("Reversed Buffer")
         }
     }
 
@@ -113,7 +113,7 @@ extension AKPlayer {
         guard isBuffered, let buffer = self.buffer else { return }
         if let normalizedBuffer = buffer.normalize() {
             self.buffer = normalizedBuffer
-            AKLog("Normalized Buffer")
+            // AKLog("Normalized Buffer")
         }
     }
 
@@ -128,7 +128,7 @@ extension AKPlayer {
                                          inRampType: fade.inRampType,
                                          outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
-            AKLog("Faded Buffer")
+            // AKLog("Faded Buffer")
         }
     }
 }
