@@ -103,10 +103,9 @@ public:
         loop = value;
     }
 
-//    void setRate(float value) {
-//        rate = clamp(value, -10.0f, 10.0f);
-//        rateRamper.setImmediate(rate);
-//    }
+    void setRate(double value) {
+        rate = value;
+    }
 
     void setVolume(float value) {
         volume = clamp(value, 0.0f, 10.0f);
@@ -319,7 +318,5 @@ public:
     UInt32 ftbl_size = 2;
     unsigned long long current_size = 2;
     double position = 0.0;
-    float rate = 1;
+    double rate = 1;
 };
-
-
