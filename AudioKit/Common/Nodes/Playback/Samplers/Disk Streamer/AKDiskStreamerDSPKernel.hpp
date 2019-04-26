@@ -178,7 +178,6 @@ public:
                     if (channel == 0) {
                         wavin->pos = (drwav_uint64)floor(position);
                         sp_wavin_getSample(wavin, out, position);
-//                        sp_wavin_compute(wavin, out);
                         position += sampleStep();
                     } else {
 //                        sp_wavplay_compute(sp, wavin, NULL, out);
