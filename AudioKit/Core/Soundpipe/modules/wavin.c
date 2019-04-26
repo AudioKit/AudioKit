@@ -38,7 +38,7 @@ int sp_wavin_init(sp_wavin *p, const char *filename)
 
 int sp_wavin_readBlock(sp_wavin *p, SPFLOAT *out, drwav_uint64 position)
 {
-    drwav_seek_to_sample(&p->wav, position);
+    sp_wavin_seek(p, position);
     drwav_uint64 numberOfSampleRead = drwav_read_f32(&p->wav, WAVIN_BUFSIZE, p->buf);
     p->buffStart = position;
     p->buffEnd = position += numberOfSampleRead - 1;
@@ -87,7 +87,7 @@ int sp_wavin_compute(sp_wavin *p, SPFLOAT *out)
 
 int sp_wavin_resetToStart(sp_wavin *p)
 {
-    drwav_seek_to_sample(&p->wav, 0);
+    sp_wavin_seek(p, 0);
     return SP_OK;
 }
 
