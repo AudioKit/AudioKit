@@ -1439,28 +1439,17 @@ typedef struct{
     int count;
     drwav wav;
     drwav_uint64 pos;
+    drwav_uint64 buffStart;
+    drwav_uint64 buffEnd;
 } sp_wavin;
 
 int sp_wavin_create(sp_wavin **p);
 int sp_wavin_destroy(sp_wavin **p);
-int sp_wavin_init(sp_data *sp, sp_wavin *p, const char *filename);
-int sp_wavin_compute(sp_data *sp, sp_wavin *p, SPFLOAT *in, SPFLOAT *out);
-int sp_wavin_resetToStart(sp_data *sp, sp_wavin *p);
-int sp_wavin_seek(sp_data *sp, sp_wavin *p, drwav_uint64 sample);
-
-typedef struct{
-    SPFLOAT buf[WAVIN_BUFSIZE];
-    int count;
-    drwav wav;
-    drwav_uint64 pos;
-} sp_wavplay;
-
-int sp_wavplay_create(sp_wavplay **p);
-int sp_wavplay_destroy(sp_wavplay **p);
-int sp_wavplay_init(sp_data *sp, sp_wavplay *p, const char *filename);
-int sp_wavplay_compute(sp_data *sp, sp_wavplay *p, SPFLOAT *in, SPFLOAT *out);
-int sp_wavplay_resetToStart(sp_data *sp, sp_wavplay *p);
-int sp_wavplay_seekToSample(sp_data *sp, sp_wavplay *p, drwav_uint64 sample);
+int sp_wavin_init(sp_wavin *p, const char *filename);
+int sp_wavin_getSample(sp_wavin *p, SPFLOAT *out, float position);
+int sp_wavin_compute(sp_wavin *p, SPFLOAT *out);
+int sp_wavin_resetToStart(sp_wavin *p);
+int sp_wavin_seek(sp_wavin *p, drwav_uint64 sample);
 
 typedef struct {
     SPFLOAT value;

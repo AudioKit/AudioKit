@@ -49,17 +49,17 @@ public:
     }
 
     void rewind() {
-        sp_wavin_resetToStart(sp, wavin);
+        sp_wavin_resetToStart(wavin);
         position = startPointViaRate();
     }
 
     void seekTo(double sample) {
-        sp_wavin_seek(sp, wavin, sample);
+        sp_wavin_seek(wavin, sample);
         position = sample;
     }
 
     void loadFile(const char *filename) {
-        sp_wavin_init(sp, wavin, filename);
+        sp_wavin_init(wavin, filename);
         sourceSampleRate = wavin->wav.sampleRate;
         current_size = wavin->wav.totalSampleCount / wavin->wav.channels;
         if (loadCompletionHandler != nil){
@@ -177,10 +177,11 @@ public:
                 if (started) {
                     if (channel == 0) {
                         wavin->pos = (drwav_uint64)floor(position);
-                        sp_wavin_compute(sp, wavin, NULL, out);
+                        sp_wavin_getSample(wavin, out, position);
+//                        sp_wavin_compute(wavin, out);
                         position += sampleStep();
                     } else {
-//                        sp_wavin_compute(sp, wavin, NULL, out);
+//                        sp_wavplay_compute(sp, wavin, NULL, out);
                     }
                     *out *= volume;
                 } else {
@@ -284,8 +285,7 @@ public:
         }
     }
     void doLoopActions(){
-        sp_wavin_resetToStart(sp, wavin);
-
+        sp_wavin_resetToStart(wavin);
         position = loopStartPointViaRate();
         if (loopCallback != NULL) {
             loopCallback();
