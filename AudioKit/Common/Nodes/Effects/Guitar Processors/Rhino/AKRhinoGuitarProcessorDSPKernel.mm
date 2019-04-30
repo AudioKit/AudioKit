@@ -201,20 +201,16 @@ void AKRhinoGuitarProcessorDSPKernel::startRamp(AUParameterAddress address, AUVa
             break;
 
         case lowGainAddress:
-            lowGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
+            lowGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
 
             break;
 
         case midGainAddress:
-            midGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
+            midGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
             break;
 
         case highGainAddress:
-            highGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
-            break;
-
-        case distTypeAddress:
-            distTypeRamper.startRamp(clamp(value, 1.0f, 3.0f), duration);
+            highGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
             break;
 
         case distortionAddress:
