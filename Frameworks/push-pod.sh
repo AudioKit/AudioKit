@@ -8,13 +8,15 @@ then
 fi
 
 VER=$(cat ../VERSION)
+BETA=${BETA:-1}
 
 if test $1 = release;
 then
-	SOURCE="https://files.audiokit.io/releases/v${VER}/AudioKit.framework.zip"
+	#SOURCE="https://files.audiokit.io/releases/v${VER}/AudioKit.framework.zip"
+	SOURCE="https://github.com/AudioKit/AudioKit/releases/download/v${VER}/AudioKit.framework.zip"
 elif test $1 = staging;
 then
-	VER="${VER}.b1"
+	VER="${VER}.b${BETA}"
 	SOURCE="https://files.audiokit.io/staging/v${VER}/AudioKit.framework.zip"
 else
 	echo "Invalid parameter: $1"

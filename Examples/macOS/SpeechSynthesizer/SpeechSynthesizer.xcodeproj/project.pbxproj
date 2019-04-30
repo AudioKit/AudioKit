@@ -40,7 +40,6 @@
 		C49BC47A2079AF1C005A71A0 = {
 			isa = PBXGroup;
 			children = (
-				C42367BE20A5264300507E72 /* AudioKit.framework */,
 				C49BC4852079AF1C005A71A0 /* SpeechSynthesizer */,
 				C49BC4842079AF1C005A71A0 /* Products */,
 				C49BC4A12079B172005A71A0 /* Frameworks */,
@@ -71,6 +70,7 @@
 		C49BC4A12079B172005A71A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C42367BE20A5264300507E72 /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,7 +107,7 @@
 				TargetAttributes = {
 					C49BC4822079AF1C005A71A0 = {
 						CreatedOnToolsVersion = 9.3;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -297,7 +297,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SpeechSynthesizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -316,7 +316,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SpeechSynthesizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

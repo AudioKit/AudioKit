@@ -1,5 +1,5 @@
 //
-//  Filter.h
+//  MikeFilter.h
 //
 //  Created by Mike Gazzaruso, revision history on Githbub.
 //

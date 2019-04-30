@@ -11,7 +11,7 @@
 
 #include "EnsembleOscillator.hpp"
 #include "DrawbarsOscillator.hpp"
-#include "ADSREnvelope.h"
+#include "ADSREnvelope.hpp"
 #include "Envelope.hpp"
 #include "MultiStageFilter.hpp"
 
