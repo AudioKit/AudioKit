@@ -142,7 +142,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
     }
 
     public func clear() {
-        print("clear sequence")
         internalAU?.clear()
     }
 }

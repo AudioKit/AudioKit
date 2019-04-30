@@ -57,7 +57,6 @@ public:
 //    }
 
     void stop() {
-        printf("deboog: stopped diyseqengine\n");
         started = false;
         isPlaying = false;
     }
