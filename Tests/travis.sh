@@ -22,9 +22,9 @@ if test "$TRAVIS_TAG" != "" || test "$TRAVIS_BRANCH" = "staging"; then
    fi
    ./build_packages.sh || exit 1
    echo "Uploading CocoaPods archive to S3 ..."
-   if test "$TRAVIS_TAG" != ""; then
-   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
-   else
+   if test "$TRAVIS_TAG" = ""; then
+#   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
+#   else
    	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/v${VERSION}.b1/AudioKit.framework.zip
    fi
    exit
@@ -123,7 +123,7 @@ cd Examples/iOS/FilterEffects; pod install; cd ../../..
 xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 33
 
 echo "Running iOS Unit Tests"
-xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c || exit 100
+xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2' | xcpretty -c || exit 100
 
 echo "Skipping macOS Unit Tests"
 #xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101

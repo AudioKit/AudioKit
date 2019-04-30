@@ -102,7 +102,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     ///   - phase: Phase offset
     ///   - count: Size of the table (multiple of 2)
     ///
-    public init(_ type: AKTableType = .sine,
+    @objc public init(_ type: AKTableType = .sine,
                 phase: Float = 0,
                 count: IndexDistance = 4_096) {
         self.type = type
@@ -139,7 +139,7 @@ public class AKTable: NSObject, MutableCollection, Codable {
     }
 
     /// Create table from audio file
-    public convenience init(file: AKAudioFile) {
+    @objc public convenience init(file: AKAudioFile) {
         let size = Int(file.samplesCount)
         self.init(count: size)
 

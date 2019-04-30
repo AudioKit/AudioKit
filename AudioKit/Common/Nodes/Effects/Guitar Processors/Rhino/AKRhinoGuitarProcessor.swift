@@ -100,21 +100,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         }
     }
 
-    /// Distortion Type
-    //    open dynamic var distType: Double = 1 {
-    //        willSet {
-    //            if distType != newValue {
-    //                if internalAU?.isSetUp == true {
-    //                    if let existingToken = token {
-    //                        distTypeParameter?.setValue(Float(newValue), originator: existingToken)
-    //                    }
-    //                } else {
-    //                    internalAU?.distType = Float(newValue)
-    //                }
-    //            }
-    //        }
-    //    }
-
     /// Distortion Amount
     @objc open dynamic var distortion: Double = 1.0 {
         willSet {
@@ -145,7 +130,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - lowGain: Amount of Low frequencies.
     ///   - midGain: Amount of Middle frequencies.
     ///   - highGain: Amount of High frequencies.
-    ///   - distType: Distortion Type
     ///   - distortion: Distortion Amount
     ///
     @objc public init(
@@ -155,7 +139,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         lowGain: Double = 0.0,
         midGain: Double = 0.0,
         highGain: Double = 0.0,
-        distType: Double = 1,
         distortion: Double = 1.0) {
 
         self.preGain = preGain
@@ -163,7 +146,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         self.lowGain = lowGain
         self.midGain = midGain
         self.highGain = highGain
-        //self.distType = distType
         self.distortion = distortion
 
         _Self.register()
@@ -191,7 +173,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         lowGainParameter = tree["lowGain"]
         midGainParameter = tree["midGain"]
         highGainParameter = tree["highGain"]
-        //distTypeParameter = tree["distType"]
         distortionParameter = tree["distortion"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] address, value in
@@ -221,7 +202,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.lowGain = Float(lowGain)
         internalAU?.midGain = Float(midGain)
         internalAU?.highGain = Float(highGain)
-        internalAU?.distType = Float(distType)
         internalAU?.distortion = Float(distortion)
     }
 

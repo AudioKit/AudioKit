@@ -62,6 +62,8 @@ extension AudioKit {
                 case .error:
                     // error occurred while rendering
                     fatalError("render failed")
+                @unknown default:
+                    fatalError("Unknown render result")
                 }
             }
             tester?.stop()

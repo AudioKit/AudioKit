@@ -49,14 +49,14 @@ create_package()
 	echo "Packaging AudioKit version $VERSION for $1 ..."
 	DIR="AudioKit-$1"
 	rm -f ${DIR}-${VERSION}.zip
-	mkdir -p "Carthage/$os"
-	cp -a "$DIR/AudioKit.framework" "$DIR/AudioKitUI.framework" "Carthage/$os/"
-	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && return # Do not bundle any examples for staging, just the frameworks
+	mkdir -p "Carthage/$1"
 	cd $DIR
+	tar cf - $(find . -name AudioKit\*.framework) | tar xf - -C "../Carthage/$1/"
+	test "$TRAVIS_BRANCH" = "$STAGING_BRANCH" && cd .. && return # Do not bundle any examples for staging, just the frameworks
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* ../../Examples/Common Examples/
 	# Exceptions of any example projects to skip
-	rm -rf Examples/SongProcessor
+	rm -rf Examples/SongProcessor Examples/Drums
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	find -d Examples -name Pods -exec rm -rf {} \;
 	find Examples -name Podfile.lock -exec rm -rf {} \;
@@ -85,6 +85,7 @@ create_playgrounds()
 }
 
 rm -rf Carthage
+mkdir -p Carthage
 
 for os in $PLATFORMS;
 do
@@ -97,7 +98,7 @@ test "$TRAVIS_BRANCH" != "$STAGING_BRANCH" && test -d ../Playgrounds && create_p
 # Create binary framework zip for Carthage/CocoaPods, to be uploaded to S3 or GitHub along with release
 
 echo "Packaging AudioKit frameworks version $VERSION for CocoaPods and Carthage ..."
-rm -f AudioKit.framework.zip
+rm -f ${SUBDIR}/AudioKit.framework.zip
 cd Carthage
 cp ../../LICENSE ../../README.md .
 zip -9yr ../${SUBDIR}/AudioKit.framework.zip $PLATFORMS LICENSE README.md

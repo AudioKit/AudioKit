@@ -35,9 +35,6 @@
 - (void)setHighGain:(float)highGain {
     _kernel.setHighGain(highGain);
 }
-- (void)setDistType:(float)distType {
-    _kernel.setDistType(distType);
-}
 - (void)setDistortion:(float)distortion {
     _kernel.setDistortion(distortion);
 }
@@ -88,14 +85,6 @@ standardKernelPassthroughs()
                                      min:-1.0
                                      max:1.0
                                     unit:kAudioUnitParameterUnit_Generic];
-    // Create a parameter object for the distType.
-    AUParameter *distTypeAUParameter =
-    [AUParameter parameterWithIdentifier:@"distType"
-                                    name:@"Distortion Type"
-                                 address:AKRhinoGuitarProcessorDSPKernel::distTypeAddress
-                                     min:1.0
-                                     max:3.0
-                                    unit:kAudioUnitParameterUnit_Generic];
     // Create a parameter object for the distortion.
     AUParameter *distortionAUParameter =
     [AUParameter parameterWithIdentifier:@"distortion"
@@ -112,7 +101,6 @@ standardKernelPassthroughs()
     lowGainAUParameter.value = 0.0;
     midGainAUParameter.value = 0.0;
     highGainAUParameter.value = 0.0;
-    distTypeAUParameter.value = 1.0;
     distortionAUParameter.value = 1.0;
 
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::preGainAddress,  preGainAUParameter.value);
@@ -120,7 +108,6 @@ standardKernelPassthroughs()
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::lowGainAddress,  lowGainAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::midGainAddress,  midGainAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::highGainAddress, highGainAUParameter.value);
-    _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distTypeAddress, distTypeAUParameter.value);
     _kernel.setParameter(AKRhinoGuitarProcessorDSPKernel::distortionAddress, distortionAUParameter.value);
 
     // Create the parameter tree.
@@ -130,7 +117,6 @@ standardKernelPassthroughs()
                                                          lowGainAUParameter,
                                                          midGainAUParameter,
                                                          highGainAUParameter,
-                                                         distTypeAUParameter,
                                                          distortionAUParameter
                                                          ]];
 

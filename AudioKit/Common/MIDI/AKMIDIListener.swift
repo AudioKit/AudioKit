@@ -224,7 +224,7 @@ public extension AKMIDIListener {
         AKLog("MIDI Notification received.")
     }
     
-    func isEqualTo(_ listener : AKMIDIListener) -> Bool {
+    func isEqualTo(_ listener: AKMIDIListener) -> Bool {
         return self == listener
     }
 }
