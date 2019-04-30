@@ -78,12 +78,21 @@ extension AKPlayer {
 
     /// Stop playback and cancel any pending scheduled playback or completion events
     @objc public func stop() {
+        guard isPlaying else {
+            // AKLog("Player isn't playing")
+            return
+        }
         guard stopEnvelopeTime > 0 else {
+            // stop immediately
             stopCompletion()
             return
         }
 
+        // AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
+
+        // stop after an auto fade out
         fadeOutWithTime(stopEnvelopeTime)
+        faderTimer?.invalidate()
         faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
                                           target: self,
                                           selector: #selector(stopCompletion),
@@ -272,7 +281,7 @@ extension AKPlayer {
             startTime = 0
             pauseTime = nil
         }
-        AKLog("Firing callback. currentFrame:", currentFrame, "frameCount:", frameCount)
+        // AKLog("Firing callback. currentFrame:", currentFrame, "frameCount:", frameCount)
 
         completionHandler?()
     }
