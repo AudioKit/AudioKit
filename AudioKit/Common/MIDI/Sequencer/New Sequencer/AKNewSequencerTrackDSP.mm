@@ -145,7 +145,7 @@ void AKNewSequencerTrackDSP::addMIDIEvent(uint8_t status, uint8_t data1, uint8_t
 }
 
 void AKNewSequencerTrackDSP::sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
-    printf("deboog: sending: %i %i %i at offset %f (%f beats)\n", status, data1, data2, offset, time);
+//    printf("deboog: sending: %i %i %i at offset %f (%f beats)\n", status, data1, data2, offset, time);
     if (midiPort == 0 || midiEndpoint == 0) {
         MusicDeviceMIDIEvent(targetAU, status, data1, data2, offset);
     } else {
