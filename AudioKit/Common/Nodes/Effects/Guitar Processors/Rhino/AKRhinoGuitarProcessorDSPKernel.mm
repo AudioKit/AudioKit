@@ -37,7 +37,6 @@ struct AKRhinoGuitarProcessorDSPKernel::InternalData {
     float lowGain = 0.0;
     float midGain = 0.0;
     float highGain = 0.0;
-    float distType = 1.0;
     float distortion = 1.0;
 };
 
@@ -85,7 +84,6 @@ void AKRhinoGuitarProcessorDSPKernel::init(int channelCount, double sampleRate) 
     lowGainRamper.init();
     midGainRamper.init();
     highGainRamper.init();
-    distTypeRamper.init();
     distortionRamper.init();
 }
 
@@ -107,7 +105,6 @@ void AKRhinoGuitarProcessorDSPKernel::reset() {
     lowGainRamper.reset();
     midGainRamper.reset();
     highGainRamper.reset();
-    distTypeRamper.reset();
     distortionRamper.reset();
 }
 
@@ -134,11 +131,6 @@ void AKRhinoGuitarProcessorDSPKernel::setMidGain(float value) {
 void AKRhinoGuitarProcessorDSPKernel::setHighGain(float value) {
     data->highGain = clamp(value, -1.0f, 1.0f);
     highGainRamper.setImmediate(data->highGain);
-}
-
-void AKRhinoGuitarProcessorDSPKernel::setDistType(float value) {
-    data->distType = clamp(value, -1.0f, 3.0f);
-    distTypeRamper.setImmediate(data->distType);
 }
 
 void AKRhinoGuitarProcessorDSPKernel::setDistortion(float value) {
@@ -168,10 +160,6 @@ void AKRhinoGuitarProcessorDSPKernel::setParameter(AUParameterAddress address, A
             highGainRamper.setUIValue(clamp(value, -1.0f, 1.0f));
             break;
 
-        case distTypeAddress:
-            distTypeRamper.setUIValue(clamp(value, 1.0f, 3.0f));
-            break;
-
         case distortionAddress:
             distortionRamper.setUIValue(clamp(value, 1.0f, 20.0f));
             break;
@@ -195,9 +183,6 @@ AUValue AKRhinoGuitarProcessorDSPKernel::getParameter(AUParameterAddress address
         case highGainAddress:
             return highGainRamper.getUIValue();
 
-        case distTypeAddress:
-            return distTypeRamper.getUIValue();
-
         case distortionAddress:
             return distortionRamper.getUIValue();
 
@@ -216,20 +201,16 @@ void AKRhinoGuitarProcessorDSPKernel::startRamp(AUParameterAddress address, AUVa
             break;
 
         case lowGainAddress:
-            lowGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
+            lowGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
 
             break;
 
         case midGainAddress:
-            midGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
+            midGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
             break;
 
         case highGainAddress:
-            highGainRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
-            break;
-
-        case distTypeAddress:
-            distTypeRamper.startRamp(clamp(value, 1.0f, 3.0f), duration);
+            highGainRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
             break;
 
         case distortionAddress:
@@ -249,7 +230,6 @@ void AKRhinoGuitarProcessorDSPKernel::process(AUAudioFrameCount frameCount, AUAu
         data->lowGain = lowGainRamper.getAndStep();
         data->midGain = midGainRamper.getAndStep();
         data->highGain = highGainRamper.getAndStep();
-        data->distType = distTypeRamper.getAndStep();
         data->distortion = distortionRamper.getAndStep();
 
         data->leftEqLo->calc_filter_coeffs(7, 120, sampleRate, 0.75, -2 * -data->lowGain, false);
