@@ -50,6 +50,7 @@ namespace AudioKitCore
         if (fReadWriteGap > capacity) fReadWriteGap = (float)capacity;
         readIndex = writeIndex - fReadWriteGap;
         while (readIndex < 0.0f) readIndex += capacity;
+        while (readIndex >= capacity) readIndex -= capacity;
     }
     
     float AdjustableDelayLine::push(float sample)
