@@ -129,19 +129,28 @@ open class DIYSeqTrack: AKNode, AKComponent {
         internalAU?.seek(to: seekPosition)
     }
 
-    public func addNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0, beat: Double, duration: Double) {
-        var noteOffPosition: Double = (beat + duration);
+    open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
+                  position: Double, duration: Double) {
+        var noteOffPosition: Double = (position + duration);
         while (noteOffPosition >= lengthInBeats && lengthInBeats != 0) {
             noteOffPosition -= lengthInBeats;
         }
-        addMIDIEvent(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: beat)
-        addMIDIEvent(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)), data1: noteNumber, data2: velocity, beat: noteOffPosition)
+        add(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)),
+            data1: noteNumber, data2: velocity, position: position)
+        add(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)),
+            data1: noteNumber, data2: velocity, position: noteOffPosition)
     }
 
-    public func addMIDIEvent(status: AKMIDIStatus, data1: UInt8, data2: UInt8, beat: Double) {
-        internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: beat)
+    open func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
+        internalAU?.addMIDIEvent(status.byte, data1: data1, data2: data2, beat: position)
     }
 
+    open func add(event: AKMIDIEvent, position: Double) {
+        if let status = event.status, event.data.count > 2 {
+            add(status: status, data1: event.data[1], data2: event.data[2], position: position)
+        }
+    }
+    
     public func clear() {
         internalAU?.clear()
     }

@@ -101,7 +101,6 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
         if (isPlaying) {
             if (positionInSamples >= lengthInSamples()){
                 if (!loopEnabled) { //stop if played enough
