@@ -103,6 +103,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
                 // value observing, but if you need to, this is where that goes.
             }
         })
+        AudioKit.internalConnections.append(self)
     }
 
     @objc public convenience init(targetNode: AKNode) {
