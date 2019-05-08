@@ -39,7 +39,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
     private var internalAU: AKAudioUnitType?
     private var token: AUParameterObserverToken?
 
-    fileprivate var startPointParameter: AUParameter?
     public var targetNode: AKNode?
     private var engine: AKDIYSeqEngine!
 
@@ -49,9 +48,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
             internalAU?.rampDuration = newValue
         }
     }
-
-    private var startPoint: Sample = 0
-    public var lengthInBeats: Double = 4.0
+    public var length: Double = 4.0
     public var tempo: Double {
         get {
             return internalAU?.tempo ?? 0
@@ -89,8 +86,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
             AKLog("Parameter Tree Failed")
             return
         }
-
-        startPointParameter = tree["startPoint"]
 
         token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
 
@@ -132,8 +127,8 @@ open class DIYSeqTrack: AKNode, AKComponent {
     open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
                   position: Double, duration: Double) {
         var noteOffPosition: Double = (position + duration);
-        while (noteOffPosition >= lengthInBeats && lengthInBeats != 0) {
-            noteOffPosition -= lengthInBeats;
+        while (noteOffPosition >= length && length != 0) {
+            noteOffPosition -= length;
         }
         add(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)),
             data1: noteNumber, data2: velocity, position: position)

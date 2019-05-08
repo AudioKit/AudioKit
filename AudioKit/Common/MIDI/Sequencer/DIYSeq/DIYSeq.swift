@@ -13,11 +13,11 @@ open class DIYSeq {
     open var tracks = [DIYSeqTrack]()
     open var length: Double {
         get {
-            return tracks.max(by: {$0.lengthInBeats > $1.lengthInBeats})?.lengthInBeats ?? 0
+            return tracks.max(by: {$0.length > $1.length})?.length ?? 0
         }
         set {
             for track in tracks {
-                track.lengthInBeats = newValue
+                track.length = newValue
             }
         }
     }
