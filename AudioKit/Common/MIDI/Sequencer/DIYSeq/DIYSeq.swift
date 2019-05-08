@@ -6,20 +6,17 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Foundation
-
 open class DIYSeq {
 
     open var tracks = [DIYSeqTrack]()
+    open var tempo: BPM {
+        get { return tracks.first?.tempo ?? 0 }
+        set { for track in tracks { track.tempo = newValue } }
+    }
+
     open var length: Double {
-        get {
-            return tracks.max(by: {$0.length > $1.length})?.length ?? 0
-        }
-        set {
-            for track in tracks {
-                track.length = newValue
-            }
-        }
+        get { return tracks.max(by: { $0.length > $1.length })?.length ?? 0 }
+        set { for track in tracks { track.length = newValue } }
     }
 
     open func play() {

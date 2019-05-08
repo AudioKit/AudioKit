@@ -64,7 +64,7 @@
 //    _kernel.rewind();
 }
 -(void)seekTo:(double)seekPosition {
-//    _kernel.seekTo(seekPosition);
+    _kernel.seekTo(seekPosition);
 }
 
 - (void)start { _kernel.start(); }

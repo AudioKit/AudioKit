@@ -52,9 +52,10 @@ public:
         isPlaying = true;
     }
 
-//    void playFrom(double beat) {
-//        int position = beat;
-//    }
+    void seekTo(double position) {
+        printf("seeking to %f\n", position);
+        positionInSamples = beatToSamples(position);
+    }
 
     void stop() {
         started = false;

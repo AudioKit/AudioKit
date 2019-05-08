@@ -14,7 +14,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKDIYSeqEngine
 
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "diys")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "diys")
 
     // MARK: - Properties
     public var loopEnabled: Bool {
@@ -37,7 +37,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
     }
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     public var targetNode: AKNode?
     private var engine: AKDIYSeqEngine!
@@ -55,6 +54,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
         }
         set {
             internalAU?.tempo = newValue
+            seek(to: currentPosition)
         }
     }
     public var maximumPlayCount: Double {
@@ -82,22 +82,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
 
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            if self == nil {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         AudioKit.internalConnections.append(self)
     }
 
@@ -120,8 +104,9 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public func rewind() {
         internalAU?.rewind()
     }
-    public func seek(to seekPosition: Double) {
-        internalAU?.seek(to: seekPosition)
+    public func seek(to position: Double) {
+        print("seek (swift) \(position)")
+        internalAU?.seek(to: position)
     }
 
     open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
