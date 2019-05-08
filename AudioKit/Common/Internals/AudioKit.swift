@@ -49,7 +49,19 @@ open class AudioKit: NSObject {
         public static let midi = AKMIDI()
     #endif
 
-    @objc static var finalMixer: AKMixer?
+    @objc static var finalMixer: AKMixer? {
+        didSet {
+            if let mixer = finalMixer {
+                for connection in internalConnections {
+                    connection >>> mixer
+                }
+            }
+        }
+    }
+
+    /// internalConnections are used for not-strictly audio processing nodes that need
+    /// a mechanism to pull samples (ie. the sequencer)
+    static var internalConnections: [AKNode] = []
 
     // MARK: - Device Management
 
