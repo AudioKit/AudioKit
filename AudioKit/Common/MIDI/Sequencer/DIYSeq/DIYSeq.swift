@@ -8,29 +8,62 @@
 
 import Foundation
 
-class DIYSeq {
+open class DIYSeq {
 
-    var tracks = [DIYSeqTrack]()
-
-    required public init(_ nodes: [AKNode]) {
-        tracks = nodes.enumerated().map({ DIYSeqTrack(targetNode: $0.element) })
-    }
-
-    public convenience init(_ node: AKNode? = nil) {
-        if let node = node {
-            self.init([node])
-        } else {
-            self.init([AKNode]())
+    open var tracks = [DIYSeqTrack]()
+    open var length: Double {
+        get {
+            return tracks.max(by: {$0.lengthInBeats > $1.lengthInBeats})?.lengthInBeats ?? 0
+        }
+        set {
+            for track in tracks {
+                track.lengthInBeats = newValue
+            }
         }
     }
-    public convenience init(fromURL fileURL: URL, nodes: [AKNode]) {
-        self.init(nodes)
+
+    open func play() {
+        for track in tracks { track.play() }
+    }
+
+    open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
+                  position: Double, duration: Double, trackIndex: Int = 0) {
+        guard tracks.count > trackIndex, trackIndex >= 0 else {
+            AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
+            return
+        }
+        tracks[trackIndex].add(noteNumber: noteNumber, velocity: velocity, channel: channel,
+                               position: position, duration: duration)
+    }
+
+    open func add(event: AKMIDIEvent, position: Double, trackIndex: Int = 0) {
+        guard tracks.count > trackIndex, trackIndex >= 0 else {
+            AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
+            return
+        }
+        tracks[trackIndex].add(event: event, position: position)
+    }
+
+    required public init(targetNodes: [AKNode]) {
+        tracks = targetNodes.enumerated().map({ DIYSeqTrack(targetNode: $0.element) })
+    }
+
+    public convenience init(targetNode: AKNode? = nil) {
+        if let node = targetNode {
+            self.init(targetNodes: [node])
+        } else {
+            self.init(targetNodes: [AKNode]())
+        }
+    }
+
+    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
+        self.init(targetNodes: targetNodes)
         let midiFile = AKMIDIFile(url: fileURL)
         let tracks = midiFile.tracks
-        if tracks.count > nodes.count {
-            AKLog("Error: Track count and node count do not match, dropped \(tracks.count - nodes.count) tracks")
+        if tracks.count > targetNodes.count {
+            AKLog("Error: Track count and node count do not match, dropped \(tracks.count - targetNodes.count) tracks")
         }
-        for node in nodes.enumerated() {
+        for node in targetNodes.enumerated() {
             let index = node.offset
             let track = tracks[index]
             for event in track.events {
