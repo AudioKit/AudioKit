@@ -1173,6 +1173,7 @@
 		FE2FC5C22093D6E6007334A4 /* AKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C02093D4B5007334A4 /* AKColor.swift */; };
 		FE2FC5C52093EBB1007334A4 /* AKNudger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C32093EB7E007334A4 /* AKNudger.swift */; };
 		FE2FC5C92094F23B007334A4 /* AudioKitHelpers+Approximation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */; };
+		FE42F5A72283878900202788 /* DIYSeq.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F5A62283878900202788 /* DIYSeq.swift */; };
 		FE534A8F224A918200014C51 /* AKMIDIMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE534A8E224A918200014C51 /* AKMIDIMessage.swift */; };
 		FE5839722080FA78008DBCE6 /* AKError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5839712080FA78008DBCE6 /* AKError.swift */; };
 		FE5AB41721FBBED600EB669F /* DIYSeqTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */; };
@@ -2451,6 +2452,7 @@
 		FE2FC5C32093EB7E007334A4 /* AKNudger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKNudger.swift; sourceTree = "<group>"; };
 		FE2FC5C62094E0BB007334A4 /* AKDualButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKDualButton.swift; sourceTree = "<group>"; };
 		FE2FC5C82094F23B007334A4 /* AudioKitHelpers+Approximation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKitHelpers+Approximation.swift"; sourceTree = "<group>"; };
+		FE42F5A62283878900202788 /* DIYSeq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYSeq.swift; sourceTree = "<group>"; };
 		FE534A8E224A918200014C51 /* AKMIDIMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMIDIMessage.swift; sourceTree = "<group>"; };
 		FE5839712080FA78008DBCE6 /* AKError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKError.swift; sourceTree = "<group>"; };
 		FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIYSeqTrack.swift; sourceTree = "<group>"; };
@@ -5395,6 +5397,7 @@
 		FE5AB41521FBBE7C00EB669F /* DIYSeq */ = {
 			isa = PBXGroup;
 			children = (
+				FE42F5A62283878900202788 /* DIYSeq.swift */,
 				FE5AB41621FBBED600EB669F /* DIYSeqTrack.swift */,
 				FE5AB41A21FBBF1C00EB669F /* DIYSeqEngine.h */,
 				FE5AB41821FBBEF300EB669F /* DIYSeqEngine.mm */,
@@ -6504,6 +6507,7 @@
 				C49B14BF204A06B8009C7C8E /* load.c in Sources */,
 				C4077BE82009873D00E5923C /* AKCombFilterReverb.mm in Sources */,
 				34BB6754205AC238000E5450 /* pack_dsd.c in Sources */,
+				FE42F5A72283878900202788 /* DIYSeq.swift in Sources */,
 				C49B1454204A06B7009C7C8E /* osc.c in Sources */,
 				C49B1455204A06B7009C7C8E /* butbr.c in Sources */,
 				C48F4D7E21CED91C006381F3 /* AKRhodesPianoAudioUnit.swift in Sources */,
