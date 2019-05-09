@@ -20,8 +20,7 @@ public:
         lowGainAddress = 2,
         midGainAddress = 3,
         highGainAddress = 4,
-        distTypeAddress = 5,
-        distortionAddress= 6
+        distortionAddress= 5
     };
 
     // MARK: Member Functions
@@ -49,8 +48,6 @@ public:
 
     void setHighGain(float value);
 
-    void setDistType(float value);
-
     void setDistortion(float value);
 
     void setParameter(AUParameterAddress address, AUValue value);
@@ -74,7 +71,6 @@ public:
     ParameterRamper lowGainRamper = 0.0;
     ParameterRamper midGainRamper = 0.0;
     ParameterRamper highGainRamper = 0.0;
-    ParameterRamper distTypeRamper = 1.0;
     ParameterRamper distortionRamper = 1.0;
 };
 
