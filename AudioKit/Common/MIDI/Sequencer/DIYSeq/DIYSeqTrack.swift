@@ -17,6 +17,30 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(instrument: "diys")
 
     // MARK: - Properties
+
+    private var internalAU: AKAudioUnitType?
+    public var targetNode: AKNode?
+
+    /// Ramp Duration represents the speed at which parameters are allowed to change
+    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
+        willSet { internalAU?.rampDuration = newValue }
+    }
+
+    public var length: Double {
+        get { return internalAU?.length ?? 0 }
+        set { internalAU?.length = newValue }
+    }
+
+    public var tempo: Double {
+        get { return internalAU?.tempo ?? 0 }
+        set { internalAU?.tempo = newValue }
+    }
+
+    public var maximumPlayCount: Double {
+        get { return internalAU?.maximumPlayCount ?? 0 }
+        set { internalAU?.maximumPlayCount = maximumPlayCount }
+    }
+    
     public var loopEnabled: Bool {
         set { internalAU?.loopEnabled = newValue }
         get { return internalAU?.loopEnabled ?? false }
@@ -28,33 +52,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
 
     public var currentPosition: Double {
         return internalAU?.currentPosition ?? 0
-    }
-
-    private var internalAU: AKAudioUnitType?
-
-    public var targetNode: AKNode?
-
-    /// Ramp Duration represents the speed at which parameters are allowed to change
-    @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
-        willSet {
-            internalAU?.rampDuration = newValue
-        }
-    }
-    public var length: Double {
-        get { return internalAU?.lengthInBeats ?? 0 }
-        set { internalAU?.lengthInBeats = newValue }
-    }
-    public var tempo: Double {
-        get { return internalAU?.tempo ?? 0 }
-        set { internalAU?.tempo = newValue }
-    }
-    public var maximumPlayCount: Double {
-        get {
-            return internalAU?.maximumPlayCount ?? 0
-        }
-        set {
-            internalAU?.maximumPlayCount = maximumPlayCount
-        }
     }
 
     // MARK: - Initialization

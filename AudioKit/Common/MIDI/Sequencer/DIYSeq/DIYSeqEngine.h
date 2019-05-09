@@ -18,7 +18,7 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) bool loopEnabled;
 @property (nonatomic) double tempo;
 @property (readonly) double currentPosition;
-@property (nonatomic) double lengthInBeats;
+@property (nonatomic) double length;
 @property (nonatomic) double maximumPlayCount;
 @property (nonatomic) AKCCallback loopCallback;
 
