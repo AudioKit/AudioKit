@@ -18,28 +18,21 @@ open class DIYSeqTrack: AKNode, AKComponent {
 
     // MARK: - Properties
     public var loopEnabled: Bool {
-        set {
-            internalAU?.loopEnabled = newValue
-        }
-        get {
-            return internalAU?.loopEnabled ?? false
-        }
+        set { internalAU?.loopEnabled = newValue }
+        get { return internalAU?.loopEnabled ?? false }
     }
 
     public var isPlaying: Bool {
-        guard engine != nil else { return false }
-        return engine.isPlaying
+        return internalAU?.isPlaying ?? false
     }
 
     public var currentPosition: Double {
-        guard engine != nil else { return 0.0 }
-        return engine.currentPosition
+        return internalAU?.currentPosition ?? 0
     }
 
     private var internalAU: AKAudioUnitType?
 
     public var targetNode: AKNode?
-    private var engine: AKDIYSeqEngine!
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -54,7 +47,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
         }
         set {
             internalAU?.tempo = newValue
-            seek(to: currentPosition)
         }
     }
     public var maximumPlayCount: Double {

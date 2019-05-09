@@ -39,7 +39,7 @@ public:
     AKDIYSeqEngineDSPKernel() {}
 
     void init(int channelCount, double sampleRate) override {
-        printf("deboog: inited diyseqengine\n");
+
     }
 
     void setTargetAU(AudioUnit target) {
@@ -52,18 +52,22 @@ public:
         isPlaying = true;
     }
 
-    void seekTo(double position) {
-        printf("seeking to %f\n", position);
-        positionInSamples = beatToSamples(position);
-    }
-
     void stop() {
         started = false;
         isPlaying = false;
     }
 
+    void seekTo(double position) {
+        positionInSamples = beatToSamples(position);
+    }
+
+    void setTempo(double newValue) {
+        double lastPosition = currentPositionInBeats();
+        tempo = newValue;
+        seekTo(lastPosition);
+    }
+
     void reset() {
-        printf("deboog: resetted diyseqengine\n");
         resetted = true;
         startPointRamper.reset();
     }
@@ -105,7 +109,6 @@ public:
         if (isPlaying) {
             if (positionInSamples >= lengthInSamples()){
                 if (!loopEnabled) { //stop if played enough
-                    printf("deboog: seq finished %i \n", lengthInSamples());
                     stop();
                     return;
                 }
@@ -179,7 +182,7 @@ public:
     }
 
     int beatToSamples(double beat) {
-        return (int)(beat / bpm * 60 * sampleRate);
+        return (int)(beat / tempo * 60 * sampleRate);
     }
 
     int positionModulo() {
@@ -187,7 +190,7 @@ public:
     }
 
     double currentPositionInBeats() {
-        return (double)positionModulo() / sampleRate * (bpm / 60);
+        return (double)positionModulo() / sampleRate * (tempo / 60);
     }
 
     bool validTriggerTime(double beat){
@@ -214,7 +217,7 @@ public:
     int eventCount = 0;
     int maximumPlayCount = 0;
     double lengthInBeats = 4.0;
-    double bpm = 120.0;
+    double tempo = 120.0;
     bool stopAfterCurrentNotes = false;
     bool loopEnabled = true;
 };
