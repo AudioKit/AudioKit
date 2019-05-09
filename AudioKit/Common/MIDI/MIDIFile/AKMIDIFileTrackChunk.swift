@@ -70,7 +70,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if byte == 0xFF { //MetaEvent
                     isParsingMetaEvent = true
                 } else {
-                    if byte < 0x80, let currentRunningStatus = runningStatus,
+                    if byte < 0x80, !isParsingMetaEvent, !isParsingSysex, let currentRunningStatus = runningStatus,
                         let status = AKMIDIStatus(byte: currentRunningStatus) { //Running Status Implied
                         currentTypeByte = currentRunningStatus
                         runningStatus = currentRunningStatus
