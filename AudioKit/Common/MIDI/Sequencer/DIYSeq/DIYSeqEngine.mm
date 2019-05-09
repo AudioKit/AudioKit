@@ -20,25 +20,24 @@
 @synthesize parameterTree = _parameterTree;
 
 -(void)setTempo:(double)bpm {
-    _kernel.bpm = bpm;
+    _kernel.setTempo(bpm);
 }
--(double)getTempo {
-    return _kernel.bpm;
+-(double)tempo {
+    return _kernel.tempo;
 }
 -(void)setLengthInBeats:(double)length {
     _kernel.lengthInBeats = length;
 }
--(double)getLengthInBeats {
+-(double)lengthInBeats {
     return _kernel.lengthInBeats;
 }
 -(void)setMaximumPlayCount:(double)maximumPlayCount {
     _kernel.maximumPlayCount = maximumPlayCount;
 }
--(double)getMaximumPlayCount {
+-(double)maximumPlayCount {
     return _kernel.maximumPlayCount;
 }
-
--(double)getCurrentPosition {
+-(double)currentPosition {
     return _kernel.currentPositionInBeats();
 }
 
