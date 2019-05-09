@@ -25,11 +25,11 @@
 -(double)tempo {
     return _kernel.tempo;
 }
--(void)setLengthInBeats:(double)length {
-    _kernel.lengthInBeats = length;
+-(void)setLength:(double)length {
+    _kernel.length = length;
 }
--(double)lengthInBeats {
-    return _kernel.lengthInBeats;
+-(double)length {
+    return _kernel.length;
 }
 -(void)setMaximumPlayCount:(double)maximumPlayCount {
     _kernel.maximumPlayCount = maximumPlayCount;

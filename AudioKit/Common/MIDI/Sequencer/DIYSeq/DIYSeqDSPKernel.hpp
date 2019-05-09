@@ -174,7 +174,7 @@ public:
     }
 
     int lengthInSamples() {
-        return beatToSamples(lengthInBeats);
+        return beatToSamples(length);
     }
 
     void resetPlaybackVariables() {
@@ -216,7 +216,7 @@ public:
     MIDIEvent events[MAXNUMBEROFEVENTS];
     int eventCount = 0;
     int maximumPlayCount = 0;
-    double lengthInBeats = 4.0;
+    double length = 4.0;
     double tempo = 120.0;
     bool stopAfterCurrentNotes = false;
     bool loopEnabled = true;
