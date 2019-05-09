@@ -19,6 +19,11 @@ open class DIYSeq {
         set { for track in tracks { track.length = newValue } }
     }
 
+    open var loopEnabled: Bool {
+        get { return tracks.first?.loopEnabled ?? false }
+        set { for track in tracks { track.loopEnabled = newValue } }
+    }
+
     open func play() {
         for track in tracks { track.play() }
     }
@@ -60,15 +65,19 @@ open class DIYSeq {
         if tracks.count > targetNodes.count {
             AKLog("Error: Track count and node count do not match, dropped \(tracks.count - targetNodes.count) tracks")
         }
-        for node in targetNodes.enumerated() {
-            let index = node.offset
+        if tracks.count < targetNodes.count {
+            AKLog("Error: Track count less than node count, ignoring \(targetNodes.count - tracks.count) nodes")
+        }
+        for index in 0..<min(targetNodes.count, tracks.count) {
             let track = tracks[index]
             for event in track.events {
                 if let pos = event.positionInBeats {
                     self.tracks[index].add(event: event, position: pos)
                 }
             }
+            self.tracks[index].length = track.length
         }
+        length = self.tracks.max(by: { $0.length > $1.length})?.length ?? 0
     }
 }
 
