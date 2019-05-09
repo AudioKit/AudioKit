@@ -120,11 +120,6 @@ public:
         _adsr->dec = 0.1;
         _adsr->sus = 1.0;
         _adsr->rel = 0.1;
-        bool immediate = true;
-        attackDurationRamp.setTarget(0.1, immediate);
-        decayDurationRamp.setTarget(0.1, immediate);
-        sustainLevelRamp.setTarget(1.0, immediate);
-        releaseDurationRamp.setTarget(0.1, immediate);
     }
 
     void process(uint32_t frameCount, uint32_t bufferOffset) override {
