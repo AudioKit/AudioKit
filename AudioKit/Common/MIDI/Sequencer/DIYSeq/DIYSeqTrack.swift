@@ -40,14 +40,13 @@ open class DIYSeqTrack: AKNode, AKComponent {
             internalAU?.rampDuration = newValue
         }
     }
-    public var length: Double = 4.0
+    public var length: Double {
+        get { return internalAU?.lengthInBeats ?? 0 }
+        set { internalAU?.lengthInBeats = newValue }
+    }
     public var tempo: Double {
-        get {
-            return internalAU?.tempo ?? 0
-        }
-        set {
-            internalAU?.tempo = newValue
-        }
+        get { return internalAU?.tempo ?? 0 }
+        set { internalAU?.tempo = newValue }
     }
     public var maximumPlayCount: Double {
         get {
