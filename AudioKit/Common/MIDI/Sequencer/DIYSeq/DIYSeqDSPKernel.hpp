@@ -62,9 +62,9 @@ public:
     }
 
     void setTempo(double newValue) {
-        double lastPosition = currentPositionInBeats();
-        tempo = newValue;
-        seekTo(lastPosition);
+        double lastPosition = currentPositionInBeats(); // 1) save where we are before we manipulate time
+        tempo = newValue;                               // 2) manipulate time
+        seekTo(lastPosition);                           // 3) go back to where we were before time manipulation
     }
 
     void reset() {
