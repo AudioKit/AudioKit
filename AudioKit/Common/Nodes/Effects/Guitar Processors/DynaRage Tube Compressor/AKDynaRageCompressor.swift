@@ -17,7 +17,6 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     // Compressor Processor
     fileprivate var ratioParameter: AUParameter?
@@ -40,9 +39,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard ratio != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    ratioParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                ratioParameter?.value = Float(newValue)
             } else {
                 internalAU?.ratio = Float(newValue)
             }
@@ -54,9 +51,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard threshold != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    thresholdParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                thresholdParameter?.value = Float(newValue)
             } else {
                 internalAU?.threshold = Float(newValue)
             }
@@ -68,9 +63,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                attackDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.attackDuration = Float(newValue)
             }
@@ -82,9 +75,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                releaseDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.releaseDuration = Float(newValue)
             }
@@ -96,9 +87,7 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard rage != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    rageParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                rageParameter?.value = Float(newValue)
             } else {
                 internalAU?.rage = Float(newValue)
             }
@@ -168,23 +157,6 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         attackDurationParameter = tree["attackDuration"]
         releaseDurationParameter = tree["releaseDuration"]
         rageParameter = tree["rage"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
-
-            DispatchQueue.main.async {
-                if address == self?.ratioParameter?.address {
-                    self?.ratio = Double(value)
-                } else if address == self?.thresholdParameter?.address {
-                    self?.threshold = Double(value)
-                } else if address == self?.attackDurationParameter?.address {
-                    self?.attackDuration = Double(value)
-                } else if address == self?.releaseDurationParameter?.address {
-                    self?.releaseDuration = Double(value)
-                } else if address == self?.rageParameter?.address {
-                    self?.rage = Double(value)
-                }
-            }
-        })
 
         internalAU?.ratio = Float(ratio)
         internalAU?.threshold = Float(threshold)
