@@ -24,7 +24,6 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
@@ -78,9 +77,7 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard rate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    rateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                rateParameter?.value = Float(newValue)
             } else {
                 internalAU?.rate = newValue
             }
@@ -92,9 +89,7 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                volumeParameter?.value = Float(newValue)
             } else {
                 internalAU?.volume = Float(newValue)
             }
@@ -219,18 +214,6 @@ open class AKWaveTable: AKNode, AKComponent {
         loopEndPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)

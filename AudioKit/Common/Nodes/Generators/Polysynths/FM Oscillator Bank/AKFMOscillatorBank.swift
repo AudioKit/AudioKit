@@ -16,7 +16,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     /// Waveform of the oscillator
     open var waveform: AKTable? {
@@ -53,9 +52,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard carrierMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    carrierMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                carrierMultiplierParameter?.value = Float(newValue)
             } else {
                 internalAU?.carrierMultiplier = Float(newValue)
             }
@@ -67,9 +64,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard modulatingMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    modulatingMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                modulatingMultiplierParameter?.value = Float(newValue)
             } else {
                 internalAU?.modulatingMultiplier = Float(newValue)
             }
@@ -81,9 +76,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard modulationIndex != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    modulationIndexParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                modulationIndexParameter?.value = Float(newValue)
             } else {
                 internalAU?.modulationIndex = Float(newValue)
             }
@@ -95,9 +88,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                attackDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.attackDuration = Float(newValue)
             }
@@ -109,9 +100,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                decayDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.decayDuration = Float(newValue)
             }
@@ -123,9 +112,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                sustainLevelParameter?.value = Float(newValue)
             } else {
                 internalAU?.sustainLevel = Float(newValue)
             }
@@ -137,9 +124,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                releaseDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.releaseDuration = Float(newValue)
             }
@@ -151,9 +136,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                pitchBendParameter?.value = Float(newValue)
             } else {
                 internalAU?.pitchBend = Float(newValue)
             }
@@ -165,9 +148,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoDepthParameter?.value = Float(newValue)
             } else {
                 internalAU?.vibratoDepth = Float(newValue)
             }
@@ -179,9 +160,7 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoRateParameter?.value = Float(newValue)
             } else {
                 internalAU?.vibratoRate = Float(newValue)
             }
@@ -268,18 +247,6 @@ open class AKFMOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBendParameter = tree["pitchBend"]
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.carrierMultiplier = Float(carrierMultiplier)
         internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
