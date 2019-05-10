@@ -21,7 +21,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var volumeParameter: AUParameter?
 
@@ -45,8 +44,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
 //        willSet {
 //            if rate != newValue {
 //                if internalAU?.isSetUp == true {
-//                    if let existingToken = token {
-//                        rateParameter?.setValue(Float(newValue), originator: existingToken)
+//    //                        rateParameter?.value = Float(newValue)
 //                    }
 //                } else {
 //                    internalAU?.rate = Float(newValue)
@@ -60,9 +58,7 @@ open class AKDiskStreamer: AKNode, AKComponent {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                volumeParameter?.value = Float(newValue)
             } else {
                 internalAU?.volume = Float(newValue)
             }
@@ -160,17 +156,6 @@ open class AKDiskStreamer: AKNode, AKComponent {
 
         volumeParameter = tree["volume"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            if self == nil {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.volume = Float(volume)
     }
 

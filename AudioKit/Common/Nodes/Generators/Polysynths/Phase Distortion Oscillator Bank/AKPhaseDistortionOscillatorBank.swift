@@ -16,7 +16,6 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
     fileprivate var phaseDistortionParameter: AUParameter?
@@ -41,9 +40,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard phaseDistortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    phaseDistortionParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                phaseDistortionParameter?.value = Float(newValue)
             } else {
                 internalAU?.phaseDistortion = Float(newValue)
             }
@@ -55,9 +52,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                attackDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.attackDuration = Float(newValue)
             }
@@ -69,9 +64,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                decayDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.decayDuration = Float(newValue)
             }
@@ -83,9 +76,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                sustainLevelParameter?.value = Float(newValue)
             } else {
                 internalAU?.sustainLevel = Float(newValue)
             }
@@ -97,9 +88,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                releaseDurationParameter?.value = Float(newValue)
             } else {
                 internalAU?.releaseDuration = Float(newValue)
             }
@@ -111,9 +100,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                pitchBendParameter?.value = Float(newValue)
             } else {
                 internalAU?.pitchBend = Float(newValue)
             }
@@ -125,9 +112,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoDepthParameter?.value = Float(newValue)
             } else {
                 internalAU?.vibratoDepth = Float(newValue)
             }
@@ -139,9 +124,7 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoRateParameter?.value = Float(newValue)
             } else {
                 internalAU?.vibratoRate = Float(newValue)
             }
@@ -221,18 +204,6 @@ open class AKPhaseDistortionOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBendParameter = tree["pitchBend"]
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.phaseDistortion = Float(phaseDistortion)
 
