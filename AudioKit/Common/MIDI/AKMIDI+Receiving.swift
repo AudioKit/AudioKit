@@ -140,31 +140,32 @@ extension AKMIDI {
             if inputUID == 0 || inputUID == uid {
                 inputPorts[inputUID] = MIDIPortRef()
 
-                var port = inputPorts[inputUID]!
+                if var port = inputPorts[inputUID] {
 
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
-                    var packetCount = 1
-                    for packet in packetList.pointee {
-                        // a CoreMIDI packet may contain multiple MIDI events -
-                        // treat it like an array of events that can be transformed
-                        let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
-                        let transformedMIDIEventList = self.transformMIDIEventList(events)
-                        // Note: incomplete sysex packets will not have a status
-                        for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
-                            || transformedEvent.command != nil {
-                            self.handleMIDIMessage(transformedEvent)
+                    let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
+                        var packetCount = 1
+                        for packet in packetList.pointee {
+                            // a CoreMIDI packet may contain multiple MIDI events -
+                            // treat it like an array of events that can be transformed
+                            let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
+                            let transformedMIDIEventList = self.transformMIDIEventList(events)
+                            // Note: incomplete sysex packets will not have a status
+                            for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
+                                || transformedEvent.command != nil {
+                                    self.handleMIDIMessage(transformedEvent)
+                            }
+                            packetCount += 1
                         }
-                        packetCount += 1
                     }
-                }
 
-                inputPorts[inputUID] = port
+                    if result != noErr {
+                        AKLog("Error creating MIDI Input Port : \(result)")
+                    }
 
-                if result != noErr {
-                    AKLog("Error creating MIDI Input Port : \(result)")
+                    MIDIPortConnectSource(port, src, nil)
+                    inputPorts[inputUID] = port
+                    endpoints[inputUID] = src
                 }
-                MIDIPortConnectSource(port, src, nil)
-                endpoints[inputUID] = src
             }
         }
     }
