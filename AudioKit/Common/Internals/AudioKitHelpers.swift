@@ -89,7 +89,13 @@ public func fourCC(_ string: String) -> UInt32 {
 public func AKLog(fullname: String = #function, file: String = #file, line: Int = #line, _ items: Any?...) {
     guard AKSettings.enableLogging else { return }
     let fileName = (file as NSString).lastPathComponent
-    let content = (items.map { String(describing: $0) }).joined(separator: " ")
+    let content = (items.map {
+        if let item = $0 {
+            return String(describing: item)
+        } else {
+            return "nil"
+        }
+    }).joined(separator: " ")
     Swift.print("\(fileName):\(fullname):\(line):\(content)")
 }
 
