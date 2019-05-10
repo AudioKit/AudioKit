@@ -5,7 +5,7 @@
 //  Created by Ryan Francesconi, revision history on Githbub.
 //  Copyright © 2017 Ryan Francesconi. All rights reserved.
 //
-
+import AudioKit
 import AudioKitUI
 
 /// This is a demo of an Audio Region class. Not for production use... ;)

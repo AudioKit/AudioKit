@@ -6,7 +6,12 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-public struct AKMIDIStatus {
+public struct AKMIDIStatus: AKMIDIMessage {
+
+    public var data: [UInt8] {
+        return [byte]
+    }
+
     public var byte: MIDIByte
 
     public init(type: AKMIDIStatusType, channel: MIDIChannel) {
@@ -31,6 +36,19 @@ public struct AKMIDIStatus {
     
     public var channel: MIDIChannel {
         return byte.lowBit
+    }
+
+    public var description: String {
+        if let type = self.type {
+            return "\(type.description) channel \(channel)"
+        } else if let command = AKMIDISystemCommand(rawValue: byte) {
+            return "Command: \(command.description)"
+        }
+        return "Invalid message"
+    }
+
+    public var length: Int {
+        return type?.length ?? 0
     }
 }
 
@@ -71,7 +89,7 @@ public enum AKMIDIStatusType: Int {
     /// A pitch wheel is a common keyboard control that allow for a pitch to be
     /// bent up or down a given number of semitones
     case pitchWheel = 14
-    
+
     static func from(byte: MIDIByte) -> AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
@@ -80,7 +98,7 @@ public enum AKMIDIStatusType: Int {
         switch self {
         case .programChange, .channelAftertouch:
             return 2
-        case .noteOff ,.noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
+        case .noteOff, .noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
             return 3
         }
     }

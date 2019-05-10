@@ -249,21 +249,20 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AKAudioUnitManagerDelegate {
-    func handleEffectRemoved(at auIndex: Int) {
-        // Do nothing (for now?)
-    }
+    func handleAudioUnitManagerNotification(_ notification: AKAudioUnitManager.Notification,
+                                            audioUnitManager: AKAudioUnitManager) {
+        guard let auManager = auManager, audioUnitManager == auManager else { return }
 
-    func handleAudioUnitNotification(type: AKAudioUnitManager.Notification, object: Any?) {
-        guard let auManager = auManager else { return }
-
-        if type == AKAudioUnitManager.Notification.changed {
+        switch notification {
+        case .changed:
             updateEffectsUI(audioUnits: auManager.availableEffects)
             updateInstrumentsUI(audioUnits: auManager.availableInstruments)
+        default:
+            break
         }
     }
 
-    /// this is where you can request the UI of the Audio Unit
-    func handleEffectAdded(at auIndex: Int) {
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didAddEffectAtIndex index: Int) {
         guard let player = player else { return }
         guard let auManager = auManager else { return }
 
@@ -272,9 +271,13 @@ extension ViewController: AKAudioUnitManagerDelegate {
             player.play()
         }
 
-        if let au = auManager.effectsChain[auIndex] {
-            showAudioUnit(au)
+        if let audioUnit = auManager.effectsChain[index] {
+            showAudioUnit(audioUnit)
         }
+    }
+
+    func audioUnitManager(_ audioUnitManager: AKAudioUnitManager, didRemoveEffectAtIndex index: Int) {
+
     }
 }
 

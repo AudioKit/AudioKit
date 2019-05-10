@@ -22,6 +22,8 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             return "PCMFormatInt16"
         case .pcmFormatInt32:
             return "PCMFormatInt32"
+        @unknown default:
+            fatalError("Unknown Type")
         }
     }
 }

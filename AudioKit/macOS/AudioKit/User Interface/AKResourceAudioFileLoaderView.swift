@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 public class AKResourcesAudioFileLoaderView: NSView {
 

@@ -43,7 +43,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var bitDepth: Double = defaultBitDepth {
         willSet {
             guard bitDepth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -57,7 +57,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var sampleRate: Double = defaultSampleRate {
         willSet {
             guard sampleRate != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
                     return

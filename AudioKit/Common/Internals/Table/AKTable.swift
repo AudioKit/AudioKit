@@ -43,7 +43,7 @@
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-@objc public class AKTable: NSObject, MutableCollection, Codable {
+public class AKTable: NSObject, MutableCollection, Codable {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = Float
@@ -139,7 +139,7 @@
     }
 
     /// Create table from audio file
-    public convenience init(file: AKAudioFile) {
+    @objc public convenience init(file: AKAudioFile) {
         let size = Int(file.samplesCount)
         self.init(count: size)
 

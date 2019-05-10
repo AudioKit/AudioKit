@@ -9,25 +9,68 @@
 import Foundation
 
 public struct AKMIDIFile {
+
     var chunks: [AKMIDIFileChunk] = []
-    var header: MIDIFileHeaderChunk? {
+
+    var headerChunk: MIDIFileHeaderChunk? {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
+
     var trackChunks: [MIDIFileTrackChunk] {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
-    init(path: String) {
-        print("loadind file at \(path)")
-        let url = URL(fileURLWithPath: path)
+    public var tempoTrack: AKMIDIFileTrack? {
+        if format == 1, let tempoTrackChunk = trackChunks.first {
+            return AKMIDIFileTrack(chunk: tempoTrackChunk)
+        }
+        return nil
+    }
+
+    public var tracks: [AKMIDIFileTrack] {
+        var tracks = trackChunks
+        if format == 1 {
+            tracks = Array(tracks.dropFirst())
+        }
+        return tracks.compactMap({ AKMIDIFileTrack(chunk: $0) })
+    }
+
+    public var format: Int {
+        return headerChunk?.format ?? 0
+    }
+
+    public var numberOfTracks: Int {
+        return headerChunk?.numTracks ?? 0
+    }
+
+    public var timeFormat: MIDITimeFormat? {
+        return headerChunk?.timeFormat ?? nil
+    }
+
+    public var ticksPerBeat: Int? {
+        return headerChunk?.ticksPerBeat
+    }
+
+    public var framesPerSecond: Int? {
+        return headerChunk?.framesPerSecond
+    }
+
+    public var ticksPerFrame: Int? {
+        return headerChunk?.ticksPerFrame
+    }
+
+    public var timeDivision: UInt16 {
+        return headerChunk?.timeDivision ?? 0
+    }
+
+    public init(url: URL) {
         if let midiData = try? Data(contentsOf: url) {
-            print("got data \(midiData.count)")
             let dataSize = midiData.count
             let typeLength = 4
             var typeIndex = 0
             let sizeLength = 4
             var sizeIndex = 0
-            var dataLength = 0
+            var dataLength: UInt32 = 0
             var chunks = [AKMIDIFileChunk]()
             var currentTypeChunk: [UInt8] = Array(repeating: 0, count: 4)
             var currentLengthChunk: [UInt8] = Array(repeating: 0, count: 4)
@@ -59,12 +102,13 @@ public struct AKMIDIFile {
                     if sizeIndex == sizeLength {
                         isParsingLength = false
                         sizeIndex = 0
-                        dataLength = Int(currentLengthChunk.map(String.init).joined()) ?? 0
+                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0], data1: currentLengthChunk[1],
+                                                    data2: currentLengthChunk[2], lsb: currentLengthChunk[3])
                     }
                 } else { //get chunk data
                     var tempChunk: AKMIDIFileChunk
                     currentDataChunk.append(midiData[i])
-                    if UInt8(currentDataChunk.count) == dataLength {
+                    if UInt32(currentDataChunk.count) == dataLength {
                         if isParsingHeader {
                             tempChunk = MIDIFileHeaderChunk(typeData: currentTypeChunk,
                                                             lengthData: currentLengthChunk, data: currentDataChunk)
@@ -80,5 +124,9 @@ public struct AKMIDIFile {
             }
             self.chunks = chunks
         }
+    }
+
+    public init(path: String) {
+        self.init(url: URL(fileURLWithPath: path))
     }
 }

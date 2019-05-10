@@ -94,14 +94,6 @@ open class AKMusicTrack {
         metaEvent.metaEventType = 3 // track or sequence name
         metaEvent.dataLength = UInt32(data.count)
 
-        //        BUG This code below gives EXC_BAD_ACCESS code=1 in certain circumstance
-        //        withUnsafeMutablePointer(to: &metaEvent.data, { pointer in
-        //            for i in 0 ..< data.count {
-        //                pointer[i] = data[i]
-        //            }
-        //        })
-
-        //        FIX by Trevor Sonic
         for i in 0 ..< data.count {
             metaEvent.data = data[i]
         }
@@ -454,6 +446,47 @@ open class AKMusicTrack {
                                                 data2: value,
                                                 reserved: 0)
         MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &controlMessage)
+    }
+
+    /// Add polyphonic key pressure (a.k.a aftertouch)
+    ///
+    /// - Parameters:
+    ///   - noteNumber: Note to apply the pressure to
+    ///   - pressure: Amount of pressure
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///   - channel: MIDI channel for this event
+    open func addAfterTouch(_ noteNumber: MIDINoteNumber,
+                            pressure: MIDIByte,
+                            position: AKDuration, channel: MIDIChannel = 0) {
+        guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
+            return
+        }
+
+        var message = MIDIChannelMessage(status: MIDIByte(10 << 4) | MIDIByte((channel) & 0xf),
+                                         data1: noteNumber,
+                                         data2: pressure,
+                                         reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &message)
+    }
+
+    /// Add channel pressure (a.k.a. global aftertouch)
+    ///
+    /// - Parameters:
+    ///   - pressure: Amount of pressure
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///   - channel: MIDI channel for this event
+    open func addChannelAfterTouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+        guard let track = internalMusicTrack else {
+            AKLog("internalMusicTrack does not exist")
+            return
+        }
+
+        var message = MIDIChannelMessage(status: MIDIByte(13 << 4) | MIDIByte((channel) & 0xf),
+                                         data1: pressure,
+                                         data2: 0,
+                                         reserved: 0)
+        MusicTrackNewMIDIChannelEvent(track, position.musicTimeStamp, &message)
     }
 
     /// Add Sysex message to sequence

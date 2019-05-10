@@ -51,7 +51,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var time: Double = defaultTime {
         willSet {
             guard time != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     timeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -65,7 +65,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var feedback: Double = defaultFeedback {
         willSet {
             guard feedback != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     feedbackParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -79,7 +79,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var dryWetMix: Double = defaultDryWetMix {
         willSet {
             guard dryWetMix != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -93,7 +93,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var pingPong: Bool = false {
         willSet {
             guard pingPong != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     pingPongParameter?.setValue(Float(newValue ? 1.0 : 0.0), originator: existingToken)
                     return

@@ -110,7 +110,7 @@ class ViewController: NSViewController {
 
     private func initPlayer() {
         if player == nil {
-            chooseAudio(chooseAudioButton)
+            chooseAudio(chooseAudioButton!)
             return
         }
         guard node != player else { return }
@@ -155,7 +155,18 @@ class ViewController: NSViewController {
     }
 
     @IBAction func setNormalizeState(_ sender: NSButton) {
-        player?.isNormalized = sender.state == .on
+        guard let player = player else { return }
+
+        let state = sender.state == .on
+        //player?.isNormalized = sender.state == .on
+
+        if state {
+            player.pause()
+            //player.pauseTime = player.duration
+            AKLog("set pause start time to", player.pauseTime ?? 0.0)
+        } else {
+            player.resume()
+        }
     }
 
     @IBAction func setReversedState(_ sender: NSButton) {
@@ -166,21 +177,21 @@ class ViewController: NSViewController {
     func open(url: URL) {
         inputSourceInfo.stringValue = url.lastPathComponent
 
-        if player == nil {
-            AKLog("Creating player...")
-            player = AKPlayer(url: url)
-            player?.completionHandler = handleAudioComplete
-            player?.isLooping = loopButton.state == .on
-            // for seamless looping use: .always
-            // player?.buffering = .dynamic
-            player?.stopEnvelopeTime = 0.3
-
-        } else {
-            do {
-                AKLog("Loading", url.path, "into player")
-                try player?.load(url: url)
-            } catch {}
+        // for now just make a new player so it's not necessary to rebalance format types
+        // if the processingFormat changes
+        if player != nil {
+            player?.detach()
+            player = nil
         }
+
+        AKLog("Creating player...")
+        player = AKPlayer(url: url)
+        player?.completionHandler = handleAudioComplete
+        player?.isLooping = loopButton.state == .on
+        // for seamless looping use: .always
+        // player?.buffering = .dynamic
+        player?.stopEnvelopeTime = 0.3
+
         initPlayer()
 
         AKLog("Opened \(url.lastPathComponent)")
@@ -210,6 +221,7 @@ class ViewController: NSViewController {
     }
 
     private func handleAudioComplete() {
+        AKLog("Complete")
         guard let player = player else { return }
         if !player.isLooping {
             playButton?.state = .off

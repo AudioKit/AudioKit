@@ -27,11 +27,11 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     }
 
     var format: Int {
-        return Int(convertTo16Bit(msb: data[0], lsb: data[1]))
+        return Int(MIDIHelper.convertTo16Bit(msb: data[0], lsb: data[1]))
     }
 
     var numTracks: Int {
-        return Int(convertTo16Bit(msb: data[2], lsb: data[3]))
+        return Int(MIDIHelper.convertTo16Bit(msb: data[2], lsb: data[3]))
     }
 
     var timeFormat: MIDITimeFormat {
@@ -50,25 +50,21 @@ struct MIDIFileHeaderChunk: AKMIDIFileChunk {
     }
 
     var framesPerSecond: Int? {
-        if timeFormat == .ticksPerBeat {
+        if timeFormat == .framesPerSecond {
             return Int((timeDivision & 0x7f00) >> 8)
         }
         return nil
     }
 
     var ticksPerFrame: Int? {
-        if timeFormat == .ticksPerBeat {
+        if timeFormat == .framesPerSecond {
             return Int(timeDivision & 0xff)
         }
         return nil
     }
 
     var timeDivision: UInt16 {
-        return convertTo16Bit(msb: data[4], lsb: data[5])
-    }
-
-    func convertTo16Bit(msb: UInt8, lsb: UInt8) -> UInt16 {
-        return (UInt16(msb) << 8) | UInt16(lsb)
+        return MIDIHelper.convertTo16Bit(msb: data[4], lsb: data[5])
     }
 
 }

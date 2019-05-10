@@ -44,7 +44,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
             guard frequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     frequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -58,7 +58,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
             guard bandwidth != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
                     return

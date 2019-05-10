@@ -21,7 +21,7 @@ public typealias AKCallback = () -> Void
 public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// Top level AudioKit managing class
-@objc open class AudioKit: NSObject {
+open class AudioKit: NSObject {
     #if !os(macOS)
         static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
     #else
@@ -31,7 +31,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
     // MARK: - Internal audio engine mechanics
 
     /// Reference to the AV Audio Engine
-    @objc public internal(set) static var engine: AVAudioEngine {
+    @objc public static var engine: AVAudioEngine {
         get {
             _ = AudioKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
             return _engine
@@ -41,7 +41,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
         }
     }
 
-    internal(set) static var _engine = AVAudioEngine()
+    internal static var _engine = AVAudioEngine()
 
     /// Reference to singleton MIDI
 
@@ -96,7 +96,7 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for device in devices {
                     if device.dataSources == nil || device.dataSources!.isEmpty {
-                        returnDevices.append(AKDevice(name: device.portName, deviceID: device.uid))
+                        returnDevices.append(AKDevice(portDescription: device))
                     } else {
                         for dataSource in device.dataSources! {
                             returnDevices.append(AKDevice(name: device.portName,
@@ -135,15 +135,13 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
-            if let dev = AVAudioSession.sharedInstance().preferredInput {
-                return AKDevice(name: dev.portName, deviceID: dev.uid)
+            if let portDescription = AVAudioSession.sharedInstance().preferredInput {
+                return AKDevice(portDescription: portDescription)
             } else {
                 let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
                 if inputDevices.isNotEmpty {
                     for device in inputDevices {
-                        let dataSourceString = device.selectedDataSource?.description ?? ""
-                        let id = "\(device.uid) \(dataSourceString)".trimmingCharacters(in: [" "])
-                        return AKDevice(name: device.portName, deviceID: id)
+                        return AKDevice(portDescription: device)
                     }
                 }
             }
@@ -181,41 +179,17 @@ public typealias AKMIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
                     &address, 0, nil, UInt32(MemoryLayout<AudioDeviceID>.size), &devid)
             }
         #else
-            if let devices = AVAudioSession.sharedInstance().availableInputs {
-                for device in devices {
-                    if device.dataSources == nil || device.dataSources!.isEmpty {
-                        if device.uid == input.deviceID {
-                            do {
-                                try AVAudioSession.sharedInstance().setPreferredInput(device)
-                            } catch {
-                                AKLog("Could not set the preferred input to \(input)")
-                            }
-                        }
-                    } else {
-                        for dataSource in device.dataSources! {
-                            if input.deviceID == "\(device.uid) \(dataSource.dataSourceName)" {
-                                do {
-                                    try AVAudioSession.sharedInstance().setInputDataSource(dataSource)
-                                } catch {
-                                    AKLog("Could not set the preferred input to \(input)")
-                                }
-                            }
-                        }
-                    }
-                }
+            // Set the port description first eg iPhone Microphone / Headset Microphone etc
+            guard let portDescription = input.portDescription else {
+                throw AKError.DeviceNotFound
             }
+            try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
 
-            if let devices = AVAudioSession.sharedInstance().availableInputs {
-                for dev in devices {
-                    if dev.uid == input.deviceID {
-                        do {
-                            try AVAudioSession.sharedInstance().setPreferredInput(dev)
-                        } catch {
-                            AKLog("Could not set the preferred input to \(input)")
-                        }
-                    }
-                }
+            // Set the data source (if any) eg. Back/Bottom/Front microphone
+            guard let dataSourceDescription = input.dataSource else {
+                return
             }
+            try AVAudioSession.sharedInstance().setInputDataSource(dataSourceDescription)
         #endif
     }
 
