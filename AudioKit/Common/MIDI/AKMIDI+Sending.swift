@@ -166,7 +166,7 @@ extension AKMIDI {
     /// - parameter outputUid: Unique id of the MIDI Output
     ///
     public func openOutput(uid outputUid: MIDIUniqueID) {
-        if outputPort == nil || outputPort == 0 {
+        if outputPort == 0 {
             guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
                 AKLog("Unable to create MIDIOutputPort")
                 return
@@ -224,7 +224,7 @@ extension AKMIDI {
         let name = destinationName(for: outputUid)
         AKLog("Closing MIDI Output '\(String(describing: name))'")
         var result = noErr
-        if let endpoint = endpoints[outputUid] {
+        if endpoints[outputUid] != nil {
             endpoints.removeValue(forKey: outputUid)
             AKLog("Disconnected \(name) and removed it from endpoints")
             if endpoints.count == 0 {

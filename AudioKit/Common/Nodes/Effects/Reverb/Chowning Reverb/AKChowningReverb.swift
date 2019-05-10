@@ -57,11 +57,6 @@ open class AKChowningReverb: AKNode, AKToggleable, AKComponent, AKInput {
             input?.connect(to: strongSelf)
         }
 
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
     }
 
     // MARK: - Control
