@@ -84,14 +84,15 @@ extension AKMIDI {
     ///
     /// - Parameter forUid: unique id for a input
     /// - Returns: name of input or "Unknown"
-    public func inputName(for inputUid: MIDIUniqueID) -> String {
-        let name: String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+    public func inputName(for inputUid: MIDIUniqueID) -> String? {
+        
+        let name: String? = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return inputUid == uid
             }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
-            } ?? "Uknown"
+            }
         return name
     }
 
@@ -198,8 +199,11 @@ extension AKMIDI {
     /// - parameter inputName: Unique id of the MIDI Input
     ///
     public func closeInput(uid inputUID: MIDIUniqueID) {
-        let name = inputName(for: inputUID)
-        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
+        guard let name = inputName(for: inputUID) else {
+            AKLog("Trying to close midi input \(inputUID), but no name was found")
+            return
+        }
+        AKLog("Closing MIDI Input '\(name)'")
         var result = noErr
         for uid in inputPorts.keys {
             if inputUID == 0 || uid == inputUID {
