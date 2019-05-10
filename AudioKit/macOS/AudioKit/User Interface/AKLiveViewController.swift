@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 public typealias AKLabel = NSTextField
 

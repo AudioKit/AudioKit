@@ -11,7 +11,7 @@
 
 #include "SampleBuffer.hpp"
 #include "SampleOscillator.hpp"
-#include "ADSREnvelope.h"
+#include "ADSREnvelope.hpp"
 #include "ResonantLowPassFilter.hpp"
 #include "LinearRamper.hpp"
 

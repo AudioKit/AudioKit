@@ -40,7 +40,7 @@ class Conductor {
 
         // MIDI Configure
         midi.createVirtualPorts()
-        midi.openInput("Session 1")
+        midi.openInput(name: "Session 1")
         midi.openOutput()
 
         // Session settings
@@ -83,12 +83,12 @@ class Conductor {
 
     func openMIDIInput(byName: String) {
         midi.closeAllInputs()
-        midi.openInput(byName)
+        midi.openInput(name: byName)
     }
 
     func openMIDIInput(byIndex: Int) {
         midi.closeAllInputs()
-        midi.openInput(midi.inputNames[byIndex])
+        midi.openInput(index: byIndex)
     }
 
     func getWaveformName() -> String {

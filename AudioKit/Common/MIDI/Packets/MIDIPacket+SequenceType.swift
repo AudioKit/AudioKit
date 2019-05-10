@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import CoreMIDI
 
 /**
  Allows a MIDIPacket to be iterated through with a for statement.
@@ -32,10 +33,7 @@ extension MIDIPacket: Sequence {
             func pop() -> MIDIByte {
                 assert((index < self.length) || (index <= self.length && self.data.0 != AKMIDISystemCommand.sysex.byte))
                 index += 1
-                guard let byte = generator.next() as? MIDIByte else {
-                    return 0 // Is this right?
-                }
-                return byte
+                return generator.next() as! MIDIByte
             }
             let status = pop()
             if AudioKit.midi.isReceivingSysex {
@@ -70,6 +68,9 @@ extension MIDIPacket: Sequence {
                     data1 = pop()
                     data2 = pop()
                     return AKMIDIEvent(data: [status, data1, data2])
+                case .timeCodeQuarterFrame:
+                    data1 = pop()
+                    return AKMIDIEvent(data: [status, data1])
                 case .songSelect:
                     data1 = pop()
                     return AKMIDIEvent(data: [status, data1])

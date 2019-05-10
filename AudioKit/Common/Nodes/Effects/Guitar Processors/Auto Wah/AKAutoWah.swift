@@ -50,7 +50,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var wah: Double = defaultWah {
         willSet {
             guard wah != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     wahParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -64,7 +64,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var mix: Double = defaultMix {
         willSet {
             guard mix != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     mixParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -78,7 +78,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     return

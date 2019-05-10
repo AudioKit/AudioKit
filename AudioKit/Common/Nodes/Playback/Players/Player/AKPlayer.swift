@@ -43,7 +43,7 @@ import AVFoundation
 
  Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
  */
-@objc public class AKPlayer: AKNode {
+public class AKPlayer: AKNode {
     /// How the player should handle audio. If buffering, it will load the audio data into
     /// an internal buffer and play from RAM. If not, it will play the file from disk.
     /// Dynamic buffering will only load the audio if it needs to for processing reasons
@@ -176,12 +176,18 @@ import AVFoundation
     internal var _rate: Double {
         return 1.0
     }
+    
+    internal var _isPaused = false
 
     // MARK: - Public Properties
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
     /// stop() is called while playing or when looping from a buffer.
     @objc public var completionHandler: AKCallback?
+
+    /// Completion handler to be called when Audio has looped. The handler won't be called if
+    /// stop() is called while playing.
+    @objc public var loopCompletionHandler: AKCallback?
 
     /// Used with buffering players
     @objc public var buffer: AVAudioPCMBuffer?
@@ -303,12 +309,20 @@ import AVFoundation
     /// - Returns: Current time of the player in seconds while playing.
     @objc public var currentTime: Double {
         let currentDuration = (endTime - startTime == 0) ? duration : (endTime - startTime)
-        let current = startTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
-
+        var normalisedPauseTime = 0.0
+        if let pauseTime = pauseTime, pauseTime > startTime {
+            normalisedPauseTime = pauseTime - startTime
+        }
+        let current = startTime + normalisedPauseTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
+        
         return current
     }
-
-    public var pauseTime: Double?
+    
+    public var pauseTime: Double? {
+        didSet {
+            _isPaused = pauseTime != nil
+        }
+    }
 
     @objc public var processingFormat: AVAudioFormat? {
         guard let audioFile = audioFile else { return nil }
@@ -333,7 +347,7 @@ import AVFoundation
     @objc public var isLooping: Bool = false
 
     @objc public var isPaused: Bool {
-        return pauseTime != nil
+        return _isPaused
     }
 
     /// Reversing the audio will set the player to buffering
@@ -357,7 +371,7 @@ import AVFoundation
 
     // MARK: - Initialization
 
-    @objc public override init() {
+    public override init() {
         super.init(avAudioNode: mixer, attach: false)
     }
 
@@ -497,6 +511,8 @@ import AVFoundation
             return
         }
         initFader(at: audioTime, hostTime: hostTime)
+        
+        pauseTime = nil
     }
 
     // MARK: - Deinit

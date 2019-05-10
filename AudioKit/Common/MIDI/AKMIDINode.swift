@@ -49,12 +49,12 @@ open class AKMIDINode: AKNode, AKMIDIListener {
         CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 let event = AKMIDIEvent(packet: e)
-                guard event.internalData.count > 2 else {
+                guard event.data.count > 2 else {
                     return
                 }
-                self.handleMIDI(data1: event.internalData[0],
-                                data2: event.internalData[1],
-                                data3: event.internalData[2])
+                self.handleMIDI(data1: event.data[0],
+                                data2: event.data[1],
+                                data3: event.data[2])
 
             }
         })
@@ -65,14 +65,15 @@ open class AKMIDINode: AKNode, AKMIDIListener {
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         let status = AKMIDIStatus(byte: data1)
+        let channel = status?.channel
         let noteNumber = MIDINoteNumber(data2)
         let velocity = MIDIVelocity(data3)
 
-        if status?.type == AKMIDIStatusType.noteOn && velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
-        } else if status?.type == AKMIDIStatusType.noteOn && velocity == 0 {
+        if status?.type == .noteOn && velocity > 0 {
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel ?? 0)
+        } else if status?.type == .noteOn && velocity == 0 {
             internalNode.stop(noteNumber: noteNumber)
-        } else if status?.type == AKMIDIStatusType.noteOff {
+        } else if status?.type == .noteOff {
             internalNode.stop(noteNumber: noteNumber)
         }
     }
@@ -88,7 +89,7 @@ open class AKMIDINode: AKNode, AKMIDIListener {
                                  velocity: MIDIVelocity,
                                  channel: MIDIChannel) {
         if velocity > 0 {
-            internalNode.play(noteNumber: noteNumber, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
             internalNode.stop(noteNumber: noteNumber)
         }

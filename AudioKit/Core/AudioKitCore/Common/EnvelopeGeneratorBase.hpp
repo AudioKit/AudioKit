@@ -1,12 +1,11 @@
 //
-//  EnvelopeGeneratorBase.h
+//  EnvelopeGeneratorBase.hpp
 //  AudioKit Core
 //
 //  Created by Shane Dunne, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 #pragma once
-#include <cmath>
 #include <vector>
 
 namespace AudioKitCore

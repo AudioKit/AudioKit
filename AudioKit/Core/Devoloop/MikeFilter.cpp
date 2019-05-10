@@ -1,11 +1,11 @@
 //
-//  Filter.cpp
+//  MikeFilter.cpp
 //
 //  Created by Mike Gazzaruso, revision history on Githbub.
 //
 //
 
-#include "Filter.h"
+#include "MikeFilter.h"
 #include <cmath>
 
 MikeFilter::MikeFilter() {

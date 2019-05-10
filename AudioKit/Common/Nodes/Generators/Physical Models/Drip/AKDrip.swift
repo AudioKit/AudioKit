@@ -80,7 +80,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var intensity: Double = defaultIntensity {
         willSet {
             guard intensity != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     intensityParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -94,7 +94,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var dampingFactor: Double = defaultDampingFactor {
         willSet {
             guard dampingFactor != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     dampingFactorParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -108,7 +108,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var energyReturn: Double = defaultEnergyReturn {
         willSet {
             guard energyReturn != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     energyReturnParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -122,7 +122,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var mainResonantFrequency: Double = defaultMainResonantFrequency {
         willSet {
             guard mainResonantFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     mainResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -136,7 +136,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var firstResonantFrequency: Double = defaultFirstResonantFrequency {
         willSet {
             guard firstResonantFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     firstResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -150,7 +150,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var secondResonantFrequency: Double = defaultSecondResonantFrequency {
         willSet {
             guard secondResonantFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     secondResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -164,7 +164,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
             guard amplitude != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -181,11 +181,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Initialization
 
-    /// Initialize the drip with defaults
-    public convenience override init() {
-        self.init(intensity: 10)
-    }
-
     /// Initialize this drip node
     ///
     /// - Parameters:
@@ -197,8 +192,9 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     ///   - secondResonantFrequency: The second resonant frequency.
     ///   - amplitude: Amplitude.
     ///
+    @available(*, deprecated, message: "The physical model is inherently unstable and unpredictable, use at your own risk/discrertion.")
     @objc public init(
-        intensity: Double,
+        intensity: Double = 10,
         dampingFactor: Double = defaultDampingFactor,
         energyReturn: Double = defaultEnergyReturn,
         mainResonantFrequency: Double = defaultMainResonantFrequency,

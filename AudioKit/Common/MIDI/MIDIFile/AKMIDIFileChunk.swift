@@ -24,31 +24,46 @@ extension AKMIDIFileChunk {
         self.lengthData = lengthData
         self.data = data
         if !isValid {
-            fatalError("Type and length must be 4 bytes long")
+            fatalError("Type and length must be 4 bytes long, length must equal amount of data")
         }
     }
 
-    var isValid: Bool {
-        return typeData.count == 4 && lengthData.count == 4 && data.count == combine(bytes: lengthData) && (isHeader || isTrack)
-    }
+    var isValid: Bool { return isTypeValid && isLengthValid }
+    var isTypeValid: Bool { return typeData.count == 4 && lengthData.count == 4 }
+    var isLengthValid: Bool { return data.count == length }
 
     var length: Int {
-        return combine(bytes: lengthData)
+        return Int(MIDIHelper.convertTo32Bit(msb: lengthData[0], data1: lengthData[1],
+                                  data2: lengthData[2], lsb: lengthData[3]))
     }
 
-    var type: String {
-        return String(self.typeData.map({ Character(UnicodeScalar($0)) }))
+    var type: MIDIFileChunkType? {
+        return MIDIFileChunkType.init(data: typeData)
     }
 
     var isHeader: Bool {
-        return type == "MThd"
+        return type == .header
     }
 
     var isTrack: Bool {
-        return type == "MTrk"
+        return type == .track
+    }
+}
+
+enum MIDIFileChunkType: String {
+    case track = "MTrk"
+    case header = "MThd"
+    
+    init?(data: [UInt8]) {
+        let text = String(data.map({ Character(UnicodeScalar($0)) }))
+        self.init(text: text)
     }
 
-    func combine(bytes: [UInt8]) -> Int {
-        return Int(bytes.map(String.init).joined()) ?? 0
+    init?(text: String) {
+        self.init(rawValue: text)
+    }
+
+    var text: String {
+        return self.rawValue
     }
 }

@@ -50,7 +50,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
             guard centerFrequency != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -64,7 +64,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     @objc open dynamic var gain: Double = defaultGain {
         willSet {
             guard gain != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     gainParameter?.setValue(Float(newValue), originator: existingToken)
                     return
@@ -78,7 +78,7 @@ open class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable, AKCompone
     @objc open dynamic var q: Double = defaultQ {
         willSet {
             guard q != newValue else { return }
-            if internalAU?.isSetUp ?? false {
+            if internalAU?.isSetUp == true {
                 if let existingToken = token {
                     qParameter?.setValue(Float(newValue), originator: existingToken)
                     return

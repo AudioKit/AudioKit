@@ -59,6 +59,8 @@ extension AVAudioEngine {
             case .error, .insufficientDataFromInputNode:
                 throw NSError(domain: "AVAudioEngine ext", code: 1,
                               userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
+            @unknown default:
+                fatalError("Unknown render result")
             }
         }
 

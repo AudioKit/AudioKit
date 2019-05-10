@@ -122,14 +122,14 @@ extension AKMusicTrack {
 }
 
 public struct AppleMIDIEvent {
-    var time: MusicTimeStamp
-    var type: MusicEventType
-    var data: UnsafeRawPointer?
-    var dataSize: UInt32
+    public var time: MusicTimeStamp
+    public var type: MusicEventType
+    public var data: UnsafeRawPointer?
+    public var dataSize: UInt32
 }
 
 public struct MIDIProgramChangeEvent {
-    var time: MusicTimeStamp
-    var channel: MIDIChannel
-    var number: MIDIByte
+    public var time: MusicTimeStamp
+    public var channel: MIDIChannel
+    public var number: MIDIByte
 }
