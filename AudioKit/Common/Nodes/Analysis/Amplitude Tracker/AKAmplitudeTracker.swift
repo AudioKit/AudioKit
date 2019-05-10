@@ -18,7 +18,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     internal var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
     //    open var smoothness: Double = 1 { // should be 0 and above

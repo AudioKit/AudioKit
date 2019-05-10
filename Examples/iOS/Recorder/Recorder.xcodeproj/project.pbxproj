@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7814CAE81D463C30004EA355 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7814CAE61D463B49004EA355 /* AudioKit.framework */; };
+		C40B544A2286392900311B00 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1651F4F9B7A003F0CA9 /* AudioKitUI.framework */; };
 		C4486EF11D42AE4700FE135F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4486EE91D42AE4700FE135F /* AppDelegate.swift */; };
 		C4486EF21D42AE4700FE135F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEA1D42AE4700FE135F /* Assets.xcassets */; };
 		C4486EF31D42AE4700FE135F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */; };
@@ -32,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C40B544A2286392900311B00 /* AudioKitUI.framework in Frameworks */,
 				7814CAE81D463C30004EA355 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,7 +116,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = "Laurent Veliscek";
+				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					8DAD9EDC1D3E4A3400CD3B0A = {
 						CreatedOnToolsVersion = 7.3;
@@ -308,7 +310,10 @@
 				INFOPLIST_FILE = Recorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 5.0;
@@ -325,7 +330,10 @@
 				INFOPLIST_FILE = Recorder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = Recorder;
 				SWIFT_VERSION = 5.0;
