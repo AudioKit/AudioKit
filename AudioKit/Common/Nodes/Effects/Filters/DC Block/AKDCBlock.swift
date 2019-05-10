@@ -44,12 +44,6 @@ open class AKDCBlock: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
         }
-
-        guard let tree = internalAU?.parameterTree else {
-            AKLog("Parameter Tree Failed")
-            return
-        }
-
     }
 
     // MARK: - Control
