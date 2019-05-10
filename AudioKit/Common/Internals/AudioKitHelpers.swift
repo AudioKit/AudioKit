@@ -417,6 +417,6 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 prefix operator ❗️
 
 /// Negative logic can be confusing, so we draw special attention to those cases
-public prefix func ❗️(a: Bool) -> Bool {
+prefix public func ❗️(a: Bool) -> Bool {
     return !a
 }
