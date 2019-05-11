@@ -73,7 +73,7 @@
 
         self.backgroundColor = UIColor.clear
 
-        if !self.presets.isEmpty && initialIndex < self.presets.count {
+        if self.presets.isNotEmpty && initialIndex < self.presets.count {
             isPresetLoaded = true
             self.currentIndex = initialIndex
             setNeedsDisplay()

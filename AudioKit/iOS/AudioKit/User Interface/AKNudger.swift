@@ -44,7 +44,7 @@ import AudioKit
     private var animationTimer: Timer?
     private var lastValue: Double = 0
     private func animateValue() {
-        if !plusButton.isPressed {
+        if plusButton.isPressed == false {
             if plusHeldCounter > 0 {
                 plusHeldCounter -= 1
             }
@@ -53,7 +53,7 @@ import AudioKit
                 plusHeldCounter += 1
             }
         }
-        if !minusButton.isPressed {
+        if minusButton.isPressed == false {
             if minusHeldCounter > 0 {
                 minusHeldCounter -= 1
             }

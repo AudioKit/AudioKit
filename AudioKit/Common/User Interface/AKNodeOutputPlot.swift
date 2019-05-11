@@ -17,9 +17,10 @@ extension Notification.Name {
 open class AKNodeOutputPlot: EZAudioPlot {
 
     public var isConnected = false
+    public var isNotConnected: Bool { return !isConnected }
 
     internal func setupNode(_ input: AKNode?) {
-        if !isConnected {
+        if isNotConnected {
             input?.avAudioUnitOrNode.installTap(
                 onBus: 0,
                 bufferSize: bufferSize,
