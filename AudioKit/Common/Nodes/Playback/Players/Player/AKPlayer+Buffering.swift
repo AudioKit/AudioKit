@@ -9,7 +9,7 @@
 extension AKPlayer {
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
-        if !isBuffered { return }
+        if isNotBuffered { return }
         guard let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat

@@ -75,7 +75,7 @@ open class AKClipRecorder {
     /// - Parameter completion: a closure that will be called after all clips have benn finalized.
     ///
     open func stop(_ completion: (() -> Void)? = nil) {
-        if !isStarted {
+        if isNotStarted {
             return
         }
         timing.stop()
@@ -193,7 +193,7 @@ open class AKClipRecorder {
 
     // Audio tap that is set on node.
     private func audioTap(buffer: AVAudioPCMBuffer, audioTime: AVAudioTime) {
-        if !timing.isStarted {
+        if timing.isNotStarted {
             return
         }
         let timeIn = timing.position(at: audioTime)
@@ -248,6 +248,8 @@ extension AKClipRecorder: AKTiming {
     public var isStarted: Bool {
         return timing.isStarted
     }
+
+    var isNotStarted: Bool { return !isStarted }
 
     public func stop() {
         stop(nil)
