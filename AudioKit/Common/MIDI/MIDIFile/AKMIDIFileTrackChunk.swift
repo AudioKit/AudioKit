@@ -41,8 +41,10 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
         var currentEventData = [MIDIByte]()
         var currentAllData = [MIDIByte]()
         var isParsingMetaEvent = false
+        var isNotParsingMetaEvent: Bool { return !isParsingMetaEvent }
         var isParsingVariableTime = false
         var isParsingSysex = false
+        var isNotParsingSysex: Bool { return !isParsingSysex }
         var runningStatus: MIDIByte?
         var variableBits = [MIDIByte]()
         var accumulatedDeltaTime = 0
@@ -91,7 +93,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         runningStatus = nil
                     }
                 }
-                if !isParsingMetaEvent && !isParsingSysex {
+                if isNotParsingMetaEvent && isNotParsingSysex {
                     currentEventData.append(byte)
                 }
             } else if currentLengthByte == nil {
@@ -111,7 +113,7 @@ public struct MIDIFileTrackChunk: AKMIDIFileChunk {
                         AKLog(("bad midi data - could not determine type"))
                         return events
                     }
-                    if !isParsingSysex {
+                    if isNotParsingSysex {
                         currentEventData.append(byte)
                     }
                 }

@@ -14,7 +14,8 @@ open class AKClipPlayer: AKNode {
     /// The underlying player node
     public let playerNode = AVAudioPlayerNode()
     private var mixer = AVAudioMixerNode()
-    private var scheduled = false
+    private var isScheduled = false
+    private var isNotScheduled: Bool { return !isScheduled }
     private var _clips = [FileClip]()
 
     /// Current time of the player in seconds.
@@ -44,7 +45,7 @@ open class AKClipPlayer: AKNode {
     open func setClips(clips: [FileClip]) throws {
         try _clips = AKClipMerger.validateClips(clips) as! [FileClip]
         self.stop()
-        scheduled = false
+        isScheduled = false
     }
     // swiftlint:enable force_cast
 
@@ -86,7 +87,7 @@ open class AKClipPlayer: AKNode {
                              completion: nil)
             }
         }
-        scheduled = true
+        isScheduled = true
     }
 
     // swiftlint:disable force_cast
@@ -142,7 +143,7 @@ open class AKClipPlayer: AKNode {
     /// - Parameter frameCount: The number of sample frames of data to be prepared before returning.
     ///
     open func prepare(withFrameCount frameCount: AVAudioFrameCount) {
-        if !scheduled {
+        if isNotScheduled {
             scheduleClips(at: currentTime)
         }
         playerNode.prepare(withFrameCount: frameCount)
@@ -159,18 +160,18 @@ open class AKClipPlayer: AKNode {
     /// current time will align with this time when playback starts.
     ///
     open func play(at audioTime: AVAudioTime?) {
-        if !scheduled {
+        if isNotScheduled {
             scheduleClips(at: currentTime)
         }
         playerNode.play(at: audioTime)
-        scheduled = false
+        isScheduled = false
     }
 
     /// Stops playback.
     open func stop() {
         timeAtStart = position(at: nil)
         playerNode.stop()
-        scheduled = false
+        isScheduled = false
     }
 
     /// Volume 0.0 -> 1.0, default 1.0

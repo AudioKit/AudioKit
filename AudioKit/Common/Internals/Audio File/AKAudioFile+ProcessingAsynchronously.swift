@@ -348,7 +348,7 @@ extension AKAudioFile {
             let fileExt = String(describing: exportFormat)
 
             // only add the file extension if it isn't already there
-            if !fileName.hasSuffix(fileExt) {
+            if fileName.hasSuffix(fileExt) == false {
                 fileName += "." + fileExt
             }
 
@@ -381,7 +381,7 @@ extension AKAudioFile {
             let directoryPath = destinationURL.deletingLastPathComponent()
             // Check if target directory exists
             let fileManager = FileManager.default
-            if !fileManager.fileExists(atPath: (directoryPath.path)) {
+            if fileManager.fileExists(atPath: (directoryPath.path)) == false {
                 AKLog("ERROR export: directory \"\(directoryPath)\" doesn't exist")
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             }

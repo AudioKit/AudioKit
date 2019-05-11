@@ -337,6 +337,8 @@ public class AKPlayer: AKNode {
         return isNormalized || isReversed || buffering == .always
     }
 
+    @objc public var isNotBuffered: Bool { return !isBuffered }
+
     /// Will automatically normalize on buffer updates if enabled
     @objc public var isNormalized: Bool = false {
         didSet {
@@ -377,7 +379,7 @@ public class AKPlayer: AKNode {
 
     /// Create a player from a URL
     @objc public convenience init?(url: URL) {
-        if !FileManager.default.fileExists(atPath: url.path) {
+        if FileManager.default.fileExists(atPath: url.path) == false {
             return nil
         }
         do {
