@@ -484,7 +484,7 @@ open class AKAudioPlayer: AKNode, AKToggleable {
         startingFrame = 0
         endingFrame = totalFrameCount
 
-        if !lazyBuffering {
+        if lazyBuffering == false {
             updatePCMBuffer()
         }
     }

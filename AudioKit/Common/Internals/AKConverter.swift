@@ -111,7 +111,7 @@ open class AKConverter: NSObject {
             convertCompressed(completionHandler: completionHandler)
             return
 
-        } else if !isCompressed(url: outputURL) {
+        } else if isCompressed(url: outputURL) == false {
             convertToPCM(completionHandler: completionHandler)
             return
         }
@@ -262,7 +262,7 @@ open class AKConverter: NSObject {
         let readerOutput = AVAssetReaderTrackOutput(track: tracks[0], outputSettings: nil)
         reader.add(readerOutput)
 
-        if !writer.startWriting() {
+        if writer.startWriting() == false {
             let error = String(describing: writer.error)
             AKLog("Failed to start writing. Error: \(error)")
             completionHandler?(writer.error)
