@@ -39,9 +39,9 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard ratio != newValue else { return }
             if internalAU?.isSetUp == true {
-                ratioParameter?.value = Float(newValue)
+                ratioParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.ratio = Float(newValue)
+                internalAU?.ratio = AUValue(newValue)
             }
         }
     }
@@ -51,9 +51,9 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard threshold != newValue else { return }
             if internalAU?.isSetUp == true {
-                thresholdParameter?.value = Float(newValue)
+                thresholdParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.threshold = Float(newValue)
+                internalAU?.threshold = AUValue(newValue)
             }
         }
     }
@@ -63,9 +63,9 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = Float(newValue)
+                attackDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.attackDuration = Float(newValue)
+                internalAU?.attackDuration = AUValue(newValue)
             }
         }
     }
@@ -75,9 +75,9 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = Float(newValue)
+                releaseDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.releaseDuration = Float(newValue)
+                internalAU?.releaseDuration = AUValue(newValue)
             }
         }
     }
@@ -87,9 +87,9 @@ open class AKDynaRageCompressor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard rage != newValue else { return }
             if internalAU?.isSetUp == true {
-                rageParameter?.value = Float(newValue)
+                rageParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.rage = Float(newValue)
+                internalAU?.rage = AUValue(newValue)
             }
         }
     }

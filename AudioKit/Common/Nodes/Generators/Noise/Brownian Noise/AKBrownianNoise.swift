@@ -37,7 +37,7 @@ open class AKBrownianNoise: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
                 

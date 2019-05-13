@@ -37,7 +37,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard limit != newValue else { return }
             if internalAU?.isSetUp == true {
-                limitParameter?.value = Float(newValue)
+                limitParameter?.value = AUValue(newValue)
                 return
             }
                 

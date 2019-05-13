@@ -34,9 +34,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard preGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                preGainParameter?.value = Float(newValue)
+                preGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.preGain = Float(newValue)
+                internalAU?.preGain = AUValue(newValue)
             }
         }
     }
@@ -46,9 +46,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard postGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                postGainParameter?.value = Float(newValue)
+                postGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.postGain = Float(newValue)
+                internalAU?.postGain = AUValue(newValue)
             }
         }
     }
@@ -58,9 +58,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard lowGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                lowGainParameter?.value = Float(newValue)
+                lowGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.lowGain = Float(newValue)
+                internalAU?.lowGain = AUValue(newValue)
             }
         }
     }
@@ -70,9 +70,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard midGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                midGainParameter?.value = Float(newValue)
+                midGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.midGain = Float(newValue)
+                internalAU?.midGain = AUValue(newValue)
             }
         }
     }
@@ -82,9 +82,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard highGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                highGainParameter?.value = Float(newValue)
+                highGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.highGain = Float(newValue)
+                internalAU?.highGain = AUValue(newValue)
             }
         }
     }
@@ -94,9 +94,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard distortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                distortionParameter?.value = Float(newValue)
+                distortionParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.distortion = Float(newValue)
+                internalAU?.distortion = AUValue(newValue)
             }
         }
     }

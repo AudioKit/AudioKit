@@ -22,7 +22,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     fileprivate var halfPowerPointParameter: AUParameter?
     //    open var smoothness: Double = 1 { // should be 0 and above
     //        willSet {
-    //            internalAU?.smoothness = 0.05 * Float(newValue)
+    //            internalAU?.smoothness = 0.05 * AUValue(newValue)
     //        }
     //    } //in development
 
@@ -57,7 +57,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// Threshold amplitude
     @objc open dynamic var threshold: Double = 1 {
         willSet {
-            internalAU?.threshold = Float(newValue)
+            internalAU?.threshold = AUValue(newValue)
         }
     }
 

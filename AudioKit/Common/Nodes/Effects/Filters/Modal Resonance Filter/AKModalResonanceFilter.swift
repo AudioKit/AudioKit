@@ -45,7 +45,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -58,7 +58,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard qualityFactor != newValue else { return }
             if internalAU?.isSetUp == true {
-                qualityFactorParameter?.value = Float(newValue)
+                qualityFactorParameter?.value = AUValue(newValue)
                 return
             }
                 
