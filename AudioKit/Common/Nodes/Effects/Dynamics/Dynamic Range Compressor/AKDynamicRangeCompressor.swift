@@ -57,7 +57,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         willSet {
             guard ratio != newValue else { return }
             if internalAU?.isSetUp == true {
-                ratioParameter?.value = Float(newValue)
+                ratioParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -70,7 +70,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         willSet {
             guard threshold != newValue else { return }
             if internalAU?.isSetUp == true {
-                thresholdParameter?.value = Float(newValue)
+                thresholdParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -83,7 +83,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = Float(newValue)
+                attackDurationParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -96,7 +96,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = Float(newValue)
+                releaseDurationParameter?.value = AUValue(newValue)
                 return
             }
                 

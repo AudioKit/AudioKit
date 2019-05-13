@@ -44,7 +44,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -57,7 +57,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard bandwidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                bandwidthParameter?.value = Float(newValue)
+                bandwidthParameter?.value = AUValue(newValue)
                 return
             }
                 

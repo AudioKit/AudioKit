@@ -47,7 +47,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = Float(newValue)
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -60,7 +60,7 @@ open class AKMoogLadder: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonance != newValue else { return }
             if internalAU?.isSetUp == true {
-                resonanceParameter?.value = Float(newValue)
+                resonanceParameter?.value = AUValue(newValue)
                 return
             }
                 

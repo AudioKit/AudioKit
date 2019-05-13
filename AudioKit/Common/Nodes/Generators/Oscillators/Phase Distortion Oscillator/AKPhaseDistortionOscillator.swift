@@ -70,7 +70,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -83,7 +83,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -96,7 +96,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard phaseDistortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                phaseDistortionParameter?.value = Float(newValue)
+                phaseDistortionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -109,7 +109,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningOffset != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuningOffsetParameter?.value = Float(newValue)
+                detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -122,7 +122,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuningMultiplierParameter?.value = Float(newValue)
+                detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
                 

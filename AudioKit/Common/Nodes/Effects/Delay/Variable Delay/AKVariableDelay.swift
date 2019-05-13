@@ -46,7 +46,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard time != newValue else { return }
             if internalAU?.isSetUp == true {
-                timeParameter?.value = Float(newValue)
+                timeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -59,7 +59,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                feedbackParameter?.value = Float(newValue)
+                feedbackParameter?.value = AUValue(newValue)
                 return
             }
                 

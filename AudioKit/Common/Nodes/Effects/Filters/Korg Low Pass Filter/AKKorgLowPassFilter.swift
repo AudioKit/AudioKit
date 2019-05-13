@@ -50,7 +50,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = Float(newValue)
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -63,7 +63,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonance != newValue else { return }
             if internalAU?.isSetUp == true {
-                resonanceParameter?.value = Float(newValue)
+                resonanceParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -76,7 +76,7 @@ open class AKKorgLowPassFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard saturation != newValue else { return }
             if internalAU?.isSetUp == true {
-                saturationParameter?.value = Float(newValue)
+                saturationParameter?.value = AUValue(newValue)
                 return
             }
                 
