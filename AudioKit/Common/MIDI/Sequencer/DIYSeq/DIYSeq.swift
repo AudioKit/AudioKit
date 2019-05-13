@@ -24,8 +24,17 @@ open class DIYSeq {
         set { for track in tracks { track.loopEnabled = newValue } }
     }
 
+
+    open var isPlaying: Bool {
+        return tracks.first?.isPlaying ?? false
+    }
+
     open func play() {
         for track in tracks { track.play() }
+    }
+
+    open func stop() {
+        for track in tracks { track.stop() }
     }
 
     open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
