@@ -52,7 +52,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                centerFrequencyParameter?.value = Float(newValue)
+                centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -65,7 +65,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = Float(newValue)
+                attackDurationParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -78,7 +78,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = Float(newValue)
+                decayDurationParameter?.value = AUValue(newValue)
                 return
             }
                 

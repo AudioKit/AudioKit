@@ -225,7 +225,7 @@ public class AKPlayer: AKNode {
         }
 
         set {
-            playerNode.volume = Float(newValue)
+            playerNode.volume = AUValue(newValue)
         }
     }
 
@@ -253,7 +253,7 @@ public class AKPlayer: AKNode {
             return Double(playerNode.pan)
         }
         set {
-            playerNode.pan = Float(newValue)
+            playerNode.pan = AUValue(newValue)
         }
     }
 

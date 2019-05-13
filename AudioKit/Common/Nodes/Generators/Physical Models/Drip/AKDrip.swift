@@ -80,7 +80,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard intensity != newValue else { return }
             if internalAU?.isSetUp == true {
-                intensityParameter?.value = Float(newValue)
+                intensityParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -93,7 +93,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard dampingFactor != newValue else { return }
             if internalAU?.isSetUp == true {
-                dampingFactorParameter?.value = Float(newValue)
+                dampingFactorParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -106,7 +106,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard energyReturn != newValue else { return }
             if internalAU?.isSetUp == true {
-                energyReturnParameter?.value = Float(newValue)
+                energyReturnParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -119,7 +119,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard mainResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                mainResonantFrequencyParameter?.value = Float(newValue)
+                mainResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -132,7 +132,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard firstResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                firstResonantFrequencyParameter?.value = Float(newValue)
+                firstResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -145,7 +145,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard secondResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                secondResonantFrequencyParameter?.value = Float(newValue)
+                secondResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -158,7 +158,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
                 

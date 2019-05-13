@@ -103,7 +103,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             guard amplitude != newValue else { return }
-            amplitudeParameter?.value = Float(newValue)
+            amplitudeParameter?.value = AUValue(newValue)
         }
     }
 

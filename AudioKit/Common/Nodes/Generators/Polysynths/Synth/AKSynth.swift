@@ -47,7 +47,7 @@
             guard masterVolume != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                masterVolumeParameter?.value = Float(newValue)
+                masterVolumeParameter?.value = AUValue(newValue)
                 return
             }
 
@@ -61,7 +61,7 @@
             guard pitchBend != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                pitchBendParameter?.value = Float(newValue)
+                pitchBendParameter?.value = AUValue(newValue)
                 return
             }
 
@@ -75,7 +75,7 @@
             guard vibratoDepth != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                vibratoDepthParameter?.value = Float(newValue)
+                vibratoDepthParameter?.value = AUValue(newValue)
                 return
             }
 
@@ -89,7 +89,7 @@
             guard filterCutoff != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                filterCutoffParameter?.value = Float(newValue)
+                filterCutoffParameter?.value = AUValue(newValue)
                 return
             }
 
@@ -103,7 +103,7 @@
             guard filterStrength != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                filterStrengthParameter?.value = Float(newValue)
+                filterStrengthParameter?.value = AUValue(newValue)
                 return
             }
 
@@ -117,7 +117,7 @@
             guard filterResonance != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                filterResonanceParameter?.value = Float(newValue)
+                filterResonanceParameter?.value = AUValue(newValue)
                 return
             }
 

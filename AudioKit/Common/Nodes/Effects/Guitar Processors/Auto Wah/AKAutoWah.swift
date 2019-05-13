@@ -50,7 +50,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard wah != newValue else { return }
             if internalAU?.isSetUp == true {
-                wahParameter?.value = Float(newValue)
+                wahParameter?.value = AUValue(newValue)
                 return
             }
             internalAU?.setParameterImmediately(.wah, value: newValue)
@@ -62,7 +62,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard mix != newValue else { return }
             if internalAU?.isSetUp == true {
-                mixParameter?.value = Float(newValue)
+                mixParameter?.value = AUValue(newValue)
                 return
             }
             internalAU?.setParameterImmediately(.mix, value: newValue)
@@ -74,7 +74,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
             internalAU?.setParameterImmediately(.amplitude, value: newValue)

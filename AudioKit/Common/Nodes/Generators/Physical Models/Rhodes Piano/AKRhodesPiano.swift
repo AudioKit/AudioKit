@@ -30,7 +30,7 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var frequency: Double = 110 {
         willSet {
             guard frequency != newValue else { return }
-            frequencyParameter?.value = Float(newValue)
+            frequencyParameter?.value = AUValue(newValue)
         }
     }
 
@@ -38,7 +38,7 @@ open class AKRhodesPiano: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             guard amplitude != newValue else { return }
-            amplitudeParameter?.value = Float(newValue)
+            amplitudeParameter?.value = AUValue(newValue)
         }
     }
 
