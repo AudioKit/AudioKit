@@ -302,6 +302,7 @@ open class AKWaveTable: AKNode, AKComponent {
         if let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
                                       frameCapacity: AVAudioFrameCount(file.length)) {
             do {
+                file.framePosition = 0
                 try file.read(into: buf)
             } catch {
                 AKLog("Load audio file failed. Error was: \(error)")
