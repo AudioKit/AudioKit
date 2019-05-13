@@ -61,7 +61,7 @@ open class AudioKit: NSObject {
 
     /// internalConnections are used for not-strictly audio processing nodes that need
     /// a mechanism to pull samples (ie. the sequencer)
-    static var internalConnections: [AKNode] = []
+    @objc public static var internalConnections: [AKNode] = []
 
     // MARK: - Device Management
 
