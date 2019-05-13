@@ -57,7 +57,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = Float(newValue)
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -70,7 +70,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonance != newValue else { return }
             if internalAU?.isSetUp == true {
-                resonanceParameter?.value = Float(newValue)
+                resonanceParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -83,7 +83,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard distortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                distortionParameter?.value = Float(newValue)
+                distortionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -96,7 +96,7 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonanceAsymmetry != newValue else { return }
             if internalAU?.isSetUp == true {
-                resonanceAsymmetryParameter?.value = Float(newValue)
+                resonanceAsymmetryParameter?.value = AUValue(newValue)
                 return
             }
                 

@@ -99,7 +99,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard predelay != newValue else { return }
             if internalAU?.isSetUp == true {
-                predelayParameter?.value = Float(newValue)
+                predelayParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -112,7 +112,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard crossoverFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                crossoverFrequencyParameter?.value = Float(newValue)
+                crossoverFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -125,7 +125,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard lowReleaseTime != newValue else { return }
             if internalAU?.isSetUp == true {
-                lowReleaseTimeParameter?.value = Float(newValue)
+                lowReleaseTimeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -138,7 +138,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard midReleaseTime != newValue else { return }
             if internalAU?.isSetUp == true {
-                midReleaseTimeParameter?.value = Float(newValue)
+                midReleaseTimeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -151,7 +151,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard dampingFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                dampingFrequencyParameter?.value = Float(newValue)
+                dampingFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -164,7 +164,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard equalizerFrequency1 != newValue else { return }
             if internalAU?.isSetUp == true {
-                equalizerFrequency1Parameter?.value = Float(newValue)
+                equalizerFrequency1Parameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -177,7 +177,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard equalizerLevel1 != newValue else { return }
             if internalAU?.isSetUp == true {
-                equalizerLevel1Parameter?.value = Float(newValue)
+                equalizerLevel1Parameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -190,7 +190,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard equalizerFrequency2 != newValue else { return }
             if internalAU?.isSetUp == true {
-                equalizerFrequency2Parameter?.value = Float(newValue)
+                equalizerFrequency2Parameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -203,7 +203,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard equalizerLevel2 != newValue else { return }
             if internalAU?.isSetUp == true {
-                equalizerLevel2Parameter?.value = Float(newValue)
+                equalizerLevel2Parameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -216,7 +216,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard dryWetMix != newValue else { return }
             if internalAU?.isSetUp == true {
-                dryWetMixParameter?.value = Float(newValue)
+                dryWetMixParameter?.value = AUValue(newValue)
                 return
             }
                 

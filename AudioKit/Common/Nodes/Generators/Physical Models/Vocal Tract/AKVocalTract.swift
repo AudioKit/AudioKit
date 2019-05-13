@@ -67,7 +67,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -80,7 +80,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tonguePosition != newValue else { return }
             if internalAU?.isSetUp == true {
-                tonguePositionParameter?.value = Float(newValue)
+                tonguePositionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -93,7 +93,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tongueDiameter != newValue else { return }
             if internalAU?.isSetUp == true {
-                tongueDiameterParameter?.value = Float(newValue)
+                tongueDiameterParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -106,7 +106,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tenseness != newValue else { return }
             if internalAU?.isSetUp == true {
-                tensenessParameter?.value = Float(newValue)
+                tensenessParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -119,7 +119,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard nasality != newValue else { return }
             if internalAU?.isSetUp == true {
-                nasalityParameter?.value = Float(newValue)
+                nasalityParameter?.value = AUValue(newValue)
                 return
             }
                 

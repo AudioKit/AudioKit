@@ -57,7 +57,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = Float(newValue)
+                attackDurationParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -70,7 +70,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = Float(newValue)
+                decayDurationParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -83,7 +83,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                sustainLevelParameter?.value = Float(newValue)
+                sustainLevelParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -96,7 +96,7 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = Float(newValue)
+                releaseDurationParameter?.value = AUValue(newValue)
                 return
             }
                 

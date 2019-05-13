@@ -36,7 +36,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard pan != newValue else { return }
             if internalAU?.isSetUp == true {
-                panParameter?.value = Float(newValue)
+                panParameter?.value = AUValue(newValue)
                 return
             }
                 
