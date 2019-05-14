@@ -22,7 +22,7 @@ public class AKDynamicPlayer: AKPlayer {
             }
 
             // timePitch is only installed if it is requested. This saves resources.
-            if timePitchNode != nil && newValue == 1 {
+            if timePitchNode != nil && newValue == 1 && pitch == 0 {
                 removeTimePitch()
                 return
             } else if timePitchNode == nil && newValue != 1 {
@@ -53,12 +53,10 @@ public class AKDynamicPlayer: AKPlayer {
                 return
             }
             // timePitch is only installed if it is requested. This saves CPU resources.
-            if timePitchNode != nil && newValue == 0 {
+            if timePitchNode != nil && newValue == 0 && rate == 1 {
                 removeTimePitch()
                 return
-            }
-
-            if timePitchNode == nil && newValue != 0 {
+            } else if timePitchNode == nil && newValue != 0 {
                 timePitchNode = AKTimePitch()
                 initialize()
             }
