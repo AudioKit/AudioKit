@@ -140,6 +140,8 @@ public class AKDynamicPlayer: AKPlayer {
         timePitchNode?.bypass()
     }
 
+    /// Dispose the audio file, buffer and nodes and release resources.
+    /// Only call when you are totally done with this class.
     public override func detach() {
         super.detach()
         if let timePitchNode = timePitchNode {

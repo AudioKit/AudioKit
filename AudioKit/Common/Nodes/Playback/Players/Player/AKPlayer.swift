@@ -519,7 +519,8 @@ public class AKPlayer: AKNode {
 
     // MARK: - Deinit
 
-    /// Disconnect the node and release resources
+    /// Dispose the audio file, buffer and nodes and release resources.
+    /// Only call when you are totally done with this class.
     @objc public override func detach() {
         stop()
         audioFile = nil
