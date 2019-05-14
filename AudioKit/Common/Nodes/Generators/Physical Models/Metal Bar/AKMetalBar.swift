@@ -87,7 +87,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard leftBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp == true {
-                leftBoundaryConditionParameter?.value = Float(newValue)
+                leftBoundaryConditionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -100,7 +100,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard rightBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp == true {
-                rightBoundaryConditionParameter?.value = Float(newValue)
+                rightBoundaryConditionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -113,7 +113,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = Float(newValue)
+                decayDurationParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -126,7 +126,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard scanSpeed != newValue else { return }
             if internalAU?.isSetUp == true {
-                scanSpeedParameter?.value = Float(newValue)
+                scanSpeedParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -139,7 +139,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard position != newValue else { return }
             if internalAU?.isSetUp == true {
-                positionParameter?.value = Float(newValue)
+                positionParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -152,7 +152,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard strikeVelocity != newValue else { return }
             if internalAU?.isSetUp == true {
-                strikeVelocityParameter?.value = Float(newValue)
+                strikeVelocityParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -165,7 +165,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard strikeWidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                strikeWidthParameter?.value = Float(newValue)
+                strikeWidthParameter?.value = AUValue(newValue)
                 return
             }
                 

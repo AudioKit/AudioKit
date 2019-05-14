@@ -36,7 +36,7 @@ open class AKToneComplementFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard halfPowerPoint != newValue else { return }
             if internalAU?.isSetUp == true {
-                halfPowerPointParameter?.value = Float(newValue)
+                halfPowerPointParameter?.value = AUValue(newValue)
                 return
             }
                 

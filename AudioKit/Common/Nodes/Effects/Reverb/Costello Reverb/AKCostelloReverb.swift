@@ -46,7 +46,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                feedbackParameter?.value = Float(newValue)
+                feedbackParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -59,7 +59,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = Float(newValue)
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 

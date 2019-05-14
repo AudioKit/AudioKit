@@ -44,7 +44,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
         willSet {
             guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                centerFrequencyParameter?.value = Float(newValue)
+                centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -57,7 +57,7 @@ open class AKBandPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
         willSet {
             guard bandwidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                bandwidthParameter?.value = Float(newValue)
+                bandwidthParameter?.value = AUValue(newValue)
                 return
             }
                 

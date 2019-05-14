@@ -72,7 +72,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -85,7 +85,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -97,7 +97,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var index: Double = defaultIndex {
         willSet {
             guard index != newValue else { return }
-            let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
+            let transformedValue = AUValue(newValue) / Float(waveformArray.count - 1)
             if internalAU?.isSetUp == true {
                 indexParameter?.value = Float(transformedValue)
                 return
@@ -111,7 +111,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningOffset != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuningOffsetParameter?.value = Float(newValue)
+                detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -124,7 +124,7 @@ open class AKMorphingOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuningMultiplierParameter?.value = Float(newValue)
+                detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
                 

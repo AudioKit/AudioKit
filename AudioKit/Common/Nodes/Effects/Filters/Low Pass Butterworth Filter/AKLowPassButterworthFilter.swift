@@ -37,7 +37,7 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                cutoffFrequencyParameter?.value = Float(newValue)
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 

@@ -93,7 +93,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchMinimumFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                notchMinimumFrequencyParameter?.value = Float(newValue)
+                notchMinimumFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -106,7 +106,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchMaximumFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                notchMaximumFrequencyParameter?.value = Float(newValue)
+                notchMaximumFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -119,7 +119,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchWidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                notchWidthParameter?.value = Float(newValue)
+                notchWidthParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -132,7 +132,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                notchFrequencyParameter?.value = Float(newValue)
+                notchFrequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -145,7 +145,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard vibratoMode != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoModeParameter?.value = Float(newValue)
+                vibratoModeParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -158,7 +158,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard depth != newValue else { return }
             if internalAU?.isSetUp == true {
-                depthParameter?.value = Float(newValue)
+                depthParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -171,7 +171,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                feedbackParameter?.value = Float(newValue)
+                feedbackParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -184,7 +184,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard inverted != newValue else { return }
             if internalAU?.isSetUp == true {
-                invertedParameter?.value = Float(newValue)
+                invertedParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -197,7 +197,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard lfoBPM != newValue else { return }
             if internalAU?.isSetUp == true {
-                lfoBPMParameter?.value = Float(newValue)
+                lfoBPMParameter?.value = AUValue(newValue)
                 return
             }
                 

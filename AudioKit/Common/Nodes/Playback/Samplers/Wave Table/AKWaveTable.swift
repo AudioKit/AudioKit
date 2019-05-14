@@ -77,7 +77,7 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard rate != newValue else { return }
             if internalAU?.isSetUp == true {
-                rateParameter?.value = Float(newValue)
+                rateParameter?.value = AUValue(newValue)
             } else {
                 internalAU?.rate = Float(newValue)
             }
@@ -89,9 +89,9 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                volumeParameter?.value = Float(newValue)
+                volumeParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.volume = Float(newValue)
+                internalAU?.volume = AUValue(newValue)
             }
         }
     }
@@ -282,27 +282,29 @@ open class AKWaveTable: AKNode, AKComponent {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
         }
-        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        do {
-            try file.read(into: buf!)
-        } catch {
-            AKLog("Load audio file failed. Error was:")
-            AKLog(error)
-            return
+        if let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                      frameCapacity: AVAudioFrameCount(file.length)) {
+            do {
+                file.framePosition = 0
+                try file.read(into: buf)
+            } catch {
+                AKLog("Load audio file failed. Error was: \(error)")
+                return
+            }
+            let sizeToUse = UInt32(file.samplesCount * 2)
+            if maximumSamples == 0 {
+                maximumSamples = Int(file.samplesCount)
+                internalAU?.setupAudioFileTable(sizeToUse)
+            }
+            avAudiofile = file
+            startPoint = 0
+            endPoint = Sample(file.samplesCount)
+            loopStartPoint = 0
+            loopEndPoint = Sample(file.samplesCount)
+            let data = buf.floatChannelData
+            internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                      sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
         }
-        let sizeToUse = UInt32(file.samplesCount * 2)
-        if maximumSamples == 0 {
-            maximumSamples = Int(file.samplesCount)
-            internalAU?.setupAudioFileTable(sizeToUse)
-        }
-        avAudiofile = file
-        startPoint = 0
-        endPoint = Sample(file.samplesCount)
-        loopStartPoint = 0
-        loopEndPoint = Sample(file.samplesCount)
-        let data = buf!.floatChannelData
-        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
-                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
     }
 
     deinit {
