@@ -46,7 +46,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -59,7 +59,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                amplitudeParameter?.value = Float(newValue)
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
                 

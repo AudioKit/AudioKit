@@ -51,7 +51,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard time != newValue else { return }
             if internalAU?.isSetUp == true {
-                timeParameter?.value = Float(newValue)
+                timeParameter?.value = AUValue(newValue)
                 return
             }
             internalAU?.setParameterImmediately(.time, value: newValue)
@@ -63,7 +63,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                feedbackParameter?.value = Float(newValue)
+                feedbackParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -76,7 +76,7 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard dryWetMix != newValue else { return }
             if internalAU?.isSetUp == true {
-                dryWetMixParameter?.value = Float(newValue)
+                dryWetMixParameter?.value = AUValue(newValue)
                 return
             }
                 

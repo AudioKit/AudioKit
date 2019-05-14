@@ -38,9 +38,9 @@ open class AKMandolin: AKNode, AKComponent {
         willSet {
             guard detune != newValue else { return }
             if internalAU?.isSetUp == true {
-                detuneParameter?.value = Float(newValue)
+                detuneParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.detune = Float(newValue)
+                internalAU?.detune = AUValue(newValue)
             }
         }
     }
@@ -50,9 +50,9 @@ open class AKMandolin: AKNode, AKComponent {
         willSet {
             guard bodySize != newValue else { return }
             if internalAU?.isSetUp == true {
-                bodySizeParameter?.value = Float(newValue)
+                bodySizeParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.bodySize = Float(newValue)
+                internalAU?.bodySize = AUValue(newValue)
             }
         }
     }

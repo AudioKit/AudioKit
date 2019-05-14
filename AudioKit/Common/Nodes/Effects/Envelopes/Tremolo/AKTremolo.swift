@@ -43,7 +43,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                frequencyParameter?.value = Float(newValue)
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
                 
@@ -56,7 +56,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard depth != newValue else { return }
             if internalAU?.isSetUp == true {
-                depthParameter?.value = Float(newValue)
+                depthParameter?.value = AUValue(newValue)
                 return
             }
                 

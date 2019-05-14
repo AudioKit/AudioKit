@@ -32,7 +32,7 @@ open class AKStereoFieldLimiter: AKNode, AKToggleable, AKComponent, AKInput {
             guard amount != newValue else { return }
 
             if internalAU?.isSetUp == true {
-                amountParameter?.value = Float(newValue)
+                amountParameter?.value = AUValue(newValue)
                 return
             }
             internalAU?.setParameterImmediately(.amount, value: newValue)

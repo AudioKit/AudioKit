@@ -52,11 +52,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard index != newValue else { return }
             if internalAU?.isSetUp == true {
-                indexParameter?.value = Float(newValue)
+                indexParameter?.value = AUValue(newValue)
                 return
             }
                  else {
-                internalAU?.index = Float(newValue)
+                internalAU?.index = AUValue(newValue)
             }
         }
     }
@@ -66,9 +66,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                attackDurationParameter?.value = Float(newValue)
+                attackDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.attackDuration = Float(newValue)
+                internalAU?.attackDuration = AUValue(newValue)
             }
         }
     }
@@ -78,9 +78,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                decayDurationParameter?.value = Float(newValue)
+                decayDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.decayDuration = Float(newValue)
+                internalAU?.decayDuration = AUValue(newValue)
             }
         }
     }
@@ -90,9 +90,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                sustainLevelParameter?.value = Float(newValue)
+                sustainLevelParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.sustainLevel = Float(newValue)
+                internalAU?.sustainLevel = AUValue(newValue)
             }
         }
     }
@@ -102,9 +102,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                releaseDurationParameter?.value = Float(newValue)
+                releaseDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.releaseDuration = Float(newValue)
+                internalAU?.releaseDuration = AUValue(newValue)
             }
         }
     }
@@ -114,9 +114,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                pitchBendParameter?.value = Float(newValue)
+                pitchBendParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.pitchBend = Float(newValue)
+                internalAU?.pitchBend = AUValue(newValue)
             }
         }
     }
@@ -126,9 +126,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoDepthParameter?.value = Float(newValue)
+                vibratoDepthParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.vibratoDepth = Float(newValue)
+                internalAU?.vibratoDepth = AUValue(newValue)
             }
         }
     }
@@ -138,9 +138,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                vibratoRateParameter?.value = Float(newValue)
+                vibratoRateParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.vibratoRate = Float(newValue)
+                internalAU?.vibratoRate = AUValue(newValue)
             }
         }
     }

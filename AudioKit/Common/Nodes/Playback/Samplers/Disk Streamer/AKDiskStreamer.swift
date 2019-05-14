@@ -44,10 +44,10 @@ open class AKDiskStreamer: AKNode, AKComponent {
 //        willSet {
 //            if rate != newValue {
 //                if internalAU?.isSetUp == true {
-//    //                        rateParameter?.value = Float(newValue)
+//    //                        rateParameter?.value = AUValue(newValue)
 //                    }
 //                } else {
-//                    internalAU?.rate = Float(newValue)
+//                    internalAU?.rate = AUValue(newValue)
 //                }
 //            }
 //        }
@@ -58,9 +58,9 @@ open class AKDiskStreamer: AKNode, AKComponent {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                volumeParameter?.value = Float(newValue)
+                volumeParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.volume = Float(newValue)
+                internalAU?.volume = AUValue(newValue)
             }
         }
     }
