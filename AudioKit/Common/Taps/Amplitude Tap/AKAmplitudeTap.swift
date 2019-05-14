@@ -28,7 +28,6 @@ public class AKAmplitudeTap: AKToggleable {
     }
 
     private var _input: AKNode?
-
     public var input: AKNode? {
         get {
             return _input
