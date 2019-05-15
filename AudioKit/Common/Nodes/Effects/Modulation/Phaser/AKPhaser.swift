@@ -16,7 +16,6 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var notchMinimumFrequencyParameter: AUParameter?
     fileprivate var notchMaximumFrequencyParameter: AUParameter?
@@ -94,11 +93,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchMinimumFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    notchMinimumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                notchMinimumFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.notchMinimumFrequency, value: newValue)
         }
     }
@@ -108,11 +106,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchMaximumFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    notchMaximumFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                notchMaximumFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.notchMaximumFrequency, value: newValue)
         }
     }
@@ -122,11 +119,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchWidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    notchWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                notchWidthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.notchWidth, value: newValue)
         }
     }
@@ -136,11 +132,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard notchFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    notchFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                notchFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.notchFrequency, value: newValue)
         }
     }
@@ -150,11 +145,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard vibratoMode != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoModeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                vibratoModeParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.vibratoMode, value: newValue)
         }
     }
@@ -164,11 +158,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard depth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    depthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                depthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
@@ -178,11 +171,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                feedbackParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -192,11 +184,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard inverted != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    invertedParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                invertedParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.inverted, value: newValue)
         }
     }
@@ -206,11 +197,10 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard lfoBPM != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    lfoBPMParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                lfoBPMParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.lfoBPM, value: newValue)
         }
     }
@@ -287,18 +277,6 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
         feedbackParameter = tree["feedback"]
         invertedParameter = tree["inverted"]
         lfoBPMParameter = tree["lfoBPM"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.notchMinimumFrequency, value: notchMinimumFrequency)
         internalAU?.setParameterImmediately(.notchMaximumFrequency, value: notchMaximumFrequency)

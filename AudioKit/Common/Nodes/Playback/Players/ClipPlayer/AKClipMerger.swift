@@ -144,7 +144,7 @@ open class AKClipMerger: NSObject {
         }
         var lastEndTime: Double = 0
         for clip in sorted {
-            if !clip.isValid {
+            if clip.isValid == false {
                 throw ClipMergeError.clipInvalid
             }
             if clip.time < lastEndTime {

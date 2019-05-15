@@ -16,7 +16,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var leftBoundaryConditionParameter: AUParameter?
     fileprivate var rightBoundaryConditionParameter: AUParameter?
@@ -88,11 +87,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard leftBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    leftBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                leftBoundaryConditionParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.leftBoundaryCondition, value: newValue)
         }
     }
@@ -102,11 +100,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard rightBoundaryCondition != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    rightBoundaryConditionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                rightBoundaryConditionParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.rightBoundaryCondition, value: newValue)
         }
     }
@@ -116,11 +113,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                decayDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
@@ -130,11 +126,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard scanSpeed != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    scanSpeedParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                scanSpeedParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.scanSpeed, value: newValue)
         }
     }
@@ -144,11 +139,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard position != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    positionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                positionParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.position, value: newValue)
         }
     }
@@ -158,11 +152,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard strikeVelocity != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    strikeVelocityParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                strikeVelocityParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.strikeVelocity, value: newValue)
         }
     }
@@ -172,11 +165,10 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         willSet {
             guard strikeWidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    strikeWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                strikeWidthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.strikeWidth, value: newValue)
         }
     }
@@ -245,18 +237,6 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
         positionParameter = tree["position"]
         strikeVelocityParameter = tree["strikeVelocity"]
         strikeWidthParameter = tree["strikeWidth"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.leftBoundaryCondition, value: leftBoundaryCondition)
         internalAU?.setParameterImmediately(.rightBoundaryCondition, value: rightBoundaryCondition)
         internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)

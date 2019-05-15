@@ -14,7 +14,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var preGainParameter: AUParameter?
     fileprivate var postGainParameter: AUParameter?
@@ -35,11 +34,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard preGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    preGainParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                preGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.preGain = Float(newValue)
+                internalAU?.preGain = AUValue(newValue)
             }
         }
     }
@@ -49,11 +46,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard postGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    postGainParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                postGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.postGain = Float(newValue)
+                internalAU?.postGain = AUValue(newValue)
             }
         }
     }
@@ -63,11 +58,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard lowGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    lowGainParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                lowGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.lowGain = Float(newValue)
+                internalAU?.lowGain = AUValue(newValue)
             }
         }
     }
@@ -77,11 +70,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard midGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    midGainParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                midGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.midGain = Float(newValue)
+                internalAU?.midGain = AUValue(newValue)
             }
         }
     }
@@ -91,11 +82,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard highGain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    highGainParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                highGainParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.highGain = Float(newValue)
+                internalAU?.highGain = AUValue(newValue)
             }
         }
     }
@@ -105,11 +94,9 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard distortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                distortionParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.distortion = Float(newValue)
+                internalAU?.distortion = AUValue(newValue)
             }
         }
     }
@@ -174,28 +161,6 @@ open class AKRhinoGuitarProcessor: AKNode, AKToggleable, AKComponent, AKInput {
         midGainParameter = tree["midGain"]
         highGainParameter = tree["highGain"]
         distortionParameter = tree["distortion"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] address, value in
-            guard let strongSelf = self else {
-                AKLog("Error: self is nil")
-                return
-            }
-            DispatchQueue.main.async {
-                if address == strongSelf.preGainParameter?.address {
-                    strongSelf.preGain = Double(value)
-                } else if address == strongSelf.postGainParameter?.address {
-                    strongSelf.postGain = Double(value)
-                } else if address == strongSelf.lowGainParameter?.address {
-                    strongSelf.lowGain = Double(value)
-                } else if address == strongSelf.midGainParameter?.address {
-                    strongSelf.midGain = Double(value)
-                } else if address == strongSelf.highGainParameter?.address {
-                    strongSelf.highGain = Double(value)
-                } else if address == strongSelf.distortionParameter?.address {
-                    strongSelf.distortion = Double(value)
-                }
-            }
-        })
 
         internalAU?.preGain = Float(preGain)
         internalAU?.postGain = Float(postGain)

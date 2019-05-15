@@ -16,7 +16,6 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
@@ -45,11 +44,10 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                frequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -59,11 +57,10 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard bandwidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                bandwidthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
@@ -112,18 +109,6 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         frequencyParameter = tree["frequency"]
         bandwidthParameter = tree["bandwidth"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)

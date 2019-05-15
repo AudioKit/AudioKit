@@ -8,21 +8,43 @@
 
 import Accelerate
 
-/// Tap to do return amplitude analysis on any node
+/// Tap to do amplitude analysis on any node.
+/// start() will add the tap, and stop() will remove it.
 public class AKAmplitudeTap: AKToggleable {
-    private let bufferSize: UInt32 = 2_048
     private var amp: [Float] = Array(repeating: 0, count: 2)
+    private let bufferSize: UInt32 = 2_048
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public private(set) var isStarted: Bool = false
 
     /// The bus to install the tap onto
-    public var bus: Int = 0
-
-    public var input: AKNode? {
-        willSet {
+    public var bus: Int = 0 {
+        didSet {
             if isStarted {
                 stop()
+                start()
+            }
+        }
+    }
+
+    private var _input: AKNode?
+    public var input: AKNode? {
+        get {
+            return _input
+        }
+        set {
+            guard newValue != _input else { return }
+            let wasStarted = isStarted
+
+            // if the input changes while it's on, stop and start the tap
+            if wasStarted {
+                stop()
+            }
+
+            _input = newValue
+
+            // if the input changes while it's on, stop and start the tap
+            if wasStarted {
                 start()
             }
         }
@@ -47,14 +69,22 @@ public class AKAmplitudeTap: AKToggleable {
 
     /// Enable the tap on input
     public func start() {
+        guard let input = input, !isStarted else { return }
         isStarted = true
-        input?.avAudioUnitOrNode.installTap(onBus: bus,
-                                            bufferSize: bufferSize,
-                                            format: AudioKit.format,
-                                            block: handleTapBlock(buffer:at:))
+
+        // a node can only have one tap at a time installed on it
+        // make sure any previous tap is removed.
+        // We're making the assumption that the previous tap (if any)
+        // was installed on the same bus as our bus var.
+        removeTap()
+
+        input.avAudioUnitOrNode.installTap(onBus: bus,
+                                           bufferSize: bufferSize,
+                                           format: AudioKit.format,
+                                           block: handleTapBlock(buffer:at:))
     }
 
-    // AVAudioNodeTapBlock - time is currently unused
+    // AVAudioNodeTapBlock - time is unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
@@ -71,21 +101,23 @@ public class AKAmplitudeTap: AKToggleable {
         }
     }
 
-    /// Remove the tap on input
+    /// Remove the tap on the input
     public func stop() {
-        isStarted = false
         removeTap()
+        isStarted = false
         amp[0] = 0
         amp[1] = 0
     }
 
     private func removeTap() {
-        input?.avAudioUnitOrNode.removeTap(onBus: 0)
+        input?.avAudioUnitOrNode.removeTap(onBus: bus)
     }
 
+    /// remove the tap and nil out the input reference
+    /// this is important in regard to retain cycles on your input node
     public func dispose() {
-        if isPlaying {
-            removeTap()
+        if isStarted {
+            stop()
         }
         input = nil
     }

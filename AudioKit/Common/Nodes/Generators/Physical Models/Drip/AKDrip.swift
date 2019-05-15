@@ -17,7 +17,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var intensityParameter: AUParameter?
     fileprivate var dampingFactorParameter: AUParameter?
@@ -81,11 +80,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard intensity != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    intensityParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                intensityParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.intensity, value: newValue)
         }
     }
@@ -95,11 +93,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard dampingFactor != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    dampingFactorParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                dampingFactorParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.dampingFactor, value: newValue)
         }
     }
@@ -109,11 +106,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard energyReturn != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    energyReturnParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                energyReturnParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.energyReturn, value: newValue)
         }
     }
@@ -123,11 +119,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard mainResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    mainResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                mainResonantFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.mainResonantFrequency, value: newValue)
         }
     }
@@ -137,11 +132,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard firstResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    firstResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                firstResonantFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.firstResonantFrequency, value: newValue)
         }
     }
@@ -151,11 +145,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard secondResonantFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    secondResonantFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                secondResonantFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.secondResonantFrequency, value: newValue)
         }
     }
@@ -165,11 +158,10 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                amplitudeParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -235,18 +227,6 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
         firstResonantFrequencyParameter = tree["firstResonantFrequency"]
         secondResonantFrequencyParameter = tree["secondResonantFrequency"]
         amplitudeParameter = tree["amplitude"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.intensity, value: intensity)
         internalAU?.setParameterImmediately(.dampingFactor, value: dampingFactor)
         internalAU?.setParameterImmediately(.energyReturn, value: energyReturn)

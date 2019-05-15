@@ -70,9 +70,29 @@ import AudioKit
         genSubViews()
     }
     internal func genSubViews() {
-        coarseStepper = AKStepper(text: "Coarse", value: currentValue, minimum: minimum, maximum: maximum, increment: coarseIncrement, frame: frame, showsValue: false, callback: { _ in })
-        fineStepper = AKStepper(text: "Fine", value: currentValue, minimum: minimum, maximum: maximum, increment: fineIncrement, frame: frame, showsValue: false, callback: { _ in })
-        slider = AKSlider(property: "", value: currentValue, range: minimum...maximum, taper: 1.0, format: "", color: AKStylist.sharedInstance.nextColor, frame: frame, callback: { _ in })
+        coarseStepper = AKStepper(text: "Coarse",
+                                  value: currentValue,
+                                  minimum: minimum,
+                                  maximum: maximum,
+                                  increment: coarseIncrement,
+                                  frame: frame,
+                                  showsValue: false,
+                                  callback: { _ in })
+        fineStepper = AKStepper(text: "Fine",
+                                value: currentValue,
+                                minimum: minimum,
+                                maximum: maximum,
+                                increment: fineIncrement,
+                                frame: frame,
+                                showsValue: false,
+                                callback: { _ in })
+        slider = AKSlider(property: "",
+                          value: currentValue,
+                          range: minimum ... maximum,
+                          taper: 1.0, format: "",
+                          color: AKStylist.sharedInstance.nextColor,
+                          frame: frame,
+                          callback: { _ in })
         coarseStepper.callback = { value in
             self.callback(value)
             self.currentValue = value
@@ -116,10 +136,19 @@ import AudioKit
         coarseStepper.buttonBorderWidth = buttonBorderWidth
         fineStepper.buttonBorderWidth = buttonBorderWidth
 
-        valueLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
+        valueLabel = UILabel(frame: CGRect(x: frame.origin.x,
+                                           y: frame.origin.y,
+                                           width: frame.width,
+                                           height: frame.height * labelPercent))
 
-        nameLabel = UILabel(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * labelPercent))
-        buttons = UIStackView(frame: CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: frame.height * buttonPercent))
+        nameLabel = UILabel(frame: CGRect(x: frame.origin.x,
+                                          y: frame.origin.y,
+                                          width: frame.width,
+                                          height: frame.height * labelPercent))
+        buttons = UIStackView(frame: CGRect(x: frame.origin.x,
+                                            y: frame.origin.y,
+                                            width: frame.width,
+                                            height: frame.height * buttonPercent))
         setupFonts()
         addSubview(nameLabel)
         addSubview(valueLabel)
@@ -145,18 +174,30 @@ import AudioKit
         genStackViews(rect: rect)
     }
     private func genStackViews(rect: CGRect) {
-        nameLabel.frame = CGRect(x: rect.origin.x + buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
+        nameLabel.frame = CGRect(x: rect.origin.x + buttonBorderWidth,
+                                 y: rect.origin.y,
+                                 width: rect.width,
+                                 height: rect.height * 0.25)
         nameLabel.text = name
         nameLabel.textAlignment = .left
 
-        valueLabel.frame = CGRect(x: rect.origin.x - buttonBorderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.25)
+        valueLabel.frame = CGRect(x: rect.origin.x - buttonBorderWidth,
+                                  y: rect.origin.y,
+                                  width: rect.width,
+                                  height: rect.height * 0.25)
         valueLabel.textAlignment = .right
 
-        slider.frame = CGRect(x: rect.origin.x, y: rect.origin.y + nameLabel.frame.height, width: rect.width, height: rect.height * 0.25)
+        slider.frame = CGRect(x: rect.origin.x,
+                              y: rect.origin.y + nameLabel.frame.height,
+                              width: rect.width,
+                              height: rect.height * 0.25)
         slider.range = minimum...maximum
         slider.value = currentValue
 
-        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + slider.frame.height + valueLabel.frame.height, width: rect.width, height: rect.height * 0.5)
+        buttons.frame = CGRect(x: rect.origin.x,
+                               y: rect.origin.y + slider.frame.height + valueLabel.frame.height,
+                               width: rect.width,
+                               height: rect.height * 0.5)
         buttons.axis = .horizontal
         buttons.distribution = .fillEqually
         buttons.spacing = 10

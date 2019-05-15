@@ -16,7 +16,6 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var limitParameter: AUParameter?
 
@@ -38,11 +37,10 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard limit != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    limitParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                limitParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.limit, value: newValue)
         }
     }
@@ -87,18 +85,6 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
         }
 
         limitParameter = tree["limit"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.limit, value: limit)
     }
