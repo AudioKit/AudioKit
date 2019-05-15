@@ -272,7 +272,7 @@ public:
         }
     }
     void doLoopActions(){
-        sp_wavin_resetToStart(sp, wavin);
+        sp_wavin_reset_to_start(sp, wavin);
 
         position = loopStartPointViaRate();
         if (loopCallback != NULL) {
