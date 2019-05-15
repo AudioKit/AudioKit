@@ -175,7 +175,7 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        wavin->pos = (drwav_uint64)floor(position);
+                        wavin->pos = (unsigned long)floor(position);
                         sp_wavin_get_sample(sp, wavin, out, position);
                         position += sampleStep();
                     } else {
