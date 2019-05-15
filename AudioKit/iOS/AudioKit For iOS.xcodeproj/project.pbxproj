@@ -5377,10 +5377,10 @@
 		FE2C8B2020DAC67400009BAC /* Disk Streamer */ = {
 			isa = PBXGroup;
 			children = (
+				FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */,
 				FE2C8B2120DAC67400009BAC /* AKDiskStreamerAudioUnit.h */,
 				FE2C8B2220DAC67400009BAC /* AKDiskStreamerAudioUnit.mm */,
 				FE2C8B2320DAC67400009BAC /* AKDiskStreamerDSPKernel.hpp */,
-				FE2C8B2420DAC67400009BAC /* AKDiskStreamer.swift */,
 			);
 			path = "Disk Streamer";
 			sourceTree = "<group>";
