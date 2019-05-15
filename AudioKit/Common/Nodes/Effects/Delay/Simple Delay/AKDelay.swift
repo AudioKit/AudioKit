@@ -46,7 +46,7 @@ open class AKDelay: AKNode, AKToggleable, AKInput {
 
     internal func internalSetDryWetMix(_ value: Double) {
         let newValue = (0...1).clamp(value)
-        delayAU.wetDryMix = Float(newValue) * 100.0
+        delayAU.wetDryMix = AUValue(newValue) * 100.0
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)

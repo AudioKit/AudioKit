@@ -19,7 +19,6 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var reverbDurationParameter: AUParameter?
 
@@ -44,11 +43,10 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
         willSet {
             guard reverbDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                reverbDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }
@@ -99,18 +97,6 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
         }
 
         reverbDurationParameter = tree["reverbDuration"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }

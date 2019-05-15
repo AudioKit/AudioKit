@@ -17,7 +17,6 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?
@@ -53,11 +52,10 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                centerFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -67,11 +65,10 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                attackDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
@@ -81,11 +78,10 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                decayDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
@@ -138,18 +134,6 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         centerFrequencyParameter = tree["centerFrequency"]
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
         internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)

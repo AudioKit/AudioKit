@@ -79,4 +79,3 @@ int sp_butlp_compute(sp_data *sp, sp_butlp *p, SPFLOAT *in, SPFLOAT *out)
     sp_butter_filter(in, out, p->a);
     return SP_OK;
 }
-

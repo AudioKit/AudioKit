@@ -18,7 +18,6 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var tonguePositionParameter: AUParameter?
@@ -68,11 +67,10 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                frequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -82,11 +80,10 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tonguePosition != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    tonguePositionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                tonguePositionParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.tonguePosition, value: newValue)
         }
     }
@@ -96,11 +93,10 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tongueDiameter != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    tongueDiameterParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                tongueDiameterParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.tongueDiameter, value: newValue)
         }
     }
@@ -110,11 +106,10 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard tenseness != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    tensenessParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                tensenessParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.tenseness, value: newValue)
         }
     }
@@ -124,11 +119,10 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         willSet {
             guard nasality != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    nasalityParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                nasalityParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.nasality, value: newValue)
         }
     }
@@ -186,18 +180,6 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
         tongueDiameterParameter = tree["tongueDiameter"]
         tensenessParameter = tree["tenseness"]
         nasalityParameter = tree["nasality"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.tonguePosition, value: tonguePosition)

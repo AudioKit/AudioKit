@@ -27,7 +27,7 @@ class AKDiskStreamerTests: AKTestCase {
         AKTestMD5("d8bf32699a72873551a44e0a2758a5da")
     }
 
-    let testCompletionHandlerMD5 = "b12ed8e53b48ebdaaf866c5748839f81"
+    let testCompletionHandlerMD5 = "d1d20df3594bc643bb110416ff9dbe3e"
 
     func testCompletionHandler() {
         streamer?.completionHandler = {
@@ -46,7 +46,7 @@ class AKDiskStreamerTests: AKTestCase {
             self.streamer?.loopEnabled = true
             self.streamer?.play()
         }
-        AKTestMD5("d009424b2fa334ccc2056dd787a3b83b")
+        AKTestMD5(testCompletionHandlerMD5)
     }
 
     func setupStreamer() {

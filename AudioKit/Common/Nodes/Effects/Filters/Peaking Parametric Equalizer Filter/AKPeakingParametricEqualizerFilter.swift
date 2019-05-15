@@ -15,7 +15,6 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
@@ -51,11 +50,10 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         willSet {
             guard centerFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                centerFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -65,11 +63,10 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         willSet {
             guard gain != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                gainParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
@@ -79,11 +76,10 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         willSet {
             guard q != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    qParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                qParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.Q, value: newValue)
         }
     }
@@ -136,18 +132,6 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         centerFrequencyParameter = tree["centerFrequency"]
         gainParameter = tree["gain"]
         qParameter = tree["q"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
         internalAU?.setParameterImmediately(.gain, value: gain)

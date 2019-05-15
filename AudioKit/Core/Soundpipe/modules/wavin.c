@@ -1,12 +1,5 @@
-//
-//  wavin.c
-//  AudioKit
-//
-//  Created by Jeff Cooper / Paul Batchelor on 6/20/18.
-//  Copyright © 2018 AudioKit. All rights reserved.
-//
-
 #include <stdlib.h>
+#include <math.h>
 #include "soundpipe.h"
 #include "dr_wav.h"
 #include <math.h>
