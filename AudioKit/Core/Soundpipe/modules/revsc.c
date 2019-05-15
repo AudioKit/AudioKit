@@ -28,12 +28,12 @@
 #define M_PI		3.14159265358979323846	/* pi */
 #endif
 
-/* reverbParameters[n][0] = delay time (in seconds)                     */
-/* reverbParameters[n][1] = random variation in delay time (in seconds) */
-/* reverbParameters[n][2] = random variation frequency (in 1/sec)       */
-/* reverbParameters[n][3] = random seed (0 - 32767)                     */
+/* reverbParams[n][0] = delay time (in seconds)                     */
+/* reverbParams[n][1] = random variation in delay time (in seconds) */
+/* reverbParams[n][2] = random variation frequency (in 1/sec)       */
+/* reverbParams[n][3] = random seed (0 - 32767)                     */
 
-static const SPFLOAT reverbParameters[8][4] = {
+static const SPFLOAT reverbParams[8][4] = {
     { (2473.0 / DEFAULT_SRATE), 0.0010, 3.100,  1966.0 },
     { (2767.0 / DEFAULT_SRATE), 0.0011, 3.500, 29491.0 },
     { (3217.0 / DEFAULT_SRATE), 0.0017, 1.110, 22937.0 },
@@ -93,8 +93,8 @@ static int delay_line_max_samples(SPFLOAT sr, SPFLOAT iPitchMod, int n)
 {
     SPFLOAT maxDel;
 
-    maxDel = reverbParameters[n][0];
-    maxDel += (reverbParameters[n][1] * (SPFLOAT) iPitchMod * 1.125);
+    maxDel = reverbParams[n][0];
+    maxDel += (reverbParams[n][1] * (SPFLOAT) iPitchMod * 1.125);
     return (int) (maxDel * sr + 16.5);
 }
 
@@ -117,16 +117,16 @@ static void next_random_lineseg(sp_revsc *p, sp_revsc_dl *lp, int n)
     if (lp->seedVal >= 0x8000)
       lp->seedVal -= 0x10000;
     /* length of next segment in samples */
-    lp->randLine_cnt = (int) ((p->sampleRate / reverbParameters[n][2]) + 0.5);
+    lp->randLine_cnt = (int) ((p->sampleRate / reverbParams[n][2]) + 0.5);
     prvDel = (SPFLOAT) lp->writePos;
     prvDel -= ((SPFLOAT) lp->readPos
                + ((SPFLOAT) lp->readPosFrac / (SPFLOAT) DELAYPOS_SCALE));
     while (prvDel < 0.0)
       prvDel += lp->bufferSize;
     prvDel = prvDel / p->sampleRate;    /* previous delay time in seconds */
-    nxtDel = (SPFLOAT) lp->seedVal * reverbParameters[n][1] / 32768.0;
+    nxtDel = (SPFLOAT) lp->seedVal * reverbParams[n][1] / 32768.0;
     /* next delay time in seconds */
-    nxtDel = reverbParameters[n][0] + (nxtDel * (SPFLOAT) p->iPitchMod);
+    nxtDel = reverbParams[n][0] + (nxtDel * (SPFLOAT) p->iPitchMod);
     /* calculate phase increment per sample */
     phs_incVal = (prvDel - nxtDel) / (SPFLOAT) lp->randLine_cnt;
     phs_incVal = phs_incVal * p->sampleRate + 1.0;
@@ -143,10 +143,10 @@ static int init_delay_line(sp_revsc *p, sp_revsc_dl *lp, int n)
     lp->dummy = 0;
     lp->writePos = 0;
     /* set random seed */
-    lp->seedVal = (int) (reverbParameters[n][3] + 0.5);
+    lp->seedVal = (int) (reverbParams[n][3] + 0.5);
     /* set initial delay time */
-    readPos = (SPFLOAT) lp->seedVal * reverbParameters[n][1] / 32768;
-    readPos = reverbParameters[n][0] + (readPos * (SPFLOAT) p->iPitchMod);
+    readPos = (SPFLOAT) lp->seedVal * reverbParams[n][1] / 32768;
+    readPos = reverbParams[n][0] + (readPos * (SPFLOAT) p->iPitchMod);
     readPos = (SPFLOAT) lp->bufferSize - (readPos * p->sampleRate);
     lp->readPos = (int) readPos;
     readPos = (readPos - (SPFLOAT) lp->readPos) * (SPFLOAT) DELAYPOS_SCALE;
