@@ -348,5 +348,3 @@ public:
     double position = 0.0;
     double rate = 1;
 };
-
-
