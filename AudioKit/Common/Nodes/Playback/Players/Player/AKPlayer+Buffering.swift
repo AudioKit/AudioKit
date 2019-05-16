@@ -9,7 +9,7 @@
 extension AKPlayer {
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
-        if !isBuffered { return }
+        if isNotBuffered { return }
         guard let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat
@@ -103,9 +103,9 @@ extension AKPlayer {
     // Read the buffer in backwards
     fileprivate func reverseBuffer() {
         guard isBuffered, let buffer = self.buffer else { return }
-        if let reversededBuffer = buffer.reverse() {
-            self.buffer = reversededBuffer
-            AKLog("Reversed Buffer")
+        if let reversedBuffer = buffer.reverse() {
+            self.buffer = reversedBuffer
+            // AKLog("Reversed Buffer")
         }
     }
 
@@ -113,7 +113,7 @@ extension AKPlayer {
         guard isBuffered, let buffer = self.buffer else { return }
         if let normalizedBuffer = buffer.normalize() {
             self.buffer = normalizedBuffer
-            AKLog("Normalized Buffer")
+            // AKLog("Normalized Buffer")
         }
     }
 
@@ -128,7 +128,7 @@ extension AKPlayer {
                                          inRampType: fade.inRampType,
                                          outRampType: fade.outRampType) {
             self.buffer = fadedBuffer
-            AKLog("Faded Buffer")
+            // AKLog("Faded Buffer")
         }
     }
 }

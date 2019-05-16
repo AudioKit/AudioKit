@@ -70,7 +70,7 @@ public struct AKMIDIFile {
             var typeIndex = 0
             let sizeLength = 4
             var sizeIndex = 0
-            var dataLength = 0
+            var dataLength: UInt32 = 0
             var chunks = [AKMIDIFileChunk]()
             var currentTypeChunk: [UInt8] = Array(repeating: 0, count: 4)
             var currentLengthChunk: [UInt8] = Array(repeating: 0, count: 4)
@@ -102,12 +102,13 @@ public struct AKMIDIFile {
                     if sizeIndex == sizeLength {
                         isParsingLength = false
                         sizeIndex = 0
-                        dataLength = Int(currentLengthChunk.map(String.init).joined()) ?? 0
+                        dataLength = MIDIHelper.convertTo32Bit(msb: currentLengthChunk[0], data1: currentLengthChunk[1],
+                                                    data2: currentLengthChunk[2], lsb: currentLengthChunk[3])
                     }
                 } else { //get chunk data
                     var tempChunk: AKMIDIFileChunk
                     currentDataChunk.append(midiData[i])
-                    if UInt8(currentDataChunk.count) == dataLength {
+                    if UInt32(currentDataChunk.count) == dataLength {
                         if isParsingHeader {
                             tempChunk = MIDIFileHeaderChunk(typeData: currentTypeChunk,
                                                             lengthData: currentLengthChunk, data: currentDataChunk)

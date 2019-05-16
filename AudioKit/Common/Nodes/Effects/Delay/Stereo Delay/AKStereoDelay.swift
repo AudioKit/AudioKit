@@ -15,7 +15,6 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var timeParameter: AUParameter?
     fileprivate var feedbackParameter: AUParameter?
@@ -52,10 +51,8 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard time != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    timeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                timeParameter?.value = AUValue(newValue)
+                return
             }
             internalAU?.setParameterImmediately(.time, value: newValue)
         }
@@ -66,11 +63,10 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard feedback != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    feedbackParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                feedbackParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -80,11 +76,10 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard dryWetMix != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    dryWetMixParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                dryWetMixParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
         }
     }
@@ -94,10 +89,8 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard pingPong != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pingPongParameter?.setValue(Float(newValue ? 1.0 : 0.0), originator: existingToken)
-                    return
-                }
+                pingPongParameter?.value = Float(newValue ? 1.0 : 0.0)
+                return
             }
             internalAU?.setParameterImmediately(.pingPong, value: newValue ? 1.0 : 0.0)
         }
@@ -157,18 +150,6 @@ open class AKStereoDelay: AKNode, AKToggleable, AKComponent, AKInput {
         feedbackParameter = tree["feedback"]
         dryWetMixParameter = tree["dryWetMix"]
         pingPongParameter = tree["pingPong"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.time, value: time)
         internalAU?.setParameterImmediately(.feedback, value: feedback)

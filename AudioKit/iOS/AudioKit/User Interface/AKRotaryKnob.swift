@@ -112,9 +112,9 @@ public enum AKRotaryKnobStyle {
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
-        let dx = Double(pointB.x - pointA.x)
-        let dy = Double(pointB.y - pointA.y)
-        let radians = atan2(-dx, dy)
+        let deltaX = Double(pointB.x - pointA.x)
+        let deltaY = Double(pointB.y - pointA.y)
+        let radians = atan2(-deltaX, deltaY)
         let degrees = radians * 180 / Double.pi
         return degrees
     }
@@ -193,7 +193,6 @@ public enum AKRotaryKnobStyle {
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
 
-        //// General Declarations
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
@@ -370,9 +369,7 @@ public enum AKRotaryKnobStyle {
                                      curvature: Double,
                                      startPoint: CGPoint,
                                      offsetAngle: Double) -> UIBezierPath {
-        guard numberOfSides > 2 else {
-            return UIBezierPath(rect: rect)
-        }
+        guard numberOfSides > 2 else { return UIBezierPath(rect: rect) }
 
         let path = UIBezierPath()
         path.move(to: startPoint)

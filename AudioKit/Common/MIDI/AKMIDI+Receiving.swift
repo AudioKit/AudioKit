@@ -83,15 +83,16 @@ extension AKMIDI {
     /// Lookup a input name from its unique id
     ///
     /// - Parameter forUid: unique id for a input
-    /// - Returns: name of input or "Unknown"
-    public func inputName(for inputUid: MIDIUniqueID) -> String {
-        let name: String = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
+    /// - Returns: name of input or nil
+    public func inputName(for inputUid: MIDIUniqueID) -> String? {
+        
+        let name: String? = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return inputUid == uid
             }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
-            } ?? "Uknown"
+            }
         return name
     }
 
@@ -139,31 +140,32 @@ extension AKMIDI {
             if inputUID == 0 || inputUID == uid {
                 inputPorts[inputUID] = MIDIPortRef()
 
-                var port = inputPorts[inputUID]!
+                if var port = inputPorts[inputUID] {
 
-                let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
-                    var packetCount = 1
-                    for packet in packetList.pointee {
-                        // a CoreMIDI packet may contain multiple MIDI events -
-                        // treat it like an array of events that can be transformed
-                        let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
-                        let transformedMIDIEventList = self.transformMIDIEventList(events)
-                        // Note: incomplete sysex packets will not have a status
-                        for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
-                            || transformedEvent.command != nil {
-                            self.handleMIDIMessage(transformedEvent)
+                    let result = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
+                        var packetCount = 1
+                        for packet in packetList.pointee {
+                            // a CoreMIDI packet may contain multiple MIDI events -
+                            // treat it like an array of events that can be transformed
+                            let events = [AKMIDIEvent](packet) //uses MIDIPacketeList makeIterator
+                            let transformedMIDIEventList = self.transformMIDIEventList(events)
+                            // Note: incomplete sysex packets will not have a status
+                            for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
+                                || transformedEvent.command != nil {
+                                    self.handleMIDIMessage(transformedEvent)
+                            }
+                            packetCount += 1
                         }
-                        packetCount += 1
                     }
-                }
 
-                inputPorts[inputUID] = port
+                    if result != noErr {
+                        AKLog("Error creating MIDI Input Port : \(result)")
+                    }
 
-                if result != noErr {
-                    AKLog("Error creating MIDI Input Port : \(result)")
+                    MIDIPortConnectSource(port, src, nil)
+                    inputPorts[inputUID] = port
+                    endpoints[inputUID] = src
                 }
-                MIDIPortConnectSource(port, src, nil)
-                endpoints[inputUID] = src
             }
         }
     }
@@ -198,8 +200,11 @@ extension AKMIDI {
     /// - parameter inputName: Unique id of the MIDI Input
     ///
     public func closeInput(uid inputUID: MIDIUniqueID) {
-        let name = inputName(for: inputUID)
-        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
+        guard let name = inputName(for: inputUID) else {
+            AKLog("Trying to close midi input \(inputUID), but no name was found")
+            return
+        }
+        AKLog("Closing MIDI Input '\(name)'")
         var result = noErr
         for uid in inputPorts.keys {
             if inputUID == 0 || uid == inputUID {

@@ -20,7 +20,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
@@ -70,11 +69,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                frequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -84,11 +82,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                amplitudeParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -98,11 +95,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard pulseWidth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pulseWidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                pulseWidthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.pulseWidth, value: newValue)
         }
     }
@@ -112,11 +108,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningOffset != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                detuningOffsetParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
@@ -126,11 +121,10 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard detuningMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                detuningMultiplierParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }
@@ -192,18 +186,6 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
         pulseWidthParameter = tree["pulseWidth"]
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
         internalAU?.setParameterImmediately(.pulseWidth, value: pulseWidth)

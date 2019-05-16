@@ -88,7 +88,6 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var amplitudeParameter: AUParameter?
 
@@ -104,9 +103,7 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
             guard amplitude != newValue else { return }
-            if let existingToken = token {
-                amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-            }
+            amplitudeParameter?.value = AUValue(newValue)
         }
     }
 
@@ -148,18 +145,6 @@ open class AKShaker: AKNode, AKToggleable, AKComponent {
         }
 
         amplitudeParameter = tree["amplitude"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.type = Double(type.rawValue)
         internalAU?.amplitude = Double(amplitude)
     }
