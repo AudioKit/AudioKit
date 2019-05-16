@@ -236,4 +236,3 @@ int sp_nsmp_print_index(sp_data *sp, sp_nsmp *p)
     }
     return SP_OK;
 }
-
