@@ -25,9 +25,8 @@ class AUV3DemoAudioUnit: AUAudioUnit {
             try engine.enableManualRenderingMode(.realtime, format: AudioKit.format, maximumFrameCount: 4096)
             try super.init(componentDescription: componentDescription, options: options)
             try setOutputBusArrays()
-
         } catch {
-            AKLog("Could not setup conductor")
+            AKLog("Could not init audio unit")
             throw error
         }
 
