@@ -10,14 +10,22 @@ import Foundation
 import AudioKit
 
 class Conductor {
-    var osc = TestOscillator()
+    var osc = AKOscillatorBank(waveform: AKTable(.square))
+    var booster = AKBooster()
 
     func start() {
         try? AudioKit.start()
     }
 
     func setupRoute() {
-        osc.setupRoute()
-        AudioKit.output = osc.output
+        osc >>> booster
+        AudioKit.output = booster
+    }
+
+    func playNote(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 100) {
+        osc.play(noteNumber: noteNumber, velocity: velocity)
+    }
+    func stop(noteNumber: MIDINoteNumber) {
+        osc.stop(noteNumber: noteNumber)
     }
 }

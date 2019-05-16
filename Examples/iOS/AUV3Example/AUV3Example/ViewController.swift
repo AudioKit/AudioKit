@@ -17,7 +17,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         conductor.setupRoute()
         conductor.start()
-        conductor.osc.playNote(noteNumber: 55)
     }
 
 

@@ -13,7 +13,6 @@
 		FE42F6EE228DFB4A00202788 /* AUV3Example.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FE42F6EC228DFB4A00202788 /* AUV3Example.xcdatamodeld */; };
 		FE42F6F0228DFB4B00202788 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE42F6EF228DFB4B00202788 /* Assets.xcassets */; };
 		FE42F6F3228DFB4B00202788 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE42F6F1228DFB4B00202788 /* LaunchScreen.storyboard */; };
-		FE42F704228DFBE100202788 /* TestOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F703228DFBE100202788 /* TestOscillator.swift */; };
 		FE42F706228DFC0D00202788 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE42F700228DFB7400202788 /* AudioKit.framework */; };
 		FE42F708228DFD4100202788 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F707228DFD4100202788 /* Conductor.swift */; };
 		FE42F713228E000900202788 /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F712228E000900202788 /* AudioUnitViewController.swift */; };
@@ -21,7 +20,6 @@
 		FE42F71B228E000900202788 /* AUV3Demo.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FE42F70D228E000900202788 /* AUV3Demo.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FE42F721228E007900202788 /* AUV3DemoAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F720228E007900202788 /* AUV3DemoAudioUnit.swift */; };
 		FE42F722228E015A00202788 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F707228DFD4100202788 /* Conductor.swift */; };
-		FE42F723228E050B00202788 /* TestOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42F703228DFBE100202788 /* TestOscillator.swift */; };
 		FE42F724228E07BB00202788 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE42F700228DFB7400202788 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +71,6 @@
 		FE42F6F2228DFB4B00202788 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE42F6F4228DFB4B00202788 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE42F6FA228DFB7400202788 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
-		FE42F703228DFBE100202788 /* TestOscillator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestOscillator.swift; sourceTree = "<group>"; };
 		FE42F707228DFD4100202788 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		FE42F70D228E000900202788 /* AUV3Demo.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AUV3Demo.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE42F712228E000900202788 /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				FE42F6E5228DFB4A00202788 /* AppDelegate.swift */,
-				FE42F703228DFBE100202788 /* TestOscillator.swift */,
 				FE42F707228DFD4100202788 /* Conductor.swift */,
 				FE42F6E7228DFB4A00202788 /* ViewController.swift */,
 				FE42F6E9228DFB4A00202788 /* Main.storyboard */,
@@ -296,7 +292,6 @@
 				FE42F6EE228DFB4A00202788 /* AUV3Example.xcdatamodeld in Sources */,
 				FE42F708228DFD4100202788 /* Conductor.swift in Sources */,
 				FE42F6E6228DFB4A00202788 /* AppDelegate.swift in Sources */,
-				FE42F704228DFBE100202788 /* TestOscillator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +299,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE42F723228E050B00202788 /* TestOscillator.swift in Sources */,
 				FE42F721228E007900202788 /* AUV3DemoAudioUnit.swift in Sources */,
 				FE42F713228E000900202788 /* AudioUnitViewController.swift in Sources */,
 				FE42F722228E015A00202788 /* Conductor.swift in Sources */,
