@@ -27,7 +27,7 @@ class AKDiskStreamerTests: AKTestCase {
         AKTestMD5("d8bf32699a72873551a44e0a2758a5da")
     }
 
-    let testCompletionHandlerMD5 = "d1d20df3594bc643bb110416ff9dbe3e"
+    let testCompletionHandlerMD5 = "e561e0d540fe09b09f7e3399d09829f5"
 
     func testCompletionHandler() {
         streamer?.completionHandler = {
