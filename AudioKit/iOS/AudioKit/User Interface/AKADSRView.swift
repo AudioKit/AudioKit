@@ -89,7 +89,7 @@ import UIKit
     @IBInspectable open var releaseColor: UIColor = #colorLiteral(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
 
     /// Background color
-    @IBInspectable open var bgColor = AKStylist.sharedInstance.bgColor
+    @IBInspectable open var bgColor: UIColor = AKStylist.sharedInstance.bgColor
 
     /// Width of the envelope curve
     @IBInspectable open var curveStrokeWidth: CGFloat = 1

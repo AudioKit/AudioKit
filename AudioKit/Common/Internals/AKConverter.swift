@@ -32,16 +32,19 @@ open class AKConverter: NSObject {
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    public static let inputFormats = AKConverter.outputFormats + ["mp3",
-                                                                  "snd",
-                                                                  "au",
-                                                                  "sd2",
-                                                                  "aiff",
-                                                                  "aifc",
-                                                                  "aac",
-                                                                  "mp4",
-                                                                  "m4v",
-                                                                  "mov"]
+    public static let inputFormats = AKConverter.outputFormats + [
+        "mp3",
+        "snd",
+        "au",
+        "sd2",
+        "aiff",
+        "aifc",
+        "aac",
+        "mp4",
+        "m4v",
+        "mov",
+        "" // allow files with no extension. convertToPCM can still read the type
+    ]
 
     /**
      The conversion options, leave nil to adopt the value of the input file
@@ -111,7 +114,7 @@ open class AKConverter: NSObject {
             convertCompressed(completionHandler: completionHandler)
             return
 
-        } else if !isCompressed(url: outputURL) {
+        } else if isCompressed(url: outputURL) == false {
             convertToPCM(completionHandler: completionHandler)
             return
         }
@@ -262,7 +265,7 @@ open class AKConverter: NSObject {
         let readerOutput = AVAssetReaderTrackOutput(track: tracks[0], outputSettings: nil)
         reader.add(readerOutput)
 
-        if !writer.startWriting() {
+        if writer.startWriting() == false {
             let error = String(describing: writer.error)
             AKLog("Failed to start writing. Error: \(error)")
             completionHandler?(writer.error)

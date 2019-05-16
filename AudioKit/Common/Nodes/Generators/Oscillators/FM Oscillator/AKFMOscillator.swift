@@ -16,7 +16,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
 
@@ -68,11 +67,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard baseFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    baseFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                baseFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.baseFrequency, value: newValue)
         }
     }
@@ -82,11 +80,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard carrierMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    carrierMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                carrierMultiplierParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.carrierMultiplier, value: newValue)
         }
     }
@@ -96,11 +93,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard modulatingMultiplier != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    modulatingMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                modulatingMultiplierParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.modulatingMultiplier, value: newValue)
         }
     }
@@ -110,11 +106,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard modulationIndex != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    modulationIndexParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                modulationIndexParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.modulationIndex, value: newValue)
         }
     }
@@ -124,11 +119,10 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                amplitudeParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -197,18 +191,6 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
         modulatingMultiplierParameter = tree["modulatingMultiplier"]
         modulationIndexParameter = tree["modulationIndex"]
         amplitudeParameter = tree["amplitude"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.baseFrequency, value: baseFrequency)
         internalAU?.setParameterImmediately(.carrierMultiplier, value: carrierMultiplier)
         internalAU?.setParameterImmediately(.modulatingMultiplier, value: modulatingMultiplier)

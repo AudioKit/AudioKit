@@ -17,7 +17,6 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     /// An array of tables to morph between
     open var waveformArray = [AKTable]() {
@@ -53,12 +52,11 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard index != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    indexParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            } else {
-                internalAU?.index = Float(newValue)
+                indexParameter?.value = AUValue(newValue)
+                return
+            }
+                 else {
+                internalAU?.index = AUValue(newValue)
             }
         }
     }
@@ -68,11 +66,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                attackDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.attackDuration = Float(newValue)
+                internalAU?.attackDuration = AUValue(newValue)
             }
         }
     }
@@ -82,11 +78,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                decayDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.decayDuration = Float(newValue)
+                internalAU?.decayDuration = AUValue(newValue)
             }
         }
     }
@@ -96,11 +90,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                sustainLevelParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.sustainLevel = Float(newValue)
+                internalAU?.sustainLevel = AUValue(newValue)
             }
         }
     }
@@ -110,11 +102,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                releaseDurationParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.releaseDuration = Float(newValue)
+                internalAU?.releaseDuration = AUValue(newValue)
             }
         }
     }
@@ -124,11 +114,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard pitchBend != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pitchBendParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                pitchBendParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.pitchBend = Float(newValue)
+                internalAU?.pitchBend = AUValue(newValue)
             }
         }
     }
@@ -138,11 +126,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoDepthParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.vibratoDepth = Float(newValue)
+                internalAU?.vibratoDepth = AUValue(newValue)
             }
         }
     }
@@ -152,11 +138,9 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         willSet {
             guard vibratoRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    vibratoRateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                vibratoRateParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.vibratoRate = Float(newValue)
+                internalAU?.vibratoRate = AUValue(newValue)
             }
         }
     }
@@ -234,18 +218,6 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBendParameter = tree["pitchBend"]
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.index = Float(index)
 
         internalAU?.attackDuration = Float(attackDuration)

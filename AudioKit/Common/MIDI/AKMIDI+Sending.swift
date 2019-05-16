@@ -128,13 +128,13 @@ extension AKMIDI {
         return uid
     }
 
-    /// Open a MIDI Output Port by index
+    /// Open a MIDI Output Port by name
     ///
-    /// - Parameter outputIndex: Index of destination endpoint
+    /// - Parameter name: String containing the name of the MIDI Output
     ///
     @available(*, deprecated, message: "Try to not use names any more because they are not unique across devices")
     public func openOutput(name: String) {
-        guard  let index = destinationNames.firstIndex(of: name) else {
+        guard let index = destinationNames.firstIndex(of: name) else {
             openOutput(uid: 0)
             return
         }
@@ -160,27 +160,19 @@ extension AKMIDI {
         openOutput(uid: uid)
     }
 
-    /// Open a MIDI Output Port by name
     ///
-    /// Destination name (string) can be empty for some hardware device
-    /// So optional string is better for checking and targeting the device.
+    /// Open a MIDI Output Port
     ///
-    /// - parameter outputName: String containing the name of the MIDI Input
+    /// - parameter outputUid: Unique id of the MIDI Output
     ///
     public func openOutput(uid outputUid: MIDIUniqueID) {
-        guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
-            AKLog("Unable to create MIDIOutputPort")
-            return
+        if outputPort == 0 {
+            guard let tempPort = MIDIOutputPort(client: client, name: outputPortName) else {
+                AKLog("Unable to create MIDIOutputPort")
+                return
+            }
+            outputPort = tempPort
         }
-
-        // close any previous output port and dispose of it
-        if outputPort != 0 {
-            let uid = getMIDIObjectIntegerProperty(ref: outputPort, property: kMIDIPropertyUniqueID)
-            closeOutput(uid: uid)
-            outputPort = 0
-        }
-
-        outputPort = tempPort
 
         let destinations = MIDIDestinations()
 
@@ -200,19 +192,19 @@ extension AKMIDI {
         }
     }
 
-    /// Open a MIDI Input port by name
+    /// Close a MIDI Output port by name
     ///
     /// - Parameter name: Name of port to close.
     ///
     public func closeOutput(name: String = "") {
-        guard  let index = destinationNames.firstIndex(of: name) else {
+        guard let index = destinationNames.firstIndex(of: name) else {
             return
         }
-        let uid = inputUIDs[index]
-        closeInput(uid: uid)
+        let uid = uidForDestinationAtIndex(index)
+        closeOutput(uid: uid)
     }
 
-    /// Open a MIDI Input port by index
+    /// Close a MIDI Output port by index
     ///
     /// - Parameter index: Index of destination port name
     ///
@@ -220,8 +212,8 @@ extension AKMIDI {
         guard outputIndex < destinationNames.count else {
             return
         }
-        let uid = uidForInputAtIndex(outputIndex)
-        closeInput(uid: uid)
+        let uid = uidForDestinationAtIndex(outputIndex)
+        closeOutput(uid: uid)
     }
 
     /// Close a MIDI Output port
@@ -230,23 +222,20 @@ extension AKMIDI {
     ///
     public func closeOutput(uid outputUid: MIDIUniqueID) {
         let name = destinationName(for: outputUid)
-        AKLog("Closing MIDI Input '\(String(describing: inputName))'")
+        AKLog("Closing MIDI Output '\(String(describing: name))'")
         var result = noErr
-        if let endpoint = endpoints[outputUid] {
-            result = MIDIPortDisconnectSource(outputPort, endpoint)
-            if result == noErr {
-                endpoints.removeValue(forKey: outputUid)
-
+        if endpoints[outputUid] != nil {
+            endpoints.removeValue(forKey: outputUid)
+            AKLog("Disconnected \(name) and removed it from endpoints")
+            if endpoints.count == 0 {
+                // if there are no more endpoints, dispose of midi output port
                 result = MIDIPortDispose(outputPort)
                 if result == noErr {
-                    AKLog("Disposed \(name)")
+                    AKLog("Disposed MIDI Output port")
                 } else {
-                    AKLog("Error displosing  MIDI port: \(result)")
+                    AKLog("Error disposing  MIDI Output port: \(result)")
                 }
                 outputPort = 0
-                AKLog("Disconnected \(name) and removed it from endpoints and output ports")
-            } else {
-                AKLog("Error disconnecting MIDI port: \(result)")
             }
         }
     }

@@ -15,7 +15,6 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -58,11 +57,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard attackDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                attackDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
@@ -72,11 +70,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard decayDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                decayDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
@@ -86,11 +83,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard sustainLevel != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    sustainLevelParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                sustainLevelParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.sustainLevel, value: newValue)
         }
     }
@@ -100,11 +96,10 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard releaseDuration != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                releaseDurationParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
         }
     }
@@ -161,18 +156,6 @@ open class AKAmplitudeEnvelope: AKNode, AKToggleable, AKComponent, AKInput {
         decayDurationParameter = tree["decayDuration"]
         sustainLevelParameter = tree["sustainLevel"]
         releaseDurationParameter = tree["releaseDuration"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
         internalAU?.setParameterImmediately(.decayDuration, value: decayDuration)

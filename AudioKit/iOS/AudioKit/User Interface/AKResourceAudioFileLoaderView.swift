@@ -171,10 +171,11 @@ import AudioKit
         stopOuterPath.fill()
 
         //// stopInner Drawing
-        let stopInnerPath = UIBezierPath(roundedRect: CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
-                                                             y: rect.height * 0.25,
-                                                             width: rect.height * 0.5,
-                                                             height: rect.height * 0.5), cornerRadius: cornerRadius)
+        let stopInnerPath = UIBezierPath(roundedRect:
+            CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
+                   y: rect.height * 0.25,
+                   width: rect.height * 0.5,
+                   height: rect.height * 0.5), cornerRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
 
@@ -215,16 +216,20 @@ import AudioKit
 
         // stopButton border Path
         let stopButtonBorderPath = UIBezierPath()
-        stopButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 + borderWidth, y: borderWidth))
-        stopButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 + borderWidth, y: rect.height - borderWidth))
+        stopButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 + borderWidth,
+                                              y: borderWidth))
+        stopButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 + borderWidth,
+                                                 y: rect.height - borderWidth))
         borderColorForTheme.setStroke()
         stopButtonBorderPath.lineWidth = borderWidth / 2.0
         stopButtonBorderPath.stroke()
 
         // playButton border Path
         let playButtonBorderPath = UIBezierPath()
-        playButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: borderWidth))
-        playButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: rect.height - borderWidth))
+        playButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth,
+                                              y: borderWidth))
+        playButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth,
+                                                 y: rect.height - borderWidth))
         borderColorForTheme.setStroke()
         playButtonBorderPath.lineWidth = borderWidth / 2.0
         playButtonBorderPath.stroke()
