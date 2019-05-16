@@ -31,6 +31,7 @@ class AUV3DemoAudioUnit: AUAudioUnit {
         }
 
         conductor.start()
+        setParameterTree()
         setInternalRenderingBlock()
     }
 
@@ -40,6 +41,11 @@ class AUV3DemoAudioUnit: AUAudioUnit {
     func noteOff(note: MIDINoteNumber, channel: MIDIChannel) {
         conductor.stop(noteNumber: note)
     }
+
+    private func setParameterTree() {
+        _parameterTree = conductor.parameterTree
+    }
+
     private func setInternalRenderingBlock() {
         self._internalRenderBlock = { (actionFlags, timeStamp, frameCount, outputBusNumber, outputData, renderEvent, pullInputBlock) in
             if let event = renderEvent?.pointee {
@@ -87,6 +93,14 @@ class AUV3DemoAudioUnit: AUAudioUnit {
         }
     }
 
+
+    // Parameter tree stuff (for automation + control)
+    private var _parameterTree: AUParameterTree!
+    override var parameterTree: AUParameterTree {
+        return self._parameterTree
+    }
+
+    // Internal Render block stuff
     private var _internalRenderBlock: AUInternalRenderBlock!
     override var internalRenderBlock: AUInternalRenderBlock {
         return self._internalRenderBlock
