@@ -32,13 +32,58 @@ class AUV3DemoAudioUnit: AUAudioUnit {
 
         conductor.start()
         setInternalRenderingBlock()
-        conductor.osc.playNote(noteNumber: 55)
     }
 
+    func noteOn(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        conductor.playNote(noteNumber: note, velocity: velocity)
+    }
+    func noteOff(note: MIDINoteNumber, channel: MIDIChannel) {
+        conductor.stop(noteNumber: note)
+    }
     private func setInternalRenderingBlock() {
         self._internalRenderBlock = { (actionFlags, timeStamp, frameCount, outputBusNumber, outputData, renderEvent, pullInputBlock) in
+            if let event = renderEvent?.pointee {
+                switch event.head.eventType {
+                case .parameter:
+                    AKLog("receiving parameter")
+                case .parameterRamp:
+                    AKLog("receiving parameter ramp")
+                case .MIDI:
+                    self.handleMIDI(midiEventPointer: event.MIDI)
+                case .midiSysEx:
+                    AKLog("receiving MIDI Sysex")
+                @unknown default:
+                    AKLog("receiving unknown render event")
+                }
+            }
+
+            // this is the line that actually produces sound using the buffers, keep it at the end
             _ = self.engine.manualRenderingBlock(frameCount, outputData, nil)
             return noErr
+        }
+    }
+
+    private func handleMIDI(midiEventPointer: AUMIDIEvent) {
+        var rawMIDIEventList: AUMIDIEvent? = midiEventPointer
+        var midiEvents = [AUMIDIEvent]()
+        while rawMIDIEventList != nil {
+            if let rawEvent = rawMIDIEventList {
+                midiEvents.append(rawEvent)
+                rawMIDIEventList = rawMIDIEventList!.next?.pointee.MIDI
+            }
+        }
+        for event in midiEvents {
+            let midiEvent = AKMIDIEvent(data: [event.data.0, event.data.1, event.data.2])
+            if midiEvent.status?.type == .noteOn {
+                if midiEvent.data[2] == 0 {
+                    noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+                } else {
+                    noteOn(note: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
+                }
+            } else if midiEvent.status?.type == .noteOff {
+                noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+            }
+            AKLog("recd \(midiEvent.description)")
         }
     }
 
