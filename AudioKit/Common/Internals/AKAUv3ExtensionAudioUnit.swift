@@ -28,4 +28,32 @@ open class AKAUv3ExtensionAudioUnit: AUAudioUnit {
         let bus = try AUAudioUnitBus(format: AudioKit.format)
         self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
     }
+
+    var mcb: AUHostMusicalContextBlock?
+    var tsb: AUHostTransportStateBlock?
+    var moeb: AUMIDIOutputEventBlock?
+
+    override open func allocateRenderResources() throws {
+        do {
+            try super.allocateRenderResources()
+        } catch {
+            return
+        }
+
+        self.mcb = self.musicalContextBlock
+        self.tsb = self.transportStateBlock
+        if #available(iOS 11.0, *) {
+            self.moeb = self.midiOutputEventBlock
+        } else {
+            // Fallback on earlier versions
+        }
+
+    }
+
+    override open func deallocateRenderResources() {
+        super.deallocateRenderResources()
+        self.mcb = nil
+        self.tsb = nil
+        self.moeb = nil
+    }
 }
