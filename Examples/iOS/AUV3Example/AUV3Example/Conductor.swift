@@ -13,6 +13,8 @@ class Conductor {
     var osc = AKOscillatorBank(waveform: AKTable(.square))
     var filter = AKMoogLadder()
     var volume = AKBooster()
+    var tempo: Double = 120.0
+    var hostTempo: Double = 120.0
     var parameterTree: AUParameterTree
     let volumeControl = AUParameter(
         identifier: "volumeControl",
