@@ -6,8 +6,6 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
 import AudioKit
 
 class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit {
