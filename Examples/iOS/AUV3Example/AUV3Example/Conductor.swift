@@ -21,11 +21,13 @@ class Conductor {
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
+    let filterRange = 20.0...20000.0
+    let filterTaper = 3.3
     let filterControl = AUParameter(
         identifier: "filterFreq",
         name: "Filter Cutoff",
         address: 1,
-        range: 10.0 ... 20000.0,
+        range: 0...1.0,
         unit: .generic,
         flags: .default)
 
@@ -34,12 +36,12 @@ class Conductor {
         createParameterSetters()
         createParameterGetters()
         createParameterDisplays()
-        setDefaultValues()
+        setDefaultAuValues()
     }
 
-    func setDefaultValues() {
-        volumeControl.value = 0.30
-        filterControl.value = 20000
+    func setDefaultAuValues() {
+        volumeControl.value = 0.666
+        filterControl.value = 1.0
     }
 
     private func createParameterSetters() {
@@ -47,11 +49,10 @@ class Conductor {
             let value = Double(floatValue)
             if param == self.volumeControl {
                 self.volume.gain = value
-                print("volume set to \(value)")
             }
             if param == self.filterControl {
-                self.filter.cutoffFrequency = value
-                print("filter set to \(value)")
+                let denorm = value.denormalized(to: self.filterRange, taper: self.filterTaper)
+                self.filter.cutoffFrequency = denorm
             }
             // if param == other values here...
         }
@@ -62,7 +63,8 @@ class Conductor {
                 return AUValue(self.volume.gain)
             }
             if param == self.filterControl {
-                return AUValue(self.filter.cutoffFrequency)
+                let val = self.filter.cutoffFrequency.normalized(from: self.filterRange, taper: self.filterTaper)
+                return AUValue(val)
             }
             // if param == other values here...
             return 0
@@ -72,10 +74,11 @@ class Conductor {
         parameterTree.implementorStringFromValueCallback = { param, value in
             if let floatValue = value?.pointee {
                 if param == self.volumeControl {
-                    return String(format: "%.3f", floatValue)
+                    return String(format: "%.2f", floatValue)
                 }
                 if param == self.filterControl {
-                    return String(format: "%.3f HZ", floatValue)
+                    let denorm = Double(floatValue).denormalized(to: self.filterRange, taper: self.filterTaper)
+                    return String(format: "%.3f Hz", AUValue(denorm))
                 }
                 // if param == other values here...
             }
