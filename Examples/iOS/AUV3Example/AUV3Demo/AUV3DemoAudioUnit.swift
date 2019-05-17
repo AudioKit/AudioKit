@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 import AudioKit
 
-class AUV3DemoAudioUnit: AUAudioUnit {
+class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit {
 
     var engine = AVAudioEngine()    // each unit needs it's own avaudioEngine
     var conductor = Conductor()     // remember to add Conductor.swift to auv3 target
@@ -91,30 +91,7 @@ class AUV3DemoAudioUnit: AUAudioUnit {
         }
     }
 
-    // the code below is basic stuff that might not change
-
-    // Parameter tree stuff (for automation + control)
-    private var _parameterTree: AUParameterTree!
-    override var parameterTree: AUParameterTree {
-        return self._parameterTree
-    }
-    private func setParameterTree() {
+    func setParameterTree() {
         _parameterTree = conductor.parameterTree
-    }
-
-    // Internal Render block stuff
-    private var _internalRenderBlock: AUInternalRenderBlock!
-    override var internalRenderBlock: AUInternalRenderBlock {
-        return self._internalRenderBlock
-    }
-
-    // Default OutputBusArray stuff you will need
-    private var _outputBusArray: AUAudioUnitBusArray!
-    override var outputBusses: AUAudioUnitBusArray {
-        return self._outputBusArray
-    }
-    private func setOutputBusArrays() throws {
-        let bus = try AUAudioUnitBus(format: AudioKit.format)
-        self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
     }
 }
