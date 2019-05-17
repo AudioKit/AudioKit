@@ -8,7 +8,7 @@
 
 import AudioKit
 
-class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit {
+class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
     var engine = AVAudioEngine()    // each unit needs it's own avaudioEngine
     var conductor = Conductor()     // remember to add Conductor.swift to auv3 target
@@ -32,13 +32,14 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit {
         setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
     }
 
-    // convenience functions to highlight where we actually trigger the instrument
-    func noteOn(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        // react to notes however you want in here
-        conductor.playNote(noteNumber: note, velocity: velocity)
+    // MIDI Handling
+
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        conductor.playNote(noteNumber: noteNumber, velocity: velocity)
     }
-    func noteOff(note: MIDINoteNumber, channel: MIDIChannel) {
-        conductor.stop(noteNumber: note)
+
+    func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        conductor.stop(noteNumber: noteNumber)
     }
 
     private func setInternalRenderingBlock() {
@@ -78,12 +79,12 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit {
             let midiEvent = AKMIDIEvent(data: [event.data.0, event.data.1, event.data.2])
             if midiEvent.status?.type == .noteOn {
                 if midiEvent.data[2] == 0 {
-                    noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+                    receivedMIDINoteOff(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
                 } else {
-                    noteOn(note: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
+                    receivedMIDINoteOn(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
                 }
             } else if midiEvent.status?.type == .noteOff {
-                noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+                receivedMIDINoteOff(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
             }
             AKLog("recd \(midiEvent.description)") //todo: handle all midi types of midi events
         }
