@@ -55,13 +55,15 @@ open class AudioKit: NSObject {
                 for connection in internalConnections {
                     connection >>> mixer
                 }
+                // Once the connections are made, we no longer need them.
+                internalConnections.removeAll()
             }
         }
     }
 
     /// internalConnections are used for not-strictly audio processing nodes that need
     /// a mechanism to pull samples (ie. the sequencer)
-    @objc public static var internalConnections: [AKNode] = []
+    @objc static var internalConnections: [AKNode] = []
 
     // MARK: - Device Management
 
