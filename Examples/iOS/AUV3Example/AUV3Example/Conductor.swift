@@ -11,6 +11,7 @@ import AudioKit
 
 class Conductor {
     var osc = AKOscillatorBank(waveform: AKTable(.square))
+    var filter = AKMoogLadder()
     var volume = AKBooster()
     var parameterTree: AUParameterTree
     let volumeControl = AUParameter(
@@ -18,6 +19,13 @@ class Conductor {
         name: "Volume",
         address: 0,
         range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
+    let filterControl = AUParameter(
+        identifier: "filterFreq",
+        name: "Filter Cutoff",
+        address: 1,
+        range: 10.0 ... 20000.0,
         unit: .generic,
         flags: .default)
 
@@ -31,6 +39,7 @@ class Conductor {
 
     func setDefaultValues() {
         volumeControl.value = 0.30
+        filterControl.value = 20000
     }
 
     private func createParameterSetters() {
@@ -40,6 +49,10 @@ class Conductor {
                 self.volume.gain = value
                 print("volume set to \(value)")
             }
+            if param == self.filterControl {
+                self.filter.cutoffFrequency = value
+                print("filter set to \(value)")
+            }
             // if param == other values here...
         }
     }
@@ -47,6 +60,9 @@ class Conductor {
         parameterTree.implementorValueProvider = { param in
             if param == self.volumeControl {
                 return AUValue(self.volume.gain)
+            }
+            if param == self.filterControl {
+                return AUValue(self.filter.cutoffFrequency)
             }
             // if param == other values here...
             return 0
@@ -58,8 +74,11 @@ class Conductor {
                 if param == self.volumeControl {
                     return String(format: "%.3f", floatValue)
                 }
+                if param == self.filterControl {
+                    return String(format: "%.3f HZ", floatValue)
+                }
+                // if param == other values here...
             }
-            // if param == other values here...
             return String(format: "%.3f", value?.pointee ?? 0)
         }
     }
@@ -69,7 +88,8 @@ class Conductor {
     }
 
     func setupRoute() {
-        osc >>> volume
+        osc >>> filter
+        filter >>> volume
         AudioKit.output = volume
     }
 
