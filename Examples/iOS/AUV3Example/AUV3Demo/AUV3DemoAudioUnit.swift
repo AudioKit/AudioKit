@@ -59,12 +59,75 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
                 }
             }
 
+            self.handleMusicalContext()
+            self.handleTransportState()
+
             // this is the line that actually produces sound using the buffers, keep it at the end
             _ = self.engine.manualRenderingBlock(frameCount, outputData, nil)
             return noErr
         }
     }
 
+    private func handleMusicalContext() {
+        // AUHostMusicalContextBlock
+        // Block by which hosts provide musical tempo, time signature, and beat position
+        if let mcb = self.musicalContextBlock {
+            var timeSignatureNumerator = 0.0
+            var timeSignatureDenominator = 0
+            var currentBeatPosition = 0.0
+            var sampleOffsetToNextBeat = 0
+            var currentMeasureDownbeatPosition = 0.0
+            var currentTempo: Double = 0
+            if mcb( &currentTempo, &timeSignatureNumerator, &timeSignatureDenominator, &currentBeatPosition, &sampleOffsetToNextBeat, &currentMeasureDownbeatPosition ) {
+                self.conductor.tempo = currentTempo
+                self.conductor.hostTempo = currentTempo
+
+                AKLog("current tempo", currentTempo)
+                AKLog("timeSignatureNumerator", timeSignatureNumerator)
+                AKLog("timeSignatureDenominator", timeSignatureDenominator)
+                AKLog("currentBeatPosition", currentBeatPosition);
+                AKLog("sampleOffsetToNextBeat", sampleOffsetToNextBeat);
+                AKLog("currentMeasureDownbeatPosition", currentMeasureDownbeatPosition);
+            }
+        }
+    }
+
+    private func handleTransportState() {
+        // AUHostTransportStateBlock
+        // Block by which hosts provide information about their transport state.
+        if let tsb = self.transportStateBlock {
+            var flags: AUHostTransportStateFlags = []
+            var currentSamplePosition = 0.0
+            var cycleStartBeatPosition = 0.0
+            var cycleEndBeatPosition = 0.0
+
+            if tsb(&flags, &currentSamplePosition, &cycleStartBeatPosition, &cycleEndBeatPosition) {
+
+                if flags.contains(AUHostTransportStateFlags.changed) {
+                    AKLog("AUHostTransportStateChanged bit set")
+                    AKLog("currentSamplePosition", currentSamplePosition)
+                }
+
+                if flags.contains(AUHostTransportStateFlags.moving) {
+                    AKLog("AUHostTransportStateMoving bit set");
+                    AKLog("currentSamplePosition", currentSamplePosition)
+                }
+
+                if flags.contains(AUHostTransportStateFlags.recording) {
+                    AKLog("AUHostTransportStateRecording bit set")
+                    AKLog("currentSamplePosition", currentSamplePosition)
+                }
+
+                if flags.contains(AUHostTransportStateFlags.cycling) {
+                    AKLog("AUHostTransportStateCycling bit set")
+                    AKLog("currentSamplePosition", currentSamplePosition)
+                    AKLog("cycleStartBeatPosition", cycleStartBeatPosition)
+                    AKLog("cycleEndBeatPosition", cycleEndBeatPosition)
+                }
+            }
+        }
+    }
+    
     private func handleMIDI(midiEventPointer: AUMIDIEvent) {
         var rawMIDIEventList: AUMIDIEvent? = midiEventPointer
         var midiEvents = [AUMIDIEvent]()
