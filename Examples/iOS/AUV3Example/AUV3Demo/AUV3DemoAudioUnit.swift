@@ -10,16 +10,20 @@ import AudioKit
 
 class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
-    var engine = AVAudioEngine()    // each unit needs it's own avaudioEngine
-    var conductor = Conductor()     // remember to add Conductor.swift to auv3 target
+    var engine: AVAudioEngine!    // each unit needs its own avaudioEngine
+    var conductor: Conductor!     // remember to add Conductor.swift to auv3 target
 
     override init(componentDescription: AudioComponentDescription, options: AudioComponentInstantiationOptions = []) throws {
         AKLog("initing auv3 demo unit")
+        engine = AVAudioEngine()
         AudioKit.engine = engine    // AudioKit.engine needs to be set early on
+
+        conductor = Conductor()
         conductor.setupRoute()      // plug everything in once we have the engine
 
         do { //this is where the audio unit really starts firing up with the data it needs
             try engine.enableManualRenderingMode(.realtime, format: AudioKit.format, maximumFrameCount: 4096)
+            conductor.start()           // once the au is ready to go, you can go ahead and start processing
             try super.init(componentDescription: componentDescription, options: options)
             try setOutputBusArrays()
         } catch {
@@ -27,7 +31,6 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
             throw error
         }
 
-        conductor.start()           // once the au is ready to go, you can go ahead and start processing
         setParameterTree()          // init parameterTree for controls
         setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
     }
