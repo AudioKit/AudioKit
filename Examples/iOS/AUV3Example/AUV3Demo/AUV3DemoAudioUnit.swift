@@ -6,11 +6,9 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-import Foundation
-import AVFoundation
 import AudioKit
 
-class AUV3DemoAudioUnit: AUAudioUnit {
+class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
     var engine = AVAudioEngine()    // each unit needs it's own avaudioEngine
     var conductor = Conductor()     // remember to add Conductor.swift to auv3 target
@@ -34,13 +32,14 @@ class AUV3DemoAudioUnit: AUAudioUnit {
         setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
     }
 
-    // convenience functions to highlight where we actually trigger the instrument
-    func noteOn(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        // react to notes however you want in here
-        conductor.playNote(noteNumber: note, velocity: velocity)
+    // MIDI Handling
+
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        conductor.playNote(noteNumber: noteNumber, velocity: velocity)
     }
-    func noteOff(note: MIDINoteNumber, channel: MIDIChannel) {
-        conductor.stop(noteNumber: note)
+
+    func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        conductor.stop(noteNumber: noteNumber)
     }
 
     private func setInternalRenderingBlock() {
@@ -80,41 +79,18 @@ class AUV3DemoAudioUnit: AUAudioUnit {
             let midiEvent = AKMIDIEvent(data: [event.data.0, event.data.1, event.data.2])
             if midiEvent.status?.type == .noteOn {
                 if midiEvent.data[2] == 0 {
-                    noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+                    receivedMIDINoteOff(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
                 } else {
-                    noteOn(note: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
+                    receivedMIDINoteOn(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
                 }
             } else if midiEvent.status?.type == .noteOff {
-                noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
+                receivedMIDINoteOff(noteNumber: event.data.1, velocity: event.data.2, channel: midiEvent.channel ?? 0)
             }
             AKLog("recd \(midiEvent.description)") //todo: handle all midi types of midi events
         }
     }
 
-    // the code below is basic stuff that might not change
-
-    // Parameter tree stuff (for automation + control)
-    private var _parameterTree: AUParameterTree!
-    override var parameterTree: AUParameterTree {
-        return self._parameterTree
-    }
-    private func setParameterTree() {
+    func setParameterTree() {
         _parameterTree = conductor.parameterTree
-    }
-
-    // Internal Render block stuff
-    private var _internalRenderBlock: AUInternalRenderBlock!
-    override var internalRenderBlock: AUInternalRenderBlock {
-        return self._internalRenderBlock
-    }
-
-    // Default OutputBusArray stuff you will need
-    private var _outputBusArray: AUAudioUnitBusArray!
-    override var outputBusses: AUAudioUnitBusArray {
-        return self._outputBusArray
-    }
-    private func setOutputBusArrays() throws {
-        let bus = try AUAudioUnitBus(format: AudioKit.format)
-        self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
     }
 }
