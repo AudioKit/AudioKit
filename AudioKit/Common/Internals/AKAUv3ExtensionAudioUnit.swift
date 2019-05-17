@@ -29,9 +29,9 @@ open class AKAUv3ExtensionAudioUnit: AUAudioUnit {
         self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
     }
 
-    var mcb: AUHostMusicalContextBlock?
-    var tsb: AUHostTransportStateBlock?
-    var moeb: AUMIDIOutputEventBlock?
+    open var mcb: AUHostMusicalContextBlock?
+    open var tsb: AUHostTransportStateBlock?
+    open var moeb: AUMIDIOutputEventBlock?
 
     override open func allocateRenderResources() throws {
         do {
