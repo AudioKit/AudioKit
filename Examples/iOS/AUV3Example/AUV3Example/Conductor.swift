@@ -30,7 +30,7 @@ class Conductor {
         flags: .default)
 
     init() {
-        parameterTree = AUParameterTree(children: [volumeControl])
+        parameterTree = AUParameterTree(children: [volumeControl, filterControl])
         createParameterSetters()
         createParameterGetters()
         createParameterDisplays()
