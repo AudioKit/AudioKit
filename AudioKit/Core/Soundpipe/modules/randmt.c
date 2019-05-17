@@ -133,4 +133,3 @@ void sp_randmt_seed(sp_randmt *p,
     /* MSB is 1; assuring non-zero initial array */
     p->mt[0] = (uint32_t) 0x80000000U;
 }
-

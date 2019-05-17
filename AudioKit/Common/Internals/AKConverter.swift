@@ -32,16 +32,19 @@ open class AKConverter: NSObject {
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
     /** Formats that this class can read */
-    public static let inputFormats = AKConverter.outputFormats + ["mp3",
-                                                                  "snd",
-                                                                  "au",
-                                                                  "sd2",
-                                                                  "aiff",
-                                                                  "aifc",
-                                                                  "aac",
-                                                                  "mp4",
-                                                                  "m4v",
-                                                                  "mov"]
+    public static let inputFormats = AKConverter.outputFormats + [
+        "mp3",
+        "snd",
+        "au",
+        "sd2",
+        "aiff",
+        "aifc",
+        "aac",
+        "mp4",
+        "m4v",
+        "mov",
+        "" // allow files with no extension. convertToPCM can still read the type
+    ]
 
     /**
      The conversion options, leave nil to adopt the value of the input file

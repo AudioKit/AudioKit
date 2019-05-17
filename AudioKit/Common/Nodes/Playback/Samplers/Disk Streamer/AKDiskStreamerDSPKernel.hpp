@@ -45,6 +45,17 @@ public:
         started = false;
         useTempStartPoint = false;
         useTempEndPoint = false;
+        rewind();
+    }
+
+    void rewind() {
+        sp_wavin_reset_to_start(sp, wavin);
+        position = startPointViaRate();
+    }
+
+    void seekTo(double sample) {
+        sp_wavin_seek(sp, wavin, sample);
+        position = sample;
     }
 
     void loadFile(const char *filename) {
@@ -92,10 +103,9 @@ public:
         loop = value;
     }
 
-//    void setRate(float value) {
-//        rate = clamp(value, -10.0f, 10.0f);
-//        rateRamper.setImmediate(rate);
-//    }
+    void setRate(double value) {
+        rate = value;
+    }
 
     void setVolume(float value) {
         volume = clamp(value, 0.0f, 10.0f);
@@ -129,6 +139,7 @@ public:
                 break;
         }
     }
+    
     long loopPhase = -1;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
@@ -164,11 +175,11 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        wavin->pos = (drwav_uint64)floor(position);
-                        sp_wavin_compute(sp, wavin, NULL, out);
+                        wavin->pos = (unsigned long)floor(position);
+                        sp_wavin_get_sample(sp, wavin, out, position);
                         position += sampleStep();
                     } else {
-//                        sp_wavin_compute(sp, wavin, NULL, out);
+//                        sp_wavplay_compute(sp, wavin, NULL, out);
                     }
                     *out *= volume;
                 } else {
@@ -272,8 +283,7 @@ public:
         }
     }
     void doLoopActions(){
-        sp_wavin_resetToStart(sp, wavin);
-
+        sp_wavin_reset_to_start(sp, wavin);
         position = loopStartPointViaRate();
         if (loopCallback != NULL) {
             loopCallback();
@@ -308,7 +318,5 @@ public:
     UInt32 ftbl_size = 2;
     unsigned long long current_size = 2;
     double position = 0.0;
-    float rate = 1;
+    double rate = 1;
 };
-
-

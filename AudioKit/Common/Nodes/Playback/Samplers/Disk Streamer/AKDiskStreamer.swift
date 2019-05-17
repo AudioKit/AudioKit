@@ -40,18 +40,11 @@ open class AKDiskStreamer: AKNode, AKComponent {
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
-//    @objc open dynamic var rate: Double = 1 {
-//        willSet {
-//            if rate != newValue {
-//                if internalAU?.isSetUp == true {
-//    //                        rateParameter?.value = AUValue(newValue)
-//                    }
-//                } else {
-//                    internalAU?.rate = AUValue(newValue)
-//                }
-//            }
-//        }
-//    }
+
+    @objc open dynamic var rate: Double {
+        set { internalAU?.setRate(newValue) }
+        get { return internalAU?.getRate() ?? 0 }
+    }
 
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
@@ -198,5 +191,13 @@ open class AKDiskStreamer: AKNode, AKComponent {
         internalAU?.loopStartPoint = Float(safeSample(startPoint))
         internalAU?.loopEndPoint = Float(safeSample(endPoint))
         internalAU?.loadFile(file.avAsset.url.path)
+    }
+
+    open func rewind() {
+        internalAU?.rewind()
+    }
+
+    open func seek(to sample: Double) {
+        internalAU?.seek(to: sample)
     }
 }
