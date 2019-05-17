@@ -12,16 +12,15 @@ import AudioKit
 
 class AUV3DemoAudioUnit: AUAudioUnit {
 
-    var engine = AVAudioEngine()    //each unit needs it's own avaudioEngine
-    var conductor = Conductor()     //add Conductor.swift to auv3 target
+    var engine = AVAudioEngine()    // each unit needs it's own avaudioEngine
+    var conductor = Conductor()     // remember to add Conductor.swift to auv3 target
 
     override init(componentDescription: AudioComponentDescription, options: AudioComponentInstantiationOptions = []) throws {
         AKLog("initing auv3 demo unit")
         AudioKit.engine = engine    // AudioKit.engine needs to be set early on
+        conductor.setupRoute()      // plug everything in once we have the engine
 
-        conductor.setupRoute()
-
-        do {
+        do { //this is where the audio unit really starts firing up with the data it needs
             try engine.enableManualRenderingMode(.realtime, format: AudioKit.format, maximumFrameCount: 4096)
             try super.init(componentDescription: componentDescription, options: options)
             try setOutputBusArrays()
@@ -30,20 +29,18 @@ class AUV3DemoAudioUnit: AUAudioUnit {
             throw error
         }
 
-        conductor.start()
-        setParameterTree()
-        setInternalRenderingBlock()
+        conductor.start()           // once the au is ready to go, you can go ahead and start processing
+        setParameterTree()          // init parameterTree for controls
+        setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
     }
 
+    // convenience functions to highlight where we actually trigger the instrument
     func noteOn(note: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        // react to notes however you want in here
         conductor.playNote(noteNumber: note, velocity: velocity)
     }
     func noteOff(note: MIDINoteNumber, channel: MIDIChannel) {
         conductor.stop(noteNumber: note)
-    }
-
-    private func setParameterTree() {
-        _parameterTree = conductor.parameterTree
     }
 
     private func setInternalRenderingBlock() {
@@ -77,8 +74,9 @@ class AUV3DemoAudioUnit: AUAudioUnit {
                 midiEvents.append(rawEvent)
                 rawMIDIEventList = rawMIDIEventList!.next?.pointee.MIDI
             }
-        }
+        } // i'm sorry you had to see that...
         for event in midiEvents {
+            // if you've made it this far, howdy! handle the raw midi bytes however you need to
             let midiEvent = AKMIDIEvent(data: [event.data.0, event.data.1, event.data.2])
             if midiEvent.status?.type == .noteOn {
                 if midiEvent.data[2] == 0 {
@@ -89,15 +87,19 @@ class AUV3DemoAudioUnit: AUAudioUnit {
             } else if midiEvent.status?.type == .noteOff {
                 noteOff(note: event.data.1, channel: midiEvent.channel ?? 0)
             }
-            AKLog("recd \(midiEvent.description)")
+            AKLog("recd \(midiEvent.description)") //todo: handle all midi types of midi events
         }
     }
 
+    // the code below is basic stuff that might not change
 
     // Parameter tree stuff (for automation + control)
     private var _parameterTree: AUParameterTree!
     override var parameterTree: AUParameterTree {
         return self._parameterTree
+    }
+    private func setParameterTree() {
+        _parameterTree = conductor.parameterTree
     }
 
     // Internal Render block stuff
@@ -108,11 +110,9 @@ class AUV3DemoAudioUnit: AUAudioUnit {
 
     // Default OutputBusArray stuff you will need
     private var _outputBusArray: AUAudioUnitBusArray!
-
     override var outputBusses: AUAudioUnitBusArray {
         return self._outputBusArray
     }
-
     private func setOutputBusArrays() throws {
         let bus = try AUAudioUnitBus(format: AudioKit.format)
         self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
