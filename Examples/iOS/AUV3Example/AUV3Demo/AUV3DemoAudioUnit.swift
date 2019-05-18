@@ -23,7 +23,7 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
         do { //this is where the audio unit really starts firing up with the data it needs
             try engine.enableManualRenderingMode(.realtime, format: AudioKit.format, maximumFrameCount: 4096)
-            conductor.start()           // once the au is ready to go, you can go ahead and start processing
+            try conductor.start()           // once the au is ready to go, you can go ahead and start processing
             try super.init(componentDescription: componentDescription, options: options)
             try setOutputBusArrays()
         } catch {

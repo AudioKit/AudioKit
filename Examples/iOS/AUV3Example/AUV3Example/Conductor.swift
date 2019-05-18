@@ -88,8 +88,8 @@ class Conductor {
         }
     }
 
-    func start() {
-        try? AudioKit.start()
+    func start() throws {
+        try AudioKit.start()
     }
 
     func setupRoute() {
