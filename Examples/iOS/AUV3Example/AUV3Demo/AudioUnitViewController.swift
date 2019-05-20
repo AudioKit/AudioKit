@@ -26,5 +26,9 @@ public class AudioUnitViewController: AUViewController, AUAudioUnitFactory {
         
         return audioUnit!
     }
-    
+
+
+    deinit {
+        print("auv3 view controller deinit")
+    }
 }

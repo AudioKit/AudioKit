@@ -8,7 +8,7 @@
 
 import AudioKit
 
-class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
+class AUV3DemoAudioUnit: AUAudioUnit {
 
     var engine: AVAudioEngine!    // each unit needs its own avaudioEngine
     var conductor: Conductor!     // remember to add Conductor.swift to auv3 target
@@ -160,5 +160,52 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
     func setParameterTree() {
         _parameterTree = conductor.parameterTree
+    }
+
+    deinit {
+        print("auv3demoaudioUnit deinit")
+    }
+
+    // Parameter tree stuff (for automation + control)
+    open var _parameterTree: AUParameterTree!
+    override open var parameterTree: AUParameterTree {
+        return self._parameterTree
+    }
+
+    // Internal Render block stuff
+    open var _internalRenderBlock: AUInternalRenderBlock!
+    override open var internalRenderBlock: AUInternalRenderBlock {
+        return self._internalRenderBlock
+    }
+
+    // Default OutputBusArray stuff you will need
+    open var _outputBusArray: AUAudioUnitBusArray!
+    override open var outputBusses: AUAudioUnitBusArray {
+        return self._outputBusArray
+    }
+    open func setOutputBusArrays() throws {
+        let bus = try AUAudioUnitBus(format: AudioKit.format)
+        self._outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: AUAudioUnitBusType.output, busses: [bus])
+    }
+
+    override func allocateRenderResources() throws {
+        do {
+            try super.allocateRenderResources()
+        } catch {
+            return
+        }
+
+//        self.mcb = self.musicalContextBlock
+//        self.tsb = self.transportStateBlock
+//        self.moeb = self.midiOutputEventBlock
+
+    }
+
+    override func deallocateRenderResources() {
+        print("auunit deallocate")
+        super.deallocateRenderResources()
+//        self.mcb = nil
+//        self.tsb = nil
+//        self.moeb = nil
     }
 }
