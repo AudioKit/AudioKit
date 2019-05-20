@@ -47,7 +47,8 @@ class Conductor {
     }
 
     private func createParameterSetters() {
-        parameterTree.implementorValueObserver = { param, floatValue in
+        parameterTree.implementorValueObserver = { [weak self] param, floatValue in
+            guard let self = self else { return }
             let value = Double(floatValue)
             if param == self.volumeControl {
                 self.volume.gain = value
@@ -60,7 +61,8 @@ class Conductor {
         }
     }
     private func createParameterGetters() {
-        parameterTree.implementorValueProvider = { param in
+        parameterTree.implementorValueProvider = { [weak self] param in
+            guard let self = self else { return 0 }
             if param == self.volumeControl {
                 return AUValue(self.volume.gain)
             }
@@ -73,7 +75,8 @@ class Conductor {
         }
     }
     private func createParameterDisplays() {
-        parameterTree.implementorStringFromValueCallback = { param, value in
+        parameterTree.implementorStringFromValueCallback = { [weak self] param, value in
+            guard let self = self else { return  ""}
             if let floatValue = value?.pointee {
                 if param == self.volumeControl {
                     return String(format: "%.2f", floatValue)

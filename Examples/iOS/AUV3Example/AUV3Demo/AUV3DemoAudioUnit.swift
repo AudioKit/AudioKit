@@ -33,6 +33,7 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
 
         setParameterTree()          // init parameterTree for controls
         setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
+        AKSettings.enableLogging = false
     }
 
     // MIDI Handling
@@ -46,7 +47,8 @@ class AUV3DemoAudioUnit: AKAUv3ExtensionAudioUnit, AKMIDIListener {
     }
 
     private func setInternalRenderingBlock() {
-        self._internalRenderBlock = { (actionFlags, timeStamp, frameCount, outputBusNumber, outputData, renderEvent, pullInputBlock) in
+        self._internalRenderBlock = { [weak self] (actionFlags, timeStamp, frameCount, outputBusNumber, outputData, renderEvent, pullInputBlock) in
+            guard let self = self else { return 1 } //error code?
             if let event = renderEvent?.pointee {
                 switch event.head.eventType {
                 case .parameter:
