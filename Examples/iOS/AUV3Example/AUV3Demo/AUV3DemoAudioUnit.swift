@@ -189,6 +189,7 @@ class AUV3DemoAudioUnit: AUAudioUnit {
     }
 
     override func allocateRenderResources() throws {
+        print("auunit allocate")
         do {
             try super.allocateRenderResources()
         } catch {
@@ -203,6 +204,11 @@ class AUV3DemoAudioUnit: AUAudioUnit {
 
     override func deallocateRenderResources() {
         print("auunit deallocate")
+        conductor = nil
+        engine = nil
+        _outputBusArray = nil
+        _internalRenderBlock = nil
+        _parameterTree = nil
         super.deallocateRenderResources()
 //        self.mcb = nil
 //        self.tsb = nil
