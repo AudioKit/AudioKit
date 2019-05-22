@@ -38,7 +38,7 @@
 					<key>sandboxSafe</key>
 					<true/>
 					<key>subtype</key>
-					<string>audm</string>
+					<string>Audm</string>
 					<key>tags</key>
 					<array>
 						<string>Synthesizer</string>
