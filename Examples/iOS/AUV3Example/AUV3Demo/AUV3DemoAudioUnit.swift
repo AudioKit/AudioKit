@@ -33,7 +33,7 @@ class AUV3DemoAudioUnit: AUAudioUnit {
 
         setParameterTree()          // init parameterTree for controls
         setInternalRenderingBlock() // set internal rendering block to actually handle the audio buffers
-        AKSettings.enableLogging = false
+//        AKSettings.enableLogging = false
     }
 
     // MIDI Handling
@@ -87,12 +87,12 @@ class AUV3DemoAudioUnit: AUAudioUnit {
                 self.conductor.tempo = currentTempo
                 self.conductor.hostTempo = currentTempo
 
-                AKLog("current tempo", currentTempo)
-                AKLog("timeSignatureNumerator", timeSignatureNumerator)
-                AKLog("timeSignatureDenominator", timeSignatureDenominator)
-                AKLog("currentBeatPosition", currentBeatPosition);
-                AKLog("sampleOffsetToNextBeat", sampleOffsetToNextBeat);
-                AKLog("currentMeasureDownbeatPosition", currentMeasureDownbeatPosition);
+//                AKLog("current tempo", currentTempo)
+//                AKLog("timeSignatureNumerator", timeSignatureNumerator)
+//                AKLog("timeSignatureDenominator", timeSignatureDenominator)
+//                AKLog("currentBeatPosition", currentBeatPosition);
+//                AKLog("sampleOffsetToNextBeat", sampleOffsetToNextBeat);
+//                AKLog("currentMeasureDownbeatPosition", currentMeasureDownbeatPosition);
             }
         }
     }
@@ -108,27 +108,27 @@ class AUV3DemoAudioUnit: AUAudioUnit {
 
             if tsb(&flags, &currentSamplePosition, &cycleStartBeatPosition, &cycleEndBeatPosition) {
 
-                if flags.contains(AUHostTransportStateFlags.changed) {
-                    AKLog("AUHostTransportStateChanged bit set")
-                    AKLog("currentSamplePosition", currentSamplePosition)
-                }
-
-                if flags.contains(AUHostTransportStateFlags.moving) {
-                    AKLog("AUHostTransportStateMoving bit set");
-                    AKLog("currentSamplePosition", currentSamplePosition)
-                }
-
-                if flags.contains(AUHostTransportStateFlags.recording) {
-                    AKLog("AUHostTransportStateRecording bit set")
-                    AKLog("currentSamplePosition", currentSamplePosition)
-                }
-
-                if flags.contains(AUHostTransportStateFlags.cycling) {
-                    AKLog("AUHostTransportStateCycling bit set")
-                    AKLog("currentSamplePosition", currentSamplePosition)
-                    AKLog("cycleStartBeatPosition", cycleStartBeatPosition)
-                    AKLog("cycleEndBeatPosition", cycleEndBeatPosition)
-                }
+//                if flags.contains(AUHostTransportStateFlags.changed) {
+//                    AKLog("AUHostTransportStateChanged bit set")
+//                    AKLog("currentSamplePosition", currentSamplePosition)
+//                }
+//
+//                if flags.contains(AUHostTransportStateFlags.moving) {
+//                    AKLog("AUHostTransportStateMoving bit set");
+//                    AKLog("currentSamplePosition", currentSamplePosition)
+//                }
+//
+//                if flags.contains(AUHostTransportStateFlags.recording) {
+//                    AKLog("AUHostTransportStateRecording bit set")
+//                    AKLog("currentSamplePosition", currentSamplePosition)
+//                }
+//
+//                if flags.contains(AUHostTransportStateFlags.cycling) {
+//                    AKLog("AUHostTransportStateCycling bit set")
+//                    AKLog("currentSamplePosition", currentSamplePosition)
+//                    AKLog("cycleStartBeatPosition", cycleStartBeatPosition)
+//                    AKLog("cycleEndBeatPosition", cycleEndBeatPosition)
+//                }
             }
         }
     }
