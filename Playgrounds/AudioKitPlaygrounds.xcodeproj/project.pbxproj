@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */; };
 		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46EDA631E94F0C50099E238 /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46F73242294A3C80081A2A0 /* AudioKitUI.framework */; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
 		C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */; };
 		DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */; };
@@ -29,12 +28,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C46F73242294A3C80081A2A0 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundUgens.swift; sourceTree = "<group>"; };
 		C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneView.swift; sourceTree = "<group>"; };
 		C4F1DB441E94F5ED000D5022 /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
@@ -52,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */,
 				DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +105,7 @@
 		DC8194A91F66D42E00F55FF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C46F73242294A3C80081A2A0 /* AudioKitUI.framework */,
 				DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */,
 				DC8194AA1F66D42E00F55FF6 /* AVKit.framework */,
 			);
