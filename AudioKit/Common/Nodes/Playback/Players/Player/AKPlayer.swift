@@ -225,7 +225,7 @@ public class AKPlayer: AKNode {
         }
 
         set {
-            playerNode.volume = Float(newValue)
+            playerNode.volume = AUValue(newValue)
         }
     }
 
@@ -253,7 +253,7 @@ public class AKPlayer: AKNode {
             return Double(playerNode.pan)
         }
         set {
-            playerNode.pan = Float(newValue)
+            playerNode.pan = AUValue(newValue)
         }
     }
 
@@ -337,6 +337,8 @@ public class AKPlayer: AKNode {
         return isNormalized || isReversed || buffering == .always
     }
 
+    @objc public var isNotBuffered: Bool { return !isBuffered }
+
     /// Will automatically normalize on buffer updates if enabled
     @objc public var isNormalized: Bool = false {
         didSet {
@@ -377,7 +379,7 @@ public class AKPlayer: AKNode {
 
     /// Create a player from a URL
     @objc public convenience init?(url: URL) {
-        if !FileManager.default.fileExists(atPath: url.path) {
+        if FileManager.default.fileExists(atPath: url.path) == false {
             return nil
         }
         do {
@@ -517,7 +519,8 @@ public class AKPlayer: AKNode {
 
     // MARK: - Deinit
 
-    /// Disconnect the node and release resources
+    /// Dispose the audio file, buffer and nodes and release resources.
+    /// Only call when you are totally done with this class.
     @objc public override func detach() {
         stop()
         audioFile = nil

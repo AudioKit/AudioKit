@@ -15,7 +15,6 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var bitDepthParameter: AUParameter?
     fileprivate var sampleRateParameter: AUParameter?
@@ -44,10 +43,8 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard bitDepth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    bitDepthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                bitDepthParameter?.value = AUValue(newValue)
+                return
             }
             internalAU?.setParameterImmediately(.bitDepth, value: newValue)
         }
@@ -58,11 +55,10 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard sampleRate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    sampleRateParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                sampleRateParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.sampleRate, value: newValue)
         }
     }
@@ -111,18 +107,6 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
 
         bitDepthParameter = tree["bitDepth"]
         sampleRateParameter = tree["sampleRate"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.bitDepth, value: bitDepth)
         internalAU?.setParameterImmediately(.sampleRate, value: sampleRate)

@@ -15,7 +15,6 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
     fileprivate var resonanceParameter: AUParameter?
@@ -58,11 +57,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                cutoffFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -72,11 +70,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonance != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                resonanceParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
@@ -86,11 +83,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard distortion != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                distortionParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.distortion, value: newValue)
         }
     }
@@ -100,11 +96,10 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard resonanceAsymmetry != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    resonanceAsymmetryParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                resonanceAsymmetryParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.resonanceAsymmetry, value: newValue)
         }
     }
@@ -161,18 +156,6 @@ open class AKRolandTB303Filter: AKNode, AKToggleable, AKComponent, AKInput {
         resonanceParameter = tree["resonance"]
         distortionParameter = tree["distortion"]
         resonanceAsymmetryParameter = tree["resonanceAsymmetry"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
         internalAU?.setParameterImmediately(.resonance, value: resonance)

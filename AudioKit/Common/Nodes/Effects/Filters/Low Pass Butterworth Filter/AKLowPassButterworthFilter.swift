@@ -16,7 +16,6 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
@@ -38,11 +37,10 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         willSet {
             guard cutoffFrequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                cutoffFrequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -87,18 +85,6 @@ open class AKLowPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInpu
         }
 
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }
