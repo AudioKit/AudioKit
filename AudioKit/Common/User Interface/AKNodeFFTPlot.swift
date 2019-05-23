@@ -12,9 +12,10 @@ import AudioKit
 open class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
 
     public var isConnected = false
+    public var isNotConnected: Bool { return !isConnected }
 
     internal func setupNode(_ input: AKNode?) {
-        if !isConnected {
+        if isNotConnected {
             if fft == nil {
                 fft = EZAudioFFT(maximumBufferSize: vDSP_Length(bufferSize),
                                  sampleRate: Float(AKSettings.sampleRate),

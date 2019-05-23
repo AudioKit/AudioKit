@@ -24,7 +24,6 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
@@ -78,9 +77,7 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard rate != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    rateParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                rateParameter?.value = AUValue(newValue)
             } else {
                 internalAU?.rate = Float(newValue)
             }
@@ -92,11 +89,9 @@ open class AKWaveTable: AKNode, AKComponent {
         willSet {
             guard volume != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                volumeParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.volume = Float(newValue)
+                internalAU?.volume = AUValue(newValue)
             }
         }
     }
@@ -219,18 +214,6 @@ open class AKWaveTable: AKNode, AKComponent {
         loopEndPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)
@@ -299,27 +282,29 @@ open class AKWaveTable: AKNode, AKComponent {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
         }
-        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        do {
-            try file.read(into: buf!)
-        } catch {
-            AKLog("Load audio file failed. Error was:")
-            AKLog(error)
-            return
+        if let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                      frameCapacity: AVAudioFrameCount(file.length)) {
+            do {
+                file.framePosition = 0
+                try file.read(into: buf)
+            } catch {
+                AKLog("Load audio file failed. Error was: \(error)")
+                return
+            }
+            let sizeToUse = UInt32(file.samplesCount * 2)
+            if maximumSamples == 0 {
+                maximumSamples = Int(file.samplesCount)
+                internalAU?.setupAudioFileTable(sizeToUse)
+            }
+            avAudiofile = file
+            startPoint = 0
+            endPoint = Sample(file.samplesCount)
+            loopStartPoint = 0
+            loopEndPoint = Sample(file.samplesCount)
+            let data = buf.floatChannelData
+            internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                      sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
         }
-        let sizeToUse = UInt32(file.samplesCount * 2)
-        if maximumSamples == 0 {
-            maximumSamples = Int(file.samplesCount)
-            internalAU?.setupAudioFileTable(sizeToUse)
-        }
-        avAudiofile = file
-        startPoint = 0
-        endPoint = Sample(file.samplesCount)
-        loopStartPoint = 0
-        loopEndPoint = Sample(file.samplesCount)
-        let data = buf!.floatChannelData
-        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
-                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
     }
 
     deinit {

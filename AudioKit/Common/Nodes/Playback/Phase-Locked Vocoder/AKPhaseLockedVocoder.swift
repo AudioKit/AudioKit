@@ -20,7 +20,6 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var positionParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
@@ -56,9 +55,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         willSet {
             guard position != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    positionParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                positionParameter?.value = AUValue(newValue)
             } else {
                 internalAU?.position = newValue
             }
@@ -70,9 +67,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         willSet {
             guard amplitude != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                amplitudeParameter?.value = AUValue(newValue)
             } else {
                 internalAU?.amplitude = newValue
             }
@@ -84,9 +79,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         willSet {
             guard pitchRatio != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    pitchRatioParameter?.setValue(Float(newValue), originator: existingToken)
-                }
+                pitchRatioParameter?.value = AUValue(newValue)
             } else {
                 internalAU?.pitchRatio = newValue
             }
@@ -140,18 +133,6 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
         positionParameter = tree["position"]
         amplitudeParameter = tree["amplitude"]
         pitchRatioParameter = tree["pitchRatio"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.position = position
         internalAU?.amplitude = amplitude
         internalAU?.pitchRatio = pitchRatio

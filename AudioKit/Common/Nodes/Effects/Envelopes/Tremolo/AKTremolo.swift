@@ -15,7 +15,6 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var depthParameter: AUParameter?
@@ -44,11 +43,10 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard frequency != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                frequencyParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -58,11 +56,10 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
         willSet {
             guard depth != newValue else { return }
             if internalAU?.isSetUp == true {
-                if let existingToken = token {
-                    depthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
+                depthParameter?.value = AUValue(newValue)
+                return
             }
+                
             internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
@@ -117,18 +114,6 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
 
         frequencyParameter = tree["frequency"]
         depthParameter = tree["depth"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.depth, value: depth)
