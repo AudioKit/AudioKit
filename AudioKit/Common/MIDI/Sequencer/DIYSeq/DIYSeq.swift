@@ -37,6 +37,32 @@ open class DIYSeq {
         for track in tracks { track.stop() }
     }
 
+    open func load(midiFileURL: URL) {
+        load(midiFile: AKMIDIFile(url: midiFileURL))
+    }
+    
+    open func load(midiFile: AKMIDIFile) {
+        print("loading file \(midiFile.filename)")
+        let midiTracks = midiFile.tracks
+        if midiTracks.count > tracks.count {
+            AKLog("Error: Track count and file track count do not match, dropped \(midiTracks.count - tracks.count) tracks")
+        }
+        if tracks.count > midiTracks.count {
+            AKLog("Error: Track count less than file track count, ignoring \(tracks.count - midiTracks.count) nodes")
+        }
+        for index in 0..<min(midiTracks.count, tracks.count) {
+            let track = midiTracks[index]
+            tracks[index].clear()
+            for event in track.events {
+                if let pos = event.positionInBeats {
+                    self.tracks[index].add(event: event, position: pos)
+                }
+            }
+            self.tracks[index].length = track.length
+        }
+        length = self.tracks.max(by: { $0.length > $1.length})?.length ?? 0
+    }
+    
     open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
                   position: Double, duration: Double, trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
@@ -69,24 +95,7 @@ open class DIYSeq {
 
     public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
         self.init(targetNodes: targetNodes)
-        let midiFile = AKMIDIFile(url: fileURL)
-        let tracks = midiFile.tracks
-        if tracks.count > targetNodes.count {
-            AKLog("Error: Track count and node count do not match, dropped \(tracks.count - targetNodes.count) tracks")
-        }
-        if tracks.count < targetNodes.count {
-            AKLog("Error: Track count less than node count, ignoring \(targetNodes.count - tracks.count) nodes")
-        }
-        for index in 0..<min(targetNodes.count, tracks.count) {
-            let track = tracks[index]
-            for event in track.events {
-                if let pos = event.positionInBeats {
-                    self.tracks[index].add(event: event, position: pos)
-                }
-            }
-            self.tracks[index].length = track.length
-        }
-        length = self.tracks.max(by: { $0.length > $1.length})?.length ?? 0
+        load(midiFileURL: fileURL)
     }
 }
 

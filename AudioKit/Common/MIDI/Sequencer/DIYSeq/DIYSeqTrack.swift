@@ -119,7 +119,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
         }
     }
     
-    public func clear() {
+    open func clear() {
         internalAU?.clear()
     }
 }
