@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
@@ -423,11 +423,16 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" identifier="main" title="⌘ ⚡︎" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                    <window key="window" identifier="main" title="Audio Unit Manager" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                <color key="value" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="Rly-1A-hFC"/>
                         </connections>
@@ -522,7 +527,7 @@
                                             </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAD-nS-fJh" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="121" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="121" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title=" ▼ Insert 1" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aDO-z6-G6D">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -535,7 +540,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="4fu-Sp-3M2" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="102" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="102" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="▼ Insert 2" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="A5y-9d-3lL">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -548,7 +553,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="ujE-5S-hVb" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="83" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="83" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="▼ Insert 3" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ulf-mL-eao">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -561,7 +566,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="xk2-kL-2my" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="64" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="64" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="▼ Insert 4" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Shi-en-9aQ">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -574,7 +579,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="mvy-Rg-0gk" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="45" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="45" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="▼ Insert 5" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vfo-vb-ijx">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -587,7 +592,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" tag="5" translatesAutoresizingMaskIntoConstraints="NO" id="MAX-0k-Evf" customClass="MenuButton" customModule="AudioUnitManager" customModuleProvider="target">
-                                            <rect key="frame" x="35" y="26" width="71" height="16"/>
+                                            <rect key="frame" x="33" y="26" width="71" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="push" title="▼ Insert 6" bezelStyle="rounded" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="B0M-dt-isr">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -837,7 +842,7 @@ IA
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                             <box fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="E8H-Q8-BWY" userLabel="Time">
-                                <rect key="frame" x="155" y="222" width="86" height="18"/>
+                                <rect key="frame" x="155" y="224" width="86" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="NYn-zo-yxK">
                                     <rect key="frame" x="1" y="1" width="84" height="16"/>
@@ -855,7 +860,7 @@ IA
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <color key="fillColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="1" green="1" blue="1" alpha="0.896484375" colorSpace="custom" customColorSpace="sRGB"/>
                                 <font key="titleFont" size="10" name=".AppleSystemUIFont"/>
                             </box>
                         </subviews>

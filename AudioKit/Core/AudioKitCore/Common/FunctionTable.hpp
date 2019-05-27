@@ -10,21 +10,19 @@
 
 namespace AudioKitCore
 {
-
-    // Class FunctionTable represents a simple one-dimensional table of float values,
-    // addressable by a normalized fractional index, [0.0, 1.0), with or without wraparound.
-    // Linear interpolation is used to interpolate values between available samples.
-    
-    // Cyclic (wraparound) addressing is useful for creating simple oscillators. In such
-    // cases, the table typically contains one or a few cycles of a periodic function.
-    // See class FunctionTableOscillator.
-    
-    // Bounded addressing is useful for wave-shaping and fast function-approximation using
-    // tabulated functions. In such applications, the table contains function values over
-    // some bounded domain. See class AKWaveShaper.
-    
     #define DEFAULT_WAVETABLE_SIZE 256
-    
+
+    /// FunctionTable represents a simple one-dimensional table of float values,
+    /// addressable by a normalized fractional index, [0.0, 1.0), with or without wraparound.
+    /// Linear interpolation is used to interpolate values between available samples.
+    ///
+    /// Cyclic (wraparound) addressing is useful for creating simple oscillators. In such
+    /// cases, the table typically contains one or a few cycles of a periodic function.
+    /// See class FunctionTableOscillator.
+    ///
+    /// Bounded addressing is useful for wave-shaping and fast function-approximation using
+    /// tabulated functions. In such applications, the table contains function values over
+    /// some bounded domain. See class AKWaveShaper.
     struct FunctionTable
     {
         float *pWaveTable;
@@ -57,9 +55,9 @@ namespace AudioKitCore
             return (float)((1.0 - f) * si + f * sj);
         }
         
-        // functions for use by class AKWaveShaper (see comments in .mm file)
-        void exponentialRise(float left, float right);
-        void exponentialFall(float left, float right);
+        // functions for use by class AKWaveShaper (see comments in .cpp file)
+        void exponentialCurve(float left, float right);
+        void powerCurve(float exponent);
         
         inline float interp_bounded(float phase)
         {
@@ -77,11 +75,11 @@ namespace AudioKitCore
         }
     };
     
-    // FunctionTableOscillator implements a simple wavetable-based oscillator. Small table sizes (as small
-    // as just 2 samples for triangle-wave) are useful for implementing LFOs using the init* functions.
-    // For audio-frequency oscillators, use larger tables, and ensure that your tabulated waveform is
-    // low-pass filtered. Power-of-two table sizes (e.g. 1024, 2048) are ideal: Perform a forward FFT,
-    // zero out high-frequency coefficients, then inverse FFT.
+    /// FunctionTableOscillator implements a simple wavetable-based oscillator. Small table sizes (as small
+    /// as just 2 samples for triangle-wave) are useful for implementing LFOs using the init* functions.
+    /// For audio-frequency oscillators, use larger tables, and ensure that your tabulated waveform is
+    /// low-pass filtered. Power-of-two table sizes (e.g. 1024, 2048) are ideal: Perform a forward FFT,
+    /// zero out high-frequency coefficients, then inverse FFT.
     struct FunctionTableOscillator
     {
         double sampleRateHz;
@@ -107,7 +105,7 @@ namespace AudioKitCore
         // For stereo modulation, we need to get two samples at a time: an "in-phase"
         // sample which is the same as what getSample() above would return, plus a
         // "quadrature" sample which is 90 degrees out-of-phase with the first one.
-        inline void getSamples(float* pInPhase, float* pQuadrature)
+        inline void getSamples(float *pInPhase, float *pQuadrature)
         {
             *pInPhase = waveTable.interp_cyclic(phase);
             *pQuadrature = waveTable.interp_cyclic(phase + 0.25f);
@@ -116,8 +114,8 @@ namespace AudioKitCore
         }
     };
     
-    // WaveShaper wraps a FunctionTable and provides saved scale and offset parameters for both
-    // input (x) and output (y) values.
+    /// WaveShaper wraps a FunctionTable and provides saved scale and offset parameters for both
+    /// input (x) and output (y) values.
     struct WaveShaper
     {
         FunctionTable waveTable;

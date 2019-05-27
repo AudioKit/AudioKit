@@ -63,7 +63,7 @@
 
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                                                ]];
 
     // Create the input and output busses.
@@ -91,8 +91,6 @@
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
         return balancerKernel->getParameter(param.address);
     };
-
-    self.maximumFramesToRender = 512;
 
     return self;
 }

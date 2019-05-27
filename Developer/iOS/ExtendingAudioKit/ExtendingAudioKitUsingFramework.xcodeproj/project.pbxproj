@@ -13,27 +13,14 @@
 		3429F98A201A25AB00300166 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3429F989201A25AB00300166 /* Assets.xcassets */; };
 		3429F98D201A25AB00300166 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3429F98B201A25AB00300166 /* LaunchScreen.storyboard */; };
 		34920F7B201A3474008826CC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34920F7A201A3474008826CC /* README.md */; };
-		C47FDEF0201C5BF700A31D48 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; };
 		C47FDEF1201C5BF700A31D48 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEF201C5BF700A31D48 /* AudioKit.framework */; };
 		C4A7668D2031998100583F47 /* SDSustainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7668B2031998100583F47 /* SDSustainer.swift */; };
 		C4A7668E2031998100583F47 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A7668C2031998100583F47 /* Conductor.swift */; };
 		C4E24A0B2031953600A020D7 /* SDBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A072031953600A020D7 /* SDBooster.swift */; };
 		C4E24A0C2031953600A020D7 /* SDBoosterAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A082031953600A020D7 /* SDBoosterAudioUnit.swift */; };
 		C4E24A0D2031953600A020D7 /* SDBoosterDSP.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E24A0A2031953600A020D7 /* SDBoosterDSP.mm */; };
+		EA2FA549215B7598001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C47FDEEE201C5BF600A31D48 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3429F9A5201A275F00300166 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3429F97F201A25AB00300166 /* ExtendingAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExtendingAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C47FDEF1201C5BF700A31D48 /* AudioKit.framework in Frameworks */,
-				C47FDEF0201C5BF700A31D48 /* AudioKitUI.framework in Frameworks */,
+				EA2FA549215B7598001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +63,7 @@
 				C4E24A062031953600A020D7 /* SDBooster */,
 				3429F981201A25AB00300166 /* ExtendingAudioKit */,
 				3429F980201A25AB00300166 /* Products */,
+				EA2FA548215B7598001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +102,13 @@
 			path = ../../Common/SDBooster;
 			sourceTree = "<group>";
 		};
+		EA2FA548215B7598001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -124,7 +119,6 @@
 				3429F97B201A25AB00300166 /* Sources */,
 				3429F97C201A25AB00300166 /* Frameworks */,
 				3429F97D201A25AB00300166 /* Resources */,
-				3429F9A5201A275F00300166 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -142,11 +136,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					3429F97E201A25AB00300166 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -238,6 +233,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -245,6 +241,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -296,6 +293,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -303,6 +301,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -337,7 +336,6 @@
 		3429F992201A25AB00300166 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -347,11 +345,12 @@
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -359,7 +358,6 @@
 		3429F993201A25AB00300166 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -369,11 +367,12 @@
 				INFOPLIST_FILE = ExtendingAudioKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.ExtendingAudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/../../Common/ExtendingAudioKit-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -15,7 +15,6 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var ratioParameter: AUParameter?
     fileprivate var thresholdParameter: AUParameter?
@@ -56,15 +55,12 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Ratio to compress with, a value > 1 will compress
     @objc open dynamic var ratio: Double = defaultRatio {
         willSet {
-            if ratio == newValue {
+            guard ratio != newValue else { return }
+            if internalAU?.isSetUp == true {
+                ratioParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    ratioParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.ratio, value: newValue)
         }
     }
@@ -72,15 +68,12 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Threshold (in dB) 0 = max
     @objc open dynamic var threshold: Double = defaultThreshold {
         willSet {
-            if threshold == newValue {
+            guard threshold != newValue else { return }
+            if internalAU?.isSetUp == true {
+                thresholdParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    thresholdParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.threshold, value: newValue)
         }
     }
@@ -88,32 +81,26 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
     /// Attack Duration in seconds
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackDuration == newValue {
+            guard attackDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                attackDurationParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
-            internalAU?.setParameterImmediately(.attackTime, value: newValue)
+                
+            internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
 
     /// Release Duration in seconds
     @objc open dynamic var releaseDuration: Double = defaultReleaseDuration {
         willSet {
-            if releaseDuration == newValue {
+            guard releaseDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                releaseDurationParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    releaseDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
-            internalAU?.setParameterImmediately(.releaseTime, value: newValue)
+                
+            internalAU?.setParameterImmediately(.releaseDuration, value: newValue)
         }
     }
 
@@ -154,6 +141,7 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -169,22 +157,10 @@ open class AKDynamicRangeCompressor: AKNode, AKToggleable, AKComponent, AKInput 
         attackDurationParameter = tree["attackDuration"]
         releaseDurationParameter = tree["releaseDuration"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
-
         internalAU?.setParameterImmediately(.ratio, value: ratio)
         internalAU?.setParameterImmediately(.threshold, value: threshold)
-        internalAU?.setParameterImmediately(.attackTime, value: attackDuration)
-        internalAU?.setParameterImmediately(.releaseTime, value: releaseDuration)
+        internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)
+        internalAU?.setParameterImmediately(.releaseDuration, value: releaseDuration)
     }
 
     // MARK: - Control

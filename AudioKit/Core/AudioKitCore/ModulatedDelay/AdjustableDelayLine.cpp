@@ -14,15 +14,19 @@ namespace AudioKitCore
     {
     }
     
-    void AdjustableDelayLine::init(double sampleRate, double maxDelayMs)
+    void AdjustableDelayLine::init(double sampleRate, double maxDelayMilliseconds)
     {
         sampleRateHz = sampleRate;
+        maxDelayMs = maxDelayMilliseconds;
+
         capacity = int(maxDelayMs * sampleRateHz / 1000.0);
         if (pBuffer) delete[] pBuffer;
         pBuffer = new float[capacity];
-        for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
+        clear();
         writeIndex = 0;
         readIndex = (float)(capacity - 1);
+        fbFraction = 0.0f;
+        output = 0.0f;
     }
     
     void AdjustableDelayLine::deinit()
@@ -31,18 +35,22 @@ namespace AudioKitCore
         pBuffer = 0;
     }
     
+    void AdjustableDelayLine::clear()
+    {
+        for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
+    }
+    
     void AdjustableDelayLine::setDelayMs(double delayMs)
     {
+        if (delayMs > maxDelayMs) delayMs = maxDelayMs;
+        if (delayMs < 0.0f) delayMs = 0.0f;
+
         float fReadWriteGap = float(delayMs * sampleRateHz / 1000.0);
         if (fReadWriteGap < 0.0f) fReadWriteGap = 0.0f;
         if (fReadWriteGap > capacity) fReadWriteGap = (float)capacity;
         readIndex = writeIndex - fReadWriteGap;
         while (readIndex < 0.0f) readIndex += capacity;
-    }
-    
-    void AdjustableDelayLine::setFeedback(float feedback)
-    {
-        fbFraction = feedback;
+        while (readIndex >= capacity) readIndex -= capacity;
     }
     
     float AdjustableDelayLine::push(float sample)
@@ -62,7 +70,7 @@ namespace AudioKitCore
         pBuffer[writeIndex++] = sample + fbFraction * outSample;
         if (writeIndex >= capacity) writeIndex = 0;
         
-        return outSample;
+        return (output = outSample);
     }
     
 }

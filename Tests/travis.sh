@@ -18,14 +18,14 @@ if test "$TRAVIS_TAG" != "" || test "$TRAVIS_BRANCH" = "staging"; then
    if test "$TRAVIS_TAG" != ""; then
    	echo "Deploying for release tagged $TRAVIS_TAG ..."
    else
-   	echo "Deploying staging release build for v$VERSION..."
+   	echo "Deploying staging release build for v${VERSION}.b1 ..."
    fi
    ./build_packages.sh || exit 1
    echo "Uploading CocoaPods archive to S3 ..."
-   if test "$TRAVIS_TAG" != ""; then
-   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
-   else
-   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/v${VERSION}/AudioKit.framework.zip
+   if test "$TRAVIS_TAG" = ""; then
+#   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/releases/${TRAVIS_TAG}/AudioKit.framework.zip
+#   else
+   	s3cmd --access_key=$AWS_ACCESS_KEY --secret_key=$AWS_SECRET put packages/AudioKit.framework.zip s3://files.audiokit.io/staging/v${VERSION}.b1/AudioKit.framework.zip
    fi
    exit
 else
@@ -44,9 +44,6 @@ echo "Skipping tvOS HelloWorld (on develop branch)"
 
 echo "Building More Advanced Examples"
 
-echo "Building iOS AKSamplerDemo"
-xcodebuild -project Examples/iOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -sdk iphonesimulator -scheme AKSamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 8
-
 echo "Building iOS AppleSamplerDemo"
 xcodebuild -project Examples/iOS/AppleSamplerDemo/SamplerDemo.xcodeproj -sdk iphonesimulator -scheme SamplerDemo -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 9
 
@@ -57,7 +54,7 @@ echo "Building iOS Drums"
 xcodebuild -project Examples/iOS/Drums/Drums.xcodeproj -sdk iphonesimulator -scheme Drums -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 12
 
 echo "Building iOS HelloObjectiveC"
-xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean 	build | xcpretty -c || exit 13
+# xcodebuild -project Examples/iOS/HelloObjectiveC/HelloObjectiveC.xcodeproj -sdk iphonesimulator -scheme HelloObjectiveC -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean 	build | xcpretty -c || exit 13
 
 echo "Building iOS LoopbackRecording"
 xcodebuild -project Examples/iOS/LoopbackRecording/LoopbackRecording.xcodeproj -sdk iphonesimulator -scheme LoopbackRecording -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
@@ -82,9 +79,6 @@ xcodebuild -project Examples/iOS/SequencerDemo/SequencerDemo.xcodeproj -sdk ipho
 
 echo "Building iOS SporthEditor"
 xcodebuild -project Examples/iOS/SporthEditor/SporthEditor.xcodeproj -sdk iphonesimulator -scheme SporthEditor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 20
-
-echo "Building macOS AKSamplerDemo"
-xcodebuild -project Examples/macOS/AKSamplerDemo/AKSamplerDemo.xcodeproj -scheme AKSamplerDemo ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 21
 
 echo "Building macOS AudioUnitManager"
 xcodebuild -project Examples/macOS/AudioUnitManager/AudioUnitManager.xcodeproj -scheme AudioUnitManager	ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 22
@@ -116,9 +110,6 @@ xcodebuild -project Examples/macOS/SpeechSynthesizer/SpeechSynthesizer.xcodeproj
 echo "Building macOS SporthEditor"
 xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 29
 
-echo "Skipping Particles - requires hardware"
-#xcodebuild -project Examples/iOS/Particles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 30
-
 echo "Building iOS AudiobusMIDISender"
 cd Examples/iOS/AudiobusMIDISender; pod install; cd ../../..
 xcodebuild -workspace Examples/iOS/AudiobusMIDISender/AudiobusMIDISender.xcworkspace -sdk iphonesimulator -scheme AudiobusMIDISender -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 31
@@ -132,7 +123,7 @@ cd Examples/iOS/FilterEffects; pod install; cd ../../..
 xcodebuild -workspace Examples/iOS/FilterEffects/FilterEffects.xcworkspace -sdk iphonesimulator -scheme FilterEffects -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 33
 
 echo "Running iOS Unit Tests"
-xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2' | xcpretty -c || exit 100
+xcodebuild -scheme iOSTestSuite -project Tests/iOSTestSuite/iOSTestSuite.xcodeproj test -sdk iphonesimulator  -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.2' | xcpretty -c || exit 100
 
-echo "Skipping macOS Unit Tests on Travis until they run macOS 10.13"
+echo "Skipping macOS Unit Tests"
 #xcodebuild -project Tests/macOSTestSuite/macOSTestSuite.xcodeproj -scheme macOSTestSuite test ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" | xcpretty -c || exit 101

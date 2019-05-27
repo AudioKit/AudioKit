@@ -11,11 +11,11 @@ import AVFoundation
 public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKFluteParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKFluteParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var frequency: Double = 440 {
@@ -30,45 +30,33 @@ public class AKFluteAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createFluteDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 20_000,
+            address: 0,
+            range: 0...20000,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            address: 1,
+            range: 0...10,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude]))
+            flags: .default)
+        setParameterTree(AUParameterTree(children: [frequency, amplitude]))
         frequency.value = 440
         amplitude.value = 1
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 /// Style of knob to use
 public enum AKRotaryKnobStyle {
@@ -111,9 +112,9 @@ public enum AKRotaryKnobStyle {
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
-        let dx = Double(pointB.x - pointA.x)
-        let dy = Double(pointB.y - pointA.y)
-        let radians = atan2(-dx, dy)
+        let deltaX = Double(pointB.x - pointA.x)
+        let deltaY = Double(pointB.y - pointA.y)
+        let radians = atan2(-deltaX, deltaY)
         let degrees = radians * 180 / Double.pi
         return degrees
     }
@@ -192,7 +193,6 @@ public enum AKRotaryKnobStyle {
                   propertyName: String = "Property Name",
                   currentValueText: String = "0.0") {
 
-        //// General Declarations
         guard let context = UIGraphicsGetCurrentContext() else {
             AKLog("No current graphics context")
             return
@@ -207,9 +207,9 @@ public enum AKRotaryKnobStyle {
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: fontSize),
-                                       NSAttributedStringKey.foregroundColor: textColor,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: fontSize),
+                                       NSAttributedString.Key.foregroundColor: textColor,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
             with: CGSize(width: width, height: CGFloat.infinity),
@@ -285,8 +285,8 @@ public enum AKRotaryKnobStyle {
 
         // Draw points
         let pointRadius = (knobDiameter / 2.0) + AKRotaryKnob.marginSize * 0.6
-        for i in 0...numberOfIndicatorPoints - 1 {
-            let pointPercent = Double(i) / Double(numberOfIndicatorPoints - 1)
+        for index in 0...numberOfIndicatorPoints - 1 {
+            let pointPercent = Double(index) / Double(numberOfIndicatorPoints - 1)
             let pointAngle = Double.pi * ( 0.75 + pointPercent * 1.5)
             let pointX = AKRotaryKnob.marginSize + knobDiameter / 2.0 + (pointRadius) * CGFloat(cos(pointAngle)) -
                 AKRotaryKnob.indicatorPointRadius
@@ -312,9 +312,9 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSAttributedStringKey.foregroundColor: bubbleTextColor ?? textColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            NSAttributedString.Key.foregroundColor: bubbleTextColor ?? textColor,
+                                            NSAttributedString.Key.paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
@@ -369,14 +369,12 @@ public enum AKRotaryKnobStyle {
                                      curvature: Double,
                                      startPoint: CGPoint,
                                      offsetAngle: Double) -> UIBezierPath {
-        guard numberOfSides > 2 else {
-            return UIBezierPath(rect: rect)
-        }
+        guard numberOfSides > 2 else { return UIBezierPath(rect: rect) }
 
         let path = UIBezierPath()
         path.move(to: startPoint)
-        for i in 0...numberOfSides {
-            let angle = 2 * Double.pi * i / numberOfSides + offsetAngle
+        for index in 0...numberOfSides {
+            let angle = 2 * Double.pi * index / numberOfSides + offsetAngle
             let nextX = rect.midX + rect.width / 2.0 * CGFloat(cos(angle))
             let nextY = rect.midY + rect.height / 2.0 * CGFloat(sin(angle))
             if curvature == 0.0 {
@@ -389,7 +387,7 @@ public enum AKRotaryKnobStyle {
                 if curvature < AKRotaryKnob.maximumPolygonCurvature * -1.0 {
                     actualCurvature = AKRotaryKnob.maximumPolygonCurvature * -1.0
                 }
-                let arcAngle = 2 * Double.pi * (i - 0.5) / numberOfSides + offsetAngle
+                let arcAngle = 2 * Double.pi * (index - 0.5) / numberOfSides + offsetAngle
                 let arcX = rect.midX + (rect.width * CGFloat(1 + actualCurvature * 0.5)) / 2 * CGFloat(cos(arcAngle))
                 let arcY = rect.midY + (rect.height * CGFloat(1 + actualCurvature * 0.5)) / 2 * CGFloat(sin(arcAngle))
                 path.addQuadCurve(to: CGPoint(x: nextX, y: nextY), controlPoint: CGPoint(x: arcX, y: arcY))

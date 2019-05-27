@@ -54,32 +54,26 @@ open class AKMIDISampler: AKAppleSampler {
     }
 
     private func handle(event: AKMIDIEvent) throws {
-        try self.handleMIDI(data1: event.internalData[0],
-                            data2: event.internalData[1],
-                            data3: event.internalData[2])
+        try self.handleMIDI(data1: event.data[0],
+                            data2: event.data[1],
+                            data3: event.data[2])
     }
 
     // MARK: - Handling MIDI Data
 
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
-        let status = data1 >> 4
-        let channel = data1 & 0xF
-
-        if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0 {
-
-            try play(noteNumber: MIDINoteNumber(data2),
-                     velocity: MIDIVelocity(data3),
-                     channel: MIDIChannel(channel))
-
-        } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
-
-            try stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
-
-        } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
-
-            midiCC(data2, value: data3, channel: channel)
-
+        if let status = AKMIDIStatus(byte: data1) {
+            let channel = status.channel
+            if status.type == .noteOn && data3 > 0 {
+                try play(noteNumber: data2,
+                         velocity: data3,
+                         channel: channel)
+            } else if status.type == .noteOn && data3 == 0 {
+                try stop(noteNumber: data2, channel: channel)
+            } else if status.type == .controllerChange {
+                midiCC(data2, value: data3, channel: channel)
+            }
         }
     }
 
@@ -113,7 +107,16 @@ open class AKMIDISampler: AKAppleSampler {
 
     // MARK: - MIDI Note Start/Stop
 
-    /// Start a note
+    /// Start a note or trigger a sample
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI note number
+    ///   - velocity: MIDI velocity
+    ///   - channel: MIDI channel
+    ///
+    /// NB: when using an audio file, noteNumber 60 will play back the file at normal
+    /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
+    /// half speed (1 octave lower) and so on
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) throws {

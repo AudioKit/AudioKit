@@ -28,7 +28,6 @@
 ///
 
 extension AKAudioFile {
-
     /// typealias for AKAudioFile Async Process Completion Handler
     ///
     /// If processedFile != nil, process succeeded (then error is nil)
@@ -84,17 +83,17 @@ extension AKAudioFile {
     // MARK: - AKAudioFile public interface with private AKAudioFile ProcessFactory singleton
 
     /// Returns the remaining not completed queued Async processes (Int)
-    static public var queuedAsyncProcessCount: Int {
+    public static var queuedAsyncProcessCount: Int {
         return ProcessFactory.sharedInstance.queuedProcessCount
     }
 
     /// Returns the total scheduled Async processes count (Int)
-    static public var scheduledAsyncProcessesCount: Int {
+    public static var scheduledAsyncProcessesCount: Int {
         return ProcessFactory.sharedInstance.scheduledProcessesCount
     }
 
     /// Returns the completed Async processes count (Int)
-    static public var completedAsyncProcessesCount: Int {
+    public static var completedAsyncProcessesCount: Int {
         return scheduledAsyncProcessesCount - queuedAsyncProcessCount
     }
 
@@ -110,7 +109,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -120,17 +119,15 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
     ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func normalizeAsynchronously(baseDir: BaseDirectory = .temp,
                                         name: String = "",
                                         newMaxLevel: Float = 0.0,
                                         completionHandler: @escaping AsyncProcessCallback) {
-
         ProcessFactory.sharedInstance.queueNormalizeAsyncProcess(sourceFile: self,
                                                                  baseDir: baseDir,
                                                                  name: name,
@@ -149,7 +146,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -162,18 +159,15 @@ extension AKAudioFile {
     ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func reverseAsynchronously(baseDir: BaseDirectory = .temp,
                                       name: String = "",
                                       completionHandler: @escaping AsyncProcessCallback) {
-
-        ProcessFactory.sharedInstance.queueReverseAsyncProcess(
-            sourceFile: self,
-            baseDir: baseDir,
-            name: name,
-            completionHandler: completionHandler
-        )
+        ProcessFactory.sharedInstance.queueReverseAsyncProcess(sourceFile: self,
+                                                               baseDir: baseDir,
+                                                               name: name,
+                                                               completionHandler: completionHandler)
     }
 
     /// Process an AKAudioFile in background to return an AKAudioFile with appended audio data from another AKAudioFile.
@@ -187,7 +181,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -197,24 +191,20 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - file: an AKAudioFile that will be used to append audio from.
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp (Default is .Temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func appendAsynchronously(file: AKAudioFile,
                                      baseDir: BaseDirectory = .temp,
                                      name: String = "",
                                      completionHandler: @escaping AsyncProcessCallback) {
-
-        ProcessFactory.sharedInstance.queueAppendAsyncProcess(
-            sourceFile: self,
-            appendedFile: file,
-            baseDir: baseDir,
-            name: name,
-            completionHandler: completionHandler
-        )
+        ProcessFactory.sharedInstance.queueAppendAsyncProcess(sourceFile: self,
+                                                              appendedFile: file,
+                                                              baseDir: baseDir,
+                                                              name: name,
+                                                              completionHandler: completionHandler)
     }
 
     /// Process the current AKAudioFile in background to return an AKAudioFile with an extracted range of audio data.
@@ -231,7 +221,7 @@ extension AKAudioFile {
     /// . if processedFile != nil, process succeeded (and error is nil)
     /// . if processedFile == nil, process failed, error is the process thrown error
     ///
-    /// Notice that completionCallBack will be triggered from a
+    /// Notice that completionHandler will be triggered from a
     /// background thread. Any UI update should be made using:
     ///
     /// ```
@@ -241,27 +231,23 @@ extension AKAudioFile {
     /// ```
     ///
     /// - Parameters:
-    ///   - completionHandler: the callback that will be triggered when process has been completed
     ///   - fromSample: the starting sampleFrame for extraction. (default is zero)
     ///   - toSample: the ending sampleFrame for extraction (default is zero)
     ///   - baseDir: where the file will be located, can be set to .resources,  .documents or .temp (Default is .temp)
     ///   - name: the name of the resulting file without its extension (String).
-    ///   - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
+    ///   - completionHandler: AKCallback that will be triggered as soon as process has been completed or failed.
     ///
     public func extractAsynchronously(fromSample: Int64 = 0,
                                       toSample: Int64 = 0,
                                       baseDir: BaseDirectory = .temp,
                                       name: String = "",
                                       completionHandler: @escaping AsyncProcessCallback) {
-
-        ProcessFactory.sharedInstance.queueExtractAsyncProcess(
-            sourceFile: self,
-            fromSample: fromSample,
-            toSample: toSample,
-            baseDir: baseDir,
-            name: name,
-            completionHandler: completionHandler
-        )
+        ProcessFactory.sharedInstance.queueExtractAsyncProcess(sourceFile: self,
+                                                               fromSample: fromSample,
+                                                               toSample: toSample,
+                                                               baseDir: baseDir,
+                                                               name: name,
+                                                               completionHandler: completionHandler)
     }
 
     /// Exports Asynchronously to a new AKAudiofile with trimming options.
@@ -294,6 +280,9 @@ extension AKAudioFile {
                                      fromSample: Int64 = 0,
                                      toSample: Int64 = 0,
                                      callback: @escaping AsyncProcessCallback) {
+        // clear this initially
+        currentExportSession = nil
+
         let fromFileExt = fileExt.lowercased()
 
         // Only mp4, m4a, .wav, .aif can be exported...
@@ -305,7 +294,7 @@ extension AKAudioFile {
 
         // Compressed formats cannot be exported to PCM
         let fromFileFormatIsCompressed = (fromFileExt == "m4a" || fromFileExt == "mp4")
-        let outFileFormatIsCompressed = (exportFormat == .m4a || exportFormat == .mp4 )
+        let outFileFormatIsCompressed = (exportFormat == .m4a || exportFormat == .mp4)
 
         // set avExportPreset
         var avExportPreset: String = ""
@@ -325,86 +314,102 @@ extension AKAudioFile {
             }
         }
 
+        // In and OUT times trimming settings
+        let inFrame: Int64
+        let outFrame: Int64
+
+        if toSample == 0 {
+            outFrame = samplesCount
+        } else {
+            outFrame = min(samplesCount, toSample)
+        }
+
+        inFrame = abs(min(samplesCount, fromSample))
+
+        if outFrame <= inFrame {
+            AKLog("ERROR AKAudioFile export: In time must be less than Out time")
+
+            callback(nil,
+                     NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+
+            return
+        }
+
         let asset = url.isFileURL ? AVURLAsset(url: url) : AVURLAsset(url: URL(fileURLWithPath: url.absoluteString))
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
             AKLog("internalExportSession session created")
 
-            var filePath: String = ""
+            // store a reference to the export session so progress can be checked if desired
+            currentExportSession = internalExportSession
+
+            var filePath: URL?
             var fileName = name
 
             let fileExt = String(describing: exportFormat)
 
             // only add the file extension if it isn't already there
-            if ❗️fileName.hasSuffix(fileExt) {
+            if fileName.hasSuffix(fileExt) == false {
                 fileName += "." + fileExt
             }
 
             switch baseDir {
             case .temp:
-                filePath = (NSTemporaryDirectory() as String) + fileName
+                filePath = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+
             case .documents:
-                let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                filePath = documentsPath + "/" + fileName
+                if let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    filePath = documentsPath.appendingPathComponent(fileName)
+                } else {
+                    callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+                    return
+                }
             case .resources:
-                AKLog("ERROR AKAudioFile export: cannot create a file in applications resources")
+                AKLog("ERROR export: cannot create a file in applications resources")
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
+                return
             // Save in same directory as original file
             case .custom:
                 let defaultBase: URL = url.deletingLastPathComponent()
-                filePath = defaultBase.path +  "/" + fileName
+                filePath = defaultBase.appendingPathComponent(fileName)
             }
 
-            guard let nsurl = URL(string: filePath) else {
-                AKLog("ERROR AKAudioFile export: directory \"\(filePath)\" isn't valid")
+            guard let destinationURL = filePath else {
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
                 return
             }
-            let directoryPath = nsurl.deletingLastPathComponent()
-            // Check if directory exists
+
+            let directoryPath = destinationURL.deletingLastPathComponent()
+            // Check if target directory exists
             let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: (directoryPath.absoluteString)) == false {
-                AKLog("ERROR AKAudioFile export: directory \"\(directoryPath)\" doesn't exist")
+            if fileManager.fileExists(atPath: (directoryPath.path)) == false {
+                AKLog("ERROR export: directory \"\(directoryPath)\" doesn't exist")
                 callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             }
 
-            // Check if out file exists
-            if fileManager.fileExists(atPath: nsurl.absoluteString) {
+            // Check if out file exists, overwrite it if so by deleting the existing file
+            if fileManager.fileExists(atPath: destinationURL.path) {
                 // Then delete file
-                AKLog("AKAudioFile export: Output file already exists, trying to delete...")
+                AKLog("Export: Output file already exists, trying to delete...")
                 do {
-                    try fileManager.removeItem(atPath: nsurl.absoluteString)
+                    try fileManager.removeItem(atPath: destinationURL.path)
                 } catch let error as NSError {
-                    AKLog("Error: AKAudioFile: couldn't delete file \"\(nsurl)\"")
+                    AKLog("Error: couldn't delete file \"\(destinationURL.path)\"")
                     AKLog(error.localizedDescription)
                     callback(nil, error)
                 }
-                AKLog("AKAudioFile export: Output file has been deleted")
+                AKLog("Export: Output file has been deleted")
             }
 
-            internalExportSession.outputURL = URL(fileURLWithPath: filePath)
+            internalExportSession.outputURL = destinationURL
+
+            AKLog("Exporting to", destinationURL.path)
+
             // Sets the output file encoding (avoid .wav encoded as m4a...)
             internalExportSession.outputFileType = AVFileType(rawValue: exportFormat.UTI as String as String)
 
-            // In and OUT times triming settings
-            let inFrame: Int64
-            let outFrame: Int64
-
-            if toSample == 0 {
-                outFrame = samplesCount
-            } else {
-                outFrame = min(samplesCount, toSample)
-            }
-
-            inFrame = abs(min(samplesCount, fromSample))
-
-            if outFrame <= inFrame {
-                AKLog("ERROR AKAudioFile export: In time must be less than Out time")
-                callback(nil,
-                         NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
-            }
-            let startTime = CMTimeMake(inFrame, Int32(sampleRate))
-            let stopTime = CMTimeMake(outFrame, Int32(sampleRate))
-            let timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
+            let startTime = CMTimeMake(value: inFrame, timescale: Int32(sampleRate))
+            let stopTime = CMTimeMake(value: outFrame, timescale: Int32(sampleRate))
+            let timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: stopTime)
             internalExportSession.timeRange = timeRange
 
             let session = ExportSession(AVAssetExportSession: internalExportSession, callback: callback)
@@ -412,7 +417,7 @@ extension AKAudioFile {
             ExportFactory.queueExportSession(session: session)
 
         } else {
-            AKLog("ERROR AKAudioFile export: cannot create AVAssetExportSession")
+            AKLog("ERROR export: cannot create AVAssetExportSession")
             callback(nil, NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
             return
         }
@@ -438,8 +443,7 @@ extension AKAudioFile {
                                                     baseDir: BaseDirectory,
                                                     name: String,
                                                     newMaxLevel: Float,
-                                                    completionHandler: @escaping AsyncProcessCallback ) {
-
+                                                    completionHandler: @escaping AsyncProcessCallback) {
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
             ProcessFactory.sharedInstance.processIDs.append(processID)
@@ -458,28 +462,25 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if let file = processedFile {
                     AKLog("Completed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                        "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                          "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else {
                     if let error = processError {
                         AKLog("Failed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                            "Error: \"\(error)\" (process #\(lastCompletedProcess))")
+                              "Error: \"\(error)\" (process #\(lastCompletedProcess))")
                     } else {
                         AKLog("Failed Normalizing file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                            "Unknown Error (process #\(lastCompletedProcess))")
+                              "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "An Async Process unknown error occurred",
-                                comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "An Async Process unknown error occurred",
-                                comment: "")
+                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                         value: "An Async Process unknown error occurred",
+                                                                         comment: ""),
+                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                                value: "An Async Process unknown error occurred",
+                                                                                comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
-
+                                               userInfo: userInfo as? [String: Any])
                     }
                 }
                 completionHandler(processedFile, processError)
@@ -491,7 +492,6 @@ extension AKAudioFile {
                                                   baseDir: BaseDirectory,
                                                   name: String,
                                                   completionHandler: @escaping AsyncProcessCallback) {
-
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
             ProcessFactory.sharedInstance.processIDs.append(processID)
@@ -512,7 +512,6 @@ extension AKAudioFile {
                           file.fileNamePlusExtension,
                           "(process #\(lastCompletedProcess))")
                 } else {
-
                     if let error = processError {
                         AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                             "Error: \"\(error)\" (process #\(lastCompletedProcess))")
@@ -520,19 +519,16 @@ extension AKAudioFile {
                         AKLog("Failed Reversing file \"\(sourceFile.fileNamePlusExtension)\" -> " +
                             "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: "")
+                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                         value: "Ans Async Process unknown error occurred",
+                                                                         comment: ""),
+                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                                value: "Ans Async Process unknown error occurred",
+                                                                                comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
-
+                                               userInfo: userInfo as? [String: Any])
                     }
                 }
                 completionHandler(processedFile, processError)
@@ -545,7 +541,6 @@ extension AKAudioFile {
                                                  baseDir: BaseDirectory,
                                                  name: String,
                                                  completionHandler: @escaping AsyncProcessCallback) {
-
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
             ProcessFactory.sharedInstance.processIDs.append(processID)
@@ -564,28 +559,25 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if let file = processedFile {
                     AKLog("Completed Appending file \"\(sourceFile.fileNamePlusExtension)\" ->",
-                        "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                          "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else {
                     if let error = processError {
                         AKLog("Failed Appending file \"\(sourceFile.fileNamePlusExtension)\" ->",
-                            "Error: \"\(error)\" (process #\(lastCompletedProcess))")
+                              "Error: \"\(error)\" (process #\(lastCompletedProcess))")
                     } else {
                         AKLog("Failed Appending file \"\(sourceFile.fileNamePlusExtension)\" ->",
-                            "Unknown Error (process #\(lastCompletedProcess))")
+                              "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: "")
+                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                         value: "Ans Async Process unknown error occurred",
+                                                                         comment: ""),
+                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                                value: "Ans Async Process unknown error occurred",
+                                                                                comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
-
+                                               userInfo: userInfo as? [String: Any])
                     }
                 }
                 completionHandler(processedFile, processError)
@@ -599,7 +591,6 @@ extension AKAudioFile {
                                                   baseDir: BaseDirectory,
                                                   name: String,
                                                   completionHandler: @escaping AsyncProcessCallback) {
-
             let processID = ProcessFactory.sharedInstance.lastProcessID
             ProcessFactory.sharedInstance.lastProcessID += 1
             ProcessFactory.sharedInstance.processIDs.append(processID)
@@ -619,28 +610,25 @@ extension AKAudioFile {
                 let lastCompletedProcess = ProcessFactory.sharedInstance.processIDs.removeLast()
                 if let file = processedFile {
                     AKLog("Completed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                        "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
+                          "\"\(file.fileNamePlusExtension)\" (process #\(lastCompletedProcess))")
                 } else {
                     if let error = processError {
                         AKLog("Failed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                            "Error: \"\(error)\" (process #\(lastCompletedProcess))")
+                              "Error: \"\(error)\" (process #\(lastCompletedProcess))")
                     } else {
                         AKLog("Failed Extracting from file \"\(sourceFile.fileNamePlusExtension)\" -> ",
-                            "Unknown Error (process #\(lastCompletedProcess))")
+                              "Unknown Error (process #\(lastCompletedProcess))")
                         let userInfo: [AnyHashable: Any] = [
-                            NSLocalizedDescriptionKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: ""),
-                            NSLocalizedFailureReasonErrorKey: NSLocalizedString(
-                                "AKAudioFile ASync Process Unknown Error",
-                                value: "Ans Async Process unknown error occurred",
-                                comment: "")
+                            NSLocalizedDescriptionKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                         value: "Ans Async Process unknown error occurred",
+                                                                         comment: ""),
+                            NSLocalizedFailureReasonErrorKey: NSLocalizedString("AKAudioFile ASync Process Unknown Error",
+                                                                                value: "Ans Async Process unknown error occurred",
+                                                                                comment: "")
                         ]
                         processError = NSError(domain: "AKAudioFile ASync Process Unknown Error",
                                                code: 0,
-                                               userInfo: userInfo as? [String : Any])
-
+                                               userInfo: userInfo as? [String: Any])
                     }
                 }
                 completionHandler(processedFile, processError)
@@ -668,14 +656,13 @@ extension AKAudioFile {
                          callback: @escaping AsyncProcessCallback) {
             self.avAssetExportSession = avAssetExportSession
             self.callback = callback
-            self.id = ExportFactory.lastExportSessionID
+            id = ExportFactory.lastExportSessionID
             ExportFactory.lastExportSessionID += 1
         }
     }
 
     // Export Factory is a singleton that handles Export Sessions serially
     fileprivate class ExportFactory {
-
         fileprivate static var exportSessions = [Int: ExportSession]()
         fileprivate static var lastExportSessionID: Int = 0
         fileprivate static var isExporting = false
@@ -685,15 +672,14 @@ extension AKAudioFile {
         static let sharedInstance = ExportFactory()
 
         fileprivate static func completionHandler() {
-
             if let session = exportSessions[currentExportProcessID] {
                 switch session.avAssetExportSession.status {
-                case  AVAssetExportSessionStatus.failed:
+                case AVAssetExportSession.Status.failed:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
-                case AVAssetExportSessionStatus.cancelled:
+                case AVAssetExportSession.Status.cancelled:
                     session.callback(nil, session.avAssetExportSession.error as NSError?)
-                default :
-                    if  let outputURL = session.avAssetExportSession.outputURL {
+                default:
+                    if let outputURL = session.avAssetExportSession.outputURL {
                         do {
                             let audiofile = try AKAudioFile(forReading: outputURL)
                             session.callback(audiofile, nil)
@@ -703,21 +689,18 @@ extension AKAudioFile {
                     } else {
                         AKLog("ERROR AKAudioFile export: outputURL is nil")
                         session.callback(nil,
-                                         NSError(
-                                            domain: NSURLErrorDomain,
-                                            code: NSURLErrorCannotCreateFile,
-                                            userInfo: nil))
+                                         NSError(domain: NSURLErrorDomain,
+                                                 code: NSURLErrorCannotCreateFile,
+                                                 userInfo: nil))
                     }
                 }
                 AKLog("ExportFactory: session #\(session.id) Completed")
                 exportSessions.removeValue(forKey: currentExportProcessID)
                 if exportSessions.isNotEmpty {
-                    //currentExportProcessID = exportSessions.first!.0
+                    // currentExportProcessID = exportSessions.first!.0
                     currentExportProcessID += 1
                     AKLog("ExportFactory: exporting session #\(currentExportProcessID)")
-                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
-                        completionHandler: completionHandler
-                    )
+                    exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
 
                 } else {
                     isExporting = false
@@ -736,9 +719,7 @@ extension AKAudioFile {
                 isExporting = true
                 currentExportProcessID = session.id
                 AKLog("ExportFactory: exporting session #\(session.id)")
-                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(
-                    completionHandler: completionHandler
-                )
+                exportSessions[currentExportProcessID]!.avAssetExportSession.exportAsynchronously(completionHandler: completionHandler)
             } else {
                 AKLog("ExportFactory: is busy")
                 AKLog("ExportFactory: Queuing session #\(session.id)")

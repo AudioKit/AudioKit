@@ -19,7 +19,7 @@ typedef NS_ENUM(AUParameterAddress, AKPitchShifterParameter) {
 
 #ifndef __cplusplus
 
-void* createPitchShifterDSP(int nChannels, double sampleRate);
+AKDSPRef createPitchShifterDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -27,12 +27,11 @@ void* createPitchShifterDSP(int nChannels, double sampleRate);
 
 class AKPitchShifterDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKPitchShifterDSP();
-    ~AKPitchShifterDSP();
 
     float shiftLowerBound = -24.0;
     float shiftUpperBound = 24.0;
@@ -53,9 +52,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

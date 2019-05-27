@@ -50,10 +50,14 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
             strongSelf.internalAU?.setPartitionLength(Int32(partitionLength))
+            strongSelf.readAudioFile()
+            strongSelf.internalAU?.initConvolutionEngine()
+            strongSelf.internalAU?.start()
         }
     }
 
@@ -61,6 +65,15 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Function to start, play, or activate the node, all do the same thing
     @objc open func start() {
+        internalAU?.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    @objc open func stop() {
+        internalAU?.stop()
+    }
+
+    private func readAudioFile() {
         Exit: do {
             var err: OSStatus = noErr
             var theFileLengthInFrames: Int64 = 0
@@ -137,8 +150,7 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 if err == noErr {
                     // success
                     let data = UnsafeMutablePointer<Float>(bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self))
-                    internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
-                    internalAU?.start()
+                    internalAU?.setupAudioFileTable(data!, size: ioNumberFrames)
                 } else {
                     // failure
                     theData?.deallocate()
@@ -147,11 +159,6 @@ open class AKConvolution: AKNode, AKToggleable, AKComponent, AKInput {
                 }
             }
         }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
     }
 
 }

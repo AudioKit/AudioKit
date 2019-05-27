@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,7 @@
 		C472E1961CD40E2000C748F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C472E1951CD40E2000C748F4 /* Assets.xcassets */; };
 		C472E1991CD40E2000C748F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C472E1971CD40E2000C748F4 /* Main.storyboard */; };
 		FE0349871F69E8F0009BB8AC /* MIDISendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0349861F69E8F0009BB8AC /* MIDISendVC.swift */; };
-		FE0349991F6A0337009BB8AC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B40D1D455799000AEFCA /* AudioKit.framework */; };
+		FE081EFE21E94F8E00653575 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE081EFD21E94F8E00653575 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +29,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C446B40D1D455799000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C472E18E1CD40E2000C748F4 /* MIDIUtility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIDIUtility.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C472E1911CD40E2000C748F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C472E1931CD40E2000C748F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +36,7 @@
 		C472E1981CD40E2000C748F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C472E19A1CD40E2000C748F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE0349861F69E8F0009BB8AC /* MIDISendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISendVC.swift; sourceTree = "<group>"; };
+		FE081EFD21E94F8E00653575 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE0349991F6A0337009BB8AC /* AudioKit.framework in Frameworks */,
+				FE081EFE21E94F8E00653575 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +84,7 @@
 		EA8B8AA71D0AAFA800D4C3B2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C446B40D1D455799000AEFCA /* AudioKit.framework */,
+				FE081EFD21E94F8E00653575 /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,18 +117,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C472E18D1CD40E2000C748F4 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = C472E1891CD40E2000C748F4 /* Build configuration list for PBXProject "MIDIUtility" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -185,6 +185,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -241,6 +242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -282,7 +284,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -294,11 +297,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -310,11 +316,14 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

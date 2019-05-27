@@ -26,6 +26,8 @@
 	<string>Copyright © 2017 Aurelius Prochazka. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) microphone use</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

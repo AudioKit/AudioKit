@@ -9,38 +9,38 @@
 #include "AKMoogLadderDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createMoogLadderDSP(int nChannels, double sampleRate) {
-    AKMoogLadderDSP* dsp = new AKMoogLadderDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createMoogLadderDSP(int channelCount, double sampleRate) {
+    AKMoogLadderDSP *dsp = new AKMoogLadderDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKMoogLadderDSP::_Internal {
-    sp_moogladder *_moogladder0;
-    sp_moogladder *_moogladder1;
+struct AKMoogLadderDSP::InternalData {
+    sp_moogladder *moogladder0;
+    sp_moogladder *moogladder1;
     AKLinearParameterRamp cutoffFrequencyRamp;
     AKLinearParameterRamp resonanceRamp;
 };
 
-AKMoogLadderDSP::AKMoogLadderDSP() : _private(new _Internal) {
-    _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
+AKMoogLadderDSP::AKMoogLadderDSP() : data(new InternalData) {
+    data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
+    data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->resonanceRamp.setTarget(defaultResonance, true);
+    data->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKMoogLadderDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKMoogLadderParameterCutoffFrequency:
-            _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
+            data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKMoogLadderParameterResonance:
-            _private->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
+            data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
         case AKMoogLadderParameterRampDuration:
-            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->resonanceRamp.setRampDuration(value, _sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -49,31 +49,30 @@ void AKMoogLadderDSP::setParameter(AUParameterAddress address, AUValue value, bo
 float AKMoogLadderDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKMoogLadderParameterCutoffFrequency:
-            return _private->cutoffFrequencyRamp.getTarget();
+            return data->cutoffFrequencyRamp.getTarget();
         case AKMoogLadderParameterResonance:
-            return _private->resonanceRamp.getTarget();
+            return data->resonanceRamp.getTarget();
         case AKMoogLadderParameterRampDuration:
-            return _private->cutoffFrequencyRamp.getRampDuration(_sampleRate);
+            return data->cutoffFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKMoogLadderDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_moogladder_create(&_private->_moogladder0);
-    sp_moogladder_init(_sp, _private->_moogladder0);
-    sp_moogladder_create(&_private->_moogladder1);
-    sp_moogladder_init(_sp, _private->_moogladder1);
-    _private->_moogladder0->freq = defaultCutoffFrequency;
-    _private->_moogladder1->freq = defaultCutoffFrequency;
-    _private->_moogladder0->res = defaultResonance;
-    _private->_moogladder1->res = defaultResonance;
+void AKMoogLadderDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_moogladder_create(&data->moogladder0);
+    sp_moogladder_init(sp, data->moogladder0);
+    sp_moogladder_create(&data->moogladder1);
+    sp_moogladder_init(sp, data->moogladder1);
+    data->moogladder0->freq = defaultCutoffFrequency;
+    data->moogladder1->freq = defaultCutoffFrequency;
+    data->moogladder0->res = defaultResonance;
+    data->moogladder1->res = defaultResonance;
 }
 
-void AKMoogLadderDSP::destroy() {
-    sp_moogladder_destroy(&_private->_moogladder0);
-    sp_moogladder_destroy(&_private->_moogladder1);
-    AKSoundpipeDSPBase::destroy();
+void AKMoogLadderDSP::deinit() {
+    sp_moogladder_destroy(&data->moogladder0);
+    sp_moogladder_destroy(&data->moogladder1);
 }
 
 void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -83,33 +82,33 @@ void AKMoogLadderDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->resonanceRamp.advanceTo(_now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
         }
 
-        _private->_moogladder0->freq = _private->cutoffFrequencyRamp.getValue();
-        _private->_moogladder1->freq = _private->cutoffFrequencyRamp.getValue();
-        _private->_moogladder0->res = _private->resonanceRamp.getValue();
-        _private->_moogladder1->res = _private->resonanceRamp.getValue();
+        data->moogladder0->freq = data->cutoffFrequencyRamp.getValue();
+        data->moogladder1->freq = data->cutoffFrequencyRamp.getValue();
+        data->moogladder0->res = data->resonanceRamp.getValue();
+        data->moogladder1->res = data->resonanceRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
 
             if (channel == 0) {
-                sp_moogladder_compute(_sp, _private->_moogladder0, in, out);
+                sp_moogladder_compute(sp, data->moogladder0, in, out);
             } else {
-                sp_moogladder_compute(_sp, _private->_moogladder1, in, out);
+                sp_moogladder_compute(sp, data->moogladder1, in, out);
             }
         }
     }

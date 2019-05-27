@@ -7,7 +7,7 @@
 //
 
 /// Supported default table types
-@objc public enum AKTableType: Int {
+@objc public enum AKTableType: Int, Codable {
     /// Standard sine waveform
     case sine
 
@@ -38,10 +38,12 @@
     /// Reversed sawtooth waveform from 0-1
     case positiveReverseSawtooth
 
+    /// Zeros
+    case zero
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-@objc public class AKTable: NSObject, MutableCollection {
+public class AKTable: NSObject, MutableCollection, Codable {
     public typealias Index = Int
     public typealias IndexDistance = Int
     public typealias Element = Float
@@ -49,7 +51,7 @@
 
     // MARK: - Properties    /// Values stored in the table
 
-    private var content = [Element]()
+    internal var content = [Element]()
 
     /// Phase of the table
     public var phase: Float {
@@ -131,11 +133,13 @@
             self.positiveReverseSawtoothWave()
         case .positiveSquare:
             self.positiveSquareWave()
+        case .zero:
+            self.zero()
         }
     }
 
     /// Create table from audio file
-    public convenience init(file: AKAudioFile) {
+    @objc public convenience init(file: AKAudioFile) {
         let size = Int(file.samplesCount)
         self.init(count: size)
 
@@ -239,6 +243,13 @@
     func positiveSineWave() {
         for i in indices {
             content[i] = Float(0.5 + 0.5 * sin(2 * 3.141_592_65 * Float(i + phaseOffset) / Float(count)))
+        }
+    }
+
+    /// Instantiate the table with zero values
+    func zero() {
+        for i in indices {
+            content[i] = 0
         }
     }
 }

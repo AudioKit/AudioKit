@@ -15,7 +15,6 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var distortionParameter: AUParameter?
     fileprivate var cutoffFrequencyParameter: AUParameter?
@@ -49,15 +48,12 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @objc open dynamic var distortion: Double = defaultDistortion {
         willSet {
-            if distortion == newValue {
+            guard distortion != newValue else { return }
+            if internalAU?.isSetUp == true {
+                distortionParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    distortionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.distortion, value: newValue)
         }
     }
@@ -65,15 +61,12 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Filter cutoff frequency in Hertz.
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
+            guard cutoffFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -81,15 +74,12 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     @objc open dynamic var resonance: Double = defaultResonance {
         willSet {
-            if resonance == newValue {
+            guard resonance != newValue else { return }
+            if internalAU?.isSetUp == true {
+                resonanceParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    resonanceParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }
@@ -128,6 +118,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -141,18 +132,6 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
         distortionParameter = tree["distortion"]
         cutoffFrequencyParameter = tree["cutoffFrequency"]
         resonanceParameter = tree["resonance"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.distortion, value: distortion)
         internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)

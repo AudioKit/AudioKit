@@ -7,13 +7,14 @@
 //
 
 import Cocoa
+import AudioKit
 
 public class AKResourcesAudioFileLoaderView: NSView {
 
     // Default corner radius
     static var standardCornerRadius: CGFloat = 3.0
 
-    var player: AKPlayer?
+    var player: AKAudioPlayer?
     var stopOuterPath = NSBezierPath()
     var playOuterPath = NSBezierPath()
     var upOuterPath = NSBezierPath()
@@ -47,9 +48,9 @@ public class AKResourcesAudioFileLoaderView: NSView {
     }
 
     /// Initialize the resource loader
-    public convenience init(player: AKPlayer,
+    public convenience init(player: AKAudioPlayer,
                             filenames: [String],
-                            frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
+                            frame: CGRect = CGRect(width: 440, height: 60)) {
         self.init(frame: frame)
         self.player = player
         self.titles = filenames
@@ -64,7 +65,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
 
         let touchLocation = convert(theEvent.locationInWindow, from: nil)
         if stopOuterPath.contains(touchLocation) {
-            //player?.stop()
+            player.stop()
             return
         }
         if playOuterPath.contains(touchLocation) {
@@ -90,7 +91,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
                 AKLog("Unable to load file: \(filename)")
                 return
             }
-            player.load(audioFile: file)
+            try! player.replace(file: file)
             if wasPlaying { player.play(from: 0) }
         }
         needsDisplay = true
@@ -129,7 +130,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     func drawAudioFileLoader(sliderColor: NSColor = AKStylist.sharedInstance.colorForFalseValue,
                              fileName: String = "None") {
         //// General Declarations
-        let _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
+        _ = unsafeBitCast(NSGraphicsContext.current?.graphicsPort, to: CGContext.self)
         let rect = bounds
 
         let cornerRadius: CGFloat = AKResourcesAudioFileLoaderView.standardCornerRadius
@@ -289,13 +290,13 @@ public class AKResourcesAudioFileLoaderView: NSView {
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24.0),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24.0),
+                                       .foregroundColor: textColorForTheme,
+                                       .paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(
-            with: NSSize(width: nameLabelInset.width, height: CGFloat.infinity),
+            with: NSSize(width: nameLabelInset.width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         let nameLabelTextRect: NSRect = NSRect(

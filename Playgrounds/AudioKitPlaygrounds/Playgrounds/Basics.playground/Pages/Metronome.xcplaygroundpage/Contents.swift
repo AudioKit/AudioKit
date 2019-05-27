@@ -12,15 +12,15 @@ let metronome = AKMetronome()
 let view = LiveView()
 
 metronome.callback = {
-    view.beatFlasher.color = .white
+    view.beatFlasher?.color = .white
 
     DispatchQueue.main.async {
-        view.beatFlasher.needsDisplay = true
+        view.beatFlasher?.needsDisplay = true
     }
 
     let deadlineTime = DispatchTime.now() + (60 / metronome.tempo) / 10.0
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-        view.beatFlasher.color = .red
+        view.beatFlasher?.color = .red
     }
 }
 
@@ -32,7 +32,7 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var beatFlasher: AKButton!
+    var beatFlasher: AKButton?
 
     override func viewDidLoad() {
         addTitle("Metronome")
@@ -51,7 +51,7 @@ class LiveView: AKLiveViewController {
             }
         }
 
-        addView(beatFlasher)
+        addView(beatFlasher!)
 
         addView(AKSlider(property: "Subdivision", value: 4, range: 1 ... 10, format: "%0.0f") { sliderValue in
             metronome.subdivision = Int(round(sliderValue))
@@ -74,3 +74,5 @@ class LiveView: AKLiveViewController {
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
 PlaygroundPage.current.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

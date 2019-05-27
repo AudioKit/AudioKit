@@ -65,7 +65,7 @@ extension AKAudioFile {
     ///
     public convenience init(writeIn baseDir: BaseDirectory = .temp,
                             name: String? = nil,
-                            settings: [String : Any] = AKSettings.audioFormat.settings)
+                            settings: [String: Any] = AKSettings.audioFormat.settings)
         throws {
             let extPath: String = "\(name ?? UUID().uuidString).caf"
             let filePath: String = try baseDir.create(file: extPath, write: true)
@@ -114,7 +114,7 @@ extension AKAudioFile {
         try self.init(writeIn: baseDir, name: name, settings: fixedSettings)
 
         // create buffer for floats
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44_100,
+        let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate,
                                    channels: AVAudioChannelCount(channels))
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format!,
@@ -139,7 +139,6 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error", error)
             throw error
         }
-
     }
 
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
@@ -165,6 +164,5 @@ extension AKAudioFile {
             AKLog("ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
-
     }
 }

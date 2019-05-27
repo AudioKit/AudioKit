@@ -9,38 +9,38 @@
 #include "AKResonantFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createResonantFilterDSP(int nChannels, double sampleRate) {
-    AKResonantFilterDSP* dsp = new AKResonantFilterDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createResonantFilterDSP(int channelCount, double sampleRate) {
+    AKResonantFilterDSP *dsp = new AKResonantFilterDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKResonantFilterDSP::_Internal {
-    sp_reson *_reson0;
-    sp_reson *_reson1;
+struct AKResonantFilterDSP::InternalData {
+    sp_reson *reson0;
+    sp_reson *reson1;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp bandwidthRamp;
 };
 
-AKResonantFilterDSP::AKResonantFilterDSP() : _private(new _Internal) {
-    _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->bandwidthRamp.setTarget(defaultBandwidth, true);
-    _private->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
+AKResonantFilterDSP::AKResonantFilterDSP() : data(new InternalData) {
+    data->frequencyRamp.setTarget(defaultFrequency, true);
+    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->bandwidthRamp.setTarget(defaultBandwidth, true);
+    data->bandwidthRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKResonantFilterParameterFrequency:
-            _private->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
+            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
             break;
         case AKResonantFilterParameterBandwidth:
-            _private->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
+            data->bandwidthRamp.setTarget(clamp(value, bandwidthLowerBound, bandwidthUpperBound), immediate);
             break;
         case AKResonantFilterParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->bandwidthRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->bandwidthRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -49,31 +49,30 @@ void AKResonantFilterDSP::setParameter(AUParameterAddress address, AUValue value
 float AKResonantFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKResonantFilterParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKResonantFilterParameterBandwidth:
-            return _private->bandwidthRamp.getTarget();
+            return data->bandwidthRamp.getTarget();
         case AKResonantFilterParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKResonantFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_reson_create(&_private->_reson0);
-    sp_reson_init(_sp, _private->_reson0);
-    sp_reson_create(&_private->_reson1);
-    sp_reson_init(_sp, _private->_reson1);
-    _private->_reson0->freq = defaultFrequency;
-    _private->_reson1->freq = defaultFrequency;
-    _private->_reson0->bw = defaultBandwidth;
-    _private->_reson1->bw = defaultBandwidth;
+void AKResonantFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_reson_create(&data->reson0);
+    sp_reson_init(sp, data->reson0);
+    sp_reson_create(&data->reson1);
+    sp_reson_init(sp, data->reson1);
+    data->reson0->freq = defaultFrequency;
+    data->reson1->freq = defaultFrequency;
+    data->reson0->bw = defaultBandwidth;
+    data->reson1->bw = defaultBandwidth;
 }
 
-void AKResonantFilterDSP::destroy() {
-    sp_reson_destroy(&_private->_reson0);
-    sp_reson_destroy(&_private->_reson1);
-    AKSoundpipeDSPBase::destroy();
+void AKResonantFilterDSP::deinit() {
+    sp_reson_destroy(&data->reson0);
+    sp_reson_destroy(&data->reson1);
 }
 
 void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -83,33 +82,33 @@ void AKResonantFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCoun
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->bandwidthRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->bandwidthRamp.advanceTo(now + frameOffset);
         }
 
-        _private->_reson0->freq = _private->frequencyRamp.getValue();
-        _private->_reson1->freq = _private->frequencyRamp.getValue();
-        _private->_reson0->bw = _private->bandwidthRamp.getValue();
-        _private->_reson1->bw = _private->bandwidthRamp.getValue();
+        data->reson0->freq = data->frequencyRamp.getValue();
+        data->reson1->freq = data->frequencyRamp.getValue();
+        data->reson0->bw = data->bandwidthRamp.getValue();
+        data->reson1->bw = data->bandwidthRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
 
             if (channel == 0) {
-                sp_reson_compute(_sp, _private->_reson0, in, out);
+                sp_reson_compute(sp, data->reson0, in, out);
             } else {
-                sp_reson_compute(_sp, _private->_reson1, in, out);
+                sp_reson_compute(sp, data->reson1, in, out);
             }
         }
     }

@@ -9,30 +9,30 @@
 #include "AKBrownianNoiseDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createBrownianNoiseDSP(int nChannels, double sampleRate) {
-    AKBrownianNoiseDSP* dsp = new AKBrownianNoiseDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createBrownianNoiseDSP(int channelCount, double sampleRate) {
+    AKBrownianNoiseDSP *dsp = new AKBrownianNoiseDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKBrownianNoiseDSP::_Internal {
-    sp_brown *_brown;
+struct AKBrownianNoiseDSP::InternalData {
+    sp_brown *brown;
     AKLinearParameterRamp amplitudeRamp;
 };
 
-AKBrownianNoiseDSP::AKBrownianNoiseDSP() : _private(new _Internal) {
-    _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
+AKBrownianNoiseDSP::AKBrownianNoiseDSP() : data(new InternalData) {
+    data->amplitudeRamp.setTarget(defaultAmplitude, true);
+    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKBrownianNoiseParameterAmplitude:
-            _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
+            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKBrownianNoiseParameterRampDuration:
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -41,22 +41,21 @@ void AKBrownianNoiseDSP::setParameter(AUParameterAddress address, AUValue value,
 float AKBrownianNoiseDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKBrownianNoiseParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKBrownianNoiseParameterRampDuration:
-            return _private->amplitudeRamp.getRampDuration(_sampleRate);
+            return data->amplitudeRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKBrownianNoiseDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_brown_create(&_private->_brown);
-    sp_brown_init(_sp, _private->_brown);
+void AKBrownianNoiseDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_brown_create(&data->brown);
+    sp_brown_init(sp, data->brown);
 }
 
-void AKBrownianNoiseDSP::destroy() {
-    sp_brown_destroy(&_private->_brown);
-    AKSoundpipeDSPBase::destroy();
+void AKBrownianNoiseDSP::deinit() {
+    sp_brown_destroy(&data->brown);
 }
 
 void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -66,18 +65,18 @@ void AKBrownianNoiseDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
         }
 
         float temp = 0;
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
-                    sp_brown_compute(_sp, _private->_brown, nil, &temp);
+                    sp_brown_compute(sp, data->brown, nil, &temp);
                 }
-                *out = temp * _private->amplitudeRamp.getValue();
+                *out = temp * data->amplitudeRamp.getValue();
             } else {
                 *out = 0.0;
             }

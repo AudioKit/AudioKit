@@ -15,6 +15,14 @@
 		C4BDE7EF1C12FAE600207DA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE7EE1C12FAE600207DA9 /* ViewController.swift */; };
 		C4BDE7F11C12FAE600207DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */; };
 		C4BDE7F41C12FAE600207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE7F21C12FAE600207DA9 /* Main.storyboard */; };
+		C51D173721EE85D3008EB51F /* MIDI Connection Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173321EE85D2008EB51F /* MIDI Connection Manager.swift */; };
+		C51D173821EE85D3008EB51F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173421EE85D2008EB51F /* main.swift */; };
+		C51D173A21EE9FF4008EB51F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139320319D42002E0FD8 /* AudioKit.framework */; };
+		C51D173C21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */; };
+		C51D173E21EEDE01008EB51F /* K5000SysexMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */; };
+		C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */; };
+		C539CDCA21EFAE9500C45A2C /* MIDIWord+Sysex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */; };
+		C5CD6B4A21FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +42,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C51D172721EE85A9008EB51F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "macOSDevelopment-Bridging-Header.h"; sourceTree = "<group>"; };
 		C4AF138D20319D41002E0FD8 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
@@ -46,6 +66,14 @@
 		C4BDE7F01C12FAE600207DA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4BDE7F31C12FAE600207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE7F51C12FAE600207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51D172921EE85A9008EB51F /* MacOSCommandLineDev */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MacOSCommandLineDev; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51D173321EE85D2008EB51F /* MIDI Connection Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDI Connection Manager.swift"; sourceTree = "<group>"; };
+		C51D173421EE85D2008EB51F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralSysexCommunicationsManger.swift; sourceTree = "<group>"; };
+		C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = K5000SysexMessages.swift; sourceTree = "<group>"; };
+		C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIByte+Sysex.swift"; sourceTree = "<group>"; };
+		C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDIWord+Sysex.swift"; sourceTree = "<group>"; };
+		C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MIDI CI Sysex Messages.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +83,14 @@
 			files = (
 				C4AF13A120319E45002E0FD8 /* AudioKit.framework in Frameworks */,
 				C4AF13A220319E45002E0FD8 /* AudioKitUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51D172621EE85A9008EB51F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51D173A21EE9FF4008EB51F /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +111,7 @@
 			children = (
 				C4AF138D20319D41002E0FD8 /* AudioKit For macOS.xcodeproj */,
 				C4BDE7EB1C12FAE600207DA9 /* macOSDevelopment */,
+				C51D172A21EE85AA008EB51F /* MacOSCommandLineDev */,
 				EA127F541C42123600289567 /* Frameworks */,
 				C4BDE7EA1C12FAE600207DA9 /* Products */,
 			);
@@ -84,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BDE7E91C12FAE600207DA9 /* macOSDevelopment.app */,
+				C51D172921EE85A9008EB51F /* MacOSCommandLineDev */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +140,20 @@
 				C4AF13A320319EB4002E0FD8 /* sinechirp.wav */,
 			);
 			path = macOSDevelopment;
+			sourceTree = "<group>";
+		};
+		C51D172A21EE85AA008EB51F /* MacOSCommandLineDev */ = {
+			isa = PBXGroup;
+			children = (
+				C51D173421EE85D2008EB51F /* main.swift */,
+				C51D173321EE85D2008EB51F /* MIDI Connection Manager.swift */,
+				C51D173D21EEDE01008EB51F /* K5000SysexMessages.swift */,
+				C51D173B21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift */,
+				C539CDC521EFAE6D00C45A2C /* MIDIByte+Sysex.swift */,
+				C539CDC921EFAE9500C45A2C /* MIDIWord+Sysex.swift */,
+				C5CD6B4921FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift */,
+			);
+			path = MacOSCommandLineDev;
 			sourceTree = "<group>";
 		};
 		EA127F541C42123600289567 /* Frameworks */ = {
@@ -131,26 +183,48 @@
 			productReference = C4BDE7E91C12FAE600207DA9 /* macOSDevelopment.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C51D172821EE85A9008EB51F /* MacOSCommandLineDev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51D173121EE85AA008EB51F /* Build configuration list for PBXNativeTarget "MacOSCommandLineDev" */;
+			buildPhases = (
+				C51D172521EE85A9008EB51F /* Sources */,
+				C51D172621EE85A9008EB51F /* Frameworks */,
+				C51D172721EE85A9008EB51F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MacOSCommandLineDev;
+			productName = MacOSCommandLineDev;
+			productReference = C51D172921EE85A9008EB51F /* MacOSCommandLineDev */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C4BDE7E11C12FAE600207DA9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0900;
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C4BDE7E81C12FAE600207DA9 = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+					};
+					C51D172821EE85A9008EB51F = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = H8E2LSZV55;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C4BDE7E41C12FAE600207DA9 /* Build configuration list for PBXProject "macOSDevelopment" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -168,6 +242,7 @@
 			projectRoot = "";
 			targets = (
 				C4BDE7E81C12FAE600207DA9 /* macOSDevelopment */,
+				C51D172821EE85A9008EB51F /* MacOSCommandLineDev */,
 			);
 		};
 /* End PBXProject section */
@@ -213,6 +288,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C51D172521EE85A9008EB51F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5CD6B4A21FBDB8A0027CF27 /* MIDI CI Sysex Messages.swift in Sources */,
+				C539CDC621EFAE6D00C45A2C /* MIDIByte+Sysex.swift in Sources */,
+				C51D173C21EEDD75008EB51F /* GeneralSysexCommunicationsManger.swift in Sources */,
+				C51D173721EE85D3008EB51F /* MIDI Connection Manager.swift in Sources */,
+				C539CDCA21EFAE9500C45A2C /* MIDIWord+Sysex.swift in Sources */,
+				C51D173821EE85D3008EB51F /* main.swift in Sources */,
+				C51D173E21EEDE01008EB51F /* K5000SysexMessages.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -231,6 +320,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -239,12 +329,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -284,6 +376,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -292,12 +385,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -338,13 +433,13 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "macOSDevelopment/macOSDevelopment-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -360,12 +455,58 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = macOSDevelopment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.macOSDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "macOSDevelopment/macOSDevelopment-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C51D172D21EE85AA008EB51F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H8E2LSZV55;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		C51D172E21EE85AA008EB51F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H8E2LSZV55;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -386,6 +527,15 @@
 			buildConfigurations = (
 				C4BDE7F91C12FAE600207DA9 /* Debug */,
 				C4BDE7FA1C12FAE600207DA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51D173121EE85AA008EB51F /* Build configuration list for PBXNativeTarget "MacOSCommandLineDev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51D172D21EE85AA008EB51F /* Debug */,
+				C51D172E21EE85AA008EB51F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

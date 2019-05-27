@@ -9,45 +9,45 @@
 #include "AKThreePoleLowpassFilterDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createThreePoleLowpassFilterDSP(int nChannels, double sampleRate) {
-    AKThreePoleLowpassFilterDSP* dsp = new AKThreePoleLowpassFilterDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createThreePoleLowpassFilterDSP(int channelCount, double sampleRate) {
+    AKThreePoleLowpassFilterDSP *dsp = new AKThreePoleLowpassFilterDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKThreePoleLowpassFilterDSP::_Internal {
-    sp_lpf18 *_lpf180;
-    sp_lpf18 *_lpf181;
+struct AKThreePoleLowpassFilterDSP::InternalData {
+    sp_lpf18 *lpf180;
+    sp_lpf18 *lpf181;
     AKLinearParameterRamp distortionRamp;
     AKLinearParameterRamp cutoffFrequencyRamp;
     AKLinearParameterRamp resonanceRamp;
 };
 
-AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : _private(new _Internal) {
-    _private->distortionRamp.setTarget(defaultDistortion, true);
-    _private->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
-    _private->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->resonanceRamp.setTarget(defaultResonance, true);
-    _private->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
+AKThreePoleLowpassFilterDSP::AKThreePoleLowpassFilterDSP() : data(new InternalData) {
+    data->distortionRamp.setTarget(defaultDistortion, true);
+    data->distortionRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->cutoffFrequencyRamp.setTarget(defaultCutoffFrequency, true);
+    data->cutoffFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->resonanceRamp.setTarget(defaultResonance, true);
+    data->resonanceRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKThreePoleLowpassFilterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKThreePoleLowpassFilterParameterDistortion:
-            _private->distortionRamp.setTarget(clamp(value, distortionLowerBound, distortionUpperBound), immediate);
+            data->distortionRamp.setTarget(clamp(value, distortionLowerBound, distortionUpperBound), immediate);
             break;
         case AKThreePoleLowpassFilterParameterCutoffFrequency:
-            _private->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
+            data->cutoffFrequencyRamp.setTarget(clamp(value, cutoffFrequencyLowerBound, cutoffFrequencyUpperBound), immediate);
             break;
         case AKThreePoleLowpassFilterParameterResonance:
-            _private->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
+            data->resonanceRamp.setTarget(clamp(value, resonanceLowerBound, resonanceUpperBound), immediate);
             break;
         case AKThreePoleLowpassFilterParameterRampDuration:
-            _private->distortionRamp.setRampDuration(value, _sampleRate);
-            _private->cutoffFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->resonanceRamp.setRampDuration(value, _sampleRate);
+            data->distortionRamp.setRampDuration(value, sampleRate);
+            data->cutoffFrequencyRamp.setRampDuration(value, sampleRate);
+            data->resonanceRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -56,35 +56,34 @@ void AKThreePoleLowpassFilterDSP::setParameter(AUParameterAddress address, AUVal
 float AKThreePoleLowpassFilterDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKThreePoleLowpassFilterParameterDistortion:
-            return _private->distortionRamp.getTarget();
+            return data->distortionRamp.getTarget();
         case AKThreePoleLowpassFilterParameterCutoffFrequency:
-            return _private->cutoffFrequencyRamp.getTarget();
+            return data->cutoffFrequencyRamp.getTarget();
         case AKThreePoleLowpassFilterParameterResonance:
-            return _private->resonanceRamp.getTarget();
+            return data->resonanceRamp.getTarget();
         case AKThreePoleLowpassFilterParameterRampDuration:
-            return _private->distortionRamp.getRampDuration(_sampleRate);
+            return data->distortionRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKThreePoleLowpassFilterDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_lpf18_create(&_private->_lpf180);
-    sp_lpf18_init(_sp, _private->_lpf180);
-    sp_lpf18_create(&_private->_lpf181);
-    sp_lpf18_init(_sp, _private->_lpf181);
-    _private->_lpf180->dist = defaultDistortion;
-    _private->_lpf181->dist = defaultDistortion;
-    _private->_lpf180->cutoff = defaultCutoffFrequency;
-    _private->_lpf181->cutoff = defaultCutoffFrequency;
-    _private->_lpf180->res = defaultResonance;
-    _private->_lpf181->res = defaultResonance;
+void AKThreePoleLowpassFilterDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_lpf18_create(&data->lpf180);
+    sp_lpf18_init(sp, data->lpf180);
+    sp_lpf18_create(&data->lpf181);
+    sp_lpf18_init(sp, data->lpf181);
+    data->lpf180->dist = defaultDistortion;
+    data->lpf181->dist = defaultDistortion;
+    data->lpf180->cutoff = defaultCutoffFrequency;
+    data->lpf181->cutoff = defaultCutoffFrequency;
+    data->lpf180->res = defaultResonance;
+    data->lpf181->res = defaultResonance;
 }
 
-void AKThreePoleLowpassFilterDSP::destroy() {
-    sp_lpf18_destroy(&_private->_lpf180);
-    sp_lpf18_destroy(&_private->_lpf181);
-    AKSoundpipeDSPBase::destroy();
+void AKThreePoleLowpassFilterDSP::deinit() {
+    sp_lpf18_destroy(&data->lpf180);
+    sp_lpf18_destroy(&data->lpf181);
 }
 
 void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -94,36 +93,36 @@ void AKThreePoleLowpassFilterDSP::process(AUAudioFrameCount frameCount, AUAudioF
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->distortionRamp.advanceTo(_now + frameOffset);
-            _private->cutoffFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->resonanceRamp.advanceTo(_now + frameOffset);
+            data->distortionRamp.advanceTo(now + frameOffset);
+            data->cutoffFrequencyRamp.advanceTo(now + frameOffset);
+            data->resonanceRamp.advanceTo(now + frameOffset);
         }
 
-        _private->_lpf180->dist = _private->distortionRamp.getValue();
-        _private->_lpf181->dist = _private->distortionRamp.getValue();
-        _private->_lpf180->cutoff = _private->cutoffFrequencyRamp.getValue();
-        _private->_lpf181->cutoff = _private->cutoffFrequencyRamp.getValue();
-        _private->_lpf180->res = _private->resonanceRamp.getValue();
-        _private->_lpf181->res = _private->resonanceRamp.getValue();
+        data->lpf180->dist = data->distortionRamp.getValue();
+        data->lpf181->dist = data->distortionRamp.getValue();
+        data->lpf180->cutoff = data->cutoffFrequencyRamp.getValue();
+        data->lpf181->cutoff = data->cutoffFrequencyRamp.getValue();
+        data->lpf180->res = data->resonanceRamp.getValue();
+        data->lpf181->res = data->resonanceRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
 
             if (channel == 0) {
-                sp_lpf18_compute(_sp, _private->_lpf180, in, out);
+                sp_lpf18_compute(sp, data->lpf180, in, out);
             } else {
-                sp_lpf18_compute(_sp, _private->_lpf181, in, out);
+                sp_lpf18_compute(sp, data->lpf181, in, out);
             }
         }
     }

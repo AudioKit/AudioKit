@@ -15,7 +15,6 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
@@ -30,22 +29,16 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     @objc open dynamic var frequency: Double = 110 {
         willSet {
-            if frequency != newValue {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                }
-            }
+            guard frequency != newValue else { return }
+            frequencyParameter?.value = AUValue(newValue)
         }
     }
 
     /// Amplitude
     @objc open dynamic var amplitude: Double = 0.5 {
         willSet {
-            if amplitude != newValue {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                }
-            }
+            guard amplitude != newValue else { return }
+            amplitudeParameter?.value = AUValue(newValue)
         }
     }
 
@@ -80,6 +73,7 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
 
+            self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
@@ -91,20 +85,8 @@ open class AKTubularBells: AKNode, AKToggleable, AKComponent {
 
         frequencyParameter = tree["frequency"]
         amplitudeParameter = tree["amplitude"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.frequency = frequency
+        internalAU?.amplitude = amplitude
     }
 
     /// Trigger the sound with an optional set of parameters

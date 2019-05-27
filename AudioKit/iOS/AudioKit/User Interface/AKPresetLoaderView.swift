@@ -73,7 +73,7 @@
 
         self.backgroundColor = UIColor.clear
 
-        if !self.presets.isEmpty && initialIndex < self.presets.count {
+        if self.presets.isNotEmpty && initialIndex < self.presets.count {
             isPresetLoaded = true
             self.currentIndex = initialIndex
             setNeedsDisplay()
@@ -176,9 +176,9 @@
         let presetLabelStyle = NSMutableParagraphStyle()
         presetLabelStyle.alignment = .center
 
-        let presetLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
-                                         NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                         NSAttributedStringKey.paragraphStyle: presetLabelStyle]
+        let presetLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+                                         NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                         NSAttributedString.Key.paragraphStyle: presetLabelStyle]
 
         let presetLabelInset: CGRect = presetLabelRect.insetBy(dx: 10, dy: 0)
         let presetLabelTextHeight: CGFloat = presetLabelTextContent.boundingRect(
@@ -201,43 +201,78 @@
                                                   height: rect.height * 0.5))
 
         //// upInner Drawing
-        let downArrowRect = CGRect(x: rect.width * 0.9, y: rect.height * 0.58, width: rect.width * 0.07, height: rect.height * 0.3)
+        let downArrowRect = CGRect(x: rect.width * 0.9,
+                                   y: rect.height * 0.58,
+                                   width: rect.width * 0.07,
+                                   height: rect.height * 0.3)
         let downInnerPath = UIBezierPath()
-        downInnerPath.move(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY))
-        downInnerPath.addLine(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0),
-                               controlPoint1: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY),
-                               controlPoint2: CGPoint(x: downArrowRect.maxX, y: downArrowRect.minY))
-        downInnerPath.addLine(to: CGPoint(x: downArrowRect.midX + cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.midX - cornerRadius / 2.0, y: downArrowRect.maxY - cornerRadius / 2.0),
-                               controlPoint1: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY),
-                               controlPoint2: CGPoint(x: downArrowRect.midX, y: downArrowRect.maxY))
-        downInnerPath.addLine(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY + cornerRadius / 2.0))
-        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0, y: downArrowRect.minY),
-                               controlPoint1: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY),
-                               controlPoint2: CGPoint(x: downArrowRect.minX, y: downArrowRect.minY))
+        downInnerPath.move(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0,
+                                       y: downArrowRect.minY))
+        downInnerPath.addLine(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0,
+                                          y: downArrowRect.minY))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.maxX - cornerRadius / 2.0,
+                                           y: downArrowRect.minY + cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.maxX,
+                                                      y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.maxX,
+                                                      y: downArrowRect.minY))
+        downInnerPath.addLine(to: CGPoint(x: downArrowRect.midX + cornerRadius / 2.0,
+                                          y: downArrowRect.maxY - cornerRadius / 2.0))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.midX - cornerRadius / 2.0,
+                                           y: downArrowRect.maxY - cornerRadius / 2.0),
+                               controlPoint1: CGPoint(x: downArrowRect.midX,
+                                                      y: downArrowRect.maxY),
+                               controlPoint2: CGPoint(x: downArrowRect.midX,
+                                                      y: downArrowRect.maxY))
+        downInnerPath.addLine(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0,
+                                          y: downArrowRect.minY + cornerRadius / 2.0))
+        downInnerPath.addCurve(to: CGPoint(x: downArrowRect.minX + cornerRadius / 2.0,
+                                           y: downArrowRect.minY),
+                               controlPoint1: CGPoint(x: downArrowRect.minX,
+                                                      y: downArrowRect.minY),
+                               controlPoint2: CGPoint(x: downArrowRect.minX,
+                                                      y: downArrowRect.minY))
         textColorForTheme.setStroke()
         downInnerPath.lineWidth = borderWidth
         downInnerPath.stroke()
 
-        upOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9, y: 0, width: rect.width * 0.07, height: rect.height * 0.5))
+        upOuterPath = UIBezierPath(rect: CGRect(x: rect.width * 0.9,
+                                                y: 0,
+                                                width: rect.width * 0.07,
+                                                height: rect.height * 0.5))
 
         //// downInner Drawing
-        let upArrowRect = CGRect(x: rect.width * 0.9, y: rect.height * 0.12, width: rect.width * 0.07, height: rect.height * 0.3)
+        let upArrowRect = CGRect(x: rect.width * 0.9,
+                                 y: rect.height * 0.12,
+                                 width: rect.width * 0.07,
+                                 height: rect.height * 0.3)
         let upInnerPath = UIBezierPath()
-        upInnerPath.move(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY))
-        upInnerPath.addLine(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0, y: upArrowRect.maxY))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0, y: upArrowRect.maxY - cornerRadius / 2.0),
-                             controlPoint1: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY),
-                             controlPoint2: CGPoint(x: upArrowRect.maxX, y: upArrowRect.maxY))
-        upInnerPath.addLine(to: CGPoint(x: upArrowRect.midX + cornerRadius / 2.0, y: upArrowRect.minY + cornerRadius / 2.0))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.midX - cornerRadius / 2.0, y: upArrowRect.minY + cornerRadius / 2.0),
-                             controlPoint1: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY),
-                             controlPoint2: CGPoint(x: upArrowRect.midX, y: upArrowRect.minY))
-        upInnerPath.addLine(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY - cornerRadius / 2.0))
-        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0, y: upArrowRect.maxY),
-                             controlPoint1: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY),
-                             controlPoint2: CGPoint(x: upArrowRect.minX, y: upArrowRect.maxY))
+        upInnerPath.move(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0,
+                                     y: upArrowRect.maxY))
+        upInnerPath.addLine(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0,
+                                        y: upArrowRect.maxY))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.maxX - cornerRadius / 2.0,
+                                         y: upArrowRect.maxY - cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upArrowRect.maxX,
+                                                    y: upArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upArrowRect.maxX,
+                                                    y: upArrowRect.maxY))
+        upInnerPath.addLine(to: CGPoint(x: upArrowRect.midX + cornerRadius / 2.0,
+                                        y: upArrowRect.minY + cornerRadius / 2.0))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.midX - cornerRadius / 2.0,
+                                         y: upArrowRect.minY + cornerRadius / 2.0),
+                             controlPoint1: CGPoint(x: upArrowRect.midX,
+                                                    y: upArrowRect.minY),
+                             controlPoint2: CGPoint(x: upArrowRect.midX,
+                                                    y: upArrowRect.minY))
+        upInnerPath.addLine(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0,
+                                        y: upArrowRect.maxY - cornerRadius / 2.0))
+        upInnerPath.addCurve(to: CGPoint(x: upArrowRect.minX + cornerRadius / 2.0,
+                                         y: upArrowRect.maxY),
+                             controlPoint1: CGPoint(x: upArrowRect.minX,
+                                                    y: upArrowRect.maxY),
+                             controlPoint2: CGPoint(x: upArrowRect.minX,
+                                                    y: upArrowRect.maxY))
         textColorForTheme.setStroke()
         upInnerPath.lineWidth = borderWidth
         upInnerPath.stroke()
@@ -247,9 +282,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+                                       NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: rect.width * 0.04, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: presetName).boundingRect(

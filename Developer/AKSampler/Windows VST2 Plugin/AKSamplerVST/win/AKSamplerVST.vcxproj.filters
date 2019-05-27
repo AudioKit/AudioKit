@@ -34,9 +34,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.hpp">
-      <Filter>Core Sampler\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\FunctionTable.hpp">
       <Filter>Core Sampler\Common</Filter>
     </ClInclude>
@@ -56,9 +53,6 @@
       <Filter>Core Sampler\Sampler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleOscillator.hpp">
-      <Filter>Core Sampler\Sampler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.hpp">
       <Filter>Core Sampler\Sampler</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.hpp">
@@ -94,6 +88,15 @@
     <ClInclude Include="..\..\VST2_SDK\public.sdk\source\vst2.x\audioeffectx.h">
       <Filter>VST2_SDK\public.sdk</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.hpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.h">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.h">
+      <Filter>Core Sampler\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\ADSREnvelope.cpp">
@@ -109,9 +112,6 @@
       <Filter>Core Sampler\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SampleBuffer.cpp">
-      <Filter>Core Sampler\Sampler</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\Sampler.cpp">
       <Filter>Core Sampler\Sampler</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\SamplerVoice.cpp">
@@ -131,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="..\..\VST2_SDK\public.sdk\source\vst2.x\vstplugmain.cpp">
       <Filter>VST2_SDK\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Sampler\AKCoreSampler.cpp">
+      <Filter>Core Sampler\Sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\AudioKit\Core\AudioKitCore\Common\EnvelopeGeneratorBase.cpp">
+      <Filter>Core Sampler\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,12 +19,11 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var reverbDurationParameter: AUParameter?
 
     /// Lower and upper bounds for Reverb Duration
-    public static let reverbDurationRange = 0 ... 10
+    public static let reverbDurationRange = 0.0 ... 10.0
 
     /// Initial value for Reverb Duration
     public static let defaultReverbDuration = 0.5
@@ -42,15 +41,12 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     @objc open dynamic var reverbDuration: Double = defaultReverbDuration {
         willSet {
-            if reverbDuration == newValue {
+            guard reverbDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                reverbDurationParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    reverbDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }
@@ -87,6 +83,7 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 
@@ -100,18 +97,6 @@ open class AKFlatFrequencyResponseReverb: AKNode, AKToggleable, AKComponent, AKI
         }
 
         reverbDurationParameter = tree["reverbDuration"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.reverbDuration, value: reverbDuration)
     }

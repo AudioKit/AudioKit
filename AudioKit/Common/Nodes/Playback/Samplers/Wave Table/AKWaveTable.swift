@@ -6,11 +6,11 @@
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
-/// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that 
+/// An alternative to AKSampler or AKAudioPlayer, AKWaveTable is a player that
 /// doesn't rely on an as much Apple AV foundation/engine code as the others.
-/// As any other Sampler, it plays a part of a given sound file at a specified rate 
-/// with specified volume. Changing the rate plays it faster and therefore sounds 
-/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.  
+/// As any other Sampler, it plays a part of a given sound file at a specified rate
+/// with specified volume. Changing the rate plays it faster and therefore sounds
+/// higher or lower. Set rate to 2.0 to double playback speed and create an octave.
 /// Give it a blast on `Sample Player.xcplaygroundpage`
 import Foundation
 
@@ -24,7 +24,6 @@ open class AKWaveTable: AKNode, AKComponent {
     // MARK: - Properties
 
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var startPointParameter: AUParameter?
     fileprivate var endPointParameter: AUParameter?
@@ -43,9 +42,8 @@ open class AKWaveTable: AKNode, AKComponent {
     /// startPoint in samples - where to start playing the sample from
     @objc open dynamic var startPoint: Sample = 0 {
         willSet {
-            if startPoint != newValue {
-                internalAU?.startPoint = Float(safeSample(newValue))
-            }
+            guard startPoint != newValue else { return }
+            internalAU?.startPoint = Float(safeSample(newValue))
         }
     }
 
@@ -53,41 +51,35 @@ open class AKWaveTable: AKNode, AKComponent {
     /// A value less than the start point will play the sample backwards.
     @objc open dynamic var endPoint: Sample = 0 {
         willSet {
-            if endPoint != newValue {
-                internalAU?.endPoint = Float(safeSample(newValue))
-            }
+            guard endPoint != newValue else { return }
+            internalAU?.endPoint = Float(safeSample(newValue))
         }
     }
 
     /// loopStartPoint in samples - where to start playing the sample from
     @objc open dynamic var loopStartPoint: Sample = 0 {
         willSet {
-            if loopStartPoint != newValue {
-                internalAU?.loopStartPoint = Float(safeSample(newValue))
-            }
+            guard loopStartPoint != newValue else { return }
+            internalAU?.loopStartPoint = Float(safeSample(newValue))
         }
     }
 
     /// loopEndPoint - this is where the sample will play to before stopping.
     @objc open dynamic var loopEndPoint: Sample = 0 {
         willSet {
-            if endPoint != newValue {
-                internalAU?.loopEndPoint = Float(safeSample(newValue))
-            }
+            guard endPoint != newValue else { return }
+            internalAU?.loopEndPoint = Float(safeSample(newValue))
         }
     }
 
     /// playback rate - A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc.
     @objc open dynamic var rate: Double = 1 {
         willSet {
-            if rate != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        rateParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.rate = Float(newValue)
-                }
+            guard rate != newValue else { return }
+            if internalAU?.isSetUp == true {
+                rateParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.rate = Float(newValue)
             }
         }
     }
@@ -95,14 +87,11 @@ open class AKWaveTable: AKNode, AKComponent {
     /// Volume - amplitude adjustment
     @objc open dynamic var volume: Double = 1 {
         willSet {
-            if volume != newValue {
-                if internalAU?.isSetUp ?? false {
-                    if let existingToken = token {
-                        volumeParameter?.setValue(Float(newValue), originator: existingToken)
-                    }
-                } else {
-                    internalAU?.volume = Float(newValue)
-                }
+            guard volume != newValue else { return }
+            if internalAU?.isSetUp == true {
+                volumeParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.volume = AUValue(newValue)
             }
         }
     }
@@ -158,6 +147,11 @@ open class AKWaveTable: AKNode, AKComponent {
             internalAU?.completionHandler = newValue
         }
     }
+    open var loopCallback: AKCallback = {} {
+        willSet {
+            internalAU?.loopCallback = newValue
+        }
+    }
 
     // MARK: - Initialization
 
@@ -202,6 +196,7 @@ open class AKWaveTable: AKNode, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU!.completionHandler = completionHandler
@@ -219,18 +214,6 @@ open class AKWaveTable: AKNode, AKComponent {
         loopEndPointParameter = tree["endPoint"]
         rateParameter = tree["rate"]
         volumeParameter = tree["volume"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.startPoint = Float(startPoint)
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)
@@ -299,23 +282,32 @@ open class AKWaveTable: AKNode, AKComponent {
             AKLog("AKWaveTable currently only supports mono or stereo samples")
             return
         }
-        let sizeToUse = UInt32(file.samplesCount * 2)
-        if maximumSamples == 0 {
-            maximumSamples = Int(file.samplesCount)
-            internalAU?.setupAudioFileTable(sizeToUse)
+        if let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat,
+                                      frameCapacity: AVAudioFrameCount(file.length)) {
+            do {
+                file.framePosition = 0
+                try file.read(into: buf)
+            } catch {
+                AKLog("Load audio file failed. Error was: \(error)")
+                return
+            }
+            let sizeToUse = UInt32(file.samplesCount * 2)
+            if maximumSamples == 0 {
+                maximumSamples = Int(file.samplesCount)
+                internalAU?.setupAudioFileTable(sizeToUse)
+            }
+            avAudiofile = file
+            startPoint = 0
+            endPoint = Sample(file.samplesCount)
+            loopStartPoint = 0
+            loopEndPoint = Sample(file.samplesCount)
+            let data = buf.floatChannelData
+            internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
+                                      sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
         }
-        let buf = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: AVAudioFrameCount(file.length))
-        try! file.read(into: buf!)
-        let data = buf!.floatChannelData
-        internalAU?.loadAudioData(data?.pointee, size: UInt32(file.samplesCount) * file.channelCount,
-                                  sampleRate: Float(file.sampleRate), numChannels: file.channelCount)
-
-        avAudiofile = file
-        startPoint = 0
-        endPoint = Sample(file.samplesCount)
-        loopStartPoint = 0
-        loopEndPoint = Sample(file.samplesCount)
     }
-    //todo open func loadSound()
 
+    deinit {
+        internalAU?.destroy()
+    }
 }

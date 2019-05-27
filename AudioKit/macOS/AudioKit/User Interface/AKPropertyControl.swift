@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AudioKit
 
 @IBDesignable open class AKPropertyControl: NSView {
     override open func acceptsFirstMouse(for theEvent: NSEvent?) -> Bool {
@@ -79,7 +80,7 @@ import Cocoa
                 range: ClosedRange<Double> = 0 ... 1,
                 taper: Double = 1,
                 format: String = "%0.3f",
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
         self.value = value
         self.initialValue = value

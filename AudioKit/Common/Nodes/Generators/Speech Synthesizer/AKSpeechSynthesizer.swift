@@ -46,7 +46,7 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            let _ = SetSpeechProperty(speechChannel, kSpeechRateProperty, newRate as NSNumber?)
+            _ = SetSpeechProperty(speechChannel, kSpeechRateProperty, newRate as NSNumber?)
         }
     }
 
@@ -68,7 +68,7 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            let _ = SetSpeechProperty(speechChannel, kSpeechPitchBaseProperty, newFrequency as NSNumber?)
+            _ = SetSpeechProperty(speechChannel, kSpeechPitchBaseProperty, newFrequency as NSNumber?)
         }
     }
 
@@ -90,7 +90,7 @@ open class AKSpeechSynthesizer: AKNode {
                 AKLog("Cannot get Speech Channel")
                 return
             }
-            let _ = SetSpeechProperty(speechChannel, kSpeechPitchModProperty, newModulation as NSNumber?)
+            _ = SetSpeechProperty(speechChannel, kSpeechPitchModProperty, newModulation as NSNumber?)
         }
     }
 

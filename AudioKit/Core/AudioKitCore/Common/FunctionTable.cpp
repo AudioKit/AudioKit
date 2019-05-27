@@ -43,7 +43,7 @@ namespace AudioKitCore
         else    // you would normally only do this if you plan to low-pass filter the result
         {
             for (int i=0; i < nTableSize; i++)
-                pWaveTable[i] = 2.0f * amplitude * (0.5f - fabsf((float(i)/nTableSize) - 0.5f)) - amplitude;
+                pWaveTable[i] = 2.0f * amplitude * (0.25f - fabsf((float(i)/nTableSize) - 0.5f));
         }
     }
     
@@ -78,11 +78,11 @@ namespace AudioKitCore
         }
     }
     
-    // Initialize a FunctionTable to an exponential-rise shape, scaled to fit in the unit square.
+    // Initialize a FunctionTable to an exponential shape, scaled to fit in the unit square.
     // The function itself is y = -exp(-x), where x ranges from 'left' to 'right'.
     // The more negative 'left' is, the more vertical the start of the rise; -5.0 yields near-vertical.
-    // The more postitive 'right' is, the more horizontal then end of the rise; +5.0 yields near-horizontal.
-    void FunctionTable::exponentialRise(float left, float right)
+    // The more positive 'right' is, the more horizontal then end of the rise; +5.0 yields near-horizontal.
+    void FunctionTable::exponentialCurve(float left, float right)
     {
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
@@ -96,26 +96,21 @@ namespace AudioKitCore
         for (int i=0; i < nTableSize; i++, x += dx)
             pWaveTable[i] = vscale * (-expf(-x) - bottom);
     }
-    
-    // Initialize a FunctionTable to an exponential-fall shape, scaled to fit in the unit square.
-    // The function itself is y = exp(-x), where x ranges from 'left' to 'right'.
-    // The more negative 'left' is, the more vertical the start of the fall; -5.0 yields near-vertical.
-    // The more postitive 'right' is, the more horizontal then end of the fall; +5.0 yields near-horizontal.
-    void FunctionTable::exponentialFall(float left, float right)
+
+    // Initialize a FunctionTable to a power-curve shape, defined in the unit square.
+    // The given exponent may be positive for a concave-up shape or negative for concave-down.
+    // Typical range of the exponent is plus or minus 4 or 5.
+    void FunctionTable::powerCurve(float exponent)
     {
         // in case user forgot, init table to default size
         if (pWaveTable == 0) init();
-        
-        float bottom = expf(-left);
-        float top = expf(-right);
-        float vscale = 1.0f / (top - bottom);
-        
-        float x = left;
-        float dx = (right - left) / (nTableSize - 1);
+
+        float x = 0.0f;
+        float dx = 1.0f / (nTableSize - 1);
         for (int i=0; i < nTableSize; i++, x += dx)
-            pWaveTable[i] = vscale * (expf(-x) - bottom);
+            pWaveTable[i] = powf(x, exponent);
     }
-    
+
     void FunctionTableOscillator::init(double sampleRate, float frequency, int tableLength)
     {
         waveTable.init(tableLength);

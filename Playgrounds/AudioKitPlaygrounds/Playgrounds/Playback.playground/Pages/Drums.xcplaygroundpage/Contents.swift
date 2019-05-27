@@ -17,14 +17,14 @@ let midTomFile = try AKAudioFile(readFileName: "Samples/Drums/mid_tom_B1.wav")
 let openHiHatFile = try AKAudioFile(readFileName: "Samples/Drums/open_hi_hat_A#1.wav")
 let snareDrumFile = try AKAudioFile(readFileName: "Samples/Drums/snare_D1.wav")
 
-try drums.loadAudioFiles([bassDrumFile,
-                          clapFile,
-                          closedHiHatFile,
-                          hiTomFile,
-                          loTomFile,
-                          midTomFile,
-                          openHiHatFile,
-                          snareDrumFile])
+try drums.audioFiles = [bassDrumFile,
+                        clapFile,
+                        closedHiHatFile,
+                        hiTomFile,
+                        loTomFile,
+                        midTomFile,
+                        openHiHatFile,
+                        snareDrumFile]
 
 import AudioKitUI
 

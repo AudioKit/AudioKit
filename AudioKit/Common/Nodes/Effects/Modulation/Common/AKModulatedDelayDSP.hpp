@@ -51,20 +51,15 @@ extern const float kAKFlanger_MaxDryWetMix;
 
 #ifndef __cplusplus
 
-void* createChorusDSP(int nChannels, double sampleRate);
-void* createFlangerDSP(int nChannels, double sampleRate);
+AKDSPRef createChorusDSP(int channelCount, double sampleRate);
+AKDSPRef createFlangerDSP(int channelCount, double sampleRate);
 
 #else
 
-#import "ModulatedDelay.hpp"
-#import <AudioToolbox/AudioToolbox.h>
-#import <AudioUnit/AudioUnit.h>
-#import <AVFoundation/AVFoundation.h>
+#import "AKModulatedDelay.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-#include <math.h>
-
-struct AKModulatedDelayDSP : AKDSPBase, AudioKitCore::ModulatedDelay
+struct AKModulatedDelayDSP : AKDSPBase, AKModulatedDelay
 {
     // ramped parameters
     AKLinearParameterRamp frequencyRamp;
@@ -74,7 +69,7 @@ struct AKModulatedDelayDSP : AKDSPBase, AudioKitCore::ModulatedDelay
     
     AKModulatedDelayDSP(AKModulatedDelayType type);
     
-    void init(int nChannels, double sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
     void deinit() override;
     
     void setParameter(uint64_t address, float value, bool immediate) override;

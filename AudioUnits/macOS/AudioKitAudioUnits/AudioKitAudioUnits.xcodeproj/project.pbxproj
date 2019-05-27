@@ -551,44 +551,37 @@
 				TargetAttributes = {
 					C404FA8D1F0620270059441B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C40C0D2E1F06ECA900E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C40C0D6B1F0728C400E6D30F = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F92ED1F024C6F0024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F938D1F0259FE0024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C42F93A61F025B850024FD02 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					C436101B1F06577B003AF56B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 9W69ZP8S5F;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -837,14 +830,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKMorphingOscillatorBank/AKMorphingOscillatorBank.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKMorphingOscillatorBank/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKMorphingOscillatorBank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -859,14 +851,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKMorphingOscillatorBank/AKMorphingOscillatorBank.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKMorphingOscillatorBank/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKMorphingOscillatorBank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -881,14 +872,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKOscillatorBankExtension/AKOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKOscillatorBankExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -903,14 +893,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKOscillatorBankExtension/AKOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKOscillatorBankExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -925,14 +914,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKTanhDistortion/AKTanhDistortion.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKTanhDistortion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKTanhDistortion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -947,14 +935,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKTanhDistortion/AKTanhDistortion.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKTanhDistortion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKTanhDistortion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1015,7 +1002,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1066,7 +1053,7 @@
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../Frameworks/AudioKit-macOS/AudioKit.framework/Headers/";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
@@ -1080,14 +1067,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AudioKitAudioUnits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1105,14 +1091,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AudioKitAudioUnits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1127,14 +1112,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKChowningReverb/AKChowningReverb.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKChowningReverb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKChowningReverb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1149,14 +1133,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKChowningReverb/AKChowningReverb.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKChowningReverb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKChowningReverb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1171,14 +1154,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKBooster/AKBooster.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKBooster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKBooster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1193,14 +1175,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKBooster/AKBooster.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKBooster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKBooster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1215,14 +1196,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKPhaseDistortionOscillatorBankExtension/AKPhaseDistortionOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKPhaseDistortionOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKPhaseDistortionOscillatorBankExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1237,14 +1217,13 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = AKPhaseDistortionOscillatorBankExtension/AKPhaseDistortionOscillatorBankExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = AKPhaseDistortionOscillatorBankExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitAudioUnits.AKPhaseDistortionOscillatorBankExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

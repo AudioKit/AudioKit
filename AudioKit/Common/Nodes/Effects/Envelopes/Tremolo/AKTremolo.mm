@@ -10,8 +10,8 @@
 
 // "Constructor" function for interop with Swift
 
-extern "C" void* createTremoloDSP(int nChannels, double sampleRate) {
-    AKTremoloDSP* dsp = new AKTremoloDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createTremoloDSP(int channelCount, double sampleRate) {
+    AKTremoloDSP *dsp = new AKTremoloDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }

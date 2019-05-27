@@ -19,21 +19,7 @@
 		C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C6401D337759007D1BFD /* LaunchScreen.storyboard */; };
 		C4C059981DE7E46F00C3699A /* Simple Keyboard.sp in Resources */ = {isa = PBXBuildFile; fileRef = C4C059971DE7E46F00C3699A /* Simple Keyboard.sp */; };
 		C4CC1E371DFEA15100285202 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC1E361DFEA15100285202 /* AudioKit.framework */; };
-		EA10E1751F4FA22F003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1731F4FA225003F0CA9 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		78FFF99E1D36A91A009B2E07 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		783F1E701D340B3300DD1B58 /* FileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilities.swift; sourceTree = "<group>"; };
@@ -58,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA10E1751F4FA22F003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				C4CC1E371DFEA15100285202 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,7 +130,6 @@
 				C485C6301D337759007D1BFD /* Sources */,
 				C485C6311D337759007D1BFD /* Frameworks */,
 				C485C6321D337759007D1BFD /* Resources */,
-				78FFF99E1D36A91A009B2E07 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,19 +147,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C485C6331D337759007D1BFD = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C485C62F1D337759007D1BFD /* Build configuration list for PBXProject "SporthEditor" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -246,6 +230,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -304,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -355,7 +341,6 @@
 		C485C6471D337759007D1BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -367,19 +352,17 @@
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		C485C6481D337759007D1BFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -391,12 +374,11 @@
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

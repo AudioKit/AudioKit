@@ -40,7 +40,6 @@
 		C49BC47A2079AF1C005A71A0 = {
 			isa = PBXGroup;
 			children = (
-				C42367BE20A5264300507E72 /* AudioKit.framework */,
 				C49BC4852079AF1C005A71A0 /* SpeechSynthesizer */,
 				C49BC4842079AF1C005A71A0 /* Products */,
 				C49BC4A12079B172005A71A0 /* Frameworks */,
@@ -71,6 +70,7 @@
 		C49BC4A12079B172005A71A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C42367BE20A5264300507E72 /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +107,7 @@
 				TargetAttributes = {
 					C49BC4822079AF1C005A71A0 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -219,7 +220,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -274,7 +275,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -288,7 +289,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpeechSynthesizer/SpeechSynthesizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SpeechSynthesizer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -296,7 +297,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SpeechSynthesizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -307,7 +308,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpeechSynthesizer/SpeechSynthesizer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SpeechSynthesizer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -315,7 +316,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SpeechSynthesizer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

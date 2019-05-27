@@ -23,11 +23,13 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) float loopEndPoint;
 @property (nonatomic) AKCCallback loadCompletionHandler;
 @property (nonatomic) AKCCallback completionHandler;
+@property (nonatomic) AKCCallback loopCallback;
 
 - (void)setupAudioFileTable:(UInt32)size;
 - (void)loadAudioData:(float *)data size:(UInt32)size sampleRate:(float)sampleRate numChannels:(UInt32)numChannels;
 - (int)size;
 - (double)position;
+- (void)destroy;
 
 @end
 

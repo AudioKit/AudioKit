@@ -22,6 +22,8 @@ extension AVAudioCommonFormat: CustomStringConvertible {
             return "PCMFormatInt16"
         case .pcmFormatInt32:
             return "PCMFormatInt32"
+        @unknown default:
+            fatalError("Unknown Type")
         }
     }
 }
@@ -221,6 +223,9 @@ extension AVAudioCommonFormat: CustomStringConvertible {
         return internalAVAsset
     }
 
+    /// will have a reference to the current export session when exporting async
+    open var currentExportSession: AVAssetExportSession?
+
     // Make our types Human Friendly™
     public typealias FloatChannelData = [[Float]]
 
@@ -342,7 +347,7 @@ extension AVAudioCommonFormat: CustomStringConvertible {
     /// - returns: An initialized AKAudioFile for writing, or nil if init failed.
     ///
     public override init(forWriting fileURL: URL,
-                         settings: [String : Any],
+                         settings: [String: Any],
                          commonFormat format: AVAudioCommonFormat,
                          interleaved: Bool) throws {
         try super.init(forWriting: fileURL,

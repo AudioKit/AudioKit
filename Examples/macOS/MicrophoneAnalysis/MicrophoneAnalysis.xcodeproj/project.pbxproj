@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,21 +12,8 @@
 		78D63E321D0FCDA300C53875 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E311D0FCDA300C53875 /* Assets.xcassets */; };
 		78D63E351D0FCDA300C53875 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D63E331D0FCDA300C53875 /* Main.storyboard */; };
 		C446B40B1D45576C000AEFCA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B4091D455764000AEFCA /* AudioKit.framework */; };
-		EAC9C5AD1F5028F700B01FF7 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5AB1F5028F300B01FF7 /* AudioKitUI.framework */; };
+		EA2FA541215AFB9C001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC9C5AB1F5028F300B01FF7 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		78D63E3F1D0FCE5100C53875 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		78D63E2A1D0FCDA300C53875 /* MicrophoneAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrophoneAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC9C5AD1F5028F700B01FF7 /* AudioKitUI.framework in Frameworks */,
 				C446B40B1D45576C000AEFCA /* AudioKit.framework in Frameworks */,
+				EA2FA541215AFB9C001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +87,6 @@
 				78D63E261D0FCDA300C53875 /* Sources */,
 				78D63E271D0FCDA300C53875 /* Frameworks */,
 				78D63E281D0FCDA300C53875 /* Resources */,
-				78D63E3F1D0FCE5100C53875 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -118,18 +104,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					78D63E291D0FCDA300C53875 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = 78D63E251D0FCDA300C53875 /* Build configuration list for PBXProject "MicrophoneAnalysis" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -185,6 +171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -241,6 +228,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -282,7 +270,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -296,11 +285,17 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -314,11 +309,17 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

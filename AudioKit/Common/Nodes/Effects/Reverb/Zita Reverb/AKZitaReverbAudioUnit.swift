@@ -11,11 +11,11 @@ import AVFoundation
 public class AKZitaReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKZitaReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKZitaReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var predelay: Double = AKZitaReverb.defaultPredelay {
@@ -63,138 +63,86 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createZitaReverbDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let predelay = AUParameterTree.createParameter(
-            withIdentifier: "predelay",
+        let predelay = AUParameter(
+            identifier: "predelay",
             name: "Delay in ms before reverberation begins.",
-            address: AUParameterAddress(0),
-            min: Float(AKZitaReverb.predelayRange.lowerBound),
-            max: Float(AKZitaReverb.predelayRange.upperBound),
+            address: AKZitaReverbParameter.predelay.rawValue,
+            range: AKZitaReverb.predelayRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let crossoverFrequency = AUParameterTree.createParameter(
-            withIdentifier: "crossoverFrequency",
+            flags: .default)
+        let crossoverFrequency = AUParameter(
+            identifier: "crossoverFrequency",
             name: "Crossover frequency separating low and middle frequencies (Hz).",
-            address: AUParameterAddress(1),
-            min: Float(AKZitaReverb.crossoverFrequencyRange.lowerBound),
-            max: Float(AKZitaReverb.crossoverFrequencyRange.upperBound),
+            address: AKZitaReverbParameter.crossoverFrequency.rawValue,
+            range: AKZitaReverb.crossoverFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let lowReleaseTime = AUParameterTree.createParameter(
-            withIdentifier: "lowReleaseTime",
+            flags: .default)
+        let lowReleaseTime = AUParameter(
+            identifier: "lowReleaseTime",
             name: "Time (in seconds) to decay 60db in low-frequency band.",
-            address: AUParameterAddress(2),
-            min: Float(AKZitaReverb.lowReleaseTimeRange.lowerBound),
-            max: Float(AKZitaReverb.lowReleaseTimeRange.upperBound),
+            address: AKZitaReverbParameter.lowReleaseTime.rawValue,
+            range: AKZitaReverb.lowReleaseTimeRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let midReleaseTime = AUParameterTree.createParameter(
-            withIdentifier: "midReleaseTime",
+            flags: .default)
+        let midReleaseTime = AUParameter(
+            identifier: "midReleaseTime",
             name: "Time (in seconds) to decay 60db in mid-frequency band.",
-            address: AUParameterAddress(3),
-            min: Float(AKZitaReverb.midReleaseTimeRange.lowerBound),
-            max: Float(AKZitaReverb.midReleaseTimeRange.upperBound),
+            address: AKZitaReverbParameter.midReleaseTime.rawValue,
+            range: AKZitaReverb.midReleaseTimeRange,
             unit: .seconds,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let dampingFrequency = AUParameterTree.createParameter(
-            withIdentifier: "dampingFrequency",
+            flags: .default)
+        let dampingFrequency = AUParameter(
+            identifier: "dampingFrequency",
             name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
-            address: AUParameterAddress(4),
-            min: Float(AKZitaReverb.dampingFrequencyRange.lowerBound),
-            max: Float(AKZitaReverb.dampingFrequencyRange.upperBound),
+            address: AKZitaReverbParameter.dampingFrequency.rawValue,
+            range: AKZitaReverb.dampingFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let equalizerFrequency1 = AUParameterTree.createParameter(
-            withIdentifier: "equalizerFrequency1",
+            flags: .default)
+        let equalizerFrequency1 = AUParameter(
+            identifier: "equalizerFrequency1",
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
-            address: AUParameterAddress(5),
-            min: Float(AKZitaReverb.equalizerFrequency1Range.lowerBound),
-            max: Float(AKZitaReverb.equalizerFrequency1Range.upperBound),
+            address: AKZitaReverbParameter.equalizerFrequency1.rawValue,
+            range: AKZitaReverb.equalizerFrequency1Range,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let equalizerLevel1 = AUParameterTree.createParameter(
-            withIdentifier: "equalizerLevel1",
+            flags: .default)
+        let equalizerLevel1 = AUParameter(
+            identifier: "equalizerLevel1",
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
-            address: AUParameterAddress(6),
-            min: Float(AKZitaReverb.equalizerLevel1Range.lowerBound),
-            max: Float(AKZitaReverb.equalizerLevel1Range.upperBound),
+            address: AKZitaReverbParameter.equalizerLevel1.rawValue,
+            range: AKZitaReverb.equalizerLevel1Range,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let equalizerFrequency2 = AUParameterTree.createParameter(
-            withIdentifier: "equalizerFrequency2",
+            flags: .default)
+        let equalizerFrequency2 = AUParameter(
+            identifier: "equalizerFrequency2",
             name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
-            address: AUParameterAddress(7),
-            min: Float(AKZitaReverb.equalizerFrequency2Range.lowerBound),
-            max: Float(AKZitaReverb.equalizerFrequency2Range.upperBound),
+            address: AKZitaReverbParameter.equalizerFrequency2.rawValue,
+            range: AKZitaReverb.equalizerFrequency2Range,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let equalizerLevel2 = AUParameterTree.createParameter(
-            withIdentifier: "equalizerLevel2",
+            flags: .default)
+        let equalizerLevel2 = AUParameter(
+            identifier: "equalizerLevel2",
             name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
-            address: AUParameterAddress(8),
-            min: Float(AKZitaReverb.equalizerLevel2Range.lowerBound),
-            max: Float(AKZitaReverb.equalizerLevel2Range.upperBound),
+            address: AKZitaReverbParameter.equalizerLevel2.rawValue,
+            range: AKZitaReverb.equalizerLevel2Range,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let dryWetMix = AUParameterTree.createParameter(
-            withIdentifier: "dryWetMix",
+            flags: .default)
+        let dryWetMix = AUParameter(
+            identifier: "dryWetMix",
             name: "0 = all dry, 1 = all wet",
-            address: AUParameterAddress(9),
-            min: Float(AKZitaReverb.dryWetMixRange.lowerBound),
-            max: Float(AKZitaReverb.dryWetMixRange.upperBound),
+            address: AKZitaReverbParameter.dryWetMix.rawValue,
+            range: AKZitaReverb.dryWetMixRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
+        setParameterTree(AUParameterTree(children: [predelay, crossoverFrequency, lowReleaseTime, midReleaseTime, dampingFrequency, equalizerFrequency1, equalizerLevel1, equalizerFrequency2, equalizerLevel2, dryWetMix]))
         predelay.value = Float(AKZitaReverb.defaultPredelay)
         crossoverFrequency.value = Float(AKZitaReverb.defaultCrossoverFrequency)
         lowReleaseTime.value = Float(AKZitaReverb.defaultLowReleaseTime)
@@ -207,6 +155,6 @@ public class AKZitaReverbAudioUnit: AKAudioUnitBase {
         dryWetMix.value = Float(AKZitaReverb.defaultDryWetMix)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

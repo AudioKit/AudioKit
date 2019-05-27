@@ -20,14 +20,14 @@ let reverb = AKReverb(delay)
 let scale: [MIDINoteNumber] = [0, 2, 4, 5, 7, 9, 11, 12]
 
 let performance = AKPeriodicFunction(frequency: playRate) {
-    var note1: MIDINoteNumber = scale.randomElement()
-    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
-    let course1 = [1, 2, 3, 4].randomElement()
+    var note1: MIDINoteNumber = scale.randomElement()!
+    let octave1: MIDINoteNumber = [2, 3, 4, 5].randomElement()! * 12
+    let course1 = [1, 2, 3, 4].randomElement()!
     if random(in: 0...10) < 1.0 { note1 += 1 }
 
-    var note2: MIDINoteNumber = scale.randomElement()
-    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement() * 12
-    let course2 = [1, 2, 3, 4].randomElement()
+    var note2: MIDINoteNumber = scale.randomElement()!
+    let octave2: MIDINoteNumber = [2, 3, 4, 5].randomElement()! * 12
+    let course2 = [1, 2, 3, 4].randomElement()!
     if random(in: 0...10) < 1.0 { note2 += 1 }
 
     if random(in: 0...6) > 1.0 {

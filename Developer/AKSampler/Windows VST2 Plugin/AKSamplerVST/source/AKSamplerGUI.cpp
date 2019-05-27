@@ -110,6 +110,11 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 pVst->getParamString(kFilterCutoff, text);
                 SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
                 return (INT_PTR)TRUE;
+            case IDC_FILTER_KEYTRACK_SLIDER:
+                pVst->setParamFraction(kKeyTracking, fv);
+                pVst->getParamString(kKeyTracking, text);
+                SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
+                return (INT_PTR)TRUE;
             case IDC_FILTER_RESONANCE_SLIDER:
                 pVst->setParamFraction(kFilterResonance, fv);
                 pVst->getParamString(kFilterResonance, text);
@@ -117,8 +122,14 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 return (INT_PTR)TRUE;
             case IDC_FILTER_EGSTRENGTH_SLIDER:
                 pVst->setParamFraction(kFilterEgStrength, fv);
-                pVst->getParamString(kFilterResonance, text);
+                pVst->getParamString(kFilterEgStrength, text);
                 SetDlgItemText(hwnd, IDC_FILTER_EGSTRENGTH_READOUT, text);
+                return (INT_PTR)TRUE;
+
+            case IDC_GLIDE_RATE_SLIDER:
+                pVst->setParamFraction(kGlideRate, fv);
+                pVst->getParamString(kGlideRate, text);
+                SetDlgItemText(hwnd, IDC_GLIDE_RATE_READOUT, text);
                 return (INT_PTR)TRUE;
 
             case IDC_AMP_ATTACK_SLIDER:
@@ -168,6 +179,36 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
 	case WM_COMMAND:
         switch (LOWORD(wParam))
         {
+        case IDC_LOOPTHRU_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_LOOPTHRU_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kLoopThruRelease, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
+        case IDC_MONO_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_MONO_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kMonophonic, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
+        case IDC_LEGATO_CHECK:
+            if (HIWORD(wParam) == BN_CLICKED)
+            {
+                float v = 0.0f;
+                if (SendDlgItemMessage(hDlg, IDC_LEGATO_CHECK, BM_GETCHECK, 0, 0)) v = 1.0f;
+                pVst->setParamFraction(kLegato, v);
+                return (INT_PTR)TRUE;
+            }
+            break;
+
         case IDC_FILTER_ENABLE_CHECK:
             if (HIWORD(wParam) == BN_CLICKED)
             {
@@ -177,6 +218,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
                 enableFilterControls(v > 0.0f);
                 return (INT_PTR)TRUE;
             }
+            break;
 
         case IDC_PRESETCB:
             if (HIWORD(wParam) == CBN_SELCHANGE)
@@ -203,6 +245,7 @@ INT_PTR CALLBACK AKSamplerGUI::instanceCallback(HWND hDlg, UINT message, WPARAM 
 void AKSamplerGUI::enableFilterControls(bool show)
 {
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_CUTOFF_SLIDER), show ? TRUE : FALSE);
+    EnableWindow(GetDlgItem(hwnd, IDC_FILTER_KEYTRACK_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_RESONANCE_SLIDER), show ? TRUE : FALSE);
     EnableWindow(GetDlgItem(hwnd, IDC_FILTER_ATTACK_SLIDER), show ? TRUE : FALSE);
@@ -232,6 +275,10 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
         SendDlgItemMessage(hwnd, IDC_VIBRATO_DEPTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_VIBRATO_DEPTH_READOUT, text);
         break;
+    case kGlideRate:
+        SendDlgItemMessage(hwnd, IDC_GLIDE_RATE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+        SetDlgItemText(hwnd, IDC_GLIDE_RATE_READOUT, text);
+        break;
     case kFilterEnable:
         SendDlgItemMessage(hwnd, IDC_FILTER_ENABLE_CHECK, BM_SETCHECK,
             pVst->getParamFraction(kFilterEnable) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -239,6 +286,10 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
     case kFilterCutoff:
         SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+        break;
+    case kKeyTracking:
+        SendDlgItemMessage(hwnd, IDC_FILTER_KEYTRACK_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+        SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
         break;
     case kFilterEgStrength:
         SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
@@ -280,6 +331,18 @@ void AKSamplerGUI::setParameter(VstInt32 index, float value)
         SendDlgItemMessage(hwnd, IDC_FILTER_RELEASE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
         SetDlgItemText(hwnd, IDC_FILTER_RELEASE_READOUT, text);
         break;
+    case kLoopThruRelease:
+        SendDlgItemMessage(hwnd, IDC_LOOPTHRU_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kLoopThruRelease) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
+    case kMonophonic:
+        SendDlgItemMessage(hwnd, IDC_MONO_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kMonophonic) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
+    case kLegato:
+        SendDlgItemMessage(hwnd, IDC_LEGATO_CHECK, BM_SETCHECK,
+            pVst->getParamFraction(kLegato) > 0.5f ? BST_CHECKED : BST_UNCHECKED, 0);
+        break;
     }
 }
 
@@ -304,6 +367,11 @@ void AKSamplerGUI::updateAllParameters()
     pVst->getParamString(kVibratoDepth, text);
     SetDlgItemText(hwnd, IDC_VIBRATO_DEPTH_READOUT, text);
 
+    sliderPos = (int)(100.0f * pVst->getParamFraction(kGlideRate) + 0.5f);
+    SendDlgItemMessage(hwnd, IDC_GLIDE_RATE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+    pVst->getParamString(kGlideRate, text);
+    SetDlgItemText(hwnd, IDC_GLIDE_RATE_READOUT, text);
+
     bool filterEnabled = pVst->getParameter(kFilterEnable) > 0.5;
     SendDlgItemMessage(hwnd, IDC_FILTER_ENABLE_CHECK, BM_SETCHECK,
         filterEnabled ? BST_CHECKED : BST_UNCHECKED, 0);
@@ -313,6 +381,11 @@ void AKSamplerGUI::updateAllParameters()
     SendDlgItemMessage(hwnd, IDC_FILTER_CUTOFF_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
     pVst->getParamString(kFilterCutoff, text);
     SetDlgItemText(hwnd, IDC_FILTER_CUTOFF_READOUT, text);
+
+    sliderPos = (int)(100.0f * pVst->getParamFraction(kKeyTracking) + 0.5f);
+    SendDlgItemMessage(hwnd, IDC_FILTER_KEYTRACK_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
+    pVst->getParamString(kKeyTracking, text);
+    SetDlgItemText(hwnd, IDC_FILTER_KEYTRACK_READOUT, text);
 
     sliderPos = (int)(100.0f * pVst->getParamFraction(kFilterEgStrength) + 0.5f);
     SendDlgItemMessage(hwnd, IDC_FILTER_EGSTRENGTH_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
@@ -363,6 +436,18 @@ void AKSamplerGUI::updateAllParameters()
     SendDlgItemMessage(hwnd, IDC_FILTER_RELEASE_SLIDER, TBM_SETPOS, (WPARAM)TRUE, (LPARAM)sliderPos);
     pVst->getParamString(kFilterSustainLevel, text);
     SetDlgItemText(hwnd, IDC_FILTER_RELEASE_READOUT, text);
+
+    bool loopThruRel = pVst->getParameter(kLoopThruRelease) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_LOOPTHRU_CHECK, BM_SETCHECK,
+        loopThruRel ? BST_CHECKED : BST_UNCHECKED, 0);
+
+    bool monophonic = pVst->getParameter(kMonophonic) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_MONO_CHECK, BM_SETCHECK,
+        monophonic ? BST_CHECKED : BST_UNCHECKED, 0);
+
+    bool legato = pVst->getParameter(kLegato) > 0.5;
+    SendDlgItemMessage(hwnd, IDC_LEGATO_CHECK, BM_SETCHECK,
+        legato ? BST_CHECKED : BST_UNCHECKED, 0);
 }
 
 void AKSamplerGUI::populatePresetsComboBox()

@@ -8,8 +8,9 @@ AudioKit requires at least iOS 9.0, macOS 10.11 (El Capitan) or tvOS 9.0. Your d
 
 * Select the target in your Xcode project that will link with AudioKit.
 * Drag and drop the `AudioKit.framework` bundle in the **Linked Frameworks and Libraries** section of the **General** tab.
-* Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform.
-* Make sure to add `-lstdc++` to the **Other Linker Flags** setting in your target.
+* When prompted, select `Copy Items If Needed` (or, if you'd rather not copy the framework directly, you'll need to set your `Frameworks Search Path` correctly in the Build Settings tab).
+* Repeat for `AudioKitUI.framework` if you are using the optional UI elements for your platform. 
+* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 * For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
 * For pure Objective-C projects (no Swift files), you will need to add this path to the library search paths of your target: `$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)`
 
@@ -21,7 +22,7 @@ You may obtain the source code archive directly from [GitHub](https://github.com
 
 * Drag and drop the `AudioKit For {platform}.xcodeproj` file to your project in Xcode. The file is located within the `AudioKit/{platform}` subdirectory in the repository, where `{platform}` is one of **iOS**, **macOS** or **tvOS**.
 * In the **Build Phases** tab, add `AudioKit.framework` in **Target Dependencies** for your target. Also add `AudioKitUI.framework` as needed.
-* Make sure to add `-lstdc++` to the **Other Linker Flags** setting in your target.
+* Make sure to add `-lc++` to the **Other Linker Flags** setting in your target.
 
 ## Building universal frameworks from scratch
 
@@ -35,3 +36,20 @@ Optionally, you may restrict which platforms to build the frameworks for by sett
 
 `PLATFORMS="iOS tvOS" ./build_frameworks.sh`
 
+## Distribution to other projects
+
+**Current this is only enabled for iOS, but it's easy for you to improve this for other targets** 
+
+For people who want to build AudioKit in one directory then copy it into another project, there is an optional script, `distribute_built_frameworks.sh` that you can use to perform this copy at the end of `./build_frameworks.sh`.  
+
+* First edit the example to copy the framework to your desired location:
+
+    `pico distribute_built_frameworks.sh_example`
+    
+* Next move the example to enable the script:
+
+    `mv distribute_built_frameworks.sh_example distribute_built_frameworks.sh`
+
+Now, each time you run `./build_frameworks.sh`, it will copy the framework to your desired location.
+
+`distribute_built_frameworks.sh` is in the .gitignore file so that you don't share your distribution process to other developers.

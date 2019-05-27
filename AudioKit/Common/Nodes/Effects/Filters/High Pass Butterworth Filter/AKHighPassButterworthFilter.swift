@@ -16,7 +16,6 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var cutoffFrequencyParameter: AUParameter?
 
@@ -36,15 +35,12 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
     /// Cutoff frequency. (in Hertz)
     @objc open dynamic var cutoffFrequency: Double = defaultCutoffFrequency {
         willSet {
-            if cutoffFrequency == newValue {
+            guard cutoffFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -77,6 +73,7 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -88,18 +85,6 @@ open class AKHighPassButterworthFilter: AKNode, AKToggleable, AKComponent, AKInp
         }
 
         cutoffFrequencyParameter = tree["cutoffFrequency"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.cutoffFrequency, value: cutoffFrequency)
     }

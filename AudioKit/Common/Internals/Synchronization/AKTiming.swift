@@ -55,7 +55,7 @@ extension AKTiming {
      - Parameter position: The position of the nodes when started.
      - Returns: The audioTime (in the future) that the nodes will be started at.
      */
-    static func syncStart(_ nodes: [AKTiming], at position: Double = 0) -> AVAudioTime {
+    public static func syncStart(_ nodes: [AKTiming], at position: Double = 0) -> AVAudioTime {
         for node in nodes {
             node.stop()
             node.setPosition(position)
@@ -73,11 +73,11 @@ extension AKTiming {
     }
 
     /**
-     Starts playback with position syncronized to an already running node.
+     Starts playback with position synchronized to an already running node.
      - Parameter other: An already started AKTiming that position will be synchronized with.
      - Parameter audioTime: Future time in the audio render context that playback should begin.
      */
-    func synchronizeWith(other: AKTiming, at audioTime: AVAudioTime? = nil) {
+    public func synchronizeWith(other: AKTiming, at audioTime: AVAudioTime? = nil) {
         stop()
         guard other.isStarted else {
             return
@@ -142,6 +142,9 @@ extension AKNodeTiming: AKTiming {
     public var isStarted: Bool {
         return baseTime != nil
     }
+    
+    public var isNotStarted: Bool { return !isStarted }
+
     open func position(at audioTime: AVAudioTime?) -> Double {
         guard let baseTime = baseTime else {
             return idleTime

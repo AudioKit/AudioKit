@@ -16,7 +16,7 @@ class AudiobusCompatibleSequencer {
     var seq: AKSequencer!
 
     let numTracks = 4
-    var callbackInsts: [AKCallbackInstrument]!
+    var callbackInsts: [AKMIDICallbackInstrument]!
     var tracks: [AKMusicTrack]!
     var ports: [ABMIDISenderPort]!
 
@@ -46,7 +46,7 @@ class AudiobusCompatibleSequencer {
             AKSettings.playbackWhileMuted = true
             try AudioKit.start()
         } catch {
-            print("Couldn't start Audiokit")
+            AKLog("Couldn't start Audiokit")
         }
     }
 
@@ -55,7 +55,7 @@ class AudiobusCompatibleSequencer {
         Audiobus.setUpEnableCoreMIDIBlock { [weak self] isEnabled in
             guard let this = self else { return }
             this.coreMIDIIsActive = isEnabled
-            print("CoreMIDI Send Enabled: \(isEnabled)")
+            AKLog("CoreMIDI Send Enabled: \(isEnabled)")
         }
     }
 
@@ -74,7 +74,7 @@ class AudiobusCompatibleSequencer {
     // MARK: - Building Tracks, Callback Instruments, and ABMIDISendPorts
     fileprivate func createTracksAndCallBackInst() {
         tracks = [AKMusicTrack]()
-        callbackInsts = [AKCallbackInstrument]()
+        callbackInsts = [AKMIDICallbackInstrument]()
         ports = [ABMIDISenderPort]()
         Audiobus.start()
         for i in 0 ..< numTracks {
@@ -89,18 +89,23 @@ class AudiobusCompatibleSequencer {
     }
 
     // MARK: - Handling NoteOn and NoteOff Msgs
-    fileprivate func setUpCallBackFunctions(channel: Int) -> AKCallbackInstrument {
-        return  AKCallbackInstrument { [weak self] status, note, velocity in
-            guard let this = self else { return}
-            switch status {
-            case .noteOn:
-                this.noteOn(midiSendPort: this.ports[channel], status: status, note: note, velocity: velocity, channel: MIDIChannel(channel))
-                this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: true)
-            case .noteOff:
-                this.noteOff(midiSendPort: this.ports[channel], status: status, note: note, velocity: velocity, channel: MIDIChannel(channel))
-                this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: false)
-            default:
-                print("other MIDI status msg sent")
+    fileprivate func setUpCallBackFunctions(channel: Int) -> AKMIDICallbackInstrument {
+        return  AKMIDICallbackInstrument { [weak self] status, note, velocity in
+            guard let this = self else { return }
+            if let midiStatusType = AKMIDIStatusType(rawValue: Int(status >> 4)) {
+                let midiStatus = AKMIDIStatus(type: midiStatusType, channel: MIDIChannel(channel))
+                switch midiStatusType {
+                case .noteOn:
+                    this.noteOn(midiSendPort: this.ports[channel], status: midiStatus,
+                                note: note, velocity: velocity, channel: MIDIChannel(channel))
+                    this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: true)
+                case .noteOff:
+                    this.noteOff(midiSendPort: this.ports[channel], status: midiStatus,
+                                 note: note, velocity: velocity, channel: MIDIChannel(channel))
+                    this.displayDelegate?.flashNoteOnDisplay(index: channel, noteOn: false)
+                default:
+                    AKLog("other MIDI status msg sent")
+                }
             }
         }
     }

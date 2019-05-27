@@ -1,3 +1,7 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
 //: ## Stereo Operation
 //: This is an example of building a stereo sound generator.
 import AudioKitPlaygrounds
@@ -23,3 +27,5 @@ generator.start()
 
 import PlaygroundSupport
 PlaygroundPage.current.needsIndefiniteExecution = true
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

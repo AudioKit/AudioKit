@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import AudioKit
 
 /// View to choose from audio files to use in playgrounds
 @IBDesignable open class AKResourcesAudioFileLoaderView: UIView {
@@ -170,10 +171,11 @@
         stopOuterPath.fill()
 
         //// stopInner Drawing
-        let stopInnerPath = UIBezierPath(roundedRect: CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
-                                                             y: rect.height * 0.25,
-                                                             width: rect.height * 0.5,
-                                                             height: rect.height * 0.5), cornerRadius: cornerRadius)
+        let stopInnerPath = UIBezierPath(roundedRect:
+            CGRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
+                   y: rect.height * 0.25,
+                   width: rect.height * 0.5,
+                   height: rect.height * 0.5), cornerRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
 
@@ -214,16 +216,20 @@
 
         // stopButton border Path
         let stopButtonBorderPath = UIBezierPath()
-        stopButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 + borderWidth, y: borderWidth))
-        stopButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 + borderWidth, y: rect.height - borderWidth))
+        stopButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 + borderWidth,
+                                              y: borderWidth))
+        stopButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 + borderWidth,
+                                                 y: rect.height - borderWidth))
         borderColorForTheme.setStroke()
         stopButtonBorderPath.lineWidth = borderWidth / 2.0
         stopButtonBorderPath.stroke()
 
         // playButton border Path
         let playButtonBorderPath = UIBezierPath()
-        playButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: borderWidth))
-        playButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth, y: rect.height - borderWidth))
+        playButtonBorderPath.move(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth,
+                                              y: borderWidth))
+        playButtonBorderPath.addLine(to: CGPoint(x: rect.width * 0.13 * 2.0 + borderWidth,
+                                                 y: rect.height - borderWidth))
         borderColorForTheme.setStroke()
         playButtonBorderPath.lineWidth = borderWidth / 2.0
         playButtonBorderPath.stroke()
@@ -300,9 +306,9 @@
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .left
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 24.0),
-                                       NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24.0),
+                                       NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                       NSAttributedString.Key.paragraphStyle: nameLabelStyle]
 
         let nameLabelInset: CGRect = nameLabelRect.insetBy(dx: 10, dy: 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRect(

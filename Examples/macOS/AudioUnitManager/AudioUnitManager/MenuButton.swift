@@ -16,9 +16,9 @@ class MenuButton: NSButton {
         if let textColor = textColor, let font = font {
             let style = NSMutableParagraphStyle()
             style.alignment = .center
-            let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor,
-                                                            NSAttributedStringKey.font: font,
-                                                            NSAttributedStringKey.paragraphStyle: style]
+            let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: textColor,
+                                                             NSAttributedString.Key.font: font,
+                                                             NSAttributedString.Key.paragraphStyle: style]
             let attributedTitle = NSAttributedString(string: title, attributes: attributes)
             self.attributedTitle = attributedTitle
             initialize()
@@ -75,6 +75,7 @@ class MenuButton: NSButton {
             NSMenu.popUpContextMenu(menu, with: newEvent, for: self)
         }
     }
+
     override func mouseUp(with event: NSEvent) {
         super.mouseUp(with: event)
     }

@@ -23,6 +23,21 @@ open class AKAppleSampler: AKNode {
     /// Internal audio unit
     private var internalAU: AUAudioUnit?
 
+    private var _audioFiles: [AKAudioFile] = []
+
+    public var audioFiles: [AKAudioFile] {
+        get {
+            return _audioFiles
+        }
+        set {
+            do {
+                try loadAudioFiles(newValue)
+            } catch {
+                AKLog("Could not load audio files")
+            }
+        }
+    }
+
     fileprivate var token: AUParameterObserverToken?
 
     /// Sampler AV Audio Unit
@@ -30,7 +45,7 @@ open class AKAppleSampler: AKNode {
 
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the accoring zone and layer)
-    /// but bends the sound up and down like tuning. 
+    /// but bends the sound up and down like tuning.
     @objc open dynamic var tuning: Double {
         get {
             return Double(samplerUnit.globalTuning / 100.0)
@@ -45,9 +60,10 @@ open class AKAppleSampler: AKNode {
     /// Initialize the sampler node
     override public init() {
         super.init()
+        avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
-        AudioKit.engine.attach(self.avAudioNode)
+        AudioKit.engine.attach(avAudioUnitOrNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
 
@@ -93,6 +109,8 @@ open class AKAppleSampler: AKNode {
     /// - parameter file: an AKAudioFile
     ///
     @objc open func loadAudioFile(_ file: AKAudioFile) throws {
+        _audioFiles = [file]
+
         do {
             try AKTry {
                 try self.samplerUnit.loadAudioFiles(at: [file.url])
@@ -111,6 +129,7 @@ open class AKAppleSampler: AKNode {
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
     @objc open func loadAudioFiles(_ files: [AKAudioFile] ) throws {
+        _audioFiles = files
         let urls = files.map { $0.url }
         do {
             try AKTry {
@@ -179,18 +198,21 @@ open class AKAppleSampler: AKNode {
 
     // MARK: - Playback
 
-    /// Play a MIDI Note
+    /// Play a MIDI Note or trigger a sample
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number to play
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
+    /// NB: when using an audio file, noteNumber 60 will play back the file at normal
+    /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
+    /// half speed (1 octave lower) and so on
     @objc open func play(noteNumber: MIDINoteNumber = 60,
                          velocity: MIDIVelocity = 127,
                          channel: MIDIChannel = 0) throws {
         try AKTry {
-            if !AudioKit.engine.isRunning {
+            if AudioKit.engine.isRunning == false {
                 AKLog("Cannot play note - AudioKit not running")
                 throw AKError.AudioKitNotRunning
             } else {
@@ -208,6 +230,83 @@ open class AKAppleSampler: AKNode {
         try AKTry {
             self.samplerUnit.stopNote(noteNumber, onChannel: channel)
         }
+    }
+
+    // MARK: - SoundFont Support
+
+    // NOTE: The following methods might seem like they belong in the
+    // SoundFont extension, but when place there, iOS12 beta crashed
+
+    fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int) throws {
+        guard let url = findFileURL(file, withExtension: "sf2") else {
+            AKLog("Soundfont file not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
+        }
+        do {
+            try samplerUnit.loadSoundBankInstrument(
+                at: url,
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(type),
+                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+        } catch let error as NSError {
+            AKLog("Error loading SoundFont \(file)")
+            throw error
+        }
+    }
+
+    /// Load a Bank from a SoundFont SF2 sample data file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
+    ///   - bank: Number of the bank to use
+    ///
+    @objc public func loadSoundFont(_ file: String, preset: Int, bank: Int) throws {
+        guard let url = findFileURL(file, withExtension: "sf2") else {
+            AKLog("Soundfont file not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
+        }
+        do {
+            var bMSB: Int
+            if bank <= 127 {
+                bMSB = kAUSampler_DefaultMelodicBankMSB
+            } else {
+                bMSB = kAUSampler_DefaultPercussionBankMSB
+            }
+            let bLSB: Int = bank % 128
+            try samplerUnit.loadSoundBankInstrument(
+                at: url,
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(bMSB),
+                bankLSB: MIDIByte(bLSB))
+        } catch let error as NSError {
+            AKLog("Error loading SoundFont \(file)")
+            throw error
+        }
+    }
+
+    /// Load a Melodic SoundFont SF2 sample data file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
+    ///
+    @objc public func loadMelodicSoundFont(_ file: String, preset: Int) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
+    }
+
+    /// Load a Percussive SoundFont SF2 sample data file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
+    ///
+    @objc public func loadPercussiveSoundFont(_ file: String, preset: Int = 0) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
+    }
+
+    public func setPitchbend(amount: MIDIWord, channel: MIDIChannel) {
+        samplerUnit.sendPitchBend(amount, onChannel: channel)
     }
 
 }

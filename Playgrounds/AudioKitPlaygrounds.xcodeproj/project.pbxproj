@@ -3,16 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */; };
 		C4356CAC1EF6535800F3149C /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */; };
 		C46EDA551E94F04D0099E238 /* AudioKitPlaygrounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46EDA611E94F0BF0099E238 /* AudioKit.framework */; };
+		C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46F73242294A3C80081A2A0 /* AudioKitUI.framework */; };
 		C486FA8E1E98BD5200DEB790 /* AKPlaygroundUgens.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */; };
 		C486FAA41E9A0CA200DEB790 /* AKPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */; };
+		DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,12 +28,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C4356CAB1EF6535800F3149C /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 		C46EDA501E94F04D0099E238 /* AudioKitPlaygrounds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKitPlaygrounds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46EDA531E94F04D0099E238 /* AudioKitPlaygrounds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKitPlaygrounds.h; sourceTree = "<group>"; };
 		C46EDA541E94F04D0099E238 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C46EDA611E94F0BF0099E238 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C46F73242294A3C80081A2A0 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		C486FA8D1E98BD5200DEB790 /* AKPlaygroundUgens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundUgens.swift; sourceTree = "<group>"; };
 		C486FAA31E9A0CA200DEB790 /* AKPhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhoneView.swift; sourceTree = "<group>"; };
 		C4F1DB441E94F5ED000D5022 /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
@@ -42,6 +41,8 @@
 		C4F1DB471E94F5ED000D5022 /* Filters.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Filters.playground; sourceTree = "<group>"; };
 		C4F1DB481E94F5ED000D5022 /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playback.playground; sourceTree = "<group>"; };
 		C4F1DB491E94F5ED000D5022 /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
+		DC8194AA1F66D42E00F55FF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../Frameworks/build/Release-iphonesimulator/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,8 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C41FC8A81F5249D50030D3EB /* AudioKitUI.framework in Frameworks */,
-				C46EDA621E94F0BF0099E238 /* AudioKit.framework in Frameworks */,
+				C46F73252294A3C80081A2A0 /* AudioKitUI.framework in Frameworks */,
+				DC8194AD1F66D64F00F55FF6 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +64,7 @@
 				C4F1DB431E94F5ED000D5022 /* Playgrounds */,
 				C46EDA521E94F04D0099E238 /* AudioKitPlaygrounds */,
 				C46EDA511E94F04D0099E238 /* Products */,
-				EAC9C5A01F5015B400B01FF7 /* Frameworks */,
+				DC8194A91F66D42E00F55FF6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +102,12 @@
 			path = AudioKitPlaygrounds/Playgrounds;
 			sourceTree = "<group>";
 		};
-		EAC9C5A01F5015B400B01FF7 /* Frameworks */ = {
+		DC8194A91F66D42E00F55FF6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C41FC8A71F5249D50030D3EB /* AudioKitUI.framework */,
-				C46EDA611E94F0BF0099E238 /* AudioKit.framework */,
+				C46F73242294A3C80081A2A0 /* AudioKitUI.framework */,
+				DC8194AC1F66D64F00F55FF6 /* AudioKit.framework */,
+				DC8194AA1F66D42E00F55FF6 /* AVKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -149,22 +151,23 @@
 		C46EDA471E94F04D0099E238 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C46EDA4F1E94F04D0099E238 = {
 						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C46EDA4A1E94F04D0099E238 /* Build configuration list for PBXProject "AudioKitPlaygrounds" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = C46EDA461E94F04D0099E238;
 			productRefGroup = C46EDA511E94F04D0099E238 /* Products */;
@@ -204,6 +207,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -266,6 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -310,7 +315,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -333,16 +339,21 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
-					"-lstdc++",
+					"-lc++",
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -363,15 +374,20 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKitPlaygrounds/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks $(PROJECT_DIR)/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/../Frameworks",
+				);
 				OTHER_LDFLAGS = (
-					"-lstdc++",
+					"-lc++",
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitPlaygrounds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -11,26 +11,30 @@ import AVFoundation
 public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
 
     func setParameter(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKPhaseDistortionOscillatorParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
-    var frequency: Double = 440 {
+    var frequency: Double = AKPhaseDistortionOscillator.defaultFrequency {
         didSet { setParameter(.frequency, value: frequency) }
     }
-    var amplitude: Double = 1 {
+
+    var amplitude: Double = AKPhaseDistortionOscillator.defaultAmplitude {
         didSet { setParameter(.amplitude, value: amplitude) }
     }
-    var phaseDistortion: Double = 0 {
+
+    var phaseDistortion: Double = AKPhaseDistortionOscillator.defaultPhaseDistortion {
         didSet { setParameter(.phaseDistortion, value: phaseDistortion) }
     }
-    var detuningOffset: Double = 0 {
+
+    var detuningOffset: Double = AKPhaseDistortionOscillator.defaultDetuningOffset {
         didSet { setParameter(.detuningOffset, value: detuningOffset) }
     }
-    var detuningMultiplier: Double = 1 {
+
+    var detuningMultiplier: Double = AKPhaseDistortionOscillator.defaultDetuningMultiplier {
         didSet { setParameter(.detuningMultiplier, value: detuningMultiplier) }
     }
 
@@ -39,85 +43,58 @@ public class AKPhaseDistortionOscillatorAudioUnit: AKGeneratorAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createPhaseDistortionOscillatorDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let frequency = AUParameterTree.createParameter(
-            withIdentifier: "frequency",
+        let frequency = AUParameter(
+            identifier: "frequency",
             name: "Frequency (Hz)",
-            address: AUParameterAddress(0),
-            min: 0,
-            max: 20_000,
+            address: AKPhaseDistortionOscillatorParameter.frequency.rawValue,
+            range: AKPhaseDistortionOscillator.frequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let amplitude = AUParameterTree.createParameter(
-            withIdentifier: "amplitude",
+            flags: .default)
+        let amplitude = AUParameter(
+            identifier: "amplitude",
             name: "Amplitude",
-            address: AUParameterAddress(1),
-            min: 0,
-            max: 10,
+            address: AKPhaseDistortionOscillatorParameter.amplitude.rawValue,
+            range: AKPhaseDistortionOscillator.amplitudeRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let phaseDistortion = AUParameterTree.createParameter(
-            withIdentifier: "phaseDistortion",
+            flags: .default)
+        let phaseDistortion = AUParameter(
+            identifier: "phaseDistortion",
             name: "Amount of distortion, within the range [-1, 1]. 0 is no distortion.",
-            address: AUParameterAddress(2),
-            min: -1,
-            max: 1,
+            address: AKPhaseDistortionOscillatorParameter.phaseDistortion.rawValue,
+            range: AKPhaseDistortionOscillator.phaseDistortionRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let detuningOffset = AUParameterTree.createParameter(
-            withIdentifier: "detuningOffset",
+            flags: .default)
+        let detuningOffset = AUParameter(
+            identifier: "detuningOffset",
             name: "Frequency offset (Hz)",
-            address: AUParameterAddress(3),
-            min: -1_000,
-            max: 1_000,
+            address: AKPhaseDistortionOscillatorParameter.detuningOffset.rawValue,
+            range: AKPhaseDistortionOscillator.detuningOffsetRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let detuningMultiplier = AUParameterTree.createParameter(
-            withIdentifier: "detuningMultiplier",
+            flags: .default)
+        let detuningMultiplier = AUParameter(
+            identifier: "detuningMultiplier",
             name: "Frequency detuning multiplier",
-            address: AUParameterAddress(4),
-            min: 0.9,
-            max: 1.11,
+            address: AKPhaseDistortionOscillatorParameter.detuningMultiplier.rawValue,
+            range: AKPhaseDistortionOscillator.detuningMultiplierRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [frequency, amplitude, phaseDistortion, detuningOffset, detuningMultiplier]))
-        frequency.value = 440
-        amplitude.value = 1
-        phaseDistortion.value = 0
-        detuningOffset.value = 0
-        detuningMultiplier.value = 1
+        setParameterTree(AUParameterTree(children: [frequency, amplitude, phaseDistortion, detuningOffset, detuningMultiplier]))
+        frequency.value = Float(AKPhaseDistortionOscillator.defaultFrequency)
+        amplitude.value = Float(AKPhaseDistortionOscillator.defaultAmplitude)
+        phaseDistortion.value = Float(AKPhaseDistortionOscillator.defaultPhaseDistortion)
+        detuningOffset.value = Float(AKPhaseDistortionOscillator.defaultDetuningOffset)
+        detuningMultiplier.value = Float(AKPhaseDistortionOscillator.defaultDetuningMultiplier)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

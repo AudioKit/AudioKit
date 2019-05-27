@@ -18,9 +18,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "phdo")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var waveform: AKTable?
 
@@ -30,6 +28,36 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningOffsetParameter: AUParameter?
     fileprivate var detuningMultiplierParameter: AUParameter?
 
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0.0 ... 20000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0.0 ... 10.0
+
+    /// Lower and upper bounds for Phase Distortion
+    public static let phaseDistortionRange = -1.0 ... 1.0
+
+    /// Lower and upper bounds for Detuning Offset
+    public static let detuningOffsetRange = -1000.0 ... 1000.0
+
+    /// Lower and upper bounds for Detuning Multiplier
+    public static let detuningMultiplierRange = 0.9 ... 1.11
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 440.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 1.0
+
+    /// Initial value for Phase Distortion
+    public static let defaultPhaseDistortion = 0.0
+
+    /// Initial value for Detuning Offset
+    public static let defaultDetuningOffset = 0.0
+
+    /// Initial value for Detuning Multiplier
+    public static let defaultDetuningMultiplier = 1.0
+
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
@@ -38,81 +66,66 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     }
 
     /// Frequency in cycles per second
-    @objc open dynamic var frequency: Double = 440 {
+    @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
+            guard frequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
     /// Output Amplitude.
-    @objc open dynamic var amplitude: Double = 1 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
+            guard amplitude != newValue else { return }
+            if internalAU?.isSetUp == true {
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
 
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
-    @objc open dynamic var phaseDistortion: Double = 0 {
+    @objc open dynamic var phaseDistortion: Double = defaultPhaseDistortion {
         willSet {
-            if phaseDistortion == newValue {
+            guard phaseDistortion != newValue else { return }
+            if internalAU?.isSetUp == true {
+                phaseDistortionParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    phaseDistortionParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.phaseDistortion, value: newValue)
         }
     }
 
     /// Frequency offset in Hz.
-    @objc open dynamic var detuningOffset: Double = 0 {
+    @objc open dynamic var detuningOffset: Double = defaultDetuningOffset {
         willSet {
-            if detuningOffset == newValue {
+            guard detuningOffset != newValue else { return }
+            if internalAU?.isSetUp == true {
+                detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    detuningOffsetParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
 
     /// Frequency detuning multiplier
-    @objc open dynamic var detuningMultiplier: Double = 1 {
+    @objc open dynamic var detuningMultiplier: Double = defaultDetuningMultiplier {
         willSet {
-            if detuningMultiplier == newValue {
+            guard detuningMultiplier != newValue else { return }
+            if internalAU?.isSetUp == true {
+                detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    detuningMultiplierParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }
@@ -141,11 +154,12 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     ///
     @objc public init(
         waveform: AKTable,
-        frequency: Double = 440,
-        amplitude: Double = 1,
-        phaseDistortion: Double = 0,
-        detuningOffset: Double = 0,
-        detuningMultiplier: Double = 1) {
+        frequency: Double = defaultFrequency,
+        amplitude: Double = defaultAmplitude,
+        phaseDistortion: Double = defaultPhaseDistortion,
+        detuningOffset: Double = defaultDetuningOffset,
+        detuningMultiplier: Double = defaultDetuningMultiplier
+    ) {
 
         self.waveform = waveform
         self.frequency = frequency
@@ -162,6 +176,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU?.setupWaveform(Int32(waveform.count))
@@ -181,17 +196,6 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
         detuningOffsetParameter = tree["detuningOffset"]
         detuningMultiplierParameter = tree["detuningMultiplier"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
         internalAU?.setParameterImmediately(.phaseDistortion, value: phaseDistortion)

@@ -15,7 +15,6 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var gainParameter: AUParameter?
@@ -49,15 +48,12 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     /// Center frequency.
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency == newValue {
+            guard centerFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -65,15 +61,12 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     @objc open dynamic var gain: Double = defaultGain {
         willSet {
-            if gain == newValue {
+            guard gain != newValue else { return }
+            if internalAU?.isSetUp == true {
+                gainParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    gainParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
@@ -81,15 +74,12 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
     /// Q of the filter. sqrt(0.5) is no resonance.
     @objc open dynamic var q: Double = defaultQ {
         willSet {
-            if q == newValue {
+            guard q != newValue else { return }
+            if internalAU?.isSetUp == true {
+                qParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    qParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.Q, value: newValue)
         }
     }
@@ -128,6 +118,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -141,18 +132,6 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
         centerFrequencyParameter = tree["centerFrequency"]
         gainParameter = tree["gain"]
         qParameter = tree["q"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
         internalAU?.setParameterImmediately(.gain, value: gain)

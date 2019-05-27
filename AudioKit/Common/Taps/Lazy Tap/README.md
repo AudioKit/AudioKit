@@ -1,6 +1,6 @@
 # Lazy Tap
 
-Lazxy tap different from a normal tap in that you have to poll it for data, but this method allows for buffer re-use, so you can call it as quickly as you'd like.  
+Lazy tap different from a normal tap in that you have to poll it for data, but this method allows for buffer re-use, so you can call it as quickly as you'd like.
 
 Here's an example of using AKLazyTap to get peak:
 
@@ -39,12 +39,12 @@ class ViewController: UIViewController {
             for sample in leftMono {
                 peak = max(peak, fabsf(sample))
             }
-            print("number of samples \(buffer.frameLength) peak \(peak)")
+            AKLog("number of samples \(buffer.frameLength) peak \(peak)")
 
         }
 
         do {
-            try AudioKit.start()         
+            try AudioKit.start()
         } catch {
             AKLog("AudioKit did not start!")
         }

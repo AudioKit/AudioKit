@@ -11,11 +11,11 @@ import AVFoundation
 public class AKClipperAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKClipperParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKClipperParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var limit: Double = AKClipper.defaultLimit {
@@ -27,33 +27,25 @@ public class AKClipperAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createClipperDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
-
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let limit = AUParameterTree.createParameter(
-            withIdentifier: "limit",
+        let limit = AUParameter(
+            identifier: "limit",
             name: "Threshold",
-            address: AUParameterAddress(0),
-            min: Float(AKClipper.limitRange.lowerBound),
-            max: Float(AKClipper.limitRange.upperBound),
+            address: AKClipperParameter.limit.rawValue,
+            range: AKClipper.limitRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [limit]))
+        setParameterTree(AUParameterTree(children: [limit]))
         limit.value = Float(AKClipper.defaultLimit)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

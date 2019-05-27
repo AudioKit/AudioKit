@@ -9,53 +9,53 @@
 #include "AKOscillatorDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createOscillatorDSP(int nChannels, double sampleRate) {
-    AKOscillatorDSP* dsp = new AKOscillatorDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createOscillatorDSP(int channelCount, double sampleRate) {
+    AKOscillatorDSP *dsp = new AKOscillatorDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKOscillatorDSP::_Internal {
-    sp_osc *_osc;
-    sp_ftbl *_ftbl;
-    UInt32 _ftbl_size = 4096;
+struct AKOscillatorDSP::InternalData {
+    sp_osc *osc;
+    sp_ftbl *ftbl;
+    UInt32 ftbl_size = 4096;
     AKLinearParameterRamp frequencyRamp;
     AKLinearParameterRamp amplitudeRamp;
     AKLinearParameterRamp detuningOffsetRamp;
     AKLinearParameterRamp detuningMultiplierRamp;
 };
 
-AKOscillatorDSP::AKOscillatorDSP() : _private(new _Internal) {
-    _private->frequencyRamp.setTarget(defaultFrequency, true);
-    _private->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->amplitudeRamp.setTarget(defaultAmplitude, true);
-    _private->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
-    _private->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
-    _private->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
+AKOscillatorDSP::AKOscillatorDSP() : data(new InternalData) {
+    data->frequencyRamp.setTarget(defaultFrequency, true);
+    data->frequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->amplitudeRamp.setTarget(defaultAmplitude, true);
+    data->amplitudeRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->detuningOffsetRamp.setTarget(defaultDetuningOffset, true);
+    data->detuningOffsetRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->detuningMultiplierRamp.setTarget(defaultDetuningMultiplier, true);
+    data->detuningMultiplierRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKOscillatorParameterFrequency:
-            _private->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
+            data->frequencyRamp.setTarget(clamp(value, frequencyLowerBound, frequencyUpperBound), immediate);
             break;
         case AKOscillatorParameterAmplitude:
-            _private->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
+            data->amplitudeRamp.setTarget(clamp(value, amplitudeLowerBound, amplitudeUpperBound), immediate);
             break;
         case AKOscillatorParameterDetuningOffset:
-            _private->detuningOffsetRamp.setTarget(clamp(value, detuningOffsetLowerBound, detuningOffsetUpperBound), immediate);
+            data->detuningOffsetRamp.setTarget(clamp(value, detuningOffsetLowerBound, detuningOffsetUpperBound), immediate);
             break;
         case AKOscillatorParameterDetuningMultiplier:
-            _private->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
+            data->detuningMultiplierRamp.setTarget(clamp(value, detuningMultiplierLowerBound, detuningMultiplierUpperBound), immediate);
             break;
         case AKOscillatorParameterRampDuration:
-            _private->frequencyRamp.setRampDuration(value, _sampleRate);
-            _private->amplitudeRamp.setRampDuration(value, _sampleRate);
-            _private->detuningOffsetRamp.setRampDuration(value, _sampleRate);
-            _private->detuningMultiplierRamp.setRampDuration(value, _sampleRate);
+            data->frequencyRamp.setRampDuration(value, sampleRate);
+            data->amplitudeRamp.setRampDuration(value, sampleRate);
+            data->detuningOffsetRamp.setRampDuration(value, sampleRate);
+            data->detuningMultiplierRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -64,40 +64,39 @@ void AKOscillatorDSP::setParameter(AUParameterAddress address, AUValue value, bo
 float AKOscillatorDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKOscillatorParameterFrequency:
-            return _private->frequencyRamp.getTarget();
+            return data->frequencyRamp.getTarget();
         case AKOscillatorParameterAmplitude:
-            return _private->amplitudeRamp.getTarget();
+            return data->amplitudeRamp.getTarget();
         case AKOscillatorParameterDetuningOffset:
-            return _private->detuningOffsetRamp.getTarget();
+            return data->detuningOffsetRamp.getTarget();
         case AKOscillatorParameterDetuningMultiplier:
-            return _private->detuningMultiplierRamp.getTarget();
+            return data->detuningMultiplierRamp.getTarget();
         case AKOscillatorParameterRampDuration:
-            return _private->frequencyRamp.getRampDuration(_sampleRate);
+            return data->frequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKOscillatorDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    _playing = false;
-    sp_osc_create(&_private->_osc);
-    sp_osc_init(_sp, _private->_osc, _private->_ftbl, 0);
-    _private->_osc->freq = defaultFrequency;
-    _private->_osc->amp = defaultAmplitude;
+void AKOscillatorDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    isStarted = false;
+    sp_osc_create(&data->osc);
+    sp_osc_init(sp, data->osc, data->ftbl, 0);
+    data->osc->freq = defaultFrequency;
+    data->osc->amp = defaultAmplitude;
 }
 
-void AKOscillatorDSP::destroy() {
-    sp_osc_destroy(&_private->_osc);
-    AKSoundpipeDSPBase::destroy();
+void AKOscillatorDSP::deinit() {
+    sp_osc_destroy(&data->osc);
 }
 
 void AKOscillatorDSP::setupWaveform(uint32_t size) {
-    _private->_ftbl_size = size;
-    sp_ftbl_create(_sp, &_private->_ftbl, _private->_ftbl_size);
+    data->ftbl_size = size;
+    sp_ftbl_create(sp, &data->ftbl, data->ftbl_size);
 }
 
 void AKOscillatorDSP::setWaveformValue(uint32_t index, float value) {
-    _private->_ftbl->tbl[index] = value;
+    data->ftbl->tbl[index] = value;
 }
 
 void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -107,21 +106,21 @@ void AKOscillatorDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bu
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->frequencyRamp.advanceTo(_now + frameOffset);
-            _private->amplitudeRamp.advanceTo(_now + frameOffset);
-            _private->detuningOffsetRamp.advanceTo(_now + frameOffset);
-            _private->detuningMultiplierRamp.advanceTo(_now + frameOffset);
+            data->frequencyRamp.advanceTo(now + frameOffset);
+            data->amplitudeRamp.advanceTo(now + frameOffset);
+            data->detuningOffsetRamp.advanceTo(now + frameOffset);
+            data->detuningMultiplierRamp.advanceTo(now + frameOffset);
         }
-        _private->_osc->freq = _private->frequencyRamp.getValue() * _private->detuningMultiplierRamp.getValue() + _private->detuningOffsetRamp.getValue();
-        _private->_osc->amp = _private->amplitudeRamp.getValue();
+        data->osc->freq = data->frequencyRamp.getValue() * data->detuningMultiplierRamp.getValue() + data->detuningOffsetRamp.getValue();
+        data->osc->amp = data->amplitudeRamp.getValue();
 
         float temp = 0;
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-            if (_playing) {
+            if (isStarted) {
                 if (channel == 0) {
-                    sp_osc_compute(_sp, _private->_osc, nil, &temp);
+                    sp_osc_compute(sp, data->osc, nil, &temp);
                 }
                 *out = temp;
             } else {

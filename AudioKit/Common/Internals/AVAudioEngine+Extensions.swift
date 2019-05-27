@@ -22,7 +22,7 @@ extension AVAudioEngine {
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
     ///
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
-    public func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
+    public func renderToFile(_ audioFile: AVAudioFile, maximumFrameCount: AVAudioFrameCount = 4_096, duration: Double, prerender: (() -> Void)? = nil) throws {
         guard duration >= 0 else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
@@ -30,7 +30,7 @@ extension AVAudioEngine {
         try AKTry {
             // Engine can't be running when switching to offline render mode.
             if self.isRunning { self.stop() }
-            try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: 4_096)
+            try self.enableManualRenderingMode(.offline, format: audioFile.processingFormat, maximumFrameCount: maximumFrameCount)
 
             // This resets the sampleTime of offline rendering to 0.
             self.reset()
@@ -59,6 +59,8 @@ extension AVAudioEngine {
             case .error, .insufficientDataFromInputNode:
                 throw NSError(domain: "AVAudioEngine ext", code: 1,
                               userInfo: [NSLocalizedDescriptionKey: "renderToFile render error"])
+            @unknown default:
+                fatalError("Unknown render result")
             }
         }
 

@@ -32,7 +32,7 @@ class ViewController: NSViewController {
             let guitarLoopFile = try? AKAudioFile(forReading: guitarLoopURL)
 
             else {
-                print("missing resources!")
+                AKLog("missing resources!")
                 return
         }
 

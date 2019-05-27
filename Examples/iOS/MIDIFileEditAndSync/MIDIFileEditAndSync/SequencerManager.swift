@@ -38,7 +38,7 @@ class SequencerManager {
         do {
             try AudioKit.start()
         } catch {
-            print("Couldn't start AudioKit")
+            AKLog("Couldn't start AudioKit")
         }
     }
 
@@ -61,7 +61,7 @@ class SequencerManager {
             try data.write(to: tempPath as URL)
             return tempPath
         } catch {
-            print("couldn't write to URL")
+            AKLog("couldn't write to URL")
         }
         return nil
     }

@@ -24,8 +24,8 @@ public:
 
     AKWaveTableDSPKernel() {}
 
-    void init(int _channels, double _sampleRate) override {
-        AKSoundpipeKernel::init(_channels, _sampleRate);
+    void init(int channelCount, double sampleRate) override {
+        AKSoundpipeKernel::init(channelCount, sampleRate);
 
         sp_tabread_create(&tabread1);
         sp_tabread_create(&tabread2);
@@ -34,6 +34,14 @@ public:
         volumeRamper.init();
     }
 
+
+    void destroy() {
+        sp_tabread_destroy(&tabread1);
+        sp_tabread_destroy(&tabread2);
+        sp_ftbl_destroy(&ftbl1);
+        sp_ftbl_destroy(&ftbl2);;
+        AKSoundpipeKernel::destroy();
+    }
     void start() {
         started = true;
 
@@ -77,14 +85,6 @@ public:
         if (loadCompletionHandler != nil){
             loadCompletionHandler();
         }
-    }
-
-    void destroy() {
-        sp_tabread_destroy(&tabread1);
-        sp_tabread_destroy(&tabread2);
-        sp_ftbl_destroy(&ftbl1);
-        sp_ftbl_destroy(&ftbl2);
-        AKSoundpipeKernel::destroy();
     }
 
     void reset() {
@@ -163,7 +163,7 @@ public:
                 break;
         }
     }
-    
+    long loopPhase = -1;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
@@ -301,10 +301,16 @@ public:
     void calculateShouldLoop(double nextPosition){
         if (mainPlayComplete){
             if (nextPosition > loopEndPointViaRate() && !loopReversed()){
-                position = loopStartPointViaRate();
+                doLoopActions();
             }else if (nextPosition < loopEndPointViaRate() && loopReversed()){
-                position = loopStartPointViaRate();
+                doLoopActions();
             }
+        }
+    }
+    void doLoopActions(){
+        position = loopStartPointViaRate();
+        if (loopCallback != NULL){
+            loopCallback();
         }
     }
 private:
@@ -336,10 +342,9 @@ public:
     ParameterRamper volumeRamper = 1;
     AKCCallback completionHandler = nullptr;
     AKCCallback loadCompletionHandler = nullptr;
+    AKCCallback loopCallback = nullptr;
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;
     float rate = 1;
 };
-
-

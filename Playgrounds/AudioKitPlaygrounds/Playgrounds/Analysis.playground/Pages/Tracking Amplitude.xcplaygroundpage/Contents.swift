@@ -8,7 +8,7 @@ import AudioKit
 //: First lets set up sound source to track
 let oscillatorNode = AKOperationGenerator { _ in
     // Let's set up the volume to be changing in the shape of a sine wave
-    let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
+    let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
 
     // And lets make the frequency move around to make sure it doesn't affect the amplitude tracking
     let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
@@ -27,7 +27,7 @@ import AudioKitUI
 
 class LiveView: AKLiveViewController {
 
-    var trackedAmplitudeSlider: AKSlider?
+    var trackedAmplitudeSlider: AKSlider!
 
     override func viewDidLoad() {
 

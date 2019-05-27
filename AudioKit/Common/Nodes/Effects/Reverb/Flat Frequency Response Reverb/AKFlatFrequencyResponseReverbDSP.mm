@@ -9,37 +9,37 @@
 #include "AKFlatFrequencyResponseReverbDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createFlatFrequencyResponseReverbDSP(int nChannels, double sampleRate) {
-    AKFlatFrequencyResponseReverbDSP* dsp = new AKFlatFrequencyResponseReverbDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createFlatFrequencyResponseReverbDSP(int channelCount, double sampleRate) {
+    AKFlatFrequencyResponseReverbDSP *dsp = new AKFlatFrequencyResponseReverbDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKFlatFrequencyResponseReverbDSP::_Internal {
-    sp_allpass *_allpass0;
-    sp_allpass *_allpass1;
-    float _loopDuration = 0.1;
+struct AKFlatFrequencyResponseReverbDSP::InternalData {
+    sp_allpass *allpass0;
+    sp_allpass *allpass1;
+    float loopDuration = 0.1;
     AKLinearParameterRamp reverbDurationRamp;
 };
 
 void AKFlatFrequencyResponseReverbDSP::initializeConstant(float duration) {
-    _private->_loopDuration = duration;
+    data->loopDuration = duration;
 }
 
 
-AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : _private(new _Internal) {
-    _private->reverbDurationRamp.setTarget(defaultReverbDuration, true);
-    _private->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
+AKFlatFrequencyResponseReverbDSP::AKFlatFrequencyResponseReverbDSP() : data(new InternalData) {
+    data->reverbDurationRamp.setTarget(defaultReverbDuration, true);
+    data->reverbDurationRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            _private->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
+            data->reverbDurationRamp.setTarget(clamp(value, reverbDurationLowerBound, reverbDurationUpperBound), immediate);
             break;
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            _private->reverbDurationRamp.setRampDuration(value, _sampleRate);
+            data->reverbDurationRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -48,28 +48,27 @@ void AKFlatFrequencyResponseReverbDSP::setParameter(AUParameterAddress address, 
 float AKFlatFrequencyResponseReverbDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKFlatFrequencyResponseReverbParameterReverbDuration:
-            return _private->reverbDurationRamp.getTarget();
+            return data->reverbDurationRamp.getTarget();
         case AKFlatFrequencyResponseReverbParameterRampDuration:
-            return _private->reverbDurationRamp.getRampDuration(_sampleRate);
+            return data->reverbDurationRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKFlatFrequencyResponseReverbDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_allpass_create(&_private->_allpass0);
-    sp_allpass_create(&_private->_allpass1);
-    sp_allpass_init(_sp, _private->_allpass0, _private->_loopDuration);
-    sp_allpass_init(_sp, _private->_allpass1, _private->_loopDuration);
-    _private->_allpass0->revtime = defaultReverbDuration;
-    _private->_allpass1->revtime = defaultReverbDuration;
+void AKFlatFrequencyResponseReverbDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_allpass_create(&data->allpass0);
+    sp_allpass_create(&data->allpass1);
+    sp_allpass_init(sp, data->allpass0, data->loopDuration);
+    sp_allpass_init(sp, data->allpass1, data->loopDuration);
+    data->allpass0->revtime = defaultReverbDuration;
+    data->allpass1->revtime = defaultReverbDuration;
 
 }
 
-void AKFlatFrequencyResponseReverbDSP::destroy() {
-    sp_allpass_destroy(&_private->_allpass0);
-    sp_allpass_destroy(&_private->_allpass1);
-    AKSoundpipeDSPBase::destroy();
+void AKFlatFrequencyResponseReverbDSP::deinit() {
+    sp_allpass_destroy(&data->allpass0);
+    sp_allpass_destroy(&data->allpass1);
 }
 
 void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -79,30 +78,30 @@ void AKFlatFrequencyResponseReverbDSP::process(AUAudioFrameCount frameCount, AUA
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->reverbDurationRamp.advanceTo(_now + frameOffset);
+            data->reverbDurationRamp.advanceTo(now + frameOffset);
         }
 
-        _private->_allpass0->revtime = _private->reverbDurationRamp.getValue();
-        _private->_allpass1->revtime = _private->reverbDurationRamp.getValue();
+        data->allpass0->revtime = data->reverbDurationRamp.getValue();
+        data->allpass1->revtime = data->reverbDurationRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float *in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
             if (channel == 0) {
-                sp_allpass_compute(_sp, _private->_allpass0, in, out);
+                sp_allpass_compute(sp, data->allpass0, in, out);
             } else {
-                sp_allpass_compute(_sp, _private->_allpass1, in, out);
+                sp_allpass_compute(sp, data->allpass1, in, out);
             }
         }
 

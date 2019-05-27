@@ -20,7 +20,7 @@ typedef NS_ENUM(AUParameterAddress, AKRolandTB303FilterParameter) {
 
 #ifndef __cplusplus
 
-void* createRolandTB303FilterDSP(int nChannels, double sampleRate);
+AKDSPRef createRolandTB303FilterDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -28,12 +28,11 @@ void* createRolandTB303FilterDSP(int nChannels, double sampleRate);
 
 class AKRolandTB303FilterDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKRolandTB303FilterDSP();
-    ~AKRolandTB303FilterDSP();
 
     float cutoffFrequencyLowerBound = 12.0;
     float cutoffFrequencyUpperBound = 20000.0;
@@ -57,9 +56,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -7,8 +7,6 @@ Basic four-segment envelope generator with linear *Attack*, *Decay*, *Sustain* a
 
 This is a stand-alone class at the moment, but it will eventually become one of several specialized subclasses of a more general multi-segment "Envelope" class.
 
-**ShapedEnvelope** is a subclass of **ADSREnvelope** which uses three **FunctionTable** instances to provide non-linear shapes for the Attack, Decay and Release segments.
-
 ## FunctionTable
 Basic one-dimensional *lookup table* for tabulated functions, with *linear interpolation* between adjacent values, and a choice of either *cyclical addressing* (for periodic functions; see **FunctionTableOscillator**) or *bounded addressing* (for non-periodic functions; see **WaveShaper**).
 

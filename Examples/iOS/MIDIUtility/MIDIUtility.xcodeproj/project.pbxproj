@@ -12,7 +12,8 @@
 		C40F9D3B1C5C908E00B50BFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D391C5C908E00B50BFB /* Main.storyboard */; };
 		C40F9D3D1C5C908E00B50BFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3C1C5C908E00B50BFB /* Assets.xcassets */; };
 		C40F9D401C5C908E00B50BFB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40F9D3E1C5C908E00B50BFB /* LaunchScreen.storyboard */; };
-		FE0349841F69E4FC009BB8AC /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */; };
+		C4AF8D7D21EFEB6E00009B5C /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF8D7B21EFEB6E00009B5C /* AudioKitUI.framework */; };
+		C4AF8D7E21EFEB6E00009B5C /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF8D7C21EFEB6E00009B5C /* AudioKit.framework */; };
 		FEE5633D1F674D7A006E4087 /* MIDISenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +38,8 @@
 		C40F9D3C1C5C908E00B50BFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C40F9D3F1C5C908E00B50BFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C40F9D411C5C908E00B50BFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C4AF8D7B21EFEB6E00009B5C /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		C4AF8D7C21EFEB6E00009B5C /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		FEE5633C1F674D7A006E4087 /* MIDISenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDISenderVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -46,7 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE0349841F69E4FC009BB8AC /* AudioKit.framework in Frameworks */,
+				C4AF8D7E21EFEB6E00009B5C /* AudioKit.framework in Frameworks */,
+				C4AF8D7D21EFEB6E00009B5C /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +90,8 @@
 		EA8BA98C1C5F4E4900BBD469 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA8BA9891C5F4E3D00BBD469 /* AudioKit.framework */,
+				C4AF8D7C21EFEB6E00009B5C /* AudioKit.framework */,
+				C4AF8D7B21EFEB6E00009B5C /* AudioKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,19 +124,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C40F9D311C5C908E00B50BFB = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C40F9D2D1C5C908E00B50BFB /* Build configuration list for PBXProject "MIDIUtility" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -198,6 +202,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -255,6 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -313,10 +319,10 @@
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -331,10 +337,10 @@
 				INFOPLIST_FILE = MIDIUtility/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MIDIUtility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

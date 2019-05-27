@@ -12,8 +12,8 @@
 		C41702891C11954900AB689C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41702871C11954900AB689C /* Main.storyboard */; };
 		C417028B1C11954900AB689C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C417028A1C11954900AB689C /* Assets.xcassets */; };
 		C417028E1C11954900AB689C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C417028C1C11954900AB689C /* LaunchScreen.storyboard */; };
+		EA2FA53C215AF992001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E076431F57676300AD8664 /* AudioKitUI.framework */; };
 		EA8F6ED52014B5FC00B68497 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B3F41D4554D8000AEFCA /* AudioKit.framework */; };
-		EA8F6ED62014B5FC00B68497 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E076431F57676300AD8664 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8F6ED52014B5FC00B68497 /* AudioKit.framework in Frameworks */,
-				EA8F6ED62014B5FC00B68497 /* AudioKitUI.framework in Frameworks */,
+				EA2FA53C215AF992001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,18 +110,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C417027F1C11954900AB689C = {
 						CreatedOnToolsVersion = 7.2;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = C417027B1C11954900AB689C /* Build configuration list for PBXProject "HelloWorld" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -186,6 +186,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -244,6 +245,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -303,10 +305,13 @@
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -320,10 +325,13 @@
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
