@@ -13,7 +13,7 @@
 		B1F827C4209CDAD4006DE336 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C3209CDAD4006DE336 /* Assets.xcassets */; };
 		B1F827C7209CDAD4006DE336 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1F827C5209CDAD4006DE336 /* Main.storyboard */; };
 		B1F827D1209CDAFA006DE336 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827CF209CDAFA006DE336 /* AudioKit.framework */; };
-		B1F827D2209CDAFA006DE336 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; };
+		EAA07331215CD58600FCFE54 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1F827D2209CDAFA006DE336 /* AudioKitUI.framework in Frameworks */,
 				B1F827D1209CDAFA006DE336 /* AudioKit.framework in Frameworks */,
+				EAA07331215CD58600FCFE54 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,10 +45,9 @@
 		B1F827B3209CDAD2006DE336 = {
 			isa = PBXGroup;
 			children = (
-				B1F827CF209CDAFA006DE336 /* AudioKit.framework */,
-				B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */,
 				B1F827BE209CDAD2006DE336 /* SimpleAudioUnit */,
 				B1F827BD209CDAD2006DE336 /* Products */,
+				EAA07330215CD58600FCFE54 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +71,15 @@
 				B1F827C9209CDAD4006DE336 /* SimpleAudioUnit.entitlements */,
 			);
 			path = SimpleAudioUnit;
+			sourceTree = "<group>";
+		};
+		EAA07330215CD58600FCFE54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B1F827CF209CDAFA006DE336 /* AudioKit.framework */,
+				B1F827D0209CDAFA006DE336 /* AudioKitUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +114,7 @@
 				TargetAttributes = {
 					B1F827BB209CDAD2006DE336 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 0;
@@ -295,10 +304,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -315,10 +324,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SimpleAudioUnit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

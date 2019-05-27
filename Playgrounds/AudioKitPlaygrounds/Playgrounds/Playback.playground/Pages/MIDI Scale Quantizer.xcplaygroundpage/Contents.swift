@@ -133,7 +133,7 @@ class PlaygroundMIDIListener: AKMIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        sampler.play(noteNumber: noteNumber)
+        try! sampler.play(noteNumber: noteNumber)
     }
 }
 

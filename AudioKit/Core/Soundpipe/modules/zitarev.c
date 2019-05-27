@@ -164,7 +164,7 @@ static void deletezitarev(zitarev* dsp) {
 
 static void instanceInitzitarev(zitarev* dsp, int samplingFreq) {
 	dsp->fSamplingFreq = samplingFreq;
-	dsp->fHslider0 = (FAUSTFLOAT)0.;
+	dsp->fHslider0 = (FAUSTFLOAT)-20.;
 	/* C99 loop */
 	{
 		int i0;
@@ -743,7 +743,7 @@ static void buildUserInterfacezitarev(zitarev* dsp, UIGlue* interface) {
 	interface->addHorizontalSlider(interface->uiInterface, "eq2_freq", &dsp->fHslider2, 1500.f, 160.f, 10000.f, 1.f);
 	interface->addHorizontalSlider(interface->uiInterface, "eq2_level", &dsp->fHslider3, 0.f, -15.f, 15.f, 0.1f);
 	interface->addHorizontalSlider(interface->uiInterface, "mix", &dsp->fHslider1, 1.f, 0.f, 1.f, 0.001f);
-	interface->addHorizontalSlider(interface->uiInterface, "level", &dsp->fHslider0, 0.f, -70.f, 40.f, 0.1f);
+	interface->addHorizontalSlider(interface->uiInterface, "level", &dsp->fHslider0, -20.f, -70.f, 40.f, 0.1f);
 }
 
 static void computezitarev(zitarev* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {

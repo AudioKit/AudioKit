@@ -12,7 +12,7 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    @IBOutlet private var plot: AKOutputWaveformPlot!
+    @IBOutlet private var plot: AKNodeOutputPlot!
 
     var oscillator1 = AKOscillator()
     var oscillator2 = AKOscillator()
@@ -22,6 +22,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
         mixer = AKMixer(oscillator1, oscillator2)
+        plot.node = mixer
 
         // Cut the volume in half since we have two oscillators
         mixer.volume = 0.5

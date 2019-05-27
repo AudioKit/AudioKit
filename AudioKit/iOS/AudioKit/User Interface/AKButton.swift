@@ -32,7 +32,7 @@ public enum AKButtonStyle {
     }
 
     public var font: UIFont = UIFont.boldSystemFont(ofSize: 24)
-    
+
     /// Text to display on the button
     @IBInspectable open var title: String {
         didSet {
@@ -98,8 +98,9 @@ public enum AKButtonStyle {
 
     /// Initialize the button
     @objc public convenience init(title: String,
-                      color: AKColor = AKStylist.sharedInstance.nextColor,
-                      frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60), callback: @escaping (AKButton) -> Void) {
+                                  color: AKColor = AKStylist.sharedInstance.nextColor,
+                                  frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                                  callback: @escaping (AKButton) -> Void) {
         self.init(frame: frame)
         self.title = title
         self.color = color
@@ -203,9 +204,9 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSAttributedStringKey.font: font,
-                                   NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                   NSAttributedStringKey.paragraphStyle: labelStyle]
+        let labelFontAttributes = [NSAttributedString.Key.font: font,
+                                   NSAttributedString.Key.foregroundColor: textColorForTheme,
+                                   NSAttributedString.Key.paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(

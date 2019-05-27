@@ -7,29 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05C5FD6822476C3400A2CAAE /* InputDeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */; };
 		7881F8301D0C01F0007E62A3 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7881F82F1D0C01F0007E62A3 /* AudioKit.framework */; };
 		789CA9B61D0A01F500D6EFF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */; };
 		789CA9B81D0A01F500D6EFF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789CA9B71D0A01F500D6EFF1 /* ViewController.swift */; };
 		789CA9BB1D0A01F500D6EFF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9B91D0A01F500D6EFF1 /* Main.storyboard */; };
 		789CA9BD1D0A01F500D6EFF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */; };
 		789CA9C01D0A01F500D6EFF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 789CA9BE1D0A01F500D6EFF1 /* LaunchScreen.storyboard */; };
-		EA10E1521F4F93AB003F0CA9 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1511F4F93AB003F0CA9 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7881F8321D0C01F0007E62A3 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputDeviceTableViewController.swift; sourceTree = "<group>"; };
 		7881F82F1D0C01F0007E62A3 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		789CA9B21D0A01F500D6EFF1 /* MicrophoneAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrophoneAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,7 +34,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA10E1521F4F93AB003F0CA9 /* AudioKitUI.framework in Frameworks */,
 				7881F8301D0C01F0007E62A3 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				789CA9B51D0A01F500D6EFF1 /* AppDelegate.swift */,
+				05C5FD6722476C3400A2CAAE /* InputDeviceTableViewController.swift */,
 				789CA9B71D0A01F500D6EFF1 /* ViewController.swift */,
 				789CA9B91D0A01F500D6EFF1 /* Main.storyboard */,
 				789CA9BC1D0A01F500D6EFF1 /* Assets.xcassets */,
@@ -103,7 +91,6 @@
 				789CA9AE1D0A01F500D6EFF1 /* Sources */,
 				789CA9AF1D0A01F500D6EFF1 /* Frameworks */,
 				789CA9B01D0A01F500D6EFF1 /* Resources */,
-				7881F8321D0C01F0007E62A3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -121,18 +108,18 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					789CA9B11D0A01F500D6EFF1 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
 			buildConfigurationList = 789CA9AD1D0A01F500D6EFF1 /* Build configuration list for PBXProject "MicrophoneAnalysis" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -168,6 +155,7 @@
 			files = (
 				789CA9B81D0A01F500D6EFF1 /* ViewController.swift in Sources */,
 				789CA9B61D0A01F500D6EFF1 /* AppDelegate.swift in Sources */,
+				05C5FD6822476C3400A2CAAE /* InputDeviceTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +185,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -255,6 +244,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -312,10 +302,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -328,10 +318,10 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MicrophoneAnalysis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MicrophoneAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

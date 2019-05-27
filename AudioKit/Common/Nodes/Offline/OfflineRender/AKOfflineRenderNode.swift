@@ -29,7 +29,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
     ///   - duration: length of time to record, in seconds
     ///   - settings: Dictionary of information about the file to write
     ///
-    open func renderToURL(_ url: URL, duration: Double, settings: [String: Any]? = nil) throws {
+    @objc public func renderToURL(_ url: URL, duration: Double, settings: [String: Any]? = nil) throws {
         return try internalAU!.render(toFile: url, duration: duration, settings: settings)
     }
 
@@ -37,7 +37,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
     ///
     /// - parameter duration: length of audio buffer, seconds
     ///
-    open func renderToBuffer(for duration: Double) throws -> AVAudioPCMBuffer {
+    @objc public func renderToBuffer(for duration: Double) throws -> AVAudioPCMBuffer {
         return try internalAU!.render(toBuffer: duration)
     }
 
@@ -54,6 +54,7 @@ open class AKOfflineRenderNode: AKNode, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
 

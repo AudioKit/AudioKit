@@ -14,12 +14,25 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
 
     // MARK: - Properties
-
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var amplitudeParameter: AUParameter?
+
+    /// Lower and upper bounds for Frequency
+    public static let frequencyRange = 0 ... 22000.0
+
+    /// Lower and upper bounds for Amplitude
+    public static let amplitudeRange = 0 ... 1.0
+
+    /// Initial value for Frequency
+    public static let defaultFrequency = 110.0
+
+    /// Initial value for Amplitude
+    public static let defaultAmplitude = 0.5
+
+    /// Initial value for Lowest Frequency
+    public static let defaultLowestFrequency = 110.0
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -29,33 +42,27 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     }
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    @objc open dynamic var frequency: Double = 110 {
+    @objc open dynamic var frequency: Double = defaultLowestFrequency {
         willSet {
-            if frequency == newValue {
+            guard frequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
 
     /// Amplitude
-    @objc open dynamic var amplitude: Double = 0.5 {
+    @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
+            guard amplitude != newValue else { return }
+            if internalAU?.isSetUp == true {
+                amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -74,8 +81,8 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     ///   - amplitude: Amplitude
     ///
     @objc public init(
-        frequency: Double = 110,
-        amplitude: Double = 0.5) {
+        frequency: Double = defaultLowestFrequency,
+        amplitude: Double = defaultAmplitude) {
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -88,6 +95,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
@@ -100,17 +108,6 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
         frequencyParameter = tree["frequency"]
         amplitudeParameter = tree["amplitude"]
 
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.amplitude, value: amplitude)
     }

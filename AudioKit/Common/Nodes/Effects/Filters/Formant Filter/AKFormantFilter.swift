@@ -17,7 +17,6 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var centerFrequencyParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?
@@ -51,15 +50,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Center frequency.
     @objc open dynamic var centerFrequency: Double = defaultCenterFrequency {
         willSet {
-            if centerFrequency == newValue {
+            guard centerFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    centerFrequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -67,15 +63,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Impulse response attack duration (in seconds).
     @objc open dynamic var attackDuration: Double = defaultAttackDuration {
         willSet {
-            if attackDuration == newValue {
+            guard attackDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                attackDurationParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    attackDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
@@ -83,15 +76,12 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Impulse reponse decay duration (in seconds)
     @objc open dynamic var decayDuration: Double = defaultDecayDuration {
         willSet {
-            if decayDuration == newValue {
+            guard decayDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                decayDurationParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    decayDurationParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
@@ -130,6 +120,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -143,18 +134,6 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
         centerFrequencyParameter = tree["centerFrequency"]
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.centerFrequency, value: centerFrequency)
         internalAU?.setParameterImmediately(.attackDuration, value: attackDuration)

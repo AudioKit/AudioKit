@@ -12,11 +12,16 @@ import UIKit
 #endif
 
 extension AudioKit {
-
     // MARK: - Start/Stop
 
     /// Start up the audio engine with periodic functions
-    open static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
+    public static func start(withPeriodicFunctions functions: AKPeriodicFunction...) throws {
+        // ensure that an output has been set previously
+        guard let finalMixer = finalMixer else {
+            AKLog("No output has been assigned yet.")
+            return
+        }
+
         for function in functions {
             function.connect(to: finalMixer)
         }
@@ -24,7 +29,7 @@ extension AudioKit {
     }
 
     /// Start up the audio engine
-    @objc open static func start() throws {
+    @objc public static func start() throws {
         if output == nil {
             AKLog("No output node has been set yet, no processing will happen.")
         }
@@ -41,17 +46,31 @@ extension AudioKit {
 
         // Subscribe to route changes that may affect our engine
         // Automatic handling of this change can be disabled via AKSettings.enableRouteChangeHandling
-        NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterRouteChange), name: .AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(restartEngineAfterRouteChange),
+                                               name: AVAudioSession.routeChangeNotification,
+                                               object: nil)
 
         // Subscribe to session/configuration changes to our engine
         // Automatic handling of this change can be disabled via AKSettings.enableCategoryChangeHandling
         NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(restartEngineAfterConfigurationChange), name: .AVAudioEngineConfigurationChange, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(restartEngineAfterConfigurationChange),
+                                               name: .AVAudioEngineConfigurationChange,
+                                               object: nil)
         #endif
 
         try AKTry {
             try engine.start()
+            // Send AudioKit started and ready for connections notification.
+            // If you listen this notification, you may not need the `shouldBeRunning` variable.
+            if AKSettings.notificationsEnabled {
+                NotificationCenter.default.post(
+                    name: .AKEngineStarted,
+                    object: nil,
+                    userInfo: nil)
+            }
         }
         shouldBeRunning = true
     }
@@ -62,8 +81,7 @@ extension AudioKit {
 
         #if os(iOS)
         let sessionOptions = AKSettings.computedSessionOptions()
-        try AKSettings.setSession(category: sessionCategory,
-                                  with: sessionOptions)
+        try AKSettings.setSession(category: sessionCategory, with: sessionOptions)
         #elseif os(tvOS)
         try AKSettings.setSession(category: sessionCategory)
         #endif
@@ -71,7 +89,7 @@ extension AudioKit {
     }
 
     /// Stop the audio engine
-    @objc open static func stop() throws {
+    @objc public static func stop() throws {
         // Stop the engine.
         try AKTry {
             engine.stop()
@@ -80,14 +98,23 @@ extension AudioKit {
 
         #if os(iOS)
         do {
-            NotificationCenter.default.removeObserver(self, name: .AVAudioSessionRouteChange, object: nil)
+            NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: .AVAudioEngineConfigurationChange, object: nil)
-            try AVAudioSession.sharedInstance().setActive(false)
+            if !AKSettings.disableAudioSessionDeactivationOnStop {
+                try AVAudioSession.sharedInstance().setActive(false)
+            }
         } catch {
             AKLog("couldn't stop session \(error)")
             throw error
         }
         #endif
+    }
+
+    @objc public static func shutdown() throws {
+        engine = AVAudioEngine()
+        finalMixer = nil
+        output = nil
+        shouldBeRunning = false
     }
 
     // MARK: - Configuration Change Response
@@ -96,15 +123,15 @@ extension AudioKit {
     // and restart the audio engine if it stops and should be playing
     @objc fileprivate static func restartEngineAfterConfigurationChange(_ notification: Notification) {
         // Notifications aren't guaranteed to be on the main thread
-        let checkRestart = {
+        let attemptRestart = {
             do {
-                // By checking the notification sender in this block rather than during observer configuration we avoid needing to create a new observer if the engine somehow changes
+                // By checking the notification sender in this block rather than during observer configuration
+                // we avoid needing to create a new observer if the engine somehow changes
                 guard let notifyingEngine = notification.object as? AVAudioEngine, notifyingEngine == engine else {
                     return
                 }
 
                 if AKSettings.enableCategoryChangeHandling && !engine.isRunning && shouldBeRunning {
-
                     #if !os(macOS)
                     let appIsNotActive = UIApplication.shared.applicationState != .active
                     let appDoesNotSupportBackgroundAudio = !AKSettings.appSupportsBackgroundAudio
@@ -131,9 +158,9 @@ extension AudioKit {
             }
         }
         if Thread.isMainThread {
-            checkRestart()
+            attemptRestart()
         } else {
-            DispatchQueue.main.async(execute: checkRestart)
+            DispatchQueue.main.async(execute: attemptRestart)
         }
     }
 
@@ -141,8 +168,7 @@ extension AudioKit {
     @objc fileprivate static func restartEngineAfterRouteChange(_ notification: Notification) {
         // Notifications aren't guaranteed to come in on the main thread
 
-        let checkRestart = {
-
+        let attemptRestart = {
             if AKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
                 do {
                     #if !os(macOS)
@@ -171,9 +197,9 @@ extension AudioKit {
             }
         }
         if Thread.isMainThread {
-            checkRestart()
+            attemptRestart()
         } else {
-            DispatchQueue.main.async(execute: checkRestart)
+            DispatchQueue.main.async(execute: attemptRestart)
         }
     }
 }

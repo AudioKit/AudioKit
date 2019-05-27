@@ -16,7 +16,6 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var frequencyParameter: AUParameter?
     fileprivate var bandwidthParameter: AUParameter?
@@ -43,15 +42,12 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Center frequency of the filter, or frequency position of the peak response.
     @objc open dynamic var frequency: Double = defaultFrequency {
         willSet {
-            if frequency == newValue {
+            guard frequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                frequencyParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    frequencyParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -59,15 +55,12 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
     /// Bandwidth of the filter.
     @objc open dynamic var bandwidth: Double = defaultBandwidth {
         willSet {
-            if bandwidth == newValue {
+            guard bandwidth != newValue else { return }
+            if internalAU?.isSetUp == true {
+                bandwidthParameter?.value = AUValue(newValue)
                 return
             }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    bandwidthParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
-            }
+                
             internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
@@ -103,6 +96,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -115,18 +109,6 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
 
         frequencyParameter = tree["frequency"]
         bandwidthParameter = tree["bandwidth"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.frequency, value: frequency)
         internalAU?.setParameterImmediately(.bandwidth, value: bandwidth)

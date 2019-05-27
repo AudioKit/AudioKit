@@ -101,18 +101,18 @@ open class AKOperation: AKComputedParameter {
     // MARK: - Inputs
 
     /// Left input to any stereo operation
-    open static var leftInput = AKOperation("(14 p) ")
+    public static var leftInput = AKOperation("(14 p) ")
 
     /// Right input to any stereo operation
-    open static var rightInput = AKOperation("(15 p) ")
+    public static var rightInput = AKOperation("(15 p) ")
 
     /// Dummy trigger
-    open static var trigger = AKOperation("(0 p) ")
+    public static var trigger = AKOperation("(0 p) ")
 
     // MARK: - Functions
 
     /// An= array of 14 parameters which may be sent to operations
-    open static var parameters: [AKOperation] =
+    public static var parameters: [AKOperation] =
         [AKOperation("(0 p) "),
          AKOperation("(1 p) "),
          AKOperation("(2 p) "),

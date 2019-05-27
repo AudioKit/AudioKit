@@ -7,8 +7,8 @@ import AudioKitPlaygrounds
 import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 var filter = AKLowPassButterworthFilter(player)
 filter.cutoffFrequency = 500 // Hz

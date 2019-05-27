@@ -1,10 +1,56 @@
 //
-//  AKMIDIStatus.swift
+//  AKMIDIStatusType.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+
+public struct AKMIDIStatus: AKMIDIMessage {
+
+    public var data: [UInt8] {
+        return [byte]
+    }
+
+    public var byte: MIDIByte
+
+    public init(type: AKMIDIStatusType, channel: MIDIChannel) {
+        byte = MIDIByte(type.rawValue) << 4 + channel
+    }
+
+    public init(command: AKMIDISystemCommand) {
+        byte = command.rawValue
+    }
+
+    public init?(byte: MIDIByte) {
+        if let _ = AKMIDIStatusType.from(byte: byte) {
+            self.byte = byte
+        } else {
+            return nil
+        }
+    }
+
+    public var type: AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte.highBit))
+    }
+    
+    public var channel: MIDIChannel {
+        return byte.lowBit
+    }
+
+    public var description: String {
+        if let type = self.type {
+            return "\(type.description) channel \(channel)"
+        } else if let command = AKMIDISystemCommand(rawValue: byte) {
+            return "Command: \(command.description)"
+        }
+        return "Invalid message"
+    }
+
+    public var length: Int {
+        return type?.length ?? 0
+    }
+}
 
 /// Potential MIDI Status messages
 ///
@@ -23,12 +69,8 @@
 ///    single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
 /// - PitchWheel:
 ///    common keyboard control that allow for a pitch to be bent up or down a given number of semitones
-/// - SystemCommand:
-///    differ from system to system
 ///
-public enum AKMIDIStatus: Int {
-    /// Default empty status
-    case nothing = 0
+public enum AKMIDIStatusType: Int {
     /// Note off is something resembling a keyboard key release
     case noteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -47,7 +89,36 @@ public enum AKMIDIStatus: Int {
     /// A pitch wheel is a common keyboard control that allow for a pitch to be
     /// bent up or down a given number of semitones
     case pitchWheel = 14
-    /// System commands differ from system to system
-    case systemCommand = 15
 
+    static func from(byte: MIDIByte) -> AKMIDIStatusType? {
+        return AKMIDIStatusType(rawValue: Int(byte.highBit))
+    }
+
+    public var length: Int {
+        switch self {
+        case .programChange, .channelAftertouch:
+            return 2
+        case .noteOff, .noteOn, .controllerChange, .pitchWheel, .polyphonicAftertouch:
+            return 3
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .noteOff:
+            return "Note Off"
+        case .noteOn:
+            return "Note On"
+        case .polyphonicAftertouch:
+            return "Polyphonic Aftertouch / Pressure"
+        case .controllerChange:
+            return "Control Change"
+        case .programChange:
+            return "Program Change"
+        case .channelAftertouch:
+            return "Channel Aftertouch / Pressure"
+        case .pitchWheel:
+            return "Pitch Wheel"
+        }
+    }
 }

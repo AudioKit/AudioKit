@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2017 Aurelius Prochazka. All rights reserved.
 //
+import AudioKit
 
 public enum AKRotaryKnobStyle {
     case round
@@ -71,7 +72,7 @@ public enum AKRotaryKnobStyle {
                 taper: Double = 1,
                 format: String = "%0.3f",
                 color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 150, height: 170),
+                frame: CGRect = CGRect(width: 150, height: 170),
                 callback: @escaping (_ x: Double) -> Void = { _ in }) {
 
         self.knobColor = color
@@ -168,18 +169,18 @@ public enum AKRotaryKnobStyle {
         let width = self.frame.width
         let height = self.frame.height
 
-        let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
+        let nameLabelRect = CGRect(width: width, height: height)
         let nameLabelStyle = NSMutableParagraphStyle()
         nameLabelStyle.alignment = .center
 
         let textColor = textColorForTheme()
 
-        let nameLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: fontSize),
-                                       NSAttributedStringKey.foregroundColor: textColor,
-                                       NSAttributedStringKey.paragraphStyle: nameLabelStyle]
+        let nameLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: fontSize),
+                                       .foregroundColor: textColor,
+                                       .paragraphStyle: nameLabelStyle]
 
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRect(
-            with: CGSize(width: width, height: CGFloat.infinity),
+            with: CGSize(width: width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: nameLabelFontAttributes).size.height
         context.saveGState()
@@ -216,7 +217,9 @@ public enum AKRotaryKnobStyle {
         let knobPath: NSBezierPath = {
             switch self.knobStyle {
             case .round:
-                return NSBezierPath(roundedRect: knobRect, xRadius: knobDiameter / 2.0, yRadius: knobDiameter / 2.0)
+                return NSBezierPath(roundedRect: knobRect,
+                                    xRadius: knobDiameter / 2.0,
+                                    yRadius: knobDiameter / 2.0)
             case .polygon (let numberOfSides, let curvature):
                 return bezierPathWithPolygonInRect(
                     knobRect,
@@ -270,17 +273,17 @@ public enum AKRotaryKnobStyle {
 
         //// valueLabel Drawing
         if isDragging {
-            let valueLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
+            let valueLabelRect = CGRect(width: width, height: height)
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            NSAttributedStringKey.foregroundColor: textColor,
-                                            NSAttributedStringKey.paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
+                                            .foregroundColor: textColor,
+                                            .paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(
-                with: CGSize(width: valueLabelInset.width, height: CGFloat.infinity),
+                with: CGSize(width: valueLabelInset.width, height: .infinity),
                 options: .usesLineFragmentOrigin,
                 attributes: valueLabelFontAttributes).size
 

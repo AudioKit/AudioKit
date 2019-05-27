@@ -71,20 +71,20 @@ class MIDISenderVC: UIViewController {
 
     @IBAction func sendNotePressed(_ sender: UIButton) {
         if noteToSend != nil && velocityToSend != nil {
-            print("sending note: \(noteToSend!) - \(velocityToSend!)")
+            AKLog("sending note: \(noteToSend!) - \(velocityToSend!)")
             let event = AKMIDIEvent(noteOn: MIDINoteNumber(noteToSend!), velocity: MIDIVelocity(velocityToSend!), channel: MIDIChannel(noteChanToSend))
             midiOut.sendEvent(event)
         } else {
-            print("error w note fields")
+            AKLog("error w note fields")
         }
     }
     @IBAction func sendCCPressed(_ sender: UIButton) {
         if ccToSend != nil && ccValToSend != nil {
-            print("sending cc: \(ccToSend!) - \(ccValToSend!)")
+            AKLog("sending cc: \(ccToSend!) - \(ccValToSend!)")
             let event = AKMIDIEvent(controllerChange: MIDIByte(ccToSend!), value: MIDIByte(ccValToSend!), channel: MIDIChannel(ccChanToSend))
             midiOut.sendEvent(event)
         } else {
-            print("error w cc fields")
+            AKLog("error w cc fields")
         }
     }
 
@@ -95,15 +95,15 @@ class MIDISenderVC: UIViewController {
                 midiBytes.append(MIDIByte(byte))
             }
             if midiBytes[0] != 240 || midiBytes.last != 247 || midiBytes.count < 2 {
-                print("bad sysex data - must start with 240 and end with 247")
-                print("parsed sysex: \(sysexToSend!)")
+                AKLog("bad sysex data - must start with 240 and end with 247")
+                AKLog("parsed sysex: \(sysexToSend!)")
                 return
             }
-            print("sending sysex \(sysexToSend!)")
+            AKLog("sending sysex \(sysexToSend!)")
             let event = AKMIDIEvent(data: midiBytes)
             midiOut.sendEvent(event)
         } else {
-            print("error w sysex field")
+            AKLog("error w sysex field")
         }
     }
 

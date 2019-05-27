@@ -26,21 +26,23 @@ let player = try AKAudioPlayer(file: tape)
 
 //: Mix our reverberated oscillator with our player, so we can listen to both.
 let mixer = AKMixer(player, reverb)
-AudioKit.output = mixer
-
-try AudioKit.start()
 
 //: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
 //: node to "reverb" if you prefer to record a "wet" oscillator...
-let recorder = try AKNodeRecorder(node: oscMixer, file: tape)
+let recorder = try AKNodeRecorder(node: mixer, file: tape)
+
+AudioKit.output = mixer
+
+try AudioKit.start()
 
 //: Build our User interface
 import AudioKitUI
 
 class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
-    var recordLabel: Label!
-    var playLabel: Label!
+    var recordLabel: AKLabel!
+    var playLabel: AKLabel!
+    var playButton: AKButton!
 
     override func viewDidLoad() {
         addTitle("Recording Nodes")
@@ -50,11 +52,11 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         addView(AKButton(title: "Record", color: AKColor.red) { button in
             if recorder.isRecording {
                 let dur = String(format: "%0.3f seconds", recorder.recordedDuration)
-                self.recordLabel.text = "Stopped. (\(dur) recorded)"
+                self.recordLabel.stringValue = "Stopped. (\(dur) recorded)"
                 recorder.stop()
                 button.title = "Record"
             } else {
-                self.recordLabel.text = "Recording..."
+                self.recordLabel.stringValue = "Recording..."
                 do {
                     try recorder.record()
                 } catch {
@@ -65,7 +67,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
 
         addView(AKButton(title: "Save") { button in
-            tape.exportAsynchronously(name: "test",
+            recorder.audioFile?.exportAsynchronously(name: "test",
                                       baseDir: .documents,
                                       exportFormat: .caf) { [weak self] _, _ in
             }
@@ -73,7 +75,7 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
         })
 
         addView(AKButton(title: "Reset Recording") { button in
-            self.recordLabel.text = "Tape Cleared!"
+            self.recordLabel.stringValue = "Tape Cleared!"
             do {
                 try recorder.reset()
             } catch {
@@ -84,9 +86,9 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
 
         playLabel = addLabel("Press Play to playback...")
 
-        addView(AKButton(title: "Play") { button in
+        playButton = AKButton(title: "Play") { button in
             if player.isPlaying {
-                self.playLabel.text = "Stopped playback!"
+                self.playLabel.stringValue = "Stopped playback!"
                 player.stop()
                 button.title = "Play"
             } else {
@@ -96,16 +98,17 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
                     AKLog("Couldn't reload file.")
                 }
                 // If the tape is not empty, we can play it !...
-                if player.audioFile.duration ?? 0 > 0 {
-                    self.playLabel.text = "Playing..."
+                if player.audioFile.duration > 0 {
+                    self.playLabel.stringValue = "Playing..."
                     player.completionHandler = self.callback
                     player.play()
+                    button.title = "Stop"
                 } else {
-                    self.playLabel.text = "Tape is empty!..."
+                    self.playLabel.stringValue = "Tape is empty!..."
                 }
-                button.title = "Stop"
             }
-        })
+        }
+        addView(playButton)
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
@@ -115,7 +118,8 @@ class LiveView: AKLiveViewController, AKKeyboardDelegate {
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
         DispatchQueue.main.async {
-            self.playLabel.text = "Finished playing!"
+            self.playButton.title = "Play"
+            self.playLabel.stringValue = "Finished playing!"
         }
     }
 

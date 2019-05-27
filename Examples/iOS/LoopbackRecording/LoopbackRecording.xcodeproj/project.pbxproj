@@ -11,22 +11,8 @@
 		5576EBA8209BD033007F6EDF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5576EBA7209BD033007F6EDF /* ViewController.swift */; };
 		5576EBAD209BD034007F6EDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5576EBAC209BD034007F6EDF /* Assets.xcassets */; };
 		55F8E8F3209CB46800C6C35D /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F8E8F2209CB46800C6C35D /* CompareViewController.swift */; };
-		55F8E901209CBBAA00C6C35D /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F8E8EE209CB42900C6C35D /* AudioKitUI.framework */; };
 		55F8E908209D1FE600C6C35D /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F8E8EF209CB42900C6C35D /* AudioKit.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5576EBC4209BD04B007F6EDF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5576EBA2209BD033007F6EDF /* LoopbackRecording.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoopbackRecording.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +31,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				55F8E908209D1FE600C6C35D /* AudioKit.framework in Frameworks */,
-				55F8E901209CBBAA00C6C35D /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +85,6 @@
 				5576EB9E209BD033007F6EDF /* Sources */,
 				5576EB9F209BD033007F6EDF /* Frameworks */,
 				5576EBA0209BD033007F6EDF /* Resources */,
-				5576EBC4209BD04B007F6EDF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,6 +107,7 @@
 				TargetAttributes = {
 					5576EBA1209BD033007F6EDF = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -224,7 +209,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -279,7 +264,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -290,7 +275,6 @@
 		5576EBB5209BD034007F6EDF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -301,7 +285,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.LoopbackRecording;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -309,7 +293,6 @@
 		5576EBB6209BD034007F6EDF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -320,7 +303,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.LoopbackRecording;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

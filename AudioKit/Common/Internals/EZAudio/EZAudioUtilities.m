@@ -22,7 +22,7 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
-
+#import <Accelerate/Accelerate.h>
 #import "EZAudioUtilities.h"
 
 static float    const  EZAudioUtilitiesFixedNoteA       = 440.0f;
@@ -427,9 +427,9 @@ BOOL __shouldExitOnCheckResultFail = YES;
 #pragma mark - Math Utilities
 //------------------------------------------------------------------------------
 
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength
 {
     int    shiftLength    = scrollHistoryLength - bufferLength;
@@ -447,7 +447,7 @@ BOOL __shouldExitOnCheckResultFail = YES;
 //------------------------------------------------------------------------------
 
 + (void)   appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength
 {
     float val[1]; val[0] = value;
@@ -475,10 +475,15 @@ BOOL __shouldExitOnCheckResultFail = YES;
 
 + (float)RMS:(float *)buffer   length:(int)bufferSize
 {
-    float sum = 0.0;
-    for(int i = 0; i < bufferSize; i++)
-        sum += buffer[i] * buffer[i];
-    return sqrtf( sum / bufferSize);
+//    float sum = 0.0;
+//    for(int i = 0; i < bufferSize; i++)
+//        sum += buffer[i] * buffer[i];
+//    return sqrtf( sum / bufferSize);
+
+    // Using Accelerate is faster
+    float rms = 0.0;
+    vDSP_rmsqv(buffer, 1, &rms, (vDSP_Length)bufferSize);
+    return rms;
 }
 
 //------------------------------------------------------------------------------

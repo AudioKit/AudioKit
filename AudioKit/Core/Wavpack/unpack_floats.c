@@ -17,14 +17,14 @@
 
 #include "wavpack_local.h"
 
-static void float_values_nowvx (WavpackStream *wps, int32_t *values, int32_t num_values);
+static void float_valuesnowvx (WavpackStream *wps, int32_t *values, int32_t num_values);
 
 void float_values (WavpackStream *wps, int32_t *values, int32_t num_values)
 {
     uint32_t crc = wps->crc_x;
 
     if (!bs_is_open (&wps->wvxbits)) {
-        float_values_nowvx (wps, values, num_values);
+        float_valuesnowvx (wps, values, num_values);
         return;
     }
 
@@ -95,7 +95,7 @@ void float_values (WavpackStream *wps, int32_t *values, int32_t num_values)
     wps->crc_x = crc;
 }
 
-static void float_values_nowvx (WavpackStream *wps, int32_t *values, int32_t num_values)
+static void float_valuesnowvx (WavpackStream *wps, int32_t *values, int32_t num_values)
 {
     while (num_values--) {
         int shift_count = 0, exp = wps->float_max_exp;

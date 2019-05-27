@@ -9,14 +9,14 @@
 #include "AKPhaserDSP.hpp"
 #import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createPhaserDSP(int nChannels, double sampleRate) {
-    AKPhaserDSP* dsp = new AKPhaserDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createPhaserDSP(int channelCount, double sampleRate) {
+    AKPhaserDSP *dsp = new AKPhaserDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKPhaserDSP::_Internal {
-    sp_phaser *_phaser;
+struct AKPhaserDSP::InternalData {
+    sp_phaser *phaser;
     AKLinearParameterRamp notchMinimumFrequencyRamp;
     AKLinearParameterRamp notchMaximumFrequencyRamp;
     AKLinearParameterRamp notchWidthRamp;
@@ -28,67 +28,67 @@ struct AKPhaserDSP::_Internal {
     AKLinearParameterRamp lfoBPMRamp;
 };
 
-AKPhaserDSP::AKPhaserDSP() : _private(new _Internal) {
-    _private->notchMinimumFrequencyRamp.setTarget(defaultNotchMinimumFrequency, true);
-    _private->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->notchMaximumFrequencyRamp.setTarget(defaultNotchMaximumFrequency, true);
-    _private->notchMaximumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->notchWidthRamp.setTarget(defaultNotchWidth, true);
-    _private->notchWidthRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->notchFrequencyRamp.setTarget(defaultNotchFrequency, true);
-    _private->notchFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->vibratoModeRamp.setTarget(defaultVibratoMode, true);
-    _private->vibratoModeRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->depthRamp.setTarget(defaultDepth, true);
-    _private->depthRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->feedbackRamp.setTarget(defaultFeedback, true);
-    _private->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->invertedRamp.setTarget(defaultInverted, true);
-    _private->invertedRamp.setDurationInSamples(defaultRampDurationSamples);
-    _private->lfoBPMRamp.setTarget(defaultLfoBPM, true);
-    _private->lfoBPMRamp.setDurationInSamples(defaultRampDurationSamples);
+AKPhaserDSP::AKPhaserDSP() : data(new InternalData) {
+    data->notchMinimumFrequencyRamp.setTarget(defaultNotchMinimumFrequency, true);
+    data->notchMinimumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->notchMaximumFrequencyRamp.setTarget(defaultNotchMaximumFrequency, true);
+    data->notchMaximumFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->notchWidthRamp.setTarget(defaultNotchWidth, true);
+    data->notchWidthRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->notchFrequencyRamp.setTarget(defaultNotchFrequency, true);
+    data->notchFrequencyRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->vibratoModeRamp.setTarget(defaultVibratoMode, true);
+    data->vibratoModeRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->depthRamp.setTarget(defaultDepth, true);
+    data->depthRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->feedbackRamp.setTarget(defaultFeedback, true);
+    data->feedbackRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->invertedRamp.setTarget(defaultInverted, true);
+    data->invertedRamp.setDurationInSamples(defaultRampDurationSamples);
+    data->lfoBPMRamp.setTarget(defaultLfoBPM, true);
+    data->lfoBPMRamp.setDurationInSamples(defaultRampDurationSamples);
 }
 
 // Uses the ParameterAddress as a key
 void AKPhaserDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKPhaserParameterNotchMinimumFrequency:
-            _private->notchMinimumFrequencyRamp.setTarget(clamp(value, notchMinimumFrequencyLowerBound, notchMinimumFrequencyUpperBound), immediate);
+            data->notchMinimumFrequencyRamp.setTarget(clamp(value, notchMinimumFrequencyLowerBound, notchMinimumFrequencyUpperBound), immediate);
             break;
         case AKPhaserParameterNotchMaximumFrequency:
-            _private->notchMaximumFrequencyRamp.setTarget(clamp(value, notchMaximumFrequencyLowerBound, notchMaximumFrequencyUpperBound), immediate);
+            data->notchMaximumFrequencyRamp.setTarget(clamp(value, notchMaximumFrequencyLowerBound, notchMaximumFrequencyUpperBound), immediate);
             break;
         case AKPhaserParameterNotchWidth:
-            _private->notchWidthRamp.setTarget(clamp(value, notchWidthLowerBound, notchWidthUpperBound), immediate);
+            data->notchWidthRamp.setTarget(clamp(value, notchWidthLowerBound, notchWidthUpperBound), immediate);
             break;
         case AKPhaserParameterNotchFrequency:
-            _private->notchFrequencyRamp.setTarget(clamp(value, notchFrequencyLowerBound, notchFrequencyUpperBound), immediate);
+            data->notchFrequencyRamp.setTarget(clamp(value, notchFrequencyLowerBound, notchFrequencyUpperBound), immediate);
             break;
         case AKPhaserParameterVibratoMode:
-            _private->vibratoModeRamp.setTarget(clamp(value, vibratoModeLowerBound, vibratoModeUpperBound), immediate);
+            data->vibratoModeRamp.setTarget(clamp(value, vibratoModeLowerBound, vibratoModeUpperBound), immediate);
             break;
         case AKPhaserParameterDepth:
-            _private->depthRamp.setTarget(clamp(value, depthLowerBound, depthUpperBound), immediate);
+            data->depthRamp.setTarget(clamp(value, depthLowerBound, depthUpperBound), immediate);
             break;
         case AKPhaserParameterFeedback:
-            _private->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
+            data->feedbackRamp.setTarget(clamp(value, feedbackLowerBound, feedbackUpperBound), immediate);
             break;
         case AKPhaserParameterInverted:
-            _private->invertedRamp.setTarget(clamp(value, invertedLowerBound, invertedUpperBound), immediate);
+            data->invertedRamp.setTarget(clamp(value, invertedLowerBound, invertedUpperBound), immediate);
             break;
         case AKPhaserParameterLfoBPM:
-            _private->lfoBPMRamp.setTarget(clamp(value, lfoBPMLowerBound, lfoBPMUpperBound), immediate);
+            data->lfoBPMRamp.setTarget(clamp(value, lfoBPMLowerBound, lfoBPMUpperBound), immediate);
             break;
         case AKPhaserParameterRampDuration:
-            _private->notchMinimumFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->notchMaximumFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->notchWidthRamp.setRampDuration(value, _sampleRate);
-            _private->notchFrequencyRamp.setRampDuration(value, _sampleRate);
-            _private->vibratoModeRamp.setRampDuration(value, _sampleRate);
-            _private->depthRamp.setRampDuration(value, _sampleRate);
-            _private->feedbackRamp.setRampDuration(value, _sampleRate);
-            _private->invertedRamp.setRampDuration(value, _sampleRate);
-            _private->lfoBPMRamp.setRampDuration(value, _sampleRate);
+            data->notchMinimumFrequencyRamp.setRampDuration(value, sampleRate);
+            data->notchMaximumFrequencyRamp.setRampDuration(value, sampleRate);
+            data->notchWidthRamp.setRampDuration(value, sampleRate);
+            data->notchFrequencyRamp.setRampDuration(value, sampleRate);
+            data->vibratoModeRamp.setRampDuration(value, sampleRate);
+            data->depthRamp.setRampDuration(value, sampleRate);
+            data->feedbackRamp.setRampDuration(value, sampleRate);
+            data->invertedRamp.setRampDuration(value, sampleRate);
+            data->lfoBPMRamp.setRampDuration(value, sampleRate);
             break;
     }
 }
@@ -97,47 +97,46 @@ void AKPhaserDSP::setParameter(AUParameterAddress address, AUValue value, bool i
 float AKPhaserDSP::getParameter(uint64_t address) {
     switch (address) {
         case AKPhaserParameterNotchMinimumFrequency:
-            return _private->notchMinimumFrequencyRamp.getTarget();
+            return data->notchMinimumFrequencyRamp.getTarget();
         case AKPhaserParameterNotchMaximumFrequency:
-            return _private->notchMaximumFrequencyRamp.getTarget();
+            return data->notchMaximumFrequencyRamp.getTarget();
         case AKPhaserParameterNotchWidth:
-            return _private->notchWidthRamp.getTarget();
+            return data->notchWidthRamp.getTarget();
         case AKPhaserParameterNotchFrequency:
-            return _private->notchFrequencyRamp.getTarget();
+            return data->notchFrequencyRamp.getTarget();
         case AKPhaserParameterVibratoMode:
-            return _private->vibratoModeRamp.getTarget();
+            return data->vibratoModeRamp.getTarget();
         case AKPhaserParameterDepth:
-            return _private->depthRamp.getTarget();
+            return data->depthRamp.getTarget();
         case AKPhaserParameterFeedback:
-            return _private->feedbackRamp.getTarget();
+            return data->feedbackRamp.getTarget();
         case AKPhaserParameterInverted:
-            return _private->invertedRamp.getTarget();
+            return data->invertedRamp.getTarget();
         case AKPhaserParameterLfoBPM:
-            return _private->lfoBPMRamp.getTarget();
+            return data->lfoBPMRamp.getTarget();
         case AKPhaserParameterRampDuration:
-            return _private->notchMinimumFrequencyRamp.getRampDuration(_sampleRate);
+            return data->notchMinimumFrequencyRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
 
-void AKPhaserDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_phaser_create(&_private->_phaser);
-    sp_phaser_init(_sp, _private->_phaser);
-    *_private->_phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
-    *_private->_phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
-    *_private->_phaser->Notch_width = defaultNotchWidth;
-    *_private->_phaser->NotchFreq = defaultNotchFrequency;
-    *_private->_phaser->VibratoMode = defaultVibratoMode;
-    *_private->_phaser->depth = defaultDepth;
-    *_private->_phaser->feedback_gain = defaultFeedback;
-    *_private->_phaser->invert = defaultInverted;
-    *_private->_phaser->lfobpm = defaultLfoBPM;
+void AKPhaserDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_phaser_create(&data->phaser);
+    sp_phaser_init(sp, data->phaser);
+    *data->phaser->MinNotch1Freq = defaultNotchMinimumFrequency;
+    *data->phaser->MaxNotch1Freq = defaultNotchMaximumFrequency;
+    *data->phaser->Notch_width = defaultNotchWidth;
+    *data->phaser->NotchFreq = defaultNotchFrequency;
+    *data->phaser->VibratoMode = defaultVibratoMode;
+    *data->phaser->depth = defaultDepth;
+    *data->phaser->feedback_gain = defaultFeedback;
+    *data->phaser->invert = defaultInverted;
+    *data->phaser->lfobpm = defaultLfoBPM;
 }
 
-void AKPhaserDSP::destroy() {
-    sp_phaser_destroy(&_private->_phaser);
-    AKSoundpipeDSPBase::destroy();
+void AKPhaserDSP::deinit() {
+    sp_phaser_destroy(&data->phaser);
 }
 
 void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -147,43 +146,43 @@ void AKPhaserDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffer
 
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->notchMinimumFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->notchMaximumFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->notchWidthRamp.advanceTo(_now + frameOffset);
-            _private->notchFrequencyRamp.advanceTo(_now + frameOffset);
-            _private->vibratoModeRamp.advanceTo(_now + frameOffset);
-            _private->depthRamp.advanceTo(_now + frameOffset);
-            _private->feedbackRamp.advanceTo(_now + frameOffset);
-            _private->invertedRamp.advanceTo(_now + frameOffset);
-            _private->lfoBPMRamp.advanceTo(_now + frameOffset);
+            data->notchMinimumFrequencyRamp.advanceTo(now + frameOffset);
+            data->notchMaximumFrequencyRamp.advanceTo(now + frameOffset);
+            data->notchWidthRamp.advanceTo(now + frameOffset);
+            data->notchFrequencyRamp.advanceTo(now + frameOffset);
+            data->vibratoModeRamp.advanceTo(now + frameOffset);
+            data->depthRamp.advanceTo(now + frameOffset);
+            data->feedbackRamp.advanceTo(now + frameOffset);
+            data->invertedRamp.advanceTo(now + frameOffset);
+            data->lfoBPMRamp.advanceTo(now + frameOffset);
         }
 
-        *_private->_phaser->MinNotch1Freq = _private->notchMinimumFrequencyRamp.getValue();
-        *_private->_phaser->MaxNotch1Freq = _private->notchMaximumFrequencyRamp.getValue();
-        *_private->_phaser->Notch_width = _private->notchWidthRamp.getValue();
-        *_private->_phaser->NotchFreq = _private->notchFrequencyRamp.getValue();
-        *_private->_phaser->VibratoMode = _private->vibratoModeRamp.getValue();
-        *_private->_phaser->depth = _private->depthRamp.getValue();
-        *_private->_phaser->feedback_gain = _private->feedbackRamp.getValue();
-        *_private->_phaser->invert = _private->invertedRamp.getValue();
-        *_private->_phaser->lfobpm = _private->lfoBPMRamp.getValue();
+        *data->phaser->MinNotch1Freq = data->notchMinimumFrequencyRamp.getValue();
+        *data->phaser->MaxNotch1Freq = data->notchMaximumFrequencyRamp.getValue();
+        *data->phaser->Notch_width = data->notchWidthRamp.getValue();
+        *data->phaser->NotchFreq = data->notchFrequencyRamp.getValue();
+        *data->phaser->VibratoMode = data->vibratoModeRamp.getValue();
+        *data->phaser->depth = data->depthRamp.getValue();
+        *data->phaser->feedback_gain = data->feedbackRamp.getValue();
+        *data->phaser->invert = data->invertedRamp.getValue();
+        *data->phaser->lfobpm = data->lfoBPMRamp.getValue();
 
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
             }
-            
+
         }
-        if (_playing) {
-            sp_phaser_compute(_sp, _private->_phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
+        if (isStarted) {
+            sp_phaser_compute(sp, data->phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
         }
     }
 }

@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKDripParameter) {
 
 #ifndef __cplusplus
 
-void* createDripDSP(int nChannels, double sampleRate);
+AKDSPRef createDripDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -31,13 +31,12 @@ void* createDripDSP(int nChannels, double sampleRate);
 
 class AKDripDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
     float internalTrigger = 0;
 
 public:
     AKDripDSP();
-    ~AKDripDSP();
 
     float intensityLowerBound = 0;
     float intensityUpperBound = 100;
@@ -70,9 +69,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

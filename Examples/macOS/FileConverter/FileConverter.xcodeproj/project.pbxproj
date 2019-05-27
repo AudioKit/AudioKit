@@ -3,30 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B12307811FE31D77002FFEB1 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B123077F1FE31D77002FFEB1 /* AudioKitUI.framework */; };
 		B12307821FE31D77002FFEB1 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B12307801FE31D77002FFEB1 /* AudioKit.framework */; };
 		B1BF702E1FE2F42B00110328 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF702D1FE2F42B00110328 /* AppDelegate.swift */; };
 		B1BF70301FE2F42B00110328 /* FileConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BF702F1FE2F42B00110328 /* FileConverter.swift */; };
 		B1BF70321FE2F42B00110328 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1BF70311FE2F42B00110328 /* Assets.xcassets */; };
 		B1BF70351FE2F42B00110328 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1BF70331FE2F42B00110328 /* Main.storyboard */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B1BF70451FE2F62400110328 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B123077F1FE31D77002FFEB1 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
@@ -46,7 +32,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B12307821FE31D77002FFEB1 /* AudioKit.framework in Frameworks */,
-				B12307811FE31D77002FFEB1 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +87,6 @@
 				B1BF70261FE2F42B00110328 /* Sources */,
 				B1BF70271FE2F42B00110328 /* Frameworks */,
 				B1BF70281FE2F42B00110328 /* Resources */,
-				B1BF70451FE2F62400110328 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,12 +109,13 @@
 				TargetAttributes = {
 					B1BF70291FE2F42B00110328 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = B1BF70251FE2F42B00110328 /* Build configuration list for PBXProject "FileConverter" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -292,7 +277,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -306,13 +292,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FileConverter/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FileConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -326,13 +315,16 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = FileConverter/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.FileConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

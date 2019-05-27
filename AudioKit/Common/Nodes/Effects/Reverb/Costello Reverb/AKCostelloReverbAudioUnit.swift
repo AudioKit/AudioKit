@@ -11,11 +11,11 @@ import AVFoundation
 public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
 
     func setParameter(_ address: AKCostelloReverbParameter, value: Double) {
-        setParameterWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterWithAddress(address.rawValue, value: Float(value))
     }
 
     func setParameterImmediately(_ address: AKCostelloReverbParameter, value: Double) {
-        setParameterImmediatelyWithAddress(AUParameterAddress(address.rawValue), value: Float(value))
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
     var feedback: Double = AKCostelloReverb.defaultFeedback {
@@ -31,46 +31,34 @@ public class AKCostelloReverbAudioUnit: AKAudioUnitBase {
     }
 
     public override func initDSP(withSampleRate sampleRate: Double,
-                                 channelCount count: AVAudioChannelCount) -> UnsafeMutableRawPointer! {
+                                 channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createCostelloReverbDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
-                  options: AudioComponentInstantiationOptions = []) throws {
+                         options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        let flags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-
-        let feedback = AUParameterTree.createParameter(
-            withIdentifier: "feedback",
+        let feedback = AUParameter(
+            identifier: "feedback",
             name: "Feedback",
-            address: AUParameterAddress(0),
-            min: Float(AKCostelloReverb.feedbackRange.lowerBound),
-            max: Float(AKCostelloReverb.feedbackRange.upperBound),
+            address: AKCostelloReverbParameter.feedback.rawValue,
+            range: AKCostelloReverb.feedbackRange,
             unit: .generic,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
-        let cutoffFrequency = AUParameterTree.createParameter(
-            withIdentifier: "cutoffFrequency",
+            flags: .default)
+        let cutoffFrequency = AUParameter(
+            identifier: "cutoffFrequency",
             name: "Cutoff Frequency",
-            address: AUParameterAddress(1),
-            min: Float(AKCostelloReverb.cutoffFrequencyRange.lowerBound),
-            max: Float(AKCostelloReverb.cutoffFrequencyRange.upperBound),
+            address: AKCostelloReverbParameter.cutoffFrequency.rawValue,
+            range: AKCostelloReverb.cutoffFrequencyRange,
             unit: .hertz,
-            unitName: nil,
-            flags: flags,
-            valueStrings: nil,
-            dependentParameters: nil
-        )
+            flags: .default)
 
-        setParameterTree(AUParameterTree.createTree(withChildren: [feedback, cutoffFrequency]))
+        setParameterTree(AUParameterTree(children: [feedback, cutoffFrequency]))
         feedback.value = Float(AKCostelloReverb.defaultFeedback)
         cutoffFrequency.value = Float(AKCostelloReverb.defaultCutoffFrequency)
     }
 
-    public override var canProcessInPlace: Bool { get { return true; }}
+    public override var canProcessInPlace: Bool { return true }
 
 }

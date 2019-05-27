@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,21 +12,8 @@
 		C475A04F1E4700D2008802C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C475A04E1E4700D2008802C7 /* Assets.xcassets */; };
 		C475A0521E4700D2008802C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C475A0501E4700D2008802C7 /* Main.storyboard */; };
 		C4B51CF41F6E6C7400C853E8 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B949921F5D32350052DC0A /* AudioKit.framework */; };
-		C4B51CF71F6E6DDB00C853E8 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B51CF61F6E6DCF00C853E8 /* AudioKitUI.framework */; };
+		EA2FA545215B0061001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B51CF61F6E6DCF00C853E8 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C475A0661E470271008802C7 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C475A0471E4700D2008802C7 /* Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +31,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B51CF71F6E6DDB00C853E8 /* AudioKitUI.framework in Frameworks */,
 				C4B51CF41F6E6C7400C853E8 /* AudioKit.framework in Frameworks */,
+				EA2FA545215B0061001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,10 +42,9 @@
 		C475A03E1E4700D2008802C7 = {
 			isa = PBXGroup;
 			children = (
-				C4B949921F5D32350052DC0A /* AudioKit.framework */,
-				C4B51CF61F6E6DCF00C853E8 /* AudioKitUI.framework */,
 				C475A0491E4700D2008802C7 /* Recorder */,
 				C475A0481E4700D2008802C7 /* Products */,
+				EA2FA544215B0061001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +68,15 @@
 			path = Recorder;
 			sourceTree = "<group>";
 		};
+		EA2FA544215B0061001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4B949921F5D32350052DC0A /* AudioKit.framework */,
+				C4B51CF61F6E6DCF00C853E8 /* AudioKitUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,7 +87,6 @@
 				C475A0431E4700D2008802C7 /* Sources */,
 				C475A0441E4700D2008802C7 /* Frameworks */,
 				C475A0451E4700D2008802C7 /* Resources */,
-				C475A0661E470271008802C7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -110,19 +104,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Aurelius Prochazka";
 				TargetAttributes = {
 					C475A0461E4700D2008802C7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = C475A0421E4700D2008802C7 /* Build configuration list for PBXProject "Recorder" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -178,6 +172,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -236,6 +231,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -278,41 +274,46 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
 		C475A0571E4700D2008802C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Recorder/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Recorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		C475A0581E4700D2008802C7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Recorder/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Recorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

@@ -20,7 +20,7 @@ extension AudioUnitManager: AKMIDIListener {
 
         if !devices.isEmpty {
             midiDeviceSelector.removeAllItems()
-            midiManager?.openInput(devices[0])
+            midiManager?.openInput(index: 0)
 
             for device in devices {
                 AKLog("MIDI Device: \(device)")
@@ -96,7 +96,6 @@ extension AudioUnitManager: AKMIDIListener {
         } else {
             fmOscillator.stop()
         }
-
     }
 
     @objc func randomFM() {

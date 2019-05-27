@@ -23,7 +23,7 @@ typedef NS_ENUM(AUParameterAddress, AKMetalBarParameter) {
 
 #ifndef __cplusplus
 
-void* createMetalBarDSP(int nChannels, double sampleRate);
+AKDSPRef createMetalBarDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -31,12 +31,11 @@ void* createMetalBarDSP(int nChannels, double sampleRate);
 
 class AKMetalBarDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKMetalBarDSP();
-    ~AKMetalBarDSP();
 
     float leftBoundaryConditionLowerBound = 1;
     float leftBoundaryConditionUpperBound = 3;
@@ -71,9 +70,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 

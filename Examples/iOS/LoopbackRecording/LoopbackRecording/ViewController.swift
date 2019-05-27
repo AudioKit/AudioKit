@@ -25,7 +25,6 @@ import AudioKit
 
  */
 
-
 class ViewController: UIViewController {
 
     var metronome = AKSamplerMetronome()
@@ -62,43 +61,43 @@ class ViewController: UIViewController {
         }
 
         view.addSubview(button)
-        self.addChildViewController(comparisonViewController)
+        self.addChild(comparisonViewController)
         comparisonViewController.view.isHidden = true
         view.addSubview(comparisonViewController.view)
-        comparisonViewController.didMove(toParentViewController: self)
+        comparisonViewController.didMove(toParent: self)
 
     }
 
     func setUpAudio() {
 
-        do{
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setActive(true)
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord,
-                                         with:[.defaultToSpeaker, .mixWithOthers])
+        do {
+            AKSettings.audioInputEnabled = true
+            AKSettings.defaultToSpeaker = true
+            AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
+            try AKSettings.setSession(category: .playAndRecord)
+
 
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
             // It's a must if you want accurate recordings.  It turns of the os input processing.
             // Uncomment / Experiment
-            /*
 
-            try audioSession.setMode(AVAudioSessionModeMeasurement)
+            // try AKSettings.session.setMode(AVAudioSession.Mode.measurement)
 
-             */
 
         } catch {
             fatalError(error.localizedDescription)
         }
 
-        // Make connections, using engine.outputNode so that I can skip AudioKit.start()
-        [metronome, player] >>> mixer >>> AudioKit.engine.outputNode
+        // Make connections
+        metronome.connect(to: mixer.inputNode)
+        player.connect(to: mixer.inputNode)
+        AudioKit.output = mixer
 
         // Set up recorders
         loopBackRecorder = AKClipRecorder(node: AudioKit.engine.inputNode)
-        directRecorder = AKClipRecorder(node:metronome)
+        directRecorder = AKClipRecorder(node: metronome)
 
-        // Calling start on the engine seems to avoid the bugs around AudioKit.start()
-        do { try AudioKit.engine.start() } catch {
+        do { try AudioKit.start() } catch {
             fatalError(error.localizedDescription)
         }
 
@@ -107,12 +106,11 @@ class ViewController: UIViewController {
         metronome.startNote(1, withVelocity: 60, onChannel: 0)
     }
 
-
     @objc func buttonAction(button: UIButton, event: UIEvent) {
 
         // Not needed for this demo, just demonstrating how to get a touch event time
         // into a valid AVAudioTime - Just in case it helps ;)
-        let _ = AVAudioTime(hostTime: UInt64(event.timestamp * secondsToTicks))
+        _ = AVAudioTime(hostTime: UInt64(event.timestamp * secondsToTicks))
 
         // This gives us a reference time in the very near past to work with, and it gets right in to
         // what complicates ios audio io. The sampleTime of the input render timestamp (mic), and the sampleTime
@@ -120,10 +118,10 @@ class ViewController: UIViewController {
         // samples.  However, the hostTime of all of the timestamps share the same base, so we'll use it.
         guard let lastRenderHostTime = mixer.avAudioNode.lastRenderTime?.hostTime else { fatalError("Engine not running!") }
 
-        let audioSession = AVAudioSession.sharedInstance()
+        let audioSession = AKSettings.session
         let bufferDurationTicks = UInt64(audioSession.ioBufferDuration * secondsToTicks)
-        let outputLatencyTicks =  UInt64(audioSession.outputLatency * secondsToTicks)
-        let inputLatencyTicks  =  UInt64(audioSession.inputLatency * secondsToTicks)
+        let outputLatencyTicks = UInt64(audioSession.outputLatency * secondsToTicks)
+        let inputLatencyTicks = UInt64(audioSession.inputLatency * secondsToTicks)
 
         // We have to schedule the audio to play on the next render, since we missed the last one.
         let nextRenderHostTime = lastRenderHostTime + bufferDurationTicks
@@ -150,11 +148,9 @@ class ViewController: UIViewController {
         loopBackRecorder?.currentTime = 0
         directRecorder?.currentTime = 0
 
-
-
         // MeasurementMode is really quiet.  AKClipRecorder.recordClip takes an optional tap where you can
         // read and write to the data before it's written to file.  We'll use that to boost if in MeasurementMode.
-        let tap = audioSession.mode != AVAudioSessionModeMeasurement ? nil : { (buffer: AVAudioPCMBuffer, time: AVAudioTime) in
+        let tap = convertFromAVAudioSessionMode(audioSession.mode) != convertFromAVAudioSessionMode(AVAudioSession.Mode.measurement) ? nil : { (buffer: AVAudioPCMBuffer, time: AVAudioTime) in
             guard let channels = buffer.floatChannelData else { return }
             for c in 0..<Int(buffer.format.channelCount) {
                 for i in 0..<Int(buffer.frameLength) {
@@ -171,15 +167,15 @@ class ViewController: UIViewController {
 
             switch result {
             case .error(let error):
-                print(error)
+                AKLog(error)
                 return
             case .clip(let clip):
-                print("loopback.duration \(clip.duration)")
-                print("loopback.StartTime \(clip.startTime)")
-                do{
+                AKLog("loopback.duration \(clip.duration)")
+                AKLog("loopback.StartTime \(clip.startTime)")
+                do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("loopback").appendingPathExtension(clip.url.pathExtension)
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
-                    print("loopback saved at " + urlInDocs.path)
+                    AKLog("loopback saved at " + urlInDocs.path)
 
                     // Schedule 30 loops of the recorderd audio to play
                     let audioFile = try AKAudioFile(forReading: urlInDocs)
@@ -187,7 +183,6 @@ class ViewController: UIViewController {
                                                                        time: Double(i) * targetDuration,
                                                                        offset: 0,
                                                                        duration: targetDuration) })
-
 
                     // let another targetDuration go by, then start player in sync.
                     let twoDurationsIn = targetDuration * 2
@@ -206,7 +201,7 @@ class ViewController: UIViewController {
                     })
 
                 } catch {
-                    print(error)
+                    AKLog(error)
                 }
             }
 
@@ -216,18 +211,18 @@ class ViewController: UIViewController {
         try? directRecorder?.recordClip(time: 0, duration: targetDuration, tap: nil) { result in
             switch result {
             case .error(let error):
-                print(error)
+                AKLog(error)
                 return
             case .clip(let clip):
-                print("direct.duration \(clip.duration)")
-                print("direct.StartTime \(clip.startTime)")
-                do{
+                AKLog("direct.duration \(clip.duration)")
+                AKLog("direct.StartTime \(clip.startTime)")
+                do {
                     let urlInDocs = FileManager.docs.appendingPathComponent("direct").appendingPathExtension(clip.url.pathExtension)
                     referenceURL = urlInDocs
                     try FileManager.default.moveItem(at: clip.url, to: urlInDocs)
-                    print("Direct saved at " + urlInDocs.path)
+                    AKLog("Direct saved at " + urlInDocs.path)
                 } catch {
-                    print(error)
+                    AKLog(error)
                 }
             }
         }
@@ -263,7 +258,6 @@ class ViewController: UIViewController {
 
 }
 
-
 // Utility to convert between hostTime (ticks) and seconds.
 private let secondsToTicks: Double = {
     var tinfo = mach_timebase_info()
@@ -284,8 +278,17 @@ extension FileManager {
                 try fileManager.removeItem(at: docs.appendingPathComponent(fileName))
             }
         } catch {
-            print(error)
+            AKLog(error)
         }
     }
 }
 
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+	return input.rawValue
+}

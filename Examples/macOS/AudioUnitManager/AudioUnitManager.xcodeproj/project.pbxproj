@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B1119DDD1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */; };
 		B118AB3A1F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */; };
 		B118AB3B1F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B118AB391F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib */; };
-		B118AB3E1F8AA268000E9AB1 /* AudioUnitToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */; };
 		B12311FF1F193EA200888115 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12311FE1F193EA200888115 /* AppDelegate.swift */; };
 		B12312011F193EA200888115 /* AudioUnitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12312001F193EA200888115 /* AudioUnitManager.swift */; };
 		B12312031F193EA200888115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12312021F193EA200888115 /* Assets.xcassets */; };
@@ -21,31 +20,19 @@
 		B1535FB81F87E8000028CC26 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB71F87E7FF0028CC26 /* MenuButton.swift */; };
 		B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1535FB91F87E8090028CC26 /* ClosureMenuItem.swift */; };
 		B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18484731FD9A13400F65DA6 /* AKWaveform.swift */; };
-		B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
 		B186CF551F884FC40063CDB9 /* AudioUnitManager+Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = B186CF541F884FC40063CDB9 /* AudioUnitManager+Effects.swift */; };
+		B1B1B7EE2117F62700C5E395 /* AudioUnitToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B1B7EC2117F62700C5E395 /* AudioUnitToolbarController.swift */; };
+		B1B1B7EF2117F62700C5E395 /* AudioUnitToolbarController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */; };
 		B1D2A7A61FDBB8400067DC39 /* AudioUnitManager+Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */; };
 		B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */; };
 		C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CC95421F6654FC00BABA8E /* AudioKit.framework */; };
+		EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B123121B1F19419A00888115 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B1119DDC1FDCE601003CB2BE /* AudioUnitManager+MIDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+MIDI.swift"; sourceTree = "<group>"; };
 		B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitGenericWindow.swift; sourceTree = "<group>"; };
 		B118AB391F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitGenericWindow.xib; sourceTree = "<group>"; };
-		B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitToolbar.swift; sourceTree = "<group>"; };
 		B12311FB1F193EA100888115 /* AudioUnitManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioUnitManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B12311FE1F193EA200888115 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B12312001F193EA200888115 /* AudioUnitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitManager.swift; sourceTree = "<group>"; };
@@ -60,6 +47,8 @@
 		B18484731FD9A13400F65DA6 /* AKWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKWaveform.swift; sourceTree = "<group>"; };
 		B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		B186CF541F884FC40063CDB9 /* AudioUnitManager+Effects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+Effects.swift"; sourceTree = "<group>"; };
+		B1B1B7EC2117F62700C5E395 /* AudioUnitToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitToolbarController.swift; sourceTree = "<group>"; };
+		B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitToolbarController.xib; sourceTree = "<group>"; };
 		B1D2A7A51FDBB8400067DC39 /* AudioUnitManager+Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioUnitManager+Player.swift"; sourceTree = "<group>"; };
 		B1FB61BE1F2E958400FF6DE7 /* InstrumentPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstrumentPlayer.swift; sourceTree = "<group>"; };
 		C4CC95421F6654FC00BABA8E /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-macOS/AudioKit.framework"; sourceTree = "<group>"; };
@@ -70,8 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B18484771FD9A41E00F65DA6 /* AudioKitUI.framework in Frameworks */,
 				C4CC95441F66550800BABA8E /* AudioKit.framework in Frameworks */,
+				EA2FA53F215AFB01001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +72,7 @@
 			children = (
 				B12312041F193EA200888115 /* Main.storyboard */,
 				B118AB391F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib */,
+				B1B1B7ED2117F62700C5E395 /* AudioUnitToolbarController.xib */,
 			);
 			name = xib;
 			sourceTree = "<group>";
@@ -94,6 +84,7 @@
 				B18484751FD9A3F000F65DA6 /* AudioKitUI.framework */,
 				B12311FD1F193EA100888115 /* AudioUnitManager */,
 				B12311FC1F193EA100888115 /* Products */,
+				EA2FA53E215AFB01001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -139,10 +130,17 @@
 				B12312111F193F6100888115 /* AudioUnitParamSlider.swift */,
 				B12312101F193F6100888115 /* AudioUnitGenericView.swift */,
 				B118AB381F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift */,
-				B118AB3D1F8AA268000E9AB1 /* AudioUnitToolbar.swift */,
 				B18484731FD9A13400F65DA6 /* AKWaveform.swift */,
+				B1B1B7EC2117F62700C5E395 /* AudioUnitToolbarController.swift */,
 			);
 			name = Controls;
+			sourceTree = "<group>";
+		};
+		EA2FA53E215AFB01001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,7 +153,6 @@
 				B12311F71F193EA100888115 /* Sources */,
 				B12311F81F193EA100888115 /* Frameworks */,
 				B12311F91F193EA100888115 /* Resources */,
-				B123121B1F19419A00888115 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -173,19 +170,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Ryan Francesconi";
 				TargetAttributes = {
 					B12311FA1F193EA100888115 = {
 						CreatedOnToolsVersion = 8.3.3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = B12311F61F193EA100888115 /* Build configuration list for PBXProject "AudioUnitManager" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -206,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B1B7EF2117F62700C5E395 /* AudioUnitToolbarController.xib in Resources */,
 				B12312031F193EA200888115 /* Assets.xcassets in Resources */,
 				B12312061F193EA200888115 /* Main.storyboard in Resources */,
 				B118AB3B1F8A85B0000E9AB1 /* AudioUnitGenericWindow.xib in Resources */,
@@ -219,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B1B7EE2117F62700C5E395 /* AudioUnitToolbarController.swift in Sources */,
 				B118AB3A1F8A85B0000E9AB1 /* AudioUnitGenericWindow.swift in Sources */,
 				B123121D1F1944E200888115 /* Extensions.swift in Sources */,
 				B1535FBA1F87E8090028CC26 /* ClosureMenuItem.swift in Sources */,
@@ -232,7 +231,6 @@
 				B12312131F193F6100888115 /* AudioUnitGenericView.swift in Sources */,
 				B1FB61BF1F2E958400FF6DE7 /* InstrumentPlayer.swift in Sources */,
 				B18484741FD9A13400F65DA6 /* AKWaveform.swift in Sources */,
-				B118AB3E1F8AA268000E9AB1 /* AudioUnitToolbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +252,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -313,6 +312,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -356,7 +356,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -370,13 +371,16 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -390,13 +394,16 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AudioUnitManager/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioUnitManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

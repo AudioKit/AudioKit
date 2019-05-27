@@ -7,8 +7,8 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: playgroundAudioFiles[0])
 
-let player = AKPlayer(audioFile: file)
-player.isLooping = true
+let player = try AKAudioPlayer(file: file)
+player.looping = true
 
 //: Next, we'll connect the audio sources to a decimator
 var decimator = AKDecimator(player)

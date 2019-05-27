@@ -26,12 +26,16 @@ AudioUnitParameter parameter[] = {
     { 0, kFilterEgDecayTimeSeconds, kAudioUnitScope_Global, 0 },
     { 0, kFilterEgSustainFraction, kAudioUnitScope_Global, 0 },
     { 0, kFilterEgReleaseTimeSeconds, kAudioUnitScope_Global, 0 },
+    { 0, kLoopThruRelease, kAudioUnitScope_Global, 0 },
+    { 0, kMonophonic, kAudioUnitScope_Global, 0 },
+    { 0, kLegato, kAudioUnitScope_Global, 0 },
+    { 0, kGlideRate, kAudioUnitScope_Global, 0 },
 };
 
 
 void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUnitParameter *inParameter, Float32 inValue) {
     AKSampler_UIView *SELF = (AKSampler_UIView *)inRefCon;
-    
+
     [SELF priv_parameterListener:inObject parameter:inParameter value:inValue];
 }
 
@@ -53,12 +57,12 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     // remove previous listeners
     if (mAU)
         [self priv_removeListeners];
-    
+
     mAU = inAU;
-    
+
     // add new listeners
     [self priv_addListeners];
-    
+
     // initial setup
     [self priv_synchronizeUIWithParameterValues];
 }
@@ -85,6 +89,25 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [vibratoDepthText setFloatValue: inValue];
     NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kVibratoDepthSemitones], (Float32)inValue, 0) == noErr,
              @"[AKSampler_UIView onVibratoDepthSlider:] AUParameterSet()");
+}
+
+- (IBAction)onMonoCheckbox:(NSButton *)sender {
+    bool enable = ([sender state] == NSOnState);
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kMonophonic], (Float32)(enable ? 1 : 0), 0) == noErr,
+             @"[AKSampler_UIView onMonoCheckbox:] AUParameterSet()");
+}
+
+- (IBAction)onLegatoCheckbox:(NSButton *)sender {
+    bool enable = ([sender state] == NSOnState);
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kLegato], (Float32)(enable ? 1 : 0), 0) == noErr,
+             @"[AKSampler_UIView onLegatoCheckbox:] AUParameterSet()");
+}
+
+- (IBAction)onGlideRateSlider:(NSSlider *)sender {
+    float inValue = [sender floatValue];
+    [glideRateText setFloatValue: inValue];
+    NSAssert(AUParameterSet(mParameterListener, sender, &parameter[kGlideRate], (Float32)inValue, 0) == noErr,
+             @"[AKSampler_UIView onGlideRateSlider:] AUParameterSet()");
 }
 
 - (IBAction)onAmpAttackSlider:(NSSlider *)sender {
@@ -172,7 +195,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
 
 - (IBAction)onPresetSelect:(NSPopUpButton *)sender {
     CFStringRef cfstr = (__bridge CFStringRef)[presetPopup titleOfSelectedItem];
-    
+
     UInt32 dataSize = sizeof(CFStringRef);
     ComponentResult result = AudioUnitSetProperty(mAU,
                                                   kPresetNameProperty,
@@ -191,7 +214,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
     [panel setCanChooseFiles:NO];
     if ([panel runModal] != NSModalResponseOK) return;
     mPresetFolder = [[panel URLs] lastObject];
-    
+
     // Should I do something here to release the previous copied value?
     CFStringRef cfstr = (__bridge CFStringRef)[[mPresetFolder path] copy];
     UInt32 dataSize = sizeof(CFStringRef);
@@ -232,7 +255,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
                                CFRunLoopGetCurrent(), kCFRunLoopDefaultMode, 0.100, // 100 ms
                                &mParameterListener ) == noErr,
               @"[CocoaView _addListeners] AUListenerCreate()");
-    
+
     for (int i = 0; i < kNumberOfParams; ++i) {
         parameter[i].mAudioUnit = mAU;
         NSAssert (AUListenerAddParameter (mParameterListener, NULL, &parameter[i]) == noErr,
@@ -246,7 +269,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         NSAssert (AUListenerRemoveParameter(mParameterListener, NULL, &parameter[i]) == noErr,
                   @"[CocoaView _removeListeners] AUListenerRemoveParameter()");
     }
-    
+
     NSAssert (AUListenerDispose(mParameterListener) == noErr,
               @"[CocoaView _removeListeners] AUListenerDispose()");
 
@@ -272,7 +295,7 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
 
 - (void)priv_parameterListener:(void *)inObject parameter:(const AudioUnitParameter *)inParameter value:(Float32)inValue {
     //inObject ignored in this case.
-    
+
     switch (inParameter->mParameterID) {
         case kMasterVolumeFraction:
             [volumeSlider setFloatValue: 100 * inValue];
@@ -285,6 +308,16 @@ void ParameterListenerDispatcher (void *inRefCon, void *inObject, const AudioUni
         case kVibratoDepthSemitones:
             [vibratoDepthSlider setFloatValue: inValue];
             [vibratoDepthText setFloatValue: inValue];
+            break;
+        case kMonophonic:
+            [monoCheckbox setState: inValue != 0.0 ? NSOnState : NSOffState];
+            break;
+        case kLegato:
+            [legatoCheckbox setState: inValue != 0.0 ? NSOnState : NSOffState];
+            break;
+        case kGlideRate:
+            [glideRateSlider setFloatValue: inValue];
+            [glideRateText setFloatValue: inValue];
             break;
         case kAmpEgAttackTimeSeconds:
             [ampAttackSlider setFloatValue: inValue];

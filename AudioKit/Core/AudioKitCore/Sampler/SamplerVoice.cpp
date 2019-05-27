@@ -9,17 +9,22 @@
 #include "SamplerVoice.hpp"
 #include <stdio.h>
 
+#define MIDDLE_C_HZ 262.626f
+
 namespace AudioKitCore
 {
     void SamplerVoice::init(double sampleRate)
     {
+        samplingRate = float(sampleRate);
         leftFilter.init(sampleRate);
         rightFilter.init(sampleRate);
         adsrEnvelope.init();
         filterEnvelope.init();
+        volumeRamper.init(0.0f);
+        tempGain = 0.0f;
     }
-    
-    void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer* buffer)
+
+    void SamplerVoice::start(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
     {
         sampleBuffer = buffer;
         oscillator.indexPoint = buffer->startPoint;
@@ -29,23 +34,72 @@ namespace AudioKitCore
         
         noteVolume = volume;
         adsrEnvelope.start();
+        volumeRamper.init(0.0f);
         
-        double sr = (double)sampleRate;
-        leftFilter.updateSampleRate(sr);
-        rightFilter.updateSampleRate(sr);
+        samplingRate = sampleRate;
+        leftFilter.updateSampleRate(double(samplingRate));
+        rightFilter.updateSampleRate(double(samplingRate));
         filterEnvelope.start();
         
+        glideSemitones = 0.0f;
+        if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
+        {
+            // prepare to glide
+            glideSemitones = -12.0f * log2f(frequency / noteFrequency);
+            if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
+        }
         noteFrequency = frequency;
         noteNumber = note;
     }
     
-    void SamplerVoice::restart(float volume, SampleBuffer* buffer)
+    void SamplerVoice::restartNewNote(unsigned note, float sampleRate, float frequency, float volume, SampleBuffer *buffer)
+    {
+        samplingRate = sampleRate;
+        leftFilter.updateSampleRate(double(samplingRate));
+        rightFilter.updateSampleRate(double(samplingRate));
+
+        oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
+        glideSemitones = 0.0f;
+        if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
+        {
+            // prepare to glide
+            glideSemitones = -12.0f * log2f(frequency / noteFrequency);
+            if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
+        }
+        noteFrequency = frequency;
+        noteNumber = note;
+        tempNoteVolume = noteVolume;
+        newSampleBuffer = buffer;
+        adsrEnvelope.restart();
+        noteVolume = volume;
+        filterEnvelope.restart();
+    }
+
+    void SamplerVoice::restartNewNoteLegato(unsigned note, float sampleRate, float frequency)
+    {
+        samplingRate = sampleRate;
+        leftFilter.updateSampleRate(double(samplingRate));
+        rightFilter.updateSampleRate(double(samplingRate));
+
+        oscillator.increment = (sampleBuffer->sampleRate / sampleRate) * (frequency / sampleBuffer->noteFrequency);
+        glideSemitones = 0.0f;
+        if (*glideSecPerOctave != 0.0f && noteFrequency != 0.0 && noteFrequency != frequency)
+        {
+            // prepare to glide
+            glideSemitones = -12.0f * log2f(frequency / noteFrequency);
+            if (fabsf(glideSemitones) < 0.01f) glideSemitones = 0.0f;
+        }
+        noteFrequency = frequency;
+        noteNumber = note;
+    }
+
+    void SamplerVoice::restartSameNote(float volume, SampleBuffer *buffer)
     {
         tempNoteVolume = noteVolume;
         newSampleBuffer = buffer;
         adsrEnvelope.restart();
         noteVolume = volume;
-        filterEnvelope.start();
+        filterEnvelope.restart();
     }
     
     void SamplerVoice::release(bool loopThruRelease)
@@ -59,30 +113,54 @@ namespace AudioKitCore
     {
         noteNumber = -1;
         adsrEnvelope.reset();
+        volumeRamper.init(0.0f);
         filterEnvelope.reset();
     }
-    
-    bool SamplerVoice::prepToGetSamples(float masterVolume, float pitchOffset,
-                                        float cutoffMultiple, float cutoffEnvelopeStrength,
+
+    bool SamplerVoice::prepToGetSamples(int sampleCount, float masterVolume, float pitchOffset,
+                                        float cutoffMultiple, float keyTracking,
+                                        float cutoffEnvelopeStrength, float cutoffEnvelopeVelocityScaling,
                                         float resLinear)
     {
         if (adsrEnvelope.isIdle()) return true;
 
         if (adsrEnvelope.isPreStarting())
         {
-            tempGain = masterVolume * tempNoteVolume * adsrEnvelope.getSample();
+            tempGain = masterVolume * tempNoteVolume;
+            volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
             if (!adsrEnvelope.isPreStarting())
             {
-                tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
+                tempGain = masterVolume * noteVolume;
+                volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
                 sampleBuffer = newSampleBuffer;
+                oscillator.increment = (sampleBuffer->sampleRate / samplingRate) * (noteFrequency / sampleBuffer->noteFrequency);
                 oscillator.indexPoint = sampleBuffer->startPoint;
                 oscillator.isLooping = sampleBuffer->isLooping;
             }
         }
         else
-            tempGain = masterVolume * noteVolume * adsrEnvelope.getSample();
-        oscillator.setPitchOffsetSemitones(pitchOffset);
-        
+        {
+            tempGain = masterVolume * noteVolume;
+            volumeRamper.reinit(adsrEnvelope.getSample(), sampleCount);
+        }
+
+        if (*glideSecPerOctave != 0.0f && glideSemitones != 0.0f)
+        {
+            float seconds = sampleCount / samplingRate;
+            float semitones = 12.0f * seconds / *glideSecPerOctave;
+            if (glideSemitones < 0.0f)
+            {
+                glideSemitones += semitones;
+                if (glideSemitones > 0.0f) glideSemitones = 0.0f;
+            }
+            else
+            {
+                glideSemitones -= semitones;
+                if (glideSemitones < 0.0f) glideSemitones = 0.0f;
+            }
+        }
+        oscillator.setPitchOffsetSemitones(pitchOffset + glideSemitones);
+
         // negative value of cutoffMultiple means filters are disabled
         if (cutoffMultiple < 0.0f)
         {
@@ -91,31 +169,25 @@ namespace AudioKitCore
         else
         {
             isFilterEnabled = true;
-            double cutoffHz = noteFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * filterEnvelope.getSample());
-            leftFilter.setParams(cutoffHz, resLinear);
-            rightFilter.setParams(cutoffHz, resLinear);
+            float noteHz = noteFrequency * powf(2.0f, (pitchOffset + glideSemitones) / 12.0f);
+            float baseFrequency = MIDDLE_C_HZ + keyTracking * (noteHz - MIDDLE_C_HZ);
+            float envStrength = ((1.0f - cutoffEnvelopeVelocityScaling) + cutoffEnvelopeVelocityScaling * noteVolume);
+            double cutoffFrequency = baseFrequency * (1.0f + cutoffMultiple + cutoffEnvelopeStrength * envStrength * filterEnvelope.getSample());
+            leftFilter.setParameters(cutoffFrequency, resLinear);
+            rightFilter.setParameters(cutoffFrequency, resLinear);
         }
         
         return false;
     }
     
-    bool SamplerVoice::getSamples(int sampleCount, float* pOut)
+    bool SamplerVoice::getSamples(int sampleCount, float *leftOutput, float *rightOutput)
     {
         for (int i=0; i < sampleCount; i++)
         {
-            float sample;
-            if (oscillator.getSample(sampleBuffer, sampleCount, &sample, tempGain)) return true;
-            *pOut++ += isFilterEnabled ? leftFilter.process(sample) : sample;
-        }
-        return false;
-    }
-    
-    bool SamplerVoice::getSamples(int sampleCount, float* leftOutput, float* rightOutput)
-    {
-        for (int i=0; i < sampleCount; i++)
-        {
+            float gain = tempGain * volumeRamper.getNextValue();
             float leftSample, rightSample;
-            if (oscillator.getSamplePair(sampleBuffer, sampleCount, &leftSample, &rightSample, tempGain)) return true;
+            if (oscillator.getSamplePair(sampleBuffer, sampleCount, &leftSample, &rightSample, gain))
+                return true;
             if (isFilterEnabled)
             {
                 *leftOutput++ += leftFilter.process(leftSample);

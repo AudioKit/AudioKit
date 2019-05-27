@@ -65,7 +65,7 @@ extension AudioKit {
         return dummy
     }
 
-    @objc open static func connect(_ sourceNode: AVAudioNode,
+    @objc public static func connect(_ sourceNode: AVAudioNode,
                                    to destNodes: [AVAudioConnectionPoint],
                                    fromBus sourceBus: AVAudioNodeBus,
                                    format: AVAudioFormat?) {
@@ -79,7 +79,7 @@ extension AudioKit {
         dummyNode?.disconnectOutput()
     }
 
-    @objc open static func connect(_ node1: AVAudioNode,
+    @objc public static func connect(_ node1: AVAudioNode,
                                    to node2: AVAudioNode,
                                    fromBus bus1: AVAudioNodeBus,
                                    toBus bus2: AVAudioNodeBus,
@@ -92,12 +92,12 @@ extension AudioKit {
         dummyNode?.disconnectOutput()
     }
 
-    @objc open static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
+    @objc public static func connect(_ node1: AVAudioNode, to node2: AVAudioNode, format: AVAudioFormat?) {
         connect(node1, to: node2, fromBus: 0, toBus: 0, format: format)
     }
 
     //Convenience
-    @objc open static func detach(nodes: [AVAudioNode]) {
+    @objc public static func detach(nodes: [AVAudioNode]) {
         for node in nodes {
             engine.detach(node)
         }
@@ -105,14 +105,61 @@ extension AudioKit {
 
     /// Render output to an AVAudioFile for a duration.
     ///
+    /// NOTE: This will NOT render AKSequencer content;
+    /// MIDI content will need to be recorded in real time
+    ///
     ///     - Parameters:
     ///         - audioFile: An file initialized for writing
     ///         - duration: Duration to render, in seconds
     ///         - prerender: A closure called before rendering starts, use this to start players, set initial parameters, etc...
     ///
     @available(iOS 11, macOS 10.13, tvOS 11, *)
-    @objc open static func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
+    @objc public static func renderToFile(_ audioFile: AVAudioFile, duration: Double, prerender: (() -> Void)? = nil) throws {
         try engine.renderToFile(audioFile, duration: duration, prerender: prerender)
+    }
+
+    @available(iOS 11, macOS 10.13, tvOS 11, *)
+    public static func printConnections() {
+
+        let nodes: [AVAudioNode] = {
+            var nodes = Set<AVAudioNode>()
+            func addInputs(_ node: AVAudioNode) {
+                nodes.insert(node)
+                node.inputConnections().filter { $0.node != nil }.forEach { addInputs($0.node!) }
+            }
+            addInputs(engine.outputNode)
+            return Array(nodes)
+        }()
+
+        func nodeDescription(_ id: Int, _ node: AVAudioNode) -> String {
+            return "(\(id)]\(node.auAudioUnit.audioUnitName ?? String(describing: node))"
+        }
+
+        func formatDescription(_ format: AVAudioFormat) -> String {
+            guard let description = format.description.components(separatedBy: ":  ").dropFirst().first else { return format.description }
+            return "<" + description
+        }
+
+        let padLength = nodes.reduce(0) { max($0, nodeDescription(nodes.count, $1).count) }
+        func padded(_ string: String) -> String {
+            return string.count >= padLength ? string : string + String(repeating: " ", count: padLength - string.count)
+        }
+
+        nodes.enumerated().forEach { (id, node) in
+
+            let outputs: [(id: Int, node: AVAudioNode, bus: Int)] = node.connectionPoints.compactMap {
+                guard let node = $0.node, let id = nodes.firstIndex(of: node) else { return nil }
+                return (id, node, $0.bus)
+            }
+
+            let srcDescritption = padded(nodeDescription(id, node))
+            let format = formatDescription(node.outputFormat(forBus: 0))
+
+            outputs.forEach {
+                let dstDescription = nodeDescription($0.id, $0.node)
+                print("\(srcDescritption) \(format) -> \(dstDescription)) bus: \($0.bus)")
+            }
+        }
     }
 
 }

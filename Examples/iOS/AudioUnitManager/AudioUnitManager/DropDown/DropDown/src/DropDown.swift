@@ -235,12 +235,12 @@ public final class DropDown: UIView {
 	/**
 	The option of the show animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationEntranceOptions: UIViewAnimationOptions = DropDown.animationEntranceOptions
+	public var animationEntranceOptions: UIView.AnimationOptions = DropDown.animationEntranceOptions
 
 	/**
 	The option of the hide animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationExitOptions: UIViewAnimationOptions = DropDown.animationExitOptions
+	public var animationExitOptions: UIView.AnimationOptions = DropDown.animationExitOptions
 
 	/**
 	The downScale transformation of the tableview when the DropDown is appearing
@@ -660,7 +660,7 @@ extension DropDown {
 
 	fileprivate func fittingWidth() -> CGFloat {
 		if templateCell == nil {
-			templateCell = cellNib.instantiate(withOwner: nil, options: nil)[0] as! DropDownCell
+            templateCell = cellNib.instantiate(withOwner: nil, options: nil)[0] as? DropDownCell
 		}
 
 		var maxWidth: CGFloat = 0
@@ -668,7 +668,7 @@ extension DropDown {
 		for index in 0..<dataSource.count {
 			configureCell(templateCell, at: index)
 			templateCell.bounds.size.height = cellHeight
-			let width = templateCell.systemLayoutSizeFitting(UILayoutFittingCompressedSize).width
+			let width = templateCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
 
 			if width > maxWidth {
 				maxWidth = width
@@ -750,7 +750,7 @@ extension DropDown {
 
 		let visibleWindow = UIWindow.visibleWindow()
 		visibleWindow?.addSubview(self)
-		visibleWindow?.bringSubview(toFront: self)
+		visibleWindow?.bringSubviewToFront(self)
 
 		self.translatesAutoresizingMaskIntoConstraints = false
 		visibleWindow?.addUniversalConstraints(format: "|[dropDown]|", views: ["dropDown": self])
@@ -974,12 +974,12 @@ extension DropDown {
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(keyboardUpdate),
-			name: NSNotification.Name.UIKeyboardWillShow,
+			name: UIResponder.keyboardWillShowNotification,
 			object: nil)
 		NotificationCenter.default.addObserver(
 			self,
 			selector: #selector(keyboardUpdate),
-			name: NSNotification.Name.UIKeyboardWillHide,
+			name: UIResponder.keyboardWillHideNotification,
 			object: nil)
 	}
 

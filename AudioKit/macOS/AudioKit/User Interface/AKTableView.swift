@@ -5,6 +5,8 @@
 //  Created by Aurelius Prochazka, revision history on Githbub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
+import Cocoa
+import AudioKit
 
 public class AKTableView: NSView {
 
@@ -19,7 +21,7 @@ public class AKTableView: NSView {
 
     public var absmax: Double = 1.0
 
-    public init(_ table: AKTable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 150)) {
+    public init(_ table: AKTable, frame: CGRect = CGRect(width: 440, height: 150)) {
         self.table = table
         super.init(frame: frame)
         let max = Double(table.max() ?? 1.0)
@@ -40,7 +42,7 @@ public class AKTableView: NSView {
         let height = Double(frame.height) / 2.0
         let padding = 0.9
 
-        let border = NSBezierPath(rect: NSRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        let border = NSBezierPath(rect: NSRect(size: frame.size))
         let bgcolor = AKStylist.sharedInstance.nextColor
         bgcolor.setFill()
         border.fill()

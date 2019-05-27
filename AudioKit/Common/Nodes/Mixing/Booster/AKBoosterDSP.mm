@@ -8,40 +8,40 @@
 
 #include "AKBoosterDSP.hpp"
 
-extern "C" void* createBoosterDSP(int nChannels, double sampleRate) {
-    AKBoosterDSP* dsp = new AKBoosterDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate) {
+    AKBoosterDSP *dsp = new AKBoosterDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKBoosterDSP::_Internal {
+struct AKBoosterDSP::InternalData {
     AKParameterRamp leftGainRamp;
     AKParameterRamp rightGainRamp;
 };
 
-AKBoosterDSP::AKBoosterDSP() : _private(new _Internal) {
-    _private->leftGainRamp.setTarget(1.0, true);
-    _private->leftGainRamp.setDurationInSamples(10000);
-    _private->rightGainRamp.setTarget(1.0, true);
-    _private->rightGainRamp.setDurationInSamples(10000);
+AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {
+    data->leftGainRamp.setTarget(1.0, true);
+    data->leftGainRamp.setDurationInSamples(10000);
+    data->rightGainRamp.setTarget(1.0, true);
+    data->rightGainRamp.setDurationInSamples(10000);
 }
 
 // Uses the ParameterAddress as a key
 void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate) {
     switch (address) {
         case AKBoosterParameterLeftGain:
-            _private->leftGainRamp.setTarget(value, immediate);
+            data->leftGainRamp.setTarget(value, immediate);
             break;
         case AKBoosterParameterRightGain:
-            _private->rightGainRamp.setTarget(value, immediate);
+            data->rightGainRamp.setTarget(value, immediate);
             break;
         case AKBoosterParameterRampDuration:
-            _private->leftGainRamp.setRampDuration(value, _sampleRate);
-            _private->rightGainRamp.setRampDuration(value, _sampleRate);
+            data->leftGainRamp.setRampDuration(value, sampleRate);
+            data->rightGainRamp.setRampDuration(value, sampleRate);
             break;
         case AKBoosterParameterRampType:
-            _private->leftGainRamp.setRampType(value);
-            _private->rightGainRamp.setRampType(value);
+            data->leftGainRamp.setRampType(value);
+            data->rightGainRamp.setRampType(value);
             break;
     }
 }
@@ -50,11 +50,11 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 float AKBoosterDSP::getParameter(AUParameterAddress address) {
     switch (address) {
         case AKBoosterParameterLeftGain:
-            return _private->leftGainRamp.getTarget();
+            return data->leftGainRamp.getTarget();
         case AKBoosterParameterRightGain:
-            return _private->rightGainRamp.getTarget();
+            return data->rightGainRamp.getTarget();
         case AKBoosterParameterRampDuration:
-            return _private->leftGainRamp.getRampDuration(_sampleRate);
+            return data->leftGainRamp.getRampDuration(sampleRate);
     }
     return 0;
 }
@@ -65,18 +65,18 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
-            _private->leftGainRamp.advanceTo(_now + frameOffset);
-            _private->rightGainRamp.advanceTo(_now + frameOffset);
+            data->leftGainRamp.advanceTo(now + frameOffset);
+            data->rightGainRamp.advanceTo(now + frameOffset);
         }
         // do actual signal processing
         // After all this scaffolding, the only thing we are doing is scaling the input
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float*)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float*)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel == 0) {
-                *out = *in * _private->leftGainRamp.getValue();
+                *out = *in * data->leftGainRamp.getValue();
             } else {
-                *out = *in * _private->rightGainRamp.getValue();
+                *out = *in * data->rightGainRamp.getValue();
             }
         }
     }

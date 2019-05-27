@@ -123,8 +123,6 @@
 				1F9F2B22206B65A2009E1296 /* Sources */,
 				1F9F2B23206B65A2009E1296 /* Frameworks */,
 				1F9F2B24206B65A2009E1296 /* Resources */,
-				6ACF812792074E9ED18267F1 /* [CP] Embed Pods Frameworks */,
-				E23062FBAB021E13A9DDCF4A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -147,6 +145,7 @@
 				TargetAttributes = {
 					1F9F2B25206B65A2009E1296 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -192,21 +191,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6ACF812792074E9ED18267F1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B7084267CA9AC22C1BF474CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,21 +207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E23062FBAB021E13A9DDCF4A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AudiobusMIDISender/Pods-AudiobusMIDISender-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -331,7 +300,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -385,7 +354,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_LDFLAGS = "-lc++";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -399,13 +368,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AudiobusMIDISender/AudiobusMIDISender.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -417,13 +386,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AudiobusMIDISender/AudiobusMIDISender.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9W69ZP8S5F;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AudiobusMIDISender/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.AudioKit.AudiobusMIDISender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudiobusMIDISender/AudiobusMIDISender-BridgingHeader.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

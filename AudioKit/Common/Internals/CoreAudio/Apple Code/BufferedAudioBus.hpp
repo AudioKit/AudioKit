@@ -18,15 +18,15 @@
 
 // Reusable non-ObjC class, accessible from render thread.
 struct BufferedAudioBus {
-    AUAudioUnitBus* bus = nullptr;
+    AUAudioUnitBus *bus = nullptr;
     AUAudioFrameCount maxFrames = 0;
 
-    AVAudioPCMBuffer* pcmBuffer = nullptr;
+    AVAudioPCMBuffer *pcmBuffer = nullptr;
 
-    AudioBufferList const* originalAudioBufferList = nullptr;
-    AudioBufferList* mutableAudioBufferList = nullptr;
+    AudioBufferList const *originalAudioBufferList = nullptr;
+    AudioBufferList *mutableAudioBufferList = nullptr;
 
-    void init(AVAudioFormat* defaultFormat, AVAudioChannelCount maxChannels) {
+    void init(AVAudioFormat *defaultFormat, AVAudioChannelCount maxChannels) {
         maxFrames = 0;
         pcmBuffer = nullptr;
         originalAudioBufferList = nullptr;
@@ -62,7 +62,7 @@ struct BufferedAudioBus {
 	to the output buffer list in case the client passed in null buffer pointers.
  */
 struct BufferedOutputBus: BufferedAudioBus {
-    void prepareOutputBufferList(AudioBufferList* outBufferList, AVAudioFrameCount frameCount, bool zeroFill) {
+    void prepareOutputBufferList(AudioBufferList *outBufferList, AVAudioFrameCount frameCount, bool zeroFill) {
         UInt32 byteSize = frameCount * sizeof(float);
         for (UInt32 i = 0; i < outBufferList->mNumberBuffers; ++i) {
             outBufferList->mBuffers[i].mNumberChannels = originalAudioBufferList->mBuffers[i].mNumberChannels;
@@ -92,7 +92,7 @@ struct BufferedInputBus : BufferedAudioBus {
      the pullInputBlock.
      */
     AUAudioUnitStatus pullInput(AudioUnitRenderActionFlags *actionFlags,
-                                AudioTimeStamp const* timestamp,
+                                AudioTimeStamp const *timestamp,
                                 AVAudioFrameCount frameCount,
                                 NSInteger inputBusNumber,
                                 AURenderPullInputBlock pullInputBlock) {

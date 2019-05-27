@@ -7,6 +7,7 @@
 //
 
 /// A button, mainly used for playgrounds, but could be useful in your own projects
+import AudioKit
 
 public enum AKButtonStyle {
     case standard
@@ -105,7 +106,7 @@ public enum AKButtonStyle {
     /// Initialize the button
     public init(title: String,
                 color: AKColor = AKStylist.sharedInstance.nextColor,
-                frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
+                frame: CGRect = CGRect(width: 440, height: 60),
                 callback: @escaping (AKButton) -> Void) {
         self.title = title
         self.callback = callback
@@ -202,13 +203,13 @@ public enum AKButtonStyle {
         let labelStyle = NSMutableParagraphStyle()
         labelStyle.alignment = .center
 
-        let labelFontAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: 24),
-                                   NSAttributedStringKey.foregroundColor: textColorForTheme,
-                                   NSAttributedStringKey.paragraphStyle: labelStyle]
+        let labelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: 24),
+                                   .foregroundColor: textColorForTheme,
+                                   .paragraphStyle: labelStyle]
 
         let labelInset: CGRect = rect.insetBy(dx: 10, dy: 0)
         let labelTextHeight: CGFloat = NSString(string: title).boundingRect(
-            with: CGSize(width: labelInset.width, height: CGFloat.infinity),
+            with: CGSize(width: labelInset.width, height: .infinity),
             options: .usesLineFragmentOrigin,
             attributes: labelFontAttributes,
             context: nil).size.height

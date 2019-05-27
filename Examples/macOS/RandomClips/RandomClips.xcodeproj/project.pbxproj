@@ -3,33 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		55A3AD571F62E316001C22E3 /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD541F62DD77001C22E3 /* leadloop.wav */; };
 		55A3AD581F62E31A001C22E3 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55A3AD561F62DD8D001C22E3 /* drumloop.wav */; };
-		55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
 		55B603D81F6342DA00404701 /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 55B603D61F6342CC00404701 /* guitarloop.wav */; };
 		55C731CE1F62D9A100611001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CD1F62D9A100611001 /* AppDelegate.swift */; };
 		55C731D01F62D9A100611001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C731CF1F62D9A100611001 /* ViewController.swift */; };
 		55C731D21F62D9A100611001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D11F62D9A100611001 /* Assets.xcassets */; };
 		55C731D51F62D9A100611001 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55C731D31F62D9A100611001 /* Main.storyboard */; };
 		C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C472CD121F6533D100C5FF8E /* AudioKit.framework */; };
+		EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5568ADEC1F62D9DB00FFB5BE /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		55A3AD541F62DD77001C22E3 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../Playgrounds/AudioKitPlaygrounds/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
@@ -51,8 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55B2D88C1F65C160008F1F65 /* AudioKitUI.framework in Frameworks */,
 				C472CD131F6533EA00C5FF8E /* AudioKit.framework in Frameworks */,
+				EA2FA543215AFC88001C210A /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,10 +49,9 @@
 		55C731C11F62D9A100611001 = {
 			isa = PBXGroup;
 			children = (
-				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
-				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
 				55C731CC1F62D9A100611001 /* RandomClips */,
 				55C731CB1F62D9A100611001 /* Products */,
+				EA2FA542215AFC88001C210A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +79,15 @@
 			path = RandomClips;
 			sourceTree = "<group>";
 		};
+		EA2FA542215AFC88001C210A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55B2D88B1F65C160008F1F65 /* AudioKitUI.framework */,
+				C472CD121F6533D100C5FF8E /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,7 +98,6 @@
 				55C731C61F62D9A100611001 /* Sources */,
 				55C731C71F62D9A100611001 /* Frameworks */,
 				55C731C81F62D9A100611001 /* Resources */,
-				5568ADEC1F62D9DB00FFB5BE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,12 +120,13 @@
 				TargetAttributes = {
 					55C731C91F62D9A100611001 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 55C731C51F62D9A100611001 /* Build configuration list for PBXProject "RandomClips" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -295,14 +290,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
 		55C731DB1F62D9A100611001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -310,18 +305,20 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = RandomClips/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		55C731DC1F62D9A100611001 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RandomClips/RandomClips.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -329,11 +326,14 @@
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = RandomClips/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_LDFLAGS = "-lstdc++";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.RandomClips;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

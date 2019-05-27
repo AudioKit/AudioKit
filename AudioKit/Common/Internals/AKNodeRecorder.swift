@@ -7,7 +7,7 @@
 //
 
 /// Simple audio recorder class
-@objc open class AKNodeRecorder: NSObject {
+open class AKNodeRecorder: NSObject {
 
     // MARK: - Properties
 
@@ -41,7 +41,6 @@
             AKLog("Error: \(error.localizedDescription)")
             return nil
         }
-
     }
 
     // MARK: - Initialization
@@ -55,7 +54,7 @@
     ///   - node: Node to record from
     ///   - file: Audio file to record to
     ///
-    @objc public init(node: AKNode? = AudioKit.output,
+    public init(node: AKNode? = AudioKit.output,
                 file: AKAudioFile? = nil) throws {
 
         // AVAudioSession buffer setup
@@ -75,7 +74,7 @@
         do {
             // We initialize AKAudioFile for writing (and check that we can write to)
             internalAudioFile = try AKAudioFile(forWriting: existingFile.url,
-                                                settings: existingFile.processingFormat.settings)
+                                                settings: existingFile.fileFormat.settings)
         } catch let error as NSError {
             AKLog("AKNodeRecorder Error: cannot write to \(existingFile.fileNamePlusExtension)")
             throw error
@@ -102,7 +101,7 @@
         isRecording = true
 
         AKLog("AKNodeRecorder: recording")
-        node.avAudioNode.installTap(
+        node.avAudioUnitOrNode.installTap(
             onBus: 0,
             bufferSize: recordingBufferLength,
             format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
@@ -141,7 +140,7 @@
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node?.avAudioNode.removeTap(onBus: 0)
+        node?.avAudioUnitOrNode.removeTap(onBus: 0)
     }
 
     /// Reset the AKAudioFile to clear previous recordings

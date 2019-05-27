@@ -7,33 +7,31 @@
 //
 
 #include "AKDCBlockDSP.hpp"
-#import "AKLinearParameterRamp.hpp"
 
-extern "C" void* createDCBlockDSP(int nChannels, double sampleRate) {
-    AKDCBlockDSP* dsp = new AKDCBlockDSP();
-    dsp->init(nChannels, sampleRate);
+extern "C" AKDSPRef createDCBlockDSP(int channelCount, double sampleRate) {
+    AKDCBlockDSP *dsp = new AKDCBlockDSP();
+    dsp->init(channelCount, sampleRate);
     return dsp;
 }
 
-struct AKDCBlockDSP::_Internal {
-    sp_dcblock *_dcblock0;
-    sp_dcblock *_dcblock1;
+struct AKDCBlockDSP::InternalData {
+    sp_dcblock *dcblock0;
+    sp_dcblock *dcblock1;
 };
 
-AKDCBlockDSP::AKDCBlockDSP() : _private(new _Internal) {}
+AKDCBlockDSP::AKDCBlockDSP() : data(new InternalData) {}
 
-void AKDCBlockDSP::init(int _channels, double _sampleRate) {
-    AKSoundpipeDSPBase::init(_channels, _sampleRate);
-    sp_dcblock_create(&_private->_dcblock0);
-    sp_dcblock_init(_sp, _private->_dcblock0);
-    sp_dcblock_create(&_private->_dcblock1);
-    sp_dcblock_init(_sp, _private->_dcblock1);
+void AKDCBlockDSP::init(int channelCount, double sampleRate) {
+    AKSoundpipeDSPBase::init(channelCount, sampleRate);
+    sp_dcblock_create(&data->dcblock0);
+    sp_dcblock_init(sp, data->dcblock0);
+    sp_dcblock_create(&data->dcblock1);
+    sp_dcblock_init(sp, data->dcblock1);
 }
 
-void AKDCBlockDSP::destroy() {
-    sp_dcblock_destroy(&_private->_dcblock0);
-    sp_dcblock_destroy(&_private->_dcblock1);
-    AKSoundpipeDSPBase::destroy();
+void AKDCBlockDSP::deinit() {
+    sp_dcblock_destroy(&data->dcblock0);
+    sp_dcblock_destroy(&data->dcblock1);
 }
 
 void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
@@ -41,29 +39,24 @@ void AKDCBlockDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
 
-        // do ramping every 8 samples
-        if ((frameOffset & 0x7) == 0) {
-        }
-
-
         float *tmpin[2];
         float *tmpout[2];
-        for (int channel = 0; channel < _nChannels; ++channel) {
-            float* in  = (float *)_inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-            float* out = (float *)_outBufferListPtr->mBuffers[channel].mData + frameOffset;
+        for (int channel = 0; channel < channelCount; ++channel) {
+            float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+            float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
             if (channel < 2) {
                 tmpin[channel] = in;
                 tmpout[channel] = out;
             }
-            if (!_playing) {
+            if (!isStarted) {
                 *out = *in;
                 continue;
             }
 
             if (channel == 0) {
-                sp_dcblock_compute(_sp, _private->_dcblock0, in, out);
+                sp_dcblock_compute(sp, data->dcblock0, in, out);
             } else {
-                sp_dcblock_compute(_sp, _private->_dcblock1, in, out);
+                sp_dcblock_compute(sp, data->dcblock1, in, out);
             }
         }
     }

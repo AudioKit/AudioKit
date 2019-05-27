@@ -119,7 +119,7 @@ class AKMusicTrackTests: AKTestCase {
         }
 
         XCTAssertEqual(musicTrack.metaEventCount, 5)
-        
+
         musicTrack.clearMetaEvents()
 
         XCTAssertEqual(musicTrack.metaEventCount, 0)
@@ -197,12 +197,12 @@ class AKMusicTrackTests: AKTestCase {
                        velocity: 120,
                        position: AKDuration(beats: 0),
                        duration: AKDuration(beats: 0.5))
-        
+
         musicTrack.add(noteNumber: 72,
                        velocity: 120,
                        position: AKDuration(beats: 0),
                        duration: AKDuration(beats: 0.5))
-        
+
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 2)
     }
 
@@ -218,22 +218,22 @@ class AKMusicTrackTests: AKTestCase {
         let dur = AKDuration(beats: 0.75)
         let channel = MIDIChannel(3)
         let position = AKDuration(beats: 1.5)
-        
+
         musicTrack.add(noteNumber: pitch,
                        velocity: vel,
                        position: position,
                        duration: dur,
                        channel: channel)
-        
+
         let noteData = musicTrack.getMIDINoteData()[0]
-        
+
         XCTAssertEqual(noteData.noteNumber, pitch)
         XCTAssertEqual(noteData.velocity, vel)
         XCTAssertEqual(noteData.duration, dur)
         XCTAssertEqual(noteData.position, position)
         XCTAssertEqual(noteData.channel, channel)
     }
-    
+
     // MARK: - replaceMIDINoteData
     // helper function
     func addFourNotesToTrack(_ track: AKMusicTrack) {
@@ -244,89 +244,88 @@ class AKMusicTrackTests: AKTestCase {
                       duration: AKDuration(beats: 0.5))
         }
     }
-    
+
     func testReplaceMIDINoteData_replacingPopulatedTrackWithEmptyArrayClearsTrack() {
         addFourNotesToTrack(musicTrack)
-        
+
         musicTrack.replaceMIDINoteData(with: [])
-        
+
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
     }
-    
+
     func testReplaceMIDINoteData_canCopyNotesFromOtherTrack() {
         let otherTrack = AKMusicTrack()
         addFourNotesToTrack(otherTrack)
-        
+
         musicTrack.replaceMIDINoteData(with: otherTrack.getMIDINoteData())
-        
+
         let musicTrackNoteData = musicTrack.getMIDINoteData()
         let otherTrackNoteData = otherTrack.getMIDINoteData()
         for i in 0 ..< 4 {
             XCTAssertEqual(otherTrackNoteData[i], musicTrackNoteData[i])
         }
     }
-    
+
     func testReplaceMIDINoteData_orderOfElementsInInputIsIrrelevant() {
         addFourNotesToTrack(musicTrack)
         let originalNoteData = musicTrack.getMIDINoteData()
-        
+
         musicTrack.replaceMIDINoteData(with: originalNoteData.reversed())
         let newTrackData = musicTrack.getMIDINoteData()
-        
+
         for i in 0 ..< 4 {
             XCTAssertEqual(newTrackData[i], originalNoteData[i])
         }
     }
-    
+
     func testReplaceMIDINoteData_canIncreaseLengthOfTrack() {
         addFourNotesToTrack(musicTrack)
         let originalLength = musicTrack.length
         var noteData = musicTrack.getMIDINoteData()
-        
+
         // increase duration of last note
         noteData[3].duration = AKDuration(beats: 4)
         musicTrack.replaceMIDINoteData(with: noteData)
-        
+
         XCTAssertTrue(musicTrack.length > originalLength)
     }
-    
+
     func testReplaceMIDINoteData_willNOTDecreaseLengthOfTrackIfLengthExplicitlyIsSet() {
         // length is explicitly set in setup
         addFourNotesToTrack(musicTrack)
         let originalLength = musicTrack.length
         var noteData = musicTrack.getMIDINoteData()
-        
+
         // remove last note
-        let _ = noteData.popLast()
+        _ = noteData.popLast()
         musicTrack.replaceMIDINoteData(with: noteData)
         XCTAssertEqual(originalLength, musicTrack.length)
     }
-    
+
     func testReplaceMIDINoteData_willDecreaseLengthOfTrackIfLengthNOTExplicitlySet() {
         // newTrack's length is not explicitly set
         let newTrack = AKMusicTrack()
         addFourNotesToTrack(newTrack)
         let originalLength = newTrack.length
         var noteData = newTrack.getMIDINoteData()
-        
+
         // remove last note
-        let _ = noteData.popLast()
+        _ = noteData.popLast()
         newTrack.replaceMIDINoteData(with: noteData)
         XCTAssertTrue(originalLength > newTrack.length)
     }
-    
-    
+
     // MARK: - helper functions for reuse
     fileprivate func addSysexMetaEventAndNotes() {
         let internalTrack = musicTrack.internalMusicTrack!
-        
+
         var metaEvent = MIDIMetaEvent(metaEventType: 58,
                                       unused1: 0,
                                       unused2: 0,
                                       unused3: 0,
                                       dataLength: 0,
                                       data: 0)
-        
+
         for i in 0 ..< 4 {
             MusicTrackNewMetaEvent(internalTrack, MusicTimeStamp(i), &metaEvent)
             musicTrack.addSysex([0], position: AKDuration(beats: Double(i)))
@@ -340,44 +339,44 @@ class AKMusicTrackTests: AKTestCase {
 extension AKMusicTrack {
     var noteCount: Int {
         var count = 0
-        
+
         iterateThroughEvents { _, eventType, _ in
             if eventType == kMusicEventType_MIDINoteMessage {
                 count += 1
             }
         }
-        
+
         return count
     }
-    
+
     var metaEventCount: Int {
         var count = 0
-        
+
         iterateThroughEvents { _, eventType, _ in
             if eventType == kMusicEventType_Meta {
                 count += 1
             }
         }
-        
+
         return count
     }
-    
+
     var sysexEventCount: Int {
         var count = 0
-        
+
         iterateThroughEvents { _, eventType, _ in
             if eventType == kMusicEventType_MIDIRawData {
                 count += 1
             }
         }
-        
+
         return count
     }
-    
+
     func hasNote(atPosition position: MusicTimeStamp,
                  withNoteNumber noteNumber: MIDINoteNumber) -> Bool {
         var noteFound = false
-        
+
         iterateThroughEvents { eventTime, eventType, eventData in
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let midiNoteMessage = eventData?.load(as: MIDINoteMessage.self) {
@@ -387,15 +386,15 @@ extension AKMusicTrack {
                 }
             }
         }
-        
+
         return noteFound
     }
-    
+
     func doesNotHaveNote(atPosition position: MusicTimeStamp,
                          withNoteNumber noteNumber: MIDINoteNumber) -> Bool {
         return !hasNote(atPosition: position, withNoteNumber: noteNumber)
     }
-    
+
     func addNote(withNumber noteNumber: MIDINoteNumber,
                  atPosition position: MusicTimeStamp) {
         self.add(
@@ -405,7 +404,7 @@ extension AKMusicTrack {
             duration: AKDuration(beats: 1.0)
         )
     }
-    
+
     typealias MIDIEventProcessor = (
         _ eventTime: MusicTimeStamp,
         _ eventType: MusicEventType,
@@ -416,31 +415,31 @@ extension AKMusicTrack {
             XCTFail("internalMusicTrack does not exist")
             return
         }
-        
+
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {
             XCTFail("Unable to create iterator")
             return
         }
-        
+
         var hasNextEvent: DarwinBoolean = false
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-        
+
         while hasNextEvent.boolValue {
             var eventTime = MusicTimeStamp(0)
             var eventType = MusicEventType()
             var eventData: UnsafeRawPointer?
             var eventDataSize: UInt32 = 0
-            
+
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-            
+
             processMIDIEvent(eventTime, eventType, eventData)
-            
+
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
-        
+
         DisposeMusicEventIterator(iterator)
     }
 }

@@ -43,7 +43,11 @@ class AudioEngine {
     init() {
         oscillator = AKOscillator()
         AudioKit.output = oscillator
-        try AudioKit.start()
+        do {
+            try AudioKit.start()
+        } catch {
+            AKLog("AudioKit did not start")
+        }
     }
 }
 

@@ -16,7 +16,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     public var beats: Double
 
     /// Samples per second
-    public var sampleRate: Double = 44_100
+    public var sampleRate: Double = AKSettings.sampleRate
 
     /// Tempo in BPM (beats per minute)
     public var tempo: BPM = 60.0
@@ -63,7 +63,7 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     ///   - samples:    Number of samples
     ///   - sampleRate: Sample rate in samples per second
     ///
-    public init(samples: Int, sampleRate: Double = 44_100, tempo: BPM = 60) {
+    public init(samples: Int, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
         self.beats = tempo * (samples / sampleRate) / AKDuration.secondsPerMinute
         self.sampleRate = sampleRate
         self.tempo = tempo
@@ -84,9 +84,9 @@ public struct AKDuration: CustomStringConvertible, Comparable {
     ///
     /// - Parameters:
     ///   - seconds:    Duration in seconds
-    ///   - sampleRate: Samples per second (Default: 44100)
+    ///   - sampleRate: Samples per second
     ///
-    public init(seconds: Double, sampleRate: Double = 44_100, tempo: BPM = 60) {
+    public init(seconds: Double, sampleRate: Double = AKSettings.sampleRate, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
         self.beats = tempo * (seconds / AKDuration.secondsPerMinute)

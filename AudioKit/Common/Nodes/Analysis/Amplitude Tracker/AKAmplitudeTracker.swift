@@ -18,12 +18,11 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     internal var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var halfPowerPointParameter: AUParameter?
     //    open var smoothness: Double = 1 { // should be 0 and above
     //        willSet {
-    //            internalAU?.smoothness = 0.05 * Float(newValue)
+    //            internalAU?.smoothness = 0.05 * AUValue(newValue)
     //        }
     //    } //in development
 
@@ -58,7 +57,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     /// Threshold amplitude
     @objc open dynamic var threshold: Double = 1 {
         willSet {
-            internalAU?.threshold = Float(newValue)
+            internalAU?.threshold = AUValue(newValue)
         }
     }
 
@@ -88,6 +87,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             strongSelf.internalAU?.thresholdCallback = thresholdCallback
@@ -97,7 +97,6 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
             }
             input?.connect(to: strongSelf)
         }
-
     }
 
     deinit {

@@ -43,6 +43,9 @@
 -(void)setLoadCompletionHandler:(AKCCallback)handler {
     _kernel.loadCompletionHandler = handler;
 }
+-(void)setLoopCallback:(AKCCallback)callback {
+    _kernel.loopCallback = callback;
+}
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
@@ -65,6 +68,11 @@
     float normalized = (_kernel.position - _kernel.startPointViaRate()) / (_kernel.endPointViaRate() - _kernel.startPointViaRate());
     return _kernel.rate > 0 ? normalized : 1 - normalized;
 }
+
+- (void)destroy {
+    _kernel.destroy();
+}
+
 standardKernelPassthroughs()
 
 - (void)createParameters {
@@ -72,7 +80,7 @@ standardKernelPassthroughs()
     standardGeneratorSetup(WaveTable)
 
     // Create a parameter object for the start.
-    AUParameter *startPointAUParameter = [AUParameter parameter:@"startPoint"
+    AUParameter *startPointAUParameter = [AUParameter parameterWithIdentifier:@"startPoint"
                                                            name:@"startPoint"
                                                         address:startPointAddress
                                                             min:0
@@ -80,7 +88,7 @@ standardKernelPassthroughs()
                                                            unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the endPoint.
-    AUParameter *endPointAUParameter = [AUParameter parameter:@"endPoint"
+    AUParameter *endPointAUParameter = [AUParameter parameterWithIdentifier:@"endPoint"
                                                          name:@"endPoint"
                                                       address:endPointAddress
                                                           min:0
@@ -88,7 +96,7 @@ standardKernelPassthroughs()
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the loop start.
-    AUParameter *loopStartPointAUParameter = [AUParameter parameter:@"loopStartPoint"
+    AUParameter *loopStartPointAUParameter = [AUParameter parameterWithIdentifier:@"loopStartPoint"
                                                            name:@"loopStartPoint"
                                                         address:loopStartPointAddress
                                                             min:0
@@ -96,7 +104,7 @@ standardKernelPassthroughs()
                                                            unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the loop endPoint.
-    AUParameter *loopEndPointAUParameter = [AUParameter parameter:@"loopEndPoint"
+    AUParameter *loopEndPointAUParameter = [AUParameter parameterWithIdentifier:@"loopEndPoint"
                                                          name:@"loopEndPoint"
                                                       address:loopEndPointAddress
                                                           min:0
@@ -104,7 +112,7 @@ standardKernelPassthroughs()
                                                          unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the rate.
-    AUParameter *rateAUParameter = [AUParameter parameter:@"rate"
+    AUParameter *rateAUParameter = [AUParameter parameterWithIdentifier:@"rate"
                                                      name:@"rate. A value of 1 is normal, 2 is double speed, 0.5 is halfspeed, etc."
                                                   address:rateAddress
                                                       min:-10
@@ -112,7 +120,7 @@ standardKernelPassthroughs()
                                                      unit:kAudioUnitParameterUnit_Generic];
 
     // Create a parameter object for the volume.
-    AUParameter *volumeAUParameter = [AUParameter parameter:@"volume"
+    AUParameter *volumeAUParameter = [AUParameter parameterWithIdentifier:@"volume"
                                                        name:@"volume"
                                                     address:volumeAddress
                                                         min:0
@@ -134,7 +142,7 @@ standardKernelPassthroughs()
     _kernel.setParameter(volumeAddress, volumeAUParameter.value);
 
     // Create the parameter tree.
-    _parameterTree = [AUParameterTree tree:@[
+    _parameterTree = [AUParameterTree treeWithChildren:@[
                                              startPointAUParameter,
                                              endPointAUParameter,
                                              loopStartPointAUParameter,

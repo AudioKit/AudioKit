@@ -31,7 +31,7 @@ extension AVAudioTime {
             anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
                 return self
         }
-        if isHostTimeValid &&  anchorTime.isHostTimeValid {
+        if isHostTimeValid && anchorTime.isHostTimeValid {
             let secondsDiff = Double(hostTime.safeSubtract(anchorTime.hostTime)) * ticksToSeconds
             let sampleTime = anchorTime.sampleTime + AVAudioFramePosition(round(secondsDiff * anchorTime.sampleRate))
             let audioTime = AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
@@ -41,11 +41,10 @@ extension AVAudioTime {
             let hostTime = anchorTime.hostTime + secondsDiff / ticksToSeconds
             return AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
         }
-
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
-    open static func now() -> AVAudioTime {
+    public static func now() -> AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
@@ -90,7 +89,7 @@ extension AVAudioTime {
         return AVAudioTime.seconds(forHostTime: self.hostTime - time)
     }
 
-    // Convert seconds to AVAudioTime with a hostTime reference
+    /// Convert seconds to AVAudioTime with a hostTime reference -- time must be > 0
     open class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()

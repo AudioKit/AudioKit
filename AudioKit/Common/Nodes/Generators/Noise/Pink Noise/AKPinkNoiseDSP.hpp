@@ -17,7 +17,7 @@ typedef NS_ENUM(AUParameterAddress, AKPinkNoiseParameter) {
 
 #ifndef __cplusplus
 
-void* createPinkNoiseDSP(int nChannels, double sampleRate);
+AKDSPRef createPinkNoiseDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -25,12 +25,11 @@ void* createPinkNoiseDSP(int nChannels, double sampleRate);
 
 class AKPinkNoiseDSP : public AKSoundpipeDSPBase {
 private:
-    struct _Internal;
-    std::unique_ptr<_Internal> _private;
+    struct InternalData;
+    std::unique_ptr<InternalData> data;
  
 public:
     AKPinkNoiseDSP();
-    ~AKPinkNoiseDSP();
 
     float amplitudeLowerBound = 0.0;
     float amplitudeUpperBound = 1.0;
@@ -45,9 +44,9 @@ public:
     // Uses the ParameterAddress as a key
     float getParameter(AUParameterAddress address) override;
     
-    void init(int _channels, double _sampleRate) override;
+    void init(int channelCount, double sampleRate) override;
 
-    void destroy();
+    void deinit() override;
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };

@@ -359,9 +359,9 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @deprecated This method is deprecated starting in version 0.1.0.
  @note Please use same method in EZAudioUtilities class instead.
  */
-+ (void)appendBufferAndShift:(float*)buffer
++ (void)appendBufferAndShift:(float *)buffer
               withBufferSize:(int)bufferLength
-             toScrollHistory:(float*)scrollHistory
+             toScrollHistory:(float *)scrollHistory
        withScrollHistorySize:(int)scrollHistoryLength __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @note Please use same method in EZAudioUtilities class instead.
  */
 +(void)    appendValue:(float)value
-       toScrollHistory:(float*)scrollHistory
+       toScrollHistory:(float *)scrollHistory
  withScrollHistorySize:(int)scrollHistoryLength __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
@@ -407,7 +407,7 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
  @note Please use same method in EZAudioUtilities class instead.
  @return	The root mean squared of the buffer
  */
-+ (float)RMS:(float*)buffer length:(int)bufferSize __attribute__((deprecated));
++ (float)RMS:(float *)buffer length:(int)bufferSize __attribute__((deprecated));
 
 //------------------------------------------------------------------------------
 

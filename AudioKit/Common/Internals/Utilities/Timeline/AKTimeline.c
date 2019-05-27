@@ -15,8 +15,6 @@
 
 const AudioTimeStamp AudioTimeZero = {};
 
-
-
 typedef struct {
     Float64         loopStart;
     Float64         loopEnd;
@@ -35,7 +33,7 @@ static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp a
 static SInt64 safeSubtract(UInt64 a, UInt64 b);
 static double ticksToSeconds(void);
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
-void AKTimelineSyncronize(AKTimeline *timeline);
+void AKTimelineSynchronize(AKTimeline *timeline);
 
 
 
@@ -58,6 +56,7 @@ void AKTimelineStart(AKTimeline *timeline) {
     AudioTimeStamp nextRender = TimeStampOffset(timeline->lastRenderTime, timeline->lastRenderFrames, timeline->format.mSampleRate);
     AKTimelineStartAtTime(timeline, nextRender);
 }
+
 void AKTimelineStartAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
     if (AKTimelineIsStarted(timeline)) {
         return;
@@ -68,12 +67,14 @@ void AKTimelineStartAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
     timeline->waitStart = audioTime;
     AKTimelineSetState(timeline, timeline->idleTime, timeline->loopStart, timeline->loopEnd, audioTime);
 }
+
 void AKTimelineSetLoop(AKTimeline *timeline, Float64 start, Float64 duration) {
     assert(start >= 0 && duration >= 0);
     timeline->loopStart = start;
     timeline->loopEnd = timeline->loopStart + duration;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
+
 Float64 AKTimelineTimeAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
     if (!AKTimelineIsStarted(timeline)) {
         return timeline->idleTime;
@@ -94,16 +95,19 @@ Float64 AKTimelineTimeAtTime(AKTimeline *timeline, AudioTimeStamp audioTime) {
     }
     return timeline->loopStart + fmod(sampleTimeTotal - timeline->loopStart, timeline->loopEnd - timeline->loopStart);
 }
+
 Float64 AKTimelineTime(AKTimeline *timeline) {
     return AKTimelineTimeAtTime(timeline, AudioTimeNow());
 }
+
 void AKTimelineStop(AKTimeline *timeline) {
     timeline->idleTime = AKTimelineTimeAtTime(timeline, AudioTimeNow());
     timeline->baseTime = AudioTimeZero;
     timeline->waitStart = AudioTimeZero;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
-void AKTimelineSyncronize(AKTimeline *timeline) {
+
+void AKTimelineSynchronize(AKTimeline *timeline) {
     AKTimelineSendMessage(timeline, (AKTimelineMessage) {
         .loopStart = timeline->loopStart,
         .loopEnd = timeline->loopEnd,
@@ -116,15 +120,18 @@ void AKTimelineSetTimeAtTime(AKTimeline *timeline, SInt64 sampleTime, AudioTimeS
     timeline->waitStart = AudioTimeZero;
     AKTimelineSetState(timeline, sampleTime, timeline->loopStart, timeline->loopEnd, audioTime);
 }
+
 void AKTimelineSetTime(AKTimeline *timeline, SInt64 sampleTime) {
     if (AKTimelineIsStarted(timeline)) {
         return AKTimelineSetTimeAtTime(timeline, sampleTime, AudioTimeNow());
     }
     timeline->idleTime = sampleTime;
 }
+
 Boolean AKTimelineIsStarted(AKTimeline *timeline) {
     return SampleTimeValid(timeline->baseTime) || HostTimeValid(timeline->baseTime);
 }
+
 void AKTimelineSetState(AKTimeline *timeline, SInt64 sampleTime, UInt32 loopSampleStart, UInt32 loopSampleEnd, AudioTimeStamp audioTime) {
     assert(SampleTimeValid(audioTime) || HostTimeValid(audioTime));
     audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->format.mSampleRate);
@@ -135,8 +142,9 @@ void AKTimelineSetState(AKTimeline *timeline, SInt64 sampleTime, UInt32 loopSamp
     timeline->baseTime = audioTime;
     timeline->loopStart = loopSampleStart;
     timeline->loopEnd = loopSampleEnd;
-    AKTimelineSyncronize(timeline);
+    AKTimelineSynchronize(timeline);
 }
+
 void AKTimelineSetRenderState(AKTimeline *timeline, Float64 sampleTime, Float64 loopStart, Float64 loopEnd, AudioTimeStamp audioTime) {
     assert(SampleTimeValid(audioTime) || HostTimeValid(audioTime));
     audioTime = TimeStampOffset(audioTime, -sampleTime, timeline->format.mSampleRate);
@@ -147,8 +155,8 @@ void AKTimelineSetRenderState(AKTimeline *timeline, Float64 sampleTime, Float64 
     timeline->_loopStart = timeline->loopStart = loopStart;
     timeline->_loopEnd = timeline->loopEnd = loopEnd;
     timeline->_waitStart = timeline->waitStart = AudioTimeZero;
-
 }
+
 AudioTimeStamp AKTimelineAudioTimeAtTime(AKTimeline *timeline, Float64 time) {
     if (!AKTimelineIsStarted(timeline) || !SampleAndHostTimeValid(timeline->baseTime)) {
         return AudioTimeZero;
@@ -159,8 +167,8 @@ AudioTimeStamp AKTimelineAudioTimeAtTime(AKTimeline *timeline, Float64 time) {
         loopAdjusted = timeline->loopStart + fmod(time - timeline->loopStart, timeline->loopEnd - timeline->loopStart);
     }
     return TimeStampOffset(timeline->baseTime, loopAdjusted, timeline->format.mSampleRate);
-
 }
+
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message) {
     AKTimelineMessage *head = TPCircularBufferUnitHead(&timeLine->messageQueue, NULL, sizeof(AKTimelineMessage));
     if (!head) {
@@ -174,9 +182,11 @@ static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage messag
     *head = message;
     TPCircularBufferUnitProduce(&timeLine->messageQueue);
 }
+
 int ABLSize(int bufferCount) {
     return sizeof(AudioBufferList) + sizeof(AudioBuffer) * (bufferCount - 1);
 }
+
 void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
     if (!bufferlist || !frames) {
         return;
@@ -186,6 +196,7 @@ void ABLOffset(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescript
         bufferlist->mBuffers[i].mData = (char *)bufferlist->mBuffers[i].mData + offset;
     }
 }
+
 void ABLSetByteSize(AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
     if (!bufferlist) {
         return;
@@ -194,10 +205,12 @@ void ABLSetByteSize(AudioBufferList *bufferlist, int frames, AudioStreamBasicDes
         bufferlist->mBuffers[i].mDataByteSize = frames * format.mBytesPerFrame;
     }
 }
+
 void AdvanceRenderState(AudioTimeStamp *timeStamp, AudioBufferList *bufferlist, int frames, AudioStreamBasicDescription format) {
     if(timeStamp) *timeStamp = TimeStampOffset(*timeStamp, frames, format.mSampleRate);
     ABLOffset(bufferlist, frames, format);
 }
+
 void AKTimelineRender(AKTimeline            *timeline,
                       const AudioTimeStamp  *inTimeStamp,
                       UInt32                inNumberFrames,
@@ -225,7 +238,7 @@ void AKTimelineRender(AKTimeline            *timeline,
         return;
     }
 
-    if (!SampleAndHostTimeValid(timeline->_baseTime)) {
+    if (!SampleAndHostTimeValid(timeline->_baseTime) && SampleAndHostTimeValid(*inTimeStamp)) {
         timeline->_baseTime = extrapolateTime(timeline->_baseTime, *inTimeStamp, timeline->format.mSampleRate);
     }
 
@@ -239,7 +252,6 @@ void AKTimelineRender(AKTimeline            *timeline,
 
     SInt64 startSample = waitStart > 0 ? waitStart : 0;
 
-
     AudioTimeStamp playerTime = AudioTimeStampWithSampleHost(inTimeStamp->mSampleTime - timeline->_baseTime.mSampleTime, inTimeStamp->mHostTime);
 
     UInt32 framesToRender = inNumberFrames;
@@ -250,7 +262,6 @@ void AKTimelineRender(AKTimeline            *timeline,
         AudioBufferList *bufferlist = (AudioBufferList *)mem;
         memcpy(bufferlist, ioData, sizeof(mem));
     }
-
 
     Float64 samplesBelowZero = playerTime.mSampleTime < startSample ? startSample - playerTime.mSampleTime : 0;
     if (samplesBelowZero) {
@@ -292,7 +303,6 @@ void AKTimelineRender(AKTimeline            *timeline,
         framesToRender -= frames;
         unlooped += frames;
     }
-
 }
 
 static AudioTimeStamp TimeStampOffset(AudioTimeStamp timeStamp, SInt64 samples, double sampleRate) {
@@ -310,21 +320,26 @@ static AudioTimeStamp TimeStampOffset(AudioTimeStamp timeStamp, SInt64 samples, 
     }
     return timeStamp;
 }
+
 static Boolean SampleAndHostTimeValid(AudioTimeStamp timeStamp) {
     return SampleTimeValid(timeStamp) && HostTimeValid(timeStamp);
 }
+
 static Boolean SampleTimeValid(AudioTimeStamp timeStamp) {
     return timeStamp.mFlags & kAudioTimeStampSampleTimeValid;
 }
+
 static Boolean HostTimeValid(AudioTimeStamp timeStamp) {
     return timeStamp.mFlags & kAudioTimeStampHostTimeValid;
 }
+
 static AudioTimeStamp AudioTimeNow(void) {
     return (AudioTimeStamp) {
         .mHostTime = mach_absolute_time(),
         .mFlags = kAudioTimeStampHostTimeValid
     };
 }
+
 static AudioTimeStamp AudioTimeStampWithSampleHost(Float64 sampleTime, UInt64 hostTime) {
     return (AudioTimeStamp) {
         .mSampleTime = sampleTime,
@@ -349,6 +364,7 @@ static AudioTimeStamp extrapolateTime(AudioTimeStamp timeStamp, AudioTimeStamp a
     }
     return result;
 }
+
 static SInt64 safeSubtract(UInt64 a, UInt64 b) {
     return a >= b ? a - b : -(b - a);
 }

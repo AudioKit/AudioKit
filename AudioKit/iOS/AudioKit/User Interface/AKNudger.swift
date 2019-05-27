@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import AudioKit
 
-@IBDesignable open class AKNugder : AKStepper {
+@IBDesignable open class AKNudger: AKStepper {
     open var linear = true
     private func doPlusActionHit() {
         if increment == 0 {
@@ -43,7 +44,7 @@ import Foundation
     private var animationTimer: Timer?
     private var lastValue: Double = 0
     private func animateValue() {
-        if !plusButton.isPressed {
+        if plusButton.isPressed == false {
             if plusHeldCounter > 0 {
                 plusHeldCounter -= 1
             }
@@ -52,7 +53,7 @@ import Foundation
                 plusHeldCounter += 1
             }
         }
-        if !minusButton.isPressed {
+        if minusButton.isPressed == false {
             if minusHeldCounter > 0 {
                 minusHeldCounter -= 1
             }
@@ -61,8 +62,10 @@ import Foundation
                 minusHeldCounter += 1
             }
         }
-        let addValue = Double(increment * plusHeldCounter) * (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
-        let subValue = Double(increment * minusHeldCounter) * (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
+        let addValue = Double(increment * plusHeldCounter) *
+            (linear ? 1 : Double(plusHeldCounter) / Double(maxPlusCounter))
+        let subValue = Double(increment * minusHeldCounter) *
+            (linear ? 1 : Double(minusHeldCounter) / Double(maxMinusCounter))
         currentValue = originalValue + addValue - subValue
         callbackOnChange()
         lastValue = currentValue
@@ -94,7 +97,7 @@ import Foundation
     private func startTimers() {
         DispatchQueue.main.async {
             if let timer = self.startTimerIfNeeded(timer: self.animationTimer,
-                                                   callback: {_ in self.animateValue() }) {
+                                                   callback: { _ in self.animateValue() }) {
                 self.animationTimer = timer
             }
         }
@@ -136,7 +139,21 @@ import Foundation
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    public override init(text: String, value: Double, minimum: Double, maximum: Double, increment: Double, frame: CGRect, showsValue: Bool = true, callback: @escaping (Double) -> Void) {
-        super.init(text: text, value: value, minimum: minimum, maximum: maximum, increment: increment, frame: frame, showsValue: showsValue, callback: callback)
+    public override init(text: String,
+                         value: Double,
+                         minimum: Double,
+                         maximum: Double,
+                         increment: Double,
+                         frame: CGRect,
+                         showsValue: Bool = true,
+                         callback: @escaping (Double) -> Void) {
+        super.init(text: text,
+                   value: value,
+                   minimum: minimum,
+                   maximum: maximum,
+                   increment: increment,
+                   frame: frame,
+                   showsValue: showsValue,
+                   callback: callback)
     }
 }

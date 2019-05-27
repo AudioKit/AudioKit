@@ -24,7 +24,7 @@ import UIKit
     var plusButton: AKButton!
     var minusButton: AKButton!
     @IBInspectable public var currentValue: Double = 0.5 {
-        didSet{
+        didSet {
             DispatchQueue.main.async {
                 self.valueLabel?.text = String(format: "%.3f", self.currentValue)
             }
@@ -89,15 +89,24 @@ import UIKit
     }
     private func genStackViews(rect: CGRect) {
         let borderWidth = minusButton!.borderWidth
-        label.frame = CGRect(x: rect.origin.x + borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        label.frame = CGRect(x: rect.origin.x + borderWidth,
+                             y: rect.origin.y,
+                             width: rect.width,
+                             height: rect.height * 0.3)
         label.text = text
         label.textAlignment = .left
-        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth, y: rect.origin.y, width: rect.width, height: rect.height * 0.3)
+        valueLabel?.frame = CGRect(x: rect.origin.x - borderWidth,
+                                   y: rect.origin.y,
+                                   width: rect.width,
+                                   height: rect.height * 0.3)
         valueLabel?.text = "\(currentValue)"
         valueLabel?.textAlignment = .right
-        buttons.frame = CGRect(x: rect.origin.x, y: rect.origin.y + label.frame.height, width: rect.width, height: rect.height * 0.7)
+        buttons.frame = CGRect(x: rect.origin.x,
+                               y: rect.origin.y + label.frame.height,
+                               width: rect.width,
+                               height: rect.height * 0.7)
     }
-    private func generateUIComponents(frame: CGRect){
+    private func generateUIComponents(frame: CGRect) {
         //frame will be overridden w draw function
         label = UILabel(frame: frame)
         label.font = labelFont

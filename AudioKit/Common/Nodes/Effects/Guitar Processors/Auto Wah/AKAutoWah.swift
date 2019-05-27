@@ -15,7 +15,6 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
 
     // MARK: - Properties
     private var internalAU: AKAudioUnitType?
-    private var token: AUParameterObserverToken?
 
     fileprivate var wahParameter: AUParameter?
     fileprivate var mixParameter: AUParameter?
@@ -49,14 +48,10 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     /// Wah Amount
     @objc open dynamic var wah: Double = defaultWah {
         willSet {
-            if wah == newValue {
+            guard wah != newValue else { return }
+            if internalAU?.isSetUp == true {
+                wahParameter?.value = AUValue(newValue)
                 return
-            }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    wahParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
             }
             internalAU?.setParameterImmediately(.wah, value: newValue)
         }
@@ -65,14 +60,10 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     /// Dry/Wet Mix
     @objc open dynamic var mix: Double = defaultMix {
         willSet {
-            if mix == newValue {
+            guard mix != newValue else { return }
+            if internalAU?.isSetUp == true {
+                mixParameter?.value = AUValue(newValue)
                 return
-            }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    mixParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
             }
             internalAU?.setParameterImmediately(.mix, value: newValue)
         }
@@ -81,14 +72,10 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
     /// Overall level
     @objc open dynamic var amplitude: Double = defaultAmplitude {
         willSet {
-            if amplitude == newValue {
+            guard amplitude != newValue else { return }
+            if internalAU?.isSetUp == true {
+                amplitudeParameter?.value = AUValue(newValue)
                 return
-            }
-            if internalAU?.isSetUp ?? false {
-                if let existingToken = token {
-                    amplitudeParameter?.setValue(Float(newValue), originator: existingToken)
-                    return
-                }
             }
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
@@ -128,6 +115,7 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
                 AKLog("Error: self is nil")
                 return
             }
+            strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
             input?.connect(to: strongSelf)
@@ -141,18 +129,6 @@ open class AKAutoWah: AKNode, AKToggleable, AKComponent, AKInput {
         wahParameter = tree["wah"]
         mixParameter = tree["mix"]
         amplitudeParameter = tree["amplitude"]
-
-        token = tree.token(byAddingParameterObserver: { [weak self] _, _ in
-
-            guard let _ = self else {
-                AKLog("Unable to create strong reference to self")
-                return
-            } // Replace _ with strongSelf if needed
-            DispatchQueue.main.async {
-                // This node does not change its own values so we won't add any
-                // value observing, but if you need to, this is where that goes.
-            }
-        })
 
         internalAU?.setParameterImmediately(.wah, value: wah)
         internalAU?.setParameterImmediately(.mix, value: mix)

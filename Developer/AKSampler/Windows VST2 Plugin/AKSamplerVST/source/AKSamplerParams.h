@@ -4,12 +4,13 @@ enum
 {
     // ramped parameters
     kMasterVolume, kPitchBend, kVibratoDepth,
-    kFilterCutoff, kFilterEgStrength, kFilterResonance,
+    kFilterCutoff, kKeyTracking, kFilterEgStrength, kFilterResonance,
+    kGlideRate,
 
     // simple parameters
     kAmpAttackTime, kAmpDecayTime, kAmpSustainLevel, kAmpReleaseTime,
     kFilterAttackTime, kFilterDecayTime, kFilterSustainLevel, kFilterReleaseTime,
-    kFilterEnable,
+    kFilterEnable, kLoopThruRelease, kMonophonic, kLegato,
 
     kNumParams
 };
