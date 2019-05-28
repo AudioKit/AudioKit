@@ -186,7 +186,12 @@ public:
     }
 
     int positionModulo() {
-        return positionInSamples % lengthInSamples();
+        int length = lengthInSamples();
+        if (positionInSamples == 0 || length == 0) {
+            return 0;
+        } else {
+            return positionInSamples % length;
+        }
     }
 
     double currentPositionInBeats() {
