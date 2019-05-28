@@ -42,7 +42,6 @@ open class DIYSeq {
     }
     
     open func load(midiFile: AKMIDIFile) {
-        print("loading file \(midiFile.filename)")
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
             AKLog("Error: Track count and file track count do not match, dropped \(midiTracks.count - tracks.count) tracks")
