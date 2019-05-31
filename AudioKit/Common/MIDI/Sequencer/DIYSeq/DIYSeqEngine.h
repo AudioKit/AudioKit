@@ -27,7 +27,6 @@ typedef void (^AKCCallback)(void);
 -(void)clear;
 -(void)rewind;
 -(void)seekTo:(double)seekPosition;
--(void)playAfterDelay:(double)beats;
 
 @end
 

@@ -47,14 +47,8 @@ public:
     }
 
     void start() {
-        resetPlaybackVariables();
         started = true;
         isPlaying = true;
-    }
-
-    void playAfterDelay(double beats) {
-        printf("starting after %f beats\n", beats);
-        start();
     }
 
     void stop() {
@@ -118,8 +112,8 @@ public:
                     return;
                 }
             }
-            int currentStartSample = positionModulo();
-            int currentEndSample = currentStartSample + frameCount;
+            long currentStartSample = positionModulo();
+            long currentEndSample = currentStartSample + frameCount;
             for (int i = 0; i < eventCount; i++) {
                 // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
@@ -131,7 +125,7 @@ public:
                                  offset, events[i].beat);
                 } else if (currentEndSample > lengthInSamples() && loopEnabled) {
                     // this buffer extends beyond the length of the loop and looping is on
-                    int loopRestartInBuffer = lengthInSamples() - currentStartSample;
+                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
@@ -178,22 +172,20 @@ public:
         }
     }
 
-    int lengthInSamples() {
+    long lengthInSamples() {
         return beatToSamples(length);
-    }
-
-    void resetPlaybackVariables() {
-        positionInSamples = 0;
     }
 
     int beatToSamples(double beat) {
         return (int)(beat / tempo * 60 * sampleRate);
     }
 
-    int positionModulo() {
-        int length = lengthInSamples();
+    long positionModulo() {
+        long length = lengthInSamples();
         if (positionInSamples == 0 || length == 0) {
             return 0;
+        } else if (positionInSamples < 0) {
+            return positionInSamples;
         } else {
             return positionInSamples % length;
         }
@@ -212,7 +204,7 @@ private:
     float startPoint = 0;
     AudioUnit targetAU;
     UInt64 framesCounted = 0;
-    UInt64 positionInSamples = 0;
+    long positionInSamples = 0;
 
 public:
     bool started = false;
