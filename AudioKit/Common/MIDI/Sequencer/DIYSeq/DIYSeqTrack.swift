@@ -86,6 +86,10 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public func play() {
         internalAU?.start()
     }
+    public func playFromStart() {
+        seek(to: 0)
+        internalAU?.start()
+    }
     public func playAfterDelay(beats: Double) {
         seek(to: -1 * beats)
         internalAU?.start()
