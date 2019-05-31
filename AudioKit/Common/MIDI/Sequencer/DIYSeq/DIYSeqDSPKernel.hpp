@@ -52,6 +52,11 @@ public:
         isPlaying = true;
     }
 
+    void playAfterDelay(double beats) {
+        printf("starting after %f beats\n", beats);
+        start();
+    }
+
     void stop() {
         started = false;
         isPlaying = false;

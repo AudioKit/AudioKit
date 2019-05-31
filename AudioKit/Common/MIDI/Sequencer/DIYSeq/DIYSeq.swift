@@ -32,6 +32,9 @@ open class DIYSeq {
     open func play() {
         for track in tracks { track.play() }
     }
+    open func playAfterDelay(beats: Double) {
+        for track in tracks { track.playAfterDelay(beats: beats) }
+    }
 
     open func stop() {
         for track in tracks { track.stop() }

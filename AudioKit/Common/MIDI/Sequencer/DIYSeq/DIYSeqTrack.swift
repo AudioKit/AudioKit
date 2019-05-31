@@ -86,6 +86,9 @@ open class DIYSeqTrack: AKNode, AKComponent {
     public func play() {
         internalAU?.start()
     }
+    public func playAfterDelay(beats: Double) {
+        internalAU?.play(afterDelay: beats)
+    }
     public func stop() {
         internalAU?.stop()
     }
@@ -93,7 +96,6 @@ open class DIYSeqTrack: AKNode, AKComponent {
         internalAU?.rewind()
     }
     public func seek(to position: Double) {
-        print("seek (swift) \(position)")
         internalAU?.seek(to: position)
     }
 
