@@ -14,10 +14,12 @@ extension AKSampler {
     /// Load an SFZ at the given location
     ///
     /// Parameters:
-    ///   - path: Path tothe file as a string
+    ///   - path: Path to the file as a string
     ///   - fileName: Name of the SFZ file
     ///
-    open func loadSFZ(path: String, fileName: String) {
+    open func loadSFZ(path: String, fileName: String) -> [AKSampleBuffer]
+    {
+        var sampleBufs = [AKSampleBuffer]()
 
         stopAllVoices()
         unloadAllSamples()
@@ -95,19 +97,22 @@ extension AKSampler {
                                                               endPoint: 0.0)
                     let sampleFileURL = baseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                              path: sampleFileURL.path))
+                        let buf = loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                                        path: sampleFileURL.path))
+                        sampleBufs.append(buf)
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
                             let compressedFileURL = baseURL.appendingPathComponent(String(sample.dropLast(4) + ".wv"))
                             let fileMgr = FileManager.default
                             if fileMgr.fileExists(atPath: compressedFileURL.path) {
-                                loadCompressedSampleFile(
+                                let buf = loadCompressedSampleFile(
                                     from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
                                                                  path: compressedFileURL.path))
+                                sampleBufs.append(buf)
                             } else {
                                 let sampleFile = try AKAudioFile(forReading: sampleFileURL)
-                                loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
+                                let buf = loadAKAudioFile(from: sampleDescriptor, file: sampleFile)
+                                sampleBufs.append(buf)
                             }
                         }
                     }
@@ -119,5 +124,8 @@ extension AKSampler {
 
         buildKeyMap()
         restartVoices()
+
+        return sampleBufs
     }
+
 }

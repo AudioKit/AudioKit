@@ -106,7 +106,7 @@ void AKCoreSampler::deinit()
         data->keyMap[i].clear();
 }
 
-void AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
+AKSampleBuffer* AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
 {
     AudioKitCore::KeyMappedSampleBuffer *pBuf = new AudioKitCore::KeyMappedSampleBuffer();
     pBuf->minimumNoteNumber = sdd.sampleDescriptor.minimumNoteNumber;
@@ -142,6 +142,8 @@ void AKCoreSampler::loadSampleData(AKSampleDataDescriptor& sdd)
         if (sdd.sampleDescriptor.loopEndPoint > 1.0f) pBuf->loopEndPoint = sdd.sampleDescriptor.loopEndPoint;
         else pBuf->loopEndPoint = pBuf->endPoint * sdd.sampleDescriptor.loopEndPoint;
     }
+
+    return pBuf;
 }
 
 AudioKitCore::KeyMappedSampleBuffer *AKCoreSampler::lookupSample(unsigned noteNumber, unsigned velocity)

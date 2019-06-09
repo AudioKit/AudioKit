@@ -42,3 +42,16 @@ typedef struct
     const char *path;
     
 } AKSampleFileDescriptor;
+
+typedef struct
+{
+    float *samples;
+    float sampleRate;
+    int channelCount;
+    int sampleCount;
+    float startPoint, endPoint;
+    bool isLooping;
+    float loopStartPoint, loopEndPoint;
+    float noteFrequency;
+
+} AKSampleBuffer;
