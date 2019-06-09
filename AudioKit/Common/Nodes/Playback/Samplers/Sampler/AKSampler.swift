@@ -395,8 +395,7 @@
         self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)
     }
 
-    @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) -> AKSampleBuffer
-    {
+    @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) -> AKSampleBuffer {
         let sampleRate = Float(file.sampleRate)
         let sampleCount = Int32(file.samplesCount)
         let channelCount = Int32(file.channelCount)
@@ -418,13 +417,11 @@
         internalAU?.restartVoices()
     }
 
-    @objc open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) -> AKSampleBuffer
-    {
+    @objc open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) -> AKSampleBuffer {
         return internalAU?.loadSampleData(from: sampleDataDescriptor) ?? AKSampleBuffer()
     }
 
-    @objc open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) -> AKSampleBuffer
-    {
+    @objc open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) -> AKSampleBuffer {
         return internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor) ?? AKSampleBuffer()
     }
 
