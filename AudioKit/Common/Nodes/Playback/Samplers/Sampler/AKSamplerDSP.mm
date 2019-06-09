@@ -14,18 +14,18 @@ extern "C" AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate) {
     return new AKSamplerDSP();
 }
 
-extern "C" void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
-    ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
+extern "C" AKSampleBuffer* doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD) {
+    return ((AKSamplerDSP*)pDSP)->loadSampleData(*pSDD);
 }
 
-extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
+extern "C" AKSampleBuffer* doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD)
 {
     char errMsg[100];
     WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
     if (wpc == 0)
     {
         printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
-        return;
+        return nullptr;
     }
 
     AKSampleDataDescriptor sdd;
@@ -50,8 +50,9 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
     }
     WavpackCloseFile(wpc);
 
-    ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
+    AKSampleBuffer* pBuf = ((AKSamplerDSP*)pDSP)->loadSampleData(sdd);
     delete[] sdd.data;
+    return pBuf;
 }
 
 extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)

@@ -12,15 +12,15 @@ namespace AudioKitCore
 {
 
     SampleBuffer::SampleBuffer()
-    : samples(0)
-    , channelCount(0)
-    , sampleCount(0)
-    , startPoint(0.0f)
-    , endPoint(0.0f)
-    , isLooping(false)
-    , loopStartPoint(0.0f)
-    , loopEndPoint(0.0f)
     {
+        samples = 0;
+        channelCount = 0;
+        sampleCount = 0;
+        startPoint = 0.0f;
+        endPoint = 0.0f;
+        isLooping = false;
+        loopStartPoint = 0.0f;
+        loopEndPoint = 0.0f;
     }
     
     SampleBuffer::~SampleBuffer()

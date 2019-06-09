@@ -46,8 +46,8 @@ typedef NS_ENUM(AUParameterAddress, AKSamplerParameter)
 #include "AKSampler_Typedefs.h"
 
 AKDSPRef createAKSamplerDSP(int channelCount, double sampleRate);
-void doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
-void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
+AKSampleBuffer* doAKSamplerLoadData(AKDSPRef pDSP, AKSampleDataDescriptor *pSDD);
+AKSampleBuffer* doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescriptor *pSFD);
 void doAKSamplerUnloadAllSamples(AKDSPRef pDSP);
 void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency);
 void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);

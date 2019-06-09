@@ -7,23 +7,16 @@
 //
 
 #pragma once
+#include "AKSampler_Typedefs.h"
+
 namespace AudioKitCore
 {
 
     // SampleBuffer represents an array of sample data, which can be addressed with a real-valued
     // "index" via linear interpolation.
     
-    struct SampleBuffer
-    {
-        float *samples;
-        float sampleRate;
-        int channelCount;
-        int sampleCount;
-        float startPoint, endPoint;
-        bool isLooping;
-        float loopStartPoint, loopEndPoint;
-        float noteFrequency;
-        
+    struct SampleBuffer : public AKSampleBuffer
+    {        
         SampleBuffer();
         ~SampleBuffer();
         

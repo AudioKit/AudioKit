@@ -41,7 +41,7 @@ public:
     void restartVoices();
     
     /// call to load samples
-    void loadSampleData(AKSampleDataDescriptor& sdd);
+    AKSampleBuffer* loadSampleData(AKSampleDataDescriptor& sdd);
     
     // after loading samples, call one of these to build the key map
     

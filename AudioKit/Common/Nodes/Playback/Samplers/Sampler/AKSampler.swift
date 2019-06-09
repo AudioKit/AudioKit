@@ -395,18 +395,19 @@
         self.internalAU?.setParameterImmediately(.filterEnvelopeVelocityScaling, value: filterEnvelopeVelocityScaling)
     }
 
-    @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) {
+    @objc open func loadAKAudioFile(from sampleDescriptor: AKSampleDescriptor, file: AKAudioFile) -> AKSampleBuffer
+    {
         let sampleRate = Float(file.sampleRate)
         let sampleCount = Int32(file.samplesCount)
         let channelCount = Int32(file.channelCount)
         let flattened = Array(file.floatChannelData!.joined())
         let data = UnsafeMutablePointer<Float>(mutating: flattened)
-        internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+        return internalAU?.loadSampleData(from: AKSampleDataDescriptor(sampleDescriptor: sampleDescriptor,
                                                                 sampleRate: sampleRate,
                                                                 isInterleaved: false,
                                                                 channelCount: channelCount,
                                                                 sampleCount: sampleCount,
-                                                                data: data) )
+                                                                data: data) ) ?? AKSampleBuffer()
     }
 
     @objc open func stopAllVoices() {
@@ -417,12 +418,14 @@
         internalAU?.restartVoices()
     }
 
-    @objc open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
-        internalAU?.loadSampleData(from: sampleDataDescriptor)
+    @objc open func loadRawSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) -> AKSampleBuffer
+    {
+        return internalAU?.loadSampleData(from: sampleDataDescriptor) ?? AKSampleBuffer()
     }
 
-    @objc open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
-        internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
+    @objc open func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) -> AKSampleBuffer
+    {
+        return internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor) ?? AKSampleBuffer()
     }
 
     @objc open func unloadAllSamples() {
