@@ -222,4 +222,5 @@ public:
     double tempo = 120.0;
     bool stopAfterCurrentNotes = false;
     bool loopEnabled = true;
+    uint numberOfLoops = 0;
 };
