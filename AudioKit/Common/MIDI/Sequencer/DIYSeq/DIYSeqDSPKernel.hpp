@@ -152,6 +152,11 @@ public:
     }
 
     void clear() {
+        for (int i = 0; i < eventCount; i++) {
+            if (events[i].status == NOTEOFF) {
+                sendMidiData(events[i].status, events[i].data1, events[i].data2, 0, 0);
+            }
+        }
         eventCount = 0;
     }
 
