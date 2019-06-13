@@ -50,8 +50,17 @@
 -(void)setTarget:(AudioUnit)target {
     _kernel.setTargetAU(target);
 }
--(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat {
+-(void)addMIDIEvent:(uint8_t)status
+              data1:(uint8_t)data1
+              data2:(uint8_t)data2
+               beat:(double)beat {
     _kernel.addMIDIEvent(status, data1, data2, beat);
+}
+- (void)addMIDINote:(uint8_t)number
+           velocity:(uint8_t)velocity
+               beat:(double)beat
+           duration:(double)duration {
+    _kernel.addMIDINote(number, velocity, beat, duration);
 }
 -(void)setLoopCallback:(AKCCallback)callback {
     _kernel.loopCallback = callback;

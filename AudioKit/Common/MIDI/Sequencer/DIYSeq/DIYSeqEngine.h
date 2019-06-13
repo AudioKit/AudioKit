@@ -23,7 +23,14 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) AKCCallback loopCallback;
 
 -(void)setTarget:(AudioUnit)target;
--(void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat;
+-(void)addMIDIEvent:(uint8_t)status
+              data1:(uint8_t)data1
+              data2:(uint8_t)data2
+               beat:(double)beat;
+-(void)addMIDINote:(uint8_t)number
+          velocity:(uint8_t)velocity
+              beat:(double)beat
+          duration:(double)duration;
 -(void)clear;
 -(void)rewind;
 -(void)seekTo:(double)seekPosition;

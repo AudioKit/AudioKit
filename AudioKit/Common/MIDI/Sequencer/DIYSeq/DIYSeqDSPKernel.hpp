@@ -8,12 +8,11 @@
 
 #include <stdio.h>
 #pragma once
+#include <vector>
+using std::vector;
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
-#define INITVALUE -1.0
-#define MIDINOTECOUNT 128
-#define MAXNUMBEROFEVENTS 512
 
 struct MIDIEvent {
     uint8_t status;
@@ -34,7 +33,6 @@ enum {
 
 class AKDIYSeqEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
-    // MARK: Member Functions
 
     AKDIYSeqEngineDSPKernel() {}
 
@@ -104,6 +102,16 @@ public:
         }
     }
 
+    void addPlayingNote(MIDINote note, int offset) {
+        sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
+        playingNotes.push_back(note);
+    }
+
+    void stopPlayingNote(MIDINote note, int offset, int index) {
+        sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOff.beat);
+        playingNotes.erase(playingNotes.begin() + index);
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         if (isPlaying) {
             if (positionInSamples >= lengthInSamples()){
@@ -114,11 +122,10 @@ public:
             }
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
-            for (int i = 0; i < eventCount; i++) {
+            for (int i = 0; i < events.size(); i++) {
                 // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
-                if ((currentStartSample <= triggerTime && triggerTime < currentEndSample)
-                    && stopAfterCurrentNotes == false) {
+                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
                     sendMidiData(events[i].status, events[i].data1, events[i].data2,
@@ -136,27 +143,75 @@ public:
                     }
                 }
             }
+
+            // Check the playing notes for note offs
+            for (int i = 0; i < playingNotes.size(); i++) {
+                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
+                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                    int offset = (int)(triggerTime - currentStartSample);
+                    stopPlayingNote(playingNotes[i], offset, i);
+                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    if (triggerTime < samplesOfBufferForNewLoop) {
+                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        stopPlayingNote(playingNotes[i], offset, i);
+                    }
+                }
+            }
+
+            // Check scheduled notes for note ons
+            for (int i = 0; i < notes.size(); i++) {
+                int triggerTime = beatToSamples(notes[i].noteOn.beat);
+                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                    int offset = (int)(triggerTime - currentStartSample);
+                    addPlayingNote(notes[i], offset);
+                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    if (triggerTime < samplesOfBufferForNewLoop) {
+                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        addPlayingNote(notes[i], offset);
+                    }
+                }
+            }
             positionInSamples += frameCount;
         }
         framesCounted += frameCount;
     }
 
-    int addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
-        events[eventCount].status = status;
-        events[eventCount].data1 = data1;
-        events[eventCount].data2 = data2;
-        events[eventCount].beat = beat;
+    void addMIDIEvent(uint8_t status, uint8_t data1, uint8_t data2, double beat) {
+        MIDIEvent newEvent;
+        newEvent.status = status;
+        newEvent.data1 = data1;
+        newEvent.data2 = data2;
+        newEvent.beat = beat;
+        events.push_back(newEvent);
+    }
 
-        eventCount += 1;
-        return eventCount;
+    void addMIDINote(uint8_t number, uint8_t velocity, double beat, double duration) {
+        MIDINote newNote;
+
+        newNote.noteOn.status = NOTEON;
+        newNote.noteOn.data1 = number;
+        newNote.noteOn.data2 = velocity;
+        newNote.noteOn.beat = beat;
+
+        newNote.noteOff.status = NOTEOFF;
+        newNote.noteOff.data1 = number;
+        newNote.noteOff.data2 = velocity;
+        newNote.noteOff.beat = beat + duration;
+
+        notes.push_back(newNote);
     }
 
     void clear() {
-        eventCount = 0;
+        notes.clear();
+        events.clear();
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
-//        printf("deboog: sending: %i %i %i at offset %f (%f beats)\n", status, data1, data2, offset, time);
+        printf("%p: sending: %i %i %i at offset %f (%f beats)\n", &midiEndpoint, status, data1, data2, offset, time);
         if (midiPort == 0 || midiEndpoint == 0) {
             MusicDeviceMIDIEvent(targetAU, status, data1, data2, offset);
         } else {
@@ -215,12 +270,12 @@ public:
     MIDIPortRef midiPort;
     MIDIEndpointRef midiEndpoint;
     AKCCallback loopCallback = nullptr;
-    MIDIEvent events[MAXNUMBEROFEVENTS];
-    int eventCount = 0;
+    vector<MIDIEvent> events;
+    vector<MIDINote> notes;
+    vector<MIDINote> playingNotes;
     int maximumPlayCount = 0;
     double length = 4.0;
     double tempo = 120.0;
-    bool stopAfterCurrentNotes = false;
     bool loopEnabled = true;
     uint numberOfLoops = 0;
 };

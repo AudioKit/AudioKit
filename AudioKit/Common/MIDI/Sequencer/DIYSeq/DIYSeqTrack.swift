@@ -104,16 +104,19 @@ open class DIYSeqTrack: AKNode, AKComponent {
         internalAU?.seek(to: position)
     }
 
-    open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
-                  position: Double, duration: Double) {
+    open func add(noteNumber: MIDINoteNumber,
+                  velocity: MIDIVelocity = 127,
+                  channel: MIDIChannel = 0,
+                  position: Double,
+                  duration: Double) {
         var noteOffPosition: Double = (position + duration);
         while (noteOffPosition >= length && length != 0) {
             noteOffPosition -= length;
         }
-        add(status: AKMIDIStatus(type: .noteOn, channel: MIDIChannel(channel)),
-            data1: noteNumber, data2: velocity, position: position)
-        add(status: AKMIDIStatus(type: .noteOff, channel: MIDIChannel(channel)),
-            data1: noteNumber, data2: velocity, position: noteOffPosition)
+        internalAU?.addMIDINote(noteNumber,
+                                velocity: velocity,
+                                beat: position,
+                                duration: duration)
     }
 
     open func add(status: AKMIDIStatus, data1: UInt8, data2: UInt8, position: Double) {
