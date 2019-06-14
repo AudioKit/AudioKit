@@ -92,8 +92,6 @@
         return balancerKernel->getParameter(param.address);
     };
 
-    self.maximumFramesToRender = 512;
-
     return self;
 }
 

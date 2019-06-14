@@ -59,8 +59,6 @@
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[self.outputBus]];
 
-    self.maximumFramesToRender = 512;
-
     return self;
 }
 

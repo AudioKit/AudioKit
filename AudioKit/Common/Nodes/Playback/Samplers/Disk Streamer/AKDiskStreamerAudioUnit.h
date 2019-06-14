@@ -16,7 +16,6 @@ typedef void (^AKCCallback)(void);
 @property (nonatomic) float endPoint;
 @property (nonatomic) float tempStartPoint;
 @property (nonatomic) float tempEndPoint;
-//@property (nonatomic) float rate;
 @property (nonatomic) float volume;
 @property (nonatomic) BOOL loop;
 @property (nonatomic) float loopStartPoint;
@@ -28,6 +27,10 @@ typedef void (^AKCCallback)(void);
 - (void)loadFile:(const char*)filename;
 - (int)size;
 - (double)position;
+- (void)rewind;
+- (void)seekTo:(double)sample;
+- (void)setRate:(double)rate;
+- (double)getRate;
 
 @end
 
