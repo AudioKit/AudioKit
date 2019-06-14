@@ -49,9 +49,12 @@
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
-//- (void)setRate:(float)rate {
-//    _kernel.setRate(rate);
-//}
+- (void)setRate:(double)rate {
+    _kernel.setRate(rate);
+}
+- (double)getRate {
+    return _kernel.rate;
+}
 - (void)setVolume:(float)volume {
     _kernel.setVolume(volume);
 }
@@ -65,6 +68,13 @@
     float normalized = (_kernel.position - _kernel.startPointViaRate()) / (_kernel.endPointViaRate() - _kernel.startPointViaRate());
     return _kernel.rate > 0 ? normalized : 1 - normalized;
 }
+-(void)rewind {
+    _kernel.rewind();
+}
+- (void)seekTo:(double)sample {
+    _kernel.seekTo(sample);
+}
+
 standardKernelPassthroughs()
 
 - (void)createParameters {
