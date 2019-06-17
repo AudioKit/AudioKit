@@ -36,12 +36,9 @@
     }
 
     /// Initialize the microphone
-	@objc public init?(with format: AVAudioFormat? = nil)
-	{
+	@objc public init?(with format: AVAudioFormat? = nil) {
 		super.init()
-		guard let format = getFormatForDevice()
-		else
-		{
+		guard let formatForDevice = getFormatForDevice() else {
 			AKLog("Error! Cannot unwrap format for device. Can't init the mic.")
 			return nil
 		}
@@ -50,26 +47,20 @@
 
 		#if os(iOS)
 		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
-		do
-		{
+		do {
 			try setAVSessionSampleRate(sampleRate: AudioKit.deviceSampleRate)
-		}
-		catch
-		{
+		} catch {
 			AKLog(error)
 			return nil
 		}
 
 		AudioKit.engine.attach(avAudioUnitOrNode)
-		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format)
+		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
 		
 		//Now set samplerate to your AKSettings sampling rate, it may be heavy handed to make the init fail here, but taking all percautions to avoid all the hard crashes with AKMicrohpone init issues of late.
-		do
-		{
+		do {
 			try setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
-		}
-		catch
-		{
+		} catch {
 			AKLog(error)
 			return nil
 		}
