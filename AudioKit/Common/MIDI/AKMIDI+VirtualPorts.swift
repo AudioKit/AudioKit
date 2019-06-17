@@ -42,7 +42,7 @@ extension AKMIDI {
                 for packet in packetList.pointee {
                     // a Core MIDI packet may contain multiple MIDI events
                     for event in packet {
-                        self.handleMIDIMessage(event)
+                        self.handleMIDIMessage(event, fromInput: uniqueID)
                     }
                 }
         }
