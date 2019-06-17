@@ -166,6 +166,16 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                          channel: MIDIChannel) {
         // Override in subclass
     }
+
+    /// Receive program change
+    ///
+    /// - Parameters:
+    ///   - program:  MIDI Program Value (0-127)
+    ///   - channel:  MIDI Channel (1-16)
+    ///
+    @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
+        // Override in subclass
+    }
     
     // MARK: - Private functions
     
