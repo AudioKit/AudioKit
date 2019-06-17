@@ -33,7 +33,9 @@ open class AudioKit: NSObject {
     /// Reference to the AV Audio Engine
     @objc public static var engine: AVAudioEngine {
         get {
-            _ = AudioKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
+            // Access a few attributes immediately so things are initialized properly
+            _ = _engine.inputNode
+            _ = AudioKit.deviceSampleRate
             return _engine
         }
         set {
