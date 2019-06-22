@@ -100,11 +100,11 @@ import AudioKit
             strongSelf.fineStepper.currentValue = value
             strongSelf.slider.value = value
         }
-        coarseStepper.touchBeganCallback = { [weak self]
+        coarseStepper.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        coarseStepper.touchEndedCallback = { [weak self] 
+        coarseStepper.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
@@ -115,11 +115,11 @@ import AudioKit
             strongSelf.coarseStepper.currentValue = value
             strongSelf.slider.value = value
         }
-        fineStepper.touchBeganCallback = { [weak self]
+        fineStepper.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        fineStepper.touchEndedCallback = { [weak self]
+        fineStepper.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
@@ -130,11 +130,11 @@ import AudioKit
             strongSelf.coarseStepper.currentValue = value
             strongSelf.fineStepper.currentValue = value
         }
-        slider.touchBeganCallback = { [weak self]
+        slider.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        slider.touchEndedCallback = { [weak self]
+        slider.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
