@@ -48,27 +48,27 @@ import AudioKit
                           color: AKStylist.sharedInstance.nextColor,
                           frame: frame,
                           callback: { _ in })
-        coarseStepper.touchBeganCallback = { [weak self]
+        coarseStepper.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        coarseStepper.touchEndedCallback = { [weak self]
+        coarseStepper.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
-        fineStepper.touchBeganCallback = { [weak self]
+        fineStepper.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        fineStepper.touchEndedCallback = { [weak self]
+        fineStepper.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
-        slider.touchBeganCallback = { [weak self]
+        slider.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        slider.touchEndedCallback = { [weak self]
+        slider.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
@@ -124,11 +124,11 @@ import AudioKit
             strongSelf.currentValue = value
             strongSelf.slider.value = value
         }
-        nudger.touchBeganCallback = { [weak self]
+        nudger.touchBeganCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchBeganCallback()
         }
-        nudger.touchEndedCallback = { [weak self] 
+        nudger.touchEndedCallback = { [weak self] in
             guard let strongSelf = self else { return }
             strongSelf.touchEndedCallback()
         }
