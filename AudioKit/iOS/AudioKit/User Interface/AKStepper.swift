@@ -143,19 +143,23 @@ import UIKit
     }
     internal func setupButtons(frame: CGRect) {
         let buttonFrame = CGRect(x: 0, y: 0, width: frame.width / 2, height: frame.height)
-        plusButton = AKButton(title: "+", frame: buttonFrame, callback: {_ in
-            self.doPlusAction()
-            self.touchBeganCallback()
+        plusButton = AKButton(title: "+", frame: buttonFrame, callback: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doPlusAction()
+            strongSelf.touchBeganCallback()
         })
-        plusButton.releaseCallback = {_ in
-            self.touchEndedCallback()
+        plusButton.releaseCallback = { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.touchEndedCallback()
         }
-        minusButton = AKButton(title: "-", frame: buttonFrame, callback: {_ in
-            self.doMinusAction()
-            self.touchBeganCallback()
+        minusButton = AKButton(title: "-", frame: buttonFrame, callback: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doMinusAction()
+            strongSelf.touchBeganCallback()
         })
-        minusButton.releaseCallback = {_ in
-            self.touchEndedCallback()
+        minusButton.releaseCallback = { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.touchEndedCallback()
         }
         plusButton.font = buttonFont!
         minusButton.font = buttonFont!
