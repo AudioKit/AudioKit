@@ -35,7 +35,9 @@ open class AudioKit: NSObject {
         get {
             // Access a few attributes immediately so things are initialized properly
             #if !os(tvOS)
-            _ = _engine.inputNode
+            if AKSettings.audioInputEnabled {
+                _ = _engine.inputNode
+            }
             #endif
             _ = AudioKit.deviceSampleRate
             return _engine

@@ -69,9 +69,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     }
 
     open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                           pressure: MIDIByte,
-                                           channel: MIDIChannel,
-                                           offset: UInt32 = 0) {
+                                              pressure: MIDIByte,
+                                              channel: MIDIChannel,
+                                              offset: UInt32 = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
