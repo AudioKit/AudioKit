@@ -10,6 +10,7 @@ import Foundation
 
 public struct AKMIDIFile {
 
+    var filename: String
     var chunks: [AKMIDIFileChunk] = []
 
     var headerChunk: MIDIFileHeaderChunk? {
@@ -64,6 +65,7 @@ public struct AKMIDIFile {
     }
 
     public init(url: URL) {
+        filename = url.lastPathComponent
         if let midiData = try? Data(contentsOf: url) {
             let dataSize = midiData.count
             let typeLength = 4
