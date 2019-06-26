@@ -8,6 +8,7 @@
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 open class AKTuningTableETNN: NSObject {
+    
     @objc public var nn: MIDINoteNumber = 60
     @objc public var pitchBend: Int = 16_384 / 2
     public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
@@ -18,6 +19,7 @@ open class AKTuningTableETNN: NSObject {
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 open class AKTuningTableDelta12ET: NSObject {
+
     @objc public var nn: MIDINoteNumber = 60
     @objc public var cents: Double = 0
     public init(_ nn: MIDINoteNumber = 60, _ cents: Double = 0) {
@@ -36,6 +38,7 @@ open class AKTuningTable: AKTuningTableBase {
 
     /// Note number for standard reference note
     @objc public var middleCNoteNumber: MIDINoteNumber = 60 {
+
         didSet {
             updateTuningTableFromMasterSet()
         }
@@ -44,6 +47,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// Frequency of standard reference note
     /// equivalent to noteToHz: return 440. * exp2((60 - 69)/12.)
     @objc public var middleCFrequency: Frequency = 261.625_565_300_6 {
+
         didSet {
             updateTuningTableFromMasterSet()
         }
@@ -52,6 +56,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// Octave number for standard reference note.  Can be negative
     /// ..., -2, -1, 0, 1, 2, ...
     @objc public var middleCOctave: Int = 0 {
+
         didSet {
             updateTuningTableFromMasterSet()
         }
@@ -60,6 +65,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// Range of downwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend DOWN range
     /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave.
     @objc public var etNNPitchBendRangeDown: Cents = -50 {
+
         didSet {
             updateTuningTableFromMasterSet()
         }
@@ -70,6 +76,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// Range of upwards Pitch Bend used in etNN calculation.  Must match your synthesizer's pitch bend UP range
     /// etNNPitchBendRangeDown and etNNPitchBendRangeUp must cover a spread that is greater than the maximum distance between two notes in your octave.
     @objc public var etNNPitchBendRangeUp: Cents = 50 {
+
         didSet {
             updateTuningTableFromMasterSet()
         }
@@ -83,6 +90,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// Returns nil if the tuning table's MIDINoteNumber cannot be mapped to 12ET
     /// - parameter nn: The tuning table's Note Number
     @objc public func etNNPitchBend(NN nn: MIDINoteNumber) -> AKTuningTableETNN? {
+
         return etNNDictionary[nn]
     }
 
@@ -97,11 +105,13 @@ open class AKTuningTable: AKTuningTableBase {
 
     /// Notes Per Octave: The count of the masterSet array
     @objc override public var npo: Int {
+
         return masterSet.count
     }
 
     /// Initialization for standard default 12 tone equal temperament
     public override init() {
+
         super.init()
         _ = defaultTuning()
     }
@@ -111,6 +121,7 @@ open class AKTuningTable: AKTuningTableBase {
     /// - parameter inputMasterSet: An array of frequencies, i.e., the "masterSet"
     ///
     @objc @discardableResult public func tuningTable(fromFrequencies inputMasterSet: [Frequency]) -> Int {
+
         if inputMasterSet.isEmpty {
             AKLog("No input frequencies")
             return 0
@@ -150,9 +161,46 @@ open class AKTuningTable: AKTuningTableBase {
         return masterSet.count
     }
 
+    /// Create the tuning based on deviations from 12ET by an array of cents
+    ///
+    /// - parameter centsArray: An array of 12 Cents.
+    /// 12ET will be modified by the centsArray, including deviations which result in a root less than 1.0
+    ///
+    @objc open func tuning12ETDeviation(centsArray: [Cents]) {
+
+        // Cents array count must equal 12
+        guard centsArray.count == 12 else {
+            AKLog("user error: centsArray must have 12 elements")
+            return
+        }
+
+        // 12ET
+        _ = twelveToneEqualTemperament()
+
+        // This should never happen
+        guard masterSet.count == 12 else {
+            AKLog("internal error: 12 et must have 12 tones")
+            return
+        }
+
+        // Master Set is in Frequency space
+        var masterSetProcessed = self.masterSet
+
+        // Scale by cents => Frequency space
+        for (index, cent) in centsArray.enumerated() {
+            let centF = exp2(cent / 1200)
+            masterSetProcessed[index] = masterSetProcessed[index] * centF
+        }
+        self.masterSet = masterSetProcessed
+
+        // update
+        self.updateTuningTableFromMasterSet()
+    }
+
+
+
     // Assume masterSet is set and valid:  Process and update tuning table.
     @objc internal func updateTuningTableFromMasterSet() {
-        //AKLog("masterSet: \(masterSet)")
 
         etNNDictionary.removeAll(keepingCapacity: true)
         delta12ETDictionary.removeAll(keepingCapacity: true)
@@ -207,6 +255,7 @@ open class AKTuningTable: AKTuningTableBase {
 
     /// Renders and returns the masterSet values as an array of cents
     @objc public func masterSetInCents() -> [Cents] {
+
         let cents = masterSet.map({ log2($0) * 1_200 })
         return cents
     }
