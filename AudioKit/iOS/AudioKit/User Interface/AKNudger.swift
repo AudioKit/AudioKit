@@ -109,21 +109,25 @@ import AudioKit
         minimum += diff
     }
     override internal func setupButtons(frame: CGRect) {
-        plusButton = AKButton(title: "+", frame: frame, callback: {_ in
-            self.doPlusActionHit()
-            self.touchBeganCallback()
+        plusButton = AKButton(title: "+", frame: frame, callback: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doPlusActionHit()
+            strongSelf.touchBeganCallback()
         })
-        minusButton = AKButton(title: "-", frame: frame, callback: {_ in
-            self.doMinusActionHit()
-            self.touchBeganCallback()
+        minusButton = AKButton(title: "-", frame: frame, callback: { [weak self]  _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doMinusActionHit()
+            strongSelf.touchBeganCallback()
         })
-        plusButton.releaseCallback = {_ in
-            self.doPlusActionRelease()
-            self.touchEndedCallback()
+        plusButton.releaseCallback = { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doPlusActionRelease()
+            strongSelf.touchEndedCallback()
         }
-        minusButton.releaseCallback = {_ in
-            self.doMinusActionRelease()
-            self.touchEndedCallback()
+        minusButton.releaseCallback = { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.doMinusActionRelease()
+            strongSelf.touchEndedCallback()
         }
         plusButton.font = buttonFont!
         minusButton.font = buttonFont!
