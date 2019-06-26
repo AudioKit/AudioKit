@@ -1052,7 +1052,6 @@
 		C4DE858B200CB8870075C82B /* AKFluteAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DE8588200CB8870075C82B /* AKFluteAudioUnit.swift */; };
 		C4DE858C200CB8870075C82B /* AKFluteDSP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4DE8589200CB8870075C82B /* AKFluteDSP.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E13D2C1C42360C008F0A3C /* AKPhaseLockedVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E13D281C42360C008F0A3C /* AKPhaseLockedVocoder.swift */; };
-		C4E70FB5228F568300F39962 /* AKAUv3ExtensionAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E70FB4228F568300F39962 /* AKAUv3ExtensionAudioUnit.swift */; };
 		C4E729861D382A3A00E0647E /* AKResonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E729821D382A3A00E0647E /* AKResonantFilter.swift */; };
 		C4E751791C2204AD00688A1B /* sawtoothWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751781C2204AD00688A1B /* sawtoothWave.swift */; };
 		C4E751951C220C4E00688A1B /* triangleWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751941C220C4E00688A1B /* triangleWave.swift */; };
@@ -2339,7 +2338,6 @@
 		C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C4E120AB1D4DBD6300CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E13D281C42360C008F0A3C /* AKPhaseLockedVocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseLockedVocoder.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		C4E70FB4228F568300F39962 /* AKAUv3ExtensionAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKAUv3ExtensionAudioUnit.swift; sourceTree = "<group>"; };
 		C4E729821D382A3A00E0647E /* AKResonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		C4E751781C2204AD00688A1B /* sawtoothWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtoothWave.swift; sourceTree = "<group>"; };
 		C4E751941C220C4E00688A1B /* triangleWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangleWave.swift; sourceTree = "<group>"; };
@@ -3018,7 +3016,6 @@
 			children = (
 				C48A30422045428500334C35 /* README.md */,
 				C42F35051C057E03000E937C /* Info.plist */,
-				C4E70FB4228F568300F39962 /* AKAUv3ExtensionAudioUnit.swift */,
 				C4BA6E871DD99C23002254EB /* AKComponent.swift */,
 				B1DAFDDD1FCE0D7300511A43 /* AKConverter.swift */,
 				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
@@ -6536,7 +6533,6 @@
 				C49B216A204A28F3009C7C8E /* AKAUPresetBuilder.swift in Sources */,
 				F4CA85831EB666260066BE5C /* AKTuningTable+Scala.swift in Sources */,
 				FE081EF321E94B3B00653575 /* AKMIDIFileChunkEvent.swift in Sources */,
-				C4E70FB5228F568300F39962 /* AKAUv3ExtensionAudioUnit.swift in Sources */,
 				FE940913216EA06300F02A35 /* AKMusicTrack+Events.swift in Sources */,
 				C49B1394204A06B7009C7C8E /* ini.c in Sources */,
 				FE1F57AA209235F8006B34CF /* AKWaveTableAudioUnit.mm in Sources */,
