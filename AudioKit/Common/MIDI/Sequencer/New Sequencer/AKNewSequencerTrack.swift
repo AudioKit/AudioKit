@@ -19,7 +19,7 @@ open class AKNewSequencerTrack: AKNode, AKComponent {
     // MARK: - Properties
     public var loopEnabled: Bool {
         set {
-            if internalAU?.isLooping() != loopEnabled {
+            if internalAU?.isLooping() != newValue {
                 internalAU?.toggleLooping()
             }
         }

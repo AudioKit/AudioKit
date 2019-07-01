@@ -38,7 +38,7 @@ open class DIYSeqTrack: AKNode, AKComponent {
 
     public var maximumPlayCount: Double {
         get { return internalAU?.maximumPlayCount ?? 0 }
-        set { internalAU?.maximumPlayCount = maximumPlayCount }
+        set { internalAU?.maximumPlayCount = newValue }
     }
     
     public var loopEnabled: Bool {
