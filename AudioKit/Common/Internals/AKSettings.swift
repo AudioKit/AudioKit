@@ -157,7 +157,7 @@ open class AKSettings: NSObject {
     @objc public static var ioBufferDuration: Double {
         set {
             do {
-                try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
+                try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
             } catch {
                 AKLog(error)
