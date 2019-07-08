@@ -241,50 +241,51 @@ extension AKMIDI {
                     AKLog("No channel detected in handleMIDIMessage")
                     continue
                 }
+                let offset = event.offset
                 switch type {
                 case .controllerChange:
                     listener.receivedMIDIController(event.data[1],
                                                     value: event.data[2],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: event.offset)
+                                                    offset: offset)
                 case .channelAftertouch:
                     listener.receivedMIDIAfterTouch(event.data[1],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: event.offset)
+                                                    offset: offset)
                 case .noteOn:
                     listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.data[1]),
                                                 velocity: MIDIVelocity(event.data[2]),
                                                 channel: MIDIChannel(eventChannel),
                                                 portID: portID,
-                                                offset: event.offset)
+                                                offset: offset)
                 case .noteOff:
                     listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.data[1]),
                                                  velocity: MIDIVelocity(event.data[2]),
                                                  channel: MIDIChannel(eventChannel),
                                                  portID: portID,
-                                                 offset: event.offset)
+                                                 offset: offset)
                 case .pitchWheel:
                     listener.receivedMIDIPitchWheel(event.pitchbendAmount!,
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: event.offset)
+                                                    offset: offset)
                 case .polyphonicAftertouch:
                     listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.data[1]),
                                                     pressure: event.data[2],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: event.offset)
+                                                    offset: offset)
                 case .programChange:
                     listener.receivedMIDIProgramChange(event.data[1],
                                                        channel: MIDIChannel(eventChannel),
                                                        portID: portID,
-                                                       offset: event.offset)
+                                                       offset: offset)
                 }
             } else if event.command != nil {
                 //AKLog("Passing [\(event.command?.description ?? "unknown")] to listener \(listener)")
-                listener.receivedMIDISystemCommand(event.data, portID: portID, offset: event.offset )
+                listener.receivedMIDISystemCommand(event.data, portID: portID, offset: offset )
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
