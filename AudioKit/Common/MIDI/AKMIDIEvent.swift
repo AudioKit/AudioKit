@@ -19,8 +19,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
-    //Timestamp - offset within a packet. Used mostly in receiving packets live
-    public var timeStamp: MIDITimeStamp = 0
+    //Offset - offset within a packet. Used mostly in receiving packets live
+    public var offset: MIDITimeStamp = 0
 
     /// Description
     public var description: String {
@@ -102,7 +102,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        timeStamp = packet.timeStamp
+        offset = packet.timeStamp
 
         // MARK: we currently assume this is one midi event could be any number of events
         let isSystemCommand = packet.isSystemCommand
@@ -155,7 +155,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
     ///   - data:  [MIDIByte] bluetooth packet
     ///
     public init(data: [MIDIByte], time: MIDITimeStamp = 0) {
-        timeStamp = time
+        offset = time
         if AudioKit.midi.isReceivingSysex {
             if let sysexEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 self.data = Array(data[0...sysexEndIndex])

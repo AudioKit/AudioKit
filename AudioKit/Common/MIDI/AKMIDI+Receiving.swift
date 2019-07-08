@@ -241,7 +241,7 @@ extension AKMIDI {
                     AKLog("No channel detected in handleMIDIMessage")
                     continue
                 }
-                let offset = UInt32(event.timeStamp)
+                let offset = UInt32(event.offset)
                 switch type {
                 case .controllerChange:
                     listener.receivedMIDIController(event.data[1],
@@ -285,7 +285,7 @@ extension AKMIDI {
                 }
             } else if event.command != nil {
                 //AKLog("Passing [\(event.command?.description ?? "unknown")] to listener \(listener)")
-                listener.receivedMIDISystemCommand(event.data, time: event.timeStamp, portID: portID)
+                listener.receivedMIDISystemCommand(event.data, time: event.offset, portID: portID)
             } else {
                 AKLog("No usable status detected in handleMIDIMessage")
             }
