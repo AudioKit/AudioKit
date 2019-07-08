@@ -156,7 +156,7 @@ public extension AKMIDIListener {
                             portID: MIDIUniqueID? = nil,
                             offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -175,7 +175,7 @@ public extension AKMIDIListener {
                              portID: MIDIUniqueID? = nil,
                              offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -194,7 +194,7 @@ public extension AKMIDIListener {
                                 portID: MIDIUniqueID? = nil,
                                 offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) controller: \(controller) value: \(value) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) controller: \(controller) value: \(value) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -213,7 +213,7 @@ public extension AKMIDIListener {
                                 portID: MIDIUniqueID? = nil,
                                 offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -230,7 +230,7 @@ public extension AKMIDIListener {
                               portID: MIDIUniqueID? = nil,
                               offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -247,7 +247,7 @@ public extension AKMIDIListener {
                                 portID: MIDIUniqueID? = nil,
                                 offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0)")
+          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
@@ -264,7 +264,7 @@ public extension AKMIDIListener {
                                    portID: MIDIUniqueID? = nil,
                                    offset: UInt32 = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0)")
+          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0) offset: \(offset)")
         }
     }
     
