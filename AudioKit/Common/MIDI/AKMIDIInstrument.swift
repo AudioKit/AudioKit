@@ -181,8 +181,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel,
-                                              offset: MIDITimeStamp = 0) {
+    @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
