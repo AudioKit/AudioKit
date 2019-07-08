@@ -154,8 +154,8 @@ public struct AKMIDIEvent: AKMIDIMessage {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    public init(data: [MIDIByte], time: MIDITimeStamp = 0) {
-        offset = time
+    public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
+        self.offset = offset
         if AudioKit.midi.isReceivingSysex {
             if let sysexEndIndex = data.firstIndex(of: AKMIDISystemCommand.sysexEnd.rawValue) {
                 self.data = Array(data[0...sysexEndIndex])
@@ -288,7 +288,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         if let midiBytes = AKMIDIEvent.decode(packet: packet) {
             AudioKit.midi.incomingSysex += midiBytes
             if midiBytes.contains(AKMIDISystemCommand.sysexEnd.rawValue) {
-                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex, time: packet.timeStamp)
+                let sysexEvent = AKMIDIEvent(data: AudioKit.midi.incomingSysex, offset: packet.timeStamp)
                 AudioKit.midi.stopReceivingSysex()
                 return sysexEvent
             }

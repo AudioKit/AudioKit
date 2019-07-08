@@ -181,7 +181,7 @@ public extension AKMIDITempoListener {
 
 extension AKMIDITempoListener: AKMIDIListener {
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
             clockTimeout?.succeed()
             clockTimeout?.perform {
@@ -189,9 +189,9 @@ extension AKMIDITempoListener: AKMIDIListener {
                     midiClockActivityStarted()
                     self.incomingClockActive = true
                 }
-                clockEvents.append(time)
+                clockEvents.append(offset)
                 analyze()
-                clockListener?.midiClockBeat(time: time)
+                clockListener?.midiClockBeat(time: offset)
             }
         }
         if data[0] == AKMIDISystemCommand.stop.rawValue {
@@ -200,7 +200,7 @@ extension AKMIDITempoListener: AKMIDIListener {
         if data[0] == AKMIDISystemCommand.start.rawValue {
             resetClockEventsLeavingOne()
         }
-        srtListener.receivedMIDISystemCommand(data, time: time)
+        srtListener.receivedMIDISystemCommand(data, offset: offset)
     }
 }
 
