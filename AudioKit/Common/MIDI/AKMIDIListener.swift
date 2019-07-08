@@ -25,6 +25,7 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
@@ -39,6 +40,7 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
@@ -53,6 +55,7 @@ public protocol AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIController(_ controller: MIDIByte,
                                 value: MIDIByte,
@@ -67,6 +70,7 @@ public protocol AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
@@ -79,7 +83,8 @@ public protocol AKMIDIListener {
     /// - Parameters:
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAfterTouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
@@ -91,7 +96,8 @@ public protocol AKMIDIListener {
     /// - Parameters:
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
@@ -103,7 +109,8 @@ public protocol AKMIDIListener {
     /// - Parameters:
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
   func receivedMIDIProgramChange(_ program: MIDIByte,
                                  channel: MIDIChannel,
@@ -112,8 +119,9 @@ public protocol AKMIDIListener {
     
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
-    /// - parameter data: Array of integers
+    /// - parameter data:       Array of integers
     /// - parameter portID:     MIDI Unique Port ID
+    /// - offset:               the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte],
                                    time: MIDITimeStamp,
@@ -140,6 +148,7 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
@@ -158,6 +167,7 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
@@ -176,6 +186,7 @@ public extension AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIController(_ controller: MIDIByte,
                                 value: MIDIByte,
@@ -194,6 +205,7 @@ public extension AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
@@ -211,6 +223,7 @@ public extension AKMIDIListener {
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
   func receivedMIDIAfterTouch(_ pressure: MIDIByte,
                               channel: MIDIChannel,
@@ -227,6 +240,7 @@ public extension AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
@@ -243,6 +257,7 @@ public extension AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIProgramChange(_ program: MIDIByte,
                                    channel: MIDIChannel,
@@ -255,8 +270,10 @@ public extension AKMIDIListener {
     
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
-    /// - parameter data: Array of integers
-    /// - parameter portID: MIDI Unique Port ID
+    /// - Parameters:
+    /// - data:   Array of integers
+    /// - portID: MIDI Unique Port ID
+    /// - offset: the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte],
                                    time: MIDITimeStamp = 0,
