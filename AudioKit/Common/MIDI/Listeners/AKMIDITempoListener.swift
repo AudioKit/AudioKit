@@ -181,7 +181,7 @@ public extension AKMIDITempoListener {
 
 extension AKMIDITempoListener: AKMIDIListener {
 
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.clock.rawValue {
             clockTimeout?.succeed()
             clockTimeout?.perform {
