@@ -79,7 +79,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         midiInstrument.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
+    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
@@ -87,7 +89,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         midiInstrument.sendPressure(pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
+    open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
