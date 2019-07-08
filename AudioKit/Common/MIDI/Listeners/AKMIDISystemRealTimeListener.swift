@@ -61,7 +61,7 @@ open class AKMIDISystemRealTimeListener: NSObject {
 }
 
 extension AKMIDISystemRealTimeListener: AKMIDIListener {
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], time: MIDITimeStamp = 0) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
         if data[0] == AKMIDISystemCommand.stop.rawValue {
             AKLog("Incoming MMC [Stop]")
             let newState = state.event(event: .stop)
