@@ -119,12 +119,11 @@ public protocol AKMIDIListener {
     
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
-    /// - parameter data:       Array of integers
-    /// - parameter portID:     MIDI Unique Port ID
-    /// - offset:               the offset in samples that this event occurs in the buffer
+    /// - data:       Array of integers
+    /// - portID:     MIDI Unique Port ID
+    /// - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                   time: MIDITimeStamp,
                                    portID: MIDIUniqueID?,
                                    offset: MIDITimeStamp)
     

@@ -236,12 +236,12 @@ extension AKMIDI {
 
     internal func handleMIDIMessage(_ event: AKMIDIEvent, fromInput portID: MIDIUniqueID) {
         for listener in listeners {
+            let offset = event.offset
             if let type = event.status?.type {
                 guard let eventChannel = event.channel else {
                     AKLog("No channel detected in handleMIDIMessage")
                     continue
                 }
-                let offset = event.offset
                 switch type {
                 case .controllerChange:
                     listener.receivedMIDIController(event.data[1],
