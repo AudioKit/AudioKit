@@ -617,7 +617,7 @@ open class AKMusicTrack {
     /// Generalized method for iterating thru a CoreMIDI MusicTrack with a closure to handle events
     ///
     /// - Parameters:
-    ///   - track: a MusicTrack (either internalTrack or AKSequencer tempo track) to iterate thru
+    ///   - track: a MusicTrack (either internalTrack or AKAppleSequencer tempo track) to iterate thru
     ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///
