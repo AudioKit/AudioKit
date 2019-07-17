@@ -6,8 +6,6 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-#ifndef DIYSeqEngine_h
-#define DIYSeqEngine_h
 #pragma once
 #import "AKAudioUnit.h"
 
@@ -36,5 +34,3 @@ typedef void (^AKCCallback)(void);
 -(void)seekTo:(double)seekPosition;
 
 @end
-
-#endif /* DIYSeqEngine_h */
