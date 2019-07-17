@@ -5312,11 +5312,11 @@
 		FEB3AB0322DFE00C0080A5CB /* Apple Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				FEB3AB0422DFE00C0080A5CB /* AKMusicTrack+Load.swift */,
-				FEB3AB0522DFE00C0080A5CB /* AKMusicTrack.swift */,
-				FEB3AB0622DFE00C0080A5CB /* AKTimeSignature.swift */,
-				FEB3AB0722DFE00C0080A5CB /* AKMusicTrack+Events.swift */,
 				FEB3AB0822DFE00C0080A5CB /* AKAppleSequencer.swift */,
+				FEB3AB0522DFE00C0080A5CB /* AKMusicTrack.swift */,
+				FEB3AB0722DFE00C0080A5CB /* AKMusicTrack+Events.swift */,
+				FEB3AB0422DFE00C0080A5CB /* AKMusicTrack+Load.swift */,
+				FEB3AB0622DFE00C0080A5CB /* AKTimeSignature.swift */,
 			);
 			path = "Apple Sequencer";
 			sourceTree = "<group>";
