@@ -6,25 +6,33 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
+/// Open-source AudioKit Sequencer
+///
+/// If your code used to use AKSequencer, as of AudioKit 4.8 you probably want AKAppleSequencer
 open class DIYSeq {
 
+    /// Array of sequencer tracks
     open var tracks = [DIYSeqTrack]()
+
+    /// Overall playback speed
     open var tempo: BPM {
         get { return tracks.first?.tempo ?? 0 }
         set { for track in tracks { track.tempo = newValue } }
     }
 
+    /// Length in beats
     open var length: Double {
         get { return tracks.max(by: { $0.length > $1.length })?.length ?? 0 }
         set { for track in tracks { track.length = newValue } }
     }
 
+    /// Whether or not looping is enabled
     open var loopEnabled: Bool {
         get { return tracks.first?.loopEnabled ?? false }
         set { for track in tracks { track.loopEnabled = newValue } }
     }
 
-
+    /// Is the sequencer currently playing
     open var isPlaying: Bool {
         return tracks.first?.isPlaying ?? false
     }
