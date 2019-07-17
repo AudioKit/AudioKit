@@ -615,7 +615,7 @@ open class AKAppleSequencer: NSObject {
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
-    /// Creates new AKMusicTrack with copied note event data from another AKSequencer
+    /// Creates new AKMusicTrack with copied note event data from another AKAppleSequencer
     func addMusicTrackNoteData(from tempSequencer: AKAppleSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
             AKLog("Can't add tracks during playback")
