@@ -17,6 +17,13 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
+
+    var mode: AmplitudeTrackingMode = .rms {
+        didSet {
+            internalAU?.setMode(mode.rawValue)
+        }
+    }
+
     internal var internalAU: AKAudioUnitType?
 
     fileprivate var halfPowerPointParameter: AUParameter?
@@ -115,4 +122,10 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 
+}
+
+enum AmplitudeTrackingMode: Int32 {
+    case rms = 0
+    case peakRms = 1
+    case peak = 2
 }

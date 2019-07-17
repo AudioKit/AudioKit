@@ -19,5 +19,6 @@ typedef void (^AKThresholdCallback)(BOOL);
 //@property (nonatomic) float smoothness; //in development
 @property (nonatomic) AKThresholdCallback thresholdCallback;
 - (void)setHalfPowerPoint:(float)halfPowerPoint;
+- (void)setMode:(int)mode;
 @end
 
