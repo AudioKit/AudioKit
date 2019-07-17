@@ -25,5 +25,5 @@ Hello World plays an oscillator based sound and displays the sound's waveform. T
 * Particles - Metal based audio visualizer (works on devices only, not the simulator)
 * Sampler Demo - example of AudioKit's AKAppleSampler
 * Sender Synth - Audiobus enabled synthesizer
-* Sequencer Demo - examjple of AudioKit's AKSequencer
+* Sequencer Demo - example of AudioKit's AKAppleSequencer
 * Song Processor - adding effects to songs from the device's iTunes Library 

@@ -25,7 +25,7 @@ Then we create some instruments, where AKMIDIInstrument() is a version of AKInst
 Finally, we create a basic sequencer, a node that mixes its inputs to a single output, and a dynamic node.
 
 ```
-    var sequence = AKSequencer()
+    var sequence = AKAppleSequencer()
     var mixer = AKMixer()
     var pumper: AKCompressor?
 ```
