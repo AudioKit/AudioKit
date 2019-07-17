@@ -70,7 +70,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     open func receivedMIDINoteOn(_ noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
-                                 channel: MIDIChannel) {
+                                 channel: MIDIChannel,
+                                 offset: MIDITimeStamp = 0) {
         mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
             start(noteNumber: noteNumber, velocity: velocity, channel: channel)
@@ -88,7 +89,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
-                                  channel: MIDIChannel) {
+                                  channel: MIDIChannel,
+                                  offset: MIDITimeStamp = 0) {
         stop(noteNumber: noteNumber, channel: channel)
         mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
     }
@@ -102,7 +104,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     @objc open func receivedMIDIController(_ controller: MIDIByte,
                                            value: MIDIByte,
-                                           channel: MIDIChannel) {
+                                           channel: MIDIChannel,
+                                           offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
@@ -115,7 +118,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     @objc open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                            pressure: MIDIByte,
-                                           channel: MIDIChannel) {
+                                           channel: MIDIChannel,
+                                           offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
@@ -126,7 +130,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:  MIDI Channel (1-16)
     ///
     @objc open func receivedMIDIAfterTouch(_ pressure: MIDIByte,
-                                           channel: MIDIChannel) {
+                                           channel: MIDIChannel,
+                                           offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
@@ -137,7 +142,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:         MIDI Channel (1-16)
     ///
     @objc open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
-                                           channel: MIDIChannel) {
+                                           channel: MIDIChannel,
+                                           offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
@@ -152,7 +158,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     @objc open func start(noteNumber: MIDINoteNumber,
                           velocity: MIDIVelocity,
-                          channel: MIDIChannel) {
+                          channel: MIDIChannel,
+                          offset: MIDITimeStamp = 0) {
         play(noteNumber: noteNumber, velocity: velocity, channel: channel)
     }
     
@@ -163,7 +170,8 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - channel:    Channel on which to stop the note
     ///
     @objc open func stop(noteNumber: MIDINoteNumber,
-                         channel: MIDIChannel) {
+                         channel: MIDIChannel,
+                         offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 
@@ -173,7 +181,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
+    @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
     
