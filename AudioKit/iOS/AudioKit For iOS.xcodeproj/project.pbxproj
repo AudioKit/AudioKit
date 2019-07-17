@@ -4176,14 +4176,10 @@
 		C48DB7E41CD5797100D1EC13 /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
+				FEB3AAD822DFDD530080A5CB /* Apple Sequencer */,
 				FE5AB41521FBBE7C00EB669F /* DIYSeq */,
 				C49E9DF31D2B1F9100E5E8BF /* AKDuration.swift */,
-				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
-				FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */,
-				FEAEDA5820F04AF8007E1EF6 /* AKMusicTrack+Load.swift */,
 				1F2DAD7320845EC700F1C9E3 /* AKMIDINoteData.swift */,
-				C49E9DF51D2B1F9100E5E8BF /* AKAppleSequencer.swift */,
-				1FADCF1B20A6F4AB008D2A73 /* AKTimeSignature.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -5395,6 +5391,18 @@
 				FE771CEC21920F2600C7EB7E /* AKCallbackInstrumentDSPKernel.hpp */,
 			);
 			path = "Callback Instrument";
+			sourceTree = "<group>";
+		};
+		FEB3AAD822DFDD530080A5CB /* Apple Sequencer */ = {
+			isa = PBXGroup;
+			children = (
+				C49E9DF51D2B1F9100E5E8BF /* AKAppleSequencer.swift */,
+				C49E9DF41D2B1F9100E5E8BF /* AKMusicTrack.swift */,
+				FE940912216EA06300F02A35 /* AKMusicTrack+Events.swift */,
+				FEAEDA5820F04AF8007E1EF6 /* AKMusicTrack+Load.swift */,
+				1FADCF1B20A6F4AB008D2A73 /* AKTimeSignature.swift */,
+			);
+			path = "Apple Sequencer";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
