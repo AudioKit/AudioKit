@@ -20,7 +20,7 @@ open class AKMusicTrack {
     fileprivate var name: String = "Unnamed"
 
     /// Sequencer this music track is part of
-    open var sequencer = AKSequencer()
+    open var sequencer = AKAppleSequencer()
 
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
@@ -111,7 +111,7 @@ open class AKMusicTrack {
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public init(musicTrack: MusicTrack, sequencer: AKSequencer) {
+    public init(musicTrack: MusicTrack, sequencer: AKAppleSequencer) {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
         self.sequencer = sequencer
