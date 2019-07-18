@@ -380,16 +380,14 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerRestartVoices(dsp)
     }
 
-    public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) -> AKSampleBuffer?
-    {
+    public func loadSampleData(from sampleDataDescriptor: AKSampleDataDescriptor) {
         var copy = sampleDataDescriptor
-        return doAKSamplerLoadData(dsp, &copy)?.pointee
+        doAKSamplerLoadData(dsp, &copy)
     }
 
-    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) -> AKSampleBuffer?
-    {
+    public func loadCompressedSampleFile(from sampleFileDescriptor: AKSampleFileDescriptor) {
         var copy = sampleFileDescriptor
-        return doAKSamplerLoadCompressedFile(dsp, &copy)?.pointee
+        doAKSamplerLoadCompressedFile(dsp, &copy)
     }
 
     public func unloadAllSamples() {
