@@ -37,7 +37,7 @@ public struct AKMIDIFileChunkEvent {
 
     var deltaTime: Int {
         let timeBytes = data.prefix(timeLength)
-        var time: UInt16  = 0
+        var time: UInt16 = 0
         for byte in timeBytes {
             let shifted: UInt16 = UInt16(time << 7)
             let masked: MIDIByte = byte & 0x7f

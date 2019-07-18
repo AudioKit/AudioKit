@@ -208,7 +208,7 @@ public class SimplePlayEngine: NSObject {
 			DispatchQueue.main.async {
 				self.componentsFoundCallback!()
 			}
-		}
+        }
 	}
 
 	private func setPlayerFile(_ fileURL: URL) {

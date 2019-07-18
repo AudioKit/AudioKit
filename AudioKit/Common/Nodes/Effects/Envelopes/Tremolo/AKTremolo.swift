@@ -46,7 +46,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -59,7 +59,7 @@ open class AKTremolo: AKNode, AKToggleable, AKComponent, AKInput {
                 depthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }

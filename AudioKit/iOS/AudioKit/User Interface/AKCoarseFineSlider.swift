@@ -93,41 +93,50 @@ import AudioKit
                           color: AKStylist.sharedInstance.nextColor,
                           frame: frame,
                           callback: { _ in })
-        coarseStepper.callback = { value in
-            self.callback(value)
-            self.currentValue = value
-            self.fineStepper.currentValue = value
-            self.slider.value = value
+        coarseStepper.callback = { [weak self] value in
+            guard let strongSelf = self else { return }
+            strongSelf.callback(value)
+            strongSelf.currentValue = value
+            strongSelf.fineStepper.currentValue = value
+            strongSelf.slider.value = value
         }
-        coarseStepper.touchBeganCallback = {
-            self.touchBeganCallback()
+        coarseStepper.touchBeganCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchBeganCallback()
         }
-        coarseStepper.touchEndedCallback = {
-            self.touchEndedCallback()
+        coarseStepper.touchEndedCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchEndedCallback()
         }
-        fineStepper.callback = { value in
-            self.callback(value)
-            self.currentValue = value
-            self.coarseStepper.currentValue = value
-            self.slider.value = value
+        fineStepper.callback = { [weak self] value in
+            guard let strongSelf = self else { return }
+            strongSelf.callback(value)
+            strongSelf.currentValue = value
+            strongSelf.coarseStepper.currentValue = value
+            strongSelf.slider.value = value
         }
-        fineStepper.touchBeganCallback = {
-            self.touchBeganCallback()
+        fineStepper.touchBeganCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchBeganCallback()
         }
-        fineStepper.touchEndedCallback = {
-            self.touchEndedCallback()
+        fineStepper.touchEndedCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchEndedCallback()
         }
-        slider.callback = { value in
-            self.callback(value)
-            self.currentValue = value
-            self.coarseStepper.currentValue = value
-            self.fineStepper.currentValue = value
+        slider.callback = { [weak self] value in
+            guard let strongSelf = self else { return }
+            strongSelf.callback(value)
+            strongSelf.currentValue = value
+            strongSelf.coarseStepper.currentValue = value
+            strongSelf.fineStepper.currentValue = value
         }
-        slider.touchBeganCallback = {
-            self.touchBeganCallback()
+        slider.touchBeganCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchBeganCallback()
         }
-        slider.touchEndedCallback = {
-            self.touchEndedCallback()
+        slider.touchEndedCallback = { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.touchEndedCallback()
         }
         coarseStepper.backgroundColor = .clear
         fineStepper.backgroundColor = .clear

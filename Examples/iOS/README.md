@@ -14,7 +14,7 @@
 * Random Clips - Demonstration of some of the new sample accurate functionality in AudioKit 4
 * Recorder - Simple audio recorder
 * Sender Synth - Audiobus enabled synthesizer
-* Sequencer Demo - examjple of AudioKit's AKSequencer
+* Sequencer Demo - examjple of AudioKit's AKAppleSequencer
 * Sporth Editor - A graphical user interface to the Sporth audio language
 
 ## External Examples

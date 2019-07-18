@@ -17,7 +17,7 @@
 let AKMIDIListenerLogging = false
 
 public protocol AKMIDIListener {
-    
+
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
@@ -25,12 +25,14 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel,
-                            portID: MIDIUniqueID?)
-    
+                            portID: MIDIUniqueID?,
+                            offset: MIDITimeStamp)
+
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
@@ -38,12 +40,14 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
-                             portID: MIDIUniqueID?)
-    
+                             portID: MIDIUniqueID?,
+                             offset: MIDITimeStamp)
+
     /// Receive a generic controller value
     ///
     /// - Parameters:
@@ -51,12 +55,14 @@ public protocol AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIController(_ controller: MIDIByte,
                                 value: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?)
-    
+                                portID: MIDIUniqueID?,
+                                offset: MIDITimeStamp)
+
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
@@ -64,67 +70,76 @@ public protocol AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?)
-    
+                                portID: MIDIUniqueID?,
+                                offset: MIDITimeStamp)
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAfterTouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?)
-    
+                                portID: MIDIUniqueID?,
+                                offset: MIDITimeStamp)
+
     /// Receive pitch wheel value
     ///
     /// - Parameters:
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?)
-    
+                                portID: MIDIUniqueID?,
+                                offset: MIDITimeStamp)
+
     /// Receive program change
     ///
     /// - Parameters:
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
+    ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
   func receivedMIDIProgramChange(_ program: MIDIByte,
                                  channel: MIDIChannel,
-                                 portID: MIDIUniqueID?)
-    
+                                 portID: MIDIUniqueID?,
+                                 offset: MIDITimeStamp)
+
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
-    /// - parameter data: Array of integers
-    /// - parameter portID:     MIDI Unique Port ID
+    /// - data:       Array of integers
+    /// - portID:     MIDI Unique Port ID
+    /// - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                   time: MIDITimeStamp,
-                                   portID: MIDIUniqueID?)
-    
+                                   portID: MIDIUniqueID?,
+                                   offset: MIDITimeStamp)
+
     /// MIDI Setup has changed
     func receivedMIDISetupChange()
-    
+
     /// MIDI Object Property has changed
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification)
-    
+
     /// Generic MIDI Notification
     func receivedMIDINotification(notification: MIDINotification)
 }
 
 /// Default listener functions
 public extension AKMIDIListener {
-    
+
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
@@ -132,16 +147,18 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel,
-                            portID: MIDIUniqueID? = nil) {
+                            portID: MIDIUniqueID? = nil,
+                            offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
@@ -149,16 +166,18 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
-                             portID: MIDIUniqueID? = nil) {
+                             portID: MIDIUniqueID? = nil,
+                             offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity) port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive a generic controller value
     ///
     /// - Parameters:
@@ -166,16 +185,19 @@ public extension AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIController(_ controller: MIDIByte,
                                 value: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID? = nil) {
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) controller: \(controller) value: \(value) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) controller: \(controller) value: \(value) " +
+                "port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
@@ -183,91 +205,103 @@ public extension AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
+    ///   - offset:     the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID? = nil) {
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) pressure: \(pressure) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) MIDI Aftertouch Note: \(noteNumber) " +
+                "pressure: \(pressure) port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
   func receivedMIDIAfterTouch(_ pressure: MIDIByte,
                               channel: MIDIChannel,
-                              portID: MIDIUniqueID? = nil) {
+                              portID: MIDIUniqueID? = nil,
+                              offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure) port: \(portID ?? 0)")
+            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure) " +
+                "port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive pitch wheel value
     ///
     /// - Parameters:
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///   - portID:          MIDI Unique Port ID
+    ///   - offset:          the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID? = nil) {
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0)")
+          AKLog("channel: \(channel) pitchWheel: \(pitchWheelValue) port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive program change
     ///
     /// - Parameters:
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
+    ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDIProgramChange(_ program: MIDIByte,
                                    channel: MIDIChannel,
-                                   portID: MIDIUniqueID? = nil) {
+                                   portID: MIDIUniqueID? = nil,
+                                   offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0)")
+          AKLog("channel: \(channel) programChange: \(program) port: \(portID ?? 0) offset: \(offset)")
         }
     }
-    
+
     /// Receive a MIDI system command (such as clock, sysex, etc)
     ///
-    /// - parameter data: Array of integers
-    /// - parameter portID: MIDI Unique Port ID
+    /// - Parameters:
+    /// - data:   Array of integers
+    /// - portID: MIDI Unique Port ID
+    /// - offset: the offset in samples that this event occurs in the buffer
     ///
     func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                   time: MIDITimeStamp = 0,
-                                   portID: MIDIUniqueID? = nil) {
+                                   portID: MIDIUniqueID? = nil,
+                                   offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
             AKLog("AKMIDIListener default method")
         }
     }
-    
+
     /// MIDI Setup has changed
     func receivedMIDISetupChange() {
         if AKMIDIListenerLogging {
             AKLog("MIDI Setup Has Changed.")
         }
     }
-    
+
     /// MIDI Setup has changed
     func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
         AKLog("MIDI Property Has Changed.")
     }
-    
+
     /// Generic MIDI Notification
     func receivedMIDINotification(notification: MIDINotification) {
         AKLog("MIDI Notification received.")
     }
-    
+
     func isEqualTo(_ listener: AKMIDIListener) -> Bool {
         return self == listener
     }

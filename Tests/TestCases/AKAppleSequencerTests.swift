@@ -1,5 +1,5 @@
 //
-//  AKSequencerTests.swift
+//  AKAppleSequencerTests.swift
 //  AudioKitTestSuite
 //
 //  Created by Jeff Holtzkener on 2018/04/25.
@@ -9,20 +9,20 @@
 import AudioKit
 import XCTest
 
-class AKSequencerTests: AKTestCase {
-    var seq: AKSequencer!
+class AKAppleSequencerTests: AKTestCase {
+    var seq: AKAppleSequencer!
 
     override func setUp() {
         super.setUp()
-        seq = AKSequencer()
+        seq = AKAppleSequencer()
     }
 
-    // MARK: - Basic AKSequencer behaviour
-    func testAKSequencerDefault_newlyCreatedSequencerHasNoTracks() {
+    // MARK: - Basic AKAppleSequencer behaviour
+    func testAKAppleSequencerDefault_newlyCreatedSequencerHasNoTracks() {
         XCTAssertEqual(seq.trackCount, 0)
     }
 
-    func testAKSequencerDefault_newlyCreatedSequencerLengthis0() {
+    func testAKAppleSequencerDefault_newlyCreatedSequencerLengthis0() {
         XCTAssertEqual(seq.length, AKDuration(beats: 0))
     }
 
@@ -617,8 +617,8 @@ class AKSequencerTests: AKTestCase {
         }
     }
 
-    func generatePopulatedSequencer(numBeats: Int, noteNumber: Int = 60, numTracks: Int) -> AKSequencer {
-        let newSeq = AKSequencer()
+    func generatePopulatedSequencer(numBeats: Int, noteNumber: Int = 60, numTracks: Int) -> AKAppleSequencer {
+        let newSeq = AKAppleSequencer()
         for _ in 0 ..< numTracks {
             let newTrack = newSeq.newTrack()
             newTrack?.replaceMIDINoteData(with: generateMIDINoteDataArray(numBeats: numBeats,
@@ -633,7 +633,7 @@ class AKSequencerTests: AKTestCase {
                                      bottomValue: AKTimeSignature.TimeSignatureBottomValue.eight)
 }
 
-extension AKSequencer {
+extension AKAppleSequencer {
     func writeDataToURL() -> URL {
         let directory = NSTemporaryDirectory()
         let url = NSURL.fileURL(withPathComponents: [directory, "temp.mid"])

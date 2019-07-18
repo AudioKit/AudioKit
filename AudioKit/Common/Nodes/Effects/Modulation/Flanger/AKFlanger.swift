@@ -47,7 +47,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -60,7 +60,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 depthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
@@ -73,7 +73,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 feedbackParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -86,7 +86,7 @@ open class AKFlanger: AKNode, AKToggleable, AKComponent, AKInput {
                 dryWetMixParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
         }
     }

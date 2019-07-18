@@ -79,7 +79,7 @@ open class AKWaveTable: AKNode, AKComponent {
             if internalAU?.isSetUp == true {
                 rateParameter?.value = AUValue(newValue)
             } else {
-                internalAU?.rate = Float(newValue)
+                internalAU?.rate = newValue
             }
         }
     }
@@ -218,7 +218,7 @@ open class AKWaveTable: AKNode, AKComponent {
         internalAU?.endPoint = Float(self.endPoint)
         internalAU?.loopStartPoint = Float(startPoint)
         internalAU?.loopEndPoint = Float(self.endPoint)
-        internalAU?.rate = Float(rate)
+        internalAU?.rate = rate
         internalAU?.volume = Float(volume)
 
         if maximumSamples != 0 {
