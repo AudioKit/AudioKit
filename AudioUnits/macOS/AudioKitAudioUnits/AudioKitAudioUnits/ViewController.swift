@@ -54,12 +54,12 @@ class ViewController: NSViewController {
             _, _ in
             self.logView.stringValue += "Instantiated AKMorphingOscillatorBank\n"
 
-            }
+        }
         AVAudioUnit.instantiate(with: AKPhaseDistortionOscillatorBank.ComponentDescription, options: []) {
             _, _ in
             self.logView.stringValue += "Instantiated AKPhaseDistortionOscillatorBank\n"
 
-            }
+        }
         AVAudioUnit.instantiate(with: AKOscillatorBank.ComponentDescription, options: []) { _, _ in
             self.logView.stringValue += "Instantiated AKOscillatorBank\n"
 

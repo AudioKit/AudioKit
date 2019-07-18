@@ -46,7 +46,7 @@ open class AKCombFilterReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 reverbDurationParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.reverbDuration, value: newValue)
         }
     }

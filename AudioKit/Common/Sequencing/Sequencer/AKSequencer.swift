@@ -54,7 +54,7 @@ open class AKSequencer {
     open func load(midiFileURL: URL) {
         load(midiFile: AKMIDIFile(url: midiFileURL))
     }
-    
+
     open func load(midiFile: AKMIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {

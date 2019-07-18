@@ -142,7 +142,7 @@ extension AKNodeTiming: AKTiming {
     public var isStarted: Bool {
         return baseTime != nil
     }
-    
+
     public var isNotStarted: Bool { return !isStarted }
 
     open func position(at audioTime: AVAudioTime?) -> Double {

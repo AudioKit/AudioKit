@@ -70,7 +70,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -83,7 +83,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 tonguePositionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.tonguePosition, value: newValue)
         }
     }
@@ -96,7 +96,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 tongueDiameterParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.tongueDiameter, value: newValue)
         }
     }
@@ -109,7 +109,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 tensenessParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.tenseness, value: newValue)
         }
     }
@@ -122,7 +122,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
                 nasalityParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.nasality, value: newValue)
         }
     }

@@ -40,7 +40,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
         get { return internalAU?.maximumPlayCount ?? 0 }
         set { internalAU?.maximumPlayCount = newValue }
     }
-    
+
     public var loopEnabled: Bool {
         set { internalAU?.loopEnabled = newValue }
         get { return internalAU?.loopEnabled ?? false }
@@ -128,7 +128,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }
     }
-    
+
     open func clear() {
         internalAU?.clear()
     }
