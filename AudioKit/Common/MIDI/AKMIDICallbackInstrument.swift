@@ -44,7 +44,8 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     ///
     override open func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
-                             channel: MIDIChannel) {
+                             channel: MIDIChannel,
+                             offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .noteOn, channel: channel), data1: noteNumber, data2: velocity)
     }
 
@@ -54,25 +55,33 @@ open class AKMIDICallbackInstrument: AKMIDIInstrument {
     ///   - noteNumber: MIDI Note Number being stopped
     ///   - channel:    MIDI Channel
     ///
-    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .noteOff, channel: channel), data1: noteNumber, data2: 0)
     }
 
-    override open func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    override open func receivedMIDIController(_ controller: MIDIByte,
+                                              value: MIDIByte,
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .controllerChange, channel: channel), data1: controller, data2: value)
     }
 
     override open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                               pressure: MIDIByte,
-                                              channel: MIDIChannel) {
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .polyphonicAftertouch, channel: channel), data1: noteNumber, data2: pressure)
     }
 
-    override open func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+    override open func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .channelAftertouch, channel: channel), data1: pressure, data2: 0)
     }
 
-    override open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+    override open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
+                                              channel: MIDIChannel,
+                                              offset: MIDITimeStamp = 0) {
         triggerCallbacks(AKMIDIStatus(type: .pitchWheel, channel: channel), data1: pitchWheelValue.msb, data2: pitchWheelValue.lsb)
     }
 }

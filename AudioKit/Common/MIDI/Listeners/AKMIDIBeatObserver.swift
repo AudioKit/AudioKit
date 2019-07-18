@@ -67,4 +67,3 @@ public extension AKMIDIBeatObserver {
 func == (lhs: AKMIDIBeatObserver, rhs: AKMIDIBeatObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
-

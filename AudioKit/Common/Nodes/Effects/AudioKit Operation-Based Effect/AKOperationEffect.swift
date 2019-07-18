@@ -26,7 +26,7 @@ open class AKOperationEffect: AKNode, AKToggleable, AKComponent, AKInput {
         get {
             return (internalAU?.parameters as? [NSNumber]).flatMap {
                 $0.compactMap { $0.doubleValue }
-                } ?? []
+            } ?? []
         }
         set {
             internalAU?.parameters = newValue

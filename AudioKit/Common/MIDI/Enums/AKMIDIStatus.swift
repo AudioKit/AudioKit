@@ -33,7 +33,7 @@ public struct AKMIDIStatus: AKMIDIMessage {
     public var type: AKMIDIStatusType? {
         return AKMIDIStatusType(rawValue: Int(byte.highBit))
     }
-    
+
     public var channel: MIDIChannel {
         return byte.lowBit
     }

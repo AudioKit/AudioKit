@@ -71,7 +71,7 @@ class AKDiskStreamerTests: AKTestCase {
         afterStart = {
             self.loadFile()
             self.streamer?.play()
-            self.streamer?.seek(to: 1000)
+            self.streamer?.seek(to: 1_000)
         }
         AKTestMD5("c8da2c623a280eb9284bb41202d06d13")
     }
