@@ -19,7 +19,6 @@ struct MIDIEvent {
     uint8_t data1;
     uint8_t data2;
     double beat;
-    double duration;
 };
 
 struct MIDINote {
@@ -144,22 +143,6 @@ public:
                 }
             }
 
-            // Check the playing notes for note offs
-            for (int i = 0; i < playingNotes.size(); i++) {
-                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
-                    stopPlayingNote(playingNotes[i], offset, i);
-                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
-                        stopPlayingNote(playingNotes[i], offset, i);
-                    }
-                }
-            }
-
             // Check scheduled notes for note ons
             for (int i = 0; i < notes.size(); i++) {
                 int triggerTime = beatToSamples(notes[i].noteOn.beat);
@@ -175,6 +158,27 @@ public:
                     }
                 }
             }
+
+            // Check the playing notes for note offs
+            int i = 0;
+            while (i < playingNotes.size()) {
+                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
+                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                    int offset = (int)(triggerTime - currentStartSample);
+                    stopPlayingNote(playingNotes[i], offset, i);
+                    if (i > 0) i--;
+                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    if (triggerTime < samplesOfBufferForNewLoop) {
+                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        stopPlayingNote(playingNotes[i], offset, i);
+                        if (i > 0) i--;
+                    }
+                }
+                i++;
+            }
+
             positionInSamples += frameCount;
         }
         framesCounted += frameCount;
