@@ -112,7 +112,6 @@ open class AKSequencer {
     }
 }
 
-
 /* functions from aksequencer to implement
 
  public convenience init(fromURL fileURL: URL) {

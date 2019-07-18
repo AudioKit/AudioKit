@@ -109,8 +109,8 @@ open class AKSequencerTrack: AKNode, AKComponent {
                   channel: MIDIChannel = 0,
                   position: Double,
                   duration: Double) {
-        var noteOffPosition: Double = (position + duration);
-        while (noteOffPosition >= length && length != 0) {
+        var noteOffPosition: Double = (position + duration)
+        while noteOffPosition >= length && length != 0 {
             noteOffPosition -= length;
         }
         internalAU?.addMIDINote(noteNumber,
