@@ -40,6 +40,18 @@
 - (void)initConvolutionEngine {
     ((AKDSPBase *)self.dsp)->initConvolutionEngine();
 }
+- (bool)isLooping {
+    return ((AKDSPBase *)self.dsp)->isLooping();
+}
+- (void)toggleLooping {
+    ((AKDSPBase *)self.dsp)->toggleLooping();
+}
+- (void)setTarget:(AudioUnit)target {
+    ((AKDSPBase *)self.dsp)->setTargetAU(target);
+}
+- (void)addMIDIEvent:(uint8_t)status data1:(uint8_t)data1 data2:(uint8_t)data2 beat:(double)beat {
+    ((AKDSPBase *)self.dsp)->addMIDIEvent(status, data1, data2, beat);
+}
 
 -(BOOL)shouldAllocateInputBus {
     return false;

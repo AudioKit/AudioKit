@@ -13,6 +13,7 @@ import CoreAudio
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class AKMIDINode: AKNode, AKMIDIListener {
 
+
     // MARK: - Properties
 
     /// MIDI Input

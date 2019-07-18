@@ -49,7 +49,7 @@
 - (void)setLoop:(BOOL)loopOnOff {
     _kernel.setLoop(loopOnOff);
 }
-- (void)setRate:(float)rate {
+- (void)setRate:(double)rate {
     _kernel.setRate(rate);
 }
 - (void)setVolume:(float)volume {

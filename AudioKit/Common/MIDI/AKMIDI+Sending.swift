@@ -241,7 +241,7 @@ extension AKMIDI {
     }
 
     /// Send Message with data
-    public func sendMessage(_ data: [MIDIByte]) {
+    public func sendMessage(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
 
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
@@ -264,7 +264,7 @@ extension AKMIDI {
                 
                 let packet = MIDIPacketListInit(packetListPointer)
                 let nextPacket: UnsafeMutablePointer<MIDIPacket>? =
-                    MIDIPacketListAdd(packetListPointer, bufferSize, packet, 0, data.count, data)
+                    MIDIPacketListAdd(packetListPointer, bufferSize, packet, offset, data.count, data)
                 
                 // I would prefer stronger error handling here, perhaps throwing
                 // to force the app developer to handle the error.

@@ -13,7 +13,7 @@ class AudiobusCompatibleSequencer {
 
     var mixer: AKMixer!
     var midi: AKMIDI!
-    var seq: AKSequencer!
+    var seq: AKAppleSequencer!
 
     let numTracks = 4
     var callbackInsts: [AKMIDICallbackInstrument]!
@@ -33,7 +33,7 @@ class AudiobusCompatibleSequencer {
         mixer = AKMixer()
         AudioKit.output = mixer
 
-        seq = AKSequencer()
+        seq = AKAppleSequencer()
         createTracksAndCallBackInst()
         writeMIDIData()
         allowAudiobusToDisableCoreMIDI()
