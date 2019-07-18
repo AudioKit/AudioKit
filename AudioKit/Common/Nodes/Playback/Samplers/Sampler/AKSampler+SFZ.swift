@@ -17,7 +17,8 @@ extension AKSampler {
     ///   - path: Path to the file as a string
     ///   - fileName: Name of the SFZ file
     ///
-    open func loadSFZ(path: String, fileName: String) -> [AKSampleBuffer] {
+    open func loadSFZ(path: String, fileName: String) -> [AKSampleBuffer]
+    {
         var sampleBufs = [AKSampleBuffer]()
 
         stopAllVoices()
