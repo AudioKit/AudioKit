@@ -96,9 +96,8 @@ extension AKSampler {
                                                               endPoint: 0.0)
                     let sampleFileURL = baseURL.appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
-                        let sd = AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                        path: sampleFileURL.path)
-                        let buf = loadCompressedSampleFile(from: sd)
+                        let buf = loadCompressedSampleFile(from: AKSampleFileDescriptor(sampleDescriptor: sampleDescriptor,
+                                                                                        path: sampleFileURL.path))
                         sampleBufs.append(buf)
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
