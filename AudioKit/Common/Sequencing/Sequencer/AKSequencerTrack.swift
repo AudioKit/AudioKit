@@ -111,7 +111,7 @@ open class AKSequencerTrack: AKNode, AKComponent {
                   duration: Double) {
         var noteOffPosition: Double = (position + duration)
         while noteOffPosition >= length && length != 0 {
-            noteOffPosition -= length;
+            noteOffPosition -= length
         }
         internalAU?.addMIDINote(noteNumber,
                                 velocity: velocity,

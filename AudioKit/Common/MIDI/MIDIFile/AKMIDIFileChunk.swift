@@ -39,7 +39,7 @@ extension AKMIDIFileChunk {
     }
 
     var type: MIDIFileChunkType? {
-        return MIDIFileChunkType.init(data: typeData)
+        return MIDIFileChunkType(data: typeData)
     }
 
     var isHeader: Bool {

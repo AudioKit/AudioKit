@@ -109,7 +109,7 @@ public struct AKMIDIMetaEvent: AKMIDIMessage {
     }
 
     public var name: String? {
-        return String(bytes: data.suffix(length), encoding: .utf8) ?? nil
+        return String(bytes: data.suffix(length), encoding: .utf8)
     }
 
 }

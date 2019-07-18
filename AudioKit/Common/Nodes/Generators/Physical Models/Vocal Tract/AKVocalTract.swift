@@ -26,7 +26,7 @@ open class AKVocalTract: AKNode, AKToggleable, AKComponent {
     fileprivate var nasalityParameter: AUParameter?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 0.0 ... 22050.0
+    public static let frequencyRange = 0.0 ... 22_050.0
 
     /// Lower and upper bounds for Tongue Position
     public static let tonguePositionRange = 0.0 ... 1.0

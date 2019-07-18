@@ -28,7 +28,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 0.0 ... 20000.0
+    public static let frequencyRange = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange = 0.0 ... 10.0
@@ -37,7 +37,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
     public static let pulseWidthRange = 0.0 ... 1.0
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange = -1000.0 ... 1000.0
+    public static let detuningOffsetRange = -1_000.0 ... 1_000.0
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange = 0.9 ... 1.11

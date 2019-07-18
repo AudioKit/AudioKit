@@ -73,9 +73,9 @@ open class AKSequencer {
             }
             self.tracks[index].length = track.length
         }
-        length = self.tracks.max(by: { $0.length > $1.length})?.length ?? 0
+        length = self.tracks.max(by: { $0.length > $1.length })?.length ?? 0
     }
-    
+
     open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
                   position: Double, duration: Double, trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
