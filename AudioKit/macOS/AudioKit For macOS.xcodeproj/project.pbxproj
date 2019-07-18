@@ -1174,7 +1174,7 @@
 		FEB3AB1522DFE00C0080A5CB /* AKAppleSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB0822DFE00C0080A5CB /* AKAppleSequencer.swift */; };
 		FEB3AB4022DFF8530080A5CB /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB3B22DFF8520080A5CB /* AKSequencer.swift */; };
 		FEB3AB4122DFF8530080A5CB /* AKSequencerEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB3C22DFF8520080A5CB /* AKSequencerEngine.mm */; };
-		FEB3AB4222DFF8530080A5CB /* AKSequencerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB3D22DFF8520080A5CB /* AKSequencerEngine.h */; };
+		FEB3AB4222DFF8530080A5CB /* AKSequencerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB3D22DFF8520080A5CB /* AKSequencerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FEB3AB4322DFF8530080A5CB /* AKSequencerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB3E22DFF8520080A5CB /* AKSequencerTrack.swift */; };
 		FEB3AB4422DFF8530080A5CB /* AKSequencerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB3F22DFF8520080A5CB /* AKSequencerDSPKernel.hpp */; };
 		FEF991AB21E9114A00F8CAD3 /* MIDI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF991AA21E9114A00F8CAD3 /* MIDI+Extensions.swift */; };
@@ -5742,7 +5742,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */;
+			buildConfigurationList = C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -6886,7 +6886,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit for macOS" */ = {
+		C42F36C61C0582E6000E937C /* Build configuration list for PBXProject "AudioKit For macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F36D21C0582E6000E937C /* Debug */,
