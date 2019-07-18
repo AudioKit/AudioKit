@@ -48,7 +48,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -61,7 +61,7 @@ open class AKModalResonanceFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 qualityFactorParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.qualityFactor, value: newValue)
         }
     }

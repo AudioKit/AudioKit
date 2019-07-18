@@ -56,7 +56,7 @@
 
 		AudioKit.engine.attach(avAudioUnitOrNode)
 		AudioKit.engine.connect(AudioKit.engine.inputNode, to: self.avAudioNode, format: format ?? formatForDevice)
-		
+
 		//Now set samplerate to your AKSettings sampling rate, it may be heavy handed to make the init fail here, but taking all percautions to avoid all the hard crashes with AKMicrohpone init issues of late.
 		do {
 			try setAVSessionSampleRate(sampleRate: AKSettings.sampleRate)
@@ -68,7 +68,7 @@
 		AudioKit.engine.inputNode.connect(to: self.avAudioNode)
 		#endif
 	}
-	
+
 	// Making this throw as whenever we have sample rate mismatches, it often crashes.
 	private func setAVSessionSampleRate(sampleRate: Double) throws {
         #if !os(macOS)

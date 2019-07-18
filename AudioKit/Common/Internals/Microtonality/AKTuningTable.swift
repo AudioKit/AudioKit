@@ -8,7 +8,7 @@
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 open class AKTuningTableETNN: NSObject {
-    
+
     @objc public var nn: MIDINoteNumber = 60
     @objc public var pitchBend: Int = 16_384 / 2
     public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {

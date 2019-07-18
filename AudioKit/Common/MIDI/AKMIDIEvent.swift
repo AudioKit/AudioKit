@@ -148,7 +148,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         }
 
     }
-    
+
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
     ///
     /// - Parameters:

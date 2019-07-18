@@ -72,7 +72,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -85,7 +85,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -98,7 +98,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
                 pulseWidthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.pulseWidth, value: newValue)
         }
     }
@@ -111,7 +111,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
                 detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
@@ -124,7 +124,7 @@ open class AKPWMOscillator: AKNode, AKToggleable, AKComponent {
                 detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }

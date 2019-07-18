@@ -85,14 +85,14 @@ extension AKMIDI {
     /// - Parameter forUid: unique id for a input
     /// - Returns: name of input or nil
     public func inputName(for inputUid: MIDIUniqueID) -> String? {
-        
+
         let name: String? = zip(inputNames, inputUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return inputUid == uid
-            }.map { (arg) -> String in
+        }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
-            }
+        }
         return name
     }
 
