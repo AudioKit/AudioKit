@@ -248,4 +248,4 @@ protocol FileLoaderDelegate: class {
     func loadFile(url: URL)
 }
 
-extension AKSequencer: SequencerDelegate { }
+extension AKAppleSequencer: SequencerDelegate { }
