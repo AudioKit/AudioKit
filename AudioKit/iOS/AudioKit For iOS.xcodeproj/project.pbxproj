@@ -1186,11 +1186,11 @@
 		FEB3AB2E22DFE06B0080A5CB /* AKTimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2222DFE06B0080A5CB /* AKTimeSignature.swift */; };
 		FEB3AB2F22DFE06B0080A5CB /* AKMusicTrack+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2322DFE06B0080A5CB /* AKMusicTrack+Events.swift */; };
 		FEB3AB3022DFE06B0080A5CB /* AKAppleSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2422DFE06B0080A5CB /* AKAppleSequencer.swift */; };
-		FEB3AB3122DFE06B0080A5CB /* DIYSeq.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2622DFE06B0080A5CB /* DIYSeq.swift */; };
-		FEB3AB3222DFE06B0080A5CB /* DIYSeqTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2722DFE06B0080A5CB /* DIYSeqTrack.swift */; };
-		FEB3AB3322DFE06B0080A5CB /* DIYSeqEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2822DFE06B0080A5CB /* DIYSeqEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FEB3AB3422DFE06B0080A5CB /* DIYSeqEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2922DFE06B0080A5CB /* DIYSeqEngine.mm */; };
-		FEB3AB3522DFE06B0080A5CB /* DIYSeqDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2A22DFE06B0080A5CB /* DIYSeqDSPKernel.hpp */; };
+		FEB3AB3122DFE06B0080A5CB /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2622DFE06B0080A5CB /* AKSequencer.swift */; };
+		FEB3AB3222DFE06B0080A5CB /* AKSequencerTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2722DFE06B0080A5CB /* AKSequencerTrack.swift */; };
+		FEB3AB3322DFE06B0080A5CB /* AKSequencerEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2822DFE06B0080A5CB /* AKSequencerEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FEB3AB3422DFE06B0080A5CB /* AKSequencerEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = FEB3AB2922DFE06B0080A5CB /* AKSequencerEngine.mm */; };
+		FEB3AB3522DFE06B0080A5CB /* AKSequencerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FEB3AB2A22DFE06B0080A5CB /* AKSequencerDSPKernel.hpp */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 /* End PBXBuildFile section */
 
@@ -2461,11 +2461,11 @@
 		FEB3AB2222DFE06B0080A5CB /* AKTimeSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTimeSignature.swift; sourceTree = "<group>"; };
 		FEB3AB2322DFE06B0080A5CB /* AKMusicTrack+Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+Events.swift"; sourceTree = "<group>"; };
 		FEB3AB2422DFE06B0080A5CB /* AKAppleSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAppleSequencer.swift; sourceTree = "<group>"; };
-		FEB3AB2622DFE06B0080A5CB /* DIYSeq.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYSeq.swift; sourceTree = "<group>"; };
-		FEB3AB2722DFE06B0080A5CB /* DIYSeqTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIYSeqTrack.swift; sourceTree = "<group>"; };
-		FEB3AB2822DFE06B0080A5CB /* DIYSeqEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYSeqEngine.h; sourceTree = "<group>"; };
-		FEB3AB2922DFE06B0080A5CB /* DIYSeqEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DIYSeqEngine.mm; sourceTree = "<group>"; };
-		FEB3AB2A22DFE06B0080A5CB /* DIYSeqDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DIYSeqDSPKernel.hpp; sourceTree = "<group>"; };
+		FEB3AB2622DFE06B0080A5CB /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
+		FEB3AB2722DFE06B0080A5CB /* AKSequencerTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerTrack.swift; sourceTree = "<group>"; };
+		FEB3AB2822DFE06B0080A5CB /* AKSequencerEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSequencerEngine.h; sourceTree = "<group>"; };
+		FEB3AB2922DFE06B0080A5CB /* AKSequencerEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSequencerEngine.mm; sourceTree = "<group>"; };
+		FEB3AB2A22DFE06B0080A5CB /* AKSequencerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSequencerDSPKernel.hpp; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -5397,11 +5397,11 @@
 		FEB3AB2522DFE06B0080A5CB /* Sequencer */ = {
 			isa = PBXGroup;
 			children = (
-				FEB3AB2622DFE06B0080A5CB /* DIYSeq.swift */,
-				FEB3AB2722DFE06B0080A5CB /* DIYSeqTrack.swift */,
-				FEB3AB2822DFE06B0080A5CB /* DIYSeqEngine.h */,
-				FEB3AB2922DFE06B0080A5CB /* DIYSeqEngine.mm */,
-				FEB3AB2A22DFE06B0080A5CB /* DIYSeqDSPKernel.hpp */,
+				FEB3AB2622DFE06B0080A5CB /* AKSequencer.swift */,
+				FEB3AB2722DFE06B0080A5CB /* AKSequencerTrack.swift */,
+				FEB3AB2822DFE06B0080A5CB /* AKSequencerEngine.h */,
+				FEB3AB2922DFE06B0080A5CB /* AKSequencerEngine.mm */,
+				FEB3AB2A22DFE06B0080A5CB /* AKSequencerDSPKernel.hpp */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -5548,7 +5548,7 @@
 				C40C41661C40E3A5009D870B /* EZOutput.h in Headers */,
 				C49B1421204A06B7009C7C8E /* Array.hpp in Headers */,
 				C49B1573204A06B8009C7C8E /* Blit.h in Headers */,
-				FEB3AB3522DFE06B0080A5CB /* DIYSeqDSPKernel.hpp in Headers */,
+				FEB3AB3522DFE06B0080A5CB /* AKSequencerDSPKernel.hpp in Headers */,
 				FE1F57A9209235F8006B34CF /* AKWaveTableAudioUnit.h in Headers */,
 				C40C41561C40E3A5009D870B /* EZAudioFile.h in Headers */,
 				C49B1576204A06B8009C7C8E /* TwoPole.h in Headers */,
@@ -5707,7 +5707,7 @@
 				C49B143B204A06B7009C7C8E /* CombFilter.h in Headers */,
 				C49B153E204A06B8009C7C8E /* Wurley.h in Headers */,
 				C45380531C3A5A4300A51738 /* AKOperationGeneratorAudioUnit.h in Headers */,
-				FEB3AB3322DFE06B0080A5CB /* DIYSeqEngine.h in Headers */,
+				FEB3AB3322DFE06B0080A5CB /* AKSequencerEngine.h in Headers */,
 				C49B156D204A06B8009C7C8E /* SKINItbl.h in Headers */,
 				C40C41CF1C40E4EE009D870B /* AKTesterAudioUnit.h in Headers */,
 				C40C414E1C40E3A5009D870B /* EZAudio.h in Headers */,
@@ -5877,7 +5877,7 @@
 				C49B14CC204A06B8009C7C8E /* rspline.c in Sources */,
 				C49B13E6204A06B7009C7C8E /* bal.c in Sources */,
 				C4AA7BFB1FD2A7C000040720 /* AKAmplitudeTap.swift in Sources */,
-				FEB3AB3422DFE06B0080A5CB /* DIYSeqEngine.mm in Sources */,
+				FEB3AB3422DFE06B0080A5CB /* AKSequencerEngine.mm in Sources */,
 				C49B13BF204A06B7009C7C8E /* vdelay.c in Sources */,
 				B19AE7761F30FC4700F9DC25 /* AKAudioUnitManager.swift in Sources */,
 				C49B1491204A06B8009C7C8E /* clock.c in Sources */,
@@ -6037,7 +6037,7 @@
 				C49B1476204A06B8009C7C8E /* peaklim.c in Sources */,
 				C49B13B6204A06B7009C7C8E /* dtrig.c in Sources */,
 				551AAC601F620A7C00A14C0D /* AKClipPlayer.swift in Sources */,
-				FEB3AB3222DFE06B0080A5CB /* DIYSeqTrack.swift in Sources */,
+				FEB3AB3222DFE06B0080A5CB /* AKSequencerTrack.swift in Sources */,
 				F4CA85811EB666260066BE5C /* AKTuningTable+NorthIndianRaga.swift in Sources */,
 				C4077AF12008735100E5923C /* AKDCBlockAudioUnit.swift in Sources */,
 				C4077BE92009873D00E5923C /* AKCombFilterReverbAudioUnit.swift in Sources */,
@@ -6398,7 +6398,7 @@
 				C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */,
 				C40B546C228CAF3D00311B00 /* sndwarp.c in Sources */,
 				3404A7A820507B1600A2C9E4 /* SampleBuffer.cpp in Sources */,
-				FEB3AB3122DFE06B0080A5CB /* DIYSeq.swift in Sources */,
+				FEB3AB3122DFE06B0080A5CB /* AKSequencer.swift in Sources */,
 				C49B13B5204A06B7009C7C8E /* ptrack.c in Sources */,
 				C4E8ED0A1C4391C70041965F /* AKConvolution.swift in Sources */,
 				C43323051FE05F0200330AEC /* AKTimeline.c in Sources */,

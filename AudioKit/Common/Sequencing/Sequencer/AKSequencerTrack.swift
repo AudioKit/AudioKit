@@ -1,5 +1,5 @@
 //
-//  DIYSeq.swift
+//  AKSequencerTrack.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper on 1/25/19.
@@ -9,12 +9,12 @@
 import Foundation
 
 /// Audio player that loads a sample into memory
-open class DIYSeqTrack: AKNode, AKComponent {
+open class AKSequencerTrack: AKNode, AKComponent {
 
-    public typealias AKAudioUnitType = AKDIYSeqEngine
+    public typealias AKAudioUnitType = AKSequencerEngine
 
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(instrument: "diys")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "sqcr")
 
     // MARK: - Properties
 

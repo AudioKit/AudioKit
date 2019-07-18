@@ -181,7 +181,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Sequencer
 #import "AKSamplerMetronome.h"
-#import "DIYSeqEngine.h"
+#import "AKSequencerEngine.h"
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
