@@ -1,5 +1,5 @@
 //
-//  DIYSeqEngine.cpp
+//  AKSequencerDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Jeff Cooper on 1/25/19.
@@ -31,10 +31,10 @@ enum {
     startPointAddress = 0,
 };
 
-class AKDIYSeqEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
+class AKSequencerEngineDSPKernel : public AKDSPKernel, public AKOutputBuffered {
 public:
 
-    AKDIYSeqEngineDSPKernel() {}
+    AKSequencerEngineDSPKernel() {}
 
     void init(int channelCount, double sampleRate) override {
 

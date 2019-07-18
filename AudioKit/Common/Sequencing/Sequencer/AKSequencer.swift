@@ -1,5 +1,5 @@
 //
-//  DIYSeq.swift
+//  AKSequencer.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper on 5/8/19.
@@ -9,10 +9,10 @@
 /// Open-source AudioKit Sequencer
 ///
 /// If your code used to use AKSequencer, as of AudioKit 4.8 you probably want AKAppleSequencer
-open class DIYSeq {
+open class AKSequencer {
 
     /// Array of sequencer tracks
-    open var tracks = [DIYSeqTrack]()
+    open var tracks = [AKSequencerTrack]()
 
     /// Overall playback speed
     open var tempo: BPM {
@@ -95,7 +95,7 @@ open class DIYSeq {
     }
 
     required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ DIYSeqTrack(targetNode: $0.element) })
+        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
     }
 
     public convenience init(targetNode: AKNode? = nil) {

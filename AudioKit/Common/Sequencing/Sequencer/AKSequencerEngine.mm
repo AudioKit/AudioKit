@@ -1,5 +1,5 @@
 //
-//  DIYSeqEngine.m
+//  AKSequencerEngine.mm
 //  AudioKit
 //
 //  Created by Jeff Cooper on 1/25/19.
@@ -7,14 +7,13 @@
 //
 #import <AudioKit/AudioKit-Swift.h>
 
-#import "DIYSeqEngine.h"
-#import "DIYSeqDSPKernel.hpp"
+#import "AKSequencerEngine.h"
+#import "AKSequencerDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
-@implementation AKDIYSeqEngine {
-    // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKDIYSeqEngineDSPKernel _kernel;
+@implementation AKSequencerEngine {
+    AKSequencerEngineDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -115,7 +114,7 @@ self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busTyp
                                                          startPointAUParameter
                                                          ]];
 
-    __block AKDIYSeqEngineDSPKernel *blockKernel = &_kernel;
+    __block AKSequencerEngineDSPKernel *blockKernel = &_kernel;
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         blockKernel->setParameter(param.address, value);
     };
@@ -140,9 +139,8 @@ self.outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self busTyp
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
-    __block AKDIYSeqEngineDSPKernel *state = &_kernel;
-    return ^AUAudioUnitStatus(
-                              AudioUnitRenderActionFlags *actionFlags,
+    __block AKSequencerEngineDSPKernel *state = &_kernel;
+    return ^AUAudioUnitStatus(AudioUnitRenderActionFlags *actionFlags,
                               const AudioTimeStamp       *timestamp,
                               AVAudioFrameCount           frameCount,
                               NSInteger                   outputBusNumber,

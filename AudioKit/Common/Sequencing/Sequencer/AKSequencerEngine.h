@@ -1,6 +1,6 @@
 //
-//  DIYSeqEngine.h
-//  AudioKit For iOS
+//  AKSequencerEngine.h
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/25/19.
 //  Copyright © 2019 AudioKit. All rights reserved.
@@ -11,7 +11,7 @@
 
 typedef void (^AKCCallback)(void);
 
-@interface AKDIYSeqEngine : AKAudioUnit
+@interface AKSequencerEngine : AKAudioUnit
 @property (nonatomic) float startPoint;
 @property (nonatomic) bool loopEnabled;
 @property (nonatomic) double tempo;
