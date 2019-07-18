@@ -17,7 +17,7 @@ public struct AKMIDIFile {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
 
-    var trackChunks: [MIDIFileTrackChunk] {
+    public var trackChunks: [MIDIFileTrackChunk] {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
