@@ -45,7 +45,7 @@ public struct AKMIDIFile {
     }
 
     public var timeFormat: MIDITimeFormat? {
-        return headerChunk?.timeFormat ?? nil
+        return headerChunk?.timeFormat
     }
 
     public var ticksPerBeat: Int? {

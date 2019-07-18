@@ -96,8 +96,6 @@ extension AKMIDI {
         return name
     }
 
-
-
     /// Look up the unique id for a input index
     ///
     /// - Parameter inputIndex: index of destination

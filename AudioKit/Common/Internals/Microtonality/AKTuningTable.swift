@@ -188,7 +188,7 @@ open class AKTuningTable: AKTuningTableBase {
 
         // Scale by cents => Frequency space
         for (index, cent) in centsArray.enumerated() {
-            let centF = exp2(cent / 1200)
+            let centF = exp2(cent / 1_200)
             masterSetProcessed[index] = masterSetProcessed[index] * centF
         }
         self.masterSet = masterSetProcessed
@@ -196,8 +196,6 @@ open class AKTuningTable: AKTuningTableBase {
         // update
         self.updateTuningTableFromMasterSet()
     }
-
-
 
     // Assume masterSet is set and valid:  Process and update tuning table.
     @objc internal func updateTuningTableFromMasterSet() {

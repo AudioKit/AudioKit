@@ -17,7 +17,6 @@
 //      https://stackoverflow.com/questions/13562714/calculate-accurate-bpm-from-midi-clock-in-objc-with-coremidi
 //      https://github.com/yderidde/PGMidi/blob/master/Sources/PGMidi/PGMidiSession.mm#L186
 
-
 import Foundation
 import CoreMIDI
 
@@ -67,7 +66,7 @@ open class AKMIDITempoListener: NSObject {
     public var incomingClockActive = false
 
     let BEAT_TICKS = 24
-    let oneThousand = UInt64(1000)
+    let oneThousand = UInt64(1_000)
 
     /// Create a BPM Listener
     ///
@@ -116,7 +115,7 @@ public extension AKMIDITempoListener {
     func analyze() {
         guard clockEvents.count > 1 else { return }
         guard clockEventLimit > 1 else { return }
-        guard clockEvents.count >= clockEventLimit else { return}
+        guard clockEvents.count >= clockEventLimit else { return }
 
         let previousClockTime = clockEvents[ clockEvents.count - 2 ]
         let currentClockTime = clockEvents[ clockEvents.count - 1 ]
@@ -163,12 +162,12 @@ public extension AKMIDITempoListener {
 
     func resetClockEventsLeavingOne() {
         guard clockEvents.count > 1 else { return }
-        clockEvents = clockEvents.dropFirst(clockEvents.count-1).map { $0 }
+        clockEvents = clockEvents.dropFirst(clockEvents.count - 1).map { $0 }
     }
 
     func resetClockEventsLeavingHalf() {
         guard clockEvents.count > 1 else { return }
-        clockEvents = clockEvents.dropFirst(clockEvents.count/2).map { $0 }
+        clockEvents = clockEvents.dropFirst(clockEvents.count / 2).map { $0 }
     }
 
     func resetClockEventsLeavingNone() {
