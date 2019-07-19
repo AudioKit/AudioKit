@@ -410,10 +410,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerSetLoopThruRelease(dsp, thruRelease)
     }
 
-    public func playNote(noteNumber: UInt8,
-                         velocity: UInt8,
-                         noteFrequency: Float) {
-        doAKSamplerPlayNote(dsp, noteNumber, velocity, noteFrequency)
+    public func playNote(noteNumber: UInt8, velocity: UInt8) {
+        doAKSamplerPlayNote(dsp, noteNumber, velocity)
     }
 
     public func stopNote(noteNumber: UInt8, immediate: Bool) {

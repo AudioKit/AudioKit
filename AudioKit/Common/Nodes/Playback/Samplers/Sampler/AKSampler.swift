@@ -447,9 +447,8 @@
 
     @objc open override func play(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
-                                  frequency: Double,
                                   channel: MIDIChannel = 0) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, noteFrequency: Float(frequency))
+        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
     @objc open override func stop(noteNumber: MIDINoteNumber) {

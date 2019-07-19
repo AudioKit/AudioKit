@@ -53,7 +53,7 @@ void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFreque
 void doAKSamplerBuildSimpleKeyMap(AKDSPRef pDSP);
 void doAKSamplerBuildKeyMap(AKDSPRef pDSP);
 void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value);
-void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
+void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
 void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate);
 void doAKSamplerStopAllVoices(AKDSPRef pDSP);
 void doAKSamplerRestartVoices(AKDSPRef pDSP);
