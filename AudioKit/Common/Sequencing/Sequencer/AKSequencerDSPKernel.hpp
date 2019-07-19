@@ -102,8 +102,12 @@ public:
     }
 
     void addPlayingNote(MIDINote note, int offset) {
-        sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
-        playingNotes.push_back(note);
+        if (note.noteOn.data2 > 0) {
+            sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
+            playingNotes.push_back(note);
+        } else {
+            sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOn.beat);
+        }
     }
 
     void stopPlayingNote(MIDINote note, int offset, int index) {
@@ -161,19 +165,22 @@ public:
 
             // Check the playing notes for note offs
             int i = 0;
+
             while (i < playingNotes.size()) {
                 int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
                 if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     int offset = (int)(triggerTime - currentStartSample);
                     stopPlayingNote(playingNotes[i], offset, i);
-                    if (i > 0) i--;
-                } else if (currentEndSample > lengthInSamples() && loopEnabled) {
+                    continue;
+                }
+
+                if (currentEndSample > lengthInSamples() && loopEnabled) {
                     int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
                         int offset = (int)triggerTime + loopRestartInBuffer;
                         stopPlayingNote(playingNotes[i], offset, i);
-                        if (i > 0) i--;
+                        continue;
                     }
                 }
                 i++;
