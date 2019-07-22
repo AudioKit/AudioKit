@@ -132,4 +132,8 @@ open class AKSequencerTrack: AKNode, AKComponent {
     open func clear() {
         internalAU?.clear()
     }
+    
+    open func stopPlayingNotes() {
+        internalAU?.stopPlayingNotes()
+    }
 }
