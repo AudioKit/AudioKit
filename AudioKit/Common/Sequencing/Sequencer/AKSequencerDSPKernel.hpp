@@ -217,11 +217,15 @@ public:
     }
 
     void clear() {
+        stopPlayingNotes();
+        notes.clear();
+        events.clear();
+    }
+
+    void stopPlayingNotes() {
         while (playingNotes.size() > 0) {
             stopPlayingNote(playingNotes[0], 0, 0);
         }
-        notes.clear();
-        events.clear();
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, double offset, double time) {
