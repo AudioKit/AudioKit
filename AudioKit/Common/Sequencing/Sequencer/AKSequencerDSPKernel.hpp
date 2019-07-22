@@ -217,7 +217,6 @@ public:
     }
 
     void clear() {
-        stopPlayingNotes();
         notes.clear();
         events.clear();
     }
