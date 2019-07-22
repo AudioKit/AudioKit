@@ -64,7 +64,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -77,7 +77,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -90,7 +90,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
                 detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
@@ -103,7 +103,7 @@ open class AKOscillator: AKNode, AKToggleable, AKComponent {
                 detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }
