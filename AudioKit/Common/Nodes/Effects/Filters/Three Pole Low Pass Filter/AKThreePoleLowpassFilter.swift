@@ -53,7 +53,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
                 distortionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.distortion, value: newValue)
         }
     }
@@ -66,7 +66,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
                 cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }
@@ -79,7 +79,7 @@ open class AKThreePoleLowpassFilter: AKNode, AKToggleable, AKComponent, AKInput 
                 resonanceParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.resonance, value: newValue)
         }
     }

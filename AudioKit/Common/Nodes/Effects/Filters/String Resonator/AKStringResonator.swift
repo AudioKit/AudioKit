@@ -51,7 +51,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
                 fundamentalFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.fundamentalFrequency, value: newValue)
         }
     }
@@ -64,7 +64,7 @@ open class AKStringResonator: AKNode, AKToggleable, AKComponent, AKInput {
                 feedbackParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }

@@ -1,11 +1,11 @@
 # Audiobus MIDI Sender
 This project gives examples of how to:
 
-* Use AKSequencer to send MIDI messages externally using AKCallbackInstrument
-* Update the UI in response to AKSequencer events using AKCallbackInstrument
+* Use AKAppleSequencer to send MIDI messages externally using AKCallbackInstrument
+* Update the UI in response to AKAppleSequencer events using AKCallbackInstrument
 * Create MIDI Send ports that will be recognized by Audiobus 3
 * Send MIDI data to Audiobus 3 MIDI receivers
-* Allow Audiobus to control the transport for AKSequencer
+* Allow Audiobus to control the transport for AKAppleSequencer
 
 #### IMPORTANT:
 Minimally, to get this project to run, you will need to:
@@ -34,12 +34,12 @@ This project uses the [SenderSynth](https://github.com/AudioKit/AudioKit/tree/ma
 * Getting an API key from the Audiobus developer website
 
 
-## Preparing AKSequencer for External MIDI
-Normally, AKSequencer tracks are connected directly to MIDI Inputs, but if we want to send MIDI outside the app, we need to connect each track to an AKCallbackInstrument.  The callback function takes three arguments: MIDIStatus, MIDINoteNumber, and MIDIVelocity. Presumably, you'd want to send normal MIDI externally when Audiobus is not connected. Typically that setup would look like this:
+## Preparing AKAppleSequencer for External MIDI
+Normally, AKAppleSequencer tracks are connected directly to MIDI Inputs, but if we want to send MIDI outside the app, we need to connect each track to an AKCallbackInstrument.  The callback function takes three arguments: MIDIStatus, MIDINoteNumber, and MIDIVelocity. Presumably, you'd want to send normal MIDI externally when Audiobus is not connected. Typically that setup would look like this:
 
 ```
 let midi = AKMIDI()
-let seq = AKSequencer()
+let seq = AKAppleSequencer()
 let callbackInst = AKCallbackInstrument()
 midi.openOutput()
         
@@ -80,7 +80,7 @@ You can send messages by passing your ABMIDISendPort reference to the Audiobus C
 Audiobus.sendNoteOnMessage(midiSendPort: midiSendPort, status: status, note: note, velocity: velocity)
 ```
 
-These messages should also be sent from the AKCallbackInstrument connected to the AKSequencer.
+These messages should also be sent from the AKCallbackInstrument connected to the AKAppleSequencer.
 
 ### Letting Audiobus Shut Off CoreMIDI Messages
 Obviously, you don't want to continue sending MIDI through AKMIDI when sending to Audiobus, or else each MIDI message would be sent twice.  Audiobus insists that you let it control when conventional MIDI messages can be sent.  They're very adamant about this. So you must send a closure to your Audiobus controller that will allow Audiobus to shut off the CoreMIDI messages.  In the example project, I have a flag ```coreMIDIIsActive``` which controls the flow of the MIDI messages in my callback:

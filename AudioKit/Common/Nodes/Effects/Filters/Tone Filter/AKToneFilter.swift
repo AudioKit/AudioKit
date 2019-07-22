@@ -39,7 +39,7 @@ open class AKToneFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 halfPowerPointParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.halfPowerPoint, value: newValue)
         }
     }

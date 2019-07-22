@@ -91,7 +91,10 @@ public enum AKButtonStyle {
             self.highlightAnimationTimer = nil
         }
         self.highlightAnimationAlpha = 0.6
-        highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002, target: self, selector: #selector(highlightAnimationTimerDidFire), userInfo: nil, repeats: true)
+        highlightAnimationTimer = Timer.scheduledTimer(timeInterval: 0.002,
+                                                       target: self,
+                                                       selector: #selector(highlightAnimationTimerDidFire),
+                                                       userInfo: nil, repeats: true)
     }
 
     @objc private func highlightAnimationTimerDidFire() {

@@ -40,7 +40,7 @@ open class AKWhiteNoise: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
