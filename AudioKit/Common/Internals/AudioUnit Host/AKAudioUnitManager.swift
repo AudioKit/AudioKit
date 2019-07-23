@@ -34,9 +34,8 @@ open class AKAudioUnitManager: NSObject {
     /// Delegate that will be sent notifications
     public weak var delegate: AKAudioUnitManagerDelegate? {
         didSet {
-            if delegate != nil {
-                addObservors()
-            }
+            // only add/remove observors if there is a delegate set that wants to know about it
+            delegate != nil ? addObservors() : removeObservors()
         }
     }
 
@@ -433,9 +432,6 @@ open class AKAudioUnitManager: NSObject {
 
     public func dispose() {
         AKLog("disposing AKAudioUnitManager")
-        if delegate != nil {
-            removeObservors()
-        }
         removeEffects()
         _availableEffects.removeAll()
         _availableInstruments.removeAll()
