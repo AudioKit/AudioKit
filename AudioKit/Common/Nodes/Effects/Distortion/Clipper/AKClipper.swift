@@ -40,7 +40,7 @@ open class AKClipper: AKNode, AKToggleable, AKComponent, AKInput {
                 limitParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.limit, value: newValue)
         }
     }

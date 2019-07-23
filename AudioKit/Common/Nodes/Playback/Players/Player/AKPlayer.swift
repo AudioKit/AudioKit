@@ -176,7 +176,7 @@ public class AKPlayer: AKNode {
     internal var _rate: Double {
         return 1.0
     }
-    
+
     internal var _isPaused = false
 
     // MARK: - Public Properties
@@ -314,10 +314,10 @@ public class AKPlayer: AKNode {
             normalisedPauseTime = pauseTime - startTime
         }
         let current = startTime + normalisedPauseTime + playerTime.truncatingRemainder(dividingBy: currentDuration)
-        
+
         return current
     }
-    
+
     public var pauseTime: Double? {
         didSet {
             _isPaused = pauseTime != nil
@@ -513,7 +513,7 @@ public class AKPlayer: AKNode {
             return
         }
         initFader(at: audioTime, hostTime: hostTime)
-        
+
         pauseTime = nil
     }
 

@@ -19,7 +19,7 @@ AudioKit.output = dryWetMixer
 
 //: Create the sequencer after AudioKit's output has been set
 //: Load in a midi file, and set the sequencer to the main audiokit engine
-var sequencer = AKSequencer(filename: "4tracks")
+var sequencer = AKAppleSequencer(filename: "4tracks")
 
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(AKDuration(beats: 4))

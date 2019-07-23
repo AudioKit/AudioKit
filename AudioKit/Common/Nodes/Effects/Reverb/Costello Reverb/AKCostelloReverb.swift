@@ -49,7 +49,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 feedbackParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -62,7 +62,7 @@ open class AKCostelloReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 cutoffFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.cutoffFrequency, value: newValue)
         }
     }

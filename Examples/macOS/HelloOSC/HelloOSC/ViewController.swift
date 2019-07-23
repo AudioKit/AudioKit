@@ -19,7 +19,7 @@ class ViewController: NSViewController, NSWindowDelegate, OSCServerDelegate {
     var oscillator2 = AKOscillator()
     var mixer = AKMixer()
 
-    var server = OSCServer(address: "", port: 9001)
+    var server = OSCServer(address: "", port: 9_001)
 
     override func viewDidLoad() {
         super.viewDidLoad()

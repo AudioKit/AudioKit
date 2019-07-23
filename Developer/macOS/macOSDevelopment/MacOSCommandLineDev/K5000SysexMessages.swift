@@ -12,8 +12,8 @@ import AudioKit
 
 /// K5000 manufacturer and machine bytes
 enum kawaiK5000: MIDIByte {
-    case manufacturerId  = 0x40
-    case machine         = 0x0A
+    case manufacturerId = 0x40
+    case machine = 0x0A
 }
 
 /// K5000 sysex messages all have a midi channel byte
@@ -41,29 +41,29 @@ let kawaiK5000sysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue, kawa
 
 /// Request type words used across all devices
 public enum K5000requestTypes: MIDIWord {
-    case single         = 0x0000
-    case block          = 0x0100
+    case single = 0x0000
+    case block = 0x0100
 }
 
 /// K5000SR requests
 public enum K5000SRdumpRequests: MIDIWord {
-    case areaA     = 0x0000
-    case areaC     = 0x2000
-    case areaD     = 0x0002
+    case areaA = 0x0000
+    case areaC = 0x2000
+    case areaD = 0x0002
 }
 
 /// K5000SR (with ME1 memory card installed) requests
 public enum K5000ME1dumpRequests: MIDIWord {
-    case areaE     = 0x0003
-    case areaF     = 0x0004
+    case areaE = 0x0003
+    case areaF = 0x0004
 }
 
 /// K5000W requests
 public enum K5000WdumpRequests: MIDIWord {
-    case dump_reqest                = 0x0000
-    case areaBpcm    = 0x0001
-    case drumKit      = 0x1000
-    case drumInst     = 0x1100
+    case dump_reqest = 0x0000
+    case areaBpcm = 0x0001
+    case drumKit = 0x1000
+    case drumInst = 0x1100
 }
 
 /// Sysex Message for the K5000S/R

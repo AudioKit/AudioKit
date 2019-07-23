@@ -35,8 +35,6 @@ static double ticksToSeconds(void);
 static void AKTimelineSendMessage(AKTimeline *timeLine, AKTimelineMessage message);
 void AKTimelineSynchronize(AKTimeline *timeline);
 
-
-
 void AKTimelineInit(AKTimeline *timeline, AudioStreamBasicDescription format, AKTimelineCallback callback, void *callbackRef) {
     memset(timeline, 0, sizeof(AKTimeline));
     timeline->format = format;
