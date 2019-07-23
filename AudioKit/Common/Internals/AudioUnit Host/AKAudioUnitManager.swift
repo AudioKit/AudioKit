@@ -227,9 +227,8 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitManagerNotification(
-                    .instrumentsAvailable(instruments: self.availableInstruments),
-                    audioUnitManager: self)
+                self.delegate?.handleAudioUnitManagerNotification(.instrumentsAvailable(instruments: self.availableInstruments),
+                                                                  audioUnitManager: self)
 
                 completionHandler?(self.availableInstruments)
             }
@@ -437,14 +436,14 @@ open class AKAudioUnitManager: NSObject {
         _availableEffects.removeAll()
         _availableInstruments.removeAll()
         _effectsChain.removeAll()
+        removeObservors()
         input = nil
         output = nil
         delegate = nil
-        removeObservors()
     }
 
     deinit {
-        AKLog("* deinit AKAudioUnitManager")
+        AKLog("* deinit { AKAudioUnitManager }")
     }
 }
 
