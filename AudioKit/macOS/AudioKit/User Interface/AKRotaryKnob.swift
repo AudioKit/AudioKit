@@ -95,9 +95,9 @@ public enum AKRotaryKnobStyle {
     }
 
     func angleBetween(pointA: CGPoint, pointB: CGPoint) -> Double {
-        let dx = Double(pointB.x - pointA.x)
-        let dy = Double(pointB.y - pointA.y)
-        let radians = atan2(-dx, -dy)
+        let deltaX = Double(pointB.x - pointA.x)
+        let deltaY = Double(pointB.y - pointA.y)
+        let radians = atan2(-deltaX, -deltaY)
         let degrees = radians * 180 / Double.pi
         return degrees
     }
@@ -277,9 +277,10 @@ public enum AKRotaryKnobStyle {
             let valueLabelStyle = NSMutableParagraphStyle()
             valueLabelStyle.alignment = .center
 
-            let valueLabelFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
-                                            .foregroundColor: textColor,
-                                            .paragraphStyle: valueLabelStyle]
+            let valueLabelFontAttributes: [NSAttributedString.Key: Any] =
+                [.font: NSFont.boldSystemFont(ofSize: bubbleFontSize),
+                 .foregroundColor: textColor,
+                 .paragraphStyle: valueLabelStyle]
 
             let valueLabelInset: CGRect = valueLabelRect.insetBy(dx: 0, dy: 0)
             let valueLabelTextSize = NSString(string: currentValueText).boundingRect(

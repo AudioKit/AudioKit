@@ -20,7 +20,7 @@ open class AKMusicTrack {
     fileprivate var name: String = "Unnamed"
 
     /// Sequencer this music track is part of
-    open var sequencer = AKSequencer()
+    open var sequencer = AKAppleSequencer()
 
     /// Pointer to the Music Track
     open var trackPointer: UnsafeMutablePointer<MusicTrack>
@@ -111,7 +111,7 @@ open class AKMusicTrack {
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public init(musicTrack: MusicTrack, sequencer: AKSequencer) {
+    public init(musicTrack: MusicTrack, sequencer: AKAppleSequencer) {
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
         self.sequencer = sequencer
@@ -617,7 +617,7 @@ open class AKMusicTrack {
     /// Generalized method for iterating thru a CoreMIDI MusicTrack with a closure to handle events
     ///
     /// - Parameters:
-    ///   - track: a MusicTrack (either internalTrack or AKSequencer tempo track) to iterate thru
+    ///   - track: a MusicTrack (either internalTrack or AKAppleSequencer tempo track) to iterate thru
     ///   - midiEventHandler: a closure taking MusicEventIterator, MusicTimeStamp, MusicEventType, UnsafeRawPointer? (eventData), UInt32 (eventDataSize) as input and handles the events
     ///
     ///

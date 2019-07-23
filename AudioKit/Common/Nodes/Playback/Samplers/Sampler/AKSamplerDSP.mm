@@ -76,9 +76,9 @@ extern "C" void doAKSamplerSetLoopThruRelease(AKDSPRef pDSP, bool value) {
     ((AKSamplerDSP*)pDSP)->setLoopThruRelease(value);
 }
 
-extern "C" void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
+extern "C" void doAKSamplerPlayNote(AKDSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
 {
-    ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
+    ((AKSamplerDSP*)pDSP)->playNote(noteNumber, velocity);
 }
 
 extern "C" void doAKSamplerStopNote(AKDSPRef pDSP, UInt8 noteNumber, bool immediate)
@@ -275,7 +275,7 @@ void AKSamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
             uint8_t note = midiEvent.data[1];
             uint8_t veloc = midiEvent.data[2];
             if (note > 127 || veloc > 127) break;
-            playNote(note, veloc, 440. * exp2((note - 69)/12.));
+            playNote(note, veloc);
             break;
         }
         case 0xB0 : { // control

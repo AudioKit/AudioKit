@@ -53,7 +53,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
                 centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -66,7 +66,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
                 gainParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }
@@ -79,7 +79,7 @@ open class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable, AKComponent
                 qParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.Q, value: newValue)
         }
     }

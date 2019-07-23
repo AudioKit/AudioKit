@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MIDIFileTrackChunk: AKMIDIFileChunk {
+public struct MIDIFileTrackChunk: AKMIDIFileChunk {
 
     var typeData: [UInt8]
     var lengthData: [UInt8]
@@ -32,7 +32,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
         self.timeDivision = timeDivision
     }
 
-    var chunkEvents: [AKMIDIFileChunkEvent] {
+    public var chunkEvents: [AKMIDIFileChunkEvent] {
         //FIXME: Not currently handling channel prefix
         var events = [AKMIDIFileChunkEvent]()
         var currentTimeByte: Int?
@@ -72,7 +72,7 @@ struct MIDIFileTrackChunk: AKMIDIFileChunk {
                 if byte == 0xFF { //MetaEvent
                     isParsingMetaEvent = true
                 } else {
-                    if byte < 0x80, let currentRunningStatus = runningStatus,
+                    if byte < 0x80, !isParsingMetaEvent, !isParsingSysex, let currentRunningStatus = runningStatus,
                         let status = AKMIDIStatus(byte: currentRunningStatus) { //Running Status Implied
                         currentTypeByte = currentRunningStatus
                         runningStatus = currentRunningStatus

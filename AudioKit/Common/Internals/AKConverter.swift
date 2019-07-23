@@ -241,9 +241,8 @@ open class AKConverter: NSObject {
         // Note: AVAssetReaderOutput does not currently support compressed output
         if formatKey == kAudioFormatMPEG4AAC {
             if sampleRate > 48_000 {
-                sampleRate = 44_100
+                sampleRate = 48_000
             }
-
             outputSettings = [
                 AVFormatIDKey: formatKey,
                 AVSampleRateKey: sampleRate,
@@ -342,6 +341,7 @@ open class AKConverter: NSObject {
             return
         }
 
+        let inputFormat = inputURL.pathExtension.lowercased()
         let outputFormat = options?.format ?? outputURL.pathExtension.lowercased()
 
         AKLog("convertToPCM() to \(outputURL)")
@@ -368,7 +368,12 @@ open class AKConverter: NSObject {
         var srcFormat = AudioStreamBasicDescription()
         var dstFormat = AudioStreamBasicDescription()
 
-        ExtAudioFileOpenURL(inputURL as CFURL, &sourceFile)
+        error = ExtAudioFileOpenURL(inputURL as CFURL, &sourceFile)
+        if error != noErr {
+            completionHandler?(createError(message: "Unable to open the input file."))
+            return
+        }
+
         var thePropertySize = UInt32(MemoryLayout.stride(ofValue: srcFormat))
 
         guard let inputFile = sourceFile else {
@@ -387,6 +392,14 @@ open class AKConverter: NSObject {
         let outputSampleRate = options?.sampleRate ?? srcFormat.mSampleRate
         let outputChannels = options?.channels ?? srcFormat.mChannelsPerFrame
         var outputBitRate = options?.bitDepth ?? srcFormat.mBitsPerChannel
+
+        guard inputFormat != outputFormat ||
+            outputSampleRate != srcFormat.mSampleRate ||
+            outputChannels != srcFormat.mChannelsPerFrame ||
+            outputBitRate != srcFormat.mBitsPerChannel else {
+            completionHandler?(createError(message: "No conversion is needed, formats are the same."))
+            return
+        }
 
         var outputBytesPerFrame = outputBitRate * outputChannels / 8
         var outputBytesPerPacket = options?.bitDepth == nil ? srcFormat.mBytesPerPacket : outputBytesPerFrame

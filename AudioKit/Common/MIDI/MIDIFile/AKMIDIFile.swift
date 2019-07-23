@@ -10,13 +10,14 @@ import Foundation
 
 public struct AKMIDIFile {
 
+    var filename: String
     var chunks: [AKMIDIFileChunk] = []
 
     var headerChunk: MIDIFileHeaderChunk? {
         return chunks.first(where: { $0.isHeader }) as? MIDIFileHeaderChunk
     }
 
-    var trackChunks: [MIDIFileTrackChunk] {
+    public var trackChunks: [MIDIFileTrackChunk] {
         return Array(chunks.drop(while: { $0.isHeader && $0.isValid })) as? [MIDIFileTrackChunk] ?? []
     }
 
@@ -44,7 +45,7 @@ public struct AKMIDIFile {
     }
 
     public var timeFormat: MIDITimeFormat? {
-        return headerChunk?.timeFormat ?? nil
+        return headerChunk?.timeFormat
     }
 
     public var ticksPerBeat: Int? {
@@ -64,6 +65,7 @@ public struct AKMIDIFile {
     }
 
     public init(url: URL) {
+        filename = url.lastPathComponent
         if let midiData = try? Data(contentsOf: url) {
             let dataSize = midiData.count
             let typeLength = 4

@@ -51,9 +51,9 @@ custom_categories:
     - AKBluetoothMIDIButton
     - AKCallbackInstrument
 
-  - name: Sequencer
+  - name: Sequencing
     children:
-    - AKSequencer
+    - AKAppleSequencer
     - AKDuration
     - AKMusicTrack
 

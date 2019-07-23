@@ -22,7 +22,7 @@ class Engine {
     let inputRenderedNotification: AURenderCallback = {
         (inRefCon: UnsafeMutableRawPointer,
         ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-        inTimeStamp:  UnsafePointer<AudioTimeStamp>,
+        inTimeStamp: UnsafePointer<AudioTimeStamp>,
         inBusNumber: UInt32,
         inNumberFrames: UInt32,
         ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus in
@@ -44,7 +44,7 @@ class Engine {
 
         }
 
-        return noErr;
+        return noErr
     }
 
     init () {
@@ -79,7 +79,7 @@ class Engine {
         }
 
         // Setup Ring buffer to store the audio data
-        ringBuffer = RingBuffer<Float>(numberOfChannels: 2, capacityFrames: UInt32(4096 * 20))
+        ringBuffer = RingBuffer<Float>(numberOfChannels: 2, capacityFrames: UInt32(4_096 * 20))
 
         // Setup Audio Sink so that we don't pipe the audio through the default device (we will do that manually)
         sink = AKBooster(renderer, gain: 0)

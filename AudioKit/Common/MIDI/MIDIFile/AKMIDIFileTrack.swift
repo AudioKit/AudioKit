@@ -16,6 +16,10 @@ public struct AKMIDIFileTrack {
         return chunk.chunkEvents.compactMap({ AKMIDIEvent(fileEvent: $0) })
     }
 
+    public var length: Double {
+        return events.last?.positionInBeats ?? 0
+    }
+
     public var name: String? {
         if let nameChunk = chunk.chunkEvents.first(where: { $0.typeByte == AKMIDIMetaEventType.trackName.rawValue }),
             let meta = AKMIDIMetaEvent(data: nameChunk.computedData) {

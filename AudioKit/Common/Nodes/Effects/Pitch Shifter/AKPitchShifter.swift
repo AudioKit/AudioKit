@@ -53,7 +53,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
                 shiftParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.shift, value: newValue)
         }
     }
@@ -66,7 +66,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
                 windowSizeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.windowSize, value: newValue)
         }
     }
@@ -79,7 +79,7 @@ open class AKPitchShifter: AKNode, AKToggleable, AKComponent, AKInput {
                 crossfadeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.crossfade, value: newValue)
         }
     }
