@@ -102,7 +102,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 predelayParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.predelay, value: newValue)
         }
     }
@@ -115,7 +115,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 crossoverFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.crossoverFrequency, value: newValue)
         }
     }
@@ -128,7 +128,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 lowReleaseTimeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.lowReleaseTime, value: newValue)
         }
     }
@@ -141,7 +141,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 midReleaseTimeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.midReleaseTime, value: newValue)
         }
     }
@@ -154,7 +154,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 dampingFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.dampingFrequency, value: newValue)
         }
     }
@@ -167,7 +167,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 equalizerFrequency1Parameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.equalizerFrequency1, value: newValue)
         }
     }
@@ -180,7 +180,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 equalizerLevel1Parameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.equalizerLevel1, value: newValue)
         }
     }
@@ -193,7 +193,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 equalizerFrequency2Parameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.equalizerFrequency2, value: newValue)
         }
     }
@@ -206,7 +206,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 equalizerLevel2Parameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.equalizerLevel2, value: newValue)
         }
     }
@@ -219,7 +219,7 @@ open class AKZitaReverb: AKNode, AKToggleable, AKComponent, AKInput {
                 dryWetMixParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.dryWetMix, value: newValue)
         }
     }

@@ -11,6 +11,6 @@ import CoreAudio
 
 func makeBufferSilent(_ ioData: UnsafeMutableAudioBufferListPointer) {
     for buf in ioData {
-        memset(buf.mData, 0, Int(buf.mDataByteSize));
+        memset(buf.mData, 0, Int(buf.mDataByteSize))
     }
 }

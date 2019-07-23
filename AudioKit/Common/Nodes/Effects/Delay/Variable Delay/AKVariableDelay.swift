@@ -49,7 +49,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
                 timeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.time, value: newValue)
         }
     }
@@ -62,7 +62,7 @@ open class AKVariableDelay: AKNode, AKToggleable, AKComponent, AKInput {
                 feedbackParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }

@@ -20,7 +20,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
     fileprivate var amplitudeParameter: AUParameter?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 0 ... 22000.0
+    public static let frequencyRange = 0 ... 22_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange = 0 ... 1.0
@@ -49,7 +49,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -62,7 +62,7 @@ open class AKPluckedString: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }

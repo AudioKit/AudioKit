@@ -11,7 +11,7 @@ import SwiftOSC
 
 class ViewController: NSViewController, NSWindowDelegate {
 
-    var client = OSCClient(address: "localhost", port: 9001)
+    var client = OSCClient(address: "localhost", port: 9_001)
 
     override func viewDidLoad() {
         super.viewDidLoad()
