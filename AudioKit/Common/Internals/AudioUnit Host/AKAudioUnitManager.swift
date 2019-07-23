@@ -144,11 +144,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Initialization
-
-    // ------------------------------------------
 
     /// Initialize the manager with arbritary amount of inserts
     public convenience init(inserts: Int) {
@@ -162,24 +158,20 @@ open class AKAudioUnitManager: NSObject {
 
         // regardless of how they're organized above, this'll sort them out
         AKAudioUnitManager.internalAudioUnits.sort()
-
-        // addObservors()
     }
-
-    // ------------------------------------------
 
     // MARK: - Observation
 
-    // ------------------------------------------
+    // Only add if there is a delegate to receive the messages
 
     private func addObservors() {
         // Sign up for a notification when the list of available components changes.
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.componentRegistrationObservor),
+                                               selector: #selector(componentRegistrationObservor),
                                                name: .ComponentRegistrationsChanged,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.componentInstanceObservor),
+                                               selector: #selector(componentInstanceObservor),
                                                name: .ComponentInstanceInvalidation,
                                                object: nil)
     }
@@ -201,11 +193,7 @@ open class AKAudioUnitManager: NSObject {
         delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
     }
 
-    // ------------------------------------------
-
     // MARK: - Requesting Effects and Instruments
-
-    // ------------------------------------------
 
     /// requests a list of Effects, and caches the results
     public func requestEffects(completionHandler: AKComponentListCallback? = nil) {
@@ -277,11 +265,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Effects Chain management
-
-    // ------------------------------------------
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
         if let au = _effectsChain[index] {
@@ -424,12 +408,9 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Dispose
 
-    // ------------------------------------------
-
+    /// Should be called when done with this class to release references
     public func dispose() {
         AKLog("disposing AKAudioUnitManager")
         removeEffects()
@@ -438,6 +419,7 @@ open class AKAudioUnitManager: NSObject {
         _effectsChain.removeAll()
         input = nil
         output = nil
+        // this will also remove the observors if added
         delegate = nil
     }
 
