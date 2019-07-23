@@ -55,7 +55,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -68,7 +68,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 attackDurationParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.attackDuration, value: newValue)
         }
     }
@@ -81,7 +81,7 @@ open class AKFormantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 decayDurationParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }

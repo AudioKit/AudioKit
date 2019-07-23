@@ -26,7 +26,7 @@ try drums.loadAudioFiles([bassDrumFile,
                           openHiHatFile,
                           snareDrumFile])
 
-let sequencer = AKSequencer(filename: "4tracks")
+let sequencer = AKAppleSequencer(filename: "4tracks")
 sequencer.clearRange(start: AKDuration(beats: 0), duration: AKDuration(beats: 100))
 sequencer.debug()
 sequencer.setGlobalMIDIOutput(drums.midiIn)

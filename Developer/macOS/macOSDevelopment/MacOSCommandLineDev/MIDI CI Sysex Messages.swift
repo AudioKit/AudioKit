@@ -11,7 +11,7 @@ import AudioKit
 
 /// MIDI CI device id
 enum MIDICIMessageTypeByte: MIDIByte {
-    case universalSystemExclusive   = 0x7E
+    case universalSystemExclusive = 0x7E
 }
 
 /// MIDI CI device id
@@ -36,7 +36,7 @@ enum MIDICIDeviceId: MIDIByte {
 }
 
 enum MIDICISubID1: MIDIByte {
-    case identifier   = 0x0D
+    case identifier = 0x0D
 }
 
 enum MIDICISubID2: MIDIByte {
@@ -56,54 +56,54 @@ enum MIDICISubID2: MIDIByte {
     case reserved13 = 0x0D
     case reserved14 = 0x0E
     case reserved15 = 0x0F
-    case protocolNegotiation0   = 0x10
-    case protocolNegotiation1   = 0x11
-    case protocolNegotiation2   = 0x12
-    case protocolNegotiation3   = 0x13
-    case protocolNegotiation4   = 0x14
-    case protocolNegotiation5   = 0x15
-    case protocolNegotiation6   = 0x16
-    case protocolNegotiation7   = 0x17
-    case protocolNegotiation8   = 0x18
-    case protocolNegotiation9   = 0x19
-    case protocolNegotiation10   = 0x1A
-    case protocolNegotiation11   = 0x1B
-    case protocolNegotiation12   = 0x1C
-    case protocolNegotiation13   = 0x1D
-    case protocolNegotiation14   = 0x1E
-    case protocolNegotiation15   = 0x1F
-    case profileConfiguration0      = 0x20
-    case profileConfiguration1      = 0x21
-    case profileConfiguration2      = 0x22
-    case profileConfiguration3      = 0x23
-    case profileConfiguration4      = 0x24
-    case profileConfiguration5      = 0x25
-    case profileConfiguration6      = 0x26
-    case profileConfiguration7      = 0x27
-    case profileConfiguration8      = 0x28
-    case profileConfiguration9      = 0x29
-    case profileConfiguration10     = 0x2A
-    case profileConfiguration11     = 0x2B
-    case profileConfiguration12     = 0x2C
-    case profileConfiguration13     = 0x2D
-    case profileConfiguration14     = 0x2E
-    case profileConfiguration15     = 0x2F
-    case propertyExchange0      = 0x30
-    case propertyExchange1      = 0x31
-    case propertyExchange2      = 0x32
-    case propertyExchange3      = 0x33
-    case propertyExchange4      = 0x34
-    case propertyExchange5      = 0x35
-    case propertyExchange6      = 0x36
-    case propertyExchange7      = 0x37
-    case propertyExchange8      = 0x38
-    case propertyExchange9      = 0x39
-    case propertyExchange10     = 0x3A
-    case propertyExchange11     = 0x3B
-    case propertyExchange12     = 0x3C
-    case propertyExchange13     = 0x3D
-    case propertyExchange14     = 0x3E
-    case propertyExchange15     = 0x3F
+    case protocolNegotiation0 = 0x10
+    case protocolNegotiation1 = 0x11
+    case protocolNegotiation2 = 0x12
+    case protocolNegotiation3 = 0x13
+    case protocolNegotiation4 = 0x14
+    case protocolNegotiation5 = 0x15
+    case protocolNegotiation6 = 0x16
+    case protocolNegotiation7 = 0x17
+    case protocolNegotiation8 = 0x18
+    case protocolNegotiation9 = 0x19
+    case protocolNegotiation10 = 0x1A
+    case protocolNegotiation11 = 0x1B
+    case protocolNegotiation12 = 0x1C
+    case protocolNegotiation13 = 0x1D
+    case protocolNegotiation14 = 0x1E
+    case protocolNegotiation15 = 0x1F
+    case profileConfiguration0 = 0x20
+    case profileConfiguration1 = 0x21
+    case profileConfiguration2 = 0x22
+    case profileConfiguration3 = 0x23
+    case profileConfiguration4 = 0x24
+    case profileConfiguration5 = 0x25
+    case profileConfiguration6 = 0x26
+    case profileConfiguration7 = 0x27
+    case profileConfiguration8 = 0x28
+    case profileConfiguration9 = 0x29
+    case profileConfiguration10 = 0x2A
+    case profileConfiguration11 = 0x2B
+    case profileConfiguration12 = 0x2C
+    case profileConfiguration13 = 0x2D
+    case profileConfiguration14 = 0x2E
+    case profileConfiguration15 = 0x2F
+    case propertyExchange0 = 0x30
+    case propertyExchange1 = 0x31
+    case propertyExchange2 = 0x32
+    case propertyExchange3 = 0x33
+    case propertyExchange4 = 0x34
+    case propertyExchange5 = 0x35
+    case propertyExchange6 = 0x36
+    case propertyExchange7 = 0x37
+    case propertyExchange8 = 0x38
+    case propertyExchange9 = 0x39
+    case propertyExchange10 = 0x3A
+    case propertyExchange11 = 0x3B
+    case propertyExchange12 = 0x3C
+    case propertyExchange13 = 0x3D
+    case propertyExchange14 = 0x3E
+    case propertyExchange15 = 0x3F
     case reserved16 = 0x40
     case reserved17 = 0x41
     case reserved18 = 0x42
@@ -171,7 +171,7 @@ enum MIDICISubID2: MIDIByte {
 }
 
 enum MIDICIVersion: MIDIByte {
-    case v1   = 0x00
+    case v1 = 0x00
 }
 
 let MIDICISysexStart: [MIDIByte] = [AKMIDISystemCommand.sysex.rawValue,
@@ -186,7 +186,7 @@ struct MNID {
     }
 
     mutating func topologyChanged() {
-        let random32 = UInt32.random(in: 0...(2^28))
+        let random32 = UInt32.random(in: 0...(2 ^ 28))
         mnid_high = MIDIWord(UInt16(random32 >> 16))
         mnid_low = MIDIWord(UInt16(random32 & 0x0000FFFF))
     }

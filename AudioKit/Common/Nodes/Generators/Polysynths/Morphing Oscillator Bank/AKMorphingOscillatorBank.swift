@@ -54,8 +54,7 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             if internalAU?.isSetUp == true {
                 indexParameter?.value = AUValue(newValue)
                 return
-            }
-                 else {
+            } else {
                 internalAU?.index = AUValue(newValue)
             }
         }

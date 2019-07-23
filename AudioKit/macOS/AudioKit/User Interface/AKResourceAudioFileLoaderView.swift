@@ -158,12 +158,13 @@ public class AKResourcesAudioFileLoaderView: NSView {
         stopOuterPath.fill()
 
         //// stopInner Drawing
-        let stopInnerPath = NSBezierPath(roundedRect: NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
-                                                             y: rect.height * 0.25,
-                                                             width: rect.height * 0.5,
-                                                             height: rect.height * 0.5),
-                                         xRadius: cornerRadius,
-                                         yRadius: cornerRadius)
+        let stopInnerPath = NSBezierPath(
+            roundedRect: NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + cornerRadius,
+                                y: rect.height * 0.25,
+                                width: rect.height * 0.5,
+                                height: rect.height * 0.5),
+            xRadius: cornerRadius,
+            yRadius: cornerRadius)
         dark.setFill()
         stopInnerPath.fill()
 
@@ -177,7 +178,9 @@ public class AKResourcesAudioFileLoaderView: NSView {
         playOuterPath.fill()
 
         //// playInner Drawing
-        let playRect = NSRect(x: (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth + rect.width * 0.13 + borderWidth,
+        let playRectX = (rect.width * 0.13 - rect.height * 0.5) / 2 + borderWidth +
+            rect.width * 0.13 + borderWidth
+        let playRect = NSRect(x: playRectX,
                               y: rect.height * 0.25,
                               width: rect.height * 0.5,
                               height: rect.height * 0.5)

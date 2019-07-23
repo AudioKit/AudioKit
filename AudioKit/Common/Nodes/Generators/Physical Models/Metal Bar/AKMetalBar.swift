@@ -90,7 +90,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 leftBoundaryConditionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.leftBoundaryCondition, value: newValue)
         }
     }
@@ -103,7 +103,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 rightBoundaryConditionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.rightBoundaryCondition, value: newValue)
         }
     }
@@ -116,7 +116,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 decayDurationParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.decayDuration, value: newValue)
         }
     }
@@ -129,7 +129,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 scanSpeedParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.scanSpeed, value: newValue)
         }
     }
@@ -142,7 +142,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 positionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.position, value: newValue)
         }
     }
@@ -155,7 +155,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 strikeVelocityParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.strikeVelocity, value: newValue)
         }
     }
@@ -168,7 +168,7 @@ open class AKMetalBar: AKNode, AKToggleable, AKComponent {
                 strikeWidthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.strikeWidth, value: newValue)
         }
     }

@@ -110,10 +110,10 @@ extension AKMIDI {
         let name: String = zip(destinationNames, destinationUIDs).first { (arg: (String, MIDIUniqueID)) -> Bool in
                 let (_, uid) = arg
                 return destUid == uid
-            }.map { (arg) -> String in
+        }.map { (arg) -> String in
                 let (name, _) = arg
                 return name
-            } ?? "Uknown"
+        } ?? "Uknown"
         return name
     }
 
@@ -186,7 +186,7 @@ extension AKMIDI {
             _ = zip(destinationUIDs, destinations).first { (arg: (MIDIUniqueID, MIDIDestinations.Element)) -> Bool in
                     let (uid, _) = arg
                     return outputUid == uid
-                }.map {
+            }.map {
                     endpoints[$0] = $1
             }
         }
@@ -241,7 +241,7 @@ extension AKMIDI {
     }
 
     /// Send Message with data
-    public func sendMessage(_ data: [MIDIByte]) {
+    public func sendMessage(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
 
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
@@ -261,25 +261,25 @@ extension AKMIDI {
         // explicit alloc and dealloc.
         buffer.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) -> Void in
             if let packetListPointer = ptr.bindMemory(to: MIDIPacketList.self).baseAddress {
-                
+
                 let packet = MIDIPacketListInit(packetListPointer)
                 let nextPacket: UnsafeMutablePointer<MIDIPacket>? =
-                    MIDIPacketListAdd(packetListPointer, bufferSize, packet, 0, data.count, data)
-                
+                    MIDIPacketListAdd(packetListPointer, bufferSize, packet, offset, data.count, data)
+
                 // I would prefer stronger error handling here, perhaps throwing
                 // to force the app developer to handle the error.
                 if nextPacket == nil {
                     AKLog("error sending midi : Failed to add packet to packet list.")
                     return
                 }
-                
+
                 for endpoint in endpoints.values {
                     let result = MIDISend(outputPort, endpoint, packetListPointer)
                     if result != noErr {
                         AKLog("error sending midi : \(result)")
                     }
                 }
-                
+
                 if virtualOutput != 0 {
                     MIDIReceived(virtualOutput, packetListPointer)
                 }

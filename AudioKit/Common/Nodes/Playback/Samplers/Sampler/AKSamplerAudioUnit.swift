@@ -162,7 +162,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .ratio,
             flags: .default)
 
@@ -192,7 +192,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -202,7 +202,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -222,7 +222,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -232,7 +232,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -242,7 +242,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -262,7 +262,7 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -410,10 +410,8 @@ public class AKSamplerAudioUnit: AKGeneratorAudioUnitBase {
         doAKSamplerSetLoopThruRelease(dsp, thruRelease)
     }
 
-    public func playNote(noteNumber: UInt8,
-                         velocity: UInt8,
-                         noteFrequency: Float) {
-        doAKSamplerPlayNote(dsp, noteNumber, velocity, noteFrequency)
+    public func playNote(noteNumber: UInt8, velocity: UInt8) {
+        doAKSamplerPlayNote(dsp, noteNumber, velocity)
     }
 
     public func stopNote(noteNumber: UInt8, immediate: Bool) {

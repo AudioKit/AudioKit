@@ -29,7 +29,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     fileprivate var detuningMultiplierParameter: AUParameter?
 
     /// Lower and upper bounds for Frequency
-    public static let frequencyRange = 0.0 ... 20000.0
+    public static let frequencyRange = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Amplitude
     public static let amplitudeRange = 0.0 ... 10.0
@@ -38,7 +38,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
     public static let phaseDistortionRange = -1.0 ... 1.0
 
     /// Lower and upper bounds for Detuning Offset
-    public static let detuningOffsetRange = -1000.0 ... 1000.0
+    public static let detuningOffsetRange = -1_000.0 ... 1_000.0
 
     /// Lower and upper bounds for Detuning Multiplier
     public static let detuningMultiplierRange = 0.9 ... 1.11
@@ -73,7 +73,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -86,7 +86,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }
@@ -99,7 +99,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 phaseDistortionParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.phaseDistortion, value: newValue)
         }
     }
@@ -112,7 +112,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 detuningOffsetParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningOffset, value: newValue)
         }
     }
@@ -125,7 +125,7 @@ open class AKPhaseDistortionOscillator: AKNode, AKToggleable, AKComponent {
                 detuningMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.detuningMultiplier, value: newValue)
         }
     }

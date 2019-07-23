@@ -77,7 +77,7 @@ extension AKSampler {
                         }
                     }
 
-                    let noteFrequency = Float(440.0 * pow(2.0, (Double(noteNumber) - 69.0)/12.0))
+                    let noteFrequency = Float(440.0 * pow(2.0, (Double(noteNumber) - 69.0) / 12.0))
 
                     let noteLog = "load \(noteNumber) \(noteFrequency) NN range \(lowNoteNumber)-\(highNoteNumber)"
                     AKLog("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")

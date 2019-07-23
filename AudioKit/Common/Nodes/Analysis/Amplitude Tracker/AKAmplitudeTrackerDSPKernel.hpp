@@ -66,6 +66,44 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+        for (int channel = 0; channel < channels; ++channel) {
+            float computedAmp = 0;
+            float lastAmp = 0;
+            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+                int frameOffset = int(frameIndex + bufferOffset);
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float passthrough = *in;
+                if (started) {
+                    if (mode == 0 || mode == 1) {
+                        if (channel == 0) {
+                            sp_rms_compute(sp, leftRMS, in, out);
+                        } else if (channel == 1) {
+                            sp_rms_compute(sp, rightRMS, in, out);
+                        }
+                        lastAmp = *out;
+                        if (mode == 0) {
+                            computedAmp = lastAmp;
+                        } else if (mode == 1) {
+                            if (lastAmp > computedAmp) {
+                                computedAmp = lastAmp;
+                            }
+                        }
+                    } else if (mode == 2) {
+                        lastAmp = fabs(*in);
+                        if (lastAmp > computedAmp) {
+                            computedAmp = lastAmp;
+                        }
+                    }
+                }
+                *out = passthrough;
+            }
+            if (channel == 0) {
+                leftAmplitude = computedAmp;
+            } else if (channel == 1) {
+                rightAmplitude = computedAmp;
+            }
+        }
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
@@ -121,6 +159,7 @@ public:
     float leftAmplitude = 0.0;
     float rightAmplitude = 0.0;
     bool isAboveThreshold = false;
+    int mode = 2; // 0 = last RMS, 1 = max RMS, 2 = peak
     //float smoothness = 0.05; //in development
     AKThresholdCallback thresholdCallback = nullptr;
 };
