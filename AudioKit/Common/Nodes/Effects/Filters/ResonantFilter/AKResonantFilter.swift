@@ -47,7 +47,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -60,7 +60,7 @@ open class AKResonantFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 bandwidthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }

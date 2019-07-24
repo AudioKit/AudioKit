@@ -16,7 +16,6 @@ class VocalTractTests: AKTestCase {
         duration = 1.0
     }
 
-
     func testDefault() {
         output = AKOperationGenerator { _ in
             return AKOperation.vocalTract()

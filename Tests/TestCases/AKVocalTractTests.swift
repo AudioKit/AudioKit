@@ -17,7 +17,7 @@ class AKVocalTractTests: AKTestCase {
         vocalTract.rampDuration = 0
         vocalTract.start()
     }
-    
+
     func testDefault() {
         output = AKVocalTract()
         AKTestMD5("1e99cc28428af7353ca4f1dc1ba7cbca")

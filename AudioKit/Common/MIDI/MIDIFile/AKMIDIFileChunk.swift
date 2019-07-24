@@ -39,7 +39,7 @@ extension AKMIDIFileChunk {
     }
 
     var type: MIDIFileChunkType? {
-        return MIDIFileChunkType.init(data: typeData)
+        return MIDIFileChunkType(data: typeData)
     }
 
     var isHeader: Bool {
@@ -54,7 +54,7 @@ extension AKMIDIFileChunk {
 enum MIDIFileChunkType: String {
     case track = "MTrk"
     case header = "MThd"
-    
+
     init?(data: [UInt8]) {
         let text = String(data.map({ Character(UnicodeScalar($0)) }))
         self.init(text: text)

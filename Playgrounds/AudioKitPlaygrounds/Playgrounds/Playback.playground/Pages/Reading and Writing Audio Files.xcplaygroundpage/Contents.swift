@@ -25,7 +25,7 @@ let drumloop = try AKAudioFile(readFileName: "drumloop.wav")
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs.
 //: Notice that an error message is printed in the debug area, and an error is thrown...
 do {
-    let _ = try AKAudioFile(readFileName: "nonExistent.wav")
+    _ = try AKAudioFile(readFileName: "nonExistent.wav")
 } catch let error as NSError {
     AKLog("There's an error: \(error)")
 }
@@ -75,8 +75,8 @@ drumloop.exportAsynchronously(name: "exported.m4a",
 //:
 //: The simplest way to create such a file is like this:
 if let myWorkingFile = try? AKAudioFile(), let mySecondWorkingFile = try? AKAudioFile() {
-    let _ = myWorkingFile.fileNamePlusExtension
-    let _ = mySecondWorkingFile.fileNamePlusExtension
+    _ = myWorkingFile.fileNamePlusExtension
+    _ = mySecondWorkingFile.fileNamePlusExtension
 }
 
 //: But the benefits of using AKAudioFile instead of AVAudioFile, is that you can normalize,

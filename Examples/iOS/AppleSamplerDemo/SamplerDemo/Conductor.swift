@@ -21,7 +21,7 @@ enum Sound: String {
 }
 
 class Conductor {
-    private var sequencer: AKSequencer!
+    private var sequencer: AKAppleSequencer!
     private var mixer = AKMixer()
     private var arpeggioSynthesizer = AKMIDISampler()
     private var padSynthesizer = AKMIDISampler()
@@ -50,7 +50,7 @@ class Conductor {
             AKLog("AudioKit did not start!")
         }
 
-        sequencer = AKSequencer(filename: "seqDemo")
+        sequencer = AKAppleSequencer(filename: "seqDemo")
         sequencer.enableLooping()
         sequencer.tracks[1].setMIDIOutput(arpeggioSynthesizer.midiIn)
         sequencer.tracks[2].setMIDIOutput(bassSynthesizer.midiIn)

@@ -31,7 +31,10 @@ open class AKMIDIMonoPolyListener: NSObject {
 
 extension AKMIDIMonoPolyListener: AKMIDIListener {
 
-    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    public func receivedMIDIController(_ controller: MIDIByte,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel,
+                                       offset: MIDITimeStamp = 0) {
         if controller == AKMIDIControl.monoOperation.rawValue {
             guard monoMode == false else { return }
             monoMode = true

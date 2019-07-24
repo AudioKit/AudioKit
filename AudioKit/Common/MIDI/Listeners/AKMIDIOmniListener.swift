@@ -26,7 +26,10 @@ open class AKMIDIOMNIListener: NSObject {
 
 extension AKMIDIOMNIListener: AKMIDIListener {
 
-    public func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    public func receivedMIDIController(_ controller: MIDIByte,
+                                       value: MIDIByte,
+                                       channel: MIDIChannel,
+                                       offset: MIDITimeStamp = 0) {
         if controller == AKMIDIControl.omniModeOff.rawValue {
             guard omniMode == true else { return }
             omniMode = false

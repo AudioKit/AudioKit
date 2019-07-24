@@ -134,7 +134,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterStrength",
             name: "Filter EG strength",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .ratio,
             flags: .default)
 
@@ -154,7 +154,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -164,7 +164,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -184,7 +184,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -194,7 +194,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -204,7 +204,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
@@ -224,7 +224,7 @@ public class AKSynthAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
             address: parameterAddress,
-            range: 0.0...1000.0,
+            range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 

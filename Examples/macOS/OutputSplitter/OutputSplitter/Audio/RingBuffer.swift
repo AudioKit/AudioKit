@@ -11,7 +11,7 @@ import CoreAudio
 // region MARK: - Supporting Definitions
 
 // Next power of two greater or equal to x
-fileprivate func nextPowerOfTwo(_ value: UInt32) -> UInt32 {
+private func nextPowerOfTwo(_ value: UInt32) -> UInt32 {
     // TODO: Performance optimization required. See: http://stackoverflow.com/questions/466204/rounding-up-to-nearest-power-of-2
     var power: UInt32 = 1
     while power < value {
@@ -22,10 +22,10 @@ fileprivate func nextPowerOfTwo(_ value: UInt32) -> UInt32 {
 
 public typealias SampleTime = Int64
 
-fileprivate let kGeneralRingTimeBoundsQueueSize: UInt32 = 32
-fileprivate let kGeneralRingTimeBoundsQueueMask: Int32 = Int32(kGeneralRingTimeBoundsQueueSize) - 1
+private let kGeneralRingTimeBoundsQueueSize: UInt32 = 32
+private let kGeneralRingTimeBoundsQueueMask: Int32 = Int32(kGeneralRingTimeBoundsQueueSize) - 1
 
-fileprivate struct RingBufferTimeBounds {
+private struct RingBufferTimeBounds {
     var mStartTime: SampleTime = 0
     var mEndTime: SampleTime = 0
     var mUpdateCounter: UInt32 = 0
