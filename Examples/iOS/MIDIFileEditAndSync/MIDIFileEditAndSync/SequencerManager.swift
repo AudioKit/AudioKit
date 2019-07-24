@@ -10,7 +10,7 @@ import AudioKit
 import Foundation
 
 class SequencerManager {
-    var seq: AKSequencer?
+    var seq: AKAppleSequencer?
     let oscBank = AKFMOscillatorBank(waveform: AKTable(.triangle),
                                      attackDuration: 0.01,
                                      decayDuration: 0.03)
@@ -25,7 +25,7 @@ class SequencerManager {
     }
 
     fileprivate func setUpSequencer() {
-        seq = AKSequencer(filename: "D_mixolydian_01")
+        seq = AKAppleSequencer(filename: "D_mixolydian_01")
         seq?.setLength(minLoopLength)
         seq?.enableLooping()
         node = AKMIDINode(node: oscBank)

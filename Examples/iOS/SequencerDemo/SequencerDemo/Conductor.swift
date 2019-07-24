@@ -20,7 +20,7 @@ class Conductor {
     var snareMixer = AKMixer()
     var snareVerb: AKReverb!
 
-    var sequencer = AKSequencer()
+    var sequencer = AKAppleSequencer()
     var mixer = AKMixer()
     var pumper: AKCompressor!
 

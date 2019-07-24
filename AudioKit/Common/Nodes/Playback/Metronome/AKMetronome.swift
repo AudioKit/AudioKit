@@ -16,7 +16,7 @@ public let callbackUgen =
             }
         }
         stack.push(trigger)
-}
+    }
 
 /// Useful metronome class that you can utilize for your own projects
 public class AKMetronome: AKOperationGenerator {

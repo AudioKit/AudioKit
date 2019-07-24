@@ -40,7 +40,7 @@ extension Array where Element: Numeric {
             let accumulator = Float64(priorResult)
             let floatItem = item as! Float64
             let diff = floatItem - mean
-            return accumulator + diff*diff
+            return accumulator + diff * diff
         }
         return sqrt(v / (Float64(self.count) - 1))
     }
@@ -64,7 +64,7 @@ struct BPMHistoryStatistics {
 
     // Configure countIndex to use the results that you'd like to look at
     let regressionCountIndex = 5
-    let historyCounts = [3,6,12,24,48,96,192,384]
+    let historyCounts = [3, 6, 12, 24, 48, 96, 192, 384]
 
     var bpmHistory: [BPMType]
     var actualTimeHistory: [UInt64]
@@ -164,8 +164,8 @@ struct BPMHistoryStatistics {
         guard timeStats.count >= regressionCountIndex else { return }
         guard bpmStats.count >= regressionCountIndex else { return }
         let pairs = zip(timeHistory, bpmHistory)
-        let meanTime = timeStats[regressionCountIndex-1].mean
-        let meanBPM = bpmStats[regressionCountIndex-1].mean
+        let meanTime = timeStats[regressionCountIndex - 1].mean
+        let meanBPM = bpmStats[regressionCountIndex - 1].mean
         let a = pairs.reduce(0) { $0 + ($1.0 - meanTime) * ($1.1 - meanBPM) }
         let b = pairs.reduce(0) { $0 + pow($1.0 - meanTime, 2) }
 
@@ -191,7 +191,7 @@ struct BPMHistoryStatistics {
 
         guard let results = bpmStats.min(by: { (left, right) -> Bool in
             return left.std <= right.std
-        }) else { return (0,0,0,0,0) }
+        }) else { return (0, 0, 0, 0, 0) }
 
         return (results.mean, results.std, 0, 0, 0)
     }
@@ -208,7 +208,7 @@ struct BPMHistoryAveraging {
     init(countLimit limit: Int) {
         countLimit = limit
         bpmHistory = []
-        results = (0,0)
+        results = (0, 0)
     }
 
     mutating func record(_ bpm: BPMType) {
@@ -237,9 +237,9 @@ struct BPMHistoryAveraging {
 /// It simply applies a weight between a new value and a
 /// prior stored smoothed value using a factor give at initialization.
 struct ValueSmoothing {
-    var smoothed : Float64
-    let factor : Float64
-    let priorDataFactor : Float64
+    var smoothed: Float64
+    let factor: Float64
+    let priorDataFactor: Float64
 
     init(factor fact: Float64) {
         factor = fact
@@ -256,6 +256,3 @@ struct ValueSmoothing {
         return smoothed
     }
 }
-
-
-

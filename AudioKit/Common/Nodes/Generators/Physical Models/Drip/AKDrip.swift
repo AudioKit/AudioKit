@@ -83,7 +83,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 intensityParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.intensity, value: newValue)
         }
     }
@@ -96,7 +96,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 dampingFactorParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.dampingFactor, value: newValue)
         }
     }
@@ -109,7 +109,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 energyReturnParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.energyReturn, value: newValue)
         }
     }
@@ -122,7 +122,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 mainResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.mainResonantFrequency, value: newValue)
         }
     }
@@ -135,7 +135,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 firstResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.firstResonantFrequency, value: newValue)
         }
     }
@@ -148,7 +148,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 secondResonantFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.secondResonantFrequency, value: newValue)
         }
     }
@@ -161,7 +161,7 @@ open class AKDrip: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }

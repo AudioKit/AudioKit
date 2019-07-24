@@ -12,17 +12,17 @@ import CoreAudio
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
-    
+
     // MARK: - Properties
-    
+
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
-    
+
     /// Name of the instrument
     open var name = "AudioKit MIDI Instrument"
-    
+
     open var mpeActiveNotes: [(note: MIDINoteNumber, channel: MIDIChannel)] = []
-    
+
     /// Initialize the MIDI Instrument
     ///
     /// - Parameter midiInputName: Name of the instrument's MIDI input
@@ -33,7 +33,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         enableMIDI(name: midiInputName ?? name)
         hideVirtualMIDIPort()
     }
-    
+
     /// Enable MIDI input from a given MIDI client
     ///
     /// - Parameters:
@@ -49,7 +49,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             }
         })
     }
-    
+
     private func handle(event: AKMIDIEvent) {
         guard event.data.count > 2 else {
             return
@@ -58,9 +58,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                         data2: event.data[1],
                         data3: event.data[2])
     }
-    
+
     // MARK: - Handling MIDI Data
-    
+
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -79,7 +79,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             stop(noteNumber: noteNumber, channel: channel)
         }
     }
-    
+
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
@@ -94,7 +94,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         stop(noteNumber: noteNumber, channel: channel)
         mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
     }
-    
+
     /// Receive a generic controller value
     ///
     /// - Parameters:
@@ -108,7 +108,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                                            offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
-    
+
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
@@ -122,7 +122,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                                            offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
-    
+
     /// Receive global aftertouch
     ///
     /// - Parameters:
@@ -134,7 +134,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                                            offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
-    
+
     /// Receive pitch wheel value
     ///
     /// - Parameters:
@@ -146,9 +146,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                                            offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
-    
+
     // MARK: - MIDI Note Start/Stop
-    
+
     /// Start a note
     ///
     /// - Parameters:
@@ -162,7 +162,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
                           offset: MIDITimeStamp = 0) {
         play(noteNumber: noteNumber, velocity: velocity, channel: channel)
     }
-    
+
     /// Stop a note
     ///
     /// - Parameters:
@@ -184,9 +184,9 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     @objc open func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel, offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
-    
+
     // MARK: - Private functions
-    
+
     // Send MIDI data to the audio unit
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
         if let status = AKMIDIStatus(byte: data1), let statusType = status.type {
@@ -215,11 +215,11 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             }
         }
     }
-    
+
     func showVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
     }
-    
+
     func hideVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }

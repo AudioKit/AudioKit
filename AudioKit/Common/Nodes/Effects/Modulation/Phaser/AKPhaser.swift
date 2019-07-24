@@ -96,7 +96,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 notchMinimumFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.notchMinimumFrequency, value: newValue)
         }
     }
@@ -109,7 +109,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 notchMaximumFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.notchMaximumFrequency, value: newValue)
         }
     }
@@ -122,7 +122,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 notchWidthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.notchWidth, value: newValue)
         }
     }
@@ -135,7 +135,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 notchFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.notchFrequency, value: newValue)
         }
     }
@@ -148,7 +148,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 vibratoModeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.vibratoMode, value: newValue)
         }
     }
@@ -161,7 +161,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 depthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.depth, value: newValue)
         }
     }
@@ -174,7 +174,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 feedbackParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.feedback, value: newValue)
         }
     }
@@ -187,7 +187,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 invertedParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.inverted, value: newValue)
         }
     }
@@ -200,7 +200,7 @@ open class AKPhaser: AKNode, AKToggleable, AKComponent, AKInput {
                 lfoBPMParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.lfoBPM, value: newValue)
         }
     }

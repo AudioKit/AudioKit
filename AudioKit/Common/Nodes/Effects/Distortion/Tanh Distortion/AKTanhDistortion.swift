@@ -60,7 +60,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
                 pregainParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.pregain, value: newValue)
         }
     }
@@ -73,7 +73,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
                 postgainParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.postgain, value: newValue)
         }
     }
@@ -86,7 +86,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
                 positiveShapeParameterParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.positiveShapeParameter, value: newValue)
         }
     }
@@ -99,7 +99,7 @@ open class AKTanhDistortion: AKNode, AKToggleable, AKComponent, AKInput {
                 negativeShapeParameterParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.negativeShapeParameter, value: newValue)
         }
     }

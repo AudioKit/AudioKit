@@ -181,6 +181,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Sequencer
 #import "AKSamplerMetronome.h"
+#if !TARGET_OS_TV
+#import "AKSequencerEngine.h"
+#endif
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"

@@ -39,7 +39,7 @@ open class AKPanner: AKNode, AKToggleable, AKComponent, AKInput {
                 panParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.pan, value: newValue)
         }
     }

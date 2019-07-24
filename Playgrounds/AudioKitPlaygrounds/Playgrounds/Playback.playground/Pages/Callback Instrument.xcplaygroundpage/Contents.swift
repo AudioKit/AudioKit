@@ -7,7 +7,7 @@
 import AudioKitPlaygrounds
 import AudioKit
 
-var sequencer = AKSequencer()
+var sequencer = AKAppleSequencer()
 
 // at Tempo 120, that will trigger every sixteenth note
 var tempo = 120.0

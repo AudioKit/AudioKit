@@ -56,7 +56,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 centerFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.centerFrequency, value: newValue)
         }
     }
@@ -69,7 +69,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 bandwidthParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.bandwidth, value: newValue)
         }
     }
@@ -82,7 +82,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
                 gainParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.gain, value: newValue)
         }
     }

@@ -8,7 +8,7 @@
 
 /// helper object to simulate a Swift tuple for ObjC interoperability
 open class AKTuningTableETNN: NSObject {
-    
+
     @objc public var nn: MIDINoteNumber = 60
     @objc public var pitchBend: Int = 16_384 / 2
     public init(_ nn: MIDINoteNumber = 60, _ pb: Int = 16_384 / 2) {
@@ -188,7 +188,7 @@ open class AKTuningTable: AKTuningTableBase {
 
         // Scale by cents => Frequency space
         for (index, cent) in centsArray.enumerated() {
-            let centF = exp2(cent / 1200)
+            let centF = exp2(cent / 1_200)
             masterSetProcessed[index] = masterSetProcessed[index] * centF
         }
         self.masterSet = masterSetProcessed
@@ -196,8 +196,6 @@ open class AKTuningTable: AKTuningTableBase {
         // update
         self.updateTuningTableFromMasterSet()
     }
-
-
 
     // Assume masterSet is set and valid:  Process and update tuning table.
     @objc internal func updateTuningTableFromMasterSet() {
