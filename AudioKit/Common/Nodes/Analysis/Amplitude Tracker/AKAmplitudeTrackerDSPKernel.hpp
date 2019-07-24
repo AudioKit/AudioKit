@@ -105,33 +105,6 @@ public:
             }
         }
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            for (int channel = 0; channel < channels; ++channel) {
-                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float temp = *in;
-                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (channel == 0) {
-                    if (started) {
-                        sp_rms_compute(sp, leftRMS, in, out);
-                        leftAmplitude = *out;
-                    } else {
-                        leftAmplitude = 0;
-                    }
-                } else {
-                    if (started) {
-                        sp_rms_compute(sp, rightRMS, in, out);
-                        rightAmplitude = *out;
-                    } else {
-                        rightAmplitude = 0;
-                    }
-                }
-                *out = temp;
-            }
-        }
-
         bool wasAboveThreshold = isAboveThreshold;
 
         if ((leftAmplitude + rightAmplitude) / 2.0  > threshold * 1.05 && !wasAboveThreshold) {
@@ -159,7 +132,7 @@ public:
     float leftAmplitude = 0.0;
     float rightAmplitude = 0.0;
     bool isAboveThreshold = false;
-    int mode = 2; // 0 = last RMS, 1 = max RMS, 2 = peak
+    int mode = 0; // 0 = last RMS, 1 = max RMS, 2 = peak
     //float smoothness = 0.05; //in development
     AKThresholdCallback thresholdCallback = nullptr;
 };
