@@ -70,7 +70,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 baseFrequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.baseFrequency, value: newValue)
         }
     }
@@ -83,7 +83,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 carrierMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.carrierMultiplier, value: newValue)
         }
     }
@@ -96,7 +96,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 modulatingMultiplierParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.modulatingMultiplier, value: newValue)
         }
     }
@@ -109,7 +109,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 modulationIndexParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.modulationIndex, value: newValue)
         }
     }
@@ -122,7 +122,7 @@ open class AKFMOscillator: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }

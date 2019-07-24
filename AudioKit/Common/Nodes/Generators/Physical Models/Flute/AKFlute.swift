@@ -34,7 +34,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
                 frequencyParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.frequency, value: newValue)
         }
     }
@@ -47,7 +47,7 @@ open class AKFlute: AKNode, AKToggleable, AKComponent {
                 amplitudeParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.amplitude, value: newValue)
         }
     }

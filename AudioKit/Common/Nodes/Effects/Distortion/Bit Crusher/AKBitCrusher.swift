@@ -58,7 +58,7 @@ open class AKBitCrusher: AKNode, AKToggleable, AKComponent, AKInput {
                 sampleRateParameter?.value = AUValue(newValue)
                 return
             }
-                
+
             internalAU?.setParameterImmediately(.sampleRate, value: newValue)
         }
     }

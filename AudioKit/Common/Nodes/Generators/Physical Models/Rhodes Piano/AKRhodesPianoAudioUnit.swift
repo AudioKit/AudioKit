@@ -42,7 +42,7 @@ public class AKRhodesPianoAudioUnit: AKGeneratorAudioUnitBase {
             identifier: "frequency",
             name: "Frequency (Hz)",
             address: 0,
-            range: 0...20000,
+            range: 0...20_000,
             unit: .hertz,
             flags: .default)
         let amplitude = AUParameter(

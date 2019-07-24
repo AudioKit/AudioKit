@@ -76,13 +76,11 @@ class ViewController: UIViewController {
             AKSettings.sampleRate = AudioKit.engine.inputNode.inputFormat(forBus: 0).sampleRate
             try AKSettings.setSession(category: .playAndRecord)
 
-
             // Measurement mode can have an effect on latency.  But you end up having to boost everything.
             // It's a must if you want accurate recordings.  It turns of the os input processing.
             // Uncomment / Experiment
 
             // try AKSettings.session.setMode(AVAudioSession.Mode.measurement)
-
 
         } catch {
             fatalError(error.localizedDescription)
@@ -284,11 +282,11 @@ extension FileManager {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+private func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
 	return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
+private func convertFromAVAudioSessionMode(_ input: AVAudioSession.Mode) -> String {
 	return input.rawValue
 }

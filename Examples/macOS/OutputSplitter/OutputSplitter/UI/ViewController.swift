@@ -41,9 +41,9 @@ class ViewController: NSViewController {
     func setOutputDeviceSelectors () {
         let outputDevices = EZAudioDevice.outputDevices() as! [EZAudioDevice]
         output1Selector.removeAllItems()
-        output1Selector.addItems(withObjectValues: outputDevices.filter { $0.deviceID != Application.output2?.device.deviceID}.map { $0.name ?? "N/A" })
+        output1Selector.addItems(withObjectValues: outputDevices.filter { $0.deviceID != Application.output2?.device.deviceID }.map { $0.name ?? "N/A" })
         output2Selector.removeAllItems()
-        output2Selector.addItems(withObjectValues: outputDevices.filter { $0.deviceID != Application.output1?.device.deviceID}.map { $0.name ?? "N/A" })
+        output2Selector.addItems(withObjectValues: outputDevices.filter { $0.deviceID != Application.output1?.device.deviceID }.map { $0.name ?? "N/A" })
         if Application.output1 != nil {
             output1Selector.stringValue = Application.output1!.device.name
         }
@@ -70,7 +70,3 @@ class ViewController: NSViewController {
         }
     }
 }
-
-
-
-

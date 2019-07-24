@@ -237,11 +237,11 @@ AudioKitCore::SamplerVoice *AKCoreSampler::voicePlayingNote(unsigned noteNumber)
     return 0;
 }
 
-void AKCoreSampler::playNote(unsigned noteNumber, unsigned velocity, float noteFrequency)
+void AKCoreSampler::playNote(unsigned noteNumber, unsigned velocity)
 {
     bool anotherKeyWasDown = data->pedalLogic.isAnyKeyDown();
     data->pedalLogic.keyDownAction(noteNumber);
-    play(noteNumber, velocity, noteFrequency, anotherKeyWasDown);
+    play(noteNumber, velocity, anotherKeyWasDown);
 }
 
 void AKCoreSampler::stopNote(unsigned noteNumber, bool immediate)
@@ -263,9 +263,11 @@ void AKCoreSampler::sustainPedal(bool down)
     }
 }
 
-void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, float noteFrequency, bool anotherKeyWasDown)
+void AKCoreSampler::play(unsigned noteNumber, unsigned velocity, bool anotherKeyWasDown)
 {
     if (stoppingAllVoices) return;
+
+    float noteFrequency = data->tuningTable[noteNumber];
     
     //printf("playNote nn=%d vel=%d %.2f Hz\n", noteNumber, velocity, noteFrequency);
     // sanity check: ensure we are initialized with at least one buffer

@@ -108,7 +108,7 @@ open class AKSettings: NSObject {
     /// Allows AudioKit to send Notifications
     @objc public static var notificationsEnabled: Bool = false
 
-    /// AudioKit buffer length is set using AKSettings.BufferLength
+    /// AudioKit buffer length is set using AKSettings.bufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     @objc public static var bufferLength: BufferLength = .veryLong
 
@@ -157,7 +157,7 @@ open class AKSettings: NSObject {
     @objc public static var ioBufferDuration: Double {
         set {
             do {
-                try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
+                try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
             } catch {
                 AKLog(error)
