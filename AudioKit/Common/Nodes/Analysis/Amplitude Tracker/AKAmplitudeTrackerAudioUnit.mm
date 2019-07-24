@@ -35,6 +35,7 @@
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
 }
+
 - (void)setMode:(int)mode {
     _kernel.mode = mode;
 }
