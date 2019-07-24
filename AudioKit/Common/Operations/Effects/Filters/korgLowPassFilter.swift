@@ -25,4 +25,3 @@ extension AKComputedParameter {
                            inputs: toMono(), cutoffFrequency, resonance, saturation)
     }
 }
-

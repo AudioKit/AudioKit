@@ -17,7 +17,7 @@ class Output {
     let outputRenderCallback: AURenderCallback = {
         (inRefCon: UnsafeMutableRawPointer,
         ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-        inTimeStamp:  UnsafePointer<AudioTimeStamp>,
+        inTimeStamp: UnsafePointer<AudioTimeStamp>,
         inBusNumber: UInt32,
         inNumberFrames: UInt32,
         ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus in
@@ -40,7 +40,7 @@ class Output {
             return err
         }
 
-        return noErr;
+        return noErr
     }
 
     init(device: EZAudioDevice, engine: Engine) {
@@ -64,7 +64,7 @@ class Output {
         var renderCallbackStruct = AURenderCallbackStruct(
             inputProc: outputRenderCallback,
             inputProcRefCon: UnsafeMutableRawPointer(Unmanaged<Output>.passUnretained(self).toOpaque())
-        );
+        )
         if let _ = checkErr(
             AudioUnitSetProperty(
                 outputEngine.outputNode.audioUnit!,

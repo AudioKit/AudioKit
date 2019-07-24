@@ -1,13 +1,13 @@
 //
-//  AKSequencer.swift
+//  AKAppleSequencer.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on GitHub.
+//  Created by Aurelius Prochazka and Jeff Cooper, revision history on GitHub.
 //  Copyright © 2018 AudioKit. All rights reserved.
 //
 
 /// Sequencer based on tried-and-true CoreAudio/MIDI Sequencing
-open class AKSequencer: NSObject {
+open class AKAppleSequencer: NSObject {
 
     /// Music sequence
     open var sequence: MusicSequence?
@@ -599,7 +599,7 @@ open class AKSequencer: NSObject {
     ///
     ///  Will copy only MIDINoteMessage events
     open func addMIDIFileTracks(_ filename: String, useExistingSequencerLength: Bool = true) {
-        let tempSequencer = AKSequencer(filename: filename)
+        let tempSequencer = AKAppleSequencer(filename: filename)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
@@ -611,12 +611,12 @@ open class AKSequencer: NSObject {
     ///
     ///  Will copy only MIDINoteMessage events
     open func addMIDIFileTracks(_ url: URL, useExistingSequencerLength: Bool = true) {
-        let tempSequencer = AKSequencer(fromURL: url)
+        let tempSequencer = AKAppleSequencer(fromURL: url)
         addMusicTrackNoteData(from: tempSequencer, useExistingSequencerLength: useExistingSequencerLength)
     }
 
-    /// Creates new AKMusicTrack with copied note event data from another AKSequencer
-    func addMusicTrackNoteData(from tempSequencer: AKSequencer, useExistingSequencerLength: Bool) {
+    /// Creates new AKMusicTrack with copied note event data from another AKAppleSequencer
+    func addMusicTrackNoteData(from tempSequencer: AKAppleSequencer, useExistingSequencerLength: Bool) {
         guard !isPlaying else {
             AKLog("Can't add tracks during playback")
             return }

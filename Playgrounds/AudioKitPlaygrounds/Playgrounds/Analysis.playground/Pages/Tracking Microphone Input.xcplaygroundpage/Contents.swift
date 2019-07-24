@@ -16,7 +16,7 @@ let micCopy3 = AKBooster(mic)
 //    try AudioKit.setInputDevice(inputs[0])
 //    try mic.setDevice(inputs[0])
 //}
-let tracker = AKFrequencyTracker(micCopy2, hopSize: 4096, peakCount: 20)
+let tracker = AKFrequencyTracker(micCopy2, hopSize: 4_096, peakCount: 20)
 let silence = AKBooster(tracker, gain: 0)
 
 //: The frequency tracker passes its input to the output,

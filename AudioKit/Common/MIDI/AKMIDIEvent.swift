@@ -148,7 +148,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
         }
 
     }
-    
+
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
     ///
     /// - Parameters:
@@ -196,7 +196,7 @@ public struct AKMIDIEvent: AKMIDIMessage {
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
         data = []
-        data.append(AKMIDIStatus.init(type: status, channel: channel).byte)
+        data.append(AKMIDIStatus(type: status, channel: channel).byte)
         for byte in bytes {
             data.append(byte.lower7bits())
         }

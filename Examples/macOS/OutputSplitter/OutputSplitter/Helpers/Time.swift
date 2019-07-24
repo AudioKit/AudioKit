@@ -11,7 +11,7 @@ import Foundation
 class Time {
     static var unix: Int {
         get {
-            return Int(Date().timeIntervalSince1970 * 1000)
+            return Int(Date().timeIntervalSince1970 * 1_000)
         }
     }
 }

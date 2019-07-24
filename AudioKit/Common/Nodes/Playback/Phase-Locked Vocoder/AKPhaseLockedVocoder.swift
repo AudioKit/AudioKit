@@ -11,7 +11,6 @@
 /// mincer allows time and pitch to be controlled separately.
 ///
 
-
 open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public typealias AKAudioUnitType = AKPhaseLockedVocoderAudioUnit
     /// Four letter unique description of the node
@@ -26,7 +25,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     fileprivate var pitchRatioParameter: AUParameter?
 
     /// Lower and upper bounds for position
-    public static let positionRange = 0.0 ... 1000.0
+    public static let positionRange = 0.0 ... 1_000.0
 
     /// Initial value for position
     public static let defaultPosition = 0.0
@@ -38,7 +37,7 @@ open class AKPhaseLockedVocoder: AKNode, AKComponent {
     public static let defaultAmplitude = 0.0
 
     /// Lower and upper bounds for pitch ratio
-    public static let pitchRatioRange = 0.0 ... 1000.0
+    public static let pitchRatioRange = 0.0 ... 1_000.0
 
     /// Initial value for pitch ratio
     public static let defaultPitchRatio = 1.0

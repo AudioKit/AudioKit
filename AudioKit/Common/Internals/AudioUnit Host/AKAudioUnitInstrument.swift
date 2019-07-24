@@ -31,7 +31,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     ///   - velocity: MIDI velocity to play the note at
     ///   - channel: MIDI channel to play the note on
     ///
-    override open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
+    open override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 64, channel: MIDIChannel = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
             return
@@ -98,5 +98,4 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         }
         midiInstrument.sendPitchBend(pitchWheelValue, onChannel: channel)
     }
-
 }

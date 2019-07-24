@@ -118,8 +118,8 @@ public:
         loop = value;
     }
 
-    void setRate(float value) {
-        rate = clamp(value, -10.0f, 10.0f);
+    void setRate(double value) {
+        rate = value;
         rateRamper.setImmediate(rate);
     }
 
@@ -248,7 +248,7 @@ public:
         if (!inLoopPhase && startEndReversed()){
             reverseMultiplier = -1;
         }
-        return sampleRateRatio() * fabs(rate) * reverseMultiplier;
+        return sampleRateRatio() * abs(rate) * reverseMultiplier;
     }
     double sampleRateRatio(){
         return sourceSampleRate / AKSettings.sampleRate;
@@ -346,5 +346,5 @@ public:
     UInt32 ftbl_size = 2;
     UInt32 current_size = 2;
     double position = 0.0;
-    float rate = 1;
+    double rate = 1;
 };
