@@ -37,6 +37,25 @@ open class AKSequencer {
         return tracks.first?.isPlaying ?? false
     }
 
+    /// Initialize with target nodes
+    required public init(targetNodes: [AKNode]) {
+        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+    }
+
+    /// Initialize with a sinze node or with no node at all
+    public convenience init(targetNode: AKNode? = nil) {
+        if let node = targetNode {
+            self.init(targetNodes: [node])
+        } else {
+            self.init(targetNodes: [AKNode]())
+        }
+    }
+
+    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
+        self.init(targetNodes: targetNodes)
+        load(midiFileURL: fileURL)
+    }
+
     /// Start playback of the track from the current position (like unpause)
     open func play() {
         for track in tracks { track.play() }
@@ -108,23 +127,10 @@ open class AKSequencer {
         tracks[trackIndex].add(event: event, position: position)
     }
 
-    /// Initialize with target nodes
-    required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
-    }
-
-    /// Initialize with a sinze node or with no node at all
-    public convenience init(targetNode: AKNode? = nil) {
-        if let node = targetNode {
-            self.init(targetNodes: [node])
-        } else {
-            self.init(targetNodes: [AKNode]())
+    open func clear() {
+        for track in tracks {
+            track.clear()
         }
-    }
-
-    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
-        self.init(targetNodes: targetNodes)
-        load(midiFileURL: fileURL)
     }
 }
 
