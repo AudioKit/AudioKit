@@ -37,18 +37,16 @@ open class AKSequencer {
         return tracks.first?.isPlaying ?? false
     }
 
-    /// Initialize with target nodes
-    required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+    /// Initialize with a single node or with no node at all
+    /// You must provide a target node for the sequencer to drive or it will not run at all
+    public convenience init(targetNode: AKNode) {
+        self.init(targetNodes: [targetNode])
     }
 
-    /// Initialize with a sinze node or with no node at all
-    public convenience init(targetNode: AKNode? = nil) {
-        if let node = targetNode {
-            self.init(targetNodes: [node])
-        } else {
-            self.init(targetNodes: [AKNode]())
-        }
+    /// Initialize with target nodes
+    /// This will create a track for each node
+    required public init(targetNodes: [AKNode]) {
+        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
     }
 
     public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
