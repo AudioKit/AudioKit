@@ -76,6 +76,11 @@ open class AKSequencer {
         for track in tracks { track.stop() }
     }
 
+    /// Rewind playback
+    open func rewind() {
+        for track in tracks { track.rewind() }
+    }
+
     /// Load MIDI data from a file URL
     open func load(midiFileURL: URL) {
         load(midiFile: AKMIDIFile(url: midiFileURL))
