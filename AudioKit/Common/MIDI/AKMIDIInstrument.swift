@@ -90,6 +90,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     open func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
                                   channel: MIDIChannel,
+                                  portID: MIDIUniqueID? = nil,
                                   offset: MIDITimeStamp = 0) {
         stop(noteNumber: noteNumber, channel: channel)
         mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
@@ -102,10 +103,11 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIController(_ controller: MIDIByte,
-                                           value: MIDIByte,
-                                           channel: MIDIChannel,
-                                           offset: MIDITimeStamp = 0) {
+    open func receivedMIDIController(_ controller: MIDIByte,
+                                     value: MIDIByte,
+                                     channel: MIDIChannel,
+                                     portID: MIDIUniqueID? = nil,
+                                     offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 
@@ -116,10 +118,11 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                           pressure: MIDIByte,
-                                           channel: MIDIChannel,
-                                           offset: MIDITimeStamp = 0) {
+    open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
+                                     pressure: MIDIByte,
+                                     channel: MIDIChannel,
+                                     portID: MIDIUniqueID? = nil,
+                                     offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 
@@ -129,9 +132,10 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIAfterTouch(_ pressure: MIDIByte,
-                                           channel: MIDIChannel,
-                                           offset: MIDITimeStamp = 0) {
+    open func receivedMIDIAftertouch(_ pressure: MIDIByte,
+                                     channel: MIDIChannel,
+                                     portID: MIDIUniqueID? = nil,
+                                     offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 
@@ -141,9 +145,10 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///
-    @objc open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
-                                           channel: MIDIChannel,
-                                           offset: MIDITimeStamp = 0) {
+    open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
+                                     channel: MIDIChannel,
+                                     portID: MIDIUniqueID? = nil,
+                                     offset: MIDITimeStamp = 0) {
         // Override in subclass
     }
 
@@ -205,7 +210,7 @@ open class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
             case .polyphonicAftertouch:
                 receivedMIDIAftertouch(noteNumber: data2, pressure: data3, channel: channel)
             case .channelAftertouch:
-                receivedMIDIAfterTouch(data2, channel: channel)
+                receivedMIDIAftertouch(data2, channel: channel)
             case .controllerChange:
                 receivedMIDIController(data2, value: data3, channel: channel)
             case .programChange:

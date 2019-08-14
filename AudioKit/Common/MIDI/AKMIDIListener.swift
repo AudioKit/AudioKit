@@ -86,7 +86,7 @@ public protocol AKMIDIListener {
     ///   - portID:   MIDI Unique Port ID
     ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
-    func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+    func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
                                 offset: MIDITimeStamp)
@@ -226,12 +226,12 @@ public extension AKMIDIListener {
     ///   - portID:   MIDI Unique Port ID
     ///   - offset:   the offset in samples that this event occurs in the buffer
     ///
-  func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+  func receivedMIDIAftertouch(_ pressure: MIDIByte,
                               channel: MIDIChannel,
                               portID: MIDIUniqueID? = nil,
                               offset: MIDITimeStamp = 0) {
         if AKMIDIListenerLogging {
-            AKLog("channel: \(channel) MIDI AfterTouch pressure: \(pressure) " +
+            AKLog("channel: \(channel) MIDI Aftertouch pressure: \(pressure) " +
                 "port: \(portID ?? 0) offset: \(offset)")
         }
     }
