@@ -248,7 +248,7 @@ extension AKMIDI {
                                                     portID: portID,
                                                     offset: offset)
                 case .channelAftertouch:
-                    listener.receivedMIDIAfterTouch(event.data[1],
+                    listener.receivedMIDIAftertouch(event.data[1],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
                                                     offset: offset)
