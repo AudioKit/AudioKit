@@ -39,8 +39,10 @@ extension AudioKit {
         }
 
         #if os(iOS)
-        try updateSessionCategoryAndOptions()
-        try AVAudioSession.sharedInstance().setActive(true)
+        if !AKSettings.disableAVAudioSessionCategoryManagement {
+            try updateSessionCategoryAndOptions()
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
 
         /// Notification observers
 
@@ -76,6 +78,8 @@ extension AudioKit {
     }
 
     @objc internal static func updateSessionCategoryAndOptions() throws {
+        guard AKSettings.disableAVAudioSessionCategoryManagement == false else { return }
+        
         #if !os(macOS)
         let sessionCategory = AKSettings.computedSessionCategory()
 
