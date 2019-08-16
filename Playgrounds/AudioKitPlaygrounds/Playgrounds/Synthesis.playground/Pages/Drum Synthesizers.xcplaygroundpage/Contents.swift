@@ -26,7 +26,7 @@ let beats = AKPeriodicFunction(frequency: 5) {
 
     if everyOtherBeat {
         let velocity = MIDIVelocity(Array(0...100).randomElement()!)
-        snare.play(noteNumber: 60, velocity: randomVelocity)
+        snare.play(noteNumber: 60, velocity: randomVelocity, channel: 0)
         snare.stop(noteNumber: 60)
     }
     counter += 1
