@@ -35,6 +35,10 @@
 - (void)setThreshold:(float)threshold {
     _kernel.setThreshold(threshold);
 }
+
+- (void)setMode:(int)mode {
+    _kernel.mode = mode;
+}
 //- (void)setSmoothness:(float)smoothness {
 //    _kernel.setSmoothness(smoothness);
 //} //in development

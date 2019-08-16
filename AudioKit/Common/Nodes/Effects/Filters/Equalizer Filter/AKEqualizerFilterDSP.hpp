@@ -37,8 +37,8 @@ public:
     float centerFrequencyUpperBound = 20000.0;
     float bandwidthLowerBound = 0.0;
     float bandwidthUpperBound = 20000.0;
-    float gainLowerBound = -100.0;
-    float gainUpperBound = 100.0;
+    float gainLowerBound = 0.0;
+    float gainUpperBound = 10.0;
 
     float defaultCenterFrequency = 1000.0;
     float defaultBandwidth = 100.0;

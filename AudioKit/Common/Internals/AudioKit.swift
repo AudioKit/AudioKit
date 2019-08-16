@@ -78,23 +78,24 @@ open class AudioKit: NSObject {
         didSet {
             do {
                 try updateSessionCategoryAndOptions()
-
-                // if the assigned output is already a mixer, avoid creating an additional mixer and just use
-                // that input as the finalMixer
-                if let mixerInput = output as? AKMixer {
-                    finalMixer = mixerInput
-                } else {
-                    // otherwise at this point create the finalMixer and add the input to it
-                    let mixer = AKMixer()
-                    output?.connect(to: mixer)
-                    finalMixer = mixer
-                }
-                guard let finalMixer = finalMixer else { return }
-                engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: AKSettings.audioFormat)
-
-            } catch {
-                AKLog("Could not set output: \(error)")
+                } catch {
+                    AKLog("Could not set session category: \(error)")
             }
+
+            // if the assigned output is already a mixer, avoid creating an additional mixer and just use
+            // that input as the finalMixer
+            if let mixerInput = output as? AKMixer {
+                finalMixer = mixerInput
+            } else {
+                // otherwise at this point create the finalMixer and add the input to it
+                let mixer = AKMixer()
+                output?.connect(to: mixer)
+                finalMixer = mixer
+            }
+            guard let finalMixer = finalMixer else { return }
+            engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: AKSettings.audioFormat)
+
+
         }
     }
 
