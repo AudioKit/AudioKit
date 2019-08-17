@@ -80,6 +80,7 @@ AKCoreSampler::AKCoreSampler()
 
 AKCoreSampler::~AKCoreSampler()
 {
+    unloadAllSamples();
 }
 
 int AKCoreSampler::init(double sampleRate)
@@ -97,6 +98,10 @@ int AKCoreSampler::init(double sampleRate)
 }
 
 void AKCoreSampler::deinit()
+{
+}
+
+void AKCoreSampler::unloadAllSamples()
 {
     isKeyMapValid = false;
     for (AudioKitCore::KeyMappedSampleBuffer *pBuf : data->sampleBufferList)
