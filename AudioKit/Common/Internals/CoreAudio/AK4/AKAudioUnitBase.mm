@@ -19,14 +19,14 @@
 
 @synthesize parameterTree = _parameterTree;
 
-- (AUValue) parameterWithAddress: (AUParameterAddress) address; {
+- (AUValue)parameterWithAddress:(AUParameterAddress)address; {
     return self.kernel->getParameter(address);
 }
-- (void) setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
+- (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
     self.kernel->setParameter(address, value);
 }
 
-- (void) setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value {
+- (void)setParameterImmediatelyWithAddress:(AUParameterAddress)address value:(AUValue)value {
     self.kernel->setParameter(address, value, true);
 }
 
@@ -42,7 +42,6 @@
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
     self.kernel->setWaveformValue(index, value);
 }
-
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
     self.kernel->setUpTable(data, size);
 }

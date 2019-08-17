@@ -17,6 +17,7 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
     public static let ComponentDescription = AudioComponentDescription(effect: "rmsq")
 
     // MARK: - Properties
+
     internal var internalAU: AKAudioUnitType?
 
     fileprivate var halfPowerPointParameter: AUParameter?
@@ -38,26 +39,28 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
 
     /// Detected amplitude
     @objc open dynamic var leftAmplitude: Double {
-        if let amp = internalAU?.leftAmplitude {
-            return Double(amp) / sqrt(2.0) * 2.0
-        } else {
-            return 0.0
-        }
+        return Double(internalAU?.leftAmplitude ?? 0)
     }
 
     /// Detected right amplitude
     @objc open dynamic var rightAmplitude: Double {
-        if let amp = internalAU?.rightAmplitude {
-            return Double(amp) / sqrt(2.0) * 2.0
-        } else {
-            return 0.0
-        }
+        return Double(internalAU?.rightAmplitude ?? 0)
     }
 
     /// Threshold amplitude
     @objc open dynamic var threshold: Double = 1 {
         willSet {
             internalAU?.threshold = AUValue(newValue)
+        }
+    }
+
+    /// Mode
+    /// - rms (default): takes the root mean squared of the signal
+    /// - maxRMS: takes the root mean squared of the signal, then uses the max RMS found per buffer
+    /// - peak: takes the peak signal from a buffer and uses that as an output
+    open var mode: AmplitudeTrackingMode = .rms {
+        didSet {
+            internalAU?.mode = mode.rawValue
         }
     }
 
@@ -115,4 +118,10 @@ open class AKAmplitudeTracker: AKNode, AKToggleable, AKComponent, AKInput {
         internalAU?.stop()
     }
 
+}
+
+public enum AmplitudeTrackingMode: Int32 {
+    case rms = 0
+    case maxRMS = 1
+    case peak = 2
 }
