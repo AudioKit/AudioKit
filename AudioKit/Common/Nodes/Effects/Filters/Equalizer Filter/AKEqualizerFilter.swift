@@ -30,7 +30,7 @@ open class AKEqualizerFilter: AKNode, AKToggleable, AKComponent, AKInput {
     public static let bandwidthRange = 0.0 ... 20_000.0
 
     /// Lower and upper bounds for Gain
-    public static let gainRange = -100.0 ... 100.0
+    public static let gainRange = 0.0 ... 10.0
 
     /// Initial value for Center Frequency
     public static let defaultCenterFrequency = 1_000.0

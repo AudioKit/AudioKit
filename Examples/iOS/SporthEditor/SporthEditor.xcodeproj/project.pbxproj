@@ -11,6 +11,7 @@
 		783F1E731D35299500DD1B58 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E721D35299500DD1B58 /* Error.swift */; };
 		783F1E751D352B4F00DD1B58 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E741D352B4F00DD1B58 /* Constants.swift */; };
 		783F1E771D35333D00DD1B58 /* SporthEditorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */; };
+		C459584B22FD5215001BB9B5 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA10E1731F4FA225003F0CA9 /* AudioKitUI.framework */; };
 		C459EEBF1DE6BB8F00C0F494 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C459EEBE1DE6BB8F00C0F494 /* RoundedButton.swift */; };
 		C485C6381D337759007D1BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6371D337759007D1BFD /* AppDelegate.swift */; };
 		C485C63A1D337759007D1BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6391D337759007D1BFD /* ViewController.swift */; };
@@ -45,6 +46,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4CC1E371DFEA15100285202 /* AudioKit.framework in Frameworks */,
+				C459584B22FD5215001BB9B5 /* AudioKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +354,10 @@
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -374,7 +379,10 @@
 				INFOPLIST_FILE = SporthEditor/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_LDFLAGS = (
+					"-lc++",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
