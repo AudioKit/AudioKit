@@ -32,7 +32,12 @@ open class AKAudioUnitManager: NSObject {
     private typealias NotificationCallback = (Notification) -> Void
 
     /// Delegate that will be sent notifications
-    public weak var delegate: AKAudioUnitManagerDelegate?
+    public weak var delegate: AKAudioUnitManagerDelegate? {
+        didSet {
+            // only add/remove observors if there is a delegate set that wants to know about it
+            delegate != nil ? addObservors() : removeObservors()
+        }
+    }
 
     /// first node in chain, generally a player or instrument
     public var input: AKNode?
@@ -139,11 +144,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Initialization
-
-    // ------------------------------------------
 
     /// Initialize the manager with arbritary amount of inserts
     public convenience init(inserts: Int) {
@@ -157,55 +158,42 @@ open class AKAudioUnitManager: NSObject {
 
         // regardless of how they're organized above, this'll sort them out
         AKAudioUnitManager.internalAudioUnits.sort()
-
-        addObservors()
     }
-
-    // ------------------------------------------
 
     // MARK: - Observation
 
-    // ------------------------------------------
+    // Only add if there is a delegate to receive the messages
 
     private func addObservors() {
         // Sign up for a notification when the list of available components changes.
-        NotificationCenter.default.addObserver(forName: .ComponentRegistrationsChanged,
-                                               object: nil,
-                                               queue: nil,
-                                               using: componentRegistrationObservor)
-        NotificationCenter.default.addObserver(forName: .ComponentInstanceInvalidation,
-                                               object: nil,
-                                               queue: nil,
-                                               using: componentInstanceObservor)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(componentRegistrationObservor),
+                                               name: .ComponentRegistrationsChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(componentInstanceObservor),
+                                               name: .ComponentInstanceInvalidation,
+                                               object: nil)
     }
 
     private func removeObservors() {
-        // remove Notification Observers
-        NotificationCenter.default.removeObserver(componentRegistrationObservor,
-                                                  name: .ComponentRegistrationsChanged,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(componentInstanceObservor,
-                                                  name: .ComponentInstanceInvalidation,
-                                                  object: nil)
+        NotificationCenter.default.removeObserver(componentRegistrationObservor)
+        NotificationCenter.default.removeObserver(componentInstanceObservor)
     }
 
-    private func componentRegistrationObservor(notification: Foundation.Notification) {
+    @objc private func componentRegistrationObservor(notification: Foundation.Notification) {
         AKLog("* Audio Units available changed *")
         delegate?.handleAudioUnitManagerNotification(.changed, audioUnitManager: self)
     }
 
-    private func componentInstanceObservor(notification: Foundation.Notification) {
+    @objc private func componentInstanceObservor(notification: Foundation.Notification) {
         // TODO: remove from signal chain
         let crashedAU = notification.object as? AUAudioUnit
-        AKLog("Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
+        AKLog("* Audio Unit Crashed: \(crashedAU?.debugDescription ?? notification.debugDescription)")
         delegate?.handleAudioUnitManagerNotification(.crashed(audioUnit: crashedAU), audioUnitManager: self)
     }
 
-    // ------------------------------------------
-
     // MARK: - Requesting Effects and Instruments
-
-    // ------------------------------------------
 
     /// requests a list of Effects, and caches the results
     public func requestEffects(completionHandler: AKComponentListCallback? = nil) {
@@ -227,9 +215,8 @@ open class AKAudioUnitManager: NSObject {
 
             DispatchQueue.main.async {
                 // notify delegate
-                self.delegate?.handleAudioUnitManagerNotification(
-                    .instrumentsAvailable(instruments: self.availableInstruments),
-                    audioUnitManager: self)
+                self.delegate?.handleAudioUnitManagerNotification(.instrumentsAvailable(instruments: self.availableInstruments),
+                                                                  audioUnitManager: self)
 
                 completionHandler?(self.availableInstruments)
             }
@@ -278,11 +265,7 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Effects Chain management
-
-    // ------------------------------------------
 
     public func removeEffect(at index: Int, reconnectChain: Bool = true) {
         if let au = _effectsChain[index] {
@@ -425,12 +408,9 @@ open class AKAudioUnitManager: NSObject {
         }
     }
 
-    // ------------------------------------------
-
     // MARK: - Dispose
 
-    // ------------------------------------------
-
+    /// Should be called when done with this class to release references
     public func dispose() {
         AKLog("disposing AKAudioUnitManager")
         removeEffects()
@@ -439,12 +419,12 @@ open class AKAudioUnitManager: NSObject {
         _effectsChain.removeAll()
         input = nil
         output = nil
+        // this will also remove the observors if added
         delegate = nil
-        removeObservors()
     }
 
     deinit {
-        AKLog("* deinit AKAudioUnitManager")
+        AKLog("* { AKAudioUnitManager }")
     }
 }
 

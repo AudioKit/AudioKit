@@ -67,6 +67,9 @@
 -(void)clear {
     _kernel.clear();
 }
+-(void)stopPlayingNotes {
+    _kernel.stopPlayingNotes();
+}
 -(void)rewind {
 //    _kernel.rewind();
 }

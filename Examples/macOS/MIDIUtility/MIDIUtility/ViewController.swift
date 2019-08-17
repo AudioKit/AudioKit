@@ -33,41 +33,58 @@ class ViewController: NSViewController, AKMIDIListener {
         }
     }
 
-    func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel,
+                            portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1) noteOn: \(noteNumber) velocity: \(velocity) ")
     }
 
-    func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    func receivedMIDINoteOff(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel,
+                             portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1) noteOff: \(noteNumber) velocity: \(velocity) ")
     }
 
-    func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
+    func receivedMIDIController(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel,
+                                portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1) controller: \(controller) value: \(value) ")
     }
 
-    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord, channel: MIDIChannel,
+                                portID: MIDIUniqueID? = nil, offset: MIDITimeStamp = 0) {
         updateText("Pitch Wheel on Channel: \(channel + 1) value: \(pitchWheelValue) ")
     }
 
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
-                                channel: MIDIChannel) {
+                                channel: MIDIChannel,
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1) midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
     }
 
-    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
-        updateText("Channel: \(channel + 1) midiAfterTouch pressure: \(pressure) ")
+    func receivedMIDIAftertouch(_ pressure: MIDIByte,
+                                channel: MIDIChannel,
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
+        updateText("Channel: \(channel + 1) midiAftertouch pressure: \(pressure) ")
     }
 
-    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte, channel: MIDIChannel) {
+    func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIByte,
+                                channel: MIDIChannel,
+                                portID: MIDIUniqueID? = nil,
+                                offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1)  midiPitchWheel: \(pitchWheelValue)")
     }
 
-    func receivedMIDIProgramChange(_ program: MIDIByte, channel: MIDIChannel) {
+    func receivedMIDIProgramChange(_ program: MIDIByte,
+                                   channel: MIDIChannel,
+                                   portID: MIDIUniqueID? = nil,
+                                   offset: MIDITimeStamp = 0) {
         updateText("Channel: \(channel + 1) programChange: \(program)")
     }
 
-    func receivedMIDISystemCommand(_ data: [MIDIByte]) {
+    func receivedMIDISystemCommand(_ data: [MIDIByte],
+                                   portID: MIDIUniqueID? = nil,
+                                   offset: MIDITimeStamp = 0) {
         if let command = AKMIDISystemCommand(rawValue: data[0]) {
             updateText("")
             var newString = "MIDI System Command: \(command) \n"
