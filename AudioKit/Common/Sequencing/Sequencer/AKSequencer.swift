@@ -37,24 +37,54 @@ open class AKSequencer {
         return tracks.first?.isPlaying ?? false
     }
 
+    /// Initialize with a single node or with no node at all
+    /// You must provide a target node for the sequencer to drive or it will not run at all
+    public convenience init(targetNode: AKNode) {
+        self.init(targetNodes: [targetNode])
+    }
+
+    /// Initialize with target nodes
+    /// This will create a track for each node
+    required public init(targetNodes: [AKNode]) {
+        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
+    }
+
+    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
+        self.init(targetNodes: targetNodes)
+        load(midiFileURL: fileURL)
+    }
+
+    /// Start playback of the track from the current position (like unpause)
     open func play() {
         for track in tracks { track.play() }
     }
+
+    /// Start the playback of the track from the beginning
     open func playFromStart() {
         for track in tracks { track.playFromStart() }
     }
+
+    /// Start playback after a certain number of beats
     open func playAfterDelay(beats: Double) {
         for track in tracks { track.playAfterDelay(beats: beats) }
     }
 
+    /// Stop playback
     open func stop() {
         for track in tracks { track.stop() }
     }
 
+    /// Rewind playback
+    open func rewind() {
+        for track in tracks { track.rewind() }
+    }
+
+    /// Load MIDI data from a file URL
     open func load(midiFileURL: URL) {
         load(midiFile: AKMIDIFile(url: midiFileURL))
     }
 
+    /// Load MIDI data from a file
     open func load(midiFile: AKMIDIFile) {
         let midiTracks = midiFile.tracks
         if midiTracks.count > tracks.count {
@@ -76,8 +106,13 @@ open class AKSequencer {
         length = self.tracks.max(by: { $0.length > $1.length })?.length ?? 0
     }
 
-    open func add(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0,
-                  position: Double, duration: Double, trackIndex: Int = 0) {
+    /// Add a MIDI note to the track
+    open func add(noteNumber: MIDINoteNumber,
+                  velocity: MIDIVelocity = 127,
+                  channel: MIDIChannel = 0,
+                  position: Double,
+                  duration: Double,
+                  trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
             AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
@@ -86,6 +121,7 @@ open class AKSequencer {
                                position: position, duration: duration)
     }
 
+    /// Add a MIDI event to the track
     open func add(event: AKMIDIEvent, position: Double, trackIndex: Int = 0) {
         guard tracks.count > trackIndex, trackIndex >= 0 else {
             AKLog("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
@@ -94,21 +130,10 @@ open class AKSequencer {
         tracks[trackIndex].add(event: event, position: position)
     }
 
-    required public init(targetNodes: [AKNode]) {
-        tracks = targetNodes.enumerated().map({ AKSequencerTrack(targetNode: $0.element) })
-    }
-
-    public convenience init(targetNode: AKNode? = nil) {
-        if let node = targetNode {
-            self.init(targetNodes: [node])
-        } else {
-            self.init(targetNodes: [AKNode]())
+    open func clear() {
+        for track in tracks {
+            track.clear()
         }
-    }
-
-    public convenience init(fromURL fileURL: URL, targetNodes: [AKNode]) {
-        self.init(targetNodes: targetNodes)
-        load(midiFileURL: fileURL)
     }
 }
 
