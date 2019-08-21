@@ -65,7 +65,7 @@ extension AKNode: AKOutput {
     }
 }
 
-//Deprecated
+// Deprecated
 extension AKNode {
 
     @objc @available(*, deprecated, renamed: "detach")
