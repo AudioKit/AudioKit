@@ -28,6 +28,8 @@
 #import "EZAudioUtilities.h"
 #import "EZAudioDevice.h"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures
 //------------------------------------------------------------------------------
@@ -217,7 +219,7 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
     inputComponentDescription.componentType = kAudioUnitType_Output;
     inputComponentDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
 #if TARGET_OS_IPHONE
-    inputComponentDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+    inputComponentDescription.componentSubType = AKSettings.enableEchoCancellation ? kAudioUnitSubType_VoiceProcessingIO: kAudioUnitSubType_RemoteIO;
 #elif TARGET_OS_MAC
     inputComponentDescription.componentSubType = kAudioUnitSubType_HALOutput;
 #endif

@@ -99,6 +99,11 @@ open class AKSettings: NSObject {
     @objc public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
     #endif
 
+    #if !os(macOS)
+    /// Enable / disable voice processing (echo canellation)
+    @objc public static var enableEchoCancellation: Bool = false
+    #endif
+
     /// Whether AirPlay is enabled when audio input is enabled
     @objc public static var allowAirPlay: Bool = false
 
