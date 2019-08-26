@@ -60,6 +60,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func receivedMIDIController(_ controller: MIDIByte,
                                               value: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -71,6 +72,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
     open override func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                               pressure: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -79,8 +81,9 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
         midiInstrument.sendPressure(forKey: noteNumber, withValue: pressure, onChannel: channel)
     }
 
-    open override func receivedMIDIAfterTouch(_ pressure: MIDIByte,
+    open override func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")
@@ -91,6 +94,7 @@ open class AKAudioUnitInstrument: AKMIDIInstrument {
 
     open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                               channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
                                               offset: MIDITimeStamp = 0) {
         guard let midiInstrument = midiInstrument else {
             AKLog("no midiInstrument exists")

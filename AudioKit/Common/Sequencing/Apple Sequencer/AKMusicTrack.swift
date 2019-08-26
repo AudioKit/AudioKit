@@ -455,7 +455,7 @@ open class AKMusicTrack {
     ///   - pressure: Amount of pressure
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
-    open func addAfterTouch(_ noteNumber: MIDINoteNumber,
+    open func addAftertouch(_ noteNumber: MIDINoteNumber,
                             pressure: MIDIByte,
                             position: AKDuration, channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
@@ -476,7 +476,7 @@ open class AKMusicTrack {
     ///   - pressure: Amount of pressure
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this event
-    open func addChannelAfterTouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
+    open func addChannelAftertouch(pressure: MIDIByte, position: AKDuration, channel: MIDIChannel = 0) {
         guard let track = internalMusicTrack else {
             AKLog("internalMusicTrack does not exist")
             return

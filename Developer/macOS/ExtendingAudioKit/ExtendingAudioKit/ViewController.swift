@@ -69,8 +69,8 @@ extension ViewController: AKMIDIListener {
     }
 
     // After touch
-    func receivedMIDIAfterTouch(_ pressure: MIDIByte, channel: MIDIChannel) {
-        conductor.afterTouch(pressure)
+    func receivedMIDIAftertouch(_ pressure: MIDIByte, channel: MIDIChannel) {
+        conductor.aftertouch(pressure)
     }
 
     // MIDI Setup Change

@@ -56,7 +56,7 @@ extern "C" void doAKSamplerLoadCompressedFile(AKDSPRef pDSP, AKSampleFileDescrip
 
 extern "C" void doAKSamplerUnloadAllSamples(AKDSPRef pDSP)
 {
-    ((AKSamplerDSP*)pDSP)->deinit();
+    ((AKSamplerDSP*)pDSP)->unloadAllSamples();
 }
 
 extern "C" void doAKSamplerSetNoteFrequency(AKDSPRef pDSP, int noteNumber, float noteFrequency)
