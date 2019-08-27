@@ -34,6 +34,11 @@ protected:
             *blsquare->freq = 0;
             *blsquare->amp = 0;
             *blsquare->width = 0.5;
+            
+            sp_adsr_init(kernel->getSpData(), filterEnv);
+            sp_moogladder_init(kernel->getSpData(), filter);
+            filter->freq = 22050.0;
+            filter->res = 0.0;
         }
 
         void noteOn(int noteNumber, int velocity, float frequency) override {
@@ -60,6 +65,18 @@ protected:
             adsr->dec = (float)kernel->decayDuration;
             adsr->sus = (float)kernel->sustainLevel;
             adsr->rel = (float)kernel->releaseDuration;
+            
+            float sff = (float)kernel->filterCutoffFrequency;
+            float sfr = (float)kernel->filterResonance;
+            float filterStrength = kernel->filterEnvelopeStrength;
+            
+            filter->freq = sff;
+            filter->res = sfr;
+            
+            filterEnv->atk = (float)kernel->filterAttackDuration;
+            filterEnv->dec = (float)kernel->filterDecayDuration;
+            filterEnv->sus = (float)kernel->filterSustainLevel;
+            filterEnv->rel = (float)kernel->filterReleaseDuration;
 
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
@@ -68,9 +85,17 @@ protected:
                 *blsquare->freq = bentFrequency * powf(2, depth * variation);
                 sp_adsr_compute(kernel->getSpData(), adsr, &internalGate, &amp);
                 sp_blsquare_compute(kernel->getSpData(), blsquare, nil, &x);
-                *outL++ += amp * x;
-                *outR++ += amp * x;
-
+                
+                float xf = 0;
+                
+                sp_adsr_compute(kernel->getSpData(), filterEnv, &internalGate, &filterAmp);
+                filterAmp = filterAmp * filterStrength;
+                filter->freq = sff + ((22050.0f - sff) * filterAmp);
+                filter->freq = clamp(filter->freq, 0.0f, 22050.0f);
+                
+                sp_moogladder_compute(kernel->getSpData(), filter, &x, &xf);
+                *outL++ += amp * xf;
+                *outR++ += amp * xf;
             }
             *blsquare->freq = originalFrequency;
             if (stage == stageRelease && amp < 0.00001) {
