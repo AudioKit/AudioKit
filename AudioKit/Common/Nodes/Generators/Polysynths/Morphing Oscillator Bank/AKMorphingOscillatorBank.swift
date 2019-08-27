@@ -39,6 +39,13 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoRateParameter: AUParameter?
+    fileprivate var filterCutoffFrequencyParameter: AUParameter?
+    fileprivate var filterResonanceParameter: AUParameter?
+    fileprivate var filterAttackDurationParameter: AUParameter?
+    fileprivate var filterDecayDurationParameter: AUParameter?
+    fileprivate var filterSustainLevelParameter: AUParameter?
+    fileprivate var filterReleaseDurationParameter: AUParameter?
+    fileprivate var filterEnvelopeStrengthParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -143,7 +150,86 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    /// Filter Cutoff Frequency in Hz
+    @objc open dynamic var filterCutoffFrequency: Double = 22050.0 {
+        willSet {
+            guard filterCutoffFrequency != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterCutoffFrequencyParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterCutoffFrequency = AUValue(newValue)
+            }
+        }
+    }
+    
+    /// Filter Resonance
+    @objc open dynamic var filterResonance: Double = 22050.0 {
+        willSet {
+            guard filterResonance != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterResonanceParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterResonance = AUValue(newValue)
+            }
+        }
+    }
+    
+    /// Filter Attack Duration in seconds
+    @objc open dynamic var filterAttackDuration: Double = 0.1 {
+        willSet {
+            guard filterAttackDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterAttackDurationParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterAttackDuration = AUValue(newValue)
+            }
+        }
+    }
+    
+    /// Filter Decay Duration in seconds
+    @objc open dynamic var filterDecayDuration: Double = 0.1 {
+        willSet {
+            guard filterDecayDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterDecayDurationParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterDecayDuration = AUValue(newValue)
+            }
+        }
+    }
+    /// Filter Sustain Level
+    @objc open dynamic var filterSustainLevel: Double = 1.0 {
+        willSet {
+            guard filterSustainLevel != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterSustainLevelParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterSustainLevel = AUValue(newValue)
+            }
+        }
+    }
+    /// Filter Release Duration in seconds
+    @objc open dynamic var filterReleaseDuration: Double = 0.1 {
+        willSet {
+            guard filterReleaseDuration != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterReleaseDurationParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterReleaseDuration = AUValue(newValue)
+            }
+        }
+    }
+    ///Filter Envelope Strength
+    @objc open dynamic var filterEnvelopeStrength: Double = 0.1 {
+        willSet {
+            guard filterEnvelopeStrength != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterEnvelopeStrengthParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterEnvelopeStrength = AUValue(newValue)
+            }
+        }
+    }
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
@@ -163,6 +249,13 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
     ///   - pitchBend:          Change of pitch in semitones
     ///   - vibratoDepth:       Vibrato size in semitones
     ///   - vibratoRate:        Frequency of vibrato in Hz
+    ///   - filterCutoffFrequency: Frequency of filter cutoff in Hz
+    ///   - filterResonance: Filter resonance
+    ///   - filterAttackDuration: Filter attack duration in seconds
+    ///   - filterDecayDuration: Filter decay duration in seconds
+    ///   - filterSustainLevel: Filter sustain level
+    ///   - filterReleaseDuration: Filter release duration in seconds
+    ///   - filterEnvelopeStrength: Strength of the filter envelope on filter
     ///
     @objc public init(
         waveformArray: [AKTable],
@@ -173,7 +266,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         releaseDuration: Double = 0.1,
         pitchBend: Double = 0,
         vibratoDepth: Double = 0,
-        vibratoRate: Double = 0) {
+        vibratoRate: Double = 0,
+        filterCutoffFrequency: Double = 22050.0,
+        filterResonance: Double = 0.0,
+        filterAttackDuration: Double = 0.1,
+        filterDecayDuration: Double = 0.1,
+        filterSustainLevel: Double = 1.0,
+        filterReleaseDuration: Double = 1.0,
+        filterEnvelopeStrength: Double = 0.0) {
 
         self.waveformArray = waveformArray
         self.index = index
@@ -185,6 +285,13 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.vibratoRate = vibratoRate
+        self.filterCutoffFrequency = filterCutoffFrequency
+        self.filterResonance = filterResonance
+        self.filterAttackDuration = filterAttackDuration
+        self.filterDecayDuration = filterDecayDuration
+        self.filterSustainLevel = filterSustainLevel
+        self.filterReleaseDuration = filterReleaseDuration
+        self.filterEnvelopeStrength = filterEnvelopeStrength
 
         _Self.register()
 
@@ -217,6 +324,14 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBendParameter = tree["pitchBend"]
         vibratoDepthParameter = tree["vibratoDepth"]
         vibratoRateParameter = tree["vibratoRate"]
+        filterCutoffFrequencyParameter = tree["filterCutoffFrequency"]
+        filterResonanceParameter = tree["filterResonance"]
+        filterAttackDurationParameter = tree["filterAttackDuration"]
+        filterDecayDurationParameter = tree["filterDecayDuration"]
+        filterSustainLevelParameter = tree["filterSustainLevel"]
+        filterReleaseDurationParameter = tree["filterReleaseDuration"]
+        filterEnvelopeStrengthParameter = tree["filterEnvelopeStrength"]
+    
         internalAU?.index = Float(index)
 
         internalAU?.attackDuration = Float(attackDuration)
@@ -226,6 +341,13 @@ open class AKMorphingOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.pitchBend = Float(pitchBend)
         internalAU?.vibratoDepth = Float(vibratoDepth)
         internalAU?.vibratoRate = Float(vibratoRate)
+        internalAU?.filterCutoffFrequency = Float(filterCutoffFrequency)
+        internalAU?.filterResonance = Float(filterResonance)
+        internalAU?.filterAttackDuration = Float(filterAttackDuration)
+        internalAU?.filterDecayDuration = Float(filterDecayDuration)
+        internalAU?.filterSustainLevel = Float(filterSustainLevel)
+        internalAU?.filterReleaseDuration = Float(filterReleaseDuration)
+        internalAU?.filterEnvelopeStrength = Float(filterEnvelopeStrength)
     }
 
     /// stops all notes
