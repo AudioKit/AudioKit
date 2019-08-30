@@ -19,13 +19,6 @@
 @property AUParameter *pitchBendAUParameter;
 @property AUParameter *vibratoDepthAUParameter;
 @property AUParameter *vibratoRateAUParameter;
-@property AUParameter *filterCutoffFrequencyAUParameter;
-@property AUParameter *filterResonanceAUParameter;
-@property AUParameter *filterAttackDurationAUParameter;
-@property AUParameter *filterDecayDurationAUParameter;
-@property AUParameter *filterSustainLevelAUParameter;
-@property AUParameter *filterReleaseDurationAUParameter;
-@property AUParameter *filterEnvelopeStrengthAUParameter;
 
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
@@ -34,13 +27,6 @@
 @property (nonatomic) float pitchBend;
 @property (nonatomic) float vibratoDepth;
 @property (nonatomic) float vibratoRate;
-@property (nonatomic) float filterCutoffFrequency;
-@property (nonatomic) float filterResonance;
-@property (nonatomic) float filterAttackDuration;
-@property (nonatomic) float filterDecayDuration;
-@property (nonatomic) float filterSustainLevel;
-@property (nonatomic) float filterReleaseDuration;
-@property (nonatomic) float filterEnvelopeStrength;
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;

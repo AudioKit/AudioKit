@@ -50,31 +50,22 @@ protected:
         
         float internalGate = 0;
         float amp = 0;
-        float filterAmp = 0;
-
         
         sp_adsr *adsr;
-        sp_moogladder *filter;
-        sp_adsr *filterEnv;
         
         NoteState() {
             sp_adsr_create(&adsr);
-            sp_moogladder_create(&filter);
-            sp_adsr_create(&filterEnv);
         }
         
         virtual ~NoteState() {
             sp_adsr_destroy(&adsr);
-            sp_moogladder_destroy(&filter);
-            sp_adsr_destroy(&filterEnv);
         }
-
+        
         virtual void init() = 0;
         
         virtual void clear() {
             stage = stageOff;
             amp = 0;
-            filterAmp = 0;
         }
         
         void noteOn(int noteNumber, int velocity)
@@ -99,7 +90,7 @@ protected:
         virtual void run(int frameCount, float *outL, float *outR) = 0;
         
     };
-
+    
 public:
     enum BankAddresses {
         attackDurationAddress = 0,
@@ -109,22 +100,15 @@ public:
         pitchBendAddress,
         vibratoDepthAddress,
         vibratoRateAddress,
-        filterCutoffFrequencyAddress,
-        filterResonanceAddress,
-        filterAttackDurationAddress,
-        filterDecayDurationAddress,
-        filterSustainLevelAddress,
-        filterReleaseDurationAddress,
-        filterEnvelopeStrengthAddress,
         numberOfBankEnumElements
     };
-
+    
 public:
     
     // MARK: Member Functions
     void init(int channelCount, double sampleRate) override {
         AKSoundpipeKernel::init(channelCount, sampleRate);
-
+        
         attackDurationRamper.init();
         decayDurationRamper.init();
         sustainLevelRamper.init();
@@ -132,21 +116,14 @@ public:
         pitchBendRamper.init();
         vibratoDepthRamper.init();
         vibratoRateRamper.init();
-        filterCutoffFrequencyRamper.init();
-        filterResonanceRamper.init();
-        filterAttackDurationRamper.init();
-        filterDecayDurationRamper.init();
-        filterSustainLevelRamper.init();
-        filterReleaseDurationRamper.init();
-        filterEnvelopeStrengthRamper.init();
     }
-
+    
     virtual void reset() {
         for (auto& state : noteStates) state->clear();
         playingNotes = nullptr;
         playingNotesCount = 0;
         resetted = true;
-
+        
         attackDurationRamper.reset();
         decayDurationRamper.reset();
         sustainLevelRamper.reset();
@@ -154,42 +131,26 @@ public:
         pitchBendRamper.reset();
         vibratoDepthRamper.reset();
         vibratoRateRamper.reset();
-        
-        filterCutoffFrequencyRamper.reset();
-        filterResonanceRamper.reset();
-        filterAttackDurationRamper.reset();
-        filterDecayDurationRamper.reset();
-        filterSustainLevelRamper.reset();
-        filterReleaseDurationRamper.reset();
-        filterEnvelopeStrengthRamper.reset();
     }
-
+    
     double frequencyScale = 2. * M_PI / sampleRate;
-
+    
     float attackDuration = 0.1;
     float decayDuration = 0.1;
     float sustainLevel = 1.0;
     float releaseDuration = 0.1;
-
+    
     float pitchBend = 0;
     float vibratoDepth = 0;
     float vibratoRate = 0;
     
-    float filterCutoffFrequency = 22050.0;
-    float filterResonance = 0.0;
-    float filterAttackDuration = 0.1;
-    float filterDecayDuration = 0.1;
-    float filterSustainLevel = 1.0;
-    float filterReleaseDuration = 0.1;
-    float filterEnvelopeStrength = 0.0;
-
     UInt64 currentRunningIndex = 0;
-
+    
     std::vector< std::unique_ptr<NoteState> > noteStates;
     NoteState *playingNotes = nullptr;
     int playingNotesCount = 0;
     bool resetted = false;
-
+    
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;
     ParameterRamper sustainLevelRamper = 1.0;
@@ -197,13 +158,6 @@ public:
     ParameterRamper pitchBendRamper = 0;
     ParameterRamper vibratoDepthRamper = 0;
     ParameterRamper vibratoRateRamper = 0;
-    ParameterRamper filterCutoffFrequencyRamper = 0.1;
-    ParameterRamper filterResonanceRamper = 0.1;
-    ParameterRamper filterAttackDurationRamper = 0.1;
-    ParameterRamper filterDecayDurationRamper = 0.1;
-    ParameterRamper filterSustainLevelRamper = 1.0;
-    ParameterRamper filterReleaseDurationRamper = 0.1;
-    ParameterRamper filterEnvelopeStrengthRamper = 0.0;
     
     // standard bank kernel functions
     void startNote(int note, int velocity) {
@@ -243,39 +197,7 @@ public:
         vibratoRate = clamp(value, (float)0, (float)600);
         vibratoRateRamper.setImmediate(vibratoRate);
     }
-    void setFilterCutoffFrequency(float value) {
-        filterCutoffFrequency = clamp(value, 0.0f, 22050.0f);
-        filterCutoffFrequencyRamper.setImmediate(filterCutoffFrequency);
-    }
     
-    void setFilterResonance(float value) {
-        filterResonance = clamp(value, 0.0f, 0.99f);
-        filterResonanceRamper.setImmediate(filterResonance);
-    }
-    
-    void setFilterAttackDuration(float value) {
-        filterAttackDuration = clamp(value, 0.0f, 99.0f);
-        filterAttackDurationRamper.setImmediate(filterAttackDuration);
-    }
-    
-    void setFilterDecayDuration(float value) {
-        filterDecayDuration = clamp(value, 0.0f, 99.0f);
-        filterDecayDurationRamper.setImmediate(filterDecayDuration);
-    }
-    
-    void setFilterSustainLevel(float value) {
-        filterSustainLevel = clamp(value, 0.0f, 99.0f);
-        filterSustainLevelRamper.setImmediate(filterSustainLevel);
-    }
-    
-    void setFilterReleaseDuration(float value) {
-        filterReleaseDuration = clamp(value, 0.0f, 99.0f);
-        filterReleaseDurationRamper.setImmediate(filterReleaseDuration);
-    }
-    void setFilterEnvelopeStength(float value) {
-        filterEnvelopeStrength = clamp(value, 0.0f, 1.0f);
-        filterEnvelopeStrengthRamper.setImmediate(filterEnvelopeStrength);
-    }
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
         uint8_t status = midiEvent.data[0] & 0xF0;
@@ -308,7 +230,7 @@ public:
             }
         }
     }
-
+    
     void standardBankGetAndSteps() {
         attackDuration = attackDurationRamper.getAndStep();
         decayDuration = decayDurationRamper.getAndStep();
@@ -317,15 +239,8 @@ public:
         pitchBend = double(pitchBendRamper.getAndStep());
         vibratoDepth = double(vibratoDepthRamper.getAndStep());
         vibratoRate = double(vibratoRateRamper.getAndStep());
-        filterCutoffFrequency = double(filterCutoffFrequencyRamper.getAndStep());
-        filterResonance = double(filterResonanceRamper.getAndStep());
-        filterAttackDuration = filterAttackDurationRamper.getAndStep();
-        filterDecayDuration = filterDecayDurationRamper.getAndStep();
-        filterSustainLevel = filterSustainLevelRamper.getAndStep();
-        filterReleaseDuration = filterReleaseDurationRamper.getAndStep();
-        filterEnvelopeStrength = filterEnvelopeStrengthRamper.getAndStep();
     }
-
+    
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
@@ -349,30 +264,9 @@ public:
             case vibratoRateAddress:
                 vibratoRateRamper.setUIValue(clamp(value, (float)0, (float)600));
                 break;
-            case filterCutoffFrequencyAddress:
-                filterCutoffFrequencyRamper.setUIValue(clamp(value, 0.0f, 22050.0f));
-                break;
-            case filterResonanceAddress:
-                filterResonanceRamper.setUIValue(clamp(value, 0.0f, 0.99f));
-                break;
-            case filterAttackDurationAddress:
-                filterAttackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-            case filterDecayDurationAddress:
-                filterDecayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-            case filterSustainLevelAddress:
-                filterSustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-            case filterReleaseDurationAddress:
-                filterReleaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
-                break;
-            case filterEnvelopeStrengthAddress:
-                filterEnvelopeStrengthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
-                break;
         }
     }
-
+    
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackDurationAddress: \
@@ -389,24 +283,10 @@ public:
                 return vibratoDepthRamper.getUIValue(); \
             case vibratoRateAddress: \
                 return vibratoRateRamper.getUIValue(); \
-            case filterCutoffFrequencyAddress:
-                return filterCutoffFrequencyRamper.getUIValue(); \
-            case filterResonanceAddress:
-                return filterResonanceRamper.getUIValue(); \
-            case filterAttackDurationAddress:
-                return filterAttackDurationRamper.getUIValue(); \
-            case filterDecayDurationAddress:
-                return filterDecayDurationRamper.getUIValue(); \
-            case filterSustainLevelAddress:
-                return filterSustainLevelRamper.getUIValue(); \
-            case filterReleaseDurationAddress:
-                return filterReleaseDurationRamper.getUIValue(); \
-            case filterEnvelopeStrengthAddress:
-                return filterEnvelopeStrengthRamper.getUIValue(); \
             default: return 0.0f;
         }
     }
-
+    
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case attackDurationAddress:
@@ -429,27 +309,6 @@ public:
                 break;
             case vibratoRateAddress:
                 vibratoRateRamper.startRamp(clamp(value, (float)0, (float)600), duration);
-                break;
-            case filterCutoffFrequencyAddress:
-                filterCutoffFrequencyRamper.startRamp(clamp(value, 0.0f, 22050.0f), duration);
-                break;
-            case filterResonanceAddress:
-                filterResonanceRamper.startRamp(clamp(value, 0.0f, 0.99f), duration);
-                break;
-            case filterAttackDurationAddress:
-                filterAttackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-            case filterDecayDurationAddress:
-                filterDecayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-            case filterSustainLevelAddress:
-                filterSustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-            case filterReleaseDurationAddress:
-                filterReleaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
-                break;
-            case filterEnvelopeStrengthAddress:
-                filterEnvelopeStrengthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
         }
     }

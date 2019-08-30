@@ -32,14 +32,14 @@
 }
 
 - (void)createParameters {
-
+    
     standardGeneratorSetup(OscillatorBank)
-
+    
     [self setKernelPtr:&_kernel];
-
+    
     // Create the parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:[self standardParameters]];
-
+    
     parameterTreeBlock(OscillatorBank)
 }
 
