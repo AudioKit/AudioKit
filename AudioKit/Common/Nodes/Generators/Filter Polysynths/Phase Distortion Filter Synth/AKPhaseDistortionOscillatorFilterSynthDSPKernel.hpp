@@ -103,16 +103,19 @@ protected:
                 sp_tabread_compute(kernel->getSpData(), tab, NULL, &temp);
 
                 float xf = 0;
+                float filterDepth = kernel->filterLFODepth;
+                float filterRate = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->filterLFORate / kernel->getSampleRate());
                 
+                float filterFreq = clamp(sff * powf(2, filterDepth * filterRate), 0.0f, 22050.0f);
                 sp_adsr_compute(kernel->getSpData(), filterEnv, &internalGate, &filterAmp);
                 filterAmp = filterAmp * filterStrength;
-                filter->freq = sff + ((22050.0f - sff) * filterAmp);
-                filter->freq = clamp(filter->freq, 0.0f, 22050.0f);
+                filter->freq = filterFreq + ((22050.0f - filterFreq) * filterAmp);
                 
+                filter->freq = clamp(filter->freq, 0.0f, 22050.0f);
                 sp_moogladder_compute(kernel->getSpData(), filter, &temp, &xf);
                 
-                *outL++ += velocityAmp * amp * xf;
-                *outR++ += velocityAmp * amp * xf;
+                *outL++ += amp * xf;
+                *outR++ += amp * xf;
 
             }
             phs->freq = originalFrequency;

@@ -40,6 +40,11 @@
     kernelPtr->setFilterReleaseDuration(filterReleaseDuration);}
 - (void)setFilterEnvelopeStrength:(float)filterEnvelopeStrength {
     kernelPtr->setFilterEnvelopeStength(filterEnvelopeStrength);}
+- (void)setFilterLFODepth:(float)filterLFODepth {
+    kernelPtr->setFilterLFODepth(filterLFODepth);}
+- (void)setFilterLFORate:(float)filterLFORate {
+    kernelPtr->setFilterLFORate(filterLFORate);}
+
 
 - (void)stopNote:(uint8_t)note { kernelPtr->stopNote(note); };
 
@@ -206,6 +211,28 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+    _filterLFODepthAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"filterLFODepth"
+                                              name:@"Filter LFO Depth"
+                                           address:AKFilterSynthDSPKernel::filterLFODepthAddress
+                                               min:0
+                                               max:1
+                                              unit:kAudioUnitParameterUnit_Generic
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    _filterLFORateAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"filterLFORate"
+                                              name:@"Filter LFO Rate"
+                                           address:AKFilterSynthDSPKernel::filterLFORateAddress
+                                               min:0
+                                               max:600
+                                              unit:kAudioUnitParameterUnit_Generic
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
     
     _attackDurationAUParameter.value = 0.1;
     _decayDurationAUParameter.value = 0.1;
@@ -221,6 +248,8 @@
     _filterSustainLevelAUParameter.value = 1.0;
     _filterReleaseDurationAUParameter.value = 0.1;
     _filterEnvelopeStrengthAUParameter.value = 0.0;
+    _filterLFODepthAUParameter.value = 0.0;
+    _filterLFORateAUParameter.value = 0.0;
     
     kernelPtr->setParameter(AKFilterSynthDSPKernel::attackDurationAddress,  _attackDurationAUParameter.value);
     kernelPtr->setParameter(AKFilterSynthDSPKernel::decayDurationAddress,   _decayDurationAUParameter.value);
@@ -236,6 +265,8 @@
     kernelPtr->setParameter(AKFilterSynthDSPKernel::filterSustainLevelAddress,     _filterSustainLevelAUParameter.value);
     kernelPtr->setParameter(AKFilterSynthDSPKernel::filterReleaseDurationAddress,     _filterReleaseDurationAUParameter.value);
     kernelPtr->setParameter(AKFilterSynthDSPKernel::filterEnvelopeStrengthAddress,     _filterEnvelopeStrengthAUParameter.value);
+    kernelPtr->setParameter(AKFilterSynthDSPKernel::filterLFODepthAddress,    _filterLFODepthAUParameter.value);
+    kernelPtr->setParameter(AKFilterSynthDSPKernel::filterLFORateAddress,     _filterLFORateAUParameter.value);
     
     return @[_attackDurationAUParameter,
              _decayDurationAUParameter,
@@ -250,7 +281,9 @@
              _filterDecayDurationAUParameter,
              _filterSustainLevelAUParameter,
              _filterReleaseDurationAUParameter,
-             _filterEnvelopeStrengthAUParameter]
+             _filterEnvelopeStrengthAUParameter,
+             _filterLFODepthAUParameter,
+             _filterLFORateAUParameter]
     ;
 }
 

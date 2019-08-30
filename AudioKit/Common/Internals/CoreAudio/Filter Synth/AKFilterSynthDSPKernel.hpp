@@ -116,6 +116,8 @@ public:
         filterSustainLevelAddress,
         filterReleaseDurationAddress,
         filterEnvelopeStrengthAddress,
+        filterLFODepthAddress,
+        filterLFORateAddress,
         numberOfFilterSynthEnumElements
     };
     
@@ -139,6 +141,8 @@ public:
         filterSustainLevelRamper.init();
         filterReleaseDurationRamper.init();
         filterEnvelopeStrengthRamper.init();
+        filterLFODepthRamper.init();
+        filterLFORateRamper.init();
     }
     
     virtual void reset() {
@@ -162,6 +166,9 @@ public:
         filterSustainLevelRamper.reset();
         filterReleaseDurationRamper.reset();
         filterEnvelopeStrengthRamper.reset();
+        
+        filterLFODepthRamper.reset();
+        filterLFORateRamper.reset();
     }
     
     double frequencyScale = 2. * M_PI / sampleRate;
@@ -182,6 +189,9 @@ public:
     float filterSustainLevel = 1.0;
     float filterReleaseDuration = 0.1;
     float filterEnvelopeStrength = 0.0;
+    
+    float filterLFODepth = 0.0;
+    float filterLFORate = 0.0;
     
     UInt64 currentRunningIndex = 0;
     
@@ -204,6 +214,8 @@ public:
     ParameterRamper filterSustainLevelRamper = 1.0;
     ParameterRamper filterReleaseDurationRamper = 0.1;
     ParameterRamper filterEnvelopeStrengthRamper = 0.0;
+    ParameterRamper filterLFODepthRamper = 0;
+    ParameterRamper filterLFORateRamper = 0;
     
     // standard filter synth kernel functions
     void startNote(int note, int velocity) {
@@ -276,6 +288,14 @@ public:
         filterEnvelopeStrength = clamp(value, 0.0f, 1.0f);
         filterEnvelopeStrengthRamper.setImmediate(filterEnvelopeStrength);
     }
+    void setFilterLFODepth(float value) {
+        filterLFODepth = clamp(value, 0.0f, 1.0f);
+        filterLFODepthRamper.setImmediate(filterLFODepth);
+    }
+    void setFilterLFORate(float value) {
+        filterLFORate = clamp(value, 0.0f, 600.0f);
+        filterLFORateRamper.setImmediate(filterLFORate);
+    }
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
         if (midiEvent.length != 3) return;
         uint8_t status = midiEvent.data[0] & 0xF0;
@@ -324,6 +344,8 @@ public:
         filterSustainLevel = filterSustainLevelRamper.getAndStep();
         filterReleaseDuration = filterReleaseDurationRamper.getAndStep();
         filterEnvelopeStrength = filterEnvelopeStrengthRamper.getAndStep();
+        filterLFODepth = filterLFODepthRamper.getAndStep();
+        filterLFORate = filterLFORateRamper.getAndStep();
     }
     
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -370,6 +392,12 @@ public:
             case filterEnvelopeStrengthAddress:
                 filterEnvelopeStrengthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
+            case filterLFODepthAddress:
+                filterLFODepthRamper.setUIValue(clamp(value, 0.0f, 1.0f));
+                break;
+            case filterLFORateAddress:
+                filterLFORateRamper.setUIValue(clamp(value, 0.0f, 600.0f));
+                break;
         }
     }
     
@@ -403,6 +431,10 @@ public:
                 return filterReleaseDurationRamper.getUIValue(); \
             case filterEnvelopeStrengthAddress:
                 return filterEnvelopeStrengthRamper.getUIValue(); \
+            case filterLFODepthAddress:
+                return filterLFODepthRamper.getUIValue(); \
+            case filterLFORateAddress:
+                return filterLFORateRamper.getUIValue(); \
             default: return 0.0f;
         }
     }
@@ -450,6 +482,12 @@ public:
                 break;
             case filterEnvelopeStrengthAddress:
                 filterEnvelopeStrengthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
+                break;
+            case filterLFODepthAddress:
+                filterLFODepthRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
+                break;
+            case filterLFORateAddress:
+                filterLFORateRamper.startRamp(clamp(value, 0.0f, 600.0f), duration);
                 break;
         }
     }

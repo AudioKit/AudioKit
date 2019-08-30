@@ -34,6 +34,8 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     fileprivate var filterSustainLevelParameter: AUParameter?
     fileprivate var filterReleaseDurationParameter: AUParameter?
     fileprivate var filterEnvelopeStrengthParameter: AUParameter?
+    fileprivate var filterLFODepthParameter: AUParameter?
+    fileprivate var filterLFORateParameter: AUParameter?
 
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
@@ -217,7 +219,28 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
             }
         }
     }
-
+    ///Filter LFO Depth
+    @objc open dynamic var filterLFODepth: Double = 0.1 {
+        willSet {
+            guard filterLFODepth != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterLFODepthParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterLFODepth = AUValue(newValue)
+            }
+        }
+    }
+    ///Filter LFO Rate
+    @objc open dynamic var filterLFORate: Double = 0.1 {
+        willSet {
+            guard filterLFORate != newValue else { return }
+            if internalAU?.isSetUp == true {
+                filterLFORateParameter?.value = AUValue(newValue)
+            } else {
+                internalAU?.filterLFORate = AUValue(newValue)
+            }
+        }
+    }
     // MARK: - Initialization
 
     /// Initialize the oscillator with defaults
@@ -244,6 +267,8 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
     ///   - filterSustainLevel: Filter sustain level
     ///   - filterReleaseDuration: Filter release duration in seconds
     ///   - filterEnvelopeStrength: Strength of the filter envelope on filter
+    ///   - filterLFODepth: Depth of LFO on filter
+    ///   - filterLFORate: Speed of filter LFO
     ///
     @objc public init(
         waveform: AKTable,
@@ -261,7 +286,9 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
         filterDecayDuration: Double = 0.1,
         filterSustainLevel: Double = 1.0,
         filterReleaseDuration: Double = 1.0,
-        filterEnvelopeStrength: Double = 0.0) {
+        filterEnvelopeStrength: Double = 0.0,
+        filterLFODepth: Double = 0.0,
+        filterLFORate: Double = 0.0) {
 
         self.waveform = waveform
         self.phaseDistortion = phaseDistortion
@@ -280,6 +307,8 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
         self.filterSustainLevel = filterSustainLevel
         self.filterReleaseDuration = filterReleaseDuration
         self.filterEnvelopeStrength = filterEnvelopeStrength
+        self.filterLFODepth = filterLFODepth
+        self.filterLFORate = filterLFORate
 
         _Self.register()
 
@@ -318,6 +347,8 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
         filterSustainLevelParameter = tree["filterSustainLevel"]
         filterReleaseDurationParameter = tree["filterReleaseDuration"]
         filterEnvelopeStrengthParameter = tree["filterEnvelopeStrength"]
+        filterLFODepthParameter = tree["filterLFODepth"]
+        filterLFORateParameter = tree["filterLFORate"]
 
         internalAU?.phaseDistortion = Float(phaseDistortion)
 
@@ -335,6 +366,8 @@ open class AKPhaseDistortionOscillatorFilterSynth: AKPolyphonicNode, AKComponent
         internalAU?.filterSustainLevel = Float(filterSustainLevel)
         internalAU?.filterReleaseDuration = Float(filterReleaseDuration)
         internalAU?.filterEnvelopeStrength = Float(filterEnvelopeStrength)
+        internalAU?.filterLFODepth = Float(filterLFODepth)
+        internalAU?.filterLFORate = Float(filterLFORate)
     }
 
     // MARK: - AKPolyphonic
