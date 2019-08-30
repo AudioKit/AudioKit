@@ -26,21 +26,6 @@
 - (void)setVibratoDepth:(float)vibratoDepth { kernelPtr->setVibratoDepth(vibratoDepth); }
 - (void)setVibratoRate:(float)vibratoRate { kernelPtr->setVibratoRate(vibratoRate); }
 
-- (void)setFilterCutoffFrequency:(float)filterCutoffFrequency{
-    kernelPtr->setFilterCutoffFrequency(filterCutoffFrequency);}
-- (void)setFilterResonance:(float)filterResonance {
-    kernelPtr->setFilterResonance(filterResonance);}
-- (void)setFilterAttackDuration:(float)filterAttackDuration {
-    kernelPtr->setFilterAttackDuration(filterAttackDuration);}
-- (void)setFilterDecayDuration:(float)filterDecayDuration {
-    kernelPtr->setFilterDecayDuration(filterDecayDuration);}
-- (void)setFilterSustainLevel:(float)filterSustainLevel {
-    kernelPtr->setFilterSustainLevel(filterSustainLevel);}
-- (void)setFilterReleaseDuration:(float)filterReleaseDuration {
-    kernelPtr->setFilterReleaseDuration(filterReleaseDuration);}
-- (void)setFilterEnvelopeStrength:(float)filterEnvelopeStrength {
-    kernelPtr->setFilterEnvelopeStength(filterEnvelopeStrength);}
-
 - (void)stopNote:(uint8_t)note { kernelPtr->stopNote(note); };
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity { kernelPtr->startNote(note, velocity); };
@@ -128,85 +113,6 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
-    _filterCutoffFrequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterCutoffFrequency"
-                                              name:@"Filter Cutoff Frequency"
-                                           address:AKBankDSPKernel::filterCutoffFrequencyAddress
-                                               min:0.0
-                                               max:22050.0
-          unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                            flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterResonanceAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterResonance"
-                                              name:@"Filter Resonance"
-                                           address:AKBankDSPKernel::filterResonanceAddress
-                                               min:0.0
-                                               max:0.99
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterAttackDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterAttackDuration"
-                                              name:@"Filter Attack Duration"
-                                           address:AKBankDSPKernel::filterAttackDurationAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterDecayDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterDecayDuration"
-                                              name:@"Filter Decay Duration"
-                                           address:AKBankDSPKernel::filterDecayDurationAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterSustainLevelAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterSustainLevel"
-                                              name:@"Filter Sustain Level"
-                                           address:AKBankDSPKernel::filterSustainLevelAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterReleaseDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterReleaseDuration"
-                                              name:@"Filter Release Duration"
-                                           address:AKBankDSPKernel::filterReleaseDurationAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    _filterEnvelopeStrengthAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"filterEnvelopeStrength"
-                                              name:@"Filter Envelope Strength"
-                                           address:AKBankDSPKernel::filterEnvelopeStrengthAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    
     _attackDurationAUParameter.value = 0.1;
     _decayDurationAUParameter.value = 0.1;
     _sustainLevelAUParameter.value = 1.0;
@@ -214,14 +120,7 @@
     _pitchBendAUParameter.value = 0;
     _vibratoDepthAUParameter.value = 0;
     _vibratoRateAUParameter.value = 0;
-    _filterCutoffFrequencyAUParameter.value = 0.1;
-    _filterResonanceAUParameter.value = 0.0;
-    _filterAttackDurationAUParameter.value = 0.1;
-    _filterDecayDurationAUParameter.value = 0.1;
-    _filterSustainLevelAUParameter.value = 1.0;
-    _filterReleaseDurationAUParameter.value = 0.1;
-    _filterEnvelopeStrengthAUParameter.value = 0.0;
-
+    
     kernelPtr->setParameter(AKBankDSPKernel::attackDurationAddress,  _attackDurationAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::decayDurationAddress,   _decayDurationAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::sustainLevelAddress,    _sustainLevelAUParameter.value);
@@ -229,29 +128,14 @@
     kernelPtr->setParameter(AKBankDSPKernel::pitchBendAddress,       _pitchBendAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::vibratoDepthAddress,    _vibratoDepthAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::vibratoRateAddress,     _vibratoRateAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterCutoffFrequencyAddress,       _filterCutoffFrequencyAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterResonanceAddress,     _filterResonanceAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterAttackDurationAddress,     _filterAttackDurationAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterDecayDurationAddress,     _filterDecayDurationAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterSustainLevelAddress,     _filterSustainLevelAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterReleaseDurationAddress,     _filterReleaseDurationAUParameter.value);
-    kernelPtr->setParameter(AKBankDSPKernel::filterEnvelopeStrengthAddress,     _filterEnvelopeStrengthAUParameter.value);
-
+    
     return @[_attackDurationAUParameter,
              _decayDurationAUParameter,
              _sustainLevelAUParameter,
              _releaseDurationAUParameter,
              _pitchBendAUParameter,
              _vibratoDepthAUParameter,
-             _vibratoRateAUParameter,
-             _filterCutoffFrequencyAUParameter,
-             _filterResonanceAUParameter,
-             _filterAttackDurationAUParameter,
-             _filterDecayDurationAUParameter,
-             _filterSustainLevelAUParameter,
-             _filterReleaseDurationAUParameter,
-             _filterEnvelopeStrengthAUParameter]
-    ;
+             _vibratoRateAUParameter];
 }
 
 @end
