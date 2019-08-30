@@ -89,16 +89,19 @@ protected:
                 sp_oscmorph_compute(kernel->getSpData(), osc, nil, &x);
                 
                 float xf = 0;
+                float filterDepth = kernel->filterLFODepth;
+                float filterRate = sinf((kernel->currentRunningIndex + frameIndex) * 2 * 2 * M_PI * kernel->filterLFORate / kernel->getSampleRate());
                 
+                float filterFreq = clamp(sff * powf(2, filterDepth * filterRate), 0.0f, 22050.0f);
                 sp_adsr_compute(kernel->getSpData(), filterEnv, &internalGate, &filterAmp);
                 filterAmp = filterAmp * filterStrength;
-                filter->freq = sff + ((22050.0f - sff) * filterAmp);
-                filter->freq = clamp(filter->freq, 0.0f, 22050.0f);
+                filter->freq = filterFreq + ((22050.0f - filterFreq) * filterAmp);
                 
+                filter->freq = clamp(filter->freq, 0.0f, 22050.0f);
                 sp_moogladder_compute(kernel->getSpData(), filter, &x, &xf);
+                
                 *outL++ += amp * xf;
                 *outR++ += amp * xf;
-
             }
             osc->freq = originalFrequency;
             if (stage == stageRelease && amp < 0.00001) {

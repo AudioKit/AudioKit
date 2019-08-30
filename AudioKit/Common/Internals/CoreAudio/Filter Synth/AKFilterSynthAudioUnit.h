@@ -26,6 +26,8 @@
 @property AUParameter *filterSustainLevelAUParameter;
 @property AUParameter *filterReleaseDurationAUParameter;
 @property AUParameter *filterEnvelopeStrengthAUParameter;
+@property AUParameter *filterLFODepthAUParameter;
+@property AUParameter *filterLFORateAUParameter;
 
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float decayDuration;
@@ -41,6 +43,8 @@
 @property (nonatomic) float filterSustainLevel;
 @property (nonatomic) float filterReleaseDuration;
 @property (nonatomic) float filterEnvelopeStrength;
+@property (nonatomic) float filterLFODepth;
+@property (nonatomic) float filterLFORate;
 
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)startNote:(uint8_t)note velocity:(uint8_t)velocity frequency:(float)frequency;
