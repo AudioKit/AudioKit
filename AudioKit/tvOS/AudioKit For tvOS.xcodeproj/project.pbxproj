@@ -2337,6 +2337,7 @@
 		3425223721E7F9B40014B603 /* Polysynths */ = {
 			isa = PBXGroup;
 			children = (
+				C403F425231A3F7E00A81C0E /* Filter Polysynths */,
 				C49DCD3C1D2100AB00BF018A /* FM Oscillator Bank */,
 				C49DCD451D2100B400BF018A /* Morphing Oscillator Bank */,
 				C49DCD4E1D2100BF00BF018A /* Oscillator Bank */,
@@ -3382,7 +3383,6 @@
 			isa = PBXGroup;
 			children = (
 				C453814C1C3A5CBD00A51738 /* AudioKit Operation-Based Generator */,
-				C403F425231A3F7E00A81C0E /* Filter Polysynths */,
 				C45381511C3A5CBD00A51738 /* Noise */,
 				C453815C1C3A5CBD00A51738 /* Oscillators */,
 				C40C427D1C41BF00009D870B /* Physical Models */,
