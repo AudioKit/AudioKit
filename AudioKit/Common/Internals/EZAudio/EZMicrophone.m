@@ -651,11 +651,21 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
                          withBufferSize:inNumberFrames
                    withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
     }
+    if ([microphone.delegate respondsToSelector:@selector(microphone:hasBufferList:withBufferSize:withNumberOfChannels:atTime:)])
+    {
+        [microphone.delegate microphone:microphone
+                          hasBufferList:info->audioBufferList
+                         withBufferSize:inNumberFrames
+                   withNumberOfChannels:info->streamFormat.mChannelsPerFrame
+                                 atTime:inTimeStamp];
+    }
 
     //
     // Notify delegate of new float data processed
     //
-    if ([microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:)])
+    bool respondsToSelector              = [microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:)];
+    bool respondsToSelectorWithTimestamp = [microphone.delegate respondsToSelector:@selector(microphone:hasAudioReceived:withBufferSize:withNumberOfChannels:atTime:)];
+    if (respondsToSelector || respondsToSelectorWithTimestamp)
     {
         //
         // Convert to float
@@ -663,10 +673,22 @@ static OSStatus EZAudioMicrophoneCallback(void                       *inRefCon,
         [microphone.floatConverter convertDataFromAudioBufferList:info->audioBufferList
                                                withNumberOfFrames:inNumberFrames
                                                    toFloatBuffers:info->floatData];
-        [microphone.delegate microphone:microphone
-                       hasAudioReceived:info->floatData
-                         withBufferSize:inNumberFrames
-                   withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
+
+        if (respondsToSelector)
+        {
+            [microphone.delegate microphone:microphone
+                           hasAudioReceived:info->floatData
+                             withBufferSize:inNumberFrames
+                       withNumberOfChannels:info->streamFormat.mChannelsPerFrame];
+        }
+        if (respondsToSelectorWithTimestamp)
+        {
+            [microphone.delegate microphone:microphone
+                           hasAudioReceived:info->floatData
+                             withBufferSize:inNumberFrames
+                       withNumberOfChannels:info->streamFormat.mChannelsPerFrame
+                                     atTime:inTimeStamp];
+        }
     }
 
     return result;
