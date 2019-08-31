@@ -12,11 +12,11 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     public typealias AKAudioUnitType = AKPWMOscillatorBankAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(instrument: "pwmb")
-
+    
     // MARK: - Properties
-
+    
     private var internalAU: AKAudioUnitType?
-
+    
     fileprivate var pulseWidthParameter: AUParameter?
     fileprivate var attackDurationParameter: AUParameter?
     fileprivate var decayDurationParameter: AUParameter?
@@ -25,14 +25,14 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
     fileprivate var pitchBendParameter: AUParameter?
     fileprivate var vibratoDepthParameter: AUParameter?
     fileprivate var vibratoRateParameter: AUParameter?
-
+    
     /// Ramp Duration represents the speed at which parameters are allowed to change
     @objc open dynamic var rampDuration: Double = AKSettings.rampDuration {
         willSet {
             internalAU?.rampDuration = newValue
         }
     }
-
+    
     /// Duty cycle width (range 0-1).
     @objc open dynamic var pulseWidth: Double = 0.5 {
         willSet {
@@ -44,7 +44,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Attack duration in seconds
     @objc open dynamic var attackDuration: Double = 0.1 {
         willSet {
@@ -56,7 +56,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Decay duration in seconds
     @objc open dynamic var decayDuration: Double = 0.1 {
         willSet {
@@ -79,7 +79,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Release duration in seconds
     @objc open dynamic var releaseDuration: Double = 0.1 {
         willSet {
@@ -91,7 +91,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Pitch Bend as number of semitones
     @objc open dynamic var pitchBend: Double = 0 {
         willSet {
@@ -103,7 +103,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Vibrato Depth in semitones
     @objc open dynamic var vibratoDepth: Double = 0 {
         willSet {
@@ -115,7 +115,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     /// Vibrato Rate in Hz
     @objc open dynamic var vibratoRate: Double = 0 {
         willSet {
@@ -127,14 +127,14 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
             }
         }
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(pulseWidth: 0.5)
     }
-
+    
     /// Initialize this oscillator node
     ///
     /// - Parameters:
@@ -156,7 +156,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         pitchBend: Double = 0,
         vibratoDepth: Double = 0,
         vibratoRate: Double = 0) {
-
+        
         self.pulseWidth = pulseWidth
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -165,23 +165,23 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         self.pitchBend = pitchBend
         self.vibratoDepth = vibratoDepth
         self.vibratoRate = vibratoRate
-
+        
         _Self.register()
-
+        
         super.init()
         AVAudioUnit._instantiate(with: _Self.ComponentDescription) { [weak self] avAudioUnit in
-
+            
             self?.avAudioUnit = avAudioUnit
             self?.avAudioNode = avAudioUnit
             self?.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self?.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
         }
-
+        
         guard let tree = internalAU?.parameterTree else {
             AKLog("Parameter Tree Failed")
             return
         }
-
+        
         pulseWidthParameter = tree["pulseWidth"]
         attackDurationParameter = tree["attackDuration"]
         decayDurationParameter = tree["decayDuration"]
@@ -199,9 +199,9 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
         internalAU?.vibratoDepth = Float(vibratoDepth)
         internalAU?.vibratoRate = Float(vibratoRate)
     }
-
+    
     // MARK: - AKPolyphonic
-
+    
     // Function to start, play, or activate the node at frequency
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
@@ -209,7 +209,7 @@ open class AKPWMOscillatorBank: AKPolyphonicNode, AKComponent {
                             channel: MIDIChannel = 0) {
         internalAU?.startNote(noteNumber, velocity: velocity, frequency: Float(frequency))
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     open override func stop(noteNumber: MIDINoteNumber) {
         internalAU?.stopNote(noteNumber)

@@ -1,21 +1,21 @@
 //
-//  AKFMOscillatorBankAudioUnit.mm
+//  AKFMOscillatorFilterSynthAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Colin Hallett, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-#import "AKFMOscillatorBankAudioUnit.h"
-#import "AKFMOscillatorBankDSPKernel.hpp"
+#import "AKFMOscillatorFilterSynthAudioUnit.h"
+#import "AKFMOscillatorFilterSynthDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@implementation AKFMOscillatorBankAudioUnit {
+@implementation AKFMOscillatorFilterSynthAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKFMOscillatorBankDSPKernel _kernel;
+    AKFMOscillatorFilterSynthDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -38,14 +38,14 @@
 }
 
 - (void)createParameters {
-    
-    standardGeneratorSetup(FMOscillatorBank)
-    
+
+    standardGeneratorSetup(FMOscillatorFilterSynth)
+
     // Create a parameter object for the carrier multiplier.
     AUParameter *carrierMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
                                               name:@"Carrier Multiplier"
-                                           address:AKFMOscillatorBankDSPKernel::carrierMultiplierAddress
+                                           address:AKFMOscillatorFilterSynthDSPKernel::carrierMultiplierAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -53,12 +53,12 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
     // Create a parameter object for the modulating multiplier.
     AUParameter *modulatingMultiplierAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
                                               name:@"Modulating Multiplier"
-                                           address:AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress
+                                           address:AKFMOscillatorFilterSynthDSPKernel::modulatingMultiplierAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -66,12 +66,12 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
+
     // Create a parameter object for the modulation index.
     AUParameter *modulationIndexAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
                                               name:@"Modulation Index"
-                                           address:AKFMOscillatorBankDSPKernel::modulationIndexAddress
+                                           address:AKFMOscillatorFilterSynthDSPKernel::modulationIndexAddress
                                                min:0.0
                                                max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
@@ -79,28 +79,28 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    
-    
+
+
     // Initialize the parameter values.
     carrierMultiplierAUParameter.value = 1.0;
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
-    
-    _kernel.setParameter(AKFMOscillatorBankDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
-    _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
-    _kernel.setParameter(AKFMOscillatorBankDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
-    
+
+    _kernel.setParameter(AKFMOscillatorFilterSynthDSPKernel::carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
+    _kernel.setParameter(AKFMOscillatorFilterSynthDSPKernel::modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
+    _kernel.setParameter(AKFMOscillatorFilterSynthDSPKernel::modulationIndexAddress,      modulationIndexAUParameter.value);
+
     [self setKernelPtr:&_kernel];
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[carrierMultiplierAUParameter,
-                                                                                   modulatingMultiplierAUParameter,
-                                                                                   modulationIndexAUParameter]];
+                                                                                      modulatingMultiplierAUParameter,
+                                                                                      modulationIndexAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];
-    
-    parameterTreeBlock(FMOscillatorBank)
+
+    parameterTreeBlock(FMOscillatorFilterSynth)
 }
 
-AUAudioUnitGeneratorOverrides(FMOscillatorBank)
+AUAudioUnitGeneratorOverrides(FMOscillatorFilterSynth)
 
 
 
