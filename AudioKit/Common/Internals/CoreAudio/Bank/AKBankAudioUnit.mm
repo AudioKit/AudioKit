@@ -120,7 +120,7 @@
     _pitchBendAUParameter.value = 0;
     _vibratoDepthAUParameter.value = 0;
     _vibratoRateAUParameter.value = 0;
-
+    
     kernelPtr->setParameter(AKBankDSPKernel::attackDurationAddress,  _attackDurationAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::decayDurationAddress,   _decayDurationAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::sustainLevelAddress,    _sustainLevelAUParameter.value);
@@ -128,7 +128,7 @@
     kernelPtr->setParameter(AKBankDSPKernel::pitchBendAddress,       _pitchBendAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::vibratoDepthAddress,    _vibratoDepthAUParameter.value);
     kernelPtr->setParameter(AKBankDSPKernel::vibratoRateAddress,     _vibratoRateAUParameter.value);
-
+    
     return @[_attackDurationAUParameter,
              _decayDurationAUParameter,
              _sustainLevelAUParameter,

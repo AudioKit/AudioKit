@@ -1,21 +1,21 @@
 //
-//  AKOscillatorBankAudioUnit.mm
+//  AKOscillatorFilterSynthAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Colin Hallett, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-#import "AKOscillatorBankAudioUnit.h"
-#import "AKOscillatorBankDSPKernel.hpp"
+#import "AKOscillatorFilterSynthAudioUnit.h"
+#import "AKOscillatorFilterSynthDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@implementation AKOscillatorBankAudioUnit {
+@implementation AKOscillatorFilterSynthAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKOscillatorBankDSPKernel _kernel;
+    AKOscillatorFilterSynthDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -32,18 +32,18 @@
 }
 
 - (void)createParameters {
-    
-    standardGeneratorSetup(OscillatorBank)
-    
+
+    standardGeneratorSetup(OscillatorFilterSynth)
+
     [self setKernelPtr:&_kernel];
-    
+
     // Create the parameter tree.
     _parameterTree = [AUParameterTree treeWithChildren:[self standardParameters]];
-    
-    parameterTreeBlock(OscillatorBank)
+
+    parameterTreeBlock(OscillatorFilterSynth)
 }
 
-AUAudioUnitGeneratorOverrides(OscillatorBank)
+AUAudioUnitGeneratorOverrides(OscillatorFilterSynth)
 
 
 @end
