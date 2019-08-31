@@ -1,21 +1,21 @@
 //
-//  AKPhaseDistortionOscillatorBankAudioUnit.mm
+//  AKPhaseDistortionOscillatorFilterSynthAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Colin Hallett, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-#import "AKPhaseDistortionOscillatorBankAudioUnit.h"
-#import "AKPhaseDistortionOscillatorBankDSPKernel.hpp"
+#import "AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+#import "AKPhaseDistortionOscillatorFilterSynthDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@implementation AKPhaseDistortionOscillatorBankAudioUnit {
+@implementation AKPhaseDistortionOscillatorFilterSynthAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKPhaseDistortionOscillatorBankDSPKernel _kernel;
+    AKPhaseDistortionOscillatorFilterSynthDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -32,31 +32,31 @@
 }
 
 - (void)createParameters {
-    
-    standardGeneratorSetup(PhaseDistortionOscillatorBank)
-    
+
+    standardGeneratorSetup(PhaseDistortionOscillatorFilterSynth)
+
     // Create a parameter object for the phaseDistortion.
     AUParameter *phaseDistortionAUParameter = [AUParameter parameterWithIdentifier:@"phaseDistortion"
                                                                               name:@"Phase Distortion"
-                                                                           address:AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress
+                                                                           address:AKPhaseDistortionOscillatorFilterSynthDSPKernel::phaseDistortionAddress
                                                                                min:0.0
                                                                                max:1.0
                                                                               unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     phaseDistortionAUParameter.value = 0.0;
-    
-    _kernel.setParameter(AKPhaseDistortionOscillatorBankDSPKernel::phaseDistortionAddress, phaseDistortionAUParameter.value);
-    
+
+    _kernel.setParameter(AKPhaseDistortionOscillatorFilterSynthDSPKernel::phaseDistortionAddress, phaseDistortionAUParameter.value);
+
     [self setKernelPtr:&_kernel];
-    
+
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[phaseDistortionAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];
-    parameterTreeBlock(PhaseDistortionOscillatorBank)
+    parameterTreeBlock(PhaseDistortionOscillatorFilterSynth)
 }
 
-AUAudioUnitGeneratorOverrides(PhaseDistortionOscillatorBank)
+AUAudioUnitGeneratorOverrides(PhaseDistortionOscillatorFilterSynth)
 
 
 @end
