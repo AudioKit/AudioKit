@@ -32,7 +32,7 @@ namespace AudioKitCore
             indexPoint += multiplier * increment;
             if (sampleBuffer->isLooping && isLooping)
             {
-                if (indexPoint >= sampleBuffer->loopEndPoint)
+                if (indexPoint > sampleBuffer->loopEndPoint)
                     indexPoint = indexPoint - sampleBuffer->loopEndPoint + sampleBuffer->loopStartPoint;
             }
             return false;
@@ -47,7 +47,7 @@ namespace AudioKitCore
             indexPoint += multiplier * increment;
             if (sampleBuffer->isLooping && isLooping)
             {
-                if (indexPoint >= sampleBuffer->loopEndPoint)
+                if (indexPoint > sampleBuffer->loopEndPoint)
                     indexPoint = indexPoint - sampleBuffer->loopEndPoint + sampleBuffer->loopStartPoint;
             }
             return false;

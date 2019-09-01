@@ -70,9 +70,9 @@ namespace AudioKitCore
             return value;
         }
         
-        inline void getValues(int count, float *pOut)
+        inline void getValues(int nValuesNeeded, float *pOut)
         {
-            for (int i=0; i < count; i++) *pOut++ = getNextValue();
+            for (int i=0; i < nValuesNeeded; i++) *pOut++ = getNextValue();
         }
     };
 
