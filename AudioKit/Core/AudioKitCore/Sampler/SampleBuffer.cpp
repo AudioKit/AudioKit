@@ -36,7 +36,7 @@ namespace AudioKitCore
         if (samples) delete[] samples;
         samples = new float[channelCount * sampleCount];
         loopStartPoint = startPoint = 0.0f;
-        loopEndPoint = endPoint = (float)sampleCount;
+        loopEndPoint = endPoint = (float)(sampleCount - 1);
     }
     
     void SampleBuffer::deinit()
