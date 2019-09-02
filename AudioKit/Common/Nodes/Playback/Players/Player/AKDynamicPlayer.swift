@@ -130,6 +130,22 @@ public class AKDynamicPlayer: AKPlayer {
         super.play(from: startingTime, to: endingTime, at: audioTime, hostTime: hostTime)
     }
 
+    public override func play(from startingTime: Double,
+                              to endingTime: Double,
+                              when scheduledTime: Double,
+                              hostTime: UInt64? = nil) {
+        var scheduledTime = scheduledTime
+
+        // offline rendering needs to account for timestretching in it's scheduling,
+        // so adjust it here based on the rate
+        if renderingMode == .offline, rate != 1 {
+            let adjustedTime = scheduledTime * rate
+            scheduledTime = adjustedTime
+        }
+
+        super.play(from: startingTime, to: endingTime, when: scheduledTime, hostTime: hostTime)
+    }
+
     /// Stop playback and cancel any pending scheduled playback or completion events
     public override func stop() {
         super.stop()

@@ -39,24 +39,6 @@ extension AKPlayer {
         play(from: startTime, to: endTime, when: scheduledTime, hostTime: hostTime)
     }
 
-    public func play(from startingTime: Double,
-                     to endingTime: Double,
-                     when scheduledTime: Double,
-                     hostTime: UInt64? = nil) {
-        let refTime = hostTime ?? mach_absolute_time()
-
-        // two ways to create an AVAudioTime object, this only uses hostTime and an offset in seconds:
-        // let avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
-
-        // this also adds in sampleTime. sampleTime is needed for offline rendering to work
-        // AVAudioTime can contain both time as samples and via the host clock, or both
-        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
-        let avTime = AVAudioTime.now(offsetBy: scheduledTime, atRate: sampleRate, hostTime: refTime)
-
-        // Note, final play command is in AKPlayer.swift for subclass override
-        play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
-    }
-
     @objc public func pause() {
         pauseTime = currentTime
         stop()
