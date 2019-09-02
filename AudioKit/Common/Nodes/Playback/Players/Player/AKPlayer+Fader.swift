@@ -34,6 +34,7 @@ extension AKPlayer {
         triggerTime /= _rate
         // AKLog("starting fade in", triggerTime, "seconds")
 
+        // Note: that the timers are a hack until parameter scheduling is added into AudioKit
         DispatchQueue.main.async {
             self.faderTimer?.invalidate()
             self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
@@ -85,6 +86,7 @@ extension AKPlayer {
             var when = (duration - startTime) - (duration - endTime) - fade.outTime
             when /= _rate
 
+            // Note: that the timers are a hack until parameter scheduling is added into AudioKit
             DispatchQueue.main.async {
                 self.faderTimer?.invalidate()
                 self.faderTimer = Timer.scheduledTimer(timeInterval: when,

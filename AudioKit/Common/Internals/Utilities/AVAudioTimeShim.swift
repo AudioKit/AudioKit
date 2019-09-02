@@ -48,14 +48,10 @@ extension AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
-    // An AVAudioTime with both hostTime and sampleTime. Offline rendering using sampleTime to calculate scheduling
-    public static func now(offsetBy seconds: Double, atRate: Double, hostTime: UInt64) -> AVAudioTime {
-        let refTime = AVAudioTime(hostTime: hostTime, sampleTime: 0, atRate: atRate)
-        return refTime.offset(seconds: seconds)
-    }
-
     /// Returns an AVAudioTime offset by seconds.
     open func offset(seconds: Double) -> AVAudioTime {
+        AKLog("isSampleTimeValid", isSampleTimeValid, "isHostTimeValid", isHostTimeValid)
+
         if isSampleTimeValid && isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),

@@ -52,6 +52,11 @@ public class AKPlayer: AKNode {
         case dynamic, always
     }
 
+    /// the way that AKPlayer needs to be scheduled for playback or offline rendering is different currently
+    public enum RenderingMode {
+        case realtime, offline
+    }
+
     public struct Loop {
         public var start: Double = 0 {
             willSet {
@@ -134,10 +139,10 @@ public class AKPlayer: AKNode {
     // MARK: - Nodes
 
     /// The underlying player node
-    @objc public let playerNode = AVAudioPlayerNode()
+    @objc public var playerNode = AVAudioPlayerNode()
 
     /// The main output
-    @objc public let mixer = AVAudioMixerNode()
+    @objc public var mixer = AVAudioMixerNode()
 
     /// The underlying gain booster which controls fades as well. Created on demand.
     @objc public var faderNode: AKBooster?
@@ -205,6 +210,10 @@ public class AKPlayer: AKNode {
             }
         }
     }
+
+    /// Currently, the way AKPlayer handles scheduling is different for offline rendering
+    /// Set this to .offline if you are using AudioKit.renderToFile
+    public var renderingMode: RenderingMode = .realtime
 
     /// The internal audio file
     @objc public private(set) var audioFile: AVAudioFile?
@@ -496,13 +505,38 @@ public class AKPlayer: AKNode {
 
     // MARK: - Play
 
+    // Placed in main class to be overriden in subclasses if needed.
+    public func play(from startingTime: Double,
+                     to endingTime: Double,
+                     when scheduledTime: Double,
+                     hostTime: UInt64? = nil) {
+        let refTime = hostTime ?? mach_absolute_time()
+        var avTime: AVAudioTime?
+
+        AKLog("schedulingType", renderingMode)
+
+        if renderingMode == .realtime {
+            // two ways to create an AVAudioTime object, this only uses hostTime and an offset in seconds:
+            // avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+            avTime = AVAudioTime(hostTime: refTime).offset(seconds: scheduledTime)
+
+        } else if renderingMode == .offline {
+            // this also adds in sampleTime. sampleTime is needed for offline rendering to work
+            // AVAudioTime can contain both time as samples and via the host clock, or both
+            let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
+            let nowTime = AVAudioTime(sampleTime: 0, atRate: sampleRate)
+            avTime = nowTime.offset(seconds: scheduledTime)
+        }
+
+        guard let strongTime = avTime else { return }
+        play(from: startingTime, to: endingTime, at: strongTime, hostTime: refTime)
+    }
+
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
-    /// Placed in main class to be overriden in subclasses if needed.
+    // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
-
         faderTimer?.invalidate()
-
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
