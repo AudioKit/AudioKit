@@ -19,7 +19,7 @@ open class AKWaveTable: AKNode, AKComponent {
 
     public typealias AKAudioUnitType = AKWaveTableAudioUnit
     /// Four letter unique description of the node
-    public static let ComponentDescription = AudioComponentDescription(generator: "smpl")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "smpl")
 
     // MARK: - Properties
 
@@ -309,5 +309,19 @@ open class AKWaveTable: AKNode, AKComponent {
 
     deinit {
         internalAU?.destroy()
+    }
+
+
+    // Function to start, play, or activate the node at frequency
+    open func play(noteNumber: MIDINoteNumber,
+                            velocity: MIDIVelocity,
+                            frequency: Double,
+                            channel: MIDIChannel = 0) {
+        internalAU?.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    open func stop(noteNumber: MIDINoteNumber) {
+        internalAU?.stop()
     }
 }
