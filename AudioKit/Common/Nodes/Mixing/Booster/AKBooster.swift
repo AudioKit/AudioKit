@@ -102,7 +102,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         _ input: AKNode? = nil,
         gain: Double = 1
     ) {
-
         self.leftGain = gain
         self.rightGain = gain
 
@@ -117,7 +116,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             strongSelf.avAudioUnit = avAudioUnit
             strongSelf.avAudioNode = avAudioUnit
             strongSelf.internalAU = avAudioUnit.auAudioUnit as? AKAudioUnitType
-
             input?.connect(to: strongSelf)
         }
 
@@ -153,5 +151,36 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             self.leftGain = 1
             self.rightGain = 1
         }
+    }
+}
+
+extension AKBooster {
+    public func scheduleParameter(value: Double, at time: AUEventSampleTime, rampDuration: AUAudioFrameCount? = nil) {
+        guard let internalAU = internalAU,
+            let leftAddress = leftGainParameter?.address,
+            let rightAddress = rightGainParameter?.address else {
+            AKLog("Param addresses aren't valid")
+            return
+        }
+
+        let rampDuration = rampDuration ?? AUAudioFrameCount(0.2 * outputNode.outputFormat(forBus: 0).sampleRate)
+
+        // self.rampDuration = Double(rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
+
+
+        var lastTimeStamp = internalAU.lastTimeStamp
+
+        if let lastRenderSampleTime = outputNode.lastRenderTime?.audioTimeStamp.mSampleTime {
+            lastTimeStamp = AUEventSampleTime(lastRenderSampleTime)
+        }
+
+
+        // i would assume you'd add a future offset to the lastTimeStamp, but that doesn't work
+        let sampleTime = lastTimeStamp // + time
+
+        internalAU.scheduleParameterBlock(sampleTime, rampDuration, leftAddress, AUValue(value))
+        internalAU.scheduleParameterBlock(sampleTime, rampDuration, rightAddress, AUValue(value))
+
+        AKLog("* scheduleParameterBlock lastTimeStamp", lastTimeStamp, "sampleTime", sampleTime, "rampDuration", rampDuration, "value", value)
     }
 }

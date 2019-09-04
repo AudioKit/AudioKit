@@ -27,7 +27,7 @@
  is. I'm not sure the standard way to deal with this.
  */
 
-- (AKDSPRef _Nonnull )initDSPWithSampleRate:(double) sampleRate channelCount:(AVAudioChannelCount) count;
+- (AKDSPRef _Nonnull)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count;
 
 /**
  Sets the parameter tree. The important piece here is that setting the parameter tree
@@ -35,7 +35,7 @@
  the .m file. There may be a better way to do what is needed here.
  */
 
-- (void)setParameterTree:(AUParameterTree* _Nullable) tree;
+- (void)setParameterTree:(AUParameterTree *_Nullable)tree;
 
 - (AUValue)parameterWithAddress:(AUParameterAddress)address;
 - (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value;
@@ -60,6 +60,6 @@
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
+@property (readonly) AUEventSampleTime lastTimeStamp;
+
 @end
-
-

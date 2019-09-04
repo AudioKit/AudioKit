@@ -10,14 +10,6 @@ import AVFoundation
 
 public class AKBoosterAudioUnit: AKAudioUnitBase {
 
-    func setParameter(_ address: AKBoosterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
     var leftGain: Double = 1.0 {
         didSet { setParameter(.leftGain, value: leftGain) }
     }
@@ -35,6 +27,8 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
             setParameter(.rampType, value: Double(rampType))
         }
     }
+
+    public override var canProcessInPlace: Bool { return true }
 
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
@@ -66,6 +60,12 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         rightGain.value = 1.0
     }
 
-    public override var canProcessInPlace: Bool { return true }
+    func setParameter(_ address: AKBoosterParameter, value: Double) {
+        setParameterWithAddress(address.rawValue, value: Float(value))
+    }
+
+    func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
+    }
 
 }

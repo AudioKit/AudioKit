@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B174FEB123200D9100C51BD1 /* PinkNoise.wav in Resources */ = {isa = PBXBuildFile; fileRef = B174FEAE23200D9100C51BD1 /* PinkNoise.wav */; };
 		C4AF13A120319E45002E0FD8 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139320319D42002E0FD8 /* AudioKit.framework */; };
 		C4AF13A220319E45002E0FD8 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4AF139520319D42002E0FD8 /* AudioKitUI.framework */; };
 		C4AF13A620319EB5002E0FD8 /* sinechirp.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4AF13A320319EB4002E0FD8 /* sinechirp.wav */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "macOSDevelopment-Bridging-Header.h"; sourceTree = "<group>"; };
+		B174FEAE23200D9100C51BD1 /* PinkNoise.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = PinkNoise.wav; path = ../../../Common/PinkNoise.wav; sourceTree = "<group>"; };
 		C4AF138D20319D41002E0FD8 /* AudioKit For macOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For macOS.xcodeproj"; path = "../../../AudioKit/macOS/AudioKit For macOS.xcodeproj"; sourceTree = "<group>"; };
 		C4AF13A320319EB4002E0FD8 /* sinechirp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sinechirp.wav; path = ../../../Common/sinechirp.wav; sourceTree = "<group>"; };
 		C4AF13A420319EB4002E0FD8 /* AKTestTriggers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKTestTriggers.h; path = ../../../Common/AKTestTriggers.h; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				55D897321FDB864D00754292 /* macOSDevelopment-Bridging-Header.h */,
 				C4AF13A420319EB4002E0FD8 /* AKTestTriggers.h */,
 				C4AF13A520319EB4002E0FD8 /* AKTestTriggers.m */,
+				B174FEAE23200D9100C51BD1 /* PinkNoise.wav */,
 				C4AF13A320319EB4002E0FD8 /* sinechirp.wav */,
 			);
 			path = macOSDevelopment;
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BDE7F11C12FAE600207DA9 /* Assets.xcassets in Resources */,
+				B174FEB123200D9100C51BD1 /* PinkNoise.wav in Resources */,
 				C4AF13A620319EB5002E0FD8 /* sinechirp.wav in Resources */,
 				C4BDE7F41C12FAE600207DA9 /* Main.storyboard in Resources */,
 			);
