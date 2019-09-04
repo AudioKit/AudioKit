@@ -99,6 +99,8 @@
 		55B95B331FEDC34F00C76AF5 /* AKInterop.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B95B321FEDC34700C76AF5 /* AKInterop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = 55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55E4F52A1F57DAC30088018A /* AKSamplerMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */; };
+		69E2694E232025E700861150 /* soundpipeextension.h in Headers */ = {isa = PBXBuildFile; fileRef = 69E2694B232025E700861150 /* soundpipeextension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		69E2694F232025E700861150 /* oscmorph2d.c in Sources */ = {isa = PBXBuildFile; fileRef = 69E2694D232025E700861150 /* oscmorph2d.c */; };
 		A8E996F41EB9212600116ADA /* AKTuningTable+Brun.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */; };
 		B10CC6AE201C0A5300B0B9B9 /* AKExponentialParameterRamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1468E1D20D025E40030BA66 /* AKDynamicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1468E1C20D025E40030BA66 /* AKDynamicPlayer.swift */; };
@@ -1287,6 +1289,8 @@
 		55B95B321FEDC34700C76AF5 /* AKInterop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKInterop.h; sourceTree = "<group>"; };
 		55E4F5271F57DAC30088018A /* AKSamplerMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSamplerMetronome.h; path = ../AKSamplerMetronome.h; sourceTree = "<group>"; };
 		55E4F5281F57DAC30088018A /* AKSamplerMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSamplerMetronome.m; path = ../AKSamplerMetronome.m; sourceTree = "<group>"; };
+		69E2694B232025E700861150 /* soundpipeextension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundpipeextension.h; sourceTree = "<group>"; };
+		69E2694D232025E700861150 /* oscmorph2d.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph2d.c; sourceTree = "<group>"; };
 		7078DE4C1F260A3600F1DC67 /* AKRotaryKnob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRotaryKnob.swift; sourceTree = "<group>"; };
 		A8E996F31EB9212600116ADA /* AKTuningTable+Brun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKTuningTable+Brun.swift"; sourceTree = "<group>"; };
 		B10CC6AD201C0A5200B0B9B9 /* AKExponentialParameterRamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKExponentialParameterRamp.hpp; sourceTree = "<group>"; };
@@ -2652,6 +2656,23 @@
 				55B95B321FEDC34700C76AF5 /* AKInterop.h */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		69E2694A232025E700861150 /* SoundpipeExtension */ = {
+			isa = PBXGroup;
+			children = (
+				69E2694B232025E700861150 /* soundpipeextension.h */,
+				69E2694C232025E700861150 /* modules */,
+			);
+			path = SoundpipeExtension;
+			sourceTree = "<group>";
+		};
+		69E2694C232025E700861150 /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				69E2694D232025E700861150 /* oscmorph2d.c */,
+			);
+			path = modules;
 			sourceTree = "<group>";
 		};
 		B1468E1720D022FD0030BA66 /* Player */ = {
@@ -4370,6 +4391,7 @@
 				C49B1803204A0AD0009C7C8E /* README.md */,
 				3404A77E205064FD00A2C9E4 /* AudioKitCore */,
 				C49B165B204A0ACF009C7C8E /* Devoloop */,
+				69E2694A232025E700861150 /* SoundpipeExtension */,
 				C49B15C4204A0ACF009C7C8E /* Soundpipe */,
 				C49B1685204A0ACF009C7C8E /* Sporth */,
 				C49B171F204A0ACF009C7C8E /* STK */,
@@ -5351,6 +5373,7 @@
 				C49B18A3204A0AD1009C7C8E /* FFTRealFixLenParam.h in Headers */,
 				EADFC4392151088D003E5191 /* AKCoreSynth.hpp in Headers */,
 				C4B65F83200C518B0074FB93 /* AKClarinetDSP.hpp in Headers */,
+				69E2694E232025E700861150 /* soundpipeextension.h in Headers */,
 				C49B18AA204A0AD1009C7C8E /* FFTRealFixLen.hpp in Headers */,
 				55E4F5291F57DAC30088018A /* AKSamplerMetronome.h in Headers */,
 				C49B1B17204A0C48009C7C8E /* PitShift.h in Headers */,
@@ -5798,6 +5821,7 @@
 				34BB66DC205ABBC0000E5450 /* unpack3.c in Sources */,
 				C49B1852204A0AD0009C7C8E /* base.c in Sources */,
 				C45669BC1D448D7E00D26565 /* AKParameter.swift in Sources */,
+				69E2694F232025E700861150 /* oscmorph2d.c in Sources */,
 				C49B1934204A0AD1009C7C8E /* load.c in Sources */,
 				C49B18E6204A0AD1009C7C8E /* wpkorg35.c in Sources */,
 				C4812B052028556D00D4AFB1 /* AKChowningReverbDSP.mm in Sources */,
