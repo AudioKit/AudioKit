@@ -77,6 +77,15 @@ namespace AudioKitCore
             pWaveTable[i] = (phase < dutyCycle ? amplitude : -amplitude) - dcOffset;
         }
     }
+
+    void FunctionTable::linearCurve(float gain)
+    {
+        // in case user forgot, init table to default size
+        if (pWaveTable == 0) init();
+
+        for (int i = 0; i < nTableSize; i++)
+            pWaveTable[i] = gain * i / float(nTableSize);
+    }
     
     // Initialize a FunctionTable to an exponential shape, scaled to fit in the unit square.
     // The function itself is y = -exp(-x), where x ranges from 'left' to 'right'.
@@ -129,5 +138,12 @@ namespace AudioKitCore
         phaseDelta = (float)(frequency / sampleRateHz);
     }
 
+    // Initialize WaveShaper's lookup table to an identity
+    void WaveShaper::init(int tableLength)
+    {
+        waveTable.init(tableLength);
+        for (int i = 0; i < tableLength; i++)
+            waveTable.pWaveTable[i] = i / float(tableLength);
+    }
 }
 

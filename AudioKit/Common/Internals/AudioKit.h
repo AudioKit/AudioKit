@@ -26,6 +26,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKDSPKernel.hpp"
 #import "AKSoundpipeKernel.hpp"
 #import "AKBankDSPKernel.hpp"
+#import "AKFilterSynthDSPKernel.hpp"
 #import "ExceptionCatcher.h"
 
 // Analysis
@@ -134,6 +135,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPhaseDistortionOscillatorBankAudioUnit.h"
 #import "AKPWMOscillatorBankAudioUnit.h"
 #import "AKSynthDSP.hpp"
+
+// Generators / Filter Polysynths
+#import "AKFMOscillatorFilterSynthAudioUnit.h"
+#import "AKMorphingOscillatorFilterSynthAudioUnit.h"
+#import "AKOscillatorFilterSynthAudioUnit.h"
+#import "AKPhaseDistortionOscillatorFilterSynthAudioUnit.h"
+#import "AKPWMOscillatorFilterSynthAudioUnit.h"
 
 // Mixing
 #import "AKAutoPannerDSP.hpp"

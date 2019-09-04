@@ -30,7 +30,7 @@ namespace AudioKitCore
         ResonantLowPassFilter();
         
         void init(double sampleRateHz);
-        void updateSampleRate(double sampleRateHz) { this->sampleRateHz = sampleRateHz; }
+        void updateSampleRate(double sampleRate) { sampleRateHz = sampleRate; }
         
         void setParameters(double newCutoffHz, double newResLinear);
         void setCutoff(double newCutoffHz) { setParameters(newCutoffHz, mLastResLinear); }
