@@ -8,10 +8,12 @@
 
 #import "AKDSPBase.hpp"
 
-void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
-                                  AURenderEvent const *events)
+void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp,
+                                  AUAudioFrameCount    frameCount,
+                                  AURenderEvent const  *events)
 {
     now = timestamp->mSampleTime;
+
     AUAudioFrameCount framesRemaining = frameCount;
     AURenderEvent const *event = events;
 
@@ -40,15 +42,40 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameC
         }
         performAllSimultaneousEvents(now, event);
     }
+    
 }
 
 /** From Apple Example code */
-void AKDSPBase::handleOneEvent(AURenderEvent const *event) {
+void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event)
+{
+    printf("AKDSPBase.performAllSimultaneousEvents() now: %lld, eventSampleTime: %lld\n", now, event->head.eventSampleTime);
+    do {
+        handleOneEvent(event);
+        event = event->head.next;
+
+        // While event is not null and is simultaneous (or late).
+    } while (event && event->head.eventSampleTime <= now); //==
+}
+
+/** From Apple Example code
+ typedef NS_ENUM(uint8_t, AURenderEventType) {
+     AURenderEventParameter        = 1,
+     AURenderEventParameterRamp    = 2,
+     AURenderEventMIDI            = 8,
+     AURenderEventMIDISysEx        = 9
+ };
+ */
+void AKDSPBase::handleOneEvent(AURenderEvent const *event)
+{
     switch (event->head.eventType) {
         case AURenderEventParameter:
         case AURenderEventParameterRamp: {
-            // AUParameterEvent const& paramEvent = event->parameter;
-            // startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
+            AUParameterEvent const& paramEvent = event->parameter;
+
+            //printf("Got paramEvent eventType %c, eventSampleTime %lld, value %f\n", paramEvent.eventType, paramEvent.eventSampleTime, paramEvent.value);
+
+            // virtual method, will work if subclass implements it
+            handleParamEvent(paramEvent);
             break;
         }
         case AURenderEventMIDI:
@@ -57,13 +84,4 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event) {
         default:
             break;
     }
-}
-
-/** From Apple Example code */
-void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event) {
-    do {
-        handleOneEvent(event);
-        event = event->head.next;
-        // While event is not null and is simultaneous (or late).
-    } while (event && event->head.eventSampleTime <= now);
 }

@@ -19,7 +19,7 @@ extension AKPlayer {
     }
 
     internal func initFader(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        guard faderNode != nil else { return }
+        guard let faderNode = faderNode, let audioTime = audioTime else { return }
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
 
@@ -27,22 +27,66 @@ extension AKPlayer {
             return
         }
 
-        guard let hostTime = hostTime, var triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
-            startFade()
-            return
+//        guard let hostTime = hostTime, var triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
+//            //startFade()
+//            return
+//        }
+
+        var triggerTimeInSamples: AUEventSampleTime = 0
+
+        if audioTime.isHostTimeValid, let hostTime = hostTime {
+            triggerTimeInSamples = AUEventSampleTime(audioTime.toSeconds(hostTime: hostTime) * sampleRate)
+
+        } else if audioTime.isSampleTimeValid {
+            triggerTimeInSamples = audioTime.sampleTime
         }
-        triggerTime /= _rate
+
+//        triggerTime /= _rate
+
         // AKLog("starting fade in", triggerTime, "seconds")
 
-        // Note: that the timers are a hack until parameter scheduling is added into AudioKit
-        DispatchQueue.main.async {
-            self.faderTimer?.invalidate()
-            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
-                                                   target: self,
-                                                   selector: #selector(self.startFade),
-                                                   userInfo: nil,
-                                                   repeats: false)
+//        // Note: that the timers are a hack until parameter scheduling is added into AudioKit
+//        DispatchQueue.main.async {
+//            self.faderTimer?.invalidate()
+//            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
+//                                                   target: self,
+//                                                   selector: #selector(self.startFade),
+//                                                   userInfo: nil,
+//                                                   repeats: false)
+//        }
+
+        //triggerTimeInSamples /= AUEventSampleTime(_rate)
+
+        let inTime = fade.inTime - fade.inTimeOffset
+        if inTime > 0 {
+            //faderNode.gain = Fade.minimumGain // set to 0
+            //faderNode.rampDuration = inTime / _rate
+
+            let value = fade.maximumGain
+            let rampSamples = AUAudioFrameCount(fade.inTime * sampleRate)
+
+            AKLog("Scheduling fade IN to value:", value, "at triggerTimeInSamples", triggerTimeInSamples, "rampDuration", rampSamples)
+            //AUEventSampleTimeImmediate
+
+            faderNode.scheduleParameter(value: Fade.minimumGain, at: triggerTimeInSamples, rampDuration: 0)
+            faderNode.scheduleParameter(value: value, at: triggerTimeInSamples, rampDuration: rampSamples)
+
         }
+
+        let outTime = fade.outTime
+        if outTime > 0 {
+
+//            let when = (duration - startTime) - (duration - endTime) - fade.outTime
+//
+//            let sampleTime = AUEventSampleTime(when * sampleRate)
+//            let outRamp = AUAudioFrameCount(fade.outTime * sampleRate)
+//            let value = Fade.minimumGain
+//
+//            AKLog("Scheduling fade out (\(when)sec) to value:", value, "at sampleTime", sampleTime, "rampDuration", outRamp)
+//            faderNode.scheduleParameter(value: value, at: sampleTime, rampDuration: outRamp)
+        }
+
+
     }
 
     internal func resetFader(_ state: Bool) {
@@ -61,7 +105,7 @@ extension AKPlayer {
 
         let inTime = fade.inTime - fade.inTimeOffset
 
-        // AKLog("Fading in to", fade.maximumGain, ", shape:", fade.inRampType.rawValue)
+        AKLog("Fading in to", fade.maximumGain, ", shape:", fade.inRampType.rawValue)
 
         faderNode.rampDuration = AKSettings.rampDuration
 
@@ -87,14 +131,21 @@ extension AKPlayer {
             when /= _rate
 
             // Note: that the timers are a hack until parameter scheduling is added into AudioKit
-            DispatchQueue.main.async {
-                self.faderTimer?.invalidate()
-                self.faderTimer = Timer.scheduledTimer(timeInterval: when,
-                                                       target: self,
-                                                       selector: #selector(self.fadeOut),
-                                                       userInfo: nil,
-                                                       repeats: false)
-            }
+//            DispatchQueue.main.async {
+//                self.faderTimer?.invalidate()
+//                self.faderTimer = Timer.scheduledTimer(timeInterval: when,
+//                                                       target: self,
+//                                                       selector: #selector(self.fadeOut),
+//                                                       userInfo: nil,
+//                                                       repeats: false)
+//            }
+
+            let sampleTime = AUEventSampleTime(when * sampleRate)
+            let outRamp = AUAudioFrameCount(fade.outTime * sampleRate)
+            let value = Fade.minimumGain
+
+            AKLog("Scheduling fade out (\(when)sec) to value:", value, "at sampleTime", sampleTime, "rampDuration", outRamp)
+            faderNode.scheduleParameter(value: value, at: sampleTime, rampDuration: outRamp)
         }
     }
 

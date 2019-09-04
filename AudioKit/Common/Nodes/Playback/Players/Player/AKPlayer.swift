@@ -224,6 +224,10 @@ public class AKPlayer: AKNode {
         return Double(audioFile.length) / audioFile.fileFormat.sampleRate
     }
 
+    @objc public var sampleRate: Double {
+        return outputNode.outputFormat(forBus: 0).sampleRate
+    }
+
     /// Looping Parameters
     public var loop = Loop()
 
@@ -538,15 +542,16 @@ public class AKPlayer: AKNode {
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
         faderTimer?.invalidate()
         preroll(from: startingTime, to: endingTime)
+        initFader(at: audioTime, hostTime: hostTime)
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
         faderNode?.start()
 
-        guard !isBuffered else {
-            faderNode?.gain = gain
-            return
-        }
-        initFader(at: audioTime, hostTime: hostTime)
+//        guard !isBuffered else {
+//            faderNode?.gain = gain
+//            return
+//        }
+//        initFader(at: audioTime, hostTime: hostTime)
 
         pauseTime = nil
     }

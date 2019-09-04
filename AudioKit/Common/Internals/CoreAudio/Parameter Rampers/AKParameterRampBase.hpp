@@ -64,6 +64,7 @@ public:
     }
 
     void setDurationInSamples(int64_t duration) {
+        // printf("setDurationInSamples %lld\n", duration);
         if (duration >= 0) _duration = duration;
     }
 
