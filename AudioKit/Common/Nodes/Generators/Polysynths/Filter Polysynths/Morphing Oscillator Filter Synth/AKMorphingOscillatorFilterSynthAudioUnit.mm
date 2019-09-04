@@ -1,20 +1,20 @@
 //
-//  AKMorphingOscillatorBankAudioUnit.mm
+//  AKMorphingOscillatorFilterSynthAudioUnit.mm
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Colin Hallett, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 #import <AudioKit/AudioKit-Swift.h>
 
-#import "AKMorphingOscillatorBankAudioUnit.h"
-#import "AKMorphingOscillatorBankDSPKernel.hpp"
+#import "AKMorphingOscillatorFilterSynthAudioUnit.h"
+#import "AKMorphingOscillatorFilterSynthDSPKernel.hpp"
 
 #import "BufferedAudioBus.hpp"
 
-@implementation AKMorphingOscillatorBankAudioUnit {
+@implementation AKMorphingOscillatorFilterSynthAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKMorphingOscillatorBankDSPKernel _kernel;
+    AKMorphingOscillatorFilterSynthDSPKernel _kernel;
     BufferedOutputBus _outputBusBuffer;
 }
 @synthesize parameterTree = _parameterTree;
@@ -36,31 +36,31 @@
 }
 
 - (void)createParameters {
-    
-    standardGeneratorSetup(MorphingOscillatorBank)
-    
+
+    standardGeneratorSetup(MorphingOscillatorFilterSynth)
+
     // Create a parameter object for the index.
     AUParameter *indexAUParameter = [AUParameter parameterWithIdentifier:@"index"
                                                                     name:@"Index"
-                                                                 address:AKMorphingOscillatorBankDSPKernel::indexAddress
+                                                                 address:AKMorphingOscillatorFilterSynthDSPKernel::indexAddress
                                                                      min:0.0
                                                                      max:1.0
                                                                     unit:kAudioUnitParameterUnit_Generic];
-    
+
     // Initialize the parameter values.
     indexAUParameter.value = 0.0;
-    
-    _kernel.setParameter(AKMorphingOscillatorBankDSPKernel::indexAddress, indexAUParameter.value);
-    
+
+    _kernel.setParameter(AKMorphingOscillatorFilterSynthDSPKernel::indexAddress, indexAUParameter.value);
+
     [self setKernelPtr:&_kernel];
-    
+
     // Create the parameter tree.
     NSArray *children = [[self standardParameters] arrayByAddingObjectsFromArray:@[indexAUParameter]];
     _parameterTree = [AUParameterTree treeWithChildren:children];
-    parameterTreeBlock(MorphingOscillatorBank)
+    parameterTreeBlock(MorphingOscillatorFilterSynth)
 }
 
-AUAudioUnitGeneratorOverrides(MorphingOscillatorBank)
+AUAudioUnitGeneratorOverrides(MorphingOscillatorFilterSynth)
 
 @end
 
