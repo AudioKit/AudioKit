@@ -11,6 +11,7 @@
 
 extern "C" {
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 }
 
 #import "AKDSPKernel.hpp"

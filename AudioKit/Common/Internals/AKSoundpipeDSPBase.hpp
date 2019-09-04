@@ -13,12 +13,14 @@
 #ifndef __cplusplus
 
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 
 #else
 
 extern "C" {
 #include "soundpipe.h"
+#include "soundpipeextension.h"
 #include "vocwrapper.h"
 }
 
