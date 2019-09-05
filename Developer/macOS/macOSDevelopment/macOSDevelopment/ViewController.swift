@@ -236,12 +236,12 @@ class ViewController: NSViewController {
 //                player.fade.inTime = 2
 
 //                player.fade.outTime = 2
-//                player.fade.inRampType = .exponential
-//                player.fade.outRampType = .exponential
+                player.fade.inRampType = .exponential
+                player.fade.outRampType = .exponential
             }
 
             // play in 1 second
-            state ? player.play(when: 0, hostTime: nil) : player.stop()
+            state ? player.play(when: 2, hostTime: nil) : player.stop()
 
             AKLog("player.isPlaying:", player.isPlaying)
         }
@@ -266,9 +266,10 @@ class ViewController: NSViewController {
             slider1Value.stringValue = "\(plus)\(roundTo(booster.dB, decimalPlaces: 1)) dB"
 
         } else if sender == slider2 {
-            //booster.rampDuration = slider2.doubleValue
+            booster?.rampDuration = slider2.doubleValue
 
             player.fade.inTime = slider2.doubleValue
+            player.fade.outTime = slider2.doubleValue
             slider2Value.stringValue = String(describing: roundTo(slider2.doubleValue, decimalPlaces: 3))
 
             AKLog("player.fade.inTime", player.fade.inTime)
