@@ -33,12 +33,12 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 {
     switch (address) {
         case AKBoosterParameterLeftGain:
-            printf("Setting AKBoosterParameterLeftGain %f\n", value);
+            //printf("Setting AKBoosterParameterLeftGain %f\n", value);
 
             data->leftGainRamp.setTarget(value, immediate);
             break;
         case AKBoosterParameterRightGain:
-            printf("Setting AKBoosterParameterRightGain %f\n", value);
+            //printf("Setting AKBoosterParameterRightGain %f\n", value);
 
             data->rightGainRamp.setTarget(value, immediate);
             break;
@@ -94,6 +94,8 @@ void AKBoosterDSP::handleParamEvent(AUParameterEvent event)
 {
     printf("AKBoosterDSP.handleParamEvent() eventSampleTime %lld, value %f, rampDurationSampleFrames %d\n", event.eventSampleTime, event.value, event.rampDurationSampleFrames);
 
+    setParameter(event.parameterAddress, event.value, true);
+
     // set the ramp duration from the event data
     // this DOESN'T WORK. Not sure why
     switch (event.parameterAddress) {
@@ -102,7 +104,4 @@ void AKBoosterDSP::handleParamEvent(AUParameterEvent event)
         case AKBoosterParameterRightGain:
             data->rightGainRamp.setDurationInSamples(event.rampDurationSampleFrames);
     }
-
-    setParameter(event.parameterAddress, event.value, true);
-    
 }

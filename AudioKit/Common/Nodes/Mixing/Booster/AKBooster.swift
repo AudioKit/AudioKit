@@ -167,16 +167,14 @@ extension AKBooster {
 
         // self.rampDuration = Double(rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
 
-
         var lastTimeStamp = internalAU.lastTimeStamp
 
         if let lastRenderSampleTime = outputNode.lastRenderTime?.audioTimeStamp.mSampleTime {
             lastTimeStamp = AUEventSampleTime(lastRenderSampleTime)
         }
 
-
         // i would assume you'd add a future offset to the lastTimeStamp, but that doesn't work
-        let sampleTime = lastTimeStamp // + time
+        let sampleTime = AUEventSampleTimeImmediate // lastTimeStamp + time
 
         internalAU.scheduleParameterBlock(sampleTime, rampDuration, leftAddress, AUValue(value))
         internalAU.scheduleParameterBlock(sampleTime, rampDuration, rightAddress, AUValue(value))
