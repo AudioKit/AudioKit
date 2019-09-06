@@ -73,6 +73,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
         int frameOffset = int(frameIndex + bufferOffset);
         // do ramping every 8 samples
         if ((frameOffset & 0x7) == 0) {
+            // printf("advancing ramp %i\n", frameOffset);
             data->leftGainRamp.advanceTo(now + frameOffset);
             data->rightGainRamp.advanceTo(now + frameOffset);
         }
@@ -94,14 +95,27 @@ void AKBoosterDSP::handleParamEvent(AUParameterEvent event)
 {
     printf("AKBoosterDSP.handleParamEvent() eventSampleTime %lld, value %f, rampDurationSampleFrames %d\n", event.eventSampleTime, event.value, event.rampDurationSampleFrames);
 
-    setParameter(event.parameterAddress, event.value, true);
+    //setParameter(event.parameterAddress, event.value, true);
+    bool immediate = event.rampDurationSampleFrames == 0;
 
+    AUAudioFrameCount rampLength = event.rampDurationSampleFrames;
+
+    // if (event.rampDurationSampleFrames > 0) {
     // set the ramp duration from the event data
-    // this DOESN'T WORK. Not sure why
     switch (event.parameterAddress) {
         case AKBoosterParameterLeftGain:
-            data->leftGainRamp.setDurationInSamples(event.rampDurationSampleFrames);
+            data->leftGainRamp.setTarget(event.value, immediate);
+            if (!immediate) {
+                data->leftGainRamp.setDurationInSamples(rampLength);
+            }
+            break;
+
         case AKBoosterParameterRightGain:
-            data->rightGainRamp.setDurationInSamples(event.rampDurationSampleFrames);
+            data->rightGainRamp.setTarget(event.value, immediate);
+            if (!immediate) {
+                data->rightGainRamp.setDurationInSamples(rampLength);
+            }
+            break;
     }
+    //}
 }

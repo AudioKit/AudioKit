@@ -98,10 +98,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     ///   - input: AKNode whose output will be amplified
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    @objc public init(
-        _ input: AKNode? = nil,
-        gain: Double = 1
-    ) {
+    @objc public init(_ input: AKNode? = nil,
+                      gain: Double = 1) {
         self.leftGain = gain
         self.rightGain = gain
 
@@ -152,33 +150,121 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             self.rightGain = 1
         }
     }
+
+    let renderCallback: AURenderCallback = {
+        (inRefCon: UnsafeMutableRawPointer,
+         ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+         inTimeStamp: UnsafePointer<AudioTimeStamp>,
+         inBusNumber: UInt32,
+         inNumberFrames: UInt32,
+         ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus in
+
+        guard ioActionFlags.pointee == AudioUnitRenderActionFlags.unitRenderAction_PreRender ||
+            ioActionFlags.pointee == AudioUnitRenderActionFlags.offlineUnitRenderAction_Complete else {
+            return noErr
+        }
+        let booster = Unmanaged<AKBooster>.fromOpaque(inRefCon).takeUnretainedValue()
+        let sampleTime = AUEventSampleTime(inTimeStamp.pointee.mSampleTime)
+        booster.handleRenderCallback(at: sampleTime, inNumberFrames: inNumberFrames)
+        return noErr
+    }
+
+    internal func handleRenderCallback(at sampleTime: AUEventSampleTime, inNumberFrames: UInt32) {
+        guard !self.automationPoints.isEmpty else { return }
+
+        // AKLog(sampleTime)
+
+        // where block.sampleTime >= sampleTime
+        for point in self.automationPoints {
+            for i in 0 ..< inNumberFrames {
+                // if fmod(sampleTime + Double(i), Double(block.sampleTime)) == 0 {
+                if sampleTime + AUEventSampleTime(i) == point.sampleTime {
+                    if let address = point.address {
+                        AKLog("👉 firing value", point.value, "at", sampleTime, "rampType", point.rampType)
+                        self.rampDuration = Double(point.rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
+                        self.rampType = point.rampType
+                        self.internalAU?.scheduleParameterBlock(AUEventSampleTimeImmediate + AUEventSampleTime(i),
+                                                                point.rampDuration,
+                                                                address,
+                                                                point.value)
+                    }
+                }
+            }
+        }
+    }
+
+    private var _automationEnabled: Bool = false
+    var automationEnabled: Bool {
+        get {
+            return self._automationEnabled
+        }
+        set {
+            guard newValue != self._automationEnabled,
+                let audioUnit = avAudioUnit?.audioUnit else {
+                return
+            }
+
+            let inRefCon = UnsafeMutableRawPointer(Unmanaged<AKBooster>.passUnretained(self).toOpaque())
+
+            if newValue {
+                AudioUnitAddRenderNotify(audioUnit, self.renderCallback, inRefCon)
+            } else {
+                AudioUnitRemoveRenderNotify(audioUnit, self.renderCallback, inRefCon)
+            }
+
+            self._automationEnabled = newValue
+        }
+    }
+
+    internal var automationPoints = [AKParameterAutomationPoint]()
 }
 
 extension AKBooster {
-    public func scheduleParameter(value: Double, at time: AUEventSampleTime, rampDuration: AUAudioFrameCount? = nil) {
-        guard let internalAU = internalAU,
-            let leftAddress = leftGainParameter?.address,
+    public func clearAutomation() {
+        self.automationPoints.removeAll()
+    }
+
+    public func addAutomationPoint(value: Double, at time: AUEventSampleTime, rampDuration: AUAudioFrameCount? = nil, rampType: AKSettings.RampType = .linear) {
+        guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
-        let rampDuration = rampDuration ?? AUAudioFrameCount(0.2 * outputNode.outputFormat(forBus: 0).sampleRate)
-
         // self.rampDuration = Double(rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
 
-        var lastTimeStamp = internalAU.lastTimeStamp
-
-        if let lastRenderSampleTime = outputNode.lastRenderTime?.audioTimeStamp.mSampleTime {
-            lastTimeStamp = AUEventSampleTime(lastRenderSampleTime)
+        guard let lastRenderTime = avAudioNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
+            return
         }
 
-        // i would assume you'd add a future offset to the lastTimeStamp, but that doesn't work
-        let sampleTime = AUEventSampleTimeImmediate // lastTimeStamp + time
+        let lastTimeStamp = AUEventSampleTime(lastRenderTime)
 
-        internalAU.scheduleParameterBlock(sampleTime, rampDuration, leftAddress, AUValue(value))
-        internalAU.scheduleParameterBlock(sampleTime, rampDuration, rightAddress, AUValue(value))
+        // clear old events
+        self.automationPoints = self.automationPoints.filter {
+            $0.sampleTime >= lastTimeStamp
+        }
 
-        AKLog("* scheduleParameterBlock lastTimeStamp", lastTimeStamp, "sampleTime", sampleTime, "rampDuration", rampDuration, "value", value)
+        // add a future offset to the last rendered time
+        let sampleTime = lastTimeStamp + time
+
+        let rampDuration = rampDuration ?? 0 // AUAudioFrameCount(0.2 * outputNode.outputFormat(forBus: 0).sampleRate)
+
+        let pointL = AKParameterAutomationPoint(sampleTime: sampleTime, rampDuration: rampDuration, rampType: rampType, address: leftAddress, value: AUValue(value))
+        let pointR = AKParameterAutomationPoint(sampleTime: sampleTime, rampDuration: rampDuration, rampType: rampType, address: rightAddress, value: AUValue(value))
+
+        automationPoints.append(pointL)
+        automationPoints.append(pointR)
+
+        AKLog("* lastTimeStamp", lastTimeStamp, "sampleTime", sampleTime, "rampDuration", rampDuration, "value", value, "rampType", rampType)
+        // AKLog("Automation list:", automationPoints)
     }
+}
+
+//typedef void (^AUScheduleParameterBlock)(AUEventSampleTime eventSampleTime, AUAudioFrameCount rampDurationSampleFrames, AUParameterAddress parameterAddress, AUValue value);
+internal struct AKParameterAutomationPoint {
+    var sampleTime: AUEventSampleTime = 0
+    var rampDuration: AUAudioFrameCount = 0
+    var rampType: AKSettings.RampType = .linear
+    var address: AUParameterAddress?
+    var value: AUValue = 0
 }

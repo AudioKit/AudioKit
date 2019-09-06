@@ -155,11 +155,11 @@ public class AKPlayer: AKNode {
     // these timers will go away when AudioKit is built for 10.13
     // in that case the real completion handlers of the scheduling can be used.
     // Pre 10.13 the completion handlers are inaccurate to the point of unusable.
-    internal var prerollTimer: Timer?
-    internal var completionTimer: Timer?
+    //internal var prerollTimer: Timer?
+    //internal var completionTimer: Timer?
 
     // fade timer
-    internal var faderTimer: Timer?
+    //internal var faderTimer: Timer?
 
     // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
     // if you don't need them, you can disable them here
@@ -225,7 +225,7 @@ public class AKPlayer: AKNode {
     }
 
     @objc public var sampleRate: Double {
-        return outputNode.outputFormat(forBus: 0).sampleRate
+        return audioFile?.fileFormat.sampleRate ?? 0
     }
 
     /// Looping Parameters
@@ -472,7 +472,7 @@ public class AKPlayer: AKNode {
     }
 
     @objc public func load(audioFile: AVAudioFile) {
-        faderTimer?.invalidate()
+        //faderTimer?.invalidate()
 
         self.audioFile = audioFile
         initialize(restartIfPlaying: false)
@@ -540,13 +540,15 @@ public class AKPlayer: AKNode {
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
-        faderTimer?.invalidate()
+        //faderTimer?.invalidate()
         preroll(from: startingTime, to: endingTime)
-        initFader(at: audioTime, hostTime: hostTime)
+
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
-        faderNode?.start()
 
+        faderNode?.start()
+        initFader(at: audioTime, hostTime: hostTime)
+        
 //        guard !isBuffered else {
 //            faderNode?.gain = gain
 //            return
@@ -567,6 +569,7 @@ public class AKPlayer: AKNode {
         AudioKit.detach(nodes: [mixer, playerNode])
 
         if let faderNode = faderNode {
+            faderNode.automationEnabled = false
             AudioKit.detach(nodes: [faderNode.avAudioUnitOrNode])
         }
         faderNode = nil

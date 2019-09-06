@@ -63,8 +63,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
-        //osc.start()
+        // osc.start()
         osc.frequency = 220
         osc.amplitude = 1
         osc.rampDuration = 0.0
@@ -82,15 +81,23 @@ class ViewController: NSViewController {
         if let url = Bundle.main.url(forResource: "PinkNoise", withExtension: "wav") {
             open(url: url)
         }
+
+//        let path = "/Users/rf/Dropbox/Formulas/Master Library/Sound Design/Beds/Bed/OXYGEN BED1_Beds__1.wav"
+//        let url = URL(fileURLWithPath: path)
+//        open(url: url)
     }
 
     @IBAction func start(_ sender: NSButton) {
-        guard !AudioKit.engine.isRunning else {
-            AKLog("Engine is already running")
-            return
-        }
+        var state = AudioKit.engine.isRunning
+
         do {
-            try AudioKit.start()
+            if state {
+                try AudioKit.stop()
+            } else {
+                try AudioKit.start()
+            }
+            state = AudioKit.engine.isRunning
+            sender.state = state ? .on : .off
         } catch {
             AKLog("ERROR: AudioKit did not start.")
         }
@@ -98,8 +105,12 @@ class ViewController: NSViewController {
         guard let content = inputSourceBox.contentView else { return }
         for sv in content.subviews {
             guard let control = sv as? NSControl else { continue }
-            control.isEnabled = true
+            control.isEnabled = state
         }
+
+        playButton.isEnabled = state
+
+        startButton.title = state ? "Stop Engine" : "Start Engine"
 
         initPlayer()
     }
@@ -113,15 +124,15 @@ class ViewController: NSViewController {
 
     private func initOscillator() {
         guard node != osc else { return }
-        //booster.disconnectInput()
-        //osc >>> mixer
+        // booster.disconnectInput()
+        // osc >>> mixer
         node = osc
     }
 
     private func initSpeechSynthesizer() {
         guard node != speechSynthesizer else { return }
-        //booster.disconnectInput()
-        //speechSynthesizer >>> mixer
+        // booster.disconnectInput()
+        // speechSynthesizer >>> mixer
         node = speechSynthesizer
     }
 
@@ -136,7 +147,7 @@ class ViewController: NSViewController {
         }
         guard let player = player else { return }
 
-        //booster.disconnectInput()
+        // booster.disconnectInput()
         player >>> mixer
         node = player
 
@@ -182,11 +193,11 @@ class ViewController: NSViewController {
         guard let player = player else { return }
 
         let state = sender.state == .on
-        //player?.isNormalized = sender.state == .on
+        // player?.isNormalized = sender.state == .on
 
         if state {
             player.pause()
-            //player.pauseTime = player.duration
+            // player.pauseTime = player.duration
             AKLog("set pause start time to", player.pauseTime ?? 0.0)
         } else {
             player.resume()
@@ -215,11 +226,11 @@ class ViewController: NSViewController {
 
         // for seamless looping use: .always
         // player?.buffering = .dynamic
-        //player?.stopEnvelopeTime = 0.3
+        // player?.stopEnvelopeTime = 0.3
 
         initPlayer()
 
-        AKLog("Opened \(url.lastPathComponent)")
+        AKLog("Opened", url.path, "duration", player?.duration)
     }
 
     @IBAction func handlePlay(_ sender: NSButton) {
@@ -234,14 +245,15 @@ class ViewController: NSViewController {
             if state {
 //                // can use these to test the internal fader in the player:
 //                player.fade.inTime = 2
-
+//                player.fade.inStartGain = 0
 //                player.fade.outTime = 2
-                player.fade.inRampType = .exponential
-                player.fade.outRampType = .exponential
+//                player.fade.outStartGain = 1
+//                player.fade.inRampType = .linear
+//                player.fade.outRampType = .linear
             }
 
             // play in 1 second
-            state ? player.play(when: 2, hostTime: nil) : player.stop()
+            state ? player.play(when: 1, hostTime: mach_absolute_time()) : player.stop()
 
             AKLog("player.isPlaying:", player.isPlaying)
         }
@@ -252,7 +264,10 @@ class ViewController: NSViewController {
         guard let player = player else { return }
         if !player.isLooping {
             playButton?.state = .off
+            player.stop()
         }
+
+
     }
 
     @IBAction func handleUpdateParam(_ sender: NSSlider) {
@@ -261,35 +276,43 @@ class ViewController: NSViewController {
             return
         }
         if sender == slider1, let booster = booster {
-            booster.dB = slider1.doubleValue
-            let plus = booster.dB > 0 ? "+" : ""
-            slider1Value.stringValue = "\(plus)\(roundTo(booster.dB, decimalPlaces: 1)) dB"
+//            booster.dB = slider1.doubleValue
+//            let plus = booster.dB > 0 ? "+" : ""
+//            slider1Value.stringValue = "\(plus)\(roundTo(booster.dB, decimalPlaces: 1)) dB"
 
         } else if sender == slider2 {
-            booster?.rampDuration = slider2.doubleValue
+//            booster?.rampDuration = slider2.doubleValue
 
             player.fade.inTime = slider2.doubleValue
             player.fade.outTime = slider2.doubleValue
+
             slider2Value.stringValue = String(describing: roundTo(slider2.doubleValue, decimalPlaces: 3))
 
-            AKLog("player.fade.inTime", player.fade.inTime)
+            AKLog("fade time:", player.fade.inTime)
 
         } else if sender == slider3 {
             let value = Int(slider3.intValue)
             if value == AKSettings.RampType.linear.rawValue {
                 player.fade.inRampType = .linear
+                player.fade.outRampType = .linear
                 slider3Value.stringValue = "Linear"
 
             } else if value == AKSettings.RampType.exponential.rawValue {
                 player.fade.inRampType = .exponential
+                player.fade.outRampType = .exponential
+
                 slider3Value.stringValue = "Exponential"
 
             } else if value == AKSettings.RampType.logarithmic.rawValue {
                 player.fade.inRampType = .logarithmic
+                player.fade.outRampType = .logarithmic
+
                 slider3Value.stringValue = "Logarithmic"
 
             } else if value == AKSettings.RampType.sCurve.rawValue {
                 player.fade.inRampType = .sCurve
+                player.fade.outRampType = .sCurve
+
                 slider3Value.stringValue = "S Curve"
             }
         }

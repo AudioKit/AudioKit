@@ -677,7 +677,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="335" height="314"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box fixedFrame="YES" title="AudioKit Management" translatesAutoresizingMaskIntoConstraints="NO" id="pn6-nj-ML2">
+                            <box fixedFrame="YES" title="AudioKit Engine" translatesAutoresizingMaskIntoConstraints="NO" id="pn6-nj-ML2">
                                 <rect key="frame" x="17" y="231" width="301" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="f3c-NC-0E5">
@@ -687,12 +687,9 @@
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kAA-2y-mnk">
                                             <rect key="frame" x="8" y="14" width="92" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="push" title="Start AudioKit" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eab-8t-V7s">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <buttonCell key="cell" type="push" title="Start Engine" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Eab-8t-V7s">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                 <font key="font" metaFont="miniSystem"/>
-                                                <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
                                             </buttonCell>
                                             <connections>
                                                 <action selector="start:" target="XfG-lQ-9wD" id="yoT-fG-OxX"/>
@@ -798,7 +795,7 @@ IA
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8R-4z-Nck">
+                                        <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8R-4z-Nck">
                                             <rect key="frame" x="205" y="37" width="63" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Loop" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="uzf-Hk-rkU">
@@ -809,7 +806,7 @@ IA
                                                 <action selector="setLoopState:" target="XfG-lQ-9wD" id="qzr-P8-7iN"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvT-Iw-pen">
+                                        <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvT-Iw-pen">
                                             <rect key="frame" x="205" y="23" width="74" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Normalize" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="TeM-je-VCz">
@@ -820,7 +817,7 @@ IA
                                                 <action selector="setNormalizeState:" target="XfG-lQ-9wD" id="2lK-E0-aHO"/>
                                             </connections>
                                         </button>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-Jr-ujd">
+                                        <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ztv-Jr-ujd">
                                             <rect key="frame" x="205" y="9" width="74" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Reverse" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" inset="2" id="b0d-h0-QJg">
@@ -896,7 +893,7 @@ IA
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71H-ey-ooh">
                                             <rect key="frame" x="14" y="1" width="80" height="15"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="3" doubleValue="2" tickMarkPosition="below" numberOfTickMarks="4" allowsTickMarkValuesOnly="YES" sliderType="linear" id="1iE-eT-1RM"/>
+                                            <sliderCell key="cell" controlSize="mini" continuous="YES" state="on" alignment="left" maxValue="3" doubleValue="1" tickMarkPosition="below" numberOfTickMarks="4" allowsTickMarkValuesOnly="YES" sliderType="linear" id="1iE-eT-1RM"/>
                                             <connections>
                                                 <action selector="handleUpdateParam:" target="XfG-lQ-9wD" id="FVL-BW-dI1"/>
                                             </connections>
