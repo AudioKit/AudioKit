@@ -31,12 +31,9 @@ protected:
     // To support AKAudioUnit functions
     bool isInitialized = true;
     bool isStarted = true;
-//    AUEventSampleTime now = 0;  // current time in samples
+    AUEventSampleTime now = 0;  // current time in samples
 
 public:
-    AUEventSampleTime now = 0;  // current time in samples
-    //AudioTimeStamp lastTimeStamp = AudioTimeStamp();
-
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
     
@@ -45,8 +42,6 @@ public:
 
     /// Uses the ParameterAddress as a key
     virtual void setParameter(AUParameterAddress address, float value, bool immediate = false) {}
-
-    //virtual void scheduleParameter(AUParameterAddress address, float value, AUEventSampleTime sampleTime) {}
 
     /// Uses the ParameterAddress as a key
     virtual float getParameter(AUParameterAddress address) { return 0.0; }

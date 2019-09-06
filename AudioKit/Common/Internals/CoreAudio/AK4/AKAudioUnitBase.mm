@@ -175,9 +175,9 @@
     [super deallocateRenderResources];
 }
 
-- (AUEventSampleTime)lastTimeStamp {
-    return self.kernel->now;
-}
+//- (AUEventSampleTime)lastTimeStamp {
+//    return self.kernel->now;
+//}
 
 // Expresses whether an audio unit can process in place.
 // In-place processing is the ability for an audio unit to transform an input signal to an

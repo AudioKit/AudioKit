@@ -80,21 +80,22 @@ extension AKPlayer {
         // AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
 
         // stop after an auto fade out
-        fadeOutWithTime(stopEnvelopeTime)
-        faderTimer?.invalidate()
-        faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
-                                          target: self,
-                                          selector: #selector(stopCompletion),
-                                          userInfo: nil,
-                                          repeats: false)
+//        fadeOutWithTime(stopEnvelopeTime)
+//        faderTimer?.invalidate()
+//        faderTimer = Timer.scheduledTimer(timeInterval: stopEnvelopeTime,
+//                                          target: self,
+//                                          selector: #selector(stopCompletion),
+//                                          userInfo: nil,
+//                                          repeats: false)
     }
 
     @objc private func stopCompletion() {
         playerNode.stop()
         faderNode?.stop()
-        completionTimer?.invalidate()
-        prerollTimer?.invalidate()
-        faderTimer?.invalidate()
+        faderNode?.automationEnabled = false
+//        completionTimer?.invalidate()
+//        prerollTimer?.invalidate()
+//        faderTimer?.invalidate()
     }
 
     // MARK: - Scheduling
@@ -104,33 +105,33 @@ extension AKPlayer {
     // Pre 10.13, the completion handlers are inaccurate to the point of unusable.
 
     // if the file is scheduled, start a timer to determine when to start the completion timer
-    private func startPrerollTimer(_ prerollTime: Double) {
-        DispatchQueue.main.async {
-            self.prerollTimer?.invalidate()
-            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
-                                                     target: self,
-                                                     selector: #selector(self.startCompletionTimer),
-                                                     userInfo: nil,
-                                                     repeats: false)
-        }
-    }
+//    private func startPrerollTimer(_ prerollTime: Double) {
+//        DispatchQueue.main.async {
+//            self.prerollTimer?.invalidate()
+//            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
+//                                                     target: self,
+//                                                     selector: #selector(self.startCompletionTimer),
+//                                                     userInfo: nil,
+//                                                     repeats: false)
+//        }
+//    }
 
     // keep this timer separate in the cases of sounds that aren't scheduled
-    @objc private func startCompletionTimer() {
-        var segmentDuration = endTime - startTime
-        if isLooping && loop.end > 0 {
-            segmentDuration = loop.end - startTime
-        }
-
-        DispatchQueue.main.async {
-            self.completionTimer?.invalidate()
-            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
-                                                        target: self,
-                                                        selector: #selector(self.handleComplete),
-                                                        userInfo: nil,
-                                                        repeats: false)
-        }
-    }
+//    @objc private func startCompletionTimer() {
+//        var segmentDuration = endTime - startTime
+//        if isLooping && loop.end > 0 {
+//            segmentDuration = loop.end - startTime
+//        }
+//
+//        DispatchQueue.main.async {
+//            self.completionTimer?.invalidate()
+//            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
+//                                                        target: self,
+//                                                        selector: #selector(self.handleComplete),
+//                                                        userInfo: nil,
+//                                                        repeats: false)
+//        }
+//    }
 
     internal func schedule(at audioTime: AVAudioTime?, hostTime: UInt64?) {
         if isBuffered {
@@ -142,15 +143,17 @@ extension AKPlayer {
         if #available(iOS 11, macOS 10.13, tvOS 11, *) {
             // nothing further is needed as the completion is specified in the scheduler
         } else {
-            completionTimer?.invalidate()
-            prerollTimer?.invalidate()
-
-            if let audioTime = audioTime, let hostTime = hostTime {
-                let prerollTime = audioTime.toSeconds(hostTime: hostTime)
-                startPrerollTimer(prerollTime)
-            } else {
-                startCompletionTimer()
-            }
+            AKLog("Note: Completion handlers require iOS 11, macOS 10.13, tvOS 11")
+            
+//            completionTimer?.invalidate()
+//            prerollTimer?.invalidate()
+//
+//            if let audioTime = audioTime, let hostTime = hostTime {
+//                let prerollTime = audioTime.toSeconds(hostTime: hostTime)
+//                startPrerollTimer(prerollTime)
+//            } else {
+//                startCompletionTimer()
+//            }
         }
     }
 
@@ -234,7 +237,9 @@ extension AKPlayer {
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // cancel any upcoming fades
-            self.faderTimer?.invalidate()
+            //self.faderTimer?.invalidate()
+            self.faderNode?.automationEnabled = false
+            self.faderNode?.clearAutomation()
 
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {
