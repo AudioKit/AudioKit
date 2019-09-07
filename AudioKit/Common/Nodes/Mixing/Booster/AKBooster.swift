@@ -181,8 +181,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
                 if sampleTime + AUEventSampleTime(i) == point.sampleTime {
                     if let address = point.address {
                         AKLog("👉 firing value", point.value, "at", sampleTime, "rampType", point.rampType)
-                        self.rampDuration = Double(point.rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
-                        self.rampType = point.rampType
+//                        self.rampDuration = Double(point.rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
+//                        self.rampType = point.rampType
                         self.internalAU?.scheduleParameterBlock(AUEventSampleTimeImmediate + AUEventSampleTime(i),
                                                                 point.rampDuration,
                                                                 address,
@@ -249,6 +249,11 @@ extension AKBooster {
 
         let rampDuration = rampDuration ?? 0 // AUAudioFrameCount(0.2 * outputNode.outputFormat(forBus: 0).sampleRate)
 
+//        var value = value
+//        if value == AKParameterAutomationPoint.automationPointCurrentValue {
+//            value =
+//        }
+
         let pointL = AKParameterAutomationPoint(sampleTime: sampleTime, rampDuration: rampDuration, rampType: rampType, address: leftAddress, value: AUValue(value))
         let pointR = AKParameterAutomationPoint(sampleTime: sampleTime, rampDuration: rampDuration, rampType: rampType, address: rightAddress, value: AUValue(value))
 
@@ -262,6 +267,7 @@ extension AKBooster {
 
 //typedef void (^AUScheduleParameterBlock)(AUEventSampleTime eventSampleTime, AUAudioFrameCount rampDurationSampleFrames, AUParameterAddress parameterAddress, AUValue value);
 internal struct AKParameterAutomationPoint {
+    internal static var automationPointCurrentValue: AUValue = -100000.0
     var sampleTime: AUEventSampleTime = 0
     var rampDuration: AUAudioFrameCount = 0
     var rampType: AKSettings.RampType = .linear

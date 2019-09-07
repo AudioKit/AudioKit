@@ -275,10 +275,12 @@ class ViewController: NSViewController {
             AKLog("Player faderNode is nil")
             return
         }
-        if sender == slider1, let booster = booster {
-//            booster.dB = slider1.doubleValue
-//            let plus = booster.dB > 0 ? "+" : ""
-//            slider1Value.stringValue = "\(plus)\(roundTo(booster.dB, decimalPlaces: 1)) dB"
+        if sender == slider1 {
+            let dB = slider1.doubleValue
+            let plus = dB > 0 ? "+" : ""
+            slider1Value.stringValue = "\(plus)\(roundTo(dB, decimalPlaces: 1)) dB"
+
+            player.gain = pow(10.0, dB / 20.0)
 
         } else if sender == slider2 {
 //            booster?.rampDuration = slider2.doubleValue

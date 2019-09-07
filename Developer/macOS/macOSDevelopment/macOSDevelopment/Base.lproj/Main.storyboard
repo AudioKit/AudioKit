@@ -831,7 +831,7 @@ IA
                                     </subviews>
                                 </view>
                             </box>
-                            <box fixedFrame="YES" title="Booster" translatesAutoresizingMaskIntoConstraints="NO" id="rf7-dE-2ch">
+                            <box fixedFrame="YES" title="Envelope" translatesAutoresizingMaskIntoConstraints="NO" id="rf7-dE-2ch">
                                 <rect key="frame" x="17" y="16" width="301" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="Y8n-OY-6be">

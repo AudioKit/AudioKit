@@ -60,6 +60,4 @@
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
-//@property (readonly) AUEventSampleTime lastTimeStamp;
-
 @end
