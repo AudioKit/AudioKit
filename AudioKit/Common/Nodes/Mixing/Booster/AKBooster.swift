@@ -172,17 +172,15 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
     internal func handleRenderCallback(at sampleTime: AUEventSampleTime, inNumberFrames: UInt32) {
         guard !self.automationPoints.isEmpty else { return }
 
-        // AKLog(sampleTime)
+        AKLog(sampleTime, inNumberFrames)
 
         // where block.sampleTime >= sampleTime
         for point in self.automationPoints {
             for i in 0 ..< inNumberFrames {
-                // if fmod(sampleTime + Double(i), Double(block.sampleTime)) == 0 {
+                // if fmod(Double(sampleTime) + Double(i), Double(point.sampleTime)) == 0 {
                 if sampleTime + AUEventSampleTime(i) == point.sampleTime {
                     if let address = point.address {
                         AKLog("👉 firing value", point.value, "at", sampleTime, "rampType", point.rampType)
-//                        self.rampDuration = Double(point.rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
-//                        self.rampType = point.rampType
                         self.internalAU?.scheduleParameterBlock(AUEventSampleTimeImmediate + AUEventSampleTime(i),
                                                                 point.rampDuration,
                                                                 address,
@@ -225,7 +223,8 @@ extension AKBooster {
     }
 
     public func addAutomationPoint(value: Double, at time: AUEventSampleTime, rampDuration: AUAudioFrameCount? = nil, rampType: AKSettings.RampType = .linear) {
-        guard let leftAddress = leftGainParameter?.address,
+        guard let internalAU = internalAU,
+            let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
@@ -233,11 +232,11 @@ extension AKBooster {
 
         // self.rampDuration = Double(rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
 
-        guard let lastRenderTime = avAudioNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
-            return
-        }
+//        guard let lastRenderTime = avAudioNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
+//            return
+//        }
 
-        let lastTimeStamp = AUEventSampleTime(lastRenderTime)
+        let lastTimeStamp = internalAU.lastSampleTime // AUEventSampleTime(lastRenderTime)
 
         // clear old events
         self.automationPoints = self.automationPoints.filter {
