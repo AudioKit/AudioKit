@@ -543,11 +543,13 @@ public class AKPlayer: AKNode {
         //faderTimer?.invalidate()
         preroll(from: startingTime, to: endingTime)
 
+        initFader(at: audioTime, hostTime: hostTime)
+        faderNode?.start()
+        
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
 
-        faderNode?.start()
-        initFader(at: audioTime, hostTime: hostTime)
+
         
 //        guard !isBuffered else {
 //            faderNode?.gain = gain

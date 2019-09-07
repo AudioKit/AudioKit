@@ -77,16 +77,32 @@ extension AKPlayer {
             let value = fade.maximumGain
             let rampSamples = AUAudioFrameCount(fade.inTime * sampleRate)
 
-            AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples)
             //AUEventSampleTimeImmediate
 
-            if inTimeInSamples - 10000 <= 0 {
-                faderNode.rampDuration = inTime / _rate
-                faderNode.gain = value
-                return
-            }
-            // set it off
-            faderNode.addAutomationPoint(value: Fade.minimumGain, at: inTimeInSamples - 10000, rampDuration: 0, rampType: fade.inRampType)
+//            var initialFadeValue = Fade.minimumGain
+//            if inTimeInSamples == 0 {
+//                initialFadeValue = -10000
+//            }
+
+//            if inTimeInSamples - 10000 <= 0 {
+//                faderNode.rampDuration = inTime / _rate
+//                faderNode.gain = value
+//                return
+//            }
+
+
+            var offset: AUEventSampleTime = 9600
+//            inTimeInSamples -= offset
+//            if inTimeInSamples < 0 {
+//                inTimeInSamples = 0
+//                offset = 0
+//            }
+
+            //inTimeInSamples = max(0, inTimeInSamples - 9600)
+
+            AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples)
+
+            faderNode.addAutomationPoint(value: Fade.minimumGain, at: inTimeInSamples - offset, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
             // then fade it in
             faderNode.addAutomationPoint(value: value, at: inTimeInSamples, rampDuration: rampSamples, rampType: fade.inRampType)
         }
