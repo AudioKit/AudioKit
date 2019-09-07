@@ -33,11 +33,6 @@ extension AKPlayer {
             return
         }
 
-//        guard let hostTime = hostTime, var triggerTime = audioTime?.toSeconds(hostTime: hostTime) else {
-//            startFade()
-//            return
-//        }
-
         var inTimeInSamples: AUEventSampleTime = 0
 
         if audioTime.isHostTimeValid, let hostTime = hostTime {
@@ -47,78 +42,70 @@ extension AKPlayer {
             inTimeInSamples = audioTime.sampleTime
         }
 
-        //var triggerTime = Double(triggerTimeInSamples) / sampleRate
-
-        //triggerTimeInSamples /= _rate
-
-        //AKLog("starting fade IN, in", triggerTimeInSamples, "samples")
-
-        // Note: that the timers are a hack until parameter scheduling is added into AudioKit
-//        DispatchQueue.main.async {
-//            self.faderTimer?.invalidate()
-//            self.faderTimer = Timer.scheduledTimer(timeInterval: triggerTime,
-//                                                   target: self,
-//                                                   selector: #selector(self.startFade),
-//                                                   userInfo: nil,
-//                                                   repeats: false)
-//        }
-
-        //triggerTimeInSamples /= AUEventSampleTime(_rate)
-
-        // triggerTimeInSamples = 0
-
         faderNode.avAudioNode.reset()
 
-        let inTime = fade.inTime - fade.inTimeOffset
+        var inTime = fade.inTime
         if inTime > 0 {
             //faderNode.gain = Fade.minimumGain // set to 0
             //faderNode.rampDuration = inTime / _rate
 
             let value = fade.maximumGain
-            let rampSamples = AUAudioFrameCount(fade.inTime * sampleRate)
 
             //AUEventSampleTimeImmediate
+            var fadeFrom = Fade.minimumGain
 
-//            var initialFadeValue = Fade.minimumGain
-//            if inTimeInSamples == 0 {
-//                initialFadeValue = -10000
-//            }
+            if fade.inTimeOffset > 0 && fade.inTimeOffset < inTime {
+                let ratio = fade.inTimeOffset / inTime
+                fadeFrom = value * ratio
+                inTime -= fade.inTimeOffset
+            }
 
-//            if inTimeInSamples - 10000 <= 0 {
-//                faderNode.rampDuration = inTime / _rate
-//                faderNode.gain = value
-//                return
-//            }
+            let rampSamples = AUAudioFrameCount(inTime * sampleRate)
 
 
-            var offset: AUEventSampleTime = 9600
-//            inTimeInSamples -= offset
-//            if inTimeInSamples < 0 {
-//                inTimeInSamples = 0
-//                offset = 0
-//            }
+            AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples, "fadeFrom", fadeFrom, "fade.inTimeOffset", fade.inTimeOffset)
 
-            //inTimeInSamples = max(0, inTimeInSamples - 9600)
+            faderNode.addAutomationPoint(value: fadeFrom, at: inTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
 
-            AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples)
-
-            faderNode.addAutomationPoint(value: Fade.minimumGain, at: inTimeInSamples - offset, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
             // then fade it in
-            faderNode.addAutomationPoint(value: value, at: inTimeInSamples, rampDuration: rampSamples, rampType: fade.inRampType)
+            faderNode.addAutomationPoint(value: value, at: inTimeInSamples + 200, rampDuration: rampSamples, rampType: fade.inRampType)
+        } else {
+            // reset this
+            //gain = fade.maximumGain
+
+            faderNode.addAutomationPoint(value: fade.maximumGain, at: inTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
         }
 
-        let outTime = fade.outTime - fade.outTimeOffset
+        var outTime = fade.outTime
         if outTime > 0 {
             // when the start of the fade out should occur
             let timeToFade = (duration - startTime) - (duration - endTime) - outTime
+            var outTimeInSamples = inTimeInSamples + AUEventSampleTime(timeToFade * sampleRate)
+            var outOffset: AUEventSampleTime = 0
 
-            let outTimeInSamples = inTimeInSamples + AUEventSampleTime(timeToFade * sampleRate)
+            if fade.outTimeOffset > 0, fade.outTimeOffset > duration - outTime {
+                // just fade now the remainder of the segment
+                var newOutTime = duration - startTime
+                if endTime < duration {
+                    newOutTime -= (duration - endTime)
+                }
 
+                AKLog("In middle of a fade out... adjusted outTime to", newOutTime)
+
+                outTimeInSamples = 0
+
+                let ratio = newOutTime / outTime
+                let fadeFrom = fade.maximumGain * ratio
+                faderNode.addAutomationPoint(value: fadeFrom, at: outTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
+
+                outTime = newOutTime
+                outOffset = 200
+            }
             let fadeLengthInSamples = AUAudioFrameCount(outTime * sampleRate)
             let value = Fade.minimumGain
 
             AKLog("Scheduling fade OUT (\(outTime) sec) to value:", value, "at outTimeInSamples", outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples)
-            faderNode.addAutomationPoint(value: value, at: outTimeInSamples, rampDuration: fadeLengthInSamples, rampType: fade.outRampType)
+            faderNode.addAutomationPoint(value: value, at: outTimeInSamples + outOffset, rampDuration: fadeLengthInSamples, rampType: fade.outRampType)
         }
     }
 

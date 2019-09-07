@@ -100,11 +100,10 @@ public class AKPlayer: AKNode {
             }
         }
 
-        // if you want to start midway into a fade
+        /// if you want to start midway into a fade this value is used by
+        /// the application to specify at what point within a region of sound
+        /// the file is being started.
         public var inTimeOffset: Double = 0
-
-        // Currently Unused
-        public var inStartGain: Double = minimumGain
 
         public var outTime: Double = 0 {
             willSet {
@@ -113,9 +112,6 @@ public class AKPlayer: AKNode {
         }
 
         public var outTimeOffset: Double = 0
-
-        // Currently Unused
-        public var outStartGain: Double = 1
 
         // tell Booster what ramper to use when multiple curves are available
         public var type: AKSettings.RampType = .exponential
@@ -539,13 +535,13 @@ public class AKPlayer: AKNode {
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        // AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
-        //faderTimer?.invalidate()
+        AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
+
         preroll(from: startingTime, to: endingTime)
 
-        initFader(at: audioTime, hostTime: hostTime)
         faderNode?.start()
-        
+        initFader(at: audioTime, hostTime: hostTime)
+
         schedule(at: audioTime, hostTime: hostTime)
         playerNode.play()
 

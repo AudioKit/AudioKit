@@ -31,9 +31,10 @@ protected:
     // To support AKAudioUnit functions
     bool isInitialized = true;
     bool isStarted = true;
-    AUEventSampleTime now = 0;  // current time in samples
 
 public:
+    AUEventSampleTime now = 0;  // current time in samples
+
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
     virtual ~AKDSPBase() {}
     

@@ -30,6 +30,7 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
 
     public override var canProcessInPlace: Bool { return true }
 
+
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
         return createBoosterDSP(Int32(count), sampleRate)
