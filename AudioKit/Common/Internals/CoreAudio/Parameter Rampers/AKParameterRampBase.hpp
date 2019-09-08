@@ -28,7 +28,6 @@ protected:
         _target = _paramValue;
         _startSample = atSample;
         _startValue = _value;
-        printf("AKParameterRampBase.updateTarget to %f, _startSample %lld\n", _target, _startSample);
     }
 
 public:
@@ -71,10 +70,7 @@ public:
 
     void setDurationInSamples(int64_t duration)
     {
-        // printf("AKParameterRampBase.setDurationInSamples %lld\n", duration);
-        if (duration >= 0) {
-            _duration = duration;
-        }
+        if (duration >= 0) _duration = duration;
     }
 
     float getDurationInSamples()
@@ -97,27 +93,12 @@ public:
         if (_paramValue != _target) {
             updateTarget(atSample);
         }
-
-        if (_value == _target) {
-            // printf("have reached target %f\n", _target);
-            return _value;
-        }
-
+        if (_value == _target) return _value;
         int64_t deltaSamples = atSample - _startSample;
-
-        //if (deltaSamples < 0) {
-//            _startSample = 0;
-//        } else
-
-        if (deltaSamples >= _duration || deltaSamples < 0) {  //|| deltaSamples < 0
-            printf("deltaSamples %lld atSample  %lld _startSample  %lld\n", deltaSamples, atSample, _startSample);
-
+        if (deltaSamples >= _duration || deltaSamples < 0) {
             _value = _target;
             _startSample = 0;  // for good measure
-
-            //printf("Ramp is done\n");
         } else {
-            //printf("computeValueAt %lld\n", atSample);
             computeValueAt(atSample);
         }
         return _value;

@@ -14,7 +14,6 @@ extension AVAudioConnectionPoint {
 
 /// Parent class for all nodes in AudioKit
 @objc open class AKNode: NSObject {
-
     /// The internal AVAudioEngine AVAudioNode
     @objc open var avAudioNode: AVAudioNode
 
@@ -23,18 +22,18 @@ extension AVAudioConnectionPoint {
 
     /// Returns either the avAudioUnit (preferred
     @objc open var avAudioUnitOrNode: AVAudioNode {
-        return avAudioUnit ?? avAudioNode
+        return self.avAudioUnit ?? self.avAudioNode
     }
 
     /// Create the node
-    override public init() {
+    public override init() {
         self.avAudioNode = AVAudioNode()
     }
 
     /// Initialize the node from an AVAudioUnit
     @objc public init(avAudioUnit: AVAudioUnit, attach: Bool = false) {
         self.avAudioUnit = avAudioUnit
-        avAudioNode = avAudioUnit
+        self.avAudioNode = avAudioUnit
         if attach {
             AudioKit.engine.attach(avAudioUnit)
         }
@@ -48,7 +47,7 @@ extension AVAudioConnectionPoint {
         }
     }
 
-    //Subclasses should override to detach all internal nodes
+    // Subclasses should override to detach all internal nodes
     open func detach() {
         AudioKit.detach(nodes: [avAudioUnitOrNode])
     }
@@ -56,7 +55,7 @@ extension AVAudioConnectionPoint {
 
 extension AKNode: AKOutput {
     public var outputNode: AVAudioNode {
-        return avAudioUnitOrNode
+        return self.avAudioUnitOrNode
     }
 
     @available(*, deprecated, renamed: "connect(to:bus:)")
@@ -67,10 +66,9 @@ extension AKNode: AKOutput {
 
 // Deprecated
 extension AKNode {
-
     @objc @available(*, deprecated, renamed: "detach")
     open func disconnect() {
-        detach()
+        self.detach()
     }
 
     @available(*, deprecated, message: "Use AudioKit.dettach(nodes:) instead")
@@ -81,7 +79,6 @@ extension AKNode {
 
 /// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {
-
     /// Play a sound corresponding to a MIDI note
     ///
     /// - Parameters:
@@ -107,7 +104,6 @@ public protocol AKPolyphonic {
 
 /// Bare bones implementation of AKPolyphonic protocol
 @objc open class AKPolyphonicNode: AKNode, AKPolyphonic {
-
     /// Global tuning table used by AKPolyphonicNode (AKNode classes adopting AKPolyphonic protocol)
     @objc public static var tuningTable = AKTuningTable()
     open var midiInstrument: AVAudioUnitMIDIInstrument?
@@ -134,8 +130,8 @@ public protocol AKPolyphonic {
     ///   - velocity:   MIDI Velocity
     ///
     @objc open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-
         // MARK: Microtonal pitch lookup
+
         // default implementation is 12 ET
         let frequency = AKPolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
         //        AKLog("Playing note: \(noteNumber), velocity: \(velocity), using tuning table frequency: \(frequency)")
@@ -165,7 +161,6 @@ public protocol AKPolyphonic {
 
 /// Default functions for nodes that conform to AKToggleable
 public extension AKToggleable {
-
     /// Synonym for isStarted that may make more sense with musical instruments
     var isPlaying: Bool {
         return isStarted

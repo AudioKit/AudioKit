@@ -12,12 +12,11 @@ extension AKPlayer {
         // only do this once when needed
         guard faderNode == nil else { return }
 
-        // AKLog("Creating fader")
+        AKLog("Creating fader")
         faderNode = AKBooster()
         faderNode?.gain = gain
         faderNode?.rampType = rampType
 
-//        faderNode?.automationEnabled = true
         initialize()
     }
 
@@ -26,28 +25,46 @@ extension AKPlayer {
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
 
-        faderNode.clearAutomation()
-        faderNode.automationEnabled = true
+        // reset automation
+        faderNode.removeAllAutomation()
 
-        guard fade.inTime != 0 || fade.outTime != 0 else {
-            return
-        }
+//        guard isFaded else {
+//            faderNode.automationEnabled = false
+//            return
+//        }
+
+        //faderNode.automationEnabled = true
+
 
         var inTimeInSamples: AUEventSampleTime = 0
+        //var lastRenderTime = faderNode.lastRenderTime
 
         if audioTime.isHostTimeValid, let hostTime = hostTime {
             inTimeInSamples = AUEventSampleTime(audioTime.toSeconds(hostTime: hostTime) * sampleRate)
 
+            // generally means this is rendering offline
         } else if audioTime.isSampleTimeValid {
             inTimeInSamples = audioTime.sampleTime
         }
 
-        faderNode.avAudioNode.reset()
+        //inTimeInSamples += 1024
+        
+        //AUEventSampleTime(nodeTime)
+
+        //removeAutomation(before: lastRenderTime)
+
+//        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+//            if let engine = avAudioNode.engine, engine.manualRenderingMode == .offline {
+//                // should be 0
+//                lastRenderTime = engine.manualRenderingSampleTime
+//            }
+//        }
+
+        //faderNode.avAudioNode.reset()
 
         var inTime = fade.inTime
         if inTime > 0 {
             //faderNode.gain = Fade.minimumGain // set to 0
-            //faderNode.rampDuration = inTime / _rate
 
             let value = fade.maximumGain
 
@@ -58,22 +75,19 @@ extension AKPlayer {
                 let ratio = fade.inTimeOffset / inTime
                 fadeFrom = value * ratio
                 inTime -= fade.inTimeOffset
+
+                AKLog("In middle of a fade IN... adjusted inTime to", inTime)
             }
 
             let rampSamples = AUAudioFrameCount(inTime * sampleRate)
 
-
             AKLog("Scheduling fade IN to value:", value, "at inTimeInSamples", inTimeInSamples, "rampDuration", rampSamples, "fadeFrom", fadeFrom, "fade.inTimeOffset", fade.inTimeOffset)
 
-            faderNode.addAutomationPoint(value: fadeFrom, at: inTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
+            //inTimeInSamples
+            faderNode.addAutomationPoint(value: fadeFrom, at: AUEventSampleTimeImmediate, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
 
             // then fade it in
-            faderNode.addAutomationPoint(value: value, at: inTimeInSamples + 200, rampDuration: rampSamples, rampType: fade.inRampType)
-        } else {
-            // reset this
-            //gain = fade.maximumGain
-
-            faderNode.addAutomationPoint(value: fade.maximumGain, at: inTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
+            faderNode.addAutomationPoint(value: value, at: inTimeInSamples, rampDuration: rampSamples, rampType: fade.inRampType)
         }
 
         var outTime = fade.outTime
@@ -99,7 +113,12 @@ extension AKPlayer {
                 faderNode.addAutomationPoint(value: fadeFrom, at: outTimeInSamples, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
 
                 outTime = newOutTime
-                outOffset = 200
+                outOffset = 512
+
+            } else if inTime == 0 {
+                AKLog("reset to ", fade.maximumGain, "if there is no fade in or are past it")
+                //inTimeInSamples
+                faderNode.addAutomationPoint(value: fade.maximumGain, at: AUEventSampleTimeImmediate, rampDuration: AUAudioFrameCount(0), rampType: fade.inRampType)
             }
             let fadeLengthInSamples = AUAudioFrameCount(outTime * sampleRate)
             let value = Fade.minimumGain
@@ -107,20 +126,21 @@ extension AKPlayer {
             AKLog("Scheduling fade OUT (\(outTime) sec) to value:", value, "at outTimeInSamples", outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples)
             faderNode.addAutomationPoint(value: value, at: outTimeInSamples + outOffset, rampDuration: fadeLengthInSamples, rampType: fade.outRampType)
         }
+
     }
 
-    internal func resetFader(_ state: Bool) {
-        guard let faderNode = faderNode else { return }
-        var state = state
-        if fade.inTime == 0 {
-            state = true
-        }
-        faderNode.rampType = fade.inRampType
-        faderNode.rampDuration = AKSettings.rampDuration
-        faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
-
-        faderNode.automationEnabled = false
-    }
+//    internal func resetFader(_ state: Bool) {
+//        guard let faderNode = faderNode else { return }
+//        var state = state
+//        if fade.inTime == 0 {
+//            state = true
+//        }
+//        faderNode.rampType = fade.inRampType
+//        faderNode.rampDuration = AKSettings.rampDuration
+//        faderNode.gain = state ? fade.maximumGain : Fade.minimumGain
+//
+//        //faderNode.automationEnabled = false
+//    }
 
     /*
     @objc private func startFade() {
