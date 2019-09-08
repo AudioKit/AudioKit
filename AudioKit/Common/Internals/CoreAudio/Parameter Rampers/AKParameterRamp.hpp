@@ -1,5 +1,5 @@
 //
-//  AKParameterRamp.hpp
+//  AKParameterRamper.hpp
 //  AudioKit
 //
 //  Created by Ryan Francesconi on 4/27/18.
@@ -64,8 +64,8 @@ struct AKParameterRamp : AKParameterRampBase {
         double difference = getTarget() - getStartValue();
         double result = getStartValue() + (difference * gain);
 
-        //printf("curveType: %d, startValue: %6.4lf, target: %6.4lf, duration: %6.4lf, index: %lld, gain: %6.4lf, RESULT: %6.4lf\n",
-        //       curveType, getStartValue(), getTarget(), getDurationInSamples(), index, gain, result);
+//        printf( "fade type: %d, startValue: %6.4lf, target: %6.4lf, duration: %6.4lf, index: %lld, gain: %6.4lf, RESULT: %6.4lf\n",
+//               curveType, getStartValue(), getTarget(), getDurationInSamples(), index, gain, result);
 
         _value = result;
         return result;

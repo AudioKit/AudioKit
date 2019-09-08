@@ -8,7 +8,7 @@
 
 /// Stereo Booster
 ///
-open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
+open class AKBooster: AKAutomatedNode, AKToggleable, AKComponent, AKInput {
     public typealias AKAudioUnitType = AKBoosterAudioUnit
     /// Four letter unique description of the node
     public static let ComponentDescription = AudioComponentDescription(effect: "bstr")
@@ -90,6 +90,10 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         return self.internalAU?.isPlaying ?? false
     }
 
+    @objc open var lastRenderTime: AUEventSampleTime {
+        return internalAU?.lastRenderTime ?? 0
+    }
+
     // MARK: - Initialization
 
     /// Initialize this booster node
@@ -150,86 +154,59 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
             self.rightGain = 1
         }
     }
-
-    let renderCallback: AURenderCallback = {
-        (inRefCon: UnsafeMutableRawPointer,
-         ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-         inTimeStamp: UnsafePointer<AudioTimeStamp>,
-         inBusNumber: UInt32,
-         inNumberFrames: UInt32,
-         ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus in
-
-        guard ioActionFlags.pointee == AudioUnitRenderActionFlags.unitRenderAction_PreRender ||
-            ioActionFlags.pointee == AudioUnitRenderActionFlags.offlineUnitRenderAction_Complete else {
-            return noErr
-        }
-        let booster = Unmanaged<AKBooster>.fromOpaque(inRefCon).takeUnretainedValue()
-        let sampleTime = AUEventSampleTime(inTimeStamp.pointee.mSampleTime)
-        booster.handleRenderCallback(at: sampleTime, inNumberFrames: inNumberFrames)
-        return noErr
-    }
-
-    internal func handleRenderCallback(at sampleTime: AUEventSampleTime, inNumberFrames: UInt32) {
-        guard !self.automationPoints.isEmpty else { return }
-
-        AKLog(sampleTime, inNumberFrames)
-
-        // where block.sampleTime >= sampleTime
-        for point in self.automationPoints {
-            for i in 0 ..< inNumberFrames {
-                // if fmod(Double(sampleTime) + Double(i), Double(point.sampleTime)) == 0 {
-                if sampleTime + AUEventSampleTime(i) == point.sampleTime {
-                    if let address = point.address {
-                        AKLog("👉 firing value", point.value, "at", sampleTime, "rampType", point.rampType)
-                        self.internalAU?.scheduleParameterBlock(AUEventSampleTimeImmediate + AUEventSampleTime(i),
-                                                                point.rampDuration,
-                                                                address,
-                                                                point.value)
-                    }
-                }
-            }
-        }
-    }
-
-    private var _automationEnabled: Bool = false
-    var automationEnabled: Bool {
-        get {
-            return self._automationEnabled
-        }
-        set {
-            guard newValue != self._automationEnabled,
-                let audioUnit = avAudioUnit?.audioUnit else {
-                return
-            }
-
-            let inRefCon = UnsafeMutableRawPointer(Unmanaged<AKBooster>.passUnretained(self).toOpaque())
-
-            if newValue {
-                AudioUnitAddRenderNotify(audioUnit, self.renderCallback, inRefCon)
-            } else {
-                AudioUnitRemoveRenderNotify(audioUnit, self.renderCallback, inRefCon)
-            }
-
-            self._automationEnabled = newValue
-        }
-    }
-
-    internal var automationPoints = [AKParameterAutomationPoint]()
 }
 
 extension AKBooster {
-    public func clearAutomation() {
-        self.automationPoints.removeAll()
-    }
 
-    public func addAutomationPoint(value: Double, at time: AUEventSampleTime, rampDuration: AUAudioFrameCount? = nil, rampType: AKSettings.RampType = .linear) {
-        guard let internalAU = internalAU,
-            let leftAddress = leftGainParameter?.address,
+
+    public func addAutomationPoint(value: Double, at sampleTime: AUEventSampleTime, rampDuration: AUAudioFrameCount = 0, rampType: AKSettings.RampType = .linear) {
+        guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
+        //removeAutomation(before: lastRenderTime)
+
+        //var lastRenderTime = internalAU.lastRenderTime
+
+        guard let nodeTime = outputNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
+            AKLog("outputNode.lastRenderTime is invalid, ignoring this point request")
+            return
+
+            // AKLog("Updating lastRenderTime. Previous:", internalAU.lastRenderTime, "node render time", lastRenderTime)
+        }
+
+        var lastRenderTime = AUEventSampleTime(nodeTime)
+
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            if let engine = avAudioNode.engine, engine.manualRenderingMode == .offline {
+                // should be 0?
+                lastRenderTime = engine.manualRenderingSampleTime
+            }
+        }
+
+        // create a pair of points for left and right
+
+        let leftPoint = AKParameterAutomationPoint(address: leftAddress,
+                                                   value: AUValue(value),
+                                                   offsetTime: sampleTime,
+                                                   lastRenderTime: lastRenderTime,
+                                                   rampDuration: rampDuration,
+                                                   rampType: rampType)
+        addAutomationPoint(point: leftPoint)
+
+        let rightPoint = AKParameterAutomationPoint(address: rightAddress,
+                                                    value: AUValue(value),
+                                                    offsetTime: sampleTime,
+                                                    lastRenderTime: lastRenderTime,
+                                                    rampDuration: rampDuration,
+                                                    rampType: rampType)
+        addAutomationPoint(point: rightPoint)
+
+
+        
+        /*
         // self.rampDuration = Double(rampDuration) / outputNode.outputFormat(forBus: 0).sampleRate
 
 //        guard let lastRenderTime = avAudioNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
@@ -261,15 +238,6 @@ extension AKBooster {
 
         AKLog("* lastTimeStamp", lastTimeStamp, "sampleTime", sampleTime, "rampDuration", rampDuration, "value", value, "rampType", rampType)
         // AKLog("Automation list:", automationPoints)
+        */
     }
-}
-
-//typedef void (^AUScheduleParameterBlock)(AUEventSampleTime eventSampleTime, AUAudioFrameCount rampDurationSampleFrames, AUParameterAddress parameterAddress, AUValue value);
-internal struct AKParameterAutomationPoint {
-    internal static var automationPointCurrentValue: AUValue = -100000.0
-    var sampleTime: AUEventSampleTime = 0
-    var rampDuration: AUAudioFrameCount = 0
-    var rampType: AKSettings.RampType = .linear
-    var address: AUParameterAddress?
-    var value: AUValue = 0
 }

@@ -71,11 +71,13 @@ extension AKPlayer {
             // AKLog("Player isn't playing")
             return
         }
-        guard stopEnvelopeTime > 0 else {
-            // stop immediately
-            stopCompletion()
-            return
-        }
+        stopCompletion()
+
+//        guard stopEnvelopeTime > 0 else {
+//            // stop immediately
+//            stopCompletion()
+//            return
+//        }
 
         // AKLog("starting stopEnvelopeTime fade of", stopEnvelopeTime)
 
@@ -93,6 +95,7 @@ extension AKPlayer {
         playerNode.stop()
         faderNode?.stop()
         faderNode?.automationEnabled = false
+
 //        completionTimer?.invalidate()
 //        prerollTimer?.invalidate()
 //        faderTimer?.invalidate()
@@ -238,8 +241,8 @@ extension AKPlayer {
         DispatchQueue.main.async {
             // cancel any upcoming fades
             //self.faderTimer?.invalidate()
-            self.faderNode?.automationEnabled = false
-            self.faderNode?.clearAutomation()
+            //self.faderNode?.automationEnabled = false
+            self.faderNode?.removeAllAutomation()
 
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {

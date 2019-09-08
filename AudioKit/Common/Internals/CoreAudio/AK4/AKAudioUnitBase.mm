@@ -175,7 +175,7 @@
     [super deallocateRenderResources];
 }
 
-- (AUEventSampleTime)lastSampleTime {
+- (AUEventSampleTime)lastRenderTime {
     return self.kernel->now;
 }
 
