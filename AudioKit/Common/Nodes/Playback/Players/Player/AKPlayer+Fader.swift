@@ -125,7 +125,7 @@ extension AKPlayer {
 //            faderNode.automationEnabled = true
 //        }
 
-        faderNode.start()
+        //faderNode.start()
 
     }
 

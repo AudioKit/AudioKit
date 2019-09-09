@@ -32,14 +32,14 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 
             data->leftGainRamp.setUIValue(value);
             // ramp to the new value
-            data->leftGainRamp.dezipperCheck(4800);
+            data->leftGainRamp.dezipperCheck(1024);
             break;
         case AKBoosterParameterRightGain:
             printf("Setting AKBoosterParameterRightGain %f\n", value);
 
             data->rightGainRamp.setUIValue(value);
             // ramp to the new value
-            data->rightGainRamp.dezipperCheck(4800);
+            data->rightGainRamp.dezipperCheck(1024);
 
             break;
         case AKBoosterParameterRampDuration:
@@ -112,7 +112,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
 void AKBoosterDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    printf("AKBoosterDSP.handleParamEvent() address %lld, value %f, duration %d\n", address, value, duration);
+    printf("AKBoosterDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
 
     // Note, if duration is 0 frames, startRamp will setImmediate
     switch (address) {
