@@ -566,15 +566,12 @@ public class AKPlayer: AKNode {
         audioFile = nil
         buffer = nil
         AudioKit.detach(nodes: [mixer, playerNode])
-
-        if let faderNode = faderNode {
-            AudioKit.detach(nodes: [faderNode.avAudioUnitOrNode])
-        }
+        faderNode?.detach()
         faderNode = nil
     }
 
     @objc deinit {
-        AKLog("* deinit AKPlayer")
+        AKLog("* { AKPlayer }")
     }
 }
 

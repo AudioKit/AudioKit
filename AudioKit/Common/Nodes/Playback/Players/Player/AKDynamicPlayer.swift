@@ -158,8 +158,10 @@ public class AKDynamicPlayer: AKPlayer {
     /// Only call when you are totally done with this class.
     public override func detach() {
         super.detach()
-        if let timePitchNode = timePitchNode {
-            AudioKit.detach(nodes: [timePitchNode.avAudioNode])
-        }
+//        if let timePitchNode = timePitchNode {
+//            AudioKit.detach(nodes: [timePitchNode.avAudioNode])
+//        }
+        timePitchNode?.detach()
+        
     }
 }
