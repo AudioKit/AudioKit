@@ -105,8 +105,9 @@ public:
     virtual bool isPlaying() { return isStarted; }
     virtual bool isSetup() { return isInitialized; }
 
-    virtual void handleParamEvent(AUParameterEvent event) {}
+    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
+    
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code

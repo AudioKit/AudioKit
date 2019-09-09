@@ -71,11 +71,10 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
         case AURenderEventParameter:
         case AURenderEventParameterRamp: {
             AUParameterEvent const& paramEvent = event->parameter;
-
             //printf("Got paramEvent eventType %c, eventSampleTime %lld, value %f\n", paramEvent.eventType, paramEvent.eventSampleTime, paramEvent.value);
 
             // virtual method, will work if subclass implements it
-            handleParamEvent(paramEvent);
+            startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
             break;
         }
         case AURenderEventMIDI:

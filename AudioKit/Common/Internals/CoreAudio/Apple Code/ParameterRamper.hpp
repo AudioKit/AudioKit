@@ -1,9 +1,9 @@
 /*
-	<samplecode>
- <abstract>
- Utility class to manage DSP parameters which can change value smoothly (be ramped) while rendering, without introducing clicks or other distortion into the signal.
- </abstract>
-	</samplecode>
+<samplecode>
+     <abstract>
+     Utility class to manage DSP parameters which can change value smoothly (be ramped) while rendering, without introducing clicks or other distortion into the signal.
+     </abstract>
+</samplecode>
  */
 
 #pragma once
@@ -20,7 +20,7 @@ private:
 public:
     ParameterRamper(float value);
     ~ParameterRamper();
-    
+
     void setImmediate(float value);
 
     void init();
@@ -40,9 +40,8 @@ public:
     void step();
 
     float getAndStep();
-    
+
     void stepBy(uint32_t n);
-    
 };
 
 #endif

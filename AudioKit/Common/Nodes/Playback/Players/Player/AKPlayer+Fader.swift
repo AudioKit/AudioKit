@@ -25,16 +25,10 @@ extension AKPlayer {
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
 
+        //faderNode.automationEnabled = false
+
         // reset automation
-        faderNode.removeAllAutomation()
-
-//        guard isFaded else {
-//            faderNode.automationEnabled = false
-//            return
-//        }
-
-        //faderNode.automationEnabled = true
-
+        faderNode.stopAutomation()
 
         var inTimeInSamples: AUEventSampleTime = 0
         //var lastRenderTime = faderNode.lastRenderTime
@@ -126,6 +120,12 @@ extension AKPlayer {
             AKLog("Scheduling fade OUT (\(outTime) sec) to value:", value, "at outTimeInSamples", outTimeInSamples, "fadeLengthInSamples", fadeLengthInSamples)
             faderNode.addAutomationPoint(value: value, at: outTimeInSamples + outOffset, rampDuration: fadeLengthInSamples, rampType: fade.outRampType)
         }
+
+//        if isFaded {
+//            faderNode.automationEnabled = true
+//        }
+
+        faderNode.start()
 
     }
 
