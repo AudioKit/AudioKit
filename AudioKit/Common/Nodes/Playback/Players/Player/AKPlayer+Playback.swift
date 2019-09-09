@@ -94,7 +94,10 @@ extension AKPlayer {
     @objc private func stopCompletion() {
         playerNode.stop()
         faderNode?.stop()
-        faderNode?.automationEnabled = false
+        
+        //faderNode?.automationEnabled = false
+
+        faderNode?.stopAutomation()
 
 //        completionTimer?.invalidate()
 //        prerollTimer?.invalidate()
@@ -242,7 +245,7 @@ extension AKPlayer {
             // cancel any upcoming fades
             //self.faderTimer?.invalidate()
             //self.faderNode?.automationEnabled = false
-            self.faderNode?.removeAllAutomation()
+            self.faderNode?.stopAutomation()
 
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {

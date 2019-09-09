@@ -143,6 +143,10 @@ open class AKBooster: AKAutomatedNode, AKToggleable, AKComponent, AKInput {
             self.leftGain = lastKnownLeftGain
             self.rightGain = self.lastKnownRightGain
         }
+
+//        if hasAutomation {
+//            automationEnabled = true
+//        }
     }
 
     /// Function to stop or bypass the node, both are equivalent
@@ -153,6 +157,9 @@ open class AKBooster: AKAutomatedNode, AKToggleable, AKComponent, AKInput {
             self.leftGain = 1
             self.rightGain = 1
         }
+//        if hasAutomation {
+//            automationEnabled = false
+//        }
     }
 }
 
@@ -166,25 +173,7 @@ extension AKBooster {
             return
         }
 
-        //removeAutomation(before: lastRenderTime)
-
-        //var lastRenderTime = internalAU.lastRenderTime
-
-        guard let nodeTime = outputNode.lastRenderTime?.audioTimeStamp.mSampleTime else {
-            AKLog("outputNode.lastRenderTime is invalid, ignoring this point request")
-            return
-
-            // AKLog("Updating lastRenderTime. Previous:", internalAU.lastRenderTime, "node render time", lastRenderTime)
-        }
-
-        var lastRenderTime = AUEventSampleTime(nodeTime)
-
-        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
-            if let engine = avAudioNode.engine, engine.manualRenderingMode == .offline {
-                // should be 0?
-                lastRenderTime = engine.manualRenderingSampleTime
-            }
-        }
+        let lastRenderTime = lastRenderSampleTime
 
         // create a pair of points for left and right
 

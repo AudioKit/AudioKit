@@ -17,20 +17,11 @@ extern "C" AKDSPRef createBoosterDSP(int channelCount, double sampleRate)
 }
 
 struct AKBoosterDSP::InternalData {
-//    AKParameterRamp leftGainRamp;
-//    AKParameterRamp rightGainRamp;
-
     ParameterRamper leftGainRamp = 1.0;
     ParameterRamper rightGainRamp = 1.0;
 };
 
-AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
-{
-//    data->leftGainRamp.setTarget(1.0, true);
-//    data->leftGainRamp.setDurationInSamples(10000);
-//    data->rightGainRamp.setTarget(1.0, true);
-//    data->rightGainRamp.setDurationInSamples(10000);
-}
+AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {}
 
 // Uses the ParameterAddress as a key
 void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
@@ -41,14 +32,14 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 
             data->leftGainRamp.setUIValue(value);
             // ramp to the new value
-            data->leftGainRamp.dezipperCheck(9600);
+            data->leftGainRamp.dezipperCheck(4800);
             break;
         case AKBoosterParameterRightGain:
             printf("Setting AKBoosterParameterRightGain %f\n", value);
 
             data->rightGainRamp.setUIValue(value);
             // ramp to the new value
-            data->rightGainRamp.dezipperCheck(9600);
+            data->rightGainRamp.dezipperCheck(4800);
 
             break;
         case AKBoosterParameterRampDuration:
@@ -119,43 +110,19 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
     }
 }
 
-void AKBoosterDSP::handleParamEvent(AUParameterEvent event)
+void AKBoosterDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    printf("AKBoosterDSP.handleParamEvent() eventSampleTime %lld, value %f, rampDurationSampleFrames %d\n", event.eventSampleTime, event.value, event.rampDurationSampleFrames);
+    printf("AKBoosterDSP.handleParamEvent() address %lld, value %f, duration %d\n", address, value, duration);
 
-    //setParameter(event.parameterAddress, event.value, true);
-    //bool immediate = event.rampDurationSampleFrames == 0;
-
-    AUAudioFrameCount rampLength = event.rampDurationSampleFrames;
-
-    // if (event.rampDurationSampleFrames > 0) {
-    // set the ramp duration from the event data
-    switch (event.parameterAddress) {
+    // Note, if duration is 0 frames, startRamp will setImmediate
+    switch (address) {
         case AKBoosterParameterLeftGain:
-//            data->leftGainRamp.setTarget(event.value, immediate);
-//            if (!immediate) {
-//                data->leftGainRamp.setDurationInSamples(rampLength);
-//            }
-
-//            AUValue value = event.value;
-//            if (value < 0) {
-//                value = data->leftGainRamp.get();
-//            }
-            data->leftGainRamp.startRamp(event.value, rampLength);
+            data->leftGainRamp.startRamp(value, duration);
             break;
 
         case AKBoosterParameterRightGain:
-//            data->rightGainRamp.setTarget(event.value, immediate);
-//            if (!immediate) {
-//                data->rightGainRamp.setDurationInSamples(rampLength);
-//            }
-
-            //clamp(value, 0.0002f, 2.0f)    AUValue value = event.value;
-//            if (value < 0) {
-//                value = data->rightGainRamp.get();
-//            }
-            data->rightGainRamp.startRamp(event.value, rampLength);
+            data->rightGainRamp.startRamp(value, duration);
             break;
     }
-    //}
+
 }

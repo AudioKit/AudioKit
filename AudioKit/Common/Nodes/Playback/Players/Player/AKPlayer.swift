@@ -535,11 +535,7 @@ public class AKPlayer: AKNode {
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-//        if isFaded {
-//            faderNode?.automationEnabled = false
-//        }
 
-        //faderNode?.start()
         preroll(from: startingTime, to: endingTime)
         schedule(at: audioTime, hostTime: hostTime)
         initFader(at: audioTime, hostTime: hostTime)
@@ -548,7 +544,8 @@ public class AKPlayer: AKNode {
         playerNode.play()
 
         if isFaded {
-            faderNode?.automationEnabled = true
+            // turn on the render notification
+            faderNode?.startAutomation()
         }
         
 //        guard !isBuffered else {
@@ -571,8 +568,6 @@ public class AKPlayer: AKNode {
         AudioKit.detach(nodes: [mixer, playerNode])
 
         if let faderNode = faderNode {
-            faderNode.automationEnabled = false
-            faderNode.removeAllAutomation()
             AudioKit.detach(nodes: [faderNode.avAudioUnitOrNode])
         }
         faderNode = nil
