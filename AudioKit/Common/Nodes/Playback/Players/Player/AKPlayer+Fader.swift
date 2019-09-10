@@ -25,46 +25,15 @@ extension AKPlayer {
 
         // AKLog(fade, faderNode?.rampDuration, faderNode?.gain, audioTime, hostTime)
 
-        //faderNode.automationEnabled = false
-
         // reset automation
         faderNode.stopAutomation()
 
         // 1 render cycle in the future
         let inTimeInSamples: AUEventSampleTime = 512
 
-        //var lastRenderTime = faderNode.lastRenderTime
-
-//        if audioTime.isHostTimeValid, let hostTime = hostTime {
-//            inTimeInSamples = AUEventSampleTime(audioTime.toSeconds(hostTime: hostTime) * sampleRate)
-//
-//            // generally means this is rendering offline
-//        } else if audioTime.isSampleTimeValid {
-//            inTimeInSamples = audioTime.sampleTime
-//        }
-
-        //inTimeInSamples += 1024
-        
-        //AUEventSampleTime(nodeTime)
-
-        //removeAutomation(before: lastRenderTime)
-
-//        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
-//            if let engine = avAudioNode.engine, engine.manualRenderingMode == .offline {
-//                // should be 0
-//                lastRenderTime = engine.manualRenderingSampleTime
-//            }
-//        }
-
-        //faderNode.avAudioNode.reset()
-
         var inTime = fade.inTime
         if inTime > 0 {
-            //faderNode.gain = Fade.minimumGain // set to 0
-
             let value = fade.maximumGain
-
-            //AUEventSampleTimeImmediate
             var fadeFrom = Fade.minimumGain
 
             if fade.inTimeOffset > 0 && fade.inTimeOffset < inTime {

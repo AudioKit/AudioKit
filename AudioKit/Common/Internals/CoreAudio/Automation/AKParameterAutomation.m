@@ -6,12 +6,12 @@
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-//#include <vector>
 #import "AKParameterAutomation.h"
 #import "AKTimelineTap.h"
 
 @implementation AKParameterAutomation
 {
+
     AKTimelineTap *tap;
     AUAudioUnit *auAudioUnit;
     AVAudioUnit *avAudioUnit;
@@ -21,7 +21,8 @@
 
     AUEventSampleTime endTime;
 
-    AutomationPoint automationPoints[256];
+    // currently a fixed buffer of automation points
+    AutomationPoint automationPoints[MAX_NUMBER_OF_POINTS];
     int numberOfPoints;
 }
 
@@ -31,8 +32,6 @@
 
     self->auAudioUnit = auAudioUnit;
     self->avAudioUnit = avAudioUnit;
-
-    //[self clear];
 }
 
 - (void)startAutomationAt:(AVAudioTime *)audioTime
@@ -42,7 +41,9 @@
         return;
     }
 
-    if (@available(macOS 10.13, *)) {
+    // Note: offline rendering is only available in 10.13+
+    // See: AudioKit.renderToFile
+    if (@available(iOS 11.0, macOS 10.13, tvOS 11.0, *)) {
         if ([[avAudioUnit engine] manualRenderingMode] == AVAudioEngineManualRenderingModeOffline) {
             AudioTimeStamp zero = {0};
             tap.timeline->lastRenderTime = zero;
@@ -63,7 +64,6 @@
 
     NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
-    //AKTimelineSetTime(tap.timeline, 0);
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
 }
@@ -73,13 +73,8 @@
         NSLog(@"stopAutomation() Timeline isn't running");
         return;
     }
-    //AKTimelineSetTime(tap.timeline, 0);
     AKTimelineStop(tap.timeline);
-
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
-
-    //lastRenderTime = avAudioUnit.lastRenderTime.audioTimeStamp.mSampleTime;
-
     [self clear];
     NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
 }
@@ -164,7 +159,7 @@
 - (void)addPoint:(struct AutomationPoint)point {
     // add to the list of points
 
-    if (numberOfPoints + 1 > 255) {
+    if (numberOfPoints + 1 >= MAX_NUMBER_OF_POINTS) {
         NSLog(@"Max number of points was reached.");
         return;
     }
@@ -183,7 +178,7 @@
 //    }
     //automationPoints = malloc(256 * sizeof(AutomationPoint));
 
-    memset(self->automationPoints, 0, sizeof(AutomationPoint) * 256);
+    memset(self->automationPoints, 0, sizeof(AutomationPoint) * MAX_NUMBER_OF_POINTS);
 
 //    for (int p = 0; p < 256; p++) {
 //        AutomationPoint point = automationPoints[p];

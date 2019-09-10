@@ -27,6 +27,9 @@ typedef struct AutomationPoint {
     bool triggered;
 } AutomationPoint;
 
+// number of voices
+#define MAX_NUMBER_OF_POINTS 256
+
 @interface AKParameterAutomation : NSObject
 
 - (void)initAutomation:(AUAudioUnit * _Nullable)auAudioUnit
