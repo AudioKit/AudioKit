@@ -9,8 +9,7 @@
 extension AKPlayer {
     // Fills the buffer with data read from audioFile
     internal func updateBuffer(force: Bool = false) {
-        if isNotBuffered { return }
-        guard let audioFile = audioFile else { return }
+        guard isBuffered, let audioFile = audioFile else { return }
 
         let fileFormat = audioFile.fileFormat
         let processingFormat = audioFile.processingFormat
@@ -36,9 +35,9 @@ extension AKPlayer {
             updateNeeded = true
         }
 
-        if fade.needsUpdate && isFaded {
-            updateNeeded = true
-        }
+//        if fade.needsUpdate && isFaded {
+//            updateNeeded = true
+//        }
 
         if !updateNeeded {
             // AKLog("No buffer update needed")
@@ -88,10 +87,10 @@ extension AKPlayer {
             reverseBuffer()
         }
 
-        if isFaded {
-            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
-            fade.needsUpdate = false
-        }
+//        if isFaded {
+//            fadeBuffer(inTime: fade.inTime, outTime: fade.outTime)
+//            fade.needsUpdate = false
+//        }
 
         // these are only stored to check if the buffer needs to be updated in subsequent fills
         startingFrame = startFrame

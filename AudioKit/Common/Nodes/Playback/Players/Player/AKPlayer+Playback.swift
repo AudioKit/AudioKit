@@ -141,27 +141,24 @@ extension AKPlayer {
 //        }
 //    }
 
-    internal func schedule(at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        if isBuffered {
-            scheduleBuffer(at: audioTime)
-        } else {
-            scheduleSegment(at: audioTime)
+    internal func schedulePlayer(at audioTime: AVAudioTime?, hostTime: UInt64?) {
+        var scheduleTime = audioTime
+
+        if _rate != 1, let audioTime = audioTime {
+            let refTime = hostTime ?? mach_absolute_time()
+
+            if audioTime.isSampleTimeValid {
+                let adjustedFrames = Double(audioTime.sampleTime) * _rate
+                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+            } else if audioTime.isHostTimeValid {
+                let adjustedFrames = (audioTime.toSeconds(hostTime: refTime) * _rate) * sampleRate
+                scheduleTime = AVAudioTime(hostTime: refTime, sampleTime: AVAudioFramePosition(adjustedFrames), atRate: sampleRate)
+            }
         }
-
-        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
-            // nothing further is needed as the completion is specified in the scheduler
+        if isBuffered {
+            scheduleBuffer(at: scheduleTime)
         } else {
-            AKLog("Note: Completion handlers require iOS 11, macOS 10.13, tvOS 11")
-
-//            completionTimer?.invalidate()
-//            prerollTimer?.invalidate()
-//
-//            if let audioTime = audioTime, let hostTime = hostTime {
-//                let prerollTime = audioTime.toSeconds(hostTime: hostTime)
-//                startPrerollTimer(prerollTime)
-//            } else {
-//                startCompletionTimer()
-//            }
+            scheduleSegment(at: scheduleTime)
         }
     }
 
@@ -236,7 +233,6 @@ extension AKPlayer {
 
     // MARK: - Completion Handlers
 
-    // this will be the method in the scheduling completionHandler >= 10.13
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     @objc internal func handleCallbackComplete(completionType: AVAudioPlayerNodeCompletionCallbackType) {
         // AKLog("\(audioFile?.url.lastPathComponent ?? "?") currentFrame:\(currentFrame) totalFrames:\(frameCount) currentTime:\(currentTime)/\(duration)")
@@ -244,10 +240,6 @@ extension AKPlayer {
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
-            // cancel any upcoming fades
-            // self.faderTimer?.invalidate()
-            // self.faderNode?.automationEnabled = false
-            // self.faderNode?.stopAutomation()
 
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {
@@ -272,6 +264,9 @@ extension AKPlayer {
 
     @objc private func handleComplete() {
         stop()
+
+        faderNode?.stopAutomation()
+
         if isLooping {
             startTime = loop.start
             endTime = loop.end

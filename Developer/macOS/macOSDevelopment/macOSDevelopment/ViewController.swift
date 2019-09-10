@@ -153,7 +153,7 @@ class ViewController: NSViewController {
 
         handleUpdateParam(slider1)
         handleUpdateParam(slider2)
-        handleUpdateParam(slider3)
+        //handleUpdateParam(slider3)
     }
 
     @IBAction func changeInput(_ sender: NSPopUpButton) {
@@ -253,7 +253,7 @@ class ViewController: NSViewController {
             }
 
             // play in 1 second
-            state ? player.play(when: 1, hostTime: mach_absolute_time()) : player.stop()
+            state ? player.play() : player.stop()
 
             AKLog("player.isPlaying:", player.isPlaying)
         }
