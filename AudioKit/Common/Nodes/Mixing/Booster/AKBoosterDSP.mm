@@ -21,7 +21,9 @@ struct AKBoosterDSP::InternalData {
     ParameterRamper rightGainRamp = 1.0;
 };
 
-AKBoosterDSP::AKBoosterDSP() : data(new InternalData) {}
+AKBoosterDSP::AKBoosterDSP() : data(new InternalData)
+{
+}
 
 // Uses the ParameterAddress as a key
 void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool immediate)
@@ -124,5 +126,4 @@ void AKBoosterDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioF
             data->rightGainRamp.startRamp(value, duration);
             break;
     }
-
 }

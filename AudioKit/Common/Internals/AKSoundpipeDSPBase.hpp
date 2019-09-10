@@ -41,7 +41,6 @@ public:
     }
 
     // Is this needed? Ramping should be rethought.
-    // Ramping is rethought
     virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {}
 
     virtual void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {}

@@ -69,4 +69,15 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
 
+    func initAutomation(audioUnit: AudioUnit) {
+        //super.initAutomation(audioUnit)
+    }
+
+//    func startAutomation() {
+//        super.startAutomation()
+//    }
+//
+//    func stopAutomation() {
+//        super.stopAutomation()
+//    }
 }

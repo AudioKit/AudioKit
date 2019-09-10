@@ -54,17 +54,10 @@ void AKDSPBase::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEven
         event = event->head.next;
 
         // While event is not null and is simultaneous (or late).
-    } while (event && event->head.eventSampleTime <= now); //==
+    } while (event && event->head.eventSampleTime <= now);
 }
 
-/** From Apple Example code
- typedef NS_ENUM(uint8_t, AURenderEventType) {
-     AURenderEventParameter        = 1,
-     AURenderEventParameterRamp    = 2,
-     AURenderEventMIDI            = 8,
-     AURenderEventMIDISysEx        = 9
- };
- */
+/** From Apple Example code */
 void AKDSPBase::handleOneEvent(AURenderEvent const *event)
 {
     switch (event->head.eventType) {
@@ -84,3 +77,14 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
             break;
     }
 }
+
+
+//////////
+//
+//void AKDSPBase::addAutomationPoint(AUParameterAddress address,
+//                                   AUValue value,
+//                                   AUEventSampleTime offsetTime,
+//                                   AUEventSampleTime anchorTime,
+//                                   AUAudioFrameCount rampDuration) {
+//    automationList.addPoint(address, value, offsetTime, anchorTime, rampDuration);
+//}

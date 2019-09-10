@@ -21,6 +21,7 @@
 - (AUValue)parameterWithAddress:(AUParameterAddress)address {
     return self.kernel->getParameter(address);
 }
+
 - (void)setParameterWithAddress:(AUParameterAddress)address value:(AUValue)value {
     self.kernel->setParameter(address, value);
 }
@@ -71,6 +72,16 @@
 
 - (void)initConvolutionEngine {
     self.kernel->initConvolutionEngine();
+}
+
+//////
+void addAutomationPoint(AUParameterAddress address,
+                        AUValue            value,
+                        AUEventSampleTime  offsetTime,
+                        AUEventSampleTime  anchorTime,
+                        AUAudioFrameCount  rampDuration)
+{
+
 }
 
 /**
@@ -178,7 +189,6 @@
 - (AUEventSampleTime)lastRenderTime {
     return self.kernel->now;
 }
-
 
 // Expresses whether an audio unit can process in place.
 // In-place processing is the ability for an audio unit to transform an input signal to an
