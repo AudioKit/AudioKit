@@ -11,7 +11,6 @@
 
 @implementation AKParameterAutomation
 {
-
     AKTimelineTap *tap;
     AUAudioUnit *auAudioUnit;
     AVAudioUnit *avAudioUnit;
@@ -26,13 +25,22 @@
     int numberOfPoints;
 }
 
-- (void)initAutomation:(AUAudioUnit *)auAudioUnit avAudioUnit:(AVAudioUnit *)avAudioUnit {
-    tap = [[AKTimelineTap alloc]initWithNode:avAudioUnit timelineBlock:[self timelineBlock]];
-    tap.preRender = true;
+#pragma mark - Init
 
-    self->auAudioUnit = auAudioUnit;
-    self->avAudioUnit = avAudioUnit;
+- (instancetype _Nullable)init:(AUAudioUnit *)auAudioUnit avAudioUnit:(AVAudioUnit *)avAudioUnit {
+    self = [super init];
+
+    if (self) {
+        tap = [[AKTimelineTap alloc]initWithNode:avAudioUnit timelineBlock:[self timelineBlock]];
+        tap.preRender = true;
+
+        self->auAudioUnit = auAudioUnit;
+        self->avAudioUnit = avAudioUnit;
+    }
+    return self;
 }
+
+#pragma mark - Control
 
 - (void)startAutomationAt:(AVAudioTime *)audioTime
                  duration:(AVAudioTime *_Nullable)duration {
@@ -45,7 +53,7 @@
     // See: AudioKit.renderToFile
     if (@available(iOS 11.0, macOS 10.13, tvOS 11.0, *)) {
         if ([[avAudioUnit engine] manualRenderingMode] == AVAudioEngineManualRenderingModeOffline) {
-            AudioTimeStamp zero = {0};
+            AudioTimeStamp zero = { 0 };
             tap.timeline->lastRenderTime = zero;
         }
     }
@@ -78,6 +86,8 @@
     [self clear];
     NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
 }
+
+#pragma mark - Render Block
 
 - (AKTimelineBlock)timelineBlock {
     // Use untracked pointer and ivars to avoid Obj methods + ARC.
@@ -141,6 +151,8 @@
     };
 }
 
+#pragma mark - Add and remove points
+
 - (void)addPoint:(AUParameterAddress)address
            value:(AUValue)value
       sampleTime:(AUEventSampleTime)sampleTime
@@ -172,19 +184,7 @@
 
 - (void)clear {
     // clear all points
-
-//    if (automationPoints != nil) {
-//        free(automationPoints);
-//    }
-    //automationPoints = malloc(256 * sizeof(AutomationPoint));
-
     memset(self->automationPoints, 0, sizeof(AutomationPoint) * MAX_NUMBER_OF_POINTS);
-
-//    for (int p = 0; p < 256; p++) {
-//        AutomationPoint point = automationPoints[p];
-//        NSLog(@"? point %i at time %lld, value %f", p, point.sampleTime, point.value);
-//    }
-
     numberOfPoints = 0;
 }
 
@@ -205,6 +205,8 @@
     }
 }
 
+#pragma mark - Deinit
+
 - (void)dispose {
     [self stopAutomation];
 
@@ -213,12 +215,7 @@
     avAudioUnit = nil;
 }
 
-//------------------------------------------------------------------------------
-#pragma mark - Dealloc
-//------------------------------------------------------------------------------
-
-- (void)dealloc
-{
+- (void)dealloc {
     NSLog(@"* { AKParameterAutomation.dealloc }");
 }
 

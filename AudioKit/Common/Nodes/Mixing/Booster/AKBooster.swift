@@ -136,10 +136,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
         self.internalAU?.setParameterImmediately(.rampDuration, value: self.rampDuration)
         self.internalAU?.rampType = self.rampType.rawValue
 
-        self.parameterAutomation = AKParameterAutomation()
-
         if let internalAU = internalAU, let avAudioUnit = avAudioUnit {
-            self.parameterAutomation?.initAutomation(internalAU, avAudioUnit: avAudioUnit)
+            self.parameterAutomation = AKParameterAutomation(internalAU, avAudioUnit: avAudioUnit)
         }
     }
 
