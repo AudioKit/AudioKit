@@ -27,30 +27,44 @@ typedef struct AutomationPoint {
     bool triggered;
 } AutomationPoint;
 
-// number of voices
+// The max number of automation points supported by this class
+// Can be variable in the future...
 #define MAX_NUMBER_OF_POINTS 256
 
 @interface AKParameterAutomation : NSObject
 
-- (void)initAutomation:(AUAudioUnit * _Nullable)auAudioUnit
-           avAudioUnit:(AVAudioUnit * _Nullable)avAudioUnit;
+/**
+ Creates an automation object that controls the AUAudioUnit's parameters.
+ The AVAudioUnit is passed to an internal AKTimelineTap for timing references.
+ Note: offline rendering is only available in macOS 10.13+, iOS 11+
+ */
+- (instancetype _Nullable)init:(AUAudioUnit *_Nullable)auAudioUnit
+                   avAudioUnit:(AVAudioUnit *_Nullable)avAudioUnit;
 
-- (void)startAutomationAt:(AVAudioTime * _Nullable)audioTime
-                   duration:(AVAudioTime * _Nullable)duration;
+/** Start the automation at some point in the future.
+ duration is not yet implemented.
+ */
+- (void)startAutomationAt:(AVAudioTime *_Nullable)audioTime
+                 duration:(AVAudioTime *_Nullable)duration;
+
+/** Stop automation and the internal timeline */
 - (void)stopAutomation;
 
+/** Add a single automation point to the collection */
 - (void)addPoint:(AUParameterAddress)address
            value:(AUValue)value
       sampleTime:(AUEventSampleTime)sampleTime
       anchorTime:(AUEventSampleTime)anchorTime
     rampDuration:(AUAudioFrameCount)rampDuration;
 
+/** Add a single automation point to the collection */
 - (void)addPoint:(struct AutomationPoint)point;
 
+/** Removes all automation points */
 - (void)clear;
-- (void)dispose;
 
-//@property bool offline;
+/** Call when done with this class to release resources */
+- (void)dispose;
 
 @end
 
