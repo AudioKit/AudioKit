@@ -19,10 +19,10 @@
 
     AVAudioTime *anchorTime;
 
-    AutomationPoint *automationPoints;
-    int numberOfPoints;
+    AUEventSampleTime endTime;
 
-    //std::vector<AutomationPoint> automationPoints;
+    AutomationPoint automationPoints[256];
+    int numberOfPoints;
 }
 
 - (void)initAutomation:(AUAudioUnit *)auAudioUnit avAudioUnit:(AVAudioUnit *)avAudioUnit {
@@ -32,44 +32,56 @@
     self->auAudioUnit = auAudioUnit;
     self->avAudioUnit = avAudioUnit;
 
-    [self clear];
+    //[self clear];
 }
 
-- (void)startAutomationAt:(AVAudioTime *)audioTime {
-    anchorTime = audioTime;
+- (void)startAutomationAt:(AVAudioTime *)audioTime
+                 duration:(AVAudioTime *_Nullable)duration {
+    if (AKTimelineIsStarted(tap.timeline)) {
+        NSLog(@"startAutomationAt() Timeline is already running");
+        return;
+    }
 
-    lastRenderTime = avAudioUnit.lastRenderTime.audioTimeStamp.mSampleTime;
+    if (@available(macOS 10.13, *)) {
+        if ([[avAudioUnit engine] manualRenderingMode] == AVAudioEngineManualRenderingModeOffline) {
+            AudioTimeStamp zero = {0};
+            tap.timeline->lastRenderTime = zero;
+        }
+    }
 
-    [self validatePoints:audioTime];
+    Float64 sampleRate = tap.timeline->format.mSampleRate;
+    lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
 
-    NSLog(@"starting automation at time %f, lastRenderTime %f", audioTime.audioTimeStamp.mSampleTime, lastRenderTime);
+    AUEventSampleTime offsetTime = audioTime.audioTimeStamp.mSampleTime + lastRenderTime;
+    anchorTime = [[AVAudioTime alloc]initWithSampleTime:offsetTime atRate:sampleRate];
 
-    //
-    //AKTimelineSetTimeAtTime(tap.timeline, 0, audioTime.audioTimeStamp);
+    endTime = 0;
+    if (duration != nil) {
+        endTime = duration.audioTimeStamp.mSampleTime;
+    }
+    //[self validatePoints:audioTime];
 
-    //AKTimelineStartAtTime(tap.timeline, audioTime.audioTimeStamp);
+    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
-    //tap.timeline->waitStart = audioTime.audioTimeStamp;
-
-//    AKTimelineSetTime(tap.timeline, 0);
-//    //AKTimelineSetState(tap.timeline, 0, 0, 0, audioTime.audioTimeStamp);
-//
-//    tap.timeline->waitStart = audioTime.audioTimeStamp;
-//    AKTimelineSetState(tap.timeline, tap.timeline->idleTime, tap.timeline->loopStart, tap.timeline->loopEnd, audioTime.audioTimeStamp);
-//
-    //AKTimelineStartAtTime(tap.timeline, audioTime.audioTimeStamp);
-
-    AKTimelineSetTime(tap.timeline, 0);
-    AKTimelineStart(tap.timeline);
+    //AKTimelineSetTime(tap.timeline, 0);
+    AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
+    AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
 }
 
 - (void)stopAutomation {
+    if (!AKTimelineIsStarted(tap.timeline)) {
+        NSLog(@"stopAutomation() Timeline isn't running");
+        return;
+    }
+    //AKTimelineSetTime(tap.timeline, 0);
     AKTimelineStop(tap.timeline);
 
-    lastRenderTime = avAudioUnit.lastRenderTime.audioTimeStamp.mSampleTime;
+    lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
+
+    //lastRenderTime = avAudioUnit.lastRenderTime.audioTimeStamp.mSampleTime;
 
     [self clear];
-    NSLog(@"stopping automation at time %f", lastRenderTime);
+    NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
 }
 
 - (AKTimelineBlock)timelineBlock {
@@ -84,39 +96,53 @@
                AUEventSampleTime sampleTime = timeStamp->mSampleTime;
                //Float64 lastRenderTime = welf->lastRenderTime;
 
-               if (sampleTime + inNumberFrames >= welf->anchorTime.audioTimeStamp.mSampleTime) {
-                   for (int i = 0; i <= welf->numberOfPoints; i++) {
-                       AutomationPoint point = welf->automationPoints[i];
+//               printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
+
+               //AUEventSampleTime endTime = welf->endTime;
+
+               //if (sampleTime + inNumberFrames >= welf->anchorTime.audioTimeStamp.mSampleTime) {
+               for (int n = 0; n < inNumberFrames; n++) {
+                   AUEventSampleTime sampleTimeWithOffset = sampleTime + n;
+
+                   //printf("timeStamp %lld inNumberFrames %i, endTime %lld\n", sampleTimeWithOffset, inNumberFrames, endTime);
+
+//                   if (welf->endTime != 0 && sampleTimeWithOffset == welf->endTime) {
+//                       printf("🛑 auto stop at at %lld\n", sampleTimeWithOffset);
+//
+//                       [welf stopAutomation];
+//                       return;
+//                   }
+
+                   for (int p = 0; p < welf->numberOfPoints; p++) {
+                       AutomationPoint point = welf->automationPoints[p];
 
                        if (point.triggered) {
                            continue;
                        }
 
                        if (point.sampleTime == AUEventSampleTimeImmediate) {
-                           printf("👍 triggering address %lld value %f AUEventSampleTimeImmediate at %lld\n", point.address, point.value,  sampleTime);
+                           printf("👍 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
                                                                     point.value);
-                           welf->automationPoints[i].triggered = true;
-                           //continue;
+                           welf->automationPoints[p].triggered = true;
+                           continue;
                        }
 
-                       for (int j = 0; j < inNumberFrames; j++) {
-                           if (sampleTime + j == point.sampleTime) {
-                               printf("👉 triggering address %lld value %f at %lld\n", point.address, point.value,  point.sampleTime);
+                       if (sampleTimeWithOffset == point.sampleTime) {
+                           printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
 
-                               welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + j,
-                                                                        point.rampDuration,
-                                                                        point.address,
-                                                                        point.value);
-                               welf->automationPoints[i].triggered = true;
-                           }
+                           welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
+                                                                    point.rampDuration,
+                                                                    point.address,
+                                                                    point.value);
+                           welf->automationPoints[p].triggered = true;
                        }
                    }
                }
-
-               printf("timeStamp %lld lastRenderTime %f\n", sampleTime, lastRenderTime);
+               //}
+//
     };
 }
 
@@ -144,20 +170,26 @@
     }
 
     automationPoints[numberOfPoints] = point;
+    NSLog(@"addPoint %i at time %lld, value %f", numberOfPoints, point.sampleTime, point.value);
 
     numberOfPoints++;
-
-    NSLog(@"addPoint %i at time %lld", numberOfPoints, point.sampleTime);
 }
 
 - (void)clear {
     // clear all points
 
-    if (automationPoints != nil) {
-        free(automationPoints);
-    }
-    automationPoints = malloc(256 * sizeof(AutomationPoint));
-    //memset(self->automationPoints, 0, sizeof(AutomationPoint));
+//    if (automationPoints != nil) {
+//        free(automationPoints);
+//    }
+    //automationPoints = malloc(256 * sizeof(AutomationPoint));
+
+    memset(self->automationPoints, 0, sizeof(AutomationPoint) * 256);
+
+//    for (int p = 0; p < 256; p++) {
+//        AutomationPoint point = automationPoints[p];
+//        NSLog(@"? point %i at time %lld, value %f", p, point.sampleTime, point.value);
+//    }
+
     numberOfPoints = 0;
 }
 
@@ -167,7 +199,7 @@
     for (int i = 0; i <= numberOfPoints; i++) {
         AutomationPoint point = automationPoints[i];
 
-        if (point.sampleTime <= 0 || sampleTime == 0) {
+        if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime == 0) {
             continue;
         }
 
@@ -179,7 +211,11 @@
 }
 
 - (void)dispose {
-    //[self stopAutomation];
+    [self stopAutomation];
+
+    tap = nil;
+    auAudioUnit = nil;
+    avAudioUnit = nil;
 }
 
 //------------------------------------------------------------------------------
@@ -189,13 +225,6 @@
 - (void)dealloc
 {
     NSLog(@"* { AKParameterAutomation.dealloc }");
-
-    tap = nil;
-    auAudioUnit = nil;
-    avAudioUnit = nil;
-    if (automationPoints != nil) {
-        free(automationPoints);
-    }
 }
 
 @end

@@ -165,33 +165,29 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput {
 
     open override func detach() {
         super.detach()
-        parameterAutomation?.dispose()
-        parameterAutomation = nil
+        self.parameterAutomation?.dispose()
+        self.parameterAutomation = nil
     }
 }
 
 extension AKBooster {
-
-
-
-    public func startAutomation(at audioTime: AVAudioTime?) {
-        self.parameterAutomation?.start(at: audioTime)
+    public func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?) {
+        self.parameterAutomation?.start(at: audioTime, duration: duration)
     }
 
     public func stopAutomation() {
         self.parameterAutomation?.stop()
     }
 
-    public func addAutomationPoint(value: Double, at sampleTime: AUEventSampleTime, rampDuration: AUAudioFrameCount = 0, rampType: AKSettings.RampType = .linear) {
+    public func addAutomationPoint(value: Double, at sampleTime: AUEventSampleTime, anchorTime: AUEventSampleTime, rampDuration: AUAudioFrameCount = 0, rampType: AKSettings.RampType = .linear) {
         guard let leftAddress = leftGainParameter?.address,
             let rightAddress = rightGainParameter?.address else {
             AKLog("Param addresses aren't valid")
             return
         }
 
-        parameterAutomation?.addPoint(leftAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: 0, rampDuration: rampDuration);
-        parameterAutomation?.addPoint(rightAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: 0, rampDuration: rampDuration);
-
+        self.parameterAutomation?.addPoint(leftAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
+        self.parameterAutomation?.addPoint(rightAddress, value: AUValue(value), sampleTime: sampleTime, anchorTime: anchorTime, rampDuration: rampDuration)
     }
 
     /// Returns either the outputNode's lastRenderTime or in offline rendering mode,
