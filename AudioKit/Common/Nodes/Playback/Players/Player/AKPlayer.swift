@@ -532,8 +532,8 @@ public class AKPlayer: AKNode {
 //            avTime = nowTime.offset(seconds: scheduledTime)
 //        }
 
-        guard let strongTime = avTime else { return }
-        play(from: startingTime, to: endingTime, at: strongTime, hostTime: refTime)
+        //guard let strongTime = avTime else { return }
+        play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
@@ -546,9 +546,10 @@ public class AKPlayer: AKNode {
         AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
         playerNode.play()
 
-        if isFaded {
+        if isFaded, let audioTime = audioTime {
             // turn on the render notification
-            faderNode?.startAutomation(at: audioTime)
+            let audioEndTime = audioTime.offset(seconds: endingTime)
+            faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
         }
 
 //        guard !isBuffered else {

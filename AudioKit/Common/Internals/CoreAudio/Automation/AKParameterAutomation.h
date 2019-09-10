@@ -27,39 +27,13 @@ typedef struct AutomationPoint {
     bool triggered;
 } AutomationPoint;
 
-//typedef struct AutomationPointList {
-//    //    int numberOfPoints;
-//    //    AutomationPoint points[1];
-//
-//    // variable length vector of automationPoints
-//    std::vector<AutomationPoint> automationPoints;
-//
-//    void addPoint(AUParameterAddress address, AUValue value, AUEventSampleTime sampleTime, AUEventSampleTime anchorTime, AUAudioFrameCount rampDuration) {
-//        AutomationPoint point = {};
-//        point.address = address;
-//        point.value = value;
-//        point.sampleTime = sampleTime;
-//        point.anchorTime = anchorTime;
-//        point.rampDuration = rampDuration;
-//        addPoint(point);
-//    }
-//    void addPoint(AutomationPoint point) {
-//        automationPoints.push_back(point);
-//    }
-//
-//    void removeAll() {
-//        automationPoints.clear();
-//    }
-//
-//} AutomationPointList;
-
 @interface AKParameterAutomation : NSObject
 
-//@property (nonatomic) NSArray *automationPoints;
+- (void)initAutomation:(AUAudioUnit * _Nullable)auAudioUnit
+           avAudioUnit:(AVAudioUnit * _Nullable)avAudioUnit;
 
-- (void)initAutomation:(AUAudioUnit * _Nullable)auAudioUnit avAudioUnit:(AVAudioUnit * _Nullable)avAudioUnit;
-
-- (void)startAutomationAt:(AVAudioTime * _Nullable)audioTime;
+- (void)startAutomationAt:(AVAudioTime * _Nullable)audioTime
+                   duration:(AVAudioTime * _Nullable)duration;
 - (void)stopAutomation;
 
 - (void)addPoint:(AUParameterAddress)address
@@ -72,6 +46,8 @@ typedef struct AutomationPoint {
 
 - (void)clear;
 - (void)dispose;
+
+//@property bool offline;
 
 @end
 
