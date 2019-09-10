@@ -41,7 +41,7 @@ import AVFoundation
  player.play()
  ```
 
- Please note that pre macOS 10.13 / iOS 11 the completionHandler isn't sample accurate. It's pretty close though.
+ Please note that pre macOS 10.13 / iOS 11 you will need to provide your own completionHandler if needed.
  */
 public class AKPlayer: AKNode {
     /// How the player should handle audio. If buffering, it will load the audio data into
@@ -53,6 +53,7 @@ public class AKPlayer: AKNode {
     }
 
     /// the way that AKPlayer needs to be scheduled for playback or offline rendering is different currently
+    /// Since AVAudioEngineManualRenderingMode is only available in 10.13, iOS 11+, this enum duplicates it
     public enum RenderingMode {
         case realtime, offline
     }
@@ -73,57 +74,13 @@ public class AKPlayer: AKNode {
         var needsUpdate: Bool = false
     }
 
-    public struct Fade {
-        public init() {}
-
-        /// a constant
-        public static var minimumGain: Double = 0.0002
-
-        /// the value that the booster should fade to, settable
-        public var maximumGain: Double = 1
-
-        public var inTime: Double = 0 {
-            willSet {
-                if newValue != inTime { needsUpdate = true }
-            }
-        }
-
-        public var inRampType: AKSettings.RampType = .exponential {
-            willSet {
-                if newValue != inRampType { needsUpdate = true }
-            }
-        }
-
-        public var outRampType: AKSettings.RampType = .exponential {
-            willSet {
-                if newValue != outRampType { needsUpdate = true }
-            }
-        }
-
-        /// if you want to start midway into a fade this value is used by
-        /// the application to specify at what point within a region of sound
-        /// the file is being started.
-        public var inTimeOffset: Double = 0
-
-        public var outTime: Double = 0 {
-            willSet {
-                if newValue != outTime { needsUpdate = true }
-            }
-        }
-
-        public var outTimeOffset: Double = 0
-
-        // tell Booster what ramper to use when multiple curves are available
-        public var type: AKSettings.RampType = .exponential
-
-        var needsUpdate: Bool = false
-    }
-
     /// Holds characteristics about the fade options.
     public var fade = Fade()
 
-    /// Optional Auto-Fade to audio on stop(). Useful for eliminating clicks with a short 0.1 second fade.
+    /// Optional Auto-Fade to audio on user triggered stop(). Useful for eliminating clicks with a short 0.1 second fade.
     /// Default is 0, or off.
+
+    /// TODO: needs to be reimplemented
     public var stopEnvelopeTime: Double = 0 {
         didSet {
             if faderNode == nil {
@@ -154,9 +111,6 @@ public class AKPlayer: AKNode {
     // internal var prerollTimer: Timer?
     // internal var completionTimer: Timer?
 
-    // fade timer
-    // internal var faderTimer: Timer?
-
     // I've found that using the apple completion handlers for AVAudioPlayerNode can introduce some instability.
     // if you don't need them, you can disable them here
     internal var useCompletionHandler: Bool {
@@ -174,6 +128,7 @@ public class AKPlayer: AKNode {
     private var _startTime: Double = 0
     private var _endTime: Double = 0
 
+    // this will be overridden by AKDynamicPlayer. In the main class for scheduling purposes
     internal var _rate: Double {
         return 1.0
     }
@@ -184,7 +139,15 @@ public class AKPlayer: AKNode {
 
     /// Completion handler to be called when Audio is done playing. The handler won't be called if
     /// stop() is called while playing or when looping from a buffer.
-    @objc public var completionHandler: AKCallback?
+    @objc public var completionHandler: AKCallback? {
+        didSet {
+            if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            } else {
+                AKLog("Sorry, this completionHandler requires iOS 11, macOS 10.13, tvOS 11. " +
+                    "Legacy Timer based callbacks have been removed - though you can implement on your end.")
+            }
+        }
+    }
 
     /// Completion handler to be called when Audio has looped. The handler won't be called if
     /// stop() is called while playing.
@@ -207,9 +170,16 @@ public class AKPlayer: AKNode {
         }
     }
 
-    /// Currently, the way AKPlayer handles scheduling is different for offline rendering
-    /// Set this to .offline if you are using AudioKit.renderToFile
-    public var renderingMode: RenderingMode = .realtime
+    /// Will return whether the engine is rendering offline or realtime
+    public var renderingMode: RenderingMode {
+        if #available(iOS 11, macOS 10.13, tvOS 11, *) {
+            // AVAudioEngineManualRenderingMode
+            if playerNode.engine?.manualRenderingMode == .offline {
+                return .offline
+            }
+        }
+        return .realtime
+    }
 
     /// The internal audio file
     @objc public private(set) var audioFile: AVAudioFile?
@@ -221,7 +191,7 @@ public class AKPlayer: AKNode {
     }
 
     @objc public var sampleRate: Double {
-        return audioFile?.fileFormat.sampleRate ?? 0
+        return playerNode.outputFormat(forBus: 0).sampleRate
     }
 
     /// Looping Parameters
@@ -345,8 +315,6 @@ public class AKPlayer: AKNode {
     @objc public var isBuffered: Bool {
         return isNormalized || isReversed || buffering == .always
     }
-
-    @objc public var isNotBuffered: Bool { return !isBuffered }
 
     /// Will automatically normalize on buffer updates if enabled
     @objc public var isNormalized: Bool = false {
@@ -514,39 +482,27 @@ public class AKPlayer: AKNode {
         var avTime: AVAudioTime?
 
         AKLog("schedulingType", renderingMode)
-        let sampleRate = playerNode.outputFormat(forBus: 0).sampleRate
 
-//        if renderingMode == .realtime {
-            // two ways to create an AVAudioTime object, this only uses hostTime and an offset in seconds:
-            // avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
-            // avTime = AVAudioTime(hostTime: refTime).offset(seconds: scheduledTime)
+        let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
+        avTime = nowTime.offset(seconds: scheduledTime)
 
-            let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
-            avTime = nowTime.offset(seconds: scheduledTime)
-
-//        } else if renderingMode == .offline {
-////            this also adds in sampleTime.sampleTime is needed for offline rendering to work
-////            AVAudioTime can contain both time as samples and via the host clock, or both
-//
-//            let nowTime = AVAudioTime(sampleTime: 0, atRate: sampleRate)
-//            avTime = nowTime.offset(seconds: scheduledTime)
-//        }
-
-        //guard let strongTime = avTime else { return }
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
 
     /// Play using full options. Last in the convenience play chain, all play() commands will end up here
     // Placed in main class to be overriden in subclasses if needed.
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        preroll(from: startingTime, to: endingTime)
-        schedule(at: audioTime, hostTime: hostTime)
-        initFader(at: audioTime, hostTime: hostTime)
+        let refTime = hostTime ?? mach_absolute_time()
+        let audioTime = audioTime ?? AVAudioTime.now()
 
-        AKLog(startingTime, "to", endingTime, "at", audioTime, "hostTime", hostTime)
+        preroll(from: startingTime, to: endingTime)
+        schedulePlayer(at: audioTime, hostTime: refTime)
+        scheduleFader(at: audioTime, hostTime: refTime)
+
+        AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime)
         playerNode.play()
 
-        if isFaded, let audioTime = audioTime {
+        if isFaded {
             // turn on the render notification
             let audioEndTime = audioTime.offset(seconds: endingTime)
             faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
@@ -556,7 +512,6 @@ public class AKPlayer: AKNode {
 //            faderNode?.gain = gain
 //            return
 //        }
-//        initFader(at: audioTime, hostTime: hostTime)
 
         pauseTime = nil
     }
@@ -579,8 +534,7 @@ public class AKPlayer: AKNode {
     }
 }
 
-// This used to be in a separate file but this broke setPosition
-
+// This used to be in a separate file but it broke setPosition
 @objc extension AKPlayer: AKTiming {
     @objc public func start(at audioTime: AVAudioTime?) {
         play(at: audioTime)
