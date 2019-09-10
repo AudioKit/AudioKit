@@ -60,7 +60,7 @@
 @property (readonly) BOOL isPlaying;
 @property (readonly) BOOL isSetUp;
 
-// this is the now property which needs to be available for offline rendering
+// TEMP: this is the now property which needs to be available for offline rendering
 @property (readonly) AUEventSampleTime lastRenderTime;
 
 @end

@@ -14,13 +14,13 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
 #import "AKInterop.h"
+
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class
  does not know the type of the subclass at compile time.
  */
 
 class AKDSPBase {
-
 protected:
 
     int channelCount;
@@ -32,82 +32,169 @@ protected:
     bool isInitialized = true;
     bool isStarted = true;
 
-public:
+public:    
     AUEventSampleTime now = 0;  // current time in samples
 
     /// Virtual destructor allows child classes to be deleted with only AKDSPBase *pointer
-    virtual ~AKDSPBase() {}
-    
+    virtual ~AKDSPBase() {
+    }
+
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 
     /// Uses the ParameterAddress as a key
-    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false) {}
+    virtual void setParameter(AUParameterAddress address, float value, bool immediate = false)
+    {
+    }
 
     /// Uses the ParameterAddress as a key
-    virtual float getParameter(AUParameterAddress address) { return 0.0; }
+    virtual float getParameter(AUParameterAddress address)
+    {
+        return 0.0;
+    }
 
     /// Get the DSP into initialized state
-    virtual void reset() {}
+    virtual void reset()
+    {
+    }
 
     /// Don't necessarily reset, but clear out the buffers if applicable
-    virtual void clear() {}
+    virtual void clear()
+    {
+    }
 
     /// Many effects have a single value that is a constant for the lifetime of the effect
-    virtual void initializeConstant(AUValue value) {}
+    virtual void initializeConstant(AUValue value)
+    {
+    }
 
     /// Common for oscillators
-    virtual void setupWaveform(uint32_t size) {}
-    virtual void setWaveformValue(uint32_t index, float value) {}
+    virtual void setupWaveform(uint32_t size)
+    {
+    }
+
+    virtual void setWaveformValue(uint32_t index, float value)
+    {
+    }
 
     /// Multiple waveform oscillators
-    virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size) {}
-    virtual void setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {}
+    virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size)
+    {
+    }
+
+    virtual void setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value)
+    {
+    }
 
     /// STK Triggers
-    virtual void trigger() {}
-    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
-    virtual void triggerTypeAmplitude(AUValue type, AUValue amplitude) {}
+    virtual void trigger()
+    {
+    }
+
+    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude)
+    {
+    }
+
+    virtual void triggerTypeAmplitude(AUValue type, AUValue amplitude)
+    {
+    }
 
     /// File-based effects convolution and phase locked vocoder
-    virtual void setUpTable(float *table, UInt32 size) {}
-    virtual void setPartitionLength(int partLength) {}
-    virtual void initConvolutionEngine() {}
-    virtual bool isLooping() { return false; }
-    virtual void toggleLooping() {}
-    virtual void setTargetAU(AudioUnit target) {}
-    virtual void addMIDIEvent(UInt8 status, UInt8 data1, UInt8 data2, double beat) {}
+    virtual void setUpTable(float *table, UInt32 size)
+    {
+    }
+
+    virtual void setPartitionLength(int partLength)
+    {
+    }
+
+    virtual void initConvolutionEngine()
+    {
+    }
+
+    virtual bool isLooping()
+    {
+        return false;
+    }
+
+    virtual void toggleLooping()
+    {
+    }
+
+    virtual void setTargetAU(AudioUnit target)
+    {
+    }
+
+    virtual void addMIDIEvent(UInt8 status, UInt8 data1, UInt8 data2, double beat)
+    {
+    }
 
     /// Musical file
-    virtual double getTempo() { return 0.0;}
+    virtual double getTempo()
+    {
+        return 0.0;
+    }
 
-    virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs) {
+    virtual void setBuffers(AudioBufferList *inBufs, AudioBufferList *outBufs)
+    {
         inBufferListPtr = inBufs;
         outBufferListPtr = outBufs;
     }
 
-    virtual void setBuffer(AudioBufferList *outBufs) {
+    virtual void setBuffer(AudioBufferList *outBufs)
+    {
         outBufferListPtr = outBufs;
     }
 
-    virtual void init(int channelCount, double sampleRate) {
+    virtual void init(int channelCount, double sampleRate)
+    {
         this->channelCount = channelCount;
         this->sampleRate = sampleRate;
     }
-    
+
     /// override this if your DSP kernel allocates memory; free it here
-    virtual void deinit() {
+    virtual void deinit()
+    {
     }
 
     // Add for compatibility with AKAudioUnit
-    virtual void start() { isStarted = true; }
-    virtual void stop() { isStarted = false; }
-    virtual bool isPlaying() { return isStarted; }
-    virtual bool isSetup() { return isInitialized; }
+    virtual void start()
+    {
+        isStarted = true;
+    }
 
-    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) {}
-    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
-    
+    virtual void stop()
+    {
+        isStarted = false;
+    }
+
+    virtual bool isPlaying()
+    {
+        return isStarted;
+    }
+
+    virtual bool isSetup()
+    {
+        return isInitialized;
+    }
+
+    virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
+    {
+    }
+
+    virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent)
+    {
+    }
+
+
+
+//    void addAutomationPoint(AUParameterAddress address,
+//                            AUValue value,
+//                            AUEventSampleTime offsetTime,
+//                            AUEventSampleTime anchorTime,
+//                            AUAudioFrameCount rampDuration);
+
+
     /**
      Handles the event list processing and rendering loop. Should be called from AU renderBlock
      From Apple Example code
@@ -122,4 +209,3 @@ private:
 };
 
 #endif
-

@@ -94,10 +94,12 @@ extension AKPlayer {
     @objc private func stopCompletion() {
         playerNode.stop()
         faderNode?.stop()
-        
-        //faderNode?.automationEnabled = false
 
-        faderNode?.stopAutomation()
+        // faderNode?.automationEnabled = false
+
+        if isFaded {
+            faderNode?.stopAutomation()
+        }
 
 //        completionTimer?.invalidate()
 //        prerollTimer?.invalidate()
@@ -150,7 +152,7 @@ extension AKPlayer {
             // nothing further is needed as the completion is specified in the scheduler
         } else {
             AKLog("Note: Completion handlers require iOS 11, macOS 10.13, tvOS 11")
-            
+
 //            completionTimer?.invalidate()
 //            prerollTimer?.invalidate()
 //
@@ -243,9 +245,9 @@ extension AKPlayer {
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
             // cancel any upcoming fades
-            //self.faderTimer?.invalidate()
-            //self.faderNode?.automationEnabled = false
-            self.faderNode?.stopAutomation()
+            // self.faderTimer?.invalidate()
+            // self.faderNode?.automationEnabled = false
+            // self.faderNode?.stopAutomation()
 
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {
