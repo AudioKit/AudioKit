@@ -24,12 +24,14 @@ extension AKPlayer {
             }
         }
 
+        // TODO
         public var inRampType: AKSettings.RampType = .linear {
             willSet {
                 if newValue != inRampType { needsUpdate = true }
             }
         }
 
+        // TODO
         public var outRampType: AKSettings.RampType = .linear {
             willSet {
                 if newValue != outRampType { needsUpdate = true }
@@ -62,9 +64,9 @@ extension AKPlayer {
         guard faderNode == nil else { return }
 
         AKLog("Creating fader")
-        faderNode = AKBooster()
+        faderNode = AKFader()
         faderNode?.gain = gain
-        faderNode?.rampType = rampType
+        //faderNode?.rampType = rampType
 
         initialize()
     }

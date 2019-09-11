@@ -1,21 +1,14 @@
 //
-//  AKBoosterAudioUnit.swift
+//  AKFader
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
+
 import AVFoundation
 
-public class AKBoosterAudioUnit: AKAudioUnitBase {
-    func setParameter(_ address: AKBoosterParameter, value: Double) {
-        setParameterWithAddress(address.rawValue, value: Float(value))
-    }
-
-    func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
-        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
-    }
-
+public class AKFaderAudioUnit: AKAudioUnitBase {
     var leftGain: Double = 1.0 {
         didSet { setParameter(.leftGain, value: leftGain) }
     }
@@ -24,19 +17,11 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         didSet { setParameter(.rightGain, value: rightGain) }
     }
 
-    var rampDuration: Double = 0.0 {
-        didSet { setParameter(.rampDuration, value: rampDuration) }
-    }
-
-    var rampType: Int = 0 {
-        didSet {
-            setParameter(.rampType, value: Double(rampType))
-        }
-    }
+    public override var canProcessInPlace: Bool { return true }
 
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
-        return createBoosterDSP(Int32(count), sampleRate)
+        return createFaderDSP(Int32(count), sampleRate)
     }
 
     public override init(componentDescription: AudioComponentDescription,
@@ -64,5 +49,11 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
         rightGain.value = 1.0
     }
 
-    public override var canProcessInPlace: Bool { return true }
+    func setParameter(_ address: AKFaderParameter, value: Double) {
+        setParameterWithAddress(address.rawValue, value: Float(value))
+    }
+
+    func setParameterImmediately(_ address: AKFaderParameter, value: Double) {
+        setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
+    }
 }
