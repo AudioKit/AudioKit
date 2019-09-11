@@ -79,6 +79,7 @@
 - (void)stopAutomation {
     if (!AKTimelineIsStarted(tap.timeline)) {
         NSLog(@"stopAutomation() Timeline isn't running");
+        [self clear];
         return;
     }
     AKTimelineStop(tap.timeline);
@@ -99,10 +100,10 @@
              UInt32 inNumberFrames,
              AudioBufferList *ioData) {
                AUEventSampleTime sampleTime = timeStamp->mSampleTime;
-               //Float64 lastRenderTime = welf->lastRenderTime;
 
-//               printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
+               // printf("timeStamp %lld inNumberFrames %i\n", sampleTime, inNumberFrames);
 
+               // TODO:
                //AUEventSampleTime endTime = welf->endTime;
 
                //if (sampleTime + inNumberFrames >= welf->anchorTime.audioTimeStamp.mSampleTime) {
@@ -111,9 +112,9 @@
 
                    //printf("timeStamp %lld inNumberFrames %i, endTime %lld\n", sampleTimeWithOffset, inNumberFrames, endTime);
 
+                   // TODO: allow for a timed duration stop to end automation - don't use this:
 //                   if (welf->endTime != 0 && sampleTimeWithOffset == welf->endTime) {
 //                       printf("🛑 auto stop at at %lld\n", sampleTimeWithOffset);
-//
 //                       [welf stopAutomation];
 //                       return;
 //                   }
@@ -146,8 +147,6 @@
                        }
                    }
                }
-               //}
-//
     };
 }
 

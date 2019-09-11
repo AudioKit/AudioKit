@@ -44,7 +44,11 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
-            guard gain != newValue else { return }
+            // this might not actually be true as the parameters can be altered by automation
+//            guard gain != newValue else {
+//                AKLog("Value hasn't changed")
+//                return
+//            }
 
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
@@ -63,7 +67,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Left Channel Amplification Factor
     @objc open dynamic var leftGain: Double = 1 {
         willSet {
-            guard leftGain != newValue else { return }
+            // this might not actually be true as the parameters can be altered by automation
+            //guard leftGain != newValue else { return }
             if internalAU?.isSetUp == true {
                 leftGainParameter?.value = AUValue(newValue)
                 return
@@ -75,7 +80,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Right Channel Amplification Factor
     @objc open dynamic var rightGain: Double = 1 {
         willSet {
-            guard rightGain != newValue else { return }
+            // this might not actually be true as the parameters can be altered by automation
+            //guard rightGain != newValue else { return }
             if internalAU?.isSetUp == true {
                 rightGainParameter?.value = AUValue(newValue)
                 return
@@ -170,8 +176,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
         self._parameterAutomation = nil
     }
 
-    // AKAutomatable:
-
+    // MARK: - AKAutomatable
     public func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?) {
         self.parameterAutomation?.start(at: audioTime, duration: duration)
     }

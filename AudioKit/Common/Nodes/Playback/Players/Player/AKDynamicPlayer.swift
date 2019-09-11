@@ -129,55 +129,6 @@ public class AKDynamicPlayer: AKPlayer {
         super.play(from: startingTime, to: endingTime, at: audioTime, hostTime: hostTime)
     }
 
-    /*
-    public override func play(from startingTime: Double,
-                              to endingTime: Double,
-                              when scheduledTime: Double,
-                              hostTime: UInt64? = nil) {
-        var scheduledTime = scheduledTime
-
-        // offline rendering needs to account for timestretching in it's scheduling,
-        // so adjust it here based on the rate
-        //renderingMode == .offline,
-        if rate != 1 {
-            let adjustedTime = scheduledTime * rate
-            scheduledTime = adjustedTime
-        }
-
-        super.play(from: startingTime, to: endingTime, when: scheduledTime, hostTime: hostTime)
-    }
-
-    public override func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
-        timePitchNode?.start()
-
-        var faderTime = audioTime
-
-        if rate != 1, let audioTime = audioTime {
-            
-            faderTime = audioTime.offset(seconds: difference)
-        }
-
-        let audioTime = audioTime ?? AVAudioTime.now()
-        let refTime = hostTime ?? mach_absolute_time()
-
-        preroll(from: startingTime, to: endingTime)
-        schedule(at: audioTime, hostTime: refTime)
-        scheduleFader(at: faderTime, hostTime: refTime)
-
-        AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime)
-        playerNode.play()
-
-        if isFaded {
-            // turn on the render notification
-            let audioEndTime = audioTime.offset(seconds: endingTime)
-            faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
-        }
-        pauseTime = nil
-    }
-    */
-
-
-
     /// Stop playback and cancel any pending scheduled playback or completion events
     public override func stop() {
         super.stop()

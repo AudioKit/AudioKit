@@ -2706,8 +2706,8 @@
 		B1468E1720D022FD0030BA66 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				B1468E1C20D025E40030BA66 /* AKDynamicPlayer.swift */,
 				B1BC5A2A1FD915AB0052D4CE /* AKPlayer.swift */,
+				B1468E1C20D025E40030BA66 /* AKDynamicPlayer.swift */,
 				B1468E2420D061C00030BA66 /* AKPlayer+Buffering.swift */,
 				B1468E2220D0610D0030BA66 /* AKPlayer+Fader.swift */,
 				B1468E2020D05F940030BA66 /* AKPlayer+Playback.swift */,

@@ -39,6 +39,19 @@ extension AKPlayer {
         play(from: startTime, to: endTime, when: scheduledTime, hostTime: hostTime)
     }
 
+    public func play(from startingTime: Double,
+                     to endingTime: Double,
+                     when scheduledTime: Double,
+                     hostTime: UInt64? = nil) {
+        let refTime = hostTime ?? mach_absolute_time()
+        var avTime: AVAudioTime?
+
+        let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
+        avTime = nowTime.offset(seconds: scheduledTime)
+
+        play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
+    }
+
     @objc public func pause() {
         pauseTime = currentTime
         stop()
@@ -73,6 +86,8 @@ extension AKPlayer {
         }
         stopCompletion()
 
+        // TODO: handle stopEnvelopeTime
+
 //        guard stopEnvelopeTime > 0 else {
 //            // stop immediately
 //            stopCompletion()
@@ -93,7 +108,7 @@ extension AKPlayer {
 
     @objc private func stopCompletion() {
         playerNode.stop()
-        faderNode?.stop()
+        //faderNode?.stop()
 
         // faderNode?.automationEnabled = false
 
