@@ -36,7 +36,7 @@ typedef struct AutomationPoint {
 /**
  Creates an automation object that controls the AUAudioUnit's parameters.
  The AVAudioUnit is passed to an internal AKTimelineTap for timing references.
- Note: offline rendering is only available in macOS 10.13+, iOS 11+
+ Note: offline automation rendering is only available in macOS 10.13+, iOS 11+
  */
 - (instancetype _Nullable)init:(AUAudioUnit *_Nullable)auAudioUnit
                    avAudioUnit:(AVAudioUnit *_Nullable)avAudioUnit;

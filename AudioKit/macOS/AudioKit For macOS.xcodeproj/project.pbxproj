@@ -3077,7 +3077,6 @@
 		C45662C61D448D7D00D26565 /* CoreAudio */ = {
 			isa = PBXGroup;
 			children = (
-				B18CB8442326BB0900A6298D /* Automation */,
 				C4AC0B551FC9460300EDA024 /* AK4 */,
 				C40101D21DED705B000C5765 /* AKAudioUnit.h */,
 				C40101D31DED705B000C5765 /* AKAudioUnit.mm */,
@@ -4067,6 +4066,7 @@
 			isa = PBXGroup;
 			children = (
 				C42223E821BC7898007E3424 /* Auto Panner */,
+				B18CB8442326BB0900A6298D /* Automation */,
 				C456662C1D448D7E00D26565 /* Balancer */,
 				C4077BA0200894F000E5923C /* Booster */,
 				C45666331D448D7E00D26565 /* Dry Wet Mixer */,
