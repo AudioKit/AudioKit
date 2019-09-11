@@ -1,5 +1,5 @@
 //
-//  AKFader
+//  AKFaderAudioUnit.swift
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
@@ -30,17 +30,17 @@ public class AKFaderAudioUnit: AKAudioUnitBase {
 
         let leftGain = AUParameter(
             identifier: "leftGain",
-            name: "Left Boosting Amount",
+            name: "Left Gain",
             address: 0,
-            range: 0.0...2.0,
+            range: 0.0 ... 2.0,
             unit: .linearGain,
             flags: .default)
 
         let rightGain = AUParameter(
             identifier: "rightGain",
-            name: "Right Boosting Amount",
+            name: "Right Gain",
             address: 1,
-            range: 0.0...2.0,
+            range: 0.0 ... 2.0,
             unit: .linearGain,
             flags: .default)
 

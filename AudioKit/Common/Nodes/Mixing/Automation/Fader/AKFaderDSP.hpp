@@ -1,5 +1,5 @@
 //
-//  AKFader
+//  AKFaderDSP.hpp
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
@@ -26,10 +26,7 @@ AKDSPRef createFaderDSP(int channelCount, double sampleRate);
 #import "AKDSPBase.hpp"
 
 /**
- A simple DSP kernel. Most of the plumbing is in the base class. All the code at this
- level has to do is supply the core of the rendering code. A less trivial example would probably
- need to coordinate the updating of DSP parameters, which would probably involve thread locks,
- etc.
+Based heavily off AKBooster, AKFader is slightly simpler and adds parameter ramping events
  */
 
 struct AKFaderDSP : AKDSPBase {

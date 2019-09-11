@@ -1,13 +1,13 @@
 //
-//  AKFader
+//  AKFader.swift
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
 //  Copyright © 2019 AudioKit. All rights reserved.
 //
 
-/// Stereo Fader
-///
+/// Stereo Fader. Almost the same as AKBooster but with the addition of
+/// Automation support.
 open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     public typealias AKAudioUnitType = AKFaderAudioUnit
     /// Four letter unique description of the node
@@ -31,6 +31,8 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
     /// Amplification Factor
     @objc open dynamic var gain: Double = 1 {
         willSet {
+            AKLog(newValue)
+
             // ensure that the parameters aren't nil,
             // if they are we're using this class directly inline as an AKNode
             if internalAU?.isSetUp == true {
@@ -69,8 +71,12 @@ open class AKFader: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable {
 
     /// Amplification Factor in db
     @objc open dynamic var dB: Double {
-        set { self.gain = pow(10.0, newValue / 20.0) }
-        get { return 20.0 * log10(self.gain) }
+        set {
+            self.gain = pow(10.0, newValue / 20.0)
+        }
+        get {
+            return 20.0 * log10(self.gain)
+        }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)

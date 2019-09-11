@@ -1,5 +1,5 @@
 //
-//  AKFader
+//  AKFaderDSP.mm
 //  AudioKit
 //
 //  Created by Ryan Francesconi, revision history on Github.
