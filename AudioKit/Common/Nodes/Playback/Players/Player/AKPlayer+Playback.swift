@@ -46,8 +46,12 @@ extension AKPlayer {
         let refTime = hostTime ?? mach_absolute_time()
         var avTime: AVAudioTime?
 
-        let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
-        avTime = nowTime.offset(seconds: scheduledTime)
+        if renderingMode == .offline {
+            let nowTime = AVAudioTime(hostTime: refTime, sampleTime: 0, atRate: sampleRate)
+            avTime = nowTime.offset(seconds: scheduledTime)
+        } else {
+            avTime = AVAudioTime.secondsToAudioTime(hostTime: refTime, time: scheduledTime)
+        }
 
         play(from: startingTime, to: endingTime, at: avTime, hostTime: refTime)
     }
@@ -108,53 +112,13 @@ extension AKPlayer {
 
     @objc private func stopCompletion() {
         playerNode.stop()
-        //faderNode?.stop()
-
-        // faderNode?.automationEnabled = false
 
         if isFaded {
             faderNode?.stopAutomation()
         }
-
-//        completionTimer?.invalidate()
-//        prerollTimer?.invalidate()
-//        faderTimer?.invalidate()
     }
 
     // MARK: - Scheduling
-
-    // NOTE to maintainers: these timers can be removed when AudioKit is built for 10.13.
-    // in that case the AVFoundation completion handlers of the scheduling can be used.
-    // Pre 10.13, the completion handlers are inaccurate to the point of unusable.
-
-    // if the file is scheduled, start a timer to determine when to start the completion timer
-//    private func startPrerollTimer(_ prerollTime: Double) {
-//        DispatchQueue.main.async {
-//            self.prerollTimer?.invalidate()
-//            self.prerollTimer = Timer.scheduledTimer(timeInterval: prerollTime,
-//                                                     target: self,
-//                                                     selector: #selector(self.startCompletionTimer),
-//                                                     userInfo: nil,
-//                                                     repeats: false)
-//        }
-//    }
-
-    // keep this timer separate in the cases of sounds that aren't scheduled
-//    @objc private func startCompletionTimer() {
-//        var segmentDuration = endTime - startTime
-//        if isLooping && loop.end > 0 {
-//            segmentDuration = loop.end - startTime
-//        }
-//
-//        DispatchQueue.main.async {
-//            self.completionTimer?.invalidate()
-//            self.completionTimer = Timer.scheduledTimer(timeInterval: segmentDuration,
-//                                                        target: self,
-//                                                        selector: #selector(self.handleComplete),
-//                                                        userInfo: nil,
-//                                                        repeats: false)
-//        }
-//    }
 
     internal func schedulePlayer(at audioTime: AVAudioTime?, hostTime: UInt64?) {
         var scheduleTime = audioTime
@@ -255,7 +219,6 @@ extension AKPlayer {
 
         // it seems to be unstable having any outbound calls from this callback not be sent to main?
         DispatchQueue.main.async {
-
             // reset the loop if user stopped it
             if self.isLooping && self.buffering == .always {
                 self.startTime = self.loop.start
