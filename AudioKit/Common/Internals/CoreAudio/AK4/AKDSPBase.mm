@@ -25,7 +25,7 @@ void AKDSPBase::processWithEvents(AudioTimeStamp const *timestamp,
             return;
         }
 
-        // **** start late events late.
+        // start late events late.
         auto timeZero = AUEventSampleTime(0);
         auto headEventTime = event->head.eventSampleTime;
         AUAudioFrameCount const framesThisSegment = AUAudioFrameCount(std::max(timeZero, headEventTime - now));
@@ -67,6 +67,7 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
             //printf("Got paramEvent eventType %c, eventSampleTime %lld, value %f\n", paramEvent.eventType, paramEvent.eventSampleTime, paramEvent.value);
 
             // virtual method, will work if subclass implements it
+            // See: AKBoosterDSP
             startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
             break;
         }
@@ -77,14 +78,3 @@ void AKDSPBase::handleOneEvent(AURenderEvent const *event)
             break;
     }
 }
-
-
-//////////
-//
-//void AKDSPBase::addAutomationPoint(AUParameterAddress address,
-//                                   AUValue value,
-//                                   AUEventSampleTime offsetTime,
-//                                   AUEventSampleTime anchorTime,
-//                                   AUAudioFrameCount rampDuration) {
-//    automationList.addPoint(address, value, offsetTime, anchorTime, rampDuration);
-//}

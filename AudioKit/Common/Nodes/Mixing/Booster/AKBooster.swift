@@ -34,7 +34,8 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
 
     @objc open dynamic var rampType: AKSettings.RampType = .linear {
         willSet {
-            internalAU?.rampType = newValue.rawValue
+            // TODO: currently the Booster is hardwired to a linear ramp
+            // internalAU?.rampType = newValue.rawValue
         }
     }
 
@@ -68,7 +69,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     @objc open dynamic var leftGain: Double = 1 {
         willSet {
             // this might not actually be true as the parameters can be altered by automation
-            //guard leftGain != newValue else { return }
+            // guard leftGain != newValue else { return }
             if internalAU?.isSetUp == true {
                 leftGainParameter?.value = AUValue(newValue)
                 return
@@ -81,7 +82,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     @objc open dynamic var rightGain: Double = 1 {
         willSet {
             // this might not actually be true as the parameters can be altered by automation
-            //guard rightGain != newValue else { return }
+            // guard rightGain != newValue else { return }
             if internalAU?.isSetUp == true {
                 rightGainParameter?.value = AUValue(newValue)
                 return
@@ -99,10 +100,6 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     /// Tells whether the node is processing (ie. started, playing, or active)
     @objc open dynamic var isStarted: Bool {
         return self.internalAU?.isPlaying ?? false
-    }
-
-    @objc open var lastRenderTime: AUEventSampleTime {
-        return self.internalAU?.lastRenderTime ?? 0
     }
 
     // MARK: - Initialization
@@ -177,6 +174,7 @@ open class AKBooster: AKNode, AKToggleable, AKComponent, AKInput, AKAutomatable 
     }
 
     // MARK: - AKAutomatable
+
     public func startAutomation(at audioTime: AVAudioTime?, duration: AVAudioTime?) {
         self.parameterAutomation?.start(at: audioTime, duration: duration)
     }

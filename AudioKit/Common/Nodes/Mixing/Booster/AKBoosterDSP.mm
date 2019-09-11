@@ -30,14 +30,14 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 {
     switch (address) {
         case AKBoosterParameterLeftGain:
-            printf("Setting AKBoosterParameterLeftGain %f\n", value);
+            // printf("Setting AKBoosterParameterLeftGain %f\n", value);
 
             data->leftGainRamp.setUIValue(value);
             // ramp to the new value
             data->leftGainRamp.dezipperCheck(1024);
             break;
         case AKBoosterParameterRightGain:
-            printf("Setting AKBoosterParameterRightGain %f\n", value);
+            // printf("Setting AKBoosterParameterRightGain %f\n", value);
 
             data->rightGainRamp.setUIValue(value);
             // ramp to the new value
@@ -66,18 +66,17 @@ void AKBoosterDSP::setParameter(AUParameterAddress address, AUValue value, bool 
 float AKBoosterDSP::getParameter(AUParameterAddress address)
 {
     switch (address) {
+        case AKBoosterParameterLeftGain:
+            return data->leftGainRamp.getUIValue();
+        case AKBoosterParameterRightGain:
+            return data->rightGainRamp.getUIValue();
+
 //        case AKBoosterParameterLeftGain:
 //            return data->leftGainRamp.getTarget();
 //        case AKBoosterParameterRightGain:
 //            return data->rightGainRamp.getTarget();
 //        case AKBoosterParameterRampDuration:
 //            return data->leftGainRamp.getRampDuration(sampleRate);
-
-        case AKBoosterParameterLeftGain:
-            return data->leftGainRamp.getUIValue();
-        case AKBoosterParameterRightGain:
-            return data->rightGainRamp.getUIValue();
-
 //            case AKBoosterParameterRampDuration:
 //            //    return data->leftGainRamp.getRampDuration(sampleRate);
 //            return data->leftGainRamp.;
@@ -89,6 +88,8 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);
+
+        // new parameter ramp doesn't use this
         // do ramping every 8 samples
 //        if ((frameOffset & 0x7) == 0) {
 //            // printf("advancing ramp %i\n", frameOffset);
@@ -114,7 +115,7 @@ void AKBoosterDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount buffe
 
 void AKBoosterDSP::startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration)
 {
-    printf("AKBoosterDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
+    // printf("AKBoosterDSP.startRamp() address %lld, value %f, duration %d\n", address, value, duration);
 
     // Note, if duration is 0 frames, startRamp will setImmediate
     switch (address) {

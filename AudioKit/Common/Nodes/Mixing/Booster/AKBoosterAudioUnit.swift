@@ -9,7 +9,6 @@
 import AVFoundation
 
 public class AKBoosterAudioUnit: AKAudioUnitBase {
-
     var leftGain: Double = 1.0 {
         didSet { setParameter(.leftGain, value: leftGain) }
     }
@@ -29,7 +28,6 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
     }
 
     public override var canProcessInPlace: Bool { return true }
-
 
     public override func initDSP(withSampleRate sampleRate: Double,
                                  channelCount count: AVAudioChannelCount) -> AKDSPRef {
@@ -68,16 +66,4 @@ public class AKBoosterAudioUnit: AKAudioUnitBase {
     func setParameterImmediately(_ address: AKBoosterParameter, value: Double) {
         setParameterImmediatelyWithAddress(address.rawValue, value: Float(value))
     }
-
-    func initAutomation(audioUnit: AudioUnit) {
-        //super.initAutomation(audioUnit)
-    }
-
-//    func startAutomation() {
-//        super.startAutomation()
-//    }
-//
-//    func stopAutomation() {
-//        super.stopAutomation()
-//    }
 }
