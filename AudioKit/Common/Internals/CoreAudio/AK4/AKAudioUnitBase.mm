@@ -58,8 +58,7 @@
     self.kernel->setupWaveform((uint32_t)size);
 }
 
-- (void)setWaveformValue:(float)value atIndex:(UInt32)index;
-{
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index {
     self.kernel->setWaveformValue(index, value);
 }
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
@@ -74,21 +73,10 @@
     self.kernel->initConvolutionEngine();
 }
 
-//////
-void addAutomationPoint(AUParameterAddress address,
-                        AUValue            value,
-                        AUEventSampleTime  offsetTime,
-                        AUEventSampleTime  anchorTime,
-                        AUAudioFrameCount  rampDuration)
-{
-
-}
-
 /**
  This should be overridden. All the base class does is make sure that the pointer to the
  DSP is invalid.
  */
-
 - (AKDSPRef)initDSPWithSampleRate:(double)sampleRate channelCount:(AVAudioChannelCount)count {
     return (_dsp = NULL);
 }
@@ -186,10 +174,6 @@ void addAutomationPoint(AUParameterAddress address,
     [super deallocateRenderResources];
 }
 
-- (AUEventSampleTime)lastRenderTime {
-    return self.kernel->now;
-}
-
 // Expresses whether an audio unit can process in place.
 // In-place processing is the ability for an audio unit to transform an input signal to an
 // output signal in-place in the input buffer, without requiring a separate output buffer.
@@ -197,6 +181,7 @@ void addAutomationPoint(AUParameterAddress address,
 // buffer list. The audio unit may process in-place in the input buffers.
 // See the discussion of renderBlock.
 // Partially bridged to the v2 property kAudioUnitProperty_InPlaceProcessing, the v3 property is not settable.
+// Should be overriden in subclasses
 - (BOOL)canProcessInPlace {
     return NO;   // OK THIS IS DIFFERENT FROM APPLE EXAMPLE CODE
 }
