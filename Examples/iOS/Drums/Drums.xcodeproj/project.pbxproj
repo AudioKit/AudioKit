@@ -314,6 +314,7 @@
 				OTHER_LDFLAGS = (
 					"-lc++",
 					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Drums;
 				PRODUCT_NAME = "$(TARGET_NAME)";
