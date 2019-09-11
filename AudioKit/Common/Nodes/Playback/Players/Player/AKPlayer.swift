@@ -98,7 +98,7 @@ public class AKPlayer: AKNode {
     @objc public var mixer = AVAudioMixerNode()
 
     /// The underlying gain booster which controls fades as well. Created on demand.
-    @objc public var faderNode: AKBooster?
+    @objc public var faderNode: AKFader?
 
     // MARK: - Private Parts
 

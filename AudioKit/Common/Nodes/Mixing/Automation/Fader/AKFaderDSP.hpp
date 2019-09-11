@@ -1,9 +1,9 @@
 //
-//  AKBoosterDSP.hpp
+//  AKFader
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2018 AudioKit. All rights reserved.
+//  Created by Ryan Francesconi, revision history on Github.
+//  Copyright © 2019 AudioKit. All rights reserved.
 //
 
 #pragma once
@@ -12,16 +12,14 @@
 #import "AKParameterRamp.hpp"
 #import "AKExponentialParameterRamp.hpp" // to be deleted
 
-typedef NS_ENUM (AUParameterAddress, AKBoosterParameter) {
-    AKBoosterParameterLeftGain,
-    AKBoosterParameterRightGain,
-    AKBoosterParameterRampDuration,
-    AKBoosterParameterRampType
+typedef NS_ENUM (AUParameterAddress, AKFaderParameter) {
+    AKFaderParameterLeftGain,
+    AKFaderParameterRightGain
 };
 
 #ifndef __cplusplus
 
-AKDSPRef createBoosterDSP(int channelCount, double sampleRate);
+AKDSPRef createFaderDSP(int channelCount, double sampleRate);
 
 #else
 
@@ -34,17 +32,18 @@ AKDSPRef createBoosterDSP(int channelCount, double sampleRate);
  etc.
  */
 
-struct AKBoosterDSP : AKDSPBase {
+struct AKFaderDSP : AKDSPBase {
 private:
     struct InternalData;
     std::unique_ptr<InternalData> data;
 
 public:
-    AKBoosterDSP();
+    AKFaderDSP();
 
     void setParameter(AUParameterAddress address, float value, bool immediate) override;
     float getParameter(AUParameterAddress address) override;
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override;
 };
 
 #endif
