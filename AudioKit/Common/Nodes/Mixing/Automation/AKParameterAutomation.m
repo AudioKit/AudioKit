@@ -62,16 +62,17 @@
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
 
     AUEventSampleTime offsetTime = audioTime.audioTimeStamp.mSampleTime + lastRenderTime;
-    anchorTime = [[AVAudioTime alloc]initWithSampleTime:offsetTime atRate:sampleRate];
+    //anchorTime = [[AVAudioTime alloc]initWithSampleTime:offsetTime atRate:sampleRate];
+    anchorTime = [[AVAudioTime alloc]initWithHostTime:audioTime.hostTime sampleTime:offsetTime atRate:sampleRate];
 
     endTime = 0;
     if (duration != nil) {
         endTime = duration.audioTimeStamp.mSampleTime;
     }
-    // might not need this:
+    // not needed at the moment
     //[self validatePoints:audioTime];
 
-    // NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
+    NSLog(@"starting automation at time %lld, lastRenderTime %f, duration %lld", offsetTime, lastRenderTime, endTime);
 
     AKTimelineSetTimeAtTime(tap.timeline, 0, anchorTime.audioTimeStamp);
     AKTimelineStartAtTime(tap.timeline, anchorTime.audioTimeStamp);
@@ -86,7 +87,8 @@
     AKTimelineStop(tap.timeline);
     lastRenderTime = tap.timeline->lastRenderTime.mSampleTime;
     [self clear];
-    // NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
+
+    NSLog(@"stopping automation at time %f", tap.timeline->lastRenderTime.mSampleTime);
 }
 
 #pragma mark - Render Block
@@ -127,8 +129,8 @@
                            continue;
                        }
 
-                       if (point.sampleTime == AUEventSampleTimeImmediate) {
-                           // printf("👍 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
+                       if (point.sampleTime == AUEventSampleTimeImmediate || point.sampleTime < sampleTimeWithOffset) {
+                           printf("👍 triggering point %i, address %lld value %f AUEventSampleTimeImmediate at %lld\n", p, point.address, point.value,  sampleTimeWithOffset);
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate,
                                                                     point.rampDuration,
                                                                     point.address,
@@ -138,7 +140,7 @@
                        }
 
                        if (sampleTimeWithOffset == point.sampleTime) {
-                           // printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
+                           printf("👉 triggering point %i, address %lld value %f at %lld\n", p, point.address, point.value,  point.sampleTime);
 
                            welf->auAudioUnit.scheduleParameterBlock(AUEventSampleTimeImmediate + n,
                                                                     point.rampDuration,
@@ -188,6 +190,7 @@
     numberOfPoints = 0;
 }
 
+// currently unused
 - (void)validatePoints:(AVAudioTime *)audioTime {
     Float64 sampleTime = audioTime.audioTimeStamp.mSampleTime;
 
@@ -200,7 +203,7 @@
 
         if (point.sampleTime < sampleTime) {
             automationPoints[i].sampleTime = sampleTime;
-            // printf("→→→ Adjusted late point's time to %f was %lld\n", sampleTime, point.sampleTime);
+            printf("→→→ Adjusted late point's time to %f was %lld\n", sampleTime, point.sampleTime);
         }
     }
 }

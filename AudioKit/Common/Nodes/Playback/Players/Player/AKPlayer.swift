@@ -489,18 +489,28 @@ public class AKPlayer: AKNode {
     public func play(from startingTime: Double, to endingTime: Double, at audioTime: AVAudioTime?, hostTime: UInt64?) {
         let refTime = hostTime ?? mach_absolute_time()
         let audioTime = audioTime ?? AVAudioTime.now()
+        var faderTime = audioTime
 
         preroll(from: startingTime, to: endingTime)
         schedulePlayer(at: audioTime, hostTime: refTime)
-        scheduleFader(at: audioTime, hostTime: refTime)
+
+        if !audioTime.isSampleTimeValid {
+            let seconds = audioTime.toSeconds(hostTime: refTime)
+            let sampleTime = AVAudioFramePosition(seconds * sampleRate)
+            faderTime = AVAudioTime(hostTime: refTime,
+                                    sampleTime: sampleTime,
+                                    atRate: sampleRate)
+        }
+        scheduleFader(at: faderTime, hostTime: refTime)
 
         // AKLog(startingTime, "to", endingTime, "at", audioTime, "refTime", refTime, "isFaded", isFaded)
         playerNode.play()
 
         if isFaded, !isBufferFaded {
+            // NOTE: duration is currently not implemented
+            let audioEndTime = faderTime.offset(seconds: endingTime)
             // turn on the render notification
-            let audioEndTime = audioTime.offset(seconds: endingTime)
-            faderNode?.startAutomation(at: audioTime, duration: audioEndTime)
+            faderNode?.startAutomation(at: faderTime, duration: audioEndTime)
         }
 
         pauseTime = nil
