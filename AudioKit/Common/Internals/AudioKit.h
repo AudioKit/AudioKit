@@ -196,3 +196,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Swift/ObjC/C/C++ Inter-operability
 #import "AKInterop.h"
 
+// Automation
+#import "AKParameterAutomation.h"

@@ -14,7 +14,6 @@
 #ifdef __cplusplus
 
 class AKParameterRampBase {
-
 protected:
     float _paramValue = 0;  // set by UI thread
     float _target = 0;
@@ -24,7 +23,8 @@ protected:
     int64_t _startSample = 0;
     int _rampType = 0; // see AKSettings.RampType
 
-    void updateTarget(int64_t atSample) {
+    void updateTarget(int64_t atSample)
+    {
         _target = _paramValue;
         _startSample = atSample;
         _startValue = _value;
@@ -34,53 +34,65 @@ public:
 
     virtual float computeValueAt(int64_t atSample) = 0;
 
-    float getStartValue() {
+    float getStartValue()
+    {
         return _startValue;
     }
 
-    float getValue() {
+    float getValue()
+    {
         return _value;
     }
 
-    void setTarget(float value, bool immediate = false) {
+    void setTarget(float value, bool immediate = false)
+    {
         if (immediate) {
             _startValue = _paramValue = _value = _target = value;
-
         } else {
             _paramValue = value;
         }
     }
 
-    float getTarget() {
+    float getTarget()
+    {
         return _target;
     }
-    
-    void setRampType(int rampType) {
+
+    void setRampType(int rampType)
+    {
         _rampType = rampType;
     }
 
-    int getRampType() {
+    int getRampType()
+    {
         return _rampType;
     }
 
-    void setDurationInSamples(int64_t duration) {
+    void setDurationInSamples(int64_t duration)
+    {
         if (duration >= 0) _duration = duration;
     }
 
-    float getDurationInSamples() {
+    float getDurationInSamples()
+    {
         return _duration;
     }
 
-    void setRampDuration(float seconds, int64_t sampleRate) {
+    void setRampDuration(float seconds, int64_t sampleRate)
+    {
         _duration = seconds * sampleRate;
     }
 
-    float getRampDuration(int64_t sampleRate) {
+    float getRampDuration(int64_t sampleRate)
+    {
         return (sampleRate == 0) ? 0 : _duration / sampleRate;
     }
 
-    float advanceTo(int64_t atSample) {
-        if (_paramValue != _target) { updateTarget(atSample); }
+    float advanceTo(int64_t atSample)
+    {
+        if (_paramValue != _target) {
+            updateTarget(atSample);
+        }
         if (_value == _target) return _value;
         int64_t deltaSamples = atSample - _startSample;
         if (deltaSamples >= _duration || deltaSamples < 0) {
@@ -91,8 +103,6 @@ public:
         }
         return _value;
     }
-
 };
 
 #endif
-
